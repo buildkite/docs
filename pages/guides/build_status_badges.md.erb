@@ -1,0 +1,79 @@
+# Build Status Badges
+
+Build status badges help to visually show the current build state for a project in places such as readmes and dashboards.
+
+You can find your project's status badge on the **Project Settings** page.
+
+<%= toc %>
+
+## Scoping to a branch
+
+By default the build status badge will show the last build’s status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the master branch you would add: `?branch=master` to the URL.
+
+## Scoping to a step
+
+If you want to create a badge that represents a single step in the last build, you can scope it that step by adding a `?step` parameter to the URL. For example, to scope your badge to the `iOS Build` branch you would add: `?step=iOS%20Build` to the URL. If you have multiple steps that match the given name it will show as passed only if all of the matching steps passed.
+
+## Themes
+
+You can change the colors of the badges by passing in a `theme` parameter.
+
+<table class="status-badges__examples">
+  <tbody>
+    <tr>
+      <th>Default</th>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown" %></td>
+    </tr>
+    <% for theme in (Badge::Theme::STANDARD_THEMES.keys - ["default"]) %>
+      <tr>
+        <th><code><span class="muted">?theme=</span><%= theme %></code></th>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&theme=#{theme}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&theme=#{theme}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&theme=#{theme}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+## Custom themes
+
+You can also create your own theme by passing a comma-separated list of color values instead of the theme name.
+
+The format is `passed-bg-color,failed-bg-color,unknown-bg-color[,label-bg-color[,text-color,status-text-color]]`
+
+For example:
+
+<table class="status-badges__examples">
+  <tbody>
+    <%
+      examples = [
+        "9c0,f93,0ad",
+        "9c0,f93,0ad,d6d6d6",
+        "9c0,f93,0ad,d6d6d6,000",
+        "9c0,f93,0ad,d6d6d6,000,fff"
+      ]
+    %>
+    <% for example in examples %>
+      <tr>
+        <th><code><span class="muted">?theme=</span><%= example %></code></th>
+        <% for status in %w( passed failed unknown ) do %>
+          <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=#{status}&theme=#{example}" %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+## Sample badge URLs
+
+You can use the following URLs for testing your theme:
+
+* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passed
+* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failed
+* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
+
+## Contributing
+
+Want to contribute a theme? Send a pull request to [buildkite/build-status-badge-themes](https://github.com/buildkite/build-status-badge-themes).

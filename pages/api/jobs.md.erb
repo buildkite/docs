@@ -1,0 +1,78 @@
+# Jobs API
+
+<%= toc %>
+
+## Unblock a job
+
+Unblocks a build’s "Click to continue" job. The job’s `unblockable` property indicates whether it is able to be unlocked, and the `unblock_url` property points to this endpoint.
+
+```bash
+curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/unblock"
+```
+
+```json
+{
+  "id": "ded35de2-7de0-4da8-8daa-b4ce0b7f1064",
+  "type": "manual",
+  "state": "unblocked",
+  "web_url": null,
+  "unblocked_by": {
+    "id": "cfbb422f-2e4a-41b5-86f0-59e813b3d6e2",
+    "name": "Liam Neeson",
+    "email": "liam@evilbatmanvillans.com",
+    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+    "created_at": "2015-05-09T21:05:59.874Z"
+  },
+  "unblockable": false
+}
+```
+
+<%#
+Optional properties:
+
+<table>
+<tbody>
+  <tr><th><code>unblocker</code></th><td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td></tr>
+</tbody>
+</table>
+%>
+
+Required scope: `write_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "This job type cannot be unblocked" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Unblocker is not a valid user id for this account"}</code></td></tr>
+</tbody>
+</table>
+
+## Get a job’s log output
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+```json
+{
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "content": "This is the job's log output",
+  "size": 28
+}
+```
+
+Required scope: `read_build_logs`
+
+Success response: `200 OK`
+
+Alternative formats (via `Accept` header or file extension):
+
+<table>
+<tbody>
+  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job’s raw log content</td></tr>
+  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job’s log content as rendered by <a href="http://buildkite.github.io/terminal/">Terminal</a></td></tr>
+</tbody>
+</table>

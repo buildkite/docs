@@ -1,0 +1,83 @@
+# API Overview
+
+The Buildkite REST API aims to give you complete programmatic access and control of Buildkite to extend, integrate and automate anything to suit your particular needs.
+
+<%= toc %>
+
+## Schema
+
+All API access is over HTTPS, and accessed from the `api.buildkite.com` domain. All data is sent as JSON.
+
+```bash
+curl https://api.buildkite.com
+```
+
+```json
+<%= present_json response: "Hello World" %>
+```
+
+<div class="Docs__note">
+  <p>The legacy API hostname of <code>api.buildbox.io</code> is deprecated and will be unavailable after 12 December 2015.</p>
+</div>
+
+## Authentication
+
+There are two ways to authenticate with the Buildbox API: access tokens and basic authentication.
+
+### Access Tokens
+
+API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>">API Access Tokens</a> page, limited to individual accounts and permissions, and revoked at any time.
+
+To authenticate using a token pass it in the <code>access_token</code> query parameter or in the <code>Authorization</code> HTTP request header.
+
+To authenticate using an <code>access_token</code> query parameter:
+
+```bash
+curl "https://api.buildkite.com/v1/user?access_token=xxxx"
+```
+
+To authenticate using the <code>Authorization</code> HTTP header set the value be the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
+
+```bash
+curl -H "Authorization: Bearer xxxx" https://api.buildkite.com/v1/user
+```
+
+### Basic Authentication
+
+You can authenticate with your email and password using basic authentication. This is designed for direct testing of the API and should only be used where access token authentication does not make sense.
+
+```bash
+curl -u "your@email.com" https://api.buildkite.com/v1/user
+Enter host password:
+```
+
+```json
+<%= api_response_example :user %>
+```
+
+## Pagination
+
+For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing one or more of `next`, `prev`, `first` and `last`.
+
+```bash
+curl -i "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds"
+```
+
+```
+HTTP/1.1 200 OK
+...
+Link: <https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=3>; rel="next", <https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=6>; rel="last"
+```
+
+You can set the page using the following query string parameters:
+
+<table>
+<tbody>
+  <tr><th><code>page</code></th><td>The page of results to return<p class="Docs__api-param-eg"><em>Default:</em> <code>1</code></p></td></tr>
+  <tr><th><code>per_page</code></th><td>How many results to return per-page<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td></tr>
+</tbody>
+</table>
+
+## Changelog
+
+For a changelog of these API docs see [apichangelog.com/api/buildkite](https://www.apichangelog.com/api/buildkite)

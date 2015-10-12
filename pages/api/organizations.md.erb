@@ -1,0 +1,59 @@
+# Organizations API
+
+<%= toc %>
+
+<div class="Docs__note">
+  <p>This API endpoint is also available at the deprecated URL <code>/v1/accounts</code></p>
+</div>
+
+## List organizations
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the user’s organizations.
+
+```bash
+curl "https://api.buildkite.com/v1/organizations"
+```
+
+```json
+[
+  {
+    "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org",
+    "web_url": "https://buildkite.com/my-great-org",
+    "name": "My Great Org",
+    "slug": "my-great-org",
+    "projects_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects",
+    "agents_url": "https://api.buildkite.com/v1/organizations/my-great-org/agents",
+    "emojis_url": "https://api.buildkite.com/v1/organizations/my-great-org/emojis",
+    "created_at": "2015-05-09T21:05:59.874Z"
+  }
+]
+```
+
+Required scope: `read_organizations`
+
+Success response: `200 OK`
+
+## Get an organization
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}"
+```
+
+```json
+{
+  "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org",
+  "web_url": "https://buildkite.com/my-great-org",
+  "name": "My Great Org",
+  "slug": "my-great-org",
+  "projects_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects",
+  "agents_url": "https://api.buildkite.com/v1/organizations/my-great-org/agents",
+  "emojis_url": "https://api.buildkite.com/v1/organizations/my-great-org/emojis",
+  "created_at": "2015-05-09T21:05:59.874Z"
+}
+```
+
+Required scope: `read_organizations`
+
+Success response: `200 OK`

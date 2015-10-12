@@ -1,0 +1,55 @@
+# Getting Started
+
+This guide will help you setup your first Buildkite project. We’ll use GitHub, but Buildkite can work with any version control system.
+
+<%= toc %>
+
+## Sign up
+
+The first step is to [sign up](<%= url_helpers.signup_path %>) for a Buildkite account—every account gets a 14 day trial.
+
+## Start an Agent
+
+Following the instructions on your agent page to install and start an agent on any machine you like (including your development machine).
+
+## Choose the app you want to build
+
+For the purpose of getting up to speed quickly, we’ve created test repository that that you can use. Or you can use your own application, you’ll just need to create a build script for the agent to run.
+
+Go to: https://github.com/buildkite/bash-example and fork the repository.
+
+<%= image("fork-repo.png") %>
+
+## Create a new project
+
+Click **Create Project** on your Organization page.
+
+<%= image("create-project-dashboard.png") %>
+
+Enter the name: "bash-example" and paste in the git URL of your project:
+
+<%= image("create-new-project.png") %>
+
+Now, we need to tell Buildkite what script to run for the build.
+
+Here, we use `example_script.sh` as that’s the script that triggers the build process in our example.
+
+<%= image("script-to-run.png") %>
+
+Once you’re done, click **Create Project**
+
+## Add the webhook to the GitHub repository
+
+If you want Buildkite to automatically test new commits and pull requests you’ll need to setup the webhook. This step is optional, because we can manually trigger a build below.
+
+## Trigger a build
+
+Now that we’ve created our project, let’s trigger a build. You can do this with a commit (thanks to the webhook you’ve set up above), or with the **Trigger build** button:
+
+<%= image("trigger-build.png") %>
+
+If all goes to plan, you should see a green build.
+
+<%= image("green-build.png") %>
+
+And you’re done!

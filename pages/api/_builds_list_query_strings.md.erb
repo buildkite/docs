@@ -1,0 +1,10 @@
+<table>
+<tbody>
+  <tr><th><code>creator</code></th><td>Filters the results by the user who created the build<p class="Docs__api-param-eg"><em>Example:</em> <code>?creator=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td></tr>
+  <tr><th><code>created_from</code></th><td>Filters the results by builds created on or after the given time (in ISO 8601 format)<p class="Docs__api-param-eg"><em>Example:</em> <code>?created_from=<%= 5.days.ago.utc.iso8601 %></code></p></td></tr>
+  <tr><th><code>created_to</code></th><td>Filters the results by builds created before the given time (in ISO 8601 format)<p class="Docs__api-param-eg"><em>Example:</em> <code>?created_to=<%= 1.month.from_now.utc.iso8601 %></code></p></td></tr>
+  <tr><th><code>state</code></th><td>Filters the results by the given build state<p class="Docs__api-param-eg"><em>Valid states:</em> <%= API::Resources::BuildsList::SEARCHABLE_STATES.map { |x| "<code>#{x}</code>" }.join(", ").html_safe %></p><p class="Docs__api-param-eg"><em>Example:</em> <code>?state=passed</code></p></td></tr>
+  <tr><th><code>meta_data</code></th><td>Filters the results by the given meta_data.<p class="Docs__api-param-eg"><em>Example:</em> <code>?meta_data[some-key]=some-value</code></p></td></tr>
+  <tr><th><code>branch</code></th><td>Filters the results by the given branch or branches.<p class="Docs__api-param-eg"><em>Single branch example:</em> <code>?branch=master</code></p><p class="Docs__api-param-eg"><em>Many branches example:</em> <code>?branch[]=master&branch[]=testing</code></p></td></tr>
+</tbody>
+</table>

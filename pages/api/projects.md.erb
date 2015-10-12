@@ -1,0 +1,256 @@
+# Projects API
+
+<%= toc %>
+
+## List projects
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s projects.
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects"
+```
+
+```json
+[
+  {
+    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
+    "web_url": "https://buildkite.com/my-great-org/my-project",
+    "name": "Great Project",
+    "slug": "great-project",
+    "repository": "git@github.com:my-great-org/my-project",
+    "provider": {
+      "id": "github",
+      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    },
+    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+    "created_at": "2013-09-03 13:24:38 UTC",
+    "featured_build": {
+      "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+      "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
+      "number": 1,
+      "state": "passed",
+      "message": "Bumping to version 0.2-beta.6",
+      "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+      "branch": "master",
+      "env": { },
+      "created_at": "2015-05-09T21:05:59.874Z",
+      "scheduled_at": "2015-05-09T21:05:59.874Z",
+      "started_at": "2015-05-09T21:05:59.874Z",
+      "finished_at": "2015-05-09T21:05:59.874Z",
+      "meta_data": { }
+    },
+    "scheduled_builds_count": 0,
+    "running_builds_count": 0,
+    "scheduled_jobs_count": 0,
+    "running_jobs_count": 0,
+    "waiting_jobs_count": 0
+  }
+]
+```
+
+Required scope: `read_projects`
+
+Success response: `200 OK`
+
+## Get a project
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{slug}"
+```
+
+```json
+{
+  "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
+  "web_url": "https://buildkite.com/my-great-org/my-project",
+  "name": "Great Project",
+  "slug": "great-project",
+  "repository": "git@github.com:my-great-org/great-project",
+  "provider": {
+    "id": "github",
+    "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+  },
+  "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+  "created_at": "2013-09-03 13:24:38 UTC",
+  "featured_build": {
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
+    "number": 1,
+    "state": "passed",
+    "message": "Bumping to version 0.2-beta.6",
+    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+    "branch": "master",
+    "env": { },
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "scheduled_at": "2015-05-09T21:05:59.874Z",
+    "started_at": "2015-05-09T21:05:59.874Z",
+    "finished_at": "2015-05-09T21:05:59.874Z",
+    "meta_data": { }
+  },
+  "scheduled_builds_count": 0,
+  "running_builds_count": 0,
+  "scheduled_jobs_count": 0,
+  "running_jobs_count": 0,
+  "waiting_jobs_count": 0
+}
+```
+
+Required scope: `read_projects`
+
+Success response: `200 OK`
+
+
+## Create a project
+
+```bash
+curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects" \
+  -d '{
+    "name": "My Project",
+    "repository": "git@github.com/org/project.git",
+    "steps": [
+      {
+        "type": "script",
+        "name": "Build \:package\:",
+        "command": "script/release.sh"
+      },
+      {
+        "type": "waiter"
+      },
+      {
+        "type": "script",
+        "name": "Test \:wrench\:",
+        "command": "script/release.sh",
+        "artifact_paths": "log/*"
+      },
+      {
+        "type": "manual"
+      },
+      {
+        "type": "script",
+        "name": "Release \:rocket\:",
+        "command": "script/release.sh",
+        "branch_configuration": "master",
+        "env": {
+          "AMAZON_S3_BUCKET_NAME": "my-project-releases"
+        },
+        "timeout_in_minutes": 10,
+        "agent_query_rules": ["aws=true"]
+      }
+    ]
+  }'
+```
+
+```json
+{
+  "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
+  "web_url": "https://buildkite.com/my-great-org/my-project",
+  "name": "My Project",
+  "slug": "my-project",
+  "repository": "git@github.com/org/project.git",
+  "provider": {
+    "id": "github",
+    "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+  },
+  "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+  "created_at": "2015-03-01 06:44:40 UTC",
+  "steps": [
+    {
+      "type": "script",
+      "name": "Build \:package\:",
+      "command": "script/release.sh",
+      "artifact_paths": "pkg/*",
+      "branch_configuration": null,
+      "env": { },
+      "timeout_in_minutes": null,
+      "agent_query_rules": [ ]
+    },
+    {
+      "type": "waiter"
+    },
+    {
+      "type": "script",
+      "name": "Test \:wrench\:",
+      "command": "script/release.sh",
+      "artifact_paths": null,
+      "branch_configuration": null,
+      "env": { },
+      "timeout_in_minutes": null,
+      "agent_query_rules": [ ]
+    },
+    {
+      "type": "manual"
+    },
+    {
+      "type": "script",
+      "name": "Release \:rocket\:",
+      "command": "script/release.sh",
+      "artifact_paths": null,
+      "branch_configuration": "master",
+      "env": {
+        "AMAZON_S3_BUCKET_NAME": "my-project-releases"
+      },
+      "timeout_in_minutes": 10,
+      "agent_query_rules": [
+        "aws=true"
+      ]
+    }
+  ],
+  "env": {
+  },
+  "featured_build": null,
+  "scheduled_builds_count": 0,
+  "running_builds_count": 0,
+  "scheduled_jobs_count": 0,
+  "running_jobs_count": 0,
+  "waiting_jobs_count": 0
+}
+```
+
+The resulting project pipeline:
+
+<div class="image" style="max-width: 365px">
+  <%= responsive_image_tag 'docs/api/projects_api_pipeline_example.png', 730, 174, alt: 'Picture of the build pipeline that is created' %>
+</div>
+
+Required properties:
+
+<table>
+<tbody>
+  <tr><th><code>name</code></th><td>The name of the project.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Project"</code></p></td></tr>
+  <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td></tr>
+  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Click to continue step (see the <a href="/docs/api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
+  </tbody>
+</table>
+
+Optional properties:
+
+<table>
+<tbody>
+  <tr><th><code>slug</code></th><td>The URL slug for the project. This must be unique across the account.<p class="Docs__api-param-eg"><em>Example:</em> <code>"new-project"</code></p><p class="Docs__api-param-eg"><em>Default value: generated from the name.</em></p></td></tr>
+  <tr><th><code>env</code></th><td>The project environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
+</tbody>
+</table>
+
+Required scope: `write_projects`
+
+Success response: `201 Created`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
+</tbody>
+</table>
+
+## Delete a project
+
+```bash
+curl -X DELETE "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{slug}"
+```
+
+Required scope: `write_projects`
+
+Success response: `204 No Content`

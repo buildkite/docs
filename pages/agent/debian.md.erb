@@ -1,0 +1,43 @@
+# Installing Buildkite Agent on Debian
+
+The Buildkite Agent can be installed on on Debian versions 7.x and 8.x using our signed apt repository.
+
+<%= toc %>
+
+## Installation
+
+<%= render_agent_setup :debian %>
+
+## SSH Key Configuration
+
+<%= render_markdown 'documentation/pages/agent/ssh_key_with_buildkite_agent_user' %>
+
+See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
+
+## File Locations
+
+<%= render_markdown 'documentation/pages/agent/apt_locations' %>
+
+## Configuration
+
+<%= render_markdown 'documentation/pages/agent/apt_configuration' %>
+
+## Running multiple agents
+
+You can run as many parallel agents on the one machine as you wish by copying the service configuration file.
+
+```shell
+# For Debian 8.x (systemd)
+sudo cp /lib/systemd/system/buildkite-agent.service /lib/systemd/system/buildkite-agent-2.service
+sudo systemctl start buildkite-agent-2
+sudo tail -f /var/log/syslog | grep buildkite-agent-2
+
+# For Debian 7.x (using upstart)
+sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
+sudo service buildkite-agent-2 start
+sudo tail -f /var/log/upstart/buildkite-agent-2.log
+```
+
+## Upgrading
+
+<%= render_markdown 'documentation/pages/agent/apt_upgrading' %>

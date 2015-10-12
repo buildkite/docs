@@ -1,0 +1,78 @@
+# GitHub Enterprise
+
+Buildkite can connect to your GitHub Enterprise installation and use the Commit Status API to update the status of commits in Pull Requests.
+
+<%= toc %>
+
+## Register Buildkite as a new application
+
+Go to your GitHub Enterprise installation, and start by registering a new **Developer application**. This can
+be done by going to your **GitHub User Settings**, clicking **Applications** on the left, thne selecting **Developer applications** at the top:
+
+<%= image("github-user-settings.png", size: '301x326') %>
+
+<%= image("applications-menu.png", size: '343x157') %>
+
+From this page, click **Register new application**
+
+<%= image("register-application-button.png") %>
+
+Fill out the form with the following:
+
+**Name**
+
+`Buildkite`
+
+**URL**
+
+`https://buildkite.com`
+
+**Callback URL**
+
+`https://buildkite.com/user/authorize/github_enterprise/callback`
+
+Here's an image you can use:
+
+<%= image("buildkite-square.png", size: '100x100') %>
+
+Once filled out, click the **Register application** button at the bottom of the form:
+
+<%= image("register-application.png") %>
+
+Now that we've created an application, we have access to the Client ID and Client Secret. We'll need those to setup your GitHub Enterprise installation on Buildkite.
+
+<%= image("client-secrets.png", width: '440x175') %>
+
+## Update your Buildkite organization settings
+
+Go to the **Settings** page of the organization you'd like to connect to your GitHub Enterprise installation to:
+
+<%= image("account-settings.png", size: '268x94') %>
+
+Scroll down to see your **GitHub Enterprise** settings. Copy the Client ID, Client Secret, and the URL of your GitHub Enterprise Installation to this form, then press **Save GitHub Enterprise Settings**.
+
+<%= image("setup-enterprise.png") %>
+
+Once saved, the last step is to authorize your GitHub Enterprise user account with Buildkite.
+
+## Authorize Buildkite
+
+So Buildkite can mark commits and pull requests as pass or fail, you'll need to authorize your GitHub Enterprise user account with Buildkite.
+
+Go to your user settings page (<%= url_helpers.user_settings_url %>) and scroll to the bottom. You'll see your GitHub Enterprise Installation
+as an option to authorize to. Click **Authorize**.
+
+<%= image("oauth.png", size: '544x193') %>
+
+You should be redirected back to your GitHub Enterprise Installation, where it will ask you to authorize Buildkite with your account. Click the **Authorize application** button at the bottom.
+
+<%= image("oauth-connect.png") %>
+
+That's it! Next time you create a project with a repository that's either `https://git.mycompany.com/acme/app.git` or `git@git.mycompany.com:acme/app.git`,
+Buildkite will recognize that it's hosted on your GitHub Enterprise Installation, and use the your newly created oAuth authorization to update the commit statuses.
+
+## Firewalled Installs
+
+If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network to perform oAuth authentication and post to the Commit Status API.
+
+The IP address you’ll need to whitelist is `54.165.103.71`

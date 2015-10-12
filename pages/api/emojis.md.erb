@@ -1,0 +1,51 @@
+# Emojis API
+
+Buildkite supports emojis (using the `\:emoji\:` syntax) in build step names and build log header groups. The Emoji API allows you to fetch the list of emojis for an account so you can display emojis correctly in your own integrations.
+
+Emojis can be found in text using the pattern `/:([\w+-]+):/`
+
+<%= toc %>
+
+## List emojis
+
+Returns a list of all the emojis for a given account, including custom emojis and aliases. This list is not paginated.
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/emojis"
+```
+
+```json
+[
+  {
+    "name": "rocket",
+    "url": "https://buildkiteassets.com/emoji/unicode/1f680.png?v1"
+  },
+  {
+    "name": "shipit",
+    "url": "https://buildkiteassets.com/emoji/shipit.png?v1",
+    "aliases": [
+      "squirrel"
+    ]
+  },
+  {
+    "name": "trollface",
+    "url": "https://buildkiteassets.com/emoji/trollface.png?v1"
+  },
+  {
+    "name": "debian",
+    "url": "https://buildkiteassets.com/emoji/debian.png?v1"
+  },
+  {
+    "name": "bundler",
+    "url": "https://buildkiteassets.com/emoji/bundler.png?v1"
+  },
+  {
+    "name": "bugsnag",
+    "url": "https://buildkiteassets.com/emoji/bugsnag.png?v1"
+  }
+]
+```
+
+Required scope: none
+
+Success response: `200 OK`

@@ -1,0 +1,66 @@
+# Upgrading to Buildkite Agent v2
+
+The Buildkite Agent has changed a lot in v2 but upgrade process is straight forward. We'll cover what’s changed and how to upgrade to new agents.
+
+<%= toc %>
+
+## What’s changed
+
+* The default install location has changed from `~/.buildbox` to `~/.buildkite-agent` (although each installer may install in different locations).
+* Agents can be configured with [a config file](configuration).
+* Agents register themselves with a organization-wide token, you no longer need to create them via the web.
+* Agents now have [hooks support](hooks) and there should be no reason to customise the `bootstrap.sh` file.
+* There is built-in support for containerizing builds with [Docker and Docker Compose](/docs/guides/docker-containerized-builds).
+* There are [installer packages](installation) available for most systems.
+* Agents now have [meta-data](agent-meta-data).
+* Agent meta-data can be imported from EC2 tags with `--meta-data-ec2-tags`
+* Build steps select agents using key/value patterns rather than explicit agent selection.
+* There is built-in support for containerizing builds with Docker and Docker Compose
+* Windows support
+* Ability to specify commands such as `rake` and `make` in your build pipelines instead of a path to a script
+* Automatic ssh fingerprint verification
+* You can set a priority for the agent. `*priority 5` will have a job assigned to it over an agent with `*priority 4`
+* The agent now works better under flakey internet connections by retrying certain API calls
+* A new command `buildkite-agent artifact shasum` that allows you to download the shasum of a previously uploaded artifact
+
+## Meta-data and agent targetting
+
+No longer do you select individual agents to run build steps but instead you provide an agent query pattern that's used to select the correct agent.
+
+See the [meta-data documentation](agent-meta-data) for more details.
+
+## Bootstrap customizations
+
+If you customized your `bootstrap.sh` file you should not switch to using hooks to achieve the same results. See our [hooks documentation](hooks) for details on the hooks available.
+
+## Upgrading each project
+
+We recommend upgrading one project at a time to the new agents. This is because you'll need to update your build pipelines to use agent targeting, rather than selecting the individual agents.
+
+To update the agent on a build machine we recommend stopping the agent, removing all the files, and following the [install instructions for your platform](installation).
+
+Once you have the new agent running, update your project’s build pipeline steps to target the new agent, and trigger a build.
+
+## Upgrading a pre-1.0 agent
+
+All agents prior to v2 (including the old Buildbox Ruby agents) are deprecated and will stop executing new jobs on December 12th 2015.
+
+To upgrade you simply install the a new 2.0 agent using the [standard installation methods](/docs/agent/installation) and migrate each project to target the new agents.
+
+To make installation easy we’ve created packages for each of the major operating systems.
+
+## Upgrading a 1.0 beta agent
+
+To upgrade a _Ubuntu / Debian_ 1.0 beta agent:
+
+* Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
+* Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
+
+To upgrade a _Red Hat / CentOS_ 1.0 beta agent:
+
+* Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
+* Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
+
+Note that when you install the agent on a new machine using the debian / rpm packages the agent will be installed and run as the unprivileged `buildkite-agent` user, unlike some beta builds which ran as root.
+
+If you didn't install the agent using the above packages then simply update the agent like you did originally and you should get the latest stable version.

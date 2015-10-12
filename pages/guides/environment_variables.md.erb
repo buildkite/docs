@@ -1,0 +1,47 @@
+# Environment Variables
+
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration.
+
+<%= toc %>
+
+## Provided by Buildkite
+
+- `CI` always `true`
+- `BUILDKITE` always `true`
+- `BUILDKITE_REPO` the repository of your project `git@github.com:buildkite/buildkite.git`
+- `BUILDKITE_BRANCH` the branch being built `master`
+- `BUILDKITE_TAG` will contain the name of the tag if this build was triggered from a tag
+- `BUILDKITE_COMMIT` the commit of the build `83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d`
+- `BUILDKITE_JOB_ID` internal identifier Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
+- `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/buildkite/buildkite/builds/1514`
+- `BUILDKITE_AGENT_NAME` name of the agent running the build `my-agent-1`
+- `BUILDKITE_COMMAND` the command that will be run for the build `script/buildkite/specs`
+- `BUILDKITE_BUILD_NUMBER` the build number `1514`
+- `BUILDKITE_PROJECT_SLUG` the account and project name on Buildkite as used in URL's `buildkite/buildkite`
+- `BUILDKITE_PULL_REQUEST` will be `true` if this branch is a pull request. `false` if not
+- `BUILDKITE_AGENT_API_URL` the url to the private agent api `https://agent.buildkite.com/v1`
+- `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
+- `BUILDKITE_AGENT_ACCESS_TOKEN` the access token for the build `8na984f439nfa34bf8aobva4va487vba4a3498fav`
+- `BUILDKITE_BUILD_CREATOR` the name of the user who created the build
+- `BUILDKITE_BUILD_CREATOR_EMAIL` the notification email of the user who created the build
+- `BUILDKITE_CLEAN_CHECKOUT` whether the build should perform a clean checkout
+
+## Defining your own
+
+You can define environment variables that should be passed to jobs by adding then to the project step.
+
+<%= image "input-example.png" %>
+
+When the job runs, they'll be available for you to use. They are useful for controlling your build scripts. For example, you
+can have a build script like so:
+
+```shell
+#!/bin/bash
+set -e
+set -x
+
+rake $TASK
+```
+
+And by setting an environment variable of `TASK=test` you can use the same build script for multiple steps, but control what it does
+using environment variables.

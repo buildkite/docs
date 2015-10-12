@@ -1,0 +1,106 @@
+# Managing Log Output
+
+Buildkite uses our open-source [terminal Golang library](https://github.com/buildkite/terminal) to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
+
+<%= toc %>
+
+## Collapsing Output
+
+You can group and collapse your build output by echoing `--- [group name]` in your build output.
+
+```bash
+echo "--- A section of the build"
+```
+
+If you want to have the group open by default, use `+++` instead of `---`:
+
+```bash
+echo "+++ A section of the build"
+```
+
+If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
+
+```bash
+echo "--- Bundling"
+bundle
+if [[ $? -ne 0 ]]; then
+  echo "^^^ +++"
+  echo "Bundler failed, oh no!!"
+fi
+```
+
+You can even include colors and emojis!
+
+```bash
+echo -e "--- Running \033[33mspecs\033[0m \:cow:\:bell:"
+```
+
+<%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
+
+## Log output limits
+
+If your build output exceeds 1MB then we'll only show the last 1MB of it in the rendered terminal output on your build page. In addition, your log file must not exceed 100MB else it may fail to upload.
+
+If your log exceeds 1MB then we highly recommend reconfiguring your build tools to filter out unnecessary lines. Sometimes this isn't always possible, so you can use the below techniques to store and filter your log.
+
+## Storing the original log
+
+One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and passing it straight through unchanged to the next command.
+
+```
+#!/bin/env bash
+
+set -eo pipefail
+
+your_build_command | tee build.log | <filter command>
+```
+
+When this script is run it will store the original output of `your_build_command` to the file `build.log`.
+
+To store this file alongside your build, edit your project pipeline settings and include  `build.log` in the artifact upload path.
+
+<%= image("artifact_upload_path.png", alt: "Screenshot of Artifact Uploading settings", size: '549x119') %>
+
+When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable in the "Artifacts" tab on your build page.
+
+<%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
+
+## Filtering with grep
+
+Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
+
+```
+#!/bin/env bash
+
+set -eo pipefail
+
+your_build_command | tee build.log | grep 'some pattern'
+```
+
+## Truncating with tail
+
+Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your output log, whilst storing the original log for artifact uploading.
+
+```
+#!/bin/env bash
+
+set -eo pipefail
+
+your_build_command | tee build.log | tail -c90000000
+```
+
+## Improving Xcode logs with xcpretty
+
+[xcpretty](https://github.com/supermarin/xcpretty) is an open-source tool that helps to reduce, format and color-code your [Xcode](http://developer.apple.com/xcode) build output. Once you’ve installed xcpretty you simply pipe the output of xcodebuild into it:
+
+```
+#!/bin/env bash
+
+set -eo pipefail
+
+xcodebuild <build options> | tee -a build.log | xcpretty -c
+```
+
+Make sure to set the `-o pipefail` option in your buildscript as above, otherwise the build failure status might not be passed through correctly.
+
+<%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>

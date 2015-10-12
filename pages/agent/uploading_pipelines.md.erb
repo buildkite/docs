@@ -1,0 +1,127 @@
+# Uploading Build Pipelines
+
+The Buildkite Agent’s `pipeline upload` command provides you with a way of storing build pipelines within source control, and have them uploaded to builds at runtime.
+
+<%= toc %>
+
+## Usage in Buildkite
+
+Start by create the `buildkite.yml` file, add steps to it using the example below as a guide. You'll want to replicate your current steps in the configuration file format. Once you've done that, commit and push that file to your repository.
+
+After the file has been pushed, login to Buildkite, and go to the Pipeline Settings for the project you'd like to use the configuration file in. Replace the entire pipeline with 1 step, that calls the command: `buildkite-agent pipeline upload`. When the build runs, this first step will run that command, upload the pipeline to Buildkite, at which point Buildkite will parse the config, and apply the steps to the currently running build.
+
+If you have alot of active branches in development, and don't want to spend the time merging in the configuration file to all of them, there is a way of adding the file in a backwards compatible manner.
+
+Create a file in your repository and call it `upload-pipeline-to-buildkite.sh`
+
+```bash
+#!/bin/bash
+
+if [ -f "buildkite.yml" ];
+then
+  echo "buildkite.yml found, will replace current pipeline with steps from it"
+  buildkite-agent pipeline upload --replace
+else
+  echo "No buildkite.yml file, using existing steps"
+fi
+```
+
+`chmod +x upload-pipeline-to-buildkite.sh` the file, then commit/push to your repository. Now, instead of replacing your entire pipeline with a call to `buildkite-agent pipeline upload`, just prefix the pipeline with a script step that calls the `upload-pipeline-to-buildkite.sh` file we created earlier, then follow this step with a waiter step.
+
+So your pipeline would look something like this:
+
+```
+[ upload-pipeline-to-buildkite.sh ] > [ existing pipeline... ]
+```
+
+The main difference here is that we only upload the file if it exists, and we upload the pipeline using the `--replace` flag. `--replace` will remove any scheduled steps, and replace them with the steps in the configuration file. Using this method, the branch you first commited the configuration file to will use the new steps, and any existing branch will continue to use the steps defined in the Buildkite UI.
+
+## Uploading Pipelines
+
+Use this command in your build scripts to upload pipelines to Buildkite.
+
+```
+Usage:
+
+   buildkite-agent pipeline upload <file> [arguments...]
+
+Description:
+
+   Allows you to change the pipeline of a running build by uploading either a
+   JSON or YAML configuration file. If no configuration file is provided,
+   we look for the file in the following locations:
+
+   - buildkite.yml
+   - buildkite.json
+   - .buildkite/pipeline.yml
+   - .buildkite/pipeline.json
+   - .buildkite/steps.json (deprecated, will be removed in 2.2)
+
+   You can also pipe build pipelines to the command, allowing you to create scripts
+   that generate dynamic pipelines.
+
+Example:
+
+   $ buildkite-agent pipeline upload
+   $ buildkite-agent pipeline upload my-custom-steps.json
+   $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+
+Options:
+
+   --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
+   --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint 'https://agent.buildkite.com/v3'  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Configuration files
+
+You can use either [YAML](http://yaml.org) or [JSON](http://json.org) to configure your build pipelines. Below is an example of how the YAML configuration would look.
+
+```
+# buildkite.yml
+
+steps:
+  -
+    name: "\:bundler\:"
+    command: "bundle install -j8"
+    concurrency: 1
+    concurrency_group: bundler
+  -
+    type: "waiter"
+  -
+    name: "\:rubocop\:"
+    command: "script/buildkite/rubocop"
+  -
+    name: "\:brakeman\:"
+    command: "script/buildkite/brakeman"
+  -
+    name: "\:eslint\:"
+    command: "script/buildkite/eslint"
+  -
+    name: "\:rspec\:"
+    command: "script/buildkite/rspec"
+    artifact_paths: "tmp/capybara/**/*;coverage/**/*"
+    parallelism: 6
+  -
+    type: "waiter"
+  -
+    name: "\:shipit\:"
+    command: "script/buildkite/deploy"
+    branches: "master"
+    env:
+      DEPLOY_KEY: "xxx"
+    agents:
+      - "queue=deploy"
+    concurrency: 1
+    concurrency_group: deploy
+```
+
+### Configuring Concurrency
+
+When throttling the concurrency for a job, we need a way to group the jobs across the pipeline to determine how many of that type are currently running. We do this by creating a "concurrency group identifier" and attach it to all jobs requiring concurrency. Using this method we can query to find out how many of those jobs are running at any one time, and throttle accordingly when a job is scheduled.
+
+When creating steps via the Buildkite UI, we use the jobs’ step UUID as the identifier. However, when creating steps using the `pipeline upload` command, there isn’t a way of creating this identifier, as the step is anonymous and doesn’t have a UUID. In this case, we ask that you provide a unique value to the `concurrency_group` property, which we use as the identifier.

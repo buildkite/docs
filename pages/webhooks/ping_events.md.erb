@@ -1,0 +1,45 @@
+# Ping Events
+
+<%= toc %>
+
+## Events
+
+<table>
+<tbody>
+  <tr>
+    <th><code>ping</code></th>
+    <td><%= webhook_description "ping" %></td>
+  </tr>
+</tbody>
+</table>
+
+## Request body data
+
+<table>
+<tbody>
+  <tr><th><code>service</code></th><td>The notification service that sent this webhook</td></tr>
+  <tr><th><code>account</code></th><td>The <a href="/docs/api/organizations">Organization</a> this notification belongs to</td></tr>
+  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
+</tbody>
+</table>
+
+Example request body:
+
+```json
+{
+  "service": {
+    "id": "49801950-1df0-474f-bb56-ad6a930c5cb9",
+    "provider": "webhook",
+    "settings": {
+      "url": "https://server.com/webhook"
+    }
+  },
+  "account": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```
