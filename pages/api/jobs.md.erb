@@ -76,3 +76,50 @@ Alternative formats (via `Accept` header or file extension):
   <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job’s log content as rendered by <a href="http://buildkite.github.io/terminal/">Terminal</a></td></tr>
 </tbody>
 </table>
+
+## Get a job's environment variables
+
+```bash
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/env"
+```
+
+```json
+{
+  "env": {
+    "CI": "true",
+    "BUILDKITE": "true",
+    "BUILDKITE_TAG": "",
+    "BUILDKITE_REPO": "git@github.com:my-great-org/my-repo.git",
+    "BUILDKITE_BRANCH": "master",
+    "BUILDKITE_COMMIT": "a65572555600c07c7ee79a2bd909220e1ca5485b",
+    "BUILDKITE_JOB_ID": "bde076a8-bc2c-4fda-9652-10220a56d638",
+    "BUILDKITE_COMMAND": "buildkite-agent pipeline upload",
+    "BUILDKITE_MESSAGE": "\:llama\:",
+    "BUILDKITE_BUILD_ID": "c4e312cb-e734-4f0a-a5bd-1cac2535c57e",
+    "BUILDKITE_BUILD_URL": "https://buildkite.com/my-great-org/my-project/builds/15",
+    "BUILDKITE_AGENT_NAME": "ci-1",
+    "BUILDKITE_SCRIPT_PATH": "buildkite-agent pipeline upload",
+    "BUILDKITE_BUILD_NUMBER": "15",
+    "BUILDKITE_PROJECT_SLUG": "my-great-org/my-project",
+    "BUILDKITE_PULL_REQUEST": "false",
+    "BUILDKITE_BUILD_CREATOR": "Keith Pitt",
+    "BUILDKITE_REPO_SSH_HOST": "github.com",
+    "BUILDKITE_ARTIFACT_PATHS": "",
+    "BUILDKITE_PROJECT_PROVIDER": "github",
+    "BUILDKITE_BUILD_CREATOR_EMAIL": "keith@buildkite.com",
+    "BUILDKITE_AGENT_META_DATA_LOCAL": "true"
+  }
+}
+```
+
+Required scope: `read_job_env`
+
+Success response: `200 OK`
+
+Alternative formats (via `Accept` header or file extension):
+
+<table>
+<tbody>
+  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job’s environment in a <code>KEY=VALUE</code> format suitable for parsing by tools such as <a href="https://github.com/bkeepers/dotenv">dotenv</a></td></tr>
+</tbody>
+</table>
