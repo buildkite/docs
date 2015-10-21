@@ -27,7 +27,7 @@ See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
 You can run as many parallel agents on the one machine as you wish by copying the service configuration file.
 
 ```shell
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
+sudo cp /etc/buildkite-agent/buildkite-agent.cfg  /etc/buildkite-agent/buildkite-agent-2.conf
 sudo service buildkite-agent-2 start
 sudo tail -f /var/log/upstart/buildkite-agent-2.log
 ```
