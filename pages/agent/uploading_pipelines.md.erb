@@ -6,7 +6,7 @@ The Buildkite Agent’s `pipeline upload` command provides you with a way of sto
 
 ## Usage in Buildkite
 
-Start by create the `buildkite.yml` file, add steps to it using the example below as a guide. You'll want to replicate your current steps in the configuration file format. Once you've done that, commit and push that file to your repository.
+Start by create the `.buildkite/pipeline.yml` file, add steps to it using the example below as a guide. You'll want to replicate your current steps in the configuration file format. Once you've done that, commit and push that file to your repository.
 
 After the file has been pushed, login to Buildkite, and go to the Pipeline Settings for the project you'd like to use the configuration file in. Replace the entire pipeline with 1 step, that calls the command: `buildkite-agent pipeline upload`. When the build runs, this first step will run that command, upload the pipeline to Buildkite, at which point Buildkite will parse the config, and apply the steps to the currently running build.
 
@@ -17,12 +17,12 @@ Create a file in your repository and call it `upload-pipeline-to-buildkite.sh`
 ```bash
 #!/bin/bash
 
-if [ -f "buildkite.yml" ];
+if [ -f ".buildkite/pipeline.yml" ];
 then
-  echo "buildkite.yml found, will replace current pipeline with steps from it"
+  echo ".buildkite/pipeline.yml found, will replace current pipeline with steps from it"
   buildkite-agent pipeline upload --replace
 else
-  echo "No buildkite.yml file, using existing steps"
+  echo "No .buildkite/pipeline.yml file, using existing steps"
 fi
 ```
 
@@ -51,11 +51,8 @@ Description:
    JSON or YAML configuration file. If no configuration file is provided,
    we look for the file in the following locations:
 
-   - buildkite.yml
-   - buildkite.json
    - .buildkite/pipeline.yml
    - .buildkite/pipeline.json
-   - .buildkite/steps.json (deprecated, will be removed in 2.2)
 
    You can also pipe build pipelines to the command, allowing you to create scripts
    that generate dynamic pipelines.
@@ -82,40 +79,39 @@ Options:
 You can use either [YAML](http://yaml.org) or [JSON](http://json.org) to configure your build pipelines. Below is an example of how the YAML configuration would look.
 
 ```
-# buildkite.yml
+# .buildkite/pipeline.yml
 
 steps:
-  -
-    name: "\:bundler\:"
+  - name: "\:bundler\:"
     command: "bundle install -j8"
     concurrency: 1
     concurrency_group: bundler
-  -
-    type: "waiter"
-  -
-    name: "\:rubocop\:"
+
+  - waiter
+
+  - name: "\:rubocop\:"
     command: "script/buildkite/rubocop"
-  -
-    name: "\:brakeman\:"
+
+  - name: "\:brakeman\:"
     command: "script/buildkite/brakeman"
-  -
-    name: "\:eslint\:"
+
+  - name: "\:eslint\:"
     command: "script/buildkite/eslint"
-  -
-    name: "\:rspec\:"
+
+  - name: "\:rspec\:"
     command: "script/buildkite/rspec"
     artifact_paths: "tmp/capybara/**/*;coverage/**/*"
     parallelism: 6
-  -
-    type: "waiter"
-  -
-    name: "\:shipit\:"
+
+  - waiter
+
+  - name: "\:shipit\:"
     command: "script/buildkite/deploy"
     branches: "master"
     env:
       DEPLOY_KEY: "xxx"
     agents:
-      - "queue=deploy"
+      queue: deploy
     concurrency: 1
     concurrency_group: deploy
 ```
