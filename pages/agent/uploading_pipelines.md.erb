@@ -81,6 +81,9 @@ You can use either [YAML](http://yaml.org) or [JSON](http://json.org) to configu
 ```
 # .buildkite/pipeline.yml
 
+env:
+  THIS_WILL_APPLY_TO_ALL: true
+
 steps:
   - name: "\:bundler\:"
     command: "bundle install -j8"
