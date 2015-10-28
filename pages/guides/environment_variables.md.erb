@@ -12,12 +12,15 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_BRANCH` the branch being built `master`
 - `BUILDKITE_TAG` will contain the name of the tag if this build was triggered from a tag
 - `BUILDKITE_COMMIT` the commit of the build `83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d`
-- `BUILDKITE_JOB_ID` internal identifier Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
+- `BUILDKITE_JOB_ID` internal UUID Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
+- `BUILDKITE_BUILD_ID` internal UUID Buildkite uses for this build `9e08ef3c-d6e6-4a86-91dd-577ce5205b8e`
 - `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/buildkite/buildkite/builds/1514`
 - `BUILDKITE_AGENT_NAME` name of the agent running the build `my-agent-1`
 - `BUILDKITE_COMMAND` the command that will be run for the build `script/buildkite/specs`
+- `BUILDKITE_MESSAGE` will be the message associated with the build (generally a commit message)
 - `BUILDKITE_BUILD_NUMBER` the build number `1514`
 - `BUILDKITE_PROJECT_SLUG` the account and project name on Buildkite as used in URL's `buildkite/buildkite`
+- `BUILDKITE_PROJECT_PROVIDER` the ID of the SCM provider for the project's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
 - `BUILDKITE_PULL_REQUEST` will be `true` if this branch is a pull request. `false` if not
 - `BUILDKITE_AGENT_API_URL` the url to the private agent api `https://agent.buildkite.com/v1`
 - `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
