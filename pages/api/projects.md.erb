@@ -124,7 +124,8 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects" \
         "artifact_paths": "log/*"
       },
       {
-        "type": "manual"
+        "type": "manual",
+        "label": "Deploy"
       },
       {
         "type": "script",
@@ -180,7 +181,8 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects" \
       "agent_query_rules": [ ]
     },
     {
-      "type": "manual"
+      "type": "manual",
+      "label": "Deploy"
     },
     {
       "type": "script",
