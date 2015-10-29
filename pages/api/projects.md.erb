@@ -220,7 +220,7 @@ Required properties:
 <tbody>
   <tr><th><code>name</code></th><td>The name of the project.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Project"</code></p></td></tr>
   <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td></tr>
-  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Click to continue step (see the <a href="/docs/api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
+  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
   </tbody>
 </table>
 

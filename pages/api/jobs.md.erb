@@ -4,7 +4,7 @@
 
 ## Unblock a job
 
-Unblocks a build’s "Click to continue" job. The job’s `unblockable` property indicates whether it is able to be unlocked, and the `unblock_url` property points to this endpoint.
+Unblocks a build’s "Block pipeline" job. The job’s `unblockable` property indicates whether it is able to be unlocked, and the `unblock_url` property points to this endpoint.
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/unblock"

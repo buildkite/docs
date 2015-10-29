@@ -90,7 +90,7 @@ steps:
     concurrency: 1
     concurrency_group: bundler
 
-  - waiter
+  - wait
 
   - name: "\:rubocop\:"
     command: "script/buildkite/rubocop"
@@ -106,7 +106,7 @@ steps:
     artifact_paths: "tmp/capybara/**/*;coverage/**/*"
     parallelism: 6
 
-  - waiter
+  - block
 
   - name: "\:shipit\:"
     command: "script/buildkite/deploy"
@@ -117,6 +117,14 @@ steps:
       queue: deploy
     concurrency: 1
     concurrency_group: deploy
+
+  - block: "Rollback"
+
+  - command: "script/buildkite/rollback"
+    agents:
+      queue: deploy
+    concurrency: 1
+    concurrency_group: rollback
 ```
 
 ### Configuring Concurrency
