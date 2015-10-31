@@ -55,14 +55,14 @@ Scroll down to see your **GitHub Enterprise** settings. Copy the Client ID, Clie
 
 Once saved, the last step is to authorize your GitHub Enterprise user account with Buildkite.
 
-## Authorize Buildkite
+## Connect your GitHub Enterprise account
 
 So Buildkite can mark commits and pull requests as pass or fail, you'll need to authorize your GitHub Enterprise user account with Buildkite.
 
-Go to your user settings page (<%= url_helpers.user_settings_url %>) and scroll to the bottom. You'll see your GitHub Enterprise Installation
-as an option to authorize to. Click **Authorize**.
+Go to your "Connected Accounts" settings page (<%= url_helpers.user_authorizations_url %>). Here you'll see your GitHub Enterprise Installation
+as an option to connect to. Click **Connect**.
 
-<%= image("oauth.png", size: '544x193') %>
+<%= image("oauth.png", size: '546x222') %>
 
 You should be redirected back to your GitHub Enterprise Installation, where it will ask you to authorize Buildkite with your account. Click the **Authorize application** button at the bottom.
 
