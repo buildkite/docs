@@ -56,13 +56,13 @@ sudo curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://
 sudo sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 
 # Create the agent's log directory with the correct permissions
-mkdir -p ~/.buildkite/log && sudo chmod 775 ~/.buildkite/log
+mkdir -p ~/.buildkite-agent/log && sudo chmod 775 ~/.buildkite-agent/log
 
 # Start the agent
 launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 
 # Check the logs
-tail -f ~/.buildkite/log/buildkite-agent.log
+tail -f ~/.buildkite-agent/log/buildkite-agent.log
 ```
 
 ## Upgrading
