@@ -31,20 +31,7 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 ## Defining your own
 
-You can define environment variables that should be passed to jobs by adding then to the project step.
+You can define environment variables in your jobs in two ways:
 
-<%= image "input-example.png" %>
-
-When the job runs, they'll be available for you to use. They are useful for controlling your build scripts. For example, you
-can have a build script like so:
-
-```shell
-#!/bin/bash
-set -e
-set -x
-
-rake $TASK
-```
-
-And by setting an environment variable of `TASK=test` you can use the same build script for multiple steps, but control what it does
-using environment variables.
+* In the build pipeline configuration (useful for values that are not secret)
+* Using the `environment` or `pre-command` [agent hook](/docs/agent/hooks) (useful for values that are secret, or agent-specific)
