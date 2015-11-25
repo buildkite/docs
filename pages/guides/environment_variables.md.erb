@@ -21,7 +21,7 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_BUILD_NUMBER` the build number `1514`
 - `BUILDKITE_PROJECT_SLUG` the account and project name on Buildkite as used in URL's `buildkite/buildkite`
 - `BUILDKITE_PROJECT_PROVIDER` the ID of the SCM provider for the project's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
-- `BUILDKITE_PULL_REQUEST` will be `true` if this branch is a pull request. `false` if not
+- `BUILDKITE_PULL_REQUEST` will be the number of the pull request if this branch is a pull request. `false` if not
 - `BUILDKITE_AGENT_API_URL` the url to the private agent api `https://agent.buildkite.com/v1`
 - `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
 - `BUILDKITE_AGENT_ACCESS_TOKEN` the access token for the build `8na984f439nfa34bf8aobva4va487vba4a3498fav`
