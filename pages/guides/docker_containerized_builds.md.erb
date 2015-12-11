@@ -32,6 +32,8 @@ memcache:
   image: tutum/memcached
 ```
 
+**NOTE:** The `Dockerfile` must include a `WORKDIR` directive matching the mount point of the app. So you would use `WORKDIR /app` in the example above.
+
 Mounting `.` (the directory of current build) as a volume in the container allows any changes from inside the container to be visible to the outside build agent, which is required if you want the agent to be able to access and upload artifacts created by the build.
 
 Another example of a production docker-compose configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
