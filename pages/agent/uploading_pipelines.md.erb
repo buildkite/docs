@@ -70,13 +70,13 @@ A *blocker* step will pause the pipeline and wait for a team member to unblock i
 steps:
   - command: command.sh
   - block
-    name: ":rocket: Deploy"
+      name: ":rocket: Deploy"
   - command: deploy.sh
 ```
 
 ## Dynamic pipelines
 
-You can generate pipelines dynamically from your source code thanks to the fact that pipelines are uploaded by running a command on one of your buildkite agents. This provides you with a large amount of flexiblity to structure your projects as you wish.
+You can generate pipelines dynamically from your source code thanks to the fact that pipelines are uploaded by running a command on one of your Buildkite agents. This provides you with a large amount of flexiblity to structure your projects as you wish.
 
 For example you could generate a list of parallel test steps based upon the `test/*` directories within your repository. To do this you'd have a single step in your project settings:
 
