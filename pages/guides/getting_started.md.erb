@@ -1,55 +1,47 @@
 # Getting Started
 
-This guide will help you setup your first Buildkite project. We’ll use GitHub, but Buildkite can work with any version control system.
+This guide will help you setup your first Buildkite project. If you don’t have a Buildkite account you’ll first need to [sign up](<%= url_helpers.signup_path %>). We’ll use GitHub but Buildkite can work with any version control system.
 
 <%= toc %>
 
-## Sign up
+## Start your first agent
 
-The first step is to [sign up](<%= url_helpers.signup_path %>) for a Buildkite account—every account gets a 14 day trial.
+Once you’ve logged in, follow the instructions on the Agents page to install and start an agent. You can do this on your local development machine, an existing CI machine, or a new server.
 
-## Start an Agent
+<%= image "start-agent.png", size: '610x165', alt: 'Buildkite agent setup buttons' %>
 
-Following the instructions on your agent page to install and start an agent on any machine you like (including your development machine).
+## Add the sample project
 
-## Choose the app you want to build
+We’ve created a simple [bash-example test repository](https://github.com/buildkite/bash-example) to use as your first project. The magical setup button below will open a new project page for the example project, with a build pipeline containing a single step (“:hammer: Test”):
 
-For the purpose of getting up to speed quickly, we’ve created test repository that that you can use. Or you can use your own application, you’ll just need to create a build script for the agent to run.
+<a class="Link--faded-on-white Link--outline Link--no-underline" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="__blank">Add Bash Example project to Buildkite</a>
 
-Go to: https://github.com/buildkite/bash-example and fork the repository.
+Once you’re ready, click *Create Project* at the bottom of the page:
 
-<%= image("fork-repo.png") %>
+<%= image "create-project-button.png", size: "195x77", alt: "Create project button" %>
 
-## Create a new project
+## Create your first build
 
-Click **Create Project** on your Organization page.
+Now that you’ve started an agent and created a project you’re ready to run your first build. Click the *New Build* button in the top right corner:
 
-<%= image("create-project-dashboard.png") %>
+<%= image "new-build.png", size: "251x52", alt: "New build button" %>
 
-Enter the name: "bash-example" and paste in the git URL of your project:
+Type in a build message (being sure to add some emojis) and click *Create Build*:
 
-<%= image("create-new-project.png") %>
+<%= image "trigger-build.png", size: "514x450", alt: "New build dialog" %>
 
-Now, we need to tell Buildkite what script to run for the build.
+You should now see the build start to run, and once it’s finished it should turn green!
 
-Here, we use `example_script.sh` as that’s the script that triggers the build process in our example.
+<%= image "green-build.png", size: "226x84", alt: "Green build" %>
 
-<%= image("script-to-run.png") %>
+Congratulations, you’ve just run your first Buildkite build! :tada:
 
-Once you’re done, click **Create Project**
+## Invite your team to the account
 
-## Add the webhook to the GitHub repository
+To invite your team so they can see your build, go to your organization’s *Settings*, and under *Members* you’ll be able to paste in their email addresses.
 
-If you want Buildkite to automatically test new commits and pull requests you’ll need to setup the webhook. This step is optional, because we can manually trigger a build below.
+## Adding a private project
 
-## Trigger a build
+When you create a new project with a private repository URL you’ll be shown instructions for configuring your SCM’s webhooks (in GitHub, BitBucket, etc). Once you’ve followed those instructions make sure your [agent’s SSH keys](/docs/agent/ssh-keys) are configured, and you’ll be good to run a build of your private project.
 
-Now that we’ve created our project, let’s trigger a build. You can do this with a commit (thanks to the webhook you’ve set up above), or with the **Trigger build** button:
-
-<%= image("trigger-build.png") %>
-
-If all goes to plan, you should see a green build.
-
-<%= image("green-build.png") %>
-
-And you’re done!
+For a non-trivial project a good idea is to use your development machine as the agent for your first few builds. That way all the dependencies are ready and you’ll sooner be able to share a link to a green build with the rest of your team.
