@@ -32,7 +32,7 @@ There are four Bash options which are often used in build scripts:
 Most build scripts should set the `-e` and `-o pipefail` options to ensure if any command fails your entire build script fails. For example:
 
 ```bash
-#!/bin/env bash
+#!/bin/bash
 
 set -eo pipefail
 
@@ -48,7 +48,7 @@ The first step to debugging script is to output the environment. This will show 
 To add the environment to your build output simply execute `env` at the start of your build script.
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 env
 ```
@@ -56,7 +56,7 @@ env
 You can also set the `-x` option which will print out each command, fully expanded, before executing it.
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 set -x
 ```
@@ -88,7 +88,7 @@ echo -e "--- Running \033[33mspecs\033[0m \:cow:\:bell:"
 If you want to execute commands after your main command, but still report success/fail correctly, you’ll need to capture the exit status of your main command and then exit with it at the end.
 
 ```bash
-#!/bin/env bash
+#!/bin/bash
 
 run_my_tests
 

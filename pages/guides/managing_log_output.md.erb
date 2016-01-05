@@ -48,7 +48,7 @@ If your log exceeds 1MB then we highly recommend reconfiguring your build tools 
 One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and passing it straight through unchanged to the next command.
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 set -eo pipefail
 
@@ -70,7 +70,7 @@ When your build is finished the agent will upload `build.log` as a build artifac
 Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 set -eo pipefail
 
@@ -82,7 +82,7 @@ your_build_command | tee build.log | grep 'some pattern'
 Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your output log, whilst storing the original log for artifact uploading.
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 set -eo pipefail
 
@@ -94,7 +94,7 @@ your_build_command | tee build.log | tail -c90000000
 [xcpretty](https://github.com/supermarin/xcpretty) is an open-source tool that helps to reduce, format and color-code your [Xcode](http://developer.apple.com/xcode) build output. Once you’ve installed xcpretty you simply pipe the output of xcodebuild into it:
 
 ```
-#!/bin/env bash
+#!/bin/bash
 
 set -eo pipefail
 
