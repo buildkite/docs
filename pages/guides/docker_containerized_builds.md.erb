@@ -16,9 +16,9 @@ app:
   volumes:
     - ./:/app
   links:
-    - db:db
-    - redis:redis
-    - memcache:memcache
+    - db
+    - redis
+    - memcache
   environment:
     PGHOST: db
     PGUSER: postgres
