@@ -39,10 +39,6 @@ if [[ "$BUILDKITE_COMMAND" == "script/deploy" ]]; then
 fi
 ```
 
-## Running As A Low Privilege User
-
-By default the agent installers run as root and live in the root user’s `~/.buildkite-agent` directory. It’s recommended you move and chown this folder to new user, and set the `uid` and `gid` of the agent in your startup configuration.
-
 ## Using Environment Hooks for Secrets
 
 The agent’s [global enviroment hook](hooks) is a convenient place for making secrets available to the build scripts. Once the environment hook exports the secret as an environment variable it will then be available to the build script. For example:
