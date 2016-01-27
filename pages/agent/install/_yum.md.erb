@@ -24,6 +24,10 @@ Configure your agent token:
 sudo sed -i "s/xxx/<%= token %>/g" /etc/buildkite-agent/buildkite-agent.cfg
 ```
 
+<div class="Docs__note">
+<em>Note: There's currently an issue installing the package onto Amazon Linux AMI distributions. See this GitHub issue for more information: <a href="https://github.com/buildkite/agent/issues/234">https://github.com/buildkite/agent/issues/234</a></em>
+</div>
+
 And then start the agent:
 
 ```shell
