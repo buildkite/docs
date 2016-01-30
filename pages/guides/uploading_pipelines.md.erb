@@ -70,8 +70,8 @@ A *blocker* step will pause the pipeline and wait for a team member to unblock i
 steps:
   - command: command.sh
   - block
-      name: ":rocket: Deploy"
   - command: deploy.sh
+    name: ":rocket: Deploy"
 ```
 
 ## Dynamic pipelines
@@ -89,7 +89,7 @@ The `scripts/buildkite_test_pipeline` would be an executable file checked into y
 ```
 #!/bin/bash
 
-# Generates a pipeline step for each test directory, allowing the tests to be 
+# Generates a pipeline step for each test directory, allowing the tests to be
 # split up and run across distributed build agents
 
 set -eu
