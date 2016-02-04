@@ -7,7 +7,7 @@
 Unblocks a build’s "Block pipeline" job. The job’s `unblockable` property indicates whether it is able to be unlocked, and the `unblock_url` property points to this endpoint.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/unblock"
+curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"
 ```
 
 ```json
@@ -54,12 +54,12 @@ Error responses:
 ## Get a job’s log output
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/log"
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
 ```
 
 ```json
 {
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
   "content": "This is the job's log output",
   "size": 28
 }
@@ -81,7 +81,7 @@ Alternative formats (via `Accept` header or file extension):
 ## Get a job's environment variables
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{build.number}/jobs/{job.id}/env"
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/env"
 ```
 
 ```json
@@ -97,16 +97,17 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.sl
     "BUILDKITE_COMMAND": "buildkite-agent pipeline upload",
     "BUILDKITE_MESSAGE": "\:llama\:",
     "BUILDKITE_BUILD_ID": "c4e312cb-e734-4f0a-a5bd-1cac2535c57e",
-    "BUILDKITE_BUILD_URL": "https://buildkite.com/my-great-org/my-project/builds/15",
+    "BUILDKITE_BUILD_URL": "https://buildkite.com/my-great-org/my-pipeline/builds/15",
     "BUILDKITE_AGENT_NAME": "ci-1",
     "BUILDKITE_SCRIPT_PATH": "buildkite-agent pipeline upload",
     "BUILDKITE_BUILD_NUMBER": "15",
-    "BUILDKITE_PROJECT_SLUG": "my-great-org/my-project",
+    "BUILDKITE_ORGANIZATION_SLUG": "my-great-org",
+    "BUILDKITE_PIPELINE_SLUG": "my-pipeline",
     "BUILDKITE_PULL_REQUEST": "false",
     "BUILDKITE_BUILD_CREATOR": "Keith Pitt",
     "BUILDKITE_REPO_SSH_HOST": "github.com",
     "BUILDKITE_ARTIFACT_PATHS": "",
-    "BUILDKITE_PROJECT_PROVIDER": "github",
+    "BUILDKITE_PIPELINE_PROVIDER": "github",
     "BUILDKITE_BUILD_CREATOR_EMAIL": "keith@buildkite.com",
     "BUILDKITE_AGENT_META_DATA_LOCAL": "true"
   }

@@ -6,7 +6,7 @@ In addition to defining your build pipelines via the web you can use your Buildk
 
 ## Getting started
 
-To get started on a new project create a single step in your project’s build pipeline and have it run `buildkite-agent pipeline upload`:
+To get started on a new pipeline create a single step and have it run `buildkite-agent pipeline upload`:
 
 <%= image("pipeline-upload-step.png", width: 1080/2, height: 532/2) %>
 
@@ -76,9 +76,9 @@ steps:
 
 ## Dynamic pipelines
 
-You can generate pipelines dynamically from your source code thanks to the fact that pipelines are uploaded by running a command on one of your Buildkite agents. This provides you with a large amount of flexiblity to structure your projects as you wish.
+You can generate pipelines dynamically from your source code thanks to the fact that pipelines are uploaded by running a command on one of your Buildkite agents. This provides you with a large amount of flexiblity to structure your pipelines as you wish.
 
-For example you could generate a list of parallel test steps based upon the `test/*` directories within your repository. To do this you'd have a single step in your project settings:
+For example you could generate a list of parallel test steps based upon the `test/*` directories within your repository. To do this you'd have a single step in your pipeline settings:
 
 ```
 ./scripts/buildkite_test_pipeline | buildkite-agent pipeline upload
@@ -89,7 +89,7 @@ The `scripts/buildkite_test_pipeline` would be an executable file checked into y
 ```
 #!/bin/bash
 
-# Generates a pipeline step for each test directory, allowing the tests to be 
+# Generates a pipeline step for each test directory, allowing the tests to be
 # split up and run across distributed build agents
 
 set -eu
@@ -141,7 +141,7 @@ Options:
    --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
-## Migrating existing projects
+## Migrating existing pipelines
 
 To migrate to checked in pipelines without interrupting existing branches you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
 
@@ -155,4 +155,4 @@ If the pipeline file exists then we execute the `pipeline upload --replace` comm
 
 ## Controlling Concurrency
 
-To control concurrency for a particular type of job specify a `concurrency_group` identifier (e.g. `"deploy"`) and a `concurrency` value (e.g. as `1`). The identifier is used across all of the project’s builds to identify and throttle the number of jobs running simulatenously.
+To control concurrency for a particular type of job specify a `concurrency_group` identifier (e.g. `"deploy"`) and a `concurrency` value (e.g. as `1`). The identifier is used across all of the pipeline’s builds to identify and throttle the number of jobs running simulatenously.

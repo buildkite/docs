@@ -32,19 +32,19 @@ See the [meta-data documentation](agent-meta-data) for more details.
 
 If you customized your `bootstrap.sh` file you should now switch to using hooks to achieve the same results. See our [hooks documentation](hooks) for details on the hooks available.
 
-## Upgrading each project
+## Upgrading each pipeline
 
-We recommend upgrading one project at a time to the new agents. This is because you'll need to update your build pipelines to use agent targeting, rather than selecting the individual agents.
+We recommend upgrading one pipeline at a time to the new agents. This is because you'll need to update your build pipelines to use agent targeting, rather than selecting the individual agents.
 
 To update the agent on a build machine we recommend stopping the agent, removing all the files, and following the [install instructions for your platform](installation).
 
-Once you have the new agent running, update your project’s build pipeline steps to target the new agent, and trigger a build.
+Once you have the new agent running, update your pipeline’s build pipeline steps to target the new agent, and trigger a build.
 
 ## Upgrading a pre-1.0 agent
 
 All agents prior to v2 (including the old Buildbox Ruby agents) are deprecated and will stop executing new jobs on December 12th 2015.
 
-To upgrade you simply install the a new 2.0 agent using the [standard installation methods](/docs/agent/installation) and migrate each project to target the new agents.
+To upgrade you simply install the a new 2.0 agent using the [standard installation methods](/docs/agent/installation) and migrate each pipeline to target the new agents.
 
 To make installation easy we’ve created packages for each of the major operating systems.
 

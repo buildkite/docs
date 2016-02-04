@@ -1,6 +1,6 @@
 # Getting Started
 
-This guide will help you setup your first Buildkite project. If you don’t have a Buildkite account you’ll first need to [sign up](<%= url_helpers.signup_path %>). We’ll use GitHub but Buildkite can work with any version control system.
+This guide will help you setup your first Buildkite pipeline. If you don’t have a Buildkite account you’ll first need to [sign up](<%= url_helpers.signup_path %>). We’ll use GitHub but Buildkite can work with any version control system.
 
 <%= toc %>
 
@@ -10,15 +10,15 @@ Once you’ve logged in, follow the instructions on the Agents page to install a
 
 <%= image "start-agent.png", size: '610x165', alt: 'Buildkite agent setup buttons' %>
 
-## Add the sample project
+## Add the sample pipeline
 
-We’ve created a simple [bash-example test repository](https://github.com/buildkite/bash-example) to use as your first project. The magical setup button below will open a new project page for the example project, with a build pipeline containing a single step (“:hammer: Test”) which will run using the agent you started:
+We’ve created a simple [bash-example test repository](https://github.com/buildkite/bash-example) to use as your first pipeline. The magical setup button below will open a new pipeline page for the example pipeline, with a build pipeline containing a single step (“:hammer: Test”) which will run using the agent you started:
 
-<a class="Link--faded-on-white Link--outline Link--no-underline Link--inline-block" href="/new?template=https://github.com/buildkite/bash-example" target="__blank">Add Bash Example project to Buildkite</a>
+<a class="Link--faded-on-white Link--outline Link--no-underline Link--inline-block" href="/new?template=https://github.com/buildkite/bash-example" target="__blank">Add Bash Example to Buildkite</a>
 
 ## Create your first build
 
-Now that you’ve started an agent and created a project you’re ready to run your first build. Click the *New Build* button in the top right corner:
+Now that you’ve started an agent and created a pipeline you’re ready to run your first build. Click the *New Build* button in the top right corner:
 
 <%= image "new-build.png", size: "251x52", alt: "New build button" %>
 
@@ -36,8 +36,8 @@ Congratulations, you’ve just run your first Buildkite build! :tada:
 
 To invite your team so they can see your build, go to your organization’s *Settings*, and under *Members* you’ll be able to paste in their email addresses.
 
-## Adding a private project
+## Adding a private pipeline
 
-When you create a new project with a private repository URL you’ll be shown instructions for configuring your SCM’s webhooks (in GitHub, BitBucket, etc). Once you’ve followed those instructions make sure your [agent’s SSH keys](/docs/agent/ssh-keys) are configured, and you’ll be good to run a build of your private project.
+When you create a new pipeline with a private repository URL you’ll be shown instructions for configuring your SCM’s webhooks (in GitHub, BitBucket, etc). Once you’ve followed those instructions make sure your [agent’s SSH keys](/docs/agent/ssh-keys) are configured, and you’ll be good to run a build of your private pipeline.
 
-For a non-trivial project a good idea is to use your development machine as the agent for your first few builds. That way all the dependencies are ready and you’ll sooner be able to share a link to a green build with the rest of your team.
+For a non-trivial pipeline a good idea is to use your development machine as the agent for your first few builds. That way all the dependencies are ready and you’ll sooner be able to share a link to a green build with the rest of your team.

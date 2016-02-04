@@ -55,30 +55,30 @@ You'd then add this key to the user’s settings on [GitHub](/docs/guides/github
 
 ## Creating multiple SSH keys
 
-If you need to use multiple SSH keys for different projects, we support a special repository hostname format which you can use with your `~/.ssh/config`.
+If you need to use multiple SSH keys for different pipelines, we support a special repository hostname format which you can use with your `~/.ssh/config`.
 
-To use a different key for a given project, first change the repository hostname in your Buildkite project settings from `server.com` to `server.com-myproject`, and then add an entry to the SSH config file on your agent machine for the host `server.com-myproject` and specify your custom SSH key.
+To use a different key for a given pipeline, first change the repository hostname in your Buildkite pipeline settings from `server.com` to `server.com-mypipeline`, and then add an entry to the SSH config file on your agent machine for the host `server.com-mypipeline` and specify your custom SSH key.
 
-For example, if you had a project repository URL of `git@github.com:org/project-1.git` you would change it in your Buildkite repository settings to `git@github.com-project-1:org/project-1.git` and create the following SSH config file:
+For example, if you had a pipeline repository URL of `git@github.com:org/pipeline-1.git` you would change it in your Buildkite repository settings to `git@github.com-pipeline-1:org/pipeline-1.git` and create the following SSH config file:
 
 ```
-Host github.com-project-1
+Host github.com-pipeline-1
   HostName github.com
-  IdentityFile /var/lib/buildkite-agent/.ssh/id_rsa.project-1
+  IdentityFile /var/lib/buildkite-agent/.ssh/id_rsa.pipeline-1
 ```
 
-The following example shows how to create the corresponding project-specific SSH key:
+The following example shows how to create the corresponding pipeline-specific SSH key:
 
 ```bash
 $ sudo su buildkite-agent # or whichever user your agent runs as
 $ cd ~/.ssh
-$ ssh-keygen -t rsa -b 4096 -C "dev+build-project-1@myorg.com"
+$ ssh-keygen -t rsa -b 4096 -C "dev+build-pipeline-1@myorg.com"
 Generating public/private rsa key pair.
-Enter file in which to save the key (/var/lib/buildkite-agent/.ssh/id_rsa): id_rsa.project-1
+Enter file in which to save the key (/var/lib/buildkite-agent/.ssh/id_rsa): id_rsa.pipeline-1
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
-Your identification has been saved in id_rsa.project-1.
-Your public key has been saved in id_rsa.project-1.pub.
+Your identification has been saved in id_rsa.pipeline-1.
+Your public key has been saved in id_rsa.pipeline-1.pub.
 The key fingerprint is:
 e4:60:69:a3:a0:63:bb:27:e6:ff:53:d3:4a:06:7f:e4 dev@org.com
 The key's randomart image is:
@@ -94,7 +94,7 @@ The key's randomart image is:
 |oo+....          |
 +-----------------+
 $ ls
-id_rsa.project-1  id_rsa.project-1.pub
+id_rsa.pipeline-1  id_rsa.pipeline-1.pub
 ```
 
 ## Using multiple keys with ssh-agent
@@ -109,10 +109,10 @@ For example, if you set up `ssh-agent` like so:
 $ sudo su buildkite-agent
 $ ssh-agent -a ~/.ssh/ssh-agent.sock
 $ export SSH_AUTH_SOCK=/var/lib/buildkite-agent/.ssh/ssh-agent.sock
-$ ssh-add ~/.ssh/id_rsa-project-1
-Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-project-1
-$ ssh-add ~/.ssh/id_rsa-project-2
-Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-project-2
+$ ssh-add ~/.ssh/id_rsa-pipeline-1
+Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-pipeline-1
+$ ssh-add ~/.ssh/id_rsa-pipeline-2
+Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-pipeline-2
 ```
 
 Then you will need the following environment [agent hook](/docs/agent/hooks) so that the build’s git operations use the `ssh-agent` socket:

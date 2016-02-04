@@ -4,7 +4,7 @@
 
 ## List all builds
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and projects. If using token-based authentication the list of builds will be for the authorized organizations only.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines. If using token-based authentication the list of builds will be for the authorized organizations only.
 
 ```bash
 curl "https://api.buildkite.com/v1/builds"
@@ -20,7 +20,7 @@ Success response: `200 OK`
 
 ## List builds for an organization
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of an account’s builds across all of an organization’s projects.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an account’s builds across all of an organization’s pipelines.
 
 ```bash
 curl "https://api.buildkite.com/v1/organizations/{org.slug}/builds"
@@ -34,20 +34,20 @@ Required scope: `read_builds`
 
 Success response: `200 OK`
 
-## List builds for a project
+## List builds for a pipeline
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a project’s builds.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline’s builds.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds"
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
 ```
 
 ```json
 [
   {
     "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
-    "web_url": "https://buildkite.com/my-great-org/my-project/builds/1",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
     "number": 1,
     "state": "passed",
     "message": "Bumping to version 0.2-beta.6",
@@ -69,9 +69,9 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.sl
         "name": "scripts/build.sh",
         "agent_query_rules": ["*"],
         "state": "passed",
-        "web_url": "https://buildkite.com/my-great-org/my-project/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-        "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-        "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+        "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+        "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
         "command": "scripts/build.sh",
         "exit_status": 0,
         "artifact_paths": "",
@@ -91,18 +91,18 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.sl
     "started_at": "2015-05-09T21:05:59.874Z",
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
-    "project": {
+    "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-      "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
-      "web_url": "https://buildkite.com//my-great-org/my-project",
-      "name": "great-project",
-      "slug": "great-project",
-      "repository": "git@github.com:my-great-org/my-project",
+      "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline",
+      "name": "great-pipeline",
+      "slug": "great-pipeline",
+      "repository": "git@github.com:my-great-org/my-pipeline",
       "provider": {
         "id": "github",
         "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
       },
-      "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+      "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_builds_count": 0,
       "running_builds_count": 0,
@@ -125,14 +125,14 @@ Success response: `200 OK`
 ## Get a build
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{number}"
+curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}"
 ```
 
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-project/builds/1",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "passed",
   "message": "Bumping to version 0.2-beta.6",
@@ -154,9 +154,9 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.sl
       "name": "scripts/build.sh",
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-project/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "exit_status": 0,
       "artifact_paths": "",
@@ -190,17 +190,17 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.sl
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
-  "project": {
+  "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
-    "name": "Great Project",
-    "slug": "great-project",
-    "repository": "git@github.com:my-great-org/my-project",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+    "name": "Great Pipeline",
+    "slug": "great-pipeline",
+    "repository": "git@github.com:my-great-org/my-pipeline",
     "provider": {
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
     },
-    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
     "created_at": "2013-09-03 13:24:38 UTC",
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
@@ -218,7 +218,7 @@ Success response: `200 OK`
 ## Create a build
 
 ```bash
-curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds" \
+curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
   -d '{
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
     "branch": "master",
@@ -240,8 +240,8 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pr
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-project/builds/1",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "scheduled",
   "message": "Testing all the things \:rocket\:",
@@ -263,9 +263,9 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pr
       "name": "scripts/build.sh",
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-project/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "exit_status": 0,
       "artifact_paths": "",
@@ -299,17 +299,17 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pr
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
-  "project": {
+  "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
-    "name": "Great Project",
-    "slug": "great-project",
-    "repository": "git@github.com:my-great-org/my-project",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+    "name": "Great Pipeline",
+    "slug": "great-pipeline",
+    "repository": "git@github.com:my-great-org/my-pipeline",
     "provider": {
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
     },
-    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
     "created_at": "2013-09-03 13:24:38 UTC",
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
@@ -325,7 +325,7 @@ Required properties:
 <table>
 <tbody>
   <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code></td></tr>
-  <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your project and step-level branch filtering rules.<br><em>Example:</em> <code>"master"</code></td></tr>
+  <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"master"</code></td></tr>
   <tr><th><code>message</code></th><td>Message for the build.<br><em>Example:</em> <code>"Testing all the things \:rocket\:"</code></td></tr>
 </tbody>
 </table>
@@ -337,7 +337,7 @@ Optional properties:
   <tr><th><code>author</code></th><td>A hash with a <code>"name"</code> and <code>"email"</code> key to show who created this build.<br><em>Default value: the user making the API request</em>.</td></tr>
   <tr><th><code>env</code></th><td>Environment variables to be made available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
   <tr><th><code>meta_data</code></th><td>A hash of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
-  <tr><th><code>ignore_project_branch_filters</code></th><td>Run the build regardless of the project’s branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
+  <tr><th><code>ignore_pipeline_branch_filters</code></th><td>Run the build regardless of the pipeline’s branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
 </tbody>
 </table>
 
@@ -359,14 +359,14 @@ Error responses:
 Cancels the build if it's state is either `scheduled` or `running`.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{number}/cancel"
+curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
 ```
 
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-project/builds/1",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "cancelled",
   "message": "Bumping to version 0.2-beta.6",
@@ -388,9 +388,9 @@ curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pro
       "name": "scripts/build.sh",
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-project/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "exit_status": 0,
       "artifact_paths": "",
@@ -424,17 +424,17 @@ curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pro
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
-  "project": {
+  "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
-    "name": "Great Project",
-    "slug": "great-project",
-    "repository": "git@github.com:my-great-org/my-project",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+    "name": "Great Pipeline",
+    "slug": "great-pipeline",
+    "repository": "git@github.com:my-great-org/my-pipeline",
     "provider": {
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
     },
-    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
     "created_at": "2013-09-03 13:24:38 UTC",
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
@@ -462,14 +462,14 @@ Error responses:
 Returns the newly created build.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{project.slug}/builds/{number}/rebuild"
+curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/rebuild"
 ```
 
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-project/builds/1",
+  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 2,
   "state": "scheduled",
   "message": "Bumping to version 0.2-beta.6",
@@ -491,9 +491,9 @@ curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pro
       "name": "scripts/build.sh",
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-project/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "exit_status": 0,
       "artifact_paths": "",
@@ -527,17 +527,17 @@ curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/projects/{pro
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
-  "project": {
+  "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project",
-    "name": "Great Project",
-    "slug": "great-project",
-    "repository": "git@github.com:my-great-org/my-project",
+    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+    "name": "Great Pipeline",
+    "slug": "great-pipeline",
+    "repository": "git@github.com:my-great-org/my-pipeline",
     "provider": {
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
     },
-    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/projects/my-project/builds",
+    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
     "created_at": "2013-09-03 13:24:38 UTC",
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
