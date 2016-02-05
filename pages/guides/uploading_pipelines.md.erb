@@ -14,7 +14,7 @@ This command will expect a file located at `.buildkite/pipeline.yml` within your
 
 ```yml
 steps:
-  - name: Example Test
+  - label: Example Test
     command: echo "Hello!"
 ```
 
@@ -41,7 +41,7 @@ A more complicated example of a script step, showing all the possible configurat
 ```yml
 steps:
   - command: deploy.sh
-    name: Deploy
+    label: Deploy
     branches: master
     env:
       FOO: bar
@@ -69,8 +69,8 @@ A *blocker* step will pause the pipeline and wait for a team member to unblock i
 ```yml
 steps:
   - command: command.sh
-  - block
-      name: ":rocket: Deploy"
+  - block:
+      label: ":rocket: Deploy"
   - command: deploy.sh
 ```
 
