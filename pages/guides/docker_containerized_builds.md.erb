@@ -1,12 +1,12 @@
 # Containerized Builds with Docker
 
-The Buildkite Agent ships with built-in support for running your builds in Docker containers. Running your builds with Docker allows each project to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallelizing-builds).
+The Buildkite Agent ships with built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallelizing-builds).
 
 <%= toc %>
 
 ## Creating a Docker Compose config
 
-For Docker-based builds we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each project to define it’s own `docker-compose.yml` with dependent containers and environment variables to be passed through.
+For Docker-based builds we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define it’s own `docker-compose.yml` with dependent containers and environment variables to be passed through.
 
 Here's a example of a docker-compose.yml file for Ruby on Rails application that depends on Postgres, Redis and Memcache:
 
@@ -67,7 +67,7 @@ Once you've got everything working, you can configure your build pipeline and ru
 
 ## Configuring the build step
 
-Firstly we need to add the following environment variable to our build, either on an individual build step or as a project-level environment variable:
+Firstly we need to add the following environment variable to our build, either on an individual build step or as a pipeline-level environment variable:
 
 ```bash
 BUILDKITE_DOCKER_COMPOSE_CONTAINER=app
@@ -97,7 +97,7 @@ We recommend running [docker-gc](https://github.com/spotify/docker-gc) or simila
 
 ## Docker without Docker Compose
 
-The Buildkite Agent also has support for running builds for projects that only need a single container and Dockerfile to run. To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
+The Buildkite Agent also has support for running builds for pipelines that only need a single container and Dockerfile to run. To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
 
 ```
 BUILDKITE_DOCKER=true

@@ -17,7 +17,7 @@
 <table>
 <tbody>
   <tr><th><code>build</code></th><td>The <a href="/docs/api/builds">Build</a> this notification relates to</td></tr>
-  <tr><th><code>project</code></th><td>The <a href="/docs/api/projects">Project</a> this notification relates to</td></tr>
+  <tr><th><code>pipeline</code></th><td>The <a href="/docs/api/pipelines">Pipeline</a> this notification relates to</td></tr>
   <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
 </tbody>
 </table>
@@ -29,7 +29,7 @@ Example request body:
   "build": {
     "...": "..."
   },
-  "project": {
+  "pipeline": {
     "...": "..."
   },
   "sender": {

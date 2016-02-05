@@ -1,4 +1,4 @@
-# Access Tokens API 
+# Access Tokens API
 
 <%= toc %>
 
@@ -11,7 +11,7 @@ Creates an access token for the given developer application.
 You must use basic authentication with the user’s email address and password as the username and password.
 
 ```bash
-curl -u "user@email.com" -X POST "https://api.buildkite.com/v1/access_tokens" \
+curl -u "user@email.com" -X POST "https://api.buildkite.com/v2/access_tokens" \
   -d '{
     "client_id": "xxx",
     "scopes": [ "scope_1", "scope_2" ]

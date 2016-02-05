@@ -1,16 +1,16 @@
 # Branch Configuration
 
-You can use branch patterns to ensure builds are only triggered when necessary. This guide shows you how to setup branch patterns for whole projects and individual build steps.
+You can use branch patterns to ensure builds are only triggered when necessary. This guide shows you how to setup branch patterns for whole pipelines and individual build steps.
 
 <%= toc %>
 
-## Project branch filtering
+## Pipeline branch filtering
 
-By default a project will trigger builds for all branches (`*` or simply left blank). In your project settings you can set specific branch patterns for the entire project. If a commit doesn't match the branch pattern, no build will be created.
+By default a pipeline will trigger builds for all branches (`*` or simply left blank). In your pipeline settings you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build will be created.
 
 ## Build step branch filtering
 
-Similarly to project settings, you can set branch patterns on individual build steps. If the commit doesn't match the branch pattern then the build step will be skipped.
+Similarly to pipeline settings, you can set branch patterns on individual build steps. If the commit doesn't match the branch pattern then the build step will be skipped.
 
 <%= image "job-branches.png" %>
 

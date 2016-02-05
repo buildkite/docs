@@ -72,7 +72,7 @@ You can safely run multiple agents on a single machine, though you’ll still ne
 
 We've provided a number of APIs to allow you to automatically scale your build agents based on build queue.
 
-* Using the [Projects API](/docs/api/projects) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Based on this you can spin up new agent machines to process the jobs waiting to be run.
+* Using the [Pipelines API](/docs/api/pipelines) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Based on this you can spin up new agent machines to process the jobs waiting to be run.
 * Using [agent prioritization](/docs/agent/prioritization) you’ll able to define a core set up agents that are assigned work first, and then lower priority agents which you may spin up and spin down on demand.
 * Using the [Agents API](docs/api/agents) you’re able to fetch your agent’s `job` and `last_job_finished_at`, which allow you to see if they have been idle. You can then remotely shut down an agent process using the [agent stop API](/docs/api/agents#stop-an-agent) (passing `"force": false` to ensure it won’t cancel any running job).
 

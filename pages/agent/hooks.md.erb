@@ -1,6 +1,6 @@
 # Buildkite Agent Hooks
 
-Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create a global `checkout` hook which speeds up a fresh `git clone` on a new build machine, a global `environment` hook which exports secret API keys as environment variables, or a project-level `command` hook which runs the project’s steps inside a custom containerized environment.
+Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create a global `checkout` hook which speeds up a fresh `git clone` on a new build machine, a global `environment` hook which exports secret API keys as environment variables, or a pipeline-level `command` hook which runs the pipeline’s steps inside a custom containerized environment.
 
 
 <%= toc %>
@@ -12,7 +12,7 @@ Every agent installer comes with a hooks directory which can be used to override
 
 ## Overview
 
-There are two types of hooks: global hooks which exist on the agent’s machine and are the same for every project, and project hooks which exist in each project’s code in a `.buildkite/hooks` directory.
+There are two types of hooks: global hooks which exist on the agent’s machine and are the same for every pipeline, and pipeline level hooks which exist in each repository in the `.buildkite/hooks` directory.
 
 ## Available Hooks
 
@@ -37,7 +37,7 @@ Hooks are called in the following order:
 
 Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](https://buildkite.com/docs/guides/environment-variables) are available to be used inside your hook scripts.
 
-The following is an example of a custom `environment` hook which exports a GitHub API key for the project’s release build step:
+The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline’s release build step:
 
 ```bash
 #!/bin/bash
@@ -67,9 +67,9 @@ Each agent installer comes with a hooks directory containing a sample set of hoo
 
 To get started with global hooks copy the relevant example script and remove the `.sample` file extension.
 
-## Project Hooks
+## Pipeline Hooks
 
-Project hooks allow you to execute project-specific scripts. Project hooks live alongside your project’s source code under the directory `.buildkite/hooks`.
+Pipeline hooks allow you to execute pipeline-specific scripts. Pipeline hooks live alongside your pipeline’s source code under the directory `.buildkite/hooks`.
 
 To get started create a `.buildkite/hooks` directory, and your hook script, and make it executable, for example:
 

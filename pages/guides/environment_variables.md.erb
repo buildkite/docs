@@ -8,23 +8,22 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 - `CI` always `true`
 - `BUILDKITE` always `true`
-- `BUILDKITE_REPO` the repository of your project `git@github.com:buildkite/buildkite.git`
+- `BUILDKITE_REPO` the repository of your pipeline `git@github.com:acme-inc/buildkite.git`
 - `BUILDKITE_BRANCH` the branch being built `master`
 - `BUILDKITE_TAG` will contain the name of the tag if this build was triggered from a tag
 - `BUILDKITE_COMMIT` the commit of the build `83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d`
 - `BUILDKITE_JOB_ID` internal UUID Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
 - `BUILDKITE_BUILD_ID` internal UUID Buildkite uses for this build `9e08ef3c-d6e6-4a86-91dd-577ce5205b8e`
-- `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/buildkite/buildkite/builds/1514`
+- `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/acme-inc/web-app/builds/1514`
 - `BUILDKITE_AGENT_NAME` name of the agent running the build `my-agent-1`
 - `BUILDKITE_COMMAND` the command that will be run for the build `script/buildkite/specs`
 - `BUILDKITE_MESSAGE` will be the message associated with the build (generally a commit message)
 - `BUILDKITE_BUILD_NUMBER` the build number `1514`
-- `BUILDKITE_PROJECT_SLUG` the account and project name on Buildkite as used in URL's `buildkite/buildkite`
-- `BUILDKITE_PROJECT_PROVIDER` the ID of the SCM provider for the project's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
+- `BUILDKITE_ORGANIZATION_SLUG` the organization name on Buildkite as used in URL's `acme-inc`
+- `BUILDKITE_PIPELINE_SLUG` the pipeline slug on Buildkite as used in URL's `web-app`
+- `BUILDKITE_PIPELINE_PROVIDER` the ID of the SCM provider for the pipeline's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
 - `BUILDKITE_PULL_REQUEST` will be the number of the pull request if this branch is a pull request. `false` if not
-- `BUILDKITE_AGENT_API_URL` the url to the private agent api `https://agent.buildkite.com/v1`
 - `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
-- `BUILDKITE_AGENT_ACCESS_TOKEN` the access token for the build `8na984f439nfa34bf8aobva4va487vba4a3498fav`
 - `BUILDKITE_BUILD_CREATOR` the name of the user who created the build
 - `BUILDKITE_BUILD_CREATOR_EMAIL` the notification email of the user who created the build
 - `BUILDKITE_CLEAN_CHECKOUT` whether the build should perform a clean checkout
