@@ -7,14 +7,14 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s pipelines.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 ```
 
 ```json
 [
   {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
     "web_url": "https://buildkite.com/my-great-org/my-pipeline",
     "name": "Great Pipeline",
     "slug": "great-pipeline",
@@ -23,23 +23,8 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines"
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
     },
-    "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
+    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
     "created_at": "2013-09-03 13:24:38 UTC",
-    "featured_build": {
-      "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-      "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-      "number": 1,
-      "state": "passed",
-      "message": "Bumping to version 0.2-beta.6",
-      "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-      "branch": "master",
-      "env": { },
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "started_at": "2015-05-09T21:05:59.874Z",
-      "finished_at": "2015-05-09T21:05:59.874Z",
-      "meta_data": { }
-    },
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
     "scheduled_jobs_count": 0,
@@ -56,13 +41,13 @@ Success response: `200 OK`
 ## Get a pipeline
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{slug}"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 ```json
 {
   "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline",
   "name": "Great Pipeline",
   "slug": "great-pipeline",
@@ -71,23 +56,8 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{slug}"
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
   },
-  "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
+  "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
   "created_at": "2013-09-03 13:24:38 UTC",
-  "featured_build": {
-    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-    "number": 1,
-    "state": "passed",
-    "message": "Bumping to version 0.2-beta.6",
-    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-    "branch": "master",
-    "env": { },
-    "created_at": "2015-05-09T21:05:59.874Z",
-    "scheduled_at": "2015-05-09T21:05:59.874Z",
-    "started_at": "2015-05-09T21:05:59.874Z",
-    "finished_at": "2015-05-09T21:05:59.874Z",
-    "meta_data": { }
-  },
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
@@ -104,7 +74,7 @@ Success response: `200 OK`
 ## Create a pipeline
 
 ```bash
-curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines" \
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
     "name": "My Pipeline",
     "repository": "git@github.com/org/pipeline.git",
@@ -145,7 +115,7 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines" \
 ```json
 {
   "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline",
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline",
   "name": "My Pipeline",
   "slug": "my-pipeline",
@@ -154,7 +124,7 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines" \
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
   },
-  "builds_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds",
+  "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
   "created_at": "2015-03-01 06:44:40 UTC",
   "steps": [
     {
@@ -201,7 +171,6 @@ curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines" \
   ],
   "env": {
   },
-  "featured_build": null,
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
@@ -250,7 +219,7 @@ Error responses:
 ## Delete a pipeline
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{slug}"
+curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```
 
 Required scope: `write_pipelines`

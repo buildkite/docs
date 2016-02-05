@@ -23,9 +23,7 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_PIPELINE_SLUG` the pipeline slug on Buildkite as used in URL's `web-app`
 - `BUILDKITE_PIPELINE_PROVIDER` the ID of the SCM provider for the pipeline's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
 - `BUILDKITE_PULL_REQUEST` will be the number of the pull request if this branch is a pull request. `false` if not
-- `BUILDKITE_AGENT_API_URL` the url to the private agent api `https://agent.buildkite.com/v1`
 - `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
-- `BUILDKITE_AGENT_ACCESS_TOKEN` the access token for the build `8na984f439nfa34bf8aobva4va487vba4a3498fav`
 - `BUILDKITE_BUILD_CREATOR` the name of the user who created the build
 - `BUILDKITE_BUILD_CREATOR_EMAIL` the notification email of the user who created the build
 - `BUILDKITE_CLEAN_CHECKOUT` whether the build should perform a clean checkout

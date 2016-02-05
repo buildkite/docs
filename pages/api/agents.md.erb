@@ -7,14 +7,14 @@
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an account’s agents.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/agents"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ```
 
 ```json
 [
   {
     "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/agents/my-agent",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
     "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
     "name": "my-agent",
     "connection_state": "connected",
@@ -37,11 +37,11 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/agents"
       "name": "rspec",
       "agent_query_rules": ["*"],
       "state": "passed",
-      "build_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50",
+      "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
       "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
-      "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
-      "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
-      "artifacts_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
+      "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
       "script_path": "sleep 1",
       "command": "sleep 1",
       "exit_status": 0,
@@ -76,13 +76,13 @@ Success response: `200 OK`
 ## Get an agent
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/agents/{id}"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```
 
 ```json
 {
   "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/agents/my-agent",
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
   "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
   "name": "my-agent",
   "connection_state": "connected",
@@ -105,11 +105,11 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/agents/{id}"
     "name": "rspec",
     "agent_query_rules": ["*"],
     "state": "passed",
-    "build_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50",
+    "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
     "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
-    "log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
-    "raw_log_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
-    "artifacts_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
+    "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
+    "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
+    "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
     "script_path": "sleep 1",
     "command": "sleep 1",
     "exit_status": 0,
@@ -130,58 +130,12 @@ Required scope: `read_agents`
 
 Success response: `200 OK`
 
-## Create an agent
-
-```bash
-curl -X POST "https://api.buildkite.com/v1/organizations/{org.slug}/agents" \
-  -d '{
-    "name" : "new-agent"
-  }'
-```
-
-```json
-{
-  "id": "0eb53761-e0ff-496e-88dc-11277dc3134c",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/agents/new-agent",
-  "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0eb53761-e0ff-496e-88dc-11277dc3134c",
-  "name": "new-agent",
-  "connection_state": "pending",
-  "access_token": "e8f7846d8b138f06d828068b623edfaa431c2782b1af709288",
-  "hostname": null,
-  "user_agent": null,
-  "creator": {
-    "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
-    "name": "Keith Pitt",
-    "email": "me@keithpitt.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-09T21:05:59.874Z"
-  },
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "job": null,
-  "last_job_finished_at": null,
-  "priority": null,
-  "meta_data": []
-}
-```
-
-Required properties:
-
-<table>
-<tbody>
-  <tr><th><code>name</code></th><td>The name of the agent.<p class="Docs__api-param-eg"><em>Example:</em> <code>"new-agent"</code></p></td></tr>
-</tbody>
-</table>
-
-Required scope: `write_agents`
-
-Success response: `201 Created`
-
 ## Stop an agent
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v1/organizations/{org.slug}/agents/{id}/stop"
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop"
 ```
 
 Optional properties:
@@ -203,19 +157,3 @@ Error responses:
   <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Can only stop connected agents" }</code></td></tr>
 </tbody>
 </table>
-
-## Delete an agent
-
-<div class="Docs__note">
-  <p>Note: This API endpoint can only delete legacy agents and should be considered deprecated.</p>
-</div>
-
-Deletes an agent from Buildkite. If the agent is running, the process will continue to run, but will not be able to communicate with the Agent API anymore.
-
-```bash
-curl -X DELETE "https://api.buildkite.com/v1/organizations/{org.slug}/agents/{id}"
-```
-
-Required scope: `write_agents`
-
-Success response: `204 No Content`

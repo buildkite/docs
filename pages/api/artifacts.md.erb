@@ -29,7 +29,7 @@ An artifact is a file uploaded by your agent during the execution of a build’s
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build’s artifacts across all of its jobs.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
 ```
 
 ```json
@@ -37,8 +37,8 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.
   {
     "id": "76365070-34d5-4104-8b91-952780f8029f",
     "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-    "download_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
     "state": "finished",
     "path": "dist/app.tar.gz",
     "dirname": "dist",
@@ -52,8 +52,8 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.
   {
     "id": "89f4ce5c-6e1d-482c-9ca6-88c050291c77",
     "job_id": "ea3cfae9-a565-4353-8a5e-16436c164e43",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7",
-    "download_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7/download",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7",
+    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7/download",
     "state": "new",
     "path": "tmp/screenshots/155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
     "dirname": "tmp/screenshots",
@@ -76,7 +76,7 @@ Success response: `200 OK`
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a job’s artifacts.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
 ```
 
 ```json
@@ -84,8 +84,8 @@ curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.
   {
     "id": "76365070-34d5-4104-8b91-952780f8029f",
     "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-    "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-    "download_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
     "state": "finished",
     "path": "dist/app.tar.gz",
     "dirname": "dist",
@@ -106,15 +106,15 @@ Success response: `200 OK`
 ## Get an artifact
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}"
 ```
 
 ```json
 {
   "id": "76365070-34d5-4104-8b91-952780f8029f",
   "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-  "url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-  "download_url": "https://api.buildkite.com/v1/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+  "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
   "state": "finished",
   "path": "dist/app.tar.gz",
   "dirname": "dist",
@@ -138,7 +138,7 @@ Returns a 302 response to a URL for downloading an artifact. The URL will be ret
 You should assume the URL returned will only be valid for 60 seconds, unless you've used your own S3 bucket where the URL will be the standard public S3 URL to the artifact object.
 
 ```bash
-curl "https://api.buildkite.com/v1/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}/download"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}/download"
 ```
 
 ```json
