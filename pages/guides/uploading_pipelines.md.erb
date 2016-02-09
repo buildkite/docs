@@ -8,9 +8,13 @@ In addition to defining your build pipelines via the web you can use your Buildk
 
 To get started on a new pipeline create a single step and have it run `buildkite-agent pipeline upload`:
 
-<%= image("pipeline-upload-step.png", width: 1080/2, height: 532/2) %>
+<%= image("pipeline-upload-step.png", width: 612/2, height: 484/2) %>
 
-This command will expect a file located at `.buildkite/pipeline.yml` within your source code. For example, here's a pipeline that simply prints “Hello!”:
+This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command.
+
+When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`.
+
+For example, here is a pipeline that simply prints “Hello!”:
 
 ```yml
 steps:
@@ -18,7 +22,7 @@ steps:
     command: echo "Hello!"
 ```
 
-To test your new `pipeline.yml` simply commit and push the file, and run a new build:
+To test your new `.buildkite/pipeline.yml` simply commit the file, push the commit, and run a new build:
 
 <%= image("show-example-test.png", width: 422/2, height: 270/2) %>
 
