@@ -18,7 +18,7 @@ For example, here is a pipeline that simply prints “Hello!”:
 
 ```yml
 steps:
-  - label: Example Test
+  - name: Example Test
     command: echo "Hello!"
 ```
 
@@ -45,7 +45,7 @@ A more complicated example of a script step, showing all the possible configurat
 ```yml
 steps:
   - command: deploy.sh
-    label: Deploy
+    name: Deploy
     branches: master
     env:
       FOO: bar
@@ -74,7 +74,7 @@ A *blocker* step will pause the pipeline and wait for a team member to unblock i
 steps:
   - command: command.sh
   - block:
-      label: ":rocket: Deploy"
+      name: ":rocket: Deploy"
   - command: deploy.sh
 ```
 
