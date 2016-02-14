@@ -14,18 +14,6 @@ https://cc.buildkite.com/[organization-slug].xml?access_token=xxx
 
 You’ll need to [create an API Access Token](<%= url_helpers.user_access_tokens_url %>) with scope `read_builds`.
 
-<% if current_user %>
-<% accounts = current_user.accounts.chronological %>
-<% if accounts.length == 1 %>
-The cc.xml feed URL for your organization is:
-<% else %>
-The cc.xml feed URLs for your organizations are:
-<% end %>
-
-<% for account in current_user.accounts.chronological %>
-* `https://cc.buildkite.com/<%= account.slug %>.xml?access_token=xxx`<% end %>
-<% end %>
-
 <%= image "ccmenu.png", width: 481, height: 490 %>
 
 ## Filtering by pipeline
