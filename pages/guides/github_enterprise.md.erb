@@ -73,6 +73,47 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Installation
 
 ## Firewalled Installs
 
-If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network to perform oAuth authentication and post to the Commit Status API.
+If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network so we can perform oAuth authentications and call to the API to update your pull request statuses.
 
-The IP address you’ll need to whitelist is `54.165.103.71`
+Whitelist the IP address `54.165.103.71` to allow Buildkite to perform API calls on your Github Enterprise instance.
+
+For additional security you can create a proxy which allows only the API endpoints we require:
+
+* `/api/v3/repos/.*/.*/statuses`
+* `/api/v3/user`
+* `/login/oauth`
+
+The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the "Public API URL" Github Enterprise setting in Buildkite:
+
+```nginx
+daemon off;
+
+events {
+  worker_connections 1024;
+}
+
+http {
+
+  server {
+    listen 443 ssl;
+
+    location / {
+      allow 54.165.103.71;
+      deny all;
+    }
+
+    location ^~ /api/v3/repos/.*/.*/statuses {
+      proxy_pass https://ghe.internal:443;
+    }
+
+    location /api/v3/user {
+      proxy_pass https://ghe.internal:443;
+    }
+
+    location /login/oauth {
+      proxy_pass https://ghe.internal:443;
+    }
+
+  }
+}
+```
