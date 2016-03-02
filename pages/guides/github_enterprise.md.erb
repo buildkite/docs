@@ -102,7 +102,7 @@ http {
       deny all;
     }
 
-    location ^~ /api/v3/repos/.*/.*/statuses {
+    location ~ ^/api/v3/repos/.*/.*/statuses {
       proxy_pass https://ghe.internal:443;
     }
 
