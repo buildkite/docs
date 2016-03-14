@@ -11,25 +11,27 @@ For Docker-based builds we recommend using [Docker Compose](https://docs.docker.
 Here's a example of a docker-compose.yml file for Ruby on Rails application that depends on Postgres, Redis and Memcache:
 
 ```yml
-app:
-  build: .
-  volumes:
-    - ./:/app
-  links:
-    - db
-    - redis
-    - memcache
-  environment:
-    PGHOST: db
-    PGUSER: postgres
-    REDIS_URL: redis://redis
-    MEMCACHE_SERVERS: memcache
-db:
-  image: postgres
-redis:
-  image: redis
-memcache:
-  image: tutum/memcached
+version: '2'
+services:
+  db:
+    image: postgres
+  redis:
+    image: redis
+  memcache:
+    image: tutum/memcached
+  app:
+    build: .
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+      - redis
+      - memcache
+    environment:
+      PGHOST: db
+      PGUSER: postgres
+      REDIS_URL: redis://redis
+      MEMCACHE_SERVERS: memcache
 ```
 
 **NOTE:** The `Dockerfile` must include a `WORKDIR` directive matching the mount point of the app. So you would use `WORKDIR /app` in the example above.
@@ -39,18 +41,20 @@ Mounting `.` (the directory of current build) as a volume in the container allow
 Another example of a production docker-compose configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
 
 ```
-app:
-  build: .
-  volumes:
-    - ./:/go/src/github.com/buildkite/agent
-    - /usr/bin/buildkite-agent:/usr/bin/buildkite-agent
-  environment:
-    - BUILDKITE_AGENT_ACCESS_TOKEN
-    - BUILDKITE_JOB_ID
-    - BUILDKITE_BUILD_ID
-    - BUILDKITE_BUILD_NUMBER
-    - GITHUB_RELEASE_ACCESS_TOKEN
-    - DOCKER_HUB_TRIGGER_TOKEN
+version: '2'
+services:
+  app:
+    build: .
+    volumes:
+      - .:/go/src/github.com/buildkite/agent
+      - /usr/bin/buildkite-agent:/usr/bin/buildkite-agent
+    environment:
+      - BUILDKITE_AGENT_ACCESS_TOKEN
+      - BUILDKITE_JOB_ID
+      - BUILDKITE_BUILD_ID
+      - BUILDKITE_BUILD_NUMBER
+      - GITHUB_RELEASE_ACCESS_TOKEN
+      - DOCKER_HUB_TRIGGER_TOKEN
 ```
 
 The above example has an additional volume: the `buildkite-agent` binary itself, so the build scripts can use the `buildkite-agent artifact` and `buildkite-agent meta-data` commands. It also passes through environment variables needed for the artifact command, as well as two secret keys set up by an [environment hook](/docs/agent/hooks).
