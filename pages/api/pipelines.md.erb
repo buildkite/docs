@@ -226,7 +226,6 @@ Optional properties:
 
 <table>
 <tbody>
-  <tr><th><code>slug</code></th><td>The URL slug for the pipeline, which must be unique across the organization.<p class="Docs__api-param-eg"><em>Example:</em> <code>"new-pipeline"</code></p><p class="Docs__api-param-eg"><em>Default value: generated from the name.</em></p></td></tr>
   <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
   <tr><th><code>provider_settings</code></th><td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"provider_settings": { "publish_commit_status": true, "build_pull_request_forks": true }}</code></p></td>
 </tbody>
@@ -305,7 +304,6 @@ Optional properties:
 <table>
 <tbody>
   <tr><th><code>name</code></th><td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td></tr>
-  <tr><th><code>slug</code></th><td>The URL slug for the pipeline, which must be unique across the organization.<p class="Docs__api-param-eg"><em>Example:</em> <code>"new-pipeline"</code></p><p class="Docs__api-param-eg"><em>Default value: generated from the name.</em></p></td></tr>
   <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td></tr>
   <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
   <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
