@@ -77,6 +77,15 @@ You can set the page using the following query string parameters:
 </tbody>
 </table>
 
+## CORS Headers
+
+API responses include the following [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS), allowing you to use the API directly from the browser:
+
+* `Access-Controller-Allow-Origin: *`
+* `Access-Control-Expose-Headers: Link`
+
+For an example of this in use, see the [Emojis API example on CodePen](http://codepen.io/toolmantim/pen/xbQRaL) for adding emoji support to your own browser-based dashboards and build screens.
+
 ## Migrating from v1 to v2
 
 The following changes were made in v2 of our API:
