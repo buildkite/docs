@@ -11,8 +11,8 @@
       <p class="Docs__api-param-eg">
         <em>Valid states:</em> <%= API::Resources::BuildsList::SEARCHABLE_STATES.map { |x| "<code>#{x}</code>" }.join(", ").html_safe %>
       </p>
-      <p class="Docs__api-param-eg"><em>Single state example:</em> <code>?state=passed</code></p>
-      <p class="Docs__api-param-eg"><em>Many states example:</em> <code>?state[]=scheduled&state[]=running</code></p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?state=passed</code> returns all <code>passed</code> builds</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?state[]=scheduled&state[]=running</code> returns all <code>scheduled</code> and <code>running</code> builds</p>
     </td>
   </tr>
   <tr><th><code>meta_data</code></th><td>Filters the results by the given meta_data.<p class="Docs__api-param-eg"><em>Example:</em> <code>?meta_data[some-key]=some-value</code></p></td></tr>
@@ -22,8 +22,8 @@
     </th>
     <td>
       <span>Filters the results by the given branch or branches.</span>
-      <p class="Docs__api-param-eg"><em>Single branch example:</em> <code>?branch=master</code></p>
-      <p class="Docs__api-param-eg"><em>Many branches example:</em> <code>?branch[]=master&branch[]=testing</code></p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=master</code> returns all builds on the <code>master</code> branch</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch[]=master&branch[]=testing</code> returns all builds on <code>master</code> and <code>testing</code> branches</p>
     </td>
   </tr>
 </tbody>
