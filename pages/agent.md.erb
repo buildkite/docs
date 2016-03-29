@@ -48,4 +48,4 @@ The agent’s behaviour can be customized using hooks, which are just shell scri
 
 ## Signal Handling
 
-When a build job is canceled the agent will send the build job process a `SIGKILL` signal to allow it to gracefully exit. If the process does not exit within 10 seconds it will be forcefully terminated with a `SIGTERM` signal.
+When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit. If the process does not exit within 10 seconds it will be forcefully terminated with a `SIGKILL` signal.
