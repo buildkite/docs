@@ -20,9 +20,9 @@ And now verify it installed aok:
 $ heroku help
 ```
 
-Next step is to login to the toolbelt as a Heroku user. We recommend creating a new user in Heroku just for this machine (a “machine user”). Creating a machine user in Heroku is simply: you simply sign up a new user and then add them as a collaborator to the Heroku application.
+Next step is to login to the toolbelt as a Heroku user. We recommend creating a new user in Heroku just for this machine (a “machine user”). Creating a machine user in Heroku is simple: sign up to Heroku as a new user and then add that user as a collaborator to the Heroku application.
 
-If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is `buildkite-agent`) and then run the heroku login command:
+If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
 
 ```bash
 $ sudo su buildkite-agent
@@ -54,7 +54,7 @@ Once you’ve saved the pipeline settings the final step is to push a commit to 
 
 ## Post-deploy scripts
 
-If you want to run post-deploy tasks on Heroku, simply add another waiter step and then a new command step that runs your command. For example:
+If you want to run post-deploy tasks on Heroku simply a waiter and another command step, for example:
 
 ```bash
 heroku git:remote --app my-app
@@ -65,4 +65,4 @@ heroku run echo "A post-deploy command"
 
 Heroku has support for [automatically deploying from GitHub](https://devcenter.heroku.com/articles/github-integration) once your branch or pull request commit statuses are marked as passing. Unfortunately this doesn’t yet work for Buildkite commit statuses.
 
-We’re working with Heroku to make this work with Buildkite and GitHub but for the moment you’ll need to use the above method to trigger builds from Buildkite pipelines.
+We’re working with Heroku to make this work with Buildkite and GitHub, but for the moment you’ll need to use the above method to trigger your deployments.
