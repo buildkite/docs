@@ -4,61 +4,65 @@ It’s easy to test and deploy [Heroku](https://heroku.com/) applications from y
 
 <%= toc %>
 
-## Using the Heroku toolbelt
+## Setting up the Heroku toolbelt
 
-You can deploy to Heroku using the same `git push` command you’d run from your development machine. The only difference is that your agent will be doing the `git push` for you from within a Buildkite job.
+You can deploy to Heroku using the same `git push` command you’d run from your development machine.
 
-### Setting up the Heroku toolbelt
-
-First step is installing the toolbelt on your Buildkite agent machine:
+First step is installing the [Heroku Toolbelt](https://toolbelt.heroku.com) on your Buildkite agent machine. For example, this is how you’d do it on a linux agent machine:
 
 ```bash
 $ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 ```
 
-Once that’s installed you’ll need to authorize as a Heroku user. We recommend setting up a Heroku user just for this machine (a “machine user”), and adding the user as a collaborator in Heroku.
+And now verify it installed aok:
 
-Once you’re ready to authorize the new Heroku user on your build machine, run the login command as your buildkite-agent user (which for most packages is `buildkite-agent`):
+```bash
+$ heroku help
+```
+
+Next step is to login to the toolbelt as a Heroku user. We recommend creating a new user in Heroku just for this machine (a “machine user”). Creating a machine user in Heroku is simply: you simply sign up a new user and then add them as a collaborator to the Heroku application.
+
+If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is `buildkite-agent`) and then run the heroku login command:
 
 ```bash
 $ sudo su buildkite-agent
 $ heroku login
 ```
 
-You’re now ready to run the `heroku` command from your Buildkite pipeline.
+You’re now ready to run `heroku` commands in your Buildkite pipelines! :tada:
 
-### Setting up your build pipeline
+## Setting up your build pipeline
 
-We want to wait for our steps to pass before deploying to Heroku. First we’ll add a waiter, and then we’ll add a command step only for the `master` branch and have it run the following command:
+All that’s left is to add a simple command step, limited to the branch you want to deploy, and have it run the following command:
 
 ```bash
 heroku git:remote --app my-app
 git push heroku "$BUILDKITE_COMMIT":master
 ```
 
-(screenshot)
+It should look like this:
 
-What’s happening here? `heroku git:remote` ensures the git remote is always pointing to the correct Heroku application and isn’t left around from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the commit we’ve just tested.
+<%= image "steps.png", size: '726x378', alt: 'Buildkite pipeline heroku deploy step' %>
 
-### Run a build
+What’s happening here? `heroku git:remote` ensures the Git remote is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the commit we’ve just tested.
+
+## Running a build
 
 Once you’ve saved the pipeline settings the final step is to push a commit to master and watch it automatically deploy to Heroku:
 
-(screenshot)
+<%= image "deploy-success.png", size: '726x691', alt: 'Buildkite Heroku deploy success' %>
 
-### Post-deploy scripts
+## Post-deploy scripts
 
-If you want to run post-deploy tasks on Heroku, simply add another waiter step and then a new command step that runs your command. For example, this command will run the `rake db:migrate` command after a successful deployment:
+If you want to run post-deploy tasks on Heroku, simply add another waiter step and then a new command step that runs your command. For example:
 
 ```bash
 heroku git:remote --app my-app
-heroku run rake db:migrate
+heroku run echo "A post-deploy command"
 ```
 
-(screenshot)
+## Automatic deploy support
 
-## Using Heroku pipelines
+Heroku has support for [automatically deploying from GitHub](https://devcenter.heroku.com/articles/github-integration) once your branch or pull request commit statuses are marked as passing. Unfortunately this doesn’t yet work for Buildkite commit statuses.
 
-Heroku has support for automatically deploying from GitHub once your branch or pull request commit statuses are marked as passing. Unfortunately this doesn’t yet work for Buildkite commit statuses.
-
-We’re working with Heroku to make this work with Buildkite, but for the moment.
+We’re working with Heroku to make this work with Buildkite and GitHub but for the moment you’ll need to use the above method to trigger builds from Buildkite pipelines.
