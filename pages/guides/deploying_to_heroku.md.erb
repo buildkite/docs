@@ -1,0 +1,68 @@
+# Deploying to Heroku
+
+It’s easy to test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines. This guide will run you through the steps required.
+
+<%= toc %>
+
+## Setting up the Heroku toolbelt
+
+You can deploy to Heroku using the same `git push` command you’d run from your development machine.
+
+First step is installing the [Heroku Toolbelt](https://toolbelt.heroku.com) on your Buildkite agent machine. For example, this is how you’d do it on a linux agent machine:
+
+```bash
+$ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+```
+
+And now verify it installed aok:
+
+```bash
+$ heroku help
+```
+
+Next step is to login to the toolbelt as a Heroku user. We recommend creating a new user in Heroku just for this machine (a “machine user”). Creating a machine user in Heroku is simple: sign up to Heroku as a new user and then add that user as a collaborator to the Heroku application.
+
+If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
+
+```bash
+$ sudo su buildkite-agent
+$ heroku login
+```
+
+You’re now ready to run `heroku` commands in your Buildkite pipelines! :tada:
+
+## Setting up your build pipeline
+
+All that’s left is to add a simple command step, limited to the branch you want to deploy, and have it run the following command:
+
+```bash
+heroku git:remote --app my-app
+git push heroku "$BUILDKITE_COMMIT":master
+```
+
+It should look like this:
+
+<%= image "steps.png", size: '726x378', alt: 'Buildkite pipeline heroku deploy step' %>
+
+What’s happening here? `heroku git:remote` ensures the Git remote is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the commit we’ve just tested.
+
+## Running a build
+
+Once you’ve saved the pipeline settings the final step is to push a commit to master and watch it automatically deploy to Heroku:
+
+<%= image "deploy-success.png", size: '726x691', alt: 'Buildkite Heroku deploy success' %>
+
+## Post-deploy scripts
+
+If you want to run post-deploy tasks on Heroku simply a waiter and another command step, for example:
+
+```bash
+heroku git:remote --app my-app
+heroku run echo "A post-deploy command"
+```
+
+## Automatic deploy support
+
+Heroku has support for [automatically deploying from GitHub](https://devcenter.heroku.com/articles/github-integration) once your branch or pull request commit statuses are marked as passing. Unfortunately this doesn’t yet work for Buildkite commit statuses.
+
+We’re working with Heroku to make this work with Buildkite and GitHub, but for the moment you’ll need to use the above method to trigger your deployments.
