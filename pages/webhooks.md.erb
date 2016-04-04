@@ -21,6 +21,7 @@ The data is sent JSON encoded in the request body, for example:
 
 ```json
 {
+  "event": "event.name",
   "build": {
     "keys": "vals"
   },
@@ -29,6 +30,8 @@ The data is sent JSON encoded in the request body, for example:
   }
 }
 ```
+
+Every webhook body contains an `"event"` property with the type of the event.
 
 ## Example implementations
 
