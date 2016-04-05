@@ -44,6 +44,12 @@ You can also use wildcard arguments to download multiple assets at once (just ma
 buildkite-agent artifact download "*.tar.gz" pkg/
 ```
 
+## Downloading Artifacts Outside a Running Build
+
+The `buildkite-agent artifact download` command only works within the context of a running build.
+
+If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
+
 ## Further documentation
 
 See the [Buildkite Agent artifact documentation](/docs/agent/build-artifacts) for a full list of options and details of Buildkite’s artifact support.

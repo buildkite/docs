@@ -85,6 +85,12 @@ Options:
    --no-color              Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
 ```
 
+## Downloading Artifacts Outside a Running Build
+
+The `buildkite-agent artifact download` command only works within the context of a running build.
+
+If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
+
 ## Fetching the SHA of an artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
