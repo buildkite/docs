@@ -18,30 +18,25 @@ curl https://api.buildkite.com
 <%= present_json response: "Hello World" %>
 ```
 
-## Parameters and Properties
+## Query String Parameters
 
-Some API methods take parameters and/or properties. Many have parameters within the path of the URI, such as 'my-org' and 'my-pipeline' in the following request:
+Some API endpoints accept query string parameters which are added to the end of the URL. For example, the [builds listing APIs](/docs/api/builds#list-all-builds) can be filtered by `state` using the following `curl` command:
 
-```bash
-curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds"
 ```
-
-For GET requests, additional parameters can be supplied as HTTP query string parameters:
-
-```bash
 curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds?state=passed"
 ```
 
-For POST, PATCH, PUT, and DELETE requests, there are path parameters but query parameters are not accepted. Additional properties should be encoded as JSON:
+## Request Body Properties
 
-```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
-  -d '{
-    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-    "branch": "master",
-    "message": "Testing all the things :rocket:"
-  }'
+Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/api/builds#create-a-build) can be passed the required properties using the following `curl` command:
+
 ```
+curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" -d '{
+  "key: "value"
+}'
+```
+
+The data encoding is assumed to be `application/json`. Unless explicitly stated by an API endpoint, you can not post data as `www-form-urlencoded` or `multipart/form-data`.
 
 ## Authentication
 
