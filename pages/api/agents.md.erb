@@ -59,7 +59,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 ]
 ```
 
-Optional query string parameters:
+Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
 <tbody>
@@ -135,10 +135,13 @@ Success response: `200 OK`
 Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop"
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
+  -d '{
+    "force": true
+  }'
 ```
 
-Optional properties:
+Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
