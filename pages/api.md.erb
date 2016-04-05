@@ -18,9 +18,9 @@ curl https://api.buildkite.com
 <%= present_json response: "Hello World" %>
 ```
 
-## Parameters
+## Parameters and Properties
 
-Some API methods take parameters. Some have parameters within the path of the URI, such as 'my-org' and 'my-pipeline' in the following request:
+Some API methods take parameters and/or properties. Many have parameters within the path of the URI, such as 'my-org' and 'my-pipeline' in the following request:
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds"
@@ -32,7 +32,7 @@ For GET requests, additional parameters can be supplied as HTTP query string par
 curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds?state=passed"
 ```
 
-For POST, PATCH, PUT, and DELETE requests, additional parameters should be encoded as JSON with the Content-Type 'application/json':
+For POST, PATCH, PUT, and DELETE requests, there are path parameters but query parameters are not accepted. Additional properties should be encoded as JSON with the Content-Type 'application/json':
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
