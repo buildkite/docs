@@ -10,11 +10,7 @@ To get started on a new pipeline create a single step and have it run `buildkite
 
 <%= image("pipeline-upload-step.png", width: 612/2, height: 484/2) %>
 
-This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command.
-
-When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`.
-
-For example, here is a pipeline that simply prints “Hello!”:
+This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command. When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`. For example, here is a pipeline that simply prints “Hello!”:
 
 ```yml
 steps:
@@ -28,10 +24,18 @@ To test your new `.buildkite/pipeline.yml` simply commit the file, push the comm
 
 ## Pipeline format
 
-The pipeline can be uploaded as YAML and JSON, and they both have the same structure. There are two top level properties:
+The pipeline can be written as YAML or JSON, but YAML is more commonly for its readability. There are two top level properties you can specify:
 
 * `env` - a hash of build-wide environment variables
 * `steps` - an array of build steps to be run (a mix of script, waiter and blocker steps)
+
+## Example pipeline
+
+For a complete example of a pipeline see the one we use to test and publish the Buildkite Agent itself, containing commands, wait steps, "Click to unblock" steps, and artifacting uploading:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml">:package: Buildkite Agent’s pipeline.yml<span class="repo">github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml</span></a>
+
+## Step types
 
 A *script* step runs a command on an agent. The following is the most simple script step:
 
@@ -107,6 +111,18 @@ done
 
 When this is run on an agent it will output the pipeline, which is then piped to the `buildkite-agent pipeline upload` command.
 
+## Migrating existing pipelines
+
+To migrate to checked in pipelines without interrupting existing branches you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
+
+To do this, create a step with the following command:
+
+```bash
+[[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
+```
+
+If the pipeline file exists then we execute the `pipeline upload --replace` command which will replace any steps that were defined via the web UI after this step.
+
 ## Pipeline command
 
 Use this command in your build scripts to upload pipelines to Buildkite.
@@ -144,19 +160,3 @@ Options:
    --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
-
-## Migrating existing pipelines
-
-To migrate to checked in pipelines without interrupting existing branches you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
-
-To do this, create a step with the following command:
-
-```bash
-[[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
-```
-
-If the pipeline file exists then we execute the `pipeline upload --replace` command which will replace any steps that were defined via the web UI after this step.
-
-## Controlling Concurrency
-
-To control concurrency for a particular type of job specify a `concurrency_group` identifier (e.g. `"deploy"`) and a `concurrency` value (e.g. as `1`). The identifier is used across all of the pipeline’s builds to identify and throttle the number of jobs running simulatenously.
