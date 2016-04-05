@@ -10,7 +10,7 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds acr
 curl "https://api.buildkite.com/v2/builds"
 ```
 
-Optional query string parameters:
+Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown 'api/builds_list_query_strings' %>
 
@@ -26,7 +26,7 @@ Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organizatio
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 ```
 
-Optional query string parameters:
+Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown 'api/builds_list_query_strings' %>
 
@@ -115,7 +115,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 ]
 ```
 
-Optional query string parameters:
+Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown 'api/builds_list_query_strings' %>
 
@@ -323,7 +323,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
 }
 ```
 
-Required properties:
+Required [properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
@@ -333,7 +333,7 @@ Required properties:
 </tbody>
 </table>
 
-Optional properties:
+Optional [properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
