@@ -17,11 +17,11 @@ The folllowing HTTP headers are present in every webhook request, which allow yo
 
 ## HTTP request body
 
-The data is sent JSON encoded in the request body, for example:
+Each event’s data is sent JSON encoded in the request body. See each event’s documentation to see which keys are available in the payload. For example:
 
 ```json
 {
-  "event": "event.name",
+  "event": "build.started",
   "build": {
     "keys": "vals"
   },
@@ -30,8 +30,6 @@ The data is sent JSON encoded in the request body, for example:
   }
 }
 ```
-
-Every webhook body contains an `"event"` property with the type of the event.
 
 ## Example implementations
 
