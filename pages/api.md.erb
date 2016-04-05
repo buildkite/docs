@@ -31,9 +31,10 @@ curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/bu
 Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/api/builds#create-a-build) can be passed the required properties using the following `curl` command:
 
 ```
-curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" -d '{
-  "key: "value"
-}'
+curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
+  -d '{
+    "key": "value"
+  }'
 ```
 
 The data encoding is assumed to be `application/json`. Unless explicitly stated by an API endpoint, you can not post data as `www-form-urlencoded` or `multipart/form-data`.
