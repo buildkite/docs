@@ -2,9 +2,9 @@
 
 It’s easy to test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines.
 
-If your pipeline uses a GitHub repository you can use Heroku’s [Automatic Deploys](https://devcenter.heroku.com/articles/github-integration) to automatically deploy a branch based on a Buildkite pipelines pass or failure. All you need to do is enable it in your Heroku dashboard, check “Wait for CI to pass before deploy”, and when Heroku sees the passing Buildkite commit status it will automatically perform a slug deploy. This also works with Heroku’s new [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
+For GitHub based pipelines you can use Heroku’s [Automatic Deploys](https://devcenter.heroku.com/articles/github-integration) feature to have a branch deployed once Buildkite has marked the commit as having passed. To get started with automatic deploys simply enable it in your Heroku dashboard, check “Wait for CI to pass before deploy”, and when Heroku sees the passing Buildkite commit status it will automatically perform a slug deploy. You can also auto-deploy pull requests using [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
 
-This guide will run you through the steps required for performing a manual deployment using `git push` for pipelines that don’t use GitHub or need more control of deployments. You can use this same process to automate any task you’d perform with the `heroku` cli command.
+If you don’t use GitHub or need more control of deployments, this guide will run you through the steps required for performing a manual deployment using `git push`. You can also use these methods to create pipelines for `heroku` cli tasks you'd like to automate.
 
 <%= toc %>
 
