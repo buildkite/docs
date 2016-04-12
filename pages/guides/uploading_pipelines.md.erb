@@ -10,11 +10,7 @@ To get started on a new pipeline create a single step and have it run `buildkite
 
 <%= image("pipeline-upload-step.png", width: 612/2, height: 484/2) %>
 
-This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command.
-
-When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`.
-
-For example, here is a pipeline that simply prints “Hello!”:
+This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command. When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`. For example, here is a pipeline that simply prints “Hello!”:
 
 ```yml
 steps:
@@ -26,57 +22,51 @@ To test your new `.buildkite/pipeline.yml` simply commit the file, push the comm
 
 <%= image("show-example-test.png", width: 422/2, height: 270/2) %>
 
-## Pipeline format
+## Example pipeline
 
-The pipeline can be uploaded as YAML and JSON, and they both have the same structure. There are two top level properties:
+Here’s a more complete example based off the Buildkite Agent’s pipeline which contains script commands, wait steps, "Click to unblock" steps, and artifacting uploading:
 
-* `env` - a hash of build-wide environment variables
-* `steps` - an array of build steps to be run (a mix of script, waiter and blocker steps)
-
-A *script* step runs a command on an agent. The following is the most simple script step:
-
-```yml
+```yaml
 steps:
-  - command: command.sh
-```
-
-A more complicated example of a script step, showing all the possible configuration keys:
-
-```yml
-steps:
-  - command: deploy.sh
-    name: Deploy
-    branches: master
+  - name: '\:hammer\: Tests'
+    command: 'scripts/tests.sh'
     env:
-      FOO: bar
-    agents:
-      npm: true
-      queue: deploy
-    artifact_paths: "logs/**/*;coverage/**/*"
-    parallelism: 1
-    concurrency: 1
-    concurrency_group: deploy
-    timeout_in_minutes: 60
-```
+      DOCKER_COMPOSE_CONTAINER: app
 
-A *waiter* step waits for all previous steps to complete before continuing, for example:
-
-```yml
-steps:
-  - command: command.sh
   - wait
-  - command: echo The command passed
+
+  - name: '\:package\: Package'
+    command: 'scripts/build-binaries.sh'
+    artifact_paths: 'pkg/*'
+    env:
+      DOCKER_COMPOSE_CONTAINER: app
+
+  - wait
+
+  - name: '\:debian\: Publish'
+    command: 'scripts/build-debian-packages.sh'
+    artifact_paths: 'deb/**/*'
+    branches: 'master'
+    agents:
+      queue: 'deploy'
+
+  - block: '\:shipit\: Release'
+
+  - name: '\:github\: Release'
+    command: 'scripts/build-github-release.sh'
+    artifact_paths: 'releases/**/*'
+    branches: 'master'
+
+  - wait
+  
+  - name: '\:whale\: Update images'
+    command: 'scripts/release-docker.sh'
+    branches: 'master'
+    agents:
+      queue: 'deploy'
 ```
 
-A *blocker* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
-
-```yml
-steps:
-  - command: command.sh
-  - block:
-      name: ":rocket: Deploy"
-  - command: deploy.sh
-```
+See the [Buildkite Agent pipelines documentation](/docs/agent/build-pipelines) for a full list of step types and supported options.
 
 ## Dynamic pipelines
 
@@ -107,44 +97,6 @@ done
 
 When this is run on an agent it will output the pipeline, which is then piped to the `buildkite-agent pipeline upload` command.
 
-## Pipeline command
-
-Use this command in your build scripts to upload pipelines to Buildkite.
-
-```
-Usage:
-
-   buildkite-agent pipeline upload <file> [arguments...]
-
-Description:
-
-   Allows you to change the pipeline of a running build by uploading either a
-   JSON or YAML configuration file. If no configuration file is provided,
-   we look for the file in the following locations:
-
-   - .buildkite/pipeline.yml
-   - .buildkite/pipeline.json
-
-   You can also pipe build pipelines to the command, allowing you to create scripts
-   that generate dynamic pipelines.
-
-Example:
-
-   $ buildkite-agent pipeline upload
-   $ buildkite-agent pipeline upload my-custom-steps.json
-   $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
-
-Options:
-
-   --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
-   --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
-   --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint 'https://agent.buildkite.com/v3'  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
-```
-
 ## Migrating existing pipelines
 
 To migrate to checked in pipelines without interrupting existing branches you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
@@ -157,6 +109,6 @@ To do this, create a step with the following command:
 
 If the pipeline file exists then we execute the `pipeline upload --replace` command which will replace any steps that were defined via the web UI after this step.
 
-## Controlling Concurrency
+## Further documentation
 
-To control concurrency for a particular type of job specify a `concurrency_group` identifier (e.g. `"deploy"`) and a `concurrency` value (e.g. as `1`). The identifier is used across all of the pipeline’s builds to identify and throttle the number of jobs running simulatenously.
+See the [Buildkite Agent pipelines documentation](/docs/agent/build-pipelines) for a full list of options and details of Buildkite’s pipeline command support.

@@ -1,0 +1,105 @@
+# Build Pipelines
+
+The Buildkite Agent’s `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YML or JSON and can be read from a file or streamed from the output of a script.
+
+See the [Uploading Build Pipelines](/docs/guides/uploading-pipelines) guide for a step-by-step example.
+
+<%= toc %>
+
+## Uploading pipelines
+
+```
+Usage:
+
+   buildkite-agent pipeline upload <file> [arguments...]
+
+Description:
+
+   Allows you to change the pipeline of a running build by uploading either a
+   JSON or YAML configuration file. If no configuration file is provided,
+   we look for the file in the following locations:
+
+   - .buildkite/pipeline.yml
+   - .buildkite/pipeline.json
+
+   You can also pipe build pipelines to the command, allowing you to create scripts
+   that generate dynamic pipelines.
+
+Example:
+
+   $ buildkite-agent pipeline upload
+   $ buildkite-agent pipeline upload my-custom-steps.json
+   $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+
+Options:
+
+   --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
+   --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint 'https://agent.buildkite.com/v3'  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Pipeline format
+
+The pipeline can be written as YAML or JSON, but YAML is more commonly for its readability. There are two top level properties you can specify:
+
+* `env` - a hash of build-wide environment variables
+* `steps` - an array of build steps to be run (a mix of script, waiter and blocker steps)
+
+## Command steps
+
+A *command* step runs a command on an agent. The following is the most simple script step:
+
+```yml
+- command: 'command.sh'
+```
+
+A command step that uses all the possible configuration keys:
+
+```yml
+- command: 'tests.sh'
+  name: '\:hammer\: Tests'
+  branches: 'master'
+  env:
+    FOO: 'bar'
+  agents:
+    npm: 'true'
+    queue: 'tests'
+  artifact_paths: 'logs/**/*;coverage/**/*'
+  parallelism: 1
+  concurrency: 1
+  concurrency_group: 'serial_tests'
+  timeout_in_minutes: 60
+```
+
+## Waiter steps
+
+A *waiter* step waits for all previous steps to complete before continuing, for example:
+
+```yml
+- command: 'command.sh'
+- wait
+- command: 'echo The command passed'
+```
+
+## Click to unblock steps
+
+A *blocker* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
+
+```yml
+- command: 'command.sh'
+- block
+- command: 'deploy.sh'
+```
+
+If you want to change the label of the click to unblock step you need to add a nested `name` property:
+
+```yml
+- command: 'command.sh'
+- block:
+    name: '\:rocket\: Release'
+- command: 'deploy.sh'
+```
