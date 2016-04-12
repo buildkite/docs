@@ -14,24 +14,50 @@ By default the build status badge will show the last build’s status. You can s
 
 If you want to create a badge that represents a single step in the last build, you can scope it that step by adding a `?step` parameter to the URL. For example, to scope your badge to the `iOS Build` branch you would add: `?step=iOS%20Build` to the URL. If you have multiple steps that match the given name it will show as passed only if all of the matching steps passed.
 
-## Themes
+## Styles
 
-You can change the colors of the badges by passing in a `theme` parameter.
+You can set the style of the badge by passing in a `style` parameter:
 
 <table class="status-badges__examples">
   <tbody>
     <tr>
       <th>Default</th>
       <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed" %></td>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed" %></td>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed", size: "109x20" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown", size: "109x20" %></td>
+    </tr>
+
+    <% for style in ["square"] %>
+      <tr>
+        <th><code><span class="muted">?style=</span><%= style %></code></th>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&style=#{style}", size: "109x20" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&style=#{style}", size: "109x20" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&style=#{style}", size: "109x20" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+The `square` style can also be referred to as `flat-square` to match any [shields.io badges](http://shields.io) you may use.
+
+## Themes
+
+You can change the colors of the badges by passing in a `theme` parameter:
+
+<table class="status-badges__examples">
+  <tbody>
+    <tr>
+      <th>Default</th>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed", size: "109x20" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed", size: "109x20" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown", size: "109x20" %></td>
     </tr>
     <% for theme in (Badge::Theme::STANDARD_THEMES.keys - ["default"]) %>
       <tr>
         <th><code><span class="muted">?theme=</span><%= theme %></code></th>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&theme=#{theme}" %></td>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&theme=#{theme}" %></td>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&theme=#{theme}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&theme=#{theme}", size: "109x20" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&theme=#{theme}", size: "109x20" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&theme=#{theme}", size: "109x20" %></td>
       </tr>
     <% end %>
   </tbody>
@@ -59,7 +85,7 @@ For example:
       <tr>
         <th><code><span class="muted">?theme=</span><%= example %></code></th>
         <% for status in %w( passed failed unknown ) do %>
-          <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=#{status}&theme=#{example}" %></td>
+          <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=#{status}&theme=#{example}", size: "109x20" %></td>
         <% end %>
       </tr>
     <% end %>
