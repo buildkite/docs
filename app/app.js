@@ -1,19 +1,19 @@
 import React from "react";
 import ReactDOM from 'react-dom';
-import { Route, IndexRoute, browserHistory } from "react-router";
+import { Router, Route, IndexRoute, browserHistory } from "react-router";
 
-class Page extends React.Component {
+import Page from "./components/Page"
+
+class Main extends React.Component {
   render() {
     return (
-      <div>
-        This is a a page
-      </div>
+      <Page path={this.props.params.splat} />
     );
   }
 }
 
 ReactDOM.render(
-  <RelayRouter history={browserHistory}>
-    <Route path="/" component={Page} />
-  </RelayRouter>
+  <Router history={browserHistory}>
+    <Route path="*" component={Main} />
+  </Router>
 , document.getElementById('root'));
