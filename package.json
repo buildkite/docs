@@ -6,6 +6,7 @@
     "url": "https://github.com/buildkite/docs.git"
   },
   "dependencies": {
+    "classnames": "^2.2.3",
     "highlight.js": "^9.3.0",
     "markdown-it": "^6.0.1",
     "react": "^0.14.7",
