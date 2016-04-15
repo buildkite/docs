@@ -34,7 +34,14 @@ module.exports = {
           'url-loader?limit=8192',
           'image-webpack?optimizationLevel=7&interlaced=false'
         ]
-      }
+      },
+      {
+        test: /\.md/i,
+        loaders: [
+          'html',
+          path.join(__dirname, 'markdown-loader')
+        ]
+      },
     ]
   },
 
