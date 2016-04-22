@@ -51,6 +51,7 @@ steps:
       queue: 'deploy'
 
   - block: '\:shipit\: Release'
+    branches: 'master'
 
   - name: '\:github\: Release'
     command: 'scripts/build-github-release.sh'
@@ -58,7 +59,7 @@ steps:
     branches: 'master'
 
   - wait
-  
+
   - name: '\:whale\: Update images'
     command: 'scripts/release-docker.sh'
     branches: 'master'
