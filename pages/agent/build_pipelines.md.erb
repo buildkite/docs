@@ -47,7 +47,7 @@ Options:
 The pipeline can be written as YAML or JSON, but YAML is more commonly for its readability. There are two top level properties you can specify:
 
 * `env` - a hash of build-wide environment variables
-* `steps` - an array of build steps to be run (a mix of script, waiter and blocker steps)
+* `steps` - an array of build steps to be run (a mix of script, `wait` and `block` steps)
 
 ## Command steps
 
@@ -95,11 +95,22 @@ A *blocker* step will pause the pipeline and wait for a team member to unblock i
 - command: 'deploy.sh'
 ```
 
-If you want to change the label of the click to unblock step you need to add a nested `name` property:
+Changing the label of the unblock step can be done by setting it as a value of the `block` step:
 
 ```yml
 - command: 'command.sh'
-- block:
-    name: '\:rocket\: Release'
+- block: '\:rocket\: Release'
 - command: 'deploy.sh'
+```
+
+You can even scope the `block` step to a set of branches. In the following
+example, the "Deploy" button and the subsequent `deploy.sh` script will only be
+available for `master` builds:
+
+```yml
+- command: 'test.sh'
+- block: '\:rocket\: Release'
+  branches: "master"
+- command: 'deploy.sh'
+  branches: "master"
 ```
