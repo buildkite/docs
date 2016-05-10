@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Red Hat and CentOS
+# Installing Buildkite Agent on Red Hat, CentOS and Amazon Linux
 
-The Buildkite Agent can be installed on Redhat and CentOS using our yum repository.
+The Buildkite Agent can be installed on Redhat, CentOS and Amazon Linux using our yum repository.
 
 <%= toc %>
 
@@ -19,7 +19,7 @@ See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
 * Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
 * Hooks: `/etc/buildkite-agent/hooks/`
 * Builds: `/var/buildkite-agent/builds/`
-* Log: `/var/log/messages`
+* Log: `/var/log/messages` (or `/var/log/buildkite-agent.log` for older systems)
 * Agent user home: `/var/lib/buildkite-agent/`
 * SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
@@ -34,6 +34,14 @@ You can run as many parallel agents on the one machine as you wish by simply cop
 ```shell
 sudo cp /usr/lib/systemd/system/buildkite-agent.service /usr/lib/systemd/system/buildkite-agent-2.service
 sudo systemctl enable buildkite-agent-2 && systemctl start buildkite-agent-2
+```
+
+For older systems without `systemctl` (such as Amazon Linux) you instead use:
+
+```shell
+sudo cp /etc/init.d/buildkite-agent /etc/init.d/buildkite-agent-2
+sudo chkconfig --add buildkite-agent-2
+sudo service buildkite-agent-2 start
 ```
 
 ## Upgrading
