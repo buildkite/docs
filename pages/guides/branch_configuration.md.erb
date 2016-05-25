@@ -24,4 +24,4 @@ The following are examples of patterns, and what branches they would match:
 * `master features/*` will match master and any branch that starts with `features/`
 * `*/release-123` will match any branch that ends with `/release-123` such as `feature-123/release-123`
 * `v*.0` will match branch that begins with a `v` and ends with a `.0`, such as `v1.0`
-* `'!production'` will match any branch that's not `production` (needs quotes if uploading a pipeline via `buildkite-agent pipeline upload`)
+* `!production` will match any branch that's not `production` (needs quotes if uploading a pipeline via `buildkite-agent pipeline upload`)
