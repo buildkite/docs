@@ -1,44 +1,65 @@
 # Migrating from Bamboo
 
-Migrating continuous integration tools can be hard (even harder under when you
-have a deadline), so we've put together a guide to help you transition your
-Bamboo skills to Buildkite.
-
-Everything in this guide apply to both Bamboo Sever, and Bamboo Cloud *(which
-has recently been discontinued)*.
+Migrating continuous integration tools can be hard so we've put together a guide to help you transition your Bamboo skills to Buildkite. Everything in this guide applies equally to Bamboo Sever and (the recently discontinued) Bamboo Cloud.
 
 <%= toc %>
 
 ## Plans to Pipelines
 
-Most Bamboo workflows can be easily mapped to workflows in Buildkite. *Projects
-and Plans* in Bamboo are known simply as *Pipelines* in Buildkite. Bamboo
-Deployments can also be mapped to Pipelines with ease.
+Most Bamboo workflows can be easily mapped to Buildkite. *Projects
+and Plans* in Bamboo are known simply as *Pipelines* in Buildkite. Bamboo Deployments also simply become Buildkite pipelines.
 
-Pipelines consist of *Stages* and *Steps*. Stages run in sequential order,
-while steps run in parallel. There are 4 different types of steps to choose
-from: `command`, `trigger`, `wait` and `block`.
+Buildkite pipelines consist of *Steps*. There are 4 different types of pipeline steps: `command`, `trigger`, `wait` and `block`.
 
-To create stages, you seperate jobs using either a `wait` or a `block` step.
-`wait` will cause the Pipeline to wait until all previous steps successfully
-finish. `block` steps will also wait, but won't automatically continue to the
-next stage since they require a user to manually click the "Continue" button.
-These are the equivalent of a *Manual Stage* in Bamboo.
+The first two types, `command` and `trigger`, run in parallel. The second two types, `wait` and `block` will cause the pipeline to pause and wait for all previous steps to complete—this way your pipeline becomes a set of stages.
 
-For example, the following Bamboo Plan:
+For example, a simple test and deploy pipeline might consist of the following steps:
+
+```yaml
+steps:
+  - command: test_1.sh
+  - command: test_2.sh
+  - wait
+  - command: deploy.sh
+```
+
+The `block` step will also wait for previous steps to complete but instead of automatically continuing it will stop the build and require a user to manually click the "Continue" button (via the web, or via our API). These are the equivalent of a *Manual Stage* in Bamboo.
+
+```yaml
+steps:
+  - command: test_1.sh
+  - command: test_2.sh
+  - block: 'Deploy to Production'
+  - command: deploy.sh
+```
+
+Let’s look at an example Bamboo Plan:
 
 <%= image("bamboo_stages_and_tasks.png", size: '698x331', alt: 'Screenshot of a Bamboo Plan') %>
 
-Can be mapped to a Buildkite Pipeline like so:
+We can map this to a Buildkite pipeline using the following `command`, `wait` and `block` steps:
 
 <%= image("buildkite_steps.png", size: '773x480', alt: 'Screenshot of a Buildkite Pipeline') %>
 
-You can manage and create your Pipelines in a variety of ways. The easiest way
-to get started is creating them through the Buildkite web interface. Once
-you've become familiar with the tooling and concepts, you can start to
-experiment with storing your [pipelines as
-code](/docs/guides/migrating-from-bamboo#pipelines-as-code) in you repository
-or if you have many pipelines you need to manage at once, you can use our
+In YML format this would be:
+
+Creating and managing your pipelines be done in a variety of ways, the easiest being the Buildkite web interface.
+
+Once you’ve become familiar with the tooling and concepts you can switch to [storing your pipelines as
+code](/docs/guides/migrating-from-bamboo#pipelines-as-code). The above Bamboo Plan that we mapped to Buildkite could also be defined using the following `pipeline.yml` file:
+
+```yaml
+steps:
+  - command: make
+    artifact_paths: 'build/*'
+  - wait
+  - command: make test
+  - command: make lint
+  - block: Deploy to production
+  - command: scripts/deploy.sh
+```
+
+If you have many pipelines to migrate you can use the
 [Update Pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
 
 ## Steps and Tasks
@@ -48,13 +69,11 @@ can run any commands you like on your build server, whether it's `rake test` or
 `make`. Buildkite doesn't have the concept of *Tasks* in general, it's up to
 you to write scripts that perform the same tasks that your Bamboo Jobs have.
 
-For example, the following set of Bamboo Tasks...
+For example, say you had the following set of Bamboo Tasks:
 
 <%= image("bamboo_task_list.png", size: '621x296', alt: 'Screenshot of a Bamboo Task List') %>
 
-...can be rewritten to be a single script. The Buildkite Agent takes care of
-checking out the repository for you before each step, so the script would
-simply be:
+This can be rewritten to be a single script in Buildkite. The Buildkite Agent takes care of checking out the repository for you before each step, so the script would simply be:
 
 ```bash
 #!/bin/bash
@@ -113,23 +132,19 @@ steps:
   - command: "scripts/deploy.sh"
 ```
 
-Once you've gotten your Build Pipelines setup, you can update step labels to something a bit more fun than just text :smiley:
+Once you've your Build Pipelines are setup, you can update step labels to something a bit more fun than just text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
 ## Remote and Elastic Agents
 
-The [Buildkite Agent](/docs/agent) is our version of Bamboo's *Remote Agent*.
-You can install it onto any server to run your builds. In Bamboo, you can
-target specific agents for your jobs via their *Capabilities*, in Buildkite you
-target them using [meta-data](/docs/agent/agent-meta-data).
+The [Buildkite Agent](/docs/agent) replaces your Bamboo *Remote Agents*. You can install the Buildkite Agent onto any server to run your builds.
+
+In Bamboo, you can target specific agents for your jobs via their *Capabilities*, in Buildkite you target them using [meta-data](/docs/agent/agent-meta-data).
 
 Similar to *Elastic Bamboo*, Buildkite can also manage a fleet of Agents for
 you on AWS using our [Buildkite AWS
-Stack](https://github.com/buildkite/buildkite-aws-stack). Buildkite doesn't
-limit the number Agents you can run at any one time, so by using the Buildkite
-AWS Stack you can auto-scale your build infrastructure, going from 0 to 1000's
-of Agents within moments.
+Stack](https://github.com/buildkite/buildkite-aws-stack). Buildkite doesn’t limit the number agents you can run at any one time, so by using the Buildkite AWS Stack you can auto-scale your build infrastructure, going from 0 to 1000’s of agents within moments.
 
 ## Authentication and Permissions
 
@@ -138,4 +153,4 @@ Directory (ADFS), Google Apps and SAML.
 
 For larger teams, it can be useful to control what users have access to which
 Pipelines. We're currently rolling out *Buildkite Teams* as a new feature to
-the platform. Contact us if you'd like to be part of the Beta.
+the platform. Contact us if you'd like to be part of the beta.
