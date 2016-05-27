@@ -45,9 +45,10 @@ We can map this to a Buildkite Pipeline using a combination of `command`, `wait`
 
 <%= image("buildkite_steps.png", size: '773x480', alt: 'Screenshot of a Buildkite Pipeline') %>
 
-Creating and managing your Pipelines be done in a variety of ways, the easiest
-being the Buildkite web interface. If you have many Pipelines to migrate you
-can use the [Update Pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
+Creating and managing your Pipelines can be done in a variety of ways, the
+easiest being the Buildkite web interface. If you have many Pipelines to
+migrate or manage at once, you can use the [Update
+Pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
 
 Once you’ve become familiar with the tooling and concepts you can switch to
 [storing your Pipelines as code](/docs/guides/uploading-pipelines). The above Bamboo
@@ -85,7 +86,7 @@ steps:
   - command: "scripts/deploy.sh"
 ```
 
-Once you've your Build Pipelines are setup, you can update step labels to something a bit more fun than just text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
+Once your Build Pipelines are setup, you can update step labels to something a bit more fun than just text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
