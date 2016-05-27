@@ -15,19 +15,10 @@ from: `command`, `trigger`, `wait` and `block`.
 To create stages, you seperate jobs using either a `wait` or a `block` step.
 `wait` will cause the Pipeline to not continue to the next stage until all the
 previous steps succesfully finish. `block` steps won't automatically continue
-to the next stage, it requires a user to manually click the "Continue" buton.
-This is useful for step to
+to the next stage since they requiresa user to manually click the "Continue"
+buton. These are the equivalent of a *Manual Stage* in Bamboo.
 
-`command` steps are the same as the *Command Task* in Bamboo - they run any
-arbitary command you like, whether it's `rake test` or `make`. Buildkite
-doesn't have the concept of "Tasks" in general, it's up to you to write scripts
-that map to the tasks you use to have in Bamboo Jobs.
-
-`trigger` steps can be used to trigger builds in other Pipeliens. See our
-[trigger-pipeline](https://github.com/buildkite/agent-tests/blob/master/tests/trigger-pipeline/.buildkite/pipeline.yml)
-example for more information.
-
-For example, the following Bamboo plan:
+For example, the following Bamboo Plan:
 
 <%= image("bamboo_stages_and_tasks.png", size: '698x331', alt: 'Screenshot of a Bamboo Plan') %>
 
@@ -35,9 +26,38 @@ Can be mapped to a Buildkite pipline like so:
 
 <%= image("buildkite_steps.png", size: '773x480', alt: 'Screenshot of a Buildkite Pipeline') %>
 
+## Steps and Tasks
+
+`command` steps are Buildite's version of the *Command Task* in Bamboo - they
+can run any arbitary commands you like, whether it's `rake test` or `make`.
+Buildkite doesn't have the concept of "Tasks" in general, it's up to you to
+write scripts that map to the tasks you use to have in Bamboo Jobs.
+
+For example, the following set of tasks:
+
+<%= image("bamboo_task_list.png", size: '621x296', alt: 'Screenshot of a Bamboo Task List') %>
+
+Can be rewritten to be a single script. Buildkite takes care of checking out
+the repository for you before each step, so the script would simply be:
+
+```bash
+echo "--- \:rspec\: Running specs"
+make specs
+
+echo "--- \:cucumber\: Running cucumber tests"
+make cucumber
+```
+
+`trigger` steps can be used to trigger builds in other Pipelines. You can use
+these to create dependent pipelines. See our
+[trigger-pipeline](https://github.com/buildkite/agent-tests/blob/master/tests/trigger-pipeline/.buildkite/pipeline.yml)
+example for more information.
+
+## Pipelines as Code
+
 One of the major benefits of Buildkite is that you can store your Pipelines as
 code. Below is the Pipeline Definition for this example. To learn more about
-storing your pipeliens as code see our [Uploading
+storing your Pipelines as code see our [Uploading
 Pipelines](/docs/guides/uploading-pipelines) guide.
 
 ```yaml
@@ -70,3 +90,7 @@ steps:
 
   - command: "scripts/deploy.sh"
 ```
+
+Once you've gotten your Build Pipelines setup, you can update step labels to something a bit more fun than just text :smiley:
+
+<%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
