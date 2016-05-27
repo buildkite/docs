@@ -1,0 +1,72 @@
+# Migrating from Bamboo
+
+<%= toc %>
+
+## Plans to Pipelines
+
+Most Bamboo workflows can easily mapped to works in Buildkite. *Projects and
+Plans* in Bamboo are known simply as *Pipelines* in Buildkite. Bamboo
+Deployments can also be mapped to Pipelines with ease.
+
+Pipelines consist of *Stages* and *Steps*. Stages run in sequential order,
+while steps run in parallel. There are 4 different types of steps to choose
+from: `command`, `trigger`, `wait` and `block`.
+
+To create stages, you seperate jobs using either a `wait` or a `block` step.
+`wait` will cause the Pipeline to not continue to the next stage until all the
+previous steps succesfully finish. `block` steps won't automatically continue
+to the next stage, it requires a user to manually click the "Continue" buton.
+This is useful for step to
+
+`command` steps are the same as the *Command Task* in Bamboo - they run any
+arbitary command you like, whether it's `rake test` or `make`. Buildkite
+doesn't have the concept of "Tasks" in general, it's up to you to write scripts
+that map to the tasks you use to have in Bamboo Jobs.
+
+`trigger` steps can be used to trigger builds in other Pipeliens. See our
+[trigger-pipeline](https://github.com/buildkite/agent-tests/blob/master/tests/trigger-pipeline/.buildkite/pipeline.yml)
+example for more information.
+
+For example, the following Bamboo plan:
+
+<%= image("bamboo_stages_and_tasks.png", size: '698x331', alt: 'Screenshot of a Bamboo Plan') %>
+
+Can be mapped to a Buildkite pipline like so:
+
+<%= image("buildkite_steps.png", size: '773x480', alt: 'Screenshot of a Buildkite Pipeline') %>
+
+One of the major benefits of Buildkite is that you can store your Pipelines as
+code. Below is the Pipeline Definition for this example. To learn more about
+storing your pipeliens as code see our [Uploading
+Pipelines](/docs/guides/uploading-pipelines) guide.
+
+```yaml
+steps:
+  # First stage is to run the "make" command - which will compile our
+  # application and store the binaries in a `build` folder. We'll upload the
+  # contents of that folder as an Artifact to Buildkite.
+  - command: "make"
+    artifact_paths: "build/*"
+
+  # To prevent the "make test" stage from running before "make" has finished,
+  # we seperate the command with a "wait" step.
+  - wait
+
+  # Before running `make test` we need to download the artifacts created in the
+  # previous step. To do this, we can we the `buildkite-agent artifact
+  # download` command.
+  - command: |
+      mkdir build
+      buildkite-agent artifact download "build/*" "build/"
+      make test
+
+  # By putting commands next to each other, we can make them run in parallel.
+  - command: |
+      mkdir build
+      buildkite-agent artifact download "build/*" "build/"
+      make lint
+
+  - block: "Deploy to production"
+
+  - command: "scripts/deploy.sh"
+```
