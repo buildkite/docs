@@ -22,6 +22,7 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_ORGANIZATION_SLUG` the organization name on Buildkite as used in URL's `acme-inc`
 - `BUILDKITE_PIPELINE_SLUG` the pipeline slug on Buildkite as used in URL's `web-app`
 - `BUILDKITE_PIPELINE_PROVIDER` the ID of the SCM provider for the pipeline's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
+- `BUILDKITE_PIPELINE_DEFAULT_BRANCH` the default branch for this pipeline `master`
 - `BUILDKITE_PULL_REQUEST` will be the number of the pull request if this branch is a pull request. `false` if not
 - `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
 - `BUILDKITE_BUILD_CREATOR` the name of the user who created the build
