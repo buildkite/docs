@@ -135,14 +135,23 @@ Options:
 
 ## Using your own S3 bucket
 
-If you’d like to upload artifacts to your own Amazon S3 bucket simply export the following environment variables using an [environment agent hook](/docs/agent/hooks):
+If you’d like to upload artifacts to your own Amazon S3 bucket you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/hooks) (this can not be set via the Buildkite web UI):
 
 ```bash
-export BUILDKITE_S3_ACCESS_KEY_ID=xxx
-export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
-export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
-export BUILDKITE_S3_ACL=private # default is public-read
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION=s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
+export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default: us-east-1
+export BUILDKITE_S3_ACL=private # default: public-read
 ```
 
-The agent will recognize the `s3://` prefix in the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` environment variable and upload the artifacts to S3 to the bucket name `name-of-your-s3-bucket`. If you upload artifacts to your own S3 bucket, you can further secure your artifacts by [restricting access to specific IP addresses](https://docs.aws.amazon.com/AmazonS3/latest/dev/AccessPolicyLanguage_UseCases_s3_a.html).
+If you’re running builds on AWS instances then it will automatically use the S3 permissions assigned to the instance. If you run builds from non-IAM machines you’ll need to create an IAM user, assign it read and write permissions to your S3 bucket, and then export the user credentials using the following environment variables:
+
+```bash
+export BUILDKITE_S3_ACCESS_KEY_ID=abc
+export BUILDKITE_S3_SECRET_ACCESS_KEY=xyz
+```
+
+If you have your own authenticated artifact viewer (such as [aws-s3-proxy](https://github.com/pottava/aws-s3-proxy)) you can set `BUILDKITE_S3_ACCESS_URL` which will allow you to easily click through to your artifacts from the Buildkite web UI, including viewing embedded assets (such as HTML pages with images). For example:
+
+```bash
+export BUILDKITE_S3_ACCESS_URL=https://bkartifacts.myorg.internal/
+```
