@@ -33,7 +33,7 @@ You can limit the commands an agent can run on your server by creating a [pre-co
 
 set -eu
 
-if [[ "$BUILDKITE_COMMAND" == "script/deploy" ]]; then
+if [[ "$BUILDKITE_COMMAND" != "script/deploy" ]]; then
   echo "$BUILDKITE_COMMAND not allowed"
   exit 1
 fi
