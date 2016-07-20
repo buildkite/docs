@@ -69,25 +69,19 @@ You've now got a working Elastic CI Stack ready to run builds!
 
 ## Running your first build
 
-We've created a sample pipleine for you to test with you new autoscaling build cluster:
+We’ve created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the “Add to Buildkite” button below (or on the [GitHub Readme](https://github.com/buildkite/bash-parallel-example)):
 
-https://github.com/buildkite/bash-parallel-example
-
-Click the _"Add to Buildkite"_ button:
-
-<%= image "github-parallel-example.png", size: "#{1115/2}x#{621/2}", alt: 'AWS Auto Scaling Group Launching' %>
-
-This will take you back to the _"New Pipeline"_ page on Buildkite with all the details of the sample Pipeline filled out.
+<a class="inline-block" href="/new?template=https://github.com/buildkite/bash-parallel-example" target="__blank"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
 To ensure builds target your new stack open the _"Agent Targeting Rules"_ for the first step and set the queue (e.g. `queue=elastic`) then click _"Create Pipeline"_ at the bottom of the page.
 
 <%= image "buildkite-queue.gif", alt: 'Buildkite Elastic Queue' %>
 
-Now that our pipeline is ready you can create your first build. Click "New Build" in the top right and choose a build message. Perhaps a little party `\:parrot\:`?
+Your pipeline is now ready for it’s first build. Click "New Build" in the top right and choose a build message (perhaps a little party `\:parrot\:`?):
 
 <%= image "buildkite-new-build.png", size: "#{970/2}x#{871/2}", alt: 'Triggering Buildkite Build' %>
 
-To monitor your EC2 instances head back to [AWS EC2 Autoscaling console](http://console.aws.amazon.com/ec2/autoscaling/home) to monitor the Elastic CI stack creating EC2 instances:
+Once your build is created head back to [AWS EC2 Autoscaling console](http://console.aws.amazon.com/ec2/autoscaling/home) to monitor the Elastic CI stack creating new EC2 instances:
 
 <%= image "ec2-service.png", size: "#{425/2}x#{258/2}", alt: 'AWS EC2' %>
 
@@ -101,7 +95,7 @@ Once the instances are ready you'll see them appear on your Buildkite Agents pag
 
 <%= image "buildkite-connected-agents.png", size: "#{925/2}x#{929/2}", alt: 'Buildkite Connected Agents' %>
 
-And then your build will start running on your agent:
+And then your build will start running on your new agents:
 
 <%= image "build.gif", alt: 'Running your first build' %>
 
