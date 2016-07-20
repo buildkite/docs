@@ -1,8 +1,6 @@
 # Elastic CI with AWS
 
-The Buildkite Elastic CI Stack gives you a private, autoscaling Buildkite Agent cluster. Use it to parallelize legacy tests across hundreds of nodes, run tests and deployments for all your Linux-based services and apps, or run AWS ops tasks. You can find the [full documentation on GitHub](https://github.com/buildkite/elastic-ci-stack-for-aws).
-
-This guide will lead you through setting up your own autoscaling build cluster on AWS using the Elastic CI Stack.
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) gives you a private, autoscaling Buildkite Agent cluster in your own AWS account. This guide will lead you through getting started with the stack :cloudformation::tada:
 
 <%= toc %>
 
@@ -34,13 +32,13 @@ Click the _“Create an API Access Token”_ button:
 
 <%= image "agents-tab-details.png", size: "#{1264/2}x#{571/2}", alt: 'Buildkite AWS Agents Setup Tokens' %>
 
-The form is prefilled with everything you’ll need:
+The form is pre-filled with everything you’ll need:
 
 <%= image "buildkite-token-form.png", size: "#{1082/2}x#{874/2}", alt: 'Buildkite API Access Token form' %>
 
 Click _“Create New API Access Token”_ and you'll be taken back to the AWS tab on the agents page with the token ready to use.
 
-Now you’re ready to launch the stack! Click _“Launch Stack”_:
+Now you’re ready to launch the stack! Click _“Launch Stack”_ :red_button:
 
 <%= image "agents-tab-launch.png", size: "#{478/2}x#{324/2}", alt: 'Launch Buildkite Elastic CI Stack' %>
 
@@ -65,7 +63,7 @@ You’ll notice there’s 2 stacks:
 
 <%= image "cf-wait.gif", alt: "Waiting for the AWS Stack to be created" %>
 
-You've now got a working Elastic CI Stack ready to run builds!
+You've now got a working Elastic CI Stack ready to run builds! :tada:
 
 ## Running your first build
 
@@ -99,7 +97,7 @@ And then your build will start running on your new agents:
 
 <%= image "build.gif", alt: 'Running your first build' %>
 
-Congratulations on running your first Elastic CI Stack build on Buildkite! :tada:
+Congratulations on running your first Elastic CI Stack build on Buildkite! :clap::tada:
 
 ## Further documentation
 
