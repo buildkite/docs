@@ -21,9 +21,33 @@ Every agent installer comes with a configuration file. You can find the location
 
 ## Example Configuration File
 
-```
+```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
 name="my-app-%n"
 meta-data="ci=true,docker=true"
 debug=true
+```
+
+## Environment Variables
+
+All agent options can also be specified as environment variables when starting the agent. They must be prefixed with `BUILDKITE_` and all dashes (`-`) replaced by underscores (`_`). For example:
+
+```sh
+BUILDKITE_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
+```
+
+### Git clone flags
+
+If you wish to include extra flags in the `git clone` command used by the Buildkite Agent you can specify a `BUILDKITE_GIT_CLONE_FLAGS` environment variable. This cannot be set in the agent configuration file. By default it is set to `-v`. For example, to create shallow clones:
+
+```
+BUILDKITE_GIT_CLONE_FLAGS="--depth=1" buildkite-agent start
+```
+
+### Git clean flags
+
+You can modify the `git clone` flags used by the Buildkite Agent during checkout using the `BUILDKITE_GIT_CLEAN_FLAGS` environment variable. This cannot be set in the agent configuration file. By default it is set to `-fdq`. You can force the agent to clean all files from a Git checkout by including `-x`. For example:
+
+```sh
+BUILDKITE_GIT_CLEAN_FLAGS="-fdqx" buildkite-agent start
 ```
