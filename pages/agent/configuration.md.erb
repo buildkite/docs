@@ -36,6 +36,8 @@ All agent options can also be specified as environment variables when starting t
 BUILDKITE_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
+These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of these variables within [hook scripts](/docs/agent/hooks), depending on when the hook script is run.
+
 ### Git clone flags
 
 If you wish to include extra flags in the `git clone` command used by the Buildkite Agent you can specify a `BUILDKITE_GIT_CLONE_FLAGS` environment variable. This cannot be set in the agent configuration file. By default it is set to `-v`. For example, to create shallow clones:
