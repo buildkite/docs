@@ -32,8 +32,10 @@ The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`.
 You can run as many parallel agents on the one machine as you wish by simply copying the init.d and starting it:
 
 ```shell
-sudo cp /usr/lib/systemd/system/buildkite-agent.service /usr/lib/systemd/system/buildkite-agent-2.service
-sudo systemctl enable buildkite-agent-2 && systemctl start buildkite-agent-2
+sudo cp /usr/lib/systemd/system/buildkite-agent.service /usr/lib/systemd/system/buildkite-agent@.service
+sudo systemctl enable buildkite-agent@2 && systemctl start buildkite-agent@2
+sudo systemctl enable buildkite-agent@3 && systemctl start buildkite-agent@3
+...
 ```
 
 For older systems without `systemctl` (such as Amazon Linux) you instead use:
