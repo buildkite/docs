@@ -11,6 +11,8 @@ Every agent installer comes with a configuration file. You can find the location
 * `priority` - The priority of the agent (higher priorities are assigned work first, null is assigned last) - Default: `null`
 * `meta-data` - Meta data for the agent - Default: `"queue=default"`
 * `meta-data-ec2-tags` - Populate the meta data from the current instances EC2 Tags - Default: `false`
+* `git-clean-flags` - Change flags used during Git clean - Default: `-fdq`
+* `git-clone-flags` - Change flags used during Git clone - Default: `-v`
 * `build-path` - Path to where the builds will run from - Default: (depends on platform)
 * `hooks-path` - Directory where the global hook scripts are found - Default: (depends on platform)
 * `no-pty` - Do not run jobs within a pseudo terminal - Default: `false`
@@ -25,6 +27,7 @@ Every agent installer comes with a configuration file. You can find the location
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
 name="my-app-%n"
 meta-data="ci=true,docker=true"
+git-clean-flags="-fdqx"
 debug=true
 ```
 
@@ -37,19 +40,3 @@ BUILDKITE_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
 These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of these variables within [hook scripts](/docs/agent/hooks), depending on when the hook script is run.
-
-### Git clone flags
-
-If you wish to include extra flags in the `git clone` command used by the Buildkite Agent you can specify a `BUILDKITE_GIT_CLONE_FLAGS` environment variable. This cannot be set in the agent configuration file. By default it is set to `-v`. For example, to create shallow clones:
-
-```
-BUILDKITE_GIT_CLONE_FLAGS="--depth=1" buildkite-agent start
-```
-
-### Git clean flags
-
-You can modify the `git clone` flags used by the Buildkite Agent during checkout using the `BUILDKITE_GIT_CLEAN_FLAGS` environment variable. This cannot be set in the agent configuration file. By default it is set to `-fdq`. You can force the agent to clean all files from a Git checkout by including `-x`. For example:
-
-```sh
-BUILDKITE_GIT_CLEAN_FLAGS="-fdqx" buildkite-agent start
-```
