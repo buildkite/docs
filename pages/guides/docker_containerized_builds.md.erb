@@ -91,7 +91,7 @@ BUILDKITE_DOCKER_COMPOSE_FILE=docker-compose.buildkite.yml
 
 ## Adding buildkite-agent to the docker group
 
-To allow buildkite-agent to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Docker daemon. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
+To allow buildkite-agent to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
 
 ## Adding a cleanup task
 
