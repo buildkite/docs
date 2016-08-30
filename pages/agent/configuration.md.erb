@@ -33,10 +33,10 @@ debug=true
 
 ## Environment Variables
 
-All agent options can also be specified as environment variables when starting the agent. They must be prefixed with `BUILDKITE_` and all dashes (`-`) replaced by underscores (`_`). For example:
+All agent options can also be specified as environment variables when starting the agent. They must be prefixed with `BUILDKITE_AGENT_` and all dashes (`-`) replaced by underscores (`_`). For example:
 
 ```sh
-BUILDKITE_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
+BUILDKITE_AGENT_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
 These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of these variables within [hook scripts](/docs/agent/hooks), depending on when the hook script is run.
