@@ -1,0 +1,37 @@
+# Controlling Concurrency
+
+Some tasks need to be run with very strict concurrency rules to ensure their tasks don't collide. Common examples for needing concurrency control is for running deployments, app releases, or infrastructure tasks.
+
+To help you control concurrency Buildkite provides two primitives: concurrency groups, and concurrency limits.
+
+<%= toc %>
+
+## Concurrency Groups
+
+Concurrency groups are what Buildkite uses to group together jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you've set. 
+
+Examples for concurrency groups include:
+
+* `our-payment-gateway/deployment`
+* `terraform/update-state`
+* `my-mobile-app/app-store-release`
+
+## Concurrency Limits
+
+Concurrency limits define the number of simultaneous build jobs that are allowed to be running at any one time.
+
+A concurrency limit of `1` ensures that no two jobs with the same concurrency group will run at the same time.
+
+## Example: Deploy Step
+
+The following is an example [command step](/docs/agent/build-pipelines#command-steps) that would run a deployment step one-at-a-time, no matter how many builds are created:
+
+```yaml
+- command: 'deploy.sh'
+  name: '\:rocket\: Deploy production'
+  branches: 'master'
+  agents:
+    deploy: true
+  concurrency: 1
+  concurrency_group: 'our-payment-gateway/deploy'
+```
