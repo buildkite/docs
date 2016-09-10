@@ -1,6 +1,6 @@
 # Controlling Concurrency
 
-Some tasks need to be run with very strict concurrency rules to ensure their tasks don't collide. Common examples for needing concurrency control is for running deployments, app releases, or infrastructure tasks.
+Some tasks need to be run with very strict concurrency rules to ensure they don’t collide with each other. Common examples for needing concurrency control are deployments, app releases and infrastructure tasks.
 
 To help you control concurrency Buildkite provides two primitives: concurrency groups, and concurrency limits.
 
@@ -8,23 +8,25 @@ To help you control concurrency Buildkite provides two primitives: concurrency g
 
 ## Concurrency Groups
 
-Concurrency groups are what Buildkite uses to group together jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you've set. 
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you’ve set. 
 
-Examples for concurrency groups include:
+Common examples for concurrency group values include:
 
 * `our-payment-gateway/deployment`
 * `terraform/update-state`
 * `my-mobile-app/app-store-release`
 
+Note: you can’t set a custom concurrency group label using the web interface, only a `pipeline.yml`. If you set concurrency in the web interface a label is automatically generated for that step.
+
 ## Concurrency Limits
 
-Concurrency limits define the number of simultaneous build jobs that are allowed to be running at any one time.
+Concurrency limits define the number of build jobs that are allowed to be running at any one time.
 
-A concurrency limit of `1` ensures that no two jobs with the same concurrency group will run at the same time.
+For example, a concurrency limit of `1` ensures that no two jobs with the same concurrency group will run at the same time.
 
 ## Example: Deploy Step
 
-The following is an example [command step](/docs/agent/build-pipelines#command-steps) that would run a deployment step one-at-a-time, no matter how many builds are created:
+The following is an example [command step](/docs/agent/build-pipelines#command-steps) that ensures deployments run one at a time:
 
 ```yaml
 - command: 'deploy.sh'
@@ -35,3 +37,5 @@ The following is an example [command step](/docs/agent/build-pipelines#command-s
   concurrency: 1
   concurrency_group: 'our-payment-gateway/deploy'
 ```
+
+If multiple builds are created with this step, each deployment job will be queued up and run one at a time in the order they were created.
