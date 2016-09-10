@@ -2,6 +2,47 @@
 
 <%= toc %>
 
+## Retry a job
+
+Retries a `failed` or `timed_out` job.
+
+```bash
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"
+```
+
+```json
+    {
+      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "type": "script",
+      "name": "scripts/build.sh",
+      "agent_query_rules": ["*"],
+      "state": "scheduled",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "command": "scripts/build.sh",
+      "exit_status": 0,
+      "artifact_paths": "",
+      "agent": null,
+      "created_at": "2015-05-09T21:05:59.874Z",
+      "scheduled_at": "2015-05-09T21:05:59.874Z",
+      "started_at": null,
+      "finished_at": null
+    }
+```
+
+Required scope: `write_builds`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed or timed out jobs can be retried" }</code></td></tr>
+</tbody>
+</table>
+
 ## Unblock a job
 
 Unblocks a build’s "Block pipeline" job. The job’s `unblockable` property indicates whether it is able to be unlocked, and the `unblock_url` property points to this endpoint.
