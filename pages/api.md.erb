@@ -77,7 +77,7 @@ Enter host password for user 'your@email.com':
 
 ## Pagination
 
-For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing one or more of `next`, `prev`, `first` and `last`.
+For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing zero or more of `next`, `prev`, `first` and `last`.
 
 ```bash
 curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
