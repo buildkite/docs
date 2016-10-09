@@ -28,7 +28,7 @@ You can run as many parallel agents on the one machine as you wish by duplicatin
 
 ```shell
 # For Debian 8.x (systemd)
-sudo cp /lib/systemd/system/buildkite-agent.service /lib/systemd/system/buildkite-agent-2.service
+sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent-2.service
 sudo systemctl start buildkite-agent-2
 sudo journalctl -f -u buildkite-agent-2
 

@@ -27,6 +27,12 @@ See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
 You can run as many parallel agents on the one machine as you wish by duplicating the upstart service configuration file, for example:
 
 ```shell
+# For Ubuntu 15.04+ (using systemd)
+sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent-2.service
+sudo systemctl start buildkite-agent-2
+sudo journalctl -f -u buildkite-agent-2
+
+# For older Ubuntu (using upstart)
 sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
 sudo service buildkite-agent-2 start
 sudo tail -f /var/log/upstart/buildkite-agent-2.log
