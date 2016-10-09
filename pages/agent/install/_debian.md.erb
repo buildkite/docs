@@ -46,7 +46,7 @@ You can view the logs at:
 
 ```shell
 # For Debian 8.x (systemd)
-sudo tail -f /var/log/syslog | grep buildkite-agent
+sudo journalctl -f -u buildkite-agent
 
 # For Debian 7.x (using upstart)
 sudo tail -f /var/log/upstart/buildkite-agent.log

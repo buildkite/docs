@@ -34,5 +34,5 @@ You can view the logs at:
 tail -f /var/log/upstart/buildkite-agent.log
 
 # If systemd is installed (15.04 and above)
-tail -f /var/log/syslog | grep buildkite-agent
+journalctl -f -u buildkite-agent
 ```
