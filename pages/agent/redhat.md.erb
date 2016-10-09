@@ -19,7 +19,9 @@ See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
 * Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
 * Hooks: `/etc/buildkite-agent/hooks/`
 * Builds: `/var/buildkite-agent/builds/`
-* Log: `/var/log/messages` (or `/var/log/buildkite-agent.log` for older systems)
+* Logs, depending on your system:
+  - `/var/log/messages` (systemd)
+  - `/var/log/buildkite-agent.log` (older systems)
 * Agent user home: `/var/lib/buildkite-agent/`
 * SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
