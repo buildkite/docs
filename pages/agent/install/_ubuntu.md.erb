@@ -20,19 +20,19 @@ sudo sed -i "s/xxx/<%= token %>/g" /etc/buildkite-agent/buildkite-agent.cfg
 And then start the agent:
 
 ```shell
-# If upstart is installed (14.04 and below)
-sudo service buildkite-agent start
-
-# If systemd is installed (15.04 and above)
+# Ubuntu 15.04+ (systemd)
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
+
+# Older Ubuntu (upstart)
+sudo service buildkite-agent start
 ```
 
 You can view the logs at:
 
 ```shell
-# If upstart is installed (14.04 and below)
-tail -f /var/log/upstart/buildkite-agent.log
-
-# If systemd is installed (15.04 and above)
+# Ubuntu 15.04+ (systemd)
 journalctl -f -u buildkite-agent
+
+# Older Ubuntu (upstart)
+tail -f /var/log/upstart/buildkite-agent.log
 ```
