@@ -28,9 +28,22 @@ You can run as many parallel agents on the one machine as you wish by duplicatin
 
 ```shell
 # For Ubuntu 15.04+ (using systemd)
-sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent-2.service
-sudo systemctl start buildkite-agent-2
-sudo journalctl -f -u buildkite-agent-2
+
+# Disable the default unit
+sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
+
+# Create a systemd template
+sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
+
+# Now, as many times as you like
+sudo systemctl enable buildkite-agent@1 && sudo systemctl start buildkite-agent@1
+sudo systemctl enable buildkite-agent@2 && sudo systemctl start buildkite-agent@2
+
+# Follow them all
+sudo journalctl -f -u "buildkite-agent@*"
+
+# Or one-by-one
+sudo journalctl -f -u buildkite-agent@2
 
 # For older Ubuntu (using upstart)
 sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
