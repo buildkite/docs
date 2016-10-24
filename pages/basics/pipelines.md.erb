@@ -4,21 +4,15 @@ Pipelines are the top level containers for modelling and defining your workflows
 
 <%= toc %>
 
-## What's a pipeline made of?
+## What's in a pipeline?
 
-A pipeline is a template for builds, and is made up of three key parts.
-
-**Build** - the concrete version of a pipeline, a build creates jobs to run each of the steps defined in the pipeline
-
-**Step** - template of a single activity that exists in a pipeline
-
-**Job** - the concrete version of steps, jobs are what actually run each activity during your build. These are run independently, and aren't aware of other jobs.   
+A pipeline is a template of the steps you want to run. There are many types of steps, some run scripts, some define conditional logic, and others wait for user input. When you run a pipeline, a build is created. Each of the steps in the pipeline end up as jobs in the build.  
 
 ## Is this just for running tests and deploying code?
 
 Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions! You can even use pipelines to [create other pipelines](docs/guides/uploading-pipelines) 😱
 
-
+---
 
 ## The Pipelines page
 
@@ -58,7 +52,7 @@ Builds per week is calculated on the average number of builds per week, <ACTUAL 
 
 ### Starring pipelines
 
-You can keep your most used pipelines at the top of the page by clicking the star on the far right of any pipeline. 
+You can keep your most used pipelines at the top of the page by clicking the star on the far right of any pipeline 🌟🔝
 
 <%= image "favorite.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
 
@@ -68,6 +62,6 @@ Your pipeline's name, description, its repository, and your default branch are a
 
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
 
-The display settings can be found in the `Pipeline Settings` section. Adding a description for your pipeline is optional, but name, repository, and default branch are all required.   
+The display settings can be found in the `Pipeline Settings` section. Adding a description for your pipeline is optional, but name, repository, and default branch are all required. Descriptions have full emoji support! 🙌:llama:💯  
 
 
