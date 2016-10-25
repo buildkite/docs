@@ -4,7 +4,7 @@ Pipelines are the top level containers for modelling and defining your workflows
 
 <%= toc %>
 
-## What's in a pipeline?
+## What’s in a pipeline?
 
 A pipeline is a template of the steps you want to run. There are many types of steps, some run scripts, some define conditional logic, and others wait for user input. When you run a pipeline, a build is created. Each of the steps in the pipeline end up as jobs in the build.  
 
@@ -12,53 +12,53 @@ A pipeline is a template of the steps you want to run. There are many types of s
 
 Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions! You can even use pipelines to [create other pipelines](/docs/guides/uploading-pipelines) 😱
 
-## Your Pipelines page
+## Pipelines page walkthrough
 
-Once you've set up a few pipelines and have run some builds, you can see an overview of them on the Pipelines page. Each pipeline has a set of metrics to give you an overview of its health and performance.
+Once you’ve set up a few pipelines and have run some builds, you can see an overview of them on the Pipelines page. Each pipeline has a set of metrics to give you an overview of its health and performance.
 
-<%= image "full-page.gif", width: 2080/2, height: 1040/2, alt: "Build reliability UI screenshot" %>
+<%= image "full-page.png", width: 2032/2, height: 1016/2, alt: "Screenshot of an example pipelines page" %>
 
 ### Build health
 
-A visual indication of your pipeline's health! This icon is based on the most recently completed build. The build health icons give you a neat overview of the current health of your pipelines.  
+A visual indication of your pipeline’s health! This icon is based on the most recently completed build. The build health icons give you a neat overview of the current health of your pipelines.  
 
-<%= image "build-status.png", width: 728/2, height: 440/2, alt: "Build health icon UI screenshot" %>
+<%= image "build-status.png", width: 728/2, height: 440/2, alt: "Screenshot of the build health icon" %>
 
 ### Build history
 
-The build history visualises the last 30 builds that have been run on your default branch. The height of each bar reflects the build's running time, and its status is represented by its colour and in the tooltip on hover.
+The build history visualizes the last 30 builds that have been run on your default branch. The height of each bar reflects the build’s running time, and its status is represented by its colour and in the tooltip on hover.
 
-<%= image "graphs.png", width: 728/2, height: 440/2, alt: "Build history visualisation UI screenshot" %>
+<%= image "graphs.png", width: 728/2, height: 440/2, alt: "Screenshot of the build history visualization" %>
 
 ### Speed
 
-The speed of your pipeline is calculated from the average of your 30 most recent builds. This helps you keep an eye on your pipeline's speed, and compare performance between pipelines.
+The speed of your pipeline is calculated from the average of your 30 most recent builds. This helps you keep an eye on your pipeline’s speed, and compare performance between pipelines.
 
-<%= image "speed.png", width: 728/2, height: 440/2, alt: "Build health icon UI screenshot" %>
+<%= image "speed.png", width: 728/2, height: 440/2, alt: "Screenshot of the build speed metric" %>
 
 ### Reliability
 
 The reliability of your pipeline is a calculation based on passing vs failing builds over the last 30 days. This metric helps you to understand the overall stability of your pipelines. 
 
-<%= image "reliability.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
+<%= image "reliability.png", width: 728/2, height: 440/2, alt: "Screenshot of the build reliability metric" %>
 
 ### Builds per week
 
 The builds per week measurement is calculated based on the average number of builds created over the past 4 weeks. This metric helps you to understand how frequently a pipeline is run.
 
-<%= image "frequency.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
+<%= image "frequency.png", width: 728/2, height: 440/2, alt: "Screenshot of the builds per week metric" %>
 
 ### Starring pipelines
 
 You can keep your most used pipelines at the top of the page by clicking the star on the far right of any pipeline 🌟🔝
 
-<%= image "favorite.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
+<%= image "favorite.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipeline star button" %>
 
 ### Customizing the page
 
-Your pipeline's name, description, its repository, and your default branch are all editable! After you've clicked on a pipeline, the settings button is in the top right corner. 
+Your pipeline’s name, description, its repository, and your default branch are all editable! After you’ve clicked on a pipeline, the settings button is in the top right corner. 
 
-<%= image "settings.png", width: 728/2, height: 440/2, alt: "Build reliability UI screenshot" %>
+<%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipelines settings button" %>
 
 The display settings can be found in the `Pipeline Settings` section. Adding a description for your pipeline is optional, but name, repository, and default branch are all required. Descriptions have full emoji support! 🙌:llama:💯  
 
