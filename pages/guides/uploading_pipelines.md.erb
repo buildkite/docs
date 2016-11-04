@@ -31,7 +31,7 @@ steps:
   - name: '\:hammer\: Tests'
     command: 'scripts/tests.sh'
     env:
-      DOCKER_COMPOSE_CONTAINER: app
+      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 
   - wait
 
@@ -39,7 +39,7 @@ steps:
     command: 'scripts/build-binaries.sh'
     artifact_paths: 'pkg/*'
     env:
-      DOCKER_COMPOSE_CONTAINER: app
+      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 
   - wait
 
