@@ -8,7 +8,7 @@ To help you control concurrency Buildkite provides two primitives: concurrency g
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you’ve set. 
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you’ve set.
 
 Common examples for concurrency group values include:
 
@@ -30,7 +30,7 @@ The following is an example [command step](/docs/agent/build-pipelines#command-s
 
 ```yaml
 - command: 'deploy.sh'
-  name: '\:rocket\: Deploy production'
+  label: '\:rocket\: Deploy production'
   branches: 'master'
   agents:
     deploy: true

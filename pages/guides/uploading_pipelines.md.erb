@@ -14,7 +14,7 @@ This will add a step to your pipeline containing the correct `buildkite-agent pi
 
 ```yml
 steps:
-  - name: Example Test
+  - label: Example Test
     command: echo "Hello!"
 ```
 
@@ -28,14 +28,14 @@ Here’s a more complete example based off the Buildkite Agent’s pipeline whic
 
 ```yaml
 steps:
-  - name: '\:hammer\: Tests'
+  - label: '\:hammer\: Tests'
     command: 'scripts/tests.sh'
     env:
       BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 
   - wait
 
-  - name: '\:package\: Package'
+  - label: '\:package\: Package'
     command: 'scripts/build-binaries.sh'
     artifact_paths: 'pkg/*'
     env:
@@ -43,7 +43,7 @@ steps:
 
   - wait
 
-  - name: '\:debian\: Publish'
+  - label: '\:debian\: Publish'
     command: 'scripts/build-debian-packages.sh'
     artifact_paths: 'deb/**/*'
     branches: 'master'
@@ -53,14 +53,14 @@ steps:
   - block: '\:shipit\: Release'
     branches: 'master'
 
-  - name: '\:github\: Release'
+  - label: '\:github\: Release'
     command: 'scripts/build-github-release.sh'
     artifact_paths: 'releases/**/*'
     branches: 'master'
 
   - wait
 
-  - name: '\:whale\: Update images'
+  - label: '\:whale\: Update images'
     command: 'scripts/release-docker.sh'
     branches: 'master'
     agents:
