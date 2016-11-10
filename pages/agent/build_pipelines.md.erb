@@ -36,7 +36,7 @@ Options:
    --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
    --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
    --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint 'https://agent.buildkite.com/v3'  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --endpoint "https://agent.buildkite.com/v3"  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
    --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
@@ -54,24 +54,24 @@ The pipeline can be written as YAML or JSON, but YAML is more commonly for its r
 A *command* step runs a command on an agent. The following is the most simple *command* step:
 
 ```yml
-- command: 'command.sh'
+- command: "command.sh"
 ```
 
 The following step includes every configuration property for *command* steps:
 
 ```yml
-- command: 'tests.sh'
-  label: '\:hammer\: Tests'
-  branches: 'master'
+- command: "tests.sh"
+  name: "\:hammer\: Tests"
+  branches: "master"
   env:
-    FOO: 'bar'
+    FOO: "bar"
   agents:
-    npm: 'true'
-    queue: 'tests'
-  artifact_paths: 'logs/**/*;coverage/**/*'
+    npm: "true"
+    queue: "tests"
+  artifact_paths: "logs/**/*;coverage/**/*"
   parallelism: 1
   concurrency: 1
-  concurrency_group: 'serial_tests'
+  concurrency_group: "serial_tests"
   timeout_in_minutes: 60
 ```
 
@@ -80,9 +80,9 @@ The following step includes every configuration property for *command* steps:
 A *waiter* step waits for all previous steps to complete before continuing, for example:
 
 ```yml
-- command: 'command.sh'
+- command: "command.sh"
 - wait
-- command: 'echo The command passed'
+- command: "echo The command passed"
 ```
 
 ## Click to unblock steps
@@ -90,17 +90,17 @@ A *waiter* step waits for all previous steps to complete before continuing, for 
 A *block* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
 
 ```yml
-- command: 'command.sh'
+- command: "command.sh"
 - block
-- command: 'deploy.sh'
+- command: "deploy.sh"
 ```
       
 Changing the label of the unblock step can be done by setting it as a value of the *block* step:
 
 ```yml
-- command: 'command.sh'
-- block: '\:rocket\: Release'
-- command: 'deploy.sh'
+- command: "command.sh"
+- block: "\:rocket\: Release"
+- command: "deploy.sh"
 ```
 
 You can even scope the *block* step to a set of branches. In the following
@@ -108,9 +108,56 @@ example, the "Deploy" button and the subsequent `deploy.sh` script will only be
 available for `master` builds:
 
 ```yml
-- command: 'test.sh'
-- block: '\:rocket\: Release'
+- command: "test.sh"
+- block: "\:rocket\: Release"
   branches: "master"
-- command: 'deploy.sh'
+- command: "deploy.sh"
   branches: "master"
+```
+
+Add a prompt to the `block` step by adding the `prompt` and `fields` configuration keys:
+
+```yml
+- block: "Continue after input"
+  prompt: "Fill out this form!"
+  fields: 
+    - text: "What version is this?"
+      key: "version"
+      default: "v0.1"
+```
+
+There are two types of fields available: `text`, and `select`. In a `select` field, the number of `options` specified will alter its display in the prompt. Providing 6 options or less will show as a set of radio buttons, and more than 6 options will show a drop down list.  
+
+```yml
+- block: "Continue after input"
+  prompt: "Fill out this form!"
+  fields: 
+    - select: "What team should be notified after this deployment?"
+      key: "notify-team"
+      options:
+        - All
+        - None
+        - Billing
+        - Ops
+        - Sales
+        - Directors
+        - Engineering
+        - Support
+        - QA
+```
+
+You can also specify a `default` value, and a hint for `text` and `select` fields:
+
+```yml
+-- block: "Continue after input"
+  prompt: "Fill out this form!"
+  fields:
+    - select: "Would you like a :taco: after this deploy?"
+      hint: "Less than 6 options will show a radio, more than 6 will show a select box"
+      key: "taco"
+      default: "Yes"
+      options:
+        - "Yes"
+        - "No"
+        - ":llama:"
 ```
