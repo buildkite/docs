@@ -1,4 +1,4 @@
-# Build Pipelines
+# buildkite-agent pipeline
 
 The Buildkite Agent’s `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YML or JSON and can be read from a file or streamed from the output of a script.
 
@@ -6,7 +6,7 @@ See the [Uploading Build Pipelines](/docs/guides/uploading-pipelines) guide for 
 
 <%= toc %>
 
-## Uploading pipelines
+## Uploading Pipelines
 
 ```
 Usage:
@@ -42,14 +42,14 @@ Options:
    --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
-## Pipeline format
+## Pipeline Format
 
 The pipeline can be written as YAML or JSON, but YAML is more commonly for its readability. There are two top level properties you can specify:
 
 * `env` - a hash of build-wide environment variables
 * `steps` - an array of build steps to be run (a mix of script, `wait` and `block` steps)
 
-## Command steps
+## Command Steps
 
 A *command* step runs a command on an agent. The following is the most simple *command* step:
 
@@ -75,7 +75,7 @@ The following step includes every configuration property for *command* steps:
   timeout_in_minutes: 60
 ```
 
-## Waiter steps
+## Waiter Steps
 
 A *waiter* step waits for all previous steps to complete before continuing, for example:
 
@@ -85,7 +85,7 @@ A *waiter* step waits for all previous steps to complete before continuing, for 
 - command: "echo The command passed"
 ```
 
-## Click to unblock steps
+## Click to Unblock Steps
 
 A *block* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
 
