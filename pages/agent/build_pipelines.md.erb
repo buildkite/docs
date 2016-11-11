@@ -51,13 +51,13 @@ The pipeline can be written as YAML or JSON, but YAML is more commonly for its r
 
 ## Command steps
 
-A *command* step runs a command on an agent. The following is the most simple script step:
+A *command* step runs a command on an agent. The following is the most simple *command* step:
 
 ```yml
 - command: 'command.sh'
 ```
 
-A command step that uses all the possible configuration keys:
+The following step includes every configuration property for *command* steps:
 
 ```yml
 - command: 'tests.sh'
@@ -87,15 +87,15 @@ A *waiter* step waits for all previous steps to complete before continuing, for 
 
 ## Click to unblock steps
 
-A *blocker* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
+A *block* step will pause the pipeline and wait for a team member to unblock it (via the web or the API).
 
 ```yml
 - command: 'command.sh'
 - block
 - command: 'deploy.sh'
 ```
-
-Changing the label of the unblock step can be done by setting it as a value of the `block` step:
+      
+Changing the label of the unblock step can be done by setting it as a value of the *block* step:
 
 ```yml
 - command: 'command.sh'
@@ -103,7 +103,7 @@ Changing the label of the unblock step can be done by setting it as a value of t
 - command: 'deploy.sh'
 ```
 
-You can even scope the `block` step to a set of branches. In the following
+You can even scope the *block* step to a set of branches. In the following
 example, the "Deploy" button and the subsequent `deploy.sh` script will only be
 available for `master` builds:
 
