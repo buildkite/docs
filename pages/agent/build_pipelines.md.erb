@@ -74,7 +74,42 @@ The following step includes every configuration property for *command* steps:
   concurrency_group: 'serial_tests'
   timeout_in_minutes: 60
 ```
+ 
+## Environment variables
 
+Environment variables are automatically interpolated when you upload your build, for example:
+      
+```yml
+- command: echo 'building ${BUILDKITE_PIPELINE_SLUG}...'      
+```
+      
+Will be uploaded as:
+      
+```yml
+# Assuming your pipeline is called 'my-first-buildkite-pipeline'
+- command: echo 'building my-first-buildkite-pipeline...'      
+```
+      
+For a full list of available Buildkite environment variables, see [Environment Variable](/docs/guides/envionrment-variables) that can be used inside your templates.
+      
+You can escape environment variables for use at build time using an extra `$`:
+      
+```yml
+- command: echo 'building in this directory: $$PWD'      
+```    
+
+Will be uploaded as:
+      
+```yml
+- command: echo 'building in this directory: $PWD'      
+```
+
+Environment variables can also be escaped with backslashes:
+      
+```yml
+- command: echo 'building in this directory: \$PWD'      
+```
+      
 ## Waiter steps
 
 A *waiter* step waits for all previous steps to complete before continuing, for example:
