@@ -1,14 +1,14 @@
-# Build Artifacts
+# buildkite-agent artifact
 
 The Buildkite Agent’s `artifact` command provides support for uploading and downloading of build artifacts, allowing you to share binary data between build steps no matter the machine or network.
 
-See the [Using Build Artifacts](/docs/guides/artifacts) guide for a step-by-step example.
+See the [Using Build Artifacts]((/docs/builds/artifacts)) guide for a step-by-step example.
 
 <%= toc %>
 
 ## Uploading Artifacts
 
-Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/guides/artifacts) for details).
+Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide]((/docs/builds/artifacts)) for details).
 
 ```
 Usage:
@@ -91,7 +91,7 @@ The `buildkite-agent artifact download` command only works within the context of
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
-## Fetching the SHA of an artifact
+## Fetching the SHA of an Artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
@@ -133,7 +133,7 @@ Options:
    --no-color              Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
 ```
 
-## Using your own S3 bucket
+## Using Your Own S3 Bucket
 
 If you’d like to upload artifacts to your own Amazon S3 bucket you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
