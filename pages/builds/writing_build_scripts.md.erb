@@ -43,7 +43,7 @@ If you need to perform tasks after your main command executes then `set -e` migh
 
 ## Debugging your environment
 
-The first step to debugging script is to output the environment. This will show any [environment variables set up by the Buildkite Agent](/docs/guides/environment-variables), as well as other important environment variables such as `$PATH`.
+The first step to debugging script is to output the environment. This will show any [environment variables set up by the Buildkite Agent](/docs/builds/environment-variables), as well as other important environment variables such as `$PATH`.
 
 To add the environment to your build output simply execute `env` at the start of your build script.
 
@@ -81,7 +81,7 @@ exit $ORIGINAL_STATUS
 
 ## Managing Log Output Size
 
-See the [Managing Log Output guide](/docs/guides/managing-log-output) for techniques on reducing large build output.
+See the [Managing Log Output guide](/docs/builds/managing-log-output) for techniques on reducing large build output.
 
 ## Linting, Debugging and Help Tools
 
