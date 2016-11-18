@@ -115,49 +115,80 @@ available for `master` builds:
   branches: "master"
 ```
 
-Add a prompt to the `block` step by adding the `prompt` and `fields` configuration keys:
+## block steps
 
-```yml
-- block: "Continue after input"
-  prompt: "Fill out this form!"
-  fields: 
-    - text: "What version is this?"
-      key: "version"
-      default: "v0.1"
-```
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Example</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>label shorthand</td>
+    <td>"\:rocket\: Release"</td>
+    <td>the text that is displayed for the step in the pipeline</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td>"\:rocket\: Release"</td>
+    <td>the same as using the label shorthand, but in its own attribute</td>
+  </tr>
+  <tr>
+    <td>branches</td>
+    <td>"master"</td>
+    <td>
+      scope the block step to a set of branches <br>
+      make everything after the block step only available to builds that occur on a specific branch
+    </td>
+  </tr>
+  <tr>
+    <td>prompt</td>
+    <td>"If things have happened, unblock this step by clicking continue"</td>
+    <td>the text that is displayed in the prompt when you click the button to unblock your step</td>
+  </tr>
+  <tr>
+    <td>fields</td>
+    <td>- text <br> - select</td>
+    <td>there are only two options for field types, `text` or `select`</td>
+  </tr>
+</table>
 
-There are two types of fields available: `text`, and `select`. In a `select` field, the number of `options` specified will alter its display in the prompt. Providing 6 options or less will show as a set of radio buttons, and more than 6 options will show a drop down list.  
 
-```yml
-- block: "Continue after input"
-  prompt: "Fill out this form!"
-  fields: 
-    - select: "What team should be notified after this deployment?"
-      key: "notify-team"
-      options:
-        - All
-        - None
-        - Billing
-        - Ops
-        - Sales
-        - Directors
-        - Engineering
-        - Support
-        - QA
-```
+## field attributes
 
-You can also specify a `default` value, and a hint for `text` and `select` fields:
+<table>
+  <tr>
+    <th>Attribute</th>
+    <th>Example</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td>key</td>
+    <td>"notify-team"</td>
+    <td>identifies the field for later access via the buildkite-agent meta-data command, this field is required</td>
+  </tr>
+  <tr>
+    <td>hint</td>
+    <td>"Please only select one team to notify"</td>
+    <td>text that is displayed directly under the field label</td>
+  </tr>
+  <tr>
+    <td>optional</td>
+    <td>"true"</td>
+    <td>as all fields are required by default, add this attribute to make your field optional</td>
+  </tr>
+  <tr>
+    <td>default</td>
+    <td>"Ops"</td>
+    <td>placeholder text to display in the text box, or the option that will be pre-filled in your select field</td>
+  </tr>
+  <tr>
+    <td>options</td>
+    <td>- Support<br>
+    - Engineering<br>
+    - Ops</td>
+    <td>only applicable to `select` fields, these populate the key/value pairs for radio buttons or a dropdown list</td>
+  </tr>
+</table>
 
-```yml
--- block: "Continue after input"
-  prompt: "Fill out this form!"
-  fields:
-    - select: "Would you like a \:taco\: after this deploy?"
-      hint: "Less than 6 options will show a radio, more than 6 will show a select box"
-      key: "taco"
-      default: "Yes"
-      options:
-        - "Yes"
-        - "No"
-        - "\:llama\:"
-```
+                                 
