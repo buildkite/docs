@@ -74,19 +74,20 @@ if (IS_PRODUCTION) {
 }
 
 module.exports = {
-  context: __dirname,
-
   devtool: devTool,
 
+  devServer: {
+    historyApiFallback: true
+  },
+
   entry: {
-    app: path.join(__dirname, '../app/app.js')
+    app: path.join(__dirname, '../app/index.js')
   },
 
   output: {
     filename: filenameFormat,
     chunkFilename: chunkFilename,
-    path: path.join(__dirname, '..', 'dist'),
-    publicPath: path.join(__dirname, '..', 'assets')
+    path: path.join(__dirname, '..', 'dist')
   },
 
   module: {

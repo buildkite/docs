@@ -2,9 +2,11 @@
   "description": "Buildkite's Documentation",
   "license": "MIT",
   "scripts": {
-    "start": "NODE_ENV=development webpack-dev-server --config webpack/config.js --progress --colors --cache --inline --hot --port 4690",
+    "start": "NODE_ENV=development webpack-dev-server --config webpack/config.js --content-base assets --progress --colors --cache --inline --hot --port 4690",
     "lint": "eslint .",
-    "lint-and-fix": "eslint --fix ."
+    "lint-and-fix": "eslint --fix .",
+    "build": "NODE_ENV=development webpack --config webpack/config.js --progress --bail",
+    "build-production": "NODE_ENV=production webpack --config webpack/config.js --progress --bail --optimize-minimize"
   },
   "devDependencies": {
     "babel-core": "^6.18.2",
@@ -25,6 +27,7 @@
     "classnames": "^2.2.5",
     "markdown-component-loader": "^0.0.6",
     "react": "^15.4.0",
+    "react-document-title": "^2.0.2",
     "react-dom": "^15.4.0",
     "react-router": "^3.0.0",
     "react-type-snob": "^0.0.3"
