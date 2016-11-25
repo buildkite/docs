@@ -1,5 +1,6 @@
 var path = require("path");
 var webpack = require("webpack");
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 // Ensure a NODE_ENV is also present
 if (!process.env.NODE_ENV) {
@@ -49,7 +50,9 @@ var plugins = [
     'process.env': {
       'NODE_ENV': JSON.stringify(process.env.NODE_ENV)
     }
-  })
+  }),
+
+  new ExtractTextPlugin("app.css", { allChunks: true })
 ];
 
 // If we're building for production, minify the JS
@@ -100,9 +103,20 @@ module.exports = {
       {
         test: /\.mdx$/i,
         loader: 'babel-loader!markdown-component-loader?passElementProps=true'
+      },
+      {
+        test: /\.css$/i,
+        loader: ExtractTextPlugin.extract("css-loader!postcss-loader")
       }
     ]
   },
 
-  plugins: plugins
+  plugins: plugins,
+
+  postcss: function(webpack) {
+    return [
+      require("postcss-import")({ addDependencyTo: webpack }),
+      require("postcss-cssnext")({ features: { rem: false } }),
+    ];
+  }
 };
