@@ -1,0 +1,34 @@
+steps:
+  - name: ":docker: :package:"
+    plugins:
+      docker-compose:
+        build: docs
+        image-repository: index.docker.io/buildkiteci/docs
+    env:
+      RAILS_ENV: test
+    agents:
+      queue: elastic-builders
+
+  - wait
+
+  - name: ":eslint:"
+    command: ".buildkite/eslint.sh"
+    plugins:
+      docker-compose#ed68516:
+        run: docs
+
+  - name: ":webpack:"
+    command: ".buildkite/webpack.sh"
+    artifact_paths: "dist/*"
+    plugins:
+      docker-compose#ed68516:
+        run: docs
+
+  # - wait
+
+  # - name: ":rocket:"
+  #   command: ".buildkite/deploy.sh"
+  #   branches: "master"
+  #   artifact_paths: "tmp/verify/*"
+  #   agents:
+  #     queue: "deploy"

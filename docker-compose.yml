@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  docs:
+    build: .
+    volumes:
+      - "./dist:/docs/dist"
+      - "./coverage:/docs/coverage"
+    environment:
+      BUILDKITE:
+      BUILDKITE_COMMIT:
+      BUILDKITE_ORGANIZATION_SLUG:
+      BUILDKITE_PIPELINE_SLUG:
+      CI:

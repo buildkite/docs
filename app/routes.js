@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, Route, IndexRoute, browserHistory, applyRouterMiddleware } from 'react-router';
+import { Router, Route, browserHistory } from 'react-router';
 import { basename, dirname, extname } from 'path';
 import DocumentTitle from 'react-document-title';
 
@@ -27,13 +27,13 @@ const resolvedRoutes = GuideRequire.keys().map((requirePath) => {
   return {
     requirePath,
     path
-  }
+  };
 });
 
 // We're really only building the structure above so we can console.table these for debugging purposes
-console.table(resolvedRoutes.map(({path, requirePath}) => ({path, resolved: requirePath})));
+console.table(resolvedRoutes.map(({ path, requirePath }) => ({ path, resolved: requirePath })));
 
-const routes = resolvedRoutes.map(({path, requirePath}) =>
+const routes = resolvedRoutes.map(({ path, requirePath }) =>
   <Route key={path} path={path} component={GuideRequire(requirePath).default} />
 );
 
