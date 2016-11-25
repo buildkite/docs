@@ -10,6 +10,8 @@ If you don’t use GitHub or need more control of deployments, this guide will r
 
 ## Setting up the Heroku Command Line Interface (CLI)
 
+<%= estimated_time "5-8 minutes" %>
+
 You can deploy to Heroku using the same `git push` command you’d run from your development machine.
 
 First step is installing the [Heroku CLI](https://devcenter.heroku.com/articles/heroku-command-line) on your Buildkite agent machine. For example, this is how you’d do it on a linux agent machine:
@@ -17,6 +19,8 @@ First step is installing the [Heroku CLI](https://devcenter.heroku.com/articles/
 ```bash
 $ wget -O- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 ```
+
+You can find OSX and Windows installers [here](https://devcenter.heroku.com/articles/heroku-command-line#download-and-install).
 
 And now verify it installed correctly by checking the version:
 
