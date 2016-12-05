@@ -15,8 +15,8 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_JOB_ID` internal UUID Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
 - `BUILDKITE_BUILD_ID` internal UUID Buildkite uses for this build `9e08ef3c-d6e6-4a86-91dd-577ce5205b8e`
 - `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/acme-inc/web-app/builds/1514`
-- `BUILDKITE_AGENT_NAME` name of the agent running the build `my-agent-1`
-- `BUILDKITE_COMMAND` the command that will be run for the build `script/buildkite/specs`
+- `BUILDKITE_AGENT_NAME` name of the agent running the job `my-agent-1`
+- `BUILDKITE_COMMAND` the command that will be run for the job `script/buildkite/specs`
 - `BUILDKITE_MESSAGE` will be the message associated with the build (generally a commit message)
 - `BUILDKITE_TIMEOUT` minutes until Buildkite automatically cancels this job, `false` if no timeout is set
 - `BUILDKITE_BUILD_NUMBER` the build number `1514`
