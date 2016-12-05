@@ -18,6 +18,7 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 - `BUILDKITE_AGENT_NAME` name of the agent running the build `my-agent-1`
 - `BUILDKITE_COMMAND` the command that will be run for the build `script/buildkite/specs`
 - `BUILDKITE_MESSAGE` will be the message associated with the build (generally a commit message)
+- `BUILDKITE_TIMEOUT` minutes until Buildkite automatically cancels this job, `false` if no timeout is set
 - `BUILDKITE_BUILD_NUMBER` the build number `1514`
 - `BUILDKITE_ORGANIZATION_SLUG` the organization name on Buildkite as used in URL's `acme-inc`
 - `BUILDKITE_PIPELINE_SLUG` the pipeline slug on Buildkite as used in URL's `web-app`
