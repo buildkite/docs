@@ -126,7 +126,7 @@ Adding the `fields` attribute to a *block* step allows you to add custom fields 
       hint: Enter your release notes here \:sparkles\:
     - text: Release name
       key: release-name
-      optional: true
+      required: false
     - select: Release type
       key: release-type
       default: Major
@@ -153,24 +153,24 @@ Attributes that are available to describe block steps in your `pipeline.yml`:
   <tr>
     <td>name</td>
     <td>Release \:rocket\:</td>
-    <td>The text displayed in the pipeline on this step</td>
+    <td>The text displayed in the pipeline on this step.</td>
   </tr>
   <tr>
     <td>branches</td>
     <td>master</td>
     <td>
-      The names of the branch or branches that will include this block step, separated by spaces
+      The names of the branch or branches that will include this block step, separated by spaces.
     </td>
   </tr>
   <tr>
     <td>prompt</td>
     <td>To continue with your deploy, unblock this step by clicking continue</td>
-    <td>The heading of the prompt when you click the button to unblock your step</td>
+    <td>The heading of the prompt that is opened when you click in a pipeline to unblock a step.</td>
   </tr>
   <tr>
     <td>fields</td>
-    <td>- text <br> - select</td>
-    <td>There are two options for field types, `text` or `select`</td>
+    <td>text</td>
+    <td>The type of field that will be added to the prompt form.<br>Available values: text, select.<br>All form fields are required by default.</td>
   </tr>
 </table>
 
@@ -188,29 +188,29 @@ Properties available to describe the `field` attribute inside a block step in yo
   <tr>
     <td>key</td>
     <td>notify-team</td>
-    <td>The slug to identify the field for later access via the buildkite-agent meta-data command</td>
+    <td>The slug to identify the field for later access via the buildkite-agent meta-data command.</td>
   </tr>
   <tr>
     <td>hint</td>
     <td>Please only select one team to notify</td>
-    <td>The text displayed directly under the field label</td>
+    <td>The text displayed directly under the field label.</td>
   </tr>
   <tr>
-    <td>optional</td>
-    <td>true</td>
-    <td>As all fields are required by default, adding this attribute will allow your field to be optional</td>
+    <td>required</td>
+    <td>false</td>
+    <td>Allows null as a value for this field's key.</td>
   </tr>
   <tr>
     <td>default</td>
     <td>Ops</td>
-    <td>The placeholder text displayed in the text box, or the option that is pre-filled in a select field</td>
+    <td>The placeholder text displayed in the text box, or the option that is pre-filled in a select field.</td>
   </tr>
   <tr>
     <td>options</td>
     <td>- Support<br>
     - Engineering<br>
     - Ops</td>
-    <td>Only applicable to `select` fields, these populate the key/value pairs for radio buttons or a dropdown list</td>
+    <td>Only applicable to `select` fields, these populate the key/value pairs for radio buttons or a dropdown list.</td>
   </tr>
 </table>
 
