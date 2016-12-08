@@ -1,0 +1,11 @@
+# Wait Step
+
+<%= toc %>
+
+A *waiter* step waits for all previous steps to complete before continuing, for example:
+
+```yml
+- command: "command.sh"
+- wait
+- command: "echo The command passed"
+```
