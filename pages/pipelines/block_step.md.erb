@@ -4,113 +4,138 @@ A *block* step is used to pause the execution of a build and wait on a team memb
 
 <%= toc %>
 
-## block attributes
+You can add a block step to your pipeline in your pipeline settings, or from a `pipeline.yml`:
 
-Attributes that are available to describe block steps in your `pipeline.yml`:
+```yml
+- block: "\:rocket\: Release!"
+```
+
+<%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
+
+## Attributes
+
+Optional attributes for block steps in your `pipeline.yml`:
 
 <table>
   <tr>
-    <th>Attribute</th>
-    <th>Example</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>branches</td>
-    <td>master</td>
+    <td><code>branches</code></td>
     <td>
-      The names of the branch or branches that will include this block step, separated by spaces.
+      The names of the branch or branches that will include this block step, separated by spaces.<br>
+      <em>Example:</em> <code>"master"</code>
     </td>
   </tr>
   <tr>
-    <td>prompt</td>
-    <td>To continue with your deploy, unblock this step by clicking continue</td>
-    <td>The heading of the prompt that is opened when you click in a pipeline to unblock a step.</td>
+    <td><code>prompt</code></td>
+    <td>
+      The message in the prompt that is opened when you click in a pipeline to unblock a step.<br>
+      <em>Example:</em> <code>"Release to production?"</code><br>
+      <em>Example:</em> <code>"Fill out the details for this release"</code>
+    </td>
   </tr>
   <tr>
-    <td>fields</td>
-    <td>text</td>
-    <td>The type of field that will be added to the prompt form.<br>Available values: text, select.<br>All form fields are required by default.</td>
+    <td><code>fields</code></td>
+    <td>
+      A list of fields that will be displayed to the prompt form.<br>
+      Available field types: <code>text</code>, <code>select</code>
+    </td>
   </tr>
 </table>
 
 
-## fields attribute properties
+## Prompt form fields
 
-Properties available to describe the `field` attribute inside a block step in your `pipeline.yml`:
+### Text fields
 
 <table>
   <tr>
-    <th>Attribute</th>
-    <th>Example</th>
-    <th>Description</th>
+    <td><code>key</code></td>
+    <td>
+      The slug to identify the field for later access via the buildkite-agent meta-data command.<br>
+      <em>Example:</em> <code>"release-name"</code>
+    </td>
   </tr>
   <tr>
-    <td>key</td>
-    <td>notify-team</td>
-    <td>The slug to identify the field for later access via the buildkite-agent meta-data command.</td>
+    <td><code>hint</code></td>
+    <td>
+      The text displayed directly under the field label.<br>
+      <em>Example:</em> <code>"This name will be used in the changelog"</code>
+    </td>
   </tr>
   <tr>
-    <td>hint</td>
-    <td>Please only select one team to notify</td>
-    <td>The text displayed directly under the field label.</td>
+    <td><code>required</code></td>
+    <td>
+
+      <em>Default value:</em> <code>true</code>
+    </td>
   </tr>
   <tr>
-    <td>required</td>
-    <td>false</td>
-    <td>Allows null as a value for this field's key.</td>
-  </tr>
-  <tr>
-    <td>default</td>
-    <td>Ops</td>
-    <td>The placeholder text displayed in the text box, or the option that is pre-filled in a select field.</td>
-  </tr>
-  <tr>
-    <td>options</td>
-    <td>- Support<br>
-    - Engineering<br>
-    - Ops</td>
-    <td>Only applicable to `select` fields, these populate the key/value pairs for radio buttons (6 or less values) or a dropdown list (more than 6 values).</td>
+    <td><code>default</code></td>
+    <td>
+      The prefilled text in the text box.<br>
+      <em>Example:</em> <code>"Release #123 - Fish Sauce"</code>
+    </td>
   </tr>
 </table>
 
+### Select fields
 
-## Examples
+<table>
+  <tr>
+    <td><code>key</code></td>
+    <td>
+      The slug to identify the field for later access via the buildkite-agent meta-data command.<br>
+      <em>Example:</em> <code>"release-name"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>hint</code></td>
+    <td>
+      The text displayed directly under the field label.<br>
+      <em>Example:</em> <code>"This name will be used in the changelog"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>required</code></td>
+    <td>
+     
+      <em>Default:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>default</code></td>
+    <td>
+      The option that is pre-filled in a select field.<br>
+      <em>Example:</em> <code>"Engineering"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>options</code></td>
+    <td>
+      The values of radio buttons (6 or less values) or a dropdown list (more than 6 values).
+    </td>
+  </tr>
+</table>
 
-Adding the `fields` attribute to a *block* step allows you to add custom fields to the prompt when you click on a *block* step:
+### Select field options
 
-```yml
-- block: "Release \:bookmark_tabs\:"
-  prompt: "Fill out the details for this release"
-  fields: 
-    - text: "Release notes"
-      key: "release-notes"
-      hint: "Enter your release notes here \:sparkles\:"
-    - text: "Release name"
-      key: "release-name"
-      required: false
-    - select: "Release type"
-      key: "release-type"
-      default: "Major"
-      options:
-        - Major
-        - Minor
-        - Patch
-    - select: "Team to notify after release"
-      key: "notify-team"
-      options: 
-        - Ops
-        - Support
-        - Engineering
-        - QA
-        - Sales
-        - Directors
-        - Everyone
-```
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>The text displayed on a select list item<br>
+    <em>Example:</em> <code>"Engineering"</code></td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      The value of the select list item that can be accessed in the meta-data
+      <br> <em>Example:</em> <code>"eng-team"</code></td>
 
-The above code will generate a prompt that looks like this:
+  </tr>
+</table>
 
-<%= image "prompt.png", width: 928/2, height: 1192/2, alt: "Screenshot of a block prompt" %>
+## Sample pipeline
 
-You can test out a live example by adding our sample pipeline with an unblock prompt step to your existing Buildkite organisation: 
+You can test out a live example by adding our sample pipeline with an unblock prompt step to your existing Buildkite organisation. 
 
-<a class="inline-block" href="/new?template=https://github.com/buildkite/unblock-prompt-example" target="__blank"><img src="https://buildkite.com/button.svg" alt="Add Unblock Prompt Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+<a class="Docs__example-repo" href="https://github.com/buildkite/unblock-prompt-example">:construction: Block prompt example repository <span class="repo">github.com/buildkite/unblock-prompt-example</span></a>
+
