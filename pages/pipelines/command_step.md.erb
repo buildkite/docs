@@ -1,0 +1,27 @@
+# Command Steps
+
+<%= toc %>
+
+A *command* step runs a command on an agent. The following is the most simple *command* step:
+
+```yml
+- command: "command.sh"
+```
+
+The following step includes every configuration property for *command* steps:
+
+```yml
+- command: "tests.sh"
+  name: "\:hammer\: Tests"
+  branches: "master"
+  env:
+    FOO: "bar"
+  agents:
+    npm: "true"
+    queue: "tests"
+  artifact_paths: "logs/**/*;coverage/**/*"
+  parallelism: 1
+  concurrency: 1
+  concurrency_group: "serial_tests"
+  timeout_in_minutes: 60
+```
