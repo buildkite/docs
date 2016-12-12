@@ -1,18 +1,38 @@
 # Block Step
 
-A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/rest-api/jobs#unblock-a-job). You can also use input fields to collect data from your team, and make it available as [build meta-data](/docs/builds/build-meta-data) for use later in the pipeline.
-
-<%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
+A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/rest-api/jobs#unblock-a-job).
 
 <%= toc %>
 
-## Attributes
+## Examples
 
-_Example:_
+This is how it looks in your [pipeline.yml file](/docs/pipelines/uploading-pipelines):
 
 ```yml
-- block: "\:rocket\: Release!"
+steps:
+  - block: "\:rocket\: Release!"
 ```
+
+<%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
+
+You can optionally include input fields to collect additional data, which you retrieve later in your pipeline steps as [build meta-data](/docs/builds/build-meta-data).
+
+```yml
+steps:
+  - block: "\:rocket\: Release!"
+    fields:
+      - text: "Name"
+        hint: "The code name for this release"
+        key: "release-name"
+```
+
+<%= image "click-prompt-example-animated.gif", width: 954/2, height: 586/2, alt: "Animated screenshot of a block step with an input field" %>
+
+For a complete example pipeline, including input fields and generating field lists dynamically, see the Block Step example pipeline:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example<span class="repo">github.com/buildkite/block-step-example</span></a>
+
+## Step Attributes
 
 _Optional attributes:_
 
@@ -44,15 +64,6 @@ _Optional attributes:_
 
 ## Text input fields
 
-_Example:_
-
-```yml
-- block: "\:rocket\: Release!"
-  fields:
-    - text: "Release Name"
-      key: "release-name"
-```
-
 _Required attributes:_
 
 <table>
@@ -72,7 +83,7 @@ _Optional attributes:_
     <td><code>hint</code></td>
     <td>
       The explanatory text to show after the label.<br>
-      <em>Example:</em> <code>"This name will be used in the changelog"</code>
+      <em>Example:</em> <code>"The code name for this release"</code>
     </td>
   </tr>
   <tr>
@@ -86,26 +97,12 @@ _Optional attributes:_
     <td><code>default</code></td>
     <td>
       The text field’s prefilled text.<br>
-      <em>Example:</em> <code>"Release #123 - Fish Sauce"</code>
+      <em>Example:</em> <code>"Release #42 - Flying Dolphin"</code>
     </td>
   </tr>
 </table>
 
 ## Select input fields
-
-_Example:_
-
-```yml
-- block: "\:rocket\: Release!"
-  fields:
-    - select: "Type of Release"
-      key: "release-type"
-      options:
-        - label: "Stable"
-          value: "stable"
-        - label: "Beta"
-          value: "beta"
-```
 
 _Required attributes:_
 
@@ -146,7 +143,7 @@ _Optional attributes:_
     <td><code>default</code></td>
     <td>
       The value of the option to pre-select.<br>
-      <em>Example:</em> <code>"stable"</code>
+      <em>Example:</em> <code>"beta"</code>
     </td>
   </tr>
 </table>
@@ -167,8 +164,17 @@ Each select option has the following _required attributes:_
   </tr>
 </table>
 
-## Example pipeline
+_Example of a list select options:_
 
-For an example of a pipeline that uses block steps, including input fields and generating field lists dynamically, see the Block Step example pipeline:
-
-<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example<span class="repo">github.com/buildkite/block-step-example</span></a>
+```yml
+steps:
+  - block: "\:rocket\: Release!"
+    fields:
+      - select: "Type of Release"
+        key: "release-type"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
