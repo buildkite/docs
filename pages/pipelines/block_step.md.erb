@@ -1,33 +1,26 @@
 # Block Step
 
-A *block* step is used to pause the execution of a build and wait on a team member to unblock it (via the web or the API). With the addition of a custom prompt, you can also use it to collect data from your team for use later in the pipeline.
+A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/rest-api/jobs#unblock-a-job). You can optionally include input fields to collect data from your team for use later in the pipeline.
+
+<%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
 
 <%= toc %>
 
-You can add a block step to your pipeline in your pipeline settings, or from a `pipeline.yml`:
+## Attributes
+
+_Example:_
 
 ```yml
 - block: "\:rocket\: Release!"
 ```
 
-<%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
-
-## Attributes
-
-Optional attributes for block steps in your `pipeline.yml`:
+_Optional attributes:_
 
 <table>
   <tr>
-    <td><code>branches</code></td>
-    <td>
-      The names of the branch or branches that will include this block step, separated by spaces.<br>
-      <em>Example:</em> <code>"master"</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>prompt</code></td>
     <td>
-      The message in the prompt that is opened when you click in a pipeline to unblock a step.<br>
+      The instructional message to show when the unblock step is activated.<br>
       <em>Example:</em> <code>"Release to production?"</code><br>
       <em>Example:</em> <code>"Fill out the details for this release"</code>
     </td>
@@ -35,16 +28,32 @@ Optional attributes for block steps in your `pipeline.yml`:
   <tr>
     <td><code>fields</code></td>
     <td>
-      A list of fields that will be displayed to the prompt form.<br>
-      Available field types: <code>text</code>, <code>select</code>
+      The list of input fields required to be filled out before unblocking the step.<br>
+      Available input field types: <code>text</code>, <code>select</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>branches</code></td>
+    <td>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step.<br>
+      <em>Example:</em> <code>"master stable/*"</code>
     </td>
   </tr>
 </table>
 
 
-## Prompt form fields
+## Text input fields
 
-### Text fields
+_Example:_
+
+```yml
+- block: "\:rocket\: Release!"
+  fields:
+    - text: "Release Name"
+      key: "release-name"
+```
+
+_Required attributes:_
 
 <table>
   <tr>
@@ -54,88 +63,112 @@ Optional attributes for block steps in your `pipeline.yml`:
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
+</table>
+
+_Optional attributes:_
+
+<table>
   <tr>
     <td><code>hint</code></td>
     <td>
-      The text displayed directly under the field label.<br>
+      The explanatory text to show after the label.<br>
       <em>Example:</em> <code>"This name will be used in the changelog"</code>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-
+      Whether the field is required to be filled out.<br>
       <em>Default value:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The prefilled text in the text box.<br>
+      The text field’s prefilled text.<br>
       <em>Example:</em> <code>"Release #123 - Fish Sauce"</code>
     </td>
   </tr>
 </table>
 
-### Select fields
+## Select input fields
+
+_Example:_
+
+```yml
+- block: "\:rocket\: Release!"
+  fields:
+    - select: "Type of Release"
+      key: "release-type"
+      options:
+        - label: "Stable"
+          value: "stable"
+        - label: "Beta"
+          value: "beta"
+```
+
+_Required attributes:_
 
 <table>
   <tr>
     <td><code>key</code></td>
     <td>
-      The slug to identify the field for later access via the buildkite-agent meta-data command.<br>
+      The meta-data key used to later retrieve the value (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
   <tr>
+    <td><code>options</code></td>
+    <td>
+      The list of select field options. For 6 or less options they’ll be shown as radio buttons, otherwise they'll be shown in a select-style dropdown.
+    </td>
+  </tr>
+</table>
+
+_Optional attributes:_
+
+<table>
+  <tr>
     <td><code>hint</code></td>
     <td>
-      The text displayed directly under the field label.<br>
-      <em>Example:</em> <code>"This name will be used in the changelog"</code>
+      The text displayed directly under the select field’s label.<br>
+      <em>Example:</em> <code>"The stability level of this release"</code>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-     
+      Whether the field requires an option to be selected.<br>
       <em>Default:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The option that is pre-filled in a select field.<br>
-      <em>Example:</em> <code>"Engineering"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>options</code></td>
-    <td>
-      The values of radio buttons (6 or less values) or a dropdown list (more than 6 values).
+      The value of the option to pre-select.<br>
+      <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>
 </table>
 
-### Select field options
+Each select option has the following _required attributes:_
 
 <table>
   <tr>
     <td><code>label</code></td>
-    <td>The text displayed on a select list item<br>
-    <em>Example:</em> <code>"Engineering"</code></td>
+    <td>The text displayed on the select list item.<br>
+    <em>Example:</em> <code>"Stable"</code></td>
   </tr>
   <tr>
     <td><code>value</code></td>
     <td>
-      The value of the select list item that can be accessed in the meta-data
-      <br> <em>Example:</em> <code>"eng-team"</code></td>
-
+      The value to be stored as meta-data (e.g. to be later retreived via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      <em>Example:</em> <code>"stable"</code></td>
   </tr>
 </table>
 
-## Sample pipeline
+## Example pipeline
 
-You can test out a live example by adding our sample pipeline with an unblock prompt step to your existing Buildkite organisation. 
+For an example of a pipeline that uses block steps, including input fields and generating field lists dynamically, see the Block Step example pipeline:
 
-<a class="Docs__example-repo" href="https://github.com/buildkite/unblock-prompt-example">:construction: Block prompt example repository <span class="repo">github.com/buildkite/unblock-prompt-example</span></a>
-
+<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example<span class="repo">github.com/buildkite/block-step-example</span></a>
