@@ -6,7 +6,7 @@ A *block* step is used to pause the execution of a build and wait on a team memb
 
 ## Examples
 
-This is how it looks in your [pipeline.yml file](/docs/pipelines/uploading-pipelines):
+Simple block steps can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file:
 
 ```yml
 steps:
@@ -15,24 +15,33 @@ steps:
 
 <%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
 
-You can optionally include input fields to collect additional data, which you retrieve later in your pipeline steps as [build meta-data](/docs/builds/build-meta-data).
+Using the [pipeline.yml](/docs/pipelines/uploading-pipelines) version, you can also include additional input fields, allowing the answers to be stored as [build meta-data](/docs/builds/build-meta-data) and used in later steps in the pipeline:
 
 ```yml
 steps:
-  - block: "\:rocket\: Release!"
-    fields:
-      - text: "Name"
-        hint: "The code name for this release"
+  - block: "Request Release"
+    fields: 
+      - text: "Code Name"
+        hint: "What’s the code name for this release? \:name_badge\:"
         key: "release-name"
+      - select: "Stream"
+        hint: "\:fork\: Which release stream does this belong in?"
+        key: "release-stream"
+        default: "beta"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
 ```
 
-<%= image "click-prompt-example-animated.gif", width: 954/2, height: 586/2, alt: "Animated screenshot of a block step with an input field" %>
+<%= image "click-prompt-example-animated.gif", width: 944/2, height: 826/2, alt: "Animated screenshot of a block step with input fields" %>
 
-For a complete example pipeline, including input fields and generating field lists dynamically, see the Block Step example pipeline:
+For a more complete example, see the Block Step example pipeline:
 
-<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example<span class="repo">github.com/buildkite/block-step-example</span></a>
+<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example Pipeline<span class="repo">github.com/buildkite/block-step-example</span></a>
 
-## Step Attributes
+## Block Step Attributes
 
 _Optional attributes:_
 
@@ -62,7 +71,7 @@ _Optional attributes:_
 </table>
 
 
-## Text input fields
+## Text Input Attributes
 
 _Required attributes:_
 
@@ -83,7 +92,7 @@ _Optional attributes:_
     <td><code>hint</code></td>
     <td>
       The explanatory text to show after the label.<br>
-      <em>Example:</em> <code>"The code name for this release"</code>
+      <em>Example:</em> <code>"What’s the code name for this release? \:name_badge\:"</code>
     </td>
   </tr>
   <tr>
@@ -97,12 +106,12 @@ _Optional attributes:_
     <td><code>default</code></td>
     <td>
       The text field’s prefilled text.<br>
-      <em>Example:</em> <code>"Release #42 - Flying Dolphin"</code>
+      <em>Example:</em> <code>"Flying Dolphin"</code>
     </td>
   </tr>
 </table>
 
-## Select input fields
+## Select Input Attributes
 
 _Required attributes:_
 
@@ -129,7 +138,7 @@ _Optional attributes:_
     <td><code>hint</code></td>
     <td>
       The text displayed directly under the select field’s label.<br>
-      <em>Example:</em> <code>"The stability level of this release"</code>
+      <em>Example:</em> <code>"Which release stream does this belong in? \:fork\:"</code>
     </td>
   </tr>
   <tr>
@@ -163,18 +172,3 @@ Each select option has the following _required attributes:_
       <em>Example:</em> <code>"stable"</code></td>
   </tr>
 </table>
-
-_Example of a list select options:_
-
-```yml
-steps:
-  - block: "\:rocket\: Release!"
-    fields:
-      - select: "Type of Release"
-        key: "release-type"
-        options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
-```
