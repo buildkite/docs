@@ -15,7 +15,7 @@ steps:
 
 <%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
 
-Using the [pipeline.yml](/docs/pipelines/uploading-pipelines) version, you can also include additional input fields, allowing the answers to be stored as [build meta-data](/docs/builds/build-meta-data) and used in later steps in the pipeline:
+Block steps that request additional input can be created using the [pipeline.yml](/docs/pipelines/uploading-pipelines) version, allowing you to later retrieve the answers via [build meta-data](/docs/builds/build-meta-data):
 
 ```yml
 steps:
@@ -37,7 +37,7 @@ steps:
 
 <%= image "click-prompt-example-animated.gif", width: 944/2, height: 826/2, alt: "Animated screenshot of a block step with input fields" %>
 
-For a more complete example, see the Block Step example pipeline:
+For a more complete example, including how to dynamically generate lists of input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example Pipeline<span class="repo">github.com/buildkite/block-step-example</span></a>
 
@@ -79,7 +79,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The slug to identify the field for later access via the buildkite-agent meta-data command.<br>
+      The meta-data key used to later retrieve the value (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
@@ -120,7 +120,7 @@ _Required attributes:_
     <td><code>key</code></td>
     <td>
       The meta-data key used to later retrieve the value (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
-      <em>Example:</em> <code>"release-name"</code>
+      <em>Example:</em> <code>"release-stream"</code>
     </td>
   </tr>
   <tr>
