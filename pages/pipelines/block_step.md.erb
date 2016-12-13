@@ -2,42 +2,17 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/rest-api/jobs#unblock-a-job).
 
-<%= toc %>
-
-## Examples
-
-Simple block steps can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file:
-
-```yml
-steps:
-  - block: "\:rocket\: Release!"
-```
-
 <%= image "click-example.png", width: 338/2, height: 154/2, alt: "Screenshot of clicking a block step" %>
 
-Block steps that request additional input can be created using the [pipeline.yml](/docs/pipelines/uploading-pipelines) version, allowing you to later retrieve the answers via [build meta-data](/docs/builds/build-meta-data):
+<%= toc %>
 
-```yml
-steps:
-  - block: "Request Release"
-    fields: 
-      - text: "Code Name"
-        hint: "What’s the code name for this release? \:name_badge\:"
-        key: "release-name"
-      - select: "Stream"
-        hint: "Which release stream does this belong in? \:fork\:"
-        key: "release-stream"
-        default: "beta"
-        options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
-```
+Simple block steps can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
+
+Block steps that request additional input are defined in your repository's [pipeline.yml](/docs/pipelines/uploading-pipelines). You can access the answers your team provide in the [build meta-data](/docs/builds/build-meta-data) on subsequent steps.
 
 <%= image "click-prompt-example-animated.gif", width: 944/2, height: 826/2, alt: "Animated screenshot of a block step with input fields" %>
 
-For a more complete example, including how to dynamically generate lists of input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
+For a complete example pipeline, including dynamically generated input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example Pipeline<span class="repo">github.com/buildkite/block-step-example</span></a>
 
@@ -70,6 +45,10 @@ _Optional attributes:_
   </tr>
 </table>
 
+```yml
+steps:
+  - block: "\:rocket\: Release!"
+```
 
 ## Text Input Attributes
 
@@ -84,6 +63,14 @@ _Required attributes:_
     </td>
   </tr>
 </table>
+
+```yml
+steps:
+  - block: "Request Release"
+    fields: 
+      - text: "Code Name"
+        key: "release-name"
+```
 
 _Optional attributes:_
 
@@ -111,6 +98,17 @@ _Optional attributes:_
   </tr>
 </table>
 
+```yml
+steps:
+  - block: "Request Release"
+    fields: 
+      - text: "Code Name"
+        key: "release-name"
+        hint: "What’s the code name for this release? \:name_badge\:"
+        required: false
+        default: "Release #"
+```
+
 ## Select Input Attributes
 
 _Required attributes:_
@@ -130,6 +128,35 @@ _Required attributes:_
     </td>
   </tr>
 </table>
+
+Each select option has the following _required attributes:_
+
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>The text displayed on the select list item.<br>
+    <em>Example:</em> <code>"Stable"</code></td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      The value to be stored as meta-data (e.g. to be later retreived via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      <em>Example:</em> <code>"stable"</code></td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - block: "Request Release"
+    fields: 
+      - select: "Stream"
+        key: "release-stream"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
 
 _Optional attributes:_
 
@@ -157,18 +184,18 @@ _Optional attributes:_
   </tr>
 </table>
 
-Each select option has the following _required attributes:_
-
-<table>
-  <tr>
-    <td><code>label</code></td>
-    <td>The text displayed on the select list item.<br>
-    <em>Example:</em> <code>"Stable"</code></td>
-  </tr>
-  <tr>
-    <td><code>value</code></td>
-    <td>
-      The value to be stored as meta-data (e.g. to be later retreived via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
-      <em>Example:</em> <code>"stable"</code></td>
-  </tr>
-</table>
+```yml
+steps:
+  - block: "Request Release"
+    fields: 
+      - select: "Stream"
+        key: "release-stream"
+        hint: "Which release stream does this belong in? \:fork\:"
+        required: false
+        default: "beta"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
