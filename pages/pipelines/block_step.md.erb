@@ -6,9 +6,9 @@ A *block* step is used to pause the execution of a build and wait on a team memb
 
 <%= toc %>
 
-Simple block steps can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
+A basic block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
 
-Block steps that request additional input are defined in your repository's [pipeline.yml](/docs/pipelines/uploading-pipelines). You can access the answers your team provide in the [build meta-data](/docs/builds/build-meta-data) on subsequent steps.
+You can add form fields to block steps with the `fields` attribute. The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/builds/build-meta-data). Block steps that request additional input can only be defined in your repository's [pipeline.yml](/docs/pipelines/uploading-pipelines).
 
 <%= image "click-prompt-example-animated.gif", width: 944/2, height: 826/2, alt: "Animated screenshot of a block step with input fields" %>
 
@@ -24,7 +24,7 @@ _Optional attributes:_
   <tr>
     <td><code>prompt</code></td>
     <td>
-      The instructional message to show when the unblock step is activated.<br>
+      The instructional message displayed in the dialog box when the unblock step is activated.<br>
       <em>Example:</em> <code>"Release to production?"</code><br>
       <em>Example:</em> <code>"Fill out the details for this release"</code>
     </td>
@@ -32,14 +32,14 @@ _Optional attributes:_
   <tr>
     <td><code>fields</code></td>
     <td>
-      The list of input fields required to be filled out before unblocking the step.<br>
+      A list of input fields required to be filled out before unblocking the step.<br>
       Available input field types: <code>text</code>, <code>select</code>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step.<br>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.<br>
       <em>Example:</em> <code>"master stable/*"</code>
     </td>
   </tr>
@@ -58,7 +58,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key used to later retrieve the value (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"release-name"</code>
     </td>
   </tr>
@@ -78,21 +78,21 @@ _Optional attributes:_
   <tr>
     <td><code>hint</code></td>
     <td>
-      The explanatory text to show after the label.<br>
+      The explanatory text that is shown after the label.<br>
       <em>Example:</em> <code>"What’s the code name for this release? \:name_badge\:"</code>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-      Whether the field is required to be filled out.<br>
+      A boolean value that defines whether the field is required for form submission.<br>
       <em>Default value:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The text field’s prefilled text.<br>
+      The value that is pre-filled in the text field.<br>
       <em>Example:</em> <code>"Flying Dolphin"</code>
     </td>
   </tr>
@@ -117,14 +117,14 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key used to later retrieve the value (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"release-stream"</code>
     </td>
   </tr>
   <tr>
     <td><code>options</code></td>
     <td>
-      The list of select field options. For 6 or less options they’ll be shown as radio buttons, otherwise they'll be shown in a select-style dropdown.
+      The list of select field options. For 6 or less options they’ll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.
     </td>
   </tr>
 </table>
@@ -171,14 +171,14 @@ _Optional attributes:_
   <tr>
     <td><code>required</code></td>
     <td>
-      Whether the field requires an option to be selected.<br>
+      A boolean value that defines whether the field is required for form submission.<br>
       <em>Default:</em> <code>true</code>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The value of the option to pre-select.<br>
+      The value of the option that will be pre-selected in the dropdown.<br>
       <em>Example:</em> <code>"beta"</code>
     </td>
   </tr>
