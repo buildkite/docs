@@ -1,6 +1,8 @@
-# Uploading Build Pipelines
+# Defining Your Pipeline Steps
 
-In addition to defining your build pipelines via the web you can use your Buildkite agent’s `pipeline upload` command to read them from your source code, or even dynamically generate them using a script. This allows you to version, audit and review your build pipelines alongside your source code.
+You define your build pipeline steps in your pipeline settings or, more powerfully, via a `pipeline.yml` file.
+
+Defining your pipeline steps in a `pipeline.yml` file gives you access to more configuration options than is available in the web interface, and allows you to version, audit and review your build pipelines alongside your source code.
 
 <%= toc %>
 
@@ -102,9 +104,9 @@ When this is run on an agent it will output the pipeline, which is then piped to
 
 By default the `.buildkite/pipeline.yml` file is used when uploading a pipeline, you can specify a different file by adding it after the upload command, for example: `buildkite-agent pipeline upload path/to/my-custom-pipeline.yml`
 
-## Migrating existing pipelines
+## Migrating existing steps to a pipeline.yml
 
-To migrate to checked in pipelines without interrupting existing branches you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
+To migrate steps from the pipeline settings to a `pipeline.yml` file without interrupting your builds, you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
 
 To do this, create a step with the following command:
 
