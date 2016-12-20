@@ -75,18 +75,22 @@ Screenshot of the nav item
 
 ### Dropdown
 
-* Inside the My Builds dropdown menu, there is a list of your five most recent builds.
-* Shows the name of the build or PR, the project it was build in, and how long ago the build was created.
-* The `More Builds` Button will take you to a list of all of the builds you've triggered in Buildkite. 
+Clicking on the My Builds dropdown menu will display a list of your five most recently created builds.
+This menu displays four key pieces of information about each build: 
+	1. a status icon that indicates passed, failed, and running build states 
+	2. the name of the build or PR
+	3. the repository it was triggered on
+	4. how long ago the build was created
+The `More Builds` button at the bottom of the dropdown menu takes you to a list of all of the builds you've triggered in Buildkite. 
 
 Screenshot of the expanded dropdown
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the My Builds navigation bar dropdown" %>
 
 ### Historical builds
 
-* links to the My Builds page that lists all your historical builds, as well as any that are currently running or waiting for agents 
+The My Builds page lists all of your historical builds in reverse chronological order, as well as any that are currently running or waiting for agents. You can filter these to see only 'Running' or 'Scheduled' builds using the buttons in the top right corner. As you scroll down on this page, more builds from your Buildkite history will be loaded until they are all visible.   
 
-Screenshot of the my builds page?
+Screenshot of the top of the my builds page
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the My Builds navigation bar dropdown" %>
 
 
