@@ -2,17 +2,17 @@
 
 Connecting to Bitbucket's build status API allows repository events to trigger Buildkite builds. Events such as creating or updating a PR triggers the creation of a new build in the associated Buildkite pipeline. After the build completes in Buildkite, the status icon in Bitbucket will update to reflect the outcome. 
 
-There are two parts to connecting Buildkite and Bitbucket, one in each service.  
+There are two parts to connecting Buildkite and Bitbucket, the first in Buildkite and the second in Bitbucket.   
 
 <%= toc %>
 
 ## Connecting Buildkite to Bitbucket
 
-Connecting Bitbucket as an 'app' in Buildkite will allow the Bitbucket webhooks access to your Buildkite account.
+Connecting Bitbucket as an app in Buildkite will allow webhooks from Bitbucket access to your Buildkite account.
 
 * In Buildkite, go to Personal Settings > Connected Apps > Bitbucket and click Connect
 <screenshot here>
-* You'll now have a new section called `Bitbucket` in your project settings, from which you can manage the status updates
+* You'll now be able to see a new section in your project settings called `Bitbucket`, from which you can manage the status updates
 <screenshot here>
 
 ## Setting up a Bitbucket webhook
@@ -35,5 +35,6 @@ This webhook will be triggered by the repository events that you specify, and wi
 	* Merged
 	* Declined 
 
-Click the `save` button, and you're all done! Once you've set up a pipeline with this repository's url, your repository events will trigger builds 🎉
-When you set up a new pipeline with a bitbucket url, we'll give you these instructions again, populated with your account details :) 
+Click the `save` button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events you selected will trigger builds 🎉
+
+When you set up a new pipeline with a bitbucket url, we'll give you these instructions again, populated with your account details. 
