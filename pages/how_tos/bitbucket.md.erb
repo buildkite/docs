@@ -19,14 +19,8 @@ Connecting Bitbucket as an app in Buildkite will allow webhooks from Bitbucket a
 
 This webhook will be triggered by the repository events that you specify, and will hit your unique Buildkite API endpoint to create a Buildkite build.
 
-1. Visit your Bitbucket repository's Webhooks settings page
-1. Click the Add Webhook button and enter the following information:
-	* Title: buildkite/ORGNAME/PROJECTNAME
-	* URL: your unique buildkite webhook url
-	* Status: ☑️ Active
-	* SSL/TLS: ◽️ Skip certificate verification
-	* Triggers: `Choose from a full list of triggers`
-	<replace these lists with screenshots>
+1. Visit your Bitbucket repository's 'Webhooks Settings' page
+1. Click the 'Add Webhook' button and enter your Buildkite organization and pipeline name, as well as your unique Buildkite webhook URL
 1. From the list of triggers, select the Repository Push event, and the following Pull Request Events:
 	* Created
 	* Updated
@@ -35,6 +29,9 @@ This webhook will be triggered by the repository events that you specify, and wi
 	* Merged
 	* Declined 
 
-Click the `save` button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events you selected will trigger builds 🎉
+The Add Webhook form should look similar to this:
+<screenshot here>
+
+Click the `save` button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events that you selected will trigger the creation of Buildkite builds 🎉
 
 When you set up a new pipeline with a bitbucket url, we'll give you these instructions again, populated with your account details. 
