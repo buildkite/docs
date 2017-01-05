@@ -2,7 +2,9 @@
 
 <%= toc %>
 
-A *waiter* step waits for all previous steps to complete before continuing, for example:
+A *wait* step waits for all previous steps to complete before allowing following jobs to continue.
+
+A basic wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest. 
 
 ```yml
 - command: "command.sh"
