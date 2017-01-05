@@ -2,13 +2,87 @@
 
 <%= toc %>
 
-A *command* step runs a command on an agent. The following is the most simple *command* step:
+
+A *command* step runs a command on an agent. The command can be the name of a script, or <cli things>
+
+A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
+
+<%= image "command-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic command step" %>
 
 ```yml
 - command: "command.sh"
 ```
 
-The following step includes every configuration property for *command* steps:
+
+## Command Step Attributes
+
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>name</code></td>
+    <td>
+      The text and/or emoji that will be displayed in the pipeline visualisation in Buildkite.<br>
+      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>branches</code></td>
+    <td>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this command step in their builds.<br>
+      <em>Example:</em> <code>"master stable/*"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>env</code></td>
+    <td>
+      A list of <a href="/docs/builds/environment-variables">environment variables</a> for this step. <br>
+      <em>Example:</em> <code>FOO: "bar"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>agents</code></td>
+    <td>
+      A list of <a href="/docs/agent/cli-meta-data">meta-data</a> key value pairs to <a href="docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br>
+      <em>Example:</em> <code>npm: "true"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>artifact_paths</code></td>
+    <td>
+      The path or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. <br>
+      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>parallelism</code></td>
+    <td>
+      A binary value that allows this step to run in parallel with other steps. <br>
+      <em>Example:</em> <code>1</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>concurrency</code></td>
+    <td>
+      <br>
+      <em>Example:</em> <code>1</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>concurrency_group</code></td>
+    <td>
+      <br>
+      <em>Example:</em> <code>"serial_tests"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>timeout_in_minutes</code></td>
+    <td>
+      An integer to specify how many minutes this step should wait for an agent before timing out. When the step hits this timeout without finding an agent, the step will fail. <br>
+      <em>Example:</em> <code>60</code>
+    </td>
+  </tr>
+</table>
 
 ```yml
 - command: "tests.sh"
