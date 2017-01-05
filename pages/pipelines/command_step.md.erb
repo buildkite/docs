@@ -10,7 +10,8 @@ A basic command step can be defined in your pipeline settings, or in your [pipel
 <%= image "command-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic command step" %>
 
 ```yml
-- command: "command.sh"
+steps:
+  - command: "command.sh"
 ```
 
 
@@ -57,45 +58,46 @@ _Optional attributes:_
   <tr>
     <td><code>parallelism</code></td>
     <td>
-      A binary value that allows this step to run in parallel with other steps. <br>
+      The number of jobs that will run this step <a href="/docs/builds/parallelizing-builds#job-parallelism">simultaneously</a>. <br>
       <em>Example:</em> <code>1</code>
     </td>
   </tr>
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      <br>
+      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> that can be run inside this concurrency group at the same time as this job. <br>
       <em>Example:</em> <code>1</code>
     </td>
   </tr>
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      <br>
+      A nickname for the concurrency value that you set with the <code>concurrency</code> attribute. This can also be the name of an existing <a href="/docs/builds/controlling-concurrency#concurrency-groups">concurrency group</a>. <br>
       <em>Example:</em> <code>"serial_tests"</code>
     </td>
   </tr>
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
-      An integer to specify how many minutes this step should wait for an agent before timing out. When the step hits this timeout without finding an agent, the step will fail. <br>
+      The number of minutes this step should wait for an agent before timing out. When the step hits this timeout without finding an agent, the step will fail. <br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
 </table>
 
 ```yml
-- command: "tests.sh"
-  name: "\:hammer\: Tests"
-  branches: "master"
-  env:
-    FOO: "bar"
-  agents:
-    npm: "true"
-    queue: "tests"
-  artifact_paths: "logs/**/*;coverage/**/*"
-  parallelism: 1
-  concurrency: 1
-  concurrency_group: "serial_tests"
-  timeout_in_minutes: 60
+steps:
+  - command: "tests.sh"
+    name: "\:hammer\: Tests"
+    branches: "master"
+    env:
+      FOO: "bar"
+    agents:
+      npm: "true"
+      queue: "tests"
+    artifact_paths: "logs/**/*;coverage/**/*"
+    parallelism: 1
+    concurrency: 1
+    concurrency_group: "serial_tests"
+    timeout_in_minutes: 60
 ```
