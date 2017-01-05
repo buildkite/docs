@@ -2,7 +2,7 @@
 
 <%= toc %>
 
-A *waiter* step waits for all previous steps to complete before continuing, for example:
+A *waiter* step waits for all previous steps to complete before continuing. A *complete* step is the one which exited with the success code `0`. For example:
 
 ```yml
 - command: "command.sh"
