@@ -49,6 +49,14 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>plugins</code></td>
+    <td>
+      A list of plugins that you require for this step. <br>
+      <em>Example:</em> <code>docker-compose</code><br>
+      <em>Example:</em> <code>harrietgl/myplugin</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>artifact_paths</code></td>
     <td>
       The path or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. <br>
@@ -95,6 +103,9 @@ steps:
     agents:
       npm: "true"
       queue: "tests"
+    plugins:
+      docker-compose:
+        run: app
     artifact_paths: "logs/**/*;coverage/**/*"
     parallelism: 1
     concurrency: 1
