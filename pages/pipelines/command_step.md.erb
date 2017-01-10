@@ -23,14 +23,14 @@ _Optional attributes:_
   <tr>
     <td><code>name</code></td>
     <td>
-      The text and/or emoji that will be displayed in the pipeline visualisation in Buildkite.<br>
+      The label that will be displayed in the pipeline visualisation in Buildkite. (supports emoji)<br>
       <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this command step in their builds.<br>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
       <em>Example:</em> <code>"master stable/*"</code>
     </td>
   </tr>
@@ -49,14 +49,6 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>plugins</code></td>
-    <td>
-      A list of plugins that you require for this step. <br>
-      <em>Example:</em> <code>docker-compose</code><br>
-      <em>Example:</em> <code>harrietgl/myplugin</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>artifact_paths</code></td>
     <td>
       The path or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. <br>
@@ -66,7 +58,7 @@ _Optional attributes:_
   <tr>
     <td><code>parallelism</code></td>
     <td>
-      The number of jobs that will run this step <a href="/docs/builds/parallelizing-builds#job-parallelism">simultaneously</a>. <br>
+      The number of <a href="/docs/builds/parallelizing-builds#job-parallelism">parallel jobs</a> that will be created based on this step. <br>
       <em>Example:</em> <code>1</code>
     </td>
   </tr>
@@ -87,7 +79,7 @@ _Optional attributes:_
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The number of minutes this step should wait for an agent before timing out. When the step hits this timeout without finding an agent, the step will fail. <br>
+      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically cancelled and the build will fail. <br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
