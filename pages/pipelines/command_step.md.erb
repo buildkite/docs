@@ -3,7 +3,7 @@
 <%= toc %>
 
 
-A *command* step runs a command on an agent. The command can be the name of a script, or <cli things>
+A *command* step runs one or more shell commands on an agent. Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 
 A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
 
@@ -16,6 +16,32 @@ steps:
 
 
 ## Command Step Attributes
+
+_Required attributes:_
+
+<table>
+  <tr>
+    <td><code>command</code></td>
+    <td>
+      The shell command/s to run during this step. This can be a single line of commands, or a yaml list. <br>
+      <em>Example:</em> <code>"build.sh"</code><br>
+      <em>Example:</em> <code>"npm install && npm test"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - command: "npm install && tests.sh"
+```
+
+```yml
+steps:
+  - command:
+      - "npm install && npm test" 
+      - "moretests.sh"
+      - "build.sh"
+```
 
 _Optional attributes:_
 
@@ -51,7 +77,7 @@ _Optional attributes:_
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The path or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. <br>
+      The path or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a yaml list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code>
     </td>
   </tr>
@@ -87,8 +113,8 @@ _Optional attributes:_
 
 ```yml
 steps:
-  - command: "tests.sh"
-    name: "\:hammer\: Tests"
+  - name: "\:hammer\: Tests"
+    command: "npm install && tests.sh"
     branches: "master"
     env:
       FOO: "bar"
@@ -98,7 +124,9 @@ steps:
     plugins:
       docker-compose:
         run: app
-    artifact_paths: "logs/**/*;coverage/**/*"
+    artifact_paths: 
+      - "logs/**/*"
+      - "coverage/**/*"
     parallelism: 1
     concurrency: 1
     concurrency_group: "serial_tests"
