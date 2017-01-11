@@ -24,6 +24,22 @@ An artifact is a file uploaded by your agent during the execution of a build’s
 </tbody>
 </table>
 
+### Glob path pattern
+
+The glob path pattern used throughout Buildkite 
+
+- match all of a name, no substrings
+- available wildcards *, ?
+- character ranges []
+- escape with \\
+- surround it with quotes so that we use the Golang globbing instead of the build-in shell globbing
+
+
+if you see the message "no files matched paths" inside the uploading artifacts section of the job output, and you're sure it's a real path:
+- check your glob path pattern is correct
+- check that it's surrounded by quotes, and either separated by semicolons or in a correctly indented yaml list
+- 
+
 ## List artifacts for a build
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build’s artifacts across all of its jobs.
