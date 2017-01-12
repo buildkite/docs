@@ -7,11 +7,11 @@ A *command* step runs one or more shell commands on an agent. Each command step 
 
 A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
 
-<%= image "command-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic command step" %>
+<%= image "command-step.png", width: 974/2, height: 468/2, alt: "Screenshot of a basic command step" %>
 
 ```yml
 steps:
-  - command: "command.sh"
+  - command: "tests.sh"
 ```
 
 
@@ -124,11 +124,20 @@ steps:
     plugins:
       docker-compose:
         run: app
-    artifact_paths: 
-      - "logs/**/*"
-      - "coverage/**/*"
+    artifact_paths: "logs/**/*;coverage/**/*"
     parallelism: 1
     concurrency: 1
     concurrency_group: "serial_tests"
     timeout_in_minutes: 60
+```
+
+```yml
+steps:
+  - name: "\:hammer\: Tests"
+    command: 
+      - "npm install"
+      - "tests.sh"
+    artifact_paths: 
+      - "logs/**/*"
+      - "coverage/**/*"
 ```
