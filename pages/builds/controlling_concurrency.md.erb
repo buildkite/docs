@@ -8,7 +8,7 @@ To help you control concurrency Buildkite provides two primitives: concurrency g
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. Any job in your organization with the same concurrency group will be subject to the concurrency limits you’ve set.
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you create a group in an individual `pipeline.yml` file, that concurrency group will then be available organsiation wide and can be used in by other pipelines. To avoid overriding an existing group, the names of these groups should be unique.   
 
 Common examples for concurrency group values include:
 
