@@ -26,21 +26,24 @@ An artifact is a file uploaded by your agent during the execution of a build’s
 
 ## Glob path pattern
 
-The glob path pattern is used throughout Buildkite for artifact file paths. As we use Golang's match, the pattern that you define should be able to match whole strings rather than substrings. 
+The glob path pattern is used throughout Buildkite for artifact file paths. Golang's `match` function is used on the backend, so the pattern that you define should be designed to match whole strings rather than substrings. 
+
+Keep in mind while you're writing your path pattern:
 
 - there are two wildcards available that match non-separator characters:
   + `*` to match a sequence of characters
   + `?` to match a single character
 - character ranges surrounded by `[]` support the `^` as a negator
-- escape special characters with `\\`
+- special characters can be escaped with `\\`
 - multiple paths are separated with `;`
 - surround the pattern with quotes
 
 ### Troubleshooting
-if you see the message "no files matched paths" inside the uploading artifacts section of the job output, and you're sure it's a real path:
+I got the message "no files matched paths" inside the Uploading Artifacts section of the job output, but I'm sure that it's a real path:
 
-1. check your glob path pattern is correct
-1. check that it's surrounded by quotes, and either separated by semicolons or in a correctly indented yaml list 
+1. Check your glob path pattern is correct
+1. Check that it's surrounded by quotes, and either separated by semicolons or in a correctly indented yaml list 
+1. If you've done the above, and you're still seeing the same error, email us at support@buildkite.com
 
 ## List artifacts for a build
 
