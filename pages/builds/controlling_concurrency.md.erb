@@ -8,7 +8,12 @@ To help you control concurrency Buildkite provides two primitives: concurrency g
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you create a group in an individual `pipeline.yml` file, that concurrency group will then be available organsiation wide and can be used in by other pipelines. To avoid overriding an existing group, the names of these groups should be unique.   
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you create a group in a `pipeline.yml` file, that concurrency group will then be available organsiation wide and can be used by other pipelines. The names of these groups should be unique, unless they're accessing a shared resource.
+
+- guarantees the order that the jobs in that group will run in
+- they will be run in the order that the jobs were created in
+- dynamic pipelines need to be treated carefully, the pipeline upload step should have a CG if there are steps inside it that also use CGs (like a deploy)
+ 
 
 Common examples for concurrency group values include:
 
@@ -16,11 +21,11 @@ Common examples for concurrency group values include:
 * `terraform/update-state`
 * `my-mobile-app/app-store-release`
 
-Note: you can’t set a custom concurrency group label using the web interface, only a `pipeline.yml`. If you set concurrency in the web interface a label is automatically generated for that step.
+Note: when you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step.
 
 ## Concurrency Limits
 
-Concurrency limits define the number of build jobs that are allowed to be running at any one time.
+Concurrency limits define the number of jobs that are allowed to be running at any one time. These limits are set per-step and only apply to jobs that are created from that step.  
 
 For example, a concurrency limit of `1` ensures that no two jobs with the same concurrency group will run at the same time.
 
