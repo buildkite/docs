@@ -18,13 +18,13 @@ We’ve created a simple [bash-example test repository](https://github.com/build
 
 ## Link your git email address to Buildkite
 
-Before creating a build, link the email address you have associated with your git user account to Buildkite. Until you've linked your git email address, any builds created on commits you've authored won't have the correct permissions and will fail. 
+Before creating a build, link the email address you have associated with your git user account to Buildkite. Until you've linked your git email address, any builds created on commits you've authored won't be linked to your Buildkite account. 
 
 Check your git user's associated email address by running `git config --get user.email` in your terminal. If this email address is different to the one you used to sign up to Buildkite, add it to your account under Personal Settings > Email Addresses:
 
 <%= image "email-address.png", size: "251x52", alt: "Screenshot of email address section of Buildkite settings" %>
 
-After you have verified the new email address, you will be able to run builds in Buildkite. 
+After you have verified the new email address, builds that you run in Buildkite will show up in your My Builds menu. 
 
 ## Create your first build
 

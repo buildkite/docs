@@ -30,3 +30,9 @@ The My Builds page lists all of your past builds in reverse chronological order,
 
 Screenshot of the top of the my builds page
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the My Builds navigation bar dropdown" %>
+
+## Troubleshooting
+
+### The build I just created is running, but isn't showing up in the My Builds menu
+
+The most common reason for a build to not be included in your My Builds menu is that the email address isn't linked to your account. Make sure that the email attached to the git user that you used to trigger the build is linked to your Buildkite account. Without this link, we won't know that the most recent build is yours!
