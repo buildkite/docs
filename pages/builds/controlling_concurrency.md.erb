@@ -2,32 +2,42 @@
 
 Some tasks need to be run with very strict concurrency rules to ensure they don’t collide with each other. Common examples for needing concurrency control are deployments, app releases and infrastructure tasks.
 
-To help you control concurrency Buildkite provides two primitives: concurrency groups, and concurrency limits.
+To help you control concurrency Buildkite provides two primitives: concurrency groups, and concurrency limits. These two primitives are related, but are not explicitly linked. (?)
 
 <%= toc %>
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you create a group in a `pipeline.yml` file, that concurrency group will then be available organsiation wide and can be used by other pipelines. The names of these groups should be unique, unless they're accessing a shared resource.
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you create a group in a `pipeline.yml` file, that concurrency group will then be available organsiation wide and can be used by other pipelines. 
+
+The names of these groups should be unique, unless they're accessing a shared resource like a deployment target. Even though group labels are set at the step level, they work organisation wide so that order or volume sensitive operations like deploys or API access don't try run too many at once, and run in order that they were created.  
 
 - guarantees the order that the jobs in that group will run in
 - they will be run in the order that the jobs were created in
 - dynamic pipelines need to be treated carefully, the pipeline upload step should have a CG if there are steps inside it that also use CGs (like a deploy)
- 
 
+If you have multiple pipeline uploaders within a single pipeline that each contain steps which share a concurrency group for access to a shared resource: we don't know about the steps inside a pipeline upload until it's running and the jobs are created, so if there are steps that rely heavily on correct ordering, take advantage of our waiter or block steps so that you can be sure that it will run correctly each time.
+ 
 Common examples for concurrency group values include:
 
 * `our-payment-gateway/deployment`
 * `terraform/update-state`
 * `my-mobile-app/app-store-release`
 
-Note: when you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step.
+<section class="Docs__note">
+	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step.</p>
+</section>
 
 ## Concurrency Limits
 
-Concurrency limits define the number of jobs that are allowed to be running at any one time. These limits are set per-step and only apply to jobs that are created from that step.  
+Concurrency limits define the number of jobs created from a single step that are allowed to be running at any one time. These limits are set per-step and only apply to jobs that are created from that step. 
 
 For example, a concurrency limit of `1` ensures that no two jobs with the same concurrency group will run at the same time.
+
+<section class="Docs__troubleshooting-note">
+	<h1>I'm getting ___ error when my pipeline upload runs</h1>
+	<p>This error is caused by a missing concurrency group label. If you set a concurrency limit in a pipeline.yml file, you must also set a group label.</p>
+</section>
 
 ## Example: Deploy Step
 

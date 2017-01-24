@@ -70,7 +70,7 @@ _Optional attributes:_
   <tr>
     <td><code>agents</code></td>
     <td>
-      A list of <a href="/docs/agent/cli-meta-data">meta-data</a> key value pairs to <a href="docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br>
+      A list of <a href="/docs/agent/cli-meta-data">meta-data</a> key value pairs to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
@@ -91,10 +91,8 @@ _Optional attributes:_
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> that can be run inside this concurrency group at the same time as this job. <br>
-
-      The maximum number of this job that are allowed to run at the same time.  
-      <em>Example:</em> <code>1</code>
+      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time.<br>
+      <em>Example:</em> <code>3</code>
     </td>
   </tr>
   <tr>
