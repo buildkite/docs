@@ -26,8 +26,11 @@ An artifact is a file uploaded by your agent during the execution of a build’s
 
 ## Glob path pattern
 
-The glob path pattern is used throughout Buildkite for artifact file paths. Golang's `match` function is used on the backend, so the pattern that you define should be designed to match whole strings rather than substrings. 
+Glob path patterns are used throughout Buildkite for artifact file paths. We use a [custom globbing function](https://github.com/buildkite/agent/blob/16a9807a91c4dd1388649557108d4092ae4860a4/glob/glob.go) on the backend that expands the patterns available. The path patterns differ slightly when uploading and downloading artifacts. 
 
+### Uploading artifacts
+
+The pattern that you define should be designed to match whole strings rather than substrings. 
 Keep in mind while you're writing your path pattern:
 
 - there are two wildcards available that match non-separator characters:
@@ -38,12 +41,29 @@ Keep in mind while you're writing your path pattern:
 - multiple paths are separated with `;`
 - surround the pattern with quotes
 
-### Troubleshooting
-I got the message "no files matched paths" inside the Uploading Artifacts section of the job output, but I'm sure that it's a real path:
+The source path of your artifact is the one that will be used at the destination as well. If you just want the item, and not the full path name, make sure you `cd` into the directory containing your artifact before running the upload. 
 
-1. Check your glob path pattern is correct
-1. Check that it's surrounded by quotes, and either separated by semicolons or in a correctly indented yaml list 
-1. If you've done the above, and you're still seeing the same error, email us at support@buildkite.com
+### Downloading artifacts
+
+The path patterns for downloading artifacts are a little different, as they are translated into SQL LIKE statements to query our database. To enable this translation, the path pattern only supports text matching and single wildcards. 
+
+e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
+
+If you don't want the full path of your download source to be replicated in your destination directory, use wildcards rather that specific directory names in your source path. This will replicate unix-style file access.
+
+Path merging will occur if you have the same directory names in the download source and destination paths. 
+
+e.g. If you're downloading `dist/my-file.txt` to `Desktop` then it will create a directory called `dist` and your file will end up in `Desktop/dist/my-file.txt`. However, if you are downloading `dist/my-file.txt` to `dist`, then the downloader will merge those two path names and your file will end up in `dist/my-file.txt` on your destination machine.  
+
+<section class="Docs__troubleshooting-note">
+  <h1>I got the message "no files matched paths" inside the Uploading Artifacts section of the job output, but I'm sure that it's a real path.</h1>
+
+  <p><ol>
+    <li>Check your glob path pattern is correct</li>
+    <li>Check that it's surrounded by quotes, and either separated by semicolons or in a correctly indented yaml list </li>
+    <li>If you've done the above, and you're still seeing the same error, email us at support@buildkite.com </li>
+  </ol></p>
+</section>
 
 ## List artifacts for a build
 
