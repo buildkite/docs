@@ -45,7 +45,7 @@ The source path of your artifact is the one that will be used at the destination
 
 ### Downloading artifacts
 
-The path patterns for downloading artifacts are a little different, as they are translated into SQL LIKE statements to query our database. To enable this translation, the path pattern only supports text matching and single wildcards. 
+The path patterns for downloading artifacts are a little different, as they are translated into SQL LIKE statements to query our database. To enable this translation, the path pattern only supports text matching and the single wildcard syntax `*`. 
 
 e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
 
