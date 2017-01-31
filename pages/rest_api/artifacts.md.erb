@@ -41,7 +41,50 @@ Keep in mind while you're writing your path pattern:
 - multiple paths are separated with `;`
 - surround the pattern with quotes
 
-The source path of your artifact is the one that will be used at the destination as well. If you just want the item, and not the full path name, make sure you `cd` into the directory containing your artifact before running the upload. 
+The source path of your artifact is the one that will be used at the destination as well. If you just want the item, and not the full path name, make sure you `cd` into the directory containing your artifact before running the upload. When you run:
+
+```bash
+buildkite-agent artifact upload "log/test.log"
+```
+
+Buildkite will show the file as `log/test.log` in the user interface. If you'd rather it be labeled as just `test.log`, then you'll need to change the working directory of the buildkite-agent before running upload like so:
+
+```bash
+cd log
+buildkite-agent artifact upload "test.log"
+```
+
+#### Common Usages
+
+Upload a specific file:
+
+```bash
+buildkite-agent artifact upload "log/test.log"
+```
+
+Upload all the jpegs and pngs, in all folders and subfolders:
+
+```bash
+buildkite-agent artifact upload "*/**/*.jpg;*/**/*.jpeg;*/**/*.png"
+```
+
+Upload all the log files in the log folder:
+
+```bash
+buildkite-agent artifact upload "log/*.log"
+```
+
+Upload all the files and folders inside the `coverage` directory:
+
+```bash
+buildkite-agent artifact upload "coverage/**/*"
+```
+
+Upload a file name with special characters (e.g hello??.html):
+
+```bash
+buildkite-agent artifact upload "hello\?\?.html"
+```
 
 ### Downloading artifacts
 
