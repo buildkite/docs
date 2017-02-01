@@ -1,6 +1,6 @@
 # Bitbucket Repo Access
 
-Connecting to Bitbucket's build status API allows repository events to trigger Buildkite builds. Events such as creating or updating a PR triggers the creation of a new build in the associated Buildkite pipeline. After the build completes in Buildkite, the status icon in Bitbucket will update to reflect the outcome. 
+Connecting to Bitbucket's build status API allows repository events to trigger Buildkite builds. Events such as creating or updating a PR trigger the creation of a new build in the associated Buildkite pipeline. After the build completes in Buildkite, the status icon in Bitbucket will update to reflect the outcome. 
 
 To enable builds in Buildkite for your repository, set up a Bitbucket webhook.
 
@@ -12,20 +12,23 @@ This webhook will be triggered by the repository events that you specify, and wi
 
 1. Visit your Bitbucket repository's 'Webhooks Settings' page
 1. Click the 'Add Webhook' button and enter your Buildkite organization and pipeline name, as well as your unique Buildkite webhook URL
-1. From the list of triggers, select the Repository Push event, and the following Pull Request Events:
-	* Created
-	* Updated
-	* Approved
-	* Approval Removed
-	* Merged
-	* Declined 
+1. From the list of triggers select: 
+    * Repository:
+        - Push
+    * Pull Request:
+        - Created
+        - Updated
+        - Approved
+        - Approval Removed
+        - Merged
+        - Declined 
 
 Once you've filled it out, the form should look like this:
 <%= image "webhook-form.png", width: 930/2, height: 1578/2, alt: "Screenshot of a completed Bitbucket webhook form" %>
 
-Click the `save` button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events that you selected will trigger the creation of Buildkite builds 🎉
+Click the Save button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events that you selected will trigger the creation of Buildkite builds 🎉
 
-As you set up a new Buildkite pipeline with a Bitbucket repository, we'll display these instructions again, populated with your unique account details. 
+When you set up a new Buildkite pipeline with a Bitbucket repository, we'll display these instructions again, populated with your unique account and pipeline details. 
 
 ## Connecting Buildkite to Bitbucket
 
