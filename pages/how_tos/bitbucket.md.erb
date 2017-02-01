@@ -2,20 +2,9 @@
 
 Connecting to Bitbucket's build status API allows repository events to trigger Buildkite builds. Events such as creating or updating a PR triggers the creation of a new build in the associated Buildkite pipeline. After the build completes in Buildkite, the status icon in Bitbucket will update to reflect the outcome. 
 
-There are two parts to connecting Buildkite and Bitbucket, the first in Buildkite and the second in Bitbucket.   
+To enable builds in Buildkite for your repository, set up a Bitbucket webhook.
 
 <%= toc %>
-
-## Connecting Buildkite to Bitbucket
-
-Connecting Bitbucket as an app in Buildkite will allow webhooks from Bitbucket access to your Buildkite account.
-
-In Buildkite, go to Personal Settings > Connected Apps > Bitbucket and click Connect
-<%= image "personal-settings.png", width: 1938/2, height: 382/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
-
-You can edit the Bitbucket settings for specific pipelines from the settings page of any pipeline using a Bitbucket repository. 
-
-<%= image "bitbucket-settings.png", width: 1938/2, height: 942/2, alt: "Screenshot of the Buildkite Bitbucket settings" %>
 
 ## Setting up a Bitbucket webhook
 
@@ -37,3 +26,14 @@ Once you've filled it out, the form should look like this:
 Click the `save` button, and the webhook will be created. Set up a Buildkite pipeline using this repository's url, and the repository events that you selected will trigger the creation of Buildkite builds 🎉
 
 As you set up a new Buildkite pipeline with a Bitbucket repository, we'll display these instructions again, populated with your unique account details. 
+
+## Connecting Buildkite to Bitbucket
+
+Connecting Bitbucket as an app in Buildkite will allow webhooks from Bitbucket access to your Buildkite account. Enabling this will allow Bitbucket's build status icons to reflect the state of your Buildkite builds. This step is optional - not adding Bitbucket as a connected app will not affect your ability to trigger Buildkite builds from your Bitbucket repository.  
+
+In Buildkite, go to Personal Settings > Connected Apps > Bitbucket and click Connect
+<%= image "personal-settings.png", width: 1938/2, height: 382/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
+
+You can edit the Bitbucket settings for specific pipelines from the settings page of any pipeline using a Bitbucket repository. 
+
+<%= image "bitbucket-settings.png", width: 1938/2, height: 942/2, alt: "Screenshot of the Buildkite Bitbucket settings" %>
