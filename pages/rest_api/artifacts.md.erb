@@ -54,33 +54,33 @@ cd log
 buildkite-agent artifact upload "test.log"
 ```
 
-#### Common Usages
+Some of the common uses for glob paths patterns are:
 
-Upload a specific file:
+Uploading a specific file
 
 ```bash
 buildkite-agent artifact upload "log/test.log"
 ```
 
-Upload all the jpegs and pngs, in all folders and subfolders:
+Uploading all the jpegs and pngs, in all folders and subfolders
 
 ```bash
 buildkite-agent artifact upload "*/**/*.jpg;*/**/*.jpeg;*/**/*.png"
 ```
 
-Upload all the log files in the log folder:
+Uploading all the log files in the log folder
 
 ```bash
 buildkite-agent artifact upload "log/*.log"
 ```
 
-Upload all the files and folders inside the `coverage` directory:
+Uploading all the files and folders inside the `coverage` directory
 
 ```bash
 buildkite-agent artifact upload "coverage/**/*"
 ```
 
-Upload a file name with special characters (e.g hello??.html):
+Uploading a file name with special characters (e.g hello??.html)
 
 ```bash
 buildkite-agent artifact upload "hello\?\?.html"

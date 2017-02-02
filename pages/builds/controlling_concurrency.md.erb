@@ -38,12 +38,9 @@ steps:
   concurrency_group: "tests"
 ```
 
-The names of these groups should be unique, unless they're accessing a shared resource like a deployment target. You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created. For example, having multiple groups called `deploy` will affect which jobs are able to run at the same time.  
+The names of these groups should be unique, unless they're accessing a shared resource like a deployment target. You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created. For example, having multiple groups called `deploy` on steps that are accessing different resources will affect which jobs are able to run at the same time.  
 
-Concurrency groups guarantee that jobs will be run in the order that they were created in.
-
-- something about pipeline uploads creating jobs in a weird order
-- inheriting the scheduledAt time of the build creation or the initial pipeline upload job 
+Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.  
 
 If you have multiple pipeline uploaders within a single pipeline that each contain steps with the same concurrency group: Buildkite doesn't know about the steps inside a pipeline upload until it's running and the jobs are created. If one upload runs more quickly than another, its jobs may start running before the rest have even been created. If there are steps that rely on correct ordering, take advantage of [wait](/docs/pipelines/wait-step) or [block](/docs/pipelines/block-step) steps so that you can be sure that they will run correctly each time.
 
