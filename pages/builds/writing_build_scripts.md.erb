@@ -6,6 +6,7 @@ Steps in your build pipelines are most often just shell scripts that are checked
 
 ## Configuring Bash
 
+The shell that runs your scripts in Buildkite is a clean bash prompt with no settings. If you rely on anything from your bashprofile or bashrc files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.   
 There are four Bash options which are often used in build scripts:
 
 <table>
@@ -79,12 +80,12 @@ ORIGINAL_STATUS=$?
 exit $ORIGINAL_STATUS
 ```
 
-## Managing Log Output Size
+## Managing Log Output
 
-See the [Managing Log Output guide](/docs/builds/managing-log-output) for techniques on reducing large build output.
+If you are getting too much logging in your build output, there are several strategies you can employ to reduce it. Take a look at our guide to [managing log output](/docs/builds/managing-log-output) for a step by step introduction. 
 
-## Linting, Debugging and Help Tools
+## Help Tools - Linting and Debugging
 
-You can use a linting tool to check your shell scripts for common errors and mistakes. [shellcheck.net](http://www.shellcheck.net) ([github.com/koalaman/shellcheck](https://github.com/koalaman/shellcheck)) is one shell script linter with a web-based front-end, a command line tool and can be used directly in your code editor.
+To check your shell scripts for common errors and mistakes you can use a linting tool like [Shellcheck](http://www.shellcheck.net). [Shellcheck](http://www.shellcheck.net) is a shell script linter with a web-based front-end and a command line tool. It can also be used directly in your code editor.
 
-If you’re wanting to understand a particular piece of shell code [explainshell.com](http://explainshell.com) ([github.com/idank/explainshell](https://github.com/idank/explainshell)) can tell you, in plain English, what a line of code does, and it integrates the man page help for common tools such as `ssh` and `git`.
+If you’re wanting to understand a particular piece of shell code [explainshell.com](http://explainshell.com) ([github.com/idank/explainshell](https://github.com/idank/explainshell)) can tell you, in plain English, what a line of code does. It also integrates the man pages of common tools such as `ssh` and `git`.
