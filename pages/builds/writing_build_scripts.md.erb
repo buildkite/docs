@@ -1,6 +1,5 @@
 # Writing Build Scripts
-
-Steps in your build pipelines are most often just shell scripts that are checked in alongside your code. The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark the build as passed or failed.
+One of the most popular actions that Buildkite pipeline steps perform is running a shell script. These scripts are checked in alongside your code and `pipeline.yml` file. The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
 <%= toc %>
 
@@ -30,7 +29,7 @@ There are four Bash options which are often used in build scripts:
   </tbody>
 </table>
 
-Most build scripts should set the `-e` and `-o pipefail` options to ensure if any command fails your entire build script fails. For example:
+In the majority of cases, you will want to ensure that if any one command fails your entire build script fails. You can set up your script to do this automatically by using the `-e` and `-o pipefail` options. For example:
 
 ```bash
 #!/bin/bash
@@ -40,27 +39,7 @@ set -eo pipefail
 run_my_tests
 ```
 
-If you need to perform tasks after your main command executes then `set -e` might not be suitable, as any failure will cause the script to immediately exit and subsequent commands to be skipped. Instead of using `set -e` you’ll need to [capture the exit status](#capturing-exit-status) of your command yourself.
-
-## Debugging your environment
-
-The first step to debugging script is to output the environment. This will show any [environment variables set up by the Buildkite Agent](/docs/builds/environment-variables), as well as other important environment variables such as `$PATH`.
-
-To add the environment to your build output simply execute `env` at the start of your build script.
-
-```
-#!/bin/bash
-
-env
-```
-
-You can also set the `-x` option which will print out each command, fully expanded, before executing it.
-
-```
-#!/bin/bash
-
-set -x
-```
+However, if you need to perform tasks after your main command executes (regardless of success or failure), you’ll need to [capture the exit status](#capturing-exit-status) of your command yourself instead of using `set -e`.
 
 ## Capturing Exit Status
 
@@ -83,6 +62,32 @@ exit $ORIGINAL_STATUS
 ## Managing Log Output
 
 If you are getting too much logging in your build output, there are several strategies you can employ to reduce it. Take a look at our guide to [managing log output](/docs/builds/managing-log-output) for a step by step introduction. 
+
+## Debugging your environment
+
+The first step in debugging your build script is outputting the environment information. This will show any [environment variables](/docs/builds/environment-variables) set up by the Buildkite Agent, as well as other important environment variables such as `$PATH`.
+
+To add the environment to your build output execute `env` at the start of your build script.
+
+```
+#!/bin/bash
+
+env
+```
+
+You can also set the `-x` option which will execute all subequent commands in 'debug' mode. This will step through the script and print a line for each operation it performs. If you'd like to debug some commands but not others, you can turn debugging off again with `set +x`.  
+
+```
+#!/bin/bash
+
+set -x
+tests.sh
+set +x
+
+run.sh
+```
+
+For more information about the `-x` option and debugging in general, see the [Bash Guide for Beginners' page on debugging bash scripts](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_03.html).
 
 ## Help Tools - Linting and Debugging
 
