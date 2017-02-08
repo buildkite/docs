@@ -6,28 +6,33 @@ One of the most popular actions that Buildkite pipeline steps perform is running
 ## Configuring Bash
 
 The shell that runs your scripts in Buildkite is a clean bash prompt with no settings. If you rely on anything from your bashprofile or bashrc files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.   
-There are four Bash options which are often used in build scripts:
+
+Using Bash's `set` builtin changes the shell options for the duration of the script, or until the specified options are reset. Options added to your shell with `set` can be combined in the same way as flags.   
+
+Here are some popular Bash options that are often useful in build scripts:
 
 <table>
   <tbody>
   <tr>
     <th><code>-e</code></th>
-    <td>Exit immediately if a command exits with a non-zero status</td>
+    <td>Exit script immediately if a command exits with a non-zero status.</td>
   </tr>
   <tr>
     <th><code>-u</code></th>
-    <td>Exit immediately if an undefined variable is used (e.g. <code>echo "$UNDEFINED_ENV_VAR"</code>)</td>
+    <td>Exit script immediately if an undefined variable is used (e.g. <code>echo "$UNDEFINED_ENV_VAR"</code>).</td>
   </tr>
   <tr>
     <th><code>-o pipefail</code></th>
-    <td>Ensures pipelines (e.g. <code>cmd | othercmd</code>) return a non-zero status if a command fails</td>
+    <td>Ensures bash pipelines (e.g. <code>cmd | othercmd</code>) return a non-zero status if any of the commands fail, rather than only the exit code of the last command in the pipeline.</td>
   </tr>
   <tr>
     <th><code>-x</code></th>
-    <td>Print each expanded command before executing (useful for debugging)</td>
+    <td>Expand and print each command before executing. See <a href="/docs/builds/writing-build-scripts#debugging-your-environment">Debugging your environment</a> for more information. </td>
   </tr>
   </tbody>
 </table>
+
+For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 In the majority of cases, you will want to ensure that if any one command fails your entire build script fails. You can set up your script to do this automatically by using the `-e` and `-o pipefail` options. For example:
 
@@ -43,7 +48,21 @@ However, if you need to perform tasks after your main command executes (regardle
 
 ## Capturing Exit Status
 
+Scripts often contain commands that shouldn't affect the overall exit status. In this case, after choosing your main commands, you'll need to capture their exit status. Once the script finishes executing all of its commands, you will return your stored exit code. This gives you complete control over the exit code returned upon completion of the job.
+
 If you want to execute commands after your main command, but still report success/fail correctly, you’ll need to capture the exit status of your main command and then exit with it at the end.
+
+For example, the following script contains three commands:
+
+```bash
+#!/bin/bash
+
+run_my_tests
+clean_up
+notify_team
+``` 
+
+Running this script will exit with the status returned by the final command `notify_team`. However, both `clean_up` and `notify_team` are non-essential, and what we really care about is the outcome of the `run_my_tests` commmand. Using a variable to store the exit status (`$?`) of the test script, we can run our other commands before returning it at the end:
 
 ```bash
 #!/bin/bash
@@ -51,12 +70,14 @@ If you want to execute commands after your main command, but still report succes
 run_my_tests
 
 # Capture the exit status of the last command in a variable
-ORIGINAL_STATUS=$?
+TEST_STATUS=$?
 
 # Additional commands
+clean_up
+notify_team
 
-# Finish with the original status
-exit $ORIGINAL_STATUS
+# Finish with the status of the tests command
+exit $TEST_STATUS
 ```
 
 ## Managing Log Output
@@ -69,7 +90,7 @@ The first step in debugging your build script is outputting the environment info
 
 To add the environment to your build output execute `env` at the start of your build script.
 
-```
+```bash
 #!/bin/bash
 
 env
@@ -77,7 +98,7 @@ env
 
 You can also set the `-x` option which will execute all subequent commands in 'debug' mode. This will step through the script and print a line for each operation it performs. If you'd like to debug some commands but not others, you can turn debugging off again with `set +x`.  
 
-```
+```bash
 #!/bin/bash
 
 set -x
@@ -93,4 +114,5 @@ For more information about the `-x` option and debugging in general, see the [Ba
 
 To check your shell scripts for common errors and mistakes you can use a linting tool like [Shellcheck](http://www.shellcheck.net). [Shellcheck](http://www.shellcheck.net) is a shell script linter with a web-based front-end and a command line tool. It can also be used directly in your code editor.
 
-If you’re wanting to understand a particular piece of shell code [explainshell.com](http://explainshell.com) ([github.com/idank/explainshell](https://github.com/idank/explainshell)) can tell you, in plain English, what a line of code does. It also integrates the man pages of common tools such as `ssh` and `git`.
+For an explanation of a shell code snippet, the [explainshell.com](http://explainshell.com) tool is extremely useful. [Explainshell]](https://github.com/idank/explainshell)) can tell you, in plain English, what a line of code does. It also integrates the man pages of common tools such as `ssh` and `git`.
+
