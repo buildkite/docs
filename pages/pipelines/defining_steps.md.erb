@@ -8,11 +8,13 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-To get started on a new pipeline create a single step and have it run `buildkite-agent pipeline upload`:
+After creating a new pipeline, click the ➕ to add a step and choose 'Read steps from repository'. On the backend, this type of step will run `buildkite-agent pipeline upload`.
 
 <%= image("pipeline-upload-step.png", width: 612/2, height: 484/2) %>
 
-This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command. When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`. For example, here is a pipeline that simply prints “Hello!”:
+When this step runs on an agent it reads in the pipeline file in your repository from `.buildkite/pipeline.yml`. 
+
+For example, here is a pipeline with one step that prints “Hello!” to your build log:
 
 ```yml
 steps:
@@ -20,7 +22,7 @@ steps:
     command: echo "Hello!"
 ```
 
-To test your new `.buildkite/pipeline.yml` simply commit the file, push the commit, and run a new build:
+To test your new `.buildkite/pipeline.yml` simply commit the file, push the commit, and run a new build. After it has run, it will turn green and look similar to this:
 
 <%= image("show-example-test.png", width: 422/2, height: 270/2) %>
 
