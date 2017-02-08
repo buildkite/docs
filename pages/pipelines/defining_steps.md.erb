@@ -28,7 +28,7 @@ To test your new `.buildkite/pipeline.yml` simply commit the file, push the comm
 
 ## Example pipeline
 
-Here’s a more complete example based off the Buildkite Agent’s pipeline which contains script commands, wait steps, "Click to unblock" steps, and artifacting uploading:
+Here’s a more complete example based on our internal pipline to build the Buildkite Agent. It contains script commands, wait steps, block steps, and artifacting uploading:
 
 ```yaml
 steps:
@@ -79,8 +79,9 @@ You can generate pipelines dynamically from your source code thanks to the fact 
 
 For example you could generate a list of parallel test steps based upon the `test/*` directories within your repository. To do this you'd have a single step in your pipeline settings:
 
-```
-./scripts/buildkite_test_pipeline | buildkite-agent pipeline upload
+```yml
+steps:
+  - command: ./scripts/buildkite_test_pipeline | buildkite-agent pipeline upload
 ```
 
 The `scripts/buildkite_test_pipeline` would be an executable file checked into your source repository, and could look something like the following:
@@ -88,36 +89,38 @@ The `scripts/buildkite_test_pipeline` would be an executable file checked into y
 ```
 #!/bin/bash
 
-# Generates a pipeline step for each test directory, allowing the tests to be
-# split up and run across distributed build agents
-
+# exit immediately on failure, or if an undefined variable is used
 set -eu
 
+# begin the pipeline.yml file
 echo "steps:"
 
+# add a new command step to run the tests in each test directory
 for test_dir in test/*/; do
   echo "  - command: \"run_tests "${test_dir}"\"
 done
 ```
 
-When this is run on an agent it will output the pipeline, which is then piped to the `buildkite-agent pipeline upload` command.
+When `scripts/buildkite_test_pipeline` is run on an agent it will output the pipeline, which is then piped to the `buildkite-agent pipeline upload` command.
 
 ## Custom Pipeline Files
 
-By default the `.buildkite/pipeline.yml` file is used when uploading a pipeline, you can specify a different file by adding it after the upload command, for example: `buildkite-agent pipeline upload path/to/my-custom-pipeline.yml`
+By default the `.buildkite/pipeline.yml` file is used when uploading a pipeline. However, you can specify a different file by adding it after the upload command:
+
+<%= image "custom-pipeline-file.png", width: 1174/2, height: 452/2, alt: "Screenshot of a custom pipeline file upload" %>
 
 ## Migrating existing steps to a pipeline.yml
 
-To migrate steps from the pipeline settings to a `pipeline.yml` file without interrupting your builds, you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
+To migrate steps create in the pipeline settings to a `pipeline.yml` file without interrupting your builds, you can use the `--replace` flag. This is used with the pipeline upload command, and will replace the old steps in the UI with those in your new `pipeline.yml` file. 
 
-To do this, create a step with the following command:
+To do this, add a new command step at the start of your pipeline through your pipeline settings page. This step contains the commands:
 
 ```bash
 [[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
 ```
 
-If the pipeline file exists then we execute the `pipeline upload --replace` command which will replace any steps that were defined via the web interface after this step.
+This line of code will check if the pipeline file exists, then if it does, will execute the `pipeline upload --replace` command to replace any steps that were defined via the web interface (other than this step) with those defined in the `pipeline.yml`.
 
 ## Further documentation
 
-See the [Buildkite Agent pipelines documentation](/docs/agent/cli-pipeline) for a full list of options and details of Buildkite’s pipeline command support.
+See the [Buildkite Agent pipelines documentation](/docs/agent/cli-pipeline) for a full list of options for Buildkite’s pipeline command.
