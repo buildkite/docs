@@ -1,14 +1,14 @@
-# Parallelizing Builds
+# Parallelizing Jobs
 
-Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and job parallelism to increase the speed of your builds.
+Running a build's jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
 
 <%= toc %>
 
 ## Running multiple agents
 
-The Buildkite agent support the running of multiple instances on the one machine, as well as scaling your agents horizontally across any number of machines and networks.
+The Buildkite agent supports the running of multiple instances on the one machine, as well as scaling your agents horizontally across any number of machines and networks.
 
-Each platform’s [install instructions](/docs/agent/installation) has details for how to run multiple agents on a machine. In this case we'll use the [Ubuntu-based build agent](/docs/agent/ubuntu) to start 5 instances of the Buildkite agent:
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/installation) section. For this example we'll use a [Ubuntu-based build agent](/docs/agent/ubuntu) to start 5 instances of the Buildkite agent:
 
 ```bash
 # After running the standard install instructions...
@@ -36,11 +36,11 @@ To run the same step over all 5 of the agents we can set the parallelism field f
 
 <%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
 
-Whilst we’re here we can also update the name of the step to include `%n`, which will automatically have the number substituted in and will help to differentiate between the different build jobs:
+Update the name of the step to use `%n`, like the example below. This will substitute a number in at runtime so that you can differentiate the different build jobs:
 
 <%= image 'name.png', size: '555x80', alt: 'Step name field with %n' %>
 
-Now the pipeline is configured we can create a new build:
+Now that the pipeline is configured, create a new build:
 
 <%= image 'build.png', size: '405x204', alt: 'The build' %>
 
@@ -51,18 +51,17 @@ BUILDKITE_PARALLEL_JOB=0
 BUILDKITE_PARALLEL_JOB_COUNT=5
 ```
 
-The `BUILDKITE_PARALLEL_JOB` environment variable is the job number starting from 0, in this case each job’s value would be `0`, `1`, `2`, `3`, and `4`.
+The `BUILDKITE_PARALLEL_JOB` environment variable stores the job number starting from 0. In this case each job’s value would be `0`, `1`, `2`, `3`, and `4` respectively.
 
-The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable is the total number of jobs.
+The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable stores the total number of jobs created from this step for this build.
 
 You can use these two environment variables to divide your application’s tests between the different jobs.
 
 ## Libraries
 
-The following libraries have built-in support for the `BUILDKITE_PARALLEL_*` environment variables:
+The [Knapsack](https://github.com/ArturT/knapsack) ruby gem has built-in support for the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
 
-* [Knapsack](https://github.com/ArturT/knapsack)
-<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber and Minitest.
+Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and Minitest.
 
 ## Isolated jobs
 
@@ -70,10 +69,10 @@ You can safely run multiple agents on a single machine, though you’ll still ne
 
 ## Auto-scaling your build agents
 
-We've provided a number of APIs to allow you to automatically scale your build agents based on build queue.
+We provide a number of APIs for automatically scaling agents based on you build queue.
 
-* Using the [Pipelines API](/docs/api/pipelines) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Based on this you can spin up new agent machines to process the jobs waiting to be run.
-* Using [agent prioritization](/docs/agent/prioritization) you’ll able to define a core set up agents that are assigned work first, and then lower priority agents which you may spin up and spin down on demand.
-* Using the [Agents API](/docs/api/agents) you’re able to fetch your agent’s `job` and `last_job_finished_at`, which allow you to see if they have been idle. You can then remotely shut down an agent process using the [agent stop API](/docs/api/agents#stop-an-agent) (passing `"force": false` to ensure it won’t cancel any running job).
+* Using the [Pipelines API](/docs/api/pipelines) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Keeping track of this value, you can spin new agent machines up or down to accomodate the job load.
+* Using [agent prioritization](/docs/agent/prioritization) you’ll able to define which agents are assigned work first, as well as lower priority agents which you may spin up and down on demand.
+* Using the [Agents API](/docs/api/agents) you’re able to fetch your agent’s `job` and `last_job_finished_at`, which allow you to see if they have been idle. Using the [agent stop API](/docs/api/agents#stop-an-agent) you can remotely shut down idle agent processes (passing `"force": false` to ensure it won’t cancel any running job).
 
 Using these three APIs you can automate your build infrastructure, scale your agents based on demand, and ensure no-one has to wait for their build to start.
