@@ -41,13 +41,13 @@ Keep in mind while you're writing your path pattern:
 - multiple paths are separated with `;`
 - surround the pattern with quotes
 
-The source path of your artifact is the one that will be used at the destination as well. If you just want the item, and not the full path name, make sure you `cd` into the directory containing your artifact before running the upload. When you run:
+The source path you supply to the upload command will be replicated exactly at the destination. If you run:
 
 ```bash
 buildkite-agent artifact upload "log/test.log"
 ```
 
-Buildkite will show the file as `log/test.log` in the user interface. If you'd rather it be labeled as just `test.log`, then you'll need to change the working directory of the buildkite-agent before running upload like so:
+Buildkite will store the file at `log/test.log`. If you'd rather it be stored as just `test.log`, then you'll need to change directory before running your upload command:
 
 ```bash
 cd log
@@ -88,7 +88,7 @@ buildkite-agent artifact upload "hello\?\?.html"
 
 ### Downloading artifacts
 
-The path patterns for downloading artifacts are a little different, as they are translated into SQL LIKE statements to query our database. To enable this translation, the path pattern only supports text matching and the single wildcard syntax `*`. 
+The path patterns for downloading artifacts are different to uploads. The  only supports text matching and the single wildcard syntax `*`. 
 
 e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
 

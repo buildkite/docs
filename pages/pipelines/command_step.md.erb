@@ -23,7 +23,7 @@ _Required attributes:_
   <tr>
     <td><code>command</code></td>
     <td>
-      The shell command/s to run during this step. This can be a single line of commands, or a yaml list. <br>
+      The shell command/s to run during this step. This can be a single line of commands, or a YAML list. <br>
       <em>Example:</em> <code>"build.sh"</code><br>
       <em>Example:</em> <code>"npm install && npm test"</code>
     </td>
@@ -47,7 +47,7 @@ _Optional attributes:_
 
 <table>
   <tr>
-    <td><code>name</code></td>
+    <td><code>label</code></td>
     <td>
       The label that will be displayed in the pipeline visualisation in Buildkite. (supports emoji)<br>
       <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
@@ -77,7 +77,7 @@ _Optional attributes:_
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/rest-api/artifacts#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a yaml list.<br>
+      The <a href="/docs/rest-api/artifacts#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code>
     </td>
   </tr>
@@ -113,17 +113,15 @@ _Optional attributes:_
 
 ```yml
 steps:
-  - name: "\:hammer\: Tests"
+  - label: "\:hammer\: Tests"
     command: "npm install && tests.sh"
     branches: "master"
     env:
-      FOO: "bar"
+      RAILS_ENV: "test"
+      RACK_ENV: "test"
     agents:
       npm: "true"
       queue: "tests"
-    plugins:
-      docker-compose:
-        run: app
     artifact_paths: "logs/**/*;coverage/**/*"
     parallelism: 1
     concurrency: 1
@@ -133,7 +131,7 @@ steps:
 
 ```yml
 steps:
-  - name: "\:hammer\: Tests"
+  - label: "\:hammer\: Tests"
     command: 
       - "npm install"
       - "tests.sh"

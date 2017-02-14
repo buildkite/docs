@@ -2,7 +2,7 @@
 
 Some tasks need to be run with very strict concurrency rules to ensure they don’t collide with each other. Common examples for needing concurrency control are deployments, app releases and infrastructure tasks.
 
-To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are interdependant, they are not explicitly linked.
+To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependant, they operate at different levels.
 
 <%= toc %>
 
@@ -12,7 +12,7 @@ Concurrency limits define the number of jobs that are allowed to be running at a
 
 For example:
 
-You have set a concurrency limit of `1` on the first step in your pipeline, to ensures that no two jobs created from that step will run at the same time. You'll find this affects a couple of different scenarios:
+You have set a concurrency limit of `1` on the first step in your pipeline to ensure that no two jobs created from that step will run at the same time. You'll find this affects a couple of different scenarios:
 
 A) Two builds are started on the same pipeline and are running in parallel. This means that in the pool of started jobs, there are two that have been created from the same step - one in each of the running builds. As a concurrency limit of 1 was set on the step, these jobs will not run at the same time, even if there are agents available to do so.
 
@@ -20,11 +20,11 @@ B) You want to run one step multiple times, and are using the `parallelism` attr
 
 <%= image "concurrency-limits.png", width: 1092/2, height: 214/2, alt: "Screenshot of a step's Global Concurrency Limit field" %>
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency-group` attribute. See [Concurrency Groups](/docs/builds/controlling-concurrency#concurrency-groups) for more information.
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](/docs/builds/controlling-concurrency#concurrency-groups) for more information.
 
 <section class="Docs__troubleshooting-note">
     <h1>I'm seeing an error about a missing concurrency_group_id when I run my pipeline upload</h1>
-    <p>This error is caused by a missing concurrency group label. If you set a concurrency limit in a pipeline.yml file, you must also set a group label.</p>
+    <p>This error is caused by a missing concurrency group label. If you set a concurrency limit in a `pipeline.yml` file, you must also set a group label.</p>
 </section>
 
 ## Concurrency Groups
@@ -53,7 +53,7 @@ Common examples for concurrency group values include:
 * `my-mobile-app/app-store-release`
 
 <section class="Docs__note">
-	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a pipeline.yml file. </p>
+	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a `pipeline.yml` file. </p>
 </section>
 
 ## Example: Deploy Step
