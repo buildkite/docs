@@ -47,7 +47,7 @@ The source path you supply to the upload command will be replicated exactly at t
 buildkite-agent artifact upload "log/test.log"
 ```
 
-Buildkite will store the file at `log/test.log`. If you'd rather it be stored as just `test.log`, then you'll need to change directory before running your upload command:
+Buildkite will store the file at `log/test.log`. If you want it to be stored as `test.log` without the full path, then you'll need to change into the file's directory before running your upload command:
 
 ```bash
 cd log
@@ -86,18 +86,6 @@ Uploading a file name with special characters (e.g hello??.html)
 buildkite-agent artifact upload "hello\?\?.html"
 ```
 
-### Downloading artifacts
-
-The path patterns for downloading artifacts are different to uploads. The  only supports text matching and the single wildcard syntax `*`. 
-
-e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
-
-If you don't want the full path of your download source to be replicated in your destination directory, use wildcards rather that specific directory names in your source path. This will replicate unix-style file access.
-
-Path merging will occur if you have the same directory names in the download source and destination paths. 
-
-e.g. If you're downloading `dist/my-file.txt` to `Desktop` then it will create a directory called `dist` and your file will end up in `Desktop/dist/my-file.txt`. However, if you are downloading `dist/my-file.txt` to `dist`, then the downloader will merge those two path names and your file will end up in `dist/my-file.txt` on your destination machine.  
-
 <section class="Docs__troubleshooting-note">
   <h1>I got the message "no files matched paths" inside the Uploading Artifacts section of the job output, but I'm sure that it's a real path.</h1>
 
@@ -107,6 +95,18 @@ e.g. If you're downloading `dist/my-file.txt` to `Desktop` then it will create a
     <li>If you've done the above, and you're still seeing the same error, email us at support@buildkite.com </li>
   </ol></p>
 </section>
+
+### Downloading artifacts
+
+The path pattern for downloading artifacts supports a subset of the upload syntax. The only supports text matching and the single wildcard syntax `*`. 
+
+e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
+
+If you don't want the full path of your download source to be replicated in your destination directory, use wildcards rather that specific directory names in your source path. This will replicate unix-style file access.
+
+Path merging will occur if you have the same directory names in the download source and destination paths. 
+
+e.g. If you're downloading `dist/my-file.txt` to `Desktop` then it will create a directory called `dist` and your file will end up in `Desktop/dist/my-file.txt`. However, if you are downloading `dist/my-file.txt` to `dist`, then the downloader will merge those two path names and your file will end up in `dist/my-file.txt` on your destination machine.  
 
 ## List artifacts for a build
 
