@@ -38,9 +38,9 @@ steps:
 ```yml
 steps:
   - command:
-      - "npm install && npm test" 
-      - "moretests.sh"
-      - "build.sh"
+    - "npm install && npm test" 
+    - "moretests.sh"
+    - "build.sh"
 ```
 
 _Optional attributes:_
@@ -63,14 +63,14 @@ _Optional attributes:_
   <tr>
     <td><code>env</code></td>
     <td>
-      A list of <a href="/docs/builds/environment-variables">environment variables</a> for this step. <br>
-      <em>Example:</em> <code>FOO: "bar"</code>
+      A map of <a href="/docs/builds/environment-variables">environment variables</a> keys to values for this step. <br>
+      <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
     <td><code>agents</code></td>
     <td>
-      A list of <a href="/docs/agent/cli-meta-data">meta-data</a> key value pairs to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
+      A map of <a href="/docs/agent/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
