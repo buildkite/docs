@@ -119,7 +119,7 @@ To do this, add a new command step at the start of your pipeline through your pi
 [[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
 ```
 
-This line of code will check if the pipeline file exists, then if it does, will execute the `pipeline upload --replace` command to replace any steps that were defined via the web interface (other than this step) with those defined in the `pipeline.yml`.
+This line of code will check if the pipeline file exists, then if it does, will execute the `buildkite agent pipeline upload --replace` command to replace any steps that were defined via the web interface (other than this step) with those defined in the `pipeline.yml`.
 
 ## Further documentation
 
