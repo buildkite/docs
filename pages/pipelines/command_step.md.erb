@@ -25,7 +25,7 @@ _Required attributes:_
     <td>
       The shell command/s to run during this step. This can be a single line of commands, or a YAML list. <br>
       <em>Example:</em> <code>"build.sh"</code><br>
-      <em>Example:</em> <code>"npm install && npm test"</code>
+      <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code>
     </td>
   </tr>
 </table>
@@ -77,8 +77,9 @@ _Optional attributes:_
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/rest-api/artifacts#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
-      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code>
+      The <a href="/docs/agent/cli-artifact#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
+      <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
   </tr>
   <tr>
@@ -91,15 +92,15 @@ _Optional attributes:_
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use a concurrency limit, you must also define a label for it in the concurrency_group attribute.<br>
+      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      A unique name for the concurrency group that you are creating with the <code>concurrency</code> attribute. This can share a name with a <a href="/docs/builds/controlling-concurrency#concurrency-groups">concurrency group</a> set in another step or pipeline, if they're accessing a shared resource. <br>
-      <em>Example:</em> <code>"serial_tests"</code>
+      A unique name for the concurrency group that you are creating with the <code>concurrency</code> attribute.<br>
+      <em>Example:</em> <code>"my-app/deploy"</code>
     </td>
   </tr>
   <tr>
@@ -114,7 +115,9 @@ _Optional attributes:_
 ```yml
 steps:
   - label: "\:hammer\: Tests"
-    command: "npm install && tests.sh"
+    command: 
+      - "npm install"
+      - "tests.sh"
     branches: "master"
     env:
       RAILS_ENV: "test"
@@ -122,20 +125,15 @@ steps:
     agents:
       npm: "true"
       queue: "tests"
-    artifact_paths: "logs/**/*;coverage/**/*"
-    parallelism: 1
-    concurrency: 1
-    concurrency_group: "serial_tests"
-    timeout_in_minutes: 60
-```
-
-```yml
-steps:
-  - label: "\:hammer\: Tests"
-    command: 
-      - "npm install"
-      - "tests.sh"
-    artifact_paths: 
+    artifact_paths:
       - "logs/**/*"
       - "coverage/**/*"
+    parallelism: 1
+    timeout_in_minutes: 60
+  - wait
+  - label: "\:shipit\: Deploy"
+    command: "deploy.sh"
+    branches: "master"
+    concurrency: 1
+    concurrency_group: "my-app/deploy"
 ```

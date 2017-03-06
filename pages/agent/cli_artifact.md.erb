@@ -8,7 +8,7 @@ See the [Using Build Artifacts]((/docs/builds/artifacts)) guide for a step-by-st
 
 ## Uploading Artifacts
 
-Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide]((/docs/builds/artifacts)) for details).
+Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
 ```
 Usage:
@@ -44,9 +44,79 @@ Options:
    --no-color              Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
 ```
 
+## Glob path pattern
+
+Glob path patterns are used throughout Buildkite for artifact file paths. We use a [custom globbing function](https://github.com/buildkite/agent/blob/16a9807a91c4dd1388649557108d4092ae4860a4/glob/glob.go) on the backend that expands the patterns available. The path patterns differ slightly when uploading and downloading artifacts. 
+
+The pattern that you define should be designed to match whole strings rather than substrings. 
+Keep in mind while you're writing your path pattern:
+
+- there are two wildcards available that match non-separator characters:
+  + `*` to match a sequence of characters
+  + `?` to match a single character
+- character ranges surrounded by `[]` support the `^` as a negator
+- special characters can be escaped with `\\`
+- multiple paths are separated with `;`
+- surround the pattern with quotes
+
+The source path you supply to the upload command will be replicated exactly at the destination. If you run:
+
+```bash
+buildkite-agent artifact upload "log/test.log"
+```
+
+Buildkite will store the file at `log/test.log`. If you want it to be stored as `test.log` without the full path, then you'll need to change into the file's directory before running your upload command:
+
+```bash
+cd log
+buildkite-agent artifact upload "test.log"
+```
+
+### Examples
+
+Uploading a specific file:
+
+```bash
+buildkite-agent artifact upload "log/test.log"
+```
+
+Uploading all the jpegs and pngs, in all folders and subfolders:
+
+```bash
+buildkite-agent artifact upload "*/**/*.jpg;*/**/*.jpeg;*/**/*.png"
+```
+
+Uploading all the log files in the log folder:
+
+```bash
+buildkite-agent artifact upload "log/*.log"
+```
+
+Uploading all the files and folders inside the `coverage` directory:
+
+```bash
+buildkite-agent artifact upload "coverage/**/*"
+```
+
+Uploading a file name with special characters e.g. `hello??.html`:
+
+```bash
+buildkite-agent artifact upload "hello\?\?.html"
+```
+
 ## Downloading Artifacts
 
 Use this command in your build scripts to download artifacts.
+
+The path pattern for downloading artifacts supports a subset of the upload syntax. The only supports text matching and the single wildcard syntax `*`. 
+
+e.g. The path `foo/*/bar/hello.txt` would be translated to `foo/%/bar/hello.txt` on the backend to query our artifact database.
+
+If you don't want the full path of your download source to be replicated in your destination directory, use wildcards rather that specific directory names in your source path. This will replicate unix-style file access.
+
+Path merging will occur if you have the same directory names in the download source and destination paths. 
+
+e.g. If you're downloading `dist/my-file.txt` to `Desktop` then it will create a directory called `dist` and your file will end up in `Desktop/dist/my-file.txt`. However, if you are downloading `dist/my-file.txt` to `dist`, then the downloader will merge those two path names and your file will end up in `dist/my-file.txt` on your destination machine.  
 
 ```
 Usage:
