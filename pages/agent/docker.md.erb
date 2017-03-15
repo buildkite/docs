@@ -17,6 +17,6 @@ You can run the Buildkite Agent inside a Docker container using the official Doc
 
 By default Docker [starts containers on restart](https://docs.docker.com/articles/host_integration/) so there's no need for upstart or similar. Simply start your container with `-d` to daemonize it and it will be restarted on system boot with the same environment variables and arguments.
 
-## Configuration and Customization
+## SSH Keys, Configuration and Customization
 
 See the [GitHub repository](https://github.com/buildkite/docker-buildkite-agent) for instructions on how to customize the base image. Alternatively you can create your own Docker image using our standard installer packages (see our [Ubuntu Dockerfile](https://github.com/buildkite/docker-buildkite-agent/blob/master/ubuntu/Dockerfile) for an example).
