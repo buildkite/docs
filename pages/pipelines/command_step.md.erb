@@ -2,26 +2,138 @@
 
 <%= toc %>
 
-A *command* step runs a command on an agent. The following is the most simple *command* step:
+
+A *command* step runs one or more shell commands on an agent. Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
+
+<%= image "pipeline-settings.png", width: 1158/2, height: 506/2, alt: "Screenshot of a basic command step" %>
+
+A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
 
 ```yml
-- command: "command.sh"
+steps:
+  - command: "tests.sh"
 ```
 
-The following step includes every configuration property for *command* steps:
+
+## Command Step Attributes
+
+_Required attributes:_
+
+<table>
+  <tr>
+    <td><code>command</code></td>
+    <td>
+      The shell command/s to run during this step. This can be a single line of commands, or a YAML list. <br>
+      <em>Example:</em> <code>"build.sh"</code><br>
+      <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code>
+    </td>
+  </tr>
+</table>
 
 ```yml
-- command: "tests.sh"
-  name: "\:hammer\: Tests"
-  branches: "master"
-  env:
-    FOO: "bar"
-  agents:
-    npm: "true"
-    queue: "tests"
-  artifact_paths: "logs/**/*;coverage/**/*"
-  parallelism: 1
-  concurrency: 1
-  concurrency_group: "serial_tests"
-  timeout_in_minutes: 60
+steps:
+  - command: "npm install && tests.sh"
+```
+
+```yml
+steps:
+  - command:
+    - "npm install && npm test" 
+    - "moretests.sh"
+    - "build.sh"
+```
+
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      The label that will be displayed in the pipeline visualisation in Buildkite. (supports emoji)<br>
+      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>branches</code></td>
+    <td>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      <em>Example:</em> <code>"master stable/*"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>env</code></td>
+    <td>
+      A map of <a href="/docs/builds/environment-variables">environment variables</a> keys to values for this step. <br>
+      <em>Example:</em> <code>RAILS_ENV: "test"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>agents</code></td>
+    <td>
+      A map of <a href="/docs/agent/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
+      <em>Example:</em> <code>npm: "true"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>artifact_paths</code></td>
+    <td>
+      The <a href="/docs/agent/cli-artifact#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
+      <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>parallelism</code></td>
+    <td>
+      The number of <a href="/docs/builds/parallelizing-builds#job-parallelism">parallel jobs</a> that will be created based on this step. <br>
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>concurrency</code></td>
+    <td>
+      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>concurrency_group</code></td>
+    <td>
+      A unique name for the concurrency group that you are creating with the <code>concurrency</code> attribute.<br>
+      <em>Example:</em> <code>"my-app/deploy"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>timeout_in_minutes</code></td>
+    <td>
+      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically cancelled and the build will fail. <br>
+      <em>Example:</em> <code>60</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "\:hammer\: Tests"
+    command: 
+      - "npm install"
+      - "tests.sh"
+    branches: "master"
+    env:
+      RAILS_ENV: "test"
+      RACK_ENV: "test"
+    agents:
+      npm: "true"
+      queue: "tests"
+    artifact_paths:
+      - "logs/**/*"
+      - "coverage/**/*"
+    parallelism: 1
+    timeout_in_minutes: 60
+  - wait
+  - label: "\:shipit\: Deploy"
+    command: "deploy.sh"
+    branches: "master"
+    concurrency: 1
+    concurrency_group: "my-app/deploy"
 ```
