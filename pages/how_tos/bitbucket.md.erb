@@ -1,37 +1,47 @@
-# Bitbucket Repo Access
+# Bitbucket
 
-- Bitbucket's build status API
-- creating or updating a PR triggers Buildkite to create a new build
-- after the build completes, the status icon in Bitbucket will update
+Buildkite integrates with [Bitbucket](https://bitbucket.org/) to provide automated builds based on your source control. Your code pushes to BitBucket can automatically trigger Buildkite builds, and pull requests can have their build status live-updated as builds progress.
+
+<%= image "build-status.png", width: 1200/2, height: 534/2, alt: "Screenshot of the Bitbucket builds popup" %>
+
+This guide shows you how to setup your BitBucket builds with Buildkite.
 
 <%= toc %>
 
-## Connecting Buildkite to Bitbucket
+## Set up the Bitbucket webhook
 
-* In Buildkite, go to Personal Settings > Connected Apps > Bitbucket and click Connect
-<screenshot here>
-* You'll now have a new section called `Bitbucket` in your project settings, from which you can manage the status updates
-<screenshot here>
+Once you’ve created a pipeline in Buildkite, and pasted in your bitbucket.org’s repository URL, Buildkite will show you setup instructions for configuring your BitBucket webhooks.
 
-## Setting up a webhook in Bitbucket
+You can also find these instructions by following the "Bitbucket Setup Instructions" link on your Buildkite pipeline’s Settings page:
 
-1. Visit your Bitbucket repository's Webhooks settings page
-1. Click the Add Webhook button and enter the following information:
-	* Title: buildkite/ORGNAME/PROJECTNAME
-	* URL: your unique buildkite webhook url
-	* Status: ☑️ Active
-	* SSL/TLS: ◽️ Skip certificate verification
-	* Triggers: `Choose from a full list of triggers`
-1. From the list of triggers, select the Repository Push event, and the following Pull Request Events:
-	* Created
-	* Updated
-	* Approved
-	* Approval Removed
-	* Merged
-	* Declined 
+<%= image "setup-instructions.png", width: 592/2, height: 356/2, alt: "Screenshot of BitBucket setup instructions link" %>
 
-Once you've entered all of this information, the form should look like this:
-<screenshot here>
+The setup instructions give you a direct link to your Bitbucket repository’s Webhooks settings, instructions, and a custom webhook URL for the pipeline:
 
-Save this information, and you're all done! Once you've set up a pipeline with this repository's url, your repository events will trigger builds 🎉
-When you set up a new pipeline with a bitbucket url, we'll give you these instructions again, populated with your account details :) 
+<%= image "setup.png", width: 1738/2, height: 764/2, alt: "Screenshot of BitBucket setup instructions on Buildkite" %>
+
+Once you’ve followed the link, you can add a new webhook:
+
+<%= image "bitbucket-webhook-add.png", width: 1436/2, height: 586/2, alt: "Screenshot of a BitBucket webhook settings" %>
+
+Once you've filled out the webhook details using the instructions from your Buildkite pipeline settings, click save, and you’re ready to push a build.
+
+## Enabling commit status updates
+
+If you want your Bitbucket pull request’s build status icons to be updated as builds progress, you’ll need to connect your Bitbucket account with Buildkite. You only need to do this once, and if you don't need build status updates you can skip this step altogether.
+
+To connect your Bitbucket account with your Buildkite account, in Buildkite go to Personal Settings > Connected Apps and click the Connect button next to Bitbucket:
+
+<%= image "personal-settings.png", width: 1938/2, height: 382/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
+
+You'll be asked to grant permission for Buildkite to post status updates, and then redirected back to Buildkite’s Connected Apps page.
+
+## Branch configuration, status updates and tags
+
+You can edit the Bitbucket settings for each pipeline from the pipeline’s setting page:
+
+<%= image "bitbucket-settings.png", width: 1938/2, height: 942/2, alt: "Screenshot of the Buildkite Bitbucket settings" %>
+
+## Mercurial support
+
+Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use Buildkite with a BitBucket Mercurial repository, you’ll need to add your own Mercurial checkout code using a custom [Buildkite Agent global checkout hook](/docs/agent/hooks).
