@@ -64,6 +64,10 @@ The following libraries have built-in support for the `BUILDKITE_PARALLEL_*` env
 * [Knapsack](https://github.com/ArturT/knapsack)
 <br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber and Minitest.
 
+* [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
+<br>Is more advanced version of knapsack gem. Knapsack Pro has automated recording of tests time execution and can distribute tests across CI nodes with predetermine split (regular mode) or in a dynamic way (queue mode) to get most optimal test suite split. You can learn more [how to configure project with Knapsack Pro and Buildkite](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) in the article.
+<br>See an example repository of how to run Rails CI with [Knapsack Pro and test steps in parallel with Buildkite](https://github.com/KnapsackPro/buildkite-rails-parallel-example-with-knapsack_pro). Here is an example for [Docker, Knapsack Pro and Buildkite](https://github.com/KnapsackPro/buildkite-rails-docker-parallel-example-with-knapsack_pro).
+
 ## Isolated jobs
 
 You can safely run multiple agents on a single machine, though you’ll still need to ensure your application’s code is able to be run in parallel. One convenient way of doing this is by using the agent’s [built in Docker and Docker Compose support](docker-containerized-builds) which will run each job in one or more completely isolated containers.
