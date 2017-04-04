@@ -40,8 +40,6 @@ Automatic SSH fingerprint verification can be disabled by setting `no-automatic-
 * Command line flag: `--no-automatic-ssh-fingerprint-verification`
 * Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
 
-Note: plugins (Buildkite Agent 3.x) can override this setting.
-
 ## Disabling command eval
 
 By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
