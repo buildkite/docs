@@ -1,41 +1,108 @@
 # Trigger Step
 
-<%= toc %>
+A *trigger* step starts a new build on another pipeline. Examples of using trigger steps include separating your test and deploy pipelines, and creating build dependencies between pipelines.
 
-A *trigger* step starts a new build on a specified pipeline. Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
+Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file:
 
 ```yml
-# This is the bare minimum. Defaults to HEAD / master
-- trigger: "running-commands"
+steps:
+- trigger: "another-pipeline"
 ```
 
-## Trigger step options
+## Command Step Attributes
 
-_Trigger steps can specify options for the new build:_
+_Required attributes:_
+
+<table>
+  <tr>
+    <td><code>trigger</code></td>
+    <td>
+      The slug of the triggered pipeline. The pipeline slug must be lowercase.<br>
+      <em>Example:</em> <code>"another-pipeline"</code>
+    </td>
+  </tr>
+</table>
+
+Optional attributes:
+
+<table>
+  <tr>
+    <td><code>build</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>async</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>branches</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+</table>
+
+Optional `build` attributes:
+
+<table>
+  <tr>
+    <td><code>message</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>commit</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>branch</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>meta_data</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+  <tr>
+    <td><code>env</code></td>
+    <td>
+      TODO
+    </td>
+  </tr>
+</table>
 
 ```yml
-- trigger: "running-commands"
-  label: "Trigger :pipeline: Party!"
-  build:
-    message: "Best build ever!"
-    commit: "HEAD"
-    branch: "master"
-    meta_data:
-      foo: "bar"
-    env:
-      MY_CUSTOM_ENV: "is great"
-```
-
-## Asynchronous triggers
-
-_By default a trigger is synchronous and the new build is linked to the original build._
-
-If you don't care about the result of the new build, this can be overridden:
-
-```yml
-- trigger: "running-commands"
-  label: "Run the script (but I don't care)"
+- trigger: "myapp-deploy"
+  label: "\:rocket\: Deploy"
+  branches: "master"
   async: true
   build:
-    branch: "master"
+    message: "$BUILDKITE_MESSAGE"
+    commit: "$BUILDKITE_COMMIT"
+    branch: "$BUILDKITE_BRANCH"
+```
+
+```yml
+- trigger: "data-generator"
+  label: "\:package\: Generate data"
+  build:
+    message: "Data for $BUILDKITE_BUILD_NUMBER"
+    env:
+      MYAPP_DATA_DESTINATION: "s3://myapp-data/$BUILDKITE_BUILD_NUMBER.tar.gz"
 ```
