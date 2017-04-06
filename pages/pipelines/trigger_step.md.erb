@@ -1,12 +1,12 @@
 # Trigger Step
 
-A *trigger* step creates a build on another pipeline. Examples of using trigger steps include: separating your test and deploy pipelines, and creating build dependencies between pipelines.
+A *trigger* step creates a build on another pipeline. You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
 Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file:
 
 ```yml
 steps:
-- trigger: "another-pipeline"
+  - trigger: "another-pipeline"
 ```
 
 ## Command Step Attributes
@@ -17,78 +17,96 @@ _Required attributes:_
   <tr>
     <td><code>trigger</code></td>
     <td>
-      The slug of the triggered pipeline. The pipeline slug must be lowercase.<br>
+      The slug of the pipeline to create a build. The pipeline slug must be lowercase.<br>
       <em>Example:</em> <code>"another-pipeline"</code>
     </td>
   </tr>
 </table>
 
-Optional attributes:
+_Optional attributes:_
 
 <table>
   <tr>
     <td><code>build</code></td>
     <td>
-      TODO
+      A map of attributes for the triggered build. See below for the list of attributes.
     </td>
   </tr>
   <tr>
     <td><code>label</code></td>
     <td>
-      TODO
+      The label that will be displayed in the pipeline visualisation in Buildkite. (supports emoji)<br>
+      <em>Example:</em> <code>"\:rocket\: Deploy"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>async</code></td>
     <td>
-      TODO
+      A boolean value for whether the step should continue the pipeline without waiting for the triggered build to complete. If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> it will wait for the triggered build to complete and continue only if the triggered build passed.
+      <em>Default value:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      TODO
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
+      <em>Example:</em> <code>"master stable/*"</code>
     </td>
   </tr>
 </table>
 
-Optional `build` attributes:
+_Optional_ `build` _attributes:_
 
 <table>
   <tr>
     <td><code>message</code></td>
     <td>
-      TODO
+      The message. (supports emoji) Default: the label of the trigger step.
+      <br>
+      <em>Example:</em> <code>"Triggered build"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>commit</code></td>
     <td>
-      TODO
+      The commit hash. Default: <code>"HEAD"</code><br>
+      <em>Example:</em> <code>"ca82a6d"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>branch</code></td>
     <td>
-      TODO
+      The branch. Default: <code>"master"</code><br>
+      <em>Example:</em> <code>"production"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>meta_data</code></td>
     <td>
-      TODO
+      A map of <a href="/docs/builds/build-meta-data">build meta-data</a>.<br>
+      <em>Example:</em> <code>release-version: "1.1"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      TODO
+      A map of <a href="/docs/builds/environment-variables">environment variables</a>.<br>
+      <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
 </table>
 
 ```yml
-- trigger: "myapp-deploy"
+- trigger: "data-generator"
+  label: "\:package\: Generate data"
+  build:
+    message: "Data for $BUILDKITE_BUILD_NUMBER"
+    meta_data:
+      release-version: "1.1"
+```
+
+```yml
+- trigger: "$BUILDKITE_PIPELINE_SLUG-deploy"
   label: "\:rocket\: Deploy"
   branches: "master"
   async: true
@@ -96,13 +114,4 @@ Optional `build` attributes:
     message: "$BUILDKITE_MESSAGE"
     commit: "$BUILDKITE_COMMIT"
     branch: "$BUILDKITE_BRANCH"
-```
-
-```yml
-- trigger: "data-generator"
-  label: "\:package\: Generate data"
-  build:
-    message: "Data for $BUILDKITE_BUILD_NUMBER"
-    env:
-      MYAPP_DATA_DESTINATION: "s3://myapp-data/$BUILDKITE_BUILD_NUMBER.tar.gz"
 ```
