@@ -29,20 +29,20 @@ _Optional attributes:_
   <tr>
     <td><code>build</code></td>
     <td>
-      A map of attributes for the triggered build. See below for the list of attributes.
+      An optional map of attributes for the triggered build.
     </td>
   </tr>
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. (supports emoji)<br>
+      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
       <em>Example:</em> <code>"\:rocket\: Deploy"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>async</code></td>
     <td>
-      A boolean value for whether the step should continue the pipeline without waiting for the triggered build to complete. If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> it will wait for the triggered build to complete and continue only if the triggered build passed.
+      If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.
       <em>Default value:</em> <code>false</code>
     </td>
   </tr>
@@ -61,7 +61,7 @@ _Optional_ `build` _attributes:_
   <tr>
     <td><code>message</code></td>
     <td>
-      The message. (supports emoji) Default: the label of the trigger step.
+      The message for the build. Supports emoji. Default: the label of the trigger step.
       <br>
       <em>Example:</em> <code>"Triggered build"</code><br>
     </td>
@@ -69,28 +69,28 @@ _Optional_ `build` _attributes:_
   <tr>
     <td><code>commit</code></td>
     <td>
-      The commit hash. Default: <code>"HEAD"</code><br>
+      The commit hash for the build. Default: <code>"HEAD"</code><br>
       <em>Example:</em> <code>"ca82a6d"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>branch</code></td>
     <td>
-      The branch. Default: <code>"master"</code><br>
+      The branch for the build. Default: <code>"master"</code><br>
       <em>Example:</em> <code>"production"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>meta_data</code></td>
     <td>
-      A map of <a href="/docs/builds/build-meta-data">build meta-data</a>.<br>
+      A map of <a href="/docs/builds/build-meta-data">meta-data</a> for the build.<br>
       <em>Example:</em> <code>release-version: "1.1"</code>
     </td>
   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/builds/environment-variables">environment variables</a>.<br>
+      A map of <a href="/docs/builds/environment-variables">environment variables</a> for the build.<br>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
