@@ -51,6 +51,13 @@ sudo service buildkite-agent-2 start
 sudo tail -f /var/log/upstart/buildkite-agent-2.log
 ```
 
+If you are using systemd (15.04 and above) this is different.
+
+```shell
+sudo cp /lib/systemd/system/buildkite-agent.service /lib/systemd/system/buildkite-agent-2.service
+sudo systemctl start buildkite-agent-2
+```
+
 ## Upgrading
 
 <%= render_markdown 'agent/apt_upgrading' %>
