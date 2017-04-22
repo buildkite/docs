@@ -177,11 +177,11 @@ spec:
     volumeMounts:
     - name: ssh-key
       subPath: id_rsa
-      mountPath: /root/id_rsa
+      mountPath: /root/.ssh/id_rsa
       readOnly: true
     - name: ssh-key
       subPath: id_rsa.pub
-      mountPath: /root/id_rsa.pub
+      mountPath: /root/.ssh/id_rsa.pub
       readOnly: true
     ...
   volumes:
