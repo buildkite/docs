@@ -175,20 +175,14 @@ spec:
   containers:
   - ...
     volumeMounts:
-    - name: ssh-key
-      subPath: id_rsa
-      mountPath: /root/.ssh/id_rsa
-      readOnly: true
-    - name: ssh-key
-      subPath: id_rsa.pub
-      mountPath: /root/.ssh/id_rsa.pub
-      readOnly: true
+    - name: ssh-keys
+      mountPath: /root/.ssh
     ...
   volumes:
-  - name: ssh-key
+  - name: ssh-keys
     secret:
       secretName: buildkite-agent-ssh
-      defaultMode: 256
+      defaultMode: 0400
   ...
 ```
 
@@ -197,6 +191,8 @@ spec:
 To [configure](/docs/agent/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/user-guide/configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
 
 To add [agent hooks](/docs/agent/hooks) add another config map and volume mount them into `/buildkite/hooks/`.
+                              
+To add container startup scripts, add another config map with files and volume mount them into `/docker-entrypoint.d/`. Note: scripts in this directory must _not_ have any periods (`.`) or any file extensions since they are run by the `run-parts` util.
 
 See [our Docker setup instructions](/docs/agent/docker) for more details on configuring and customising the Buildkite Agent running in Docker.
 
