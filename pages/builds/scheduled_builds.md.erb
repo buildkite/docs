@@ -1,0 +1,52 @@
+# Scheduled Builds
+
+Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks. 
+
+The interval defines when when builds will be created. Schedules run in UTC time, and can be defined using either predefined intervals or standard crontab time syntax.
+
+Buildkite doesn't support intervals less than 10 minutes.
+
+## Predefined intervals
+
+Buildkite supports 5 predefined intervals:
+
+<table>
+  <thead>
+    <tr><th>Interval</th><th>Description</th><th>Crontab Equivalent</th></tr>
+  </thead>
+  <tbody>
+    <tr><th><code>@hourly</code></th><td>At the start of every hour</td><td><code>0 * * * *</code></td></tr>
+    <tr><th><code>@daily</code> <code>@midnight</code></th><td>Every day at midnight UTC</td><td><code>0 0 * * *</code></td></tr>
+    <tr><th><code>@weekly</code></th><td>Every week at midnight Sunday UTC</td><td><code>0 0 * * 0</code></td></tr>
+    <tr><th><code>@monthly</code></th><td>Every month, at midnight UTC on the first day</td><td><code>0 0 1 * *</code></td></tr>
+  </tbody>
+</table>
+
+## Crontab time syntax
+
+Intervals can also be defined using the crontab time syntax:
+
+```
+ ┌───────────── minute (0 - 59)
+ │ ┌───────────── hour (0 - 23)
+ │ │ ┌───────────── day of month (1 - 31)
+ │ │ │ ┌───────────── month (1 - 12)
+ │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday to Saturday)
+ │ │ │ │ │
+ │ │ │ │ │
+ * * * * * 
+```
+
+Examples:
+
+<table>
+  <tr><th><code>*/10 * * * *</code></th><td>Every 10 minutes</td></tr>
+  <tr><th><code>*/30 * * * *</code></th><td>Every 30 minutes</td></tr>
+  <tr><th><code>30 * * * *</code></th><td>Every 30th minute of every hour</td></tr>
+  <tr><th><code>0 */4 * * *</code></th><td>Every 4 hours</td></tr>
+  <tr><th><code>0 */12 * * *</code></th><td>Every 12 hours</td></tr>
+  <tr><th><code>0 8 * * *</code></th><td>Every day at 8am UTC</td></tr>
+  <tr><th><code>0 16 * * SUN</code></th><td>Every Sunday at 4pm UTC</td></tr>
+  <tr><th><code>0 0 * * 1-5</code></th><td>Every weekday at midnight UTC</td></tr>
+  <tr><th><code>0 0 1 */2 *</code></th><td>Every other month, at midnight UTC on the first day</td></tr>
+</table>
