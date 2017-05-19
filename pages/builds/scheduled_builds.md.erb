@@ -2,11 +2,15 @@
 
 Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks. 
 
-The interval defines when when builds will be created. Schedules run in UTC time, and can be defined using either predefined intervals or standard crontab time syntax.
+You can create and manage schedules by going to a pipeline’s _Pipeline Settings_ → _Schedules_, or using the [Buildkite GraphQL API](/docs/graphql-api).
+
+## Schedule intervals
+
+The interval defines when the schedule will create builds. Schedules run in UTC time, and can be defined using either predefined intervals or standard crontab time syntax.
 
 Buildkite doesn't support intervals less than 10 minutes.
 
-## Predefined intervals
+### Predefined intervals
 
 Buildkite supports 5 predefined intervals:
 
@@ -22,7 +26,7 @@ Buildkite supports 5 predefined intervals:
   </tbody>
 </table>
 
-## Crontab time syntax
+### Crontab time syntax
 
 Intervals can also be defined using the crontab time syntax:
 
