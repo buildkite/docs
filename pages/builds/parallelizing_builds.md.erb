@@ -62,7 +62,10 @@ You can use these two environment variables to divide your application’s tests
 The following libraries have built-in support for the `BUILDKITE_PARALLEL_*` environment variables:
 
 * [Knapsack](https://github.com/ArturT/knapsack)
-<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber and Minitest.
+<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber, Minitest, Spinach and Turnip.
+
+* [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
+<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
 
 ## Isolated jobs
 
