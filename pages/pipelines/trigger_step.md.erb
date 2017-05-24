@@ -100,7 +100,6 @@ _Optional_ `build` _attributes:_
 - trigger: "data-generator"
   label: "\:package\: Generate data"
   build:
-    message: "Data for $BUILDKITE_BUILD_NUMBER"
     meta_data:
       release-version: "1.1"
 ```
@@ -115,3 +114,8 @@ _Optional_ `build` _attributes:_
     commit: "$BUILDKITE_COMMIT"
     branch: "$BUILDKITE_BRANCH"
 ```
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Environment variable support</p>
+<p>Use of environment variables in pipeline.yml files is only supported in Buildkite Agent 3.0 and above. See the <a href="/docs/agent/cli-pipeline#environment-variable-interpolation">pipeline command documentation</a> for more information.</p>
+</div>

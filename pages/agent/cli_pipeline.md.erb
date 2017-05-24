@@ -49,6 +49,31 @@ The pipeline can be written as YAML or JSON, but YAML is more commonly for its r
 * `env` - a hash of build-wide environment variables
 * `steps` - an array of build steps to be run (a mix of script, [`wait`](/docs/pipelines/wait-step) and [`block`](/docs/pipelines/block-step) steps)
 
+## Environment variable interpolation
 
+As of the Buildkite Agent 3.0 beta, the `pipeline upload` command interpolates all $ environment variables in your pipeline.yml files.
 
+For example:
 
+```yml
+- trigger: "$BUILDKITE_PIPELINE_SLUG-deploy"
+  label: "\:rocket\: Deploy"
+  branches: "master"
+  async: true
+  build:
+    message: "$BUILDKITE_MESSAGE"
+    commit: "$BUILDKITE_COMMIT"
+    branch: "$BUILDKITE_BRANCH"
+```
+
+You can also set defaults, for example:
+
+```
+"${SOME_ENV_VAR:default-value}"
+```
+
+Although we do not recommend it, if you need to emulate this behavior in older 2.0 agents you can use the following workaround:
+
+```shell
+echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
+```
