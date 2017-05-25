@@ -74,6 +74,12 @@ If you are unable to upgrade your agent to version 3.0 or above, it is possible 
 echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
 ```
 
+### Escaping the `$` character
+
+If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
+
+For example, using `$$USD` and `\$USD` will both result in the same value: `$USD`.
+
 ### Handling blank and missing values
 
 If an environment variable has not been set it will evaluate to a blank string. You can set a fallback value using the syntax `${VAR:-default-value}`.
@@ -107,6 +113,22 @@ If you need to substitute environment variables containing empty strings, you ca
     <tr><td><code>SERVER="staging-5"</code></td><td><code>"${SERVER-staging}"</code></td><td><code>"staging-5"</code></td></tr>
   </tbody>
 </table>
+
+### Requiring environment variables
+
+You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print and error and exit with a status of 1.
+
+For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?}\""
+```
+
+You can set a custom error message after the `?` character. For example, the following prints the error message `SERVER: is not set. Please specify a server` if the environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?is not set. Please specify a server}\""
+```
 
 ### Character ranges
 
