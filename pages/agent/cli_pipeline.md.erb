@@ -47,7 +47,7 @@ Options:
 The pipeline can be written as YAML or JSON, but YAML is more commonly for its readability. There are two top level properties you can specify:
 
 * `env` - A map of <a href="/docs/builds/environment-variables">environment variables</a> to apply to all steps
-* `steps` - An list of [build pipeline steps](/docs/pipelines/defining-steps)
+* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
 
 ## Environment variable substitution
 
@@ -56,33 +56,57 @@ The `pipeline upload` command in Buildkite Agent versions 3.0 and above supports
 For example, the following pipeline substitutes a number of [Buildkite’s default environment variables](/docs/builds/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
 
 ```yml
-- command: "$BUILDKITE_PIPELINE_SLUG-deploy"
-  label: "\:rocket\:"
+- trigger: "app-deploy"
+  label: "\:rocket\: Deploy"
   branches: "master"
   async: true
   build:
-    message: "$BUILDKITE_MESSAGE"
-    commit: "$BUILDKITE_COMMIT"
-    branch: "$BUILDKITE_BRANCH"
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
 ```
 
-### Default values
+### Buildkite Agent 2.x support
 
-If an environment variable has not been set its default value will be a blank string. You can set your own default value using the syntax `${VAR:-default}`.
+If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
 
-For example, the following step will run the command `deploy.sh staging` if the `DEPLOY_ENV` environment variable has not been set or is blank (i.e. `""`):
+```shell
+echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
+```
+
+### Handling blank and missing values
+
+If an environment variable has not been set it will evaluate to a blank string. You can set a fallback value using the syntax `${VAR:-default-value}`.
+
+For example, the following step will run the command `deploy.sh staging`:
 
 ```yaml
-- command: "deploy.sh \"${DEPLOY_ENV:-staging}\""
+- command: "deploy.sh \"${SERVER:-staging}\""
 ```
 
-If you need to substitute blank values (i.e. `""`) you can use the syntax `${VAR-default}`.
+<table>
+  <thead>
+    <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code></code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER=""</code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER="staging-5"</code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging-5"</code></td></tr>
+  </tbody>
+</table>
 
-For example, if the `DEPLOY_ENV` environment variable is set to `""` the following step will run the command `deploy.sh ""`, and if it has not been set it will run the command `deploy.sh "staging"`:
+If you need to substitute environment variables containing empty strings, you can use the syntax `${VAR-default-value}` (notice the missing `:`).
 
-```yaml
-- command: "deploy.sh \"${DEPLOY_ENV-staging}\""
-```
+<table>
+  <thead>
+    <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code></code></td><td><code>"${SERVER-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER=""</code></td><td><code>"${SERVER-staging}"</code></td><td><code>""</code></td></tr>
+    <tr><td><code>SERVER="staging-5"</code></td><td><code>"${SERVER-staging}"</code></td><td><code>"staging-5"</code></td></tr>
+  </tbody>
+</table>
 
 ### Character ranges
 
@@ -91,15 +115,7 @@ You can substitute a range of characters from an environment variable by specify
 For example, the following step will echo the first 7 characters of the `BUILDKITE_COMMIT` environment variable:
 
 ```yaml
-- command: "echo ${BUILDKITE_COMMIT:0:7}"
+- command: "echo \"Short commit is: ${BUILDKITE_COMMIT:0:7}\""
 ```
 
 If the environment variable has not been set, the range will return a blank string.
-
-### Buildkite Agent 2.x support
-
-If you want to use environment variable substitution, but are unable to update your Buildkite Agent to version 3.0 or above, it is possible (but not recommended) to emulate the behavior using your shell’s built-in environment variable substitution:
-
-```shell
-echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
-```

@@ -105,14 +105,14 @@ _Optional_ `build` _attributes:_
 ```
 
 ```yml
-- trigger: "$BUILDKITE_PIPELINE_SLUG-deploy"
+- trigger: "app-deploy"
   label: "\:rocket\: Deploy"
   branches: "master"
   async: true
   build:
-    message: "$BUILDKITE_MESSAGE"
-    commit: "$BUILDKITE_COMMIT"
-    branch: "$BUILDKITE_BRANCH"
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
 ```
 
 <div class="Docs__note">
