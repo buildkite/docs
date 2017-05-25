@@ -100,18 +100,22 @@ _Optional_ `build` _attributes:_
 - trigger: "data-generator"
   label: "\:package\: Generate data"
   build:
-    message: "Data for $BUILDKITE_BUILD_NUMBER"
     meta_data:
       release-version: "1.1"
 ```
 
 ```yml
-- trigger: "$BUILDKITE_PIPELINE_SLUG-deploy"
+- trigger: "app-deploy"
   label: "\:rocket\: Deploy"
   branches: "master"
   async: true
   build:
-    message: "$BUILDKITE_MESSAGE"
-    commit: "$BUILDKITE_COMMIT"
-    branch: "$BUILDKITE_BRANCH"
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
 ```
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Environment variable support</p>
+<p>Buildkite Agent 3.0 or above is required to use pipeline.yml environment variable substitution. See the <a href="/docs/agent/cli-pipeline#environment-variable-substitution">pipeline command documentation</a> for more information.</p>
+</div>
