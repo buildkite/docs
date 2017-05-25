@@ -80,7 +80,23 @@ If you need to prevent substitution, you can escape the `$` character by using `
 
 For example, using `$$USD` and `\$USD` will both result in the same value: `$USD`.
 
-### Handling blank and missing values
+### Requiring environment variables
+
+You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print and error and exit with a status of 1.
+
+For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?}\""
+```
+
+You can set a custom error message after the `?` character. For example, the following prints the error message `SERVER: is not set. Please specify a server` if the environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?is not set. Please specify a server}\""
+```
+
+### Default, blank and missing values
 
 If an environment variable has not been set it will evaluate to a blank string. You can set a fallback value using the syntax `${VAR:-default-value}`.
 
@@ -114,25 +130,9 @@ If you need to substitute environment variables containing empty strings, you ca
   </tbody>
 </table>
 
-### Requiring environment variables
+### Extracting character ranges
 
-You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print and error and exit with a status of 1.
-
-For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
-
-```yaml
-- command: "deploy.sh \"${SERVER?}\""
-```
-
-You can set a custom error message after the `?` character. For example, the following prints the error message `SERVER: is not set. Please specify a server` if the environment variable has not been set:
-
-```yaml
-- command: "deploy.sh \"${SERVER?is not set. Please specify a server}\""
-```
-
-### Character ranges
-
-You can substitute a range of characters from an environment variable by specifying a start and end position using the syntax `${VAR:start:end}`.
+You can substitute a subset of characters from an environment variable by specifying a start and end range using the syntax `${VAR:start:end}`.
 
 For example, the following step will echo the first 7 characters of the `BUILDKITE_COMMIT` environment variable:
 
