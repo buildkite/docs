@@ -1,6 +1,6 @@
-# Parallelizing Builds
+# Parallel Builds
 
-Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and job parallelism to increase the speed of your builds.
+Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and parallel jobs to increase the speed of your builds.
 
 <%= toc %>
 
@@ -30,9 +30,9 @@ You should now be able to see all 5 agents in the agent selector in your build p
 
 <%= image 'agent-selector.png', size: '274x234', alt: 'Agent selector showing 5 agents' %>
 
-## Job parallelism
+## Parallel Jobs
 
-To run the same step over all 5 of the agents we can set the parallelism field for a single build step:
+To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
 <%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
 
