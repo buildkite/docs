@@ -22,11 +22,11 @@ Click the _“Create Key Pair”_ button in the top left hand corner and give it
 
 ## Launching the Stack
 
+The Elastic CI Stack connects to the [Buildkite API](/docs/api) to retrieve the autoscaling metrics. It uses the build activity metric to spin up and down EC2 instances as needed. To launch the stack, you’ll first need to create a Buildkite API Access Token for the stack to use.
+
 Go to the _“Agents”_ page on Buildkite and select the _“AWS”_ tab:
 
 <%= image "agents-tab.png", size: '647x166', alt: 'Buildkite AWS Agents' %>
-
-The stack connects to the [Buildkite API](/docs/api) to retrieve the autoscaling metrics to spins up and down EC2 instances based on the build activity. You’ll need to create a Buildkite API Access Token for the Elastic CI Stack to use:
 
 Click the _“Create an API Access Token”_ button:
 
