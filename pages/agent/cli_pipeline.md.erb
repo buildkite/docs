@@ -66,6 +66,14 @@ For example, the following pipeline substitutes a number of [Buildkite’s defau
     branch: "${BUILDKITE_BRANCH}"
 ```
 
+If you want an environment variable to be evaluated at run-time (for example, using the step’s environment variables) make sure to escape the `$` character using `$$` or `\$`. For example:
+
+```yml
+- command: "deploy.sh $$SERVER"
+  env:
+    SERVER: "server-a"
+```
+
 ### Buildkite Agent 2.x support
 
 If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
