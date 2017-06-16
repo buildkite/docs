@@ -162,16 +162,24 @@ Downloading a specific file into a specific directory (note the trailing slash):
 buildkite-agent artifact download build.zip tmp/
 ```
 
-Downloading all the files uploaded to `log` into a local `log` directory (note that local directories will be created to match the uploaded file paths):
+Downloading all the files uploaded to `log` (including all subdirectories) into a local `log` directory (note that local directories will be created to match the uploaded file paths):
 
 ```bash
 buildkite-agent artifact download "log/*" .
 ```
 
-Downloading all the files uploaded to `coverage` into a local `tmp/coverage` directory (note that local directories are created to match the uploaded file path):
+Downloading all the files uploaded to `coverage` (including all subdirectories) into a local `tmp/coverage` directory (note that local directories are created to match the uploaded file path):
 
 ```bash
 buildkite-agent artifact download "coverage/*" tmp/
+```
+
+Downloading all images (from any directory) into a local `images/` directory (note that local directories are created to match the uploaded file path, and that you can run multiple download commands into the same directory):
+
+```bash
+buildkite-agent artifact download "*.jpg" images/
+buildkite-agent artifact download "*.jpeg" images/
+buildkite-agent artifact download "*.png" images/
 ```
 
 ### Artifact download pattern syntax
