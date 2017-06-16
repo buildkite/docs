@@ -11,8 +11,6 @@ step’s “Artifact Uploading” pattern:
 
 <%= image 'artifact_pattern.png', size: '390x125', alt: 'Artifact pattern configuration' %>
 
-For a detailed description of what path patterns are supported for artifact uploading, see the [Glob Path Pattern documentation](/docs/rest-api/artifacts#glob-path-pattern). 
-
 You can also upload your own artifacts from your build scripts using
 the `buildkite-agent artifact` command.
 
@@ -22,25 +20,27 @@ buildkite-agent artifact upload pkg/build.tar.gz
 
 You can then download the artifact in subsequent build steps (even if the build step is running on a different build server).
 
+For full documentation, and examples of supported glob patterns, see the [buildkite-agent artifact upload documentation](/docs/agent/cli-artifact#uploading-artifacts).
+
 ## Downloading Artifacts
 
-You can download artifacts created by a build step using the `buildkite-agent artifact download` command. For example:
+You can download artifacts created by a build job using the `buildkite-agent artifact download` command. For example:
 
 ```bash
 buildkite-agent artifact download pkg/build.tar.gz pkg/
 ```
 
-If an artifact exists at `pkg/build.tar.gz`, the above command will download it to the `pkg` directory at your destination. 
+If an artifact was previously uploaded at `pkg/build.tar.gz`, the above command will download it to the `pkg` directory.
 
-The path pattern for downloading artifacts differs slightly to those supported for uploading. For a detailed description of the syntax, see the [Glob Path Pattern documentation](/docs/rest-api/artifacts#glob-path-pattern). 
-
-The `buildkite-agent artifact` command will find the last file uploaded with the matching filename, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--job` argument. For example:
+The `buildkite-agent artifact` command will find the last file uploaded with the matching filename, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--step` argument. For example:
 
 ```bash
-buildkite-agent artifact download build.zip tmp/ --job build
+buildkite-agent artifact download build.zip tmp/ --step build
 ```
 
 This will download the `build.zip` file from the pipeline step with the label "build".
+
+For full documentation and examples, see the [buildkite-agent artifact download documentation](/docs/agent/cli-artifact#downloading-artifacts).
 
 ## Downloading Artifacts Outside a Running Build
 
