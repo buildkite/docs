@@ -82,10 +82,12 @@ One convenient way of achieving build job isolation is to use the agent’s buil
 
 ## Auto-scaling your build agents
 
-We provide a number of APIs for automatically scaling agents based on you build queue.
+In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
-* Using the [Pipelines API](/docs/api/pipelines) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Keeping track of this value, you can spin new agent machines up or down to accomodate the job load.
-* Using [agent prioritization](/docs/agent/prioritization) you’ll able to define which agents are assigned work first, as well as lower priority agents which you may spin up and down on demand.
-* Using the [Agents API](/docs/api/agents) you’re able to fetch your agent’s `job` and `last_job_finished_at`, which allow you to see if they have been idle. Using the [agent stop API](/docs/api/agents#stop-an-agent) you can remotely shut down idle agent processes (passing `"force": false` to ensure it won’t cancel any running job).
+* [GraphQL API](/docs/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
+* [Pipelines REST API](/docs/api/pipelines) and [Agents API](/docs/api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
+* [Agent priorities](/docs/agent/prioritization) allow you to define which agents are assigned work first, such as high performance emphemeral agents.
+* [Agent queues](/docs/agent/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
+* [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
-Using these three APIs you can automate your build infrastructure, scale your agents based on demand, and ensure no-one has to wait for their build to start.
+Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.
