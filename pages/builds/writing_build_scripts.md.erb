@@ -1,15 +1,14 @@
 # Writing Build Scripts
-One of the most popular actions that Buildkite pipeline steps perform is running a shell script. These scripts are checked in alongside your code and `pipeline.yml` file. The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
+
+One of the most common actions that Buildkite pipeline steps perform is running a shell script. These scripts are checked in alongside your code and `pipeline.yml` file. The [Buildkite Agent](/docs/agent) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
 <%= toc %>
 
 ## Configuring Bash
 
-The shell that runs your scripts in Buildkite is a clean bash prompt with no settings. If you rely on anything from your bashprofile or bashrc files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.   
+The shell that runs your scripts in Buildkite is a clean bash prompt with no settings. If you rely on anything from your `~/.bash_profile` or `~/.bashrc` files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.
 
-Using Bash's `set` builtin changes the shell options for the duration of the script, or until the specified options are reset. Options added to your shell with `set` can be combined in the same way as flags.   
-
-Here are some popular Bash options that are often useful in build scripts:
+There are a number of Bash options which can be useful to prevent unexpected errors:
 
 <table>
   <tbody>
@@ -32,53 +31,50 @@ Here are some popular Bash options that are often useful in build scripts:
   </tbody>
 </table>
 
-For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
-
-In the majority of cases, you will want to ensure that if any one command fails your entire build script fails. You can set up your script to do this automatically by using the `-e` and `-o pipefail` options. For example:
+To enable options use the `set` built-in Bash command, for example:
 
 ```bash
 #!/bin/bash
 
-set -eo pipefail
+# Enables the most common set of options for build scripts
+set -euo pipefail
 
-run_my_tests
+run_tests
 ```
 
-However, if you need to perform tasks after your main command executes (regardless of success or failure), you’ll need to [capture the exit status](#capturing-exit-status) of your command yourself instead of using `set -e`.
+For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 ## Capturing Exit Status
 
-Scripts often contain commands that shouldn't affect the overall exit status. In this case, after choosing your main commands, you'll need to capture their exit status. Once the script finishes executing all of its commands, you will return your stored exit code. This gives you complete control over the exit code returned upon completion of the job.
-
-If you want to execute commands after your main command, but still report success/fail correctly, you’ll need to capture the exit status of your main command and then exit with it at the end.
-
-For example, the following script contains three commands:
+Scripts often contain commands that shouldn't affect the overall exit status. For example, take the following script:
 
 ```bash
 #!/bin/bash
 
-run_my_tests
+run_tests
 clean_up
-notify_team
 ``` 
 
-Running this script will exit with the status returned by the final command `notify_team`. However, both `clean_up` and `notify_team` are non-essential, and what we really care about is the outcome of the `run_my_tests` commmand. Using a variable to store the exit status (`$?`) of the test script, we can run our other commands before returning it at the end:
+Running this script will exit with the status returned by the final command `clean_up`. However, what we really care about is the outcome of the `run_tests` commmand.
+
+Using a variable to store the exit status (`$?`) of the test script, we can run our other commands but still return the exit status of the original `run_tests` command:
 
 ```bash
 #!/bin/bash
 
-run_my_tests
+run_tests
 
 # Capture the exit status of the last command in a variable
 TEST_STATUS=$?
 
 # Additional commands
 clean_up
-notify_team
 
 # Finish with the status of the tests command
 exit $TEST_STATUS
 ```
+
+Using this technique gives you complete control over the exit code of your script, and the final success/failure of your build job.
 
 ## Managing Log Output
 
@@ -86,15 +82,36 @@ If you are getting too much logging in your build output, there are several stra
 
 ## Debugging your environment
 
-The first step in debugging your build script is outputting the environment information. This will show any [environment variables](/docs/builds/environment-variables) set up by the Buildkite Agent, as well as other important environment variables such as `$PATH`.
+The first step in debugging your build script is to view the environment variables from the Buildkite web interface:
 
-To add the environment to your build output execute `env` at the start of your build script.
+<%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job’s environment tab' %>
+
+In addition, you can modify you build step to pring `$PATH` and any other important environment variables, before the main command you’re wanting to run. For example:
 
 ```bash
 #!/bin/bash
 
-env
+echo $PATH
+
+some_command
 ```
+
+As a last resort you can execute `env`, which will print out all the environment variables. You should ensure you filter the output, using a tool such as `grep` or `egrep`, so you don't leak private keys or secrets that you have exposed.
+
+For example, the following outputs all environent variables containing the word "git" or "node":
+
+```bash
+#!/bin/bash
+
+env | egrep --ignore-case 'git|node'
+
+some_command
+```
+
+<section class="Docs__troubleshooting-note">
+  <h1>Security recommendation</h1>
+  <p>If you use environment variables to define sensitive data, such as API keys, you should always filter the output of <code>env</code> to ensure you’re not exposing any secrets in your build log.</p>
+</section>
 
 You can also set the `-x` option which will execute all subequent commands in 'debug' mode. This will step through the script and print a line for each operation it performs. If you'd like to debug some commands but not others, you can turn debugging off again with `set +x`.  
 
@@ -102,10 +119,10 @@ You can also set the `-x` option which will execute all subequent commands in 'd
 #!/bin/bash
 
 set -x
-tests.sh
+some_command
 set +x
 
-run.sh
+some_other_command
 ```
 
 For more information about the `-x` option and debugging in general, see the [Bash Guide for Beginners' page on debugging bash scripts](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_03.html).
