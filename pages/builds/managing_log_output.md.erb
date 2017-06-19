@@ -50,7 +50,7 @@ One method for storing the original log is the Unix `tee` command. It allows you
 ```
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
 your_build_command | tee build.log | <filter command>
 ```
@@ -72,7 +72,7 @@ Grep is a Unix tool to help you filter lines of text that match a pattern. For e
 ```
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
 your_build_command | tee build.log | grep 'some pattern'
 ```
@@ -84,7 +84,7 @@ Tail is a Unix tool that returns the last portion of a file. This is useful if y
 ```
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
 your_build_command | tee build.log | tail -c90000000
 ```
@@ -96,7 +96,7 @@ your_build_command | tee build.log | tail -c90000000
 ```
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
 xcodebuild <build options> | tee -a build.log | xcpretty -c
 ```

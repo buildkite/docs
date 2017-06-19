@@ -33,17 +33,17 @@ When writing Bash shell scripts there are a number of options you can set to hel
 
 Bash’s built-in `set` command with a `-` argument is used to enable options (the `+` argument is used to disable options).
 
-In the majority of cases, you will want to ensure that if any one command fails your entire build script fails. You can set up your script to do this automatically by using the `-e` and `-o pipefail` options. For example:
+For example, the following script enables the most commonly used options for build scripts:
 
 ```bash
 #!/bin/bash
 
-set -eo pipefail
+set -euo pipefail
 
-run_my_tests
+run_tests
 ```
 
-However, if you need to perform tasks after your main command executes (regardless of success or failure), you’ll need to [capture the exit status](#capturing-exit-status) of your command yourself instead of using `set -e`.
+For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 ## Capturing Exit Status
 
