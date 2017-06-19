@@ -38,6 +38,15 @@ Update the name of the step to use `%n`, like the example below. This will subst
 
 <%= image 'name.png', size: '555x80', alt: 'Step name field with %n' %>
 
+In pipeline.yml format, this step would look like:
+
+```yaml
+steps:
+  - command: "test.sh"
+    label: "Tests %n"
+    parallelism: 5
+```
+
 Now that the pipeline is configured, create a new build:
 
 <%= image 'build.png', size: '405x204', alt: 'The build' %>
