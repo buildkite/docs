@@ -45,43 +45,42 @@ run_tests
 
 For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
-## Capturing Exit Status
+## Capturing exit status
 
-Scripts often contain commands that shouldn't affect the overall exit status. In this case, after choosing your main commands, you'll need to capture their exit status. Once the script finishes executing all of its commands, you will return your stored exit code. This gives you complete control over the exit code returned upon completion of the job.
-
-If you want to execute commands after your main command, but still report success/fail correctly, you’ll need to capture the exit status of your main command and then exit with it at the end.
-
-For example, the following script contains three commands:
+Build scripts can sometimes contain commands that shouldn't affect the overall exit status. For example, take the following script:
 
 ```bash
 #!/bin/bash
 
-run_my_tests
+run_tests
+
 clean_up
-notify_team
 ``` 
 
-Running this script will exit with the status returned by the final command `notify_team`. However, both `clean_up` and `notify_team` are non-essential, and what we really care about is the outcome of the `run_my_tests` commmand. Using a variable to store the exit status (`$?`) of the test script, we can run our other commands before returning it at the end:
+Running this script will exit with the status returned by the final command, `clean_up`. However, what we really care about is the exit status of the first command, `run_tests`.
+
+By using a variable to store the exit status of `run_tests`, we can run additional commands (like `clean_up`) whilst still returning the original exit status. For example:
 
 ```bash
 #!/bin/bash
 
-run_my_tests
+# Note the lack of 'e' option here
+set -uo pipefail
 
-# Capture the exit status of the last command in a variable
+# Run the command we're most interested in
+run_tests
+
+# Capture the last exit status in a variable
 TEST_STATUS=$?
 
-# Additional commands
+# Run additional commands
 clean_up
-notify_team
 
-# Finish with the status of the tests command
+# Finish with the status of the original command
 exit $TEST_STATUS
 ```
 
-## Managing Log Output
-
-If you are getting too much logging in your build output, there are several strategies you can employ to reduce it. Take a look at our guide to [managing log output](/docs/builds/managing-log-output) for a step by step introduction. 
+Using this technique gives you complete control over the exit code of your script, and the final success or failure of your build job.
 
 ## Debugging your environment
 
