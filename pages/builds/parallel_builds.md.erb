@@ -1,6 +1,6 @@
-# Parallelizing Builds
+# Parallel Builds
 
-Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and job parallelism to increase the speed of your builds.
+Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and parallel jobs to increase the speed of your builds.
 
 <%= toc %>
 
@@ -30,9 +30,9 @@ You should now be able to see all 5 agents in the agent selector in your build p
 
 <%= image 'agent-selector.png', size: '274x234', alt: 'Agent selector showing 5 agents' %>
 
-## Job parallelism
+## Parallel Jobs
 
-To run the same step over all 5 of the agents we can set the parallelism field for a single build step:
+To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
 <%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
 
@@ -62,7 +62,10 @@ You can use these two environment variables to divide your application’s tests
 The following libraries have built-in support for the `BUILDKITE_PARALLEL_*` environment variables:
 
 * [Knapsack](https://github.com/ArturT/knapsack)
-<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber and Minitest.
+<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber, Minitest, Spinach and Turnip.
+
+* [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
+<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
 
 ## Isolated jobs
 

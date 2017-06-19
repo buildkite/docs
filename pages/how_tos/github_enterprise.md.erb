@@ -69,9 +69,9 @@ You should be redirected back to your GitHub Enterprise Installation, where it w
 <%= image("oauth-connect.png") %>
 
 That's it! Next time you create a pipeline with a repository that's either `https://git.mycompany.com/acme/app.git` or `git@git.mycompany.com:acme/app.git`,
-Buildkite will recognize that it's hosted on your GitHub Enterprise Installation, and use the your newly created oAuth authorization to update the commit statuses.
+Buildkite will recognize that it's hosted on your GitHub Enterprise Installation, and use your newly created oAuth authorization to update the commit statuses.
 
-## Firewalled Installs
+## Firewalled installs
 
 If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network so we can perform oAuth authentications and call to the API to update your pull request statuses.
 

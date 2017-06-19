@@ -1,0 +1,75 @@
+# GraphQL API Overview
+
+The Buildkite GraphQL API provides an alternative to the [REST API](/docs/rest-api). It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request. The Buildkite GraphQL API is currently in beta.
+
+<%= toc %>
+
+## Getting started
+
+The quickest way to get started with the GraphQL API is to generate a [Personal API Access Token](https://buildkite.com/user/api-access-tokens) with GraphQL scope, and then use the [GraphQL Explorer](https://graphql.buildkite.com/explorer) with its built-in documentation:
+
+<a href="https://graphql.buildkite.com/explorer"><%= image "explorer.png", width: 1065, height: 489, alt: "Screenshot of the Buildkite GraphQL Explorer" %></a>
+
+See our [Getting Started Tutorial](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) for a step-by-step guide to using GraphQL queries and mutations.
+
+## Endpoint
+
+The GraphQL API endpoint is `https://graphql.buildkite.com/v1`. All requests must be HTTP `POST` requests with `application/json` encoded bodies.
+
+## Authentication
+
+GraphQL requests must be authenticated using an <a href="<%= url_helpers.user_access_tokens_url %>">API Access Token</a> with the GraphQL scope enabled. Pass the token in your GraphQL request using the `Authorization` HTTP header with a value `Bearer <token>`.
+
+For example:
+
+```bash
+curl -H "Authorization: Bearer $TOKEN" https://graphql.buildkite.com/v1
+```
+
+## Performing requests with curl
+
+A GraphQL request is a standard HTTPS POST request, with a JSON-encoded body containing a `"query"` key, and optionally a `"variables"` key.
+
+For example, the following `curl` command returns the `name` property of the current `viewer`:
+
+```bash
+curl https://graphql.buildkite.com/v1 \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{
+    "query": "{ viewer { user { name } } }",
+    "variables": "{ }"
+  }'
+```
+
+```json
+{
+  "data": {
+    "viewer": {
+      "user": {
+        "name": "Jane Doe"
+      }
+    }
+  }
+}
+```
+
+For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL Explorer](#getting-started).
+
+## Relay compatibility
+
+The Buildkite GraphQL API adheres to the [Relay Specification](https://facebook.github.io/relay/docs/graphql-relay-specification.html), which defines standards for querying [paginated collections](https://facebook.github.io/relay/docs/graphql-connections.html) ("Connections" and "Edges"), [identifying objects](https://facebook.github.io/relay/docs/graphql-object-identification.html) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://facebook.github.io/relay/docs/graphql-mutations.html).
+
+## Learning more about GraphQL
+
+Further resources for learning more about GraphQL:
+
+* Our [Getting Started with GraphQL Queries and Mutations](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) tutorial
+* [graphql.org/learn](http://graphql.org/learn/) — The Learn section of the official GraphQL website
+* [learngraphql.com](https://learngraphql.com/) — A short interactive course that introduces you to the concepts of GraphQL
+* [github.com/buildkite/frontend](https://github.com/buildkite/frontend) — Buildkite’s web interface makes extensive use of the GraphQL API
+
+## Beta caveats
+
+Whilst the GraphQL API is in beta, you should note the following cavaets:
+
+* GraphQL API tokens do not currently respect their organization scope settings, so we recommend creating a separate API token or user account for performing API requests in production.
