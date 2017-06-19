@@ -6,7 +6,7 @@ One of the most common actions that Buildkite steps perform is running shell scr
 
 ## Configuring Bash
 
-The shell that runs your scripts in Buildkite is a clean bash prompt with no settings. If you rely on anything from your bashprofile or bashrc files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.   
+The shell that runs your scripts in Buildkite is a clean Bash prompt with no settings. If you rely on anything from your `~/.bash_profile` or `~/.bashrc` files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.
 
 Using Bash's `set` builtin changes the shell options for the duration of the script, or until the specified options are reset. Options added to your shell with `set` can be combined in the same way as flags.   
 
