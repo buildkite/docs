@@ -28,10 +28,6 @@ sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-5.conf
 sudo service buildkite-agent-5 start
 ```
 
-You should now be able to see all 5 agents in the agent selector in your build pipeline editor:
-
-<%= image 'agent-selector.png', size: '274x234', alt: 'Agent selector showing 5 agents' %>
-
 ## Parallel Jobs
 
 To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
