@@ -30,9 +30,9 @@ You should now be able to see all 5 agents in the agent selector in your build p
 
 <%= image 'agent-selector.png', size: '274x234', alt: 'Agent selector showing 5 agents' %>
 
-## Job parallelism
+## Parallel Jobs
 
-To run the same step over all 5 of the agents we can set the parallelism field for a single build step:
+To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
 <%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
 
@@ -59,9 +59,11 @@ You can use these two environment variables to divide your application’s tests
 
 ## Libraries
 
-The [Knapsack](https://github.com/ArturT/knapsack) ruby gem has built-in support for the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
+* [Knapsack](https://github.com/ArturT/knapsack)
+<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber, Minitest, Spinach and Turnip.
 
-Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and Minitest.
+* [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
+<br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
 
 ## Isolated jobs
 
