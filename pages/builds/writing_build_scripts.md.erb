@@ -84,29 +84,50 @@ Using this technique gives you complete control over the exit code of your scrip
 
 ## Debugging your environment
 
-The first step in debugging your build script is outputting the environment information. This will show any [environment variables](/docs/builds/environment-variables) set up by the Buildkite Agent, as well as other important environment variables such as `$PATH`.
+The first step in debugging your build script is to view the environment variables from the Buildkite web interface:
 
-To add the environment to your build output execute `env` at the start of your build script.
+<%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job’s environment tab' %>
 
-```bash
-#!/bin/bash
-
-env
-```
-
-You can also set the `-x` option which will execute all subequent commands in 'debug' mode. This will step through the script and print a line for each operation it performs. If you'd like to debug some commands but not others, you can turn debugging off again with `set +x`.  
+There may be additional environment variables available in your build job that don’t appear in this list, such as ones set by your own [agent hooks](/docs/agent/hooks). To debug these, you can print them using `echo $SOME_VAR` before the command you're wanting to run. For example:
 
 ```bash
 #!/bin/bash
 
-set -x
-tests.sh
-set +x
+echo "$PATH"
 
-run.sh
+some_command
 ```
 
-For more information about the `-x` option and debugging in general, see the [Bash Guide for Beginners' page on debugging bash scripts](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_03.html).
+As a last resort, you can execute `env` to print out all the environment variable names and their values. If you use `env` you should ensure you don't leak private keys or other information, by filtering the output using a tool such as `grep` (or `egrep`).
+
+<section class="Docs__troubleshooting-note">
+  <h1>Security recommendation</h1>
+  <p>If you use environment variables to define sensitive data, such as API keys, you should always filter the output of <code>env</code> to ensure you’re not exposing any secrets in your build log.</p>
+</section>
+
+For example, the following prints all environment variable names and values containing the words "git" or "node", using a case-insensitive search:
+
+```bash
+#!/bin/bash
+
+env | grep -i -E 'git|node'
+
+some_command
+```
+
+Enabling Bash’s debug mode using `set -x` can also help to debug your build scripts. This debug output can be very noisy, so it’s best enable this before the command you want to debug, and then to disable it straight after. For example:
+
+```bash
+#!/bin/bash
+
+set -x # Enable debugging
+some_command
+set +x # Disable debugging
+
+some_other_command
+```
+
+For more information about the `x` option and debugging in general, see the [Bash Guide for Beginners' page on debugging Bash scripts](http://tldp.org/LDP/Bash-Beginners-Guide/html/sect_02_03.html).
 
 ## Help Tools - Linting and Debugging
 
