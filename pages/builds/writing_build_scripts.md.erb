@@ -45,6 +45,11 @@ run_tests
 
 For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
+<section class="Docs__troubleshooting-note">
+  <h1>Unbound variable errors</h1>
+  <p>Note that while the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, remove the <code>u</code> from the set command in your script.</p>
+</section>
+
 ## Capturing exit status
 
 Build scripts can sometimes contain commands that shouldn't affect the overall exit status. For example, take the following script:
