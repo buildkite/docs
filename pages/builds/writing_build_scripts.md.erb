@@ -104,7 +104,7 @@ echo "$PATH"
 some_command
 ```
 
-As a last resort, you can execute `env` to print out all the environment variable names and their values. If you use `env` you should ensure you don't leak private keys or other information, by filtering the output using a tool such as `grep` (or `egrep`).
+If you require more environment information, you can execute `env` to print out all the environment variable names and their values. If you use `env` you should filter the output using a tool such as `grep` or `egrep`, to ensure you don't leak private keys or other information.
 
 <section class="Docs__troubleshooting-note">
   <h1>Security recommendation</h1>
