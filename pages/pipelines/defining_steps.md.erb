@@ -8,11 +8,15 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-To get started on a new pipeline create a single step and have it run `buildkite-agent pipeline upload`:
+In your pipeline settings, click the ➕ to add a step and choose “Read steps from repository”:
 
-<%= image("pipeline-upload-step.png", width: 612/2, height: 484/2) %>
+<%= image "pipeline-upload-step.png", width: 612/2, height: 484/2, alt: "Screenshot of the 'Read steps from repository' menu item" %>
 
-This will add a step to your pipeline containing the correct `buildkite-agent pipeline upload` command. When this command runs on an agent it reads in the pipeline file located in your repository at `.buildkite/pipeline.yml`. For example, here is a pipeline that simply prints “Hello!”:
+Your pipeline steps will now show a new :pipeline: step that runs a `buildkite-agent pipeline upload` command:
+
+<%= image "pipeline-upload.png", width: 1174/2, height: 452/2, alt: "Screenshot of the pipeline upload step" %>
+
+When this step runs on an agent, it reads in the pipeline file from `.buildkite/pipeline.yml` in your repository. For example, here is a pipeline file with a single step that prints “Hello!” to the build log:
 
 ```yml
 steps:
@@ -20,13 +24,13 @@ steps:
     command: echo "Hello!"
 ```
 
-To test your new `.buildkite/pipeline.yml` simply commit the file, push the commit, and run a new build:
+To test your `.buildkite/pipeline.yml` file, commit the pipeline file and push it to your repository to create a new build:
 
-<%= image("show-example-test.png", width: 422/2, height: 270/2) %>
+<%= image "show-example-test.png", width: 968/2, height: 698/2, alt: "Screenshot of the build passing with pipeline upload step first, and then the example step" %>
 
 ## Example pipeline
 
-Here’s a more complete example based off the Buildkite Agent’s pipeline which contains script commands, wait steps, "Click to unblock" steps, and artifacting uploading:
+Here’s a more complete example based on [our own Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and artifact uploading:
 
 ```yaml
 steps:
@@ -69,53 +73,74 @@ steps:
       queue: 'deploy'
 ```
 
-See the [Buildkite Agent pipelines documentation](/docs/agent/cli-pipeline) for a full list of step types and supported options.
+## Step types
+
+There are four different step types you can use in your Buildkite pipelines. See each step type for full documentation:
+
+* [Command Step](/docs/pipelines/command-step)
+* [Wait Step](/docs/pipelines/wait-step)
+* [Block Step](/docs/pipelines/block-step)
+* [Trigger Step](/docs/pipelines/trigger-step)
+
+## Customizing the pipeline file path
+
+By default the pipeline upload step reads your pipeline definition from `.buildkite/pipeline.yml` in your repository. You can specify a different file path by adding it as the first argument:
+
+<%= image "custom-pipeline-file.png", width: 1174/2, height: 452/2, alt: "Screenshot of a custom pipeline file upload" %>
+
+A common use for custom file paths is when separating test and deployment steps into two completely separate pipelines, both using the same repository URL. For example, your test pipeline’s upload command could be:
+
+```
+buildkite-agent pipeline upload .buildkite/pipeline.yml
+```
+
+And your deployment pipeline’s upload command could be:
+
+```
+buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml
+```
+
+For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/cli-pipeline#uploading-pipelines) documentation.
 
 ## Dynamic pipelines
 
-You can generate pipelines dynamically from your source code thanks to the fact that pipelines are uploaded by running a command on one of your Buildkite agents. This provides you with a large amount of flexiblity to structure your pipelines as you wish.
+Because the pipeline upload step runs on your agent machine, you can generate pipelines dynamically using scripts from your source code. This provides you with the flexiblity to structure your pipelines as you wish.
 
-For example you could generate a list of parallel test steps based upon the `test/*` directories within your repository. To do this you'd have a single step in your pipeline settings:
-
-```
-./scripts/buildkite_test_pipeline | buildkite-agent pipeline upload
-```
-
-The `scripts/buildkite_test_pipeline` would be an executable file checked into your source repository, and could look something like the following:
+The following example generates a list of parallel test steps based upon the `test/*` directories within your repository:
 
 ```
 #!/bin/bash
 
-# Generates a pipeline step for each test directory, allowing the tests to be
-# split up and run across distributed build agents
-
+# exit immediately on failure, or if an undefined variable is used
 set -eu
 
+# begin the pipeline.yml file
 echo "steps:"
 
+# add a new command step to run the tests in each test directory
 for test_dir in test/*/; do
   echo "  - command: \"run_tests "${test_dir}"\"
 done
 ```
 
-When this is run on an agent it will output the pipeline, which is then piped to the `buildkite-agent pipeline upload` command.
+To use this script, you'd save it to `.buildkite/pipeline.sh` inside your repository, ensure it is executable, and then update your pipeline upload step to use the new script: 
 
-## Custom Pipeline Files
+```bash
+.buildkite/pipeline.sh | buildkite-agent pipeline upload
+```
 
-By default the `.buildkite/pipeline.yml` file is used when uploading a pipeline, you can specify a different file by adding it after the upload command, for example: `buildkite-agent pipeline upload path/to/my-custom-pipeline.yml`
+When a build is run it will execute the script and pipe its output to the `pipeline upload` command, dynamically adding build steps to the end of the build pipeline.
 
 ## Migrating existing steps to a pipeline.yml
 
-To migrate steps from the pipeline settings to a `pipeline.yml` file without interrupting your builds, you can add a new step at the start of the pipeline. This new step is reponsible for checking if a pipeline file exists and replacing the currently running pipeline (the old configuration, defined via the web) with the new configuration read from the file.
-
-To do this, create a step with the following command:
+If you have a pipeline that is defined in the web interface and would like to migrate it to a pipeline.yml without any interuption to builds, you can add the following command step at the start of your pipeline:
 
 ```bash
 [[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
 ```
 
-If the pipeline file exists then we execute the `pipeline upload --replace` command which will replace any steps that were defined via the web interface after this step.
+This line of code will check if the pipeline file exists and, if it does, execute the `buildkite agent pipeline upload --replace` command to replace any steps that were defined via the web interface with those defined in the `pipeline.yml`.
 
 ## Further documentation
 
-See the [Buildkite Agent pipelines documentation](/docs/agent/cli-pipeline) for a full list of options and details of Buildkite’s pipeline command support.
+See the [buildkite-agent pipeline documentation](/docs/agent/cli-pipeline) for a full list of options.
