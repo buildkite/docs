@@ -1,14 +1,16 @@
 # Parallel Builds
 
-Running build jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use Buildkite’s support for multiple agents and parallel jobs to increase the speed of your builds.
+Running a build's jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
 
 <%= toc %>
 
 ## Running multiple agents
 
-The Buildkite agent support the running of multiple instances on the one machine, as well as scaling your agents horizontally across any number of machines and networks.
+<section class="Docs__note">
+    <p>There are two techniques for scaling your build agents: horizontally across multiple machines, or vertically on a single machine. For the sake of simplicity, the following example shows vertically scaling your agents on a single machine. For details on horizontal scaling, which allows for running hundreds or thousands of build agents, see the <a href="#auto-scaling-your-build-agents">auto-scaling your build agents</a> section.</p>
+</section>
 
-Each platform’s [install instructions](/docs/agent/installation) has details for how to run multiple agents on a machine. In this case we'll use the [Ubuntu-based build agent](/docs/agent/ubuntu) to start 5 instances of the Buildkite agent:
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/installation) section. For this example we'll use a [Ubuntu-based build agent](/docs/agent/ubuntu) to start 5 instances of the Buildkite agent:
 
 ```bash
 # After running the standard install instructions...
@@ -26,21 +28,26 @@ sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-5.conf
 sudo service buildkite-agent-5 start
 ```
 
-You should now be able to see all 5 agents in the agent selector in your build pipeline editor:
-
-<%= image 'agent-selector.png', size: '274x234', alt: 'Agent selector showing 5 agents' %>
-
 ## Parallel Jobs
 
 To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
 <%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
 
-Whilst we’re here we can also update the name of the step to include `%n`, which will automatically have the number substituted in and will help to differentiate between the different build jobs:
+Update the name of the step to use `%n`, like the example below. This will substitute a number in at runtime so that you can differentiate the different build jobs:
 
 <%= image 'name.png', size: '555x80', alt: 'Step name field with %n' %>
 
-Now the pipeline is configured we can create a new build:
+In pipeline.yml format, this step would look like:
+
+```yaml
+steps:
+  - command: "test.sh"
+    label: "Tests %n"
+    parallelism: 5
+```
+
+Now that the pipeline is configured, create a new build:
 
 <%= image 'build.png', size: '405x204', alt: 'The build' %>
 
@@ -51,32 +58,36 @@ BUILDKITE_PARALLEL_JOB=0
 BUILDKITE_PARALLEL_JOB_COUNT=5
 ```
 
-The `BUILDKITE_PARALLEL_JOB` environment variable is the job number starting from 0, in this case each job’s value would be `0`, `1`, `2`, `3`, and `4`.
+The `BUILDKITE_PARALLEL_JOB` environment variable stores the job number starting from 0. In this case each job’s value would be `0`, `1`, `2`, `3`, and `4` respectively.
 
-The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable is the total number of jobs.
+The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable stores the total number of jobs created from this step for this build.
 
 You can use these two environment variables to divide your application’s tests between the different jobs.
 
 ## Libraries
 
-The following libraries have built-in support for the `BUILDKITE_PARALLEL_*` environment variables:
+The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
 
 * [Knapsack](https://github.com/ArturT/knapsack)
-<br>A ruby gem for that will automatically divide your tests between parallel jobs, as well as making sure each job runs in comparable time. Supports RSpec, Cucumber, Minitest, Spinach and Turnip.
+<br>Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and Minitest.
 
 * [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
 <br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
 
 ## Isolated jobs
 
-You can safely run multiple agents on a single machine, though you’ll still need to ensure your application’s code is able to be run in parallel. One convenient way of doing this is by using the agent’s [built in Docker and Docker Compose support](docker-containerized-builds) which will run each job in one or more completely isolated containers.
+You can safely run multiple build jobs on a single machine, as the agent runs each build in it's own checkout directory. You’ll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
+
+One convenient way of achieving build job isolation is to use the agent’s built in [Docker Compose support](docker-containerized-builds) which will run each job inside a set of completely isolated Docker containers.
 
 ## Auto-scaling your build agents
 
-We've provided a number of APIs to allow you to automatically scale your build agents based on build queue.
+In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
-* Using the [Pipelines API](/docs/api/pipelines) you’re able to fetch the `scheduled_jobs_count`, `waiting_jobs_count` and `running_jobs_count` to get an overview of the number of jobs waiting to be run. Based on this you can spin up new agent machines to process the jobs waiting to be run.
-* Using [agent prioritization](/docs/agent/prioritization) you’ll able to define a core set up agents that are assigned work first, and then lower priority agents which you may spin up and spin down on demand.
-* Using the [Agents API](/docs/api/agents) you’re able to fetch your agent’s `job` and `last_job_finished_at`, which allow you to see if they have been idle. You can then remotely shut down an agent process using the [agent stop API](/docs/api/agents#stop-an-agent) (passing `"force": false` to ensure it won’t cancel any running job).
+* [GraphQL API](/docs/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
+* [Pipelines REST API](/docs/api/pipelines) and [Agents API](/docs/api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
+* [Agent priorities](/docs/agent/prioritization) allow you to define which agents are assigned work first, such as high performance emphemeral agents.
+* [Agent queues](/docs/agent/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
+* [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
-Using these three APIs you can automate your build infrastructure, scale your agents based on demand, and ensure no-one has to wait for their build to start.
+Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.
