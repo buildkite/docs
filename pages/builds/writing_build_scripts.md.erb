@@ -70,20 +70,20 @@ By using a variable to store the exit status of `run_tests`, we can run addition
 #!/bin/bash
 
 # Note that we don't enable the 'e' option, which would cause the script to 
-# immediately exit if 'run_tests' failed.
+# immediately exit if 'run_tests' failed
 set -uo pipefail
 
-# Run the command we're most interested in
+# Run the main command we're most interested in
 run_tests
 
-# Capture the last exit status in a variable
-TEST_STATUS=$?
+# Capture the exit status
+TESTS_EXIT_STATUS=$?
 
 # Run additional commands
 clean_up
 
-# Finish with the status of the original command
-exit $TEST_STATUS
+# Exit with the status of the original command
+exit $TESTS_EXIT_STATUS
 ```
 
 Using this technique gives you control over the exit code of your script, and the final success or failure of your build job.
