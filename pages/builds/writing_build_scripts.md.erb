@@ -64,7 +64,7 @@ clean_up
 
 Running this script will exit with the status returned by the final command, `clean_up`. However, what we really care about is the exit status of the first command, `run_tests`.
 
-By using a variable to store the exit status of `run_tests`, we can run additional commands (like `clean_up`) whilst still returning the original exit status. For example:
+By using a variable to store the exit status of `run_tests`, we can run additional commands while still returning the original exit status. For example:
 
 ```bash
 #!/bin/bash
