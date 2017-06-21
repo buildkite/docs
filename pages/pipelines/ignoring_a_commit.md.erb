@@ -1,8 +1,20 @@
 # Ignoring a Commit
 
-Some code changes don't really require a full build - editing documentation for example. If you want Buildkite to ignore a commit and not build it, simply add `[ci skip]` or `[skip ci]` somewhere in the commit message.
-Buildkite won't build this commit or store it in the build history.
+Some code changes, such as editing a Readme, may not require a Buildkite build. If you want Buildkite to ignore a commit, add `[ci skip]` or `[skip ci]` anywhere in the commit message.
 
-In GitHub, it would look something like this:
+For example, the following commit message will cause Buildkite to ignore the commit and not create a corresponding build:
 
-<%= image "github_example.png" %>
+```
+Fix readme typos [skip ci]
+```
+
+Multi-line commit messages are also supported. For example, the following commit message will also cause Buildkite to ignore the commit:
+
+```
+Fix readme typos
+
+* Fixed the build badge
+* Fixed broken GitHub link
+
+[skip ci]
+```
