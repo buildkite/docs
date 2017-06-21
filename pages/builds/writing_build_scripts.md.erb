@@ -69,7 +69,8 @@ By using a variable to store the exit status of `run_tests`, we can run addition
 ```bash
 #!/bin/bash
 
-# Note the lack of 'e' option here
+# Note that we don't enable the 'e' option, which would cause the script to 
+# immediately exit if 'run_tests' failed.
 set -uo pipefail
 
 # Run the command we're most interested in
