@@ -31,9 +31,9 @@ When writing Bash shell scripts there are a number of options you can set to hel
   </tbody>
 </table>
 
-Bash’s built-in `set` command can be used to enable and disable options. To enable an option use the `-` argument, and to disable an option use the `+` argument.
+Bash’s built-in `set` command can be used to enable and disable options. For example, `set -u` enables the `u` option, and `set +u` disables the `u` option. You can also set multiple options at once, for example `set -ue` enables both the `u` and `e` options.
 
-For example, the following script enables the most commonly used options for build scripts:
+The following example enables the most commonly used options for build scripts:
 
 ```bash
 #!/bin/bash
@@ -47,7 +47,7 @@ For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/
 
 <section class="Docs__troubleshooting-note">
   <h1>Unbound variable errors</h1>
-  <p>Note that while the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, remove the <code>u</code> from the set command in your script.</p>
+  <p>Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or you can surround the command causing the error with <code>set +u</code> and <code>set -u</code> to temporarily disable the option.</p>
 </section>
 
 ## Capturing exit status
@@ -56,6 +56,10 @@ Build scripts can sometimes contain commands that shouldn't affect the overall e
 
 ```bash
 #!/bin/bash
+
+# Note that we don't enable the 'e' option, which would cause the script to 
+# immediately exit if 'run_tests' failed
+set -uo pipefail
 
 run_tests
 
