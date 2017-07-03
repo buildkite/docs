@@ -60,6 +60,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
+  "description": "This pipeline is amazing! :tada:",
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "provider": {
@@ -82,7 +83,21 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
   "running_jobs_count": 0,
-  "waiting_jobs_count": 0
+  "waiting_jobs_count": 0,
+  "steps": [
+    {
+      "type": "script",
+      "name": "Test :white_check_mark:",
+      "command": "script/test.sh",
+      "artifact_paths": "results/*",
+      "branch_configuration": "master feature/*",
+      "env": { },
+      "timeout_in_minutes": null,
+      "agent_query_rules": [ ]
+    }
+  ],
+  "env": {
+  }
 }
 ```
 
@@ -138,6 +153,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
+  "description": null,
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "provider": {
@@ -263,6 +279,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
+  "description": null,
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/new-repo.git",
   "provider": {
