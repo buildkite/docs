@@ -16,7 +16,7 @@ Description:
    When a job is ready to run it will call the "bootstrap-script"
    and pass it all the environment variables required for the job to run.
    This script is responsible for checking out the code, and running the
-   actual build script defined in the project.
+   actual build script defined in the pipeline.
 
    The agent will run any jobs within a PTY (pseudo terminal) if available.
 
@@ -26,54 +26,61 @@ Example:
 
 Options:
 
-   --config                         Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
-   --token                      Your account agent token [$BUILDKITE_AGENT_TOKEN]
-   --name                       The name of the agent [$BUILDKITE_AGENT_NAME]
-   --priority                       The priority of the agent (higher priorities are assigned work first) [$BUILDKITE_AGENT_PRIORITY]
-   --meta-data '--meta-data option --meta-data option'  Meta-data for the agent (default is "queue=default") [$BUILDKITE_AGENT_META_DATA]
-   --meta-data-ec2                  Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data [$BUILDKITE_AGENT_META_DATA_EC2]
-   --meta-data-ec2-tags                 Include the host's EC2 tags as meta-data [$BUILDKITE_AGENT_META_DATA_EC2_TAGS]
-   --git-clean-flags '-fdq'             Change flags used during Git clean [$BUILDKITE_GIT_CLEAN_FLAGS]
-   --git-clone-flags '-v'               Change flags used during Git clone [$BUILDKITE_GIT_CLONE_FLAGS]
-   --bootstrap-script                   Path to the bootstrap script [$BUILDKITE_BOOTSTRAP_SCRIPT_PATH]
-   --build-path                     Path to where the builds will run from [$BUILDKITE_BUILD_PATH]
-   --hooks-path                     Directory where the hook scripts are found [$BUILDKITE_HOOKS_PATH]
-   --no-pty                     Do not run jobs within a pseudo terminal [$BUILDKITE_NO_PTY]
-   --no-automatic-ssh-fingerprint-verification      Don't automatically verify SSH fingerprints [$BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION]
-   --no-command-eval                    Don't allow this agent to run arbitrary console commands [$BUILDKITE_NO_COMMAND_EVAL]
-   --endpoint 'https://agent.buildkite.com/v3'      The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                       Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                     Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
-```
-
-## Setting Metadata
-
-Each agent has meta-data tags which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
-
-To set an agent’s meta-data you can set it in the configuration file:
-
-```
-meta-data="docker=true,ruby2=true"
-```
-
-or with the `--meta-data` command line flag:
+   --config value                               Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
+   --token value                                Your account agent token [$BUILDKITE_AGENT_TOKEN]
+   --name value                                 The name of the agent [$BUILDKITE_AGENT_NAME]
+   --priority value                             The priority of the agent (higher priorities are assigned work first) [$BUILDKITE_AGENT_PRIORITY]
+   --disconnect-after-job                       Disconnect the agent after running a job [$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB]
+   --disconnect-after-job-timeout value         When --disconnect-after-job is specified, the number of seconds to wait for a job before shutting down (default: 120) [$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT]
+   --tags value                                 A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8") [$BUILDKITE_AGENT_TAGS]
+   --tags-from-ec2                              Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id) [$BUILDKITE_AGENT_TAGS_FROM_EC2]
+   --tags-from-ec2-tags                         Include the host's EC2 tags as tags [$BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS]
+   --tags-from-gcp                              Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [$BUILDKITE_AGENT_TAGS_FROM_GCP]
+   --git-clone-flags value                      Flags to pass to the "git clone" command (default: "-v") [$BUILDKITE_GIT_CLONE_FLAGS]
+   --git-clean-flags value                      Flags to pass to "git clean" command (default: "-fxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
+   --bootstrap-script value                     Path to the bootstrap script (default: "buildkite-agent bootstrap") [$BUILDKITE_BOOTSTRAP_SCRIPT_PATH]
+   --build-path value                           Path to where the builds will run from [$BUILDKITE_BUILD_PATH]
+   --hooks-path value                           Directory where the hook scripts are found [$BUILDKITE_HOOKS_PATH]
+   --plugins-path value                         Directory where the plugins are saved to [$BUILDKITE_PLUGINS_PATH]
+   --no-pty                                     Do not run jobs within a pseudo terminal [$BUILDKITE_NO_PTY]
+   --no-automatic-ssh-fingerprint-verification  Don't automatically verify SSH fingerprints [$BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION]
+   --no-command-eval                            Don't allow this agent to run arbitrary console commands [$BUILDKITE_NO_COMMAND_EVAL]
+   --experiment value                           Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]
+   --endpoint value                             The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+   
 
 ```
-buildkite-agent start --meta-data "docker=true" --meta-data "ruby2=true"
+
+## Setting Tags
+
+Each agent has tags (in 2.x we called this metdata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
+
+To set an agent’s tags you can set it in the configuration file:
+
+```
+tags="docker=true,ruby2=true"
 ```
 
-or with the `BUILDKITE_AGENT_META_DATA` an environment variable:
+or with the `--tags` command line flag:
 
 ```
-env BUILDKITE_AGENT_META_DATA="docker=true,ruby2=true" buildkite-agent start
+buildkite-agent start --tags "docker=true" --meta-data "ruby2=true"
+```
+
+or with the `BUILDKITE_AGENT_TAGS` an environment variable:
+
+```
+env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 ```
 
 ## Agent Targeting
 
-Once you've started agents with metadata you can target them in the build pipeline using agent query rules.
+Once you've started agents with tags you can target them in the build pipeline using agent query rules.
 
-Here's an example of targetting agents that are running with the meta-data value `postgres` of `1.9.4`:
+Here's an example of targetting agents that are running with the tag `postgres` and value of `1.9.4`:
 
 <%= image 'agent-selector-matching-1.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
 
@@ -86,7 +93,7 @@ steps:
       postgres: "1.9.4"
 ```
 
-You can also match for any agent with a `postgres` meta-data by omitting the value after the `=` sign, or by using `*`, for example:
+You can also match for any agent with a `postgres` tag by omitting the value after the `=` sign, or by using `*`, for example:
 
 <%= image 'agent-selector-matching-2.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
 
@@ -103,4 +110,14 @@ Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet s
 
 ## The Queue Tag
 
-The `queue` meta-data tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+
+## Loading Tags from Amazon Web Services
+
+You can load an Agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `-tags-from-ec2` to load the EC2 metadata (e.g instance name and machine type).
+
+! TODO screenshot of neat tags
+
+## Loading Tags from Google Cloud
+
+You can load an Agent's tags from the underlying Google Cloud metadata using `--tags-from-gcp`.
