@@ -16,30 +16,34 @@ Usage:
 Description:
 
    Allows you to change the pipeline of a running build by uploading either a
-   JSON or YAML configuration file. If no configuration file is provided,
-   we look for the file in the following locations:
+   YAML (recommended) or JSON configuration file. If no configuration file is
+   provided, the command looks for the file in the following locations:
 
+   - buildkite.yml
+   - buildkite.yaml
+   - buildkite.json
    - .buildkite/pipeline.yml
+   - .buildkite/pipeline.yaml
    - .buildkite/pipeline.json
 
-   You can also pipe build pipelines to the command, allowing you to create scripts
-   that generate dynamic pipelines.
+   You can also pipe build pipelines to the command allowing you to create
+   scripts that generate dynamic pipelines.
 
 Example:
 
    $ buildkite-agent pipeline upload
-   $ buildkite-agent pipeline upload my-custom-steps.json
+   $ buildkite-agent pipeline upload my-custom-pipeline.yml
    $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
 
 Options:
 
-   --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
-   --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
-   --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint "https://agent.buildkite.com/v3"  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+   --replace                   Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
+   --job value                 The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
 ## Pipeline format
@@ -51,7 +55,7 @@ The pipeline can be written as YAML or JSON, but YAML is more common for its rea
 
 ## Environment variable substitution
 
-In Buildkite Agent versions 3.0 and above, the `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
+The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
 
 For example, the following pipeline substitutes a number of [Buildkite’s default environment variables](/docs/builds/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
 
@@ -72,14 +76,6 @@ If you want an environment variable to be evaluated at run-time (for example, us
 - command: "deploy.sh $$SERVER"
   env:
     SERVER: "server-a"
-```
-
-### Buildkite Agent 2.x support
-
-If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
-
-```shell
-echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
 ```
 
 ### Escaping the `$` character
