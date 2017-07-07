@@ -26,9 +26,8 @@ Another example of something that we use every day is the [docker-compose](https
 
 ```yml
 steps:
-
   # Prebuild the app image, upload it to a registry for later steps
-  - name: ":docker: Build"
+  - name: "Docker Build"
     plugins:
       docker-compose#v1.3.2:
         build: app
@@ -37,7 +36,7 @@ steps:
   - wait
 
   # Use the app image built above to run concurrent tests
-  - name: ":docker: Test %n"
+  - name: "Docker Test %n"
     command: test.sh
     parallelism: 25
     plugins:
@@ -69,7 +68,7 @@ And then hook scripts under `hooks/`. A good example is the [docker plugin](http
 
 The pipeline invocation looks like:
 
-```
+```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
@@ -84,7 +83,7 @@ And then the logic of the (simplified) [command hook] script in `hooks/command`:
 #!/bin/bash
 set -euo pipefail
 
-echo "--- :docker: Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
+echo "--- Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
 
 docker run -it --rm \
   --volume "$PWD:${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
@@ -111,6 +110,8 @@ One issue with plugins is that they introduce a third-party dependency in your p
 The practices that we follow are:
 
  * Always ping to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
+
+ * Follow the [Unofficial Bash Strict Mode](http://redsymbol.net/articles/unofficial-bash-strict-mode/) and check your work with [shellcheck](https://github.com/koalaman/shellcheck).
 
  * Apply special care in plugins to avoid executing arbitrary code passed in by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
