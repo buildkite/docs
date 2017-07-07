@@ -1,7 +1,7 @@
 
 # Buildkite Agent Plugins
 
-Plugins provide a way to extend the functionality that Buildkite natively offers. Essentially, they are neatly packaged collections of [Hooks] that run as part of your builds. Buildkite offers a [collection of useful plugins]() for things like Docker integration, Github Releases and interaction with Amazon Web Services and Google Cloud. 
+Plugins provide a way to extend the functionality that Buildkite natively offers. Essentially, they are neatly packaged collections of [Hooks](hooks) that run as part of your builds. Buildkite offers a [collection of useful plugins](https://github.com/buildkite-plugins) for things like Docker integration, Github Releases and interaction with Amazon Web Services and Google Cloud. 
 
 <%= toc %>
 
@@ -115,7 +115,7 @@ The practices that we follow are:
 
  * Apply special care in plugins to avoid executing arbitrary code passed in by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
-For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or preventing them from being loaded entirely with the `disable-plugins` agent configuration parameter.
+For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or preventing them from being loaded entirely with the `no-plugins` [agent configuration]() parameter.
 
 ## We love feedback!
 
