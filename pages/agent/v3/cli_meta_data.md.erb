@@ -1,0 +1,57 @@
+# buildkite-agent meta-data
+
+The Buildkite Agent’s `meta-data` command provides your build pipeline with a powerful key/value data-store that works across build steps and build agents, no matter the machine or network.
+
+See the [Using Build Metadata](/docs/builds/build-meta-data) guide for a step-by-step example.
+
+<%= toc %>
+
+## Setting Data
+
+Use this command in your build scripts to save simple string data to the build for retrieval in future steps.
+
+```
+Usage:
+
+   buildkite-agent meta-data set <key> <value> [arguments...]
+
+Description:
+
+   Set arbitrary data on a build using a basic key/value store.
+
+Example:
+
+   $ buildkite-agent meta-data set "foo" "bar"
+
+Options:
+
+   --job          Which job should the artifacts be downloaded from [$BUILDKITE_JOB_ID]
+   --agent-access-token       The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint 'https://agent.buildkite.com/v3'  The agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --debug          Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --no-color         Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+```
+
+## Getting Data
+
+```
+Usage:
+
+   buildkite-agent meta-data get <key> [arguments...]
+
+Description:
+
+   Get data from a builds key/value store.
+
+Example:
+
+   $ buildkite-agent meta-data get "foo"
+
+Options:
+
+   --job          Which job should the data be retrieved from [$BUILDKITE_JOB_ID]
+   --agent-access-token       The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint 'https://agent.buildkite.com/v3'  The agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --debug          Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --no-color         Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+```
