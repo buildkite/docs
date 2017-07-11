@@ -41,14 +41,14 @@ _Introduced in:_ 3.0.0
 
 `git-clean-flags`<br>
 Flags to pass to the `git clean` command<br>
-_Default:_ `"-fdq"`<br>
+_Default:_ `"-fxdq"`<br>
 _Environment variable:_ `BUILDKITE_GIT_CLEAN_FLAGS`
+_Note:_ Prior to 3.0 this defaulted to `"-fdq"`
 
 `git-clone-flags`<br>
 Flags to pass to the `git clone` command<br>
-_Default:_ `"-fxdq"`<br>
+_Default:_ `"-v"`<br>
 _Environment variable:_ `BUILDKITE_GIT_CLONE_FLAGS`<br>
-_Note:_ Prior to 3.0 this defaulted to `"-v"`
 
 `bootstrap-script`<br>
 Command to invoke the bootstrap process<br>
