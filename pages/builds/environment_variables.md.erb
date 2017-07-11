@@ -6,34 +6,38 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 ## Provided by Buildkite
 
-- `CI` always `true`
-- `BUILDKITE` always `true`
-- `BUILDKITE_REPO` the repository of your pipeline `git@github.com:acme-inc/buildkite.git`
-- `BUILDKITE_BRANCH` the branch being built `master`
-- `BUILDKITE_TAG` will contain the name of the tag if this build was triggered from a tag
-- `BUILDKITE_COMMIT` the commit of the build `83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d`
-- `BUILDKITE_JOB_ID` internal UUID Buildkite uses for this job `e44f9784-e20e-4b93-a21d-f41fd5869db9`
-- `BUILDKITE_BUILD_ID` internal UUID Buildkite uses for this build `9e08ef3c-d6e6-4a86-91dd-577ce5205b8e`
-- `BUILDKITE_BUILD_URL` the url for this build on Buildkite `https://buildkite.com/acme-inc/web-app/builds/1514`
-- `BUILDKITE_AGENT_NAME` name of the agent running the job `my-agent-1`
-- `BUILDKITE_COMMAND` the command that will be run for the job `script/buildkite/specs`
-- `BUILDKITE_MESSAGE` will be the message associated with the build (generally a commit message)
-- `BUILDKITE_TIMEOUT` minutes until Buildkite automatically cancels this job, `false` if no timeout is set
-- `BUILDKITE_BUILD_NUMBER` the build number `1514`
-- `BUILDKITE_ORGANIZATION_SLUG` the organization name on Buildkite as used in URL's `acme-inc`
-- `BUILDKITE_PIPELINE_SLUG` the pipeline slug on Buildkite as used in URL's `web-app`
-- `BUILDKITE_PIPELINE_PROVIDER` the ID of the SCM provider for the pipeline's repository `github/github_enterprise/bitbucket/gitlab/codebase/private`
-- `BUILDKITE_PIPELINE_DEFAULT_BRANCH` the default branch for this pipeline `master`
-- `BUILDKITE_PULL_REQUEST` will be the number of the pull request if this branch is a pull request. `false` if not
-- `BUILDKITE_ARTIFACT_PATHS` any artifact paths you've defined `tmp/capybara/**/*;coverage/**/*`
-- `BUILDKITE_BUILD_CREATOR` the name of the user who created the build
-- `BUILDKITE_BUILD_CREATOR_EMAIL` the notification email of the user who created the build
-- `BUILDKITE_CLEAN_CHECKOUT` whether the build should perform a clean checkout
-- `BUILDKITE_BUILD_CHECKOUT_PATH` the path where the agent has checked out your code for this build `/var/lib/buildkite-agent/builds/agent-1/pipeline-2`
+<table>
+<tbody>
+  <tr><th><code>CI</code></th><td>Always <code>true</code></td></tr>
+  <tr><th><code>BUILDKITE</code></th><td>Always <code>true</code></td></tr>
+  <tr><th><code>BUILDKITE_REPO</code></th><td>The repository of your pipeline<p class="Docs__api-param-eg"><em>Example:</em> <code>git@github.com:acme-inc/buildkite.git</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BRANCH</code></th><td>The branch being built<p class="Docs__api-param-eg"><em>Example:</em> <code>master</code></p></td></tr>
+  <tr><th><code>BUILDKITE_TAG</code></th><td>The name of the tag being built, if this build was triggered from a tag<p class="Docs__api-param-eg"><em>Example:</em> <code>v1.2.3</code></p></td></tr>
+  <tr><th><code>BUILDKITE_COMMIT</code></th><td>The commit of the build<p class="Docs__api-param-eg"><em>Example:</em> <code>83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d</code></p></td></tr>
+  <tr><th><code>BUILDKITE_JOB_ID</code></th><td>Internal UUID Buildkite uses for this job<p class="Docs__api-param-eg"><em>Example:</em> <code>e44f9784-e20e-4b93-a21d-f41fd5869db9</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BUILD_ID</code></th><td>Internal UUID Buildkite uses for this build<p class="Docs__api-param-eg"><em>Example:</em> <code>9e08ef3c-d6e6-4a86-91dd-577ce5205b8e</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BUILD_URL</code></th><td>The url for this build on Buildkite<p class="Docs__api-param-eg"><em>Example:</em> <code>https://buildkite.com/acme-inc/web-app/builds/1514</code></p></td></tr>
+  <tr><th><code>BUILDKITE_AGENT_NAME</code></th><td>Name of the agent running the job<p class="Docs__api-param-eg"><em>Example:</em> <code>my-agent-1</code></p></td></tr>
+  <tr><th><code>BUILDKITE_COMMAND</code></th><td>The command that will be run for the job<p class="Docs__api-param-eg"><em>Example:</em> <code>script/buildkite/specs</code></p></td></tr>
+  <tr><th><code>BUILDKITE_MESSAGE</code></th><td>The message associated with the build, usually the commit message<p class="Docs__api-param-eg"><em>Example:</em> <code>Added a great new feature</code></p></td></tr>
+  <tr><th><code>BUILDKITE_TIMEOUT</code></th><td>The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified<p class="Docs__api-param-eg"><em>Example:</em> <code>15</code> for 15 minutes, or <code>false</code> if no timeout is set</td></tr>
+  <tr><th><code>BUILDKITE_BUILD_NUMBER</code></th><td>The build number<p class="Docs__api-param-eg"><em>Example:</em> <code>1514</code></p></td></tr>
+  <tr><th><code>BUILDKITE_ORGANIZATION_SLUG</code></th><td>The organization name on Buildkite as used in URL's<p class="Docs__api-param-eg"><em>Example:</em> <code>acme-inc</code></p></td></tr>
+  <tr><th><code>BUILDKITE_PIPELINE_SLUG</code></th><td>The pipeline slug on Buildkite as used in URL's<p class="Docs__api-param-eg"><em>Example:</em> <code>web-app</code></p></td></tr>
+  <tr><th><code>BUILDKITE_PIPELINE_PROVIDER</code></th><td>The ID of the source code provider for the pipeline's repository<p class="Docs__api-param-eg"><em>Example:</em> <code>github</code></p></td></tr>
+  <tr><th><code>BUILDKITE_PIPELINE_DEFAULT_BRANCH</code></th><td>The default branch for this pipeline<p class="Docs__api-param-eg"><em>Example:</em> <code>master</code></p></td></tr>
+  <tr><th><code>BUILDKITE_PULL_REQUEST</code></th><td>The number of the pull request if this branch is a pull request<p class="Docs__api-param-eg"><em>Example:</em> <code>123</code> for pull request #123, or <code>false</code> if not a pull request</p></tr>
+  <tr><th><code>BUILDKITE_ARTIFACT_PATHS</code></th><td>The <a href="/docs/builds/artifacts">artifact paths</a> to upload after the job, if any have been specified<p class="Docs__api-param-eg"><em>Example:</em> <code>tmp/capybara/**/*;coverage/**/*</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BUILD_CREATOR</code></th><td>The name of the user who created the build<p class="Docs__api-param-eg"><em>Example:</em> <code>Tracy Tester</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BUILD_CREATOR_EMAIL</code></th><td>The notification email of the user who created the build<p class="Docs__api-param-eg"><em>Example:</em> <code>tracy@acme-inc.com</code></p></td></tr>
+  <tr><th><code>BUILDKITE_CLEAN_CHECKOUT</code></th><td>Whether the build should perform a clean checkout<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code> or <code>false</code></p></td></tr>
+  <tr><th><code>BUILDKITE_BUILD_CHECKOUT_PATH</code></th><td>The path where the agent has checked out your code for this build<p class="Docs__api-param-eg"><em>Example:</em> <code>/var/lib/buildkite-agent/builds/agent-1/pipeline-2</code></p></td ></tr>
+</tbody>
+</table>
 
 ## Defining your own
 
 You can define environment variables in your jobs in two ways:
 
-* In the build pipeline configuration (useful for values that are not secret)
+* In the [build pipeline configuration](/docs/pipelines/command-step) (useful for values that are not secret)
 * Using the `environment` or `pre-command` [agent hook](/docs/agent/hooks) (useful for values that are secret, or agent-specific)
