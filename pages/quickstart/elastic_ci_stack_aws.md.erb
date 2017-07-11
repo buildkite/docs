@@ -56,11 +56,6 @@ Once you're ready, click the _“I acknowledge that this template might cause AW
 
 After creating the stack, you'll be taken to the CloudFormation console. Click the _“Refresh”_ button in the top right hand corner of the screen until you see the stack being created.
 
-You’ll notice there’s 2 stacks:
-
-- `buildkite` which is used for the autoscaling of EC2 machines
-- `buildkite-MetricsStack` which is responsible for capturing Buildkite Queue metrics and sending to CloudWatch
-
 <%= image "cf-wait.gif", alt: "Waiting for the AWS Stack to be created" %>
 
 You've now got a working Elastic CI Stack ready to run builds! :tada:
