@@ -34,9 +34,9 @@ Any user can create a new pipeline. If you have read, write, and edit permission
 
 You can programmatically manage your teams using both our GraphQL and REST APIs. Each team's UUID can be found on the team's settings page under 'REST API Integration'. 
 
-You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. 
-- lock down agents using the teams env var (set up agent hooks for whitelisting based on team memberships)
+You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can whitelist builds based on the creator's team memberships.
 
+For example:
 ```
 # /etc/buildkite-agent/hooks/environment
 set -euo pipefail
@@ -46,6 +46,7 @@ if [[ "$BUIDLKITE_PIPELINE_SLUG" == "deploy" && "$ENV" == "production" && ":$BUI
 fi
 ```
 
+This agent hook will prevent anyone not in the Ops team from using the Deploy pipeline to deploy to production.
 
 ## Frequently Asked Questions
 
