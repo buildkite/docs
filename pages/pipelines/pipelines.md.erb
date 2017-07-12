@@ -4,13 +4,13 @@ Pipelines are the top level containers for modelling and defining your workflows
 
 <%= toc %>
 
-## What’s in a pipeline?
+## What is a pipeline?
 
 A pipeline is a template of the steps you want to run. There are many types of steps, some run scripts, some define conditional logic, and others wait for user input. When you run a pipeline, a build is created. Each of the steps in the pipeline end up as jobs in the build.  
 
 ## Is this just for running tests and deploying code?
 
-Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions! You can even use pipelines to [create other pipelines](/docs/pipelines/uploading-pipelines) 😱
+Not at all! You can do all kinds of exciting things with pipelines, like generating static sites, running data imports, provisioning servers, and automating app store submissions. You can even use pipelines to [create other pipelines](/docs/pipelines/uploading-pipelines) 😱
 
 ## Pipelines page walkthrough
 
@@ -54,10 +54,21 @@ You can keep your most used pipelines at the top of the page by clicking the sta
 
 <%= image "favorite.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipeline star button" %>
 
+### Filtering the page
+
+You can filter pipelines using the search bar at the top of the page. This will search the titles of pipelines, and return all those matching your search terms. 
+
+<%= image "search-filter.png", width: 728/2, height: 440/2, alt: "Screenshot of the search filter" %>
+
+If your organisation has Teams enabled, you can also filter this page by the teams that you're in. Selecting a team from the teams dropdown list will filter the page to display only those pipelines accessible by your team.
+
+<%= image "teams-filter.png", width: 728/2, height: 440/2, alt: "Screenshot of the teams filter" %>
+
+
 ### Customizing the page
 
-Your pipeline’s name, description, its repository, and your default branch are all editable! After you’ve clicked on a pipeline, the settings button is in the top right corner. 
+Your pipeline’s name, description, its repository, and your default branch are all editable. After you’ve clicked on a pipeline, the settings button is in the top right corner. 
 
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipelines settings button" %>
 
-The display settings can be found in the `Pipeline Settings` section. Adding a description for your pipeline is optional, but name, repository, and default branch are all required. Descriptions have full emoji support! 🙌:llama:💯
+The display settings can be found in the `Pipeline Settings` section. Adding a description for your pipeline is optional, but name, repository, and default branch are all required. Descriptions also have full emoji support 🙌:llama:💯
