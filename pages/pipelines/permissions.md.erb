@@ -34,7 +34,8 @@ Any user can create a new pipeline. If you have read, write, and edit permission
 
 ## Programmatically managing teams
 
-You can programmatically manage your teams using both our GraphQL and REST APIs. Each team's UUID can be found on the team's settings page under 'REST API Integration'. 
+You can programmatically manage your teams using our GraphQL API.
+If you're creating pipelines programmatically using the REST API, you can add them directly to teams using the team's UUID. For more information about creation pipelines can be found in our [REST API documentation](https://buildkite.com/docs/rest-api/pipelines#create-a-pipeline).
 
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can whitelist builds based on the creator's team memberships.
 
