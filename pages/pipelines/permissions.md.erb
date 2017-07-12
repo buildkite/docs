@@ -14,15 +14,17 @@ You can see the teams that you're a member of on the Teams page in your Buildkit
 ### Organisation level permissions
 
 Users who are organisaion admins can:
-- enable and disable teams for their organisation
-- create new teams
+
+* enable and disable teams for their organisation
+* create new teams
 
 ### Team level permissions
 
 Users who are team maintainers can:
-- add users to existing teams, of which they are the maintainer
-- remove users from their teams
-- set read, write, and edit permissions for users on pipelines in their team
+
+* add users to existing teams, of which they are the maintainer
+* remove users from their teams
+* set read, write, and edit permissions for users on pipelines in their team
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions. 
 
@@ -37,6 +39,7 @@ You can programmatically manage your teams using both our GraphQL and REST APIs.
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can whitelist builds based on the creator's team memberships.
 
 For example:
+
 ```
 # /etc/buildkite-agent/hooks/environment
 set -euo pipefail
@@ -59,5 +62,5 @@ When a user joins the organization via SSO, they’ll be automatically added to 
 ### Can I delete the “Everyone” team?
 Yes you can delete or edit the “Everyone” team. To ensure uniterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
 
-###Once enabled, can I disable Teams?
+### Once enabled, can I disable Teams?
 You can disable teams by deleting all your teams, and then selecting “Disable Teams”.
