@@ -1,0 +1,30 @@
+
+# Controlling permissions with Teams
+
+Enabling Teams for your organisations gives you fine grained control over the permissions for each of your pipelines.
+
+
+- default teams for new users
+- can invite people to a team
+- everyone in a team has the same permissions (except the maintainer), to do more fine grained, add more teams
+- maintainer can add and remove people and pipelines from their team (as long as they have access to the pipeline in another team)
+
+
+## Team level permissions
+
+Users who are team maintainers can:
+- add users to existing teams of which they are the maintainer
+- set read, write, and build permissions for users on pipelines in their team
+
+
+can be one, two, or all of these for different purposes, these are per pipeline inside a team
+
+
+## Organisation level permissions
+
+Agents sit outside the teams structure, and cannot be restricted to specific teams. 
+
+Users who are organisaion admins can:
+- update organisation-wide permissions
+- create new agents
+- create new teams
