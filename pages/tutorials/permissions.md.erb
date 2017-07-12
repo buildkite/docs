@@ -4,27 +4,48 @@
 Enabling Teams for your organisations gives you fine grained control over the permissions for each of your pipelines.
 
 
-- default teams for new users
-- can invite people to a team
-- everyone in a team has the same permissions (except the maintainer), to do more fine grained, add more teams
+- must be in a team to create a pipeline (everyone starts in the everyone team)
+
+- default teams for new users (the 'automatically add users to this team' checlbox in the team settings)
+- can invite people to a team (use the add member button on the members page of a team)
+
+All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions. 
+
 - maintainer can add and remove people and pipelines from their team (as long as they have access to the pipeline in another team)
 
+## Organisation level permissions
+
+Users who are organisaion admins can:
+- enable and disable teams for their organisation
+- create new teams
 
 ## Team level permissions
 
 Users who are team maintainers can:
-- add users to existing teams of which they are the maintainer
-- set read, write, and build permissions for users on pipelines in their team
-
+- add users to existing teams, of which they are the maintainer
+- remove users from their teams
+- set read, write, and edit permissions for users on pipelines in their team
 
 can be one, two, or all of these for different purposes, these are per pipeline inside a team
 
+- if you have all the permissions on a pipeline you can give access to it to a team you're a part of, or if the team is visible
 
-## Organisation level permissions
+## Programmatically managing teams
 
-Agents sit outside the teams structure, and cannot be restricted to specific teams. 
+- graphQL api
+- lock down agents using the teams env var
 
-Users who are organisaion admins can:
-- update organisation-wide permissions
-- create new agents
-- create new teams
+
+## Frequently Asked Questions
+
+### Will users (and API tokens) still have access to their pipelines?
+When you enable Teams we’ll create a default team called “Everyone”, containing all your users and pipelines. This ensures that users, and their API tokens, will still have access to their pipelines.
+
+### How does Teams work with SSO?
+When a user joins the organization via SSO, they’ll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
+
+### Can I delete the “Everyone” team?
+Yes you can delete or edit the “Everyone” team. To ensure uniterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
+
+###Once enabled, can I disable Teams?
+You can disable teams by deleting all your teams, and then selecting “Disable Teams”.
