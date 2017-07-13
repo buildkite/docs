@@ -56,7 +56,7 @@ Once you're ready, click the _“I acknowledge that this template might cause AW
 
 After creating the stack, you'll be taken to the CloudFormation console. Click the _“Refresh”_ button in the top right hand corner of the screen until you see the stack being created.
 
-<%= image "cf-wait.gif", alt: "Waiting for the AWS Stack to be created" %>
+<%= image "elastic-stack.gif", width: 1230/2, height: 180/2, alt: "Waiting for the AWS Stack to be created" %>
 
 You've now got a working Elastic CI Stack ready to run builds! :tada:
 
@@ -78,7 +78,7 @@ Once your build is created head back to [AWS EC2 Autoscaling console](http://con
 
 Select the _“buildkite-AgentAutoScaleGroup-xxx”_ group and then the the _“Instances”_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from `Pending` to `InService`:
 
-<%= image "asg-launching.png", size: "#{1219/2}x#{686/2}", alt: 'AWS Auto Scaling Group Launching' %>
+<%= image "buildkite-demo-instances.png", width: 1876/2, height: 1154/2, alt: 'AWS Auto Scaling Group Launching' %>
 
 Once the instances are ready you'll see them appear on your Buildkite Agents page:
 
