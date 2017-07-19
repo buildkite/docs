@@ -1,4 +1,4 @@
-# The Buildkite Agent
+# Buildkite Agent (v2)
 
 The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
@@ -45,7 +45,3 @@ The agent has a standard configuration file format on all systems to set meta-da
 ## Customising with Hooks
 
 The agent’s behaviour can be customized using hooks, which are just shell scripts that exist on your build machines or in each pipeline’s code repository. Hooks can be used to set up secrets as well as overriding default behavior. See the [hooks](agent/hooks) documentation for full details.
-
-## Signal Handling
-
-When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit. If the process does not exit within 10 seconds it will be forcefully terminated with a `SIGKILL` signal.
