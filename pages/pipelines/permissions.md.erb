@@ -39,18 +39,16 @@ If you're creating pipelines programmatically using the REST API, you can add th
 
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can whitelist builds based on the creator's team memberships.
 
-For example:
+For example, the following [agent environment hook](/docs/agent/hooks) prevents anyone from outside of the ops team from running a build on the agent:
 
-```
-# /etc/buildkite-agent/hooks/environment
+```bash
 set -euo pipefail
-if [[ "$BUIDLKITE_PIPELINE_SLUG" == "deploy" && "$ENV" == "production" && ":$BUILDKITE_BUILD_CREATOR_TEAMS:" != *":ops:"* ]]; then
-  echo "You must be in the ops team to deploy to production"
+
+if [[ ":$BUILDKITE_BUILD_CREATOR_TEAMS:" != *":ops:"* ]]; then
+  echo "You must be in the ops team to run a job on this agent"
   exit 1
 fi
 ```
-
-This agent hook will prevent anyone not in the Ops team from using the Deploy pipeline to deploy to production.
 
 ## Frequently Asked Questions
 
