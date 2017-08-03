@@ -110,6 +110,16 @@ _Optional attributes:_
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
+  <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether to skip this step or not. <br>
+      Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the Skipped jobs icon <br>
+      <em>Example:</em> <code>true</code>
+      <em>Example:</em> <code>false</code>
+      <em>Example:</em> <code>"My reason"</code>
+    </td>
+  </tr>
 </table>
 
 ```yml
@@ -136,4 +146,7 @@ steps:
     branches: "master"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+  - label: "Skipped job"
+    command: "my_command.sh"
+    skip: "Didn't feel like it"
 ```
