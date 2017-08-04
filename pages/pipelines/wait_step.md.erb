@@ -14,10 +14,11 @@ A basic wait step can be defined in your pipeline settings, or in your [pipeline
 - command: "echo The command passed"
 ```
 
-You can also configure the *wait* step to wait for all previous steps to have completed, even if there are failures. Here is the syntax for that:
+You can also configure the *wait* step to continue even if the previous steps failed. If the previous steps failed, the build will be marked as failed after the steps after the `wait` have completed.
+
 ```yml
 - command: "command.sh"
 - wait: ~
   continue_on_failure: true
-- command: "echo The command may or may not have passed"
+- command: "echo This runs regardless of the success or failure"
 ```
