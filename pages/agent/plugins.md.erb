@@ -4,13 +4,13 @@
 __Plugins are only available in the beta 3.0 version of the agent__
 
 Plugins provide a way to extend the functionality that Buildkite natively offers. 
-Essentially, they are  collections of [Hooks](hooks) that run as part of your 
+Essentially, they are  collections of [Hooks][hooks] that run as part of your 
 builds. They can be hosted on GitHub, BitBucket or a private git repository and 
 are automatically fetched as required. 
 
-Buildkite offers a [collection of useful plugins](Buildkite Plugins) 
-to get you started, including a docker-compose plugin and a plugin for secure 
-secrets storage on s3.
+Buildkite offers a [collection of useful plugins][Buildkite Plugins]
+to get you started, including a [docker-compose plugin] and a plugin for [secure 
+secrets storage][s3-secrets plugin] on Amazon S3.
 
 <%= toc %>
 
@@ -77,7 +77,7 @@ changing unexpectedly. This is done with a git tag of `vX.X.X`.
 
 ## Developing a plugin
 
-The best place to get started is the [Buildkite Plugins] repository, or [third-party plugins with the `buildkite-agent` tag](third party plugins).
+The best place to get started is the [Buildkite Plugins] repository, or [third-party plugins with the `buildkite-agent` tag][third party plugins].
 
 We mostly write our plugins as shell scripts, so we've created a [plugin tester] 
 docker image that simplifies writing BATS tests and getting your plugin tested (so meta).
@@ -147,18 +147,20 @@ The practices that we follow are:
 
  * Apply special care in plugins to avoid executing arbitrary code passed in by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
-For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or preventing them from being loaded entirely with the `no-plugins` [agent configuration]() parameter.
+For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or preventing them from being loaded entirely with the `no-plugins` [agent configuration](TODO) parameter.
 
 ## We love feedback!
 
 Agent plugins are still a new thing and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
 
+[pipelines]: https://buildkite.com/docs/pipelines/defining-steps
 [hooks]: https://buildkite.com/docs/agent/hooks
 [standard environment variables]: https://buildkite.com/docs/builds/environment-variables#provided-by-buildkite
 [Unofficial Bash Strict Mode]: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 [shellcheck]: https://github.com/koalaman/shellcheck
 [docker plugin]: https://github.com/buildkite-plugins/docker-buildkite-plugin
 [docker-compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
+[s3-secrets plugin]: https://github.com/buildkite-plugins/s3-secrets-buildkite-plugin
 [Buildkite Plugins]: https://github.com/buildkite-plugins
 [third party plugins]: https://github.com/search?q=topic%3Abuildkite-plugin&type=Repositories
 [plugin tester]: https://github.com/buildkite-plugins/plugin-tester
