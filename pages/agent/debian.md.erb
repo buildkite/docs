@@ -26,9 +26,9 @@ See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
 
 You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
 
-```shell
-## For Debian 8.x (systemd)
+### For Debian 8.x (systemd)
 
+```shell
 # Disable the default unit
 sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
 
@@ -44,8 +44,11 @@ sudo journalctl -f -u "buildkite-agent@*"
 
 # Or one-by-one
 sudo journalctl -f -u buildkite-agent@2
+```
 
-## For Debian 7.x (using upstart)
+### For Debian 7.x (using upstart)
+
+```shell
 sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
 sudo service buildkite-agent-2 start
 sudo tail -f /var/log/upstart/buildkite-agent-2.log
