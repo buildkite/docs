@@ -9,6 +9,23 @@ steps:
   - trigger: "another-pipeline"
 ```
 
+The user account that triggers the initial build must have access to all subsequent triggered builds.
+
+The account used to trigger the inital build must have access to all of the pipelines that will create builds from the trigger step.
+
+The buildkite account used to create
+The user account that creates
+The account used to create 
+The email used to create
+the inital build will also be used to create builds from trigger steps. 
+
+The author of the initial build will also be the author of builds created from trigger steps. 
+
+This author must have access to all of the pipelines that will create builds from this step.
+This author must have access to all of the pipelines that will be triggered by this step.  
+
+If the author does not have the required access, the initial build will fail, and builds on subsequent pipelines will not be triggered.
+
 ## Trigger Step Attributes
 
 _Required attributes:_
