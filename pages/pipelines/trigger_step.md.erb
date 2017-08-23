@@ -9,11 +9,17 @@ steps:
   - trigger: "another-pipeline"
 ```
 
-The author of the initial build will be the author of all builds created from a trigger step. 
+All builds created by a trigger step will be authored by the same user that created the initial build. This user must:
 
-If you have [Teams](/docs/pipelines/permissions) enabled in your organisation, ensure that this author has Build permission on all of the pipelines that will be triggered by this step.
+* be a member of your organisation
+* have a verified email address
+
+If you have [Teams](/docs/pipelines/permissions) enabled in your organisation, the authoring user must also have:
+
+* 'Build' permission on *every* pipeline that will be triggered
 
 If the author does not have the required access, the initial build will fail, and builds on subsequent pipelines will not be triggered.
+
 
 ## Trigger Step Attributes
 
