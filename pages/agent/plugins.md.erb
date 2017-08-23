@@ -59,8 +59,8 @@ steps:
         run: app
 ```
 
-In the 2.x agent, this sort of thing was only possible by either using the 
-limited docker environment variables, or writing a custom script. 
+In the 2.x agent, this approach was only possible by either using the 
+docker environment variables, or writing a custom script. 
 
 ## Plugin sources
 
@@ -141,7 +141,7 @@ One issue with plugins is that they introduce a third-party dependency in your p
 
 The practices that we follow are:
 
- * Always ping to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
+ * Always pin to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
 
  * Follow the [Unofficial Bash Strict Mode] and check your work with [shellcheck].
 
@@ -151,7 +151,7 @@ For particularly high-security setups, you can disable plugins selectively by re
 
 ## We love feedback!
 
-Agent plugins are still a new thing and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
+Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
 
 [pipelines]: https://buildkite.com/docs/pipelines/defining-steps
 [hooks]: https://buildkite.com/docs/agent/hooks
