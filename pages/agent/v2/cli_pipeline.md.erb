@@ -1,0 +1,74 @@
+# buildkite-agent pipeline
+
+The Buildkite Agent’s `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YML or JSON and can be read from a file or streamed from the output of a script.
+
+See the [Defining Your Pipeline Steps](/docs/pipelines/uploading-pipelines) guide for a step-by-step example and list of step types.
+
+<%= toc %>
+
+## Uploading pipelines
+
+```
+Usage:
+
+   buildkite-agent pipeline upload <file> [arguments...]
+
+Description:
+
+   Allows you to change the pipeline of a running build by uploading either a
+   JSON or YAML configuration file. If no configuration file is provided,
+   we look for the file in the following locations:
+
+   - .buildkite/pipeline.yml
+   - .buildkite/pipeline.json
+
+   You can also pipe build pipelines to the command, allowing you to create scripts
+   that generate dynamic pipelines.
+
+Example:
+
+   $ buildkite-agent pipeline upload
+   $ buildkite-agent pipeline upload my-custom-steps.json
+   $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+
+Options:
+
+   --replace                                    Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
+   --job                                        The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --agent-access-token                         The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint "https://agent.buildkite.com/v3"  The Agent API endpoint [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                                   Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                                      Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                                 Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Pipeline format
+
+The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are two top level properties you can specify:
+
+* `env` - A map of <a href="/docs/builds/environment-variables">environment variables</a> to apply to all steps
+* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+
+## Environment variable substitution
+
+Buildkite Agent 2.0 doesn't support variable interpolation, this is only available in 3+, see the [pipeline cli reference for 3.x](/docs/agent/v3/cli-pipeline).
+
+If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
+
+```shell
+echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
+```
+
+Alternately, you can use a heredoc in a bash script:
+
+```shell
+buildkite-agent pipeline upload < YML
+- trigger: "app-deploy"
+  label: ":rocket: Deploy"
+  branches: "master"
+  async: true
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+YML

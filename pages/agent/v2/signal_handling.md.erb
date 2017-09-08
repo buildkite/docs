@@ -1,0 +1,9 @@
+# Signal Handling
+
+The Buildkite Agent responds to standard operating system signals to allow it to gracefully shutdown.
+
+<%= toc %>
+
+## Linux / BSD/ macOS
+
+When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit. If the process does not exit within 10 seconds it will be forcefully terminated with a `SIGKILL` signal.

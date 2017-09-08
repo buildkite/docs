@@ -21,34 +21,38 @@ The priority of the agent (higher priorities are assigned work first, null is as
 _Default:_ `null`<br>
 _Environment variable:_ `BUILDKITE_AGENT_PRIORITY`
 
-`meta-data`<br>
-Meta data for the agent<br>
+`tags`<br>
+Tags for the agent<br>
 _Default:_ `"queue=default"`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA`
+_Environment variable:_ `BUILDKITE_AGENT_TAGS`<br>
+_Introduced in:_ 3.0.0
 
-`meta-data-ec2`<br>
-Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data<br>
+`tags-ec2`<br>
+Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as tags<br>
 _Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2`
+_Environment variable:_ `BUILDKITE_AGENT_TAGS_EC2`<br>
+_Introduced in:_ 3.0.0
 
-`meta-data-ec2-tags`<br>
-Include the host's EC2 tags as meta-data<br>
+`tags-ec2-tags`<br>
+Include the host's EC2 tags as tags<br>
 _Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2_TAGS`
+_Environment variable:_ `BUILDKITE_AGENT_TAGS_EC2_TAGS`<br>
+_Introduced in:_ 3.0.0
 
 `git-clean-flags`<br>
 Flags to pass to the `git clean` command<br>
-_Default:_ `"-fdq"`<br>
+_Default:_ `"-fxdq"`<br>
 _Environment variable:_ `BUILDKITE_GIT_CLEAN_FLAGS`
+_Note:_ Prior to 3.0 this defaulted to `"-fdq"`
 
 `git-clone-flags`<br>
 Flags to pass to the `git clone` command<br>
 _Default:_ `"-v"`<br>
-_Environment variable:_ `BUILDKITE_GIT_CLONE_FLAGS`
+_Environment variable:_ `BUILDKITE_GIT_CLONE_FLAGS`<br>
 
 `bootstrap-script`<br>
-Path to the bootstrap script<br>
-_Default:_ (depends on platform)<br>
+Command to invoke the bootstrap process<br>
+_Default:_ `buildkite-agent bootstrap`<br>
 _Environment variable:_ `BUILDKITE_BOOTSTRAP_SCRIPT_PATH`
 
 `build-path`<br>
@@ -76,6 +80,18 @@ Do not allow this agent to run arbitrary console commands<br>
 _Default:_ `false`<br>
 _Environment variable:_ `BUILDKITE_NO_COMMAND_EVAL`
 
+`disconnect-after-job`<br>
+Disconnect after processing a single job<br>
+_Default:_ `false`<br>
+_Environment variable:_ `BUILDKITE_AGENT_DISCONNECT_AFTER_JOB`<br>
+_Introduced In:_ 3.0.0+
+
+`disconnect-after-job-timeout`<br>
+When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down<br>
+_Default:_ `120`<br>
+_Environment variable:_ `BUILDKITE_AGENT_DISBUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUTCONNECT_AFTER_JOB`<br>
+_Introduced In:_ 3.0.0+
+
 `debug`<br>
 Enable debug mode<br>
 _Default:_ `false`<br>
@@ -96,12 +112,38 @@ Prepend timestamps on each line of output<br>
 _Default:_ `false`<br>
 _Environment variable:_ `BUILDKITE_TIMESTAMP_LINES`
 
+`no-plugins`<br>
+Do not load any plugins<br>
+_Default:_ `false`<br>
+_Environment variable:_ `BUILDKITE_AGENT_NO_PLUGINS`<br>
+_Introduced In:_ 3.0.0+
+
+## Deprecated Configuration Settings
+
+`meta-data`<br>
+Meta data for the agent<br>
+_Default:_ `"queue=default"`<br>
+_Environment variable:_ `BUILDKITE_AGENT_META_DATA`<br>
+_Use instead:_ `tags` in 3.0+
+
+`meta-data-ec2`<br>
+Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data<br>
+_Default:_ `false`<br>
+_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2`<br>
+_Use instead:_ `tags-from-ec2 ` in 3.0+
+
+`meta-data-ec2-tags`<br>
+Include the host's EC2 tags as meta-data<br>
+_Default:_ `false`<br>
+_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2_TAGS`<br>
+_Use instead:_ `tags-from-ec2-tags ` in 3.0+
+
 ## Example Configuration File
 
 ```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
 name="my-app-%n"
-meta-data="ci=true,docker=true"
+tags="ci=true,docker=true"
 git-clean-flags="-fdqx"
 debug=true
 ```
@@ -111,7 +153,7 @@ debug=true
 Most configuration options can be specified as environment variables when starting the agent, for example:
 
 ```sh
-BUILDKITE_AGENT_META_DATA="queue=deploy,host=$(hostname)" buildkite-agent start
+BUILDKITE_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
 These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hook scripts](/docs/agent/hooks).

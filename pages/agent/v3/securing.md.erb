@@ -1,0 +1,98 @@
+# Securing your Buildkite Agent
+
+In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
+
+<%= toc %>
+
+## Using environment hooks for secrets
+
+The agent’s [global enviroment hook](hooks) is a convenient place for making secrets available to the build scripts. Once the environment hook exports the secret as an environment variable it will then be available to the build script. For example:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+echo '--- \:house_with_garden\: Setting up the environment'
+
+export GITHUB_RELEASE_ACCESS_KEY='xxx'
+```
+
+If you want to control which build steps have which secrets exposed you can check the value of `$BUILDKITE_COMMAND` before exporting it, for example:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+echo '--- \:house_with_garden\: Setting up the environment'
+
+if [[ "${BUILDKITE_COMMAND}" == "script/release" ]]; then
+  export RELEASE_KEY=`vault get release-key`
+fi
+```
+
+## Disabling automatic SSH fingerprint verification
+
+By default the agent will auto-verify the SSH host using `ssh-keyscan` when doing the first checkout on a new agent host. Once you disable this functionality you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+
+Automatic SSH fingerprint verification can be disabled by setting `no-automatic-ssh-fingerprint-verification` in one of the following ways:
+
+* Environment variable: `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION=1`
+* Command line flag: `--no-automatic-ssh-fingerprint-verification`
+* Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
+
+## Disabling command eval
+
+By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
+
+To disable command line evaluation use one of the following settings:
+
+* Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
+* Command line flag: `--no-command-eval`
+* Configuration setting: `no-command-eval=true`
+
+Note: hooks and plugins (Buildkite Agent 3.x) can override this setting. See [Whitelisting](#whitelisting) and [Custom boostrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+
+## Whitelisting
+
+You can use the [agent’s environment hook](hooks) to whitelist repositories, commands, plugins (for the Buildkite Agent 3.x beta), or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
+
+For example, the following environment hook allows only a single file from a single repository to be executed on the agent machine:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+if [[ "${BUILDKITE_REPO}" != "git@server:repo.git" ]]; then
+  echo "Repository not allowed: ${BUILDKITE_REPO}"
+  exit 1
+fi
+
+if [[ "${BUILDKITE_COMMAND}" != "some-script.sh" ]]; then
+  echo "Command not allowed: ${BUILDKITE_COMMAND}"
+  exit 1
+fi
+
+if [[ "${BUILDKITE_PLUGINS:-}" != "" ]]; then
+  echo "Plugins not allowed: ${BUILDKITE_PLUGINS}"
+  exit 1
+fi
+```
+
+## Customizing the bootstrap
+
+The Buildkite Agent comes with a default bootstrap script, but can [configured](/docs/agent/configuration) to your run your own. Providing your own bootstrap provides the highest level of security and control of your agent machine. You can use it to customize your agent, sanitize command output, and implement your own security logic.
+
+The Buildkite Agent is separated into a daemon executable and a bootstrap executable. The daemon is responsible for communicating with the Buildkite API and executing the bootstrap. The bootstrap is responsible checking out source code, calling hooks, running commands, and uploading build artifacts. The bootstrap is passed environment variables by the daemon process, and has its output streams and exit status captured.
+
+For example, the following custom bootstrap will print out the environment variables passed by the main agent process, print a hello world, and exit with a failure status:
+
+```bash
+#!/bin/bash
+set -euo pipefail
+
+env
+
+echo "Hello world"
+
+exit 1
+```
