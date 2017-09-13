@@ -48,7 +48,7 @@ Error responses:
 Unblocks a build’s "Block pipeline" job. The job’s `unblockable` property indicates whether it is able to be unblocked, and the `unblock_url` property points to this endpoint.
 
 ```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
   -d '{
     "fields": {
       "name": "Liam Neeson",
@@ -75,16 +75,17 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
 }
 ```
 
-<%#
 Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
   <tr><th><code>unblocker</code></th><td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td></tr>
-  <tr><th><code>fields</code></th><td>The fields provided to the unblocker as a key/value map.<br><em>Default value: </em><code>{}</code>.</td></tr>
+  <tr><th>
+    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/block-step#block-step-attributes">block step’s fields</a>.<br>
+    <p class="Docs__api-param-eg"><em>Example:</em> <code>{"release-name": "Flying Dolpin"}</code></p>
+  </td></tr>
 </tbody>
 </table>
-%>
 
 Required scope: `write_builds`
 
