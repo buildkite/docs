@@ -36,11 +36,11 @@ The following environment variables are automatically provided to every job, and
   <tr><th><code>BUILDKITE_BUILD_CREATOR</code></th><td>The name of the user who created the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"Tracy Tester"</code></p></td></tr>
   <tr><th><code>BUILDKITE_BUILD_CREATOR_EMAIL</code></th><td>The notification email of the user who created the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"tracy@acme-inc.com"</code></p></td></tr>
   <tr><th><code>BUILDKITE_BUILD_CREATOR_TEAMS</code></th><td>A colon separated list of team names that the build creator belongs to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"everyone:platform"</code></p></td ></tr>
-  <tr><th><code>BUILDKITE_PULL_REQUEST</code></th><td>The number of the pull request if this branch is a pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"123"</code> for pull request #123, or <code>"false"</code> if not a pull request</p></tr>
-  <tr><th><code>BUILDKITE_PULL_REQUEST_REPO</code></th><td>The repository URL of the third-party pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git://github.com/acme-inc/my-project.git"</code>, or <code>""</code> if not a pull request</p></tr>
-  <tr><th><code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code></th><td>The base branch that the pull request is targetting. <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code>, or <code>""</code> if the build is not part of a pull request.</p></tr>
-  <tr><th><code>BUILDKITE_REBUILT_FROM_BUILD_ID</code></th><td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"4735ba57-80d0-46e2-8fa0-b28223a86586"</code>, or <code>""</code> if not a rebuild</code></p></td ></tr>
-  <tr><th><code>BUILDKITE_REBUILT_FROM_BUILD_NUMBER</code></th><td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1514"</code>, or <code>""</code> if not a rebuild</code></p></td ></tr>
+  <tr><th><code>BUILDKITE_PULL_REQUEST</code></th><td>The number of the pull request if this branch is a pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"123"</code> for pull request #123, or <code>"false"</code> if not a pull request.</p></tr>
+  <tr><th><code>BUILDKITE_PULL_REQUEST_REPO</code></th><td>The repository URL of the third-party pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git://github.com/acme-inc/my-project.git"</code>, or <code>""</code> if not a pull request.</p></tr>
+  <tr><th><code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code></th><td>The base branch that the pull request is targetting. <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code>, or <code>""</code> if not a pull request.</p></tr>
+  <tr><th><code>BUILDKITE_REBUILT_FROM_BUILD_ID</code></th><td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"4735ba57-80d0-46e2-8fa0-b28223a86586"</code>, or <code>""</code> if not a rebuild.</p></td ></tr>
+  <tr><th><code>BUILDKITE_REBUILT_FROM_BUILD_NUMBER</code></th><td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1514"</code>, or <code>""</code> if not a rebuild.</p></td ></tr>
   </tbody>
 </table>
 
