@@ -21,4 +21,8 @@ You can also configure the *wait* step to continue even if the previous steps fa
 - wait: ~
   continue_on_failure: true
 - command: "echo This runs regardless of the success or failure"
+- wait
+- command: "echo The command passed"
 ```
+
+In this example, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
