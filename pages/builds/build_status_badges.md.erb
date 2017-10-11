@@ -12,7 +12,7 @@ By default the build status badge will show the last build’s status. You can s
 
 ## Scoping to a step
 
-If you want to create a badge that represents a single step in the last build, you can scope it that step by adding a `?step` parameter to the URL. For example, to scope your badge to the `iOS Build` branch you would add: `?step=iOS%20Build` to the URL. If you have multiple steps that match the given name it will show as passed only if all of the matching steps passed.
+If you want to create a badge that represents a single step in the last build, you can scope it that step by adding a `?step` parameter to the URL. For example, to scope your badge to the `iOS Build` branch you would add: `?step=iOS%20Build` to the URL. If you have multiple steps that match the given name it will show as passing only if all of the matching steps passed.
 
 ## Styles
 
@@ -22,16 +22,16 @@ You can set the style of the badge by passing in a `style` parameter:
   <tbody>
     <tr>
       <th>Default</th>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed" %></td>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passing" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failing" %></td>
       <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown" %></td>
     </tr>
 
     <% for style in ["square"] %>
       <tr>
         <th><code><span class="muted">?style=</span><%= style %></code></th>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&style=#{style}" %></td>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&style=#{style}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passing&style=#{style}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failing&style=#{style}" %></td>
         <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&style=#{style}" %></td>
       </tr>
     <% end %>
@@ -48,15 +48,15 @@ You can change the colors of the badges by passing in a `theme` parameter:
   <tbody>
     <tr>
       <th>Default</th>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed" %></td>
-      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passing" %></td>
+      <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failing" %></td>
       <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown" %></td>
     </tr>
     <% for theme in (Badge::Theme::STANDARD_THEMES.keys - ["default"]) %>
       <tr>
         <th><code><span class="muted">?theme=</span><%= theme %></code></th>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passed&theme=#{theme}" %></td>
-        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failed&theme=#{theme}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passing&theme=#{theme}" %></td>
+        <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failing&theme=#{theme}" %></td>
         <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&theme=#{theme}" %></td>
       </tr>
     <% end %>
@@ -67,7 +67,7 @@ You can change the colors of the badges by passing in a `theme` parameter:
 
 You can also create your own theme by passing a comma-separated list of color values instead of the theme name.
 
-The format is `passed-bg-color,failed-bg-color,unknown-bg-color[,label-bg-color[,text-color,status-text-color]]`
+The format is `passing-bg-color,failing-bg-color,unknown-bg-color[,label-bg-color[,text-color,status-text-color]]`
 
 For example:
 
@@ -84,7 +84,7 @@ For example:
     <% for example in examples %>
       <tr>
         <th><code><span class="muted">?theme=</span><%= example %></code></th>
-        <% for status in %w( passed failed unknown ) do %>
+        <% for status in %w( passing failing unknown ) do %>
           <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=#{status}&theme=#{example}" %></td>
         <% end %>
       </tr>
@@ -96,8 +96,8 @@ For example:
 
 You can use the following URLs for testing your theme:
 
-* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passed
-* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failed
+* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passing
+* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
 * <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
 
 ## Contributing
