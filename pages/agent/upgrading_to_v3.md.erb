@@ -1,0 +1,94 @@
+# Upgrading to Buildkite Agent v3
+
+The Buildkite Agent has changed a lot in v3, but we've tried to keep it as backwards compatible as possible. We'll cover what’s changed and how to upgrade to new agents.
+
+<%= toc %>
+
+## What's changed
+
+* [Pipeline Plugins](/docs/agents/plugins) for easily sharing functionality between pipelines
+* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to a sub-command of the `buildkite-agent bootstrap`. This means it's written in golang and is much easier for us to maintain and distribute.
+* Agent meta-data has been renamed to "tags"
+* Built-in [Docker and Docker Compose support](/docs/builds/docker-containerized-builds) has been deprecated and moved to dedicated plugins, [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+* Variable interpolation in pipeline.yml
+* Hooks support in Windows
+
+## Bootstrap customizations
+
+If you customized your `bootstrap.sh` file, you will need to move the changes to [hooks documentation](hooks), or update your bootstrap.sh to call `buildkite-agent bootstrap`.
+
+## Docker and Docker Compose support
+
+In v2 we supported a variety of environment variables like `BUILDKITE_DOCKER_COMPOSE_CONTAINER` and `BUILDKITE_DOCKER`. These are deprecated in favour of the [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin) pipeline plugin.
+
+You can keep using the old environment variables in v3, but they will be removed in v4.
+
+### Steps using `BUILDKITE_DOCKER_COMPOSE_CONTAINER`
+
+This is a step that uses the v2 `BUILDKITE_DOCKER_COMPOSE_CONTAINER` environment variable to run the command in a docker-compose container:
+
+```yaml
+steps:
+  - label: ':hammer: Tests'
+    command: 'scripts/tests.sh'
+    env:
+      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
+```
+
+To convert it to the [docker-compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)
+you would do this:
+
+```yaml
+steps:
+  - label: ':hammer: Tests'
+    command: 'scripts/tests.sh'
+    plugins:
+      docker-compose#v1.7.0:
+        run: app
+```
+
+Note that at present these plugins are implemented in bash, so will only work on non-windows platforms. Windows users should continue to use the environment vars.
+
+### Steps using `BUILDKITE_DOCKER`
+
+This is a step that uses the v2 `BUILDKITE_DOCKER` environment variable to run the command in docker container:
+
+```yaml
+steps:
+  - label: ':hammer: Tests'
+    command: 'scripts/tests.sh'
+    env:
+      BUILDKITE_DOCKER: true
+```
+
+There isn't a direct conversion for this at present, you can either add a docker-compose file and use the [docker-compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), or if you want to run your build in a docker container without providing a `Dockerfile` or a `docker-compose` file, you can use the [docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin):
+
+```yaml
+steps:
+  - label: ':hammer: Tests'
+    command: 'scripts/tests.sh'
+    plugins:
+      docker#v1.0.0:
+        image: "node:7"
+        workdir: /app
+```
+
+## Upgrading a 2.0 agent
+
+To upgrade you simply install the a new 3.0 agent using the [standard installation methods](/docs/agent/installation). You can use agent tags to create a new queue for 3.0 builds so that you can test it in parallel to your existing agents.
+
+To make installation easy we’ve created packages for each of the major operating systems.
+
+## Upgrading a 3.0 beta agent
+
+To upgrade a _Ubuntu / Debian_ 3.0 beta agent:
+
+* Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
+* Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
+
+To upgrade a _Red Hat / CentOS_ 3.0 beta agent:
+
+* Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
+* Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
+
+If you didn't install the agent using the above packages then simply update the agent like you did originally and you should get the latest stable version.
