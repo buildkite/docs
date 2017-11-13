@@ -100,6 +100,21 @@ You can use the following URLs for testing your theme:
 * <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
 * <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
 
+## JSON output
+
+You can get the JSON value of the status badge by specifying `.json` in the badge URL instead of `.svg`, including [branch scoping](#scoping-to-a-branch) and [step scoping](#scoping-to-a-step). For example:
+
+```shell
+$ curl https://badge.buildkite.com/3826789cf8890b426057e6fe1c4e683bdf04fa24d498885489.json?branch=master
+{"status": "passing"}
+```
+
+Possible values for the `"status"` key are:
+
+* `"passing"`
+* `"failing"`
+* `"unknown"`
+
 ## Contributing
 
 Want to contribute a theme? Send a pull request to [buildkite/build-status-badge-themes](https://github.com/buildkite/build-status-badge-themes).
