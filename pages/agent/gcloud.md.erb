@@ -186,6 +186,25 @@ spec:
   ...
 ```
 
+If you git clone over https (for example using a [GitHub API token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)) you could mount a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) instead:
+
+```yaml
+spec:
+containers:
+- ...
+  volumeMounts:
+  - name: git-credentials
+    mountPath: /root/.git-credentials
+    subPath: .git-credentials
+  ...
+volumes:
+- name: git-credentials
+  secret:
+    secretName: buildkite-agent-git-credentials
+    defaultMode: 0400
+...
+```
+
 ### Further configuration
 
 To [configure](/docs/agent/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/user-guide/configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
