@@ -6,7 +6,13 @@ You can use branch patterns to ensure pipelines are only triggered when necessar
 
 ## Pipeline-level branch filtering
 
-By default a pipeline will trigger builds for all branches (`*` or simply left blank). In your pipeline settings you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build will be created.
+By default a pipeline will trigger builds for all branches (`*` or blank). In your pipeline settings you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build will be created.
+
+<section class="Docs__troubleshooting-note">
+  <h1>Pull Request Builds</h1>
+  <p>Builds created for pull requests will ignore any pipeline-level branch filters. If you want to limit the branches that can build pull requests, add an additional branch filter in your pipeline's source control settings.</p>
+  <p>This filter can be found under 'Build pull requests' if you have chosen the 'Trigger builds after pushing code' option.</p>
+</section>
 
 ## Step-level branch filtering
 
@@ -14,7 +20,31 @@ Similarly to pipeline settings, you can set branch patterns on individual steps.
 
 <%= image "job-branches.png" %>
 
-Note that the build will still continue onto the next steps (even if there's a wait step afterwards).
+```
+steps:
+  - label: ":hammer: Build"
+    command: 
+      - "npm install"
+      - "tests.sh"
+    branches: "feature/* release/* master !infrastructure"
+  - block: "Release notes"
+    prompt: "Please add notes for this release"
+    fields:
+      - text: "Notes"
+        key: "notes"
+    branches: "release/*"
+  - label: "Deploy Preparation"
+    command: "deploy-prep.sh"
+    branches: "master"
+  - wait
+  - trigger: "app-deploy"
+    label: ":shipit:"
+    branches: "master"
+```
+
+<section class="Docs__note">
+  <p>The build will still continue onto the next steps (even if there's a wait step afterwards)!</p>
+</section>
 
 ## Branch pattern examples
 
