@@ -18,10 +18,6 @@ By default a pipeline will trigger builds for all branches (`*` or blank). In yo
 
 As with pipeline-level branch filtering, you can set branch patterns on individual steps. Steps that have branch filters will only be added to builds on branches matching the pattern.
 
-You can add branch filters to steps created in Buildkite, or to steps in your pipeline.yml file.
-
-<%= image "job-branches.png", width: 782/2, height: 372/2, alt: "Screenshot of the Branch Filtering field of a step in Buildkite"%>
-
 For example, this pipeline.yml file demonstrates the use of different branch filters on its steps:
 
 ```
@@ -46,8 +42,12 @@ steps:
     branches: "master"
 ```
 
+You can add branch filters to steps created in Buildkite, as well as to steps in your pipeline.yml file.
+
+<%= image "job-branches.png", width: 782/2, height: 372/2, alt: "Screenshot of the Branch Filtering field of a step in Buildkite"%>
+
 <section class="Docs__note">
-  <p>The build will still continue onto the next steps (even if there's a wait step afterwards).</p>
+  <p>Step-level branch filters will only affect the step that they are added to. Subsequent steps without branch filters will still be added to the pipeline.</p>
 </section>
 
 ## Branch pattern examples
