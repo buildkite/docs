@@ -1,4 +1,4 @@
-# Using Build Metadata
+# Using Build Meta-data
 
 In this guide we’ll walk through using the Buildkite Agent’s [meta-data command](/docs/agent/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
 
@@ -6,7 +6,7 @@ In this guide we’ll walk through using the Buildkite Agent’s [meta-data comm
 
 ## Setting data
 
-To set meta-data you can simply:
+To set meta-data, use the `set` command with a key/value pair:
 
 ```bash
 buildkite-agent meta-data set "release-version" "1.1"
@@ -14,7 +14,7 @@ buildkite-agent meta-data set "release-version" "1.1"
 
 ## Getting data
 
-To retrieve meta-data in a later step:
+To retrieve meta-data in a later step, use the `get` command with the previously set key:
 
 ```bash
 buildkite-agent meta-data get "release-version"
@@ -22,4 +22,4 @@ buildkite-agent meta-data get "release-version"
 
 ## Further documentation
 
-See the [Buildkite Agent build meta-data documentation](/docs/agent/cli-meta-data) for a full list of options and details of Buildkite’s artifact support.
+See the [Buildkite Agent build meta-data documentation](/docs/agent/cli-meta-data) for a full list of options and details of Buildkite’s meta-data support.

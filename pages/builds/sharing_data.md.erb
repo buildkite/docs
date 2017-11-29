@@ -1,0 +1,37 @@
+# Sharing Data Between Steps
+
+- there are two mains ways to share data between the steps of a build: artifacts and meta-data
+- both are available org wide?
+
+<%= toc %>
+
+## Build Artifacts
+
+- this is a store hosted by buildkite
+- can upload and download from it
+- there are limits to how much you can upload, how long we keep them for
+- can also use your own personal store like s3
+
+- for an intro to uploading and downloading, see the Using Build Artifacts page
+- for more technical information about the buildkite-agent artifact command and what you can do with it, see the cli-artifact page
+
+## Build Meta-data
+
+- key value store
+- text only
+- can set and get data from it
+- is available across agents as well as build steps
+
+- for usage examples, see the Using Build Meta-data page 
+- to see the cli reference, go to the cli-meta-data page
+
+## Common Use Cases For Data Sharing
+
+### Use artifacts
+- node_modules
+- logs
+- build files/tars
+
+### Use meta-data
+- release version
+- 
