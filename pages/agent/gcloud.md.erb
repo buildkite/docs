@@ -1,6 +1,6 @@
 # Running Buildkite Agent on Google Cloud Platform
 
-The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Container Engine.
+The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Container Engine via Kubernetes.
 
 <%= toc %>
 
@@ -184,6 +184,25 @@ spec:
       secretName: buildkite-agent-ssh
       defaultMode: 0400
   ...
+```
+
+If you git clone over https (for example using a [GitHub API token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/)) you could mount a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) instead:
+
+```yaml
+spec:
+containers:
+- ...
+  volumeMounts:
+  - name: git-credentials
+    mountPath: /root/.git-credentials
+    subPath: .git-credentials
+  ...
+volumes:
+- name: git-credentials
+  secret:
+    secretName: buildkite-agent-git-credentials
+    defaultMode: 0400
+...
 ```
 
 ### Further configuration
