@@ -2,12 +2,13 @@
 
 In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/cli-artifact) to store and retrieve files between different steps in a build pipeline.
 
+For a higher level overview, see our guide on [Sharing Data Between Steps](/docs/builds/sharing-data)
+
 <%= toc %>
 
 ## Uploading Artifacts
 
-By default the agent will upload any artifacts you’ve specified in your build
-step’s “Artifact Uploading” pattern:
+If you're using web UI to define your pipeline, you can use the "Automatic Artifact Uploading" configuration option. Defining a pattern here will cause your agents to automatically upload any artifacts that match your file path pattern. 
 
 <%= image 'artifact_pattern.png', size: '390x125', alt: 'Artifact pattern configuration' %>
 
