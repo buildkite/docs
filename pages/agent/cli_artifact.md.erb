@@ -239,7 +239,7 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
-## Using your own S3 bucket
+## Using your own private AWS S3 bucket
 
 If you’d like to upload artifacts to your own Amazon S3 bucket you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
@@ -295,3 +295,7 @@ However you won't be able to see these objects without credentials in your brows
 ```bash
 export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 ```
+
+## Using your own private Google Cloud bucket
+
+You can use your own private gcloud storage bucket for storing artifacts. See our [Google Cloud Installation Guide](/docs/agent/gcloud#uploading-artifacts-to-google-cloud-storage) for details on how to set it up.
