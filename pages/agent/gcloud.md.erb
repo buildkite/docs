@@ -176,7 +176,11 @@ spec:
   - ...
     volumeMounts:
     - name: ssh-keys
-      mountPath: /root/.ssh
+      mountPath: /root/.ssh/id_rsa
+      subPath: id_rsa
+    - name: ssh-keys
+      mountPath: /root/.ssh/id_rsa.pub
+      subPath: id_rsa.pub
     ...
   volumes:
   - name: ssh-keys
