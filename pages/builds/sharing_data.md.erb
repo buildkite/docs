@@ -8,27 +8,32 @@ There are two ways to share data between steps in a build: artifacts and meta-da
 
 ## Build Artifacts
 
-- artifacts are any files that are generated during a build step 
-- Buildkite can host these files for you in the Buildkite artifact store
+Artifacts are any files that are generated during a build step. Buildkite can host these files for you in the Buildkite artifact store. 
  
-- you can upload and download from the store using our api
-- there are limits to how much you can upload, how long we keep them for
-- if you don't want Buildkite to host your files, you can use your own personal store, like s3
+You can upload and download from the store using our REST API. There are limits to how much you can upload, and to how long your files can be kept for. You can also use our command-line tool to upload your artifacts to a personal store.  
 
-For an introduction to uploading and downloading from the Buildkite artifact store, see the [Using Build Artifacts](/docs/builds/artifacts) page.
+Using a personal store like Amazon S3 is recommended when:
+
+- you need to persist the artifact longer than the build
+- your artifacts contain sensitive information
+
+For a short introduction to uploading and downloading from the Buildkite artifact store, see the [Using Build Artifacts](/docs/builds/artifacts) page.
+
 For more technical information about the `buildkite-agent artifact` command and what you can do with it, see the [artifact command-line reference](/docs/agent/cli-artifact). This page also provides instructions for using your own S3 bucket.
 
 ## Build Meta-data
 
+Build meta-data are key/value pairs that you set in a build step.
+
 - key value store
 - text only
 - can set and get data from it
-- is available across agents as well as build steps
+- is available across agents as well as build steps, even if the agents are running on different platforms 
 
 - for usage examples, see the Using Build Meta-data page 
 - to see the cli reference, go to the cli-meta-data page
 
-## Common Use Cases For Data Sharing
+## Common Use Cases
 
 ### Use artifacts
 - node_modules
@@ -38,7 +43,7 @@ For more technical information about the `buildkite-agent artifact` command and 
 - you could also use artifacts for:
 
 ### Use meta-data
+- agent targetting
 - release version
-
 
 - you could also use meta-data for:
