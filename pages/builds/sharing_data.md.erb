@@ -23,12 +23,19 @@ For more technical information about the `buildkite-agent artifact` command and 
 
 ## Build Meta-data
 
-Build meta-data are key/value pairs that you set in a build step.
+Meta-data are key/value pairs that you set in build steps. 
 
 - key value store
-- text only
+- text only, but the cli will take output from commands and scripts and take it as a string for the value
 - can set and get data from it
 - is available across agents as well as build steps, even if the agents are running on different platforms 
+
+- use the meta-data cli command in scripts to add arbitrary data to the key/value store
+- can also use the 'agent' attribute on a command step to add meta-data specifically for agent targetting
+
+- block steps use the meta-data store to hold the data entered into form fields
+
+- trigger steps use the meta_data attribute to set meta-data on the new build you are creating 
 
 - for usage examples, see the Using Build Meta-data page 
 - to see the cli reference, go to the cli-meta-data page
