@@ -33,26 +33,20 @@ It is available across agents as well as build steps, even if the agents are run
 Step type specific uses of meta-data: 
 
 - Command step: the `agent` attribute will add a meta-data key specifically for agent targeting
-- Block step: data entered into form fields is stored in meta-data 
+- Block step: data from form fields is stored in the meta-data store 
 - Trigger step: the `meta_data` attribute will set meta-data on the new build you are creating 
 
 Both the key and value fields accept text only. You can create meta-data pairs with plain text, or by piping in the output of commands or scripts. The meta-data store will accept values up to 1mb; if you need to store data larger than this, we recommend creating an artifact.
 
-For code examples of setting and getting meta-data, see the [Using Build Meta-data page]().
-
-For the cli reference, go to the [cli-meta-data page](/docs/agent/cli-meta-data).
+For code examples of setting and getting meta-data, see the [Using Build Meta-data page](). For more information about the meta-data command in the `buildkite-agent` cli, have a look at the reference on the [cli-meta-data page](/docs/agent/cli-meta-data).
 
 ## Common Use Cases
 
-### Use artifacts
+### Artifacts
 - node_modules
 - logs
 - build files/tars
 
-You could also use artifacts for:
-
-### Use meta-data
+### Meta-data
 - agent targetting
 - release version
-
-You could also use meta-data for:
