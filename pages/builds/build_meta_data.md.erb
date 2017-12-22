@@ -6,19 +6,31 @@ In this guide we’ll walk through using the Buildkite Agent’s [meta-data comm
 
 ## Setting data
 
-To set meta-data, use the `set` command with a key/value pair:
+You can set meta-data via the command line or in a script. Both of these methods use the `buildkite-agent` cli with the `meta-data` command. 
+
+To set meta-data in a script, use the `set` command with a key/value pair:
 
 ```bash
 buildkite-agent meta-data set "release-version" "1.1"
 ```
 
+This command results in the value "1.1" being associated with the key "release-version" in the meta-data store. 
+
+To set the meta-data on an agent from the command line:
+
 ## Getting data
 
-To retrieve meta-data in a later step, use the `get` command with the previously set key:
+You can retreive data from the meta-data store either via the command line or in a script. The same as when setting data, both of these methods use the `buildkite-agent` cli with the `meta-data` command.
+
+Values can only be retreived from the store after it has been set - ensure that any steps that are getting data are guaranteed to run after the completion of the step that sets the data. One way to ensure workflows in this way is to use a [wait step](/docs/pipelines/wait-step).
+
+To retrieve meta-data, use the `get` command with the previously set key:
 
 ```bash
 buildkite-agent meta-data get "release-version"
 ```
+
+Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version",  
 
 ## Further documentation
 
