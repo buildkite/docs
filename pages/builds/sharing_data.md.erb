@@ -1,8 +1,8 @@
 # Sharing Data Between Steps
 
-There are two ways to share data between steps in a build: artifacts and meta-data. 
+Sharing data between the steps of your build removes repetion and speeds up your build time. Passing data like npm packages and docker containers between steps can help keep your steps single-purpose (and cuts down the time each step takes and how much processing it has to do).   
 
-- both are available org wide?
+There are two ways to share data between steps in a build: artifacts and meta-data. Both of these data stores are accessible across your organisation and pipelines.  
 
 <%= toc %>
 
@@ -49,10 +49,10 @@ Meta-data are key/value pairs that you set in build steps.
 - logs
 - build files/tars
 
-- you could also use artifacts for:
+You could also use artifacts for:
 
 ### Use meta-data
 - agent targetting
 - release version
 
-- you could also use meta-data for:
+You could also use meta-data for:
