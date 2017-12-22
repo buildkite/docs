@@ -25,22 +25,22 @@ For more technical information about the `buildkite-agent artifact` command and 
 
 ## Build Meta-data
 
-Meta-data are key/value pairs that you set in build steps. 
+Meta-data are key/value pairs that you set in build steps. The Buildkite meta-data store is a basic key/value store that is accessible across pipelines by anyone in your organisation.
 
-- key value store
-- text only, but the cli will take output from commands and scripts and take it as a string for the value
-- can set and get data from it
-- is available across agents as well as build steps, even if the agents are running on different platforms 
+Using the `buildkite-agent` cli with the `meta-data` command, you can set and get arbitrary data from the meta-data store. You can also use the command inside scripts.
+It is available across agents as well as build steps, even if the agents are running on different platforms. 
 
-- use the meta-data cli command in scripts to add arbitrary data to the key/value store
-- can also use the 'agent' attribute on a command step to add meta-data specifically for agent targetting
+Step type specific uses of meta-data: 
 
-- block steps use the meta-data store to hold the data entered into form fields
+- Command step: the `agent` attribute will add a meta-data key specifically for agent targeting
+- Block step: data entered into form fields is stored in meta-data 
+- Trigger step: the `meta_data` attribute will set meta-data on the new build you are creating 
 
-- trigger steps use the meta_data attribute to set meta-data on the new build you are creating 
+Both the key and value fields accept text only. You can create meta-data pairs with plain text, or by piping in the output of commands or scripts. The meta-data store will accept values up to 1mb; if you need to store data larger than this, we recommend creating an artifact.
 
-- for usage examples, see the Using Build Meta-data page 
-- to see the cli reference, go to the cli-meta-data page
+For code examples of setting and getting meta-data, see the [Using Build Meta-data page]().
+
+For the cli reference, go to the [cli-meta-data page](/docs/agent/cli-meta-data).
 
 ## Common Use Cases
 
