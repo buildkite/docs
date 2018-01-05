@@ -4,9 +4,9 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 <%= toc %>
 
-## Provided by Buildkite
+## Standard Buildkite environment variables
 
-The following environment variables are automatically provided to every job, and can’t be overriden by your pipeline configuration.
+The following environment variables are automatically provided to every job, and are read only. They can’t be overriden by your pipeline configuration or environment hooks.
 
 <table>
 <tbody>
@@ -137,6 +137,13 @@ The following environment variables are automatically provided to every job, and
 </tbody>
 </table>
 
+Bootstrap vars:
+BUILDKITE_DISABLE_GIT_SUBMODULES
+BUILDKITE_REFSPEC
+
+## How environment variables are interpolated
+
+
 ## Defining your own
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
@@ -144,3 +151,17 @@ You can define environment variables in your jobs in a few ways, depending on th
 * Pipeline settings — for values that are not secret.
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
 * An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
+
+## Writable variables for specific purposes:
+
+Using S3 (see our [S3 docs](/docs/agent/cli-artifact#using-your-own-s3-bucket) for more information):
+BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
+BUILDKITE_S3_DEFAULT_REGION
+BUILDKITE_S3_ACCESS_KEY_ID
+BUILDKITE_S3_SECRET_ACCESS_KEY
+BUILDKITE_S3_ACL
+
+Using Google Cloud (see our [google cloud docs](/docs/agent/cli-artifact#using-your-own-private-google-cloud-bucket) for more information):
+BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
+BUILDKITE_GS_* <Needs more info>
+
