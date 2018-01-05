@@ -141,8 +141,56 @@ Bootstrap vars:
 BUILDKITE_DISABLE_GIT_SUBMODULES
 BUILDKITE_REFSPEC
 
-## How environment variables are interpolated
+## How environment variables do the thing
 
+~~~
+Job environment
+~~~
+
+Base Job environment (before being sent to the agent, this is what you see in the rest api when you look at the job):
+project, step and build env - via bk.com, user supplied
+an env is created for a job, which is then merged with project, step (defined in the pipeline settings page, or from yaml), and build env vars (from the ui or from the rest api)
+bk's set env is merged with user supplied from the build, then the step, then the project
+bk env (most important, not overridden by the following bits) > build > step > project (least important, can be overridden by everything else)
+bk set env: https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32
+
+
+Pipeline upload (has the opportunity to add stuff to the base job before it's sent to the agent):
+setting the env at the top of the yaml (applied to each step)
+step level env, but set in the yaml rather than the ui
+
+Trigger step:
+env set in a trigger step end up as build env on the newly created build
+you don't get the 'all steps env' from the top of the yaml on a trigger step, only what you choose to set in that trigger step's env attribute
+
+~~~
+Agent environment
+~~~
+
+agent process has an environment:
+- os env
+- stuff you've set for your agent
+- inherited stuff from how you started the process
+
+agent start docs have a list of variables/flags you can set
+also look here: https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go
+
+~~~
+Job is accepted by an agent
+~~~
+
+copy in the job's environment from bk.com
+merge in some of the agent's env vars (i.e. not the registration token, it's given it's own access token)
+adds some new agent vars (describes the agent that the job is running in)
+vars to tell the bootstrap and other commands what to do
+bootstrap is started with the env supplied by the agent
+bootstrap adds its own env vars
+bootstrap runs all the hooks (plugin, environment etc.) 
+vars from hooks are merged in to the bootstrap env, these can override anything that exists in the env (be careful with these, they're powerful)
+
+Tada! This is the env your command runs in.
+
+If you change the env in the job script, it will only survive as long as the script is running. 
 
 ## Defining your own
 
