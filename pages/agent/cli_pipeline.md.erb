@@ -79,8 +79,10 @@ If you want an environment variable to be evaluated at run-time (for example, us
 If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
 
 ```shell
-echo $(eval echo $(cat pipeline.yml)) | buildkite-agent pipeline upload
+eval "echo \"$(cat pipeline.yml)\"" | tee /dev/stderr | buildkite-agent pipeline upload
 ```
+
+Omit the `tee` command if you have no need to see the resulting YAML.
 
 ### Escaping the `$` character
 
