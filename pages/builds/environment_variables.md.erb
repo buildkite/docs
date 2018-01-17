@@ -147,25 +147,42 @@ BUILDKITE_REFSPEC
 
 ## How environment variables do the thing
 
+- you can set env vars in lots of different places, which ones take precedence can get a little confusing
+- there are many different levels at which environment variables are merged together
+- this example demonstrates the order in which env vars are combined, as if you had set variables in every possible place
+
+- when a job runs on an agent, the first step when putting together the environment happens in the job itself:
+
 ~~~
 Job environment
 ~~~
 
+- a base environment is created for every job
+- this is made up of at least one, and up to four different sets of variables combined together: 
+
+standard: the set of variables provided by Buildkite to every job
+optional: variables set on the build by you in when creating a new build
+optional: variables set on a step in the UI or in a pipeline.yml file by you
+optional: variables set on a pipeline in the Pipeline Settings page by you
+
+- these are merged together in the following way:
+(maybe put an image or example code here)
+
 Base Job environment (before being sent to the agent, this is what you see in the rest api when you look at the job):
-project, step and build env - via bk.com, user supplied
-an env is created for a job, which is then merged with project, step (defined in the pipeline settings page, or from yaml), and build env vars (from the ui or from the rest api)
-bk's set env is merged with user supplied from the build, then the step, then the project
-bk env (most important, not overridden by the following bits) > build > step > project (least important, can be overridden by everything else)
-bk set env: https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32
+  - project, step and build env - via bk.com, user supplied
+  - an env is created for a job, which is then merged with project, step (defined in the pipeline settings page, or from yaml), and build env vars (from the ui or from the rest api)
+  - bk's set env is merged with user supplied from the build, then the step, then the project
+  - bk env (most important, not overridden by the following bits) > build > step > project (least important, can be overridden by everything else)
+  - bk set env: https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32
 
 
 Pipeline upload (has the opportunity to add stuff to the base job before it's sent to the agent):
-setting the env at the top of the yaml (applied to each step)
-step level env, but set in the yaml rather than the ui
+  setting the env at the top of the yaml (applied to each step)
+  step level env, but set in the yaml rather than the ui
 
 Trigger step:
-env set in a trigger step end up as build env on the newly created build
-you don't get the 'all steps env' from the top of the yaml on a trigger step, only what you choose to set in that trigger step's env attribute
+  env set in a trigger step end up as build env on the newly created build
+  you don't get the 'all steps env' from the top of the yaml on a trigger step, only what you choose to set in that trigger step's env attribute
 
 ~~~
 Agent environment
