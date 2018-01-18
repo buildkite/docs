@@ -174,9 +174,7 @@ BUILDKITE_GS_* <Needs more info>
 
 - when a job runs on an agent, the first step when putting together the environment happens in the job itself:
 
-~~~
-Job environment
-~~~
+### Job environment
 
 - a base environment is created for every job
 - this is environment that Buildkite returns if you look at a job using the REST API
@@ -200,9 +198,7 @@ bk env (most important, not overridden by the following bits) > build > step > p
   - env vars set in a trigger step end up as build-level env on the newly created build
   - NOTE: the 'all steps env' from the top of a pipeline.yaml isn't applied to trigger steps, the only env that applies to trigger steps is what you choose to set in that trigger step's `env` attribute (which ends up as build env in the new build)
 
-~~~
-Agent environment
-~~~
+### Agent environment
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 - operating system environment variables 
@@ -212,20 +208,24 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/cli-start).
 For a deeper look at what's involved in starting the agent, you can see the the [`buildkite-agent start` code on github](https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go).
 
-~~~
-Job is accepted by an agent
-~~~
+### Job is accepted by an agent
 
-copy in the job's environment from bk.com
-merge in some of the agent's env vars (i.e. not the registration token, it's given it's own access token)
-adds some new agent vars (describes the agent that the job is running in)
-vars to tell the bootstrap and other commands what to do
-bootstrap is started with the env supplied by the agent
-bootstrap adds its own env vars
-bootstrap runs all the hooks (plugin, environment etc.) 
-vars from hooks are merged in to the bootstrap env, these can override anything that exists in the env (be careful with these, they're powerful)
+- once the job is accepted by an agent, more env merging happens
 
-Tada! This is the env your command runs in.
+- starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment
+  - only some agent vars are merged in
+  - some vars are created fresh at this point
+    - describe the agent that the job is running on
+    - vars to tell the bootstrap and other prebaked commands what to do
+    - e.g. we don't give the job environment the agent's registration token, we instead create a new access token for this specific job
 
-If you change the env in the job script, it will only survive as long as the script is running. 
+- at this point, the bootstrap script is run
+- the bootstrap script adds its own vars to the environment
+- the bootstrap script runs any local and global hooks that have been defined on the agent machine (e.g. plugin, environment etc.) 
+  - the vars that are set in hooks are merged in to the environment
+  - NOTE: be careful here! vars defined in hooks can override _anything_ that exists in the environment
+
+Tada!🎉 This is the environment your command runs in.
+
+Any changes that you make to the environment from within the job script will only survive as long as the script is running. 
 
