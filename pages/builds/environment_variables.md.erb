@@ -159,16 +159,49 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 ## Writable variables for specific purposes:
 
-Using S3 (see our [S3 docs](/docs/agent/cli-artifact#using-your-own-s3-bucket) for more information):
-BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
-BUILDKITE_S3_DEFAULT_REGION
-BUILDKITE_S3_ACCESS_KEY_ID
-BUILDKITE_S3_SECRET_ACCESS_KEY
-BUILDKITE_S3_ACL
+### Variables available when using S3 to store artifacts:
+<table>
+<tbody>
+  <tr>
+    <th><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_DEFAULT_REGION</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_ACCESS_KEY_ID</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_SECRET_ACCESS_KEY</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_ACL</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+<tbody>
+<table>
 
-Using Google Cloud (see our [google cloud docs](/docs/agent/cli-artifact#using-your-own-private-google-cloud-bucket) for more information):
-BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
-BUILDKITE_GS_* <Needs more info>
+For more information on artifacts and using S3 buckets, see our [S3 docs](/docs/agent/cli-artifact#using-your-own-s3-bucket). 
+
+### Variables available when using Google Cloud to store artifacts:
+<table>
+<tbody>
+  <tr>
+    <th><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GS_*</code></th>
+    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+For more information on artifacts and using Google Cloud buckets, see our [google cloud docs](/docs/agent/cli-artifact#using-your-own-private-google-cloud-bucket).
 
 ## How environment variables do the thing
 
