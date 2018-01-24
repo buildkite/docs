@@ -44,7 +44,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_ID</code></th>
-    <td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"4735ba57-80d0-46e2-8fa0-b28223a86586"</code>, or <code>""</code> if not a rebuild.</p></td>
+    <td>The UUID of the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"4735ba57-80d0-46e2-8fa0-b28223a86586"</code>, or <code>""</code> if not a rebuild.</p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_NUMBER</code></th>
@@ -65,6 +65,10 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_COMMIT</code></th>
     <td>The commit of the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_DISABLE_GIT_SUBMODULES</code></th>
+    <td>When set to `true` prevents fetching of any git submodules during checkout. This variable is used by the `buildkite-agent` bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
@@ -108,7 +112,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_PULL_REQUEST_REPO</code></th>
-    <td>The repository URL of the third-party pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git://github.com/acme-inc/my-project.git"</code>, or <code>""</code> if not a pull request.</p></td>
+    <td>The repository URL of the pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git://github.com/acme-inc/my-project.git"</code>, or <code>""</code> if not a pull request.</p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_REBUILT_FROM_BUILD_ID</code></th>
@@ -121,6 +125,10 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_REPO</code></th>
     <td>The repository of your pipeline. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-project.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_REFSPEC</code></th>
+    <td>A custom refspec for the `buildkite-agent` bootstrap script to use when checking out code. <p class="Docs__api-param-eg"><em>Example:</em> <code>"+refs/weird/123abc:refs/local/weird/456"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_SOURCE</code></th>
@@ -140,10 +148,6 @@ The following environment variables are automatically provided to every job, and
   </tr>
 </tbody>
 </table>
-
-Bootstrap vars:
-BUILDKITE_DISABLE_GIT_SUBMODULES
-BUILDKITE_REFSPEC
 
 ## Defining your own
 
@@ -185,17 +189,27 @@ optional: variables set on the build by you in when creating a new build in the 
 optional: variables set on a step in the UI or in a pipeline.yml file by you
 optional: variables set on a pipeline in the Pipeline Settings page by you
 
-- these are merged together in the following way:
+- these are merged together in the following order of precedence:
 (maybe put an image or example code here)
 bk env (most important, not overridden by the following bits) > build > step > project (least important, can be overridden by everything else)
 
-- more details on setting vars in a pipeline.yml:
+- more details on setting vars in a pipeline.yml (update the image/example to add more info on the step bit of the process - pipeline.yml shared > step level):
 - there are two places in a pipeline.yml file that you can set env vars:
   - in the `env` attribute of command or trigger steps
   - at the top of the yaml file, before you define your pipeline's steps (this will set the defined variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step)
 
 - more details on setting vars in a Trigger step:
   - env vars set in a trigger step end up as build-level env on the newly created build
+  - you can take advantage of interpolation to set vars for your trigger step's build that are already set in your current build 
+```
+env:
+- FOO=bar
+steps:
+- trigger: some-pipeline
+  build:
+    env:
+    - FOO=$FOO # triggered build will have `FOO=bar`
+```
   - NOTE: the 'all steps env' from the top of a pipeline.yaml isn't applied to trigger steps, the only env that applies to trigger steps is what you choose to set in that trigger step's `env` attribute (which ends up as build env in the new build)
 
 ### Agent environment
