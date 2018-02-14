@@ -286,7 +286,7 @@ export BUILDKITE_S3_ACL="private"
 If you set your S3 ACL to `private` you won't be able to click through to the artifacts in the Buildkite web interface. You can use an authenticating S3 proxy such as [aws-s3-proxy](https://github.com/pottava/aws-s3-proxy) to provide web access protected by HTTP Basic authentication, which will allow you to view embedded assets such as HTML pages with images. To set the access URL for your proxy, export the following environment variable:
 
 ```bash
-export baseUrl="https://buildkite-artifacts.example.com/"
+export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 ```
 
 ## Using your own private Google Cloud bucket
