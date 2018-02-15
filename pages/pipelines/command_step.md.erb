@@ -38,7 +38,7 @@ steps:
 ```yml
 steps:
   - command:
-    - "npm install && npm test" 
+    - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
 ```
@@ -70,7 +70,7 @@ _Optional attributes:_
   <tr>
     <td><code>agents</code></td>
     <td>
-      A map of <a href="/docs/agent/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
+      A map of <a href="/docs/agent/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br>
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
@@ -120,12 +120,51 @@ _Optional attributes:_
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>retry</code></td>
+    <td>
+      Configuration of how retries (either <strong>automatic</strong> or <strong>manual</strong>) operate on this step<br>
+      Note: If automatic retries are enabled, a retry job will be triggered if it fails with any exit status <code>"*"</code> a maximum of 2 times.<br>
+
+      <br/>
+      <em>Example (automatic retries with defaults):</em><br>
+      <code>retry:</code><br>
+      <code>&nbsp;&nbsp;automatic: true</code><br/>
+
+      <br/>
+      <em>Example (different automatic retry rules depending on exit status):</em><br>
+      <code>retry:</code><br>
+      <code>&nbsp;&nbsp;automatic:</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;- exit_status: 5</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit: 2</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;- exit_status: "*"</code><br/>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit: 4</code><br/>
+
+      <br/>
+      <em>Example (disabling manual retries):</em><br>
+      <code>retry:</code><br>
+      <code>&nbsp;&nbsp;manual: false</code><br>
+
+      <br/>
+      <em>Example (allowing retries on passed jobs):</em><br>
+      <code>retry:</code><br>
+      <code>&nbsp;&nbsp;manual:</code><br>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;permit_on_passed: true</code><br/>
+
+      <br/>
+      <em>Example (disabling manual retries and changing the default automatic retry limit to 5):</em><br>
+      <code>retry:</code><br>
+      <code>&nbsp;&nbsp;manual: false</code><br>
+      <code>&nbsp;&nbsp;automatic:</code><br>
+      <code>&nbsp;&nbsp;&nbsp;&nbsp;limit: 5</code><br/>
+    </td>
+  </tr>
 </table>
 
 ```yml
 steps:
   - label: "\:hammer\: Tests"
-    command: 
+    command:
       - "npm install"
       - "tests.sh"
     branches: "master"
@@ -140,12 +179,22 @@ steps:
       - "coverage/**/*"
     parallelism: 1
     timeout_in_minutes: 60
+    retry:
+      automatic:
+        - exit_status: 1
+          limit: 3
+        - exit_status: 75
+          limit: 5
   - wait
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "master"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+    retry:
+      manual:
+        allowed: false
+        reason: "Don't retry deploys please!"
   - label: "Skipped job"
     command: "my_command.sh"
     skip: "Didn't feel like it"
