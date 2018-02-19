@@ -180,18 +180,22 @@ _Optional Attributes_
     <td>
       The exit status number that will cause this job to retry. <br>
       <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>2</code><br>
-      <em>Example:</em> <code>-1</code>
+      <em>Example:</em> <code>2</code>
     </td>
   </tr>
   <tr>
     <td><code>limit</code></td>
     <td>
-      The maximum number of times this job can be retried.<br>
+      The number of times this job can be retried. The maximum value this can be set to is 10.<br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
 </table>
+
+<div class="Docs__note">
+<p class="Docs__note__heading">-1 Exit Status</p>
+<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behaviour in the <code>pipeline.yml</code> file.</p>
+</div>
 
 ```yml
 steps:
