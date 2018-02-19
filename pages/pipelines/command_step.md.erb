@@ -123,40 +123,8 @@ _Optional attributes:_
   <tr>
     <td><code>retry</code></td>
     <td>
-      Configuration of how retries (either <strong>automatic</strong> or <strong>manual</strong>) operate on this step<br>
-      Note: If automatic retries are enabled, a retry job will be triggered if it fails with any exit status <code>"*"</code> a maximum of 2 times.<br>
-
-      <br/>
-      <em>Example (automatic retries with defaults):</em><br>
-      <code>retry:</code><br>
-      <code>&nbsp;&nbsp;automatic: true</code><br/>
-
-      <br/>
-      <em>Example (different automatic retry rules depending on exit status):</em><br>
-      <code>retry:</code><br>
-      <code>&nbsp;&nbsp;automatic:</code><br/>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;- exit_status: 5</code><br/>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit: 2</code><br/>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;- exit_status: "*"</code><br/>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limit: 4</code><br/>
-
-      <br/>
-      <em>Example (disabling manual retries):</em><br>
-      <code>retry:</code><br>
-      <code>&nbsp;&nbsp;manual: false</code><br>
-
-      <br/>
-      <em>Example (allowing retries on passed jobs):</em><br>
-      <code>retry:</code><br>
-      <code>&nbsp;&nbsp;manual:</code><br>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;permit_on_passed: true</code><br/>
-
-      <br/>
-      <em>Example (disabling manual retries and changing the default automatic retry limit to 5):</em><br>
-      <code>retry:</code><br>
-      <code>&nbsp;&nbsp;manual: false</code><br>
-      <code>&nbsp;&nbsp;automatic:</code><br>
-      <code>&nbsp;&nbsp;&nbsp;&nbsp;limit: 5</code><br/>
+      The conditions for retrying this step.<br>
+      Available retry types: <code>automatic</code>,<code>manual</code>
     </td>
   </tr>
 </table>
@@ -165,14 +133,14 @@ _Optional attributes:_
 
 <div class="Docs__note">
 <p class="Docs__note__heading">At least one of the following attributes is required.</p>
-<p>You don't have to set both <em>automatic</em> and <em>manual</em> set on your retry attribute, but you can choose to set both.</p>
+<p>You don't have to set both the <em>automatic</em> and <em>manual</em> attributes on <code>retry</code>, but you can choose to set both.</p>
 </div>
 
 <table>
   <tr>
     <td><code>automatic</code></td>
     <td>
-      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple allowed retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
+      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
       <em>Default value:</em><br><code>retry:</code>
       <br><code>  automatic:</code>
       <br><code>    exit_status: "*"</code>
@@ -214,6 +182,7 @@ _Optional Attributes_
       The exit status number that will cause this job to retry. 
       <em>Example:</em> <code>"*"</code>
       <em>Example:</em> <code>2</code>
+      <em>Example:</em> <code>-1</code>
     </td>
   </tr>
   <tr>
@@ -232,11 +201,12 @@ steps:
     retry:
       automatic:
         limit: 3
-  - label: "Linting"
-    command: "lint.sh"
+  - label: "Visual Diffs"
+    command: "diffs.sh"
     retry:
       automatic:
-        limit: 3
+        exit_code: 1
+        limit: 1
   - label: "Tests"
     command: "tests.sh"
     retry:
@@ -248,6 +218,52 @@ steps:
 ```
 
 ## Manual Retry Attributes
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>allowed</code></td>
+    <td>
+      A boolean value that defines whether or not this job can be retried manually.
+      <em>Default value:</em> <code>true</code>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>reason</code></td>
+    <td>
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. 
+      <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>permit_on_passed</code></td>
+    <td>
+      A boolean value that defines whether or not this job can be retried after it has passed.
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: true
+  - label: "Visual Diffs"
+    command: "diffs.sh"
+    retry:
+      manual:
+        allowed: false
+        reason: "Don't run this twice, it's not flaky"
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      manual:
+        permit_on_passed: true
+```
 
 ## Examples
 
@@ -275,6 +291,12 @@ steps:
           limit: 3
         - exit_status: 75
           limit: 5
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: false
+      automatic:
+        limit: 3
   - wait
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
