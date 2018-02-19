@@ -161,6 +161,96 @@ _Optional attributes:_
   </tr>
 </table>
 
+## Retry Attributes
+
+<div class="Docs__note">
+<p class="Docs__note__heading">At least one of the following attributes is required.</p>
+<p>You don't have to set both <em>automatic</em> and <em>manual</em> set on your retry attribute, but you can choose to set both.</p>
+</div>
+
+<table>
+  <tr>
+    <td><code>automatic</code></td>
+    <td>
+      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple allowed retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
+      <em>Default value:</em><br><code>retry:</code>
+      <br><code>  automatic:</code>
+      <br><code>    exit_status: "*"</code>
+      <br><code>    limit: 2</code>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>manual</code></td>
+    <td>
+      Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br>
+      <em>Default value:</em> <code>true</code>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: false
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic: true
+```
+
+
+## Automatic Retry Attributes
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>exit_status</code></td>
+    <td>
+      The exit status number that will cause this job to retry. 
+      <em>Example:</em> <code>"*"</code>
+      <em>Example:</em> <code>2</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>limit</code></td>
+    <td>
+      The maximum number of times this job can be retried.
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      automatic:
+        limit: 3
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      automatic:
+        limit: 3
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic:
+        - exit_status: 5
+          limit: 2
+        - exit_status: "*"
+          limit: 4
+```
+
+## Manual Retry Attributes
+
+## Examples
+
 ```yml
 steps:
   - label: "\:hammer\: Tests"
