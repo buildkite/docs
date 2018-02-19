@@ -141,10 +141,9 @@ _Optional attributes:_
     <td><code>automatic</code></td>
     <td>
       Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
-      <em>Default value:</em><br><code>retry:</code>
-      <br><code>  automatic:</code>
-      <br><code>    exit_status: "*"</code>
-      <br><code>    limit: 2</code>
+      <em>Default value:</em><br>
+      <code>exit_status: "*"</code><br>
+      <code>limit: 2</code><br>
       <em>Example:</em> <code>true</code>
     </td>
   </tr>
@@ -152,7 +151,7 @@ _Optional attributes:_
     <td><code>manual</code></td>
     <td>
       Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br>
-      <em>Default value:</em> <code>true</code>
+      <em>Default value:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
@@ -179,16 +178,16 @@ _Optional Attributes_
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number that will cause this job to retry. 
-      <em>Example:</em> <code>"*"</code>
-      <em>Example:</em> <code>2</code>
+      The exit status number that will cause this job to retry. <br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>2</code><br>
       <em>Example:</em> <code>-1</code>
     </td>
   </tr>
   <tr>
     <td><code>limit</code></td>
     <td>
-      The maximum number of times this job can be retried.
+      The maximum number of times this job can be retried.<br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
@@ -225,22 +224,22 @@ _Optional Attributes_
   <tr>
     <td><code>allowed</code></td>
     <td>
-      A boolean value that defines whether or not this job can be retried manually.
-      <em>Default value:</em> <code>true</code>
+      A boolean value that defines whether or not this job can be retried manually.<br>
+      <em>Default value:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
   <tr>
     <td><code>reason</code></td>
     <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. 
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. <br>
       <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
   <tr>
     <td><code>permit_on_passed</code></td>
     <td>
-      A boolean value that defines whether or not this job can be retried after it has passed.
+      A boolean value that defines whether or not this job can be retried after it has passed.<br>
       <em>Example:</em> <code>false</code>
     </td>
   </tr>
