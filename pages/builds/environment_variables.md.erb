@@ -157,52 +157,6 @@ You can define environment variables in your jobs in a few ways, depending on th
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
 * An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
 
-## Writable variables for specific purposes:
-
-### Variables available when using S3 to store artifacts:
-<table>
-<tbody>
-  <tr>
-    <th><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_S3_DEFAULT_REGION</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_S3_ACCESS_KEY_ID</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_S3_SECRET_ACCESS_KEY</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_S3_ACL</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-<tbody>
-<table>
-
-For more information on artifacts and using S3 buckets, see our [S3 docs](/docs/agent/cli-artifact#using-your-own-s3-bucket). 
-
-### Variables available when using Google Cloud to store artifacts:
-<table>
-<tbody>
-  <tr>
-    <th><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_GS_*</code></th>
-    <td>Always <code>"true"</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"v1.2.3"</code></p></td>
-  </tr>
-</tbody>
-</table>
-
-For more information on artifacts and using Google Cloud buckets, see our [google cloud docs](/docs/agent/cli-artifact#using-your-own-private-google-cloud-bucket).
-
 ## Environment variable precedence
 
 You can set environment variables in lots of different places, and which ones take precedence can get a little confusing. 
@@ -214,25 +168,42 @@ When a job runs on an agent, the first combination of environment variables happ
 
 This is a base environment, and is created fresh for every job. This is also the environment that is returned if you look at a job using the REST API or the Environment tab in Buildkite.
 
-The job environment is made up of at least one, and up to four different sets of variables combined together: 
+The job environment is made up of at least the standard set, and up to three additional sets of variables combined together: 
 
-_Standard_: the [set of variables](https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32) provided by Buildkite to every job
-_Optional_: variables set by you on the build when creating a new build in the UI or via the REST API
-_Optional_: variables set by you on a step in the UI or in a pipeline.yml file
-_Optional_: variables set by you on a pipeline on the Pipeline Settings page
+<table>
+<tbody>
+  <tr>
+    <th>Standard</th>
+    <td>The <a href="https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb">set of variables</a> provided by Buildkite to every job</td>
+  </tr>
+  <tr>
+    <th>Build</th>
+    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+  </tr>
+  <tr>
+    <th>Step</th>
+    <td>Optional variables set by you on a step in the UI or in a pipeline.yml file</td>
+  </tr>
+  <tr>
+    <th>Project</th>
+    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
+  </tr>
+</tbody>
+</table>
 
 These four sets of variables are merged together in the following order of precedence:
-standard environment set > build > step > project
+**Standard environment set > Build > Step > Project**
 
-#### Setting variables in a pipeline.yml
+**Setting variables in a pipeline.yml**
 
 There are two places in a pipeline.yml file that you can set environment variables:
+
   1. In the `env` attribute of command and trigger steps.
   2. At the top of the yaml file, before you define your pipeline's steps. 
 
 Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This will override what is set in the `env` attribute of an individual step.
 
-#### Setting variables in a Trigger step
+**Setting variables in a Trigger step**
   
 Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
 
@@ -263,7 +234,7 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/cli-start).
 For a deeper look at what's involved in starting the agent, you can see the the [`buildkite-agent start` code on github](https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go).
 
-### Job is accepted by an agent
+### Job accepted by an agent
 
 Once the job is accepted by an agent, more environment merging happens.
 
@@ -280,7 +251,7 @@ After the agent variables have been merged, the bootstrap script is run. It adds
 <p>Variables that are defined in hooks can override _anything_ that exists in the environment.</p>
 </div>
 
-Tada!🎉 This is the environment your command runs in.
+This is the environment your command runs in 🎉
 
 Finally, any changes that you make to the environment from within the job script will only survive as long as the script is running. 
 
