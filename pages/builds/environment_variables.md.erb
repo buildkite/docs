@@ -227,6 +227,7 @@ steps:
 ### Agent environment
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
+
 - operating system environment variables 
 - any variables you set on your agent when you started it
 - any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
@@ -241,8 +242,9 @@ Once the job is accepted by an agent, more environment merging happens.
 Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment. Not all of the variables from the agent are added, and some variables are created fresh at this point. For example, we don't add the agent's registration token, we instead create a new access token for this specific job.
 
 At this point we add the following:
-    - variables that describe the agent that the job is running on
-    - variables to tell the bootstrap and other commands what to do
+
+- variables that describe the agent that the job is running on
+- variables to tell the bootstrap and other commands what to do
 
 After the agent variables have been merged, the bootstrap script is run. It adds its own variables to the environment, and runs any local and global hooks that have been defined on the agent machine (e.g. plugin, environment etc.) This causes any variables that are set in hooks to be merged in to the environment.
 
