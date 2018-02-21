@@ -203,37 +203,41 @@ For more information on artifacts and using S3 buckets, see our [S3 docs](/docs/
 
 For more information on artifacts and using Google Cloud buckets, see our [google cloud docs](/docs/agent/cli-artifact#using-your-own-private-google-cloud-bucket).
 
-## How environment variables do the thing
+## Environment variable precedence
 
-- you can set env vars in lots of different places, which ones take precedence can get a little confusing
-- there are many different levels at which environment variables are merged together
-- this example demonstrates the order in which env vars are combined, as if you had set variables in every possible place
+You can set environment variables in lots of different places, and which ones take precedence can get a little confusing. 
+There are many different levels at which environment variables are merged together. The following walkthrough and examples demonstrate the order in which variables are combined, as if you had set variables in every available place.
 
-- when a job runs on an agent, the first step when putting together the environment happens in the job itself:
+When a job runs on an agent, the first combination of environment variables happens in the job itself:
 
 ### Job environment
 
-- a base environment is created for every job
-- this is environment that Buildkite returns if you look at a job using the REST API
-- this env made up of at least one, and up to four different sets of variables combined together: 
+This is a base environment, and is created fresh for every job. This is also the environment that is returned if you look at a job using the REST API or the Environment tab in Buildkite.
 
-standard: the set of variables provided by Buildkite to every job (https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32)
-optional: variables set on the build by you in when creating a new build in the UI or via the REST API
-optional: variables set on a step in the UI or in a pipeline.yml file by you
-optional: variables set on a pipeline in the Pipeline Settings page by you
+The job environment is made up of at least one, and up to four different sets of variables combined together: 
 
-- these are merged together in the following order of precedence:
-(maybe put an image or example code here)
-bk env (most important, not overridden by the following bits) > build > step > project (least important, can be overridden by everything else)
+_Standard_: the [set of variables](https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb#L32) provided by Buildkite to every job
+_Optional_: variables set by you on the build when creating a new build in the UI or via the REST API
+_Optional_: variables set by you on a step in the UI or in a pipeline.yml file
+_Optional_: variables set by you on a pipeline on the Pipeline Settings page
 
-- more details on setting vars in a pipeline.yml (update the image/example to add more info on the step bit of the process - pipeline.yml shared > step level):
-- there are two places in a pipeline.yml file that you can set env vars:
-  - in the `env` attribute of command or trigger steps
-  - at the top of the yaml file, before you define your pipeline's steps (this will set the defined variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step)
+These four sets of variables are merged together in the following order of precedence:
+standard environment set > build > step > project
 
-- more details on setting vars in a Trigger step:
-  - env vars set in a trigger step end up as build-level env on the newly created build
-  - you can take advantage of interpolation to set vars for your trigger step's build that are already set in your current build 
+#### Setting variables in a pipeline.yml
+
+There are two places in a pipeline.yml file that you can set environment variables:
+  1. In the `env` attribute of command and trigger steps.
+  2. At the top of the yaml file, before you define your pipeline's steps. 
+
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This will override what is set in the `env` attribute of an individual step.
+
+#### Setting variables in a Trigger step
+  
+Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
+
+If you're using a 3.x agent, you can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build. For example:
+
 ```
 env:
 - FOO=bar
@@ -243,7 +247,11 @@ steps:
     env:
     - FOO=$FOO # triggered build will have `FOO=bar`
 ```
-  - NOTE: the 'all steps env' from the top of a pipeline.yaml isn't applied to trigger steps, the only env that applies to trigger steps is what you choose to set in that trigger step's `env` attribute (which ends up as build env in the new build)
+  
+<div class="Docs__note">
+<p class="Docs__note__heading">Environment variables set at top of a pipeline.yaml aren't applied to trigger steps</p>
+<p>The only variables that are passed through to a trigger step's build are those you set in that trigger step's `env` attribute.</p>
+</div>
 
 ### Agent environment
 
