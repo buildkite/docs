@@ -137,6 +137,9 @@ If you have a pipeline that is defined in the web interface and would like to mi
 
 ```bash
 [[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
+
+#for windows users
+CMD /k if exist ".buildkite/pipeline.yml" buildkite-agent pipeline upload .buildkite/pipeline.yml --replace
 ```
 
 This line of code will check if the pipeline file exists and, if it does, execute the `buildkite agent pipeline upload --replace` command to replace any steps that were defined via the web interface with those defined in the `pipeline.yml`.
