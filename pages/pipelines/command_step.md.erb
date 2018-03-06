@@ -208,7 +208,7 @@ steps:
     command: "diffs.sh"
     retry:
       automatic:
-        exit_code: 1
+        exit_status: 1
         limit: 1
   - label: "Tests"
     command: "tests.sh"
