@@ -58,4 +58,5 @@ The following are examples of patterns, and what branches they would match:
 * `master features/*` will match master and any branch that starts with `features/`
 * `*/release-123` will match any branch that ends with `/release-123` such as `feature-123/release-123`
 * `v*.0` will match branch that begins with a `v` and ends with a `.0`, such as `v1.0`
+* `v*.*.*` will match branch that begins with a `v` and has two periods, such as `v1.2.3`
 * `!production` will match any branch that's not `production` (this value should be quoted if defined in a YAML file and uploaded via `buildkite-agent pipeline upload`)
