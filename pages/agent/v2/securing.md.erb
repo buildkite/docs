@@ -80,7 +80,7 @@ fi
 
 ## Customizing the bootstrap
 
-The Buildkite Agent comes with a default bootstrap script, but can be [configured](/docs/agent/configuration) to run your own. Providing your own bootstrap provides the highest level of security and control of your agent machine. You can use it to customize your agent, sanitize command output, and implement your own security logic.
+The Buildkite Agent comes with a default bootstrap script, but can be [configured](/docs/agent/v2/configuration) to run your own. Providing your own bootstrap provides the highest level of security and control of your agent machine. You can use it to customize your agent, sanitize command output, and implement your own security logic.
 
 The Buildkite Agent is separated into a daemon executable and a bootstrap executable. The daemon is responsible for communicating with the Buildkite API and executing the bootstrap. The bootstrap is responsible checking out source code, calling hooks, running commands, and uploading build artifacts. The bootstrap is passed environment variables by the daemon process, and has its output streams and exit status captured.
 

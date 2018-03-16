@@ -16,7 +16,7 @@ Connect via SSH:
 
 <%= image "ssh-to-instance.png", size: "2048x1220", alt: "Screenshot of connecting to a Google Compute Engine instance via the Google Cloud Console" %>
 
-Follow the [setup instructions for Ubuntu](/docs/agent/ubuntu).
+Follow the [setup instructions for Ubuntu](/docs/agent/v2/ubuntu).
 
 ## Running the agent on Google Container Engine
 
@@ -151,7 +151,7 @@ buildkite-agent-3220167863-m3nm2   1/1       Running   0          24s
 
 ### Authenticating to private repositories
 
-To run builds from private repositories you can store [an SSH key for the agent](/docs/agent/ssh-keys) in a secret and map it into the containers:
+To run builds from private repositories you can store [an SSH key for the agent](/docs/agent/v2/ssh-keys) in a secret and map it into the containers:
 
 ```shell
 # Use an existing keypair, or generate a new one with something like:
@@ -211,17 +211,17 @@ volumes:
 
 ### Further configuration
 
-To [configure](/docs/agent/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/user-guide/configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
+To [configure](/docs/agent/v2/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/user-guide/configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
 
-To add [agent hooks](/docs/agent/hooks) add another config map and volume mount them into `/buildkite/hooks/`.
-                              
+To add [agent hooks](/docs/agent/v2/hooks) add another config map and volume mount them into `/buildkite/hooks/`.
+
 To add container startup scripts, add another config map with files and volume mount them into `/docker-entrypoint.d/`. Note: scripts in this directory must _not_ have any periods (`.`) or any file extensions since they are run by the `run-parts` util.
 
-See [our Docker setup instructions](/docs/agent/docker) for more details on configuring and customising the Buildkite Agent running in Docker.
+See [our Docker setup instructions](/docs/agent/v2/docker) for more details on configuring and customising the Buildkite Agent running in Docker.
 
 ## Uploading artifacts to Google Cloud Storage
 
-You can upload the [artifacts](/docs/builds/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
+You can upload the [artifacts](/docs/builds/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```shell
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"

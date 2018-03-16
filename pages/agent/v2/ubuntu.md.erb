@@ -1,34 +1,34 @@
-# Installing Buildkite Agent on Debian
+# Installing Buildkite Agent on Ubuntu
 
-The Buildkite Agent can be installed on on Debian versions 7.x and 8.x using our signed apt repository.
+The Buildkite Agent can be installed on on Ubuntu versions 12.04 and above using our signed apt repository.
 
 <%= toc %>
 
 ## Installation
 
-<%= render_agent_setup :debian %>
+<%= render_agent_setup :ubuntu %>
 
 ## SSH Key Configuration
 
-<%= render_markdown 'agent/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown 'agent/v2/ssh_key_with_buildkite_agent_user' %>
 
-See the [Agent SSH Keys](/docs/agent/ssh-keys) documentation for more details.
+See the [Agent SSH Keys](/docs/agent/v2/ssh-keys) documentation for more details.
 
 ## File Locations
 
-<%= render_markdown 'agent/apt_locations' %>
+<%= render_markdown 'agent/v2/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown 'agent/apt_configuration' %>
+<%= render_markdown 'agent/v2/apt_configuration' %>
 
 ## Running multiple agents
 
-You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
-
-### For Debian 8.x (systemd)
+You can run as many parallel agents on the one machine as you wish by duplicating the upstart service configuration file, for example:
 
 ```shell
+# For Ubuntu 15.04+ (using systemd)
+
 # Disable the default unit
 sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
 
@@ -44,11 +44,8 @@ sudo journalctl -f -u "buildkite-agent@*"
 
 # Or one-by-one
 sudo journalctl -f -u buildkite-agent@2
-```
 
-### For Debian 7.x (using upstart)
-
-```shell
+# For older Ubuntu (using upstart)
 sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
 sudo service buildkite-agent-2 start
 sudo tail -f /var/log/upstart/buildkite-agent-2.log
@@ -56,4 +53,4 @@ sudo tail -f /var/log/upstart/buildkite-agent-2.log
 
 ## Upgrading
 
-<%= render_markdown 'agent/apt_upgrading' %>
+<%= render_markdown 'agent/v2/apt_upgrading' %>
