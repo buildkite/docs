@@ -100,7 +100,7 @@ And your deployment pipeline’s upload command could be:
 buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml
 ```
 
-For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/cli-pipeline#uploading-pipelines) documentation.
+For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v2/cli-pipeline#uploading-pipelines) documentation.
 
 ## Dynamic pipelines
 
@@ -123,7 +123,7 @@ for test_dir in test/*/; do
 done
 ```
 
-To use this script, you'd save it to `.buildkite/pipeline.sh` inside your repository, ensure it is executable, and then update your pipeline upload step to use the new script: 
+To use this script, you'd save it to `.buildkite/pipeline.sh` inside your repository, ensure it is executable, and then update your pipeline upload step to use the new script:
 
 ```bash
 .buildkite/pipeline.sh | buildkite-agent pipeline upload
@@ -146,4 +146,4 @@ This line of code will check if the pipeline file exists and, if it does, execut
 
 ## Further documentation
 
-See the [buildkite-agent pipeline documentation](/docs/agent/cli-pipeline) for a full list of options.
+See the [buildkite-agent pipeline documentation](/docs/agent/v2/cli-pipeline) for a full list of options.

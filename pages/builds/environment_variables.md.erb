@@ -1,6 +1,6 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v2/hooks).
 
 <%= toc %>
 
@@ -155,11 +155,11 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 * Pipeline settings — for values that are not secret.
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
-* An `environment` or `pre-command` [agent hook](/docs/agent/hooks) — for values that are secret or agent-specific.
+* An `environment` or `pre-command` [agent hook](/docs/agent/v2/hooks) — for values that are secret or agent-specific.
 
 ## Environment variable precedence
 
-You can set environment variables in lots of different places, and which ones take precedence can get a little confusing. 
+You can set environment variables in lots of different places, and which ones take precedence can get a little confusing.
 There are many different levels at which environment variables are merged together. The following walkthrough and examples demonstrate the order in which variables are combined, as if you had set variables in every available place.
 
 When a job runs on an agent, the first combination of environment variables happens in the job itself:
@@ -168,7 +168,7 @@ When a job runs on an agent, the first combination of environment variables happ
 
 This is a base environment, and is created fresh for every job. This is also the environment that is returned if you look at a job using the REST API or the Environment tab in Buildkite.
 
-The job environment is made up of at least the standard set, and up to three additional sets of variables combined together: 
+The job environment is made up of at least the standard set, and up to three additional sets of variables combined together:
 
 <table>
 <tbody>
@@ -199,12 +199,12 @@ These four sets of variables are merged together in the following order of prece
 There are two places in a pipeline.yml file that you can set environment variables:
 
   1. In the `env` attribute of command and trigger steps.
-  2. At the top of the yaml file, before you define your pipeline's steps. 
+  2. At the top of the yaml file, before you define your pipeline's steps.
 
 Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This will override what is set in the `env` attribute of an individual step.
 
 **Setting variables in a Trigger step**
-  
+
 Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
 
 If you're using a 3.x agent, you can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build. For example:
@@ -218,7 +218,7 @@ steps:
     env:
     - FOO=$FOO # triggered build will have `FOO=bar`
 ```
-  
+
 <div class="Docs__note">
 <p class="Docs__note__heading">Environment variables set at top of a pipeline.yaml aren't applied to trigger steps</p>
 <p>The only variables that are passed through to a trigger step's build are those you set in that trigger step's `env` attribute.</p>
@@ -228,11 +228,11 @@ steps:
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-- operating system environment variables 
+- operating system environment variables
 - any variables you set on your agent when you started it
 - any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
 
-For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/cli-start).
+For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/v2/cli-start).
 For a deeper look at what's involved in starting the agent, you can see the the [`buildkite-agent start` code on github](https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go).
 
 ### Job accepted by an agent
@@ -255,5 +255,5 @@ After the agent variables have been merged, the bootstrap script is run. It adds
 
 This is the environment your command runs in 🎉
 
-Finally, any changes that you make to the environment from within the job script will only survive as long as the script is running. 
+Finally, any changes that you make to the environment from within the job script will only survive as long as the script is running.
 

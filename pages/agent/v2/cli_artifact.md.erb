@@ -79,7 +79,7 @@ buildkite-agent artifact upload "hello\?\?.html"
 
 ### Artifact upload glob syntax
 
-Glob path patterns are used throughout Buildkite for specifying artifact uploads. 
+Glob path patterns are used throughout Buildkite for specifying artifact uploads.
 
 The source path you supply to the upload command will be replicated exactly at the destination. If you run:
 
@@ -241,7 +241,7 @@ Options:
 
 ## Using your own private AWS S3 bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
+You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```bash
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
@@ -291,4 +291,4 @@ export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 
 ## Using your own private Google Cloud bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your own private Google Cloud storage bucket. For instructions for how to set this up, see our [Google Cloud Installation Guide](/docs/agent/gcloud#uploading-artifacts-to-google-cloud-storage).
+You can use the `buildkite-agent artifact` command to store artifacts in your own private Google Cloud storage bucket. For instructions for how to set this up, see our [Google Cloud Installation Guide](/docs/agent/v2/gcloud#uploading-artifacts-to-google-cloud-storage).
