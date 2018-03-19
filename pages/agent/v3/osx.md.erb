@@ -1,0 +1,76 @@
+# Installing Buildkite Agent on macOS
+
+The Buildkite Agent can be installed on macOS 10.9 or higher using Homebrew or our installer script, and supports pre-release versions of both OS X and Xcode.
+
+<%= toc %>
+
+## Installation
+
+<%= render_agent_setup :osx %>
+
+## SSH Key Configuration
+
+SSH keys should be copied to (or generated into) the `.ssh` directory in the users’s home directory (i.e. `/Users/some-user/.ssh`). For example, to generate a new private key which you can add to your source code host:
+
+```bash
+$ mkdir -p ~/.ssh && cd ~/.ssh
+$ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
+```
+
+See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
+
+## File Locations
+
+Homebrew install file locations:
+
+* Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
+* Hooks: `/usr/local/etc/buildkite-agent/hooks`
+* Builds: `/usr/local/var/buildkite-agent/builds`
+* Log: `/usr/local/var/log/buildkite-agent.log`
+
+Linux installer script file locations:
+
+* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+* Hooks: `~/.buildkite-agent/hooks`
+* Builds: `~/.buildkite-agent/builds`
+
+## Configuration
+
+See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+
+## Starting on Login
+
+If you installed the agent using Homebrew you can run the following command to get instructions on how to install the correct plist and have buildkite-agent start on login:
+
+```bash
+brew info buildkite-agent
+```
+
+If you installed the buildkite-agent using the [Linux install script](linux) then you'll need to install the plist yourself using the following commands:
+
+```bash
+# Download the launchd config to /Library/LaunchDaemons/
+curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist
+
+# Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
+sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
+
+# Create the agent's log directory with the correct permissions
+mkdir -p ~/.buildkite-agent/log && sudo chmod 775 ~/.buildkite-agent/log
+
+# Start the agent
+launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
+
+# Check the logs
+tail -f ~/.buildkite-agent/log/buildkite-agent.log
+```
+
+## Upgrading
+
+If you installed the agent using Homebrew you can use the standard brew upgrade command to update the agent:
+
+```shell
+brew update && brew upgrade buildkite-agent
+```
+
+If you installed the buildkite-agent using the [Linux install script](linux) then you should simply run the installer script again and it will update your agent.
