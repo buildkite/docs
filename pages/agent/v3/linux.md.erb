@@ -1,0 +1,37 @@
+# Installing Buildkite Agent on Linux
+
+You can install Buildkite Agent on most Linux based systems (including macOS).
+
+<%= toc %>
+
+## Installation
+
+<%= render_agent_setup :linux %>
+
+Alternatively you can follow the [manual installation instructions](installation).
+
+## SSH Key Configuration
+
+SSH keys should be copied to (or generated into) `~/.ssh/` for the user the agent is running as. For example, to generate a new private key which you can add to your source code host:
+
+```bash
+$ mkdir -p ~/.ssh && cd ~/.ssh
+$ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
+```
+
+See the [Agent SSH Keys](/docs/agent/v2/ssh-keys) documentation for more details.
+
+## File Locations
+
+* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+* Hooks: `~/.buildkite-agent/hooks`
+* Builds: `~/.buildkite-agent/builds`
+* SSH keys: `~/.ssh`
+
+## Configuration
+
+The configuration file is located at `~/.buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v2/configuration) for an explanation of each configuration setting.
+
+## Upgrading
+
+Simply rerun the install script.
