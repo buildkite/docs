@@ -11,6 +11,7 @@ See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step
 Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively, you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
 ```
+$ buildkite-agent artifact upload --help
 Usage:
 
    buildkite-agent artifact upload <pattern> <destination> [arguments...]
@@ -34,6 +35,11 @@ Example:
    $ export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
    $ export BUILDKITE_S3_ACL=private # default is public-read
    $ buildkite-agent artifact upload "log/**/*.log" s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
+
+   Or upload directly to Google Cloud Storage:
+
+   $ export BUILDKITE_GS_ACL=private
+   $ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
 
 Options:
 
