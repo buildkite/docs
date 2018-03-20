@@ -6,158 +6,6 @@ You can find the location of your configuration file in your platform’s instal
 
 <%= toc %>
 
-## Configuration Settings
-
-`token`<br>
-The agent token from your organization’s Agents page<br>
-_Environment variable:_ `BUILDKITE_AGENT_TOKEN`
-
-`name`<br>The name of the agent<br>
-_Default:_ `"%hostname-%n"`<br>
-_Environment variable:_ `BUILDKITE_AGENT_NAME`
-
-`priority`<br>
-The priority of the agent (higher priorities are assigned work first, null is assigned last)<br>
-_Default:_ `null`<br>
-_Environment variable:_ `BUILDKITE_AGENT_PRIORITY`
-
-`tags`<br>
-Tags for the agent<br>
-_Default:_ `"queue=default"`<br>
-_Environment variable:_ `BUILDKITE_AGENT_TAGS`<br>
-
-`tags-from-ec2`<br>
-Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as tags<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_TAGS_FROM_EC2`<br>
-
-`tags-from-ec2-tags`<br>
-Include the host's EC2 tags as agent tags<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS`<br>
-
-`wait-for-ec2-tags-timeout`<br>
-The amount of time to wait for tags from EC2 before proceeding<br>
-_Default:_ `10s`<br>
-_Environment variable:_ `BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT`<br>
-
-`tags-from-ec2-gcp`<br>
-Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_TAGS_FROM_GCP`<br>
-
-`shell`<br>
-The shell commamnd used to interpret build commands, e.g `/bin/bash -e -c`<br>
-_Default:_ `C:\Windows\System32\CMD.exe` on Windows, `/bin/bash` on *nix systems.<br>
-_Environment variable:_ `BUILDKITE_SHELL`<br>
-
-`git-clean-flags`<br>
-Flags to pass to the `git clean` command<br>
-_Default:_ `"-fxdq"`<br>
-_Environment variable:_ `BUILDKITE_GIT_CLEAN_FLAGS`<br>
-_Note:_ Prior to 3.0 this defaulted to `"-fdq"`
-
-`git-clone-flags`<br>
-Flags to pass to the `git clone` command<br>
-_Default:_ `"-v"`<br>
-_Environment variable:_ `BUILDKITE_GIT_CLONE_FLAGS`<br>
-
-`bootstrap-script`<br>
-Command to invoke the bootstrap process<br>
-_Default:_ `buildkite-agent bootstrap`<br>
-_Environment variable:_ `BUILDKITE_BOOTSTRAP_SCRIPT_PATH`
-
-`build-path`<br>
-Path to where the builds will run from<br>
-_Default:_ (depends on platform)<br>
-_Environment variable:_ `BUILDKITE_BUILD_PATH`
-
-`hooks-path`<br>
-Directory where the global hook scripts are found<br>
-_Default:_ (depends on platform)<br>
-_Environment variable:_ `BUILDKITE_HOOKS_PATH`
-
-`plugins-path`<br>
-Directory where the plugins are saved to<br>
-_Default:_ (depends on platform)<br>
-_Environment variable:_ `BUILDKITE_PLUGINS_PATH`
-
-`no-pty`<br>
-Do not run jobs within a pseudo terminal<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_NO_PTY`
-
-`no-ssh-keyscan`<br>
-Don't automatically run ssh-keyscan before checkout<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_NO_SSH_KEYSCAN`
-
-`no-command-eval`<br>
-Do not allow this agent to run arbitrary console commands<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_NO_COMMAND_EVAL`
-
-`disconnect-after-job`<br>
-Disconnect after processing a single job<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_DISCONNECT_AFTER_JOB`<br>
-
-`disconnect-after-job-timeout`<br>
-When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down<br>
-_Default:_ `120`<br>
-_Environment variable:_ `BUILDKITE_AGENT_DISBUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUTCONNECT_AFTER_JOB`<br>
-
-`debug`<br>
-Enable debug mode<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_DEBUG`
-
-`debug-http`<br>
-Log all HTTP request and response bodies<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_DEBUG_HTTP`
-
-`no-color`<br>
-Do not show colors in logging<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_NO_COLOR`
-
-`timestamp-lines`<br>
-Prepend timestamps on each line of output<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_TIMESTAMP_LINES`
-
-`no-plugins`<br>
-Do not load any plugins<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_NO_PLUGINS`<br>
-
-## Deprecated Configuration Settings
-
-`meta-data`<br>
-Meta data for the agent<br>
-_Default:_ `"queue=default"`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA`<br>
-_Use instead:_ `tags` in 3.0+
-
-`meta-data-ec2`<br>
-Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2`<br>
-_Use instead:_ `tags-from-ec2 ` in 3.0+
-
-`meta-data-ec2-tags`<br>
-Include the host's EC2 tags as meta-data<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_AGENT_META_DATA_EC2_TAGS`<br>
-_Use instead:_ `tags-from-ec2-tags ` in 3.0+
-
-`no-automatic-ssh-fingerprint-verification`<br>
-Do not automatically verify SSH fingerprints for first-time checkouts<br>
-_Default:_ `false`<br>
-_Environment variable:_ `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION`
-_Use instead:_ `no-ssh-keyscan` in 3.0+
-
 ## Example Configuration File
 
 ```sh
@@ -167,6 +15,282 @@ tags="ci=true,docker=true"
 git-clean-flags="-fdqx"
 debug=true
 ```
+
+## Configuration Settings
+
+<table>
+  <tbody>
+    <tr>
+      <th><code>token</code></th>
+      <td>
+        The agent token from your organization’s Agents page
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>name</code></th>
+      <td>
+        The name of the agent
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"%hostname-%n"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NAME</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>priority</code></th>
+      <td>
+        The priority of the agent (higher priorities are assigned work first, null is assigned last)
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>null</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_PRIORITY</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>tags</code></th>
+      <td>
+        Tags for the agent
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"queue=default"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>tags-from-ec2</code></th>
+      <td>
+        Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as tags
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_EC2</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>tags-from-ec2-tags</code></th>
+      <td>
+        Include the host's EC2 tags as agent tags
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>wait-for-ec2-tags-timeout</code></th>
+      <td>
+        The amount of time to wait for tags from EC2 before proceeding
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>10s</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>tags-from-ec2-gcp</code></th>
+      <td>
+        Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_GCP</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>shell</code></th>
+      <td>
+        The shell commamnd used to interpret build commands, e.g <code>/bin/bash -e -c</code>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-clean-flags</code></th>
+      <td>
+        Flags to pass to the <code>git clean</code> command. Prior to 3.0 this defaulted to <code>"-fdq"</code>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-fxdq"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLEAN_FLAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-clone-flags</code></th>
+      <td>
+        Flags to pass to the <code>git clone</code> command
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_FLAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>bootstrap-script</code></th>
+      <td>
+        Command to invoke the bootstrap process
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>build-path</code></th>
+      <td>
+        Path to where the builds will run from
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>hooks-path</code></th>
+      <td>
+        Directory where the global hook scripts are found
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>plugins-path</code></th>
+      <td>
+        Directory where the plugins are saved
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_PLUGINS_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-pty</code></th>
+      <td>
+        Do not run jobs within a pseudo terminal
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PTY</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-ssh-keyscan</code></th>
+      <td>
+        Don't automatically run ssh-keyscan before checkout
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_SSH_KEYSCAN</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-command-eval</code></th>
+      <td>
+        Do not allow this agent to run arbitrary console commands
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_COMMAND_EVAL</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>disconnect-after-job</code></th>
+      <td>
+        Disconnect after processing a single job
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>disconnect-after-job-timeout</code></th>
+      <td>
+        When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>debug</code></th>
+      <td>
+        Enable debug mode
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>debug-http</code></th>
+      <td>
+        Log all HTTP request and response bodies
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG_HTTP</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-color</code></th>
+      <td>
+        Do not show colors in logging
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_COLOR</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>timestamp-lines</code></th>
+      <td>
+        Prepend timestamps on each line of output
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TIMESTAMP_LINES</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-plugins</code></th>
+      <td>
+        Do not load any plugins
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_PLUGINS</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+## Deprecated Configuration Settings
+
+<table>
+  <tbody>
+    <tr>
+      <th><code>meta-data</code></th>
+      <td>
+        Meta data for the agent
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"queue=default"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA</code></p>
+        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>meta-data-ec2</code></th>
+      <td>
+        Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2</code></p>
+        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>meta-data-ec2-tags</code></th>
+      <td>
+        Include the host's EC2 tags as meta-data
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
+        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2-tags</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-automatic-ssh-fingerprint-verification</code></th>
+      <td>
+        Do not automatically verify SSH fingerprints for first-time checkouts
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION</code></p>
+        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>no-ssh-keyscan</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 ## Environment Variables
 
