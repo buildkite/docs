@@ -63,7 +63,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v2/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -73,7 +73,7 @@ _Required attributes:_
 ```yml
 steps:
   - block: "Request Release"
-    fields: 
+    fields:
       - text: "Code Name"
         key: "release-name"
 ```
@@ -107,7 +107,7 @@ _Optional attributes:_
 ```yml
 steps:
   - block: "Request Release"
-    fields: 
+    fields:
       - text: "Code Name"
         key: "release-name"
         hint: "What’s the code name for this release? \:name_badge\:"
@@ -123,7 +123,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v2/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -147,7 +147,7 @@ Each select option has the following _required attributes:_
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (e.g. to be later retreived via the <a href="/docs/agent/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The value to be stored as meta-data (e.g. to be later retreived via the <a href="/docs/agent/v2/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"stable"</code></td>
   </tr>
 </table>
@@ -155,7 +155,7 @@ Each select option has the following _required attributes:_
 ```yml
 steps:
   - block: "Request Release"
-    fields: 
+    fields:
       - select: "Stream"
         key: "release-stream"
         options:
@@ -194,7 +194,7 @@ _Optional attributes:_
 ```yml
 steps:
   - block: "Request Release"
-    fields: 
+    fields:
       - select: "Stream"
         key: "release-stream"
         hint: "Which release stream does this belong in? \:fork\:"

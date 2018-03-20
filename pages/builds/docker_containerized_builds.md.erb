@@ -61,7 +61,7 @@ services:
       - DOCKER_HUB_TRIGGER_TOKEN
 ```
 
-The above example has an additional volume: the `buildkite-agent` binary itself, so the build scripts can use the `buildkite-agent artifact` and `buildkite-agent meta-data` commands. It also passes through environment variables needed for the artifact command, as well as two secret keys set up by an [environment hook](/docs/agent/hooks).
+The above example has an additional volume: the `buildkite-agent` binary itself, so the build scripts can use the `buildkite-agent artifact` and `buildkite-agent meta-data` commands. It also passes through environment variables needed for the artifact command, as well as two secret keys set up by an [environment hook](/docs/agent/v2/hooks).
 
 ## Testing the config
 
@@ -123,4 +123,4 @@ BUILDKITE_DOCKER_FILE=Dockerfile.ci
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
-To do this see the [agent hooks](/docs/agent/hooks) and [parallelizing builds](parallelizing-builds) documentation.
+To do this see the [agent hooks](/docs/agent/v2/hooks) and [parallelizing builds](parallelizing-builds) documentation.
