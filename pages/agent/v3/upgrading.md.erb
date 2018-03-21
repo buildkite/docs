@@ -7,13 +7,13 @@ The Buildkite Agent has changed a lot in v3, but we've tried to keep it as backw
 ## What's changed
 
 * [Plugins](/docs/agent/v3/plugins) for easily sharing functionality between pipelines and customizing how agents behave
-* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to a sub-command of the `buildkite-agent bootstrap`. This means it's written in golang and cross-platform.
+* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](cli_bootstrap). This means it's written in golang and cross-platform.
 * Agent meta-data has been renamed to "tags"
 * Built-in [Docker and Docker Compose support](/docs/builds/docker-containerized-builds) has been deprecated and moved to dedicated plugins, [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
-* Variable interpolation in pipeline.yml
+* [Variable interpolation in pipeline.yml](cli_pipeline)
 * Much better Windows support, including .BAT hooks support
-* Build annotations
-* Default flags for `git clean` include `-x`
+* [Build annotations](cli_annotate)
+* Checkout cleans giles in `.gitignore`
 
 ## Bootstrap customizations
 
@@ -45,7 +45,7 @@ steps:
   - label: ':hammer: Tests'
     command: 'scripts/tests.sh'
     plugins:
-      docker-compose#v1.7.0:
+      docker-compose#v1.8.4:
         run: app
 ```
 
@@ -70,7 +70,7 @@ steps:
   - label: ':hammer: Tests'
     command: 'scripts/tests.sh'
     plugins:
-      docker#v1.0.0:
+      docker#v1.1.1:
         image: "node:7"
         workdir: /app
 ```
@@ -79,17 +79,17 @@ steps:
 
 Previously we didn't support variable interpolation like `${MY_VARIABLE_NAME}` or `$MY_VARIABLE_NAME`, so if you have any of these in your previous pipeline's and expect the literal text to render, you will need to escape the dollar signs like `$$MY_VARIABLE_NAME`.
 
-### Default flags for `git clean` include `-x`
+### Checkout cleans giles in `.gitignore`
 
 Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behaviour.
 
-## Upgrading a 2.0 agent
+## Upgrading from a 2.0 agent
 
-To upgrade you simply install the a new 3.0 agent using the [standard installation methods](/docs/agent/v2/installation). You can use agent tags to create a new queue for 3.0 builds so that you can test it in parallel to your existing agents.
+To upgrade you simply install the a new 3.0 agent using the [standard installation methods](installation). You can use agent tags to create a new queue for 3.0 builds so that you can test it in parallel to your existing agents.
 
 To make installation easy we’ve created packages for each of the major operating systems.
 
-## Upgrading a 3.0 beta agent
+## Upgrading from beta of a 3.0 agent
 
 To upgrade a _Ubuntu / Debian_ 3.0 beta agent:
 
