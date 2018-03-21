@@ -29,6 +29,11 @@ Hooks are called in the following order:
 1. `pre-exit` (local) - runs before the job finishes, useful for performing cleanup tasks
 1. `pre-exit` (global) - runs before the job finishes, useful for performing cleanup tasks
 
+<div class="Docs__note">
+<p class="Docs__note__heading">Windows hooks</p>
+The above hook works on unix-based systems with bash in the path. For windows systems, you will need to append a `.bat` to the hook and use Windows Batch in the body of the hook. See <a href="hooks#hooks-on-windows">Hooks on Windows</a>for more details.</p>
+</div>
+
 ## Creating Hook Scripts
 
 Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](/docs/builds/environment-variables) are available to be used inside your hook scripts.
@@ -82,3 +87,16 @@ HOOK_SCRIPT
 
 chmod +x .buildkite/hooks/pre-command
 ```
+
+## Hooks on Windows
+
+Windows systems require either for hooks to have a `.bat` extension and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or for <a href="windows#git-for-windows">Git for Windows, which includes bash</a> to be available.
+
+An example of a windows `environment.bat` hook would be:
+
+```batch
+@ECHO OFF
+ECHO "--- :house_with_garden: Setting up the environment"
+SET GITHUB_RELEASE_ACCESS_KEY='xxx'
+```
+
