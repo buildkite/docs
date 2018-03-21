@@ -13,7 +13,7 @@ The Buildkite Agent has changed a lot in v3, but we've tried to keep it as backw
 * [Variable interpolation in pipeline.yml](cli_pipeline)
 * Much better Windows support, including .BAT hooks support
 * [Build annotations](cli_annotate)
-* Checkout cleans giles in `.gitignore`
+* Checkout clean no longer ignores files in `.gitignore`
 
 ## Bootstrap customizations
 
@@ -79,7 +79,7 @@ steps:
 
 Previously we didn't support variable interpolation like `${MY_VARIABLE_NAME}` or `$MY_VARIABLE_NAME`, so if you have any of these in your previous pipeline's and expect the literal text to render, you will need to escape the dollar signs like `$$MY_VARIABLE_NAME`.
 
-### Checkout cleans giles in `.gitignore`
+### Checkout clean no longer ignores files in `.gitignore`
 
 Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behaviour.
 
