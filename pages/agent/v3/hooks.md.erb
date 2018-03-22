@@ -41,10 +41,7 @@ Hooks are bash scripts you can use to execute commands and export environment va
 The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline’s release build step:
 
 ```bash
-#!/bin/bash
-
 set -eu
-
 echo '--- \:house_with_garden\: Setting up the environment'
 
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
@@ -53,10 +50,7 @@ export GITHUB_RELEASE_ACCESS_KEY='xxx'
 The following is an example of a custom `pre-command` hook which changes the working directory before the command is run:
 
 ```bash
-#!/bin/bash
-
 set -eu
-
 echo '--- \:sparkles\: Changing to the CI directory'
 
 cd ci
@@ -78,8 +72,7 @@ To get started create a `.buildkite/hooks` directory, and your hook script, and 
 mkdir -p .buildkite/hooks
 
 cat << 'HOOK_SCRIPT' > .buildkite/hooks/pre-command
-#!/bin/bash
-
+set -eu
 echo "--- \:checkered_flag\: Running pre-command"
 
 echo "About to run command: $BUILDKITE_COMMAND"
