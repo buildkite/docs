@@ -45,7 +45,7 @@ Now that we've created an application, we have access to the Client ID and Clien
 
 ## Update your Buildkite organization settings
 
-Go to the **Settings** page of the organization you'd like to connect to your GitHub Enterprise installation to:
+Go to the <a href="/organizations/-/settings" rel="nofollow">Settings page</a> of the organization you'd like to connect to your GitHub Enterprise installation to:
 
 <%= image("account-settings.png", size: '268x94') %>
 
@@ -59,8 +59,7 @@ Once saved, the last step is to authorize your GitHub Enterprise user account wi
 
 So Buildkite can mark commits and pull requests as pass or fail, you'll need to authorize your GitHub Enterprise user account with Buildkite.
 
-Go to your "Connected Apps" settings page (<%= url_helpers.user_authorizations_url %>). Here you'll see your GitHub Enterprise Installation
-as an option to connect to. Click **Connect**.
+Go to your <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps settings page</a>. Here you'll see your GitHub Enterprise Installation as an option to connect to. Click **Connect**.
 
 <%= image("oauth.png", size: '546x222') %>
 

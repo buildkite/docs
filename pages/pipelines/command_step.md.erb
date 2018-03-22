@@ -38,7 +38,7 @@ steps:
 ```yml
 steps:
   - command:
-    - "npm install && npm test" 
+    - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
 ```
@@ -70,14 +70,14 @@ _Optional attributes:_
   <tr>
     <td><code>agents</code></td>
     <td>
-      A map of <a href="/docs/agent/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/cli-start#agent-targeting">target specific agents</a> for this step. <br> 
+      A map of <a href="/docs/agent/v2/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/v2/cli-start#agent-targeting">target specific agents</a> for this step. <br>
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/cli-artifact#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      The <a href="/docs/agent/v2/cli-artifact#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/v2/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
       <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
@@ -120,12 +120,160 @@ _Optional attributes:_
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>retry</code></td>
+    <td>
+      The conditions for retrying this step.<br>
+      Available retry types: <code>automatic</code>,<code>manual</code>
+    </td>
+  </tr>
+</table>
+
+## Retry Attributes
+
+<div class="Docs__note">
+<p class="Docs__note__heading">At least one of the following attributes is required.</p>
+<p>You don't have to set both the <em>automatic</em> and <em>manual</em> attributes on <code>retry</code>, but you can choose to set both.</p>
+</div>
+
+<table>
+  <tr>
+    <td><code>automatic</code></td>
+    <td>
+      Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
+      <em>Default value:</em><br>
+      <code>exit_status: "*"</code><br>
+      <code>limit: 2</code><br>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>manual</code></td>
+    <td>
+      Whether to allow a job to be retried manually. This field accepts a boolean value, or a single retry condition.<br>
+      <em>Default value:</em> <code>true</code><br>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
 </table>
 
 ```yml
 steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: false
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic: true
+```
+
+
+## Automatic Retry Attributes
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>exit_status</code></td>
+    <td>
+      The exit status number that will cause this job to retry. <br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>2</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>limit</code></td>
+    <td>
+      The number of times this job can be retried. The maximum value this can be set to is 10.<br>
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+</table>
+
+<div class="Docs__note">
+<p class="Docs__note__heading">-1 Exit Status</p>
+<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behaviour in the <code>pipeline.yml</code> file.</p>
+</div>
+
+```yml
+steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      automatic:
+        limit: 3
+  - label: "Visual Diffs"
+    command: "diffs.sh"
+    retry:
+      automatic:
+        exit_status: 1
+        limit: 1
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      automatic:
+        - exit_status: 5
+          limit: 2
+        - exit_status: "*"
+          limit: 4
+```
+
+## Manual Retry Attributes
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>allowed</code></td>
+    <td>
+      A boolean value that defines whether or not this job can be retried manually.<br>
+      <em>Default value:</em> <code>true</code><br>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>reason</code></td>
+    <td>
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. <br>
+      <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>permit_on_passed</code></td>
+    <td>
+      A boolean value that defines whether or not this job can be retried after it has passed.<br>
+      <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: true
+  - label: "Visual Diffs"
+    command: "diffs.sh"
+    retry:
+      manual:
+        allowed: false
+        reason: "Don't run this twice, it's not flaky"
+  - label: "Tests"
+    command: "tests.sh"
+    retry:
+      manual:
+        permit_on_passed: true
+```
+
+## Examples
+
+```yml
+steps:
   - label: "\:hammer\: Tests"
-    command: 
+    command:
       - "npm install"
       - "tests.sh"
     branches: "master"
@@ -140,12 +288,28 @@ steps:
       - "coverage/**/*"
     parallelism: 1
     timeout_in_minutes: 60
+    retry:
+      automatic:
+        - exit_status: 1
+          limit: 3
+        - exit_status: 75
+          limit: 5
+  - label: "Linting"
+    command: "lint.sh"
+    retry:
+      manual: false
+      automatic:
+        limit: 3
   - wait
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "master"
     concurrency: 1
     concurrency_group: "my-app/deploy"
+    retry:
+      manual:
+        allowed: false
+        reason: "Don't retry deploys please!"
   - label: "Skipped job"
     command: "my_command.sh"
     skip: "Didn't feel like it"

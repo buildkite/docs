@@ -48,7 +48,7 @@ After clicking _“Next”_ you’ll configure the stack using the details from 
 
 <%= image "aws-parameters.png", size: '561x311', alt: 'AWS Parameters' %>
 
-By default the stack uses a job queue of `default` but you can specify any other queue name you’d like. See the [Buildkite Agent Job Queue docs](/docs/agent/queues) for more info.
+By default the stack uses a job queue of `default` but you can specify any other queue name you’d like. See the [Buildkite Agent Job Queue docs](/docs/agent/v2/queues) for more info.
 
 Once you're ready, click the _“I acknowledge that this template might cause AWS CloudFormation to create IAM resources.”_ checkbox then click _“Create”_:
 
@@ -64,9 +64,9 @@ You've now got a working Elastic CI Stack ready to run builds! :tada:
 
 We’ve created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the _“Add to Buildkite”_ button below (or on the [GitHub Readme](https://github.com/buildkite/bash-parallel-example)):
 
-<a class="inline-block" href="/new?template=https://github.com/buildkite/bash-parallel-example" target="__blank"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+<a class="inline-block" href="/new?template=https://github.com/buildkite/bash-parallel-example" target="__blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Your pipeline is now ready for it’s first build. Click "New Build" in the top right and choose a build message (perhaps a little party `\:parrot\:`?):
+Your pipeline is now ready for its first build. Click "New Build" in the top right and choose a build message (perhaps a little party `\:parrot\:`?):
 
 <%= image "buildkite-new-build.png", size: "#{970/2}x#{871/2}", alt: 'Triggering Buildkite Build' %>
 

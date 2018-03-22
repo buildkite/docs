@@ -1,6 +1,6 @@
 # Using Build Artifacts
 
-In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/cli-artifact) to store and retrieve files between different steps in a build pipeline.
+In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/v2/cli-artifact) to store and retrieve files between different steps in a build pipeline.
 
 For a higher level overview, see our guide on [Sharing Data Between Steps](/docs/builds/sharing-data)
 
@@ -21,7 +21,7 @@ buildkite-agent artifact upload pkg/build.tar.gz
 
 You can then download the artifact in subsequent build steps (even if the build step is running on a different build server).
 
-For full documentation, and examples of supported glob patterns, see the [buildkite-agent artifact upload documentation](/docs/agent/cli-artifact#uploading-artifacts).
+For full documentation, and examples of supported glob patterns, see the [buildkite-agent artifact upload documentation](/docs/agent/v2/cli-artifact#uploading-artifacts).
 
 ## Downloading Artifacts
 
@@ -41,7 +41,7 @@ buildkite-agent artifact download build.zip tmp/ --step build
 
 This will download the `build.zip` file from the pipeline step with the label "build".
 
-For full documentation and examples, see the [buildkite-agent artifact download documentation](/docs/agent/cli-artifact#downloading-artifacts).
+For full documentation and examples, see the [buildkite-agent artifact download documentation](/docs/agent/v2/cli-artifact#downloading-artifacts).
 
 ## Downloading Artifacts Outside a Running Build
 
@@ -51,4 +51,4 @@ If you want to download an artifact from outside a build use our [Artifact Downl
 
 ## Further documentation
 
-See the [Buildkite Agent artifact documentation](/docs/agent/cli-artifact) for a full list of options and details of Buildkite’s artifact support.
+See the [Buildkite Agent artifact documentation](/docs/agent/v2/cli-artifact) for a full list of options and details of Buildkite’s artifact support.
