@@ -31,7 +31,7 @@ Hooks are called in the following order:
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Windows hooks</p>
-The above hook works on unix-based systems with bash in the path. For windows systems, you will need to append a `.bat` to the hook and use Windows Batch in the body of the hook. See <a href="hooks#hooks-on-windows">Hooks on Windows</a>for more details.</p>
+These hooks work on unix-based systems with bash in the path. If you're running windows agents, you'll need some windows-specific additions to get your hooks running. See <a href="hooks#hooks-on-windows">Hooks on Windows</a> for a detailed description.</p>
 </div>
 
 ## Creating Hook Scripts
@@ -90,9 +90,12 @@ chmod +x .buildkite/hooks/pre-command
 
 ## Hooks on Windows
 
-Windows systems require either for hooks to have a `.bat` extension and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or for <a href="windows#git-for-windows">Git for Windows, which includes bash</a> to be available.
+Agents runnings Windows require hook files to have either:
 
-An example of a windows `environment.bat` hook would be:
+* A `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or 
+* Access to <a href="windows#git-for-windows">Git for Windows, which includes bash</a>
+
+An example of a windows `environment.bat` hook:
 
 ```batch
 @ECHO OFF
