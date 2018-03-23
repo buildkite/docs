@@ -31,7 +31,7 @@ Hooks are called in the following order:
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Windows hooks</p>
-These hooks work on unix-based systems with bash in the path. If you're running windows agents, you'll need some windows-specific additions to get your hooks running. See <a href="hooks#hooks-on-windows">Hooks on Windows</a> for a detailed description.</p>
+These hooks work on unix-based systems with bash in the path. If you're running Windows agents, you'll need some Windows-specific additions to get your hooks running. See <a href="hooks#hooks-on-windows">Hooks on Windows</a> for a detailed description.</p>
 </div>
 
 ## Creating Hook Scripts
@@ -86,7 +86,7 @@ chmod +x .buildkite/hooks/pre-command
 Agents runnings Windows require hook files to have either:
 
 * A `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or 
-* Access to <a href="windows#git-for-windows">Git for Windows, which includes bash</a>
+* Access to <a href="/docs/agent/v3/windows#git-for-windows">Git for Windows</a>, which includes bash
 
 An example of a windows `environment.bat` hook:
 
