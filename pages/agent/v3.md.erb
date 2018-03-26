@@ -6,7 +6,7 @@ The buildkite agent is a small, reliable and cross-platform build runner that ma
 
 The agent works by polling Buildkite’s agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
 
-<%= image "how-it-works.svg", alt: "Diagram showing agent to agent API communication" %>
+<%= image "how-it-works.png", alt: "Diagram showing agent to agent API communication" %>
 
 The agent starts by registering itself with Buildkite, and once registered it’s placed into your organization’s agents pool. The agent periodically polls Buildkite looking for new work, waiting to accept an available job.
 
