@@ -30,15 +30,21 @@ if [[ "${BUILDKITE_COMMAND}" == "script/release" ]]; then
 fi
 ```
 
-## Disabling automatic SSH fingerprint verification
+## Disabling automatic ssh-keyscan
 
-By default the agent will auto-verify the SSH host using `ssh-keyscan` when doing the first checkout on a new agent host. Once you disable this functionality you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+By default the agent will automatically accept the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
 
-Automatic SSH fingerprint verification can be disabled by setting `no-automatic-ssh-fingerprint-verification` in one of the following ways:
+```bash
+ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
+```
 
-* Environment variable: `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION=1`
-* Command line flag: `--no-automatic-ssh-fingerprint-verification`
-* Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
+If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+
+This operation can be disabled by setting `no-ssh-keyscan` in one of the following ways:
+
+* Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
+* Command line flag: `--no-ssh-keyscan`
+* Configuration setting: `no-ssh-keyscan=true`
 
 ## Disabling command eval
 
