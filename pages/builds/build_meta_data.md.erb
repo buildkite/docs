@@ -6,9 +6,9 @@ In this guide we’ll walk through using the Buildkite Agent’s [meta-data comm
 
 ## Setting data
 
-You can set meta-data via the command line or in a script. Both of these methods use the `buildkite-agent` cli with the `meta-data` command. 
+You can set meta-data via the command line or in a script. Both of these methods use the `buildkite-agent` cli with the `meta-data` command. Meta-data can only be set prior to starting an agent, it cannot be added once an agent is running.
 
-To set meta-data in a script, use the `set` command with a key/value pair:
+To set meta-data in the meta-data store, use the `set` command with a key/value pair:
 
 ```bash
 buildkite-agent meta-data set "release-version" "1.1"
@@ -16,7 +16,16 @@ buildkite-agent meta-data set "release-version" "1.1"
 
 This command results in the value "1.1" being associated with the key "release-version" in the meta-data store. 
 
-To set the meta-data on an agent from the command line:
+To set meta-data on an agent, use the `meta-data` flag on the `start` command:
+
+```bash
+buildkite-agent start --token xxx --meta-data 'release-version=1.1'
+```
+
+<div class="Docs__troubleshooting-note">
+<h1>Agent meta-data</h1>
+<p>The <code>meta-data</code> flag on the agent has been re-named to <code>tags</code> in <a href="/docs/agent/v3/hooks">Agent v3</a>.</p>
+</div>
 
 ## Getting data
 
@@ -30,7 +39,12 @@ To retrieve meta-data, use the `get` command with the previously set key:
 buildkite-agent meta-data get "release-version"
 ```
 
-Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version",  
+Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version", it will return an error. 
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Default values</p>
+<p>The `get` command has a `default` flag. You can use this to return a value in the case that the key has not been set.</p>
+</div>
 
 ## Further documentation
 
