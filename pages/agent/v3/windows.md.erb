@@ -8,7 +8,7 @@ The Buildkite Agent can be installed on both 64bit and 32bit editions of Windows
 
 ```
 $env:buildkiteAgentToken = "my_token"
-$env:buildkiteAgentBeta = 'true'
+$env:buildkiteAgentBeta = $true
 Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/master/install.ps1'))
 ```
@@ -22,7 +22,6 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercon
 SSH keys should be copied to (or generated into) in the user’s `.ssh` directory. For example, typing the following into Git Bash will generate a new private key which you can add to your source code host:
 
 ```bash
-$ mkdir -p ~/.ssh && cd ~/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
@@ -33,7 +32,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 * Configuration: `C:\buildkite\buildkite-agent.cfg`
 * Hooks: `C:\buildkite\hooks`
 * Builds: `C:\buildkite\builds`
-* SSH keys: `~/.ssh`
+* SSH keys: `%USERPROFILE%\.ssh`
 
 ## Configuration
 
@@ -50,3 +49,17 @@ See the [configuration documentation](/docs/agent/v3/configuration) for an expla
 ## Git for Windows
 
 While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git or SSH. In addition to providing Git and SSH, Git for Windows includes Bash for Windows and a variety of standard linux tools which are frequently required for [plugins](/docs/agent/v3/plugins).
+
+## Running as a service natively
+
+The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create via the command-line:
+
+```
+nssm.exe install buildkite-agent "C:\buildkite\buildkite-agent.exe" "start"
+nssm.exe set buildkite-agent AppStdout "C:\buildkite\buildkite-agent.log"
+nssm.exe set buildkite-agent AppStderr "C:\buildkite\buildkite-agent.log"
+
+nssm.exe status buildkite-agent
+nssm.exe start buildkite-agent
+nssm.exe status buildkite-agent
+```
