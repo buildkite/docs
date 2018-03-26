@@ -4,7 +4,16 @@ The Buildkite Agent can be installed on both 64bit and 32bit editions of Windows
 
 <%= toc %>
 
-## Installation
+## Installing with Powershell
+
+```
+$env:buildkiteAgentToken = "my_token"
+$env:buildkiteAgentBeta = 'true'
+Set-ExecutionPolicy Bypass -Scope Process -Force
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/master/install.ps1'))
+```
+
+## Manual Installation
 
 <%= render_agent_setup :windows, nil, "v3" %>
 
@@ -18,6 +27,21 @@ $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 ```
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
+
+## File Locations
+
+* Configuration: `C:\buildkite\buildkite-agent.cfg`
+* Hooks: `C:\buildkite\hooks`
+* Builds: `C:\buildkite\builds`
+* SSH keys: `~/.ssh`
+
+## Configuration
+
+The configuration file is located at `C:\buildkite\buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+
+## Upgrading
+
+Simply rerun the install script.
 
 ## Configuration
 
