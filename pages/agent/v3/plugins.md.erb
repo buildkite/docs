@@ -60,8 +60,7 @@ docker environment variables, or writing a custom script.
 ## Plugin sources
 
 If you refer to a plugin just by name (say `detect-clowns`), it defaults to
-https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used
-`myorg/detect-clowns` it would be https://github.com/myorg/detect-clowns-buildkite-plugin.
+https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used `myorg/detect-clowns` it would refer to https://github.com/myorg/detect-clowns-buildkite-plugin.
 
 You can also use a fully qualified git repository name like `https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin.git` or `git@github.com:foo/bar.git#v1.3`, which
 lets you refer to your own private git repositories. Branches, tags and commits
@@ -74,8 +73,7 @@ changing unexpectedly. This is done with a git tag of `vX.X.X`.
 
 The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the `buildkite-agent` tag [on GitHub][third party plugins].
 
-We mostly write our plugins as shell scripts, so we've created a [plugin tester]
-docker image that simplifies writing BATS tests and getting your plugin tested (so meta).
+At Buildkite, our plugins are predominantly shell scripts, so we've created a [plugin tester] docker image that simplifies writing BATS tests and getting your plugin tested (so meta).
 
 ### Anatomy of a plugin
 
@@ -97,7 +95,7 @@ A minimal plugin has a `plugin.json` at it's root:
 
 And then hook scripts under `hooks/`. A good example is the [docker plugin], which runs a command within a docker container.
 
-The pipeline invocation looks like:
+The pipeline invocation of this plugin looks like:
 
 ```yml
 steps:
@@ -108,7 +106,7 @@ steps:
         workdir: /app
 ```
 
-And then the logic of the (simplified) [command hook][hooks] script in `hooks/command`:
+The logic of the (simplified) [command hook][hooks] script in `hooks/command`:
 
 ```bash
 #!/bin/bash
@@ -122,21 +120,21 @@ docker run -it --rm \
   "${BUILDKITE_PLUGIN_DOCKER_IMAGE}" bash -c "${BUILDKITE_COMMAND}"
 ```
 
-The agent parses the plugin block and passes the parameters through to the script as environment variables in the form `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a list is provided then `BUILDKITE_PLUGIN_{NAME}_{KEY}_{IDX}`.
+The agent parses the plugin block and passes the parameters through to the script as environment variables in the form `BUILDKITE_PLUGIN_{NAME}_{KEY}`. If a list is provided then `BUILDKITE_PLUGIN_{NAME}_{KEY}_{IDX}`.
 
-Plugins are also able to offer `command` and `environment` hooks, which aren't allowed in per-project hooks. This lets plugins change how commands are executed entirely.
+Plugins are also able to offer `command` and `environment` hooks, which aren't allowed in per-project hooks. You can use these to change how plugins execute commands.
 
 ## Security and Reliability
 
 Plugins introduce a third-party dependency in your pipeline. They provide a way to introduce executable code into your pipeline beyond scripts in your repository and access to the `pipeline.yml`.
 
-Security practices that we recommed:
+Recommended security practices:
 
  * Always pin to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
 
  * Follow the [Unofficial Bash Strict Mode] and check your work with [shellcheck].
 
- * Apply special care in plugins to avoid executing arbitrary code passed in by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
+ * Apply special care to avoid executing arbitrary code passed in to plugins by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
 For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or run agents with the `--no-plugins` flag.
 
