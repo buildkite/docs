@@ -1,7 +1,8 @@
 # buildkite-agent annotate
 
-The Buildkite Agent’s `annotate` command allows you to add additional
-information to Buildkite build pages.
+The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using either Markdown or HTML.
+
+<%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
 <%= toc %>
 
@@ -50,4 +51,69 @@ Options:
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Annotation styles
+
+You can change the visual style of annotations using the `--style` option.
+
+This is an example pipeline showcasing the different styles of annotations:
+
+```yaml
+steps:
+  - label: "\:console\: Annotation Test"
+    command: |
+      buildkite-agent annotate 'Example `default` style' --context 'ctx-default'
+      buildkite-agent annotate 'Example `info` style' --style 'info' --context 'ctx-info'
+      buildkite-agent annotate 'Example `warning` style' --style 'warning' --context 'ctx-warn'
+      buildkite-agent annotate 'Example `error` style' --style 'error' --context 'ctx-error'
+      buildkite-agent annotate 'Example `success` style' --style 'success' --context 'ctx-success'
+```
+
+<%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
+
+## Embedding & linking artifacts in annotations
+
+Uploaded artifacts can be embedded in annotations by referencing them using the `artifact://` prefix in your image source.
+
+```yaml
+steps:
+  - label: ":console: Annotation Test"
+    command: |
+      buildkite-agent artifact upload "indy.png"
+      cat << EOF | buildkite-agent annotate --style "info"
+        <img src="artifact://indy.png" alt="Belongs in a museum" height=250 />
+      EOF
+```
+
+<%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
+
+You can also link to uploaded artifacts as shortcut to common files:
+
+```yaml
+steps:
+  - label: "Upload Coverage Report"
+    command: |
+      buildkite-agent artifact upload "coverage/*"
+      cat << EOF | buildkite-agent annotate --style "info"
+        Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
+      EOF
+```
+
+## Using annotations to report JUnit Test Results
+
+Annotations make for a great way for rendering test results within your pipelines.
+
+We've created a plugin to convert JUnit results into an annotation: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
+
+```yaml
+steps:
+  - command: test.sh
+    parallelism: 50
+    artifact_paths: tmp/junit-*.xml
+  - wait: ~
+    continue_on_failure: true
+  - plugins:
+      junit-annotate#v0.0.1:
+      artifacts: tmp/junit-*.xml
 ```
