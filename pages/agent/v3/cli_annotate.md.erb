@@ -78,7 +78,7 @@ Uploaded artifacts can be embedded in annotations by referencing them using the 
 
 ```yaml
 steps:
-  - label: ":console: Annotation Test"
+  - label: "\:console\: Annotation Test"
     command: |
       buildkite-agent artifact upload "indy.png"
       cat << EOF | buildkite-agent annotate --style "info"
@@ -88,7 +88,7 @@ steps:
 
 <%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
 
-You can also link to uploaded artifacts as shortcut to common files:
+You can also link to uploaded artifacts as a shortcut to common files:
 
 ```yaml
 steps:
@@ -102,7 +102,7 @@ steps:
 
 ## Using annotations to report JUnit Test Results
 
-Annotations make for a great way for rendering test results within your pipelines.
+Annotations are a great way of rendering test results within your pipelines.
 
 We've created a plugin to convert JUnit results into an annotation: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
 
