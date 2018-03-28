@@ -9,15 +9,15 @@ The Buildkite Agent has changed a lot in v3, but we've tried to keep it as backw
 Added:
 
 * [Plugins](/docs/agent/v3/plugins) for easily sharing functionality between pipelines and customizing how agents behave
-* [Variable interpolation](cli_pipeline) in `pipeline.yml`
-* [Build annotations](cli_annotate)
+* [Variable interpolation](cli-pipeline) in `pipeline.yml`
+* [Build annotations](cli-annotate)
 
 Changed:
 
 * Agent meta-data has been renamed to "tags"
 * Much better Windows support, including .BAT hooks support
 * Checkout clean no longer ignores files in `.gitignore`
-* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](cli_bootstrap). This means it's written in golang and cross-platform.
+* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](cli-bootstrap). This means it's written in golang and cross-platform.
 
 Deprecated:
 
