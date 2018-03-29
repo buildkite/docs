@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="730px" height="570px" viewBox="0 0 730 570" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.1 (51147) - http://www.bohemiancoding.com/sketch -->
+    <title>Agent Diagram</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="11" y="11" width="102" height="65" rx="8"></rect>
+        <rect id="path-2" x="6" y="6" width="102" height="65" rx="8"></rect>
+        <rect id="path-3" x="0" y="0" width="102" height="65" rx="8"></rect>
+        <rect id="path-4" x="0" y="0" width="75" height="48" rx="8"></rect>
+        <path d="M0,8.00709688 C0,3.58489938 3.57485691,0 7.9962019,0 L173.003798,0 C177.419978,0 181,3.58817117 181,8.00709688 L181,39.9929031 C181,44.4151006 177.425143,48 173.003798,48 L7.9962019,48 C3.58002154,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-5"></path>
+        <mask id="mask-6" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="181" height="48" fill="white">
+            <use xlink:href="#path-5"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.57482502,0 7.99718944,0 L186.002811,0 C190.419536,0 194,3.58817117 194,8.00709688 L194,39.9929031 C194,44.4151006 190.425175,48 186.002811,48 L7.99718944,48 C3.58046367,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-7"></path>
+        <mask id="mask-8" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="194" height="48" fill="white">
+            <use xlink:href="#path-7"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.57614966,0 7.99065021,0 L127.00935,0 C131.422464,0 135,3.58817117 135,8.00709688 L135,39.9929031 C135,44.4151006 131.42385,48 127.00935,48 L7.99065021,48 C3.57753596,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-9"></path>
+        <mask id="mask-10" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="135" height="48" fill="white">
+            <use xlink:href="#path-9"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.57485691,0 7.9962019,0 L173.003798,0 C177.419978,0 181,3.58817117 181,8.00709688 L181,39.9929031 C181,44.4151006 177.425143,48 173.003798,48 L7.9962019,48 C3.58002154,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-11"></path>
+        <mask id="mask-12" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="181" height="48" fill="white">
+            <use xlink:href="#path-11"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.57485691,0 7.9962019,0 L173.003798,0 C177.419978,0 181,3.58817117 181,8.00709688 L181,39.9929031 C181,44.4151006 177.425143,48 173.003798,48 L7.9962019,48 C3.58002154,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-13"></path>
+        <mask id="mask-14" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="181" height="48" fill="white">
+            <use xlink:href="#path-13"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.57482502,0 7.99718944,0 L186.002811,0 C190.419536,0 194,3.58817117 194,8.00709688 L194,39.9929031 C194,44.4151006 190.425175,48 186.002811,48 L7.99718944,48 C3.58046367,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-15"></path>
+        <mask id="mask-16" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="194" height="48" fill="white">
+            <use xlink:href="#path-15"></use>
+        </mask>
+        <path d="M14,8.00709688 C14,3.58489938 17.5761497,0 21.9906502,0 L141.00935,0 C145.422464,0 149,3.58817117 149,8.00709688 L149,39.9929031 C149,44.4151006 145.42385,48 141.00935,48 L21.9906502,48 C17.577536,48 14,44.4118288 14,39.9929031 L14,8.00709688 Z" id="path-17"></path>
+        <mask id="mask-18" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="135" height="48" fill="white">
+            <use xlink:href="#path-17"></use>
+        </mask>
+        <path d="M0,8.00709688 C0,3.58489938 3.58473072,0 7.99849542,0 L159.001505,0 C163.418952,0 167,3.58817117 167,8.00709688 L167,39.9929031 C167,44.4151006 163.415269,48 159.001505,48 L7.99849542,48 C3.58104838,48 0,44.4118288 0,39.9929031 L0,8.00709688 Z" id="path-19"></path>
+        <mask id="mask-20" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="167" height="48" fill="white">
+            <use xlink:href="#path-19"></use>
+        </mask>
+        <rect id="path-21" x="0" y="0" width="75" height="48" rx="8"></rect>
+        <rect id="path-22" x="11" y="11" width="102" height="65" rx="8"></rect>
+        <rect id="path-23" x="6" y="6" width="102" height="65" rx="8"></rect>
+        <rect id="path-24" x="0" y="0" width="102" height="65" rx="8"></rect>
+        <rect id="path-25" x="11" y="11" width="102" height="65" rx="8"></rect>
+        <rect id="path-26" x="6" y="6" width="102" height="65" rx="8"></rect>
+        <rect id="path-27" x="0" y="0" width="102" height="65" rx="8"></rect>
+    </defs>
+    <g id="Agent-Diagram" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M-0.5,274.5 L731.653672,274.5" id="Line" stroke="#DCDCDC" stroke-linecap="square" stroke-dasharray="10"></path>
+        <text id="On-Premise" font-family="CircularStd-Medium, Circular Std" font-size="18" font-weight="400" fill="#666666">
+            <tspan x="618" y="305">On-Premise</tspan>
+        </text>
+        <text id="Hosted-Platform" font-family="CircularStd-Medium, Circular Std" font-size="18" font-weight="400" fill="#666666">
+            <tspan x="581" y="32">Hosted Platform</tspan>
+        </text>
+        <g id="Group-2" transform="translate(163.000000, 383.000000)">
+            <g id="Group">
+                <g id="Rectangle">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#979797" stroke-width="1" x="11.5" y="11.5" width="101" height="64" rx="8"></rect>
+                </g>
+                <g id="Rectangle">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                    <rect stroke="#979797" stroke-width="1" x="6.5" y="6.5" width="101" height="64" rx="8"></rect>
+                </g>
+                <g id="Rectangle">
+                    <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-3"></use>
+                    <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="101" height="64" rx="8"></rect>
+                </g>
+                <text id="AGENT" font-family="CircularStd-Bold, Circular Std" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69">
+                    <tspan x="18.31075" y="39">AGEN</tspan>
+                    <tspan x="73.53475" y="39" letter-spacing="1.01250005">T</tspan>
+                </text>
+            </g>
+        </g>
+        <g id="Group-3" transform="translate(95.000000, 312.000000)">
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-4"></use>
+                <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="74" height="47" rx="8"></rect>
+            </g>
+            <text id="AGENT" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#2ACE69">
+                <tspan x="14.1572679" y="30">AGEN</tspan>
+                <tspan x="54.0412679" y="30" letter-spacing="0.754464269">T</tspan>
+            </text>
+        </g>
+        <g id="Group-4" transform="translate(56.000000, 490.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-6)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-5"></use>
+            <text id="YOUR-SOURCE-CODE" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="20.434" y="30">YOUR SOURCE CODE</tspan>
+            </text>
+        </g>
+        <g id="Group-5" transform="translate(275.000000, 492.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-8)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-7"></use>
+            <text id="YOUR-DEPLOY-SECRETS" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="15.18725" y="30">YOUR DEPLOY SECRETS</tspan>
+            </text>
+        </g>
+        <g id="Group-5" transform="translate(65.000000, 67.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-10)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-9"></use>
+            <text id="WEBHOOKS" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="26.595" y="30">WEBHOOKS</tspan>
+            </text>
+        </g>
+        <g id="Group-5" transform="translate(264.000000, 43.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-12)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-11"></use>
+            <text id="SCM-INTEGRATIONS" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="19.539" y="30">SCM INTEGRATIONS</tspan>
+            </text>
+        </g>
+        <g id="Group-5" transform="translate(39.000000, 185.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-14)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-13"></use>
+            <text id="CHAT-INTEGRATIONS" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="16.08425" y="30">CHAT INTEGRATIONS</tspan>
+            </text>
+        </g>
+        <g id="Group-8" transform="translate(494.000000, 185.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-16)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-15"></use>
+            <text id="REST-&amp;-GRAPHQL-APIs" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="19.98425" y="30">REST &amp; GRAPHQL APIs</tspan>
+            </text>
+        </g>
+        <g id="Group-9" transform="translate(507.000000, 67.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-18)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-17"></use>
+            <text id="WEB-INTERFACE" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="26.84925" y="30">WEB INTERFACE</tspan>
+            </text>
+        </g>
+        <g id="Group-6" transform="translate(507.000000, 490.000000)">
+            <use id="Rectangle" stroke="#979797" mask="url(#mask-20)" stroke-width="2" fill="#FFFFFF" stroke-dasharray="3" xlink:href="#path-19"></use>
+            <text id="INTERNAL-SYSTEMS" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#000000">
+                <tspan x="13.482" y="30">INTERNAL SYSTEMS</tspan>
+            </text>
+        </g>
+        <g id="Group-3" transform="translate(526.000000, 312.000000)">
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-21"></use>
+                <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="74" height="47" rx="8"></rect>
+            </g>
+            <text id="AGENT" font-family="CircularStd-Bold, Circular Std" font-size="13" font-weight="bold" letter-spacing="0.8125" fill="#2ACE69">
+                <tspan x="14.1572679" y="30">AGEN</tspan>
+                <tspan x="54.0412679" y="30" letter-spacing="0.754464269">T</tspan>
+            </text>
+        </g>
+        <g id="Group" transform="translate(298.000000, 383.000000)">
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-22"></use>
+                <rect stroke="#979797" stroke-width="1" x="11.5" y="11.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-23"></use>
+                <rect stroke="#979797" stroke-width="1" x="6.5" y="6.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-24"></use>
+                <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <text id="AGENT" font-family="CircularStd-Bold, Circular Std" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69">
+                <tspan x="18.31075" y="39">AGEN</tspan>
+                <tspan x="73.53475" y="39" letter-spacing="1.01250005">T</tspan>
+            </text>
+        </g>
+        <g id="Group-7" transform="translate(228.000000, 113.000000)">
+            <rect id="Rectangle" stroke="#979797" x="0.5" y="0.5" width="249" height="64" rx="8"></rect>
+            <text id="BUILDKITE-AGENT-API" font-family="CircularStd-Bold, Circular Std" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69">
+                <tspan x="18.9805" y="39">BUILDKITE AGENT API</tspan>
+            </text>
+        </g>
+        <g id="Group" transform="translate(430.000000, 383.000000)">
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-25"></use>
+                <rect stroke="#979797" stroke-width="1" x="11.5" y="11.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-26"></use>
+                <rect stroke="#979797" stroke-width="1" x="6.5" y="6.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <g id="Rectangle">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-27"></use>
+                <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="101" height="64" rx="8"></rect>
+            </g>
+            <text id="AGENT" font-family="CircularStd-Bold, Circular Std" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69">
+                <tspan x="18.31075" y="39">AGEN</tspan>
+                <tspan x="73.53475" y="39" letter-spacing="1.01250005">T</tspan>
+            </text>
+        </g>
+        <path d="M353.5,185.5 L519.5,304.5" id="Line-2" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path id="Line-2-decoration-1" d="M519.5,304.5 L512.47029,295.769411 L508.974529,300.645851 L519.5,304.5 Z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path d="M353.5,185.5 L469.5,368.5" id="Line-2" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path id="Line-2-decoration-1" d="M469.5,368.5 L466.251712,357.772063 L461.184049,360.984352 L469.5,368.5 Z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path d="M353.5,185.5 L345.5,366.5" id="Line-2" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path id="Line-2-decoration-1" d="M345.5,366.5 L348.973956,355.843001 L342.979809,355.578066 L345.5,366.5 Z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path d="M353.5,185.5 L222.5,369.5" id="Line-2" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path id="Line-2-decoration-1" d="M222.5,369.5 L231.207686,362.44194 L226.319906,358.962053 L222.5,369.5 Z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path d="M353.5,185.5 L180.5,303.5" id="Line-2" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+        <path id="Line-2-decoration-1" d="M180.5,303.5 L191.112619,299.892741 L187.731709,294.935983 L180.5,303.5 Z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"></path>
+    </g>
+</svg>
