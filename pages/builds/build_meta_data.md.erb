@@ -16,17 +16,6 @@ buildkite-agent meta-data set "release-version" "1.1"
 
 This command results in the value "1.1" being associated with the key "release-version" in the meta-data store. 
 
-To set meta-data on an agent, use the `meta-data` flag on the `start` command:
-
-```bash
-buildkite-agent start --token xxx --meta-data 'release-version=1.1'
-```
-
-<div class="Docs__troubleshooting-note">
-<h1>Agent meta-data</h1>
-<p>The <code>meta-data</code> flag on the agent has been re-named to <code>tags</code> in <a href="/docs/agent/v3/hooks">Agent v3</a>.</p>
-</div>
-
 ## Getting data
 
 You can retreive data from the meta-data store either via the command line or in a script. The same as when setting data, both of these methods use the `buildkite-agent` cli with the `meta-data` command.

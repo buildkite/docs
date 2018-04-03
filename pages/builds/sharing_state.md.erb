@@ -1,6 +1,6 @@
 # Sharing State Across Steps
 
-Sharing state across the steps of your build removes repetion and speeds up your build time. Passing data like npm packages and docker containers between steps can help keep your steps single-purpose (and cuts down the time each step takes and how much processing it has to do).   
+Sharing state across the steps of your build removes repetion and speeds up your build time. It also helps you use the same state for multiple steps running in parallel. Passing data like npm packages and docker containers between steps can help keep your steps single-purpose, decreases the amount of processing each step has to do, and cuts down the time they take to complete.
 
 There are two ways to share state across steps in a build: artifacts and meta-data. Both of these data stores are accessible across your organisation and pipelines.  
 
@@ -8,7 +8,7 @@ There are two ways to share state across steps in a build: artifacts and meta-da
 
 ## Build Artifacts
 
-Artifacts are any files that are generated during a build step. Buildkite can host these files for you in the Buildkite artifact store. 
+Artifacts are any files that are generated during a build step. Buildkite can host these files for you in the Buildkite artifact store. We recommend only storing artifacts that you need in subsequent build steps, or files like logs that would be useful at a later date.
  
 You can upload and download from the store using our REST API. There are limits to how much you can upload, and to how long your files can be kept for. You can also use our command-line tool to upload your artifacts to a personal store.  
 
