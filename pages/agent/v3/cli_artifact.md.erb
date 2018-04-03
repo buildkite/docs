@@ -8,7 +8,9 @@ See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step
 
 ## Uploading artifacts
 
-Use this command in your build scripts to store artifacts for accessing via the web interface or downloading in future build steps. Alternatively, you can configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
+You can use this command in your build scripts to store artifacts in the Buildkite artifact store. The stored artifacts will then be accessable via the web interface and can be downloaded by future build steps. 
+
+You can also configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
 ```
 $ buildkite-agent artifact upload --help

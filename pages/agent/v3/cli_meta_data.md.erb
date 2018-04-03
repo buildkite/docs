@@ -2,13 +2,13 @@
 
 The Buildkite Agent’s `meta-data` command provides your build pipeline with a powerful key/value data-store that works across build steps and build agents, no matter the machine or network.
 
-See the [Using Build Metadata](/docs/builds/build-meta-data) guide for a step-by-step example.
+See the [Sharing State](/docs/builds/sharing-state) guide for an introduction to using meta-data. For practical examples, check out the [Using Build Metadata](/docs/builds/build-meta-data) page.
 
 <%= toc %>
 
 ## Setting Data
 
-Use this command in your build scripts to save simple string data to the build for retrieval in future steps.
+Use this command in your build scripts to save string data in the Buildkite meta-data store.
 
 ```
 $ buildkite-agent meta-data set --help
@@ -40,6 +40,8 @@ Options:
 ```
 
 ## Getting Data
+
+Use this command in your build scripts to get a previously saved value from the Buildkite meta-data store.
 
 ```
 $ buildkite-agent meta-data get --help
