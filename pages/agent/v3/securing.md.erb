@@ -30,19 +30,27 @@ if [[ "${BUILDKITE_COMMAND}" == "script/release" ]]; then
 fi
 ```
 
-## Disabling automatic SSH fingerprint verification
+## Disabling automatic ssh-keyscan
 
-By default the agent will auto-verify the SSH host using `ssh-keyscan` when doing the first checkout on a new agent host. Once you disable this functionality you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+By default the agent will automatically accept the Git SSH host using the `ssh-keyscan` command when doing the first checkout on a new agent host. The agent runs a similar command to this:
 
-Automatic SSH fingerprint verification can be disabled by setting `no-automatic-ssh-fingerprint-verification` in one of the following ways:
+```bash
+ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
+```
 
-* Environment variable: `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION=1`
-* Command line flag: `--no-automatic-ssh-fingerprint-verification`
-* Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
+If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
+
+This operation can be disabled by setting `no-ssh-keyscan` in one of the following ways:
+
+* Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
+* Command line flag: `--no-ssh-keyscan`
+* Configuration setting: `no-ssh-keyscan=true`
 
 ## Disabling command eval
 
-By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
+By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution. 
+
+Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
 
 To disable command line evaluation use one of the following settings:
 
@@ -50,7 +58,22 @@ To disable command line evaluation use one of the following settings:
 * Command line flag: `--no-command-eval`
 * Configuration setting: `no-command-eval=true`
 
-Note: hooks and plugins (Buildkite Agent 3.x) can override this setting. See [Whitelisting](#whitelisting) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+<div class="Docs__troubleshooting-note">
+<h1>Custom hooks</h1>
+<p>If you have a custom 'command' hook, using `no-command-eval` will have no effect on your command execution. See [Whitelisting](#whitelisting) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.</p>
+</div>
+
+## Disabling plugins
+
+As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent. 
+
+You can disable plugins with the command line flag: `--no-plugins`.
+
+## Disabling local hooks
+
+If you have configured your agent to do very specific things with global hooks (i.e. run commands within a Docker container or a chroot environment), you probably don't want them overriden with local ones. Disabling local hooks will also disable plugins.
+
+You can disable local hooks with the command line flag: `--no-local-hooks`.
 
 ## Whitelisting
 
