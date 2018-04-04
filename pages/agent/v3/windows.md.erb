@@ -52,15 +52,11 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 Rerun the install script.
 
-## Configuration
-
-See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
-
 ## Git for Windows
 
-While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git or SSH. In addition to providing Git and SSH, Git for Windows includes Bash for Windows and a variety of standard linux tools which are frequently required for [plugins](/docs/agent/v3/plugins).
+While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git or SSH. Git for Windows also includes Bash and a variety of standard linux tools which are frequently required for [plugins](/docs/agent/v3/plugins).
 
-## Running as a service natively
+## Running as a service
 
 The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create via the command-line:
 
