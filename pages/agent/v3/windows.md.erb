@@ -4,7 +4,15 @@ The Buildkite Agent can be installed on both 64bit and 32bit editions of Windows
 
 <%= toc %>
 
-## Installing with Powershell
+## Automated install with Powershell
+
+You'll need to run the follow commands within Powershell with Administrative Privileges. You can do this (in Windows 8) by:
+
+1. Open the Start menu and type "powershell"
+2. Highlight "Windows Powershell" in the results
+3. Press CTRL+SHIFT+ENTER (you'll be prompted to allow this app to make changes)
+
+Once you're in an escalated Powershell session, you can run this script to install the latest version of the Agent:
 
 ```
 $env:buildkiteAgentToken = "my_token"
