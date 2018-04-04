@@ -100,11 +100,11 @@ steps:
       EOF
 ```
 
-## Using annotations to report JUnit Test Results
+## Using annotations to report test results
 
-Annotations are a great way of rendering test results within your pipelines.
+Annotations are a great way of rendering test failures that across in different steps in a pipeline.
 
-We've created a plugin to convert JUnit results into an annotation: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
+We've created a plugin to convert all the junit.xml artifacts in a build into a single annotation: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
 
 ```yaml
 steps:
