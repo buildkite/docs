@@ -1,6 +1,6 @@
 # Webhook Integrations
 
-There are a number of third party services you can use with Buildkite webhooks. Some services (such as RequestBin, APITools and Zapier) are designed specifically with webhooks in mind, and others (such as AWS Lambda, Google Cloud Functions, IronWorker and Webtask) are general purpose programming platforms which can be triggered with webhook HTTP requests.
+There are a number of third party services you can use with Buildkite webhooks. Some services (such as RequestBin and Zapier) are designed specifically with webhooks in mind, and others (such as AWS Lambda, Google Cloud Functions, IronWorker and Webtask) are general purpose programming platforms which can be triggered with webhook HTTP requests.
 
 <%= toc %>
 
@@ -25,10 +25,6 @@ Copy the bin’s URL and add it in a new Buildkite webhook notification. Once yo
 ## IronWorker
 
 [Iron.io’s IronWorker](http://www.iron.io/worker/) is a service for hosted code execution using Docker containers. You can follow their [webhook worker documentation and sample code](http://dev.iron.io/worker/webhooks/) for an example of how to create an endpoint to use with Buildkite webhooks.
-
-## APItools
-
-[APItools](https://www.apitools.com/) is a tool for ingesting and manipulating API requests. You can use it as a webhook receiver, write LUA middleware for triggering behavior on incoming webhooks. See [this gist](https://gist.github.com/toolmantim/b464091caf36fea2b3d3) for a complete example of using APItools middleware to control the LIFX API based on Buildkite webhooks.
 
 ## Zapier
 
