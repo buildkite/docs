@@ -18,7 +18,6 @@ Once you're in an escalated Powershell session, you can run this script to insta
 
 ```
 $env:buildkiteAgentToken = "my_token"
-$env:buildkiteAgentBeta = $true
 Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/master/install.ps1'))
 ```
