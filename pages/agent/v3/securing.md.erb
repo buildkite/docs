@@ -48,7 +48,7 @@ This operation can be disabled by setting `no-ssh-keyscan` in one of the followi
 
 ## Disabling command eval
 
-By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution. 
+By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution.
 
 Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
 
@@ -65,7 +65,7 @@ To disable command line evaluation use one of the following settings:
 
 ## Disabling plugins
 
-As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent. 
+As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
 You can disable plugins with the command line flag: `--no-plugins`.
 
@@ -77,7 +77,7 @@ You can disable local hooks with the command line flag: `--no-local-hooks`.
 
 ## Whitelisting
 
-You can use the [agent’s environment hook](hooks) to whitelist repositories, commands, plugins (for the Buildkite Agent 3.x beta), or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
+You can use the [agent’s environment hook](hooks) to whitelist repositories, commands, plugins, or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
 
 For example, the following environment hook allows only a single file from a single repository to be executed on the agent machine:
 
