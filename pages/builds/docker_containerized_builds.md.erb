@@ -75,10 +75,17 @@ At the start of your `pipeline.yml`, add a step to build an image with the docke
 steps:
   - name: "Docker Build"
     plugins:
-      docker-compose#v1.3.2:
+      docker-compose#v2.0.0:
         build: app
         image-repository: index.docker.io/org/repo
 ```
+
+If you don't have a registry set up, [Docker Hub](https://hub.docker.com/) provides both public and private registries for free.  
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Pinning plugin versions</p>
+<p>Specifying the version of your plugin using the <code>plugin-name#vx.x.x</code> format is recommended, to ensure that no changes are introduced without your knowledge.</p>
+</div>
 
 To run later steps in the image you have built, use the `plugins` attribute on command steps. This example runs a test suite concurrently in the `app` image that was built in the previous example:
 
@@ -87,7 +94,7 @@ To run later steps in the image you have built, use the `plugins` attribute on c
     command: test.sh
     parallelism: 25
     plugins:
-      docker-compose#v1.3.2:
+      docker-compose#v2.0.0:
         run: app
 ```
 
@@ -128,6 +135,11 @@ To do this see the [agent hooks](/docs/agent/v2/hooks) and [parallelizing builds
 
 ## Using Docker Compose without plugins
 
+<div class="Docs__troubleshooting-note">
+<h1>Deprecation Notice</h1>
+<p>Using Docker Compose with environment variables is a deprecated pattern. The recommended way to use Docker Compose in your pipeline is with <a href="/docs/agent/v3/plugins">plugins</a>.</p>
+</div>
+
 You can use Docker in your pipelines without using plugins by using environment variables. 
 
 Firstly we need to add the following environment variable to our build, either on an individual build step or as a pipeline-level environment variable:
@@ -149,6 +161,11 @@ BUILDKITE_DOCKER_COMPOSE_FILE=docker-compose.buildkite.yml
 ```
 
 ## Using Docker without plugins
+
+<div class="Docs__troubleshooting-note">
+<h1>Deprecation Notice</h1>
+<p>Using Docker with environment variables is a deprecated pattern. The recommended way to use Docker in your pipeline is with <a href="/docs/agent/v3/plugins">plugins</a>.</p>
+</div>
 
 To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
 
