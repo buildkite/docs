@@ -69,7 +69,8 @@ Once you've got everything working, you can configure your build pipeline and ru
 
 To run your steps in a container, we recommend using [plugins](/docs/agent/v3/plugins). If you want to use docker without plugins, see [Using Docker without plugins](/docs/builds/docker-containerized-builds#using-docker-without-plugins)
 
-At the start of your `pipeline.yml`, add a step to build an image with the docker plugin. This example prebuilds the `app` image and uploads it to a registry:
+At the start of your `pipeline.yml`, add a step to build an image with the docker plugin. In this example, we use the `docker-compose` plugin to prebuild the `app` image and upload it to a registry:
+
 ```
 steps:
   - name: "Docker Build"
@@ -90,6 +91,8 @@ To run later steps in the image you have built, use the `plugins` attribute on c
         run: app
 ```
 
+For more examples and information on using this plugin, have a look at the [docker compose plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
+
 ## Adding buildkite-agent to the docker group
 
 To allow buildkite-agent to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
@@ -102,19 +105,20 @@ Docker has released the [system prune](https://docs.docker.com/engine/reference/
 
 ## Docker without Docker Compose
 
-The Buildkite Agent also has support for running builds for pipelines that only need a single container and Dockerfile to run. To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
+The Buildkite Agent also has support for running builds for pipelines that only need a single container and Dockerfile to run. The [Docker Buildkite Plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) provides a Docker Compose file and a set of hooks to your pipeline.
+
+To use the Docker plugin, add the `plugins` attribute to your command step. In this example, the `yarn` commands will be run inside a Docker container using the node:7 Docker image:
 
 ```
-BUILDKITE_DOCKER=true
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      docker#v1.1.1:
+        image: "node:7"
+        workdir: /app
 ```
 
-For each build job the agent will now build a Docker image and run the build step’s command inside a container.
-
-If you need, you can also specify an alternate Dockerfile:
-
-```
-BUILDKITE_DOCKER_FILE=Dockerfile.ci
-```
+There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on Github](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 ## Creating Your Own Docker Infrastructure
 
@@ -122,7 +126,7 @@ If your team has significant Docker experience you might find it worthwhile invo
 
 To do this see the [agent hooks](/docs/agent/v2/hooks) and [parallelizing builds](parallelizing-builds) documentation.
 
-## Using Docker without plugins
+## Using Docker Compose without plugins
 
 You can use Docker in your pipelines without using plugins by using environment variables. 
 
@@ -143,3 +147,20 @@ If you need, you can also specify an alternate Docker Compose config file:
 ```
 BUILDKITE_DOCKER_COMPOSE_FILE=docker-compose.buildkite.yml
 ```
+
+## Using Docker without plugins
+
+To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
+
+```
+BUILDKITE_DOCKER=true
+```
+
+For each build job the agent will now build a Docker image and run the build step’s command inside a container.
+
+If you need, you can also specify an alternate Dockerfile:
+
+```
+BUILDKITE_DOCKER_FILE=Dockerfile.ci
+```
+
