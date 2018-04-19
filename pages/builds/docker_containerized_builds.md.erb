@@ -8,7 +8,7 @@ The Buildkite Agent ships with built-in support for running your builds in Docke
 
 For Docker-based builds we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
 
-Here's a example of a docker-compose.yml file for a Ruby on Rails application that depends on Postgres, Redis and Memcache:
+Here's a example of a `docker-compose.yml` file for a Ruby on Rails application that depends on Postgres, Redis and Memcache:
 
 ```yml
 version: '2'
@@ -38,7 +38,7 @@ services:
 
 Mounting `.` (the directory of current build) as a volume in the container allows any changes from inside the container to be visible to the outside build agent, which is required if you want the agent to be able to access and upload artifacts created by the build.
 
-Another example of a production docker-compose configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
+Another example of a production `docker-compose.yml` configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
 
 ```
 version: '2.1'
@@ -67,9 +67,9 @@ Once you've got everything working, you can configure your build pipeline and ru
 
 ## Configuring the build step
 
-To run your steps in a container, we recommend using [plugins](/docs/agent/v3/plugins). If you want to use docker without plugins, see [Using Docker without plugins](/docs/builds/docker-containerized-builds#using-docker-without-plugins)
+To run your steps in a container, we recommend using [plugins](/docs/agent/v3/plugins). If you want to use Docker without plugins, see [Using Docker without plugins](/docs/builds/docker-containerized-builds#using-docker-without-plugins)
 
-At the start of your `pipeline.yml`, add a step to build an image with the docker plugin. In this example, we use the `docker-compose` plugin to prebuild the `app` image and upload it to a registry:
+At the start of your `pipeline.yml`, add a step to build an image with the Docker plugin. In this example, we use the `docker-compose` plugin to prebuild the `app` image and upload it to a registry:
 
 ```
 steps:
@@ -98,9 +98,9 @@ To run later steps in the image you have built, use the `plugins` attribute on c
         run: app
 ```
 
-For more examples and information on using this plugin, have a look at the [docker compose plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
+For more examples and information on using this plugin, have a look at the [Docker Compose Plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
 
-## Adding buildkite-agent to the docker group
+## Adding buildkite-agent to the Docker group
 
 To allow buildkite-agent to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
 
