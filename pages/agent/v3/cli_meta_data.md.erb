@@ -6,7 +6,7 @@ See the [Using Build Metadata](/docs/builds/build-meta-data) guide for a step-by
 
 <%= toc %>
 
-## Setting Data
+## Setting data
 
 Use this command in your build scripts to save simple string data to the build for retrieval in future steps.
 
@@ -39,7 +39,7 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
-## Getting Data
+## Getting data
 
 ```
 $ buildkite-agent meta-data get --help
@@ -59,6 +59,33 @@ Options:
 
    --default value             If the meta-data value doesn't exist return this instead
    --job value                 Which job should the meta-data be retrieved from [$BUILDKITE_JOB_ID]
+   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Checking if data exists
+
+```
+$ buildkite-agent meta-data exists --help
+Usage:
+
+   buildkite-agent meta-data exists <key> [arguments...]
+
+Description:
+
+   The command exits with a status of 0 if the key has been set, or it will
+   exit with a status of 100 if the key doesn't exist.
+
+Example:
+
+   $ buildkite-agent meta-data exists "foo"
+
+Options:
+
+   --job value                 Which job should the meta-data be checked for [$BUILDKITE_JOB_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
