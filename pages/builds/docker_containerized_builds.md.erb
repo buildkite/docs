@@ -40,7 +40,7 @@ Mounting `.` (the directory of current build) as a volume in the container allow
 
 Another example of a production `docker-compose.yml` configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
 
-```
+```yml
 version: '2.1'
 services:
   agent:
@@ -71,7 +71,7 @@ To run your steps in a container, we recommend using [plugins](/docs/agent/v3/pl
 
 At the start of your `pipeline.yml`, add a step to build an image with the Docker plugin. In this example, we use the `docker-compose` plugin to prebuild the `app` image and upload it to a registry:
 
-```
+```yml
 steps:
   - name: "Docker Build"
     plugins:
@@ -89,13 +89,13 @@ If you don't have a registry set up, [Docker Hub](https://hub.docker.com/) provi
 
 To run later steps in the image you have built, use the `plugins` attribute on command steps. This example runs a test suite concurrently in the `app` image that was built in the previous example:
 
-```
+```yml
 - name: "Docker Test %n"
-    command: test.sh
-    parallelism: 25
-    plugins:
-      docker-compose#v2.0.0:
-        run: app
+  command: test.sh
+  parallelism: 25
+  plugins:
+    docker-compose#v2.0.0:
+      run: app
 ```
 
 For more examples and information on using this plugin, have a look at the [Docker Compose Plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
@@ -116,7 +116,7 @@ The Buildkite Agent also has support for running builds for pipelines that only 
 
 To use the Docker plugin, add the `plugins` attribute to your command step. In this example, the `yarn` commands will be run inside a Docker container using the node:7 Docker image:
 
-```
+```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
