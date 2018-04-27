@@ -4,7 +4,9 @@
 
 ## List all builds
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines. If using token-based authentication the list of builds will be for the authorized organizations only.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines.
+If using token-based authentication the list of builds will be for the authorized organizations only.
+Builds are listed in the order they were created (newest first).
 
 ```bash
 curl "https://api.buildkite.com/v2/builds"
@@ -21,6 +23,7 @@ Success response: `200 OK`
 ## List builds for an organization
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s builds across all of an organization’s pipelines.
+Builds are listed in the order they were created (newest first).
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
@@ -37,6 +40,7 @@ Success response: `200 OK`
 ## List builds for a pipeline
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline’s builds.
+Builds are listed in the order they were created (newest first).
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds"
