@@ -75,11 +75,11 @@ steps:
         workdir: /app
 ```
 
-### Variables in your pipeline.yml
+## Variables in your pipeline.yml
 
 Previously we didn't support variable interpolation like `${MY_VARIABLE_NAME}` or `$MY_VARIABLE_NAME`, so if you have any of these in your previous pipeline's and expect the literal text to render, you will need to escape the dollar signs like `$$MY_VARIABLE_NAME`.
 
-### Default flags for `git clean` include `-x`
+## Default flags for `git clean` include `-x`
 
 Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behaviour.
 
