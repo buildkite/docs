@@ -56,30 +56,7 @@ The pipeline can be written as YAML or JSON, but YAML is more common for its rea
 
 ## Environment variable substitution
 
-In Buildkite Agent versions 3.0 and above, the `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
-
-For example, the following pipeline substitutes a number of [Buildkite’s default environment variables](/docs/builds/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
-
-```yml
-- trigger: "app-deploy"
-  label: "\:rocket\: Deploy"
-  branches: "master"
-  async: true
-  build:
-    message: "${BUILDKITE_MESSAGE}"
-    commit: "${BUILDKITE_COMMIT}"
-    branch: "${BUILDKITE_BRANCH}"
-```
-
-If you want an environment variable to be evaluated at run-time (for example, using the step’s environment variables) make sure to escape the `$` character using `$$` or `\$`. For example:
-
-```yml
-- command: "deploy.sh $$SERVER"
-  env:
-    SERVER: "server-a"
-```
-
-### Buildkite Agent 2.x support
+In Buildkite Agent versions 3.0 and above, the `pipeline upload` command supports [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) using the syntax `$VAR` and `${VAR}`.
 
 If you are unable to upgrade your agent to version 3.0 or above, it is possible (but not recommended) to emulate the agent’s environment variable substitution using bash:
 
