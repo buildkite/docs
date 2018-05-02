@@ -211,12 +211,13 @@ If you're using a 3.x agent, you can use variable interpolation to set variables
 
 ```
 env:
-- FOO=bar
+  FOO: bar
+
 steps:
-- trigger: some-pipeline
-  build:
-    env:
-    - FOO=$FOO # triggered build will have `FOO=bar`
+  - trigger: some-pipeline
+    build:
+      env:
+        FOO: $FOO # triggered build will have `FOO: bar`
 ```
 
 <div class="Docs__note">
@@ -249,7 +250,7 @@ At this point we add the following:
 After the agent variables have been merged, the bootstrap script is run. It adds its own variables to the environment, and runs any local and global hooks that have been defined on the agent machine (e.g. plugin, environment etc.) This causes any variables that are set in hooks to be merged in to the environment.
 
 <div class="Docs__troubleshooting-note">
-<p class="Docs__note__heading">Take care with environment variables in hooks</p>
+<h1>Take care with environment variables in hooks</h1>
 <p>Variables that are defined in hooks can override _anything_ that exists in the environment.</p>
 </div>
 
