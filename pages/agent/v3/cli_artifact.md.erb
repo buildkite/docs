@@ -198,7 +198,9 @@ There is no need to escape characters such as `?`, `[` and `]`.
 
 ## Downloading artifacts outside a running build
 
-The `buildkite-agent artifact download` command only works within the context of a running build.
+The `buildkite-agent artifact download` command only works within the context of running builds. It relies on environment variables that are set by the agent while a build is running. 
+
+For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run. 
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
