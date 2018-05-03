@@ -1,0 +1,50 @@
+# Sharing State Across Steps
+
+Sharing state across the steps of your build removes repetion and speeds up your build time. It also helps you use the same state for multiple steps running in parallel. Passing data like npm packages and docker containers between steps can help keep your steps single-purpose, decreases the amount of processing each step has to do, and cuts down the time they take to complete.
+
+There are two ways to share state across steps in a build: artifacts and meta-data. Both of these data stores are accessible across your organisation and pipelines.  
+
+<%= toc %>
+
+## Build Artifacts
+
+Artifacts are any files that are generated during a build step. Buildkite can host these files for you in the Buildkite artifact store. We recommend only storing artifacts that you need in subsequent build steps, or files like logs that would be useful at a later date.
+ 
+You can upload and download from the store using our REST API. There are limits to how much you can upload, and to how long your files can be kept for. You can also use our command-line tool to upload your artifacts to a personal store.  
+
+Using a personal store like Amazon S3 is recommended when:
+
+- you need to persist the artifact longer than the build
+- your artifacts contain sensitive information
+
+If you're using the v3 Agent, you're also able to use the artifact [plugin](/docs/agent/plugins).  
+
+For a short introduction to uploading and downloading from the Buildkite artifact store, see the [Using Build Artifacts](/docs/builds/artifacts) page.
+
+For more technical information about the `buildkite-agent artifact` command and what you can do with it, see the [artifact command-line reference](/docs/agent/cli-artifact). This page also provides instructions for using your own S3 bucket.
+
+## Build Meta-data
+
+Meta-data are key/value pairs that you set in build steps. The Buildkite meta-data store is a basic key/value store that is accessible across pipelines by anyone in your organisation.
+
+Using the `buildkite-agent` cli with the `meta-data` command, you can set and get arbitrary data from the meta-data store. You can also use the command inside scripts.
+It is available across agents as well as build steps, even if the agents are running on different platforms. 
+
+Step type specific uses of meta-data: 
+
+- Block step: data from form fields is stored in the meta-data store 
+- Trigger step: the `meta_data` attribute will set meta-data on the new build you are creating 
+
+Both the key and value fields accept text only. You can create meta-data pairs with plain text, or by piping in the output of commands or scripts. The meta-data store will accept values up to 1mb; if you need to store data larger than this, we recommend creating an artifact.
+
+For code examples of setting and getting meta-data, see the [Using Build Meta-data page](). For more information about the meta-data command in the `buildkite-agent` cli, have a look at the reference on the [cli-meta-data page](/docs/agent/cli-meta-data).
+
+## Common Use Cases
+
+### Artifacts
+- node_modules
+- logs
+- build files/tars
+
+### Meta-data
+- release version
