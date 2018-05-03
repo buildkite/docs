@@ -30,7 +30,7 @@ To test your `.buildkite/pipeline.yml` file, commit the pipeline file and push i
 
 ## Example pipeline
 
-Here’s a more complete example based on [our own Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and artifact uploading:
+Here’s a more complete example based on [our Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
 ```yaml
 steps:
@@ -75,7 +75,7 @@ steps:
 
 ## Step types
 
-There are four different step types you can use in your Buildkite pipelines. See each step type for full documentation:
+There are four different step types you can use in your Buildkite pipelines. See each step type for detailed usage documentation:
 
 * [Command Step](/docs/pipelines/command-step)
 * [Wait Step](/docs/pipelines/wait-step)
@@ -100,7 +100,7 @@ And your deployment pipeline’s upload command could be:
 buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml
 ```
 
-For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v2/cli-pipeline#uploading-pipelines) documentation.
+For a list of all command line options, see the [buildkite-agent pipeline upload](/docs/agent/v3/cli-pipeline#uploading-pipelines) documentation.
 
 ## Dynamic pipelines
 
@@ -146,4 +146,4 @@ This line of code will check if the pipeline file exists and, if it does, execut
 
 ## Further documentation
 
-See the [buildkite-agent pipeline documentation](/docs/agent/v2/cli-pipeline) for a full list of options.
+See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of options.
