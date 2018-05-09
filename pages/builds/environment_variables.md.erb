@@ -216,13 +216,16 @@ There are two places in a pipeline.yml file that you can set environment variabl
   1. In the `env` attribute of command and trigger steps.
   2. At the top of the yaml file, before you define your pipeline's steps.
 
-Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. Note: this will override what is set in the `env` attribute of an individual step.
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step.
+
+<div class="Docs__note">
+  <p>Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.</p>
+</div>
+
 
 ### Setting variables in a Trigger step
 
-Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
-
-If you're using a 3.x agent, you can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build. For example:
+Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build. You can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build, for example:
 
 ```yaml
 env:
@@ -236,8 +239,7 @@ steps:
 ```
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Environment variables are not automatically passed through to triggered builds</p>
-<p>The only variables that are passed through to a trigger step's build are those you set in that trigger step’s <code>env</code> attribute.</p>
+<p>Environment variables are not automatically passed through to triggered builds. The only variables that are passed through to a trigger step's build are those you set in that trigger step’s <code>env</code> attribute.</p>
 </div>
 
 ### Agent environment
@@ -255,8 +257,7 @@ For a list of variables and configuration flags you can set on your agent, see t
 Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment.
 
 <div class="Docs__note">
-  <p class="Docs__note__heading">Not all variables from the agent are available in the job runtime</p>
-  <p>For example, we remove the agent’s registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.</p>
+  <p>Not all variables from the agent are available in the job runtime. For example, we remove the agent’s registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.</p>
 </div>
 
 After the agent variables have been merged, the bootstrap script is run.
