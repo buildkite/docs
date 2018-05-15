@@ -1,6 +1,6 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v2/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
 
 <%= toc %>
 
@@ -68,7 +68,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_DISABLE_GIT_SUBMODULES</code></th>
-    <td>When set to `true` prevents fetching of any git submodules during checkout. This variable is used by the `buildkite-agent` bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
+    <td>When set to <code>true</code> prevents fetching of any git submodules during checkout. This variable is used by the <code>buildkite-agent</code> bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
@@ -128,7 +128,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_REFSPEC</code></th>
-    <td>A custom refspec for the `buildkite-agent` bootstrap script to use when checking out code. <p class="Docs__api-param-eg"><em>Example:</em> <code>"+refs/weird/123abc:refs/local/weird/456"</code></p></td>
+    <td>A custom refspec for the <code>buildkite-agent</code> bootstrap script to use when checking out code. <p class="Docs__api-param-eg"><em>Example:</em> <code>"+refs/weird/123abc:refs/local/weird/456"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_SOURCE</code></th>
@@ -143,6 +143,10 @@ The following environment variables are automatically provided to every job, and
     <td>The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. <p class="Docs__api-param-eg"><em>Example:</em> <code>"15"</code> for 15 minutes, or <code>"false"</code> if no timeout is set</td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code></th>
+    <td>The UUID of the build containing the <a href="/docs/pipelines/trigger-step">trigger step</a> that was used to trigger this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"5aa7c894-c8c0-435b-bc17-13923b90f163"</code>, or <code>""</code> if the build was not triggered from another build.</td>
+  </tr>
+  <tr>
     <th><code>CI</code></th>
     <td>Always <code>"true"</code>.</td>
   </tr>
@@ -153,63 +157,77 @@ The following environment variables are automatically provided to every job, and
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-* Pipeline settings — for values that are not secret.
+* Pipeline settings via the Buildkite dashboard — for values that are not secret.
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
-* An `environment` or `pre-command` [agent hook](/docs/agent/v2/hooks) — for values that are secret or agent-specific.
+* An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
-## Environment variable precedence
+### Environment variable precedence
 
-You can set environment variables in lots of different places, and which ones take precedence can get a little confusing.
-There are many different levels at which environment variables are merged together. The following walkthrough and examples demonstrate the order in which variables are combined, as if you had set variables in every available place.
+When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job’s Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
-When a job runs on an agent, the first combination of environment variables happens in the job itself:
-
-### Job environment
-
-This is a base environment, and is created fresh for every job. This is also the environment that is returned if you look at a job using the REST API or the Environment tab in Buildkite.
-
-The job environment is made up of at least the standard set, and up to three additional sets of variables combined together:
+The job environment is made by merging the following sets of values, in order:
 
 <table>
 <tbody>
   <tr>
-    <th>Standard</th>
+    <th><em>Standard</em></th>
     <td>The <a href="https://github.com/buildkite/buildkite/blob/master/app/models/job/environment.rb">set of variables</a> provided by Buildkite to every job</td>
   </tr>
   <tr>
-    <th>Build</th>
+    <th><em>Build</em></th>
     <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
   </tr>
   <tr>
-    <th>Step</th>
+    <th><em>Step</em></th>
     <td>Optional variables set by you on a step in the UI or in a pipeline.yml file</td>
   </tr>
   <tr>
-    <th>Pipeline</th>
+    <th><em>Pipeline</em></th>
     <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
   </tr>
 </tbody>
 </table>
 
-These four sets of variables are merged together in the following order of precedence:
-**Standard environment set > Build > Step > Pipeline**
+For example, if had configured the following environment variables:
 
-**Setting variables in a pipeline.yml**
+<table>
+<tbody>
+  <tr>
+    <th><em>Build</em></th>
+    <td><code>MY_ENV1="a"</code></td>
+  </tr>
+  <tr>
+    <th><em>Step</em></th>
+    <td><code>MY_ENV1="b"</code></td>
+  </tr>
+  <tr>
+    <th><em>Pipeline</em></th>
+    <td><code>MY_ENV1="c"</code></td>
+  </tr>
+</tbody>
+</table>
+
+In the final job environment, the value of `MY_ENV` would be `"c"`.
+
+### Setting variables in a pipeline.yml
 
 There are two places in a pipeline.yml file that you can set environment variables:
 
   1. In the `env` attribute of command and trigger steps.
   2. At the top of the yaml file, before you define your pipeline's steps.
 
-Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This will override what is set in the `env` attribute of an individual step.
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step.
 
-**Setting variables in a Trigger step**
+<div class="Docs__note">
+  <p>Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.</p>
+</div>
 
-Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
 
-If you're using a 3.x agent, you can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build. For example:
+### Setting variables in a Trigger step
 
-```
+Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build. You can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build, for example:
+
+```yaml
 env:
   FOO: bar
 
@@ -217,44 +235,40 @@ steps:
   - trigger: some-pipeline
     build:
       env:
-        FOO: $FOO # triggered build will have `FOO: bar`
+        FOO: "$FOO" # triggered build will have `FOO: bar`
 ```
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Environment variables set at top of a pipeline.yaml aren't applied to trigger steps</p>
-<p>The only variables that are passed through to a trigger step's build are those you set in that trigger step's `env` attribute.</p>
+<p>Environment variables are not automatically passed through to triggered builds. The only variables that are passed through to a trigger step's build are those you set in that trigger step’s <code>env</code> attribute.</p>
 </div>
 
 ### Agent environment
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-- operating system environment variables
-- any variables you set on your agent when you started it
-- any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
+- Operating system environment variables
+- Any variables you set on your agent when you started it
+- Any environment variables that were inherited from how you started the process (e.g. systemd sets some env vars for you)
 
-For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/v2/cli-start).
-For a deeper look at what's involved in starting the agent, you can see the the [`buildkite-agent start` code on github](https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go).
+For a list of variables and configuration flags you can set on your agent, see the [`buildkite-agent start` documentation](/docs/agent/v3/cli-start).
 
-### Job accepted by an agent
+### Job runtime environment
 
-Once the job is accepted by an agent, more environment merging happens.
+Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment.
 
-Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment. Not all of the variables from the agent are added, and some variables are created fresh at this point. For example, we don't add the agent's registration token, we instead create a new access token for this specific job.
+<div class="Docs__note">
+  <p>Not all variables from the agent are available in the job runtime. For example, we remove the agent’s registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.</p>
+</div>
 
-At this point we add the following:
+After the agent variables have been merged, the bootstrap script is run.
 
-- variables that describe the agent that the job is running on
-- variables to tell the bootstrap and other commands what to do
-
-After the agent variables have been merged, the bootstrap script is run. It adds its own variables to the environment, and runs any local and global hooks that have been defined on the agent machine (e.g. plugin, environment etc.) This causes any variables that are set in hooks to be merged in to the environment.
+The bootstrap runs any local and global <a href="/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/agent/v3/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
 <h1>Take care with environment variables in hooks</h1>
-<p>Variables that are defined in hooks can override _anything_ that exists in the environment.</p>
+<p>Variables that are defined in hooks can override anything that exists in the environment.</p>
 </div>
 
 This is the environment your command runs in 🎉
 
-Finally, any changes that you make to the environment from within the job script will only survive as long as the script is running.
-
+Finally, if your job’s commands make any changes to the environment, those changes will only survive as long as the script is running.
