@@ -143,6 +143,10 @@ The following environment variables are automatically provided to every job, and
     <td>The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. <p class="Docs__api-param-eg"><em>Example:</em> <code>"15"</code> for 15 minutes, or <code>"false"</code> if no timeout is set</td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code></th>
+    <td>The UUID of the build containing the <a href="/docs/pipelines/trigger-step">trigger step</a> that was used to trigger this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"5aa7c894-c8c0-435b-bc17-13923b90f163"</code>, or <code>""</code> if the build was not triggered from another build.</td>
+  </tr>
+  <tr>
     <th><code>CI</code></th>
     <td>Always <code>"true"</code>.</td>
   </tr>
