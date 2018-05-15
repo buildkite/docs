@@ -1,9 +1,10 @@
 # Command Steps
 
+A *command* step runs one or more shell commands on an agent.
+
 <%= toc %>
 
-
-A *command* step runs one or more shell commands on an agent. Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
+Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 
 <%= image "pipeline-settings.png", width: 1158/2, height: 506/2, alt: "Screenshot of a basic command step" %>
 
@@ -13,7 +14,6 @@ A basic command step can be defined in your pipeline settings, or in your [pipel
 steps:
   - command: "tests.sh"
 ```
-
 
 ## Command Step Attributes
 
