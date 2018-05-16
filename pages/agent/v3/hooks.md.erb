@@ -16,17 +16,17 @@ Hooks are called in the following order:
 1. `pre-checkout` (global) - runs before checkout
 1. `checkout` (global) - overrides the default `git checkout` behavior
 1. `post-checkout` (global) - runs after checkout
-1. `post-checkout` (local) - runs after checkout
+1. `post-checkout` (pipeline) - runs after checkout
 1. `pre-command` (global) - runs before the build command
-1. `pre-command` (local) - runs before the build command
+1. `pre-command` (pipeline) - runs before the build command
 1. `command` (global) - overrides the default script running behavior, useful for changing how the command is evaluated (such as running it inside a container)
-1. `post-command` (local) - runs after the command
+1. `post-command` (pipeline) - runs after the command
 1. `post-command` (global) - runs after the command
-1. `pre-artifact` (local) - runs before artifacts are uploaded, if an artifact upload pattern was defined for the job
+1. `pre-artifact` (pipeline) - runs before artifacts are uploaded, if an artifact upload pattern was defined for the job
 1. `pre-artifact` (global) - runs before artifacts are uploaded, if an artifact upload pattern was defined for the job
-1. `post-artifact` (local) - runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job
+1. `post-artifact` (pipeline) - runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job
 1. `post-artifact` (global) - runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job
-1. `pre-exit` (local) - runs before the job finishes, useful for performing cleanup tasks
+1. `pre-exit` (pipeline) - runs before the job finishes, useful for performing cleanup tasks
 1. `pre-exit` (global) - runs before the job finishes, useful for performing cleanup tasks
 
 <div class="Docs__note">
