@@ -102,7 +102,7 @@ steps:
   - command: yarn install && yarn run test
     plugins:
       docker#v1.0.0:
-        image: "node:7"
+        image: node
         workdir: /app
 ```
 
@@ -116,7 +116,7 @@ echo "--- Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
 
 docker run -it --rm \
   --volume "$PWD:${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
-  --workdir"${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
+  --workdir "${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
   "${BUILDKITE_PLUGIN_DOCKER_IMAGE}" bash -c "${BUILDKITE_COMMAND}"
 ```
 
