@@ -1,6 +1,6 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v2/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
 
 <%= toc %>
 
@@ -155,7 +155,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 
 * Pipeline settings — for values that are not secret.
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
-* An `environment` or `pre-command` [agent hook](/docs/agent/v2/hooks) — for values that are secret or agent-specific.
+* An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 ## Environment variable precedence
 
@@ -233,7 +233,7 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 - any variables you set on your agent when you started it
 - any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
 
-For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/v2/cli-start).
+For a list of variables/flags you can set on your agent, see the [`buildkite-agent start` page](/docs/agent/v3/cli-start).
 For a deeper look at what's involved in starting the agent, you can see the the [`buildkite-agent start` code on github](https://github.com/buildkite/agent/blob/master/clicommand/agent_start.go).
 
 ### Job accepted by an agent
