@@ -6,7 +6,7 @@ Plugins provide a way to extend the functionality that Buildkite natively offers
 Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required.
 
 Buildkite offers a [collection of useful plugins][Buildkite Plugins]
-to get you started, including a [docker-compose plugin] and a plugin for [secure secrets storage][s3-secrets plugin] on Amazon S3.
+to get you started, including a [Docker Compose plugin] and a [Junit Annotate plugin].
 
 <%= toc %>
 
@@ -31,7 +31,7 @@ This example will install the `buildkite-plugins/detect-clowns-buildkite-plugin`
 
 Plugins are automatically fetched from where they are hosted, based on the name of the project. See [Plugin sources] for how you can host your own.
 
-A real-life example is the [docker-compose plugin]. It provides an integration
+A real-life example is the [Docker Compose plugin]. It provides an integration
 with docker-compose that assists with running your builds within a docker environment:
 
 ```yml
@@ -142,15 +142,15 @@ For particularly high-security setups, you can disable plugins selectively by re
 
 Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
 
-[pipelines]: https://buildkite.com/docs/pipelines/defining-steps
-[hooks]: https://buildkite.com/docs/agent/v3/hooks
-[standard environment variables]: https://buildkite.com/docs/builds/environment-variables#provided-by-buildkite
+[pipelines]: /docs/pipelines/defining-steps
+[hooks]: /docs/agent/v3/hooks
+[standard environment variables]: /docs/builds/environment-variables#provided-by-buildkite
 [Unofficial Bash Strict Mode]: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 [shellcheck]: https://github.com/koalaman/shellcheck
 [docker plugin]: https://github.com/buildkite-plugins/docker-buildkite-plugin
-[docker-compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
-[s3-secrets plugin]: https://github.com/buildkite-plugins/s3-secrets-buildkite-plugin
+[Docker Compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
+[Junit Annotate plugin]: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
 [Buildkite Plugins]: https://github.com/buildkite-plugins
 [third party plugins]: https://github.com/search?q=topic%3Abuildkite-plugin&type=Repositories
 [plugin tester]: https://github.com/buildkite-plugins/plugin-tester
-[Plugin sources]: https://buildkite.com/docs/agent/v3/plugins#plugin-sources
+[Plugin sources]: /docs/agent/v3/plugins#plugin-sources
