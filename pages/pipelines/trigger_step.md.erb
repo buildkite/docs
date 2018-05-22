@@ -127,7 +127,7 @@ You can use [environment variable substitution](https://buildkite.com/docs/agent
     branch: "${BUILDKITE_BRANCH}"
 ```
 
-To set environment variables for the triggered build itself, use the `env` attribute:
+To set environment variables on the build created by the trigger step, use the `env` attribute:
 
 ```yml
 - trigger: "release-binaries"
