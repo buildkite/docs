@@ -200,7 +200,9 @@ There is no need to escape characters such as `?`, `[` and `]`.
 
 ## Downloading artifacts outside a running build
 
-The `buildkite-agent artifact download` command only works within the context of a running build.
+The `buildkite-agent artifact download` command relies on environment variables that are set by the agent while a build is running. 
+
+For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run. 
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
@@ -249,7 +251,9 @@ Options:
 
 ## Using your own private AWS S3 bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/v3/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
+You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export some artifact environment variables.
+
+You can set these environment variables from a variety of places, but we recommend storing your exports in an [environment agent hook](/docs/agent/v3/hooks) as a best practice:
 
 ```bash
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"

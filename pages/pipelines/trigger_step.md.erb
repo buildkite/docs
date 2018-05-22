@@ -1,13 +1,10 @@
 # Trigger Step
 
-A *trigger* step creates a build on another pipeline. You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
+A *trigger* step creates a build on another pipeline. You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines. Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
 
-Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file:
+<%= toc %>
 
-```yml
-steps:
-  - trigger: "another-pipeline"
-```
+## Permissions
 
 All builds created by a trigger step will have the same author as the parent build. This user must:
 
@@ -19,7 +16,6 @@ If you have [Teams](/docs/pipelines/permissions) enabled in your organisation, t
 * 'Build' permission on *every* pipeline that will be triggered
 
 If the author does not have the required access, the build will fail, and builds on subsequent pipelines will not be triggered.
-
 
 ## Trigger Step Attributes
 
@@ -116,6 +112,10 @@ _Optional_ `build` _attributes:_
       release-version: "1.1"
 ```
 
+## Environment Variables
+
+You can use [environment variable substitution](https://buildkite.com/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
+
 ```yml
 - trigger: "app-deploy"
   label: "\:rocket\: Deploy"
@@ -127,7 +127,12 @@ _Optional_ `build` _attributes:_
     branch: "${BUILDKITE_BRANCH}"
 ```
 
-<div class="Docs__note">
-<p class="Docs__note__heading">Environment variable support</p>
-<p>Buildkite Agent 3.0 or above is required to use pipeline.yml environment variable substitution. See the <a href="/docs/agent/v2/cli-pipeline#environment-variable-substitution">pipeline command documentation</a> for more information.</p>
-</div>
+To set environment variables on the build created by the trigger step, use the `env` attribute:
+
+```yml
+- trigger: "release-binaries"
+  label: "\:package\: Release"
+  build:
+    env:
+      RELEASE_STREAM: "${RELEASE_STREAM:-stable}"
+```

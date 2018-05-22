@@ -2,17 +2,21 @@
 
 The Buildkite Agent ships with built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallelizing-builds).
 
-<div class="Docs__note">
-<p>These instructions are for the current Buildkite Agent v2 stable series. For the v3 beta please use the <a href="https://github.com/buildkite-plugins/docker-buildkite-plugin">Docker Buildkite Plugin</a>.</p>
-</div>
-
 <%= toc %>
 
-## Creating a Docker Compose config
+## Overview
 
-For Docker-based builds we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
+To run your steps using Docker, we have two [plugins](/docs/agent/v3/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
-Here's a example of a docker-compose.yml file for Ruby on Rails application that depends on Postgres, Redis and Memcache:
+The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps. 
+
+The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) supports single container applications, and involves less setup than the Docker Compose plugin. It doesn't allow the use of `docker-compose.yml` files, and doesn't support advanced operations like building images. 
+
+## Creating a Docker Compose configuration file
+
+For most projects we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
+
+Here's a example of a `docker-compose.yml` file for a Ruby on Rails application that depends on Postgres, Redis and Memcache:
 
 ```yml
 version: '2'
@@ -25,6 +29,7 @@ services:
     image: tutum/memcached
   app:
     build: .
+    working_dir: /app
     volumes:
       - .:/app
     depends_on:
@@ -38,89 +43,61 @@ services:
       MEMCACHE_SERVERS: memcache
 ```
 
-**NOTE:** The `Dockerfile` must include a `WORKDIR` directive matching the mount point of the app. So you would use `WORKDIR /app` in the example above.
-
 Mounting `.` (the directory of current build) as a volume in the container allows any changes from inside the container to be visible to the outside build agent, which is required if you want the agent to be able to access and upload artifacts created by the build.
-
-Another example of a production docker-compose configuration is from the [buildkite-agent Golang source code](https://github.com/buildkite/agent):
-
-```
-version: '2'
-services:
-  app:
-    build: .
-    volumes:
-      - .:/go/src/github.com/buildkite/agent
-      - /usr/bin/buildkite-agent:/usr/bin/buildkite-agent
-    environment:
-      - BUILDKITE_AGENT_ACCESS_TOKEN
-      - BUILDKITE_JOB_ID
-      - BUILDKITE_BUILD_ID
-      - BUILDKITE_BUILD_NUMBER
-      - GITHUB_RELEASE_ACCESS_TOKEN
-      - DOCKER_HUB_TRIGGER_TOKEN
-```
-
-The above example has an additional volume: the `buildkite-agent` binary itself, so the build scripts can use the `buildkite-agent artifact` and `buildkite-agent meta-data` commands. It also passes through environment variables needed for the artifact command, as well as two secret keys set up by an [environment hook](/docs/agent/v2/hooks).
-
-## Testing the config
-
-To test everything is set up correctly you can invoke the `docker-compose` command yourself on a development machine:
-
-```bash
-docker-compose run app script/tests
-```
-
-Once you've got everything working, you can configure your build pipeline and run it with Buildkite.
 
 ## Configuring the build step
 
-Firstly we need to add the following environment variable to our build, either on an individual build step or as a pipeline-level environment variable:
+This example runs a test suite in the `app` service using the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin):
+
+```yml
+- name: "Docker Test %n"
+  command: test.sh
+  plugins:
+    docker-compose#v2.1.0:
+      run: app
+```
+
+This is the equivalent of running:
 
 ```bash
-BUILDKITE_DOCKER_COMPOSE_CONTAINER=app
+docker-compose run app test.sh
 ```
 
-This will tell the agent to run each build step like so:
+For more examples and information on using this plugin, have a look at the [Docker Compose Plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
 
-```bash
-docker-compose -f docker-compose.yml run app <command>
+The Buildkite Agent also has support for running build steps in an existing Docker image. To use the Docker plugin, add the `plugins` attribute to your command step. 
+
+In this example, the `yarn` commands will be run inside a Docker container using the `node:8` Docker image:
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      docker#v1.1.1:
+        image: "node:8"
+        workdir: /app
 ```
 
-If you need, you can also specify an alternate Docker Compose config file:
+There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on Github](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
-```
-BUILDKITE_DOCKER_COMPOSE_FILE=docker-compose.buildkite.yml
-```
-
-## Adding buildkite-agent to the docker group
-
-To allow buildkite-agent to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
-
-## Adding a cleanup task
-
-Even though the buildkite agent cleans up the images after each run, inevitably over time your Docker host can fill up with a lot of unused images.
-
-We recommend running [docker-gc](https://github.com/spotify/docker-gc) or similar tool on a daily basis.
-
-## Docker without Docker Compose
-
-The Buildkite Agent also has support for running builds for pipelines that only need a single container and Dockerfile to run. To use plain Docker instead of Docker Compose, add the following environment variable in your build step configuration:
-
-```
-BUILDKITE_DOCKER=true
-```
-
-For each build job the agent will now build a Docker image and run the build step’s command inside a container.
-
-If you need, you can also specify an alternate Dockerfile:
-
-```
-BUILDKITE_DOCKER_FILE=Dockerfile.ci
-```
+<div class="Docs__note">
+<p class="Docs__note__heading">Pinning plugin versions</p>
+<p>Specifying the version of your plugin using the <code>plugin-name#vx.x.x</code> format is recommended, to ensure that no changes are introduced without your knowledge.</p>
+</div>
 
 ## Creating Your Own Docker Infrastructure
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
-To do this see the [agent hooks](/docs/agent/v2/hooks) and [parallelizing builds](parallelizing-builds) documentation.
+To do this see the [agent hooks](/docs/agent/v3/hooks) and [parallelizing builds](parallelizing-builds) documentation.
+
+## Adding buildkite-agent to the Docker group
+
+On the agent machine, to allow `buildkite-agent` to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
+
+## Adding a cleanup task
+
+Even though the buildkite agent cleans up the images after each run, inevitably over time your Docker host can fill up with a lot of unused images.
+
+Docker has released the [system prune](https://docs.docker.com/engine/reference/commandline/system_prune) command that will remove all unused containers, networks, and images from your environment. We recommend running either `docker system prune` or using a similar tool like [docker-gc](https://github.com/spotify/docker-gc) on a daily basis.
+

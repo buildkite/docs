@@ -106,7 +106,7 @@ Success response: `200 OK`
 ## Get an artifact
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}"
 ```
 
 ```json
@@ -138,7 +138,7 @@ Returns a 302 response to a URL for downloading an artifact. The URL will be ret
 You should assume the URL returned will only be valid for 60 seconds, unless you've used your own S3 bucket where the URL will be the standard public S3 URL to the artifact object.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts/{id}/download"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts/{id}/download"
 ```
 
 ```json

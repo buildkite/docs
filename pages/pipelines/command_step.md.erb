@@ -1,9 +1,10 @@
 # Command Steps
 
+A *command* step runs one or more shell commands on an agent.
+
 <%= toc %>
 
-
-A *command* step runs one or more shell commands on an agent. Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
+Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 
 <%= image "pipeline-settings.png", width: 1158/2, height: 506/2, alt: "Screenshot of a basic command step" %>
 
@@ -13,7 +14,6 @@ A basic command step can be defined in your pipeline settings, or in your [pipel
 steps:
   - command: "tests.sh"
 ```
-
 
 ## Command Step Attributes
 
@@ -47,10 +47,18 @@ _Optional attributes:_
 
 <table>
   <tr>
-    <td><code>label</code></td>
+    <td><code>agents</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
-      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+      A map of <a href="/docs/agent/v3/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
+      <em>Example:</em> <code>npm: "true"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>artifact_paths</code></td>
+    <td>
+      The <a href="/docs/agent/v3/cli-artifact#glob-path-pattern">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
+      <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
   </tr>
   <tr>
@@ -58,35 +66,6 @@ _Optional attributes:_
     <td>
       The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
       <em>Example:</em> <code>"master stable/*"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>env</code></td>
-    <td>
-      A map of <a href="/docs/builds/environment-variables">environment variables</a> for this step.<br>
-      <em>Example:</em> <code>RAILS_ENV: "test"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>agents</code></td>
-    <td>
-      A map of <a href="/docs/agent/v2/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/v2/cli-start#agent-targeting">target specific agents</a> for this step. <br>
-      <em>Example:</em> <code>npm: "true"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>artifact_paths</code></td>
-    <td>
-      The <a href="/docs/agent/v2/cli-artifact#glob-path-pattern">glob path</a> or paths where <a href="/docs/agent/v2/cli-artifact">artifacts</a> from this step will be uploaded. This can be a single line of paths separated by semicolons, or a YAML list.<br>
-      <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
-      <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>parallelism</code></td>
-    <td>
-      The number of <a href="/docs/builds/parallelizing-builds#job-parallelism">parallel jobs</a> that will be created based on this step. <br>
-      <em>Example:</em> <code>3</code>
     </td>
   </tr>
   <tr>
@@ -104,10 +83,31 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>timeout_in_minutes</code></td>
+    <td><code>env</code></td>
     <td>
-      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically cancelled and the build will fail. <br>
-      <em>Example:</em> <code>60</code>
+      A map of <a href="/docs/builds/environment-variables">environment variables</a> for this step.<br>
+      <em>Example:</em> <code>RAILS_ENV: "test"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
+      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>parallelism</code></td>
+    <td>
+      The number of <a href="/docs/builds/parallelizing-builds#job-parallelism">parallel jobs</a> that will be created based on this step. <br>
+      <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>retry</code></td>
+    <td>
+      The conditions for retrying this step.<br>
+      Available retry types: <code>automatic</code>,<code>manual</code>
     </td>
   </tr>
   <tr>
@@ -121,10 +121,10 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>retry</code></td>
+    <td><code>timeout_in_minutes</code></td>
     <td>
-      The conditions for retrying this step.<br>
-      Available retry types: <code>automatic</code>,<code>manual</code>
+      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically cancelled and the build will fail. <br>
+      <em>Example:</em> <code>60</code>
     </td>
   </tr>
 </table>
@@ -234,17 +234,17 @@ _Optional Attributes_
     </td>
   </tr>
   <tr>
-    <td><code>reason</code></td>
-    <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. <br>
-      <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>permit_on_passed</code></td>
     <td>
       A boolean value that defines whether or not this job can be retried after it has passed.<br>
       <em>Example:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>reason</code></td>
+    <td>
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. <br>
+      <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
 </table>

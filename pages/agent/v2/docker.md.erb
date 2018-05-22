@@ -1,5 +1,10 @@
 # Running Buildkite Agent with Docker
 
+<section class="Docs__troubleshooting-note">
+  <p>This page references the out-of-date Buildkite Agent v2.</p>
+  <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/docker">see the latest version of this document</a>.
+</section>
+
 You can run the Buildkite Agent inside a Docker container using the official Docker images.
 
 <div class="Docs__note">
@@ -19,4 +24,4 @@ By default Docker [starts containers on restart](https://docs.docker.com/article
 
 ## SSH Keys, Configuration and Customization
 
-See the [GitHub repository](https://github.com/buildkite/docker-buildkite-agent) for instructions on how to customize the base image. Alternatively you can create your own Docker image using our standard installer packages (see our [Ubuntu Dockerfile](https://github.com/buildkite/docker-buildkite-agent/blob/master/ubuntu/Dockerfile) for an example).
+See the [GitHub repository](https://github.com/buildkite/docker-buildkite-agent) for instructions on how to customize the base image. Alternatively you can create your own Docker image using our standard installer packages (see our [Ubuntu Dockerfile](https://github.com/buildkite/agent/blob/master/packaging/docker/ubuntu-linux/Dockerfile) for an example).

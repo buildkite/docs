@@ -1,42 +1,37 @@
 
 # Buildkite Agent Plugins
 
-__Plugins are only available in the beta 3.0 version of the agent__
+Plugins provide a way to extend the functionality that Buildkite natively offers. They act as a external repository of [Hooks][hooks] that are referenced from your `pipeline.yml` file, downloaded and run as part of your builds.
 
-Plugins provide a way to extend the functionality that Buildkite natively offers.
-Another way to look at plugins is as a external repository of [Hooks][hooks] that
-are referenced from your pipeline.yml file, downloaded and run as part of your builds.
-They can be hosted on GitHub, BitBucket or a private git repository and are automatically
-fetched as required.
+Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required.
 
 Buildkite offers a [collection of useful plugins][Buildkite Plugins]
-to get you started, including a [docker-compose plugin] and a plugin for [secure
-secrets storage][s3-secrets plugin] on Amazon S3.
+to get you started, including a [Docker Compose plugin] and a [Junit Annotate plugin].
 
 <%= toc %>
 
 ## Using a plugin
 
-Plugins are only available for [pipelines] expressed in YAML, so all of these
-examples use that syntax.
+Plugins are only available for [pipelines] using `pipeline.yml` files.
 
-Plugins are defined per-step and are automatically fetched from where they are
-hosted, based on the name of the project. See [Plugin sources] for how you can
-host your own.
+Plugins can be used in two ways:
+
+* as a standalone step, performing an operation
+* as a library, making commands available to that step's script 
 
 An example of what a plugin might look like in your code:
 
 ```yml
 steps:
   - plugins:
-      detect-clowns:
-        emojis: 🤡
+      detect-clowns#v2.0.0: ~
 ```
 
-This example will install the (hypothetical) `buildkite-plugins/detect-clowns-buildkite-plugin`
-when your pipeline is evaluated and run for this build step.
+This example will install the `buildkite-plugins/detect-clowns-buildkite-plugin` when your pipeline runs this build step.
 
-A real-life example is the [docker-compose plugin]. It provides an integration
+Plugins are automatically fetched from where they are hosted, based on the name of the project. See [Plugin sources] for how you can host your own.
+
+A real-life example is the [Docker Compose plugin]. It provides an integration
 with docker-compose that assists with running your builds within a docker environment:
 
 ```yml
@@ -59,16 +54,12 @@ steps:
         run: app
 ```
 
-In the 2.x agent, this approach was only possible by either using the
-docker environment variables, or writing a custom script.
-
 ## Plugin sources
 
 If you refer to a plugin just by name (say `detect-clowns`), it defaults to
-https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used
-`myorg/detect-clowns` it would be https://github.com/myorg/detect-clowns-buildkite-plugin.
+https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used `myorg/detect-clowns` it would refer to https://github.com/myorg/detect-clowns-buildkite-plugin.
 
-You can also use a fully qualified git repository name like `https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin.git` or `git@github.com:foo/bar.git#v1.3`, which
+You can also use a fully qualified git URL like `https://github.com/my-org/my-plugin.git#v1.0.0`, `git@github.com:my-org/my-plugin.git#v1.0.0`, or `file:///a-local-path/my-plugin.git#v1.0.0` which
 lets you refer to your own private git repositories. Branches, tags and commits
 are all valid after the `#`.
 
@@ -77,45 +68,43 @@ changing unexpectedly. This is done with a git tag of `vX.X.X`.
 
 ## Developing a plugin
 
-The best place to get started is the [Buildkite Plugins] repository, or [third-party plugins with the `buildkite-agent` tag][third party plugins].
-
-We mostly write our plugins as shell scripts, so we've created a [plugin tester]
-docker image that simplifies writing BATS tests and getting your plugin tested (so meta).
+The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the [buildkite-plugin tag on GitHub][third party plugins].
 
 ### Anatomy of a plugin
 
-Plugins are essentially a collection of hooks with some metadata. The agent parses
-the plugin configuration and passes it on to the plugin in a slightly normalized form,
-both as JSON or environment variables.
+Plugins are essentially a collection of hooks with extra configuration. The agent passes the plugin configuration from the pipeline.yml to the plugin hooks as environment variables.
 
-This means that you can write a plugin as a shell script, or as a binary.
-
-A minimal plugin has a plugin.json at it's root:
-
-```json
-{
-  "name": "docker",
-  "description": "Runs your build steps in Docker containers",
-  "author": "@buildkite",
-  "public": true,
-  "requirements": ["docker"]
-}
-```
-
-And then hook scripts under `hooks/`. A good example is the [docker plugin], which runs a command within a docker container.
-
-The pipeline invocation looks like:
+A good example is the [docker plugin], which runs a command within a docker container. The pipeline invocation of this plugin looks like:
 
 ```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
       docker#v1.0.0:
-        image: "node:7"
+        image: node
         workdir: /app
 ```
 
-And then the logic of the (simplified) [command hook][hooks] script in `hooks/command`:
+In its root directory the plugin has a `plugin.yml` that describes what it does, the executables required on the agent machine, and a [schema](#plugin-tools) of the plugin’s configuration options:
+
+```yml
+name: Docker
+description: Runs build steps within a docker container.
+author: https://github.com/buildkite
+requirements:
+  - docker
+configuration:
+  properties:
+    image:
+      type: string
+    workdir:
+      type: string
+  required:
+    - image
+    - workdir
+```
+
+The plugin’s hook scripts are placed in the `hooks/` directory. Here’s the simplified logic of the [command hook][hooks], which would exist at `hooks/command`:
 
 ```bash
 #!/bin/bash
@@ -124,44 +113,60 @@ set -euo pipefail
 echo "--- Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
 
 docker run -it --rm \
-  --volume "$PWD:${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
-  --workdir"${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
+  --volume "${PWD}:${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
+  --workdir "${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
   "${BUILDKITE_PLUGIN_DOCKER_IMAGE}" bash -c "${BUILDKITE_COMMAND}"
 ```
 
-The agent parses the plugin block and passes the parameters through to the script as environment variables in the form `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a list is provided then `BUILDKITE_PLUGIN_{NAME}_{KEY}_{IDX}`.
+The environment variables are named `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a list is provided then `BUILDKITE_PLUGIN_{NAME}_{KEY}_{IDX}`.
 
-This lets a script supplement the [standard environment variables] that the agent provides to any script with structured configuration from the plugin definition.
+For example `image: "node"` becomes the environment variable `BUILDKITE_PLUGIN_DOCKER_IMAGE="node"`, and `links: [ "db", "redis" ]` becomes the enviroment variables `BUILDKITE_PLUGIN_DOCKER_LINKS_0="db"` and `BUILDKITE_PLUGIN_DOCKER_LINKS_1="redis"`.
 
-Plugins are also able to offer `command` and `environment` hooks, which aren't allowed in per-project hooks. This lets plugins change how commands are executed entirely.
+### Plugin tools
 
-## Security and Reliability
+The following are some helpful tools when developing plugins:
 
-One issue with plugins is that they introduce a third-party dependency in your pipeline. They provide a new way to introduce executable code into your pipeline beyond scripts in your repository and access to the pipeline.yml.
+* [Plugin Tester] - A Docker image containing tools that simplifies writing BATS tests, and getting your plugin tested (so meta).
+* [Plugin Linter] - A linter that checks your plugin for best practices.
+* [Shellcheck Plugin] - A plugin for running Shellcheck on your hook scripts.
+* [JSON Schema Lint] - A tool that allows for validating your JSON schema with YAML.
+* [JSON Schema] - The JSON Schema spec.
+* [Understanding JSON Schema] - A tutorial to help understand how to write JSON Schema.
+* [bksr] - A command line tool for running Buildkite pipeline steps locally.
 
-The practices that we follow are:
+## Security and reliability
+
+Plugins introduce a third-party dependency in your pipeline. They provide a way to introduce executable code into your pipeline beyond scripts in your repository and access to the `pipeline.yml`.
+
+Recommended security practices:
 
  * Always pin to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
 
  * Follow the [Unofficial Bash Strict Mode] and check your work with [shellcheck].
 
- * Apply special care in plugins to avoid executing arbitrary code passed in by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
+ * Apply special care to avoid executing arbitrary code passed in to plugins by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
-For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook.
+For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or run agents with the `--no-plugins` flag.
 
-## We love feedback!
+## We love feedback
 
 Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
 
-[pipelines]: https://buildkite.com/docs/pipelines/defining-steps
-[hooks]: https://buildkite.com/docs/agent/v3/hooks
-[standard environment variables]: https://buildkite.com/docs/builds/environment-variables#provided-by-buildkite
+[pipelines]: /docs/pipelines/defining-steps
+[hooks]: /docs/agent/v3/hooks
+[standard environment variables]: /docs/builds/environment-variables#provided-by-buildkite
 [Unofficial Bash Strict Mode]: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 [shellcheck]: https://github.com/koalaman/shellcheck
 [docker plugin]: https://github.com/buildkite-plugins/docker-buildkite-plugin
-[docker-compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
-[s3-secrets plugin]: https://github.com/buildkite-plugins/s3-secrets-buildkite-plugin
+[Docker Compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
+[Junit Annotate plugin]: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
 [Buildkite Plugins]: https://github.com/buildkite-plugins
 [third party plugins]: https://github.com/search?q=topic%3Abuildkite-plugin&type=Repositories
 [plugin tester]: https://github.com/buildkite-plugins/plugin-tester
-[Plugin sources]: https://buildkite.com/docs/agent/v3/plugins#plugin-sources
+[Plugin sources]: /docs/agent/v3/plugins#plugin-sources
+[JSON Schema]: http://json-schema.org
+[JSON Schema Lint]: https://jsonschemalint.com/
+[Plugin Linter]: https://github.com/buildkite-plugins/buildkite-plugin-linter
+[bksr]: https://github.com/toolmantim/bksr
+[Understanding JSON Schema]: https://spacetelescope.github.io/understanding-json-schema/
+[Shellcheck Plugin]: https://github.com/buildkite-plugins/shellcheck-buildkite-plugin
