@@ -1,6 +1,6 @@
 # Buildkite Agent Hooks
 
-Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a pipeline `pre-command` hook which sets up some repository-specific environment variables.
+Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a repository `pre-command` hook which sets up some repository-specific environment variables.
 
 <%= toc %>
 
@@ -9,8 +9,8 @@ Every agent installer comes with a hooks directory which can be used to override
 There are three types of hooks:
 
 1. [Agent hooks](#agent-hooks) - these exist on the agent’s machine, and are run for every job on any pipeline.
-1. [Pipeline hooks](#pipeline-hooks) - these exist in the pipeline repository’s `.buildkite/hooks` directory.
-1. [Plugin hooks](#plugin-hooks) - these are provided by any [plugins](/docs/agent/v3/plugins) defined in your pipeline repository’s `pipeline.yml`.
+1. [Repository hooks](#repository-hooks) - these exist in your pipeline repository’s `.buildkite/hooks` directory.
+1. [Plugin hooks](#plugin-hooks) - these are provided by any [plugins](/docs/agent/v3/plugins) you've defined in your `pipeline.yml`.
 
 ## Available hooks
 
@@ -21,16 +21,16 @@ The following is a complete list of hooks that can be implemented, and the order
     <tr><th>Hook</th><th>Order</th></th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td style="white-space: nowrap"><code>environment</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before all other commands, useful for <a href="/docs/agent/v3/securing#using-environment-hooks-for-secrets">exporting secret keys</a> etc.</td></tr>
+    <tr><td style="white-space: nowrap"><code>environment</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before all other commands. Useful for <a href="/docs/agent/v3/securing#using-environment-hooks-for-secrets">exporting secret keys</a>, <a href="/docs/agent/v3/securing#whitelisting">security whitelisting</a>, etc.</td></tr>
     <tr><td style="white-space: nowrap"><code>pre-checkout</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before checkout.</td></tr>
-    <tr><td style="white-space: nowrap"><code>checkout</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Overrides the default <code>git checkout</code> behavior.</td></tr>
-    <tr><td style="white-space: nowrap"><code>post-checkout</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs after checkout.</td></tr>
-    <tr><td style="white-space: nowrap"><code>pre-command</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs before the build command.</td></tr>
-    <tr><td style="white-space: nowrap"><code>command</code></td><td style="white-space: nowrap">Plugin, Pipeline, Agent</td><td>Overrides the default script running behavior, useful for changing how the command is evaluated (such as running it inside a container). <em>Note:</em> Unlike other hooks, if multiple command hooks are found only the first of Plugin, Pipeline or Agent hook type will be run.</td></tr>
-    <tr><td style="white-space: nowrap"><code>post-command</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs after the command.</td></tr>
-    <tr><td style="white-space: nowrap"><code>pre-artifact</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job.</td></tr>
-    <tr><td style="white-space: nowrap"><code>post-artifact</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job.</td></tr>
-    <tr><td style="white-space: nowrap"><code>pre-exit</code></td><td style="white-space: nowrap">Agent, Pipeline, Plugin</td><td>Runs before the job finishes, useful for performing cleanup tasks.</td></tr>
+    <tr><td style="white-space: nowrap"><code>checkout</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Overrides the default <code>git checkout</code> behavior. <em>Note:</em> If multiple checkout hooks are found, only the first will be run.</td></tr>
+    <tr><td style="white-space: nowrap"><code>post-checkout</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs after checkout.</td></tr>
+    <tr><td style="white-space: nowrap"><code>pre-command</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs before the build command.</td></tr>
+    <tr><td style="white-space: nowrap"><code>command</code></td><td style="white-space: nowrap">Plugin, Repository, Agent</td><td>Overrides the default command running behavior. <em>Note:</em> If multiple command hooks are found, only the first will be run.</td></tr>
+    <tr><td style="white-space: nowrap"><code>post-command</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs after the command.</td></tr>
+    <tr><td style="white-space: nowrap"><code>pre-artifact</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job.</td></tr>
+    <tr><td style="white-space: nowrap"><code>post-artifact</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job.</td></tr>
+    <tr><td style="white-space: nowrap"><code>pre-exit</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs before the job finishes, useful for performing cleanup tasks.</td></tr>
   </tbody>
 </table>
 
@@ -62,9 +62,9 @@ Each agent installer comes with a hooks directory containing a set of sample hoo
 
 To get started with agent hooks copy the relevant example script and remove the `.sample` file extension.
 
-## Pipeline hooks
+## Repository hooks
 
-Pipeline hooks allow you to execute pipeline-specific scripts. Pipeline hooks live alongside your pipeline’s source code under the directory `.buildkite/hooks`.
+Repository hooks allow you to execute repository-specific scripts. Repository hooks live alongside your repository’s source code under the directory `.buildkite/hooks`.
 
 To get started create a `.buildkite/hooks` directory, add your hook script, and make it executable.
 
