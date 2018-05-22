@@ -243,25 +243,23 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 
 For a list of variables and configuration flags you can set on your agent, see the Buildkite Agent’s [start command documentation](/docs/agent/v3/cli-start).
 
-### Job accepted by an agent
+### Job runtime environment
 
-Once the job is accepted by an agent, more environment merging happens.
+Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment.
 
-Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment. Not all of the variables from the agent are added, and some variables are created fresh at this point. For example, we don't add the agent's registration token, we instead create a new access token for this specific job.
+<div class="Docs__note">
+  <p>Not all variables from the agent are available in the job runtime. For example, we remove the agent’s registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.</p>
+</div>
 
-At this point we add the following:
+After the agent variables have been merged, the bootstrap script is run.
 
-- variables that describe the agent that the job is running on
-- variables to tell the bootstrap and other commands what to do
-
-After the agent variables have been merged, the bootstrap script is run. It adds its own variables to the environment, and runs any local and global hooks that have been defined on the agent machine (e.g. plugin, environment etc.) This causes any variables that are set in hooks to be merged in to the environment.
+The bootstrap runs any local and global <a href="/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/agent/v3/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
-<h1>Take care with environment variables in hooks</h1>
-<p>Variables that are defined in hooks can override _anything_ that exists in the environment.</p>
+  <h1>Take care with environment variables in hooks</h1>
+  <p>Variables that are defined in hooks can override anything that exists in the environment.</p>
 </div>
 
 This is the environment your command runs in 🎉
 
-Finally, any changes that you make to the environment from within the job script will only survive as long as the script is running.
-
+Finally, if your job’s commands make any changes to the environment, those changes will only survive as long as the script is running.
