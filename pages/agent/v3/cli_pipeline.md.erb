@@ -40,6 +40,7 @@ Options:
 
    --replace                   Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
    --job value                 The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --no-interpolation          Skip variable interpolation the pipeline when uploaded [$BUILDKITE_PIPELINE_NO_INTERPOLATION]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
@@ -84,6 +85,10 @@ If you want an environment variable to be evaluated at run-time (for example, us
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
 
 For example, using `$$USD` and `\$USD` will both result in the same value: `$USD`.
+
+### Disabling interpolation
+
+You can disable interpolation with the `--no-interpolation` flag, which was added in v3.1.1.
 
 ### Requiring environment variables
 
