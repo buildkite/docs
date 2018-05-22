@@ -227,25 +227,7 @@ Defining an environment variable at the top of your yaml file will set that vari
 
 **Setting variables in a Trigger step**
 
-Environment variables set in the `env` attribute of a trigger step end up as build-level environment variables on the newly created build.
-
-If you're using a 3.x agent, you can use variable interpolation to set variables for a trigger step that are already set elsewhere in the parent build. For example:
-
-```
-env:
-  FOO: bar
-
-steps:
-  - trigger: some-pipeline
-    build:
-      env:
-        FOO: $FOO # triggered build will have `FOO: bar`
-```
-
-<div class="Docs__note">
-<p class="Docs__note__heading">Environment variables set at top of a pipeline.yaml aren't applied to trigger steps</p>
-<p>The only variables that are passed through to a trigger step's build are those you set in that trigger step's `env` attribute.</p>
-</div>
+Environment variables are not automatically passed through to builds created with [trigger steps](/docs/pipelines/trigger-step). To set build-level environment variables on triggered builds, set the trigger step’s `env` attribute.
 
 ### Agent environment
 
