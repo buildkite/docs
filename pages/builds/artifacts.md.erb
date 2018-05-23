@@ -23,6 +23,8 @@ If you've defined your pipeline in Buildkite, you can set this field on a comman
 
 <%= image 'artifact_pattern.png', size: '390x125', alt: 'Artifact pattern configuration' %> 
 
+Defining a pattern here will cause your agents to automatically upload any artifacts that match your file path pattern. 
+
 You can also perform an artifact upload manually in your build scripts by using
 the `buildkite-agent artifact` command. In this example, the file `build.tar.gz` from the `pkg` directory will be uploaded to the default destination: 
 
