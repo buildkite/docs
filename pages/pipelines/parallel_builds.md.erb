@@ -10,7 +10,7 @@ Running a build's jobs in parallel is a simple technique to decrease your build�
     <p>There are two techniques for scaling your build agents: horizontally across multiple machines, or vertically on a single machine. For the sake of simplicity, the following example shows vertically scaling your agents on a single machine. For details on horizontal scaling, which allows for running hundreds or thousands of build agents, see the <a href="#auto-scaling-your-build-agents">auto-scaling your build agents</a> section.</p>
 </section>
 
-The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/installation) section. For this example we'll use a [Ubuntu-based build agent](/docs/agent/v3/ubuntu) to start 5 instances of the Buildkite agent:
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v2/installation) section. For this example we'll use a [Ubuntu-based build agent](/docs/agent/v2/ubuntu) to start 5 instances of the Buildkite agent:
 
 ```bash
 # After running the standard install instructions...
@@ -86,8 +86,8 @@ In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-
 
 * [GraphQL API](/docs/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
 * [Pipelines REST API](/docs/api/pipelines) and [Agents API](/docs/api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
-* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance emphemeral agents.
-* [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
+* [Agent priorities](/docs/agent/v2/prioritization) allow you to define which agents are assigned work first, such as high performance emphemeral agents.
+* [Agent queues](/docs/agent/v2/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
 * [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.

@@ -98,7 +98,7 @@ The first step in debugging your build script is to view the environment variabl
 
 <%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job’s environment tab' %>
 
-There may be additional environment variables available in your build job that don’t appear in this list, such as ones set by your own [agent hooks](/docs/agent/v3/hooks). To debug these, you can print them using `echo $SOME_VAR` before the command you're wanting to run. For example:
+There may be additional environment variables available in your build job that don’t appear in this list, such as ones set by your own [agent hooks](/docs/agent/v2/hooks). To debug these, you can print them using `echo $SOME_VAR` before the command you're wanting to run. For example:
 
 ```bash
 #!/bin/bash
