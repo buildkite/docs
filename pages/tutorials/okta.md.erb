@@ -1,0 +1,24 @@
+# SSO with Okta
+
+- Teams using Okta can use it to log into Buildkite
+
+## Setting up SSO
+- sso setup ocurrs on both sides, in the okta and buildkite organisations
+- an organisation admin sets up okta with the buildkite app
+- the buildkite team enables sso for your organisation, with the details you provide
+
+### Setup on the Okta website
+1. go to admin section
+1. select 'add applications' to search the Okta application directory
+1. search for Buildkite
+1. add the Buildkite app to your Okta account
+1. fill out the form, entering your Buildkite organisation slug as the 'organisation id' (this is case sensitive)
+
+- in the Buildkite application in Okta, select the 'Sign on' tab
+- In the sign on 'settings' section, click the 'view setup instructions' button
+- follow the configuration instructions 
+
+### What the Buildkite team will do
+1. enable sso for the specified organisation
+1. get you to test that it's all working
+1. force a logout for all the users in the organisation, so that everyone will log in via Google next time they access Buildkite.com
