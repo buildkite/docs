@@ -1,0 +1,16 @@
+# OAuth with Google G Suite
+
+- Teams using Google G Suite can use it to log into Buildkite
+
+## Setting up OAuth
+
+### Pre-requisites
+1. send the buildkite team:
+ - your domain name (this is the domain that your team has in their email addresses, and it must be the same domain that uses google g suite)
+ - the slug of the organisation you want to enable oauth for 
+1. ensure your team members have this email address verified in their buildkite account
+
+### What does Buildkite do
+1. enable oauth for the specified organisation
+1. get you to test that it's all working
+1. force a logout for all the users in the organisation, so that everyone will log in via Google next time they access Buildkite.com
