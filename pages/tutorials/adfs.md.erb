@@ -1,0 +1,66 @@
+# AD FS SSO Setup
+
+- Teams using AD FS can use it to log into Buildkite
+
+## Setting up your AD FS Server
+
+- you must be an admin in your Buildkite organisation, and have __ permissions on the server you're using for AD FS
+- know the slug of the Buildkite organisation for which you'd like to enable SSO 
+
+## Setup in the AD FS management console
+
+using a series of wizards, you'll:
+- add a 'relying party trust' and
+- add an 'issuance transform rule', a type of 'claim rule'
+- export the token-signing certificate
+- update the authentication policy
+
+for screenshots of each of the following instructions, you can have a look at the [Pagerduty SSO integration guide](https://www.pagerduty.com/docs/guides/adfs-sso-guide/)
+
+### Add a Relying Party Trust
+
+From the actions sidebar, choose `add relying party trust...` to start the wizard
+
+1. Select data source: select `Enter data about the relying party manually`
+1. Specify display name: call your relying party `Buildkite`
+1. Choose profile: select `AD FS profile`
+1. Configure certificate: skip this step, as you don't need a token encryption certificate
+1. Configure URL: 
+	select `Enable support for the SAML 2.0 WebSSO protocol` 
+	replace <slug> with your organisation slug in this URL: https://buildkite.com/login/sso/saml/consume?organization=<slug>
+	enter that URL as your `Relying party SAML 2.0 SSO service URL` 
+1. Configure identifiers: 
+	enter `https://buildkite.com` into the `Relying party trust identifier` field
+	click `add` to add it to the `Relying party trust identifiers` list
+1. Configure Multi-factor Authentication Now? 
+	select `I do not want to configure multi-factor authentication settings for this relying part trust at this time`
+1. Choose issuance authorisation rules: select `Permit all users to access this relying party`
+	you can choose to select specific users, but that will involve further steps that aren't covered by this guide
+1. Ready to add trust: review your settings to make sure all the urls are correct
+1. Finish: click `close` to close the wizard and save your setup
+
+### Add an issuance transform rule
+
+<how to get to the `edit claim rules for buildkite` popup>
+- we'll be adding three rules
+- Issuance transform rules tab: click `add rule`
+
+Rule 1
+1. Choose rule type: `Send LDAP Attributes as claims`
+1. Configure claim rule:
+
+Rule 2
+1. Choose rule type: 
+1. Configure claim rule:
+
+Rule 3
+1. Choose rule type: 
+1. Configure claim rule:
+
+### What the Buildkite team will do
+1. enable sso for the specified organisation
+1. get you to test that it's all working
+1. force a logout for all the users in the organisation, so that everyone will log in via Okta next time they access Buildkite.com
+
+
+
