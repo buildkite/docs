@@ -4,16 +4,6 @@ There are a number of third party services you can use with Buildkite webhooks. 
 
 <%= toc %>
 
-## RequestBin
-
-[RequestBin](http://requestb.in) is free service by [Runscope](https://www.runscope.com/) which creates private URLs you can use to inspect and debug webhook requests. It's a great starting place for understanding how Buildkite webhooks work.
-
-To get started go to [http://requestb.in](http://requestb.in) and create a new bin:
-
-<%= image "request-bin.png", size: '297x143', alt: 'Screenshot of Create a RequestBin request' %>
-
-Copy the bin’s URL and add it in a new Buildkite webhook notification. Once you've saved the notification settings we’ll send it a [Ping](/docs/webhooks/ping-events) event. Simply reload your RequestBin page to inspect the `ping` webhook request.
-
 ## AWS Lambda
 
 [AWS Lambda](https://aws.amazon.com/lambda/) is an Amazon service for hosted Javascript execution, and supports exposing functions via URLs. You can follow their [GitHub webhook guide](https://aws.amazon.com/blogs/compute/dynamic-github-actions-with-aws-lambda/) for an example of how to publish Buildkite webhook events as SNS topics and then process them using AWS Lambda.
