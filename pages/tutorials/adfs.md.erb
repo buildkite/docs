@@ -19,8 +19,9 @@ for screenshots of each of the following instructions, you can have a look at th
 
 ### Add a Relying Party Trust
 
-From the actions sidebar, choose `add relying party trust...` to start the wizard
+From the `Actions` sidebar, choose `add relying party trust...` to start the wizard
 
+1. Welcome: select `Claims aware`
 1. Select data source: select `Enter data about the relying party manually`
 1. Specify display name: call your relying party `Buildkite`
 1. Choose profile: select `AD FS profile`
@@ -32,30 +33,59 @@ From the actions sidebar, choose `add relying party trust...` to start the wizar
 1. Configure identifiers: 
 	enter `https://buildkite.com` into the `Relying party trust identifier` field
 	click `add` to add it to the `Relying party trust identifiers` list
-1. Configure Multi-factor Authentication Now? 
-	select `I do not want to configure multi-factor authentication settings for this relying part trust at this time`
-1. Choose issuance authorisation rules: select `Permit all users to access this relying party`
+1. Choose Access Control Policy:
+	choose `Permit everyone`
 	you can choose to select specific users, but that will involve further steps that aren't covered by this guide
 1. Ready to add trust: review your settings to make sure all the urls are correct
-1. Finish: click `close` to close the wizard and save your setup
+1. Finish:
+	leave the `configure claims issuance policy for this application` box checked
+	click `close` to close the wizard and save your setup
+
+In the `Actions` sidebar, you should now have a subheading `Buildkite`. 
 
 ### Add an issuance transform rule
 
-<how to get to the `edit claim rules for buildkite` popup>
+From the `Buildkite` section of the `Actions` sidebar, select `Edit claim issuance policy...`
+
 - we'll be adding three rules
-- Issuance transform rules tab: click `add rule`
+- on the Issuance transform rules tab: click `add rule`
 
 Rule 1
 1. Choose rule type: `Send LDAP Attributes as claims`
 1. Configure claim rule:
+	Claim Rule Name: Get Attributes
+	Attribute Store: Active Directory
+	Mapping of LDAP Attributes to outgoing claim types:
+		LDAP Attribute: Email Addresses, Outgoing claim type: Email address
+		LDAP Attribute: Display-Name, Outgoing claim type: Name
+1. Click `Finish` to add the rule
 
 Rule 2
-1. Choose rule type: 
+1. Choose rule type: `Transform an incoming claim`
 1. Configure claim rule:
+	Claim Rule Name: Name ID Transform
+	Incoming Claim Type: Email address
+	Outgoing Claim Type: Name ID
+	Outgoing Name ID Format: Email
+	Select `Pass through all claim values`
+1. Click `Finish` to add the rule
 
 Rule 3
-1. Choose rule type: 
+1. Choose rule type: `Send claims using a custom rule`
 1. Configure claim rule:
+	Claim Rule Name: 'Name' Attribute Name Transform
+	Custom Rule: 
+```
+c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+ => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);
+```
+1. Click `Finish` to add the rule
+1. Click `OK` to save and exit the Claim Issuance Policy dialog
+
+### Export the token signing certificate
+
+
+### Update the authentication policy
 
 ### What the Buildkite team will do
 1. enable sso for the specified organisation
