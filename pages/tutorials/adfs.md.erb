@@ -1,4 +1,4 @@
-# AD FS SSO Setup
+# SAML with Active Directory Federation Services (AD FS)
 
 - Teams using AD FS can use it to log into Buildkite
 
@@ -15,7 +15,11 @@ using a series of wizards, you'll:
 - export the token-signing certificate
 - update the authentication policy
 
-for screenshots of each of the following instructions, you can have a look at the [Pagerduty SSO integration guide](https://www.pagerduty.com/docs/guides/adfs-sso-guide/)
+
+- this guide was written for and tested using Windows Server 2016
+- some of the wizard pages and dialog tab names have changed across versions of Windows Server 
+- for a guide written for Windows Server 2012, the [Pagerduty SSO integration guide](https://www.pagerduty.com/docs/guides/adfs-sso-guide/) is very similar to Buildkite
+- you can follow the pagerduty instructions, and subsitute in the Buildkite values from the instructions below
 
 ### Add a Relying Party Trust
 
@@ -83,6 +87,7 @@ c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
 1. Click `OK` to save and exit the Claim Issuance Policy dialog
 
 ### Export the token signing certificate
+
 
 
 ### Update the authentication policy

@@ -1,11 +1,3 @@
-OneLogin
-========
-- add an app
-- search for buildkite
-- go to the SSO tab
-- send the info to BK support (cert and saml 2.0 endpoint http)
-
-
 # SSO with OneLogin
 
 - Teams using OneLogin can use it to log into Buildkite
@@ -16,20 +8,24 @@ OneLogin
 - the buildkite team enables sso for your organisation, with the details you provide
 
 ### Setup on the OneLogin website
+- in this setup you'll add the Buildkite app to your OneLogin account, and email the OneLogin-specific account details to Buildkite.
+
 1. in the 'apps' tab, select the 'add app' button to search the OneLogin directory
 1. search for Buildkite
 1. add the Buildkite app to your OneLogin account
-
-
 1. email support@buildkite with your SSO information:
 - your domain name
 - your Buildkite organisation slug
 - SAML 2.0 Endpoint (HTTP)
-	- click on the SSO tab of the app
-	- copy the URL from the SAML 2.0 Endpoint (HTTP) field
+	- click on the Buildkite app in the Company Apps page of OneLogin
+    - click on the SSO tab at the top of the page
+	- copy the URL labeled `SAML 2.0 Endpoint (HTTP)`
+    - paste this URL into the email
 - x.509 certificate
-	- on the same page, click the 'view details' button under the x.509 certificate
-	- download the certificate and attach it to the email
+	- also on the SSO tab, click the 'view details' link under the `x.509 certificate`
+	- under the X.509 Certificate section, select `X.509 PEM` from the dropdown list 
+    - click the download button
+    - attach the downloaded certificate to the email
 
 
 ### What the Buildkite team will do

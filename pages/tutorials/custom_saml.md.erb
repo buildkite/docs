@@ -1,0 +1,19 @@
+# SAML with a Custom Provider
+
+Teams using a SAML provider that isn't covered by any of the Buildkite SSO guides can manually set up a custom provider.
+
+## Setting up SAML
+
+- meta data is provided for setting up SAML with any provider
+
+1. Fetch the XML from this URL: https://buildkite.com/user/authorize/saml/metadata
+2. Using the meta data from the XML, set up Buildkite in your SAML provider's service
+    - the Buildkite SSO service accepts the `username` and `admin` fields
+3. Email support@buildkite
+
+### What the Buildkite team will do
+1. enable SAML for the specified organisation
+1. get you to test that it's all working
+1. force a logout for all the users in the organisation, so that everyone will log in via your chosen provider next time they access Buildkite.com
+
+

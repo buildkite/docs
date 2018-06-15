@@ -1,16 +1,19 @@
 # OAuth with Google G Suite
 
-- Teams using Google G Suite can use it to log into Buildkite
+Google's G Suite can be used as single sign-on to log in to your organsiation's Buildkite account. G Suite doesn't proivide group management, as it uses OAuth rather than SAML to perform the login.  
 
 ## Setting up OAuth
 
-### Pre-requisites
-1. send the buildkite team:
- - your domain name (this is the domain that your team has in their email addresses, and it must be the same domain that uses google g suite)
- - the slug of the organisation you want to enable oauth for 
-1. ensure your team members have this email address verified in their buildkite account
+Setting up G Suite to log in to Buildkite is a short process, requiring an email to the Buildkite team and some testing.
 
-### What does Buildkite do
-1. enable oauth for the specified organisation
-1. get you to test that it's all working
-1. force a logout for all the users in the organisation, so that everyone will log in via Google next time they access Buildkite.com
+### Email the Buildkite team
+1. Send an email to support@buildkite.com with the following information:
+ - Your domain name: this is the domain that you have in your email address, and it must be the same domain that uses Google G Suite
+ - The slug of the organisation for which you want to enable OAuth 
+1. Ensure all members of the specified organisation have an email address with that domain verified in their Buildkite account
+
+When we receive your email, the Buildkite team will:
+
+1. Enable OAuth for the specified organisation
+1. Reply to your email and get you to test that it's all working
+1. Force a logout for all the users in the organisation, so that everyone will log in via Google next time they attempt to access that organisation on Buildkite.com
