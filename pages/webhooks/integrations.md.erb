@@ -4,9 +4,14 @@ There are a number of third party services you can use with Buildkite webhooks. 
 
 <%= toc %>
 
-## AWS Lambda
+## AWS SNS + Lambda
 
-[AWS Lambda](https://aws.amazon.com/lambda/) is an Amazon service for hosted Javascript execution, and supports exposing functions via URLs. You can follow their [GitHub webhook guide](https://aws.amazon.com/blogs/compute/dynamic-github-actions-with-aws-lambda/) for an example of how to publish Buildkite webhook events as SNS topics and then process them using AWS Lambda.
+SNS is an Amazon pub-sub service. See (buildkite-webhook-aws-terraform)[https://github.com/rivethealth/buildkite-webhook-aws-terraform] which uses API Gateway to connect Buildkite webhook events to SNS.
+
+Examples of using [AWS Lambda](https://aws.amazon.com/lambda/) for processing SNS messages:
+
+* AWS's [GitHub webhook guide](https://aws.amazon.com/blogs/compute/dynamic-github-actions-with-aws-lambda/)
+* (buildkite-bitbucket-aws-terraform)[https://github.com/rivethealth/buildkite-bitbucket-aws-terraform] for sending build statuses to Atlassian Bitbucket Server.
 
 ## Google Cloud Functions
 
