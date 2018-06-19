@@ -1,6 +1,6 @@
 # SSO with OneLogin
 
-OneLogin can be used as single sign-on to log in to your organsiation's Buildkite account.
+OneLogin can be used as single sign-on to log in to your Buildkite organisation.
 
 ## Setting up SSO
 
@@ -13,18 +13,35 @@ The instructions below guide you through adding the Buildkite app to your OneLog
 1. Search for 'Buildkite'
 1. Add the Buildkite app to your OneLogin account
 1. Email support@buildkite.com with the following SSO and OneLogin information:
-    + Your domain name
-    + Your Buildkite organisation slug
-    + SAML 2.0 Endpoint (HTTP):
-        + In the 'Company Apps' page of OneLogin, click on the Buildkite app 
-        + Click on the 'SSO' tab at the top of the page
-        + Copy the URL labeled `SAML 2.0 Endpoint (HTTP)`
-        + Paste this URL into your email to Buildkite
-    + x.509 certificate:
-        + Also on the SSO tab of the OneLogin Buildkite app, click the 'View Details' link under the 'X.509 certificate'
-        + Under the section 'X.509 Certificate', select `X.509 PEM` from the dropdown list of file types
-        + Click the 'Download' button
-        + Attach the downloaded certificate to your email to Buildkite
+
+    <dl>
+        <dt>Domain name</dt>
+        <dd>
+          The domain you use with OneLogin for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+        </dd>
+        <dt>Organisation slug</dt>
+        <dd>
+          The Buildkite organisation for which you want to enable SSO.  
+        </dd>
+        <dt>SAML 2.0 Endpoint (HTTP)</dt>
+        <dd>
+            <ol>
+                <li>In the 'Company Apps' page of OneLogin, click on the Buildkite app</li>
+                <li>Click on the 'SSO' tab at the top of the page</li>
+                <li>Copy the URL labeled `SAML 2.0 Endpoint (HTTP)`</li>
+                <li>Paste this URL into your email to Buildkite</li>
+            </ol>
+        </dd>
+        <dt>x.509 certificate</dt>
+        <dd>
+            <ol>
+                <li>Also on the SSO tab of the OneLogin Buildkite app, click the 'View Details' link under the 'X.509 certificate'</li>
+                <li>Under the section 'X.509 Certificate', select `X.509 PEM` from the dropdown list of file types</li>
+                <li>Click the 'Download' button</li>
+                <li>Attach the downloaded certificate to your email to Buildkite</li>
+            </ol>
+        </dd>
+    </dl>
 
 When we receive your email, the Buildkite team will:
 
