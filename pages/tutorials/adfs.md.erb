@@ -7,6 +7,7 @@ Setting up AD FS requires organisation administrator privileges on your AD FS se
 ## Setup in the AD FS management console
 
 The instructions below will guide you through using a series of wizards to:
+
 - Add a 'relying party trust'
 - Add an 'issuance transform rule', a type of 'claim rule'
 - Export the token-signing certificate
@@ -14,10 +15,8 @@ The instructions below will guide you through using a series of wizards to:
 
 With these wizards, you'll set up your domain for SSO and retreive the information the Buildkite team requires to complete the setup process.
 
-
-
 <div class="Docs__note">
-<p class="Docs__note__heading">This guide was written for, and tested using, Windows Server 2016.</p>
+<p class="Docs__note__heading">This guide was written for, and tested using, Windows Server 2016</p>
 <p>Some of the wizard pages and dialog tab names have changed across versions of Windows Server.</p>
 
 <p>For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">Pagerduty SSO integration guide</a> is very similar to Buildkite. Follow the Pagerduty instructions, and subsitute in the Buildkite values from the instructions below.</p>
@@ -37,7 +36,7 @@ From the `Actions` sidebar, click `Add relying party trust...` to start the wiza
 	replace <slug> with your organisation slug in this URL: https://buildkite.com/login/sso/saml/consume?organization=<slug>
 	enter that URL as your `Relying party SAML 2.0 SSO service URL` 
 1. <u>Configure identifiers</u>: 
-	enter `https://buildkite.com` into the `Relying party trust identifier` field
+	enter `https://<your IDP url>/adfs/services/trust` into the `Relying party trust identifier` field
 	click `add` to add it to the `Relying party trust identifiers` list
 1. <u>Choose Access Control Policy</u>:
 	choose `Permit everyone`
@@ -134,9 +133,13 @@ Email support@buildkite.com with the following SSO and AD FS information:
     <dd>
       The URL where you can log in to your AD FS service. Usually your domain name or IP, with <code>/adfs/ls</code> appended.
     </dd>
-    <dt>x.509 certificate</dt>
+    <dt>AD FS Issuer URL</dt>
     <dd>
-   	  Attach the x.509 certificate that you downloaded during setup
+        
+    </dd>
+    <dt>X.509 certificate</dt>
+    <dd>
+   	  Attach the X.509 certificate that you downloaded during setup
     </dd>
 </dl>
 
@@ -144,7 +147,4 @@ When we receive your email, the Buildkite team will:
 
 1. Enable SSO for the specified organisation
 1. Reply to your email and get you to test that it's all working
-1. Force a logout for all the users in the organisation, so that everyone will log in via AD FS next time they attempt to access that organisation on Buildkite.com
-
-
-
+1. Deauthorize all the users in the organisation, so that everyone will authorize via AD FS next time they attempt to access that organisation on Buildkite.com

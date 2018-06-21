@@ -1,6 +1,6 @@
 # SSO with OneLogin
 
-OneLogin can be used as single sign-on to log in to your Buildkite organisation.
+OneLogin can be used to authorize access to your Buildkite organisation.
 
 ## Setting up SSO
 
@@ -32,11 +32,15 @@ The instructions below guide you through adding the Buildkite app to your OneLog
                 <li>Paste this URL into your email to Buildkite</li>
             </ol>
         </dd>
-        <dt>x.509 certificate</dt>
+        <dt>Issuer URL</dt>
+        <dd>
+            
+        </dd>
+        <dt>X.509 certificate</dt>
         <dd>
             <ol>
                 <li>Also on the SSO tab of the OneLogin Buildkite app, click the 'View Details' link under the 'X.509 certificate'</li>
-                <li>Under the section 'X.509 Certificate', select `X.509 PEM` from the dropdown list of file types</li>
+                <li>Under the section 'X.509 Certificate', select 'X.509 PEM' from the dropdown list of file types</li>
                 <li>Click the 'Download' button</li>
                 <li>Attach the downloaded certificate to your email to Buildkite</li>
             </ol>
@@ -47,4 +51,4 @@ When we receive your email, the Buildkite team will:
 
 1. Enable SSO for the specified organisation
 1. Reply to your email and get you to test that it's all working
-1. Force a logout for all the users in the organisation, so that everyone will log in via OneLogin next time they attempt to access that organisation on Buildkite.com
+1. Deauthorize all the users in the organisation, so that everyone will authorize via OneLogin next time they attempt to access that organisation on Buildkite.com
