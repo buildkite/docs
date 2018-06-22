@@ -17,7 +17,7 @@ Plugins are only available for [pipelines] using `pipeline.yml` files.
 Plugins can be used in two ways:
 
 * as a standalone step, performing an operation
-* as a library, making commands available to that step's script 
+* as a library, making commands available to that step's script
 
 An example of what a plugin might look like in your code:
 
@@ -59,12 +59,14 @@ steps:
 If you refer to a plugin just by name (say `detect-clowns`), it defaults to
 https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used `myorg/detect-clowns` it would refer to https://github.com/myorg/detect-clowns-buildkite-plugin.
 
-You can also use a fully qualified git URL like:
+You can also use fully qualified Git URLs like:
+
  * `https://github.com/my-org/my-plugin.git#v1.0.0`
  * `ssh://git@github.com/my-org/my-plugin.git#v1.0.0`
  * `file:///a-local-path/my-plugin.git#v1.0.0`
-which lets you refer to your own private git repositories. Branches, tags and commits
-are all valid after the `#`.
+
+This syntax lets you refer to your own private Git repositories for plugin
+locations. Branches, tags and commits are all valid after the `#`.
 
 We recommend that plugins be pinned to a specific version to prevent behaviour
 changing unexpectedly. This is done with a git tag of `vX.X.X`.
