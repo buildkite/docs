@@ -72,6 +72,26 @@ steps:
 
 <%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
 
+## Supported Markdown syntax
+
+We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
+
+GitHub [kindly provide a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
+
+Note that we do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
+
+## Supported CSS Classes
+
+A small number of CSS classes are accepted in annotations.
+
+### Colored console output
+
+Console output in annotations can be displayed with colors when processed through [our Terminal output processor](http://buildkite.github.io/terminal/) before uploading.
+
+The output from this program can be included in both Markdown and HTML annotation bodies.
+
+<%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
+
 ## Embedding & linking artifacts in annotations
 
 Uploaded artifacts can be embedded in annotations by referencing them using the `artifact://` prefix in your image source.
