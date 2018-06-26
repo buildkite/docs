@@ -1,0 +1,36 @@
+# Intro to SSO with Buildkite
+
+<%= toc %>
+
+## What does Builkite support
+
+- can do both oauth and saml
+- there are guides for popular providers available for setting up your organisation with sso, but we support any identity provider that has support for SAML 2.0 and have a custom saml provider guide
+
+## How does SSO work with accounts and organisations
+
+- your buildkite account is separate from any organsiation that you are a part of
+- organisations can enable sso for authorisation, it's only available at the organisational level
+- you will still retain your buildkite login details, then you'll have an additional layer of authorisation to access your organisation's content
+- if a user of your identity provider tries to log into buildkite, they will set up their Buildkite account after they have completed the authorisation? 
+
+## Frequently Asked Questions
+
+### Can some people in the organisation use SSO and others not?
+No, if SSO is enabled, all of the users in your organisation will be required to authorise with your chosen identity provider.
+
+### Can we enable SSO on multiple domains for one organisation?
+No, we currently support only one domain per organisation.
+
+### Is there downtime while SSO is enabled?
+No, there'll be no downtime. Buildkite will deauthorise all your users, and they will be required to authorise with your chosen identity provider when they next try to access your organisation.
+
+### Will enabling SSO cause a service interruption?
+No, all of your builds/agents/pipelines will continue to run as normal.
+
+### Can the SSO testing/deauthorisation be scheduled for a specific time?
+Yes, within Australian business hours. 
+
+### Does enabling SSO affect billing?
+
+
