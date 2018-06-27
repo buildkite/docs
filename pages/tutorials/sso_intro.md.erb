@@ -1,8 +1,10 @@
 # Intro to SSO with Buildkite
 
+- single sign-on provides authentication or authorisation to a third party site like Buildkite by means of a token from your identity provider
+
 <%= toc %>
 
-## What does Builkite support
+## What types of SSO does Builkite support
 
 - can do both oauth and saml
 - there are guides for popular providers available for setting up your organisation with sso, but we support any identity provider that has support for SAML 2.0 and have a custom saml provider guide
@@ -28,7 +30,7 @@ No, there'll be no downtime. Buildkite will deauthorise all your users, and they
 ### Will enabling SSO cause a service interruption?
 No, all of your builds/agents/pipelines will continue to run as normal.
 
-### Can the SSO testing/deauthorisation be scheduled for a specific time?
+### Can the SSO testing and user deauthorisation be scheduled for a specific time?
 Yes, within Australian business hours. 
 
 ### Does enabling SSO affect billing?
