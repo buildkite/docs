@@ -32,7 +32,7 @@ sudo sed -i "s/xxx/<%= token %>/g" /etc/buildkite-agent/buildkite-agent.cfg
 And then start the agent:
 
 ```shell
-# For Debian 8.x (systemd)
+# For Debian 8.x and above (systemd)
 sudo systemctl enable buildkite-agent && systemctl start buildkite-agent
 
 # For Debian 7.x (using upstart)
@@ -45,7 +45,7 @@ sudo /etc/init.d/buildkite-agent start
 You can view the logs at:
 
 ```shell
-# For Debian 8.x (systemd)
+# For Debian 8.x and above (systemd)
 sudo journalctl -f -u buildkite-agent
 
 # For Debian 7.x (using upstart)
