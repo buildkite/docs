@@ -1,6 +1,6 @@
 # Installing Buildkite Agent on Debian
 
-The Buildkite Agent can be installed on on Debian versions 7.x and 8.x using our signed apt repository.
+The Buildkite Agent can be installed on on Debian versions 7.x and above using our signed apt repository.
 
 <%= toc %>
 
@@ -26,7 +26,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
 
-### For Debian 8.x (systemd)
+### For Debian 8.x and above (systemd)
 
 ```shell
 # Disable the default unit
