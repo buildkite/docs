@@ -1,20 +1,27 @@
 # Intro to SSO with Buildkite
 
-- single sign-on provides authentication or authorisation to a third party site like Buildkite by means of a token from your identity provider
+Single sign-on (SSO) provides authentication or authorisation to a third party site like Buildkite by means of a token from your identity provider. 
 
 <%= toc %>
 
 ## What types of SSO does Builkite support
 
-- can do both oauth and saml
-- there are guides for popular providers available for setting up your organisation with sso, but we support any identity provider that has support for SAML 2.0 and have a custom saml provider guide
+Buildkite organisations can enable SSO with any identity provider that supports SAML 2.0. OAuth using Google G Suite is also supported.   
+
+Buildkite SSO Guides help you to get SSO set up with popular providers, and a Custom SAML provider guide is available for all other identity providers. 
 
 ## How does SSO work with accounts and organisations
 
-- your buildkite account is separate from any organsiation that you are a part of
-- organisations can enable sso for authorisation, it's only available at the organisational level
-- you will still retain your buildkite login details, then you'll have an additional layer of authorisation to access your organisation's content
-- if a user of your identity provider tries to log into buildkite, they will set up their Buildkite account after they have completed the authorisation? 
+SSO is an organisation-level option, and can be enabled for one domain per organisation. 
+
+If an organisation that you're a member of enables SSO, it will not affect your personal Buildkite account login details. When you access pipelines or anything owned by the organisation, you'll be directed through their chosen provider's SSO authentication flow. 
+
+To access an organisation's content using SSO, you'll first need: 
+
+* A Buildkite account
+* An email address containing your team's domain
+
+The team domain email address must be a verified email in your personal Buildkite account before you will be able to access the organisation's content.
 
 ## Frequently Asked Questions
 
