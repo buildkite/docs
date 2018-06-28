@@ -12,7 +12,7 @@ Buildkite SSO Guides help you to get SSO set up with popular providers, and a Cu
 
 ## How does SSO work with accounts and organisations
 
-SSO is an organisation-level option, and can be enabled for one domain per organisation. 
+SSO is an organisation-level option, and can be enabled by an organisation admin for one domain per organisation. 
 
 If an organisation that you're a member of enables SSO, it will not affect your personal Buildkite account login details. When you access pipelines or anything owned by the organisation, you'll be directed through their chosen provider's SSO authentication flow. 
 
@@ -21,12 +21,17 @@ To access an organisation's content using SSO, you'll first need:
 * A Buildkite account
 * An email address containing your team's domain
 
-The team domain email address must be a verified email in your personal Buildkite account before you will be able to access the organisation's content.
+The team domain email address must be a verified email in your personal Buildkite account before you will be able to access the organisation's content. 
+
+Organisations admins will no longer need to 'invite' users to join their organisation, any Buildkite user with an authorised email address will be be to use their identity provider to gain access to the organisation's content. 
 
 ## Frequently Asked Questions
 
 ### Can some people in the organisation use SSO and others not?
 No, if SSO is enabled, all of the users in your organisation will be required to authorise with your chosen identity provider.
+
+### What happens if a user leaves an organisation?
+If the user no longer has access to the email address at the team's domain, they will not be able to access the organisation's content. This will not affect access to the user's personal account or any other organisation they're a member of.  
 
 ### Can we enable SSO on multiple domains for one organisation?
 No, we currently support only one domain per organisation.
