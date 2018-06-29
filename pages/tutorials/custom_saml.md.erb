@@ -1,0 +1,36 @@
+# SAML with a Custom Provider
+
+Any SAML provider can be used as single sign-on to log in to your Buildkite organisation. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
+
+## Setting up SAML
+
+The Buildkite SAML meta data endpoint contains all the information you need to set up SAML with any provider.
+
+1. Fetch the XML from this URL: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>
+2. Using the meta data from the XML, set up Buildkite in your SAML provider's service. The Buildkite SSO service accepts the `username` and `admin` fields.
+3. Email support@buildkite with the following information:
+
+    <dl>
+        <dt>Domain name</dt>
+        <dd>
+          The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+        </dd>
+        <dt>Organisation slug</dt>
+        <dd>
+          The Buildkite organisation for which you want to enable SSO.  
+        </dd>
+        <dt>SAML 2.0 Endpoint (HTTP)</dt>
+        <dd>
+            The SAML endpoint for your chosen provider.
+        </dd>
+        <dt>x.509 certificate</dt>
+        <dd>
+            The public key certificate for your chosen provider.
+        </dd>
+    </dl>
+
+When we receive your email, the Buildkite team will:
+
+1. Enable SSO for the specified organisation
+1. Reply to your email and get you to test that it's all working
+1. Force a logout for all the users in the organisation, so that everyone will log in via your chosen provider next time they attempt to access that organisation on Buildkite.com
