@@ -133,16 +133,27 @@ When a build is run it will execute the script and pipe its output to the `pipel
 
 ## Migrating existing steps to a pipeline.yml
 
-If you have a pipeline that is defined in the web interface and would like to migrate it to a pipeline.yml without any interruption to builds, you can add the following command step at the start of your pipeline:
+If you have a pipeline that is defined in the web interface and would like to migrate it to a `pipeline.yml` without any interruption to builds, you can add a command step and wait step at the start of your pipeline.
+
+For agents running Linux, macOS or other Unixes, the command is:
 
 ```bash
 [[ -f ".buildkite/pipeline.yml" ]] && buildkite-agent pipeline upload --replace || true
+```
 
-#for windows users
+Or, if your Agent runs Windows:
+
+```bash
 CMD /k if exist ".buildkite/pipeline.yml" buildkite-agent pipeline upload .buildkite/pipeline.yml --replace
 ```
 
 This line of code will check if the pipeline file exists and, if it does, execute the `buildkite agent pipeline upload --replace` command to replace any steps that were defined via the web interface with those defined in the `pipeline.yml`.
+
+To ensure that your existing steps don't run alongside the check, we include a [wait step](/docs/pipelines/wait-step) after it.
+
+Your steps should then look something like this:
+
+<%= image "pipeline-upload-migrate-existing-steps.png", width: 1061/2, height: 950/2, alt: "Screenshot of the above described pipeline upload command, before some existing steps" %>
 
 ## Further documentation
 
