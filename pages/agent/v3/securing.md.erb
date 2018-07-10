@@ -100,6 +100,51 @@ if [[ "${BUILDKITE_PLUGINS:-}" != "" ]]; then
   exit 1
 fi
 ```
+  
+### Whitelisting Plugins
+
+Per above, whitelisting can be done with the [agent’s environment hook](hooks). It may be desirable to whitelist a set of plugins that agents are allowed to execute.
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+pluginWhitelist=(
+  'github.com/buildkite-plugins/docker-buildkite-plugin'
+  'github.com/buildkite-plugins/docker-compose-buildkite-plugin'
+  'github.com/buildkite-plugins/ecr-buildkite-plugin'
+  'github.com/buildkite-plugins/artifacts-buildkite-plugin'
+)
+
+function isWhitelisted() {
+  local pluginName="$1"
+  for whitelistedPlugin in "${pluginWhitelist[@]}" ; do
+    [[ "$whitelistedPlugin" == "$pluginName" ]] && return 0
+  done
+  return 1
+}
+
+foundUnknownPlugin=0
+# Filter $BUILDKITE_PLUGINS JSON to get the plugin name (e.g. from "[{"plugin1#version": {"setting1": "xyz"}},{"plugin2#version": {"setting1": "xyz"}}]")
+while read pluginName; do
+  if isWhitelisted "${pluginName}" ; then
+    echo "-- :ok_hand: ${pluginName} is whitelisted"
+  else
+    echo "-- :x: ${pluginName} is not a whitelisted plugin"
+    foundUnknownPlugin=1
+  fi
+done < <(echo $BUILDKITE_PLUGINS | jq -cr '.[] |
+  to_entries[].key |
+  capture("^(?<pluginName>[^#]*).*$"; "i") |
+  .pluginName |
+  ascii_downcase')
+
+if [[ $foundUnknownPlugin -ne 0 ]] ; then
+  echo "-- :x: Found plugins that are not on the whitelist."
+  exit 1
+fi
+```
 
 ## Customizing the bootstrap
 
