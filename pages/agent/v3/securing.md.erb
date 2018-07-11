@@ -100,6 +100,12 @@ if [[ "${BUILDKITE_PLUGINS:-}" != "" ]]; then
   exit 1
 fi
 ```
+  
+### Whitelisting Plugins
+
+Per above, whitelisting can be done with the [agent’s environment hook](hooks). It may be desirable to whitelist a set of plugins that agents are allowed to execute.
+
+See the [buildkite/buildkite-plugin-whitelister](https://github.com/buildkite/buildkite-plugin-whitelister) for an example of checking requested plugins against a whitelist.
 
 ## Customizing the bootstrap
 
