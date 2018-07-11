@@ -11,20 +11,39 @@ The Buildkite SAML meta data endpoint contains all the information you need to s
 
 ## Setting up manually
 
-- fill out the form with the details (see screenshot and keith's links)
+Manual setup with your identity provider usually requires the following fields:
 
-## Send info to Buildkite
+<dl>
+    <dt>Single Sign-On URL</dt>
+    <dd>
+        The Buildkite URL that will be sending requests to your identity provider. 
+        https://buildkite.com/sso2/~/~/saml/consume
+    </dd>
+    <dt>Entity Identifier</dt>
+    <dd>
+        https://buildkite.com  
+    </dd>
+    <dt>Name ID</dt>
+    <dd>
+        The field used to identify users.
+        Email Address.
+    </dd>
+</dl>
+
+If your custom provider needs further information, please email support@buildkite.com.
+
+## Send your application information to Buildkite
 
 3. Email support@buildkite with the following information:
 
     <dl>
         <dt>Domain name</dt>
         <dd>
-          The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+            The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
         </dd>
         <dt>Organisation slug</dt>
         <dd>
-          The Buildkite organisation for which you want to enable SSO.  
+            The Buildkite organisation for which you want to enable SSO.  
         </dd>
         <dt>SAML 2.0 Endpoint (HTTP)</dt>
         <dd>
@@ -32,7 +51,7 @@ The Buildkite SAML meta data endpoint contains all the information you need to s
         </dd>
         <dt>Issuer URL</dt>
         <dd>
-            
+            The identifing URL of your chosen provider.  
         </dd>
         <dt>X.509 certificate</dt>
         <dd>
