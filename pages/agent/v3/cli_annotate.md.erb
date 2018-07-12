@@ -106,7 +106,7 @@ We accept the following parts of version 8.0 of Basscss within annotations:
 
 ### Colored console output
 
-Console output in annotations can be displayed with colors when processed through [our Terminal output processor](http://buildkite.github.io/terminal/) before uploading.
+Console output in annotations can be displayed with ANSI colors when processed through [our Terminal output processor](http://buildkite.github.io/terminal/) and wrapped in `<code><pre class="term"></pre></code>` tags before uploading.
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
