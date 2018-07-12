@@ -80,6 +80,12 @@ If you want an environment variable to be evaluated at run-time (for example, us
     SERVER: "server-a"
 ```
 
+### Insertion order
+
+Steps are inserted immediately following the currently running one.
+
+Consequently, if you perform multiple uploads, the groups of steps appear in the opposite order of the uploads.
+
 ### Escaping the `$` character
 
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
