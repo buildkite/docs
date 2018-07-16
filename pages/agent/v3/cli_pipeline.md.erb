@@ -80,6 +80,10 @@ If you want an environment variable to be evaluated at run-time (for example, us
     SERVER: "server-a"
 ```
 
+### Insertion order
+
+Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
+
 ### Escaping the `$` character
 
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
