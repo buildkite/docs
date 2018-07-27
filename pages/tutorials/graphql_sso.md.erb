@@ -1,0 +1,95 @@
+# Manual SSO Setup with GraphQL
+
+- can self-serve your SSO setup with Buildkite using GraphQL
+- follow the steps below to enable sso for your org
+- set up Buildkite in your identity provider, guides available for x x and x
+
+## How to enable SSO for your Org
+
+- you need the service URL from Buildkite before you can finish setting up things in your identity provider
+
+- overview: set up a blank SSO provider in Buildkite, do the set up in your SSO provider, come back and update your blank Buildkite SSO to contain the details of your provider
+- the set up on the Buildkite side is done via a series of graphql operations
+
+### Get your internal Organization ID
+
+- to set up your organisation for SSO, you need your internal Buildkite id
+- use the get method with your org slug to retrieve your org id
+- this id will be required in all other sso methods
+
+### Create your SSO provider
+
+- use the create method to create a blank 
+- can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and `GITHUB_OAUTH`
+
+SAML:
+- if you haven't set up your identity provider with buildkite, do that before continuing
+
+Google_oauth:
+- add the two required fields for google authentication:
+    - googleHostedDomain: 'thing.com'
+    - discloseGoogleHostedDomain: true/false
+
+github_oauth:
+- add your github organisation name:
+    - githuborganisationname: 'test'
+
+- test the login flow, ensure that a user can successfully complete the new authentication and gain access to your buildkite organisation before continuing
+- the enable method will error if a successful test hasn't occurred
+
+### Enable the provider for your organisation
+
+- after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organisation
+- use the enable method with your organisation id
+- check that it's enabled with the get method
+
+### Update your provider data
+
+- use this if you've made a blank sso provider and need to add your provider information to it
+- also can be used to update your provider data if it changes
+
+- can't do an update while the provider is enabled, need to disable it, make your changes, then re-test and re-enable it once it's all working
+
+
+## Advanced options
+
+- you don't need to set up a blank one if you already have your ID prov. information
+- set up your identity provider, set up your SSO in Buildkite with the details, go back to your identity provider and add the service url 
+
+- can have as many different providers enabled at the same time as you need, they will all be displayed to users before they go through the authorisation flow
+- can add a note to each provider login option in this list, to provide information to your users about each one 
+- can set session duration
+
+- full API documentation for the GraphQL SSO operations can be found in the GraphQL explorer
+- generate an API token from your personal settings page that has access to the graphql beta, and use that to log in to the graphql explorer
+- docs can be found in the top right corner, and are searchable
+
+## Other operations
+
+### Create a provider with static data
+
+- instead of using the create method alone, you can add your data to it immediately
+- use the create method
+- there are three data entry options: static data entry, xml blob, and xml url
+
+static data options:
+- identity provider (ssoURL and issuer and certificate)
+
+xml blob options:
+- identity provider (metadata > xml)
+
+xml url options:
+- identity provider (metadata > url)
+
+### Disable a provider
+
+- use the disable method
+
+### Delete a provider
+
+- use the delete method
+- all users will go back to logging in with their buildkite username and password
+
+
+
+
