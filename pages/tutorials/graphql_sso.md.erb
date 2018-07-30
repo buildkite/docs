@@ -10,6 +10,7 @@
 
 - overview: set up a blank SSO provider in Buildkite, do the set up in your SSO provider, come back and update your blank Buildkite SSO to contain the details of your provider
 - the set up on the Buildkite side is done via a series of graphql operations
+- if you haven't used our graphql explorer before, check out our [api guide](http://buildkite.localhost/docs/graphql-api#getting-started)
 
 ### Get your internal Organization ID
 
@@ -17,9 +18,55 @@
 - use the get method with your org slug to retrieve your org id
 - this id will be required in all other sso methods
 
+For example, the following code will retrieve any SSO providers that have been created for the organisation `Acme-Inc`:
+
+```graphql
+query GetProviders {
+  organization(slug:"acme-inc"){
+    id
+    ssoProviders(first: 50) {
+      edges {
+        node {
+          id
+          url
+        }
+      }
+    }
+  }
+}
+```
+
 ### Create your SSO provider
 
 - use the create method to create a blank 
+- after you set up your id provider, you will come back and fill in the provider details using the update method
+- use the org id you retreived from the GET method 
+
+The following example code creates a blank SSO provider:
+
+```graphql
+mutation MakeBlankProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:SAML
+  }) {
+    ssoProvider {
+      id
+      type
+      ...on SSOProviderSAML {
+        serviceProvider {
+          issuer
+          ssoURL
+          metadata {
+            url
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 - can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and `GITHUB_OAUTH`
 
 SAML:
@@ -40,13 +87,57 @@ github_oauth:
 ### Enable the provider for your organisation
 
 - after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organisation
-- use the enable method with your organisation id
+- use the enable method with your provider id, you can retrieve this using the get mutation 
+
+```
+mutation EnableProvider {
+  ssoProviderEnable(
+    input:{
+      id:"<paste your provider id here>"
+    }
+  ) {
+    ssoProvider {
+      state
+    }
+  }
+}
+
+```
+
 - check that it's enabled with the get method
 
 ### Update your provider data
 
 - use this if you've made a blank sso provider and need to add your provider information to it
 - also can be used to update your provider data if it changes
+
+```
+mutation UpdateProvider {
+  ssoProviderUpdate(input:{
+    id:"<paste your organization id here>",
+    identityProvider:{
+      metadata:{
+        url:"https://dev-242943.oktapreview.com/app/exkfs9l426YMuKPnM0h7/sso/saml/metadata"
+      }
+    }
+  }) {
+    ssoProvider {
+      ...on SSOProviderSAML {
+        identityProvider {
+          issuer
+          certificate
+          ssoURL
+          metadata {
+            xml
+            url
+          }
+        }
+      }
+    }
+  }
+}
+
+```
 
 - can't do an update while the provider is enabled, need to disable it, make your changes, then re-test and re-enable it once it's all working
 
@@ -66,7 +157,7 @@ github_oauth:
 
 ## Other operations
 
-### Create a provider with static data
+### Create a provider with data
 
 - instead of using the create method alone, you can add your data to it immediately
 - use the create method
@@ -75,11 +166,47 @@ github_oauth:
 static data options:
 - identity provider (ssoURL and issuer and certificate)
 
+```
+ssoProviderCreate(input:{
+  organizationId:"<paste your organization id here>",
+  type:SAML,
+  identityProvider:{
+    ssoURL:"https://okta.com/111111111",
+    issuer: "https://okta.com/aaaaaaaaa",
+    certificate:"---BEGIN CERT---zga9d6fa98f7sa987d9829h"
+  }
+})
+```
+
 xml blob options:
 - identity provider (metadata > xml)
 
+```
+ssoProviderCreate(input:{
+  organizationId:"<paste your organization id here>",
+  type:SAML,
+  identityProvider:{
+    metadata:{
+      xml: "..."
+    }
+  }
+})
+```
+
 xml url options:
 - identity provider (metadata > url)
+
+```
+ssoProviderCreate(input:{
+  organizationId:"<paste your organization id here>",
+  type:SAML,
+  identityProvider:{
+    metadata:{
+      url:"..."
+    }
+  }
+})
+```
 
 ### Disable a provider
 
