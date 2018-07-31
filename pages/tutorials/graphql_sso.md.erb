@@ -10,6 +10,7 @@
 
 - overview: set up a blank SSO provider in Buildkite, do the set up in your SSO provider, come back and update your blank Buildkite SSO to contain the details of your provider
 - the set up on the Buildkite side is done via a series of graphql operations
+- this guide isn't an api reference and so won't cover every available option
 - if you haven't used our graphql explorer before, check out our [api guide](http://buildkite.localhost/docs/graphql-api#getting-started)
 
 ### Get your internal Organization ID
@@ -71,15 +72,54 @@ mutation MakeBlankProvider {
 
 SAML:
 - if you haven't set up your identity provider with buildkite, do that before continuing
+- if you've already set up your identity provider, see [the examples below](#create-a-saml-provider-with-data) for code to create your identity provider with data
 
 Google_oauth:
 - add the two required fields for google authentication:
-    - googleHostedDomain: 'thing.com'
-    - discloseGoogleHostedDomain: true/false
+    - googleHostedDomain: the domain your team uses with Google G Suite as a string
+    - discloseGoogleHostedDomain: a boolean describing whether or not you'd like your domain name to be listed on the authentication page 
+
+```graphql
+mutation CreateGoogleProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:GOOGLE_OAUTH,
+    googleHostedDomain:"coffee.com",
+    discloseGoogleHostedDomain: false
+  }) {
+    ssoProvider {
+      id
+      url
+      ...on SSOProviderGoogleOAuth {
+        googleHostedDomain
+        discloseGoogleHostedDomain
+      }
+    }
+  }
+}
+```
 
 github_oauth:
 - add your github organisation name:
     - githuborganisationname: 'test'
+
+```graphql
+mutation CreateGitHubProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:GITHUB_OAUTH,
+    githubOrganizationName:"buildkite"
+  }) {
+    ssoProvider {
+      id
+      url
+      ...on SSOProviderGithubOAuth {
+        githubOrganizationName
+      }
+    }
+  }
+}
+```
 
 - test the login flow, ensure that a user can successfully complete the new authentication and gain access to your buildkite organisation before continuing
 - the enable method will error if a successful test hasn't occurred
@@ -89,7 +129,7 @@ github_oauth:
 - after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organisation
 - use the enable method with your provider id, you can retrieve this using the get mutation 
 
-```
+```graphql
 mutation EnableProvider {
   ssoProviderEnable(
     input:{
@@ -111,10 +151,10 @@ mutation EnableProvider {
 - use this if you've made a blank sso provider and need to add your provider information to it
 - also can be used to update your provider data if it changes
 
-```
+```graphql
 mutation UpdateProvider {
   ssoProviderUpdate(input:{
-    id:"<paste your organization id here>",
+    id:"<paste your provider id here>",
     identityProvider:{
       metadata:{
         url:"https://dev-242943.oktapreview.com/app/exkfs9l426YMuKPnM0h7/sso/saml/metadata"
@@ -148,8 +188,21 @@ mutation UpdateProvider {
 - set up your identity provider, set up your SSO in Buildkite with the details, go back to your identity provider and add the service url 
 
 - can have as many different providers enabled at the same time as you need, they will all be displayed to users before they go through the authorisation flow
+
 - can add a note to each provider login option in this list, to provide information to your users about each one 
-- can set session duration
+- can also set session duration
+- note and sessionduration can both be set on create and update
+- use the `note` field and `sessionDurationInHours` field respectively, both of which are top level attributes under the input object in the ssoprovidercreate and ssoproviderupdate mutations
+
+In the following example code, an existing identity provider is specified with the id field, and its note and session duration properties are updated:
+
+```graphql
+ssoProviderUpdate(input:{
+  id:"<paste your provider id here>",
+  note: ":ruby: Ruby team, please sign in here"
+  sessionDurationInHours: 72
+})
+```
 
 - full API documentation for the GraphQL SSO operations can be found in the GraphQL explorer
 - generate an API token from your personal settings page that has access to the graphql beta, and use that to log in to the graphql explorer
@@ -157,7 +210,7 @@ mutation UpdateProvider {
 
 ## Other operations
 
-### Create a provider with data
+### Create a SAML provider with data
 
 - instead of using the create method alone, you can add your data to it immediately
 - use the create method
@@ -166,7 +219,7 @@ mutation UpdateProvider {
 static data options:
 - identity provider (ssoURL and issuer and certificate)
 
-```
+```graphql
 ssoProviderCreate(input:{
   organizationId:"<paste your organization id here>",
   type:SAML,
@@ -181,7 +234,7 @@ ssoProviderCreate(input:{
 xml blob options:
 - identity provider (metadata > xml)
 
-```
+```graphql
 ssoProviderCreate(input:{
   organizationId:"<paste your organization id here>",
   type:SAML,
@@ -196,7 +249,7 @@ ssoProviderCreate(input:{
 xml url options:
 - identity provider (metadata > url)
 
-```
+```graphql
 ssoProviderCreate(input:{
   organizationId:"<paste your organization id here>",
   type:SAML,
@@ -210,12 +263,26 @@ ssoProviderCreate(input:{
 
 ### Disable a provider
 
-- use the disable method
+- use the disable method, optionally with a reason for doing so
+
+```graphql
+ssoProviderDisable(input:{
+  id:"<paste your provider id here>",
+  disabledReason: "Updating to the new account"
+})
+```
 
 ### Delete a provider
 
 - use the delete method
+- deleting the provider with graphql means that there will be no confirmation dialog or anything else when you perform the delete
+- please ensure that you've entered the correct provider id and that you want to delete it rather than disabling it
 - all users will go back to logging in with their buildkite username and password
+```graphql
+ssoProviderDelete(input:{
+  id:"<paste your provider id here>"
+})
+```
 
 
 
