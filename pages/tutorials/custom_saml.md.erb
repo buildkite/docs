@@ -2,22 +2,29 @@
 
 Any identify provider that supports SAML 2.0 can be used to authorize access to your Buildkite organisation. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
 
-## Setting up with Meta data
+## Set-up your provider
+
+- there are two ways to set up your custom provider: using the Buildkite metadata, or manually entering your Buildkite data
+- once you have set up your provider, you'll need to send the provider information to Buildkite
+
+Before starting your provider setup:
+Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this when setting up your identity provider.
+
+### Setting up with Meta data
 
 The Buildkite SAML meta data endpoint contains all the information you need to set up SAML with any provider.
 
 1. Fetch the XML from this URL: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>
-2. Using the meta data from the XML, set up Buildkite in your identity provider's service. Buildkite accepts the user attributes `name` and `admin` in the SAML assertion.
+2. Using the meta data from the XML, set up Buildkite in your identity provider's service. Buildkite accepts the user attributes `admin`, `name`, `email`, and `teams` in the SAML assertion.
 
-## Setting up manually
+### Setting up manually
 
 Manual setup with your identity provider usually requires the following fields:
 
 <dl>
     <dt>Single Sign-On URL</dt>
     <dd>
-        The Buildkite URL that will be sending requests to your identity provider. 
-        https://buildkite.com/sso2/~/~/saml/consume
+        Your unique SSO service URL from Buildkite that will be sending requests to your identity provider. 
     </dd>
     <dt>Entity Identifier</dt>
     <dd>
@@ -34,33 +41,86 @@ If your custom provider needs further information, please email support@buildkit
 
 ## Send your application information to Buildkite
 
-3. Email support@buildkite with the following information:
+Email support@buildkite with the following information:
 
-    <dl>
-        <dt>Domain name</dt>
-        <dd>
-            The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
-        </dd>
-        <dt>Organisation slug</dt>
-        <dd>
-            The Buildkite organisation for which you want to enable SSO.  
-        </dd>
-        <dt>SAML 2.0 Endpoint (HTTP)</dt>
-        <dd>
-            The SAML endpoint for your chosen provider.
-        </dd>
-        <dt>Issuer URL</dt>
-        <dd>
-            The identifing URL of your chosen provider.  
-        </dd>
-        <dt>X.509 certificate</dt>
-        <dd>
-            The public key certificate for your chosen provider.
-        </dd>
-    </dl>
+<dl>
+    <dt>Domain name</dt>
+    <dd>
+        The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+    </dd>
+    <dt>Organisation slug</dt>
+    <dd>
+        The Buildkite organisation for which you want to enable SSO.  
+    </dd>
+    <dt>SAML 2.0 Endpoint (HTTP)</dt>
+    <dd>
+        The SAML endpoint for your chosen provider.
+    </dd>
+    <dt>Issuer URL</dt>
+    <dd>
+        The identifing URL of your chosen provider.  
+    </dd>
+    <dt>X.509 certificate</dt>
+    <dd>
+        The public key certificate for your chosen provider.
+    </dd>
+</dl>
 
 When we receive your email, the Buildkite team will:
 
 1. Enable SSO for the specified organisation
 1. Reply to your email and get you to test that it's all working
 1. Deauthorize all the users in the organisation, so that everyone will authorize via your chosen provider next time they attempt to access that organisation on Buildkite.com
+
+## SAML User Attributes
+
+- buildkite accepts a subset of SAML attributes
+
+<table>
+    <tr>
+        <th>
+            Attribute
+        </th>
+        <th>
+            Description
+        </th>
+    </tr>
+    <tr>
+        <td>
+            <code>admin</code>
+        </td>
+        <td>
+            A boolean value that describes whether the user should be provisioned with admin permissions
+            Example: true
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>email</code>
+        </td>
+        <td>
+            A string of the user's email address
+            Example: "person@company.com"
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>name</code>
+        </td>
+        <td>
+            A string of the user's full name
+            Example: "Han Solo"
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>teams</code>
+        </td>
+        <td>
+            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite. 
+            Example: a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee
+        </td>
+    </tr>
+</table>
+
+
