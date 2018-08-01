@@ -4,6 +4,8 @@ AD FS can be used as single sign-on to log in to your Buildkite organisation.
 
 Setting up AD FS requires organisation administrator privileges on your AD FS server and in Buildkite. You'll also need to know the slug of the Buildkite organisation for which you'd like to enable SSO.
 
+Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
+
 ## Setup in the AD FS management console
 
 Before starting your AD FS setup:
@@ -11,10 +13,10 @@ Email the Buildkite team at support@buildkite.com to request your unique SAML se
 
 The instructions below will guide you through using a series of wizards to:
 
-- Add a 'relying party trust'
-- Add an 'issuance transform rule', a type of 'claim rule'
-- Export the token-signing certificate
-- Update the authentication policy
+* Add a 'relying party trust'
+* Add an 'issuance transform rule', a type of 'claim rule'
+* Export the token-signing certificate
+* Update the authentication policy
 
 With these wizards, you'll set up your domain for SSO and retreive the information the Buildkite team requires to complete the setup process.
 
