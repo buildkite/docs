@@ -126,28 +126,38 @@ To complete your SSO setup, the Buildkite team needs some information from your 
 
 Email support@buildkite.com with the following SSO and AD FS information:
 
-<dl>
-    <dt>Domain name</dt>
-    <dd>
-      The domain you use with AD FS for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
-    </dd>
-    <dt>Organisation slug</dt>
-    <dd>
-      The Buildkite organisation for which you want to enable SSO.  
-    </dd>
-    <dt>Login URL</dt>
-    <dd>
-      The URL where you can log in to your AD FS service. Usually your domain name or IP, with <code>/adfs/ls</code> appended.
-    </dd>
-    <dt>Federation Service Identifier</dt>
-    <dd>
-        The URL that identifies your AD FS service. Usually your domain name or IP, with <code>/adfs/services/trust</code> appended.
-    </dd>
-    <dt>X.509 certificate</dt>
-    <dd>
-   	  Attach the X.509 certificate that you downloaded during setup
-    </dd>
-</dl>
+<table>
+    <tr>
+        <td>Domain name</td>
+        <td>
+          The domain you use with AD FS for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+        </td>
+    </tr>
+    <tr>
+        <td>Organisation slug</td>
+        <td>
+          The Buildkite organisation for which you want to enable SSO.  
+        </td>
+    </tr>
+    <tr>
+        <td>Login URL</td>
+        <td>
+          The URL where you can log in to your AD FS service. Usually your domain name or IP, with <code>/adfs/ls</code> appended.
+        </td>
+    </tr>
+    <tr>
+        <td>Federation Service Identifier</td>
+        <td>
+            The URL that identifies your AD FS service. Usually your domain name or IP, with <code>/adfs/services/trust</code> appended.
+        </td>
+    </tr>
+    <tr>
+        <td>X.509 certificate</td>
+        <td>
+       	  Attach the X.509 certificate that you downloaded during setup
+        </td>
+    </tr>
+</table>
 
 When we receive your email, the Buildkite team will:
 

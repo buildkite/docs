@@ -16,6 +16,8 @@ Email the Buildkite team at support@buildkite.com to request your unique SSO ser
 
 The Buildkite SAML meta data endpoint contains all the information you need to set up SAML with any provider.
 
+To set up your provider using meta data:
+
 1. Fetch the XML from this URL: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>
 2. Using the meta data from the XML, set up Buildkite in your identity provider's service. Buildkite accepts the user attributes `admin`, `name`, `email`, and `teams` in the SAML assertion.
 
@@ -23,21 +25,27 @@ The Buildkite SAML meta data endpoint contains all the information you need to s
 
 Manual setup with your identity provider usually requires the following fields:
 
-<dl>
-    <dt>Single Sign-On URL</dt>
-    <dd>
-        Your unique SSO service URL from Buildkite that will be sending requests to your identity provider. 
-    </dd>
-    <dt>Entity Identifier</dt>
-    <dd>
-        https://buildkite.com  
-    </dd>
-    <dt>Name ID</dt>
-    <dd>
-        The field used to identify users.
-        Email Address.
-    </dd>
-</dl>
+<table>
+    <tr>
+        <td>Single Sign-On URL</td>
+        <td>
+            Your unique SSO service URL from Buildkite that will be sending requests to your identity provider. 
+        </td>
+    </tr>
+    <tr>
+        <td>Entity Identifier</td>
+        <td>
+            https://buildkite.com  
+        </td>
+    </tr>
+    <tr>
+        <td>Name ID</td>
+        <td>
+            The field used to identify users.
+            Email Address.
+        </td>
+    </tr>
+</table>
 
 If your custom provider needs further information, please email support@buildkite.com.
 
@@ -45,28 +53,38 @@ If your custom provider needs further information, please email support@buildkit
 
 Email support@buildkite with the following information:
 
-<dl>
-    <dt>Domain name</dt>
-    <dd>
-        The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
-    </dd>
-    <dt>Organisation slug</dt>
-    <dd>
-        The Buildkite organisation for which you want to enable SSO.  
-    </dd>
-    <dt>SAML 2.0 Endpoint (HTTP)</dt>
-    <dd>
-        The SAML endpoint for your chosen provider.
-    </dd>
-    <dt>Issuer URL</dt>
-    <dd>
-        The identifing URL of your chosen provider.  
-    </dd>
-    <dt>X.509 certificate</dt>
-    <dd>
-        The public key certificate for your chosen provider.
-    </dd>
-</dl>
+<table>
+    <tr>
+        <td>Domain name</td>
+        <td>
+            The domain you use with your SAML provider for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+        </td>
+    </tr>
+    <tr>
+        <td>Organisation slug</td>
+        <td>
+            The Buildkite organisation for which you want to enable SSO.  
+        </td>
+    </tr>
+    <tr>
+        <td>SAML 2.0 Endpoint (HTTP)</td>
+        <td>
+            The SAML endpoint for your chosen provider.
+        </td>
+    </tr>
+    <tr>
+        <td>Issuer URL</td>
+        <td>
+            The identifing URL of your chosen provider.  
+        </td>
+    </tr>
+    <tr>
+        <td>X.509 certificate</td>
+        <td>
+            The public key certificate for your chosen provider.
+        </td>
+    </tr>
+</table>
 
 When we receive your email, the Buildkite team will:
 
