@@ -18,14 +18,23 @@ debug=true
 
 ## Configuration Settings
 
+_Required attributes:_
+
 <table>
-  <thead>
-    <tr>
-      <th>setting</th>
-      <th>purpose</th>
-      <th>required?</th>
+  <tbody>
+   <tr>
+      <th><code>token</code></th>
+      <td>
+        The agent registration token from your organization’s Agents page, used only to register new agents
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
+      </td>
     </tr>
-  </thead>
+  </tbody>
+</table>
+
+_Optional attributes:_
+
+<table>
   <tbody>
     <tr>
       <th><code>bootstrap-script</code></th>
@@ -34,7 +43,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -44,7 +52,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -54,7 +61,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -64,7 +70,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG_HTTP</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -74,7 +79,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -84,7 +88,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -94,7 +97,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"-fxdq"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLEAN_FLAGS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -104,7 +106,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_FLAGS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -114,7 +115,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -124,7 +124,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"%hostname-%n"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NAME</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -134,7 +133,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_COLOR</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -144,7 +142,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_COMMAND_EVAL</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -154,7 +151,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_LOCAL_HOOKS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -164,7 +160,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGINS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -174,7 +169,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PTY</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -184,7 +178,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_SSH_KEYSCAN</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -194,7 +187,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_PLUGINS_PATH</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -204,7 +196,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>null</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_PRIORITY</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -214,7 +205,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -224,7 +214,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"queue=default"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -234,7 +223,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_EC2</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -244,7 +232,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -254,7 +241,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>10s</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -264,7 +250,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_GCP</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -274,7 +259,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_HOST</code></p>
       </td>
-      <td>no</td>
     </tr>
 
     <tr>
@@ -284,16 +268,6 @@ debug=true
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TIMESTAMP_LINES</code></p>
       </td>
-      <td>no</td>
-    </tr>
-
-    <tr>
-      <th><code>token</code></th>
-      <td>
-        The agent registration token from your organization’s Agents page, used only to register new agents
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
-      </td>
-      <td>yes</td>
     </tr>
   </tbody>
 </table>
