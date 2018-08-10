@@ -2,28 +2,33 @@
 
 Any identify provider that supports SAML 2.0 can be used to authorize access to your Buildkite organisation. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
 
-## Set-up your provider
+<%= toc %>
 
-- there are two ways to set up your custom provider: using the Buildkite metadata, or manually entering your Buildkite data
-- once you have set up your provider, you'll need to send the provider information to Buildkite
+## Set up your provider
+
+There are two ways to set up your custom provider: using the Buildkite metadata XML to your identity provider, or manually adding your Buildkite data into your identity provider. After setting up your provider, you'll need to send the Buildkite team your [application information](#send-your-application-information-to-buildkite).
 
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
 
-Before starting your provider setup:
-Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this when setting up your identity provider.
+<div class="Docs__note">
+<p class="Docs__note__heading">Before starting your provider setup</p>
+<p>Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this during set up.</p>
+</div>
 
 ### Setting up with Meta data
 
 The Buildkite SAML meta data endpoint contains all the information you need to set up SAML with any provider.
 
-To set up your provider using meta data:
+If your provider has an XML URL field, you can enter the buildkite metadata URL directly: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>.
+
+If your provider doesn't accept a URL, retrieve the data from the endpoint:
 
 1. Fetch the XML from this URL: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>
 2. Using the meta data from the XML, set up Buildkite in your identity provider's service. Buildkite accepts the user attributes `admin`, `name`, `email`, and `teams` in the SAML assertion.
 
 ### Setting up manually
 
-Manual setup with your identity provider usually requires the following fields:
+Manual setup is different for each provider, however it usually requires the following fields:
 
 <table>
     <tr>
@@ -51,7 +56,7 @@ If your custom provider needs further information, please email support@buildkit
 
 ## Send your application information to Buildkite
 
-Email support@buildkite with the following information:
+After completing your identity provider's setup process, email support@buildkite with the following information:
 
 <table>
     <tr>
@@ -94,7 +99,7 @@ When we receive your email, the Buildkite team will:
 
 ## SAML User Attributes
 
-- buildkite accepts a subset of SAML attributes
+Buildkite accepts a subset of the SAML attributes from identity providers. The accepted attributes are:
 
 <table>
     <tr>
