@@ -22,23 +22,11 @@ Click the _“Create Key Pair”_ button in the top left hand corner and give it
 
 ## Launching the Stack
 
-To launch the stack, you’ll first need to create a Buildkite API Access Token for the stack to use. The stack includes a scheduled Lamda function which connects to the [Buildkite API](/docs/api) to autoscale EC2 instances.
-
 Go to the _“Agents”_ page on Buildkite and select the _“AWS”_ tab:
 
 <%= image "agents-tab.png", size: '647x166', alt: 'Buildkite AWS Agents' %>
 
-Click the _“Create an API Access Token”_ button:
-
-<%= image "agents-tab-details.png", size: "#{1264/2}x#{571/2}", alt: 'Buildkite AWS Agents Setup Tokens' %>
-
-The form is pre-filled with everything you’ll need:
-
-<%= image "buildkite-token-form.png", size: "#{1082/2}x#{874/2}", alt: 'Buildkite API Access Token form' %>
-
-Click _“Create New API Access Token”_ and you'll be taken back to the AWS tab on the agents page with the token ready to use.
-
-Now you’re ready to launch the stack! Click _“Launch Stack”_ :red_button:
+Click _“Launch Stack”_ :red_button:
 
 <%= image "agents-tab-launch.png", size: "#{478/2}x#{324/2}", alt: 'Launch Buildkite Elastic CI Stack' %>
 

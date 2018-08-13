@@ -18,13 +18,102 @@ debug=true
 
 ## Configuration Settings
 
+_Required attributes:_
+
 <table>
   <tbody>
-    <tr>
+   <tr>
       <th><code>token</code></th>
       <td>
         The agent registration token from your organization’s Agents page, used only to register new agents
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+_Optional attributes:_
+
+<table>
+  <tbody>
+    <tr>
+      <th><code>bootstrap-script</code></th>
+      <td>
+        Command to invoke the bootstrap process
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>build-path</code></th>
+      <td>
+        Path to where the builds will run from
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>debug</code></th>
+      <td>
+        Enable debug mode
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>debug-http</code></th>
+      <td>
+        Log all HTTP request and response bodies
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG_HTTP</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>disconnect-after-job</code></th>
+      <td>
+        Disconnect after processing a single job
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>disconnect-after-job-timeout</code></th>
+      <td>
+        When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-clean-flags</code></th>
+      <td>
+        Flags to pass to the <code>git clean</code> command. Prior to 3.0 this defaulted to <code>"-fdq"</code>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-fxdq"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLEAN_FLAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-clone-flags</code></th>
+      <td>
+        Flags to pass to the <code>git clone</code> command
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_FLAGS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>hooks-path</code></th>
+      <td>
+        Directory where the global hook scripts are found
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
       </td>
     </tr>
 
@@ -38,11 +127,83 @@ debug=true
     </tr>
 
     <tr>
+      <th><code>no-color</code></th>
+      <td>
+        Do not show colors in logging
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_COLOR</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-command-eval</code></th>
+      <td>
+        Do not allow this agent to run arbitrary console commands
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_COMMAND_EVAL</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-local-hooks</code></th>
+      <td>
+        Do not execute any local hooks
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_LOCAL_HOOKS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-plugins</code></th>
+      <td>
+        Do not load any plugins
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGINS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-pty</code></th>
+      <td>
+        Do not run jobs within a pseudo terminal
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PTY</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-ssh-keyscan</code></th>
+      <td>
+        Don't automatically run ssh-keyscan before checkout
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_SSH_KEYSCAN</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>plugins-path</code></th>
+      <td>
+        Directory where the plugins are saved
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_PLUGINS_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>priority</code></th>
       <td>
         The priority of the agent (higher priorities are assigned work first, null is assigned last)
         <p class="Docs__api-param-eg"><em>Default:</em> <code>null</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_PRIORITY</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>shell</code></th>
+      <td>
+        The shell command used to interpret build commands, e.g <code>/bin/bash -e -c</code>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
       </td>
     </tr>
 
@@ -92,137 +253,11 @@ debug=true
     </tr>
 
     <tr>
-      <th><code>shell</code></th>
+      <th><code>tags-from-host</code></th>
       <td>
-        The shell command used to interpret build commands, e.g <code>/bin/bash -e -c</code>
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>git-clean-flags</code></th>
-      <td>
-        Flags to pass to the <code>git clean</code> command. Prior to 3.0 this defaulted to <code>"-fdq"</code>
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-fxdq"</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLEAN_FLAGS</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>git-clone-flags</code></th>
-      <td>
-        Flags to pass to the <code>git clone</code> command
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v"</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_FLAGS</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>bootstrap-script</code></th>
-      <td>
-        Command to invoke the bootstrap process
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>build-path</code></th>
-      <td>
-        Path to where the builds will run from
-        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>hooks-path</code></th>
-      <td>
-        Directory where the global hook scripts are found
-        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>plugins-path</code></th>
-      <td>
-        Directory where the plugins are saved
-        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_PLUGINS_PATH</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-pty</code></th>
-      <td>
-        Do not run jobs within a pseudo terminal
+        Include the host's meta-data as tags (`hostname`, `machine-id`, and `os`)
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PTY</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-ssh-keyscan</code></th>
-      <td>
-        Don't automatically run ssh-keyscan before checkout
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_SSH_KEYSCAN</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-command-eval</code></th>
-      <td>
-        Do not allow this agent to run arbitrary console commands
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_COMMAND_EVAL</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>disconnect-after-job</code></th>
-      <td>
-        Disconnect after processing a single job
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>disconnect-after-job-timeout</code></th>
-      <td>
-        When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>debug</code></th>
-      <td>
-        Enable debug mode
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>debug-http</code></th>
-      <td>
-        Log all HTTP request and response bodies
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DEBUG_HTTP</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-color</code></th>
-      <td>
-        Do not show colors in logging
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_COLOR</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_HOST</code></p>
       </td>
     </tr>
 
@@ -232,24 +267,6 @@ debug=true
         Prepend timestamps on each line of output
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TIMESTAMP_LINES</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-plugins</code></th>
-      <td>
-        Do not load any plugins
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGINS</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>no-local-hooks</code></th>
-      <td>
-        Do not execute any local hooks
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NO_LOCAL_HOOKS</code></p>
       </td>
     </tr>
   </tbody>

@@ -60,7 +60,7 @@ To disable command line evaluation use one of the following settings:
 
 <div class="Docs__troubleshooting-note">
 <h1>Custom hooks</h1>
-<p>If you have a custom 'command' hook, using `no-command-eval` will have no effect on your command execution. See [Whitelisting](#whitelisting) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.</p>
+<p>If you have a custom 'command' hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#whitelisting">Whitelisting</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
 </div>
 
 ## Disabling plugins
@@ -100,6 +100,12 @@ if [[ "${BUILDKITE_PLUGINS:-}" != "" ]]; then
   exit 1
 fi
 ```
+  
+### Whitelisting Plugins
+
+Per above, whitelisting can be done with the [agent’s environment hook](hooks). It may be desirable to whitelist a set of plugins that agents are allowed to execute.
+
+See the [buildkite/buildkite-plugin-whitelister](https://github.com/buildkite/buildkite-plugin-whitelister) for an example of checking requested plugins against a whitelist.
 
 ## Customizing the bootstrap
 
