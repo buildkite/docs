@@ -12,7 +12,7 @@ Concurrency limits define the number of jobs that are allowed to be running at a
 
 Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time. These jobs will not run at the same time, even if there are agents available to do so.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](/docs/builds/controlling-concurrency#concurrency-groups) for more information.
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](/docs/pipelines/controlling-concurrency#concurrency-groups) for more information.
 
 <%= image "concurrency-limits.png", width: 1092/2, height: 214/2, alt: "Screenshot of a step's Global Concurrency Limit field" %>
 
@@ -23,7 +23,7 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organisation wide. These group labels are similar to [agent meta-data](/docs/builds/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines. 
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organisation wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines. 
 
 ```yml
 steps:
