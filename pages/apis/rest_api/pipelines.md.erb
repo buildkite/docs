@@ -159,6 +159,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
       },
       {
         "type": "trigger",
+        "label": "Deploy \:ship\:",
         "trigger_project_slug": "deploy",
         "trigger_commit": "HEAD",
         "trigger_branch": "master",
@@ -251,7 +252,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
     },
     {
       "type": "trigger",
-      "name": null,
+      "label": "Deploy \:ship\:",
       "pipeline": "deploy",
       "build": {
         "message": null,
@@ -277,9 +278,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
 
 The resulting pipeline:
 
-<div class="image" style="max-width: 365px">
-  <%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 959/2, height: 91/2 %>
-</div>
+<%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 974/2, height: 90/2 %>
 
 Required [request body properties](/docs/api#request-body-properties):
 
