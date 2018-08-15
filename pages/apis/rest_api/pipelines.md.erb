@@ -120,34 +120,7 @@ Success response: `200 OK`
 
 ## Create a pipeline
 
-Available steps:
 
-<table>
-  <thead>
-    <td>Step Type</td>
-    <td>REST API "type" parameter</td>
-  </thead>
-  <tr>
-    <td>[Command](/docs/pipelines/command-step)</td>
-    <td>"script"</td>
-  </tr>
-  <tr>
-    <td>[Wait](/docs/pipelines/wait-step)</td>
-    <td>"waiter"</td>
-  </tr>
-  <tr>
-    <td>[Block](/docs/pipelines/block-step)</td>
-    <td>"manual"</td>
-  </tr>
-  <tr>
-    <td>[Trigger](/docs/pipelines/trigger-step)</td>
-    <td>"trigger"</td>
-  </tr>
-</table>
-
-The required and optional parameters for each step type can be found on the individual docs pages that are linked above. 
-
-The `fields` parameter of the Block step is not supported through the REST API. 
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -282,9 +255,32 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>name</code></th><td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td></tr>
-  <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td></tr>
-  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>
+      An array of the build pipeline steps.
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/wait-step">Wait</a> for all previous steps to finish:</em> <code>{ "type": "waiter" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/block-step">Block</a> pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/trigger-step">Trigger</a> pipeline:</em> <code>{ "type": "trigger", "trigger_project_slug": "a-pipeline" }</code>
+      </p>
+    </td>
+  </tr>
   </tbody>
 </table>
 
