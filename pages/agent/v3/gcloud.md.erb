@@ -228,3 +228,11 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"
 ```
 
 Make sure the agent has permission to create new objects. If running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
+                              
+### 
+                              
+If your bucket ACL is `private` you won't be able to click through to the artifacts in the Buildkite web interface. You can use an authenticating GCS proxy  to provide web access protected by authentication, which will allow you to view embedded assets such as HTML pages with images. To set the access URL for your proxy, export the following environment variable:
+
+```shell
+export BUILDKITE_GCS_ACCESS_HOST="yourhost.com"
+```
