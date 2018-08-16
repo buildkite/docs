@@ -120,6 +120,8 @@ Success response: `200 OK`
 
 ## Create a pipeline
 
+
+
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
@@ -154,6 +156,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
         },
         "timeout_in_minutes": 10,
         "agent_query_rules": ["aws=true"]
+      },
+      {
+        "type": "trigger",
+        "label": "Deploy \:ship\:",
+        "trigger_project_slug": "deploy",
+        "trigger_commit": "HEAD",
+        "trigger_branch": "master",
+        "trigger_async": true
       }
     ]
   }'
@@ -189,17 +199,19 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   "cancel_running_branch_builds_filter": null,
   "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
   "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-  "created_at": "2015-03-01 06:44:40 UTC",
+  "created_at": "2018-08-15T05:47:45.813Z",
   "steps": [
     {
       "type": "script",
       "name": "Build \:package\:",
       "command": "script/release.sh",
-      "artifact_paths": "pkg/*",
+      "artifact_paths": null,
       "branch_configuration": null,
-      "env": { },
+      "env": {},
       "timeout_in_minutes": null,
-      "agent_query_rules": [ ]
+      "agent_query_rules": [],
+      "concurrency": null,
+      "parallelism": null
     },
     {
       "type": "waiter"
@@ -208,11 +220,15 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
       "type": "script",
       "name": "Test \:wrench\:",
       "command": "script/release.sh",
-      "artifact_paths": null,
+      "artifact_paths": "log/*",
       "branch_configuration": null,
-      "env": { },
+      "env": {},
       "timeout_in_minutes": null,
-      "agent_query_rules": [ ]
+      "agent_query_rules": [
+
+      ],
+      "concurrency": null,
+      "parallelism": null
     },
     {
       "type": "manual",
@@ -230,7 +246,24 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
       "timeout_in_minutes": 10,
       "agent_query_rules": [
         "aws=true"
-      ]
+      ],
+      "concurrency": null,
+      "parallelism": null
+    },
+    {
+      "type": "trigger",
+      "label": "Deploy \:ship\:",
+      "pipeline": "deploy",
+      "build": {
+        "message": null,
+        "branch": "master",
+        "commit": "HEAD",
+        "env": null
+      },
+      "async": true,
+      "branch_configuration": null,
+      "concurrency": null,
+      "parallelism": null
     }
   ],
   "env": {
@@ -245,17 +278,38 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
 
 The resulting pipeline:
 
-<div class="image" style="max-width: 365px">
-  <%= image 'projects_api_pipeline_example.png', alt: 'Picture of the build pipeline that is created', size: '730x174' %>
-</div>
+<%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 974/2, height: 90/2 %>
 
 Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>name</code></th><td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td></tr>
-  <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td></tr>
-  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>
+      An array of the build pipeline steps.
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/wait-step">Wait</a> for all previous steps to finish:</em> <code>{ "type": "waiter" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/block-step">Block</a> pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
+      </p>
+      <p class="Docs__api-param-eg">
+        <em><a href="/docs/pipelines/trigger-step">Trigger</a> pipeline:</em> <code>{ "type": "trigger", "trigger_project_slug": "a-pipeline" }</code>
+      </p>
+    </td>
+  </tr>
   </tbody>
 </table>
 
