@@ -96,7 +96,7 @@ You can disable interpolation with the `--no-interpolation` flag, which was adde
 
 ### Requiring environment variables
 
-You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print and error and exit with a status of 1.
+You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print an error and exit with a status of 1.
 
 For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
 
