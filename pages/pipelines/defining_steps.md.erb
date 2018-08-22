@@ -8,7 +8,7 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-After creating a pipeline, you can add steps in Pipeline Settings. In the 'Steps' section, click the ➕ to add a step. You can create your entire pipeline by adding steps in this way. 
+After creating a [pipeline](https://buildkite.localhost/docs/pipelines), you can add steps in the Buildkite Pipeline Settings. In the 'Steps' section, click the ➕ to add a step. You can create your entire pipeline by adding steps in this way. 
 
 To use a pipeline.yml file, click the ➕ to add a step and select “Read steps from repository”:
 
@@ -26,11 +26,15 @@ steps:
     command: echo "Hello!"
 ```
 
-The above example is a [command step](), which will run the code `echo "Hello!"` and print "Hello!" to the build's log.
+The above example is a [command step](/docs/pipelines/command-step), which will run the code `echo "Hello!"` and print "Hello!" to the build's log.
 
 To test your `.buildkite/pipeline.yml` file, commit your `pipeline.yml` file and push it to your repository. If you've set up webhooks, this will automatically create a new build. You can also create a new build using the 'New Build' button on the pipeline page. 
 
 <%= image "show-example-test.png", width: 968/2, height: 698/2, alt: "Screenshot of the build passing with pipeline upload step first, and then the example step" %>
+
+If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can use [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run. 
+
+When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use artifacts to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
 
 ## Example pipeline
 
@@ -86,7 +90,7 @@ There are four different step types you can use in your Buildkite pipelines. See
 * [Block Step](/docs/pipelines/block-step)
 * [Trigger Step](/docs/pipelines/trigger-step)
 
-## Customizing the pipeline file path
+## Customizing the pipeline upload path
 
 By default the pipeline upload step reads your pipeline definition from `.buildkite/pipeline.yml` in your repository. You can specify a different file path by adding it as the first argument:
 
@@ -137,7 +141,7 @@ When a build is run it will execute the script and pipe its output to the `pipel
 
 ## Migrating existing steps to a pipeline.yml
 
-If you have a pipeline that is defined in the web interface and would like to migrate it to a `pipeline.yml` without any interruption to builds, you can add a command step and wait step at the start of your pipeline.
+If you have a pipeline that is defined in the web interface and would like to migrate it to a `pipeline.yml` without any interruption to builds, add a command step and wait step at the start of your pipeline:
 
 For agents running Linux, macOS or other Unixes, the command is:
 
