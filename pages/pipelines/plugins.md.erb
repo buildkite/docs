@@ -5,14 +5,13 @@ Plugins provide a way to extend the functionality that Buildkite natively offers
 
 Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required. See [Plugin sources] for how you can host your own.
 
-Buildkite offers a [collection of useful plugins][Buildkite Plugins]
-to get you started, including a [Docker Compose plugin], [Junit Annotate plugin], and the [Library Example plugin].
+Buildkite offers a [collection of useful plugins][Buildkite Plugins] to get you started, including a [Docker Compose plugin], [Junit Annotate plugin], and the [Library Example plugin].
 
 <%= toc %>
 
 ## Using a plugin
 
-Plugins can only be used in [command steps] in `pipeline.yml` [pipeline definitions].
+Plugins can be configured on [command steps] in your `pipeline.yml` [pipeline definitions]. When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
 
 The simplest plugin is one that accepts no configuration, such as the [Detect Clowns plugin], which will return an error if any clown emojis are found in your source code:
 
@@ -23,7 +22,7 @@ steps:
       detect-clowns#v1.0.0: ~
 ```
 
-More commonly, plugins accept various configuration options, as the [Docker plugin] which can be configured to run a build step using any publicly available Docker image:
+More commonly, plugins accept various configuration options, as the [Docker plugin] which can be configured to use a Docker image to run your command:
 
 ```yml
 steps:
@@ -34,7 +33,7 @@ steps:
         workdir: /app
 ```
 
-More advanced plugins, such as [Docker Compose plugin], can be run multiple times within a build, and use [buildkite-agent meta-data] to share data between the steps:
+More advanced plugins, such as [Docker Compose plugin], are designed to be used multiple times in a pipeline:
 
 ```yml
 steps:
@@ -55,6 +54,8 @@ steps:
       docker-compose#v1.0.0:
         run: app
 ```
+
+You can see the [full list of available Buildkite Plugins](https://github.com/search?utf8=✓&q=topic%3Abuildkite-plugin&type=) on GitHub.
 
 ## Plugin sources
 
