@@ -13,29 +13,11 @@
 - this guide isn't an api reference and so won't cover every available option
 - if you haven't used our graphql explorer before, check out our [api guide](http://buildkite.localhost/docs/graphql-api#getting-started)
 
-### Get your internal Organization ID
+### Get your Organization ID
 
-- to set up your organisation for SSO, you need your internal Buildkite id
-- use the get method with your org slug to retrieve your org id
+- to set up your organization for SSO, you need your Organization ID
+- this can be found on your Organization Settings page in Buildkite 
 - this id will be required in all other sso methods
-
-For example, the following code will retrieve any SSO providers that have been created for the organisation `Acme-Inc`:
-
-```graphql
-query GetProviders {
-  organization(slug:"acme-inc"){
-    id
-    ssoProviders(first: 50) {
-      edges {
-        node {
-          id
-          url
-        }
-      }
-    }
-  }
-}
-```
 
 ### Create your SSO provider
 
@@ -100,8 +82,8 @@ mutation CreateGoogleProvider {
 ```
 
 github_oauth:
-- add your github organisation name:
-    - githuborganisationname: 'test'
+- add your github organization name:
+    - githuborganizationname: 'test'
 
 ```graphql
 mutation CreateGitHubProvider {
@@ -121,12 +103,12 @@ mutation CreateGitHubProvider {
 }
 ```
 
-- test the login flow, ensure that a user can successfully complete the new authentication and gain access to your buildkite organisation before continuing
+- test the login flow, ensure that a user can successfully complete the new authentication and gain access to your buildkite organization before continuing
 - the enable method will error if a successful test hasn't occurred
 
-### Enable the provider for your organisation
+### Enable the provider for your organization
 
-- after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organisation
+- after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organization
 - use the enable method with your provider id, you can retrieve this using the get mutation 
 
 ```graphql
@@ -259,6 +241,26 @@ ssoProviderCreate(input:{
     }
   }
 })
+```
+
+### View providers
+
+- view all providers that have been created for an organization
+
+```graphql
+query GetProviders {
+  organization(slug:"acme-inc"){
+    id
+    ssoProviders(first: 50) {
+      edges {
+        node {
+          id
+          url
+        }
+      }
+    }
+  }
+}
 ```
 
 ### Disable a provider
