@@ -50,61 +50,74 @@ mutation MakeBlankProvider {
 }
 ```
 
-- can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and `GITHUB_OAUTH`
+You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and `GITHUB_OAUTH`. See the expanding sections below for code samples for each provider type.
 
-SAML:
-- if you haven't set up your identity provider with buildkite, do that before continuing
-- if you've already set up your identity provider, see [the examples below](#create-a-saml-provider-with-data) for code to create your identity provider with data
-
-Google_oauth:
-- add the two required fields for google authentication:
-    - googleHostedDomain: the domain your team uses with Google G Suite as a string
-    - discloseGoogleHostedDomain: a boolean describing whether or not you'd like your domain name to be listed on the authentication page 
-
-```graphql
-mutation CreateGoogleProvider {
-  ssoProviderCreate(input:{
-    organizationId:"<paste your organization id here>",
-    type:GOOGLE_OAUTH,
-    googleHostedDomain:"coffee.com",
-    discloseGoogleHostedDomain: false
-  }) {
-    ssoProvider {
-      id
-      url
-      ...on SSOProviderGoogleOAuth {
-        googleHostedDomain
-        discloseGoogleHostedDomain
+<details>
+  <summary>Google_oauth</summary>
+  <p>Add the two required fields for google authentication:
+    <ul>
+      <li>googleHostedDomain: the domain your team uses with Google G Suite as a string</li>
+      <li>discloseGoogleHostedDomain: a boolean describing whether or not you'd like your domain name to be listed on the authentication page </li>
+    </ul>
+  </p>
+  <p>
+    Example code:
+    <pre>
+    mutation CreateGoogleProvider {
+      ssoProviderCreate(input:{
+        organizationId:"<paste your organization id here>",
+        type:GOOGLE_OAUTH,
+        googleHostedDomain:"coffee.com",
+        discloseGoogleHostedDomain: false
+      }) {
+        ssoProvider {
+          id
+          url
+          ...on SSOProviderGoogleOAuth {
+            googleHostedDomain
+            discloseGoogleHostedDomain
+          }
+        }
       }
-    }
-  }
-}
-```
+    }</pre>
+  </p>
+</details>
 
-github_oauth:
-- add your github organization name:
-    - githuborganizationname: 'test'
+<details>
+  <summary>Github_oauth</summary>
+  <p>add your github organization name:
+    <ul>
+      <li>githuborganizationname: 'test'</li>
+    </ul>
+  </p>
+  <p>
+    Example code:
+    <pre>
+      mutation CreateGitHubProvider {
+        ssoProviderCreate(input:{
+          organizationId:"<paste your organization id here>",
+          type:GITHUB_OAUTH,
+          githubOrganizationName:"buildkite"
+        }) {
+          ssoProvider {
+            id
+            url
+            ...on SSOProviderGithubOAuth {
+              githubOrganizationName
+            }
+          }
+        }
+      }</pre>
+  </p>
+</details>
 
-```graphql
-mutation CreateGitHubProvider {
-  ssoProviderCreate(input:{
-    organizationId:"<paste your organization id here>",
-    type:GITHUB_OAUTH,
-    githubOrganizationName:"buildkite"
-  }) {
-    ssoProvider {
-      id
-      url
-      ...on SSOProviderGithubOAuth {
-        githubOrganizationName
-      }
-    }
-  }
-}
-```
+<details>
+  <summary>SAML</summary>
+  <p>If you haven't set up your identity provider with buildkite, do that before continuing with this guide.</p>
+  <p>If you've already set up your identity provider, see [the examples below](#create-a-saml-provider-with-data) for code to create your identity provider with data</p>
+</details>
 
-- test the login flow, ensure that a user can successfully complete the new authentication and gain access to your buildkite organization before continuing
-- the enable method will error if a successful test hasn't occurred
+Test the login flow with your new SSO provider. Ensure that a user can successfully complete the new authentication and gain access to your Buildkite organization before continuing. The next step, enabling your provider, will return an error if a successful test has not occurred.
 
 ### Part 3 of 4: Enable the provider for your organization
 
@@ -282,6 +295,7 @@ ssoProviderDisable(input:{
 - deleting the provider with graphql means that there will be no confirmation dialog or anything else when you perform the delete
 - please ensure that you've entered the correct provider id and that you want to delete it rather than disabling it
 - all users will go back to logging in with their buildkite username and password
+
 ```graphql
 ssoProviderDelete(input:{
   id:"<paste your provider id here>"
