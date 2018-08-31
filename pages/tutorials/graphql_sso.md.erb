@@ -50,6 +50,8 @@ mutation MakeBlankProvider {
 }
 ```
 
+The provider id that is returned by the create mutation will be required in steps 4 and 5. 
+
 You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and `GITHUB_OAUTH`. See the expanding sections below for code samples for each provider type.
 
 <details>
@@ -117,12 +119,15 @@ You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and 
   <p>If you've already set up your identity provider, see [the examples below](#create-a-saml-provider-with-data) for code to create your identity provider with data</p>
 </details>
 
+### Part 3 of 5: Test the login flow
+
 Test the login flow with your new SSO provider. Ensure that a user can successfully complete the new authentication and gain access to your Buildkite organization before continuing. The next step, enabling your provider, will return an error if a successful test has not occurred.
 
 ### Part 4 of 5: Enable the provider for your organization
 
-- after testing that the new authorisation url works and can log in a user with the correct email domain, you can enable the sso provider for your buildkite organization
-- use the enable method with your provider id, you can retrieve this using the get mutation 
+After testing that the new authorization URL works and can log in a user with the correct email domain, you can enable the SSO provider for your Buildkite organization.
+
+Use the provider enable mutation with your provider id:
 
 ```graphql
 mutation EnableProvider {
@@ -138,8 +143,6 @@ mutation EnableProvider {
 }
 
 ```
-
-- check that it's enabled with the get method
 
 ### Part 5 of 5: Update your provider data
 
