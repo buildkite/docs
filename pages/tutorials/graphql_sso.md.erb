@@ -19,13 +19,13 @@ This guide is not intended as an API reference, and so won't cover every availab
 
 To begin setting up your organization with SSO, you need your Buildkite Organization ID. This can be found on your 'Organization Settings' page in Buildkite.
 
-### Part 2 of 4: Create your SSO provider
+### Part 2 of 4: Create your Identity Provider
 
 - use the create method to create a blank 
 - after you set up your id provider, you will come back and fill in the provider details using the update method
 - use the org id you retreived from the GET method 
 
-The following example code creates a blank SSO provider:
+The following example code creates a blank SAML provider:
 
 ```graphql
 mutation MakeBlankProvider {
@@ -171,7 +171,6 @@ mutation UpdateProvider {
     }
   }
 }
-
 ```
 
 - can't do an update while the provider is enabled, need to disable it, make your changes, then re-test and re-enable it once it's all working
@@ -192,11 +191,13 @@ mutation UpdateProvider {
 In the following example code, an existing identity provider is specified with the id field, and its note and session duration properties are updated:
 
 ```graphql
-ssoProviderUpdate(input:{
-  id:"<paste your provider id here>",
-  note: ":ruby: Ruby team, please sign in here"
-  sessionDurationInHours: 72
-})
+mutation UpdateProvider {
+  ssoProviderUpdate(input:{
+    id:"<paste your provider id here>",
+    note: "\:ruby\: Ruby team, please sign in here"
+    sessionDurationInHours: 72
+  }) 
+}
 ```
 
 - full API documentation for the GraphQL SSO operations can be found in the GraphQL explorer
@@ -211,51 +212,104 @@ ssoProviderUpdate(input:{
 
 - instead of using the create method alone, you can add your data to it immediately
 - use the create method
-- there are three data entry options: static data entry, xml blob, and xml url
+- there are three data entry options: Static data entry, XML blob, and XML URL
 
-static data options:
-- identity provider (ssoURL and issuer and certificate)
+Static data identity provider required fields:
 
-```graphql
-ssoProviderCreate(input:{
-  organizationId:"<paste your organization id here>",
-  type:SAML,
-  identityProvider:{
-    ssoURL:"https://okta.com/111111111",
-    issuer: "https://okta.com/aaaaaaaaa",
-    certificate:"---BEGIN CERT---zga9d6fa98f7sa987d9829h"
-  }
-})
-```
-
-xml blob options:
-- identity provider (metadata > xml)
+- `ssoURL` as a string
+- `issuer` as a string
+- `certificate` as a string
 
 ```graphql
-ssoProviderCreate(input:{
-  organizationId:"<paste your organization id here>",
-  type:SAML,
-  identityProvider:{
-    metadata:{
-      xml: "..."
+mutation MakeStaticDataProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:SAML,
+    identityProvider:{
+      ssoURL:"https://okta.com/111111111",
+      issuer: "https://okta.com/aaaaaaaaa",
+      certificate:"---BEGIN CERT---zga9d6fa98f7sa987d9829h"
+    }
+  }) {
+    ssoProvider {
+      id
+      type
+      ...on SSOProviderSAML {
+        serviceProvider {
+          issuer
+          ssoURL
+          metadata {
+            url
+          }
+        }
+      }
     }
   }
-})
+}
 ```
 
-xml url options:
-- identity provider (metadata > url)
+XML blob identity provider required fields:
+
+- `metadata` as an object, containing `xml` as a string
 
 ```graphql
-ssoProviderCreate(input:{
-  organizationId:"<paste your organization id here>",
-  type:SAML,
-  identityProvider:{
-    metadata:{
-      url:"..."
+mutation MakeXMLblobProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:SAML,
+    identityProvider:{
+      metadata:{
+        xml: "..."
+      }
+    }
+  }) {
+    ssoProvider {
+      id
+      type
+      ...on SSOProviderSAML {
+        serviceProvider {
+          issuer
+          ssoURL
+          metadata {
+            url
+          }
+        }
+      }
     }
   }
-})
+}
+```
+
+XML URL identity provider required fields:
+
+- `metadata` as an object containing `url` as a string
+
+```graphql
+mutation MakeXMLurlProvider {
+  ssoProviderCreate(input:{
+    organizationId:"<paste your organization id here>",
+    type:SAML,
+    identityProvider:{
+      metadata:{
+        url: "..."
+      }
+    }
+  }) {
+    ssoProvider {
+      id
+      type
+      ...on SSOProviderSAML {
+        serviceProvider {
+          issuer
+          ssoURL
+          metadata {
+            url
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ### View providers
@@ -283,10 +337,12 @@ query GetProviders {
 - use the disable method, optionally with a reason for doing so
 
 ```graphql
-ssoProviderDisable(input:{
-  id:"<paste your provider id here>",
-  disabledReason: "Updating to the new account"
-})
+mutation DisableProvider {
+  ssoProviderDisable(input:{
+    id:"<paste your provider id here>",
+    disabledReason: "Updating to the new account"
+  })
+}
 ```
 
 ### Delete a provider
@@ -297,9 +353,11 @@ ssoProviderDisable(input:{
 - all users will go back to logging in with their buildkite username and password
 
 ```graphql
-ssoProviderDelete(input:{
-  id:"<paste your provider id here>"
-})
+mutation DeleteProvider {
+  ssoProviderDelete(input:{
+    id:"<paste your provider id here>"
+  })
+}
 ```
 
 
