@@ -367,10 +367,11 @@ mutation DisableProvider {
 
 ### Delete a provider
 
-- use the delete method
-- deleting the provider with graphql means that there will be no confirmation dialog or anything else when you perform the delete
-- please ensure that you've entered the correct provider id and that you want to delete it rather than disabling it
-- all users will go back to logging in with their buildkite username and password
+When deleting a provider with GraphQL there will be no confirmation dialog or any checks when you perform the delete. Please ensure that you've entered the correct provider ID and that you want to delete your provider rather than disable it.
+
+After the delete is complete, all users will automatically revert to accessing your organization in with their Buildkite username and password instead of SSO.
+
+For example, the following code will delete the specified provider:
 
 ```graphql
 mutation DeleteProvider {
