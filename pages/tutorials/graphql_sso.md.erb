@@ -209,113 +209,130 @@ In addition to the operations in the examples above (create and update), the fol
 
 Full API documentation for the GraphQL SSO operations can be found in the [GraphQL explorer](https://graphql.buildkite.com/explorer). To use the explorer, generate an API token from your personal settings page and use that to log in to the explorer. The documentation can be found in the top right corner, and are searchable.
 
-### Create a SAML provider with data
+### Create a non-blank SAML provider
 
-- instead of using the create method alone, you can add your data to it immediately
-- use the create method
-- there are three data entry options: Static data entry, XML blob, and XML URL
+If you've already set up your identity provider, you can create your Buildkite SAML provider with data instead of creating a blank provider. 
 
-Static data identity provider required fields:
+There are three different options for data entry: Static data, an XML blob, or an XML URL. See the expanding sections below for code samples for each data entry option.
 
-- `ssoURL` as a string
-- `issuer` as a string
-- `certificate` as a string
-
-```graphql
-mutation MakeStaticDataProvider {
-  ssoProviderCreate(input:{
-    organizationId:"<paste your organization id here>",
-    type:SAML,
-    identityProvider:{
-      ssoURL:"https://okta.com/111111111",
-      issuer: "https://okta.com/aaaaaaaaa",
-      certificate:"---BEGIN CERT---zga9d6fa98f7sa987d9829h"
-    }
-  }) {
-    ssoProvider {
-      id
-      type
-      ...on SSOProviderSAML {
-        serviceProvider {
-          issuer
-          ssoURL
-          metadata {
-            url
+<details>
+  <summary>Static data</summary>
+  <p>Static data identity provider required fields:
+    <ul>
+      <li>`ssoURL` as a string</li>
+      <li>`issuer` as a string</li>
+      <li>`certificate` as a string</li>
+    </ul>
+  </p>
+  <p>
+    Example code:
+    <pre>
+    mutation MakeStaticDataProvider {
+      ssoProviderCreate(input:{
+        organizationId:"<paste your organization id here>",
+        type:SAML,
+        identityProvider:{
+          ssoURL:"https://okta.com/111111111",
+          issuer: "https://okta.com/aaaaaaaaa",
+          certificate:"---BEGIN CERT---zga9d6fa98f7sa987d9829h"
+        }
+      }) {
+        ssoProvider {
+          id
+          type
+          ...on SSOProviderSAML {
+            serviceProvider {
+              issuer
+              ssoURL
+              metadata {
+                url
+              }
+            }
           }
         }
       }
-    }
-  }
-}
-```
+    }</p>
+</details>
 
-XML blob identity provider required fields:
-
-- `metadata` as an object, containing `xml` as a string
-
-```graphql
-mutation MakeXMLblobProvider {
-  ssoProviderCreate(input:{
-    organizationId:"<paste your organization id here>",
-    type:SAML,
-    identityProvider:{
-      metadata:{
-        xml: "..."
-      }
-    }
-  }) {
-    ssoProvider {
-      id
-      type
-      ...on SSOProviderSAML {
-        serviceProvider {
-          issuer
-          ssoURL
-          metadata {
-            url
+<details>
+  <summary>XML blob</summary>
+  <p>XML blob identity provider required fields:
+    <ul>
+      <li>`metadata` as an object, containing `xml` as a string</li>
+    </ul>
+  </p>
+  <p>
+    Example code:
+    <pre>
+    mutation MakeXMLblobProvider {
+      ssoProviderCreate(input:{
+        organizationId:"<paste your organization id here>",
+        type:SAML,
+        identityProvider:{
+          metadata:{
+            xml: "..."
+          }
+        }
+      }) {
+        ssoProvider {
+          id
+          type
+          ...on SSOProviderSAML {
+            serviceProvider {
+              issuer
+              ssoURL
+              metadata {
+                url
+              }
+            }
           }
         }
       }
-    }
-  }
-}
-```
+    }</p>
+</details>
 
-XML URL identity provider required fields:
-
-- `metadata` as an object containing `url` as a string
-
-```graphql
-mutation MakeXMLurlProvider {
-  ssoProviderCreate(input:{
-    organizationId:"<paste your organization id here>",
-    type:SAML,
-    identityProvider:{
-      metadata:{
-        url: "..."
-      }
-    }
-  }) {
-    ssoProvider {
-      id
-      type
-      ...on SSOProviderSAML {
-        serviceProvider {
-          issuer
-          ssoURL
-          metadata {
-            url
+<details>
+  <summary>XML URL</summary>
+  <p>XML URL identity provider required fields:
+    <ul>
+      <li>`metadata` as an object containing `url` as a string</li>
+    </ul>
+  </p>
+  <p>
+    Example code:
+    <pre>
+    mutation MakeXMLurlProvider {
+      ssoProviderCreate(input:{
+        organizationId:"<paste your organization id here>",
+        type:SAML,
+        identityProvider:{
+          metadata:{
+            url: "..."
+          }
+        }
+      }) {
+        ssoProvider {
+          id
+          type
+          ...on SSOProviderSAML {
+            serviceProvider {
+              issuer
+              ssoURL
+              metadata {
+                url
+              }
+            }
           }
         }
       }
-    }
-  }
-}
-```
+    }</p>
+</details>
 
 ### View providers
 
-- view all providers that have been created for an organization
+The `view` query returns a list of all providers that have been created for an organization.
+
+For example, the following code will return up to 50 providers that have been enabled on the 'acme-inc' organization: 
 
 ```graphql
 query GetProviders {
@@ -335,7 +352,9 @@ query GetProviders {
 
 ### Disable a provider
 
-- use the disable method, optionally with a reason for doing so
+When disabling a provider, you can optionally add a reason for doing so. 
+
+For example, the following code will disable the specified provider, and add the text "Updating to the new account" as the reason for disabling:
 
 ```graphql
 mutation DisableProvider {
