@@ -141,13 +141,13 @@ mutation EnableProvider {
     }
   }
 }
-
 ```
 
 ### Part 5 of 5: Update your provider data
 
-- use this if you've made a blank sso provider and need to add your provider information to it
-- also can be used to update your provider data if it changes
+Now that you have set up the Buildkite integration in your identity provider, we need to add the identity provider's information to your Buildkite organization. 
+
+Use the provider update mutation to add your identity provider's metadata:
 
 ```graphql
 mutation UpdateProvider {
@@ -176,8 +176,7 @@ mutation UpdateProvider {
 }
 ```
 
-- can't do an update while the provider is enabled, need to disable it, make your changes, then re-test and re-enable it once it's all working
-
+The provider update mutation can also be used to update your provider data if it changes. Updates cannot be completed while a provider is enabled; to make changes to your provider, you will need to disable it, make your changes, then re-test and re-enable the provider.
 
 ## Advanced configuration
 
@@ -186,12 +185,13 @@ mutation UpdateProvider {
 
 - can have as many different providers enabled at the same time as you need, they will all be displayed to users before they go through the authorisation flow
 
-- can add a note to each provider login option in this list, to provide information to your users about each one 
-- can also set session duration
-- note and sessionduration can both be set on create and update
-- use the `note` field and `sessionDurationInHours` field respectively, both of which are top level attributes under the input object in the ssoprovidercreate and ssoproviderupdate mutations
+### Optional parameters
 
-In the following example code, an existing identity provider is specified with the id field, and its note and session duration properties are updated:
+You can add a note to each provider's login screen to provide information to your users. <screenshot>
+
+You can also set a session duration to enforce periodic re-authentication. The note and session duration attributes can be set on both the create and update mutations. Use the `note` field and `sessionDurationInHours` field respectively, both of which are top level attributes under the input object in the `ssoProviderCreate` and `ssoProviderUpdate` mutations.
+
+In the following example an existing identity provider is specified in the `id` field, and its note and session duration properties are updated:
 
 ```graphql
 mutation UpdateProvider {
@@ -203,13 +203,11 @@ mutation UpdateProvider {
 }
 ```
 
-- full API documentation for the GraphQL SSO operations can be found in the GraphQL explorer
-- generate an API token from your personal settings page that has access to the graphql beta, and use that to log in to the graphql explorer
-- docs can be found in the top right corner, and are searchable
-
 ## Available GraphQL operations
 
-- other than those mentioned above (create blank and update), these are the available operations
+In addition to the operations in the examples above (create and update), the following examples cover the rest of the available SSO operations. 
+
+Full API documentation for the GraphQL SSO operations can be found in the [GraphQL explorer](https://graphql.buildkite.com/explorer). To use the explorer, generate an API token from your personal settings page and use that to log in to the explorer. The documentation can be found in the top right corner, and are searchable.
 
 ### Create a SAML provider with data
 
