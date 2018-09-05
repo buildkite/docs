@@ -1,0 +1,43 @@
+# OAuth with Google G Suite
+
+Google's G Suite (previously Google Apps) can be used to authorize access to your Buildkite organisation. G Suite doesn't proivide group management, as it uses OAuth rather than SAML to perform the authorization.
+
+## Setting up OAuth
+
+Setting up G Suite to log in to Buildkite is a short process, requiring an email to the Buildkite team and a test of the new login flow.
+
+Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso).  
+
+### Email the Buildkite team
+1. Send an email to support@buildkite.com with the following information:
+
+    <table>
+    <tbody>
+        <tr>
+            <td>Domain name</td>
+            <td>
+              The domain you use with Google G Suite for which you want to enable OAuth. This must match one of the emails you have verified with your Buildkite account.
+            </td>
+        </tr>
+        <tr>
+            <td>Organisation slug</td>
+            <td>
+              The Buildkite organisation for which you want to enable OAuth.  
+            </td>
+        </tr>
+        <tr>
+            <td>Disclose hosted domain during SSO?</td>
+            <td>
+                Whether or not you'd like your users to see your domain name during the SSO process. 
+            </td>
+        </tr>
+    </tbody>
+    </table>
+
+1. Ensure all members of the specified organisation have an email address with that domain verified in their Buildkite account
+
+When we receive your email, the Buildkite team will:
+
+1. Enable OAuth for the specified organisation
+1. Reply to your email and get you to test that it's all working
+1. Deauthorize all the users in the organisation, so that everyone will authorize via Google next time they attempt to access that organisation on Buildkite.com
