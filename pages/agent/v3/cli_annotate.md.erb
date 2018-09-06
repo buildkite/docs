@@ -1,6 +1,6 @@
 # buildkite-agent annotate
 
-The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using either Markdown or HTML.
+The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using Markdown.
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
@@ -12,7 +12,7 @@ The Buildkite Agent’s `annotate` command allows you to add additional informat
 $ buildkite-agent annotate --help
 Usage:
 
-   buildkite-agent annotate <file> [arguments...]
+   buildkite-agent annotate [<body>] [arguments...]
 
 Description:
 
@@ -24,18 +24,22 @@ Description:
    - Graphs that include analysis about your codebase
    - Helpful information for team members about what happened during a build
 
-   Annotations can be written in either Markdown or HTML.
+   Annotations are written in CommonMark-compliant Markdown, with "GitHub
+   Flavored Markdown" extensions.
+
+   The annotation body can be supplied as a command line argument, or by piping
+   content into the command.
 
    You can update an existing annotation's body by running the annotate command
    again and provide the same context as the one you want to update. Or if you
    leave context blank, it will use the default context.
 
-   You can also just update the style of an existing annotation by omitting the
-   body and just providing a new style value.
+   You can also update just the style of an existing annotation by omitting the
+   body entirely and providing a new style value.
 
 Example:
 
-   $ buildkite-agent annotate "All tests passed! \:rocket\:"
+   $ buildkite-agent annotate "All tests passed! :rocket:"
    $ cat annotation.md | buildkite-agent annotate --style "warning"
    $ buildkite-agent annotate --style "success" --context "junit"
    $ ./script/dynamic_annotation_generator | buildkite-agent annotate --style "success"
@@ -71,6 +75,44 @@ steps:
 ```
 
 <%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
+
+## Supported Markdown syntax
+
+We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
+
+GitHub [kindly provide a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
+
+Note that we do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
+
+## Supported CSS Classes
+
+A number of CSS classes are accepted in annotations. These include a subset of layout and formatting controls based on [Basscss](http://basscss.com), and colored console output.
+
+### Basscss
+
+[Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
+We accept the following parts of version 8.0 of Basscss within annotations:
+
+* [Align](http://basscss.com/#basscss-align)
+* [Border](http://basscss.com/#basscss-border)
+* [Flexbox](http://basscss.com/#basscss-flexbox)
+  * All except `sm-flex`, `md-flex` and `lg-flex`
+* [Margin](http://basscss.com/#basscss-margin)
+* [Layout](http://basscss.com/#basscss-layout)
+  * All except Floats (Please use Flexbox instead)
+* [Padding](http://basscss.com/#basscss-padding)
+* [Typography](http://basscss.com/#basscss-typography)
+  * `bold`, `regular`, `italic`, `caps`
+  * `left-align`, `center`, `right-align`, `justify`
+  * `underline`, `truncate`
+  * `list-reset`
+* [Type Scale](http://basscss.com/#basscss-type-scale)
+
+### Colored console output
+
+Console output in annotations can be displayed with ANSI colors when processed through [our Terminal output processor](http://buildkite.github.io/terminal/) and wrapped in `<code><pre class="term"></pre></code>` tags before uploading.
+
+<%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
 ## Embedding & linking artifacts in annotations
 

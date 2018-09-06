@@ -1,16 +1,16 @@
 # Containerized Builds with Docker
 
-The Buildkite Agent ships with built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallelizing-builds).
+The Buildkite Agent ships with built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
 
 <%= toc %>
 
 ## Overview
 
-To run your steps using Docker, we have two [plugins](/docs/agent/v3/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To run your steps using Docker, we have two [plugins](/docs/pipelines/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
-The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps. 
+The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps.
 
-The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) supports single container applications, and involves less setup than the Docker Compose plugin. It doesn't allow the use of `docker-compose.yml` files, and doesn't support advanced operations like building images. 
+The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) supports single container applications, and involves less setup than the Docker Compose plugin. It doesn't allow the use of `docker-compose.yml` files, and doesn't support advanced operations like building images.
 
 ## Creating a Docker Compose configuration file
 
@@ -65,7 +65,7 @@ docker-compose run app test.sh
 
 For more examples and information on using this plugin, have a look at the [Docker Compose Plugin on GitHub](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
 
-The Buildkite Agent also has support for running build steps in an existing Docker image. To use the Docker plugin, add the `plugins` attribute to your command step. 
+The Buildkite Agent also has support for running build steps in an existing Docker image. To use the Docker plugin, add the `plugins` attribute to your command step.
 
 In this example, the `yarn` commands will be run inside a Docker container using the `node:8` Docker image:
 
@@ -89,7 +89,7 @@ There are many configuration options available for the Docker plugin. For the co
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
-To do this see the [agent hooks](/docs/agent/v3/hooks) and [parallelizing builds](parallelizing-builds) documentation.
+To do this see the [agent hooks](/docs/agent/v3/hooks) and [parallel builds](parallel-builds) documentation.
 
 ## Adding buildkite-agent to the Docker group
 

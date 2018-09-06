@@ -57,7 +57,7 @@ For documentation on the full list of fields and types, see the interactive docu
 
 ## Relay compatibility
 
-The Buildkite GraphQL API adheres to the [Relay Specification](https://facebook.github.io/relay/docs/graphql-relay-specification.html), which defines standards for querying [paginated collections](https://facebook.github.io/relay/docs/graphql-connections.html) ("Connections" and "Edges"), [identifying objects](https://facebook.github.io/relay/docs/graphql-object-identification.html) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://facebook.github.io/relay/docs/graphql-mutations.html).
+The Buildkite GraphQL API adheres to the [Relay Specification](https://facebook.github.io/relay/docs/en/graphql-server-specification.html), which defines standards for querying [paginated collections](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#connections) ("Connections" and "Edges"), [identifying objects](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#object-identification) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#mutations).
 
 ## Learning more about GraphQL
 
@@ -65,11 +65,5 @@ Further resources for learning more about GraphQL:
 
 * Our [Getting Started with GraphQL Queries and Mutations](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) tutorial
 * [graphql.org/learn](http://graphql.org/learn/) — The Learn section of the official GraphQL website
-* [learngraphql.com](https://learngraphql.com/) — A short interactive course that introduces you to the concepts of GraphQL
 * [github.com/buildkite/frontend](https://github.com/buildkite/frontend) — Buildkite’s web interface makes extensive use of the GraphQL API
 
-## Beta caveats
-
-Whilst the GraphQL API is in beta, you should note the following caveats:
-
-* GraphQL API tokens do not currently respect their organization scope settings, so we recommend creating a separate API token or user account for performing API requests in production.

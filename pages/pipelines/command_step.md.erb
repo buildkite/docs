@@ -8,7 +8,7 @@ Each command step can run either a shell command like `npm install`, or an execu
 
 <%= image "pipeline-settings.png", width: 1158/2, height: 506/2, alt: "Screenshot of a basic command step" %>
 
-A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file.
+A basic command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
 ```yml
 steps:
@@ -49,14 +49,14 @@ _Optional attributes:_
   <tr>
     <td><code>agents</code></td>
     <td>
-      A map of <a href="/docs/agent/v3/cli-meta-data">meta-data</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
+      A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
       <em>Example:</em> <code>npm: "true"</code>
     </td>
   </tr>
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#glob-path-pattern">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a YAML list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
       <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
@@ -71,7 +71,7 @@ _Optional attributes:_
   <tr>
     <td><code>concurrency</code></td>
     <td>
-      The <a href="/docs/builds/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
+      The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
@@ -85,7 +85,7 @@ _Optional attributes:_
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/builds/environment-variables">environment variables</a> for this step.<br>
+      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step.<br>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
@@ -99,8 +99,17 @@ _Optional attributes:_
   <tr>
     <td><code>parallelism</code></td>
     <td>
-      The number of <a href="/docs/builds/parallelizing-builds#job-parallelism">parallel jobs</a> that will be created based on this step. <br>
+      The number of <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallel jobs</a> that will be created based on this step. <br>
       <em>Example:</em> <code>3</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>plugins</code></td>
+    <td>
+      A map of <a href="/docs/pipelines/plugins">plugins</a> for this step.<br>
+      <em>Example:</em><br>
+      <code>docker-compose#v1.0.0:<br>
+&nbsp;&nbsp;run: app</code>
     </td>
   </tr>
   <tr>
@@ -194,7 +203,7 @@ _Optional Attributes_
 
 <div class="Docs__note">
 <p class="Docs__note__heading">-1 Exit Status</p>
-<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behaviour in the <code>pipeline.yml</code> file.</p>
+<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behavior in the <code>pipeline.yml</code> file.</p>
 </div>
 
 ```yml

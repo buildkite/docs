@@ -2,7 +2,7 @@
 
 The Buildkite Agent’s `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YML or JSON and can be read from a file or streamed from the output of a script.
 
-See the [Defining Your Pipeline Steps](/docs/pipelines/uploading-pipelines) guide for a step-by-step example and list of step types.
+See the [Defining Your Pipeline Steps](/docs/pipelines/defining-steps) guide for a step-by-step example and list of step types.
 
 <%= toc %>
 
@@ -52,14 +52,14 @@ Options:
 
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are two top level properties you can specify:
 
-* `env` - A map of <a href="/docs/builds/environment-variables">environment variables</a> to apply to all steps
+* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 * `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
 
 ## Environment variable substitution
 
 The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
 
-For example, the following pipeline substitutes a number of [Buildkite’s default environment variables](/docs/builds/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
+For example, the following pipeline substitutes a number of [Buildkite’s default environment variables](/docs/pipelines/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
 
 ```yml
 - trigger: "app-deploy"
@@ -80,6 +80,10 @@ If you want an environment variable to be evaluated at run-time (for example, us
     SERVER: "server-a"
 ```
 
+### Insertion order
+
+Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
+
 ### Escaping the `$` character
 
 If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
@@ -92,7 +96,7 @@ You can disable interpolation with the `--no-interpolation` flag, which was adde
 
 ### Requiring environment variables
 
-You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print and error and exit with a status of 1.
+You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print an error and exit with a status of 1.
 
 For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
 

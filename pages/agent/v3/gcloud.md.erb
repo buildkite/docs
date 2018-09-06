@@ -20,7 +20,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 ## Running the agent on Google Container Engine
 
-[Google Container Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/builds/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket and binary as volumes. For example:
+[Google Container Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket and binary as volumes. For example:
 
 Start a Google Container Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add):
 
@@ -227,4 +227,22 @@ You can upload the [artifacts](/docs/builds/artifacts) created by your builds to
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"
 ```
 
-Make sure the agent has permission to create new objects. If running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
+Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts). You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`.
+
+If you are using any of the non-public [predefined Access Control Lists (ACLs)](https://cloud.google.com/storage/docs/access-control/lists#predefined-acl) to control permissions on your bucket, you won't have automatic access to your artifacts through the links in the Buildkite web interface. Artifacts will inherit the permissions of the bucket into which they're uploaded. You can set a specific ACL on an artifact:
+
+```shell
+export BUILDKITE_GS_ACL="publicRead"
+```
+
+If you need to be authenticated to view the objects in your bucket, you can use GCS's [cookie-based authentication](https://cloud.google.com/storage/docs/access-control/cookie-based-authentication):
+
+```shell
+export BUILDKITE_GCS_ACCESS_HOST="storage.cloud.google.com"
+```
+
+To use your own authenticating proxy for access control, set your proxy's domain as the access host:
+
+```shell
+export BUILDKITE_GCS_ACCESS_HOST="myproxyhost.com"
+```

@@ -1,6 +1,6 @@
 # Installing Buildkite Agent on Ubuntu
 
-The Buildkite Agent can be installed on on Ubuntu versions 12.04 and above using our signed apt repository.
+The Buildkite Agent can be installed on Ubuntu versions 14.04 and above using our signed apt repository.
 
 <%= toc %>
 
@@ -27,7 +27,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 You can run as many parallel agents on the one machine as you wish by duplicating the upstart service configuration file, for example:
 
 ```shell
-# For Ubuntu 15.04+ (using systemd)
+# For Ubuntu 15.04 and above (using systemd)
 
 # Disable the default unit
 sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
@@ -36,8 +36,8 @@ sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
 sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
 
 # Now, as many times as you like
-sudo systemctl enable buildkite-agent@1 && sudo systemctl start buildkite-agent@1
-sudo systemctl enable buildkite-agent@2 && sudo systemctl start buildkite-agent@2
+sudo systemctl enable --now buildkite-agent@1
+sudo systemctl enable --now buildkite-agent@2
 
 # Follow them all
 sudo journalctl -f -u "buildkite-agent@*"

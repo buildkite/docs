@@ -59,7 +59,7 @@ Options:
 
 ## Setting Tags
 
-Each agent has tags (in 2.x we called this metdata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
+Each agent has tags (in 2.x we called this metadata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
 
 To set an agent’s tags you can set it in the configuration file:
 
@@ -83,7 +83,7 @@ env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 
 Once you've started agents with tags you can target them in the build pipeline using agent query rules.
 
-Here's an example of targetting agents that are running with the tag `postgres` and value of `1.9.4`:
+Here's an example of targeting agents that are running with the tag `postgres` and value of `1.9.4`:
 
 <%= image 'agent-selector-matching-1.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
 
@@ -113,7 +113,7 @@ Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet s
 
 ## The Queue Tag
 
-The `queue` tag tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
 
 ## Sourcing Tags from Amazon Web Services
 

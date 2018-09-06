@@ -8,7 +8,7 @@ The Buildkite Agent has changed a lot in v3, but we've tried to keep it as backw
 
 Added:
 
-* [Plugins](/docs/agent/v3/plugins) for easily sharing functionality between pipelines and customizing how agents behave
+* [Plugins](/docs/pipelines/plugins) for easily sharing functionality between pipelines and customizing how agents behave
 * [Variable interpolation](cli-pipeline) in `pipeline.yml`
 * [Build annotations](cli-annotate)
 * [pre-exit hook](hooks#available-hooks)
@@ -22,7 +22,7 @@ Changed:
 
 Deprecated:
 
-* Built-in [Docker and Docker Compose support](/docs/builds/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+* Built-in [Docker and Docker Compose support](/docs/tutorials/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 ## Bootstrap customizations
 
@@ -89,7 +89,7 @@ See the [environment variable substitution](/docs/agent/v3/cli-pipeline#environm
 
 ## Checkout clean no longer ignores files in `.gitignore`
 
-Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behaviour.
+Older agents didn't remove files from your working directory that were ignored by git. The new default values for git clean are `-fxdq`. If you've previously overridden your `git-clean-flags` in your config, it might be a good chance to comment them out and use the standard behavior.
 
 ## Upgrading from a 2.0 agent
 

@@ -3,73 +3,75 @@
 
 Plugins provide a way to extend the functionality that Buildkite natively offers. They act as a external repository of [Hooks][hooks] that are referenced from your `pipeline.yml` file, downloaded and run as part of your builds.
 
-Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required.
+Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required. See [Plugin sources] for how you can host your own.
 
-Buildkite offers a [collection of useful plugins][Buildkite Plugins]
-to get you started, including a [Docker Compose plugin] and a [Junit Annotate plugin].
+Buildkite offers a [collection of useful plugins][Buildkite Plugins] to get you started, including a [Docker Compose plugin], [Junit Annotate plugin], and the [Library Example plugin].
 
 <%= toc %>
 
 ## Using a plugin
 
-Plugins are only available for [pipelines] using `pipeline.yml` files.
+Plugins can be configured on [command steps] in your `pipeline.yml` [pipeline definitions]. When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
 
-Plugins can be used in two ways:
-
-* as a standalone step, performing an operation
-* as a library, making commands available to that step's script
-
-An example of what a plugin might look like in your code:
+The simplest plugin is one that accepts no configuration, such as the [Detect Clowns plugin], which will return an error if any clown emojis are found in your source code:
 
 ```yml
 steps:
-  - plugins:
-      detect-clowns#v2.0.0: ~
+  - label: "\:clown_face\:"
+    plugins:
+      detect-clowns#v1.0.0: ~
 ```
 
-This example will install the `buildkite-plugins/detect-clowns-buildkite-plugin` when your pipeline runs this build step.
+More commonly, plugins accept various configuration options, as the [Docker plugin] which can be configured to use a Docker image to run your command:
 
-Plugins are automatically fetched from where they are hosted, based on the name of the project. See [Plugin sources] for how you can host your own.
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      docker#v1.0.0:
+        image: node
+        workdir: /app
+```
 
-A real-life example is the [Docker Compose plugin]. It provides an integration
-with docker-compose that assists with running your builds within a docker environment:
+More advanced plugins, such as [Docker Compose plugin], are designed to be used multiple times in a pipeline:
 
 ```yml
 steps:
   # Prebuild the app image, upload it to a registry for later steps
-  - name: "Docker Build"
+  - label: "\:docker\: Build"
     plugins:
-      docker-compose#v1.3.2:
+      docker-compose#v1.0.0:
         build: app
         image-repository: index.docker.io/org/repo
 
   - wait
 
   # Use the app image built above to run concurrent tests
-  - name: "Docker Test %n"
+  - label: "\:docker\: Test %n"
     command: test.sh
     parallelism: 25
     plugins:
-      docker-compose#v1.3.2:
+      docker-compose#v1.0.0:
         run: app
 ```
 
+You can see the [full list of available Buildkite Plugins](https://github.com/search?utf8=✓&q=topic%3Abuildkite-plugin&type=) on GitHub.
+
 ## Plugin sources
 
-If you refer to a plugin just by name (say `detect-clowns`), it defaults to
-https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin. If you used `myorg/detect-clowns` it would refer to https://github.com/myorg/detect-clowns-buildkite-plugin.
+If you refer to a plugin just by name, it defaults to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin name of `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
 
-You can also use fully qualified Git URLs like:
+To refer to a plugin in your own GitHub organization, prefix the name with the organization. For example, a plugin name of `my-org/docker` would resolve to `https://github.com/my-org/docker-buildkite-plugin`.
+
+You can also use fully qualified Git URLs instead of names, to refer to plugins that aren’t on GitHub, or live in private Git repositories only accessible to your agents. For example:
 
  * `https://github.com/my-org/my-plugin.git#v1.0.0`
  * `ssh://git@github.com/my-org/my-plugin.git#v1.0.0`
  * `file:///a-local-path/my-plugin.git#v1.0.0`
 
-This syntax lets you refer to your own private Git repositories for plugin
-locations. Branches, tags and commits are all valid after the `#`.
+Branches, tags and commits are all valid after the `#`.
 
-We recommend that plugins be pinned to a specific version to prevent behaviour
-changing unexpectedly. This is done with a git tag of `vX.X.X`.
+We recommend always specifying a plugin version tag (e.g. `v1.2.3`) to prevent behavior changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
 
 ## Developing a plugin
 
@@ -90,7 +92,7 @@ steps:
         workdir: /app
 ```
 
-In its root directory the plugin has a `plugin.yml` that describes what it does, the executables required on the agent machine, and a [schema](#plugin-tools) of the plugin’s configuration options:
+In its root directory the plugin has a `plugin.yml` that describes what it does, the executables required on the agent machine, and a schema of the plugin’s configuration options:
 
 ```yml
 name: Docker
@@ -146,9 +148,7 @@ Plugins introduce a third-party dependency in your pipeline. They provide a way 
 Recommended security practices:
 
  * Always pin to a particular version of the plugin, e.g. `docker-compose#287293c4`. You can refer to any git ref. The agent will check this out the first time it encounters it and then re-use that checked out code.
-
  * Follow the [Unofficial Bash Strict Mode] and check your work with [shellcheck].
-
  * Apply special care to avoid executing arbitrary code passed in to plugins by config. As these are just environment variables, anything that can set environment variables can mess with plugin configuration.
 
 For particularly high-security setups, you can disable plugins selectively by removing them from the `BUILDKITE_PLUGINS` variable in your `environment` hook, or run agents with the `--no-plugins` flag.
@@ -157,18 +157,23 @@ For particularly high-security setups, you can disable plugins selectively by re
 
 Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
 
-[pipelines]: /docs/pipelines/defining-steps
+[pipeline definitions]: /docs/pipelines/defining-steps
+[command steps]: /docs/pipelines/command-step
 [hooks]: /docs/agent/v3/hooks
-[standard environment variables]: /docs/builds/environment-variables#provided-by-buildkite
+[standard environment variables]: /docs/pipelines/environment-variables#provided-by-buildkite
 [Unofficial Bash Strict Mode]: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 [shellcheck]: https://github.com/koalaman/shellcheck
 [docker plugin]: https://github.com/buildkite-plugins/docker-buildkite-plugin
+[buildkite-agent meta-data]: /docs/agent/cli-meta-data
+[Docker Compose]: https://docs.docker.com/compose/
+[Detect Clowns plugin]: https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin
 [Docker Compose plugin]: https://github.com/buildkite-plugins/docker-compose-buildkite-plugin
 [Junit Annotate plugin]: https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin
+[Library Example plugin]: https://github.com/buildkite-plugins/library-example-buildkite-plugin
 [Buildkite Plugins]: https://github.com/buildkite-plugins
 [third party plugins]: https://github.com/search?q=topic%3Abuildkite-plugin&type=Repositories
 [plugin tester]: https://github.com/buildkite-plugins/plugin-tester
-[Plugin sources]: /docs/agent/v3/plugins#plugin-sources
+[Plugin sources]: /docs/pipelines/plugins#plugin-sources
 [JSON Schema]: http://json-schema.org
 [JSON Schema Lint]: https://jsonschemalint.com/
 [Plugin Linter]: https://github.com/buildkite-plugins/buildkite-plugin-linter
