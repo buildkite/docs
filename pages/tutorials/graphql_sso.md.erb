@@ -10,7 +10,7 @@ Follow the steps below to enable SSO for your organization. You will also need t
 
 - you need the service URL from Buildkite before you can finish setting up things in your identity provider
 
-- overview: set up a blank SSO provider in Buildkite, do the set up in your SSO provider, come back and update your blank Buildkite SSO to contain the details of your provider
+- overview: set up a SSO provider in Buildkite, do the set up in your SSO provider, come back and update your Buildkite SSO provider to contain the details of your provider
 - the set up on the Buildkite side is done via a series of graphql operations
 
 This guide is not intended as an API reference, and so won't cover every available option. If you haven't used our graphql explorer, check out our [API guide](/docs/graphql-api#getting-started). Full API documentation is available in the graphql explorer.
@@ -21,14 +21,14 @@ To begin setting up your organization with SSO, you need your Buildkite Organiza
 
 ### Part 2 of 5: Create your Identity Provider
 
-Use the provider create mutation to create a blank identity provider in your Buildkite organization.
+Use the provider create mutation to create an identity provider in your Buildkite organization.
 
-After you set up Buildkite in your identity provider, you will come back and fill add the provider details to using the provider update mutation. 
+After you set up Buildkite in your identity provider, you will come back and add the provider details to using the provider update mutation. 
 
-The following example code creates a blank SAML provider:
+The following example code creates a SAML provider:
 
 ```graphql
-mutation MakeBlankProvider {
+mutation CreateProvider {
   ssoProviderCreate(input:{
     organizationId:"<paste your organization id here>",
     type:SAML
@@ -67,18 +67,14 @@ You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and 
     <pre>
     mutation CreateGoogleProvider {
       ssoProviderCreate(input:{
-        organizationId:"<paste your organization id here>",
+        organizationId:"&lt;paste your organization id here&gt;",
         type:GOOGLE_OAUTH,
         googleHostedDomain:"coffee.com",
-        discloseGoogleHostedDomain: false
+        discloseGoogleHostedDomain: true
       }) {
         ssoProvider {
           id
           url
-          ...on SSOProviderGoogleOAuth {
-            googleHostedDomain
-            discloseGoogleHostedDomain
-          }
         }
       }
     }</pre>
@@ -97,16 +93,13 @@ You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and 
     <pre>
       mutation CreateGitHubProvider {
         ssoProviderCreate(input:{
-          organizationId:"<paste your organization id here>",
+          organizationId:"&lt;paste your organization id here&gt;",
           type:GITHUB_OAUTH,
           githubOrganizationName:"buildkite"
         }) {
           ssoProvider {
             id
             url
-            ...on SSOProviderGithubOAuth {
-              githubOrganizationName
-            }
           }
         }
       }</pre>
@@ -119,31 +112,7 @@ You can choose from three different provider types: `SAML`, `GOOGLE_OAUTH`, and 
   <p>If you've already set up your identity provider, see [the examples below](#create-a-saml-provider-with-data) for code to create your identity provider with data</p>
 </details>
 
-### Part 3 of 5: Test the login flow
-
-Test the login flow with your new SSO provider. Ensure that a user can successfully complete the new authentication and gain access to your Buildkite organization before continuing. The next step, enabling your provider, will return an error if a successful test has not occurred.
-
-### Part 4 of 5: Enable the provider for your organization
-
-After testing that the new authorization URL works and can log in a user with the correct email domain, you can enable the SSO provider for your Buildkite organization.
-
-Use the provider enable mutation with your provider id:
-
-```graphql
-mutation EnableProvider {
-  ssoProviderEnable(
-    input:{
-      id:"<paste your provider id here>"
-    }
-  ) {
-    ssoProvider {
-      state
-    }
-  }
-}
-```
-
-### Part 5 of 5: Update your provider data
+### Part 3 of 5: Update your provider data
 
 Now that you have set up the Buildkite integration in your identity provider, we need to add the identity provider's information to your Buildkite organization. 
 
@@ -176,7 +145,33 @@ mutation UpdateProvider {
 }
 ```
 
-The provider update mutation can also be used to update your provider data if it changes. Updates cannot be completed while a provider is enabled; to make changes to your provider, you will need to disable it, make your changes, then re-test and re-enable the provider.
+The provider update mutation can also be used to update your provider data if it changes.
+
+### Part 4 of 5: Test the login flow
+
+Test the login flow with your new SSO provider. Ensure that a user can successfully complete the new authentication and gain access to your Buildkite organization before continuing. The next step, enabling your provider, will return an error if a successful test has not occurred.
+
+### Part 5 of 5: Enable the provider for your organization
+
+After testing that the new authorization URL works and can log in a user with the correct email domain, you can enable the SSO provider for your Buildkite organization.
+
+Use the provider enable mutation with your provider id:
+
+```graphql
+mutation EnableProvider {
+  ssoProviderEnable(
+    input:{
+      id:"<paste your provider id here>"
+    }
+  ) {
+    ssoProvider {
+      state
+    }
+  }
+}
+```
+
+Updates cannot be completed while a provider is enabled; to make changes to your provider, you will need to disable it, make your changes, then re-test and re-enable the provider.
 
 ## Advanced configuration
 
@@ -197,7 +192,7 @@ In the following example an existing identity provider is specified in the `id` 
 mutation UpdateProvider {
   ssoProviderUpdate(input:{
     id:"<paste your provider id here>",
-    note: "\:ruby\: Ruby team, please sign in here"
+    note: "\:ruby\: Ruby team, please sign in here",
     sessionDurationInHours: 72
   }) 
 }
