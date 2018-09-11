@@ -33,13 +33,13 @@ mutation CreateProvider {
     ssoProvider {
       id
       state
-      ssoURL
+      url
     }
   }
 }
 ```
 
-The second step is to perform a test login by visiting the `ssoURL` returned from the create mutation.
+The second step is to perform a test login by visiting the `url` returned from the create mutation.
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
 
@@ -52,7 +52,7 @@ mutation EnableProvider {
   ) {
     ssoProvider {
       state
-      ssoURL
+      url
     }
   }
 }
@@ -76,13 +76,13 @@ mutation CreateProvider {
     ssoProvider {
       id
       state
-      ssoURL
+      url
     }
   }
 }
 ```
 
-The second step is to perform a test login by visiting the `ssoURL` returned from the create mutation.
+The second step is to perform a test login by visiting the `url` returned from the create mutation.
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
 
@@ -95,7 +95,7 @@ mutation EnableProvider {
   ) {
     ssoProvider {
       state
-      ssoURL
+      url
     }
   }
 }
@@ -107,7 +107,7 @@ See the `SSOProviderUpdatePayload` documentation for other properties that can b
 
 ## Setting up SAML (Okta, OneLogin, ADFS and others)
 
-The first step in setting up a SAML-based provider is to use the `ssoProviderCreate` mutation to create a new provider in Buildkite and retrieve the details you'll need for your SSO provider’s system.
+The first step in setting up a SAML-based provider is to use the `ssoProviderCreate` mutation to create a new provider in Buildkite and retrieve the details you’ll need for your SSO provider’s system.
 
 ```graphql
 mutation CreateProvider {
@@ -117,7 +117,7 @@ mutation CreateProvider {
   }) {
     ssoProvider {
       state
-      ...on SSOProviderSAML {
+      ... on SSOProviderSAML {
         serviceProvider {
           issuer
           ssoURL
@@ -147,7 +147,7 @@ mutation UpdateProviderMetaData {
   }) {
     ssoProvider {
       state
-      ssoURL
+      url
     }
   }
 }
@@ -155,7 +155,7 @@ mutation UpdateProviderMetaData {
 
 The final step before enabling the SSO provider in Buildkite, is to perform a test login.
 
-Perform a test login via your SSO provider, or using the `ssoURL` returned from the update mutation.
+Perform a test login via your SSO provider, or using the `url` returned from the update mutation.
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
 
@@ -168,7 +168,7 @@ mutation EnableProvider {
   ) {
     ssoProvider {
       state
-      ssoURL
+      url
     }
   }
 }
@@ -177,3 +177,74 @@ mutation EnableProvider {
 You should now see that the provider’s state is enabled.
 
 See the `SSOProviderUpdatePayload` documentation for other properties that can be configured on your SSO provider, such as `sessionDurationInHours` and `note`.
+
+## Finding an SSO provider’s details
+
+If you need to find the id of a particular SSO provider, you can query the `ssoProviders` field of your organization:
+
+```graphql
+query FindProviders {
+  organization(slug: "<organization id>") {
+    ssoProviders(first: 100) {
+      edges {
+        node {
+          id
+          type
+          state
+          createdAt
+          enabledAt
+          url
+        }
+      }
+    }
+  }
+}
+```
+
+Some provider types have additional fields which you can query using GraphQL’s [Inline Fragment](https://graphql.org/learn/queries/#inline-fragments) syntax, for example:
+
+```graphql
+query FindProviders {
+  organization(slug: "<organization id>") {
+    ssoProviders(first: 100) {
+      edges {
+        node {
+          id
+          url
+          ... on SSOProviderSAML {
+            identityProvider {
+              issuer
+              certificate
+              ssoURL
+              metadata {
+                xml
+                url
+              }
+            }
+          }
+          ... on SSOProviderGoogleOAuth {
+            googleHostedDomain
+            discloseGoogleHostedDomain
+          }
+          ... on SSOProviderGitHubOAuth {
+            githubOrganizationName
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Disabling an SSO provider
+
+If you need to disable an SSO provider, you can do so using the `ssoProviderDisable mutation.
+
+```graphql
+mutation DisableProvider {
+  ssoProviderDisable(input:{
+    id: "<provider id>",
+    disabledReason: "<explanation as to why you’re disabling this provider>"
+  })
+}
+```
