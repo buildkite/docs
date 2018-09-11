@@ -25,6 +25,26 @@ The email address with your team's domain name must be a verified email in your 
 
 Organizations admins will no longer need to 'invite' users to join their organization, any Buildkite user with an authorised email address will be be to use their identity provider to gain access to the organization's content. 
 
+## How do I enable SSO for my organization?
+
+- email support, or use graphql
+
+- there's a bit of back and forth involved in setting up sso
+- setup happens on both sides, Buildkite and your identity provider
+- need to get your issuer url from Buildkite, complete your identity provider setup, then complete the sso setup with Buildkite
+
+### Setting up your identity provider
+
+- there are guides available for setting up Buildkite as an application in your identity provider: google, okta, onelogin, ad fs, and a general saml guide for custom identity providers
+
+### Setting up SSO in Buildkite
+
+- can email support@bk and we'll send you your issuer url
+- once you've set up your id provider, you send us the rest of the info and we complete your setup
+
+- otherwise, you can complete the Buildkite side yourself using the GraphQL explorer
+- check out our guide on completing this process
+
 ## Frequently Asked Questions
 
 ### Can some people in the organization use SSO and others not?
