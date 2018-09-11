@@ -30,23 +30,22 @@ Organizations admins will no longer need to 'invite' users to join their organiz
 - email support, or use graphql
 - setting up an OAuth provider is a shorter process, but allows less customization and control than setting up a comparitively more complex SAML provider 
 
-### Setting up Google G Suite and Github
+### Using Google G Suite or Github
 
 - these providers use OAuth rather than SAML, so there are less setup steps
 - see the Google setup guide for a list of the information you'll need to give Buildkite to get set up
 - can set up OAuth providers with GraphQL, see this guide
 
-### Setting up Okta, OneLogin, AD FS, or custom SAML Provider
+### Using Okta, OneLogin, AD FS, or a custom SAML Provider
 
 - there's a bit of back and forth involved in setting up sso with SAML providers
 - setup happens on both sides, Buildkite and your identity provider
 - need to get your issuer url from Buildkite, complete your identity provider setup
 - once you've set up your id provider, you send us the rest of the info and we complete your setup
 
-There are guides available for setting up Buildkite with the following SAML identity providers: Okta, OneLogin, AD FS, and a general guide for custom identity providers
+There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/tutorials/okta), [OneLogin](/docs/tutorials/onelogin), [AD FS](/docs/tutorials/adfs), and a general guide for [custom identity providers](/docs/tutorials/custom-saml).
 
-- if you'd prefer a self-service setup, you can complete the Buildkite side yourself using the GraphQL explorer
-- check out our guide on completing this process
+If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/tutorials/graphql-sso).
 
 ## Frequently Asked Questions
 
