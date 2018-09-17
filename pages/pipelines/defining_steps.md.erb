@@ -163,6 +163,41 @@ Your steps should then look something like this:
 
 <%= image "pipeline-upload-migrate-existing-steps.png", width: 998/2, height: 940/2, alt: "Screenshot of the above described pipeline upload command, before some existing steps" %>
 
+## Deploy pipeline
+
+You can handle deploys by using two separate pipelines, one for building and one for deploying. This gives you a separate status for building and for deploying:
+
+<%= image "build-and-deploy-pipeline.png", width: 998/2, height: 555/2, alt: "Screenshot of build and deploy pipelines" %>
+
+Use a [trigger step](/docs/pipelines/trigger-step) here to fire off a build on the Deploy pipeline when the code has finished building. If it's marked as “async,” the build will exit without waiting for the deploy to finish, and without considering the success or failure of the triggered step as part of its own success or failure.
+
+```
+- wait
+
+- trigger: "buildkite-deploy"
+  label: "shipit"
+  branches: "master"
+  async: true
+  build:
+    message: "${BUILDKTIE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+
+```
+
+If you don't deploy whenever a main branch is green, keep a block step immediately before the deploy trigger, or make a trigger step the first step of a deployment build.
+
+Give the deploy pipeline its own separate pipeline.yml, which just contains a single step to fire the code off to production:
+
+```
+steps: 
+  - name: "shipit"
+    command: ".buildkte/steps/deploy"
+    branches: "master"
+```
+
+Finally, as far as block steps are concerned, consider “blocked” to be a successful state! Things have worked, and it’s up to the user to continue work.
+
 ## Further documentation
 
 You can also create pipelines using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of the available parameters.
