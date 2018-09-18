@@ -32,18 +32,15 @@ Organizations admins will no longer need to 'invite' users to join their organiz
 
 ### Using Google G Suite or Github
 
-- these providers use OAuth rather than SAML, so there are less setup steps
-- see the Google setup guide for a list of the information you'll need to give Buildkite to get set up
-- can set up OAuth providers with GraphQL, see this guide
+Google and Github both use OAuth rather than SAML. See the Google setup guide for a list of the information you'll need to give Buildkite to get started.
+
+You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/docs/tutorials/graphql-sso) for steps and code samples.
 
 ### Using Okta, OneLogin, AD FS, or a custom SAML Provider
 
-- there's a bit of back and forth involved in setting up sso with SAML providers
-- setup happens on both sides, Buildkite and your identity provider
-- need to get your issuer url from Buildkite, complete your identity provider setup
-- once you've set up your id provider, you send us the rest of the info and we complete your setup
-
 There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/tutorials/okta), [OneLogin](/docs/tutorials/onelogin), [AD FS](/docs/tutorials/adfs), and a general guide for [custom identity providers](/docs/tutorials/custom-saml).
+
+When setting up SSO with a SAML provider, setup happens on two sides: Buildkite and your identity provider. Before you can complete your identity provider's setup, you'll need to get your 'Issuer URL' from Buildkite. Using this URL, you can set up Buildkite as an application in your identity provider. Next you'll send your identity provider's information to Buildkite, and our team will complete your SSO setup.
 
 If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/tutorials/graphql-sso).
 
