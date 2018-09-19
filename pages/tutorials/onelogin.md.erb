@@ -1,10 +1,10 @@
 # SSO with OneLogin
 
-OneLogin can be used to authorize access to your Buildkite organisation.
+OneLogin can be used to authorize access to your Buildkite organization.
 
 ## Setting up SSO
 
-Setting up SSO with OneLogin requires organisation administrator privileges in both OneLogin and Buildkite. OneLogin provides support for 'groups', which can be set up inside your OneLogin account.
+Setting up SSO with OneLogin requires organization administrator privileges in both OneLogin and Buildkite. OneLogin provides support for 'groups', which can be set up inside your OneLogin account.
 
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
 
@@ -15,11 +15,11 @@ Before starting your OneLogin setup:
 Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this when setting up your OneLogin App.
 
 OneLogin App setup:
-1. In the 'Apps' tab of your OneLogin organisation's Admin area, select the 'Add App' button to search the OneLogin directory
+1. In the 'Apps' tab of your OneLogin organization's Admin area, select the 'Add App' button to search the OneLogin directory
 1. Search for 'Buildkite'
 1. Add the Buildkite app to your OneLogin account
 2. Click on the 'Configuration' tab of your new Buildkite application
-3. Enter your Buildkite Organisation slug
+3. Enter your Buildkite organization slug
 4. Click the 'Save' button in the top right to save your configuration
 1. Email support@buildkite.com with the following SSO and OneLogin information:
 
@@ -31,9 +31,9 @@ OneLogin App setup:
         </td>
     </tr>
     <tr>
-        <td>Organisation slug</td>
+        <td>organization slug</td>
         <td>
-          The Buildkite organisation for which you want to enable SSO.  
+          The Buildkite organization for which you want to enable SSO.  
         </td>
     </tr>
     <tr>
@@ -71,6 +71,6 @@ OneLogin App setup:
 
 When we receive your email, the Buildkite team will:
 
-1. Enable SSO for the specified organisation
+1. Enable SSO for the specified organization
 1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organisation, so that everyone will authorize via OneLogin next time they attempt to access that organisation on Buildkite.com
+1. Deauthorize all the users in the organization, so that everyone will authorize via OneLogin next time they attempt to access that organization on Buildkite.com
