@@ -23,7 +23,7 @@ OneLogin App setup:
 3. Enter your Buildkite organization slug
 4. Click the 'Save' button in the top right to save your configuration
 
-Email support@buildkite.com with the following SSO and OneLogin information:
+Email support@buildkite.com with the following 5 fields:
 
 <table>
     <tr>
@@ -38,35 +38,27 @@ Email support@buildkite.com with the following SSO and OneLogin information:
           The Buildkite organization for which you want to enable SSO.  
         </td>
     </tr>
+</table>
+
+The following three fields can be found in the 'SSO' tab on the Buildkite app page in OneLogin: 
+
+<table>
     <tr>
         <td>SAML 2.0 Endpoint (HTTP)</td>
         <td>
-            <ol>
-                <li>In the 'Company Apps' page of OneLogin, click on the Buildkite app</li>
-                <li>Click on the 'SSO' tab at the top of the page</li>
-                <li>Copy the URL labeled `SAML 2.0 Endpoint (HTTP)`</li>
-                <li>Paste this URL into your email to Buildkite</li>
-            </ol>
+            The URL where you can log in to OneLogin's SAML service.
         </td>
     </tr>
     <tr>
         <td>Issuer URL</td>
         <td>
-            <ol>
-                <li>Also on the SSO tab of the OneLogin Buildkite app, copy the URL labeled `Issuer URL`</li>
-                <li>Paste this URL into your email to Buildkite</li>
-            </ol>
+            The URL that identifies your OneLogin service. 
         </td>
     </tr>
     <tr>
         <td>X.509 certificate</td>
         <td>
-            <ol>
-                <li>Also on the SSO tab of the OneLogin Buildkite app, click the 'View Details' link under the 'X.509 certificate'</li>
-                <li>Under the section 'X.509 Certificate', select 'X.509 PEM' from the dropdown list of file types</li>
-                <li>Click the 'Download' button</li>
-                <li>Attach the downloaded certificate to your email to Buildkite</li>
-            </ol>
+            The public key certificate generated for you by OneLogin. You'll need the whole file, not just a link to the file. 
         </td>
     </tr>
 </table>
