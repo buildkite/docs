@@ -57,7 +57,7 @@ steps:
 
 You can see the [full list of available Buildkite Plugins](https://github.com/search?utf8=✓&q=topic%3Abuildkite-plugin&type=) on GitHub.
 
-## Plugin Ordering
+## Plugin ordering
 
 When using the array syntax, the hooks within each plugin will be executed in the order they're referenced. For example:
 
@@ -71,7 +71,7 @@ steps:
 
 The `environment` hook with `detect-clowns` will be run first, followed by the `environment` hook in `detect-llamas` -- and so on for the remaining plugin hooks.
 
-It's recommended to use the array syntax where plugin ordering is important.
+Version `3.5.0` of the Buildkite agent added support for preserving plugin order when using the map syntax. It's recommended to use the array syntax where plugin ordering is important, as explicitly orders the plugins -- which may be easier to read.
 
 ## Plugin sources
 
