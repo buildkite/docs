@@ -57,6 +57,22 @@ steps:
 
 You can see the [full list of available Buildkite Plugins](https://github.com/search?utf8=✓&q=topic%3Abuildkite-plugin&type=) on GitHub.
 
+## Plugin Ordering
+
+When using the array syntax, the hooks within each plugin will be executed in the order they're referenced. For example:
+
+```
+steps:
+  - label: "\:clown_face\:"
+    plugins:
+      - detect-clowns#v1.0.0: ~
+      - detect-llamas#v1.0.0: ~
+```
+
+The `environment` hook with `detect-clowns` will be run first, followed by the `environment` hook in `detect-llamas` -- and so on for the remaining plugin hooks.
+
+It's recommended to use the array syntax where plugin ordering is important.
+
 ## Plugin sources
 
 If you refer to a plugin just by name, it defaults to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin name of `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
