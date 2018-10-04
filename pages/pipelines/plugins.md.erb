@@ -59,19 +59,57 @@ You can see the [full list of available Buildkite Plugins](https://github.com/se
 
 ## Plugin ordering
 
-When using the array syntax, the hooks within each plugin will be executed in the order they're referenced. For example:
+Plugins will be run in the same order they were defined in the `pipeline.yml`. For example, the following pipeline step runs the `docker-login` plugin before the `docker-compose` plugin:
 
-```
+ ```yaml
 steps:
-  - label: "\:clown_face\:"
+  - name: "\:docker\: Push"
     plugins:
-      - detect-clowns#v1.0.0: ~
-      - detect-llamas#v1.0.0: ~
-```
+      docker-login#v1.0.0:
+        username: xyz
+      docker-compose#v1.0.0:
+        push: app
+ ```
 
-The `environment` hook with `detect-clowns` will be run first, followed by the `environment` hook in `detect-llamas` -- and so on for the remaining plugin hooks.
+### Plugin List/Array Syntax
 
-Version `3.5.0` of the Buildkite agent added support for preserving plugin order when using the map syntax. It's recommended to use the array syntax where plugin ordering is important, as explicitly orders the plugins -- which may be easier to read.
+If you’re using the JSON pipeline format, or running a Buildkite Agent before v3.5.0, you should specify your plugins as a list/array to ensure the correct order of execution.
+
+For example, the following is the equivalent pipeline specified using a YAML list:
+
+```yaml
+steps:
+  - name: "\:docker\: Push"
+    plugins:
+      - docker-login#v1.0.0:
+          username: xyz
+      - docker-compose#v1.0.0:
+          push: app
+ ```
+
+And the following example shows how to define plugins in the JSON pipeline format:
+
+ ```json
+{
+  "steps": [
+    {
+      "name": "\:docker\: Push",
+      "plugins": [
+        {
+          "docker-login#v1.0.0": {
+            "username": "xyz"
+          }
+        },
+        {
+          "docker-compose#v1.0.0": {
+            "push": "app"
+          }
+        }
+      ]
+    }
+  ]
+}
+ ```
 
 ## Plugin sources
 
