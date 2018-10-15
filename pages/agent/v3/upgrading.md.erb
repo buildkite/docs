@@ -53,8 +53,8 @@ steps:
   - label: ':hammer: Tests'
     command: 'scripts/tests.sh'
     plugins:
-      docker-compose#v1.8.4:
-        run: app
+      - docker-compose#v1.8.4:
+          run: app
 ```
 
 ### Steps using `BUILDKITE_DOCKER`
@@ -76,9 +76,9 @@ steps:
   - label: ':hammer: Tests'
     command: 'scripts/tests.sh'
     plugins:
-      docker#v1.1.1:
-        image: "node:7"
-        workdir: /app
+      - docker#v1.1.1:
+          image: "node:7"
+          workdir: /app
 ```
 
 ## Environment variables in your pipeline.yml
