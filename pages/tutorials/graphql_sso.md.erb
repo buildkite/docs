@@ -22,6 +22,8 @@ query OrganizationId {
 
 ## Setting up G Suite
 
+### Step 1
+
 The first step in setting up a G Suite SSO provider is to use the `ssoProviderCreate` mutation to create a new provider in your Buildkite organization:
 
 ```graphql
@@ -43,7 +45,11 @@ mutation CreateProvider {
 }
 ```
 
+### Step 2
+
 The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login via G Suite.
+
+### Step 3
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your G Suite provider before they can access your organization on Buildkite.
 
@@ -70,6 +76,8 @@ You should now see that the provider’s state is enabled.
 
 ## Setting up GitHub
 
+### Step 1
+
 The first step in setting up a GitHub SSO provider is to use the `ssoProviderCreate` mutation.
 
 ```graphql
@@ -90,7 +98,11 @@ mutation CreateProvider {
 }
 ```
 
-The second step is to perform a test login by visiting the `url` returned from the create mutation.
+### Step 2
+
+The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login via GitHub.
+
+### Step 3
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
 
@@ -116,6 +128,8 @@ You should now see that the provider’s state is enabled.
 </section>
 
 ## Setting up SAML (Okta, OneLogin, ADFS and others)
+
+### Step 1
 
 The first step in setting up a SAML-based provider is to use the `ssoProviderCreate` mutation to create a new provider in Buildkite and retrieve the details you’ll need for your SSO provider’s system.
 
@@ -143,7 +157,11 @@ mutation CreateProvider {
 }
 ```
 
+### Step 2
+
 The next step is to log into your SSO provider’s system and setup Buildkite using the `issuer`, `ssoURL` and `metadata` returned above. Once setup, your SSO provider should provide a metadata URL that you can give to Buildkite.
+
+### Step 3
 
 Using the metadata URL returned from your SSO provider, run the `ssoProviderUpdate` mutation to have Buildkite automatically retrieve the details and set it up, ready for a test login. This will not yet affect any of your Buildkite users.
 
@@ -165,9 +183,9 @@ mutation UpdateProviderMetaData {
 }
 ```
 
-The final step before enabling the SSO provider in Buildkite, is to perform a test login.
+### Step 4
 
-Perform a test login via your SSO provider, or using the `url` returned from the update mutation.
+The final step before enabling the SSO provider in Buildkite, is to perform a test login. Perform a test login via your SSO provider, or using the `url` returned from the update mutation.
 
 Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
 
