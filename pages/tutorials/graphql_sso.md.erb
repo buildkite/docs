@@ -74,59 +74,6 @@ You should now see that the provider’s state is enabled.
   <p>See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.</p>
 </section>
 
-## Setting up GitHub
-
-### Step 1
-
-The first step in setting up a GitHub SSO provider is to use the `ssoProviderCreate` mutation.
-
-```graphql
-mutation CreateProvider {
-  ssoProviderCreate(input: {
-    organizationId: "<organization id>",
-    type: GITHUB_OAUTH,
-    githubOrganizationName: "my-org",
-    emailDomain: "myorg.com",
-    emailDomainVerificationAddress: "admin@myorg.com"
-  }) {
-    ssoProvider {
-      id
-      state
-      url
-    }
-  }
-}
-```
-
-### Step 2
-
-The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login via GitHub.
-
-### Step 3
-
-Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
-
-```graphql
-mutation EnableProvider {
-  ssoProviderEnable(
-    input: {
-      id: "<provider id>"
-    }
-  ) {
-    ssoProvider {
-      state
-      url
-    }
-  }
-}
-```
-
-You should now see that the provider’s state is enabled.
-
-<section class="Docs__troubleshooting-note">
-  <p>See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.</p>
-</section>
-
 ## Setting up SAML (Okta, OneLogin, ADFS and others)
 
 ### Step 1
