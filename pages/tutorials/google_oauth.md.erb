@@ -1,6 +1,6 @@
 # OAuth with Google G Suite
 
-Google's G Suite (previously Google Apps) can be used to authorize access to your Buildkite organisation. G Suite doesn't proivide group management, as it uses OAuth rather than SAML to perform the authorization.
+Google's G Suite (previously Google Apps) can be used to authorize access to your Buildkite organization.
 
 ## Setting up OAuth
 
@@ -9,9 +9,10 @@ Setting up G Suite to log in to Buildkite is a short process, requiring an email
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso).  
 
 ### Email the Buildkite team
-1. Send an email to support@buildkite.com with the following information:
 
-    <table>
+Send an email to support@buildkite.com with the following information:
+
+<table>
     <tbody>
         <tr>
             <td>Domain name</td>
@@ -20,24 +21,25 @@ Self-service SSO provisioning in Buildkite is available via our GraphQL explorer
             </td>
         </tr>
         <tr>
-            <td>Organisation slug</td>
+            <td>Organization slug</td>
             <td>
-              The Buildkite organisation for which you want to enable OAuth.  
+              The Buildkite organization for which you want to enable OAuth.  
             </td>
         </tr>
         <tr>
-            <td>Disclose hosted domain during SSO?</td>
+            <td>Disclose domain name?</td>
             <td>
-                Whether or not you'd like your users to see your domain name during the SSO process. 
+                A boolean describing whether or not you'd like your users to be shown the domain name they need to use for SSO. If set to false, users will only be shown the organization name.<br>
+                <em>Default:</em> <code>true</code>
             </td>
         </tr>
     </tbody>
-    </table>
+</table>
 
-1. Ensure all members of the specified organisation have an email address with that domain verified in their Buildkite account
+Ensure all members of the specified organization have an email address with that domain verified in their Buildkite account.
 
 When we receive your email, the Buildkite team will:
 
-1. Enable OAuth for the specified organisation
+1. Enable OAuth for the specified organization
 1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organisation, so that everyone will authorize via Google next time they attempt to access that organisation on Buildkite.com
+1. Deauthorize all the users in the organization, so that everyone will authorize via Google next time they attempt to access that organization on Buildkite.com

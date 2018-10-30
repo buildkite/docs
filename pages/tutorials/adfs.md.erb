@@ -1,15 +1,17 @@
 # SAML with Active Directory Federation Services (AD FS)
 
-AD FS can be used as single sign-on to log in to your Buildkite organisation.
+AD FS can be used as single sign-on to log in to your Buildkite organization.
 
-Setting up AD FS requires organisation administrator privileges on your AD FS server and in Buildkite. You'll also need to know the slug of the Buildkite organisation for which you'd like to enable SSO.
+Setting up AD FS requires organization administrator privileges on your AD FS server and in Buildkite. You'll also need to know the slug of the Buildkite organization for which you'd like to enable SSO.
 
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
 
 ## Setup in the AD FS management console
 
-Before starting your AD FS setup:
-Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your AD FS relying party trust.
+<div class="Docs__note">
+<p class="Docs__note__heading">Before starting your AD FS setup</p>
+<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your AD FS relying party trust..</p>
+</div>
 
 The instructions below will guide you through using a series of wizards to:
 
@@ -56,7 +58,7 @@ In the `Actions` sidebar, you should now have a subheading `Buildkite`.
 
 From the `Buildkite` section of the `Actions` sidebar, click `Edit claim issuance policy...`
 
-Here we're going to add three rules. For each rule, on the Issuance transform rules tab: click `add rule`
+Here we're going to add three rules. Add each rule using the `Add Rule` button on the Issuance transform rules tab:
 
 Rule 1
 
@@ -134,9 +136,9 @@ Email support@buildkite.com with the following SSO and AD FS information:
         </td>
     </tr>
     <tr>
-        <td>Organisation slug</td>
+        <td>organization slug</td>
         <td>
-          The Buildkite organisation for which you want to enable SSO.  
+          The Buildkite organization for which you want to enable SSO.  
         </td>
     </tr>
     <tr>
@@ -161,6 +163,6 @@ Email support@buildkite.com with the following SSO and AD FS information:
 
 When we receive your email, the Buildkite team will:
 
-1. Enable SSO for the specified organisation
+1. Enable SSO for the specified organization
 1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organisation, so that everyone will authorize via AD FS next time they attempt to access that organisation on Buildkite.com
+1. Deauthorize all the users in the organization, so that everyone will authorize via AD FS next time they attempt to access that organization on Buildkite.com

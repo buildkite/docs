@@ -23,7 +23,7 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organisation wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines. 
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organization wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines. 
 
 ```yml
 steps:
