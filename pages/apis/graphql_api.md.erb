@@ -55,6 +55,58 @@ curl https://graphql.buildkite.com/v1 \
 
 For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL Explorer](#getting-started).
 
+## GraphQL IDs
+
+All node types have an `id` property, which is a global identifier encoding the object’s type and UUID. Buildkite’s GraphQL IDs are based on the [Relay Global Object ID](https://facebook.github.io/relay/graphql/objectidentification.htm).
+
+For example, this is how to find the GraphQL ID of an organization:
+
+```graphql
+query {
+  organization(slug: "myorg") {
+    id
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "organization": {
+      "id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+    }
+  }
+}
+```
+
+If you have a GraphQL ID, you can use it with the global `node` query. You’ll need to specify the type using an [Inline Fragment](https://graphql.org/learn/queries/#inline-fragments) to access type-specific properties.
+
+For example, the following query returns the organization’s pipeline count:
+
+```graphql
+query {
+  node(id: "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw") {
+    ... on Organization {
+      pipelines {
+        count
+      }
+    }
+  }
+}
+```
+
+```json
+{
+  "data": {
+    "node": {
+      "pipelines": {
+        "count": 42
+      }
+    }
+  }
+}
+```
+
 ## Relay compatibility
 
 The Buildkite GraphQL API adheres to the [Relay Specification](https://facebook.github.io/relay/docs/en/graphql-server-specification.html), which defines standards for querying [paginated collections](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#connections) ("Connections" and "Edges"), [identifying objects](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#object-identification) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://facebook.github.io/relay/docs/en/graphql-server-specification.html#mutations).
