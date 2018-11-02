@@ -120,7 +120,7 @@ _Optional attributes:_
     <tr>
       <th><code>name</code></th>
       <td>
-        The name of the agent
+        The name of the agent. Supports the template variables <code>%hostname</code> (the agent machine’s hostname) and <code>%n</code> (a unique number for the agent).
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"%hostname-%n"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NAME</code></p>
       </td>
