@@ -4,9 +4,34 @@ Webhooks allow you to monitor and respond to events within your Buildkite organi
 
 <%= toc %>
 
+## Events
+
+You can subscribe to one or more of the following events:
+
+<table>
+<thead>
+  <tr><th>Event</th><th>Description</th></tr>
+</thead>
+<tbody>
+  <tr><th>ping</th><td>Webhook notification settings have changed</td></tr>
+  <tr><th>build.scheduled</th><td>A build has been scheduled</td></tr>
+  <tr><th>build.running</th><td>A build has started running</td></tr>
+  <tr><th>build.finished</th><td>A build has finished</td></tr>
+  <tr><th>job.scheduled</th><td>A job has been scheduled</td></tr>
+  <tr><th>job.started</th><td>A job has started</td></tr>
+  <tr><th>job.finished</th><td>A job has finished</td></tr>
+  <tr><th>job.activated</th><td>A job has been activated</td></tr>
+  <tr><th>agent.connected</th><td>An agent has connected</td></tr>
+  <tr><th>agent.lost</th><td>An agent has been marked as lost</td></tr>
+  <tr><th>agent.disconnected</th><td>An agent has disconnected</td></tr>
+  <tr><th>agent.stopping</th><td>An agent is stopping</td></tr>
+  <tr><th>agent.stopped</th><td>An agent has stopped</td></tr>
+</tbody>
+</table>
+
 ## HTTP headers
 
-The folllowing HTTP headers are present in every webhook request, which allow you to identify the event that took place, and to verify the authenticity of the request:
+The following HTTP headers are present in every webhook request, which allow you to identify the event that took place, and to verify the authenticity of the request:
 
 <table>
 <tbody>
