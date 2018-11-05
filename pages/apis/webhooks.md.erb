@@ -9,6 +9,9 @@ Webhooks allow you to monitor and respond to events within your Buildkite organi
 You can subscribe to one or more of the following events:
 
 <table>
+<thead>
+  <tr><th>Event</th><th>Description</th></tr>
+</thead>
 <tbody>
   <tr><th>ping</th><td>Webhook notification settings have changed</td></tr>
   <tr><th>build.scheduled</th><td>A build has been scheduled</td></tr>
@@ -28,7 +31,7 @@ You can subscribe to one or more of the following events:
 
 ## HTTP headers
 
-The folllowing HTTP headers are present in every webhook request, which allow you to identify the event that took place, and to verify the authenticity of the request:
+The following HTTP headers are present in every webhook request, which allow you to identify the event that took place, and to verify the authenticity of the request:
 
 <table>
 <tbody>
