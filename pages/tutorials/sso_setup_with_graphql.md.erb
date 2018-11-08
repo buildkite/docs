@@ -30,7 +30,7 @@ The first step in setting up a G Suite SSO provider is to use the `ssoProviderCr
 mutation CreateProvider {
   ssoProviderCreate(input: {
     organizationId: "<organization id>",
-    type: GOOGLE_OAUTH,
+    type: GOOGLE_GSUITE,
     googleHostedDomain: "myorg.com",
     discloseGoogleHostedDomain: true,
     emailDomain: "myorg.com",
@@ -204,7 +204,7 @@ query FindProviders {
               }
             }
           }
-          ... on SSOProviderGoogleOAuth {
+          ... on SSOProviderGoogleGSuite {
             googleHostedDomain
             discloseGoogleHostedDomain
           }
