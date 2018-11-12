@@ -51,7 +51,7 @@ The second step is to use the `url` that was returned above to perform a test lo
 
 ### Step 3
 
-Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your G Suite provider before they can access your organization on Buildkite.
+Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize via your G Suite provider before they can access your organization on Buildkite.
 
 ```graphql
 mutation EnableProvider {
@@ -74,7 +74,7 @@ You should now see that the provider’s state is enabled.
   <p>See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.</p>
 </section>
 
-## Setting up SAML (Okta, OneLogin, ADFS and others)
+## Setting up SAML (Google Cloud Identity, Okta, OneLogin, ADFS and others)
 
 ### Step 1
 
@@ -90,6 +90,7 @@ mutation CreateProvider {
   }) {
     ssoProvider {
       state
+      url
       ... on SSOProviderSAML {
         serviceProvider {
           issuer
@@ -106,11 +107,11 @@ mutation CreateProvider {
 
 ### Step 2
 
-The next step is to log into your SSO provider’s system and setup Buildkite using the `issuer`, `ssoURL` and `metadata` returned above. Once setup, your SSO provider should provide a metadata URL that you can give to Buildkite.
+The next step is to log into your SSO provider’s system and setup Buildkite using the `issuer`, `ssoURL` and `metadata` returned above. Once setup, your SSO provider should provide a meta-data URL, or a set of URLs and a certificate, that you can use in the next step.
 
 ### Step 3
 
-Using the metadata URL returned from your SSO provider, run the `ssoProviderUpdate` mutation to have Buildkite automatically retrieve the details and set it up, ready for a test login. This will not yet affect any of your Buildkite users.
+If your provider provided a metadata URL, use the `ssoProviderUpdate` mutation to have Buildkite automatically retrieve the details and set it up, ready for a test login. This will not yet affect any of your Buildkite users.
 
 ```graphql
 mutation UpdateProviderMetaData {
@@ -118,7 +119,7 @@ mutation UpdateProviderMetaData {
     id: "<provider id>",
     identityProvider: {
       metadata: {
-        url: "<meta-data URL>"
+        url: "https://myssoprovider.com/meta-data/..."
       }
     }
   }) {
@@ -129,12 +130,34 @@ mutation UpdateProviderMetaData {
   }
 }
 ```
+      
+If your SSO provider doesn't provide a metadata URL, you can manually specify the SSO URL, Issuer (also known as Entity ID), and Certificate to the `ssoProviderUpdate` mutation:
+      
+```graphql
+mutation UpdateProviderMetaData {
+  ssoProviderUpdate(input: {
+    id: "<provider id>",
+    identityProvider: {
+      ssoURL: "https://myssoprovider.com/...",
+      issuer: "https://myssoprovider.com/...",
+      certificate: "---BEGIN CERT---..."
+    }
+  }) {
+    ssoProvider {
+      state
+      url
+    }
+  }
+}
+```
+
+If your SSO provider requests an ACS URL, you should provide the URL returned by the `url` property, for example `https://buildkite.com/sso/...`
 
 ### Step 4
 
-The final step before enabling the SSO provider in Buildkite, is to perform a test login. Perform a test login via your SSO provider, or using the `url` returned from the update mutation.
+You can now perform a test login from your SSO provider’s web interface, or using the `url` returned from the update mutation.
 
-Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to login via your SAML provider before they can access your organization on Buildkite.
+Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize via your SSO provider before they can access your organization on Buildkite.
 
 ```graphql
 mutation EnableProvider {
@@ -195,9 +218,9 @@ query FindProviders {
           url
           ... on SSOProviderSAML {
             identityProvider {
+              ssoURL
               issuer
               certificate
-              ssoURL
               metadata {
                 xml
                 url
@@ -220,13 +243,13 @@ query FindProviders {
 
 ## Disabling an SSO provider
 
-If you need to disable an SSO provider, you can do so using the `ssoProviderDisable mutation.
+If you need to disable an SSO provider, you can do so using the `ssoProviderDisable` mutation.
 
 ```graphql
 mutation DisableProvider {
   ssoProviderDisable(input:{
     id: "<provider id>",
-    disabledReason: "<explanation as to why you’re disabling this provider>"
+    disabledReason: "Disabled because..."
   })
 }
 ```
