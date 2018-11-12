@@ -74,7 +74,7 @@ You should now see that the provider’s state is enabled.
   <p>See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.</p>
 </section>
 
-## Setting up SAML (Okta, OneLogin, ADFS and others)
+## Setting up SAML (Google Cloud Identity, Okta, OneLogin, ADFS and others)
 
 ### Step 1
 
@@ -118,8 +118,28 @@ mutation UpdateProviderMetaData {
     id: "<provider id>",
     identityProvider: {
       metadata: {
-        url: "<meta-data URL>"
+        url: "https://myssoprovider.com/meta-data/..."
       }
+    }
+  }) {
+    ssoProvider {
+      state
+      url
+    }
+  }
+}
+```
+      
+If your SSO provider doesn't provide a metadata URL, you can specify the the SSO URL, Issuer (also known as Entity ID), and Certificate to the `ssoProviderUpdate` mutation:
+      
+```graphql
+mutation UpdateProviderMetaData {
+  ssoProviderUpdate(input: {
+    id: "<provider id>",
+    identityProvider: {
+      ssoURL: "https://myssoprovider.com/...",
+      issuer: "https://myssoprovider.com/...",
+      certificate: "---BEGIN CERT---..."
     }
   }) {
     ssoProvider {
@@ -195,9 +215,9 @@ query FindProviders {
           url
           ... on SSOProviderSAML {
             identityProvider {
+              ssoURL
               issuer
               certificate
-              ssoURL
               metadata {
                 xml
                 url
