@@ -57,9 +57,7 @@ For documentation on the full list of fields and types, see the interactive docu
 
 ## GraphQL IDs
 
-All node types have an `id` property, which is a global identifier encoding the object’s type and UUID. Buildkite’s GraphQL IDs are based on the [Relay Global Object ID](https://facebook.github.io/relay/graphql/objectidentification.htm).
-
-For example, this is how to find the GraphQL ID of an organization:
+All node types have an `id` property, which is a global identifier for the node. You can find the GraphQL ID for any node by querying for the `id` property, for example:
 
 ```graphql
 query {
@@ -79,9 +77,9 @@ query {
 }
 ```
 
-If you have a GraphQL ID, you can use it with the global `node` query. You’ll need to specify the type using an [Inline Fragment](https://graphql.org/learn/queries/#inline-fragments) to access type-specific properties.
+A GraphQL ID can be used with the global `node` query to quickly return properties of a node, without having to query through nested layers of data. To return specific properties of the object, you’ll need to specify the object’s type using an [Inline Fragment](https://graphql.org/learn/queries/#inline-fragments).
 
-For example, the following query returns the organization’s pipeline count:
+For example, the following query uses an organization’s `id` to find the total number of pipelines in the organization:
 
 ```graphql
 query {
