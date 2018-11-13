@@ -90,14 +90,13 @@ mutation CreateProvider {
   }) {
     ssoProvider {
       state
-      url
       ... on SSOProviderSAML {
         serviceProvider {
-          issuer
-          ssoURL
           metadata {
             url
           }
+          ssoURL
+          issuer
         }
       }
     }
@@ -107,11 +106,13 @@ mutation CreateProvider {
 
 ### Step 2
 
-The next step is to log into your SSO provider’s system and setup Buildkite using the `issuer`, `ssoURL` and `metadata` returned above. Once setup, your SSO provider should provide a meta-data URL, or a set of URLs and a certificate, that you can use in the next step.
+The next step is to log into your SSO provider’s system and setup Buildkite using the details from the GraphQL response above.
+
+If the SSO provider supports a metadata URL, you can use the `url` property of the `metadata` object. If your SSO provider does not support metadata URL, use the `ssoURL` property for the ACS URL or SSO URL, and the `issuer` property for the Issuer or Entity ID.
 
 ### Step 3
 
-If your provider provided a metadata URL, use the `ssoProviderUpdate` mutation to have Buildkite automatically retrieve the details and set it up, ready for a test login. This will not yet affect any of your Buildkite users.
+If your provider shows a metadata URL to complete the setup, you can use that with the `ssoProviderUpdate` mutation to have Buildkite automatically complete the setup. This will not yet affect any of your Buildkite users.
 
 ```graphql
 mutation UpdateProviderMetaData {
@@ -119,19 +120,25 @@ mutation UpdateProviderMetaData {
     id: "<provider id>",
     identityProvider: {
       metadata: {
-        url: "https://myssoprovider.com/meta-data/..."
+        url: "https://myssoprovider.com/metadata/..."
       }
     }
   }) {
     ssoProvider {
       state
       url
+      ... on SSOProviderSAML {
+        serviceProvider {
+          ssoURL
+          issuer
+        }
+      }
     }
   }
 }
 ```
       
-If your SSO provider doesn't provide a metadata URL, you can manually specify the SSO URL, Issuer (also known as Entity ID), and Certificate to the `ssoProviderUpdate` mutation:
+If your SSO provider didn't provide a metadata URL, then copy SSO URL, Issuer (also known as Entity ID), and Certificate into the `ssoProviderUpdate` mutation:
       
 ```graphql
 mutation UpdateProviderMetaData {
@@ -146,12 +153,18 @@ mutation UpdateProviderMetaData {
     ssoProvider {
       state
       url
+      ... on SSOProviderSAML {
+        serviceProvider {
+          ssoURL
+          issuer
+        }
+      }
     }
   }
 }
 ```
 
-If your SSO provider requests an ACS URL, you should provide the URL returned by the `url` property, for example `https://buildkite.com/sso/...`
+If your SSO provider requests additional info, use the `ssoURL` property for the ACS URL or SSO URL, and the `issuer` property for the Issuer or Entity ID.
 
 ### Step 4
 
@@ -168,7 +181,6 @@ mutation EnableProvider {
   ) {
     ssoProvider {
       state
-      url
     }
   }
 }
