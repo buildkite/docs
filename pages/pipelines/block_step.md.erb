@@ -8,7 +8,9 @@ A basic block step can be defined in your pipeline settings, or in your [pipelin
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
-You can add form fields to block steps with the `fields` attribute. The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). Block steps with input fields can only be defined using a `pipeline.yml`.
+You can add form fields to block steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.    
+
+The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). Block steps with input fields can only be defined using a `pipeline.yml`.
 
 <%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
 
