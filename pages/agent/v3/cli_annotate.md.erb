@@ -1,6 +1,6 @@
 # buildkite-agent annotate
 
-The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using Markdown.
+The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown. 
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
@@ -82,7 +82,9 @@ We use CommonMark with GitHub Flavored Markdown extensions to provide consistent
 
 GitHub [kindly provide a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
 
-Note that we do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
+Annotations do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
+
+CommonMark supports HTML inside Markdown blocks, but will revert to Markdown parsing on newlines. For more information about how HTML is parsed and which tags CommonMark supports please refer to the [CommonMark spec](https://spec.commonmark.org).
 
 ## Supported CSS Classes
 
