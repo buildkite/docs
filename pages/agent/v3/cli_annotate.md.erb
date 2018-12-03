@@ -1,12 +1,18 @@
 # buildkite-agent annotate
 
-The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown. Up to five annotations can be displayed on each step in your pipeline.
+The Buildkite Agent’s `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown.
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
 <%= toc %>
 
 ## Creating an annotation
+
+The `buildkite-agent` cli's `annotate` command creates an annotation associated with the current build.
+
+The first five annotations created will be displayed on the build page, however there is no limit to the amount of annotations you can create. All annotations can be retreived using the [GraphQL API](/docs/apis/graphql-api).
+
+Options for the `annotate` command can be found in the `buildkite-agent` cli help: 
 
 ```
 $ buildkite-agent annotate --help
@@ -55,6 +61,23 @@ Options:
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+```
+
+## Grouping annotations
+
+Annotations are intended to group messages of the same type. You can add more data to existing annotations by using the `--append` option. 
+
+For example, a 'test-failures' annotation can be created to track failed tests:
+
+```
+buildkite-agent annotate "Failed tests:" --context test-failures
+```
+
+Using the `--append` option, the 'test-failures' annotation is updated with each failure as they occur: 
+
+```
+if test-fails
+  buildkite-agent annotate "Test 6 failed with exit code 1: <error>" --context test-failures --append
 ```
 
 ## Annotation styles
