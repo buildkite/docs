@@ -70,14 +70,14 @@ Annotations are intended to group messages of the same type. You can add more da
 For example, a 'test-failures' annotation can be created to track failed tests:
 
 ```
-buildkite-agent annotate "Failed tests:" --context test-failures
+buildkite-agent annotate --context test-failures --style "error" "# Failed tests:\n\n"
 ```
 
-Using the `--append` option, the 'test-failures' annotation is updated with each failure as they occur: 
+Using the `--append` option, the 'test-failures' annotation is updated with a failure when it occurs: 
 
 ```
 if test-fails
-  buildkite-agent annotate "Test 6 failed with exit code 1: <error>" --context test-failures --append
+  buildkite-agent annotate --context test-failures --append "* Test 1 failed :sad_face:\n"
 ```
 
 ## Annotation styles
