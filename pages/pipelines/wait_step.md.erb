@@ -32,3 +32,5 @@ If the previous steps failed, the build will be marked as failed only after the 
 ```
 
 In this example, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
+
+The explicit null `~` syntax used in the above example isn't required, but is reccommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
