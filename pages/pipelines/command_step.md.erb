@@ -203,7 +203,7 @@ _Optional Attributes_
 
 <div class="Docs__note">
 <p class="Docs__note__heading">-1 Exit Status</p>
-<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behavior in the <code>pipeline.yml</code> file.</p>
+<p>A job will show an exit status of -1 when we loose the connection with the agent and Buildkite has given up trying to reconnect. When using `automatic: true`, Buildkite will automatically retry the job 2 times before showing it as failed.</p>
 </div>
 
 ```yml
