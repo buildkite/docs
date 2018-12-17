@@ -17,7 +17,7 @@ Self-service SSO provisioning in Buildkite is available via our GraphQL explorer
 
 ### Setting up with meta-data
 
-The Buildkite SAML meta data endpoint contains all the information you need to set up SAML with any provider.
+A custom URL containing your organization's metadata can be generated. You can request the URL from support@buildkite.com alongside your SSO service URL. The custom endpoint contains all the information you need to set up SAML with any provider.
 
 If your provider has an XML URL field, you can enter the buildkite meta-data URL directly: <a href="https://buildkite.com/user/authorize/saml/metadata">https://buildkite.com/user/authorize/saml/metadata</a>.
 
@@ -61,7 +61,7 @@ After completing your identity provider's setup process, email support@buildkite
         </td>
     </tr>
     <tr>
-        <td>organization slug</td>
+        <td>Organization slug</td>
         <td>
             The Buildkite organization for which you want to enable SSO.  
         </td>
@@ -138,9 +138,16 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
         </td>
         <td>
             A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite. 
-            Example: a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee
+            Example: `a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee`
         </td>
     </tr>
 </table>
 
+When using the `teams` attribute, you can also specify roles. The `maintainer` or `member` role can be appended to the team UUID. 
+
+For example, the following code will specify the member role for the first team and the maintainer role for the second team:
+
+```
+teams="b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member, a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer"
+```
 
