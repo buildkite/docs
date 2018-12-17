@@ -12,11 +12,6 @@ Self-service SSO provisioning in Buildkite is available via our GraphQL explorer
 
 The instructions below guide you through adding the Buildkite application to your Okta account. The Buildkite team will enable SSO for your organization, with the details you provide from the end of the setup process.
 
-<div class="Docs__note">
-<p class="Docs__note__heading">Before starting your Okta setup</p>
-<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your Okta application.</p>
-</div>
-
 Okta Application setup:
 
 1. Click the Admin button in Okta to access your Admin dashboard
@@ -30,6 +25,7 @@ Okta Application setup:
 
 When we receive your email, the Buildkite team will:
 
-1. Enable SSO for the specified organization
-1. Reply to your email and get you to test that it's all working
+1. Add SSO to your Buildkite organization
+1. Reply to your email and ask you to test the new SSO authorization login flow
+1. Enable SSO for your organization
 1. Deauthorize all the users in the organization, so that everyone will authorize via Okta next time they attempt to access that organization on Buildkite.com
