@@ -1,16 +1,16 @@
-# SAML with Active Directory Federation Services (AD FS)
+# SAML with Active Directory Federation Services (ADFS)
 
-AD FS can be used as single sign-on to log in to your Buildkite organization.
+ADFS can be used as single sign-on to log in to your Buildkite organization.
 
-Setting up AD FS requires organization administrator privileges on your AD FS server and in Buildkite. You'll also need to know the slug of the Buildkite organization for which you'd like to enable SSO.
+Setting up ADFS requires organization administrator privileges on your ADFS server and in Buildkite. You'll also need to know the slug of the Buildkite organization for which you'd like to enable SSO.
 
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
 
-## Setup in the AD FS management console
+## Setup in the ADFS management console
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Before starting your AD FS setup</p>
-<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your AD FS relying party trust..</p>
+<p class="Docs__note__heading">Before starting your ADFS setup</p>
+<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your ADFS relying party trust..</p>
 </div>
 
 The instructions below will guide you through using a series of wizards to:
@@ -36,7 +36,7 @@ From the `Actions` sidebar, click `Add relying party trust...` to start the wiza
 1. <u>Welcome</u>: select `Claims aware`
 1. <u>Select data source</u>: select `Enter data about the relying party manually`
 1. <u>Specify display name</u>: call your relying party `Buildkite`
-1. <u>Choose profile</u>: select `AD FS profile`
+1. <u>Choose profile</u>: select `ADFS profile`
 1. <u>Configure certificate</u>: skip this step, as you don't need a token encryption certificate
 1. <u>Configure URL</u>: 
 	select `Enable support for the SAML 2.0 WebSSO protocol` 
@@ -102,7 +102,7 @@ For more information on what other attributes Buildkite accepts, see the [SAML U
 
 ### Export the token signing certificate
 
-From the `Service` section of the `AD FS` console tree, select the `Certificates` subsection
+From the `Service` section of the `ADFS` console tree, select the `Certificates` subsection
 
 1.  Click on the certificate listed under the heading `Token-signing`
 2.  In the `CN=ADFS Signing` section of the `Actions` sidebar, click `View Certificate...`
@@ -116,7 +116,7 @@ From the `Service` section of the `AD FS` console tree, select the `Certificates
 
 ### Update the authentication policy
 
-From the `Service` section of the `AD FS` console tree, select the `Authentication Methods` subsection
+From the `Service` section of the `ADFS` console tree, select the `Authentication Methods` subsection
 
 1. Under the `Primary Authentication Methods` header, click the `Edit` link
 2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked 
@@ -124,19 +124,19 @@ From the `Service` section of the `AD FS` console tree, select the `Authenticati
 
 ### Email the Buildkite team
 
-To complete your SSO setup, the Buildkite team needs some information from your AD FS server. 
+To complete your SSO setup, the Buildkite team needs some information from your ADFS server. 
 
-Email support@buildkite.com with the following SSO and AD FS information:
+Email support@buildkite.com with the following SSO and ADFS information:
 
 <table>
     <tr>
         <td>Domain name</td>
         <td>
-          The domain you use with AD FS for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
+          The domain you use with ADFS for which you want to enable SSO. This must match one of the emails you have verified with your Buildkite account.
         </td>
     </tr>
     <tr>
-        <td>organization slug</td>
+        <td>Organization slug</td>
         <td>
           The Buildkite organization for which you want to enable SSO.  
         </td>
@@ -144,13 +144,13 @@ Email support@buildkite.com with the following SSO and AD FS information:
     <tr>
         <td>Login URL</td>
         <td>
-          The URL where you can log in to your AD FS service. Usually your domain name or IP, with <code>/adfs/ls</code> appended.
+          The URL where you can log in to your ADFS service. Usually your domain name or IP, with <code>/adfs/ls</code> appended.
         </td>
     </tr>
     <tr>
         <td>Federation Service Identifier</td>
         <td>
-            The URL that identifies your AD FS service. Usually your domain name or IP, with <code>/adfs/services/trust</code> appended.
+            The URL that identifies your ADFS service. Usually your domain name or IP, with <code>/adfs/services/trust</code> appended.
         </td>
     </tr>
     <tr>
@@ -165,4 +165,4 @@ When we receive your email, the Buildkite team will:
 
 1. Enable SSO for the specified organization
 1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organization, so that everyone will authorize via AD FS next time they attempt to access that organization on Buildkite.com
+1. Deauthorize all the users in the organization, so that everyone will authorize via ADFS next time they attempt to access that organization on Buildkite.com
