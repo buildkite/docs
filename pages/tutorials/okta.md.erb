@@ -1,18 +1,14 @@
-# Single Sign-on with Okta
+# Single Sign-On with Okta
 
-Okta can be used can be used to authorize access to your Buildkite organization.
+Okta can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both Okta and Buildkite.
 
-## Setting up SSO
+<div class="Docs__note">
+  <p>See the <a href="/docs/tutorials/sso-setup-with-graphql">GraphQL SSO Setup Guide</a> for instructions on how to manually setup SSO yourself using GraphQL.</p>
+</div>
 
-Setting up SSO with Okta requires organization administrator privileges in both Okta and Buildkite.
+### Step 1. Add Buildkite in Okta
 
-Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/sso-setup-with-graphql). 
-
-### Setup in your Okta organization
-
-The instructions below guide you through adding the Buildkite application to your Okta account. The Buildkite team will enable SSO for your organization, with the details you provide from the end of the setup process.
-
-Okta Application setup:
+Log into your Okta account, and follow these steps:
 
 1. Click the Admin button in Okta to access your Admin dashboard
 1. In the Shortcuts menu, click 'Add Applications' to search the Okta application directory
@@ -23,9 +19,14 @@ Okta Application setup:
 1. In the Sign On section 'Settings', click the 'View Setup Instructions' button
 1. Follow the instructions, copying the provided information into an email to support@buildkite.com
 
-When we receive your email, the Buildkite team will:
+### Step 2. Email Buildkite Support
 
-1. Add SSO to your Buildkite organization
-1. Reply to your email and ask you to test the new SSO authorization login flow
-1. Enable SSO for your organization
-1. Deauthorize all the users in the organization, so that everyone will authorize via Okta next time they attempt to access that organization on Buildkite.com
+When we receive your email from the previous step, Buildkite support will setup SSO in test mode and reply with instructions for performing a test login.
+
+### Step 3. Perform a Test Login
+
+Follow the instructions sent by Buildkite support to perform a test login. Performing a test login will verify that SSO is working correctly, before it is activated for all your organization members.
+
+### Step 4. Buildkite Support will Activate SSO
+
+Once you've performed a test login, reply to the previous email and Buildkite support will activate SSO via Okta for your entire Buildkite organization. Activating SSO will log out all of your organization’s members, to ensure that all data access is authorized through Okta.
