@@ -16,20 +16,17 @@ SSO is an organization-level option, and can be enabled by an organization admin
 
 If an organization that you're a member of enables SSO, it will not affect your personal Buildkite account login details. When you access pipelines or anything owned by the organization, you'll be directed through their chosen provider's SSO authentication flow. 
 
-To access an organization's content using SSO, you'll first need: 
+To access an organization's content using SSO, you'll need your organization's SSO url. 
 
-* A Buildkite account
-* An email address containing your team's domain
+Team maintainers will no longer need to invite users to join their organization, anyone who is able to authenticate with the identity provider can access the organization's content.
 
-The email address with your team's domain name must be a verified email in your personal Buildkite account before you will be able to access the organization's content. Each user must have a unique email address. 
-
-Organizations admins will no longer need to 'invite' users to join their organization, any Buildkite user with an authorised email address will be be to use their identity provider to gain access to the organization's content. 
+Team maintainers can still invite users to their Buildkite organisation, and are able to specify whether SSO is 'requried' or 'optional' for the invited user. Machine users are able to be invited using the 'optional' flag.
 
 ## How do I enable SSO for my organization?
 
 There are two ways to enable SSO: 1) email the Buildkite team at support@buildkite.com, or 2) enable it yourself using the GraphQL explorer. 
 
-You'll need to set up your SSO provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information. 
+You'll need to set up your SSO identity provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information. 
 
 ### Using Google G Suite or Github
 
@@ -48,16 +45,16 @@ If you'd prefer a self-service setup, you can complete the Buildkite side yourse
 ## Frequently Asked Questions
 
 ### Can some people in the organization use SSO and others not?
-No, if SSO is enabled, all of the users in your organization will be required to authorise with your chosen identity provider.
+Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. This setting can be found in the team settings. 
 
-### What happens if a user leaves an organization?
-If the user no longer has access to the email address at the team's domain, they will not be able to access the organization's content. This will not affect access to the user's personal account or any other organization they're a member of.  
+### What happens if a person leaves our company?
+You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.  
 
 ### Can we enable SSO on multiple domains for one organization?
-No, we currently support only one domain per organization.
+Yes, by adding multiple identity providers. Each provider supports only one domain, but you can enable as many different identity providers for your organization as you need.
 
 ### Is there downtime for my organization while SSO is enabled?
-No, there'll be no downtime. Buildkite will deauthorise all your users, and they will be required to authorise with your chosen identity provider when they next try to access your organization.
+No, there'll be no downtime. The Buildkite team will confirm with an administrator that you have access through your new identity provider before enabling it for your entire organization. Then all users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
 
 ### Will enabling SSO cause a service interruption?
 No, all of your builds/agents/pipelines will continue to run as normal.
@@ -70,4 +67,7 @@ Yes, if you're comfortable using GraphQL, you can enable SSO yourself for your o
 
 ### Does enabling SSO affect billing?
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
+
+### Can I sync my identity provider's groups with my Buildkite teams?
+Yes, if you're using a SAML identity provider. OAuth providers such as Google G Suite do not support groups. 
 
