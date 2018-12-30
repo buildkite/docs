@@ -137,7 +137,7 @@ To use this script, you'd save it to `.buildkite/pipeline.sh` inside your reposi
 .buildkite/pipeline.sh | buildkite-agent pipeline upload
 ```
 
-When a build is run it will execute the script and pipe its output to the `pipeline upload` command, dynamically adding build steps to the end of the build pipeline.
+When a build is run it will execute the script and pipe its output to the `pipeline upload` command, dynamically adding build steps right after the currently running step. If there is already steps defined after the currently running steps, the dynamically generated ones will be executed before them.
 
 ## Migrating existing steps to a pipeline.yml
 
