@@ -63,23 +63,6 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
 ```
 
-## Grouping annotations
-
-Annotations are intended to group messages of the same type. You can add more data to existing annotations by using the `--append` option. 
-
-For example, a 'test-failures' annotation can be created to track failed tests:
-
-```
-buildkite-agent annotate --context test-failures --style "error" "# Failed tests:\n\n"
-```
-
-Using the `--append` option, the 'test-failures' annotation is updated with a failure when it occurs: 
-
-```
-if test-fails
-  buildkite-agent annotate --context test-failures --append "* Test 1 failed :sad_face:\n"
-```
-
 ## Annotation styles
 
 You can change the visual style of annotations using the `--style` option.
