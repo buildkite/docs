@@ -122,7 +122,7 @@ _Optional attributes:_
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether to skip this step or not.<br>
+      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
       Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code><br>
@@ -203,7 +203,7 @@ _Optional Attributes_
 
 <div class="Docs__note">
 <p class="Docs__note__heading">-1 Exit Status</p>
-<p>An exit status of -1 results when a job loses connection with the agent running it. Jobs that exit with -1 will be automatically retried, unless you have overridden the retry behavior in the <code>pipeline.yml</code> file.</p>
+<p>A job will fail with an exit status of -1 if communication with the agent has been lost (e.g. the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect).</p>
 </div>
 
 ```yml
