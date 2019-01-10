@@ -1,24 +1,24 @@
 # SAML with Active Directory Federation Services (ADFS)
 
-ADFS can be used as single sign-on to log in to your Buildkite organization.
+ADFS can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both your ADFS server and Buildkite.
 
-Setting up ADFS requires organization administrator privileges on your ADFS server and in Buildkite. You'll also need to know the slug of the Buildkite organization for which you'd like to enable SSO.
+<div class="Docs__note">
+  <p>See the <a href="/docs/tutorials/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for instructions on how to manually set up SSO yourself using GraphQL.</p>
+</div>
 
-Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/sso-setup-with-graphql). 
-
-## Setup in the ADFS management console
+### Step 1. Set up Buildkite in the ADFS management console
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Before starting your ADFS setup</p>
-<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your ADFS relying party trust..</p>
+<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when creating your ADFS relying party trust.</p>
 </div>
 
 The instructions below will guide you through using a series of wizards to:
 
-* Add a 'relying party trust'
-* Add an 'issuance transform rule', a type of 'claim rule'
-* Export the token-signing certificate
-* Update the authentication policy
+1.1 Add a 'relying party trust'
+1.2 Add an 'issuance transform rule', a type of 'claim rule'
+1.3 Export the token-signing certificate
+1.4 Update the authentication policy
 
 With these wizards, you'll set up your domain for SSO and retreive the information the Buildkite team requires to complete the setup process.
 
@@ -29,7 +29,7 @@ With these wizards, you'll set up your domain for SSO and retreive the informati
 <p>For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">Pagerduty SSO integration guide</a> is very similar to Buildkite. Follow the Pagerduty instructions, and subsitute in the Buildkite values from the instructions below.</p>
 </div>
 
-### Add a Relying Party Trust
+#### Step 1.1 Add a Relying Party Trust
 
 From the `Actions` sidebar, click `Add relying party trust...` to start the wizard
 
@@ -54,7 +54,7 @@ From the `Actions` sidebar, click `Add relying party trust...` to start the wiza
 
 In the `Actions` sidebar, you should now have a subheading `Buildkite`. 
 
-### Add an issuance transform rule
+#### Step 1.2 Add an issuance transform rule
 
 From the `Buildkite` section of the `Actions` sidebar, click `Edit claim issuance policy...`
 
@@ -100,7 +100,7 @@ Rule 3
 
 For more information on what other attributes Buildkite accepts, see the [SAML User Attributes](/docs/tutorials/custom-saml#saml-user-attributes) table in the Custom SAML Guide.
 
-### Export the token signing certificate
+#### Step 1.3 Export the token signing certificate
 
 From the `Service` section of the `ADFS` console tree, select the `Certificates` subsection
 
@@ -114,7 +114,7 @@ From the `Service` section of the `ADFS` console tree, select the `Certificates`
 8.  Completing the Certificate Export Wizard: check the settings are correct, and click `Finish`
 9.  Exit the `Certificate` dialog
 
-### Update the authentication policy
+#### Step 1.4 Update the authentication policy
 
 From the `Service` section of the `ADFS` console tree, select the `Authentication Methods` subsection
 
@@ -122,7 +122,7 @@ From the `Service` section of the `ADFS` console tree, select the `Authenticatio
 2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked 
 3. Click `OK` to exit the dialog
 
-### Email the Buildkite team
+### Step 2. Email Buildkite Support
 
 To complete your SSO setup, the Buildkite team needs some information from your ADFS server. 
 
@@ -161,8 +161,12 @@ Email support@buildkite.com with the following SSO and ADFS information:
     </tr>
 </table>
 
-When we receive your email, the Buildkite team will:
+When we receive your email, Buildkite support will set up SSO in test mode and reply with instructions for performing a test login.
 
-1. Enable SSO for the specified organization
-1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organization, so that everyone will authorize via ADFS next time they attempt to access that organization on Buildkite.com
+### Step 3. Perform a Test Login
+
+Follow the instructions sent by Buildkite support to perform a test login. Performing a test login will verify that SSO is working correctly, before it is activated for all your organization members.
+
+### Step 4. Buildkite Support will Activate SSO
+
+Once you've performed a test login, reply to the previous email and Buildkite support will activate SSO via ADFS for your entire Buildkite organization. Activating SSO will log out all of your organization’s members, to ensure that all data access is authorized through ADFS.
