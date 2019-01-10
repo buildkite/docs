@@ -1,14 +1,12 @@
 # OAuth with Google G Suite
 
-Google's G Suite (previously Google Apps) can be used to authorize access to your Buildkite organization.
+Google's G Suite (previously Google Apps) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for Buildkite.
 
-## Setting up OAuth
+<div class="Docs__note">
+  <p>See the <a href="/docs/tutorials/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for instructions on how to manually set up SSO yourself using GraphQL.</p>
+</div>
 
-Setting up G Suite to log in to Buildkite is a short process, requiring an email to the Buildkite team and a test of the new login flow.
-
-Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/sso-setup-with-graphql).  
-
-### Email the Buildkite team
+### Step 1. Email Buildkite Support 
 
 Send an email to support@buildkite.com with the following information:
 
@@ -29,10 +27,12 @@ Send an email to support@buildkite.com with the following information:
     </tbody>
 </table>
 
-Ensure all members of the specified organization have an email address with that domain verified in their Buildkite account.
+When we receive your email, Buildkite support will set up SSO in test mode and reply with instructions for performing a test login.
 
-When we receive your email, the Buildkite team will:
+### Step 3. Perform a Test Login
 
-1. Enable OAuth for the specified organization
-1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organization, so that everyone will authorize via Google next time they attempt to access that organization on Buildkite.com
+Follow the instructions sent by Buildkite support to perform a test login. Performing a test login will verify that SSO is working correctly, before it is activated for all your organization members.
+
+### Step 4. Buildkite Support will Activate SSO
+
+Once you've performed a test login, reply to the previous email and Buildkite support will activate SSO via Google for your entire Buildkite organization. Activating SSO will log out all of your organization’s members, to ensure that all data access is authorized through Google.
