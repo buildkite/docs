@@ -20,11 +20,11 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_CONFIG</code></th>
-    <td>A string of the path to the agent configuration file. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the path to the agent configuration file. <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/buildkite-agent.cfg"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_DEBUG</code></th>
-    <td>A boolean that enables or disables debug mode in the job output. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean that enables or disables debug mode in the job output. <p class="Docs__api-param-eg"><em>Default:</em> <code>"false"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_ENDPOINT</code></th>
@@ -32,15 +32,15 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_ID</code></th>
-    <td>A string of the ID of the agent that is running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the ID of the agent that is running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1a222222-e999-3636-8ddd-802222222222"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_PID</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>"6"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_NAME</code></th>
-    <td>Name of the agent running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"my-agent-1"</code></p></td>
+    <td>Name of the agent running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"f3422e2537ca-1"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_TOKEN</code></th>
@@ -52,7 +52,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_BIN_PATH</code></th>
-    <td>A string of path to the `buildkite-agent` binary. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of path to the `buildkite-agent` binary. <p class="Docs__api-param-eg"><em>Default:</em> <code>"/usr/local/bin"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BRANCH</code></th>
@@ -60,7 +60,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_PATH</code></th>
-    <td>A string of the path to where builds will be created on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the path to where builds will be created on the agent machine. <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/builds"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_CHECKOUT_PATH</code></th>
@@ -100,7 +100,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_COMMAND_EVAL</code></th>
-    <td>A boolean to allow or deny running arbitrary commands on the agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean to allow or deny running arbitrary commands on the agent. <p class="Docs__api-param-eg"><em>Default:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_COMMIT</code></th>
@@ -108,7 +108,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_CONFIG_PATH</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td> <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/buildkite-agent.cfg"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_DISABLE_GIT_SUBMODULES</code></th>
@@ -116,23 +116,23 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_ENV_FILE</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_GIT_CLEAN_FLAGS</code></th>
-    <td>A string of the flags to use when running `git clean`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the flags to use when running `git clean`. <p class="Docs__api-param-eg"><em>Default:</em> <code>"-ffxdq"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_GIT_CLONE_FLAGS</code></th>
-    <td>A string of the flags to use when running `git clone`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the flags to use when running `git clone`. <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_GIT_SUBMODULES</code></th>
-    <td>A boolean to request or prevent the download of git submodules during `git clone`.  <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean to request or prevent the download of git submodules during `git clone`.  <p class="Docs__api-param-eg"><em>Default:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_HOOKS_PATH</code></th>
-    <td>A string of the path to the hooks directory on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the path to the hooks directory on the agent machine. <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/hooks"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
@@ -144,7 +144,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_LOCAL_HOOKS_ENABLED</code></th>
-    <td>A boolean to try and find local hooks for use instead of global hooks. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean to try and find local hooks for use instead of global hooks. <p class="Docs__api-param-eg"><em>Default:</em> <code>"false"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_MESSAGE</code></th>
@@ -172,11 +172,11 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_PLUGINS_ENABLED</code></th>
-    <td>A boolean to enable or disable the use of plugins when running a job on this agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean to enable or disable the use of plugins when running a job on this agent. <p class="Docs__api-param-eg"><em>Default:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_PLUGINS_PATH</code></th>
-    <td>A string of the path to where the plugins will be checked out on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A string of the path to where the plugins will be checked out on the agent machine. <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/plugins"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_PLUGIN_VALIDATION</code></th>
@@ -212,7 +212,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_RETRY_COUNT</code></th>
-    <td>An integer of how many times this job has been retried. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>An integer of how many times this job has been retried. <p class="Docs__api-param-eg"><em>Example:</em> <code>"0"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_SHELL</code></th>
@@ -224,7 +224,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_SSH_KEYSCAN</code></th>
-    <td>A boolean that describes whether or not to run `ssh-keyscan` before running `git checkout`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A boolean that describes whether or not to run `ssh-keyscan` before running `git checkout`. <p class="Docs__api-param-eg"><em>Default:</em> <code>"false"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_TAG</code></th>
