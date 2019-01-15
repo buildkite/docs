@@ -14,17 +14,53 @@ The following environment variables are automatically provided to every job, and
     <th><code>BUILDKITE</code></th>
     <td>Always <code>"true"</code>.</td>
   </tr>
+    <tr>
+    <th><code>BUILDKITE_AGENT_ACCESS_TOKEN</code></th>
+    <td>A string of the internal identifier of the agent set by the bootstrap. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_CONFIG</code></th>
+    <td>A string of the path to the agent configuration file. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_DEBUG</code></th>
+    <td>A boolean that enables or disables debug mode in the job output. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_ENDPOINT</code></th>
+    <td>A string of the agent API endpoint. <p class="Docs__api-param-eg"><em>Default:</em> <code>"https://agent.buildkite.com/v3"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_ID</code></th>
+    <td>A string of the ID of the agent that is running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_PID</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
   <tr>
     <th><code>BUILDKITE_AGENT_NAME</code></th>
     <td>Name of the agent running the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"my-agent-1"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_AGENT_TOKEN</code></th>
+    <td>A string of the organization's agent token used to start this agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_ARTIFACT_PATHS</code></th>
     <td>The <a href="/docs/builds/artifacts">artifact paths</a> to upload after the job, if any have been specified. <p class="Docs__api-param-eg"><em>Example:</em> <code>"tmp/capybara/**/*;coverage/**/*"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_BIN_PATH</code></th>
+    <td>A string of path to the `buildkite-agent` binary. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_BRANCH</code></th>
     <td>The branch being built. <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_BUILD_PATH</code></th>
+    <td>A string of the path to where builds will be created on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_CHECKOUT_PATH</code></th>
@@ -63,12 +99,40 @@ The following environment variables are automatically provided to every job, and
     <td>The command that will be run for the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"script/buildkite/specs"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_COMMAND_EVAL</code></th>
+    <td>A boolean to allow or deny running arbitrary commands on the agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_COMMIT</code></th>
     <td>The commit of the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_CONFIG_PATH</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_DISABLE_GIT_SUBMODULES</code></th>
     <td>When set to <code>true</code> prevents fetching of any git submodules during checkout. This variable is used by the <code>buildkite-agent</code> bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_ENV_FILE</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GIT_CLEAN_FLAGS</code></th>
+    <td>A string of the flags to use when running `git clean`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GIT_CLONE_FLAGS</code></th>
+    <td>A string of the flags to use when running `git clone`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GIT_SUBMODULES</code></th>
+    <td>A boolean to request or prevent the download of git submodules during `git clone`.  <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_HOOKS_PATH</code></th>
+    <td>A string of the path to the hooks directory on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
@@ -77,6 +141,10 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_LABEL</code></th>
     <td>The label/name of the current job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"\:hammer\: Specs"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_LOCAL_HOOKS_ENABLED</code></th>
+    <td>A boolean to try and find local hooks for use instead of global hooks. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_MESSAGE</code></th>
@@ -103,6 +171,18 @@ The following environment variables are automatically provided to every job, and
     <td>The pipeline slug on Buildkite as used in URLs. <p class="Docs__api-param-eg"><em>Example:</em> <code>"my-project"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_PLUGINS_ENABLED</code></th>
+    <td>A boolean to enable or disable the use of plugins when running a job on this agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_PLUGINS_PATH</code></th>
+    <td>A string of the path to where the plugins will be checked out on the agent machine. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_PLUGIN_VALIDATION</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_PULL_REQUEST</code></th>
     <td>The number of the pull request if this branch is a pull request. <p class="Docs__api-param-eg"><em>Example:</em> <code>"123"</code> for pull request #123, or <code>"false"</code> if not a pull request.</p></td>
   </tr>
@@ -123,16 +203,28 @@ The following environment variables are automatically provided to every job, and
     <td>The UUID of the original build this was rebuilt from. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1514"</code>, or <code>""</code> if not a rebuild.</p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_REPO</code></th>
-    <td>The repository of your pipeline. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-project.git"</code></p></td>
-  </tr>
-  <tr>
     <th><code>BUILDKITE_REFSPEC</code></th>
     <td>A custom refspec for the <code>buildkite-agent</code> bootstrap script to use when checking out code. <p class="Docs__api-param-eg"><em>Example:</em> <code>"+refs/weird/123abc:refs/local/weird/456"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_REPO</code></th>
+    <td>The repository of your pipeline. <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-project.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_RETRY_COUNT</code></th>
+    <td>An integer of how many times this job has been retried. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_SHELL</code></th>
+    <td>A string of the shell used to intepret build commands.  <p class="Docs__api-param-eg"><em>Default:</em> <code>"/bin/bash -e -c"</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_SOURCE</code></th>
     <td>The source of the event that created the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"webhook"</code>, <code>"api"</code>, <code>"ui"</code>, <code>"trigger_job"</code>, or <code>"schedule"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_SSH_KEYSCAN</code></th>
+    <td>A boolean that describes whether or not to run `ssh-keyscan` before running `git checkout`. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_TAG</code></th>
@@ -145,6 +237,14 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code></th>
     <td>The UUID of the build that <a href="/docs/pipelines/trigger-step">triggered</a> this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"5aa7c894-c8c0-435b-bc17-13923b90f163"</code>, or <code>""</code> if the build was not triggered from another build.</td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code></th>
+    <td>The number of the build that <a href="/docs/pipelines/trigger-step">triggered</a> this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1264"</code>, or <code>""</code> if the build was not triggered from another build.</td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code></th>
+    <td>The slug of the pipeline that was used to <a href="/docs/pipelines/trigger-step">trigger</a> this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"build-and-test"</code>, or <code>""</code> if the build was not triggered from another build.</td>
   </tr>
   <tr>
     <th><code>BUILDKITE_UNBLOCKER</code></th>
@@ -161,6 +261,27 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>CI</code></th>
     <td>Always <code>"true"</code>.</td>
+  </tr>
+</tbody>
+</table>
+
+## Deprecated environment variables
+
+The following environment variables have been deprecated.
+
+<table>
+<tbody>
+  <tr>
+    <th><code>BUILDKITE_PROJECT_PROVIDER</code></th>
+    <td>A string of the source control provider. <p class="Docs__api-param-eg"><em>Example:</em> <code>"github"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_PROJECT_SLUG</code></th>
+    <td>A string of the organization and pipeline names. <p class="Docs__api-param-eg"><em>Example:</em> <code>"acmeinc/build-and-test"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_SCRIPT_PATH</code></th>
+    <td>A string of the path to the script being run in this job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"scripts/build.sh"</code></p></td>
   </tr>
 </tbody>
 </table>
