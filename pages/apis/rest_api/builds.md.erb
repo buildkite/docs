@@ -104,9 +104,24 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "name": "great-pipeline",
       "slug": "great-pipeline",
       "repository": "git@github.com:my-great-org/my-pipeline",
+      "branch_configuration": null,
+      "default_branch": "master",
       "provider": {
         "id": "github",
-        "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+        "settings": {
+          "trigger_mode": "code",
+          "build_pull_requests": true,
+          "pull_request_branch_filter_enabled": false,
+          "skip_pull_request_builds_for_existing_commits": true,
+          "build_pull_request_forks": false,
+          "prefix_pull_request_fork_branch_names": true,
+          "build_tags": false,
+          "publish_commit_status": true,
+          "publish_commit_status_per_step": false,
+          "publish_blocked_as_pending": false,
+          "repository": "my-great-org/my-pipeline"
+        },
       },
       "skip_queued_branch_builds": false,
       "skip_queued_branch_builds_filter": null,
