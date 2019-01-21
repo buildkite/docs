@@ -23,7 +23,7 @@ _Required attributes:_
   <tr>
     <td><code>command</code></td>
     <td>
-      The shell command/s to run during this step. This can be a single line of commands, or a YAML list. <br>
+      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass. Also available as the alias <code>commands</code>.<br>
       <em>Example:</em> <code>"build.sh"</code><br>
       <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code>
     </td>
@@ -37,7 +37,7 @@ steps:
 
 ```yml
 steps:
-  - command:
+  - commands:
     - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
@@ -56,7 +56,7 @@ _Optional attributes:_
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
       <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
