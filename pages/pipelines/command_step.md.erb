@@ -165,14 +165,17 @@ _At least of the following attributes is required:_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      manual: false
   - label: "Tests"
     command: "tests.sh"
     retry:
       automatic: true
+
+  - wait
+
+  - label: "Deploy"
+    command: "deploy.sh"
+    retry:
+      manual: false
 ```
 
 
@@ -205,25 +208,16 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      automatic:
-        limit: 3
-  - label: "Visual Diffs"
-    command: "diffs.sh"
-    retry:
-      automatic:
-        exit_status: 1
-        limit: 1
   - label: "Tests"
     command: "tests.sh"
     retry:
       automatic:
-        - exit_status: 5
+        - exit_status: -1  # Agent was lost
           limit: 2
-        - exit_status: "*"
-          limit: 4
+        - exit_status: 143 # Forced agent shutdown (v3.9+)
+          limit: 2
+        - exit_status: 255 # Forced agent shutdown (<= v3.8)
+          limit: 2
 ```
 
 ## Manual Retry Attributes
@@ -257,21 +251,20 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      manual: true
-  - label: "Visual Diffs"
-    command: "diffs.sh"
-    retry:
-      manual:
-        allowed: false
-        reason: "Don't run this twice, it's not flaky"
   - label: "Tests"
     command: "tests.sh"
     retry:
       manual:
         permit_on_passed: true
+
+  - wait
+
+  - label: "Deploy"
+    command: "deploy.sh"
+    retry:
+      manual:
+        allowed: false
+        reason: "Sorry, you can't retry a deployment"
 ```
 
 ## Examples
@@ -279,34 +272,43 @@ steps:
 ```yml
 steps:
   - label: "\:hammer\: Tests"
-    command:
+    commands:
       - "npm install"
-      - "tests.sh"
+      - "npm run tests"
     branches: "master"
     env:
-      RAILS_ENV: "test"
-      RACK_ENV: "test"
+      NODE_ENV: "test"
     agents:
       npm: "true"
       queue: "tests"
     artifact_paths:
       - "logs/**/*"
       - "coverage/**/*"
-    parallelism: 1
-    timeout_in_minutes: 60
+    parallelism: 5
+    timeout_in_minutes: 3
     retry:
       automatic:
-        - exit_status: 1
-          limit: 3
-        - exit_status: 75
-          limit: 5
-  - label: "Linting"
-    command: "lint.sh"
+        - exit_status: -1
+          limit: 2
+        - exit_status: 143
+          limit: 2
+        - exit_status: 255
+          limit: 2
+
+  - label: "Visual diff"
+    commands:
+      - "npm install"
+      - "npm run visual-diff"
     retry:
-      manual: false
       automatic:
         limit: 3
+
+  - label: "Skipped job"
+    command: "broken.sh"
+    skip: "Currently broken and needs to be fixed"
+
   - wait
+
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "master"
@@ -315,8 +317,5 @@ steps:
     retry:
       manual:
         allowed: false
-        reason: "Don't retry deploys please!"
-  - label: "Skipped job"
-    command: "my_command.sh"
-    skip: "Didn't feel like it"
+        reason: "Sorry, you can't retry a deployment"
 ```
