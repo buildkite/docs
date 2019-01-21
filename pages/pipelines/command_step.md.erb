@@ -214,9 +214,7 @@ steps:
       automatic:
         - exit_status: -1  # Agent was lost
           limit: 2
-        - exit_status: 143 # Forced agent shutdown (v3.9+)
-          limit: 2
-        - exit_status: 255 # Forced agent shutdown (<= v3.8)
+        - exit_status: 255 # Forced agent shutdown
           limit: 2
 ```
 
