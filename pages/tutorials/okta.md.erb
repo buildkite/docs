@@ -1,32 +1,35 @@
 # Single Sign-on with Okta
 
-Okta can be used can be used to authorize access to your Buildkite organisation.
+Okta can be used can be used to authorize access to your Buildkite organization.
 
 ## Setting up SSO
 
-Setting up SSO with Okta requires organisation administrator privileges in both Okta and Buildkite. Okta provides support for 'groups', which can be set up inside your Okta account.
+Setting up SSO with Okta requires organization administrator privileges in both Okta and Buildkite.
 
 Self-service SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/tutorials/graphql-sso). 
 
-### Setup in your Okta organisation
+### Setup in your Okta organization
 
-The instructions below guide you through adding the Buildkite application to your Okta account. The Buildkite team will enable SSO for your organisation, with the details you provide from the end of the setup process.
+The instructions below guide you through adding the Buildkite application to your Okta account. The Buildkite team will enable SSO for your organization, with the details you provide from the end of the setup process.
 
-Before starting your Okta setup:
-Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this when setting up your Okta application.
+<div class="Docs__note">
+<p class="Docs__note__heading">Before starting your Okta setup</p>
+<p>Email the Buildkite team at support@buildkite.com to request your unique SAML service URL, you will need this when setting up your Okta application.</p>
+</div>
 
 Okta Application setup:
+
 1. Click the Admin button in Okta to access your Admin dashboard
 1. In the Shortcuts menu, click 'Add Applications' to search the Okta application directory
 1. Search for 'Buildkite'
 1. Click 'Add' to add the Buildkite app to your Okta account
-1. Fill out the 'General Settings' form, entering your case sentitive Buildkite organisation slug as the 'Organisation ID'
+1. Fill out the 'General Settings' form, entering your case sentitive Buildkite organization slug as the 'Organization ID'
 1. In the Buildkite application in Okta, select the tab labelled 'Sign On'
-1. In the Sign On section 'Settings', click the 'view setup instructions' button
+1. In the Sign On section 'Settings', click the 'View Setup Instructions' button
 1. Follow the instructions, copying the provided information into an email to support@buildkite.com
 
 When we receive your email, the Buildkite team will:
 
-1. Enable SSO for the specified organisation
+1. Enable SSO for the specified organization
 1. Reply to your email and get you to test that it's all working
-1. Deauthorize all the users in the organisation, so that everyone will authorize via Okta next time they attempt to access that organisation on Buildkite.com
+1. Deauthorize all the users in the organization, so that everyone will authorize via Okta next time they attempt to access that organization on Buildkite.com

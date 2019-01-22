@@ -74,7 +74,7 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Installation
 
 If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network so we can perform oAuth authentications and call to the API to update your pull request statuses.
 
-Whitelist the IP address `54.165.103.71` to allow Buildkite to perform API calls on your Github Enterprise instance.
+Whitelist the IP address `54.165.103.71` to allow Buildkite to perform API calls on your GitHub Enterprise instance.
 
 For additional security you can create a proxy which allows only the API endpoints we require:
 
@@ -82,7 +82,7 @@ For additional security you can create a proxy which allows only the API endpoin
 * `/api/v3/user`
 * `/login/oauth`
 
-The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the "Public API URL" Github Enterprise setting in Buildkite:
+The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the "Public API URL" GitHub Enterprise setting in Buildkite:
 
 ```nginx
 daemon off;

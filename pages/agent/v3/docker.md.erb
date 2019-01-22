@@ -31,11 +31,11 @@ You can see all the available versions on https://hub.docker.com/r/buildkite/age
 
 Most [agent configuration settings](https://buildkite.com/docs/agent/configuration) can be set with environment variables. Setting sensitive data, (such as the agent token) via environment variables or command line arguments _is not recommended_ as they are exposed in commands such as `docker inspect`.
 
-In addition to environment variables, you can copy or mount a configuration file to `/etc/buildkite-agent/buildkite-agent.cfg`, for example:
+In addition to environment variables, you can copy or mount a configuration file to `/buildkite/buildkite-agent.cfg`, for example:
 
 ```bash
 docker run -it \
-  -v "$HOME/buildkite-agent.cfg:/etc/buildkite-agent/buildkite-agent.cfg:ro" \
+  -v "$HOME/buildkite-agent.cfg:/buildkite/buildkite-agent.cfg:ro" \
   buildkite/agent:3
 ```
 

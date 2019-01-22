@@ -53,8 +53,8 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
 - name: "Docker Test %n"
   command: test.sh
   plugins:
-    docker-compose#v2.1.0:
-      run: app
+    - docker-compose#v2.1.0:
+        run: app
 ```
 
 This is the equivalent of running:
@@ -73,12 +73,12 @@ In this example, the `yarn` commands will be run inside a Docker container using
 steps:
   - command: yarn install && yarn run test
     plugins:
-      docker#v1.1.1:
-        image: "node:8"
-        workdir: /app
+      - docker#v1.1.1:
+          image: "node:8"
+          workdir: /app
 ```
 
-There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on Github](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on GitHub](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Pinning plugin versions</p>

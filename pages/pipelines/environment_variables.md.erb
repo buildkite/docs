@@ -40,7 +40,7 @@ The following environment variables are automatically provided to every job, and
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_CREATOR_TEAMS</code></th>
-    <td>A colon separated list of team names that the build creator belongs to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"everyone:platform"</code></p></td>
+    <td>A colon separated list of non-private team names that the build creator belongs to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"everyone:platform"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_ID</code></th>
@@ -145,6 +145,18 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code></th>
     <td>The UUID of the build that <a href="/docs/pipelines/trigger-step">triggered</a> this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"5aa7c894-c8c0-435b-bc17-13923b90f163"</code>, or <code>""</code> if the build was not triggered from another build.</td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_UNBLOCKER</code></th>
+    <td>The name of the user who unblocked the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"Tracy Tester"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_UNBLOCKER_UUID</code></th>
+    <td>The UUID of the user who unblocked the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"4735ba57-80d0-46e2-8fa0-b28223a86586"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_UNBLOCKER_TEAMS</code></th>
+    <td>A colon separated list of non-private team names that the unblocker belongs to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"everyone:platform"</code></p></td>
   </tr>
   <tr>
     <th><code>CI</code></th>
@@ -253,7 +265,7 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 
 After the agent variables have been merged, the bootstrap script is run.
 
-The bootstrap runs any local and global <a href="/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/agent/v3/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
+The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/pipelines/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
   <h1>Take care with environment variables in hooks</h1>
