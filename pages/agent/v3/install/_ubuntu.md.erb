@@ -14,7 +14,7 @@ sudo apt-get update && sudo apt-get install -y buildkite-agent
 Then configure your agent token:
 
 ```shell
-sudo sed -i "s/xxx/<%= token %>/g" /etc/buildkite-agent/buildkite-agent.cfg
+sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
 ```
 
 And then start the agent:
