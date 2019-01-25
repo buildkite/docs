@@ -11,7 +11,17 @@ You can run the Buildkite Agent inside a Docker container using the [`buildkite/
 
 ## Running via Docker
 
-<%= render_agent_setup :docker, "v3" %>
+Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
+
+```shell
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent
+```
+
+A much larger Ubuntu-based image is also available:
+
+```shell
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent:ubuntu
+```
 
 ## Running on startup
 

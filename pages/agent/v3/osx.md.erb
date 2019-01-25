@@ -6,7 +6,14 @@ The Buildkite Agent can be installed on macOS 10.9 or higher using Homebrew or o
 
 ## Installation
 
-<%= render_agent_setup :osx, "v3" %>
+If you have <a href="http://brew.sh/">Homebrew</a> installed you can use our <a href="https://github.com/buildkite/homebrew-buildkite">buildkite formula repository</a> to install the agent:
+
+```shell
+brew tap buildkite/buildkite
+brew install --token='INSERT-YOUR-AGENT-TOKEN-HERE' buildkite-agent
+```
+
+If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) install instructions.
 
 ## SSH Key Configuration
 
