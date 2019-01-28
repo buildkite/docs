@@ -19,20 +19,8 @@ The following environment variables are automatically provided to every job, and
     <td>The <a href="/docs/builds/artifacts">artifact paths</a> to upload after the job, if any have been specified. <p class="Docs__api-param-eg"><em>Example:</em> <code>"tmp/capybara/**/*;coverage/**/*"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_BIN_PATH</code></th>
-    <td>The path to the `buildkite-agent` binary. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/usr/local/bin/buildkite-agent"</code></p></td>
-  </tr>
-  <tr>
     <th><code>BUILDKITE_BRANCH</code></th>
     <td>The branch being built. <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_BUILD_PATH</code></th>
-    <td>The path to the directory where builds are created. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/var/lib/buildkite-agent/builds/"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_BUILD_CHECKOUT_PATH</code></th>
-    <td>The path where the agent has checked out your code for this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_BUILD_CREATOR</code></th>
@@ -59,28 +47,12 @@ The following environment variables are automatically provided to every job, and
     <td>The url for this build on Buildkite. <p class="Docs__api-param-eg"><em>Example:</em> <code>"https://buildkite.com/acme-inc/my-project/builds/1514"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_CLEAN_CHECKOUT</code></th>
-    <td>Whether the build should perform a clean checkout. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code> or <code>"false"</code></p></td>
-  </tr>
-  <tr>
     <th><code>BUILDKITE_COMMAND</code></th>
     <td>The command that will be run for the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"script/buildkite/specs"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_COMMIT</code></th>
     <td>The commit of the build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_CONFIG_PATH</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/buildkite-agent.cfg"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_DISABLE_GIT_SUBMODULES</code></th>
-    <td>When set to <code>true</code> prevents fetching of any git submodules during checkout. This variable is used by the <code>buildkite-agent</code> bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_ENV_FILE</code></th>
-    <td>The path to the file containing the job’s environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
@@ -93,10 +65,6 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_MESSAGE</code></th>
     <td>The message associated with the build, usually the commit message. <p class="Docs__api-param-eg"><em>Example:</em> <code>"Added a great new feature"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_NO_LOCAL_HOOKS</code></th>
-    <td>Whether local hooks in the repository are allowed. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code> or <code>"false"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_ORGANIZATION_SLUG</code></th>
@@ -145,10 +113,6 @@ The following environment variables are automatically provided to every job, and
   <tr>
     <th><code>BUILDKITE_RETRY_COUNT</code></th>
     <td>How many times this job has been retried. <p class="Docs__api-param-eg"><em>Example:</em> <code>"0"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>BUILDKITE_SHELL</code></th>
-   <td>The shell used to interpret build commands. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/bin/bash -e -c"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_SOURCE</code></th>
@@ -204,10 +168,6 @@ The following environment variables are automatically provided by the agent. The
     <td>The agent session token for the job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_AGENT_CONFIG</code></th>
-    <td>The path to the agent configuration file. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/buildkite/buildkite-agent.cfg"</code></p></td>
-  </tr>
-  <tr>
     <th><code>BUILDKITE_AGENT_DEBUG</code></th>
     <td>Whether the agent is in debug mode. <p class="Docs__api-param-eg"><em>Values:</em> <code>"true"</code> and <code>"false"</code></p></td>
   </tr>
@@ -216,20 +176,36 @@ The following environment variables are automatically provided by the agent. The
     <td>The Agent API endpoint URL. <p class="Docs__api-param-eg"><em>Example:</em> <code>"https://agent.buildkite.com/v3"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_AGENT_ID</code></th>
-   <td>The UUID of the agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>"1a222222-e999-3636-8ddd-802222222222"</code></p></td>
-  </tr>
-  <tr>
     <th><code>BUILDKITE_AGENT_PID</code></th>
    <td>The process ID of the agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>"6"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_AGENT_NAME</code></th>
-    <td>The name of the agent. <p class="Docs__api-param-eg"><em>Example:</em> <code>"my-agent-42"</code></p></td>
+    <th><code>BUILDKITE_BIN_PATH</code></th>
+    <td>The path to the `buildkite-agent` binary. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/usr/local/bin/buildkite-agent"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_BUILD_PATH</code></th>
+    <td>The path to the directory where builds are created. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/var/lib/buildkite-agent/builds/"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_BUILD_CHECKOUT_PATH</code></th>
+    <td>The path where the agent has checked out your code for this build. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_COMMAND_EVAL</code></th>
     <td>Whether the agent is configured to allow running arbitrary commands on the agent. <p class="Docs__api-param-eg"><em>Values:</em> <code>"true"</code> and <code>"false"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_COMMAND_EXIT_STATUS</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_CONFIG_PATH</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Default:</em> <code>"/buildkite/buildkite-agent.cfg"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_ENV_FILE</code></th>
+    <td>The path to the file containing the job’s environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_GIT_CLEAN_FLAGS</code></th>
@@ -248,6 +224,14 @@ The following environment variables are automatically provided by the agent. The
     <td>The path to the hooks directory. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/etc/buildkite-agent/hooks/"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_IGNORED_ENV</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_LAST_HOOK_EXIT_STATUS</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_LOCAL_HOOKS_ENABLED</code></th>
     <td>Whether the agent is configured to allow running of local hooks. <p class="Docs__api-param-eg"><em>Values:</em> <code>"true"</code> and <code>"false"</code></p></td>
   </tr>
@@ -260,8 +244,8 @@ The following environment variables are automatically provided by the agent. The
     <td>The path to the plugins directory. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/etc/buildkite-agent/plugins/"</code></p></td>
   </tr>
   <tr>
-    <th><code>BUILDKITE_PLUGIN_VALIDATION</code></th>
-    <td>Whether the agent is configured to validate plugin options. <p class="Docs__api-param-eg"><em>Values:</em> <code>"true"</code> and <code>"false"</code></p></td>
+    <th><code>BUILDKITE_SHELL</code></th>
+   <td>The shell used to interpret build commands. <p class="Docs__api-param-eg"><em>Example:</em> <code>"/bin/bash -e -c"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_SSH_KEYSCAN</code></th>
