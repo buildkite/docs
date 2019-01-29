@@ -254,6 +254,60 @@ The following environment variables are automatically provided by the agent. The
 </tbody>
 </table>
 
+## Bootstrap configuration variables
+
+These variables act as "settings" for the Agent's bootstrap script. These are read from the bootstrap's environment.
+
+The following environment variables can be set in either the `pipeline.yml` or in an environment hook:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>BUILDKITE_NO_LOCAL_HOOKS</code></th>
+    <td>Whether local hooks in the repository are allowed. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code> or <code>"false"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_PLUGIN_VALIDATION</code></th>
+    <td>Whether the agent is configured to validate plugin options. <p class="Docs__api-param-eg"><em>Values:</em> <code>"true"</code> and <code>"false"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_ACCESS_KEY_ID</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_ACCESS_URL</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_ACL</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_DEFAULT_REGION</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_S3_SECRET_ACCESS_KEY</code></th>
+    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+The following environment variables can only be set in an environment hook:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></th>
+    <td>The path where artifacts will be uploaded. <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_CLEAN_CHECKOUT</code></th>
+    <td>Whether the build should perform a clean checkout. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code> or <code>"false"</code></p></td>
+  </tr>
+</tbody>
+</table>
+
 ## Deprecated environment variables
 
 The following environment variables have been deprecated.
