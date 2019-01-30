@@ -13,44 +13,7 @@ You can use this command in your build scripts to store artifacts in the Buildki
 You can also configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
 ```
-$ buildkite-agent artifact upload --help
-Usage:
-
-   buildkite-agent artifact upload <pattern> <destination> [arguments...]
-
-Description:
-
-   Uploads files to a job as artifacts.
-
-   You need to ensure that the paths are surrounded by quotes otherwise the
-   built-in shell path globbing will provide the files, which is currently not
-   supported.
-
-Example:
-
-   $ buildkite-agent artifact upload "log/**/*.log"
-
-   You can also upload directly to Amazon S3 if you'd like to host your own artifacts:
-
-   $ export BUILDKITE_S3_ACCESS_KEY_ID=xxx
-   $ export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
-   $ export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
-   $ export BUILDKITE_S3_ACL=private # default is public-read
-   $ buildkite-agent artifact upload "log/**/*.log" s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
-
-   Or upload directly to Google Cloud Storage:
-
-   $ export BUILDKITE_GS_ACL=private
-   $ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
-
-Options:
-
-   --job value                 Which job should the artifacts be uploaded to [$BUILDKITE_JOB_ID]
-   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+<%= render 'agent/v3/help/artifact_upload.txt' %>
 ```
 
 ### Artifact upload examples
@@ -119,41 +82,7 @@ Keep in mind while you’re writing your path pattern:
 Use this command in your build scripts to download artifacts.
 
 ```
-Usage:
-
-   buildkite-agent artifact download [arguments...]
-
-Description:
-
-   Downloads artifacts from Buildkite to the local machine.
-
-   Note: You need to ensure that your search query is surrounded by quotes if
-   using a wildcard as the built-in shell path globbing will provide files,
-   which will break the download.
-
-Example:
-
-   $ buildkite-agent artifact download "pkg/*.tar.gz" . --build xxx
-
-   This will search across all the artifacts for the build with files that match that part.
-   The first argument is the search query, and the second argument is the download destination.
-
-   If you're trying to download a specific file, and there are multiple artifacts from different
-   jobs, you can target the particular job you want to download the artifact from:
-
-   $ buildkite-agent artifact download "pkg/*.tar.gz" . --step "tests" --build xxx
-
-   You can also use the step's jobs id (provided by the environment variable $BUILDKITE_JOB_ID)
-
-Options:
-
-   --step value                Scope the search to a paticular step by using either it's name or job ID
-   --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
-   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+<%= render 'agent/v3/help/artifact_download.txt' %>
 ```
 
 ### Artifact download examples
@@ -200,9 +129,9 @@ There is no need to escape characters such as `?`, `[` and `]`.
 
 ## Downloading artifacts outside a running build
 
-The `buildkite-agent artifact download` command relies on environment variables that are set by the agent while a build is running. 
+The `buildkite-agent artifact download` command relies on environment variables that are set by the agent while a build is running.
 
-For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run. 
+For example, executing the `buildkite-agent artifact download` command on your local machine would return an error about missing environment variables. However, when this command is executed as part of a build, the agent has set the required variables, and the command will be able to run.
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
@@ -211,42 +140,7 @@ If you want to download an artifact from outside a build use our [Artifact Downl
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
 ```
-Usage:
-
-   buildkite-agent artifact shasum [arguments...]
-
-Description:
-
-   Prints to STDOUT the SHA-1 for the artifact provided. If your search query
-   for artifacts matches multiple agents, and error will be raised.
-
-   Note: You need to ensure that your search query is surrounded by quotes if
-   using a wildcard as the built-in shell path globbing will provide files,
-   which will break the download.
-
-Example:
-
-   $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
-
-   This will search for all the files in the build with the path "pkg/release.tar.gz" and will
-   print to STDOUT it's SHA-1 checksum.
-
-   If you would like to target artifacts from a specific build step, you can do
-   so by using the --step argument.
-
-   $ buildkite-agent artifact shasum "pkg/release.tar.gz" --step "release" --build xxx
-
-   You can also use the step's job id (provided by the environment variable $BUILDKITE_JOB_ID)
-
-Options:
-
-   --step value                Scope the search to a paticular step by using either it's name of job ID
-   --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
-   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
-   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
-   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
-   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
-   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+<%= render 'agent/v3/help/artifact_shasum.txt' %>
 ```
 
 ## Using your own private AWS S3 bucket

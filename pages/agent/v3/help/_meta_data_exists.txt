@@ -1,0 +1,22 @@
+$ buildkite-agent meta-data exists --help
+Usage:
+
+   buildkite-agent meta-data exists <key> [arguments...]
+
+Description:
+
+   The command exits with a status of 0 if the key has been set, or it will
+   exit with a status of 100 if the key doesn't exist.
+
+Example:
+
+   $ buildkite-agent meta-data exists "foo"
+
+Options:
+
+   --job value                 Which job should the meta-data be checked for [$BUILDKITE_JOB_ID]
+   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
