@@ -197,7 +197,7 @@ The following environment variables are automatically provided by the agent. The
   </tr>
   <tr>
     <th><code>BUILDKITE_COMMAND_EXIT_STATUS</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>The exit code from the last command run in the command hook. <p class="Docs__api-param-eg"><em>Example:</em> <code>"-1"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_CONFIG_PATH</code></th>
@@ -225,11 +225,11 @@ The following environment variables are automatically provided by the agent. The
   </tr>
   <tr>
     <th><code>BUILDKITE_IGNORED_ENV</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>A list of environment variables that have been set in your pipeline that are protected and will be overridden, used internally by the agent.  <p class="Docs__api-param-eg"><em>Example:</em> <code>"BUILDKITE_GIT_CLEAN_FLAGS"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_LAST_HOOK_EXIT_STATUS</code></th>
-    <td> <p class="Docs__api-param-eg"><em>Example:</em> <code>""</code></p></td>
+    <td>The exit code of the last hook that ran, used internally by the hooks. <p class="Docs__api-param-eg"><em>Example:</em> <code>"-1"</code></p></td>
   </tr>
   <tr>
     <th><code>BUILDKITE_LOCAL_HOOKS_ENABLED</code></th>
