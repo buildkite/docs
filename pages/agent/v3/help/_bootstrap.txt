@@ -4,8 +4,19 @@ Usage:
 
 Description:
 
-   The bootstrap command checks out the jobs repository source code and
-   executes the commands defined in the job.
+   The bootstrap command executes a buildkite job locally.
+
+   Generally the bootstrap command is run as a sub-process of the buildkite-agent to execute
+   a given job sent from buildkite.com, but you can also invoke the bootstrap manually.
+
+   Execution is broken down into phases. By default, the bootstrap runs a plugin phase which
+   sets up any plugins specified, then a checkout phase which pulls down your code and then a
+   command phase that executes the specified command in the created environment.
+
+   You can run only specific phases with the --phases flag.
+
+   The bootstrap is also responsible for executing hooks around the phases.
+   See https://buildkite.com/docs/agent/v3/hooks for more details.
 
 Example:
 
@@ -32,15 +43,19 @@ Options:
    --artifact-upload-destination value  A custom location to upload artifact paths to (i.e. s3://my-custom-bucket) [$BUILDKITE_ARTIFACT_UPLOAD_DESTINATION]
    --clean-checkout                     Whether or not the bootstrap should remove the existing repository before running the command [$BUILDKITE_CLEAN_CHECKOUT]
    --git-clone-flags value              Flags to pass to "git clone" command (default: "-v") [$BUILDKITE_GIT_CLONE_FLAGS]
-   --git-clean-flags value              Flags to pass to "git clean" command (default: "-fxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
+   --git-clean-flags value              Flags to pass to "git clean" command (default: "-ffxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
    --bin-path value                     Directory where the buildkite-agent binary lives [$BUILDKITE_BIN_PATH]
    --build-path value                   Directory where builds will be created [$BUILDKITE_BUILD_PATH]
    --hooks-path value                   Directory where the hook scripts are found [$BUILDKITE_HOOKS_PATH]
    --plugins-path value                 Directory where the plugins are saved to [$BUILDKITE_PLUGINS_PATH]
    --command-eval                       Allow running of arbitary commands [$BUILDKITE_COMMAND_EVAL]
    --plugins-enabled                    Allow plugins to be run [$BUILDKITE_PLUGINS_ENABLED]
+   --plugin-validation                  Validate plugin configuration [$BUILDKITE_PLUGIN_VALIDATION]
+   --local-hooks-enabled                Allow local hooks to be run [$BUILDKITE_LOCAL_HOOKS_ENABLED]
    --ssh-keyscan                        Automatically run ssh-keyscan before checkout [$BUILDKITE_SSH_KEYSCAN]
    --git-submodules                     Enable git submodules [$BUILDKITE_GIT_SUBMODULES]
    --pty                                Run jobs within a pseudo terminal [$BUILDKITE_PTY]
    --shell value                        The shell to use to interpret build commands (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
+   --phases value                       The specific phases to execute. The order they're defined is is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
    --debug                              Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   

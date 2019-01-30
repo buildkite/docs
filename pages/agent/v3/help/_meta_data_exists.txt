@@ -1,4 +1,3 @@
-$ buildkite-agent meta-data exists --help
 Usage:
 
    buildkite-agent meta-data exists <key> [arguments...]
@@ -20,3 +19,4 @@ Options:
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+   
