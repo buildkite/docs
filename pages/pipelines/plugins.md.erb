@@ -76,7 +76,9 @@ We recommend always specifying a plugin version tag (e.g. `v1.2.3`) to prevent b
 
 ## Vendored plugins
 
-You can also have a plugin within your repository:
+You can store plugins within your repository. This is a great way to develop plugins along with code, or to ensure that a plugin doesn't change without you knowing. 
+
+The following example uses the plugin 'my-custom-plugin' that is stored in the repo's `.buildkite` folder:
 
 ```yml
 steps:
@@ -84,8 +86,6 @@ steps:
     plugins:
       - ./.buildkite/plugins/my-custom-plugin: ~
 ```
-
-This is a great way to develop plugins along with code or to ensure that a plugin doesn't change without you knowing it.
 
 ## Developing a plugin
 
