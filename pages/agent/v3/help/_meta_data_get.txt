@@ -1,0 +1,22 @@
+$ buildkite-agent meta-data get --help
+Usage:
+
+   buildkite-agent meta-data get <key> [arguments...]
+
+Description:
+
+   Get data from a builds key/value store.
+
+Example:
+
+   $ buildkite-agent meta-data get "foo"
+
+Options:
+
+   --default value             If the meta-data value doesn't exist return this instead
+   --job value                 Which job should the meta-data be retrieved from [$BUILDKITE_JOB_ID]
+   --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
+   --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
+   --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
+   --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
