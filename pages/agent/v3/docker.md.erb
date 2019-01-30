@@ -13,6 +13,12 @@ You can run the Buildkite Agent inside a Docker container using the [`buildkite/
 
 <%= render_agent_setup :docker, nil, "v3" %>
 
+## 🚨 Incompatibilities with plugins
+
+Whilst the agnt runs well in docker, there are presently some difficulties when combining your agent in a docker container and using many of our [plugins](https://buildkite.com/plugins). These can largely be mitigated by ensuring that the `builds-path` from the host is bind mounted into your agent container with the same path as on the host and having the buildkite-agent installed on the host so that it can be mounted into containers.
+
+See https://github.com/buildkite-plugins/docker-buildkite-plugin/issues/61 for more context.
+
 ## Running on startup
 
 By default Docker [starts containers on restart](https://docs.docker.com/articles/host_integration/) so there's no need for upstart or similar. Simply start your container with `-d` to daemonize it and it will be restarted on system boot with the same environment variables and arguments.
