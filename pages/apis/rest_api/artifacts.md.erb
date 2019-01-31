@@ -150,3 +150,17 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 Required scope: `read_artifacts`
 
 Success response: `302 Found`
+
+## Delete an artifact
+
+Returns a 204 response to a URL for deleting an artifact.
+
+The artifact is deleted from Buildkite AWS S3 storage and database. If you're using your own artifact storage, artifacts will need to be manually removed from your store.
+
+```bash
+curl -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}
+```
+
+Required scope: `write_artifacts`
+
+Success response: `204 No Content`
