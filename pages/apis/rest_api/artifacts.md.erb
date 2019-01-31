@@ -153,7 +153,9 @@ Success response: `302 Found`
 
 ## Delete an artifact
 
-Returns a 204 response to a URL for deleting an artifact, where the artifact is marked as deleted.
+Marks the artifact as deleted, removes it from the job and builds artifact list, and removes the file from Buildkite’s AWS S3 artifacts bucket.
+
+If the artifact was stored in your own [AWS S3](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket) or [Google Cloud](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-google-cloud-bucket) storage, it will not be automatically deleted from your store.
 
 ```bash
 curl -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}
