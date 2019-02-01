@@ -1,0 +1,60 @@
+# Teams API
+
+<%= toc %>
+
+## Team data model
+
+<table>
+<tbody>
+  <tr><th><code>id</code></th><td>ID of the team</td></tr>
+  <tr><th><code>name</code></th><td>Name of the team</td></tr>
+  <tr><th><code>slug</code></th><td>URL slug of the team</td></tr>
+  <tr><th><code>description</code></th><td>Description of the team</td></tr>
+  <tr><th><code>privacy</code></th><td>Privacy setting of the team (<code>visible</code>, <code>secret</code>)</td></tr>
+  <tr><th><code>default</code></th><td>Whether users join this team by default (<code>true</code>, <code>false</code>)</td></tr>
+  <tr><th><code>created_at</code></th><td>Time of when the team was created</td></tr>
+  <tr><th><code>created_by</code></th><td>User who created the team</td></tr>
+</tbody>
+</table>
+
+## List teams
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s teams.
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/teams"
+```
+
+```json
+[
+  {
+    "id": "3bf68c45-aba4-416c-9f31-01838da5dc38",
+    "name": "Everyone",
+    "slug": "everyone",
+    "description": "Everyone’s welcome",
+    "created_at": "2019-01-24T01:07:35.855Z",
+    "privacy": "visible",
+    "default": false,
+    "created_by": {
+      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+      "name": "Keith Pitt",
+      "email": "keith@buildkite.com",
+      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+      "created_at": "2015-05-09T21:05:59.874Z"
+    }
+  }
+]
+```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr><th><code>user_id</code></th><td>Filters the results to teams that have the given user as a member. <p class="Docs__api-param-eg"><em>Example:</em> <code>?user_id=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td></tr>
+</tbody>
+</table>
+
+
+Required scope: `read_teams`
+
+Success response: `200 OK`
