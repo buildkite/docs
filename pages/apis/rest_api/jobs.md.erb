@@ -127,6 +127,16 @@ Alternative formats (via `Accept` header or file extension):
 </tbody>
 </table>
 
+## Delete a job’s log output
+
+```bash
+curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+Required scope: `write_build_logs`
+
+Success response: `204 No Content`
+
 ## Get a job's environment variables
 
 ```bash
