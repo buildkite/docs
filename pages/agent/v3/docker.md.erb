@@ -1,10 +1,10 @@
 # Running Buildkite Agent with Docker
 
-You can run the Buildkite Agent inside a Docker container using the [official image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
+You can run the Buildkite Agent inside a Docker container using the [`buildkite/agent` docker image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Running each build in it’s own container</p>
-<p>These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized Builds with Docker</a> guide.</p>
+<p>These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Docker-Based Builds</a> guide.</p>
 </div>
 
 <%= toc %>
@@ -14,88 +14,64 @@ You can run the Buildkite Agent inside a Docker container using the [official im
 Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
 
 ```shell
-docker run -d -t buildkite-agent buildkite/agent:3 start --token "<your-agent-token>"
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent
 ```
 
 A much larger Ubuntu-based image is also available:
 
 ```shell
-docker run -d -t buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent:ubuntu
 ```
 
-<section class="Docs__troubleshooting-note">
-  <h1>Caveats for builds that need Docker access.</h1>
-  <p>If your build jobs require Docker access, and you’re passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#invoking-docker-from-within-a-build">Invoking Docker from within a build</a> for more details.</a>.
-</section>
+## 🚨 Caveats for builds that need Docker access
 
-## Version tagging
+While the agent runs well in Docker, there are some challenges with giving that agent's builds access to a docker socket, as volume mounts are relative to the host rather than the paths in the agent container. This can cause compatibility issues with some [plugins](https://buildkite.com/plugins). See [Invoking Docker from within a build](#invoking-docker-from-within-a-build) for more details.
 
-The default tag (i.e. `buildkite/agent:latest`) will always point to the latest stable release, but we recommend you use `buildkite/agent:3` to prevent breaking changes. If you want to use an exact version, you can use the corresponding tag, such as `buildkite/agent:3.0.1`. See [Docker Hub](https://hub.docker.com/r/buildkite/agent/tags/) for a list of all the available versions.
+## Running on startup
 
-## Default file locations
+By default Docker [starts containers on restart](https://docs.docker.com/articles/host_integration/) so there's no need for upstart or similar. Simply start your container with `-d` to daemonize it and it will be restarted on system boot with the same environment variables and arguments.
 
-* Configuration: `/buildkite/buildkite-agent.cfg`
-* Hooks: `/buildkite/hooks`
-* Builds: `/buildkite/builds`
-* Agent user home: `/root`
+## Running different versions
 
-## Configuration
+The default tag (i.e. `buildkite/agent` and `buildkite/agent:latest`) will always point to the latest stable release.
 
-Most [agent configuration settings](https://buildkite.com/docs/agent/configuration) can be set with environment variables. You can also mount a configuration file in, for example:
+We recommend you use `buildkite/agent:3` for new setups to get at least version 3.0 of the agent
+
+If you want to use an exact version of Buildkite Agent you can use the corresponding tag, such as `buildkite/agent:3.0.1`.
+
+You can see all the available versions on https://hub.docker.com/r/buildkite/agent/tags/.
+
+## Configuring the agent
+
+Most [agent configuration settings](https://buildkite.com/docs/agent/configuration) can be set with environment variables. Setting sensitive data, (such as the agent token) via environment variables or command line arguments _is not recommended_ as they are exposed in commands such as `docker inspect`.
+
+In addition to environment variables, you can copy or mount a configuration file to `/buildkite/buildkite-agent.cfg`, for example:
 
 ```bash
-docker run \
-  -v "/path/to/buildkite-agent.cfg:/buildkite/buildkite-agent.cfg:ro" \
-  -d \
-  -t buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+docker run -it \
+  -v "$HOME/buildkite-agent.cfg:/buildkite/buildkite-agent.cfg:ro" \
+  buildkite/agent:3
 ```
 
 ## Adding hooks
 
-You can add [custom agent hooks](https://buildkite.com/docs/agent/hooks) by mounting or copying them into the `/buildkite/hooks` directory, and ensuring they are executable.
+You can add [custom agent hooks](https://buildkite.com/docs/agent/hooks) by mounting or copying them into the `/buildkite/hooks` directory (and ensuring they are executable).
 
 For example, this is how you'd mount the hooks directory using a read-only host volume:
 
 ```bash
-docker run \
-  -v "/path/to/buildkite-hooks:/buildkite/hooks:ro" \
-  -d \
-  -t buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+docker run -it \
+  -v "$HOME/buildkite-hooks:/buildkite/hooks:ro" \
+  buildkite/agent:3
 ```
 
 Alternatively, if you create your own image based off `buildkite/agent`, you can copy your hooks into the correct location:
 
 ```dockerfile
-FROM buildkite/agent:3
+FROM buildkite/agent
 
-COPY hooks /buildkite/hooks/
+ADD hooks /buildkite/hooks/
 ```
-
-## Allowing builds to use Docker
-
-To use Docker and volume mounting from build scripts, you need to ensure that the builds directory, and the `buildkite-agent` binary path, are mounted in from the host machine, and that their paths on the host and in the agent container are the same.
-
-For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent’s container (e.g. `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
-
-The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATHS` configuration:
-
-```bash
-docker run \
-  -v "/var/lib/buildkite/builds:/var/lib/buildkite/builds" \
-  -v "/usr/local/bin/buildkite-agent:/usr/local/bin/buildkite-agent" \
-  -v "/var/run/docker.sock:/var/run/docker.sock" \
-  -e "BUILDKITE_BUILDS_PATH=/var/lib/buildkite/builds" \
-  -d \
-  -t buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
-```
-
-<section class="Docs__troubleshooting-note">
-  <h1>Security considerations</h1>
-  <p>Providing builds with a Docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is <code>root</code>, which means builds have full root system access. This can be mitigated somewhat with <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>, but caution should still be excercised.</p>
-</section>
 
 ## Exposing build secrets into the container
 
@@ -104,11 +80,9 @@ There are many approaches to exposing secrets to Docker containers. In addition,
 The following example mounts a directory containing secrets on the host machine (`$HOME/buildkite-secrets`) into the container as a read-only data volume at `/buildkite-secrets`:
 
 ```bash
-docker run \
-  -v "/path/to/buildkite-secrets:/buildkite-secrets:ro" \
-  -d \
-  -t buildkite-agent \
-  buildkite/agent:3 start --token "<your-agent-token>"
+docker run -it \
+  -v "$HOME/buildkite-secrets:/buildkite-secrets:ro" \
+  buildkite/agent:3
 ```
 
 You can then use an `environment` [agent hook](https://buildkite.com/docs/agent/hooks) to expose those secrets via environment variables, or to configure tools such as `git` or `ssh`.
@@ -146,6 +120,27 @@ Other options for configuring Git and SSH include:
 
 * Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](https://buildkite.com/docs/agent/ssh-keys) for examples on using ssh-agent.
 * The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys via environment variables.
+
+## Invoking Docker from within a build
+
+To invoke Docker from within builds you can mount the host docker socket into the container. This can be tricky to get right, as paths that are mounted in containers created via the socket are relative to the host, not the container that the agent runs in.
+
+For example, we have some code that calls `docker run --volume $PWD:/code ...`. The `$PWD` will resolve inside your agent container to something like `/buildkite/builds...`, which is the path inside the agent container. The docker daemon will try and mount that path from the host (where it doesn't exist) and docker will mount an empty directory without error to your container.
+
+The workaround for this is to mirror anything that you might want to volume mount into containers on the host system and in your agent container. Most usecases (especially [plugins](https://buildkite.com/plugins)) are the builds directories and `/usr/local/bin/buildkite-agent`.
+
+For example:
+
+```bash
+docker run \
+  -v /var/lib/buildkite/builds:/var/lib/buildkite/builds \
+  -e "BUILDKITE_BUILDS_PATH=/var/lib/buildkite/builds" \
+  -v "/usr/local/bin/buildkite-agent:/usr/local/bin/buildkite-agent" \
+  -v "/var/run/docker.sock:/var/run/docker.sock" \
+  buildkite/agent:3 start
+```
+
+Note that providing builds with a docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is `root`, which means builds have full root system access. This can be mitigated somewhat with [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/), but caution should still be excercised.
 
 ## Entrypoint customizations
 
