@@ -23,7 +23,7 @@ _Required attributes:_
   <tr>
     <td><code>command</code></td>
     <td>
-      The shell command/s to run during this step. This can be a single line of commands, or a YAML list. <br>
+      The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass. Also available as the alias <code>commands</code>.<br>
       <em>Example:</em> <code>"build.sh"</code><br>
       <em>Example:</em><br><code>- "npm install"</code><br><code>- "tests.sh"</code>
     </td>
@@ -37,7 +37,7 @@ steps:
 
 ```yml
 steps:
-  - command:
+  - commands:
     - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
@@ -56,7 +56,7 @@ _Optional attributes:_
   <tr>
     <td><code>artifact_paths</code></td>
     <td>
-      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a YAML list.<br>
+      The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br>
       <em>Example:</em> <code>"logs/**/*;coverage/**/*"</code><br>
       <em>Example:</em><br><code>- "logs/**/*"</code><br><code>- "coverage/**/*"</code>
     </td>
@@ -140,10 +140,7 @@ _Optional attributes:_
 
 ## Retry Attributes
 
-<div class="Docs__note">
-<p class="Docs__note__heading">At least one of the following attributes is required.</p>
-<p>You don't have to set both the <em>automatic</em> and <em>manual</em> attributes on <code>retry</code>, but you can choose to set both.</p>
-</div>
+_At least of the following attributes is required:_
 
 <table>
   <tr>
@@ -168,14 +165,17 @@ _Optional attributes:_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      manual: false
   - label: "Tests"
     command: "tests.sh"
     retry:
       automatic: true
+
+  - wait
+
+  - label: "Deploy"
+    command: "deploy.sh"
+    retry:
+      manual: false
 ```
 
 
@@ -208,25 +208,14 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      automatic:
-        limit: 3
-  - label: "Visual Diffs"
-    command: "diffs.sh"
-    retry:
-      automatic:
-        exit_status: 1
-        limit: 1
   - label: "Tests"
     command: "tests.sh"
     retry:
       automatic:
-        - exit_status: 5
+        - exit_status: -1  # Agent was lost
           limit: 2
-        - exit_status: "*"
-          limit: 4
+        - exit_status: 255 # Forced agent shutdown
+          limit: 2
 ```
 
 ## Manual Retry Attributes
@@ -252,7 +241,7 @@ _Optional Attributes_
   <tr>
     <td><code>reason</code></td>
     <td>
-      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false. <br>
+      A string that will be displayed in a tooltip on the Retry button in Buildkite. This will only be displayed if the <code>allowed</code> attribute is set to false.<br>
       <em>Example:</em> <code>"No retries allowed on deploy steps"</code>
     </td>
   </tr>
@@ -260,21 +249,20 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Linting"
-    command: "lint.sh"
-    retry:
-      manual: true
-  - label: "Visual Diffs"
-    command: "diffs.sh"
-    retry:
-      manual:
-        allowed: false
-        reason: "Don't run this twice, it's not flaky"
   - label: "Tests"
     command: "tests.sh"
     retry:
       manual:
         permit_on_passed: true
+
+  - wait
+
+  - label: "Deploy"
+    command: "deploy.sh"
+    retry:
+      manual:
+        allowed: false
+        reason: "Sorry, you can't retry a deployment"
 ```
 
 ## Examples
@@ -282,34 +270,43 @@ steps:
 ```yml
 steps:
   - label: "\:hammer\: Tests"
-    command:
+    commands:
       - "npm install"
-      - "tests.sh"
+      - "npm run tests"
     branches: "master"
     env:
-      RAILS_ENV: "test"
-      RACK_ENV: "test"
+      NODE_ENV: "test"
     agents:
       npm: "true"
       queue: "tests"
     artifact_paths:
       - "logs/**/*"
       - "coverage/**/*"
-    parallelism: 1
-    timeout_in_minutes: 60
+    parallelism: 5
+    timeout_in_minutes: 3
     retry:
       automatic:
-        - exit_status: 1
-          limit: 3
-        - exit_status: 75
-          limit: 5
-  - label: "Linting"
-    command: "lint.sh"
+        - exit_status: -1
+          limit: 2
+        - exit_status: 143
+          limit: 2
+        - exit_status: 255
+          limit: 2
+
+  - label: "Visual diff"
+    commands:
+      - "npm install"
+      - "npm run visual-diff"
     retry:
-      manual: false
       automatic:
         limit: 3
+
+  - label: "Skipped job"
+    command: "broken.sh"
+    skip: "Currently broken and needs to be fixed"
+
   - wait
+
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
     branches: "master"
@@ -318,8 +315,5 @@ steps:
     retry:
       manual:
         allowed: false
-        reason: "Don't retry deploys please!"
-  - label: "Skipped job"
-    command: "my_command.sh"
-    skip: "Didn't feel like it"
+        reason: "Sorry, you can't retry a deployment"
 ```

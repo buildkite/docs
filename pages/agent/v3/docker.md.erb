@@ -11,7 +11,21 @@ You can run the Buildkite Agent inside a Docker container using the [`buildkite/
 
 ## Running via Docker
 
-<%= render_agent_setup :docker, nil, "v3" %>
+Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
+
+```shell
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent
+```
+
+A much larger Ubuntu-based image is also available:
+
+```shell
+docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/agent:ubuntu
+```
+
+## 🚨 Caveats for builds that need Docker access
+
+While the agent runs well in Docker, there are some challenges with giving that agent's builds access to a docker socket, as volume mounts are relative to the host rather than the paths in the agent container. This can cause compatibility issues with some [plugins](https://buildkite.com/plugins). See [Invoking Docker from within a build](#invoking-docker-from-within-a-build) for more details.
 
 ## Running on startup
 
@@ -109,15 +123,24 @@ Other options for configuring Git and SSH include:
 
 ## Invoking Docker from within a build
 
-To invoke Docker from within builds you'll need to mount the Docker socket into the container:
+To invoke Docker from within builds you can mount the host docker socket into the container. This can be tricky to get right, as paths that are mounted in containers created via the socket are relative to the host, not the container that the agent runs in.
+
+For example, we have some code that calls `docker run --volume $PWD:/code ...`. The `$PWD` will resolve inside your agent container to something like `/buildkite/builds...`, which is the path inside the agent container. The docker daemon will try and mount that path from the host (where it doesn't exist) and docker will mount an empty directory without error to your container.
+
+The workaround for this is to mirror anything that you might want to volume mount into containers on the host system and in your agent container. Most usecases (especially [plugins](https://buildkite.com/plugins)) are the builds directories and `/usr/local/bin/buildkite-agent`.
+
+For example:
 
 ```bash
-docker run -it \
-  -v /var/run/docker.sock:/var/run/docker.sock \
-  buildkite/agent:3
+docker run \
+  -v /var/lib/buildkite/builds:/var/lib/buildkite/builds \
+  -e "BUILDKITE_BUILDS_PATH=/var/lib/buildkite/builds" \
+  -v "/usr/local/bin/buildkite-agent:/usr/local/bin/buildkite-agent" \
+  -v "/var/run/docker.sock:/var/run/docker.sock" \
+  buildkite/agent:3 start
 ```
 
-Note that this gives builds the same access to the host system as docker has, which is generally root.
+Note that providing builds with a docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is `root`, which means builds have full root system access. This can be mitigated somewhat with [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/), but caution should still be excercised.
 
 ## Entrypoint customizations
 

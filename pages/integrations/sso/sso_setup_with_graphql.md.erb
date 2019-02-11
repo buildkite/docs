@@ -1,8 +1,8 @@
 # Setting up Single Sign-On with GraphQL
 
-Buildkite’s Single Sign-On (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql). This tutorial covers how to set up SSO manually using GraphQL.
+Buildkite’s Single Sign-On (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql-api). This tutorial covers how to set up SSO manually using GraphQL.
 
-<section class="Docs__troubleshooting-note">
+<section class="Docs__note">
   <p>For details on every available option available in the GraphQL APIs, please use the documentation sidebar built into the <a href="/docs/graphql-api#getting-started">GraphQL Explorer</a>.</p>
 </section>
 
@@ -45,6 +45,8 @@ mutation CreateProvider {
 }
 ```
 
+You'll need the provider's `id` from the output of this mutation in step three. 
+
 ### Step 2
 
 The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login via G Suite.
@@ -78,7 +80,9 @@ You should now see that the provider’s state is enabled.
 
 ### Step 1
 
-The first step in setting up a SAML-based provider is to use the `ssoProviderCreate` mutation to create a new provider in Buildkite and retrieve the details you’ll need for your SSO provider’s system.
+The first step in setting up a SAML-based provider is to use the `ssoProviderCreate` mutation to create a new provider in Buildkite. This mutation will return the details you’ll need for your SSO provider’s system.
+
+The `emailDomainVerificationAddress` requires the same domain as `emailDomain`, and must be one of `admin@`, `administrator@`, `postmaster@`, or `webmaster@`.
 
 ```graphql
 mutation CreateProvider {
@@ -89,6 +93,7 @@ mutation CreateProvider {
     emailDomainVerificationAddress: "admin@myorg.com"
   }) {
     ssoProvider {
+      id
       state
       ... on SSOProviderSAML {
         serviceProvider {
@@ -103,6 +108,8 @@ mutation CreateProvider {
   }
 }
 ```
+
+You'll need the provider's `id` from the output of this mutation in steps three and four. 
 
 ### Step 2
 

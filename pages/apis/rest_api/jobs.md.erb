@@ -123,9 +123,19 @@ Alternative formats (via `Accept` header or file extension):
 <table>
 <tbody>
   <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job’s raw log content</td></tr>
-  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job’s log content as rendered by <a href="http://buildkite.github.io/terminal/">Terminal</a></td></tr>
+  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job’s log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td></tr>
 </tbody>
 </table>
+
+## Delete a job’s log output
+
+```bash
+curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
+```
+
+Required scope: `write_build_logs`
+
+Success response: `204 No Content`
 
 ## Get a job's environment variables
 
