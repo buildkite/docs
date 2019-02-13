@@ -93,11 +93,8 @@ To do this see the [agent hooks](/docs/agent/v3/hooks) and [parallel builds](par
 
 ## Adding buildkite-agent to the Docker group
 
-On the agent machine, to allow `buildkite-agent` to use the Docker client you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
+On the agent machine, to allow `buildkite-agent` to use the Docker client, you’ll need to ensure its user has the necessary permissions. For most platforms this means adding the `buildkite-agent` user to your system’s `docker` group, and then restarting the Buildkite Agent to ensure it is running with the correct permissions. See your platform’s [Docker installation instructions](https://docs.docker.com/installation/) for more details.
 
 ## Adding a cleanup task
 
-Even though the buildkite agent cleans up the images after each run, inevitably over time your Docker host can fill up with a lot of unused images.
-
-Docker’s [system prune](https://docs.docker.com/engine/reference/commandline/system_prune) command can be used to remove all unused containers, networks, and images from your environment. We recommend running either `docker system prune`, or a similar tool like [docker-gc](https://github.com/spotify/docker-gc), on a daily basis.
-
+Over time your Docker host’s file system can fill up with unused images. It’s recommended to schedule Docker’s [system prune](https://docs.docker.com/engine/reference/commandline/system_prune) command to run on a daily basis, which can remove all unused containers, networks, and images.
