@@ -12,398 +12,397 @@ Always `"true"`.
 
 ### BUILDKITE\_AGENT\_ACCESS_TOKEN
 
-The agent session token for the job. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The agent session token for the job. The value cannot be modified.
 
 Example: `"83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"`
 
 ### BUILDKITE\_AGENT_DEBUG
 
-Whether the agent is in debug mode. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `debug` config.
+The value of the `debug` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_AGENT_ENDPOINT
 
-The Agent API endpoint URL. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `endpoint` config.
+The value of the `endpoint` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"https://agent.buildkite.com/v3"`
 
 ### BUILDKITE\_AGENT_PID
 
-The process ID of the agent. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The process ID of the agent. The value cannot be modified.
 
 Example: `"6"`
 
 ### BUILDKITE\_ARTIFACT_PATHS
 
-The artifact paths to upload after the job, if any have been specified. This variable can be modified by hooks.
+The artifact paths to upload after the job, if any have been specified. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"tmp/capybara/**/*;coverage/**/*"`
 
 ### BUILDKITE\_ARTIFACT\_UPLOAD_DESTINATION
 
-The path where artifacts will be uploaded. This variable is read straight from the environment of the bootstrap and can only be set from hooks.
+The path where artifacts will be uploaded. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
 
 ### BUILDKITE\_BIN_PATH
 
-The path to the `buildkite-agent` binary. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The path to the `buildkite-agent` binary. The value cannot be modified as an environment variable.
 
 Example: `"/usr/local/bin/buildkite-agent"`
 
 ### BUILDKITE_BRANCH
 
-The branch being built.
+The branch being built. The value cannot be modified.
 
 Example: `"master"`
 
 ### BUILDKITE\_BUILD\_CHECKOUT_PATH
 
-The path where the agent has checked out your code for this build. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set by the bootstrap when the agent is started, and is modifiable from hooks.
+The path where the agent has checked out your code for this build. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
 ### BUILDKITE\_BUILD_CREATOR
 
-The name of the user who created the build. 
+The name of the user who created the build. The value cannot be modified.
 
 Example: `"Tracy Tester"`
 
 ### BUILDKITE\_BUILD\_CREATOR_EMAIL
 
-The notification email of the user who created the build.
+The notification email of the user who created the build. The value cannot be modified.
 
 Example: `"tracy@acme-inc.com"`
 
 ### BUILDKITE\_BUILD\_CREATOR_TEAMS
 
-A colon separated list of non-private team names that the build creator belongs to.
+A colon separated list of non-private team names that the build creator belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
 
 ### BUILDKITE\_BUILD_ID
 
-The UUID of the build.
+The UUID of the build. The value cannot be modified.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 
 ### BUILDKITE\_BUILD_NUMBER
 
-The build number. This number increases by 1 with every build, and is guaranteed to be unique within each pipeline.
+The build number. This number increases by 1 with every build, and is guaranteed to be unique within each pipeline. The value cannot be modified.
 
 Example: `"1514"`
 
 ### BUILDKITE\_BUILD_PATH
 
-The path to the directory where builds are created. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `build-path` config option.
+The value of the `build-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/var/lib/buildkite-agent/builds/"`
 
 ### BUILDKITE\_BUILD_URL
 
-The url for this build on Buildkite.
+The url for this build on Buildkite. The value cannot be modified.
 
 Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
 ### BUILDKITE\_CLEAN_CHECKOUT
 
-Whether the build should perform a clean checkout. This variable is read straight from the environment of the bootstrap and can only be set from hooks.
+Whether the build should perform a clean checkout. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Values: `"true"` or `"false"`
 
 ### BUILDKITE_COMMAND
 
-The command that will be run for the job.
+The command that will be run for the job. The value cannot be modified.
 
 Example: `"script/buildkite/specs"`
 
 ### BUILDKITE\_COMMAND_EVAL
 
-Whether the agent is configured to allow running arbitrary commands on the agent.
-This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is derived from the `no-command-eval` config option.
+The opposite of the value of the `no-command-eval` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_COMMAND\_EXIT_STATUS
 
-The exit code from the last command run in the command hook. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The exit code from the last command run in the command hook. The value cannot be modified.
 
 Example: `"-1"`
 
 ### BUILDKITE_COMMIT
 
-The commit of the build.
+The commit of the build. The value cannot be modified.
 
 Example: `"83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"`
 
 ### BUILDKITE\_CONFIG_PATH
 
-The path to the agent config file. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The path to the agent config file. The value cannot be modified as an environment variable.
 
 Default: `"/buildkite/buildkite-agent.cfg"`
 
 ### BUILDKITE\_ENV_FILE
 
-The path to the file containing the job’s environment variables. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The path to the file containing the job’s environment variables. The value cannot be modified.
 
 Example: `"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"`
 
 ### BUILDKITE\_GIT\_CLEAN_FLAGS
 
-The git clean flags the agent is configured to use. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `git-clean-flags` config option. It is modifiable from hooks.
+The value of the `git-clean-flags` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"-ffxdq"`
 
 ### BUILDKITE\_GIT\_CLONE_FLAGS
 
-The git clone flags the agent is configured to use. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `git-clone-flags` config option. It is modifiable from hooks.
+The value of the `git-clone-flags` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"-v"`
 
 ### BUILDKITE\_GIT_SUBMODULES
 
-Whether the agent is configured to allow downloading git submodules during `git clone`. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is derived from the `no-git-submodules` config option. 
+The opposite of the value of the `no-git-submodules` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_HOOKS_PATH
 
-The path to the hooks directory. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `hooks-path` config option.
+The value of the `hooks-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/etc/buildkite-agent/hooks/"`
 
 ### BUILDKITE\_IGNORED_ENV
 
-A list of environment variables that have been set in your pipeline that are protected and will be overridden, used internally to pass data from the bootstrap to the agent. This variable is itself "protected" and it will overwrite anything in the shell environment or set at a pipeline level.
+A list of environment variables that have been set in your pipeline that are protected and will be overridden, used internally to pass data from the bootstrap to the agent. The value cannot be modified.
 
 Example: `"BUILDKITE\_GIT\_CLEAN_FLAGS"`
 
 ### BUILDKITE\_JOB_ID
 
-Internal UUID Buildkite uses for this job.
+The internal UUID Buildkite uses for this job. The value cannot be modified.
 
 Example: `"e44f9784-e20e-4b93-a21d-f41fd5869db9"`
 
 ### BUILDKITE_LABEL
 
-The label/name of the current job.
+The label/name of the current job. The value cannot be modified.
 
 Example: `"\:hammer\: Specs"`
 
 ### BUILDKITE\_LAST\_HOOK\_EXIT_STATUS
 
-The exit code of the last hook that ran, used internally by the hooks. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started.
+The exit code of the last hook that ran, used internally by the hooks. The value cannot be modified.
 
 Example: `"-1"`
 
 ### BUILDKITE\_LOCAL\_HOOKS_ENABLED
 
-Whether the agent is configured to allow running of local hooks. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is derived from the `no-local-hooks` config option.
+The opposite of the value of the `no-local-hooks` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE_MESSAGE
 
-The message associated with the build, usually the commit message.
+The message associated with the build, usually the commit message. The value cannot be modified.
 
 Example: `"Added a great new feature"`
 
 ### BUILDKITE\_NO\_LOCAL_HOOKS
 
-Whether local hooks in the repository are allowed. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+Whether local hooks in the repository are allowed. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Values: `"true"` or `"false"`
 
 ### BUILDKITE\_ORGANIZATION_SLUG
 
-The organization name on Buildkite as used in URLs.
+The organization name on Buildkite as used in URLs. The value cannot be modified.
 
 Example: `"acme-inc"`
 
 ### BUILDKITE\_PIPELINE\_DEFAULT_BRANCH
 
-The default branch for this pipeline.
+The default branch for this pipeline. The value cannot be modified.
 
 Example: `"master"`
 
 ### BUILDKITE\_PIPELINE_PROVIDER
 
-The ID of the source code provider for the pipeline’s repository.
+The ID of the source code provider for the pipeline’s repository. The value cannot be modified.
 
 Example: `"github"`
 
 ### BUILDKITE\_PIPELINE_SLUG
 
-The pipeline slug on Buildkite as used in URLs.
+The pipeline slug on Buildkite as used in URLs. The value cannot be modified.
 
 Example: `"my-project"`
 
 ### BUILDKITE\_PLUGINS_ENABLED
 
-Whether the agent is configured to allow running of plugins. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is derived from the `no-plugins` config option.
+The opposite of the value of the `no-plugins` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_PLUGINS_PATH
 
-The path to the plugins directory. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `plugins-path` config option.
+The value of the `plugins-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/etc/buildkite-agent/plugins/"`
 
 ### BUILDKITE\_PLUGIN_VALIDATION
 
-Whether the agent is configured to validate plugin options. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+Whether the agent is configured to validate plugin options. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_PULL_REQUEST
 
-The number of the pull request, if this branch is a pull request.
+The number of the pull request, if this branch is a pull request. The value cannot be modified.
 
 Example: `"123"` for pull request #123, or `"false"` if not a pull request.
 
 ### BUILDKITE\_PULL\_REQUEST\_BASE_BRANCH
 
-The base branch that the pull request is targeting.
+The base branch that the pull request is targeting. The value cannot be modified.
 
 Example: `"master"`, or `""` if not a pull request.
 
 ### BUILDKITE\_PULL\_REQUEST_REPO
 
-The repository URL of the pull request.
+The repository URL of the pull request. The value cannot be modified.
 
 Example: `"git://github.com/acme-inc/my-project.git"`, or `""` if not a pull request.
 
 ### BUILDKITE\_REBUILT\_FROM\_BUILD_ID
 
-The UUID of the original build this was rebuilt from.
+The UUID of the original build this was rebuilt from. The value cannot be modified.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`, or `""` if not a rebuild.
 
 ### BUILDKITE\_REBUILT\_FROM\_BUILD_NUMBER
 
-The UUID of the original build this was rebuilt from.
+The UUID of the original build this was rebuilt from. The value cannot be modified.
 
 Example: `"1514"`, or `""` if not a rebuild.
 
 ### BUILDKITE_REFSPEC
 
-A custom refspec for the buildkite-agent bootstrap script to use when checking out code.This variable can be modified by hooks.
+A custom refspec for the buildkite-agent bootstrap script to use when checking out code. This variable can be modified by hooks.
 
 Example: `"+refs/weird/123abc:refs/local/weird/456"`
 
 ### BUILDKITE_REPO
 
-The repository of your pipeline. This variable can be modified by hooks.
+The repository of your pipeline. This variable can be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"git@github.com:acme-inc/my-project.git"`
 
 ### BUILDKITE\_RETRY_COUNT
 
-How many times this job has been retried.
+How many times this job has been retried. The value cannot be modified.
 
 Example: `"0"`
 
 ### BUILDKITE_SHELL
 
-The shell used to interpret build commands. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `shell` config option.
+The value of the `shell` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/bin/bash -e -c"`
 
 ### BUILDKITE_SOURCE
 
-The source of the event that created the build.
+The source of the event that created the build. The value cannot be modified.
 
 Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
 
 ### BUILDKITE\_SSH_KEYSCAN
 
-Whether the agent is configured to run `ssh-keyscan` before running `git checkout`. This variable is "protected", it will overwrite anything in the shell environment or set at a pipeline level. It is set when the agent is started and is read from the `no-ssh-keyscan` config option.
+The opposite of the value of the `no-ssh-keyscan` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 ### BUILDKITE\_S3\_ACCESS\_KEY_ID
 
-The access key ID for your S3 IAM user. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+The access key ID for your S3 IAM user. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
 
 Example: `"AKIAIOSFODNN7EXAMPLE"`
 
 ### BUILDKITE\_S3\_ACCESS_URL
 
-The access URL for your S3 bucket, if you are using a proxy. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+The access URL for your S3 bucket, if you are using a proxy. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
 
 Example: `"https://buildkite-artifacts.example.com/"`
 
 ### BUILDKITE\_S3_ACL
 
-The Access Control List to be set on your artifacts. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+The Access Control List to be set on your artifacts. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
 
 Default: `"public-read"`
 
 ### BUILDKITE\_S3\_DEFAULT_REGION
 
-The region of your S3 bucket. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+The region of your S3 bucket. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
 
 Default: `"us-east-1"`
 
 ### BUILDKITE\_S3\_SECRET\_ACCESS_KEY
 
-The secret access key for your S3 IAM user. This variable is read straight from the environment of the bootstrap and can be set from pipeline environment or hooks.
+The secret access key for your S3 IAM user. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
 ### BUILDKITE_TAG
 
-The name of the tag being built, if this build was triggered from a tag.
+The name of the tag being built, if this build was triggered from a tag. The value cannot be modified.
 
 Example: `"v1.2.3"`
 
 ### BUILDKITE_TIMEOUT
 
-The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified.
+The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. The value cannot be modified.
 
 Example: `"15"` for 15 minutes, or `"false"` if no timeout is set
 
 ### BUILDKITE\_TRIGGERED\_FROM\_BUILD_ID
 
-The UUID of the build that triggered this build.
+The UUID of the build that triggered this build. The value cannot be modified.
 
 Example: `"5aa7c894-c8c0-435b-bc17-13923b90f163"`, or `""` if the build was not triggered from another build.
 
 ### BUILDKITE\_TRIGGERED\_FROM\_BUILD_NUMBER
 
-The number of the build that triggered this build.
+The number of the build that triggered this build. The value cannot be modified.
 
 Example: `"1264"`, or `""` if the build was not triggered from another build.
 
 ### BUILDKITE\_TRIGGERED\_FROM\_BUILD\_PIPELINE_SLUG
 
-The slug of the pipeline that was used to trigger this build.
+The slug of the pipeline that was used to trigger this build. The value cannot be modified.
 
 Example: `"build-and-test"`, or `""` if the build was not triggered from another build.
 
 ### BUILDKITE_UNBLOCKER
 
-The name of the user who unblocked the build.
+The name of the user who unblocked the build. The value cannot be modified.
 
 Example: `"Tracy Tester"`
 
 ### BUILDKITE\_UNBLOCKER_UUID
 
-The UUID of the user who unblocked the build.
+The UUID of the user who unblocked the build. The value cannot be modified.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 
 ### BUILDKITE\_UNBLOCKER_TEAMS
 
-A colon separated list of non-private team names that the unblocker belongs to.
+A colon separated list of non-private team names that the unblocker belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
 
 ### CI
 
-Always `"true"`.
+Always `"true"`. The value cannot be modified.
 
 
 ## Deprecated environment variables
