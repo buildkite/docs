@@ -71,6 +71,22 @@ The following environment variables are automatically provided to every job, and
     <td>When set to <code>true</code> prevents fetching of any git submodules during checkout. This variable is used by the <code>buildkite-agent</code> bootstrap script. <p class="Docs__api-param-eg"><em>Example:</em> <code>"true"</code></p></td>
   </tr>
   <tr>
+    <th><code>BUILDKITE_GITHUB_DEPLOYMENT_ID</code></th>
+    <td>When triggered by a <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployment</a>, the deployment identifier. <p class="Docs__api-param-eg"><em>Example:</em> <code>"87972451"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code></th>
+    <td>When triggered by a <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployment</a>, the name of the deployment task. <p class="Docs__api-param-eg"><em>Example:</em> <code>"deploy"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code></th>
+    <td>When triggered by a <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployment</a>, the name of the deployment environment. <p class="Docs__api-param-eg"><em>Example:</em> <code>"production"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code></th>
+    <td>When triggered by a <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployment</a>, the deployment payload data as serialized JSON. <p class="Docs__api-param-eg"><em>Example:</em> <code>"{\"rolling_restart\":true}"</code></p></td>
+  </tr>
+  <tr>
     <th><code>BUILDKITE_JOB_ID</code></th>
     <td>Internal UUID Buildkite uses for this job. <p class="Docs__api-param-eg"><em>Example:</em> <code>"e44f9784-e20e-4b93-a21d-f41fd5869db9"</code></p></td>
   </tr>
