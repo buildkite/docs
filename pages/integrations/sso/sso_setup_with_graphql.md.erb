@@ -266,6 +266,11 @@ mutation DisableProvider {
   ssoProviderDisable(input:{
     id: "<provider id>",
     disabledReason: "Disabled because..."
-  })
+  }) {
+    ssoProvider {
+      state
+      url
+    }
+  }
 }
 ```
