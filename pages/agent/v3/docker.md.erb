@@ -14,13 +14,13 @@ You can run the Buildkite Agent inside a Docker container using the [official im
 Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
 
 ```shell
-docker run -d -t buildkite-agent buildkite/agent:3 start --token "<your-agent-token>"
+docker run -d -t --name buildkite-agent buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
 A much larger Ubuntu-based image is also available:
 
 ```shell
-docker run -d -t buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
+docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
 ```
 
 <section class="Docs__troubleshooting-note">
@@ -47,7 +47,8 @@ Most [agent configuration settings](https://buildkite.com/docs/agent/configurati
 docker run \
   -v "/path/to/buildkite-agent.cfg:/buildkite/buildkite-agent.cfg:ro" \
   -d \
-  -t buildkite-agent \
+  -t \
+  --name buildkite-agent \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
@@ -61,7 +62,8 @@ For example, this is how you'd mount the hooks directory using a read-only host 
 docker run \
   -v "/path/to/buildkite-hooks:/buildkite/hooks:ro" \
   -d \
-  -t buildkite-agent \
+  -t \
+  --name buildkite-agent \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
@@ -88,7 +90,8 @@ docker run \
   -v "/var/run/docker.sock:/var/run/docker.sock" \
   -e "BUILDKITE_BUILDS_PATH=/var/lib/buildkite/builds" \
   -d \
-  -t buildkite-agent \
+  -t \
+  --name buildkite-agent \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
@@ -107,7 +110,8 @@ The following example mounts a directory containing secrets on the host machine 
 docker run \
   -v "/path/to/buildkite-secrets:/buildkite-secrets:ro" \
   -d \
-  -t buildkite-agent \
+  -t \
+  --name buildkite-agent \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
