@@ -27,7 +27,19 @@ function inline_link {
 You can use it like so:
 
 ```bash
-inline_link "https://buildkite.com/"
+inline_link 'https://buildkite.com/'
+```
+
+Or, to use a custom label:
+
+```bash
+inline_link 'https://buildkite.com/' 'Buildkite'
+```
+
+You can also link to an uploaded artifact by name using the `artifact://` URL syntax:
+
+```bash
+inline_link 'artifact://tmp/images/omg.gif'
 ```
 
 ## Images
