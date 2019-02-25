@@ -10,7 +10,7 @@ There are a number of third party services you can use with Buildkite webhooks. 
 
 There are many ways to integrate webhooks with AWS Lambda. The following repositories demonstrate two ways to process Buildkite webhooks using AWS Lambda:
 
-* Rivet's [buildkite-webhook-aws-terraform](https://github.com/rivethealth/buildkite-webhook-aws-terraform) uses API Gateway to publish Buildkite webhook events to SNS
+ * Rivet's [buildkite-webhook-aws-terraform](https://github.com/rivethealth/buildkite-webhook-aws-terraform) uses [AWS Lambda](https://aws.amazon.com/lambda/) and [AWS API Gateway](https://aws.amazon.com/api-gateway/) to publish Buildkite webhook events to an [AWS SNS](https://aws.amazon.com/sns/) topic.
 * Rivet's [buildkite-bitbucket-aws-terraform](https://github.com/rivethealth/buildkite-bitbucket-aws-terraform) demonstrates a more complex setup, using SNS and webhooks to send build statuses to Atlassian Bitbucket Server
 
 ## Google Cloud Functions
