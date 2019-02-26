@@ -16,11 +16,11 @@ SSO is an organization-level option, and can be enabled by an organization admin
 
 If an organization that you're a member of enables SSO, it will not affect your personal Buildkite account login details. When you access pipelines or anything owned by the organization, you'll be directed through their chosen provider's SSO authentication flow. 
 
-To access an organization's content using SSO, you'll need your organization's SSO url. 
+To access an organization's content using SSO, you'll need your organization's SSO URL. 
 
 Team maintainers will no longer need to invite users to join their organization, anyone who is able to authenticate with the identity provider can access the organization's content.
 
-Team maintainers can still invite users to their Buildkite organisation, and are able to specify whether SSO is 'requried' or 'optional' for the invited user. Machine users are able to be invited using the 'optional' flag.
+Team maintainers can still invite users to their Buildkite organisation, and are able to specify whether SSO is 'required' or 'optional' for the invited user. Machine users are able to be invited using the 'optional' flag.
 
 ## How do I enable SSO for my organization?
 
@@ -62,7 +62,7 @@ Yes, by adding multiple identity providers. Each provider supports only one doma
 No, there'll be no downtime. The Buildkite team will confirm with an administrator that you have access through your new identity provider before enabling it for your entire organization. Then all users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
 
 ### Will enabling SSO cause a service interruption?
-No, all of your builds/agents/pipelines will continue to run as normal.
+No, all of your builds, agents, and pipelines will continue to run as normal.
 
 ### Can the SSO testing and user deauthorisation be scheduled for a specific time?
 Yes, within Australian business hours. 
