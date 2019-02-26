@@ -166,6 +166,30 @@ The opposite of the value of the `no-git-submodules` [agent configuration option
 
 Values: `"true"` and `"false"`
 
+### BUILDKITE\_GITHUB\_DEPLOYMENT_ID
+
+The GitHub deployment ID. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
+
+Example: `"87972451"`
+
+### BUILDKITE\_GITHUB\_DEPLOYMENT_ENVIRONMENT
+
+The name of the GitHub deployment environment. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
+
+Example: `"production"`
+
+### BUILDKITE\_GITHUB\_DEPLOYMENT_TASK
+
+The name of the GitHub deployment task. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
+
+Example: `"deploy"`
+
+### BUILDKITE\_GITHUB\_DEPLOYMENT_PAYLOAD
+
+The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
+
+Example: `"production"`
+
 ### BUILDKITE\_HOOKS_PATH
 
 The value of the `hooks-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
