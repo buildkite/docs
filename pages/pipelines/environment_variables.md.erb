@@ -12,7 +12,7 @@ Always `"true"`.
 
 ### BUILDKITE\_AGENT\_ACCESS_TOKEN
 
-The agent session token for the job. The value cannot be modified.
+The agent session token for the job. The variable is read by the agent’s `artifact` and `meta-data` commands. The value cannot be modified.
 
 Example: `"83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"`
 
@@ -372,7 +372,7 @@ Default: `"us-east-1"`
 
 ### BUILDKITE\_S3\_SECRET\_ACCESS_KEY
 
-The secret access key for your S3 IAM user. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
+The secret access key for your S3 IAM user, for use with [private S3 buckets](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The access key can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
