@@ -348,25 +348,25 @@ Values: `"true"` and `"false"`
 
 ### BUILDKITE\_S3\_ACCESS\_KEY_ID
 
-The access key ID for your S3 IAM user. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
+The access key ID for your S3 IAM user, for use with [private S3 buckets](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The access key can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"AKIAIOSFODNN7EXAMPLE"`
 
 ### BUILDKITE\_S3\_ACCESS_URL
 
-The access URL for your S3 bucket, if you are using a proxy. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
+The access URL for your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The access key can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"https://buildkite-artifacts.example.com/"`
 
 ### BUILDKITE\_S3_ACL
 
-The Access Control List to be set on your artifacts. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
+The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The access key can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Default: `"public-read"`
 
 ### BUILDKITE\_S3\_DEFAULT_REGION
 
-The region of your S3 bucket. This variable is read by the bootstrap when the agent is started, and can be set by exporting the environment variable in the pipeline environment or in the `environment` or `pre-checkout` hooks.
+The region of your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The access key can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Default: `"us-east-1"`
 
