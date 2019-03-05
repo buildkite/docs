@@ -75,6 +75,28 @@ FROM buildkite/agent:3
 COPY hooks /buildkite/hooks/
 ```
 
+## Permissions Errors when using Docker
+
+A common problem encountered when using Docker for builds along with volume mounts from the host is the mismatch of permissions that can occur.
+
+If a build in Docker writes files to the volume that is bind mounted to the host system, the user and group that is set for the files on the host system can end up as `root:root` (the user that the docker daemon is running as). If the rest of your builds are running as `buildkite-agent` then you can run into issues where subsequent checkouts fail with errors such as `Warning: checkout failed to remove ...`.
+
+To demonstrate this issue locally you can run the following:
+
+```bash
+docker run -v "$PWD:/pwd" --rm -it alpine:latest mkdir /pwd/llamas
+ls -al llamas
+```
+
+You should see that the llamas directory is owned by either root, or whatever user docker is run by.
+
+There are a few solutions to this.
+
+* [User namespace remapping](https://docs.docker.com/engine/security/userns-remap/) to the same user that your buildkite-agent is running as.
+
+* Run a script before or after builds that resets permissions. You can do this either via docker (because it runs as root) or via sudo. See https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions and https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf for examples.
+
+
 ## Allowing builds to use Docker
 
 To use Docker and volume mounting from build scripts, you need to ensure that the builds directory, and the `buildkite-agent` binary path, are mounted in from the host machine, and that their paths on the host and in the agent container are the same.
