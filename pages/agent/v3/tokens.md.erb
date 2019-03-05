@@ -1,0 +1,70 @@
+# Agent Tokens
+
+The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
+
+<%= toc %>
+
+## The default token
+
+When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended to [create new, specific tokens](#creating-tokens) for each new environment.
+
+## Using and storing tokens
+
+The token is used by the Buildkite Agent’s [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided via the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`. 
+
+It's recommended you use your platform’s secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
+
+## Creating tokens
+
+New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation. 
+
+For example:
+
+```graphql
+mutation {
+  agentTokenCreate(input: {
+    organizationID: "<organization-id>",
+    description: "A description"
+  }) {
+    agentTokenEdge {
+      node {
+        id
+        token
+      }
+    }
+  }
+}
+```
+
+The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents).
+
+## Revoking tokens
+
+Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation. 
+
+For example:
+
+```graphql
+mutation {
+  agentTokenRevoke(input: {
+    id: "<token-id>",
+    reason: "A reason"
+  }) {
+    agentToken {
+      description
+      revokedAt
+      revokedReason
+    }
+  }
+}
+```
+
+Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
+
+## Scope of access
+
+Agent tokens are specific to each Buildkite organization, and can be used to register an agent with any [queue](/docs/agent/v3/queues). Agent tokens can not be shared between organizations.
+
+## Session tokens
+
+During registration, the agent exchanges the agent token for a session token. The session token is exposed to the job as the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands. Session tokens are scoped to a specific agent, and are valid for the duration the agent is connected.
