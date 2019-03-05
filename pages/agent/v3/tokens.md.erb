@@ -12,11 +12,13 @@ When you create a new organization in Buildkite, a default agent token is create
 
 The token is used by the Buildkite Agent’s [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided via the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`. 
 
-It's recommended you use your platform’s secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html) to allow for easier rollover and management of your agent tokens.
+It's recommended you use your platform’s secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
 ## Creating tokens
 
-New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation, for example:
+New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation. 
+
+For example:
 
 ```graphql
 mutation {
@@ -38,7 +40,9 @@ The token description should clearly identify the environment the token is inten
 
 ## Revoking tokens
 
-Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation, for example:
+Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation. 
+
+For example:
 
 ```graphql
 mutation {
