@@ -77,22 +77,22 @@ COPY hooks /buildkite/hooks/
 
 ## Permissions errors when using Docker
 
-A problem you may encounter when using Docker volume mounts (-v), is that the container may create files on the host system with root user permissions, which can result in errors like the following:
+A problem you may encounter when using Docker volume mounts (-v) in Linux or Windows is that the container may create files on the host system with root user permissions. This can result in errors like the following:
 
 ```
 $ git clean -fxdq
 warning: failed to remove dist/
 ```
 
-This is due to the fact that the permissions on the host are set based on the user that the Docker daemon is run as, which under Linux is generally `root`. Then when the Agent (running as `buildkite-agent`) tries to subsequently remove or modify those files, permissions errors occur.
+Permissions on the host are set based on the user running the Docker daemon, which under Linux is generally `root`. When the Agent (running as `buildkite-agent`) tries to subsequently remove or modify those files, permissions errors occur.
 
-To fix the permissions of files created, you can:
+To ensure correct file permissions, you can:
 
-* Change the way permissions are set on the files created by your Docker container, but modifying your container’s `USER` or modifying your build commands.
+* Change the way permissions are set on the files created by your Docker container: modify your container’s `USER` or modify your build commands.
 
-* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host, to ensure that container users are remapped to the user your buildkite-agent is running as.
+* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
 
-* Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via sudo. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) and [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) scripts for an example of using an agent hook and sudo command.
+* Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via `sudo`. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
 
 ## Allowing builds to use Docker
 
