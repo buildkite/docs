@@ -75,7 +75,7 @@ FROM buildkite/agent:3
 COPY hooks /buildkite/hooks/
 ```
 
-## Permissions Errors when using Docker
+## Permissions errors when using Docker
 
 A common problem encountered when using Docker for builds along with volume mounts from the host is the mismatch of permissions that can occur.
 
@@ -90,11 +90,13 @@ ls -al llamas
 
 You should see that the llamas directory is owned by either root, or whatever user docker is run by.
 
-There are a few solutions to this.
+To fix the permissions of files created, you can:
 
-* [User namespace remapping](https://docs.docker.com/engine/security/userns-remap/) to the same user that your buildkite-agent is running as.
+* Change the way permissions are set on the files created by your Docker container, but modifying your container’s `USER` or modifying your build commands.
 
-* Run a script before or after builds that resets permissions. You can do this either via docker (because it runs as root) or via sudo. See https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions and https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf for examples.
+* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host, to ensure that container users are remapped to the user your buildkite-agent is running as.
+
+* Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via sudo. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) and [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) scripts for an example of using an agent hook and sudo command.
 
 
 ## Allowing builds to use Docker
