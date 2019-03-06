@@ -77,18 +77,14 @@ COPY hooks /buildkite/hooks/
 
 ## Permissions errors when using Docker
 
-A common problem encountered when using Docker for builds along with volume mounts from the host is the mismatch of permissions that can occur.
+A problem you may encounter when using Docker volume mounts (-v), is that the container may create files on the host system with root user permissions, which can result in errors like the following:
 
-If a build in Docker writes files to the volume that is bind mounted to the host system, the user and group that is set for the files on the host system can end up as `root:root` (the user that the docker daemon is running as). If the rest of your builds are running as `buildkite-agent` then you can run into issues where subsequent checkouts fail with errors such as `Warning: checkout failed to remove ...`.
-
-To demonstrate this issue locally you can run the following:
-
-```bash
-docker run -v "$PWD:/pwd" --rm -it alpine:latest mkdir /pwd/llamas
-ls -al llamas
+```
+$ git clean -fxdq
+warning: failed to remove dist/
 ```
 
-You should see that the llamas directory is owned by either root, or whatever user docker is run by.
+This is due to the fact that the permissions on the host are set based on the user that the Docker daemon is run as, which under Linux is generally `root`. Then when the Agent (running as `buildkite-agent`) tries to subsequently remove or modify those files, permissions errors occur.
 
 To fix the permissions of files created, you can:
 
@@ -97,7 +93,6 @@ To fix the permissions of files created, you can:
 * Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host, to ensure that container users are remapped to the user your buildkite-agent is running as.
 
 * Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via sudo. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) and [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) scripts for an example of using an agent hook and sudo command.
-
 
 ## Allowing builds to use Docker
 
