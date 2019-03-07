@@ -1,0 +1,8 @@
+steps:
+  - label: ":rspec:"
+    command: rspec
+    plugins:
+      - docker-compose#v3.0.0:
+          run: app
+          env:
+            - "RAILS_ENV=test"
