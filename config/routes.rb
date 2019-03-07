@@ -109,7 +109,7 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
   # All other standard docs pages
-  get "/docs/*page" => "pages#show", as: :docs_page
+  get "/docs/*path" => "pages#show", as: :docs_page
 
   # Top level redirect. Needs to be at the end so it doesn't match /docs/sub-page
   get "/docs", to: redirect("/docs/tutorials/getting-started", status: 302), as: :docs
