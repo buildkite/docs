@@ -44,6 +44,14 @@ RSpec.configure do |config|
   # triggering implicit auto-inclusion in groups with matching metadata.
   config.shared_context_metadata_behavior = :apply_to_host_groups
 
+  if ENV["CI"]
+    # As per the docs here:
+    # https://github.com/bugcrowd/test-summary-buildkite-plugin
+    RSpec.configure do |config|
+      config.add_formatter('RspecJunitFormatter', "tmp/rspec-#{ENV['BUILDKITE_JOB_ID']}.xml")
+    end
+  end
+
 # The settings below are suggested to provide a good initial experience
 # with RSpec, but feel free to customize to your heart's content.
 =begin

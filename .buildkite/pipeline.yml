@@ -1,8 +1,24 @@
 steps:
-  - label: ":rspec:"
-    command: rspec
+  - label: "RSpec :rspec:"
+    command: "rspec"
+    # soft_fail: true
+    artifact_paths: "tmp/rspec-*.xml"
     plugins:
       - docker-compose#v3.0.0:
-          run: app
+          run: "app"
           env:
             - "RAILS_ENV=test"
+
+  - wait: ~
+    continue_on_failure: true
+
+  - label: "Annotate"
+    plugins:
+      - bugcrowd/test-summary#v1.9.0:
+          inputs:
+            - label: "RSpec :rspec:"
+              artifact_path: "artifacts/rspec*"
+              type: "junit"
+          formatter:
+            type: "details"
+          context: "test-summary"
