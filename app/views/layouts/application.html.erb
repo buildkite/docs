@@ -40,11 +40,12 @@
     <meta property="og:locale" content="en_US" />
 
     <meta name="turbolinks-root" content="<%= docs_path %>" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css" />
   </head>
   <body>
     <header class="SiteHeader">
       <div class="SiteHeader__inner PageContainer">
-        <h1>
+        <h1 class="SiteHeader__title">
           <%= link_to docs_path, class: 'SiteHeader__docslink' do %>
             <span class="SiteHeader__mark">
               <svg
@@ -57,6 +58,9 @@
         </h1>
         <p class="OffScreen SiteHeader__tagline">Powerful build automation and continous deployment.</p>
         <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
+        <div class="SiteSearch">
+          <input type="search" class="SiteSearch__input" placeholder="Search" />
+        </div>
       </div>
     </header>
     <main id="main" role="main">
@@ -287,7 +291,16 @@
           </div>
 
         </div>
-
     </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+    <script>
+      docsearch({
+        apiKey: 'ef9785f62199bce52f2e5bec6aaf7d62',
+        indexName: 'buildkite',
+        inputSelector: '.SiteSearch__input',
+        debug: false // Set debug to true if you want to inspect the dropdown
+      });
+    </script>
   </body>
 </html>
