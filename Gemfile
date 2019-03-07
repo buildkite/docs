@@ -48,3 +48,11 @@ group :development do
   gem 'web-console'
   gem 'listen'
 end
+
+group :test do
+  # Who doesn't love tests!?
+  gem "rspec-rails"
+
+  # Browser testing stuff
+  gem "capybara"
+end
