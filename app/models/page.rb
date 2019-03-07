@@ -15,6 +15,10 @@ class Page
       @url_helpers = Page::BuildkiteUrl.new
     end
 
+    def webhook_description(*args)
+      "TODO"
+    end
+
     def toc
       if @headings.length > 1
         lis = @headings.map do |name|
