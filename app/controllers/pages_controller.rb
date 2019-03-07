@@ -1,8 +1,5 @@
 class PagesController < ApplicationController
   def show
-    # @page = params[:page]
-
-    # @docs_presenter = DocumentationPresenter.new(request)
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, throw a 404
