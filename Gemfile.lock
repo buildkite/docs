@@ -50,6 +50,7 @@ GEM
     crass (1.0.4)
     dotenv (0.7.0)
     erubi (1.8.0)
+    escape_utils (1.2.1)
     execjs (2.7.0)
     ffi (1.10.0)
     foreman (0.64.0)
@@ -156,6 +157,7 @@ PLATFORMS
 
 DEPENDENCIES
   byebug
+  escape_utils
   foreman
   listen
   puma
