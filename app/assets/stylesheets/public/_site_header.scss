@@ -12,10 +12,6 @@ $SiteHeader__bp_small_screen_nav: 850px;
   z-index: 5;
 }
 
-.SiteHeader__title {
-  flex-grow: 1;
-}
-
 .SiteHeader__inner {
   display: flex;
   align-items: stretch;
@@ -90,31 +86,5 @@ $SiteHeader__logo-height: 33px;
     .fa { line-height: 42px; }
     top: 15px;
     right: 15px;
-  }
-}
-
-.SiteSearch__input {
-  display: block;
-  box-sizing: border-box;
-  padding: 10px 12px;
-  border-radius: .3em;
-  font-size: 15px;
-  width: 100%;
-  font-family: inherit;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  color: #555;
-  outline: none;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-  -webkit-appearance: none;
-}
-
-@media (max-width: $SiteHeader__bp_small_screen_nav) {
-  .SiteSearch {
-    padding-bottom: 20px;
-  }
-
-  .SiteSearch__input {
-    width: 100%;
   }
 }
