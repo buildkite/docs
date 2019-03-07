@@ -3,8 +3,12 @@
 source 'https://rubygems.org'
 ruby '2.5.0'
 
-# Choo choo 🚝
-gem 'rails'
+# Choo choo 🚝 (only include the Rails gems we need)
+gem "actionpack"
+gem "actionview"
+gem "activesupport"
+gem "railties"
+gem "sprockets-rails"
 
 # Use Puma as the app server
 gem 'puma'
