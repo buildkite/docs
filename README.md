@@ -9,16 +9,19 @@ To contribute simply send a pull request! :heart:
 If you have Ruby installed:
 
 ```bash
+# Install the dependencies
 bundle
+# Start the app on http://localhost:3000/
 bin/rails server
-# open localhost:3000
 ```
 
-If you have Docker installed:
+Or if you have Docker installed:
 
 ```bash
+# Run the specs
+docker-compose run app rspec
+# Start the app on http://localhost:3000/
 docker-compose run --service-ports app
-# open localhost:3000
 ```
 
 ## License
