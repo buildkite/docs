@@ -1,0 +1,37 @@
+/*
+* Legal Disclaimer
+*
+* These Fonts are licensed only for use on these domains and their subdomains:
+* www.buildkite.com
+*
+* It is illegal to download or use them on other websites.
+*
+* While the @font-face statements below may be modified by the client, this
+* disclaimer may not be removed.
+*
+* Lineto.com, 2017
+*/
+
+@font-face {
+  font-family: BK-Circular;
+  src: url('https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2') format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: BK-Circular;
+  src: url('https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2') format("woff2");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: BK-Circular;
+  src: url('https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2') format("woff2");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}

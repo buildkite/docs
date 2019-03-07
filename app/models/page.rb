@@ -97,7 +97,7 @@ class Page
     def render(*args)
       av = ActionView::Base.new
       av.view_paths = ActionController::Base.view_paths
-      av.view_paths << Rails.root.join("vendor/docs/pages").to_s
+      av.view_paths << Rails.root.join("app/views/pages").to_s
       av.render(*args)
     end
 

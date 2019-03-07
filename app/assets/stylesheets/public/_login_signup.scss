@@ -1,0 +1,141 @@
+$LoginSignup__bp_stacked: 600px;
+
+.LoginSignup {
+  max-width: 28rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 60px;
+  padding-bottom: 60px;
+
+  form {
+    width: 100%;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.LoginSignup__container {
+  display: flex;
+  @media (max-width: $LoginSignup__bp_stacked) { display: block; }
+}
+
+.LoginSignup__illo {
+  flex: 2;
+  margin-right: 60px;
+  box-sizing: border-box;
+  @media (max-width: $LoginSignup__bp_stacked) { display: none; }
+  img { width: 100%; margin-top: 20px; }
+}
+.LoginSignup__form {
+  flex: 4;
+}
+
+.LoginSignup__heading__intro {
+  font-size: 1.1rem;
+  line-height: 1.2;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-style: normal;
+  font-weight: bold;
+}
+
+.LoginSignup__heading {
+  font-family: inherit;
+  font-weight: bold;
+  font-style: normal;
+  font-size: 48px;
+  margin-bottom: 40px;
+  padding-bottom: 0;
+}
+
+.LoginSignup__intro {
+  line-height: 1.4;
+  font-size: 1.1rem;
+}
+
+.LoginSignup__hints {
+  margin-top: 40px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(white, .2);
+  text-align: center;
+}
+
+.LoginSignup__hints__hint {
+  line-height: 1.2;
+  + .LoginSignup__hints__hint { margin-top: 10px; }
+}
+
+.LoginSignup__user {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.LoginSignup__user__avatar img {
+  border-radius: 50%;
+}
+
+.LoginSignup__user__info {
+  margin-left: 10px;
+}
+
+.LoginSignup__user__info__name {
+  margin-bottom: 3px;
+}
+
+.LoginSignup__user__info__email {
+  color: #666666;
+}
+
+.LoginSignup__sso {
+  border-left: 3px solid #14CC80;
+  padding-left: 1rem;
+  font-size: #{(16/18)}rem;
+  color: #666;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+  line-height: 1.2rem;
+  font-size: 0.9rem;
+  p { margin: 0; }
+  p + p { margin-top: .5rem; }
+}
+
+.LoginSignup__identity {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 0.6rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  font-size: 0.8rem;
+}
+
+.LoginSignup__identity__name {
+  color: black;
+}
+
+.LoginSignup__identity__info {
+  line-height: 1.1rem;
+}
+
+.LoginSignup__identity__email {
+  color: #666666;
+}
+
+.LoginSignup__identity__avatar {
+  height: 38px;
+}
+
+.LoginSignup__sso__org {
+  margin-top: 1rem;
+  margin-bottom: 0.3rem;
+  color: black;
+}
+
+.LoginSignup__identity__avatar img {
+  border-radius: 50%;
+  margin-right: 0.5rem;
+  border: 1px solid #ddd;
+}
