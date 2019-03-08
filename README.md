@@ -11,6 +11,8 @@ If you have Ruby installed:
 ```bash
 # Install the dependencies
 bundle
+# Run the specs
+bundle exec rspec
 # Start the app on http://localhost:3000/
 bin/rails server
 ```
@@ -21,7 +23,7 @@ Or if you have Docker installed:
 # Run the specs
 docker-compose run app rspec
 # Start the app on http://localhost:3000/
-docker-compose run --service-ports app
+docker-compose up --build
 ```
 
 ## License

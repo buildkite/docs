@@ -52,6 +52,9 @@ end
 group :test do
   # Who doesn't love tests!?
   gem "rspec-rails"
+  
+  # We want junit output so we can annotate the build
+  gem "rspec_junit_formatter"
 
   # Browser testing stuff
   gem "capybara"
