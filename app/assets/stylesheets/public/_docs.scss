@@ -231,7 +231,7 @@ a.Docs__example-repo {
   letter-spacing: 0.02em;
   &:before {
     content: " ";
-    background: asset-url('docs/clock_green.svg') no-repeat;
+    background: asset-url('clock_green.svg') no-repeat;
     display: inline-block;
     width: 20px;
     height: 20px;
