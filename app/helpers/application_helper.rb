@@ -10,6 +10,16 @@ module ApplicationHelper
   end
 
   def open_source_url
-    "https://github.com/buildkite/docs/tree/master/pages/TODO.md.erb"
+    # This dirty hack grabs the filename for the current ERB file being rendered
+    view_path = @page.instance_variable_get(:@filename)
+
+    view_file = view_path.to_s.
+                  sub(Rails.root.to_s, '').
+                  # /app/views/pages are a symlink to /pages at the moment, and you can't link
+                  # to them on GitHub. So until we remove the symlink, we'll just rewrite the
+                  # URL so it points to the /pages version.
+                  sub('/app/views/pages', '/pages')
+  
+    "https://github.com/buildkite/docs/tree/master#{view_file}"
   end
 end
