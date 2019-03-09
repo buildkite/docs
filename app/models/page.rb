@@ -16,7 +16,7 @@ class Page
     end
 
     def webhook_description(*args)
-      "TODO"
+      raise NotImplementedError
     end
 
     def toc
