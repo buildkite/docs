@@ -41,7 +41,7 @@ The default tag (i.e. `buildkite/agent:latest`) will always point to the latest 
 
 ## Configuration
 
-Most [agent configuration settings](https://buildkite.com/docs/agent/configuration) can be set with environment variables. You can also mount a configuration file in, for example:
+Most [agent configuration settings](/docs/agent/configuration) can be set with environment variables. You can also mount a configuration file in, for example:
 
 ```bash
 docker run \
@@ -54,7 +54,7 @@ docker run \
 
 ## Adding hooks
 
-You can add [custom agent hooks](https://buildkite.com/docs/agent/hooks) by mounting or copying them into the `/buildkite/hooks` directory, and ensuring they are executable.
+You can add [custom agent hooks](/docs/agent/hooks) by mounting or copying them into the `/buildkite/hooks` directory, and ensuring they are executable.
 
 For example, this is how you'd mount the hooks directory using a read-only host volume:
 
@@ -134,11 +134,11 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
-You can then use an `environment` [agent hook](https://buildkite.com/docs/agent/hooks) to expose those secrets via environment variables, or to configure tools such as `git` or `ssh`.
+You can then use an `environment` [agent hook](/docs/agent/hooks) to expose those secrets via environment variables, or to configure tools such as `git` or `ssh`.
 
 ## Authenticating private git repositories
 
-To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following `environment` [agent hook](https://buildkite.com/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash
@@ -151,7 +151,7 @@ git config --global credential.helper "store --file=/buildkite-secrets/git-crede
 # export FOO=bar
 ```
 
-To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git` you could use the following `environment` [agent hook](https://buildkite.com/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git` you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash
@@ -167,7 +167,7 @@ ssh-add -k /buildkite-secrets/id_rsa_buildkite_git
 
 Other options for configuring Git and SSH include:
 
-* Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](https://buildkite.com/docs/agent/ssh-keys) for examples on using ssh-agent.
+* Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](/docs/agent/ssh-keys) for examples on using ssh-agent.
 * The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys via environment variables.
 
 ## Entrypoint customizations
