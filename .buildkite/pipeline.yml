@@ -1,4 +1,6 @@
 steps:
+  - wait
+
   - label: "RSpec :rspec:"
     command: "rspec"
     # soft_fail: true
