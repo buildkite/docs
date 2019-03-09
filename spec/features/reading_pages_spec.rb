@@ -9,10 +9,7 @@ RSpec.feature "reading pages" do
       visit "/docs/agent/ubuntu"
       expect(page).to have_content("apt repository")
 
-      visit "/docs/unknown"
-      expect(page.status_code).to eql(404)
-      expect(page).to have_content("Page not found")
-      expect(page).to have_content("Sorry, the page you’re trying to access could not be found")
+      expect { visit "/docs/unknown" }.to raise_error(ActionController::RoutingError)
     end
 
     it "adds the agent version number to the title" do
