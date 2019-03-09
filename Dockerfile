@@ -29,7 +29,7 @@ WORKDIR /app
 # Install deps
 COPY Gemfile Gemfile.lock ./
 RUN echo "--- :bundler: Installing ruby gems" \
-    && bundle install --jobs $(nproc)
+    && bundle install --deployment --jobs $(nproc) --retry 3 --without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')"
 
 COPY package.json package-lock.json ./
 RUN echo "--- :npm: Installing npm deps" \
