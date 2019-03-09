@@ -12,7 +12,7 @@ An artifact is a file uploaded by your agent during the execution of a build’s
   <tr><th><code>job_id</code></th><td>ID of the job</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the artifact</td></tr>
   <tr><th><code>download_url</code></th><td>Artifact Download API URL for the artifact</td></tr>
-  <tr><th><code>state</code></th><td>State of the artifact (<%= Artifact::State::ALL.map { |x| "<code>#{x}</code>" }.join(", ") %>)</td></tr>
+  <tr><th><code>state</code></th><td>State of the artifact (<code>new</code>, <code>error</code>, <code>finished</code>, <code>deleted</code>)</td></tr>
   <tr><th><code>path</code></th><td>Path of the artifact</td></tr>
   <tr><th><code>dirname</code></th><td>Path of the artifact excluding the filename</td></tr>
   <tr><th><code>filename</code></th><td>Filename of the artifact</td></tr>
