@@ -24,6 +24,8 @@ Or if you have Docker installed:
 docker-compose run app rspec
 # Start the app on http://localhost:3000/
 docker-compose up --build
+# To start it in production mode on http://localhost:3000/
+docker-compose -f docker-compose.production.yml up --build
 ```
 
 ## License
