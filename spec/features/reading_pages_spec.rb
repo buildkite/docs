@@ -19,6 +19,11 @@ RSpec.feature "reading pages" do
       visit "/docs/agent/v2"
       expect(page.title).to include("The Buildkite Agent (v2)")
     end
+
+    it "links to the GitHub source files" do
+      visit "/docs/tutorials/getting-started"
+      expect(page).to have_css("a[href='https://github.com/buildkite/docs/tree/master/pages/tutorials/getting_started.md.erb']", text: 'contribute an update')
+    end
   end
 
   describe "clicking links" do
