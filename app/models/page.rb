@@ -78,14 +78,6 @@ class Page
       @url_helpers
     end
 
-    def api_response_example(name)
-      present_json response_examples.for(name)
-    end
-
-    def present_json(json)
-      JSON.pretty_generate(json)
-    end
-
     def t(s)
       I18n.translate(s)
     end
@@ -116,12 +108,6 @@ class Page
       else
         container
       end
-    end
-
-    private
-
-    def response_examples
-      @response_examples ||= Documentation::APIResponseExample.new
     end
   end
 

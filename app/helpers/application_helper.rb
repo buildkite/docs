@@ -9,11 +9,7 @@ module ApplicationHelper
     link_to(name, url, options)
   end
 
-  def open_source_url(basename = nil)
-    if basename
-      "https://github.com/buildkite/docs/tree/master/pages/#{basename}.md.erb"
-    else
-      "TODO"
-    end
+  def open_source_url
+    "https://github.com/buildkite/docs/tree/master/pages/#{basename}.md.erb"
   end
 end

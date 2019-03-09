@@ -35,7 +35,7 @@ RSpec.feature "reading pages" do
 
       while check = checks.shift do
         # Uncomment this out to see each request happen
-        # puts "Visiting #{check.path}#{check.fragment && "##{check.fragment}"}"
+        puts "Visiting #{check.path}#{check.fragment && "##{check.fragment}"}"
         visit check.path
 
         # Pages either need to return okay, or show the login page. Everything
