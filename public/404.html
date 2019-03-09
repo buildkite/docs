@@ -1,67 +1,391 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>The page you were looking for doesn't exist (404)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
+    <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
+    <title>Page not found</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+      @font-face {
+          font-family: BK-Circular;
+          src: url("https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2") format("woff2");
+          font-weight: normal;
+          font-style: normal;
+          font-display: swap
+      }
 
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
+      @font-face {
+          font-family: BK-Circular;
+          src: url("https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2") format("woff2");
+          font-weight: bold;
+          font-style: normal;
+          font-display: swap
+      }
 
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
+      @font-face {
+          font-family: BK-Circular;
+          src: url("https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2") format("woff2");
+          font-weight: 800;
+          font-style: normal;
+          font-display: swap
+      }
 
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
+      html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+      pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd,
+      q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt,
+      dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot,
+      thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption,
+      footer, header, hgroup, menu, nav, output, ruby, section, summary, time,
+      mark, audio, video {
+          margin: 0;
+          padding: 0;
+          border: 0;
+          font-size: 100%;
+          font: inherit;
+          vertical-align: baseline
+      }
 
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-  </style>
-</head>
+      article, aside, details, figcaption, figure, footer, header, hgroup,
+      menu, nav, section {
+          display: block
+      }
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <div>
-      <h1>The page you were looking for doesn't exist.</h1>
-      <p>You may have mistyped the address or the page may have moved.</p>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
-  </div>
-</body>
+      body {
+          line-height: 1
+      }
+
+      ol, ul {
+          list-style: none
+      }
+
+      blockquote, q {
+          quotes: none
+      }
+
+      blockquote:before, blockquote:after, q:before, q:after {
+          content: '';
+          content: none
+      }
+
+      table {
+          border-collapse: collapse;
+          border-spacing: 0
+      }
+
+      .SiteHeader {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        line-height: 36px;
+        z-index: 5
+      }
+
+      .SiteHeader__inner {
+        display: flex;
+        align-items: stretch
+      }
+
+      @media (max-width: 850px) {
+        .SiteHeader__inner {
+          display: block
+        }
+      }
+
+      .SiteHeader_minimal__inner {
+        display: flex;
+        align-items: stretch;
+        justify-content: center
+      }
+
+      .SiteHeader__docslink {
+        font-weight: bold;
+        color: black;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: color 300ms;
+        will-change: color
+      }
+
+      .SiteHeader__docslink:hover, .SiteHeader__docslink:focus, .SiteHeader__docslink:active {
+        color: #14CC80
+      }
+
+      .SiteHeader__docslink > .SiteHeader__mark {
+        margin-right: .5em
+      }
+
+      .SiteHeader__logo, .SiteHeader__tagline {
+        margin: 0
+      }
+
+      .SiteHeader__logo {
+        position: relative;
+        width: 164.35px;
+        height: 31.35px;
+        left: 4px;
+        top: 3px
+      }
+
+      @media (max-width: 850px) {
+        .SiteHeader__logo {
+          left: 0px;
+          top: 1px
+        }
+      }
+
+      .SiteHeader__mark > svg {
+        width: 30px;
+        height: auto;
+        margin-top: .55em
+      }
+
+      .SiteHeader__nav {
+        flex: 1;
+        margin-left: 30px
+      }
+
+      .SiteHeader__small_nav_toggle {
+        display: none
+      }
+
+      @media (max-width: 850px) {
+        .SiteHeader__small_nav_toggle {
+            display: block;
+            position: absolute;
+            text-align: center;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            top: 15px;
+            right: 15px
+        }
+
+        .SiteHeader__small_nav_toggle .fa {
+            line-height: 42px
+        }
+      }
+
+      .OffScreen {
+          overflow: hidden;
+          text-indent: -1000px;
+          font-size: 0;
+          position: absolute;
+          top: -1000px;
+          left: -1000px
+      }
+
+      .PageContainer {
+          box-sizing: border-box;
+          max-width: 1200px;
+          padding-left: 40px;
+          padding-right: 40px;
+          margin-left: auto;
+          margin-right: auto
+      }
+
+      @media (max-width: 600px) {
+          .PageContainer {
+              padding-left: 20px;
+              padding-right: 20px
+          }
+      }
+
+      .not-found {
+        background-color: white;
+        color: black;
+        padding-top: 10px;
+      }
+
+      .not-found--inner {
+        max-width: 1024px;
+        margin: 10px auto;
+        margin-bottom: 100px;
+        padding: 0 20px;
+        text-align: center;
+      }
+
+      @media (min-width: 350px) {
+        .not-found--inner {
+          margin-top: 60px;
+        }
+      }
+
+      @media (min-width: 640px) {
+        .not-found--inner {
+          margin-top: 60px;
+          margin-bottom: 150px;
+        }
+      }
+
+      @media (min-width: 960px) {
+        .not-found--inner {
+          margin-top: 150px;
+          margin-bottom: 200px;
+        }
+      }
+
+      .not-found--image {
+        position: relative;
+        padding-bottom: 92.01474201%;
+      }
+
+      .not-found--image img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+
+      .not-found--heading {
+        margin: 1rem 0 .5rem 0;
+        font-size: 36px;
+        line-height: 1.1;
+        font-weight: 800;
+        text-align: center;
+        margin: 0;
+        margin-top: 0;
+        margin-bottom: 40px;
+      }
+
+      @media (min-width: 350px) {
+        .not-found--heading {
+          font-size: 48px;
+        }
+      }
+
+      .not-found--explanation {
+        margin: .5rem auto 0 auto;
+        font-size: 20px;
+        text-align: center;
+        margin: 0 auto;
+        margin-bottom: 50px;
+        line-height: 1.3;
+        color: #666666;
+        max-width: 30em;
+      }
+
+      @media (min-width: 350px) {
+        .not-found--explanation {
+          font-size: 24px;
+          margin-bottom: 60px;
+        }
+      }
+
+      @media (min-width: 640px) {
+        .not-found--explanation {
+          margin-bottom: 100px;
+        }
+      }
+
+      @media (min-width: 960px) {
+        .not-found--explanation {
+          margin-bottom: 150px;
+        }
+      }
+
+      /* sc-component-id: 404__Universe-s1txya35-0 */
+      .fKdZEh{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex;overflow:hidden;-webkit-box-pack:center;-webkit-justify-content:center;-ms-flex-pack:center;justify-content:center;margin:0 -20px;padding:20px;}
+      /* sc-component-id: 404__Supercluster-s1txya35-1 */
+      .cKFAbd{width:100%;min-width:480px;max-width:757px;}
+      /* sc-component-id: 404__Galaxy-s1txya35-2 */
+      .fhDEOm{width:100%;padding-bottom:52.44%;height:0;position:relative;}
+      /* sc-component-id: 404__InterstellarCloud-s1txya35-3 */
+      .fQplwX{position:absolute;top:0;left:0;right:0;bottom:0;}
+      /* sc-component-id: sc-keyframes-lfVUwz */
+      @-webkit-keyframes lfVUwz{to{-webkit-transform:rotate(1.25deg);-ms-transform:rotate(1.25deg);transform:rotate(1.25deg);}}
+      @keyframes lfVUwz{to{-webkit-transform:rotate(1.25deg);-ms-transform:rotate(1.25deg);transform:rotate(1.25deg);}}
+      /* sc-component-id: 404__Nebula-s1txya35-4 */
+      .ezFZZY{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:90.29%;top:5.54%;left:8.39%;-webkit-animation-name:lfVUwz;animation-name:lfVUwz;}
+      @media (min-width:480px){.ezFZZY{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.ezFZZY{-webkit-animation-duration:0;animation-duration:0;}}
+      /* sc-component-id: sc-keyframes-kajarn */
+      @-webkit-keyframes kajarn{to{-webkit-transform:rotate(2.5deg);-ms-transform:rotate(2.5deg);transform:rotate(2.5deg);}}
+      @keyframes kajarn{to{-webkit-transform:rotate(2.5deg);-ms-transform:rotate(2.5deg);transform:rotate(2.5deg);}}
+      /* sc-component-id: 404__DistantStars-s1txya35-5 */
+      .exCtms{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:100%;top:4.16%;left:0;-webkit-animation-name:kajarn;animation-name:kajarn;}
+      @media (min-width:480px){.exCtms{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.exCtms{-webkit-animation-duration:0;animation-duration:0;}}
+      /* sc-component-id: sc-keyframes-gyVvhf */
+      @-webkit-keyframes gyVvhf{to{-webkit-transform:rotate(3.75deg);-ms-transform:rotate(3.75deg);transform:rotate(3.75deg);}}
+      @keyframes gyVvhf{to{-webkit-transform:rotate(3.75deg);-ms-transform:rotate(3.75deg);transform:rotate(3.75deg);}}
+      /* sc-component-id: 404__NearbyStars-s1txya35-6 */
+      .dhVFJB{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:74.83%;top:0;left:13.74%;-webkit-animation-name:gyVvhf;animation-name:gyVvhf;}
+      @media (min-width:480px){.dhVFJB{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.dhVFJB{-webkit-animation-duration:0;animation-duration:0;}}
+      /* sc-component-id: sc-keyframes-bxklMO */
+      @-webkit-keyframes bxklMO{to{-webkit-transform:rotate(-6.25deg);-ms-transform:rotate(-6.25deg);transform:rotate(-6.25deg);}}
+      @keyframes bxklMO{to{-webkit-transform:rotate(-6.25deg);-ms-transform:rotate(-6.25deg);transform:rotate(-6.25deg);}}
+      /* sc-component-id: 404__TetherGroup-s1txya35-7 */
+      .djZQfU{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:38.83%;height:68.14%;top:31.86%;left:49.34%;-webkit-animation-name:bxklMO;animation-name:bxklMO;-webkit-transform-origin:center bottom;-ms-transform-origin:center bottom;transform-origin:center bottom;}
+      @media (min-width:480px){.djZQfU{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.djZQfU{-webkit-animation-duration:0;animation-duration:0;}}
+      /* sc-component-id: 404__Tether-s1txya35-8 */
+      .jRnJpr{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:88.44%;right:0;bottom:0;}
+      @media (min-width:480px){.jRnJpr{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.jRnJpr{-webkit-animation-duration:0;animation-duration:0;}}
+      /* sc-component-id: 404__Cosmonaut-s1txya35-9 */
+      .xKlGv{position:absolute;-webkit-animation-duration:15s;animation-duration:15s;-webkit-animation-direction:alternate;animation-direction:alternate;-webkit-animation-timing-function:ease-in-out;animation-timing-function:ease-in-out;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;-moz-user-drag:none;-ms-user-drag:none;user-drag:none;width:40.82%;top:0;left:0;-webkit-animation-name:bxklMO;animation-name:bxklMO;-webkit-transform-origin:10% 50%;-ms-transform-origin:10% 50%;transform-origin:10% 50%;}
+      @media (min-width:480px){.xKlGv{-webkit-animation-duration:30s;animation-duration:30s;}}
+      @media (prefers-reduced-motion){.xKlGv{-webkit-animation-duration:0;animation-duration:0;}}
+
+      html {
+          font-family: BK-Circular, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, sans-serif;
+          font-size: 18px;
+          font-weight: 400;
+          background: white;
+          color: #1F1F1F
+      }
+
+      body {
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility
+      }
+    </style>
+  </head>
+  <body>
+    <header class="SiteHeader">
+      <div class="SiteHeader_minimal__inner PageContainer">
+        <p class="SiteHeader__mark">
+          <a href="/docs">
+            <svg
+              width="42"
+              height="28"
+              viewBox="0 0 42 28" xmlns="http://www.w3.org/2000/svg"><title>Buildkite Mark</title><g fill="none" fill-rule="evenodd"><path fill="#30F2A2" d="M0 0l13.965 6.94v13.988L0 13.99M28.042 0l13.854 6.94-13.854 7.05"/><path fill="#14CC80" d="M28.042 0L13.965 6.94v13.988l14.077-6.938M41.896 6.94l-13.854 7.05v13.99l13.854-7.052"/></g></svg>
+          </a>
+        </p>
+        <p class="OffScreen SiteHeader__tagline">Powerful build automation and continous deployment.</p>
+        <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
+      </div>
+    </header>
+    <main id="main" role="main">      
+      <div class="not-found">
+        <div class="not-found--inner">
+          <div class="fKdZEh">
+            <div class="cKFAbd">
+              <div class="fhDEOm">
+                <div class="fQplwX">
+                  <img src="/images/404/nebula.jpg" class="ezFZZY">
+                  <img src="/images/404/stars-distant.png" class="exCtms">
+                  <img src="/images/404/stars-nearby.png" class="dhVFJB">
+                  <div class="djZQfU">
+                    <img src="/images/404/tether.png" class="jRnJpr">
+                    <img src="/images/404/cosmonaut.png" class="xKlGv">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <h1 class="not-found--heading">Page not found</h1>
+          <p class="not-found--explanation">Sorry, the page you’re trying to access could not be found</p>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
