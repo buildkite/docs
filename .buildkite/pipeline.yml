@@ -8,6 +8,8 @@ steps:
           run: "app"
           env:
             - "RAILS_ENV=test"
+            - CI
+            - BUILDKITE_JOB_ID
 
   - wait: ~
     continue_on_failure: true

@@ -10,6 +10,6 @@ module ApplicationHelper
   end
 
   def open_source_url
-    "https://github.com/buildkite/docs/tree/master/pages/#{basename}.md.erb"
+    "https://github.com/buildkite/docs/tree/master/pages/TODO.md.erb"
   end
 end
