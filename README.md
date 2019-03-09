@@ -26,7 +26,7 @@ Or if you have Docker installed:
 
 ```bash
 # Run the specs
-docker-compose run app rspec
+docker-compose run app bundle exec rspec
 # Start the app on http://localhost:3000/
 docker-compose up --build
 # To start it in production mode on http://localhost:3000/
