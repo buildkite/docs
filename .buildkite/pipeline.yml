@@ -2,21 +2,20 @@ steps:
   - wait
 
   - label: "RSpec :rspec:"
-    command: "rspec"
-    # soft_fail: true
+    command: "bundle exec rspec"
     artifact_paths: "log/rspec-*.xml"
     plugins:
       - docker-compose#v3.0.0:
           run: "app"
           env:
             - "RAILS_ENV=test"
-            - CI
-            - BUILDKITE_JOB_ID
+            - "CI"
+            - "BUILDKITE_JOB_ID"
 
   - wait: ~
     continue_on_failure: true
 
-  - label: "Annotate"
+  - label: Annotate
     plugins:
       - bugcrowd/test-summary#v1.9.0:
           inputs:
