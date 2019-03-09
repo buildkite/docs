@@ -8,8 +8,7 @@ class Page::Renderer
   end
 
   def render(text, options = {})
-    # markdown(options).render(Emoji.parse(text, sanitize: false))
-    markdown(options).render(text)
+    markdown(options).render(Emoji.parse(text, sanitize: false))
   end
 
   private

@@ -6,6 +6,11 @@ To contribute simply send a pull request! :heart:
 
 ## Development
 
+```bash
+git clone https://github.com/buildkite/docs.git
+git submodule update --init
+```
+
 If you have Ruby installed:
 
 ```bash
