@@ -1,0 +1,39 @@
+.status-badges__examples {
+  color: #333;
+  th, td {
+    padding: 5px 1px;
+  }
+  th {
+    padding-right: 20px;
+    text-align: left;
+    font-weight: normal;
+    font-size: #{(16/18)}rem;
+  }
+  td img {
+    border: none;
+    padding: none;
+    vertical-align: middle;
+  }
+  code .muted {
+    color: #888;
+  }
+  @media (max-width: 768px) {
+    tr, th {
+      display: block;
+    }
+    tr {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    td {
+      display: inline-block;
+      padding: 0;
+      img { padding: 0; }
+    }
+    tr + tr {
+      border-top: none;
+    }
+  }
+}

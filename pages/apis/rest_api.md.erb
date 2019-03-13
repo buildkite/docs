@@ -15,7 +15,9 @@ curl https://api.buildkite.com
 ```
 
 ```json
-<%= present_json response: "Hello World" %>
+{
+  "response": "Hello World"
+}
 ```
 
 ## Query String Parameters
@@ -64,7 +66,12 @@ Enter host password for user 'your@email.com':
 ```
 
 ```json
-<%= api_response_example :user %>
+{
+  "id" => "dRjoWRjBildGyxZ2wvRUJv1j3cVdYoKjrPIeUuxWfnU",
+  "name" => "Jane Doe",
+  "email" => "jane@doe.com",
+  "created_at" => "<%= 1.month.ago.utc %>"
+}
 ```
 
 ## Pagination
