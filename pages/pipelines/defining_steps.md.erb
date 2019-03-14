@@ -62,7 +62,7 @@ For more example steps and detailed configuration options, see the example `pipe
 
 If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run.  
 
-When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
+When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
 
 ## Example pipeline
 
