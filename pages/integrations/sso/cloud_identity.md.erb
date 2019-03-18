@@ -13,14 +13,17 @@ Google Cloud Identity can be used as an SSO provider for your Buildkite organiza
 <p>Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this during set up.</p>
 </div>
 
-Log into your Google Admin Console, and follow these steps:
+Log into your Google Admin Console, and follow these instructions:
 
-1. In the 'Apps Settings' area of the console, select 'SAML Apps'
-1. Click the + button to open the Enable SSO for SAML Application modal 
-1. Choose 'Setup my own custom app'
-1. Copy down the SSO URL and Entity ID, and download the Certificate 
-1. Give your application a name, for example 'Buildkite'
-1. ACS URL = the URL provided by Buildkite support, Entity ID = https://buildkite.com
+1. In the 'Apps Settings' area of the console, select 'SAML Apps'.
+1. Click the + button to open the Enable SSO for SAML Application modal.
+1. Choose 'Setup my own custom app'.
+1. Copy down the SSO URL and Entity ID, and download the Certificate. You'll need these in Step 2.
+1. Give your application a name, for example 'Buildkite'.
+1. Enter the following Service Provider Details:
+    * ACS URL: the URL provided by Buildkite support
+    * Entity ID: https://buildkite.com
+1. Attribute mapping can be added after the initial setup and testing. Click 'Finish' to complete the setup.
 
 ### Step 2. Email Buildkite Support
 
