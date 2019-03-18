@@ -1,0 +1,20 @@
+@import "public/reset";
+@import "public/variables";
+@import "public/utils/*";
+@import "public/*";
+@import "pygments";
+@import "emoji";
+
+html {
+  font-family: BK-Circular, $font-family;
+  font-size: 18px;
+  font-weight: 400;
+  background: white;
+  color: #1F1F1F;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}

@@ -1,0 +1,96 @@
+.Link {
+  transition-duration: 100ms;
+  transition-property: opacity, color, border, border-color;
+}
+
+.Link--no-underline {
+  @extend .Link;
+  text-decoration: none;
+  &:hover, &:active, &:focus { text-decoration: underline; }
+}
+
+.Link--on-white {
+  @extend .Link;
+  color: rgba(black, $text-on-dark-subdued-opacity);
+  font-weight: 700;
+  &:hover, &:active, &:focus { color: black; }
+}
+
+.Link--faded-on-white {
+  @extend .Link--on-white;
+  color: rgba(black, $text-on-dark-very-subdued-opacity);
+}
+
+.Link--on-dark {
+  @extend .Link;
+  color: rgba(white, $text-on-dark-subdued-opacity);
+  &:hover, &:active, &:focus { color: white; }
+}
+
+.Link--green-on-dark {
+  @extend .Link--on-dark;
+  color: rgba(#D5E44E, .75);
+  &:hover, &:active, &:focus { color: rgba(#D5E44E,1); }
+}
+
+.Link--faded-green-on-dark {
+  @extend .Link--green-on-dark;
+  color: rgba(#D5E44E, .55);
+  &:hover, &:active, &:focus { color: rgba(#D5E44E,.85); }
+}
+
+.Link--faded-on-dark {
+  @extend .Link--on-dark;
+  color: rgba(white, $text-on-dark-very-subdued-opacity);
+}
+
+.Link--bold-on-dark {
+  @extend .Link--no-underline;
+  @extend .Link--on-dark;
+  font-weight: 700;
+  color: white;
+}
+
+.Link--bold-automatic {
+  @extend .Link--no-underline;
+  font-weight: 700;
+  color: inherit;
+
+  &:hover, &:active, &:focus { color: #14CC80; }
+}
+
+.Link--no-underline.Link--on-dark,
+.Link--no-underline.Link--green-on-dark,
+.Link--no-underline.Link--on-dark.Link--bold-on-dark,
+.Link--no-underline.Link--outline {
+  &:hover, &:active, &:focus { text-decoration: none; }
+}
+
+.Link--outline {
+  @extend .Link;
+  text-decoration: none;
+  border: 1px solid currentColor;
+  border-radius: 5px;
+  padding: .4em .9em .45em .9em;
+  white-space: nowrap;
+}
+
+.Link--solid-on-dark {
+  @extend .Link--outline;
+  background-color: rgba(white, .93);
+  color: #14CC80;
+  border: none;
+  font-weight: 400;
+
+  &:hover, &:active, &:focus { background-color: white; }
+}
+
+.Link--on-dark.Link--outline {
+  @extend .Link;
+  border-color: rgba(white, .4);
+  &:hover, &:active, &:focus { border-color: rgba(white, .6); }
+}
+
+.Link--inline-block {
+  display: inline-block;
+}
