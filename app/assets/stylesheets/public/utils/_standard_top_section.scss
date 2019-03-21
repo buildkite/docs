@@ -1,0 +1,14 @@
+.StandardTopSection {
+  padding-top: 60px;
+  padding-bottom: 40px;
+  color: inherit;
+}
+
+.StandardTopSection--empty {
+  @extend .StandardTopSection;
+  padding-bottom: 16px;
+
+  @media (max-width: 600px) {
+    padding-bottom: 10px;
+  }
+}
