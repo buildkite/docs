@@ -9,13 +9,13 @@ Buildkite can connect to your GitHub Enterprise installation and use the Commit 
 Go to your GitHub Enterprise installation, and start by registering a new **Developer application**. This can
 be done by going to your **GitHub User Settings**, clicking **Applications** on the left, then selecting **Developer applications** at the top:
 
-<%= image("github-user-settings.png", size: '301x326') %>
+<%= image "github-user-settings.png", width:301, height:326, alt:"" %>
 
-<%= image("applications-menu.png", size: '343x157') %>
+<%= image "applications-menu.png", width:343, height:157, alt:"" %>
 
 From this page, click **Register new application**
 
-<%= image("register-application-button.png") %>
+<%= image "register-application-button.png", width: , height: , alt:"" %>
 
 Fill out the form with the following:
 
@@ -33,25 +33,25 @@ Fill out the form with the following:
 
 Here's an image you can use:
 
-<%= image("buildkite-square.png", size: '100x100') %>
+<%= image "buildkite-square.png", width:100, height:100, alt:"" %>
 
 Once filled out, click the **Register application** button at the bottom of the form:
 
-<%= image("register-application.png") %>
+<%= image "register-application.png", width: , height: , alt:"" %>
 
 Now that we've created an application, we have access to the Client ID and Client Secret. We'll need those to setup your GitHub Enterprise installation on Buildkite.
 
-<%= image("client-secrets.png", width: '440x175') %>
+<%= image "client-secrets.png", width:440, height:175, alt:"" %>
 
 ## Update your Buildkite organization settings
 
 Go to the <a href="https://buildkite.com/organizations/-/settings" rel="nofollow">Settings page</a> of the organization you'd like to connect to your GitHub Enterprise installation to:
 
-<%= image("account-settings.png", size: '268x94') %>
+<%= image "account-settings.png", width:268, height:94, alt:"" %>
 
 Scroll down to see your **GitHub Enterprise** settings. Copy the Client ID, Client Secret, and the URL of your GitHub Enterprise Installation to this form, then press **Save GitHub Enterprise Settings**.
 
-<%= image("setup-enterprise.png") %>
+<%= image "setup-enterprise.png", width: , height: , alt:"" %>
 
 Once saved, the last step is to authorize your GitHub Enterprise user account with Buildkite.
 
@@ -61,11 +61,11 @@ So Buildkite can mark commits and pull requests as pass or fail, you'll need to 
 
 Go to your <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps settings page</a>. Here you'll see your GitHub Enterprise Installation as an option to connect to. Click **Connect**.
 
-<%= image("oauth.png", size: '546x222') %>
+<%= image "oauth.png", width:546, height:222, alt:"" %>
 
 You should be redirected back to your GitHub Enterprise Installation, where it will ask you to authorize Buildkite with your account. Click the **Authorize application** button at the bottom.
 
-<%= image("oauth-connect.png") %>
+<%= image "oauth-connect.png", width: , height: , alt:"" %>
 
 That's it! Next time you create a pipeline with a repository that's either `https://git.mycompany.com/acme/app.git` or `git@git.mycompany.com:acme/app.git`,
 Buildkite will recognize that it's hosted on your GitHub Enterprise Installation, and use your newly created oAuth authorization to update the commit statuses.
