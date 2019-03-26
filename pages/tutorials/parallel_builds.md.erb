@@ -15,17 +15,18 @@ The steps for running multiple agents are slightly different for each platform. 
 ```bash
 # After running the standard install instructions...
 
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
-sudo service buildkite-agent-2 start
+# Stop and disable the default buildkite-agent service
+sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
 
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-3.conf
-sudo service buildkite-agent-3 start
+# Create a systemd template
+sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
 
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-4.conf
-sudo service buildkite-agent-4 start
-
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-5.conf
-sudo service buildkite-agent-5 start
+# Start five agents using the systemd template we created above
+sudo systemctl enable --now buildkite-agent@1
+sudo systemctl enable --now buildkite-agent@2
+sudo systemctl enable --now buildkite-agent@3
+sudo systemctl enable --now buildkite-agent@4
+sudo systemctl enable --now buildkite-agent@5
 ```
 
 ## Parallel Jobs
