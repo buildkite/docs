@@ -7,7 +7,7 @@ Description:
    Downloads artifacts from Buildkite to the local machine.
 
    Note: You need to ensure that your search query is surrounded by quotes if
-   using a wildcard as the built-in shell path globbing will provide files,
+   using a wild card as the built-in shell path globbing will provide files,
    which will break the download.
 
 Example:
@@ -33,3 +33,4 @@ Options:
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
+   

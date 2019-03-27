@@ -139,3 +139,25 @@ Local hooks can be disabled by setting `BUILDKITE_NO_LOCAL_HOOKS=true` in the en
 If local hooks are disabled and one is in the checkout, the job will fail.
 
 NOTE: If building untrusted commits, you should also contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
+
+## Running the Agent behind a proxy
+
+To run the agent behind a proxy, you'll need to export the following proxy environment variables for your process manager:
+
+* `http_proxy`
+* `https_proxy`
+
+Both of these variables should be set to the URL for your proxy server.
+
+For example, if using systemd, create a directory named "/etc/systemd/system/buildkite-agent.service.d" that contains a `proxy.conf` file. 
+
+An example systemd `proxy.conf` file:
+
+```
+[Service]
+# Proxy Env Vars
+Environment=http_proxy=http://username:password@proxyserver:8080/
+Environment=https_proxy=http://username:password@proxyserver:8080/
+```
+
+After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart. 
