@@ -34,3 +34,28 @@ If the previous steps failed, the build will be marked as failed only after the 
 In this example, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
 
 The explicit null `~` character used in the above example isn't required, but is reccommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
+
+*wait* steps are evaluated in the sequence they occur in the pipeline. A *wait* step without `continue_on_failure: true` will block any later *wait* steps with `continue_on_failure: true`, if a failure occurs before the first *wait*. A sequence of *wait* steps with `continue_on_failure: true` will all run, if a failure occurs before them.
+
+```yml
+- command: "1.sh"
+
+- wait: ~
+  continue_on_failure: true
+- command: "2.sh"
+
+- wait
+- command: "3.sh"
+
+- wait: ~
+  continue_on_failure: true
+- command: "4.sh"
+
+- wait: ~
+  continue_on_failure: true
+- command: "5.sh"
+```
+
+If all commands succeed, every step will run.
+
+If `1.sh` and/or `2.sh` fail, then `1.sh` and `2.sh` will both run, but `3.sh`, `4.sh` and `5.sh` will not run. If those first two commands both succeed, then all of `3.sh`, `4.sh` and `5.sh` will run (one after the other), even when any of them fail. In both of these cases, the build will be marked as failed after the commands have finished running.
