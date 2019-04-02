@@ -1,12 +1,49 @@
 # Using plugins
 
-## adding a plugin to your pipeline (as a step/in other steps)
+- you can use plugins in steps defined in YAML, either in the YAML editor in Buildkite or in your `pipeline.yml` file
+- use plugins from github or that are stored in your own repository 
 
-## configuration
+<%= toc %>
 
-Plugins can be configured on [command steps] in your `pipeline.yml` [pipeline definitions]. When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
+## Adding a plugin to your pipeline
 
-The simplest plugin is one that accepts no configuration, such as the [Detect Clowns plugin], which will return an error if any clown emojis are found in your source code:
+As part of a command step
+  - use the 'plugins' attribute
+  - it accepts an array, so you can list as many plugins as you require in each step
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - detect-clowns#v1.0.0: ~
+```
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - detect-clowns#v1.0.0: ~
+      - docker#v1.0.0:
+          image: node
+          workdir: /app
+```
+
+Without other commands
+  - usually used for things like docker builds where you want to prebuild an app
+  - this will run the plugin hooks alone on the agent that accepts the job
+
+```yml
+steps:
+  - label: "\:clown_face\:"
+    plugins:
+      - detect-clowns#v1.0.0: ~
+```
+
+## Configuring plugins
+
+Plugins can be configured on [command steps](/docs/pipelines/command-step) in your `pipeline.yml` [pipeline definitions](/docs/pipelines/defining-steps). When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
+
+The simplest plugin is one that accepts no configuration, such as the [Detect Clowns plugin](https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin), which will return an error if any clown emojis are found in your source code:
 
 ```yml
 steps:
@@ -50,7 +87,7 @@ steps:
 
 ## more complex code example with a description of how the build would run
 
-## sources (github, git, local)
+## sources (github, git, repository)
 
 If you refer to a plugin just by name, it defaults to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin name of `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
 
