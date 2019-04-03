@@ -1,7 +1,7 @@
 # Using plugins
 
 - you can use plugins in steps defined in YAML, either in the YAML editor in Buildkite or in your `pipeline.yml` file
-- use plugins from github or that are stored in your own repository 
+- plugins can be in a private git repository, public repositories, in your repo alongside your code, or locally on an agent's filesystem
 
 <%= toc %>
 
@@ -11,12 +11,18 @@ As part of a command step
   - use the 'plugins' attribute
   - it accepts an array, so you can list as many plugins as you require in each step
 
+  - in the example below, as plugins are just collections of hooks, the `detect-clowns` plugin will be run first
+  - the `detect-clowns` `command` hook will run, followed by the commands `yarn install && yarn run test`
+
 ```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
       - detect-clowns#v1.0.0: ~
 ```
+
+  - in the example below, as in the first example, the plugins hooks will be run first
+  - the `detect-clowns` hook will run, followed by the `docker` hook, and finally the commands `yarn install && yarn run test`
 
 ```yml
 steps:
@@ -31,6 +37,7 @@ steps:
 Without other commands
   - usually used for things like docker builds where you want to prebuild an app
   - this will run the plugin hooks alone on the agent that accepts the job
+  - though there's no 'command' attribute, this is still a command step, so if you need to you can use any of the other attributes available on command steps 
 
 ```yml
 steps:
@@ -38,6 +45,7 @@ steps:
     plugins:
       - detect-clowns#v1.0.0: ~
 ```
+
 
 ## Configuring plugins
 
