@@ -20,15 +20,31 @@ Example: `"83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_DEBUG</h3>
 
-The value of the `debug` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `debug` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_ENDPOINT</h3>
 
-The value of the `endpoint` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable. This variable is read by the `buildkite-agent artifact ???` commands.
+The value of the `endpoint` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable. This variable is read by the `buildkite-agent artifact ???` commands.
 
 Example: `"https://agent.buildkite.com/v3"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_EXPERIMENT</h3>
+
+A list of the experimental agent features that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent).   
+
+<h3 class="h3-caps">BUILDKITE_AGENT_META_DATA_*</h3>
+
+The value of each of [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. The name and value cannot be modified as an environment variable. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable. 
+
+Example: `"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue"`, `"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_NAME</h3>
+
+The name of the agent that ran the job. The value cannot be modified as an environment variable.
+
+Example: `"elastic-builders-088264dc4f9"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_PID</h3>
 
@@ -44,7 +60,7 @@ Example: `"tmp/capybara/**/*;coverage/**/*"`
 
 <h3 class="h3-caps">BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</h3>
 
-The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
 
@@ -98,7 +114,7 @@ Example: `"1514"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_PATH</h3>
 
-The value of the `build-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `build-path` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/var/lib/buildkite-agent/builds/"`
 
@@ -122,7 +138,7 @@ Example: `"script/buildkite/specs"`
 
 <h3 class="h3-caps">BUILDKITE_COMMAND_EVAL</h3>
 
-The opposite of the value of the `no-command-eval` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The opposite of the value of the `no-command-eval` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
@@ -152,19 +168,19 @@ Example: `"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"`
 
 <h3 class="h3-caps">BUILDKITE_GIT_CLEAN_FLAGS</h3>
 
-The value of the `git-clean-flags` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+The value of the `git-clean-flags` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"-ffxdq"`
 
 <h3 class="h3-caps">BUILDKITE_GIT_CLONE_FLAGS</h3>
 
-The value of the `git-clone-flags` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+The value of the `git-clone-flags` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Example: `"-v"`
 
 <h3 class="h3-caps">BUILDKITE_GIT_SUBMODULES</h3>
 
-The opposite of the value of the `no-git-submodules` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The opposite of the value of the `no-git-submodules` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
@@ -194,7 +210,7 @@ Example: `"production"`
 
 <h3 class="h3-caps">BUILDKITE_HOOKS_PATH</h3>
 
-The value of the `hooks-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/etc/buildkite-agent/hooks/"`
 
@@ -224,7 +240,7 @@ Example: `"-1"`
 
 <h3 class="h3-caps">BUILDKITE_LOCAL_HOOKS_ENABLED</h3>
 
-The opposite of the value of the `no-local-hooks` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The opposite of the value of the `no-local-hooks` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
@@ -260,13 +276,13 @@ Example: `"my-project"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGINS_ENABLED</h3>
 
-The opposite of the value of the `no-plugins` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The opposite of the value of the `no-plugins` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGINS_PATH</h3>
 
-The value of the `plugins-path` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `plugins-path` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/etc/buildkite-agent/plugins/"`
 
@@ -326,7 +342,7 @@ Example: `"0"`
 
 <h3 class="h3-caps">BUILDKITE_SHELL</h3>
 
-The value of the `shell` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `shell` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Example: `"/bin/bash -e -c"`
 
@@ -338,37 +354,37 @@ Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
 
 <h3 class="h3-caps">BUILDKITE_SSH_KEYSCAN</h3>
 
-The opposite of the value of the `no-ssh-keyscan` [agent configuration option](https://buildkite.com/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_S3_ACCESS_KEY_ID</h3>
 
-The access key ID for your S3 IAM user, for use with [private S3 buckets](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"AKIAIOSFODNN7EXAMPLE"`
 
 <h3 class="h3-caps">BUILDKITE_S3_ACCESS_URL</h3>
 
-The access URL for your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The access URL for your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket), if you are using a proxy. The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"https://buildkite-artifacts.example.com/"`
 
 <h3 class="h3-caps">BUILDKITE_S3_ACL</h3>
 
-The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Default: `"public-read"`
 
 <h3 class="h3-caps">BUILDKITE_S3_DEFAULT_REGION</h3>
 
-The region of your [private S3 bucket](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The region of your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Default: `"us-east-1"`
 
 <h3 class="h3-caps">BUILDKITE_S3_SECRET_ACCESS_KEY</h3>
 
-The secret access key for your S3 IAM user, for use with [private S3 buckets](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](https://buildkite.com/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
