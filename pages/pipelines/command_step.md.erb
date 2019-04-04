@@ -47,6 +47,17 @@ _Optional attributes:_
 
 <table>
   <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em> <code>false</code><br>
+      <em>Example:</em> <code>"My reason"</code>
+    </td>
+  </tr>
+
+  <tr>
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
@@ -137,6 +148,22 @@ _Optional attributes:_
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
+
+  <tr>
+    <td><code>soft_fail</code></td>
+    <td>
+      Should this step cause the build to fail if it exits with a non-zero status.
+      Can be either an array of soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.
+
+      An array of failure conditions that when matched indicate that the step should soft-fail.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em><br>
+      <code>- exit_status: 1</code><br>
+      <code>- exit_status: "*"</code><br>
+    </td>
+  </tr>
+
+
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
@@ -324,4 +351,11 @@ steps:
       manual:
         allowed: false
         reason: "Sorry, you can't retry a deployment"
+
+  - wait
+
+  - label: "Smoke test"
+    command: "smoke-test.sh"
+    soft_fail:
+      - exit_status: 1
 ```
