@@ -14,8 +14,8 @@ The Buildkite Agent can be installed on on Ubuntu versions 14.04 and above using
 First, add our signed apt repository:
 
 ```shell
-sudo sh -c 'echo deb https://apt.buildkite.com/buildkite-agent stable main > /etc/apt/sources.list.d/buildkite-agent.list'
-sudo apt-key adv --keyserver hkps://hkps.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+echo "echo deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
+sudo apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 ```
 
 Then install the agent:
