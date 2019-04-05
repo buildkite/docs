@@ -18,9 +18,11 @@ A basic wait step can be defined in your pipeline settings, or in your [pipeline
 
 ## Continuing on failure
 
-You can also configure the *wait* step to continue even if the previous steps failed.
+You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed. 
 
-If the previous steps failed, the build will be marked as failed only after the steps after the `wait` have completed. This is useful for processing results from previous steps, such as test coverage, or summarizing test failures.
+This is useful for processing results from previous steps, for example, test coverage or summarizing test failures. Successful steps that run after a `continue_on_failure` step will not affect the status of the build; if there has been a failure, the build will be marked as failed.  
+
+In the example below, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
 
 ```yml
 - command: "command.sh"
@@ -31,6 +33,34 @@ If the previous steps failed, the build will be marked as failed only after the 
 - command: "echo The command passed"
 ```
 
-In this example, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
+If there's a failure followed by a regular wait step, nothing after the wait step will run, including any subsequent wait steps with `continue_on_failure: true`. In the example below, when the first command fails, the second and third commands will not run:
 
-The explicit null `~` character used in the above example isn't required, but is reccommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
+```yml
+steps:
+  - command: "exit -1"
+  - wait
+  - command: "echo SECOND command"
+  - wait: ~
+    continue_on_failure: true
+  - command: "echo THIRD command"
+```
+
+<%= image "continue-on-fail-example1.png", width: 1086/2, height: 414/2, alt: "Screenshot of a failed pipeline which didn't run the continue_on_failure wait steps" %>
+
+Any wait steps with `continue_on_failure: true` that aren't separated by regular wait steps will all run if a failure occurs. In the below example, after the first command fails, the second, third, and fourth commands will all run:
+
+```yml
+steps:
+  - command: "exit -1"
+  - wait: ~
+    continue_on_failure: true
+  - command: "echo SECOND command"
+  - command: "echo THIRD command"
+  - wait: ~
+    continue_on_failure: true
+  - command: "echo FOURTH command"
+```
+
+<%= image "continue-on-fail-example2.png", width: 1402/2, height: 417/2, alt: "Screenshot of a failed pipeline which did run the continue_on_failure wait steps" %>
+
+The explicit null `~` character used in the above examples isn't required, but is reccommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
