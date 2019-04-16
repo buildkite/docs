@@ -141,7 +141,7 @@ _Optional attributes:_
     <td><code>soft_fail</code></td>
     <td>
       Should this step cause the build to fail if it exits with a non-zero status.
-      Can be either an array of soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.
+      Can be either an array of soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em><br>
       <code>- exit_status: 1</code><br>
@@ -282,6 +282,30 @@ steps:
       manual:
         allowed: false
         reason: "Sorry, you can't retry a deployment"
+```
+
+## Soft Fail Attributes
+
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>exit_status</code></td>
+    <td>
+      The exit status number that will cause this job to be soft-failed. <br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>1</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - label: "Everyone struggles sometimes"
+    command: "tests.sh"
+    soft_fail:
+      - exit_status: 1
 ```
 
 ## Examples
