@@ -7,11 +7,59 @@ and self provisioned clusters.
 
 <%= toc %>
 
+## GCP & GKE
+
+<%= estimated_time "5 minutes" %>
+
+This example describing granting Buildkite agents `kubectl` access to a GKE
+cluster using [GCP service accounts][gcp_service_accounts].
+
+These steps assume your Buildkite agents run on GPE instances, there's an
+existing GKE cluster, `kubectl`, and `gcloud` are installed on those instances.
+
+<div class="Docs__troubleshooting-note">
+<p>
+These steps also assume your agents are networked with your GKE cluster.  If
+your cluster is running in a different network or you have locked down network
+access, then you'll need to update networking first.  However this outside the
+scope of this tutorial.
+</p>
+</div>
+
+You may launch instances with full API access as seen in this screnshot
+when launching a new instance:
+
+<%= image "instance_permissions.png", alt: "GCE Instance Permissions" %>
+
+You may create a dedicated service account with specific permissions. It's
+easy to start with full access to GKE, then restrict as needed in the future.
+See this screenshot:
+
+<%= image "create_service_account.png", alt: "Creating a Service Account" %>
+
+Now, you can use `gloud` to get credentials for your GKE cluster.
+Here's a snippet you can use in a [precommand hook][]:
+
+```
+echo 'Fetching Credentials'
+# Replace CLUSTER_NAME and CLUSTER_ZONE
+gcloud container clusters get-credentials CLUSTER_NAME \
+	--zone CLUSTER_ZONE
+
+echo 'Testing kubectl access'
+kubectl get services
+```
+
+Congratulations! Your agents are not connected to your GKE cluster.
+Go ahead and use `kubectl` in your subsequent tests/deployment steps.
+
+[gcp_service_accounts]: https://cloud.google.com/compute/docs/access/service-accounts
+
 ## AWS & EKS
 
 <%= estimated_time "15-20 minutes" %>
 
-These demonstrate how to grant Buildkite Agents `kubectl` access to an
+This example describes granting Buildkite agents `kubectl` access to an
 EKS cluster using AWS IAM roles.
 
 The steps assume your agents are deployed to EC2 with a dedicated
