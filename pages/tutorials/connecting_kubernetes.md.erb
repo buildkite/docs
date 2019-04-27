@@ -1,0 +1,167 @@
+# Connecting to Kubernetes
+
+Your BuildKite agents can connect to any Kubernetes cluster. That
+depends on where your agents and Kuberneters cluster run. This
+tutorial covers common deployment scenarios for AWS, EKS, GCP, GKE,
+and self provisioned clusters.
+
+<%= toc %>
+
+## AWS & EKS
+
+<%= estimated_time "15-20 minutes" %>
+
+These demonstrate how to grant Buildkite Agents `kubectl` access to an
+EKS cluster using AWS IAM roles.
+
+The steps assume your agents are deployed to EC2 with a dedicated
+instance profile and associate IAM role. If you're using the [Elastic
+Stack][] then you're set. Second, it assumes the agents have access to
+the Kubenetes API admin.
+
+<div class="Docs__troubleshooting-note">
+<p>
+If your EKS cluster's Admin API access is set to private, then
+you'll need to update networking to allow communication between the agents and
+the admin API before continuing. However this outside the scope of this
+tutorial.
+</p>
+</div>
+
+### Configuring the IAM Role
+
+You'll need to grant EKS access to the IAM role associated with
+your agents. Attaching an existing AWS Managed Policy is the easiest
+way. The `PowerUser` policy is easiest for this tutorial since it
+grant access to all AWS APIs execpt IAM management.
+
+If you're using the ElasticStack, then open the CloudFormation console and set
+the `ManagedPolicyARN` parameter to `arn:aws:iam::aws:policy/PowerUserAccess`.
+You may need to terminate existing EC2 instance for the new policy to take
+effect.
+
+If you're not using the ElasticStack, then you can attach the
+`PowerUserAccess` policy to your agent role directly in the IAM
+console. You may need to terminate your EC2 instances afterwards for
+the new policy to take effect.
+
+### Configuring Kubernetes API Access
+
+AWS uses a custom Kubernetes authentication mechanism. This steps maps
+the IAM Role from the previous step to a Kubernetes use appropriate
+access. Refer to the [AWS EKS IAM][eks_iam_docs] docs for more
+information.
+
+First, connect your local machine to the relevant EKS cluster. This
+step assumes you've installed `kubectl` and `aws-iam-authentiactor` as
+described in the [getting started guide][eks_setup_docs].
+
+```
+aws eks update-kubeconfig --name buildkite-tutorial
+```
+
+Replace the `buildkite-tutorial` with your EKS cluster's name.
+
+Next, update the AWS auth config map to map your IAM role with a
+Kubernetes user. You'll want to keep IAM role's ARN on hand. Find it
+in the AWS IAM console.
+
+```
+kubectl edit configmap -n kube-system aws-auth
+```
+
+This command opens the ConfigMap in your editor. You'll see something
+like this:
+
+```yml
+apiVersion: v1
+data:
+  mapRoles: |
+    - rolearn: arn:aws:iam::555555555555:role/buidlkite-tutorial-worker-nodes-NodeInstanceRole-74RF4UBDUKL6
+      username: system:node:{{EC2PrivateDNSName}}
+      groups:
+        - system:bootstrappers
+        - system:nodes
+  mapUsers: |
+    - userarn: arn:aws:iam::555555555555:user/admin
+      username: admin
+      groups:
+        - system:masters
+```
+
+Add a new entry to the `mapRoles` list for the ARN from the previous
+step. Use the `system:masters` to grant access to all Kubernetes APIs.
+The snippet should look like:
+
+```yml
+# set rolearn to the ARN
+- rolearn: arn:aws:iam::828070532471:role/buildkite-kubernetes-tutorial-elastic-stack-Role
+  username: buildkite
+  groups:
+    - system:masters
+```
+
+Be sure not to replace any existing entries. You only need to add new
+entry to `mapRoles`. Save the file when you're done.
+
+### Configuring the Agents
+
+BuildKite agent instances do not include `kubectl` and
+`aws-iam-authentiactor` by default. You'll need to install them on
+your agents before continuing. The simplest way is to install them
+using a [precommand hook][]. Once installed, you can use the AWS CLI
+to retrieve Kubernetes credentials.
+
+Here's an example `.buildkite/hooks/pre-command`:
+
+```
+set -eu
+
+mkdir -p "${HOME}/bin"
+
+# Install kubectl
+curl -sSL -o "${HOME}/bin/kubectl" \
+	https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.9/2019-03-27/bin/linux/amd64/kubectl
+
+# Install aws-iam-authenticator
+curl -sSL -o "${HOME}/bin/aws-iam-authenticator" \
+	https://amazon-eks.s3-us-west-2.amazonaws.com/1.12.7/2019-03-27/bin/linux/amd64/aws-iam-authenticator
+
+chmod +x "${HOME}/bin/kubectl"
+chmod +x "${HOME}/bin/aws-iam-authenticator"
+
+export "PATH=${HOME}/bin:${PATH}"
+
+echo '$ kubectl --version'
+kubectl version --client
+
+echo '$ aws-iamauthenticator version'
+aws-iam-authenticator version
+
+echo 'Loading Kubeconfig'
+
+aws eks update-kubeconfig --name YOUR_CLUSTER_NAME
+
+echo 'Checking kubectl connection'
+
+kubectl get services
+
+set +eu
+```
+
+Congratulations! Your agents are now connected to your Kubernetes your
+cluster. Now you can use `kubectl` and other associated tools in your
+pipeline.
+
+Be sure to install the matching `kubectl` and `aws-iam-authenticator`
+versions for you EKS cluster version. Refer to the [AWS EKS
+authentication][eks_setup_docs] docs for more information.
+
+You should also use more restrictive IAM permissions. The `PowerUserAccess`
+policy grants your Buildkite Agents acccess to everything in AWS. You should
+use a policy that grants agents access to only the relevant clusters.
+
+[eks_setup_docs]: https://docs.aws.amazon.com/eks/latest/userguide/managing-auth.html
+[precommand hook]: /agent/v3/hooks
+[elastic stack]: https://github.com/buildkite/elastic-ci-stack-for-aws
+[eks_iam_docs]: https://docs.aws.amazon.com/eks/latest/userguide/IAM_policies.html
