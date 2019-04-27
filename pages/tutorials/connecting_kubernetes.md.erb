@@ -165,3 +165,64 @@ use a policy that grants agents access to only the relevant clusters.
 [precommand hook]: /agent/v3/hooks
 [elastic stack]: https://github.com/buildkite/elastic-ci-stack-for-aws
 [eks_iam_docs]: https://docs.aws.amazon.com/eks/latest/userguide/IAM_policies.html
+
+## Kops Provisioned Clusters
+
+<%= estimated_time "5 minutes" %>
+
+[kops][] is "kubectl for clusters". It can create and manage Kubernetes
+clusters on AWS and GCP. You can connect your agents to your Kubernetes
+clusters with `kops export kubecfg`. `kubectl` and `kops` are not installed by
+default so you'll to install them as well.
+
+<div class="Docs__troubleshooting-note">
+<p>
+You'll need to ensure your agents have access to the
+<code>KOPS_STATE_STORE</code>. This depends on your state store (GCP or AWS)
+and where your agents run. Note, that the example build step is authentication
+agnostic, so authentication configuration happens else where.
+</p>
+</div>
+
+Here's an example buildstep:
+
+```bash
+#!/usr/bin/env bash
+
+main() {
+	mkdir -p "${HOME}/bin"
+
+	curl -sSL -o "${HOME}/bin/kubectl" \
+		https://amazon-eks.s3-us-west-2.amazonaws.com/1.11.9/2019-03-27/bin/linux/amd64/kubectl
+	curl -sSL -o "${HOME}/bin/kops" \
+		https://github.com/kubernetes/kops/releases/download/1.11.1/kops-linux-amd64
+
+	chmod +x "${HOME}/bin/kubectl"
+	chmod +x "${HOME}/bin/kops"
+
+	export "PATH=${HOME}/bin:${PATH}"
+
+	echo '$ kubectl --version'
+	kubectl version --client
+
+	echo '$ kops version'
+	kops version
+
+	# TODO: replace with your state store
+	export "KOPS_STATE_STORE=s3://your-kops-state-store-bucket"
+
+	echo 'Getting kubeconfig'
+
+	# TODO: replace with your cluster name
+	kops export kubecfg your-kops-cluster-name.com
+
+	echo 'Testing kubectl access'
+	kubectl get services
+
+	# continue with your tests/deployments as usual
+}
+
+main "$@"
+```
+
+[kops]: https://github.com/kubernetes/kops
