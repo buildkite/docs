@@ -1,4 +1,4 @@
-FROM ruby:2.6.2
+FROM ruby:2.6.3@sha256:527b5dcfbe4d1c6d6ca7e44ab496ef9dd5eac4619c8b7bb13c35c568a6115449
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
