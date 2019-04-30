@@ -4,6 +4,7 @@
     <meta charset='utf-8'>
     <link rel="dns-prefetch" href="<%= ENV['ASSET_HOST'] %>" />
     <link rel="dns-prefetch" href="//www2.buildkiteassets.com" />
+    <link rel="dns-prefetch" href="//<%= Matomo::HOST %>" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
@@ -13,8 +14,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "application", media: "all" %>
 
-    <%# Turbolinks seems to be confused by CSP - it's evaluating the script event visit because it's nonce changes #%>
-    <%= javascript_include_tag "application", defer: true, nonce: true, data: { turbolinks_eval: false } %>
+    <%= javascript_include_tag "application", defer: true, nonce: true %>
 
     <%= csp_meta_tag %>
 
@@ -39,7 +39,11 @@
     <meta property="og:site_name" content="Buildkite" />
     <meta property="og:locale" content="en_US" />
 
-    <meta name="turbolinks-root" content="<%= docs_path %>" />
+    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
+
+    <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
+      <meta name="robots" content="noindex, nofollow">
+    <% end %>
   </head>
   <body>
     <header class="SiteHeader">
@@ -94,14 +98,14 @@
 
               <%= javascript_tag nonce: true do %>
                 (function() {
-                var select = document.getElementById('agent-version-selector');
-                select.addEventListener("change", function() {
-                var agentVersionDocsURL = select.options[select.selectedIndex].value;
+                  var select = document.getElementById('agent-version-selector');
+                  select.addEventListener("change", function() {
+                    var agentVersionDocsURL = select.options[select.selectedIndex].value;
 
-                if (String(window.location.pathname).indexOf(agentVersionDocsURL) == -1) {
-                Turbolinks.visit(agentVersionDocsURL);
-                }
-                });
+                    if (String(window.location.pathname).indexOf(agentVersionDocsURL) == -1) {
+                      window.location = agentVersionDocsURL;
+                    }
+                  });
                 })();
               <% end %>
 

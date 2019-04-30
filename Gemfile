@@ -19,10 +19,6 @@ gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier'
 
-# Turbolinks makes navigating your web application faster. Read more:
-# https://github.com/turbolinks/turbolinks
-gem 'turbolinks'
-
 # Helps with running the server locally
 gem 'foreman'
 
