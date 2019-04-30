@@ -1,0 +1,19 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/ruby"
+    }
+  ],
+  "description": "The base app for Buildkite docs pull request review apps",
+  "env": {
+  },
+  "formation": {
+  },
+  "name": "docs-review",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
