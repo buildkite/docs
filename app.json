@@ -1,0 +1,12 @@
+{
+  "name": "docs-review",
+  "description": "The base app for Buildkite docs pull request review apps",
+  "stack": "heroku-18",
+  "buildpacks": [
+    { "url": "https://github.com/dmathieu/heroku-buildpack-submodules" },
+    { "url": "heroku/ruby" }
+  ],
+  "env": {
+    "ROBOTS_NO_INDEX": "true"
+  }
+}
