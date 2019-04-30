@@ -58,6 +58,8 @@ Rails.application.routes.draw do
   get "/docs/tutorials/bitbucket",                to: redirect("/docs/integrations/bitbucket")
   get "/docs/tutorials/custom-saml",              to: redirect("/docs/integrations/sso/custom-saml")
   get "/docs/tutorials/sso-setup-with-graphql",   to: redirect("/docs/integrations/sso/sso-setup-with-graphql")
+  get "/docs/integrations/sso/google-oauth",      to: redirect("/docs/integrations/sso/g-suite")
+  get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started",      status: 302)

@@ -33,13 +33,13 @@ You'll need to set up your SSO identity provider yourself. There are guides avai
 
 ### Using Google G Suite or Github
 
-Google and Github both use OAuth rather than SAML. See the [Google OAuth setup guide](/docs/integrations/sso/google-oauth) for a list of the information you'll need to give Buildkite to get started.
+Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to give Buildkite to get started.
 
 You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql) for steps and code samples.
 
 ### Using Okta, OneLogin, AD FS, or a custom SAML Provider
 
-There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [AD FS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
+There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [Google Cloud Identity](/docs/integrations/sso/g-cloud-identity), [AD FS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
 
 When setting up SSO with a SAML provider, setup happens on two sides: Buildkite and your identity provider. Before you can complete your identity provider's setup, you'll need to get your 'Issuer URL' from Buildkite. Using this URL, you can set up Buildkite as an application in your identity provider. Next you'll send your identity provider's information to Buildkite, and our team will complete your SSO setup.
 
