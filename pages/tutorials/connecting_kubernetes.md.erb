@@ -84,7 +84,7 @@ way. The `PowerUser` policy is easiest for this tutorial since it
 grant access to all AWS APIs execpt IAM management.
 
 If you're using the ElasticStack, then open the CloudFormation console and set
-the `ManagedPolicyARN` parameter to `arn:aws:iam::aws:policy/PowerUserAccess`.
+the `ManagedPolicyARN` parameter to `arn\:aws\:iam:\:aws\:policy/PowerUserAccess`.
 You may need to terminate existing EC2 instance for the new policy to take
 effect.
 
@@ -125,13 +125,13 @@ like this:
 apiVersion: v1
 data:
   mapRoles: |
-    - rolearn: arn:aws:iam::555555555555:role/buidlkite-tutorial-worker-nodes-NodeInstanceRole-74RF4UBDUKL6
+    - rolearn: arn\:aws\:iam::555555555555:role/buidlkite-tutorial-worker-nodes-NodeInstanceRole-74RF4UBDUKL6
       username: system:node:{{EC2PrivateDNSName}}
       groups:
         - system:bootstrappers
         - system:nodes
   mapUsers: |
-    - userarn: arn:aws:iam::555555555555:user/admin
+    - userarn: arn\:aws\:iam::555555555555:user/admin
       username: admin
       groups:
         - system:masters
@@ -143,7 +143,7 @@ The snippet should look like:
 
 ```yml
 # set rolearn to the ARN
-- rolearn: arn:aws:iam::828070532471:role/buildkite-kubernetes-tutorial-elastic-stack-Role
+- rolearn: arn\:aws\:iam::828070532471:role/buildkite-kubernetes-tutorial-elastic-stack-Role
   username: buildkite
   groups:
     - system:masters
