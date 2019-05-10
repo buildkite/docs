@@ -38,9 +38,17 @@ Go to the <a href="https://buildkite.com/organizations/-/settings" rel="nofollow
 
 <%= image "buildkite-organization-settings.png", width:1704/2, height:93/2, alt:"Screenshot of the Buildkite menu bar with the organization settings link selected" %>
 
-Scroll down to the **GitHub Enterprise** settings section. Enter the Client ID and Client Secret from the GitHub OAuth App you created in Step 1. Enter the base URL of your GitHub Enterprise Installation to this form, then press **Save GitHub Enterprise Settings**.
+Scroll down to the **GitHub Enterprise** settings section. 
+The form requires:
 
-<%= image "buildkite-github-enterprise-settings.png", width:1763/2, height:1154/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
+- The Client ID and Client Secret from the GitHub OAuth App you created in Step 1, and
+- The base URL of your GitHub Enterprise Installation
+
+If you're using self-signed certificates, make sure the 'Verify TLS Certificate' checkbox is not checked. 
+
+Press **Save GitHub Enterprise Settings** to save your settings. After saving, the 'Secret' field will appear blank - it has been saved and will not be displayed on Buildkite.com.
+
+<%= image "buildkite-github-enterprise-settings.png", width:1738/2, height:1216/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
 
 ## Step 3. Connect your GitHub Enterprise account to Buildkite
 
