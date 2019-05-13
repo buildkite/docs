@@ -218,6 +218,19 @@
                 </p>
               <% end %>
 
+              <% if request.url.include?('/docs/deployments') %>
+              <p class="Docs__nav__section-heading">Deployments</p>
+              <ul class="Docs__nav__sub-nav">
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
+              </ul>
+              <% else %>
+                <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
+                <%= sidebar_link_to "Deployments", 'deployments', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+                </p>
+              <% end %>
+
               <% if request.url.include?('/docs/integrations') %>
                 <p class="Docs__nav__section-heading">Integrations</p>
                 <ul class="Docs__nav__sub-nav">
