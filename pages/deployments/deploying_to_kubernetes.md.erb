@@ -1,3 +1,212 @@
 # Deploying to Kubernetes
 
+This tutorial covers writing a Buildkite pipeline that build a Docker image
+then deploys to Kubernetes. You'll need to prepare your agents with the
+required package, cluster access, and Docker registry access.
+
 <%= toc %>
+
+## Preparing Your Agents
+
+<%= estimated_time "30 minutes" %>
+
+This step depends on your specific setup. You'll need to ensure the following:
+
+- Agent has `docker push` access to the relevant Docker registry
+- Agent has `kubectl` access to the relevant Kubernetes cluster
+- The Kubernetes cluster has pull access to the relevant Docker registry
+- `docker` and `kubectl` installed
+
+Configuring access to a GCR registry and EKS cluster is different than
+configuring AWS for ECR and EKS. Setup also depends on how you've deployed your
+agents. Here's an overview for common setups.
+
+### GCP (Google Cloud Platform)
+
+Setup is straight forward assuming your agents run on GCE instances, Docker images
+are hosted in a GCR, and there's a GKE cluster.
+
+1. Grant GCE agents access GCR and GKE with a [service account](https://cloud.google.com/compute/docs/access/service-accounts)
+2. Grant agents `docker push` access as [described here](https://cloud.google.com/container-registry/docs/advanced-authentication)
+3. Install `gcloud`, `docker`, and `docker-compose` on agent instances
+4. Use `gcloud container clusters get-credentials` to get `kubectl` access
+
+Steps 1-3 should be done outside the pipeline. Step 4 should be done in
+a [pre-command hook][hooks]. Here's a sample for `.buildkite/hooks/pre-command`:
+
+```bash
+set -eu
+
+#
+export DOCKER_IMAGE_NAME="asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
+
+echo '--- \:gcloud\: Setup'
+
+gcloud config set project 'buildkite-kubernetes-tutorial'
+gcloud config set compute/zone 'asia-southeast1-a'
+gcloud config set compute/region 'asia-southeast1'
+
+gcloud container clusters get-credentials buildkite-tutorial
+
+set +eu
+```
+
+### AWS (Amazon Web Services)
+
+These steps assume agents are deployed to EC2, images are hosted on ECR, and
+there's a EKS cluster.
+
+1. Grant agent access to ECR and EKS API calls with an instance profile
+2. [Register the Buildkite agent IAM role with EKS](https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html)
+3. [Install kubectl](https://docs.aws.amazon.com/eks/latest/userguide/install-kubectl.html) on agents
+4. [Install IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) on agents
+5. Use `aws ecr get-login` to get [Docker registry access](https://docs.aws.amazon.com/AmazonECR/latest/userguide/Registries.html)
+6. Use `aws	update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
+
+Steps 1-4 should be done outside the pipeline. Steps 5 and 6 should be done
+in a [precommand hook][hooks].
+
+## Checking Preconditions
+
+You can use a [precommand hook][hooks] for checking preconditions. Here's an example:
+
+```bash
+# ./buildkite/hooks/pre-command
+
+set -eu
+
+# Existing commands from previous step
+
+echo '--- \:house_with_garden\: Dependencies'
+
+echo '$ kubectl --version'
+kubectl version --client
+
+echo '$ docker version'
+docker version
+
+echo '$ docker-compose version'
+docker-compose version
+
+echo '--- \:kubernetes\: Checking access'
+kubectl get services
+```
+
+This ensures subsequent pipelines steps proceed only if preconditions are met.
+This practice makes debugging pipelines easier (especially since version
+information is included in these commands).
+
+## Pushing the Docker image
+
+Each pipeline build should produce a unique Docker image. Use any of the
+[Buildkite environment variables][env vars] to export an environment variable
+with the full image name in the pre-command hook. Note that your Docker image
+name must fit your target registry. Here's an example for GCR:
+
+```bash
+# Add to .buildkite/hooks/pre-command
+export DOCKER_IMAGE_NAME="asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
+```
+
+Next, write a script to build, tag, and push the image called `script/buildkite/push`:
+
+```bash
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+	echo '--- \:docker\: Pushing'
+
+	docker-compose build app
+	docker tag buildkite/kubernetes-tutorial:latest "${DOCKER_IMAGE_NAME}"
+	docker push "${DOCKER_IMAGE_NAME}"
+}
+
+main "$@"
+```
+
+Lastly, add a pipeline step. If you're adding deploy steps into an existing
+pipeline, then be sure to use a `wait` step after all test steps or `block`
+step for manual confirmation before continuing.
+
+```yml
+steps:
+	# Previous testing step
+  - label: '\:docker\: Push'
+    command: script/buildlkite/push
+```
+
+Your "push" step output should look similar to this:
+
+<%= image "push_step.png", size: '751x460', alt: 'Push step output' %>
+
+## Deploying to Kubernetes
+
+There are many ways to deploy to Kubernetes. We'll use the simplest method for
+creating [Kubernetes
+deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
+The trick is inserting the `$DOCKER_IMAGE_NAME` environment variable.  You can
+use `envsubst` as basic "templating" command before passing data to `kubectl
+apply`.
+
+Here is sample YML manifest:
+
+```yml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tutorial
+  labels:
+    app: tutorial
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tutorial
+  template:
+    metadata:
+      labels:
+        app: tutorial
+    spec:
+      containers:
+        - name: app
+          image: "${DOCKER_IMAGE_NAME}"
+          ports:
+            - containerPort: 3000
+```
+
+Now create a short script to deploy the manifest at `script/buildkite/deploy`:
+
+```bash
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+	echo '--- \:kubernetes\: Shipping'
+
+	envsubst < k8s/app.yml | kubectl apply -f -
+}
+
+main "$@"
+```
+
+Lastly, add the step to pipeline. Set the `concurrency` and `concurrency_group`
+[options](https://buildkite.com/docs/pipelines/controlling-concurrency) to to
+prevent concurrent deploys. Here's the pipeline snippet:
+
+```yml
+  - label: '\:rocket\: Deploy'
+    command: script/buildkite/deploy
+    concurrency: 1
+    concurrency_group: deploy/tutorial
+```
+
+You're done! :rocket: Here's the finished pipeline:
+
+<%= image "final_pipeline.png", size: '735x407', alt: 'Final pipeline' %>
+
+[hooks]: https://buildkite.com/docs/agent/v3/hooks
+[env vars]: https://buildkite.com/docs/pipelines/environment-variables
