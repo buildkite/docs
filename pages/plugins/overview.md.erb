@@ -1,16 +1,28 @@
 # Overview
 	
-## what are plugins
+## What are plugins
 
-Plugins provide a way to extend the functionality that Buildkite natively offers. They act as a external repository of [Hooks][hooks] that are referenced from your `pipeline.yml` file, downloaded and run as part of your builds.
+Plugins provide a way to extend the functionality that Buildkite natively offers. They act as a external repository of [Hooks](/docs/agent/v3/hooks) that are referenced from your `pipeline.yml` file, and are downloaded and run as part of your build.
 
-Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required. See [Plugin sources] for how you can host your own.
+Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required. See the [Sources](/docs/plugins/using-plugins) section of the Using Plugins guide for how you can host your own.
 
-Buildkite offers a [collection of useful plugins][Buildkite Plugins] to get you started, including a [Docker Compose plugin], [Junit Annotate plugin], and the [Library Example plugin].
+Buildkite offers a collection of useful plugins to get you started, including a [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), [Junit Annotate plugin](https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin), and the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin). In the [Buildkite Plugin Directory](/plugins) you can find all the offical plugins as well as the top plugins from third party developers. 
 
-Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better.
+Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better - let us know what you think in our [Community Forum](https://forum.buildkite.community/).
 
 ## how do they work
 
+- code in files
+- loaded in via hooks
+- stuff from the files can be referenced in your command scripts, like doing an import at the top of your code
+- stuff you want to run before/after you run your script (can define any of the available hooks like pre-command, command, post-command etc.)
+
 ## common use cases
+
+- prebuilding a docker image, then using the image in subsequent steps
+- running steps in containers
+- assume a role before running your script
+- logging in to a service
+
+
 
