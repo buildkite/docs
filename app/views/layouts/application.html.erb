@@ -190,7 +190,6 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins", 'pipelines/plugins' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %></li>
                 </ul>
@@ -211,6 +210,21 @@
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+                </p>
+              <% end %>
+
+              <% if request.url.include?('/docs/plugins') %>
+                <p class="Docs__nav__section-heading">Plugins</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Plugins", 'plugins/using-plugins' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Developing a Plugin", 'plugins/developing-plugins' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing Plugins", 'plugins/securing-plugins' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins Directory", 'plugins/plugins-directory' %></li>
+                </ul>
+              <% else %>
+                <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
+                <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
 

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get "/docs/projects",                           to: redirect("/docs/pipelines")
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
+  get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/webhooks/setup",                     to: redirect("/docs/apis/webhooks")
   get "/docs/webhooks",                           to: redirect("/docs/apis/webhooks")
