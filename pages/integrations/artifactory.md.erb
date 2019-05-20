@@ -1,0 +1,32 @@
+# Artifactory
+
+- you can use artifactory for your build artifacts
+- first class support in the agent for uploading
+
+<%= toc %>
+
+## connecting to your artifactory instance
+
+- export the env vars in your agent env hook
+- can also get them from a param store, they just need to be available to the agent at upload time
+
+- required vars:
+	- BUILDKITE_ARTIFACTORY_URL (your instance URL, when using the jfrog CLI, this would be expected to include the /artifactory postfix on URL)
+	- BUILDKITE_ARTIFACTORY_USER (a user configured in your artifactory instance)
+	- BUILDKITE_ARTIFACTORY_PASSWORD
+
+- optional vars:
+	- BUILDKITE_ARTIFACT_UPLOAD_DESTINATION (fully qualified url of where you want to upload?)
+
+## uploading artifacts
+
+- use the [artifact upload command](https://buildkite.com/docs/agent/v3/cli-artifact#uploading-artifacts)
+
+(from the PR https://github.com/buildkite/agent/pull/924)
+- The uploader will store artifacts in the repository under a folder matching the Job ID that uploaded it. for instance, README.md uploaded during job id abcdefgh-ijkl-mnop-qrst-uvwxyz123456 will be in repo/abcdefgh-ijkl-mnop-qrst-uvwxyz123456
+- can specify upload destination if you want
+
+## downloading artifacts
+
+- use the [artifact download command](https://buildkite.com/docs/agent/v3/cli-artifact#downloading-artifacts)
+
