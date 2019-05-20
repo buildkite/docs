@@ -163,7 +163,7 @@ Add these steps to your existing `.buildkite/pipeline.yml`:
       commit: "${BUILDKITE_COMMIT}"
       branch: "${BUILDKITE_BRANCH}"
       env:
-        # TODO: replace with your Dockage image name
+        # TODO: replace with your Docker image name
         DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
 ```
 
