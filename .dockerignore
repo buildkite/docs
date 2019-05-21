@@ -1,0 +1,8 @@
+tmp
+.git
+node_modules
+log
+.buildkite
+public/assets
+public/docs-assets
+docker-compose-logs

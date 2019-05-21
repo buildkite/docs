@@ -52,7 +52,7 @@ You can change the colors of the badges by passing in a `theme` parameter:
       <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=failing" %></td>
       <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown" %></td>
     </tr>
-    <% for theme in (Badge::Theme::STANDARD_THEMES.keys - ["default"]) %>
+    <% for theme in ["slack", "github", "saturn", "flickr", "solarized", "mono"] %>
       <tr>
         <th><code><span class="muted">?theme=</span><%= theme %></code></th>
         <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=passing&theme=#{theme}" %></td>

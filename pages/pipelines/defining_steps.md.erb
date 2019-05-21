@@ -8,9 +8,33 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-After creating a [pipeline](/docs/pipelines), you can add steps in the Buildkite Pipeline Settings. In the 'Steps' section, click the ➕ to add a step. You can create your entire pipeline by adding steps in this way. 
+Create a pipeline from the Pipelines page of Buildkite using the ➕ button. 
 
-To use a pipeline.yml file, click the ➕ to add a step and select “Read steps from repository”:
+Required fields are 'name', 'repository', and 'steps'. You can leave the 'steps' with only the default empty command step to get started, the steps can be edited at any time from your pipeine settings page.
+
+<%= image "new-pipeline-setup.png", width: 1768/2, height: 1169/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+
+You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
+
+You can also use the REST API to create a pipeline and define your steps. See the [Pipelines API](/docs/apis/rest-api/pipelines) for further information.
+
+## Adding steps
+
+There are two ways to add steps to your pipeline: with the visual editor in Buildkite or with a `pipeline.yml` file. You can add steps immediately during your initial pipeline setup, or you can edit them on the pipeline settings page.
+
+### Visual pipeline editor
+
+Add steps to your pipeline using the ➕ dropdown button. You can add [command](/docs/pipelines/command-step), [wait](/docs/pipelines/wait-step), and [block](/docs/pipelines/block-step) steps here.
+
+Command steps can be configured using the expandable sections on the right of the step settings.
+
+For more complex steps, like trigger steps, or those utilizing plugins or advanced configuration, you'll need to use a `pipeline.yml` file.
+
+### Pipeline.yml file
+
+Before getting started with a pipeline.yml file, you'll need to tell Buildkite where to find your steps.
+
+In your Buildkite pipeline settings, add a new step using the ➕ button and choose 'read steps from repository'.
 
 <%= image "pipeline-upload-step.png", width: 612/2, height: 484/2, alt: "Screenshot of the 'Read steps from repository' menu item" %>
 
@@ -18,7 +42,11 @@ Your pipeline will now show a new step labeled :pipeline: that runs a `buildkite
 
 <%= image "pipeline-upload.png", width: 1174/2, height: 452/2, alt: "Screenshot of the pipeline upload step" %>
 
-When this step runs on an agent, it adds the steps you defined in `.buildkite/pipeline.yml` to your pipeline. For example, here is a pipeline file with a single step:
+When you run a build, this step will add any steps defined in the `pipeline.yml` file to your Buildkite pipeline.
+
+Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.  
+
+The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
 ```yml
 steps:
@@ -26,15 +54,15 @@ steps:
     command: echo "Hello!"
 ```
 
-The above example is a [command step](/docs/pipelines/command-step), which will run the code `echo "Hello!"` and print "Hello!" to the build's log.
-
-To test your `.buildkite/pipeline.yml` file, commit your `pipeline.yml` file and push it to your repository. If you've set up webhooks, this will automatically create a new build. You can also create a new build using the 'New Build' button on the pipeline page. 
+With the above example code in a `pipeline.yml` file, commit and push the file up to your repository. If you have set up webhooks, this will automatically create a new build. You can also create a new build using the 'New Build' button on the pipeline page.
 
 <%= image "show-example-test.png", width: 968/2, height: 698/2, alt: "Screenshot of the build passing with pipeline upload step first, and then the example step" %>
 
-If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can use [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run. 
+For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation: [command steps](/docs/pipelines/command-step), [wait steps](/docs/pipelines/wait-step), [block steps](/docs/pipelines/block-step), and [trigger steps](/docs/pipelines/trigger-step).
 
-When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use artifacts to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
+If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run.  
+
+When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
 
 ## Example pipeline
 
@@ -176,4 +204,4 @@ Your steps should then look something like this:
 
 ## Further documentation
 
-You can also create pipelines using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of the available parameters.
+You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of the available parameters.

@@ -1,0 +1,10 @@
+.PageContainer {
+  box-sizing: border-box;
+  max-width: 1200px;
+  padding-left: 40px;
+  padding-right: 40px;
+  margin-left: auto;
+  margin-right: auto;
+
+  @media (max-width: 600px) { padding-left: 20px; padding-right: 20px; }
+}

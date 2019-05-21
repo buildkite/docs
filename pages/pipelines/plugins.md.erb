@@ -73,6 +73,22 @@ Branches, tags and commits are all valid after the `#`.
 
 We recommend always specifying a plugin version tag (e.g. `v1.2.3`) to prevent behavior changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
 
+
+## Repository plugins
+
+You can store plugins within your repository. This is a great way to develop plugins along with code, or to ensure that a plugin doesn't change without you knowing. 
+
+When referring to a repository plugin in your `pipeline.yml`, there's no need to specify a version as you do with other types of plugins.
+
+The following example uses the plugin 'my-plugin' that is stored in the repository’s `.buildkite/plugins` folder:
+
+```yml
+steps:
+  - label: "A step that uses a repository plugin"
+    plugins:
+      - ./.buildkite/plugins/my-plugin: ~
+```
+
 ## Developing a plugin
 
 The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the [buildkite-plugin tag on GitHub][third party plugins].
@@ -177,6 +193,6 @@ Agent plugins are still new, and we are evolving them as we learn more. We'd lov
 [JSON Schema]: http://json-schema.org
 [JSON Schema Lint]: https://jsonschemalint.com/
 [Plugin Linter]: https://github.com/buildkite-plugins/buildkite-plugin-linter
-[bksr]: https://github.com/toolmantim/bksr
+[Buildkite CLI]: https://github.com/buildkite/cli
 [Understanding JSON Schema]: https://spacetelescope.github.io/understanding-json-schema/
 [Shellcheck Plugin]: https://github.com/buildkite-plugins/shellcheck-buildkite-plugin

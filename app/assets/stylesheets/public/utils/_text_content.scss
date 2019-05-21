@@ -1,0 +1,55 @@
+.TextContent {
+  line-height: 1.3;
+  h2, h3, h4, blockquote, pre, p { margin: 1em 0; }
+  h2 { font-size: #{(24/18)}rem; margin-top: 1.5em; }
+  li { margin-left: 2em; }
+  ul > li { list-style: disc; }
+  ol > li { list-style: decimal; }
+  li li { margin-left: 1em; }
+  hr { border: none; border-bottom: 1px solid #ddd; }
+  a { @extend .Link--on-white; @extend .Link--no-underline; }
+  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; font-size: #{(16/18)}em; line-height: 1.5; }
+  em { font-style: italic; }
+  strong { font-weight: 600; }
+  pre {
+    word-break: break-all;
+    word-wrap: break-word;
+    border: 1px solid #ddd;
+    padding: .8em 1em;
+    border-radius: 5px;
+    font-size: #{(15/18)}rem;
+    line-height: 1.5;
+    min-width: 0;
+    white-space: pre-wrap;
+    &.overflow-scroll {
+      overflow: auto;
+      word-break: normal;
+      word-wrap: normal;
+    }
+  }
+  iframe {
+    border: 1px solid #ddd;
+  }
+  p { max-width: 37em; }
+  li, p, dt, td, th {
+    > code { border: 1px solid #ddd; color: #8E8E8E; font-size: 85%; padding: .1em .25em; }
+  }
+  table { font-size: #{(16/18)}rem; }
+  table, tbody, tr, th, td { color: currentColor; }
+  th, td { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+  th code, td code { border: none; }
+  th, td { padding: .5rem; }
+  th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
+  th code { white-space: nowrap; font-weight: normal; }
+
+  blockquote { padding-left: 1em; border-left: 5px solid #8E8E8E; }
+
+  .no-margin-top { margin-top: 0; }
+  .no-margin-bottom { margin-top: 0; }
+
+  /* Some styles from Bass that our Markdown render outputs */
+  .rounded { border-radius: 3px; }
+  .dark-gray { color: #8E8E8E; }
+  .border { border: 1px solid; }
+  .border-gray { border-color: #ddd; }
+}
