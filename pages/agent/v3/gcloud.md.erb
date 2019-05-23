@@ -247,3 +247,21 @@ To use your own authenticating proxy for access control, set your proxy's domain
 ```shell
 export BUILDKITE_GCS_ACCESS_HOST="myproxyhost.com"
 ```
+
+If your proxy does not follow default GCS artifact path conventions, for example, not including the bucket name in the URL, you can override the artifact path.
+
+To override the default path, export the environment variable `BUILDKITE_GCS_PATH_PREFIX`:
+
+```shell
+export BUILDKITE_GCS_PATH_PREFIX="custom-folder-structure/"
+```
+
+The above variable export will cause the artifact path to use your custom prefix instead of the `GCS_BUCKET_NAME`: 
+
+```shell
+# default path
+${BUILDKITE_GCS_ACCESS_HOST}/${GCS_BUCKET_NAME}/${ARTIFACT_PATH}
+
+# using the BUILDKITE_GCS_PATH_PREFIX environment variable
+${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
+```
