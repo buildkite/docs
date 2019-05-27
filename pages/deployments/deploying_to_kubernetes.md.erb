@@ -1,61 +1,41 @@
 # Deploying to Kubernetes
 
-This tutorial teaches deploying to Kubernetes. You'll need to prepare your
-agents with the required packages, cluster access, and Docker registry access
-before hand.
-
 <%= estimated_time "30 minutes" %>
 
 <%= toc %>
 
-## Overview
+This tutorial shows how to deploy to Kubernetes using separate test and deploy
+[pipelines][]. Separating pipelines like this is best practice. The test
+pipeline runs tests and push a Docker image to a registry. The deploy pipelines
+uses the `DOCKER_IMAGE` enviornment variable to create a [Kubernetes
+deployment][k8s_deployment] via `kubectl`. Then, you'll see how to link them
+together to automate deploys from master.
+
+First up, you need to add a step to your existing test pipline that pushes a
+Docker image. Also check your agents have `kubectl` access to your target
+cluster. Refer to the notes at the end of tutorial for tips on setting this
+up.
 
 <%= image "final_test_pipeline.png" %>
 
-You'll automate deploys from `master` to Kubernetes by the end of the tutorial.
-
-This tutorial uses two pipelines. The first pipeline builds, tests, and pushes
-a Docker image to a registry. The second pipeline-our deploy pipeline-is
-provided a `DOCKER_IMAGE` environmentment for deployment to Kubernetes. You'll
-see how to trigger manual deployments, then link the pipelines for automated
-deployments.
-
-This tutorial assumes:
-
-1. You have an existing test pipeline that pushes a Docker image to a registry
-2. You have a Kubernetes cluster authenticated to the Docker registry
-4. Agents have `kubectl` installed
-3. Agents have `kubectl` access to the Kubernetes cluster
-
-<section class="Docs__note">
-  <p>
-    This setup is outside this tutorial's scope. However, you may refer to the
-    <a href="#notes">notes</a> for high level advice.
-  </p>
-</section>
+Let's go.
 
 ## Create the Deploy Pipeline
 
-Buildkite supports multiple pipelines per project. The best practice is to use
-separate pipelines for testing and deploying.  Deploy pipelines are just
-like other pipelines except they're triggered by different events. You can use
-the [Github Deployment API](https://buildkite.com/blog/github-deployments) or
-[trigger steps](https://buildkite.com/docs/pipelines/trigger-step).
+This section covers creating a new Buildkite pipeline that loads steps from
+`.buildkite/pipeline.deploy.yml`. Deploy pipelines are like any other pipeline
+except they're triggred by events other than code pushes. We'll use a [trigger
+steps](https://buildkite.com/docs/pipelines/trigger-step) later on to connect
+the test and deploy pipelines.
 
-Start by [creating a new pipline](https://buildkite.com/docs/pipelines/defining-steps)
-that uploads steps from `.buildkite/pipeline.deploy.yml`.
+Create a [new pipeline](https://buildkite.com/new) for your repo. Use
+`buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml` for the first
+step as shown in the image.
 
 <%= image "new_pipeline.png" %>
 
-Now, configure the Github webhook to send deployment events.
-
-<%= image "pipeline_webhook.png" %>
-
-Next, open the pipeline settings in Buildkite. Select "Trigger builds on deployments."
-
-<%= image "pipeline_settings.png" %>
-
-Finally, create `.buildkite/pipeline.deploy.yml`. A single step will do for now:
+Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
+deploy script in the next step.
 
 ```yml
 steps:
@@ -69,17 +49,27 @@ Set `concurrency` and `concurrency_group` when updating mutable state. These
 settings ensures only one step runs at a time, effectively creating a deploy
 queue.
 
-Now the pipeline is wired up. Time for the deploy step.
+## Writing the Deploy Script
 
-## Setup the Deploy Step
+The next step is writing a deploy script that generates a [Kubernetes deployment
+manifest][k8s_deployment] from the `DOCKER_IMAGE` environment variable.
 
-Create a Kubernetes deployment manifest that references the `DOCKER_IMAGE`
-environment variable. `kubectl` does not interpolate environment variables out
-of the box, so you'll need a different solution. The `envsubst` command works
-well for this case. `envsubst` ("environment substitute") replaces environment
-variables from standard input. The result may be piped directly to `kubectl`.
+Let's start with manifest file. This sample file creates a Deployment with
+three replicas (horizontal scale in Kubernetes lingo) each listening port
+`3000`. Change the `containerPort` to fit your application.
 
-First, You'll need a deployment YML file. Call this file `k8s/deployment.yml`:
+<section class="Docs__note">
+  <p>
+    The <a
+    href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">official
+    deployment documentation</a> covers much more than what fits in this
+    tutorial. Refer back to these docs for information on setting CPU and
+    memory, controlling networking, deployment update strategies, and how to
+    expose your application to the internet.
+  </p>
+</section>
+
+Let's call this file `k8s/deployment.yml`.
 
 ```yml
 ---
@@ -90,6 +80,7 @@ metadata:
   labels:
     app: tutorial
 spec:
+  # TODO: replace with a value that fits your application
   replicas: 3
   selector:
     matchLabels:
@@ -103,19 +94,23 @@ spec:
         - name: app
           image: "${DOCKER_IMAGE}"
           ports:
+            # TODO: replace with the correct port for your application
             - containerPort: 3000
 ```
 
-<section class="Docs__note">
-  <p>
-    Please refer to the official Kubernetes <a
-    href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">deployment
-    documentation</a> for more information. Also note that there are multiple
-    ways to deploy applications to Kubernetes.
-  </p>
-</section>
+Note manifest includes `${DOCKER_IMAGE}`. There is no environment variable
+subsitution in YAML or `kubectl` itself. This is where the deploy script comes
+in. The deploy script can use `envsubst` ("environment subsitute";
+[docs](https://linux.die.net/man/1/envsubst)) as a minimal templating solution.
+The resulting output may be piped directly into `kubectl`.
 
-Now create a short deploy script (`script/buildkite/deploy`):
+The full script has three parts:
+
+1. Check `$DOCKER_IMAGE` is set
+2. Generate a complete manifest with `envsubt` and apply with `kubectl`
+3. Wait for Kubernetes to complete the deploy.
+
+This fits neatly into a Bash script. Here's the complete `script/buildkite/deploy`:
 
 ```bash
 #!/usr/bin/env bash
@@ -129,11 +124,19 @@ fi
 
 echo '--- \:kubernetes\: Shipping'
 envsubst < k8s/app.yml | kubectl apply -f -
+
+
+echo '--- \:zzz\: Waiting for rollout'
+# TODO: add the wait step
 ```
 
-## Perform a Manual Deployment
+You can test pipeline now that everything is in place. All you need is your
+Docker image.
 
-Open the deployment pipline and click "New Build". Click "Options" and provide the `DOCKER_IMAGE`.
+## Test the Pipeline
+
+Open the deployment pipline and click "New Build". Click "Options" and set the
+`DOCKER_IMAGE` environment variable.
 
 <%= image "manual_deployment.png" %>
 
@@ -143,21 +146,31 @@ Assuming your agents have the required access, then success! :tada:
 
 ## Automate Deployments
 
-[Trigger steps](https://buildkite.com/docs/pipelines/trigger-step) connect
-pipelines. Add a trigger step to the existing test pipeline to trigger the
-deploy pipeline. You may also filter out branches with the `branches` option
-and set environment variables. Remember to set the `DOCKER_IMAGE` environment
-variable.
+We can do better than manual deployments. We'll use a [trigger
+steps](https://buildkite.com/docs/pipelines/trigger-step) to connect the test
+and deploy pipelines.
 
-Add these steps to your existing `.buildkite/pipeline.yml`:
+Add these steps to your existing `.buildkite/pipeline.yml`. Be sure to add a
+`wait` step before the tirgger otherwise deploys will trigger at the wrong
+time and even for failed builds!
+
+The example `trigger` step creates a build with the same message, commit, and
+branch. `buildkite-agent pipeline-upload` interpolates environment variables so
+the correct values are replaced when the pipeline starts. The `env` setting
+passes along the `DOCKER_IMAGE` environment variable. Remember, this Docker
+image must be build and pushed in a subsequent step.
+
+Lastly, the `branches` options indicates to only build on `master`. This
+prevents deploying unexpected topic branches.
 
 ```yml
   # Add a wait step to only deploy after all steps complete
   - wait
 
   - label: ':rocket: Deploy'
+    # TODO: replace with your deploy pipeline's name
     trigger: kubernetes-tutorial-deploy
-    branches: "master"
+    # Only trigger on master build
     build:
       message: "${BUILDKITE_MESSAGE}"
       commit: "${BUILDKITE_COMMIT}"
@@ -165,13 +178,27 @@ Add these steps to your existing `.buildkite/pipeline.yml`:
       env:
         # TODO: replace with your Docker image name
         DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
+    branches: master
 ```
 
-It's magic time. Push some code. :tada: Automated deployments!
+It's magic time. Push some code. :tada: Continuous deployment!
 
 <%= image "final_test_pipeline.png" %>
 
-## Notes
+## Next Steps
+
+Congratulations! :tada: You've setup a continuous deployment pipeline to
+Kubernetes. Practically speaking there are some things to do next. You could
+add a [block step](https://buildkite.com/docs/pipelines/block-step) before the
+trigger to enforce manual deploys on topic branches for example. You can also
+use [Github's Deployment API](https://buildkite.com/blog/github-deployments) to
+trigger deployments as well. You'll also want to expose your application to the
+internet with a [Kubernetes
+Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+Lastly, generating manifests with `envsubst` only gets you so far. Projects
+like [kustomize](https://kustomize.io/) are better suited for this use case.
+
+## Configuring kubectl Access
 
 Configuring `kubectl` access depends on your infrastructure. Here's an overview
 for common senarios.
@@ -190,3 +217,6 @@ If you're on AWS using agents on EC2 and an EKS cluster:
 4. [Install IAM authenticator](https://docs.aws.amazon.com/eks/latest/userguide/install-aws-iam-authenticator.html) on agents
 5. Install the AWS CLI
 6. Use `aws update-kubeconfig` to get [kubectl access](https://docs.aws.amazon.com/eks/latest/userguide/create-kubeconfig.html)
+
+[pipelines]: https://buildkite.com/docs/pipelines
+[k8s_deployment]: https://kubernetes.io/docs/concepts/workloads/controllers/deployment/
