@@ -43,9 +43,7 @@ The data encoding is assumed to be `application/json`. Unless explicitly stated 
 
 ## Authentication
 
-There are two ways to authenticate with the Buildkite API: access tokens and basic authentication.
-
-### Access Tokens
+You can authenticate with the Buildkite API using access tokens.
 
 API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Tokens</a> page, limited to individual organizations and permissions, and revoked at any time.
 
@@ -55,24 +53,10 @@ To authenticate using a token, set the <code>Authorization</code> HTTP header to
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 ```
 
-### Basic Authentication
-
-You can authenticate with your email and password using basic authentication. This is designed for direct testing of the API and should only be used where access token authentication does not make sense.
-
-```
-curl -u "your@email.com" https://api.buildkite.com/v2/user
-
-Enter host password for user 'your@email.com':
-```
-
-```json
-{
-  "id" => "dRjoWRjBildGyxZ2wvRUJv1j3cVdYoKjrPIeUuxWfnU",
-  "name" => "Jane Doe",
-  "email" => "jane@doe.com",
-  "created_at" => "<%= 1.month.ago.utc %>"
-}
-```
+<section class="Docs__troubleshooting-note">
+  <h1>Basic Authentication</h1>
+  <p>Access using basic authentication is no longer available.</p>
+</section>
 
 ## Pagination
 
