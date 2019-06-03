@@ -25,9 +25,9 @@ This section covers creating a new Buildkite pipeline that loads steps from
 steps](https://buildkite.com/docs/pipelines/trigger-step) later on to connect
 the test and deploy pipelines.
 
-Create a [new pipeline](https://buildkite.com/new) for your repo. Use
-`buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml` for the first
-step as shown in the image.
+The first step will be a pipeline upload using our new deploy pipeline YML
+file. Create a new pipeline. Enter `buildkite-agent pipeline upload
+.buildkite/pipeline.deploy.yml` in the commands to run field.
 
 <%= image "new_pipeline.png", width: 939/2, height: 454/2, alt: 'Creating a New Pipelien'  %>
 
