@@ -149,25 +149,19 @@ We'll use a [trigger steps](https://buildkite.com/docs/pipelines/trigger-step)
 to connect the test and deploy pipelines. This effectively creates a continuous
 deployment pipeline.
 
-Add these steps to your existing `.buildkite/pipeline.yml`. Be sure to add a
-`wait` step before the tirgger otherwise deploys will trigger at the wrong
-time and even for failed builds!
-
-The example `trigger` step creates a build with the same message, commit, and
-branch. `buildkite-agent pipeline-upload` interpolates environment variables so
-the correct values are replaced when the pipeline starts. The `env` setting
-passes along the `DOCKER_IMAGE` environment variable. Remember, this Docker
-image must be build and pushed in a subsequent step.
-
-Lastly, the `branches` options indicates to only build on `master`. This
-prevents deploying unexpected topic branches.
-
-Add the following steps to your existing `.buildkite/pipeline.yml`:
+First, add a wait step at the end of your existing `.buildkite/pipeline.yml`
+otherwise deploys will trigger at the wrong time and even for failed builds!
 
 ```yml
   # Add a wait step to only deploy after all steps complete
   - wait
 
+  # More steps to follow
+```
+
+Next add a `trigger` step:
+
+```yml
   - label: ':rocket: Deploy'
     # TODO: replace with your deploy pipeline's name
     trigger: kubernetes-tutorial-deploy
@@ -181,6 +175,15 @@ Add the following steps to your existing `.buildkite/pipeline.yml`:
         DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
     branches: master
 ```
+
+This `trigger` step creates a build with the same message, commit, and branch.
+`buildkite-agent pipeline-upload` interpolates environment variables so the
+correct values are replaced when the pipeline starts. The `env` setting passes
+along the `DOCKER_IMAGE` environment variable. Remember, this Docker image must
+be build and pushed in a subsequent step.
+
+Lastly, the `branches` options indicates to only build on `master`. This
+prevents deploying unexpected topic branches.
 
 It's magic time. Push some code. :tada: Continuous deployment!
 
