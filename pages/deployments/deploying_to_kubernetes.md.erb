@@ -4,10 +4,10 @@
 
 <%= toc %>
 
-This tutorial shows how to deploy to Kubernetes using separate test and deploy
-[pipelines][]. Separating pipelines like this is best practice. The test
-pipeline runs tests and push a Docker image to a registry. The deploy pipelines
-uses the `DOCKER_IMAGE` enviornment variable to create a [Kubernetes
+This tutorial demonstrates deploying to Kubernetes using Buildkite best
+practices.  The tutorial uses one pipeline for tests and another for deploys.
+The test pipeline runs tests and push a Docker image to a registry. The deploy
+pipelines uses the `DOCKER_IMAGE` enviornment variable to create a [Kubernetes
 deployment][k8s_deployment] via `kubectl`. Then, you'll see how to link them
 together to automate deploys from master.
 
