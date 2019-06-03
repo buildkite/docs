@@ -186,15 +186,15 @@ It's magic time. Push some code. :tada: Continuous deployment!
 ## Next Steps
 
 Congratulations! :tada: You've setup a continuous deployment pipeline to
-Kubernetes. Practically speaking there are some things to do next. You could
-add a [block step](https://buildkite.com/docs/pipelines/block-step) before the
-trigger to enforce manual deploys on topic branches for example. You can also
-use [Github's Deployment API](https://buildkite.com/blog/github-deployments) to
-trigger deployments as well. You'll also want to expose your application to the
-internet with a [Kubernetes
-Service](https://kubernetes.io/docs/concepts/services-networking/service/).
-Lastly, generating manifests with `envsubst` only gets you so far. Projects
-like [kustomize](https://kustomize.io/) are better suited for this use case.
+Kubernetes. Practically speaking there are some things to do next.
+
+- Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
+  trigger to enforce manual deploys.
+- Use [Github's Deployment API](https://buildkite.com/blog/github-deployments)
+  to trigger deployments from external tooling (i.e. ChatOps)
+- Expose the application to the internet a [Kubernetes
+  Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+- Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
 ## Configuring kubectl Access
 
