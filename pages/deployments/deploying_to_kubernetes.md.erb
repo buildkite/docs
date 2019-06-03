@@ -185,7 +185,10 @@ be build and pushed in a subsequent step.
 Lastly, the `branches` options indicates to only build on `master`. This
 prevents deploying unexpected topic branches.
 
-It's magic time. Push some code. :tada: Continuous deployment!
+It's magic time. Push some code. :tada: Continuous deployment! If something
+goes wrong, then verify your `kubectl` and Kubernetes versions are compatible.
+You can check with `kubectl version`. If your agents cannot connect to the
+cluster, then check the kubetl access section for setup advice.
 
 <%= image "final_test_pipeline.png", width: 736, height: 199, alt: 'Final Test Pipeline' %>
 
