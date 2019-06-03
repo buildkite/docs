@@ -2,3 +2,30 @@
 
 - overview of deploys
 - different ways to deploy: single step, separate pipeline
+
+<%= toc %>
+
+
+
+## Deploy patterns
+
+- there are two ways we recommend for setting up your project for deployments
+- you can add a single step to your existing pipeline that handles deploys, or you can create a separate pipeline that handles the deployment
+- these two options are suited for different scenarios
+
+### Single deploy step
+
+- good for basic deployments/ ones that don't have many steps
+- can add a wait and a command step to the end of your existing pipeline
+
+### Deploy pipeline
+
+- good for complex deploys/ones that require multiple steps to complete
+
+## Tools
+
+- useful plugins for deployments (docker, ecs?)
+- if there's no plugin for your service/platform, add one!
+
+
+
