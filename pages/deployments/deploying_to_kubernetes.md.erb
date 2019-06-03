@@ -95,8 +95,8 @@ spec:
 ```
 
 Note manifest includes `${DOCKER_IMAGE}`. There is no environment variable
-subsitution in YAML or `kubectl` itself. This is where the deploy script comes
-in. The deploy script can use `envsubst` ("environment subsitute";
+subsitution in YAML or `kubectl` itself. This is where our custom deploy script
+comes in. Our deploy script will use `envsubst` ("environment subsitute";
 [docs](https://linux.die.net/man/1/envsubst)) as a minimal templating solution.
 The resulting output may be piped directly into `kubectl`.
 
