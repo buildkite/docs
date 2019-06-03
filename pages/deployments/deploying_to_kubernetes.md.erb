@@ -118,12 +118,15 @@ if [ -z "${DOCKER_IMAGE:-}" ]; then
   exit 1
 fi
 
+manifest="$(mktemp)"
+
 echo '--- \:kubernetes\: Shipping'
-envsubst < k8s/app.yml | kubectl apply -f -
 
+envsubst < k8s/app.yml > "${manifest}"
+kubectl apply -f "${manifest}"
 
-echo '--- \:zzz\: Waiting for rollout'
-# TODO: add the wait step
+echo '--- \:zzz\: Waiting for deployment'
+kubectl wait --for condition=available --timeout=300s -f "${manifest}"
 ```
 
 You can test pipeline now that everything is in place. All you need is your
