@@ -140,11 +140,11 @@ Assuming your agents have the required access, then success! :tada:
 
 <%= image "manual_deployment_success.png", width: 743/2, height: 728/2, alt: "Manual Build Success" %>
 
-## Automate Deployments
+## Continuous Deployment
 
-We can do better than manual deployments. We'll use a [trigger
-steps](https://buildkite.com/docs/pipelines/trigger-step) to connect the test
-and deploy pipelines.
+We'll use a [trigger steps](https://buildkite.com/docs/pipelines/trigger-step)
+to connect the test and deploy pipelines. This effectively creates a continuous
+deployment pipeline.
 
 Add these steps to your existing `.buildkite/pipeline.yml`. Be sure to add a
 `wait` step before the tirgger otherwise deploys will trigger at the wrong
