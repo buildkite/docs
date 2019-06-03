@@ -159,6 +159,8 @@ image must be build and pushed in a subsequent step.
 Lastly, the `branches` options indicates to only build on `master`. This
 prevents deploying unexpected topic branches.
 
+Add the following steps to your existing `.buildkite/pipeline.yml`:
+
 ```yml
   # Add a wait step to only deploy after all steps complete
   - wait
