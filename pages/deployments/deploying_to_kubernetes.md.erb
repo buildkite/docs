@@ -179,8 +179,7 @@ Next add a `trigger` step:
 This `trigger` step creates a build with the same message, commit, and branch.
 `buildkite-agent pipeline-upload` interpolates environment variables so the
 correct values are replaced when the pipeline starts. The `env` setting passes
-along the `DOCKER_IMAGE` environment variable. Remember, this Docker image must
-be build and pushed in a subsequent step.
+along the `DOCKER_IMAGE` environment variable.
 
 Lastly, the `branches` options indicates to only build on `master`. This
 prevents deploying unexpected topic branches.
