@@ -16,7 +16,7 @@ Docker image. Also check your agents have `kubectl` access to your target
 cluster. Refer to the notes at the end of tutorial for tips on setting this
 up.
 
-<%= image "final_test_pipeline.png", width: 736, height: 199, alt: 'Final Test Pipeline' %>
+<%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
 
 ## Create the Deploy Pipeline
 
@@ -29,7 +29,7 @@ The first step will be a pipeline upload using our new deploy pipeline YML
 file. Create a new pipeline. Enter `buildkite-agent pipeline upload
 .buildkite/pipeline.deploy.yml` in the commands to run field.
 
-<%= image "new_pipeline.png", width: 939/2, height: 454/2, alt: 'Creating a New Pipelien'  %>
+<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipelien'  %>
 
 Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
 deploy script in the next step.
@@ -137,11 +137,11 @@ Docker image.
 Open the deployment pipline and click "New Build". Click "Options" and set the
 `DOCKER_IMAGE` environment variable.
 
-<%= image "manual_deployment.png", width: 585/2, height: 661/2, alt: "New Manual Build" %>
+<%= image "manual_deployment.png", width: 1440/2, height: 780/2, alt: "New Manual Build" %>
 
 Assuming your agents have the required access, then success! :tada:
 
-<%= image "manual_deployment_success.png", width: 743/2, height: 728/2, alt: "Manual Build Success" %>
+<%= image "manual_deployment_success.png", width: 1440/2, height: 750/2, alt: "Manual Build Success" %>
 
 ## Continuous Deployment
 
