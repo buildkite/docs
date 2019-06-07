@@ -14,7 +14,7 @@ Example:
 
    $ buildkite-agent artifact upload "log/**/*.log"
 
-   You can also upload directly to Amazon S3 if you'd like to host your own artifacts. Export your sensitive access credentials in your agent hooks:
+   You can also upload directly to Amazon S3 if you'd like to host your own artifacts. Export the sensitive access credentials in your agent hooks:
 
    export BUILDKITE_S3_ACCESS_KEY_ID=xxx
    export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
