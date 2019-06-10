@@ -75,7 +75,7 @@ If you have configured your agent to do very specific things with global hooks (
 
 You can disable local hooks with the command line flag: `--no-local-hooks`.
 
-## Strict Checks Using Agent Hooks
+## Strict checks using agent hooks
 
 You can use the [agent’s environment hook](hooks) to add strict checks for what repositories, commands, and plugins are allowed to run. The environment hook will be run before any source code is checked out onto the machine, and before any commands are executed.
 
@@ -96,7 +96,7 @@ if [[ "${BUILDKITE_COMMAND}" != "some-script.sh" ]]; then
 fi
 ```
   
-### Allowing a List of Plugins
+## Allowing a list of plugins
 
 Using the [agent’s environment hook](hooks), you can create a list of plugins that an agent is allowed to run using the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables). For example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository on GitHub.
 
