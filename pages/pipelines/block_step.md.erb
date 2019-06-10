@@ -185,6 +185,14 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>multiple</code></td>
+    <td>
+      A boolean value that defines whether multiple options may be selected.<br>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br>
+      <em>Default:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>default</code></td>
     <td>
       The value of the option that will be pre-selected in the dropdown.<br>
@@ -207,4 +215,23 @@ steps:
             value: "beta"
           - label: "Stable"
             value: "stable"
+```
+
+```yml
+steps:
+  - block: "Deploy To"
+    fields:
+      - select: "Regions"
+        key: "deploy-regions"
+        hint: "Which regions should we deploy this to? \:earth_asia\:"
+        multiple: true
+        options:
+          - label: "North America"
+            value: "na"
+          - label: "Europe"
+            value: "eur"
+          - label: "Asia"
+            value: "asia"
+          - label: "Oceania"
+            value: "aunz"
 ```
