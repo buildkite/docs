@@ -3,39 +3,38 @@
 - Buildkite doesn't just do CI, you can also do CD (or any orchestration/automation you like)
 - Can use whatever deploy tools and systems you like, many are supported already through [plugins](/docs/pipelines/plugins)
 
-This page provides an overview of the two different patterns we recommend setting up deployments, and the deploy tools that available. 
+This page provides an overview of the two different patterns we recommend setting up deployments, and the deploy tools that are available. 
 
 <%= toc %>
 
-## Deploy patterns
-
 There are two different ways to set up your project for deployments, which one is best for your team depends on how you complex your deploy process is. You can add a single step to your existing pipeline, or you can create a separate deploy pipeline. 
 
-### Single deploy step
+## External deployment systems
 
-- good for basic deployments/ deploys that don't have many steps
-- can add a wait followed by a command step to the end of your existing pipeline
+- can use anything for deployments like spinnaker, shipit, samson
+- k8s, heroku, ecs, github deployments
+- useful [plugins](/docs/pipelines/plugins) for deployments
+- check out our plugins page for deploy things, if there's no plugin for your service/platform, add one!
+- code sample of a deploy step using one of the above tools
+
+## Adding deployment to a pipeline
+
+- add a wait followed by a command step to the end of your existing pipeline
 - ensure that you're using a concurrency group and concurrency attribute on your deploy step so that multiple builds running at once don't step on each other 
-- see the Heroku guide for a step by step example of setting up a deploy step in your pipeline
+- code sample of deployment step and script
 
 <screenshot of a deploy step>
 
-### Deploy pipeline
+## Creating a separate deploy pipeline
 
-- good for complex deploys/ones that require multiple steps to complete
+- advantages: can be run independantly, manual builds for deployments, see all the deployments that happened (not every build will trigger a deploy), separate pipeline.yml for deployments (pipeline.deploy.yml), agent hooks can allow just the deploy pipeline jobs (security/locked down agent access), easier to add rollback steps or other deploy related actions than with a single deploy step 
+
 - add a trigger step to the end of your existing pipeline, and add a new pipeline that performs the deployment
 - ensure that you're using a concurrency group and concurrency attribute on your trigger step to ensure that the deploy pipeline doesn't run multiple simultaneous deployments
 	- the concurrency settings are inherited from the trigger step by the deploy pipeline, see [Controlling Concurrency](/docs/pipelines/controlling-concurrency) for more information 
 - see the Kubernetes guide for a step by step example of creating a deploy pipeline
 
 <screenshot of a deploy pipeline>
-
-## Tools
-
-- useful [plugins](/docs/pipelines/plugins) for deployments
-	- the [ecs-deploy-buildkite](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) plugin runs a deploy to Amazon ECS
-	- docker plugins push new images to your docker repos, can be used as part of or for your deploy
-- if there's no plugin for your service/platform, add one!
 
 
 
