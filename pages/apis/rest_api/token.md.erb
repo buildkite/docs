@@ -1,12 +1,10 @@
 # Access Token API
 
-The Access Token API lets you perform actions on an individual [API Access Token](https://buildkite.com/docs/apis/rest-api#authentication), using the authentication details of REST API request.
-
 <%= toc %>
 
-## Get current API Access Token
+## Get the current token
 
-Returns details about the API Access Token that was used to make the API request.
+Returns details about the [API Access Token](https://buildkite.com/docs/apis/rest-api#authentication) that was used to authenticate the request.
 
 ```bash
 curl "https://api.buildkite.com/v2/token"
@@ -23,9 +21,9 @@ Required scope: none
 
 Success response: `200 OK`
 
-## Revoke current API Access Token
+## Revoke the current token
 
-Revokes the API Access Token that was used to make the API request. Once revoked, the API Access Token can no longer be used.
+Revokes the [API Access Token](https://buildkite.com/docs/apis/rest-api#authentication) that was used to authenticate the request. Once revoked, the token can no longer be used for further requests.
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/token"
