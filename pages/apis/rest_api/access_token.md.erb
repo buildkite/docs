@@ -1,10 +1,16 @@
 # Access Token API
 
+The Access Token API allows you to inspect and revoke an API Access Token. This can be useful if you find a token, can’t identify its owner, and you want to revoke it.
+
+<div class="Docs__note">
+  <p>All the endpoints expect the token to be provided via the <a href="/docs/apis/rest-api#authentication">Authorization HTTP header</a>.
+</div>
+
 <%= toc %>
 
 ## Get the current token
 
-Returns details about the [API Access Token](https://buildkite.com/docs/apis/rest-api#authentication) that was used to authenticate the request.
+Returns details about the API Access Token that was used to authenticate the request.
 
 ```bash
 curl "https://api.buildkite.com/v2/token"
@@ -23,7 +29,7 @@ Success response: `200 OK`
 
 ## Revoke the current token
 
-Revokes the [API Access Token](https://buildkite.com/docs/apis/rest-api#authentication) that was used to authenticate the request. Once revoked, the token can no longer be used for further requests.
+Revokes the API Access Token that was used to authenticate the request. Once revoked, the token can no longer be used for further requests.
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/token"
