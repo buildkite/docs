@@ -21,7 +21,7 @@ The following is a complete list of hooks that can be implemented, and the order
     <tr><th>Hook</th><th>Order</th></th><th>Description</th></tr>
   </thead>
   <tbody>
-    <tr><td style="white-space: nowrap"><code>environment</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before all other hooks. Useful for <a href="/docs/agent/v3/securing#using-environment-hooks-for-secrets">exposing secret keys</a> and <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a>.</td></tr>
+    <tr><td style="white-space: nowrap"><code>environment</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before all other hooks. Useful for <a href="/docs/pipelines/secrets#storing-secrets-in-environment-hooks">exposing secret keys</a> and <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a>.</td></tr>
     <tr><td style="white-space: nowrap"><code>pre-checkout</code></td><td style="white-space: nowrap">Agent, Plugin</td><td>Runs before checkout.</td></tr>
     <tr><td style="white-space: nowrap"><code>checkout</code></td><td style="white-space: nowrap">Plugin, Agent</td><td>Overrides the default <code>git checkout</code> behavior. <em>Note:</em> If multiple checkout hooks are found, only the first will be run.</td></tr>
     <tr><td style="white-space: nowrap"><code>post-checkout</code></td><td style="white-space: nowrap">Agent, Repository, Plugin</td><td>Runs after checkout.</td></tr>
