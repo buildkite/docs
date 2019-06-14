@@ -2,6 +2,8 @@
 
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
 
+For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
+
 <%= toc %>
 
 ## Buildkite environment variables
@@ -386,7 +388,7 @@ Default: `"us-east-1"`
 
 <h3 class="h3-caps">BUILDKITE_S3_SECRET_ACCESS_KEY</h3>
 
-The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
@@ -467,9 +469,14 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-* Pipeline settings — for values that are not secret.
-* [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
+* Pipeline settings — for values that are *not secret*.
+* [Build pipeline configuration](/docs/pipelines/command-step) — for values that are *not secret*.
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
+
+<section class="Docs__troubleshooting-note">
+  <h1>Secrets in environment variables</h1>
+  <p>Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.</p>
+</section>
 
 ## Environment variable precedence
 

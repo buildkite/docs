@@ -282,7 +282,7 @@ You will need to make sure your agent instances have the following IAM policy to
 }
 ```
 
-If you’re running your agents on an AWS EC2 Instance we suggest adding the above policy to [an IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html). If you're running outside of AWS, or you’re unable to use an instance role, you can export `BUILDKITE_S3_ACCESS_KEY_ID` and `BUILDKITE_S3_SECRET_ACCESS_KEY` containing the [Access Key credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) for an IAM user.
+If you’re running your agents on an AWS EC2 Instance we suggest adding the above policy to [an IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html). If you're running outside of AWS, or you’re unable to use an instance role, you can export `BUILDKITE_S3_ACCESS_KEY_ID` and `BUILDKITE_S3_SECRET_ACCESS_KEY` containing the [Access Key credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) for an IAM user. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
 
 By default the agent will create objects with `public-read` permissions, so that clicking on an artifact link in the Buildkite web interface can go directly to the S3 object to be viewed in the browser. You can set this to private by exporting the following environment variable:
 
