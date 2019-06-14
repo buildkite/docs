@@ -13,7 +13,7 @@ The Access Token API allows you to inspect and revoke an API Access Token. This 
 Returns details about the API Access Token that was used to authenticate the request.
 
 ```bash
-curl "https://api.buildkite.com/v2/token"
+curl "https://api.buildkite.com/v2/access-token"
 ```
 
 ```json
@@ -32,7 +32,7 @@ Success response: `200 OK`
 Revokes the API Access Token that was used to authenticate the request. Once revoked, the token can no longer be used for further requests.
 
 ```bash
-curl -X DELETE "https://api.buildkite.com/v2/token"
+curl -X DELETE "https://api.buildkite.com/v2/access-token"
 ```
 
 Required scope: none
