@@ -4,33 +4,9 @@ In cases where a Buildkite Agent is being deployed into a sensitive environment 
 
 <%= toc %>
 
-## Using environment hooks for secrets
+## Securely storing secrets
 
-The agent’s [global environment hook](hooks) is a convenient place for making secrets available to the build scripts. Once the environment hook exports the secret as an environment variable it will then be available to the build script. For example this environment hook exports the `GITHUB_RELEASE_ACCESS_KEY`:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-echo '--- \:house_with_garden\: Setting up the environment'
-
-export GITHUB_RELEASE_ACCESS_KEY='xxx'
-```
-
-You are then able to use `GITHUB_RELEASE_ACCESS_KEY` in your build scripts. Please ensure that you do not print sensitive information like secrets or access keys in your scripts or logs. For further information about secrets management, see the [Secrets](/docs/pipelines/secrets) documentation.
-
-If you want to control which build steps have which secrets exposed you can check the value of `$BUILDKITE_COMMAND` before exporting it, for example:
-
-```bash
-#!/bin/bash
-set -euo pipefail
-
-echo '--- \:house_with_garden\: Setting up the environment'
-
-if [[ "${BUILDKITE_COMMAND}" == "script/release" ]]; then
-  export RELEASE_KEY=`vault get release-key`
-fi
-```
+For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.  
 
 ## Disabling automatic ssh-keyscan
 
