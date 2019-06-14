@@ -45,7 +45,7 @@ The data encoding is assumed to be `application/json`. Unless explicitly stated 
 
 You can authenticate with the Buildkite API using access tokens.
 
-API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/rest-api/token#revoke-current-api-access-token).
+API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/rest-api/access-token#revoke-the-current-token).
 
 To authenticate using a token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 
