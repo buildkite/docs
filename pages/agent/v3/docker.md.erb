@@ -134,7 +134,16 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
-You can then use an `environment` [agent hook](/docs/agent/hooks) to expose those secrets via environment variables, or to configure tools such as `git` or `ssh`. Please ensure that you do not to print or export these variables anywhere in your pipeline. For more information on secret management, see the [Secrets](/docs/pipelines/secrets) documentation.
+If you've exposed pipeline secrets as environment variables, you can pass them through to the container using the -e option:
+
+``` bash
+docker run \
+  -e MY_SECRET_ENV \
+  -d \
+  -t \
+  --name buildkite-agent \
+  buildkite/agent:3 start --token "<your-agent-token>"
+```
 
 ## Authenticating private git repositories
 
