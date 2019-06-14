@@ -38,7 +38,7 @@ To disable command line evaluation use one of the following settings:
 
 <div class="Docs__troubleshooting-note">
 <h1>Custom hooks</h1>
-<p>If you have a custom 'command' hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#whitelisting">Whitelisting</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
+<p>If you have a custom 'command' hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
 </div>
 
 ## Disabling plugins
@@ -53,9 +53,9 @@ If you have configured your agent to do very specific things with global hooks (
 
 You can disable local hooks with the command line flag: `--no-local-hooks`.
 
-## Whitelisting
+## Strict checks using agent hooks
 
-You can use the [agent’s environment hook](hooks) to whitelist repositories, commands, plugins, or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
+You can use the [agent’s environment hook](hooks) to add strict checks for what repositories, commands, and plugins are allowed to run. The environment hook will be run before any source code is checked out onto the machine, and before any commands are executed.
 
 For example, the following environment hook allows only a single file from a single repository to be executed on the agent machine:
 
@@ -72,18 +72,11 @@ if [[ "${BUILDKITE_COMMAND}" != "some-script.sh" ]]; then
   echo "Command not allowed: ${BUILDKITE_COMMAND}"
   exit 1
 fi
-
-if [[ "${BUILDKITE_PLUGINS:-}" != "" ]]; then
-  echo "Plugins not allowed: ${BUILDKITE_PLUGINS}"
-  exit 1
-fi
 ```
   
-### Whitelisting Plugins
+## Allowing a list of plugins
 
-Per above, whitelisting can be done with the [agent’s environment hook](hooks). It may be desirable to whitelist a set of plugins that agents are allowed to execute.
-
-See the [buildkite/buildkite-plugin-whitelister](https://github.com/buildkite/buildkite-plugin-whitelister) for an example of checking requested plugins against a whitelist.
+Using the [agent’s environment hook](hooks), you can create a list of plugins that an agent is allowed to run using the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables). For example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository on GitHub.
 
 ## Customizing the bootstrap
 
