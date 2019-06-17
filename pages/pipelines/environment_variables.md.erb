@@ -483,41 +483,44 @@ You can define environment variables in your jobs in a few ways, depending on th
 You can set environment variables in lots of different places, and which ones take precedence can get a little confusing.
 There are many different levels at which environment variables are merged together. The following walkthrough and examples demonstrate the order in which variables are combined, as if you had set variables in every available place.
 
-When a job runs on an agent, the first combination of environment variables happens in the job itself:
-
 ### Job environment
 
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job’s Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
-The job environment is made by merging the following sets of values, in order:
+<div class="Docs__note">
+  <p>The precedence of environment variables is different from what's listed here if you are using <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Pipeline Steps (beta)</a>.</p>
+  <p>For more information, please consult <a href="https://forum.buildkite.community/t/changes-to-environment-variable-precedence/107">our Community Forum post about the YAML Pipeline Steps beta</a>.</p>
+</div>
+
+The job environment is made by merging the following sets of values, where values in each successive set take precedence:
 
 <table>
 <tbody>
   <tr>
-    <th><em>Standard</em></th>
-    <td>The set of variables provided by Buildkite to every job</td>
-  </tr>
-  <tr>
-    <th><em>Build</em></th>
-    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+    <th><em>Pipeline</em></th>
+    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
   </tr>
   <tr>
     <th><em>Step</em></th>
     <td>Optional variables set by you on a step in the UI or in a pipeline.yml file</td>
   </tr>
   <tr>
-    <th><em>Pipeline</em></th>
-    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
+    <th><em>Build</em></th>
+    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+  </tr>
+  <tr>
+    <th><em>Standard</em></th>
+    <td>The set of variables provided by Buildkite to every job</td>
   </tr>
 </tbody>
 </table>
 
-For example, if had configured the following environment variables:
+For example, if you had configured the following environment variables:
 
 <table>
   <tbody>
     <tr>
-      <th><em>Build</em></th>
+      <th><em>Pipeline</em></th>
       <td><code>MY_ENV1="a"</code></td>
     </tr>
     <tr>
@@ -525,7 +528,7 @@ For example, if had configured the following environment variables:
       <td><code>MY_ENV1="b"</code></td>
     </tr>
     <tr>
-      <th><em>Pipeline</em></th>
+      <th><em>Build</em></th>
       <td><code>MY_ENV1="c"</code></td>
     </tr>
   </tbody>
