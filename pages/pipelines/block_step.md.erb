@@ -133,7 +133,9 @@ _Required attributes:_
   <tr>
     <td><code>options</code></td>
     <td>
-      The list of select field options. For 6 or less options they’ll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.
+      The list of select field options.<br>
+      For 6 or less options they’ll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br>
+      If selecting multiple options is permitted the options will be displayed as checkboxes.
     </td>
   </tr>
 </table>
@@ -143,14 +145,17 @@ Each select option has the following _required attributes:_
 <table>
   <tr>
     <td><code>label</code></td>
-    <td>The text displayed on the select list item.<br>
-    <em>Example:</em> <code>"Stable"</code></td>
+    <td>
+      The text displayed for the option.<br>
+      <em>Example:</em> <code>"Stable"</code>
+    </td>
   </tr>
   <tr>
     <td><code>value</code></td>
     <td>
       The value to be stored as meta-data (e.g. to be later retrieved via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
-      <em>Example:</em> <code>"stable"</code></td>
+      <em>Example:</em> <code>"stable"</code>
+    </td>
   </tr>
 </table>
 
@@ -185,9 +190,18 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>multiple</code></td>
+    <td>
+      A boolean value that defines whether multiple options may be selected.<br>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br>
+      <em>Default:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>default</code></td>
     <td>
-      The value of the option that will be pre-selected in the dropdown.<br>
+      The value of the option or options that will be pre-selected.<br>
+      When <code>multiple</code> is enabled, this can be an array of values to select by default.<br>
       <em>Example:</em> <code>"beta"</code>
     </td>
   </tr>
@@ -207,4 +221,28 @@ steps:
             value: "beta"
           - label: "Stable"
             value: "stable"
+```
+
+```yml
+steps:
+  - block: "Deploy To"
+    fields:
+      - select: "Regions"
+        key: "deploy-regions"
+        hint: "Which regions should we deploy this to? \:earth_asia\:"
+        multiple: true
+        default:
+          - "na"
+          - "eur"
+          - "asia"
+          - "aunz"
+        options:
+          - label: "North America"
+            value: "na"
+          - label: "Europe"
+            value: "eur"
+          - label: "Asia"
+            value: "asia"
+          - label: "Oceania"
+            value: "aunz"
 ```
