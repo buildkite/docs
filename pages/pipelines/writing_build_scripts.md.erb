@@ -112,7 +112,7 @@ If you require more environment information, you can execute `env` to print out 
 
 <section class="Docs__troubleshooting-note">
   <h1>Security recommendation</h1>
-  <p>If you use environment variables to define sensitive data, such as API keys, you should always filter the output of <code>env</code> to ensure you’re not exposing any secrets in your build log.</p>
+  <p>If you use environment variables to define sensitive data such as API keys or Secret Access Keys, you should always filter the output of <code>env</code> to ensure you’re not exposing any secrets in your build log.</p>
 </section>
 
 For example, the following prints all environment variable names and values containing the words "git" or "node", using a case-insensitive search:
