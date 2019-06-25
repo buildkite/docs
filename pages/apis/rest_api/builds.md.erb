@@ -413,7 +413,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
-  "state": "cancelled",
+  "state": "canceled",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -505,7 +505,7 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason why the build could not be cancelled" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason why the build could not be canceled" }</code></td></tr>
 </tbody>
 </table>
 

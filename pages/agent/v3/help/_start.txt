@@ -23,7 +23,7 @@ Options:
    --disconnect-after-job                 Disconnect the agent after running a job [$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB]
    --disconnect-after-job-timeout value   When --disconnect-after-job is specified, the number of seconds to wait for a job before shutting down (default: 120) [$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT]
    --disconnect-after-idle-timeout value  If no jobs have come in for the specified number of secconds, disconnect the agent (default: 0) [$BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT]
-   --cancel-grace-period value            The number of seconds running processes are given to gracefully terminate before they are killed when a job is cancelled (default: 10) [$BUILDKITE_CANCEL_GRACE_PERIOD]
+   --cancel-grace-period value            The number of seconds running processes are given to gracefully terminate before they are killed when a job is canceled (default: 10) [$BUILDKITE_CANCEL_GRACE_PERIOD]
    --shell value                          The shell commamnd used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
    --tags value                           A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8") [$BUILDKITE_AGENT_TAGS]
    --tags-from-host                       Include tags from the host (hostname, machine-id, os) [$BUILDKITE_AGENT_TAGS_FROM_HOST]
