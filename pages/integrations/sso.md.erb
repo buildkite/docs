@@ -47,6 +47,17 @@ For more information on the SAML user attributes Buildkite supports, see the [Cu
 
 If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
 
+## How do I disable SSO?
+
+- if you need to edit your sso settings, want to temporarily stop logins using sso, or want to delete your sso provider, you'll first need to disable it
+
+- use the disable button in the app
+- use graphql
+
+- after you've disabled your provider you can edit, delete, or re-enable it
+- while disabled logins will no longer go through your SSO provider
+- logins will revert to username/password, if you don't have a password for your buildkite account and need to access it while SSO is disabled, you can perform a 'forgotten password' reset, contact your org admin, or contact buildkite support for assistance
+
 ## Frequently Asked Questions
 
 ### Can some people in the organization use SSO and others not?
