@@ -70,16 +70,10 @@ You will need to manually remove them from your Buildkite organization. This wil
 Yes, by adding multiple identity providers. Each provider supports only one domain, but you can enable as many different identity providers for your organization as you need.
 
 ### Is there downtime for my organization while SSO is enabled?
-No, there'll be no downtime. The Buildkite team will confirm with an administrator that you have access through your new identity provider before enabling it for your entire organization. Then all users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
+No, there'll be no downtime. All users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
 
 ### Will enabling SSO cause a service interruption?
 No, all of your builds, agents, and pipelines will continue to run as normal.
-
-### Can the SSO testing and user deauthorisation be scheduled for a specific time?
-Yes, within Australian business hours. 
-
-### Is there a self-service SSO enablement option?
-Yes, if you're comfortable using GraphQL, you can enable SSO yourself for your organization. Check out our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql).
 
 ### Does enabling SSO affect billing?
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
