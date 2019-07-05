@@ -2,7 +2,7 @@
 
 Okta can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both Okta and Buildkite.
 
-### Step 1. Add Buildkite in Okta
+### Step 1. Add the Buildkite App to your Okta Account
 
 Log into your Okta account, and follow these steps:
 
@@ -24,6 +24,10 @@ On the following screen in the Metadata URL field, enter the 'Identity Provider 
 
 <%= image "okta-settings.png", width: 1848/2, height: 732/2, alt: "Screenshot of the Buildkite Okta Settings Page" %>
 
+<div class="Docs__note">
+  <p>You can also set up SSO providers with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
+</div>
+
 ### Step 3. Perform a Test Login
 
 Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
@@ -33,7 +37,3 @@ Follow the instructions to perform a test login. Performing a test login will ve
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Okta before organization data can be accessed.
 
 If you need to edit or update your Okta provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [Disabling a Provider](/docs/integrations/sso#disabling-a-provider) section of the SSO overview.
-
-<div class="Docs__note">
-  <p>See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for instructions on how to manually set up SSO using GraphQL.</p>
-</div>
