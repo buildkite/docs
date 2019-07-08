@@ -24,28 +24,39 @@ Team maintainers can still invite users to their Buildkite organisation, and are
 
 ## How do I enable SSO for my organization?
 
-There are two ways to enable SSO:
+There are two ways an organization admin can enable SSO:
 
-1. Email the Buildkite team at support@buildkite.com, or
-1. Enable it yourself using the GraphQL explorer
+1. Using the SSO Settings section of your Organisation Settings, or
+1. Manually create your provider and enable it yourself using GraphQL
 
-You'll need to set up your SSO identity provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information.
+You will need to set up your SSO identity provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information.
 
 ### Using Google G Suite or Github
 
-Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to give Buildkite to get started.
+Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to get started.
 
 You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql) for steps and code samples.
 
-### Using Okta, OneLogin, AD FS, or a custom SAML Provider
+ ### Using Okta, OneLogin, ADFS, or a custom SAML Provider
 
-There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [Google Cloud Identity](/docs/integrations/sso/g-cloud-identity), [AD FS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
+ There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [Google Cloud Identity](/docs/integrations/sso/g-cloud-identity), [ADFS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
 
-When setting up SSO with a SAML provider, setup happens on two sides: Buildkite and your identity provider. Before you can complete your identity provider's setup, you'll need to get your 'Issuer URL' from Buildkite. Using this URL, you can set up Buildkite as an application in your identity provider. Next you'll send your identity provider's information to Buildkite, and our team will complete your SSO setup.
+For more information on the SAML user attributes Buildkite supports, see the [user attributes](/docs/integrations/sso/custom-saml#saml-user-attributes) section of the Custom SAML Guide.
 
-For more information on the SAML user attributes Buildkite supports, see the [Custom SAML Guide](/docs/integrations/sso/custom-saml#saml-user-attributes).
+If you'd prefer a manual setup, you can use the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
 
-If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
+## How do I disable SSO?
+
+If you need to edit your SSO settings, temporarily stop logins using SSO, or want to delete your SSO provider, you'll first need to disable it.
+
+There are two ways to disable a provider:
+
+1. Using the 'Disable' button in your SSO provider Settings, or
+1. Using [GraphQL](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider)
+
+After you've disabled your provider you can edit, delete, or re-enable it.
+
+While disabled, logins will no longer go through your SSO provider. Users accessing your organisation data will be required to log in using a username and password. If users don't have a password for their Buildkite account and need access while SSO is disabled, they can perform a 'Forgotten Password' reset. For assitance with this process, contact your organization admin or Buildkite support.
 
 ## Frequently Asked Questions
 
@@ -59,16 +70,10 @@ You will need to manually remove them from your Buildkite organization. This wil
 Yes, by adding multiple identity providers. Each provider supports only one domain, but you can enable as many different identity providers for your organization as you need.
 
 ### Is there downtime for my organization while SSO is enabled?
-No, there'll be no downtime. The Buildkite team will confirm with an administrator that you have access through your new identity provider before enabling it for your entire organization. Then all users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
+No, there'll be no downtime. All users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
 
 ### Will enabling SSO cause a service interruption?
 No, all of your builds, agents, and pipelines will continue to run as normal.
-
-### Can the SSO testing and user deauthorisation be scheduled for a specific time?
-Yes, within Australian business hours. 
-
-### Is there a self-service SSO enablement option?
-Yes, if you're comfortable using GraphQL, you can enable SSO yourself for your organization. Check out our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql).
 
 ### Does enabling SSO affect billing?
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
