@@ -24,16 +24,16 @@ Team maintainers can still invite users to their Buildkite organisation, and are
 
 ## How do I enable SSO for my organization?
 
-There are two ways to enable SSO:
+There are two ways an organization admin can enable SSO:
 
-1. Enable it yourself in the SSO Settings section of your Organisation settings, or
-1. Manually create your provider and enable it yourself using the GraphQL explorer
+1. Using the SSO Settings section of your Organisation Settings, or
+1. Manually create your provider and enable it yourself using GraphQL
 
 You will need to set up your SSO identity provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information.
 
 ### Using Google G Suite or Github
 
-Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to give Buildkite to get started.
+Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to get started.
 
 You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql) for steps and code samples.
 
@@ -41,11 +41,9 @@ You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/d
 
 There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [Google Cloud Identity](/docs/integrations/sso/g-cloud-identity), [AD FS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
 
-When setting up SSO with a SAML provider, setup happens on two sides: Buildkite and your identity provider. Before you can complete your identity provider's setup, you'll need to get your 'Issuer URL' from Buildkite. Using this URL, you can set up Buildkite as an application in your identity provider. Next you'll send your identity provider's information to Buildkite, and our team will complete your SSO setup.
+For more information on the SAML user attributes Buildkite supports, see the [user attributes](/docs/integrations/sso/custom-saml#saml-user-attributes) section of the Custom SAML Guide.
 
-For more information on the SAML user attributes Buildkite supports, see the [Custom SAML Guide](/docs/integrations/sso/custom-saml#saml-user-attributes).
-
-If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
+If you'd prefer a manual setup, you can use the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
 
 ## How do I disable SSO?
 
