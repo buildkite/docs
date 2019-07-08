@@ -5,7 +5,7 @@
 
 <%= toc %>
 
-## connecting to your artifactory instance
+## Configuring the Buildkite Agent
 
 - export the env vars in your agent env hook
 - can also get them from a param store, they just need to be available to the agent at upload time
@@ -18,7 +18,7 @@
 - optional vars:
 	- BUILDKITE_ARTIFACT_UPLOAD_DESTINATION (fully qualified url of where you want to upload?)
 
-## uploading artifacts
+## Uploading and downloading artifacts
 
 - use the [artifact upload command](https://buildkite.com/docs/agent/v3/cli-artifact#uploading-artifacts)
 
@@ -26,7 +26,6 @@
 - The uploader will store artifacts in the repository under a folder matching the Job ID that uploaded it. for instance, README.md uploaded during job id abcdefgh-ijkl-mnop-qrst-uvwxyz123456 will be in repo/abcdefgh-ijkl-mnop-qrst-uvwxyz123456
 - can specify upload destination if you want
 
-## downloading artifacts
-
 - use the [artifact download command](https://buildkite.com/docs/agent/v3/cli-artifact#downloading-artifacts)
 
+## Browsing artifacts
