@@ -2,6 +2,8 @@
 
 When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
 
+For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
+
 <%= toc %>
 
 ## Buildkite environment variables
@@ -386,7 +388,7 @@ Default: `"us-east-1"`
 
 <h3 class="h3-caps">BUILDKITE_S3_SECRET_ACCESS_KEY</h3>
 
-The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
@@ -467,50 +469,58 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-* Pipeline settings — for values that are not secret.
-* [Build pipeline configuration](/docs/pipelines/command-step) — for values that are not secret.
+* Pipeline settings — for values that are *not secret*.
+* [Build pipeline configuration](/docs/pipelines/command-step) — for values that are *not secret*.
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
+
+<section class="Docs__troubleshooting-note">
+  <h1>Secrets in environment variables</h1>
+  <p>Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.</p>
+</section>
 
 ## Environment variable precedence
 
 You can set environment variables in lots of different places, and which ones take precedence can get a little confusing.
 There are many different levels at which environment variables are merged together. The following walkthrough and examples demonstrate the order in which variables are combined, as if you had set variables in every available place.
 
-When a job runs on an agent, the first combination of environment variables happens in the job itself:
-
 ### Job environment
 
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job’s Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
-The job environment is made by merging the following sets of values, in order:
+<div class="Docs__note">
+  <p>The precedence of environment variables is different from what's listed here if you are using <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Pipeline Steps (beta)</a>.</p>
+  <p>For more information, please consult <a href="https://forum.buildkite.community/t/changes-to-environment-variable-precedence/107">our Community Forum post about the YAML Pipeline Steps beta</a>.</p>
+</div>
+
+The job environment is made by merging the following sets of values, where values in each successive set take precedence:
 
 <table>
 <tbody>
   <tr>
-    <th><em>Standard</em></th>
-    <td>The set of variables provided by Buildkite to every job</td>
-  </tr>
-  <tr>
-    <th><em>Build</em></th>
-    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+    <th><em>Pipeline</em></th>
+    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
   </tr>
   <tr>
     <th><em>Step</em></th>
     <td>Optional variables set by you on a step in the UI or in a pipeline.yml file</td>
   </tr>
   <tr>
-    <th><em>Pipeline</em></th>
-    <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
+    <th><em>Build</em></th>
+    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+  </tr>
+  <tr>
+    <th><em>Standard</em></th>
+    <td>The set of variables provided by Buildkite to every job</td>
   </tr>
 </tbody>
 </table>
 
-For example, if had configured the following environment variables:
+For example, if you had configured the following environment variables:
 
 <table>
   <tbody>
     <tr>
-      <th><em>Build</em></th>
+      <th><em>Pipeline</em></th>
       <td><code>MY_ENV1="a"</code></td>
     </tr>
     <tr>
@@ -518,7 +528,7 @@ For example, if had configured the following environment variables:
       <td><code>MY_ENV1="b"</code></td>
     </tr>
     <tr>
-      <th><em>Pipeline</em></th>
+      <th><em>Build</em></th>
       <td><code>MY_ENV1="c"</code></td>
     </tr>
   </tbody>

@@ -228,7 +228,7 @@ You can upload the [artifacts](/docs/builds/artifacts) created by your builds to
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"
 ```
 
-Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts). You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`.
+Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts). You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
 
 If you are using any of the non-public [predefined Access Control Lists (ACLs)](https://cloud.google.com/storage/docs/access-control/lists#predefined-acl) to control permissions on your bucket, you won't have automatic access to your artifacts through the links in the Buildkite web interface. Artifacts will inherit the permissions of the bucket into which they're uploaded. You can set a specific ACL on an artifact:
 
@@ -246,4 +246,22 @@ To use your own authenticating proxy for access control, set your proxy's domain
 
 ```shell
 export BUILDKITE_GCS_ACCESS_HOST="myproxyhost.com"
+```
+
+If your proxy does not follow default GCS artifact path conventions, for example, not including the bucket name in the URL, you can override the artifact path.
+
+To override the default path, export the environment variable `BUILDKITE_GCS_PATH_PREFIX`:
+
+```shell
+export BUILDKITE_GCS_PATH_PREFIX="custom-folder-structure/"
+```
+
+The above variable export will cause the artifact path to use your custom prefix instead of the `GCS_BUCKET_NAME`: 
+
+```shell
+# default path
+${BUILDKITE_GCS_ACCESS_HOST}/${GCS_BUCKET_NAME}/${ARTIFACT_PATH}
+
+# using the BUILDKITE_GCS_PATH_PREFIX environment variable
+${BUILDKITE_GCS_ACCESS_HOST}/custom-folder-structure/${ARTIFACT_PATH}
 ```
