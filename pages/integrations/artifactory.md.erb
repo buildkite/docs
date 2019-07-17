@@ -59,33 +59,61 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="rt://generic-repo/$BUILDKITE_JOB_I
 
 For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
-<screenshot of setting the required envs>
-
 ## Uploading and downloading artifacts
 
-To upload to Artifactory, use the [artifact upload command](https://buildkite.com/docs/agent/v3/cli-artifact#uploading-artifacts). When the Agent has been configured with the required environment variables, the below example command will upload the file to Artifactory:
+Once you've configured the Artifactory `buildkite-agent` environment variables, the `artifact_paths` attribute of command steps will automatically use the Artifactory configuration to upload artifacts. 
 
-```bash
-buildkite-agent artifact upload logs.txt
+The following example `pipeline.yml` file will build a golang binary and upload it to Artifactory. The artifact will be visible in the build on Buildkite and can be downloaded in future steps using `buildkite-agent artifact download`.
+
+```yml
+steps:
+  - label: ":golang: :package:"
+    command: "go build -v -o myapp-darwin-amd64"
+    artifact_paths: "myapp-darwin-amd64"
+    plugins:
+      - docker#v3.3.0:
+          image: "golang:1.11"
 ```
 
-Use the [artifact download command](https://buildkite.com/docs/agent/v3/cli-artifact#downloading-artifacts) to download your artifacts from Artifactory.
 
-```bash
-buildkite-agent artifact download logs.txt
-```
 
-<screenshot?>
+You can also use [buildkite-agent artifact](https://buildkite.com/docs/agent/v3/cli-artifact) commands directly, for example `buildkite-agent artifact upload my-file` and `buildkite-agent artifact download my-file`.
 
-## Browsing artifacts
+<%= image "buildkite-artifact-step.png", width: 2320/2, height: 822/2, alt: "Screenshot of a Buildkite command step's output logging an artifact upload to Artifactory" %>
+
+<%= image "artifactory-go-local-repository.png", width: 1486/2, height: 710/2, alt: "Screenshot of an artifact in the go-local repository in Artifactory" %>
 
 All artifacts in Buildkite link to their location in Artifactory. Click through to view them in Artifactory.
 
 <screenshot of artifacts tab with link to artifactory>
 
-<screenshot of artifact in artifactory>
+## Configuring package management
 
-## Docker, Gems, NPM, Python repositories
+In addition to managing your artifacts manually, you can also use [Artifactory's package management](https://www.jfrog.com/confluence/display/RTF/Package+Management) for installing and managing build dependencies.  
 
-You can use Artifactory to store artifacts of any type that you have configured in the Artifactory dashboard. Common repository types include Docker, Ruby Gems, NPM packages, and Python packages. See the [Artifactory documentation](https://www.jfrog.com/confluence/display/RTF/Using+Artifactory) for further information about setting up these repositories in Artifactory.
+In the example Agent hook below, the registry URL is set to the URL of the npm repository in an Artifactory instance. All `npm` commands on this agent will then use the specified [Artifactory NPM registry](https://www.jfrog.com/confluence/display/RTF/npm+Registry?src=sidebar).
+
+```bash
+#!/bin/bash
+set -e
+export ARTIFACTORY_NPM_REGISTRY="http://my-artifactory-server.internal:8081/artifactory/api/npm/npm-local/"
+npm config set registry "$ARTIFACTORY_NPM_REGISTRY"
+```
+
+If you're running npm commands in a Docker based build step, you'll need to pass the `ARTIFACTORY_NPM_REGISTRY` environment variable through to the container. The example `pipeline.yml` file below uses the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) to pass the `ARTIFACTORY_NPM_REGISTRY` variable from the previous example through to the docker image used in the step:
+
+```yml
+steps:
+  - label: ":node: :hammer:"
+    commands:
+      - npm install
+      - npm test
+    plugins:
+      docker#v3.3.0:
+        image: "node:11"
+        environment:
+          - NPM_CONFIG_REGISTRY: "$ARTIFACTORY_NPM_REGISTRY"
+```
+
+You can follow a similar pattern for [Ruby gem repositories](https://www.jfrog.com/confluence/display/RTF/RubyGems+Repositories), [Docker registries](https://www.jfrog.com/confluence/display/RTF/Docker+Registry), and any other Artifactory supported package managers.
 
