@@ -67,7 +67,7 @@ The following example `pipeline.yml` file will build a golang binary and upload 
 
 ```yml
 steps:
-  - label: ":golang: :package:"
+  - label: "\:golang\: \:package\:"
     command: "go build -v -o myapp-darwin-amd64"
     artifact_paths: "myapp-darwin-amd64"
     plugins:
@@ -104,7 +104,7 @@ If you're running npm commands in a Docker based build step, you'll need to pass
 
 ```yml
 steps:
-  - label: ":node: :hammer:"
+  - label: "\:node\: \:hammer\:"
     commands:
       - npm install
       - npm test
