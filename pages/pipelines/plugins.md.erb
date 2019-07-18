@@ -12,6 +12,22 @@
 
 
 
+
+## Repository plugins
+
+You can store plugins within your repository. This is a great way to develop plugins along with code, or to ensure that a plugin doesn't change without you knowing. 
+
+When referring to a repository plugin in your `pipeline.yml`, there's no need to specify a version as you do with other types of plugins.
+
+The following example uses the plugin 'my-plugin' that is stored in the repository’s `.buildkite/plugins` folder:
+
+```yml
+steps:
+  - label: "A step that uses a repository plugin"
+    plugins:
+      - ./.buildkite/plugins/my-plugin: ~
+```
+
 ## Developing a plugin
 
 

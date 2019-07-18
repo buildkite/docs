@@ -100,14 +100,14 @@ To use Docker and volume mounting from build scripts, you need to ensure that th
 
 For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent’s container (e.g. `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
 
-The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATHS` configuration:
+The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATH` configuration:
 
 ```bash
 docker run \
   -v "/var/lib/buildkite/builds:/var/lib/buildkite/builds" \
   -v "/usr/local/bin/buildkite-agent:/usr/local/bin/buildkite-agent" \
   -v "/var/run/docker.sock:/var/run/docker.sock" \
-  -e "BUILDKITE_BUILDS_PATH=/var/lib/buildkite/builds" \
+  -e "BUILDKITE_BUILD_PATH=/var/lib/buildkite/builds" \
   -d \
   -t \
   --name buildkite-agent \
@@ -134,7 +134,16 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
-You can then use an `environment` [agent hook](/docs/agent/hooks) to expose those secrets via environment variables, or to configure tools such as `git` or `ssh`.
+If you've exposed pipeline secrets as environment variables, you can pass them through to the container using the -e option:
+
+``` bash
+docker run \
+  -e MY_SECRET_ENV \
+  -d \
+  -t \
+  --name buildkite-agent \
+  buildkite/agent:3 start --token "<your-agent-token>"
+```
 
 ## Authenticating private git repositories
 

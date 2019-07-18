@@ -1,0 +1,15 @@
+<%= javascript_tag nonce: true do -%>
+  var _paq = _paq || [];
+  _paq.push(['setSiteId', 1])
+  _paq.push(['setTrackerUrl', <%= raw json_escape(Matomo::TRACKER_URL.to_json) %>])
+  _paq.push(['enableHeartBeatTimer'])
+  _paq.push(['setDocumentTitle', <%= raw json_escape(title.to_json) %>])
+  _paq.push(['setCustomVariable', 1, "Logged In", <%= raw json_escape(logged_in.to_json) %>, "visit"])
+  _paq.push(['setCustomVariable', 1, "Application", <%= raw json_escape(application.to_json) %>, "page"])
+  _paq.push(['trackPageView']);
+  _paq.push(['enableLinkTracking']);
+<% end -%>
+
+<% unless Rails.env.test? %>
+  <%= javascript_include_tag Matomo::TRACKER_JS_URL, nonce: true, defer: true %>
+<% end %>

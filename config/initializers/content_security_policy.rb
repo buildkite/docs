@@ -7,17 +7,17 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, 'https://www2.buildkiteassets.com/'
-  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/'
+  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', Matomo::URL
   policy.object_src  :none
-  policy.script_src  :self
+  policy.script_src  :self, Matomo::URL
   policy.style_src   :self, :unsafe_inline
 
   # Specify URI for violation reports
   # policy.report_uri "/csp-violation-report-endpoint"
 end
 
-# If you are using UJS then enable automatic nonce generation
-# Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
+# We use nonce for inline scripts
+Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:

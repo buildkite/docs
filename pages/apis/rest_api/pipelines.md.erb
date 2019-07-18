@@ -323,7 +323,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
   <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically cancelled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>cancel_running_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   <tr><th><code>team_uuids</code></th><td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either via the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
 </tbody>
@@ -418,9 +418,8 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
   <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically cancelled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>cancel_running_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>team_uuids</code></th><td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either via the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
 </tbody>
 </table>
 
@@ -435,6 +434,10 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
 </tbody>
 </table>
+
+<div class="Docs__troubleshooting-note">
+<p>To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.</p>
+</div>
 
 ## Delete a pipeline
 
