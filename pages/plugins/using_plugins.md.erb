@@ -64,7 +64,7 @@ steps:
       - detect-clowns#v1.0.0: ~
 ```
 
-More commonly, plugins accept various configuration options, as the [Docker plugin] which can be configured to use a Docker image to run your command:
+More commonly, plugins accept various configuration options. For example, the [Docker plugin] can be configured to use a Docker image to run your command:
 
 ```yml
 steps:
@@ -99,13 +99,13 @@ steps:
 
 ## more complex code example with a description of how the build would run
 
-## sources (github, git, repository)
+## Plugin sources
 
-If you refer to a plugin just by name, it defaults to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin name of `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
+If you refer to a plugin by name only, the source format will default to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin with the name `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
 
-To refer to a plugin in your own GitHub organization, prefix the name with the organization. For example, a plugin name of `my-org/docker` would resolve to `https://github.com/my-org/docker-buildkite-plugin`.
+To refer to a plugin from your own GitHub organization, prefix the name with the organization. For example, a plugin name of `my-org/docker` would resolve to `https://github.com/my-org/docker-buildkite-plugin`.
 
-You can also use fully qualified Git URLs instead of names, to refer to plugins that aren’t on GitHub, or live in private Git repositories only accessible to your agents. For example:
+You can also use fully qualified Git URLs instead of names, to refer to plugins that aren’t on GitHub, or live in private Git repositories that are only accessible to your agents. For example:
 
  * `https://github.com/my-org/my-plugin.git#v1.0.0`
  * `ssh://git@github.com/my-org/my-plugin.git#v1.0.0`
@@ -113,4 +113,4 @@ You can also use fully qualified Git URLs instead of names, to refer to plugins 
 
 Branches, tags and commits are all valid after the `#`.
 
-We recommend always specifying a plugin version tag (e.g. `v1.2.3`) to prevent behavior changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
+Always specify a plugin version tag (e.g. `v1.2.3`) to prevent behavior changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
