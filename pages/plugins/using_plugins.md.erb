@@ -1,18 +1,18 @@
 # Using plugins
 
-- you can use plugins in steps defined in YAML, either in the YAML editor in Buildkite or in your `pipeline.yml` file
-- plugins can be in a private git repository, public repositories, in your repo alongside your code, or locally on an agent's filesystem
+You can use plugins in pipeline steps that have been defined in YAML - either in your `pipeline.yml` file in your repository, or in the beta YAML editor in Buildkite.
+
+Plugins can be a private git repository, a public repository, a local repository alongside your code, or locally on an Agent's filesystem. 
 
 <%= toc %>
 
 ## Adding a plugin to your pipeline
 
-As part of a command step
-  - use the 'plugins' attribute
-  - it accepts an array, so you can list as many plugins as you require in each step
+To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute. 
 
-  - in the example below, as plugins are just collections of hooks, the `detect-clowns` plugin will be run first
-  - the `detect-clowns` `command` hook will run, followed by the commands `yarn install && yarn run test`
+This attribute accepts an array, so you can add as many plugins as you require in each step. The plugins will be run in the order you put them in the array. 
+
+In the example below, the `detect-clowns` `command` hook will run, followed by the commands `yarn install && yarn run test`. As plugins are collections of hooks, the plugin will be run first before any defined commands or scripts. 
 
 ```yml
 steps:
@@ -21,8 +21,7 @@ steps:
       - detect-clowns#v1.0.0: ~
 ```
 
-  - in the example below, as in the first example, the plugins hooks will be run first
-  - the `detect-clowns` hook will run, followed by the `docker` hook, and finally the commands `yarn install && yarn run test`
+In the example below, the `detect-clowns` hook will run, followed by the `docker` hook, and finally the commands `yarn install && yarn run test`.
 
 ```yml
 steps:
@@ -34,18 +33,23 @@ steps:
           workdir: /app
 ```
 
-Without other commands
-  - usually used for things like docker builds where you want to prebuild an app
-  - this will run the plugin hooks alone on the agent that accepts the job
-  - though there's no 'command' attribute, this is still a command step, so if you need to you can use any of the other attributes available on command steps 
+You can also add steps that only run plugins without other commands. This syntax is usually used for actions like pre-building a docker image for use in later steps. 
+
+When you don't include commands or a script, the step will run the plugin hooks alone on the agent that accepts the job. Athough there's no 'command' attribute, this is still considered a command step, so you can use any of the other attributes available on command steps.
+
+The below example uses the [`docker-login` plugin]() to authenticate with the docker registry, then the [`docker compose` plugin]() to build the `app` image. The `app` image can then be used by later steps in the pipeline.  
 
 ```yml
 steps:
-  - label: "\:clown_face\:"
-    plugins:
-      - detect-clowns#v1.0.0: ~
+  - plugins:
+      - docker-login#v2.0.1:
+          username: xyz
+      - docker-compose#v3.0.3:
+          build: app
+          image-repository: index.docker.io/myorg/myrepo
 ```
 
+- example about how plugins hooks work alongside agent hooks
 
 ## Configuring plugins
 
