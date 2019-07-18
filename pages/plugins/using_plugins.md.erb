@@ -21,7 +21,7 @@ steps:
       - detect-clowns#v1.0.0: ~
 ```
 
-In the example below, the `detect-clowns` hook will run, followed by the `docker` hook, and finally the commands `yarn install && yarn run test`.
+In the example below, the `detect-clowns` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`.
 
 ```yml
 steps:
@@ -49,7 +49,7 @@ steps:
           image-repository: index.docker.io/myorg/myrepo
 ```
 
-- example about how plugins hooks work alongside agent hooks
+If you are using Agent hooks as well as plugins, some hook types will run the Agent hooks before the plugin hooks. For a detailed table describing each hook type and the order it is run, see the [Agent Hooks guide](/docs/agent/v3/hooks#available-hooks).
 
 ## Configuring plugins
 
