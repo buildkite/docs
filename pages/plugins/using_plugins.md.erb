@@ -18,7 +18,7 @@ In the example below, the `detect-clowns` `command` hook will run, followed by t
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - detect-clowns#v1.0.0: ~
+      - detect-clowns#v2.0.0: ~
 ```
 
 In the example below, the `detect-clowns` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`.
@@ -27,8 +27,8 @@ In the example below, the `detect-clowns` plugin will run, followed by the `dock
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - detect-clowns#v1.0.0: ~
-      - docker#v1.0.0:
+      - detect-clowns#v2.0.0: ~
+      - docker#v3.3.0:
           image: node
           workdir: /app
 ```
@@ -61,7 +61,7 @@ The simplest plugin is one that accepts no configuration, such as the [Detect Cl
 steps:
   - label: "\:clown_face\:"
     plugins:
-      - detect-clowns#v1.0.0: ~
+      - detect-clowns#v2.0.0: ~
 ```
 
 More commonly, plugins accept various configuration options. For example, the [Docker plugin] can be configured to use a Docker image to run your command:
@@ -70,7 +70,7 @@ More commonly, plugins accept various configuration options. For example, the [D
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - docker#v1.0.0:
+      - docker#v3.3.0:
           image: node
           workdir: /app
 ```
@@ -82,7 +82,7 @@ steps:
   # Prebuild the app image, upload it to a registry for later steps
   - label: "\:docker\: Build"
     plugins:
-      - docker-compose#v1.0.0:
+      - docker-compose#v3.0.3:
           build: app
           image-repository: index.docker.io/org/repo
 
@@ -93,7 +93,7 @@ steps:
     command: test.sh
     parallelism: 25
     plugins:
-      - docker-compose#v1.0.0:
+      - docker-compose#v3.0.3:
           run: app
 ```
 
