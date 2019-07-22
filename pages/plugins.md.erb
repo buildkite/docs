@@ -1,6 +1,4 @@
 # Overview
-	
-## What are plugins
 
 Plugins provide a way to extend the functionality that Buildkite natively offers. They act as a external repository of [Hooks](/docs/agent/v3/hooks) that are referenced from your `pipeline.yml` file, and are downloaded and run as part of your build.
 
@@ -10,17 +8,17 @@ Buildkite offers a collection of useful plugins to get you started, including a 
 
 Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better - let us know what you think in our [Community Forum](https://forum.buildkite.community/).
 
-## how do they work
+## How plugins work
 
-- at the most basic, plugins are code in files (example code), stored in hooks files so that the agent can access it at the appropriate time
-- when you add a plugin to a buildkite pipeline step, that code is read by the agent
-- some plugins allow configuration, any config that you've added in your pipeline.yml file is also read by the agent
+At the most basic, plugins are a snippet of code stored in [hooks](/docs/agent/v3/hooks) files that the Agent can access directly. When you add a plugin to a buildkite command step, that code is read by the Agent before the commands or scripts are executed.
 
-- two main types of plugins:
+Some plugins allow configuration, this is usually defined in your pipeline.yml file and is read by the agent before the plugin hooks are run.
+
+There are two main types of plugins:
 - a repo of commands: stuff from the files can be referenced in your command scripts, like doing an import at the top of your code
 - stuff you want to run before/after you run your script (can define any of the available hooks like pre-command, command, post-command etc.)
 
-## common use cases
+## Common use cases
 
 - prebuilding a docker image, then using the image in subsequent steps
 - running steps in containers
