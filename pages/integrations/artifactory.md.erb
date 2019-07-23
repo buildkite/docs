@@ -4,44 +4,41 @@ There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Bu
 
 <%= toc %>
 
-## Configuring the Buildkite Agent
+## Buildkite Agent’s Artifactory support
 
-To get started using Artifactory with the Agent, export the environment variables in your Agent environment hook, or fetch them from your parameter store into the required variables.
+The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/hooks) to configure the Agent’s Artifactory support.
 
-_Required vars:_
+See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
+
+_Required environment vars:_
 
 <table>
+  <tr>
+    <td><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></td>
+    <td>
+      The Artifactory repository and path that will be used to upload and download artifacts, starting with an rt:// prefix<br>
+      <em>Example:</em> <code>"rt://some-repo/build-$BUILDKITE_BUILD_NUMBER/$BUILDKITE_JOB_ID/"</code><br>
+    </td>
+  </tr>
   <tr>
     <td><code>BUILDKITE_ARTIFACTORY_URL</code></td>
     <td>
       Your Artifactory instance URL, including the /artifactory postfix<br>
-      <em>Example:</em> <code>http://my-domain.com/artifactory</code><br>
+      <em>Example:</em> <code>https://my-artifactory-server/artifactory</code><br>
     </td>
   </tr>
   <tr>
     <td><code>BUILDKITE_ARTIFACTORY_USER</code></td>
     <td>
       The username of a user configured in your Artifactory instance<br>
-      <em>Example:</em> <code>cdanvers</code><br>
+      <em>Example:</em> <code>some-user</code><br>
     </td>
   </tr>
   <tr>
     <td><code>BUILDKITE_ARTIFACTORY_PASSWORD</code></td>
     <td>
       The password for your Artifactory user<br>
-      <em>Example:</em> <code>xxxx</code><br>
-    </td>
-  </tr>
-</table>
-
-_Optional vars:_
-
-<table>
-  <tr>
-    <td><code>BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></td>
-    <td>
-      The path you'd like to upload to, including the rt:// prefix<br>
-      <em>Example:</em> <code>"rt://generic-repo/build-$BUILDKITE_BUILD_NUMBER/$BUILDKITE_JOB_ID/"</code><br>
+      <em>Example:</em> <code>some-password</code><br>
     </td>
   </tr>
 </table>
