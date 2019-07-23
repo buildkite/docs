@@ -43,24 +43,7 @@ _Required environment vars:_
   </tr>
 </table>
 
-By default, any artifacts will be uploaded to the repository inside a folder named with the ID of the job that uploaded it. Specifying the `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` variable will overwrite this default. 
-
-For example, the below Agent environment hook is stored securely on the Agent machine and exports all of the available variables:
-
-```bash
-export BUILDKITE_ARTIFACTORY_URL=http://my-domain:8081/artifactory
-export BUILDKITE_ARTIFACTORY_USER=admin
-export BUILDKITE_ARTIFACTORY_PASSWORD=fishes-are-the-coolest
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="rt://generic-repo/$BUILDKITE_JOB_ID/"
-```
-
-For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.
-
-## Uploading and downloading artifacts
-
-Once you've configured the Artifactory `buildkite-agent` environment variables, the `artifact_paths` attribute of command steps will automatically use the Artifactory configuration to upload artifacts. 
-
-The following example `pipeline.yml` file will build a golang binary and upload it to Artifactory. The artifact will be visible in the build on Buildkite and can be downloaded in future steps using `buildkite-agent artifact download`.
+Once the above environment variables are configured, all artifact uploads and downloads will use Artifactory. For example, the following [command step](/docs/pipelines/command-step) will build a binary and upload it to Artifactory using the `artifact_paths` attribute:
 
 ```yml
 steps:
@@ -72,17 +55,11 @@ steps:
           image: "golang:1.11"
 ```
 
-
-
-You can also use [buildkite-agent artifact](https://buildkite.com/docs/agent/v3/cli-artifact) commands directly, for example `buildkite-agent artifact upload my-file` and `buildkite-agent artifact download my-file`.
-
 <%= image "buildkite-artifact-step.png", width: 2320/2, height: 822/2, alt: "Screenshot of a Buildkite command step's output logging an artifact upload to Artifactory" %>
 
+(screenshot of artifacts tab with link to artifactory)
+
 <%= image "artifactory-go-local-repository.png", width: 1486/2, height: 710/2, alt: "Screenshot of an artifact in the go-local repository in Artifactory" %>
-
-All artifacts in Buildkite link to their location in Artifactory. Click through to view them in Artifactory.
-
-<screenshot of artifacts tab with link to artifactory>
 
 ## Configuring package management
 
