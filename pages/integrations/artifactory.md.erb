@@ -65,7 +65,7 @@ steps:
 
 To help cache and secure your build dependencies, you can use [Artifactory's package management](https://www.jfrog.com/confluence/display/RTF/Package+Management) features in your Buildkite pipelines. Each package management platform is configured differently.
 
-For example, to use an [Artifactory NPM registry](https://www.jfrog.com/confluence/display/RTF/npm+Registry?src=sidebar) in your build steps, you can configure the following [Agent environment hook](/docs/v3/agent/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
+For example, to use an [Artifactory NPM registry](https://www.jfrog.com/confluence/display/RTF/npm+Registry?src=sidebar) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
 
 ```bash
 export NPM_CONFIG_REGISTRY="http://my-artifactory-server/artifactory/api/npm/npm-local/"
