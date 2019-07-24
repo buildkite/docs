@@ -60,4 +60,4 @@ No, all of your builds, agents, and pipelines will continue to run as normal.
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
 
 ### Can I sync my identity provider's groups with my Buildkite teams?
-Yes, if you're using the Custom SAML provider you can configure [SAML User Attributes](/docs/integrations/sso/custom-saml#saml-user-attributes).
+Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).
