@@ -1,4 +1,4 @@
-# OAuth with Google G Suite
+# Single Sign-On with Google G Suite
 
 Google's G Suite (previously Google Apps) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for Buildkite.
 
@@ -6,7 +6,7 @@ Google's G Suite (previously Google Apps) can be used as an SSO provider for you
 
 In your Buildkite Organization Settings' Single Sign On menu item, choose the Google G Suite provider:
 
-<%= image "sso-settings.png", width: 2318/2, height: 907/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
+<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
@@ -20,4 +20,4 @@ Follow the instructions to perform a test login. Performing a test login will ve
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through G Suite before organization data can be accessed.
 
-If you need to edit or update your G Suite provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#how-do-i-disable-sso) section of the SSO overview.
+If you need to edit or update your G Suite provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
