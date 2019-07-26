@@ -128,6 +128,21 @@ You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#envi
     branch: "${BUILDKITE_BRANCH}"
 ```
 
+To pass through pull request information to the triggered build, pass through the branch and pull request environment variables:
+
+```yml
+- trigger: "app-sub-pipeline"
+  label: "Sub-pipeline"
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+    env:
+      BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
+      BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+      BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
+```
+
 To set environment variables on the build created by the trigger step, use the `env` attribute:
 
 ```yml
