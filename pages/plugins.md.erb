@@ -6,8 +6,6 @@ Plugins can be hosted on GitHub, BitBucket or a private git repository, and are 
 
 Buildkite offers a collection of useful plugins to get you started, including a [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), [Junit Annotate plugin](https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin), and the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin). In the [Buildkite Plugin Directory](https://buildkite.com/plugins) you can find all the offical plugins as well as the top plugins from third party developers. 
 
-Agent plugins are still new, and we are evolving them as we learn more. We'd love feedback on how you use them and how we might make them better - let us know what you think in our [Community Forum](https://forum.buildkite.community/).
-
 ## How plugins work
 
 At the most basic, plugins are a snippet of code stored in [hooks](/docs/agent/v3/hooks) files that the Agent can access directly. When you add a plugin to a buildkite command step, that code is read by the Agent before the commands or scripts are executed.
