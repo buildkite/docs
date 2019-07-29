@@ -54,7 +54,32 @@ The environment variables are named `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a lis
 
 For example `image: "node"` becomes the environment variable `BUILDKITE_PLUGIN_DOCKER_IMAGE="node"`, and `links: [ "db", "redis" ]` becomes the enviroment variables `BUILDKITE_PLUGIN_DOCKER_LINKS_0="db"` and `BUILDKITE_PLUGIN_DOCKER_LINKS_1="redis"`.
 
-## Testing your new plugin (how to use the tester and cli)
+## Testing your new plugin
+
+The [Buildkite CLI](https://github.com/buildkite/cli) can be used to run your pipeline steps locally.
+  - useful for testing your plugin
+  - requires `buildkite-agent` locally as well
+  - run your pipeline with `bk local run`
+  - code example
+
+A [linter](https://github.com/buildkite-plugins/buildkite-plugin-linter)  is also available to check your new plugin against the latest best practices.
+  - can be run locally, or included in a docker-compose file
+  - code example of running locally
+
+The Buildkite [Plugin Linter Plugin](https://github.com/buildkite-plugins/buildkite-plugin-linter-plugin) is itself a plugin that uses the linter to check your new plugin.
+  - the example below includes the linting plugin in a pipeline
+  ```
+  steps:
+    - label: ":sparkles: Lint"
+      plugins:
+        - plugin-linter#v2.0.0:
+            id: my-org/my-plugin
+  ``` 
+
+Another tool available to help test your plugin is the [Plugin Tester](https://github.com/buildkite-plugins/plugin-tester) Docker image. 
+  - includes BATS (bash automated testing system) for writing tests
+  - write tests in BATS and run them inside the container
+  - test code example
 
 ## Tools
 
