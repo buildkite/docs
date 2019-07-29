@@ -1,8 +1,8 @@
 # Developing plugins
 
-The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the [buildkite-plugin tag on GitHub][third party plugins].
+The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the [buildkite-plugin tag on GitHub][third party plugins]. This guide will walk through how to write a plugin and how to test your plugin step by step.
 
-## Writing a plugin step by step
+## Writing a plugin
 
 Plugins are essentially a collection of hooks with extra configuration. The agent passes the plugin configuration from the pipeline.yml to the plugin hooks as environment variables.
 
@@ -54,13 +54,25 @@ The environment variables are named `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a lis
 
 For example `image: "node"` becomes the environment variable `BUILDKITE_PLUGIN_DOCKER_IMAGE="node"`, and `links: [ "db", "redis" ]` becomes the enviroment variables `BUILDKITE_PLUGIN_DOCKER_LINKS_0="db"` and `BUILDKITE_PLUGIN_DOCKER_LINKS_1="redis"`.
 
-## Testing your new plugin
+## Testing a plugin
 
-The [Buildkite CLI](https://github.com/buildkite/cli) can be used to run your pipeline steps locally.
-  - useful for testing your plugin
-  - requires `buildkite-agent` locally as well
+To get started with testing, the [Buildkite CLI](https://github.com/buildkite/cli) can be used to run your pipeline steps and plugins locally.
+  - useful for testing your plugin during development
+  - requires `buildkite-agent` locally, see the [Agent installation guides](/docs/agent/v3) for installation instructions
   - run your pipeline with `bk local run`
   - code example
+For more information about the Buildkite CLI and the other things it can do other than pipelines locally, see the [GitHub readme](https://github.com/buildkite/cli). 
+
+Another tool available to help test your plugin is the [Plugin Tester](https://github.com/buildkite-plugins/plugin-tester) Docker image. 
+  - enables automated testing, which is the best option for ongoing plugin development
+  - the image includes BATS (bash automated testing system) for writing tests
+  - to get started with the Plugin Tester, add it to your `docker-compose.yml` file
+  - The below example test uses the bats-mock library to test the input and output of the plugin
+  - test code example
+  - run the test locally with the below command
+  ```
+  docker-compose run --rm tests
+  ``` 
 
 A [linter](https://github.com/buildkite-plugins/buildkite-plugin-linter)  is also available to check your new plugin against the latest best practices.
   - can be run locally, or included in a docker-compose file
@@ -75,11 +87,6 @@ The Buildkite [Plugin Linter Plugin](https://github.com/buildkite-plugins/buildk
         - plugin-linter#v2.0.0:
             id: my-org/my-plugin
   ``` 
-
-Another tool available to help test your plugin is the [Plugin Tester](https://github.com/buildkite-plugins/plugin-tester) Docker image. 
-  - includes BATS (bash automated testing system) for writing tests
-  - write tests in BATS and run them inside the container
-  - test code example
 
 ## Tools
 
