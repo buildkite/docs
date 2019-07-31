@@ -66,7 +66,7 @@ To help cache and secure your build dependencies, you can use [Artifactory's pac
 For example, to use an [Artifactory NPM registry](https://www.jfrog.com/confluence/display/RTF/npm+Registry?src=sidebar) in your build steps, you can configure the following [Agent environment hook](/docs/agent/v3/hooks) to instruct the [npm command](https://docs.npmjs.com/cli/npm) to use Artifactory instead of npmjs.com:
 
 ```bash
-export NPM_CONFIG_REGISTRY="http://my-artifactory-server/artifactory/api/npm/npm-local/"
+export NPM_CONFIG_REGISTRY="https://${BUILDKITE_ARTIFACTORY_USER}:${BUILDKITE_ARTIFACTORY_PASSWORD}@my-artifactory-server/artifactory/api/npm/npm-local/"
 ```
 
 You can use this same approach for [Ruby gem repositories](https://www.jfrog.com/confluence/display/RTF/RubyGems+Repositories), [Docker registries](https://www.jfrog.com/confluence/display/RTF/Docker+Registry), and any other Artifactory supported package managers.
