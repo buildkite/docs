@@ -1,102 +1,23 @@
-# Developing plugins
+# Writing a plugin
 
-The best place to get started is the [Buildkite Plugins] repository. You can also find third-party plugins with the [buildkite-plugin tag on GitHub][third party plugins]. This guide will walk through how to write a plugin and how to test your plugin step by step.
 
-## Writing a plugin
+<%= toc %>
 
-Plugins are essentially a collection of hooks with extra configuration. The agent passes the plugin configuration from the pipeline.yml to the plugin hooks as environment variables.
+## Getting started
 
-A good example is the [docker plugin], which runs a command within a docker container. The pipeline invocation of this plugin looks like:
+- an actual step by step of making a plugin
+- make a repo
+- readme template
+- info about naming your plugin
+- minimal plugin.yml
+- linting and testing
 
-```yml
-steps:
-  - command: yarn install && yarn run test
-    plugins:
-      - docker#v1.0.0:
-          image: node
-          workdir: /app
-```
+- plugin.yml, json schema info, properties  
 
-In its root directory the plugin has a `plugin.yml` that describes what it does, the executables required on the agent machine, and a schema of the plugin’s configuration options:
 
-```yml
-name: Docker
-description: Runs build steps within a docker container.
-author: https://github.com/buildkite
-requirements:
-  - docker
-configuration:
-  properties:
-    image:
-      type: string
-    workdir:
-      type: string
-  required:
-    - image
-    - workdir
-```
+## Plugin.yml reference
 
-The plugin’s hook scripts are placed in the `hooks/` directory. Here’s the simplified logic of the [command hook][hooks], which would exist at `hooks/command`:
+- table of the properties available
 
-```bash
-#!/bin/bash
-set -euo pipefail
 
-echo "--- Running ${BUILDKITE_COMMAND} in ${BUILDKITE_PLUGIN_DOCKER_IMAGE}"
-
-docker run -it --rm \
-  --volume "${PWD}:${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
-  --workdir "${BUILDKITE_PLUGIN_DOCKER_WORKDIR}" \
-  "${BUILDKITE_PLUGIN_DOCKER_IMAGE}" bash -c "${BUILDKITE_COMMAND}"
-```
-
-The environment variables are named `BUILDKITE_PLUGIN_{NAME}_{KEY}`, or if a list is provided then `BUILDKITE_PLUGIN_{NAME}_{KEY}_{IDX}`.
-
-For example `image: "node"` becomes the environment variable `BUILDKITE_PLUGIN_DOCKER_IMAGE="node"`, and `links: [ "db", "redis" ]` becomes the enviroment variables `BUILDKITE_PLUGIN_DOCKER_LINKS_0="db"` and `BUILDKITE_PLUGIN_DOCKER_LINKS_1="redis"`.
-
-## Testing a plugin
-
-To get started with testing, the [Buildkite CLI](https://github.com/buildkite/cli) can be used to run your pipeline steps and plugins locally.
-  - useful for testing your plugin during development
-  - requires `buildkite-agent` locally, see the [Agent installation guides](/docs/agent/v3) for installation instructions
-  - run your pipeline with `bk local run`
-  - code example
-For more information about the Buildkite CLI and the other things it can do other than pipelines locally, see the [GitHub readme](https://github.com/buildkite/cli). 
-
-Another tool available to help test your plugin is the [Plugin Tester](https://github.com/buildkite-plugins/plugin-tester) Docker image. 
-  - enables automated testing, which is the best option for ongoing plugin development
-  - the image includes BATS (bash automated testing system) for writing tests
-  - to get started with the Plugin Tester, add it to your `docker-compose.yml` file
-  - The below example test uses the bats-mock library to test the input and output of the plugin
-  - test code example
-  - run the test locally with the below command
-  ```
-  docker-compose run --rm tests
-  ``` 
-
-A [linter](https://github.com/buildkite-plugins/buildkite-plugin-linter)  is also available to check your new plugin against the latest best practices.
-  - can be run locally, or included in a docker-compose file
-  - code example of running locally
-
-The Buildkite [Plugin Linter Plugin](https://github.com/buildkite-plugins/buildkite-plugin-linter-plugin) is itself a plugin that uses the linter to check your new plugin.
-  - the example below includes the linting plugin in a pipeline
-  ```
-  steps:
-    - label: ":sparkles: Lint"
-      plugins:
-        - plugin-linter#v2.0.0:
-            id: my-org/my-plugin
-  ``` 
-
-## Tools
-
-The following are some helpful tools when developing plugins:
-
-* [Plugin Tester](https://github.com/buildkite-plugins/plugin-tester) - A Docker image containing tools that simplifies writing BATS tests, and getting your plugin tested (so meta).
-* [Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) - A linter that checks your plugin for best practices.
-* [Shellcheck Plugin](https://github.com/buildkite-plugins/shellcheck-buildkite-plugin) - A plugin for running Shellcheck on your hook scripts.
-* [JSON Schema Lint](https://jsonschemalint.com/) - A tool that allows for validating your JSON schema with YAML.
-* [JSON Schema](http://json-schema.org) - The JSON Schema spec.
-* [Understanding JSON Schema](https://spacetelescope.github.io/understanding-json-schema/) - A tutorial to help understand how to write JSON Schema.
-* [Buildkite CLI](https://github.com/buildkite/cli) - A command line tool that can run Buildkite pipeline steps entirely locally.
 
