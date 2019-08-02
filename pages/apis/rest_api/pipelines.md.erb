@@ -45,7 +45,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
     "running_builds_count": 0,
     "scheduled_jobs_count": 0,
     "running_jobs_count": 0,
-    "waiting_jobs_count": 0
+    "waiting_jobs_count": 0,
+    "visibility": "private"
   }
 ]
 ```
@@ -96,6 +97,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
   "scheduled_jobs_count": 0,
   "running_jobs_count": 0,
   "waiting_jobs_count": 0,
+  "visibility": "private"
   "steps": [
     {
       "type": "script",
@@ -272,7 +274,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
   "running_jobs_count": 0,
-  "waiting_jobs_count": 0
+  "waiting_jobs_count": 0,
+  "visibility": "private"
 }
 ```
 
@@ -401,7 +404,8 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
   "running_jobs_count": 0,
-  "waiting_jobs_count": 0
+  "waiting_jobs_count": 0,
+  "visibility": "private"
 }
 ```
 
@@ -409,17 +413,54 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>name</code></th><td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td></tr>
-  <tr><th><code>description</code></th><td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td></tr>
-  <tr><th><code>repository</code></th><td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td></tr>
-  <tr><th><code>steps</code></th><td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td></tr>
-  <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
-  <tr><th><code>provider_settings</code></th><td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
-  <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
-  <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
-  <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
-  <tr><th><code>cancel_running_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  <tr>
+    <th><code>name</code></th>
+    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>steps</code></th>
+    <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
+  </tr>
+  <tr>
+    <th><code>env</code></th>
+    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+  </tr>
+  <tr>
+    <th><code>provider_settings</code></th>
+    <td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+  </tr>
+  <tr>
+    <th><code>branch_configuration</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds</code></th>
+    <td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds</code></th>
+    <td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>visibility</code></th>
+    <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
+  </tr>
 </tbody>
 </table>
 
