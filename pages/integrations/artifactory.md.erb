@@ -71,7 +71,7 @@ export NPM_CONFIG_REGISTRY="https://${BUILDKITE_ARTIFACTORY_USER}:${BUILDKITE_AR
 
 You can use this same approach for [Ruby gem repositories](https://www.jfrog.com/confluence/display/RTF/RubyGems+Repositories), [Docker registries](https://www.jfrog.com/confluence/display/RTF/Docker+Registry), and any other Artifactory supported package managers.
 
-If you're running build steps in a Docker container, you’ll need to ensure the package management configuration is available inside the container. For example, if you're testing Node in a container, you'll need to pass through the above `NPM_CONFIG_REGISTRY` environment variable from above:
+If you're running build steps in a Docker container, you’ll need to ensure the package management configuration is available inside the container. For example, if you're testing Node in a container, you'll need to pass through the above `NPM_CONFIG_REGISTRY` environment variable into the container:
 
 ```yml
 steps:
