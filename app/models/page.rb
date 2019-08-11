@@ -32,7 +32,7 @@ class Page
       when "job.finished"
         "A job has finished"
       when "job.activated"
-        "A block step job has been unblocked"
+        "A block step job has been unblocked via the web or API"
       when "agent.connected"
         "An agent has connected"
       when "agent.lost"
