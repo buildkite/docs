@@ -1,18 +1,18 @@
-# AWS EventBridge
+# Amazon EventBridge
 
-Buildkite’s [AWS EventBridge](https://aws.amazon.com/eventbridge/) notification service lets you subscribe, in real-time, to Buildkite events from your AWS account.
+Buildkite’s [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification service lets you subscribe, in real-time, to Buildkite events from your AWS account.
 
 <%= toc %>
 
 ## Configuring
 
-From your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), Add an AWS EventBridge notification service:
+From your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), Add an Ama EventBridge notification service:
 
-<%= image "add-event-bridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite AWS EventBridge Button" %>
+<%= image "add-event-bridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
 
 Once you've entered your AWS region and AWS Account ID, a Partner Event Source will have been created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
 
-<%= image "bk-aws-event-bridge-notifications.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite AWS EventBridge Notification Settings" %>
+<%= image "bk-aws-event-bridge-notifications.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
 
 You can then start consuming the events in your AWS account using the two "Partner Event Sources Console" and "Event Rules" links, which take you to the relevant pages in your AWS Console.
 
@@ -98,7 +98,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-## Event Payloads
+## Example Event Payloads
 
 <h3 id="events-build-created">Build Created</h3>
 
