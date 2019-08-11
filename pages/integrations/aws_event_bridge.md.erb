@@ -6,13 +6,19 @@ Buildkite’s [AWS EventBridge](https://aws.amazon.com/eventbridge/) notificatio
 
 ## Configuring
 
-(click buttons in BK)
+From your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), Add an AWS EventBridge notification service:
 
-(configure AWS)
+<%= image "add-event-bridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite AWS EventBridge Button" %>
+
+Once you've entered your AWS region and AWS Account ID, a Partner Event Source will have been created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+
+<%= image "bk-aws-event-bridge-notifications.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite AWS EventBridge Notification Settings" %>
+
+You can then start consuming the events in your AWS account using the two "Partner Event Sources Console" and "Event Rules" links, which take you to the relevant pages in your AWS Console.
 
 ## Events
 
-The following events will be published to the configured event source:
+The following events are published to the partner event bus:
 
 <table>
 <thead>
@@ -34,9 +40,9 @@ The following events will be published to the configured event source:
 </tbody>
 </table>
 
-## Example: Logging events with CloudWatch Logs
+## Example: Logging events via CloudWatch Logs
 
-You can use following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target, which will log events to [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html):
+You can use following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target, to log events to [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html):
 
 ```js
 exports.handler = (event, context, callback) => {
@@ -45,9 +51,9 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-## Example: Tracking agent wait time with CloudWatch Metrics
+## Example: Tracking agent wait times via CloudWatch Metrics
 
-You can use following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target, which will publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
+You can use following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target, to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
 
 ```js
 const AWS = require("aws-sdk");
