@@ -344,24 +344,6 @@ How many times this job has been retried. The value cannot be modified.
 
 Example: `"0"`
 
-<h3 class="h3-caps">BUILDKITE_SHELL</h3>
-
-The value of the `shell` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Example: `"/bin/bash -e -c"`
-
-<h3 class="h3-caps">BUILDKITE_SOURCE</h3>
-
-The source of the event that created the build. The value cannot be modified.
-
-Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
-
-<h3 class="h3-caps">BUILDKITE_SSH_KEYSCAN</h3>
-
-The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Values: `"true"` and `"false"`
-
 <h3 class="h3-caps">BUILDKITE_S3_ACCESS_KEY_ID</h3>
 
 The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
@@ -391,6 +373,24 @@ Default: `"us-east-1"`
 The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
+
+<h3 class="h3-caps">BUILDKITE_SHELL</h3>
+
+The value of the `shell` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"/bin/bash -e -c"`
+
+<h3 class="h3-caps">BUILDKITE_SOURCE</h3>
+
+The source of the event that created the build. The value cannot be modified.
+
+Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
+
+<h3 class="h3-caps">BUILDKITE_SSH_KEYSCAN</h3>
+
+The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_TAG</h3>
 
