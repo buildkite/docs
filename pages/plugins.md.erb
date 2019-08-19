@@ -13,15 +13,24 @@ At the most basic, plugins are a snippet of code stored in [hooks](/docs/agent/v
 Some plugins allow configuration, this is usually defined in your pipeline.yml file and is read by the agent before the plugin hooks are run.
 
 There are two main types of plugins:
-- a repo of commands: stuff from the files can be referenced in your command scripts, like doing an import at the top of your code
-- stuff you want to run before/after you run your script (can define any of the available hooks like pre-command, command, post-command etc.)
+
+- stuff you want to run before/after you run your script (can define any of the available hooks like pre-command, command, post-command etc.) (login to a service, build an image, pull down some packages or an artifact)
+- a repo of commands: commands from the files can be referenced in your scripts, it works in a similar way to an import statement
+
+- automate a workflow?
 
 ## Common use cases
 
-- prebuilding a docker image, then using the image in subsequent steps
-- running steps in containers
-- assume a role before running your script
-- logging in to a service
+Below are some common use cases that can be automated with plugins. Existing plugins that perform these actions are linked to:
+
+- Building docker images for use in subsequent steps ([Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin))
+- Running steps in containers ([Docker](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin))
+- Running steps in vms or clusters ([Anka](https://github.com/chef/anka-buildkite-plugin),[Kubernetes](https://github.com/EmbarkStudios/k8s-buildkite-plugin))
+- Assuming a role before running a script ([Buildkite users](https://github.com/mgoodings/assume-identity-buildkite-plugin))
+- Logging in to a service ([ECR](https://github.com/buildkite-plugins/ecr-buildkite-plugin), [Docker](https://github.com/buildkite-plugins/docker-login-buildkite-plugin), [Azure](https://github.com/cevoaustralia/azure-login-buildkite-plugin))
+- Downloading packages ([Artifacts](https://github.com/buildkite-plugins/artifacts-buildkite-plugin), [S3 objects](https://github.com/coyainsurance/s3-cache-buildkite-plugin), )
+
+For more ideas of what can be done with plugins, check out the [Plugins Directory](https://buildkite.com/plugins).
 
 
 
