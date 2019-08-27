@@ -615,3 +615,73 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+## Timestamp attributes
+
+- there are quite a few different timestamps relating to time builds and jobs are created
+- they're available on both the graphql and rest apis
+- they differ slightly between builds and jobs
+- there are four main time values, these are available on both builds and jobs
+
+for a build, these are the provided timestamps
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>the time the build was created</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>the time the build was created</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>the time the build's first job was started by an agent?</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>the time the build is marked as finished (passed, failed, paused, cancelled)</td>
+  </tr>
+</tbody>
+</table>
+
+jobs also have an extra value
+
+<table>
+<tbody>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>the time when a job was ready to be accepted to be run on an agent (such as the previous group jobs passing, or the previous block step being unblocked)</td>
+  </tr>
+</tbody>
+</table>
+
+the complete job timestamps are:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>the time when the build was created (if a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp)</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>the time when the job was added to the build</td>
+  </tr>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>the time when a job was ready to be accepted to be run on an agent</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>the time the job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>the time the job is marked as finished (passed, failed, paused, cancelled)</td>
+  </tr>
+</tbody>
+</table>
+
+
