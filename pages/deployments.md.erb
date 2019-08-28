@@ -2,13 +2,15 @@
 
 There are many ways to set up both manual and continuous deployment workflows using Buildkite.
 
+For more detailed platform-specific deployment guides, see the [Heroku](/docs/deployments/deploying-to-heroku) and [Kubernetes](/docs/deployments/deploying-to-kubernetes) guides. 
+
 <%= toc %>
 
 ## Single deployment steps
 
 Adding a deployment step that runs after your tests pass is the simplest way to deploy from a Buildkite pipeline.
 
-The following example shows how to set up continuous deployment using a single step that runs after the tests pass. It uses [step-level branch filtering](/docs/pipelines/branch-configuration#step-level-branch-filtering) to perform continuous deployment on `master` branch builds, and uses [concurrency limiting](/docs/pipelines/controlling-concurrency) to ensure only one deployment runs at a time.
+The example `pipeline.yml` below shows how to set up deployment using a single step that runs after the tests pass. It uses [step-level branch filtering](/docs/pipelines/branch-configuration#step-level-branch-filtering) to perform continuous deployment on `master` branch builds, and uses [concurrency limiting](/docs/pipelines/controlling-concurrency) to ensure only one deployment runs at a time.
 
 ```yml
 steps:
@@ -28,16 +30,19 @@ steps:
 
 ## Dedicated deployment pipelines
 
-Creating dedicated deployment pipelines, separate to your test pipelines, makes it easier to:
+A dedicated deployment pipeline separates your deploy steps from any other testing and building steps. 
+
+Creating deployment pipelines makes it easier to:
 
 * Separate deployment failures from test failures
 * Separate test and deployment pipeline.yml files
 * Re-run failed deployments
 * Simplify adding rollback steps
+* Group other deploy-related tasks with the deployment steps
 * Use teams for role based access control
 * Whitelist deploy pipelines in agent hooks
 
-For example, the following "My App" test pipeline will trigger a deployment build whenever a master test build passes:
+For example, the following "My App" test pipeline will trigger a build on the "my-app-deployment" pipeline whenever a test build passes on `master`:
 
 ```yml
 steps:
@@ -51,7 +56,9 @@ steps:
     branches: "master"
 ```
 
-The deployment pipeline is configured to pipeline upload the following `.buildkite/pipeline.deploy.yml` file:
+The deployment pipeline is configured to pipeline upload the following  file:
+
+The "my-app-deployment" pipeline below is defined in the `.buildkite/pipeline.deploy.yml` file, and will run the `deploy` script when a build is triggered by the "my-app-test" pipeline above. 
 
 ```yml
 steps:
@@ -61,6 +68,8 @@ steps:
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
+
+The ":rocket:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no ":rocket:" steps can run in parallel. This prevents deploys clashing and attempting to write to the same resources. 
 
 <screenshot of a deploy pipeline>
 
