@@ -332,6 +332,130 @@ Optional [request body properties](/docs/api#request-body-properties):
 </tbody>
 </table>
 
+Provider settings properties
+
+Bitbucket and GitHub both have optional `provider_settings`. Other source providers such as Gitlab have no optional settings; however they will return the read-only `repository` field in the `provider_settings` object of a pipeline REST API response. 
+
+Properties available for Bitbucket Server:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>build_pull_requests</code></th>
+    <td>
+      Whether to create builds for commits that are part of a Pull Request.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>build_pull_requests</code></th>
+    <td>
+      Whether to create builds for commits that are part of a Pull Request.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>pull_request_branch_filter_enabled</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p>
+  </tr>
+  <tr>
+    <th><code>pull_request_branch_filter_configuration</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>skip_pull_request_builds_for_existing_commits</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status_per_step</code></th>
+    <td>
+      
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  </tbody>
+</table>
+
+Additional properties availble for GitHub:
+
+<table>
+  <tbody>
+    <tr>
+      <th><code>trigger_mode</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>filter_enabled</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>filter_condition</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_forks</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>prefix_pull_request_fork_branch_names</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>separate_pull_request_statuses</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>publish_blocked_as_pending</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+  </tbody>
+</table>
+
 Required scope: `write_pipelines`
 
 Success response: `201 Created`
