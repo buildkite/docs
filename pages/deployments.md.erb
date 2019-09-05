@@ -79,8 +79,32 @@ The ":rocket:" step in the deployment example above uses the concurrency attribu
 
 ## External deployment systems
 
-- can use anything for deployments like spinnaker, shipit, samson
-- k8s, heroku, ecs, github deployments
-- useful [plugins](/docs/pipelines/plugins) for deployments
+- k8s, heroku, ecs, github deployments (not just deployment stuff, but can be used to deploy stuff) put an image or container or somewhere to run
+
+- can use anything for deployments like spinnaker, shipit, samson (cd, specific rules for how to deploy your stuff) create a step to trigger a deployment from your buildkite pipeline (deployment orchestration)
+
+- useful [plugins](/docs/pipelines/plugins) for deployments (ECS deploy, lambda deploy)
+
+- below example is a dedicated deployment pipeline, takes a prebuilt image pushed to ECR in the pipeline that triggered this build, find it using the commit that got passed through to this build, uses the task definition specified it deploys the image to ECS
+
+```
+steps:
+  - block: "Release to production?"
+  - label: ":ecs: :rocket:"
+    concurrency_group: "rails-app-deploy"
+    concurrency: 1
+    plugins:
+      - ecs-deploy#v1.3.0:
+        cluster: "production"
+        service: "app"
+        task-definition: "production-deploy/rails-app.json"
+        task-family: "rails-app"
+        image: "${ECR_REPOSITORY}/rails-app:${BUILDKITE_COMMIT}"
+        task-role-arn: "deployer"
+        deployment-configuration: "100/200"
+```
+
 - check out our plugins page for deploy things, if there's no plugin for your service/platform, add one!
-- code sample of a deploy step using one of the above tools
+
+
+
