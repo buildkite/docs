@@ -79,13 +79,20 @@ The ":rocket:" step in the deployment example above uses the concurrency attribu
 
 ## External deployment systems
 
-- k8s, heroku, ecs, github deployments (not just deployment stuff, but can be used to deploy stuff) put an image or container or somewhere to run
+- can use any external systems alongside buildkite to perform your deployments
 
-- can use anything for deployments like spinnaker, shipit, samson (cd, specific rules for how to deploy your stuff) create a step to trigger a deployment from your buildkite pipeline (deployment orchestration)
+- deploy images or containers to services like kubernetes, heroku, ecs, and github deployments
+- can deploy your containers directly from a buildkite command step using either the single deploy step or the dedicated pipeline patterns discussed above
 
-- useful [plugins](/docs/pipelines/plugins) for deployments (ECS deploy, lambda deploy)
+- there are [plugins](/docs/pipelines/plugins) available for deployments: [ECS deploy] and [lambda deploy]
+- use these in place of scripts to perform your deploys, they have inbuilt params to send all of the data you need to deploy
 
-- below example is a dedicated deployment pipeline, takes a prebuilt image pushed to ECR in the pipeline that triggered this build, find it using the commit that got passed through to this build, uses the task definition specified it deploys the image to ECS
+- the below code is an example of a dedicated pipeline to deploy an image to ECS
+- it would be triggered by a pipeline that performed other actions like running tests and building the image
+- a block step holds the deploy off until it is unblocked via Buildkite or a call to the REST API or GraphQL API. 
+- the deploy step takes the prebuilt image that had been pushed to ECR when it was built
+- the image is named using the commit from the build that built the image, the triggering build passes through the commit number in the `BUILDKITE_COMMIT` environment variable 
+- the task definition specified is used to deploy the image to ECS
 
 ```
 steps:
@@ -104,7 +111,11 @@ steps:
         deployment-configuration: "100/200"
 ```
 
-- check out our plugins page for deploy things, if there's no plugin for your service/platform, add one!
+- check out the [plugins directory](https://buildkite.com/plugins), if there's no plugin for your deployment service of choice, add one!
+
+- can also use continuous deployment services like spinnaker, shipit, or samson (cd, specific rules for how to deploy your stuff) create a step to trigger a deployment from your buildkite pipeline 
+
+
 
 
 
