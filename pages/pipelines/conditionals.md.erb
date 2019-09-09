@@ -35,63 +35,63 @@ steps:
  - Function calls foo("bar")
  - Prefixes: !
 
- - note: arrays are not supported
+note: arrays are not supported
 
 ## Supported Variables
 
 <table>
 <tbody>
 	<tr>
-		<td>build.id</td>
-		<td></td>
+		<td><code>build.id</code></td>
+		<td>The ID of the current build</td>
 	</tr>
 	<tr>
-		<td>build.state</td>
-		<td></td>
+		<td><code>build.state</code></td>
+		<td>The state of the current build</td>
 	</tr>
 	<tr>
-		<td>build.branch</td>
-		<td></td>
+		<td><code>build.branch</code></td>
+		<td>The branch on which this build is created from</td>
 	</tr>
 	<tr>
-		<td>build.tag</td>
-		<td></td>
+		<td><code>build.tag</code></td>
+		<td>The tag associated with the commit the current build is based on, otherwise null</td>
 	</tr>
 	<tr>
-		<td>build.message</td>
-		<td></td>
+		<td><code>build.message</code></td>
+		<td>The current build's message</td>
 	</tr>
 	<tr>
-		<td>build.commit</td>
-		<td></td>
+		<td><code>build.commit</code></td>
+		<td>The commit number of the commit the current build is based on</td>
 	</tr>
 	<tr>
-		<td>build.number</td>
-		<td></td>
+		<td><code>build.number</code></td>
+		<td>The number of the current build</td>
 	</tr>
 	<tr>
-		<td>pipeline.id</td>
-		<td></td>
+		<td><code>pipeline.id</code></td>
+		<td>The ID of the pipeline the current build is from</td>
 	</tr>
 	<tr>
-		<td>pipeline.slug</td>
-		<td></td>
+		<td><code>pipeline.slug</code></td>
+		<td>The slug of the pipeline the current build is from</td>
 	</tr>
 	<tr>
-		<td>pipeline.default_branch</td>
-		<td></td>
+		<td><code>pipeline.default_branch</code></td>
+		<td>The default branch of the pipeline the current build is from</td>
 	</tr>
 	<tr>
-		<td>pipeline.repository</td>
-		<td></td>
+		<td><code>pipeline.repository</code></td>
+		<td>The repository of the pipeline the current build is from</td>
 	</tr>
 	<tr>
-		<td>organization.id</td>
-		<td></td>
+		<td><code>organization.id</code></td>
+		<td>The ID of the organization the current build is running in</td>
 	</tr>
 	<tr>
-		<td>organization.slug</td>
-		<td></td>
+		<td><code>organization.slug</code></td>
+		<td>The slug of the organization the current build is running in</td>
 	</tr>
 </tbody>
 </table>
