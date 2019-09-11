@@ -11,19 +11,32 @@
 - use the `if` param to conditionally run a step
 - the below example will only run the `tests` step if the build message doesn't contain the string "skip me"
 
-```
+```yml
 steps:
 	- command: ./scripts/tests.sh
 	  label: tests
-	  - if:
-	  	build.message != "skip me"
+	  if: build.message != "skip me"
 ```
 
 - use it in any step type
 - any of the supported expressions and parameters
-- cannot be used at the same time as the `branch` parameter
+- cannot be used at the same time as the `branches` parameter
+
+- can be multi-line, use the | character on the first line to specify the continuation
+
+```yml
+steps:
+    - command: ./scripts/tests.sh
+      label: tests
+      if: |
+        // this is a comment
+        build.message != "skip me"
+```
 
 ## Supported Expressions
+
+- the below expressions are available for use in the `if` parameter
+- when using regex, it must be on the righthand side of the operator used
 
  - Comparators: == != =~ !~
  - Logical operators: || &&
@@ -32,7 +45,6 @@ steps:
  - Booleans true false
  - Parenthesis to control order of evaluation ( )
  - Regular expressions /^v1\.0/
- - Function calls foo("bar")
  - Prefixes: !
 
 note: arrays are not supported
