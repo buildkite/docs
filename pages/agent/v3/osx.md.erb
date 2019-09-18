@@ -72,6 +72,11 @@ launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 tail -f ~/.buildkite-agent/log/buildkite-agent.log
 ```
 
+<section class="Docs__troubleshooting-note">
+  <p>launchctl fails with "Could not find domain for"</p>
+  <p>Ensure that you're logged in to the GUI, then rerun `launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist`.</p>
+</section>
+
 ## Upgrading
 
 If you installed the agent using Homebrew you can use the standard brew upgrade command to update the agent:
