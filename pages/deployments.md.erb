@@ -69,13 +69,33 @@ steps:
     concurrency_limit: 1
 ```
 
-The ":rocket:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no ":rocket:" steps can run in parallel. This prevents deploys clashing and attempting to write to the same resources. 
+The ":rocket:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no ":rocket:" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
 
 <screenshot of a deploy pipeline>
 
-## Gated deployments
+## Manual approval steps
 
+Adding a manual approval to your pipeline before your deployment ensures that a deploy never goes out without explicit approval.
 
+To create a manual approval for your deploy, add a block step before your deploy step or before the step that triggers your deploy pipeline. 
+
+The below example uses the same pipeline as the [Single deployment step](/docs/deployments#single-deployment-step) section, but adds a block step before the step that performs the deploy:
+
+```
+steps:
+  - label: ":hammer:"
+    command: "scripts/test"
+  
+  - block: "Unblock deployment?"
+  
+  - label: ":rocket:"
+    command: "scripts/deploy"
+    branches: "master"
+    concurrency_group: "my-app-deploy"
+    concurrency_limit: 1
+```
+
+Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the ":rocket:" deployment step will not run.
 
 ## External deployment systems
 
