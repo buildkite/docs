@@ -1,15 +1,14 @@
 # Conditionals
 
-- the `if` parameter provides the ability to conditionally run steps
-- using c-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances
-- can be used in all YAML-based pipelines
+The `if` parameter provides the ability to conditionally run steps.  Using c-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
 
 <%= toc %>
 
 ## `if` Syntax
 
-- use the `if` param to conditionally run a step
-- the below example will only run the `tests` step if the build message doesn't contain the string "skip me"
+Use the `if` attribute in your pipeline's YAML to conditionally run a step.
+
+In the below example, the `tests` step will only be run if the build message does not contain the string "skip me".
 
 ```yml
 steps:
@@ -18,38 +17,70 @@ steps:
 	  if: build.message != "skip me"
 ```
 
-- use it in any step type
-- any of the supported expressions and parameters
-- cannot be used at the same time as the `branches` parameter
+The `if` attribute can be used in any step type, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
 
-- can be multi-line, use the | character on the first line to specify the continuation
+Multi-line conditionals can be added with the `|` character:
 
 ```yml
 steps:
     - command: ./scripts/tests.sh
       label: tests
       if: |
-        // this is a comment
-        build.message != "skip me"
+        build.message != "skip me" &&
+        build.branch == /^feature\/.+/
+
 ```
 
 ## Supported Expressions
 
-- the below expressions are available for use in the `if` parameter
-- when using regex, it must be on the righthand side of the operator used
+The below expressions are supported by the `if` attribute:
 
- - Comparators: == != =~ !~
- - Logical operators: || &&
- - Integers 12345
- - Strings 'foobar' or "foobar"
- - Booleans true false
- - Parenthesis to control order of evaluation ( )
- - Regular expressions /^v1\.0/
- - Prefixes: !
+ <table>
+ 	<tbody>
+ 		<tr>
+ 			<th>Expression</th>
+ 			<th>Example</th>
+ 		</tr>
+ 		<tr>
+ 			<td>Comparators</td>
+ 			<td><code>== != =~ !~</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Logical operators</td>
+ 			<td><code>|| &&</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Integers</td>
+ 			<td><code>12345</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Strings</td>
+ 			<td><code>'feature-branch' "feature-branch"</code></td>
+ 		</tr>
+		<tr>
+ 			<td>Booleans</td>
+ 			<td><code>true false</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Parentheses</td>
+ 			<td><code>( )</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Regular expressions</td>
+ 			<td><code>/^v1\.0/</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Prefixes</td>
+ 			<td><code>!</code></td>
+ 		</tr>
+ 	</tbody>
+ </table>
 
-note: arrays are not supported
+Arrays and functions are not currently supported. Please note that when using regex, the expression must be on the right-hand side of the operator.
 
 ## Supported Variables
+
+The below variables are supported by the `if` attribute:
 
 <table>
 <tbody>
@@ -107,25 +138,3 @@ note: arrays are not supported
 	</tr>
 </tbody>
 </table>
-
-## Examples
-
-```
-// comments look like this!
-
-// individual terms
-true
-false
-
-// compare values
-"not-master" == "master"
-"toast" != "v1.0.0"
-"blah" == 'blah'
-
-// regular expression matches
-env("BUILDKITE_MESSAGE") =~ /please/i
-
-// complex expressions
-(env("BUILDKITE_TAG") =~ ^v) ||
-  (env("BUILDKITE_BRANCH") == "bar")
-```
