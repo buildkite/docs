@@ -322,7 +322,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>description</code></th><td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td></tr>
   <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
-  <tr><th><code>provider_settings</code></th><td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+  <tr><th><code>provider_settings</code></th><td>The source provider settings. See the Provider Settings tables below for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
   <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
@@ -334,7 +334,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 Provider settings properties
 
-Bitbucket and GitHub both have optional `provider_settings`. Other source providers such as Gitlab have no optional settings; however they will return the read-only `repository` field in the `provider_settings` object of a pipeline REST API response. 
+Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`. Other source providers such as Gitlab have no optional settings; however they will return the read-only `repository` field in the `provider_settings` object of a pipeline REST API response. 
 
 Properties available for Bitbucket Server:
 
@@ -419,14 +419,14 @@ Additional properties availble for GitHub:
     <tr>
       <th><code>filter_enabled</code></th>
       <td>
-        
+        Whether filter conditions are being used for this step.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>
       <th><code>filter_condition</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p>
+        The [conditions](/docs/pipelines/conditionals) under which this step will run.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.message != 'skip'"</code></p>
       </td>
     </tr>
     <tr>
