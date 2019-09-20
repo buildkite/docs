@@ -99,10 +99,11 @@ Until the block step is manually unblocked either in Buildkite or via an API cal
 
 ## External deployment systems
 
-- can use any external systems alongside buildkite to perform your deployments
+As well as writing deployment scripts, you can use any external systems alongside Buildkite to perform your deployments.
 
-- deploy images or containers to services like kubernetes, heroku, ecs, and github deployments
-- can deploy your containers directly from a buildkite command step using either the single deploy step or the dedicated pipeline patterns discussed above
+You can deploy images or containers to services like Kubernetes, Heroku, ECS, or Github Deployments. Deploy your containers directly from a script in a Buildkite command step using either the single deploy step pattern or the dedicated pipeline pattern discussed above.
+
+For a more detailed walk-through with examples, we have deployment guides for [Heroku](/docs/deployments/deploying-to-heroku) and [Kubernetes](/docs/deployments/deploying-to-kubernetes). 
 
 - there are [plugins](/docs/pipelines/plugins) available for deployments: [ECS deploy] and [lambda deploy]
 - use these in place of scripts to perform your deploys, they have inbuilt params to send all of the data you need to deploy
@@ -131,9 +132,9 @@ steps:
         deployment-configuration: "100/200"
 ```
 
-- check out the [plugins directory](https://buildkite.com/plugins), if there's no plugin for your deployment service of choice, add one!
+Check out the [plugins directory](https://buildkite.com/plugins) for newly added deployment plugins. If there's no plugin for your deployment service of choice, we'd love it if you added one! 
 
-- can also use continuous deployment services like spinnaker, shipit, or samson (cd, specific rules for how to deploy your stuff) create a step to trigger a deployment from your buildkite pipeline 
+For more complex environments, you can use continuous deployment services like Spinnaker, Shipit, or Samson. As with container-based external deployment systems, you can create a step in your Buildkite pipeline to trigger your deployment in your CD service.  
 
 
 
