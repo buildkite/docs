@@ -62,6 +62,15 @@ _Optional attributes:_
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_CANCEL_GRACE_PERIOD</code></p>
       </td>
     </tr>
+
+    <tr>
+      <th><code>cancel-signal</code></th>
+      <td>
+        The signal to use for cancellation
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>SIGTERM</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_CANCEL_SIGNAL</code></p>
+      </td>
+    </tr>
     
     <tr>
       <th><code>debug</code></th>
@@ -87,15 +96,6 @@ _Optional attributes:_
         Disconnect after processing a single job
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></p>
-      </td>
-    </tr>
-
-    <tr>
-      <th><code>disconnect-after-job-timeout</code></th>
-      <td>
-        When `disconnect-after-job` is specified, the number of seconds to wait for a job before shutting down
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
       </td>
     </tr>
 
@@ -138,36 +138,39 @@ _Optional attributes:_
     <tr>
       <th><code>git-clone-mirror-flags</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Flags to pass to the <code>git clone</code> command when used for mirroring. This is an experimental flag. <br>
+        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>git-fetch-flags</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Flags to pass to the <code>git fetch</code> command
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v --prune"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_FETCH_FLAGS</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>git-mirrors-lock-timeout</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Seconds to lock a git mirror during clone, should exceed your longest checkout. This is an experimental flag. <br>
+        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>300</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>git-mirrors-path</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Path to where mirrors of git repositories are stored. This is an experimental flag. <br>
+        Must set the <code>experiment</code> option with the <code>git-mirror</code> value.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>???</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_PATH</code></p>
       </td>
     </tr>
 
@@ -183,27 +186,27 @@ _Optional attributes:_
     <tr>
       <th><code>log-format</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        The format to use for the logger output
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>text</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_LOG_FORMAT</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>metrics-datadog</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Send metrics to DogStatsD for Datadog
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>metrics-datadog-host</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        The DogStatsD instance to send metrics to via udp
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>127.0.0.1:8125</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG_HOST</code></p>
       </td>
     </tr>
 
@@ -237,18 +240,18 @@ _Optional attributes:_
     <tr>
       <th><code>no-git-submodules</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Do not automatically checkout git submodules
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_GIT_SUBMODULES, BUILDKITE_DISABLE_GIT_SUBMODULES</code></p>
       </td>
     </tr>
 
     <tr>
       <th><code>no-http2</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Disable HTTP2 when communicating with the Agent API.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_HTTP2</code></p>
       </td>
     </tr>
 
@@ -273,9 +276,9 @@ _Optional attributes:_
     <tr>
       <th><code>no-plugin-validation</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Do not validate plugin configuration and requirements
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGIN_VALIDATION</code></p>
       </td>
     </tr>
 
@@ -291,7 +294,7 @@ _Optional attributes:_
     <tr>
       <th><code>no-ssh-keyscan</code></th>
       <td>
-        Don't automatically run ssh-keyscan before checkout
+        Do not automatically run ssh-keyscan before checkout
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_SSH_KEYSCAN</code></p>
       </td>
@@ -327,9 +330,9 @@ _Optional attributes:_
     <tr>
       <th><code>spawn</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        The number of agents to spawn in parallel
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>1</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_SPAWN</code></p>
       </td>
     </tr>
 
@@ -361,15 +364,6 @@ _Optional attributes:_
     </tr>
 
     <tr>
-      <th><code>wait-for-ec2-tags-timeout</code></th>
-      <td>
-        The amount of time to wait for tags from EC2 before proceeding
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>10s</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code></p>
-      </td>
-    </tr>
-
-    <tr>
       <th><code>tags-from-gcp</code></th>
       <td>
         Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)
@@ -381,9 +375,9 @@ _Optional attributes:_
     <tr>
       <th><code>tags-from-gcp-labels</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        Include the host's Google Cloud instance labels as tags
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS</code></p>
       </td>
     </tr>
 
@@ -406,11 +400,20 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>wait-for-ec2-tags-timeout</code></th>
+      <td>
+        The amount of time to wait for tags from EC2 before proceeding
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>10s</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>wait-for-gcp-labels-timeout</code></th>
       <td>
-        
-        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+        The amount of time to wait for labels from GCP before proceeding
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>10s</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_WAIT_FOR_GCP_LABELS_TIMEOUT</code></p>
       </td>
     </tr>
   </tbody>
@@ -420,6 +423,15 @@ _Optional attributes:_
 
 <table>
   <tbody>
+    <tr>
+      <th><code>disconnect-after-job-timeout</code></th>
+      <td>
+        When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>120</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_JOB_TIMEOUT</code></p>
+      </td>
+    </tr>
+
     <tr>
       <th><code>meta-data</code></th>
       <td>
@@ -444,6 +456,16 @@ _Optional attributes:_
       <th><code>meta-data-ec2-tags</code></th>
       <td>
         Include the host's EC2 tags as meta-data
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
+        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2-tags</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>meta-data-gcp</code></th>
+      <td>
+        Include the host's GCP meta-data as meta-data
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
         <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2-tags</code></p>
