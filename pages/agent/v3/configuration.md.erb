@@ -100,6 +100,24 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>endpoint</code></th>
+      <td>
+        The Agent endpoint.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"https://agent.buildkite.com/v3"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_ENDPOINT</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>experiment</code></th>
+      <td>
+        A list of the experimental agent features to enable.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"experiment1,experiment2"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_EXPERIMENT</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>git-clean-flags</code></th>
       <td>
         Flags to pass to the <code>git clean</code> command. Prior to 3.0 this defaulted to <code>"-fdq"</code>
@@ -118,11 +136,74 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>git-clone-mirror-flags</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-fetch-flags</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-mirrors-lock-timeout</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>git-mirrors-path</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>hooks-path</code></th>
       <td>
         Directory where the global hook scripts are found
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>log-format</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>metrics-datadog</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>metrics-datadog-host</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
       </td>
     </tr>
 
@@ -154,6 +235,24 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>no-git-submodules</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-http2</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>no-local-hooks</code></th>
       <td>
         Do not execute any local hooks
@@ -168,6 +267,15 @@ _Optional attributes:_
         Do not load any plugins
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGINS</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>no-plugin-validation</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
       </td>
     </tr>
 
@@ -217,6 +325,15 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>spawn</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>tags</code></th>
       <td>
         Tags for the agent
@@ -262,6 +379,15 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>tags-from-gcp-labels</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>tags-from-host</code></th>
       <td>
         Include the host's meta-data as tags (hostname, machine-id, and os)
@@ -276,6 +402,15 @@ _Optional attributes:_
         Prepend timestamps on each line of output
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TIMESTAMP_LINES</code></p>
+      </td>
+    </tr>
+
+    <tr>
+      <th><code>wait-for-gcp-labels-timeout</code></th>
+      <td>
+        
+        <p class="Docs__api-param-eg"><em>Default:</em> <code></code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_</code></p>
       </td>
     </tr>
   </tbody>
