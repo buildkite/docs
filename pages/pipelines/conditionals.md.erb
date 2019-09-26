@@ -28,7 +28,7 @@ steps:
           build.branch == /^feature\/.+/
 ```
 
-## Supported Expressions
+## Supported expressions
 
 The below expressions are supported by the `if` attribute:
 
@@ -75,7 +75,7 @@ The below expressions are supported by the `if` attribute:
 <p>When using regex, the expression must be on the right-hand side of the operator.</p>
 </div>
 
-## Supported Variables
+## Supported variables
 
 The below variables are supported by the `if` attribute:
 
@@ -146,45 +146,45 @@ The below variables are supported by the `if` attribute:
 
 ## Example expressions
 
-To run only when the branch matches `master` or `production`:
+To run only when the branch is `master` or `production`:
 
-```
+```js
 build.branch == "master" || build.branch == "production"
 ```
 
 To run only when the branch is not `production`:
 
-```
+```js
 build.branch != "production"
 ```
 
 To run only when the branch starts with `features/`:
 
-```
+```js
 build.branch =~ /features\/.+/
 ```
 
 To run only when the branch ends with `/release-123`, such as `feature-123/release-123`:
 
-```
+```js
 build.branch =~ /.+\/release-123/
 ```
 
 To run only when the build's tag begins with a `v` and ends with a `.0`, such as `v1.0`:
 
-```
+```js
 build.tag =~ /v[0-9]+\.0/
 ```
 
-To run only on builds that are tagged:
+To run only when building a tag:
 
-```
+```js
 build.tag != null
 ```
 
-To run only if the message contains the words "build me", case insensitive:
+To run only if the message contains `[skip tests]`, case insensitive:
 
-```
-build.message =~ /build me/i
+```js
+build.message !~ /\[skip tests\]/i
 ```
 
