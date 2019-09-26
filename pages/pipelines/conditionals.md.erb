@@ -1,0 +1,200 @@
+# Using Conditionals
+
+The `if` parameter provides the ability to conditionally run steps.  Using c-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
+
+<%= toc %>
+
+Use the `if` attribute in your pipeline's YAML to conditionally run a step.
+
+In the below example, the `tests` step will only be run if the build message does not contain the string "skip tests".
+
+```yml
+steps:
+	- command: ./scripts/tests.sh
+	  label: tests
+	  if: build.message != "skip tests"
+```
+
+The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
+
+Multi-line conditionals can be added with the `|` character:
+
+```yml
+steps:
+    - command: ./scripts/tests.sh
+      label: tests
+      if: |
+      	// Don't when the message contains "skip tests"
+      	// Only run on feature branches
+        build.message != "skip tests" &&
+          build.branch == /^feature\/.+/
+```
+
+## Supported syntax
+
+The below expressions are supported by the `if` attribute:
+
+ <table>
+ 	<tbody>
+ 		<tr>
+ 			<td>Comparators</td>
+ 			<td><code>== != =~ !~</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Logical operators</td>
+ 			<td><code>|| &&</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Integers</td>
+ 			<td><code>12345</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Strings</td>
+ 			<td><code>'feature-branch' "feature-branch"</code></td>
+ 		</tr>
+		<tr>
+ 			<td>Booleans</td>
+ 			<td><code>true false</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Null</td>
+ 			<td><code>null</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Parentheses</td>
+ 			<td><code>( )</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Regular expressions</td>
+ 			<td><code>/^v1\.0/</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Prefixes</td>
+ 			<td><code>!</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Comments</td>
+ 			<td><code>// This is a comment</code></td>
+ 		</tr>
+ 	</tbody>
+ </table>
+
+
+
+<div class="Docs__note">
+<p>When using regex, the expression must be on the right-hand side of the operator.</p>
+</div>
+
+## Supported variables
+
+The below variables are supported by the `if` attribute:
+
+<table>
+<tbody>
+	<tr>
+		<td><code>build.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the current build</td>
+	</tr>
+	<tr>
+		<td><code>build.branch</code></td>
+		<td><code>String</code></td>
+		<td>The branch on which this build is created from</td>
+	</tr>
+	<tr>
+		<td><code>build.tag</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The tag associated with the commit the current build is based on</td>
+	</tr>
+	<tr>
+		<td><code>build.message</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The current build's message</td>
+	</tr>
+	<tr>
+		<td><code>build.commit</code></td>
+		<td><code>String</code></td>
+		<td>The commit number of the commit the current build is based on</td>
+	</tr>
+	<tr>
+		<td><code>build.number</code></td>
+		<td><code>Integer</code></td>
+		<td>The number of the current build</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the pipeline the current build is from</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.slug</code></td>
+		<td><code>String</code></td>
+		<td>The slug of the pipeline the current build is from</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.default_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The default branch of the pipeline the current build is from</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.repository</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The repository of the pipeline the current build is from</td>
+	</tr>
+	<tr>
+		<td><code>organization.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the organization the current build is running in</td>
+	</tr>
+	<tr>
+		<td><code>organization.slug</code></td>
+		<td><code>String</code></td>
+		<td>The slug of the organization the current build is running in</td>
+	</tr>
+</tbody>
+</table>
+
+## Example expressions
+
+To run only when the branch is `master` or `production`:
+
+```js
+build.branch == "master" || build.branch == "production"
+```
+
+To run only when the branch is not `production`:
+
+```js
+build.branch != "production"
+```
+
+To run only when the branch starts with `features/`:
+
+```js
+build.branch =~ /features\/.+/
+```
+
+To run only when the branch ends with `/release-123`, such as `feature/release-123`:
+
+```js
+build.branch =~ /.+\/release-123/
+```
+
+To run only when building a tag:
+
+```js
+build.tag != null
+```
+
+To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
+
+```js
+build.tag =~ /v[0-9]+\.0/
+```
+
+To run only if the message contains `[skip tests]`, case insensitive:
+
+```js
+build.message !~ /\[skip tests\]/i
+```
+
