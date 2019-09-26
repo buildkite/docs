@@ -6,16 +6,16 @@ The `if` parameter provides the ability to conditionally run steps.  Using c-lik
 
 Use the `if` attribute in your pipeline's YAML to conditionally run a step.
 
-In the below example, the `tests` step will only be run if the build message does not contain the string "skip me".
+In the below example, the `tests` step will only be run if the build message does not contain the string "skip tests".
 
 ```yml
 steps:
 	- command: ./scripts/tests.sh
 	  label: tests
-	  if: build.message != "skip me"
+	  if: build.message != "skip tests"
 ```
 
-The `if` attribute can be used in any step type, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
+The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
 
 Multi-line conditionals can be added with the `|` character:
 
@@ -24,9 +24,9 @@ steps:
     - command: ./scripts/tests.sh
       label: tests
       if: |
-      	// Don't when the message contains "skip me"
+      	// Don't when the message contains "skip tests"
       	// Only run on feature branches
-        build.message != "skip me" &&
+        build.message != "skip tests" &&
           build.branch == /^feature\/.+/
 ```
 
@@ -55,6 +55,10 @@ The below expressions are supported by the `if` attribute:
 		<tr>
  			<td>Booleans</td>
  			<td><code>true false</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Null</td>
+ 			<td><code>null</code></td>
  		</tr>
  		<tr>
  			<td>Parentheses</td>
@@ -176,16 +180,16 @@ To run only when the branch ends with `/release-123`, such as `feature/release-1
 build.branch =~ /.+\/release-123/
 ```
 
-To run only when the build's tag begins with a `v` and ends with a `.0`, such as `v1.0`:
-
-```js
-build.tag =~ /v[0-9]+\.0/
-```
-
 To run only when building a tag:
 
 ```js
 build.tag != null
+```
+
+To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
+
+```js
+build.tag =~ /v[0-9]+\.0/
 ```
 
 To run only if the message contains `[skip tests]`, case insensitive:
