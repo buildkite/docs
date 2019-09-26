@@ -27,7 +27,7 @@ steps:
       label: tests
       if: |
         build.message != "skip me" &&
-        build.branch == /^feature\/.+/
+          build.branch == /^feature\/.+/
 ```
 
 ## Supported Expressions
@@ -89,50 +89,62 @@ The below variables are supported by the `if` attribute:
 <tbody>
 	<tr>
 		<td><code>build.id</code></td>
+		<td><code>String</code></td>
 		<td>The ID of the current build</td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
+		<td><code>String</code></td>
 		<td>The branch on which this build is created from</td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
-		<td>The tag associated with the commit the current build is based on, otherwise null</td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The tag associated with the commit the current build is based on</td>
 	</tr>
 	<tr>
 		<td><code>build.message</code></td>
+		<td><code>String</code>, <code>null</code></td>
 		<td>The current build's message</td>
 	</tr>
 	<tr>
 		<td><code>build.commit</code></td>
+		<td><code>String</code></td>
 		<td>The commit number of the commit the current build is based on</td>
 	</tr>
 	<tr>
 		<td><code>build.number</code></td>
+		<td><code>Integer</code></td>
 		<td>The number of the current build</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.id</code></td>
+		<td><code>String</code></td>
 		<td>The ID of the pipeline the current build is from</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.slug</code></td>
+		<td><code>String</code></td>
 		<td>The slug of the pipeline the current build is from</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.default_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
 		<td>The default branch of the pipeline the current build is from</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.repository</code></td>
+		<td><code>String</code>, <code>null</code></td>
 		<td>The repository of the pipeline the current build is from</td>
 	</tr>
 	<tr>
 		<td><code>organization.id</code></td>
+		<td><code>String</code></td>
 		<td>The ID of the organization the current build is running in</td>
 	</tr>
 	<tr>
 		<td><code>organization.slug</code></td>
+		<td><code>String</code></td>
 		<td>The slug of the organization the current build is running in</td>
 	</tr>
 </tbody>
