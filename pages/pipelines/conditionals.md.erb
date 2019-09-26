@@ -143,3 +143,48 @@ The below variables are supported by the `if` attribute:
 	</tr>
 </tbody>
 </table>
+
+## Example expressions
+
+To run only when the branch matches `master` or `production`:
+
+```
+build.branch == "master" || build.branch == "production"
+```
+
+To run only when the branch is not `production`:
+
+```
+build.branch != "production"
+```
+
+To run only when the branch starts with `features/`:
+
+```
+build.branch =~ /features\/.+/
+```
+
+To run only when the branch ends with `/release-123`, such as `feature-123/release-123`:
+
+```
+build.branch =~ /.+\/release-123/
+```
+
+To run only when the build's tag begins with a `v` and ends with a `.0`, such as `v1.0`:
+
+```
+build.tag =~ /v[0-9]+\.0/
+```
+
+To run only on builds that are tagged:
+
+```
+build.tag != null
+```
+
+To run only if the message contains the words "build me", case insensitive:
+
+```
+build.message =~ /build me/i
+```
+
