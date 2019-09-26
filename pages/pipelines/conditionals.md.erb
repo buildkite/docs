@@ -24,6 +24,8 @@ steps:
     - command: ./scripts/tests.sh
       label: tests
       if: |
+      	// Don't when the message contains "skip me"
+      	// Only run on feature branches
         build.message != "skip me" &&
           build.branch == /^feature\/.+/
 ```
@@ -65,6 +67,10 @@ The below expressions are supported by the `if` attribute:
  		<tr>
  			<td>Prefixes</td>
  			<td><code>!</code></td>
+ 		</tr>
+ 		<tr>
+ 			<td>Comments</td>
+ 			<td><code>// This is a comment</code></td>
  		</tr>
  	</tbody>
  </table>
@@ -164,7 +170,7 @@ To run only when the branch starts with `features/`:
 build.branch =~ /features\/.+/
 ```
 
-To run only when the branch ends with `/release-123`, such as `feature-123/release-123`:
+To run only when the branch ends with `/release-123`, such as `feature/release-123`:
 
 ```js
 build.branch =~ /.+\/release-123/
