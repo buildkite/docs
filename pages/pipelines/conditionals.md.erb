@@ -1,10 +1,10 @@
-# Conditionals
+# Using Conditionals
 
 The `if` parameter provides the ability to conditionally run steps.  Using c-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
 
 <%= toc %>
 
-## `if` Syntax
+## Syntax
 
 Use the `if` attribute in your pipeline's YAML to conditionally run a step.
 
@@ -28,7 +28,6 @@ steps:
       if: |
         build.message != "skip me" &&
         build.branch == /^feature\/.+/
-
 ```
 
 ## Supported Expressions
@@ -76,7 +75,11 @@ The below expressions are supported by the `if` attribute:
  	</tbody>
  </table>
 
-Arrays and functions are not currently supported. Please note that when using regex, the expression must be on the right-hand side of the operator.
+
+
+<div class="Docs__note">
+<p>When using regex, the expression must be on the right-hand side of the operator.</p>
+</div>
 
 ## Supported Variables
 
@@ -87,10 +90,6 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.id</code></td>
 		<td>The ID of the current build</td>
-	</tr>
-	<tr>
-		<td><code>build.state</code></td>
-		<td>The state of the current build</td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
