@@ -1,6 +1,6 @@
 # Using Conditionals
 
-The `if` parameter provides the ability to conditionally run steps.  Using c-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
+The `if` parameter provides the ability to conditionally run steps.  Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
 
 <%= toc %>
 
@@ -12,7 +12,7 @@ In the below example, the `tests` step will only be run if the build message doe
 steps:
 	- command: ./scripts/tests.sh
 	  label: tests
-	  if: build.message != "skip tests"
+	  if: build.message !~ /skip tests/
 ```
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
@@ -26,8 +26,8 @@ steps:
       if: |
       	// Don't when the message contains "skip tests"
       	// Only run on feature branches
-        build.message != "skip tests" &&
-          build.branch == /^feature\/.+/
+        build.message !~ /skip tests/ &&
+          build.branch =~ /^feature\//
 ```
 
 ## Supported syntax
@@ -171,13 +171,13 @@ build.branch != "production"
 To run only when the branch starts with `features/`:
 
 ```js
-build.branch =~ /features\/.+/
+build.branch =~ /^features\//
 ```
 
 To run only when the branch ends with `/release-123`, such as `feature/release-123`:
 
 ```js
-build.branch =~ /.+\/release-123/
+build.branch =~ /\/release-123$/
 ```
 
 To run only when building a tag:
@@ -189,10 +189,10 @@ build.tag != null
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
 
 ```js
-build.tag =~ /v[0-9]+\.0/
+build.tag =~ /^v[0-9]+\.0$/
 ```
 
-To run only if the message contains `[skip tests]`, case insensitive:
+To run only if the message doesn't contain `[skip tests]`, case insensitive:
 
 ```js
 build.message !~ /\[skip tests\]/i
