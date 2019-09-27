@@ -4,21 +4,21 @@ The [Slack](https://slack.com/) notification service in Buildkite lets you recei
 
 <%= toc %>
 
-## Configuring
+## Adding a notification service
 
-From your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
+In your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
 
 <%= image "buildkite-add-slack.png", width: 1458/2, height: 208/2, alt: "Screenshot of the 'Add' button for adding a Slack service to Buildkite" %>
 
-You can then click the "Add to Slack" button:
+Click the "Add to Slack" button:
 
 <%= image "buildkite-add-to-slack.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack Service' screen on Buildkite. It shows an 'Add to Slack' button, as well as the option to switch to a custom Webhook URL." %>
 
-This will take you to Slack, where you can log in, choose a workspace, and grant Buildkite the ability to post in a particular channel:
+This will take you to Slack. Log in, choose a workspace, and grant Buildkite the ability to post in your chosen channel:
 
-<%= image "buildkite-slack-oauth-screen.png", width: 1458/2, height: 1101/2, alt: "Screenshot of Slack's OAuth prompt, with Buildkite requesting access to your Slack workspace. It shows that Buildkite needs to know some info about you and your workspace, and for you to choose a channel for Buildkite to post in." %>
+<%= image "buildkite-slack-oauth-screen.png", width: 1458/2, height: 1101/2, alt: "Screenshot of Slack's OAuth prompt, with Buildkite requesting access to your Slack workspace. It shows that Buildkite needs to know some information about you and your workspace, and asks you to choose a channel for Buildkite to post in." %>
 
-Once you have granted access to your Slack workspace, you can then give it a description, and choose how the notifications should display, and which notifications you're interested in:
+Once you have granted access to your Slack workspace, give it a description, choose how the notifications should display, and select the type of notifications you want to receive:
 
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
