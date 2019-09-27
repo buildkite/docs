@@ -28,16 +28,25 @@ Once created, the Slack channel and workspace cannot be changed. To post to a di
 
 ## Upgrading a legacy Slack service
 
-Slack will stop accepting notifications from legacy Buildkite services soon. You will need to have upgraded these services to continue receiving notifications.
+As of October 1st 2019, Slack does not accept notifications from legacy Buildkite services.
+
+If you have Slack set up with a legacy service and are no longer receiving notifications, add a new Slack notification service in your [Buildkite organization's Notification Settings](https://buildkite.com/organizations/-/services).
 
 ### Identify where your existing services post notifications
 
-TK: click the notification service in Buildkite, look at the webhook URL, then go manually find the buildkite integration on Slack which has that webhook URL
+Compare the webhook URLs from your Buildkite notification service with your Slack integration to find your existing notification settings. 
+
+Finding your Buildkite webhook URL: Click on the Slack notification service in Buildkite, the webhook URL will be listed here. 
+
+Finding your Slack integration's webhook URL:
+
+- manage > apps > Buildkite > Configurations > edit
+- integration settings > webhook URL
 
 ### Confirm which pipelines, and which events, are posted
 
-TK: once you've found the matching Buildkite service and Slack app, confirm the Slack 
+Once you've found the matching Buildkite service and Slack app, confirm where and what you're posting to Slack. Take not of the events and pipelines so that you can set up a new notification service. 
 
 ### Create a new Slack notification service which posts
 
-TK: replicate that same thing in a new one... :(
+Using the instructions above, [add a new Buildkite notification service](/docs/integrations/slack#adding-a-notification-service) with the same settings as the legacy integration.
