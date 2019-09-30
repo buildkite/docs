@@ -134,7 +134,7 @@ steps:
 
 A manual approval block step pauses the pipeline until it is unblocked. The plugin takes the pre-built image that was pushed to ECR during a previous build step. As the image was named using the commit that built it, the triggering can use the `BUILDKITE_COMMIT` environment variable that was passed through from the triggering build. The task definition specified is used to deploy the image to ECS. 
 
-Check out the [plugins directory](https://buildkite.com/plugins) for newly added deployment plugins. If there's no plugin for your deployment service of choice, we'd love it if you added one! 
+Check out the [plugins directory](https://buildkite.com/plugins) for newly added deployment plugins. If there's no plugin for your deployment service of choice, see our [developing a plugin](/docs/pipelines/plugins#developing-a-plugin) documentation for how to write your own.
 
 ### Continuous deployment services
 
