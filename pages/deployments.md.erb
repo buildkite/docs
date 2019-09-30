@@ -113,7 +113,7 @@ There are [Buildkite plugins](/docs/pipelines/plugins) available for deployments
 
 You can use these plugins in place of scripts to perform your deploys. They have parameters inbuilt to send all of the data required for a deployment.
 
-The below code is an example of a dedicated pipeline to deploy an image to ECS. It would be triggered by a pipeline that performed other actions like running tests and building the image.
+The following example shows how to use the ECS Deploy plugin to automatically deploy an pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
 
 ```
 steps:
