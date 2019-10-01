@@ -1,0 +1,43 @@
+# Managing API Access Tokens
+
+- org admins can view all tokens created on their organization
+- use this for auditing user tokens and what access they have, and revoke access if required
+
+<%= toc %>
+
+## auditing tokens
+
+- requires org admin
+- the api access audit page can be found in the organization settings sidebar
+
+- list of all users' tokens, the scope of their token, how long ago they were created, and how long since they've been used
+- click through each token to see further information, or filter the list by any of the available fields
+
+## revoking tokens
+
+- on the API access audit page find the token you want to revoke
+- search via user, token, IP, admin,
+
+gif?
+
+- click through the token you'd like to revoke, then click the Revoke Access button
+
+- revoking a token will send a notification email to the user who owned the token 
+
+## programatically managing tokens
+
+- there is a REST API endpoint for managing API access tokens, can get or revoke tokens
+- see the [REST API Access Token](/docs/apis/rest-api/access-token) page for further information
+
+## faqs
+
+### can I recover a revoked token?
+
+- yes, a token isn't deleted when it's revoked - revoking removes the token's access to the organization data
+- the token owner can re-add access to the organization 
+
+### what happens if I revoke a token that's currently in use?
+
+- all future requests will no longer successfully authorize 
+
+
