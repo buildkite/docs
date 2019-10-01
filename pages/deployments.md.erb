@@ -14,12 +14,12 @@ The example `pipeline.yml` below shows how to set up deployment using a single s
 
 ```yml
 steps:
-  - label: ":hammer:"
+  - label: "\:hammer\:"
     command: "scripts/test"
   
   - wait
   
-  - label: ":rocket:"
+  - label: "\:rocket\:"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
@@ -46,12 +46,12 @@ For example, the following "My App" test pipeline will trigger a build on the "m
 
 ```yml
 steps:
-  - label: ":hammer:"
+  - label: "\:hammer\:"
     command: "scripts/test"
 
   - wait
 
-  - label: ":rocket:"
+  - label: "\:rocket\:"
     trigger: "my-app-deployment"
     branches: "master"
 ```
@@ -62,14 +62,14 @@ The "my-app-deployment" pipeline below is defined in the `.buildkite/pipeline.de
 
 ```yml
 steps:
-  - label: ":rocket:"
+  - label: "\:rocket\:"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
 
-The ":rocket:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no ":rocket:" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
+The "\:rocket\:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no "\:rocket\:" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
 
 <screenshot of a deploy pipeline>
 
@@ -81,21 +81,21 @@ To create a manual approval for your deploy, add a block step before your deploy
 
 The below example uses the same pipeline as the [Single deployment step](/docs/deployments#single-deployment-steps) section, but adds a block step before the step that performs the deploy:
 
-```
+```yml
 steps:
-  - label: ":hammer:"
+  - label: "\:hammer\:"
     command: "scripts/test"
   
   - block: "Unblock deployment?"
   
-  - label: ":rocket:"
+  - label: "\:rocket\:"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
 
-Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the ":rocket:" deployment step will not run.
+Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the "\:rocket\:" deployment step will not run.
 
 ## External deployment systems
 
@@ -118,7 +118,7 @@ The following example shows how to use the ECS Deploy plugin to automatically de
 ```yaml
 steps:
   - block: "Release to production?"
-  - label: ":ecs: :rocket:"
+  - label: "\:ecs\: \:rocket\:"
     concurrency_group: "rails-app-deploy"
     concurrency: 1
     plugins:
@@ -139,9 +139,3 @@ Check out the [plugins directory](https://buildkite.com/plugins) for newly added
 ### Continuous deployment services
 
 For more complex environments, you can use continuous deployment services like Spinnaker, Shipit, or Samson. To integrate a deployment service with Buildkite, you can create a step in your pipeline to trigger the deployment using the service's CLI tools or an API call.
-``
-
-
-
-
-
