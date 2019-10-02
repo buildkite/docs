@@ -51,7 +51,7 @@ The agent’s behavior can be customized using hooks, which are just shell scrip
 
 ## Signal Handling
 
-When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit. If the process does not exit within 10 seconds it will be forcefully terminated with a `SIGKILL` signal.
+When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit. If the process does not exit within the [cancel-grace-period](https://buildkite.com/docs/agent/v3/configuration#configuration-settings) it will be forcefully terminated with a `SIGKILL` signal.
 
 The agent also accepts the following two signals directly:
 
