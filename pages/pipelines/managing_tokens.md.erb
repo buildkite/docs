@@ -6,16 +6,21 @@ On the API Access Audit page, organization admins can view all tokens that have 
 
 ## Auditing tokens
 
-Viewing the API Access Audit page requires admin priviledges. The page can be found in the Security section of the Organization Settings sidebar.
+Viewing the API Access Audit page requires admin privileges. The page can be found in the Security section of the Organization Settings sidebar.
 
-- list of all users' tokens, the scope of their token, how long ago they were created, and how long since they've been used
-- click through each token to see further information
+All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
 
-- filter tokens by user name, token value, scopes, IP, or 'admin' 
+Click through any token to see more detailed information about its scopes and the most recent request. 
 
-## revoking tokens
+<%= image "all-tokens-view.png", width: 1494/2, height: 1072/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
-From the API access audit page, find the token whose access you want to revoke. You can search for tokens using usernames, token scopes, full IP addresses, admin priviledges, or the value of the token itself.  
+The list of tokens can be filtered by username, token value, scopes, IP address, or whether the user has admin privileges.
+
+ <%= image "filter-graphql-view.png", width: 1480/2, height: 908/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
+
+## Revoking tokens
+
+From the API access audit page, find the token whose access you want to revoke. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.  
 
 <%= image "token-view.png", width: 1500/2, height: 1052/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
@@ -41,12 +46,10 @@ The token owner can re-add the organization to the token from their API Access T
 
 ### Can I delete a token?
 
-Yes. If you need to delete a token entirely, you can use the [REST API `revoke` endpoint](/docs/apis/rest-api/access-token#revoke-the-current-token). You will need to know the full token value. 
+Yes. If you need to delete a token entirely, you can use the [REST API `access-token` endpoint](/docs/apis/rest-api/access-token#revoke-the-current-token). You will need to know the full token value. 
 
-If you own the token, you can also revoke your token from the API Access Token page in your Personal Settings. 
+If you own the token, you can also revoke your token from the [API Access Token page](https://buildkite.com/user/api-access-tokens) in your Personal Settings. 
 
 ### What happens if I revoke a token that's currently in use?
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
-
-
