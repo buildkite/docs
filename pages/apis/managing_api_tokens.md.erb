@@ -1,6 +1,6 @@
 # Managing API Access Tokens
 
-On the API Access Audit page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also revoke a token's access to your organization data if required.
+On the API Access Audit page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
 <%= toc %>
 
@@ -18,18 +18,20 @@ The list of tokens can be filtered by username, token value, scopes, IP address,
 
  <%= image "filter-graphql-view.png", width: 1480/2, height: 908/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
-## Revoking tokens
+## Removing an organization from a token
 
-From the API access audit page, find the token whose access you want to revoke. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.  
+If you have old tokens that should no longer be used, or need to prevent a token from performing further actions, administrators can remove the token's access to organization data.
+
+From the API access audit page, find the token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.  
 
 <%= image "token-view.png", width: 1500/2, height: 1052/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
-Click through the token you'd like to revoke, then click the 'Revoke Access' button.
+Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
 
-Revoking a token will send a notification email to token's owner. 
+Removing access from a token will send a notification email to the token's owner. 
 
 <div class="Docs__note">
-<p>Revoking a token does not delete it. Token owners can re-add your organization to their token's scope after it has been revoked.</p>
+<p>Removing access from a token does not delete the token. Token owners can re-add your organization to their token's scope.</p>
 </div>
 
 ## Programatically managing tokens
@@ -38,18 +40,16 @@ The `access-token` REST API endpoint can be used to retrieve or revoke an API ac
 
 ## FAQs
 
-### Can I recover a revoked token?
+### Can I re-add my organization to a token?
 
-Yes, when a token is revoked using the API Access Audit in Buildkite it is not deleted. The 'Revoke Access' button will only remove the token's access to your organization's data. 
-
-The token owner can re-add the organization to the token from their API Access Tokens settings page.   
+Yes, the token owner can re-add the organization to the token from their API Access Tokens settings page.   
 
 ### Can I delete a token?
 
 Yes. If you need to delete a token entirely, you can use the [REST API `access-token` endpoint](/docs/apis/rest-api/access-token#revoke-the-current-token). You will need to know the full token value. 
 
-If you own the token, you can also revoke your token from the [API Access Token page](https://buildkite.com/user/api-access-tokens) in your Personal Settings. 
+If you own the token, you can revoke your token from the [API Access Token page](https://buildkite.com/user/api-access-tokens) in your Personal Settings. 
 
-### What happens if I revoke a token that's currently in use?
+### What happens if I remove the access for a token that's currently in use?
 
 The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
