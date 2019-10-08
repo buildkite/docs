@@ -93,7 +93,7 @@ The below variables are supported by the `if` attribute:
 <tbody>
 	<tr>
 		<td><code>build.id</code></td>
-		<td><code>String</code></td>
+		<td width="20%"><code>String</code></td>
 		<td>The ID of the current build</td>
 	</tr>
 	<tr>
@@ -121,6 +121,28 @@ The below variables are supported by the `if` attribute:
 		<td><code>Integer</code></td>
 		<td>The number of the current build</td>
 	</tr>
+
+	<tr>
+		<td><code>build.pull_request.id</code></td>
+		<td><code>String</code>, <code>null</code></td>
+ 		<td>The number of the pull request, if this branch is a pull request. Is <code>null</code> if not a pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.base_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The base branch that the pull request is targeting. Is <code>null</code> if not a pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.repository</code></td>
+		<td><code>String</code>, <code>null</code></td>
+ 		<td>The repository URL of the pull request. Is <code>null</code> if not a pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.repository.fork</code></td>
+		<td><code>Boolean</code>, <code>null</code></td>
+		<td>If the pull request comes from a forked repository. Is <code>null</code> if not a pull request.</td>
+	</tr>
+
 	<tr>
 		<td><code>pipeline.id</code></td>
 		<td><code>String</code></td>
