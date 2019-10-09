@@ -122,6 +122,26 @@ The below variables are supported by the `if` attribute:
 		<td>The number of the current build</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.id</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The external ID associated with the pull request (usually the GitHub pull request number), or <code>null</code> if there's no associated pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.base_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The branch the pull request is being merged into, or <code>null</code> if there's no associated pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.repository</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The associated repository of the pull request (this could be different to the pipeline's repository if the pull request was form a fork), or <code>null</code> if there's no associated pull request.</td>
+	</tr>
+	<tr>
+		<td><code>build.pull_request.repository.fork</code></td>
+		<td><code>Boolean</code>, <code>null</code></td>
+		<td>Whether or not the repository associated with the pull request is a fork, or <code>null</code> if there's no associated pull request.</td>
+	</tr>
+	<tr>
 		<td><code>pipeline.id</code></td>
 		<td><code>String</code></td>
 		<td>The ID of the pipeline the current build is from</td>
@@ -198,3 +218,14 @@ To run only if the message doesn't contain `[skip tests]`, case insensitive:
 build.message !~ /\[skip tests\]/i
 ```
 
+To run only if the build is from a pull request targetting the master branch:
+
+```js
+build.pull_request.base_branch == "master"
+```
+
+To run only if the build is from a pull request from a forked repository:
+
+```js
+build.pull_request.repository.fork
+```
