@@ -124,22 +124,22 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.pull_request.id</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The external ID associated with the pull request (usually the GitHub pull request number), or <code>null</code> if there's no associated pull request.</td>
+		<td>The external ID of the pull request (e.g. the GitHub pull request number) associated with the current build, or <code>null</code> if there's no pull request</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.base_branch</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The branch the pull request is being merged into, or <code>null</code> if there's no associated pull request.</td>
+		<td>The base branch of the pull request (e.g. where it will be merged into) associated with the current build, or <code>null</code> if there's no pull request</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The associated repository of the pull request (this could be different to the pipeline's repository if the pull request was form a fork), or <code>null</code> if there's no associated pull request.</td>
+		<td>The repository of the pull request associated with the current build, or <code>null</code> if there's no pull request</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository.fork</code></td>
 		<td><code>Boolean</code>, <code>null</code></td>
-		<td>Whether or not the repository associated with the pull request is a fork, or <code>null</code> if there's no associated pull request.</td>
+		<td>Whether the pull request associated with the current build is from a fork, or <code>null</code> if there's no pull request</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.id</code></td>
