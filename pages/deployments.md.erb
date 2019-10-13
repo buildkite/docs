@@ -14,12 +14,12 @@ The example `pipeline.yml` below shows how to set up deployment using a single s
 
 ```yml
 steps:
-  - label: "\:hammer\:"
+  - label: "🔨"
     command: "scripts/test"
   
   - wait
   
-  - label: "\:rocket\:"
+  - label: "🚀"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
@@ -46,12 +46,12 @@ For example, the following "My App" test pipeline will trigger a build on the "m
 
 ```yml
 steps:
-  - label: "\:hammer\:"
+  - label: "🔨"
     command: "scripts/test"
 
   - wait
 
-  - label: "\:rocket\:"
+  - label: "🚀"
     trigger: "my-app-deployment"
     branches: "master"
 ```
@@ -62,14 +62,14 @@ The "my-app-deployment" pipeline below is defined in the `.buildkite/pipeline.de
 
 ```yml
 steps:
-  - label: "\:rocket\:"
+  - label: "🚀"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
 
-The "\:rocket\:" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no "\:rocket\:" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
+The "🚀" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no "🚀" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
 
 [screenshot of a deploy pipeline]
 
@@ -83,19 +83,19 @@ The below example uses the same pipeline as the [Single deployment step](/docs/d
 
 ```yml
 steps:
-  - label: "\:hammer\:"
+  - label: "🔨"
     command: "scripts/test"
   
   - block: "Unblock deployment?"
   
-  - label: "\:rocket\:"
+  - label: "🚀"
     command: "scripts/deploy"
     branches: "master"
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
 
-Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the "\:rocket\:" deployment step will not run.
+Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the "🚀" deployment step will not run.
 
 ## External deployment systems
 
@@ -116,7 +116,7 @@ The following example shows how to use the ECS Deploy plugin to automatically de
 ```yaml
 steps:
   - block: "Release to production?"
-  - label: "\:ecs\: \:rocket\:"
+  - label: "\:ecs\: 🚀"
     concurrency_group: "rails-app-deploy"
     concurrency: 1
     plugins:
@@ -125,7 +125,7 @@ steps:
         service: "app"
         task-definition: "production-deploy/rails-app.json"
         task-family: "rails-app"
-        image: "${ECR_REPOSITORY}/rails-app:${BUILDKITE_COMMIT}"
+        image: "my.ecr.repo/rails-app:${BUILDKITE_COMMIT}"
         task-role-arn: "deployer"
         deployment-configuration: "100/200"
 ```
