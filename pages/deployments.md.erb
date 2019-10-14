@@ -24,7 +24,7 @@ steps:
     concurrency_group: "my-app-deploy"
 ```
 
-This pipeline uses a [conditional](/docs/pipelines/using-conditionals) to only run on commits to the master branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
+This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the master branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
 <%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
 
