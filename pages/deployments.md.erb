@@ -1,8 +1,6 @@
 # Deployments with Buildkite
 
-There are many ways to set up both manual and continuous deployment workflows using Buildkite.
-
-For more detailed platform-specific deployment guides, see the [Heroku](/docs/deployments/deploying-to-heroku) and [Kubernetes](/docs/deployments/deploying-to-kubernetes) guides. 
+There are many ways to set up both manual and continuous deployment workflows using Buildkite. This covers various ways of architecting deployment pipelines, common workflows, and how to integrate with external deployment systems.
 
 <%= toc %>
 
@@ -10,29 +8,29 @@ For more detailed platform-specific deployment guides, see the [Heroku](/docs/de
 
 Adding a deployment step that runs after your tests pass is the simplest way to deploy from a Buildkite pipeline.
 
-The example `pipeline.yml` below shows how to set up deployment using a single step that runs after the tests pass. It uses [step-level branch filtering](/docs/pipelines/branch-configuration#step-level-branch-filtering) to perform continuous deployment on `master` branch builds, and uses [concurrency limiting](/docs/pipelines/controlling-concurrency) to ensure only one deployment runs at a time.
+The example `pipeline.yml` below shows how to set up continous deployment using a single step that runs after the tests pass.
 
 ```yml
 steps:
   - label: "🔨"
-    command: "scripts/test"
+    command: "scripts/tests"
   
   - wait
   
   - label: "🚀"
     command: "scripts/deploy"
-    branches: "master"
+    if: build.branch == 'master'
+    concurrency: 1
     concurrency_group: "my-app-deploy"
-    concurrency_limit: 1
 ```
 
-[screenshot of a deploy step]
+This pipeline uses a [conditional](/docs/pipelines/using-conditionals) to only run on commits to the master branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
+
+<%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
 
 ## Dedicated deployment pipelines
 
-A dedicated deployment pipeline separates your deploy steps from any other testing and building steps. 
-
-Creating deployment pipelines makes it easier to:
+A dedicated deployment pipeline separates your deploy steps from any other testing and building steps. Creating deployment pipelines makes it easier to:
 
 * Separate deployment failures from test failures
 * Separate test and deployment pipeline.yml files
@@ -42,83 +40,91 @@ Creating deployment pipelines makes it easier to:
 * Use teams for role based access control
 * Whitelist deploy pipelines in agent hooks
 
-For example, the following "My App" test pipeline will trigger a build on the "my-app-deployment" pipeline whenever a test build passes on `master`:
+A common pattern is to have two separate pipelines, each with its own pipeline.yml files in your project’s repository, for example:
+
+```
+.buildkite/tests.pipeline.yml
+.buildkite/deploy.pipeline.yml
+```
+
+For example, your app’s test pipeline (with slug `my-app`) runs on every git commit, and is configured to upload the following `.buildkite/tests.pipeline.yml` file:
 
 ```yml
 steps:
   - label: "🔨"
-    command: "scripts/test"
+    command: "scripts/tests"
 
   - wait
 
   - label: "🚀"
-    trigger: "my-app-deployment"
-    branches: "master"
+    trigger: "my-app-deploy"
+    if: build.branch == 'master'
+    build:
+      commit: "$BUILDKITE_COMMIT"
 ```
 
-The deployment pipeline is configured to pipeline upload the following  file:
+Once the tests run successfully, if the commit is on the master branch then continuous deployment is done by triggering a build on the deployment pipeline.
 
-The "my-app-deployment" pipeline below is defined in the `.buildkite/pipeline.deploy.yml` file, and will run the `deploy` script when a build is triggered by the "my-app-test" pipeline above. 
+The deployment pipeline (with slug `my-app-deployment`) could be configured to upload the following `.buildkite/deploy.pipeline.yml` file:
 
 ```yml
 steps:
   - label: "🚀"
     command: "scripts/deploy"
-    branches: "master"
+    if: build.branch == 'master'
+    concurrency: 1
     concurrency_group: "my-app-deploy"
-    concurrency_limit: 1
 ```
 
-The "🚀" step in the deployment example above uses the concurrency attributes `concurrency_group` and `concurrency_limit`. These work together to ensure that no matter how many builds are triggered on this pipeline at once, no "🚀" steps can run in parallel. It also prevents deploys clashing and attempting to write to the same resources. 
+This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
-[screenshot of a deploy pipeline]
+You can add any of the [pipeline step types](/docs/pipelines/defining-steps) to add additional capabilities to your deployment pipelines, such as manual approval steps, teams permission checks, or additional API calls.
+
+<div class="Docs__note">
+  <p class="Docs__note__heading">Deployment ordering</p>
+  <p>[TODO: Say you have two commits: a and b. And you want the deploys to happen in the order a and b. How do you ensure that the order is preserved, regardless of which tests finish first? For example, if build a's tests are delayed by some reason (cold agent cache).]</p>
+</div>
 
 ## Manual approval steps
 
 Adding a manual approval to your pipeline before your deployment ensures that a deploy never goes out without explicit approval.
 
-To create a manual approval for your deploy, add a block step before your deploy step or before the step that triggers your deploy pipeline. 
+You can use [block steps](/docs/pipelines/block-step) to add manual approvals before any deploy scripts or triggers.
 
 The below example uses the same pipeline as the [Single deployment step](/docs/deployments#single-deployment-steps) section, but adds a block step before the step that performs the deploy:
 
 ```yml
 steps:
   - label: "🔨"
-    command: "scripts/test"
+    command: "scripts/tests"
   
-  - block: "Unblock deployment?"
+  - block: "Deploy"
+    prompt: "Deploy to production?"
   
   - label: "🚀"
     command: "scripts/deploy"
-    branches: "master"
+    if: build.branch == 'master'
     concurrency_group: "my-app-deploy"
     concurrency_limit: 1
 ```
 
+<%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>
+
 Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the "🚀" deployment step will not run.
 
-## External deployment systems
+## Deployment plugins
 
-As well as writing deployment scripts, you can use any external systems alongside Buildkite to perform your deployments.
-
-### Container services
-
-You can deploy images or containers to services like Kubernetes, Heroku, or ECS from a script in a Buildkite command step, similar to how you'd do it on a command line.
-
-For a more detailed walk-through with examples, we have deployment guides for [Heroku](/docs/deployments/deploying-to-heroku) and [Kubernetes](/docs/deployments/deploying-to-kubernetes). 
-
-### Plugins
-
-There are [Buildkite plugins](/docs/pipelines/plugins) available for deployments. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin). 
+There are [Buildkite plugins](/docs/pipelines/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin). 
 
 The following example shows how to use the ECS Deploy plugin to automatically deploy an pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
 
 ```yaml
 steps:
-  - block: "Release to production?"
+  - block: "Deploy"
+    prompt: "Deploy to production?"
   - label: "\:ecs\: 🚀"
-    concurrency_group: "rails-app-deploy"
     concurrency: 1
+    concurrency_group: "rails-app-deploy"
     plugins:
       - ecs-deploy#v1.3.0:
         cluster: "production"
@@ -130,10 +136,27 @@ steps:
         deployment-configuration: "100/200"
 ```
 
-A manual approval block step pauses the pipeline until it is unblocked. The plugin takes the pre-built image that was pushed to ECR during a previous build step. As the image was named using the commit that built it, the triggering can use the `BUILDKITE_COMMIT` environment variable that was passed through from the triggering build. The task definition specified is used to deploy the image to ECS. 
+You can find the latest deployment plugins in the [plugins directory](https://buildkite.com/plugins). If there's no plugin for your deployment service of choice, see our [developing a plugin](/docs/pipelines/plugins#developing-a-plugin) documentation for how to write your own.
 
-Check out the [plugins directory](https://buildkite.com/plugins) for newly added deployment plugins. If there's no plugin for your deployment service of choice, see our [developing a plugin](/docs/pipelines/plugins#developing-a-plugin) documentation for how to write your own.
+## External deployment systems
 
-### Continuous deployment services
+You can deploy applications to services like Kubernetes, Heroku, or ECS from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line. See the [Deploying to Heroku](/docs/deployments/deploying-to-heroku) and [Deploying to Kubernetes](/docs/deployments/deploying-to-kubernetes) for walk-throughs with detailed examples.
 
-For more complex environments, you can use continuous deployment services like Spinnaker, Shipit, or Samson. To integrate a deployment service with Buildkite, you can create a step in your pipeline to trigger the deployment using the service's CLI tools or an API call.
+In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line.
+
+<%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
+
+## GitHub deployments
+
+You can create pipelines which are triggered whenever a deployment is created in GitHub, via a call to [GitHub’s Deployments REST API](https://developer.github.com/v3/guides/delivering-deployments/), or via the [GitHub Slack app](https://slack.github.com)’s `/github deploy my-org/my-repo` command.
+
+To enable builds to be created from GitHub deployment events, create a pipeline and select 'Trigger builds on deployment' in your Buildkite pipeline's GitHub settings:
+
+<%= image "github-settings-trigger-builds-on-deployments.png", width: 1458/2, height: 744/2, alt: "Buildkite's GitHub Settings with 'Trigger builds on deployment' checkbox selected" %>
+
+In your build that performs the deployment, you can set the following two [build meta-data](/docs/pipelines/build-meta-data) values to customize the deployment's environment name and URL, which will then be shown on GitHub:
+
+```shell
+buildkite-agent meta-data set "github_deployment_status:environment" "staging"
+buildkite-agent meta-data set "github_deployment_status:environment_url" "https://staging.my-app-dev.com/"
+```
