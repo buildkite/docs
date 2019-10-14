@@ -12,6 +12,7 @@ Description:
 
 Example:
 
+   
    $ buildkite-agent artifact upload "log/**/*.log"
 
    You can also upload directly to Amazon S3 if you'd like to host your own artifacts:
@@ -26,6 +27,13 @@ Example:
 
    $ export BUILDKITE_GS_ACL=private
    $ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
+
+   Or upload directly to Artifactory:
+
+   $ export BUILDKITE_ARTIFACTORY_URL=http://my-artifactory-instance.com/artifactory
+   $ export BUILDKITE_ARTIFACTORY_USER=carol-danvers
+   $ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
+   $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID`
 
 Options:
 

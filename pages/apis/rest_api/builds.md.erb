@@ -1,4 +1,4 @@
-# Builds
+# Builds API
 
 <%= toc %>
 
@@ -78,6 +78,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
         "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
         "command": "scripts/build.sh",
+        "soft_failed": false,
         "exit_status": 0,
         "artifact_paths": "",
         "agent": {
@@ -87,8 +88,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         },
         "created_at": "2015-05-09T21:05:59.874Z",
         "scheduled_at": "2015-05-09T21:05:59.874Z",
-        "started_at": "2015-05-09T21:05:59.874Z",
-        "finished_at": "2015-05-09T21:05:59.874Z"
+        "runnable_at": "2015-05-09T21:06:59.874Z",
+        "started_at": "2015-05-09T21:07:59.874Z",
+        "finished_at": "2015-05-09T21:08:59.874Z"
       }
     ],
     "created_at": "2015-05-09T21:05:59.874Z",
@@ -104,9 +106,24 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "name": "great-pipeline",
       "slug": "great-pipeline",
       "repository": "git@github.com:my-great-org/my-pipeline",
+      "branch_configuration": null,
+      "default_branch": "master",
       "provider": {
         "id": "github",
-        "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+        "settings": {
+          "trigger_mode": "code",
+          "build_pull_requests": true,
+          "pull_request_branch_filter_enabled": false,
+          "skip_pull_request_builds_for_existing_commits": true,
+          "build_pull_request_forks": false,
+          "prefix_pull_request_fork_branch_names": true,
+          "build_tags": false,
+          "publish_commit_status": true,
+          "publish_commit_status_per_step": false,
+          "publish_blocked_as_pending": false,
+          "repository": "my-great-org/my-pipeline"
+        },
       },
       "skip_queued_branch_builds": false,
       "skip_queued_branch_builds_filter": null,
@@ -170,6 +187,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
+      "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
       "agent": {
@@ -192,8 +210,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       },
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "started_at": "2015-05-09T21:05:59.874Z",
-      "finished_at": "2015-05-09T21:05:59.874Z"
+      "runnable_at": "2015-05-09T21:06:59.874Z",
+      "started_at": "2015-05-09T21:07:59.874Z",
+      "finished_at": "2015-05-09T21:08:59.874Z"
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -285,6 +304,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
+      "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
       "agent": {
@@ -301,14 +321,15 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
           "name": "Keith Pitt",
           "email": "keith@buildkite.com",
           "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-          "created_at": "2013-08-29 10:10:03 UTC"
+          "created_at": "2015-05-09T21:05:59.874Z"
         },
         "created_at": "2015-05-09T21:05:59.874Z"
       },
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "started_at": "2015-05-09T21:05:59.874Z",
-      "finished_at": "2015-05-09T21:05:59.874Z"
+      "runnable_at": "2015-05-09T21:06:59.874Z",
+      "started_at": "2015-05-09T21:07:59.874Z",
+      "finished_at": "2015-05-09T21:08:59.874Z"
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -395,7 +416,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
-  "state": "cancelled",
+  "state": "canceled",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -420,6 +441,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
+      "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
       "agent": {
@@ -442,8 +464,9 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       },
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "started_at": "2015-05-09T21:05:59.874Z",
-      "finished_at": "2015-05-09T21:05:59.874Z"
+      "runnable_at": "2015-05-09T21:06:59.874Z",
+      "started_at": "2015-05-09T21:07:59.874Z",
+      "finished_at": "2015-05-09T21:08:59.874Z"
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -486,7 +509,7 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason why the build could not be cancelled" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason why the build could not be canceled" }</code></td></tr>
 </tbody>
 </table>
 
@@ -529,6 +552,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
       "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
+      "soft_failed": false,
       "exit_status": 0,
       "artifact_paths": "",
       "agent": {
@@ -551,8 +575,9 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       },
       "created_at": "2015-05-09T21:05:59.874Z",
       "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "started_at": "2015-05-09T21:05:59.874Z",
-      "finished_at": "2015-05-09T21:05:59.874Z"
+      "runnable_at": "2015-05-09T21:06:59.874Z",
+      "started_at": "2015-05-09T21:07:59.874Z",
+      "finished_at": "2015-05-09T21:08:59.874Z"
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",

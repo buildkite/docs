@@ -61,6 +61,13 @@ _Optional attributes:_
       <em>Example:</em> <code>"master stable/*"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>if</code></td>
+    <td>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
 </table>
 
 _Optional_ `build` _attributes:_
@@ -84,7 +91,8 @@ _Optional_ `build` _attributes:_
   <tr>
     <td><code>branch</code></td>
     <td>
-      The branch for the build. Default: <code>"master"</code><br>
+      The branch for the build.<br>
+      Default: The triggered pipeline's default branch.<br>
       <em>Example:</em> <code>"production"</code><br>
     </td>
   </tr>
@@ -125,6 +133,21 @@ You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#envi
     message: "${BUILDKITE_MESSAGE}"
     commit: "${BUILDKITE_COMMIT}"
     branch: "${BUILDKITE_BRANCH}"
+```
+
+To pass through pull request information to the triggered build, pass through the branch and pull request environment variables:
+
+```yml
+- trigger: "app-sub-pipeline"
+  label: "Sub-pipeline"
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+    env:
+      BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
+      BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+      BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
 
 To set environment variables on the build created by the trigger step, use the `env` attribute:

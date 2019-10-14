@@ -71,9 +71,46 @@ We accept the following parts of version 8.0 of Basscss within annotations:
   * `list-reset`
 * [Type Scale](http://basscss.com/#basscss-type-scale)
 
+An exhaustive list of classes that annotations support can be found below:
+
+```
+bold regular italic caps underline
+left-align center right-align justify
+align-baseline align-top align-middle align-bottom
+list-reset truncate fit
+
+inline block inline-block table table-cell
+overflow-hidden overflow-scroll overflow-auto
+
+ml-auto mr-auto mx-auto
+flex flex-column flex-wrap flex-auto flex-none
+items-start items-end items-center items-baseline items-stretch
+self-start self-end self-center self-baseline self-stretch
+justify-start justify-end justify-center justify-between justify-around
+content-start content-end content-center content-between content-around content-stretch
+order-0 order-1 order-2 order-3 order-last
+
+border border-top border-right border-bottom border-left border-none rounded
+
+h1 h2 h3 h4 h5 h6
+
+m0 mt0 mr0 mb0 ml0 mx0 my0 m1
+mt1 mr1 mb1 ml1 mx1 my1
+m2 mt2 mr2 mb2 ml2 mx2 my2
+m3 mt3 mr3 mb3 ml3 mx3 my3
+m4 mt4 mr4 mb4 ml4 mx4 my4
+mxn1 mxn2 mxn3 mxn4
+
+p0 pt0 pr0 pb0 pl0 px0 py0
+p1 pt1 pr1 pb1 pl1 py1 px1
+p2 pt2 pr2 pb2 pl2 py2 px2
+p3 pt3 pr3 pb3 pl3 py3 px3
+p4 pt4 pr4 pb4 pl4 py4 px4
+```
+
 ### Colored console output
 
-Console output in annotations can be displayed with ANSI colors when processed through [our Terminal tool](http://buildkite.github.io/terminal-to-html/) and wrapped in `<code><pre class="term"></pre></code>` tags before uploading.
+Console output in annotations can be displayed with ANSI colors when processed through [our Terminal tool](http://buildkite.github.io/terminal-to-html/) and wrapped in `<pre class="term"><code></code></pre>` tags before uploading.
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 

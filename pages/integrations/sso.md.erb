@@ -1,77 +1,66 @@
-# Introduction to SSO with Buildkite
+# Single Sign-On Support
 
-Single sign-on (SSO) provides authentication or authorisation to a third party site like Buildkite by means of a token from your identity provider.
+You can use a Single Sign-On (SSO) provider to protect access to your organization’s data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
 <%= toc %>
 
-## What types of SSO does Buildkite support?
+## Supported providers
 
-Buildkite organizations can perform SSO using any identity provider that supports SAML 2.0. OAuth using Google G Suite or Github is also supported.
+Buildkite supports the following SSO providers:
 
-Buildkite SSO Guides help you to get SSO set up with popular providers, and a Custom SAML provider guide is available for all other identity providers.
+* [Okta](/docs/integrations/sso/okta)
+* [ADFS](/docs/integrations/sso/adfs)
+* [G Suite](/docs/integrations/sso/g-suite)
+* [G Cloud Identity](/docs/integrations/sso/g-cloud-identity)
+* [OneLogin](/docs/integrations/sso/onelogin)
+* GitHub
+* [Custom SAML](/docs/integrations/sso/custom-saml)
 
-## How does SSO work with accounts and organizations?
+## Adding SSO
 
-SSO is an organization-level option, and can be enabled by an organization admin for one domain per organization.
+Many of the SSO providers can be configured by an organization admin using [Organisation Settings → SSO Settings](https://buildkite.com/organizations/-/sso):
 
-If an organization that you're a member of enables SSO, it will not affect your personal Buildkite account login details. When you access pipelines or anything owned by the organization, you'll be directed through their chosen provider's SSO authentication flow.
+<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-To access an organization's content using SSO, you'll need your organization's SSO URL.
+You can also [configure SSO manually using the GraphQL API](/docs/integrations/sso/sso-setup-with-graphql).
 
-Team maintainers will no longer need to invite users to join their organization, anyone who is able to authenticate with the identity provider can access the organization's content.
+Once configured, all access to organization data requires signing into your SSO provider:
 
-Team maintainers can still invite users to their Buildkite organisation, and are able to specify whether SSO is 'required' or 'optional' for the invited user. Machine users are able to be invited using the 'optional' flag.
+<%= image "sso-enabled.png", width: 1580/2, height: 834/2, alt: "Screenshot of the SSO protecting access to data" %>
 
-## How do I enable SSO for my organization?
+## Disabling and Removing SSO
 
-There are two ways to enable SSO:
+If you need to edit your SSO settings, temporarily stop logins using SSO, or want to delete your SSO provider, you'll first need to disable it.
 
-1. Email the Buildkite team at support@buildkite.com, or
-1. Enable it yourself using the GraphQL explorer
+There are two ways to disable a provider:
 
-You'll need to set up your SSO identity provider yourself. There are guides available for several of the commonly used providers. See the provider-specific sections below for further information.
+1. Using the 'Disable' button in your SSO provider Settings, or
+1. Using the [GraphQL API](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider)
 
-### Using Google G Suite or Github
+If you have disabled all your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is disabled, they can perform a 'Forgotten Password' reset.
 
-Google and Github both use OAuth rather than SAML. See the [Google G Suite setup guide](/docs/integrations/sso/g-suite) for a list of the information you'll need to give Buildkite to get started.
-
-You can also set up OAuth providers with GraphQL, see our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql) for steps and code samples.
-
-### Using Okta, OneLogin, AD FS, or a custom SAML Provider
-
-There are guides available for setting up Buildkite with the following SAML identity providers: [Okta](/docs/integrations/sso/okta), [OneLogin](/docs/integrations/sso/onelogin), [Google Cloud Identity](/docs/integrations/sso/g-cloud-identity), [AD FS](/docs/integrations/sso/adfs), and a general guide for [custom identity providers](/docs/integrations/sso/custom-saml).
-
-When setting up SSO with a SAML provider, setup happens on two sides: Buildkite and your identity provider. Before you can complete your identity provider's setup, you'll need to get your 'Issuer URL' from Buildkite. Using this URL, you can set up Buildkite as an application in your identity provider. Next you'll send your identity provider's information to Buildkite, and our team will complete your SSO setup.
-
-For more information on the SAML user attributes Buildkite supports, see the [Custom SAML Guide](/docs/integrations/sso/custom-saml#saml-user-attributes).
-
-If you'd prefer a self-service setup, you can complete the Buildkite side yourself using the Buildkite GraphQL explorer. Check out our guide to [Setting up SSO with GraphQL](/docs/integrations/sso/sso-setup-with-graphql).
-
-## Frequently Asked Questions
+## Frequently asked questions
 
 ### Can some people in the organization use SSO and others not?
 Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. This setting can be found in the team settings.
+
+### Do you support JIT provisioning?
+Yes, we do.
 
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
 
 ### Can we enable SSO on multiple domains for one organization?
-Yes, by adding multiple identity providers. Each provider supports only one domain, but you can enable as many different identity providers for your organization as you need.
+Yes, by adding multiple SSO providers. You can enable as many different identity providers for your organization as you need.
 
-### Is there downtime for my organization while SSO is enabled?
-No, there'll be no downtime. The Buildkite team will confirm with an administrator that you have access through your new identity provider before enabling it for your entire organization. Then all users will be deauthorised and they will be required to authorise with your chosen identity provider when they next try to access your organization.
+### Will enabling SSO disrupt my team?
+No, SSO must be verified before being enabled, and can easily be disabled by you if required. Once enabled, users will see a new "SSO" badge on the organization and will be required to authorise with your SSO provider to access organization data.
 
-### Will enabling SSO cause a service interruption?
+### Will enabling SSO affect builds, agents or pipelines?
 No, all of your builds, agents, and pipelines will continue to run as normal.
-
-### Can the SSO testing and user deauthorisation be scheduled for a specific time?
-Yes, within Australian business hours. 
-
-### Is there a self-service SSO enablement option?
-Yes, if you're comfortable using GraphQL, you can enable SSO yourself for your organization. Check out our [GraphQL SSO guide](/docs/integrations/sso/sso-setup-with-graphql).
 
 ### Does enabling SSO affect billing?
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
 
 ### Can I sync my identity provider's groups with my Buildkite teams?
-Yes, if you're using a SAML identity provider. OAuth providers such as Google G Suite do not support groups.
+Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).

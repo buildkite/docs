@@ -67,9 +67,9 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Installation
 
 ## Firewalled installs
 
-If your GitHub Enterprise is behind a firewall you’ll need to whitelist Buildkite’s network so we can perform oAuth authentications and call to the API to update your pull request statuses.
+If your GitHub Enterprise is behind a firewall you’ll need to allow Buildkite’s IP address so we can perform oAuth authentications use GitHub Enterprise API to update your pull request statuses.
 
-Whitelist the IP address `54.165.103.71` to allow Buildkite to perform API calls on your GitHub Enterprise instance.
+All Buildkite network traffic to your GitHub Enterprise install will come from the following IP address: `54.165.103.71`. Please configure your network to allow traffic from this IP address.
 
 For additional security you can create a proxy which allows only the API endpoints we require:
 

@@ -18,11 +18,14 @@ An artifact is a file uploaded by your agent during the execution of a build’s
   <tr><th><code>filename</code></th><td>Filename of the artifact</td></tr>
   <tr><th><code>mime_type</code></th><td>Mime type of the artifact</td></tr>
   <tr><th><code>file_size</code></th><td>File size of the artifact in bytes</td></tr>
-  <tr><th><code>glob_path</code></th><td>Original glob path used to upload the artifact</td></tr>
-  <tr><th><code>original_path</code></th><td>Original full file path of the artifact</td></tr>
   <tr><th><code>sha1sum</code></th><td>SHA-1 hash of artifact contents as calculated by the agent</td></tr>
 </tbody>
 </table>
+
+<section class="Docs__troubleshooting-note">
+  <h1>Deprecated fields</h1>
+  <p>Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.</p>
+</section>
 
 ## List artifacts for a build
 
@@ -45,8 +48,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "filename": "app.tar.gz",
     "mime_type": "application/x-gzip",
     "file_size": 529371,
-    "glob_path": "dist/*",
-    "original_path": "/var/lib/buildkite-agent/builds/bk-agent-1/my-great-org/my-pipeline/dist/app.tar.gz",
+    "glob_path": null,
+    "original_path": null,
     "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
   },
   {
@@ -60,8 +63,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "filename": "155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
     "mime_type": "image/png",
     "file_size": 1521347,
-    "glob_path": "tmp/screenshots/*",
-    "original_path": "/var/lib/buildkite-agent/builds/bk-agent-2/my-great-org/my-pipeline/dist/app.tar.gz",
+    "glob_path": null,
+    "original_path": null,
     "sha1sum": "7a788f56fa49ae0ba5ebde780efe4d6a89b5db47"
   }
 ]
@@ -92,8 +95,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "filename": "app.tar.gz",
     "mime_type": "application/x-gzip",
     "file_size": 529371,
-    "glob_path": "dist/*",
-    "original_path": "/var/lib/buildkite-agent/builds/bk-agent-1/my-great-org/my-pipeline/dist/app.tar.gz",
+    "glob_path": null,
+    "original_path": null,
     "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
   }
 ]
@@ -121,8 +124,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "filename": "app.tar.gz",
   "mime_type": "application/x-gzip",
   "file_size": 529371,
-  "glob_path": "dist/*",
-  "original_path": "/var/lib/buildkite-agent/builds/bk-agent-1/my-great-org/my-pipeline/dist/app.tar.gz",
+  "glob_path": null,
+  "original_path": null,
   "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
 }
 ```
@@ -155,7 +158,7 @@ Success response: `302 Found`
 
 The artifact record is marked as deleted in the Buildkite database, and the artifact itself is removed from the Buildkite AWS S3 bucket. It will no longer be displayed in the job or build artifact lists, and it will not be returned by the artifact APIs.
 
-If the artifact was uploaded using the agent’s custom [AWS S3](/docs/agent/v3/cli-artifact#using-your-own-private-aws-s3-bucket) or [Google Cloud](/docs/agent/v3/cli-artifact#using-your-own-private-google-cloud-bucket) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
+If the artifact was uploaded using the agent’s custom [AWS S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), [Google Cloud](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket), or [Artifactory](/docs/integrations/artifactory) storage support, the file will not be automatically deleted from that storage. You must delete the file from your private storage yourself.
 
 ```bash
 curl -X DELETE "http://api.buildkite.com/v2/organizations/{artifact.job.build.project.account.slug}/pipelines/{artifact.job.build.project.slug}/builds/{artifact.job.build.number}/jobs/{artifact.job.uuid}/artifacts/{artifact.uuid}?access_token={access_token.token}

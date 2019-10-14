@@ -90,9 +90,16 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>id</code></td>
+    <td><code>if</code></td>
     <td>
-      A string to identify the step. The value is available in the <code>BUILDKITE_STEP_IDENTIFIER</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>key</code></td>
+    <td>
+      A unique string to identify the step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
       <em>Example:</em> <code>"linter"</code>
       <em>Alias:</em> <code>identifier</code>
     </td>
@@ -151,7 +158,7 @@ _Optional attributes:_
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically cancelled and the build will fail. <br>
+      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically canceled and the build will fail. <br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>

@@ -37,7 +37,7 @@ Any user can create a new pipeline. If you have read, write, and edit permission
 You can programmatically manage your teams using our GraphQL API.
 If you're creating pipelines programmatically using the REST API, you can add them directly to teams using the team's UUID. More information about creating pipelines can be found in our [REST API documentation](/docs/rest-api/pipelines#create-a-pipeline).
 
-You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can whitelist builds based on the creator's team memberships.
+You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can allow or disallow builds based on the creator's team memberships.
 
 For example, the following [agent environment hook](/docs/agent/v3/hooks) prevents anyone from outside of the ops team from running a build on the agent:
 

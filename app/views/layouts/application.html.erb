@@ -189,6 +189,8 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Secrets", 'pipelines/secrets' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %></li>
@@ -236,17 +238,19 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitLab", 'integrations/gitlab' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifactory", 'integrations/artifactory' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">SSO</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'integrations/sso' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Okta", 'integrations/sso/okta' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Suite", 'integrations/sso/g-suite' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Cloud Identity", 'integrations/sso/g-cloud-identity' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Okta", 'integrations/sso/okta' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %></li>
                 </ul>
@@ -258,6 +262,9 @@
 
               <% if request.url.include?('/docs/apis') %>
                 <p class="Docs__nav__section-heading">APIs</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
+                </ul>
                 <p class="Docs__nav__section-subheading">Webhooks</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
@@ -270,12 +277,14 @@
                 <p class="Docs__nav__section-subheading">REST API</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/rest-api' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Organizations", 'apis/rest-api/organizations' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Pipelines", 'apis/rest-api/pipelines' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Builds", 'apis/rest-api/builds' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Jobs", 'apis/rest-api/jobs' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agents", 'apis/rest-api/agents' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">GraphQL API</p>
