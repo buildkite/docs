@@ -97,6 +97,11 @@ The below variables are supported by the `if` attribute:
 		<td>The ID of the current build</td>
 	</tr>
 	<tr>
+		<td><code>build.source</code></td>
+		<td><code>String</code></td>
+                <td>The source of the event that created the build. The possible values are:<br/><code>ui</code> <code>api</code> <code>webhook</code> <code>trigger_job</code> <code>schedule</code></td>
+	</tr>
+	<tr>
 		<td><code>build.branch</code></td>
 		<td><code>String</code></td>
 		<td>The branch on which this build is created from</td>
@@ -218,5 +223,11 @@ To run only if the message doesn't contain `[skip tests]`, case insensitive:
 
 ```js
 build.message !~ /\[skip tests\]/i
+```
+
+To run only if build was created from a schedule:
+
+```js
+build.source == "schedule"
 ```
 
