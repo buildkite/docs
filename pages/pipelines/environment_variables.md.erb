@@ -128,6 +128,12 @@ The url for this build on Buildkite. The value cannot be modified.
 
 Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
+<h3 class="h3-caps">BUILDKITE_CANCEL_GRACE_PERIOD</h3>
+
+The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Default: `10`
+
 <h3 class="h3-caps">BUILDKITE_CLEAN_CHECKOUT</h3>
 
 Whether the build should perform a clean checkout. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks.
