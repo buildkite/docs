@@ -99,7 +99,7 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.source</code></td>
 		<td><code>String</code></td>
-		<td>The source of the event that created the build. The possible values are:<br/><code>ui</code> <code>api</code> <code>webhook</code> <code>trigger_job</code> <code>schedule</code></td>
+		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
@@ -135,17 +135,17 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.pull_request.base_branch</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The base branch that the pull request is targeting. Is <code>null</code> if not a pull request.</td>
+		<td>The base branch that the pull request is targeting, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
- 		<td>The repository URL of the pull request. Is <code>null</code> if not a pull request.</td>
+ 		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository.fork</code></td>
 		<td><code>Boolean</code>, <code>null</code></td>
-		<td>If the pull request comes from a forked repository. Is <code>null</code> if not a pull request.</td>
+		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 
 	<tr>
@@ -225,7 +225,7 @@ To run only if the message doesn't contain `[skip tests]`, case insensitive:
 build.message !~ /\[skip tests\]/i
 ```
 
-To run only if build was created from a schedule:
+To run only if the build was created from a schedule:
 
 ```js
 build.source == "schedule"
