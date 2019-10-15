@@ -8,7 +8,7 @@ There are many ways to set up both manual and continuous deployment workflows us
 
 Adding a deployment step that runs after your tests pass is the simplest way to deploy from a Buildkite pipeline.
 
-The example `pipeline.yml` below shows how to set up continous deployment using a single step that runs after the tests pass.
+The example `pipeline.yml` below shows how to set up continuous deployment using a single step that runs after the tests pass.
 
 ```yml
 steps:
@@ -40,7 +40,7 @@ A dedicated deployment pipeline separates your deploy steps from any other testi
 * Use teams for role based access control
 * Whitelist deploy pipelines in agent hooks
 
-A common pattern is to have two separate pipelines, each with its own pipeline.yml files in your project’s repository, for example:
+A common pattern is to have two separate pipelines, each with its own pipeline.yml file in your project’s repository:
 
 ```
 .buildkite/tests.pipeline.yml
@@ -148,13 +148,13 @@ In more complex environments you can use external deployment/delivery systems su
 
 ## GitHub deployments
 
-You can create pipelines which are triggered whenever a deployment is created in GitHub, via a call to [GitHub’s Deployments REST API](https://developer.github.com/v3/guides/delivering-deployments/), or via the [GitHub Slack app](https://slack.github.com)’s `/github deploy my-org/my-repo` command.
+You can set up your pipelines to create a build whenever there is a deployment created in GitHub. You can trigger these builds via a call to [GitHub’s Deployments REST API](https://developer.github.com/v3/guides/delivering-deployments/), or via the [GitHub Slack app](https://slack.github.com)’s `/github deploy my-org/my-repo` command.
 
 To enable builds to be created from GitHub deployment events, create a pipeline and select 'Trigger builds on deployment' in your Buildkite pipeline's GitHub settings:
 
 <%= image "github-settings-trigger-builds-on-deployments.png", width: 1458/2, height: 744/2, alt: "Buildkite's GitHub Settings with 'Trigger builds on deployment' checkbox selected" %>
 
-In your build that performs the deployment, you can set the following two [build meta-data](/docs/pipelines/build-meta-data) values to customize the deployment's environment name and URL, which will then be shown on GitHub:
+To customize the deployment's environment name and URL in GitHub, you can set the following two [build meta-data](/docs/pipelines/build-meta-data) values in the pipeline that performs the deployment:
 
 ```shell
 buildkite-agent meta-data set "github_deployment_status:environment" "staging"
