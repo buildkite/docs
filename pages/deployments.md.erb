@@ -56,6 +56,15 @@ steps:
 
   - wait
 
+  # This makes sure that deploys are triggered in the same order as the
+  # test builds, no matter which test builds finish first.
+  - label: "Concurrency gate"
+    command: "exit 0"
+    concurrency: 1
+    concurrency_group: "my-app-deploy-concurrency-gate"
+
+  - wait
+
   - label: "🚀"
     trigger: "my-app-deploy"
     if: build.branch == 'master'
@@ -79,11 +88,6 @@ steps:
 This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
 You can add any of the [pipeline step types](/docs/pipelines/defining-steps) to add additional capabilities to your deployment pipelines, such as manual approval steps, teams permission checks, or additional API calls.
-
-<div class="Docs__note">
-  <p class="Docs__note__heading">Deployment ordering</p>
-  <p>[TODO: Say you have two commits: a and b. And you want the deploys to happen in the order a and b. How do you ensure that the order is preserved, regardless of which tests finish first? For example, if build a's tests are delayed by some reason (cold agent cache).]</p>
-</div>
 
 ## Manual approval steps
 
