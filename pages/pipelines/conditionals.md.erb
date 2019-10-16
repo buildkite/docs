@@ -81,8 +81,9 @@ The below expressions are supported by the `if` attribute:
 
 
 
-<div class="Docs__note">
-<p>When using regex, the expression must be on the right-hand side of the operator.</p>
+<div class="Docs__troubleshooting-note">
+<h1>Using regex</h1>
+<p>When using regex, the expression must be on the right-hand side of the operator.<br>Any <code>$</code> signs must be escaped so they aren't interpolated as variables, e.g. <code>$$</code> or <code>\$</code>.</p>
 </div>
 
 ## Supported variables
@@ -204,7 +205,7 @@ build.branch =~ /^features\//
 To run only when the branch ends with `/release-123`, such as `feature/release-123`:
 
 ```js
-build.branch =~ /\/release-123$/
+build.branch =~ /\/release-123\$/
 ```
 
 To run only when building a tag:
@@ -216,7 +217,7 @@ build.tag != null
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
 
 ```js
-build.tag =~ /^v[0-9]+\.0$/
+build.tag =~ /^v[0-9]+\.0\$/
 ```
 
 To run only if the message doesn't contain `[skip tests]`, case insensitive:
