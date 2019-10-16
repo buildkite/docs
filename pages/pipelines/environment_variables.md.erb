@@ -134,6 +134,12 @@ The value of the `cancel-grace-period` [agent configuration option](/docs/agent/
 
 Default: `10`
 
+<h3 class="h3-caps">BUILDKITE_CANCEL_SIGNAL</h3>
+
+The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+
+Default: `SIGTERM`
+
 <h3 class="h3-caps">BUILDKITE_CLEAN_CHECKOUT</h3>
 
 Whether the build should perform a clean checkout. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks.
