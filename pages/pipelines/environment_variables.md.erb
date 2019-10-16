@@ -130,7 +130,7 @@ Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
 <h3 class="h3-caps">BUILDKITE_CANCEL_GRACE_PERIOD</h3>
 
-The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
 
 Default: `10`
 
