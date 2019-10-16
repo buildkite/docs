@@ -64,7 +64,7 @@ steps:
     artifact_paths: "build/*"
 
   # To prevent the "make test" stage from running before "make" has finished,
-  # we seperate the command with a "wait" step.
+  # we separate the command with a "wait" step.
   - wait
 
   # Before running `make test` we need to download the artifacts created in the
