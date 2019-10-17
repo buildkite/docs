@@ -1,0 +1,223 @@
+# Input Step
+
+An *input* step is used to collect information from a user. 
+
+<%= toc %>
+
+Input steps with can only be defined using a [`pipeline.yml`](/docs/pipelines/defining-steps) file.
+
+You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.    
+
+The data you collect from these fields is then available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
+
+## Input Step Attributes
+
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>prompt</code></td>
+    <td>
+      The instructional message displayed in the dialog box when the step is activated.<br>
+      <em>Example:</em> <code>"Release to production?"</code><br>
+      <em>Example:</em> <code>"Fill out the details for this release"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>fields</code></td>
+    <td>
+      A list of input fields required to be filled out before the step will be marked as passed.<br>
+      Available input field types: <code>text</code>, <code>select</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>branches</code></td>
+    <td>
+      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this input step in their builds.<br>
+      <em>Example:</em> <code>"master stable/*"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>if</code></td>
+    <td>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - input: "\:rocket\: Release!"
+```
+
+## Text Input Attributes
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Line endings</p>
+<p>A text field normalizes line endings to Unix format (<code>\n</code>).</p>
+</div>
+
+_Required attributes:_
+
+<table>
+  <tr>
+    <td><code>key</code></td>
+    <td>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The key may only contain alphanumeric characters, slashes or dashes.
+      <em>Example:</em> <code>"release-name"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - input: "Release information"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+```
+
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>hint</code></td>
+    <td>
+      The explanatory text that is shown after the label.<br>
+      <em>Example:</em> <code>"What’s the code name for this release? \:name_badge\:"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>required</code></td>
+    <td>
+      A boolean value that defines whether the field is required for form submission.<br>
+      <em>Default value:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>default</code></td>
+    <td>
+      The value that is pre-filled in the text field.<br>
+      <em>Example:</em> <code>"Flying Dolphin"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - input: "Request Release"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+        hint: "What’s the code name for this release? \:name_badge\:"
+        required: false
+        default: "Release #"
+```
+
+## Select Input Attributes
+
+_Required attributes:_
+
+<table>
+  <tr>
+    <td><code>key</code></td>
+    <td>
+      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The key may only contain alphanumeric characters, slashes or dashes.
+      <em>Example:</em> <code>"release-stream"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>options</code></td>
+    <td>
+      The list of select field options.<br>
+      For 6 or less options they’ll be displayed as radio buttons, otherwise they'll be displayed in a dropdown box.<br>
+      If selecting multiple options is permitted the options will be displayed as checkboxes.
+    </td>
+  </tr>
+</table>
+
+Each select option has the following _required attributes:_
+
+<table>
+  <tr>
+    <td><code>label</code></td>
+    <td>
+      The text displayed for the option.<br>
+      <em>Example:</em> <code>"Stable"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      The value to be stored as meta-data (e.g. to be later retrieved via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      <em>Example:</em> <code>"stable"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - input: "Request Release"
+    fields:
+      - select: "Stream"
+        key: "release-stream"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
+
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>hint</code></td>
+    <td>
+      The text displayed directly under the select field’s label.<br>
+      <em>Example:</em> <code>"Which release stream does this belong in? \:fork\:"</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>required</code></td>
+    <td>
+      A boolean value that defines whether the field is required for form submission.<br>
+      <em>Default:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>multiple</code></td>
+    <td>
+      A boolean value that defines whether multiple options may be selected.<br>
+      When multiple options are selected, they are delimited in the meta-data field by a line break (<code>\n</code>)<br>
+      <em>Default:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>default</code></td>
+    <td>
+      The value of the option or options that will be pre-selected.<br>
+      When <code>multiple</code> is enabled, this can be an array of values to select by default.<br>
+      <em>Example:</em> <code>"beta"</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+steps:
+  - input: "Release details"
+    fields:
+      - select: "Stream"
+        key: "release-stream"
+        hint: "Which release stream does this belong in? \:fork\:"
+        required: false
+        default: "beta"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
