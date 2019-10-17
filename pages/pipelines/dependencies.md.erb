@@ -1,0 +1,48 @@
+# Managing Step Dependencies
+
+- buildkite creates dependencies, there's shortcuts like wait and block
+- but can explicitly declare dependencies with depends_on
+
+
+- can do empty deps to declare that something has no deps (~ or empty array)
+`blah.sh` won't wait for `test.sh`, but `waiter.sh` will
+
+```
+steps:
+  - command: "test.sh"
+  - wait
+  - command: "blah.sh"
+    depends_on: ~
+  - command: "waiter.sh"
+```
+
+- waits have implicit deps on everything before it, everything after the waits have implicit deps on the wait
+
+```
+steps:
+  # runs right away
+  - command: "test1.sh"
+
+  # runs right away
+  - key: t2
+    command: "test2.sh"
+
+  - wait
+
+  # runs right away since it has no deps
+  - command: "blah.sh"
+    depends_on: ~
+
+  # waits for test1 and test2
+  - command: "waiter.sh"
+
+  # waits on test2 only
+  - command: "partial-waiter.sh"
+    depends_on: t2
+```
+
+- new type of step: input
+steps:
+  - input: "ask for input"
+
+- input steps are the same as block steps, but they don't block, can have explicit deps with depends_on
