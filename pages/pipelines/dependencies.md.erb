@@ -1,48 +1,65 @@
 # Managing Step Dependencies
 
-- buildkite creates dependencies, there's shortcuts like wait and block
-- but can explicitly declare dependencies with depends_on
+- all steps in pipelines have implicit dependencies
+- if you need to change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute
 
+<%= toc %>
 
-- can do empty deps to declare that something has no deps (~ or empty array)
-`blah.sh` won't wait for `test.sh`, but `waiter.sh` will
+## implicit dependencies with wait and block
 
-```
+- wait and block steps provide an implicit dependency structure to your pipeline
+- a wait step, as in the example below, is dependent on all previous steps completing successfully
+- all steps following the wait step are dependent on the wait step
+
+```yml
 steps:
-  - command: "test.sh"
+  - command: "a.sh"
+  - command: "b.sh"
+  - wait
+  - command: "c.sh"
+  - command: "d.sh"
+```
+
+- block steps perform the same function, as well as requiring the unblocking either manually or via an API call
+
+- if you are collecting information with your block steps using the `prompt` or `fields` attributes, but don't require the actual blocking behaviour, you can use an input step
+
+```yml
+steps:
+  - input: "Ask a question"
+```
+
+- same functionality as the block step, but no implicit dependencies are automatically applied to input steps
+
+## defining explicit dependencies
+
+- the `depends_on` attribute can be added to all step types
+- add a dependency of another step
+
+```yml
+steps:
+  - command: "thing.sh"
+    key: "a"
+  - command: "blah.sh"
+    key: "b"
+    depends_on: "a"
+```
+
+- adding an explicit empty dependency ensures that a step isn't dependent on any other and will run immediately at the start of the build
+
+```yml
+steps:
+  - command: "thing.sh"
   - wait
   - command: "blah.sh"
     depends_on: ~
-  - command: "waiter.sh"
 ```
 
-- waits have implicit deps on everything before it, everything after the waits have implicit deps on the wait
+## order of operations
 
-```
-steps:
-  # runs right away
-  - command: "test1.sh"
+- `if` then `depends_on` then `concurrency`
+- if the step you're dependent on doesn't exist for any reason, the current step will run as soon as the rest of the jobs complete
 
-  # runs right away
-  - key: t2
-    command: "test2.sh"
+## allowing failures
 
-  - wait
-
-  # runs right away since it has no deps
-  - command: "blah.sh"
-    depends_on: ~
-
-  # waits for test1 and test2
-  - command: "waiter.sh"
-
-  # waits on test2 only
-  - command: "partial-waiter.sh"
-    depends_on: t2
-```
-
-- new type of step: input
-steps:
-  - input: "ask for input"
-
-- input steps are the same as block steps, but they don't block, can have explicit deps with depends_on
+- you can add the `allow_dependency_failure` to any step, the next step can run, but if there's a failure the build will still end up red
