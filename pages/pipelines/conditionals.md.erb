@@ -83,7 +83,7 @@ The below expressions are supported by the `if` attribute:
 
 <div class="Docs__troubleshooting-note">
 <h1>Formatting regular expressions</h1>
-<p>When using regex, the expression must be on the right-hand side of the operator.<br>Any <code>$</code> signs must be escaped so they aren't interpolated as variables, e.g. <code>$$</code> or <code>\$</code>.</p>
+<p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
 ## Supported variables
