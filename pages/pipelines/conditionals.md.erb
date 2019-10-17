@@ -81,8 +81,9 @@ The below expressions are supported by the `if` attribute:
 
 
 
-<div class="Docs__note">
-<p>When using regex, the expression must be on the right-hand side of the operator.</p>
+<div class="Docs__troubleshooting-note">
+<h1>Formatting regular expressions</h1>
+<p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
 ## Supported variables
@@ -204,7 +205,7 @@ build.branch =~ /^features\//
 To run only when the branch ends with `/release-123`, such as `feature/release-123`:
 
 ```js
-build.branch =~ /\/release-123$/
+build.branch =~ /\/release-123\$/
 ```
 
 To run only when building a tag:
@@ -216,7 +217,7 @@ build.tag != null
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
 
 ```js
-build.tag =~ /^v[0-9]+\.0$/
+build.tag =~ /^v[0-9]+\.0\$/
 ```
 
 To run only if the message doesn't contain `[skip tests]`, case insensitive:
