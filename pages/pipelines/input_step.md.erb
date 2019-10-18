@@ -1,6 +1,6 @@
 # Input Step
 
-An *input* step is used to collect information from a user. 
+An *input* step is used to collect information from a user. An input step is functionally almost identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any dependencies to the steps before and after it. 
 
 <%= toc %>
 
@@ -11,6 +11,8 @@ You can add form fields to input steps with the `fields` attribute. There are tw
 The data you collect from these fields is then available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
 
 ## Input Step Attributes
+
+Input and block steps have the same attributes available for use.
 
 _Optional attributes:_
 
@@ -42,6 +44,16 @@ _Optional attributes:_
     <td>
       A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+    <td><code>depends_on</code></td>
+    <td>
+      The key of a step that this step depends on. This step will only run after the defined step has completed.<br>
+      <em>Example:</em> <code>"test-suite"</code>
+    </td>
+    <td><code>allow_dependency_failure</code></td>
+    <td>
+      Whether to continue to run this step if the step defined in the <code>depends_on</code> attribute fails.<br>
+      <em>Default:</em> <code>false</code>
     </td>
   </tr>
 </table>

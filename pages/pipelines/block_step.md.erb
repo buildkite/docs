@@ -2,6 +2,8 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
+An block step is functionally almost identical to an [input step](/docs/pipelines/block-step), however a block step creates implicit dependencies to the steps before and after it. 
+
 <%= toc %>
 
 A basic block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file. Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
@@ -19,6 +21,8 @@ For a complete example pipeline, including dynamically generated input fields, s
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example Pipeline<span class="repo">github.com/buildkite/block-step-example</span></a>
 
 ## Block Step Attributes
+
+Input and block steps have the same attributes available for use.
 
 _Optional attributes:_
 
