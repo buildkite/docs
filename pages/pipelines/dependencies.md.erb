@@ -61,10 +61,13 @@ steps:
 
 Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build. 
 
-## order of operations
+## Order of operations
 
-- `if` then `depends_on` then `concurrency`
-- if the step you're dependent on doesn't exist for any reason, the current step will run as soon as the rest of the jobs complete
+There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.  
+
+If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
+
+However, if the step you're dependent on is not added to the build due to an `if` condition, the step that depends on it will run once all other jobs are completed.
 
 ## Allowing dependency failures
 
