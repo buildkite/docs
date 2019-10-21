@@ -136,7 +136,9 @@ Default: `10`
 
 <h3 class="h3-caps">BUILDKITE_CANCEL_SIGNAL</h3>
 
-The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+Interpreted through the `buildkite-agent.cfg` as `cancel-signal` which accepts signals in the form of `SIGTERM`, `SIGHUP`, etc.
+
+The default is `SIGTERM` through agent version 3.x.x and below, then `SIGINT` 4.x.x and above
 
 Default: `SIGTERM`
 
