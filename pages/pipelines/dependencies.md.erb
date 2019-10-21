@@ -14,11 +14,11 @@ A wait step, as in the example below, is dependent on all previous steps complet
 
 ```yml
 steps:
-  - command: "a.sh"
-  - command: "b.sh"
+  - command: "one.sh"
+  - command: "two.sh"
   - wait
-  - command: "c.sh"
-  - command: "d.sh"
+  - command: "three.sh"
+  - command: "four.sh"
 ```
 
 [Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
@@ -27,7 +27,7 @@ If you are collecting information with your block steps using the `prompt` or `f
 
 ```yml
 steps:
-  - input: "Ask a question"
+  - input: "What is the name of this release?"
 ```
 
 An [input step](/docs/pipelines/input-step) provides the same functionality as the block step, but doesn't create the implicit dependencies that a block step creates.
@@ -40,22 +40,22 @@ To add a dependency on another step, add the attribute with the name of the step
 
 ```yml
 steps:
-  - command: "thing.sh"
-    key: "a"
-  - command: "blah.sh"
-    key: "b"
-    depends_on: "a"
+  - command: "tests.sh"
+    key: "tests"
+  - command: "build.sh"
+    key: "build"
+    depends_on: "tests"
 ```
 
-In the above example, the second command step (b) will not run until the first command step (a) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
+In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
 
 ```yml
 steps:
-  - command: "thing.sh"
+  - command: "tests.sh"
   - wait
-  - command: "blah.sh"
+  - command: "lint.sh"
     depends_on: ~
 ```
 
