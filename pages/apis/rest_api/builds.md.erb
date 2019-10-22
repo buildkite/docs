@@ -618,70 +618,67 @@ Success response: `200 OK`
 
 ## Timestamp attributes
 
-- there are quite a few different timestamps relating to time builds and jobs are created
-- they're available on both the graphql and rest apis
-- they differ slightly between builds and jobs
-- there are four main time values, these are available on both builds and jobs
+There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
 
-for a build, these are the provided timestamps
+The timestamps are available via both the GraphQL and REST APIs. They differ slightly between the build and job objects.
 
-<table>
-<tbody>
-  <tr>
-    <th><code>scheduled_at</code></th>
-    <td>the time the build was created</td>
-  </tr>
-  <tr>
-    <th><code>created_at</code></th>
-    <td>the time the build was created</td>
-  </tr>
-  <tr>
-    <th><code>started_at</code></th>
-    <td>the time the build's first job was started by an agent?</td>
-  </tr>
-  <tr>
-    <th><code>finished_at</code></th>
-    <td>the time the build is marked as finished (passed, failed, paused, cancelled)</td>
-  </tr>
-</tbody>
-</table>
-
-jobs also have an extra value
-
-<table>
-<tbody>
-  <tr>
-    <th><code>runnable_at</code></th>
-    <td>the time when a job was ready to be accepted to be run on an agent (such as the previous group jobs passing, or the previous block step being unblocked)</td>
-  </tr>
-</tbody>
-</table>
-
-the complete job timestamps are:
+Each <em>build</em> is provided with the following timestamps:
 
 <table>
 <tbody>
   <tr>
     <th><code>scheduled_at</code></th>
-    <td>the time when the build was created (if a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp)</td>
+    <td>The time the build was created</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
-    <td>the time when the job was added to the build</td>
-  </tr>
-  <tr>
-    <th><code>runnable_at</code></th>
-    <td>the time when a job was ready to be accepted to be run on an agent</td>
+    <td>The time the build was created</td>
   </tr>
   <tr>
     <th><code>started_at</code></th>
-    <td>the time the job was started by an agent</td>
+    <td>The time the build's first job was started by an agent</td>
   </tr>
   <tr>
     <th><code>finished_at</code></th>
-    <td>the time the job is marked as finished (passed, failed, paused, cancelled)</td>
+    <td>The time the build is marked as finished (passed, failed, paused, cancelled)</td>
   </tr>
 </tbody>
 </table>
 
+Jobs have an extra value:
 
+<table>
+<tbody>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>The time when a job was ready to be accepted by an agent</td>
+  </tr>
+</tbody>
+</table>
+
+The complete set of timestamps for a <em>job</em> are as follows:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>The time when the build was created. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>The time when the job was added to the build</td>
+  </tr>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>The time when a job was ready to be accepted by an agent</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>The time the job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>The time the job is marked as finished (passed, failed, paused, cancelled)</td>
+  </tr>
+</tbody>
+</table>
