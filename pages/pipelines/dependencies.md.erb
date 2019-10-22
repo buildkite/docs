@@ -23,14 +23,12 @@ steps:
 
 [Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
 
-If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't require the actual blocking behaviour, you can use an [input step](/docs/pipelines/input-step).
+If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
 
 ```yml
 steps:
   - input: "What is the name of this release?"
 ```
-
-An [input step](/docs/pipelines/input-step) provides the same functionality as the block step, but doesn't create the implicit dependencies that a block step creates.
 
 ## Defining explicit dependencies
 
