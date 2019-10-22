@@ -16,6 +16,25 @@ A basic wait step can be defined in your pipeline settings, or in your [pipeline
 - command: "echo The command passed"
 ```
 
+_Optional attributes:_
+
+<table>
+  <tr>
+    <td><code>continue_on_failure</code></td>
+    <td>
+      Run the next step, even if the previous step has failed.<br>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>if</code></td>
+    <td>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
+</table>
+
 ## Continuing on failure
 
 You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed. 

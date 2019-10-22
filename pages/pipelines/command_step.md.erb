@@ -90,6 +90,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>if</code></td>
+    <td>
+      A boolean expression to restrict the running of the step. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>key</code></td>
     <td>
       A unique string to identify the step. The value is available in the <code>BUILDKITE_STEP_KEY</code> <a href="/docs/pipelines/environment-variables">environment variable</a>.<br>
