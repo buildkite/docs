@@ -2,6 +2,8 @@
 
 An *input* step is used to collect information from a user. An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any dependencies to the steps before and after it. 
 
+Input steps will block your build from completing, but will not block any other steps unless specifically defined using the `depends_on` attribute.
+
 <%= toc %>
 
 Input steps with can only be defined using a [`pipeline.yml`](/docs/pipelines/defining-steps) file.
