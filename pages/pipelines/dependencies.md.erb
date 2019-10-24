@@ -47,6 +47,24 @@ steps:
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
+Dependencies can also be added as a list of strings, or a list of steps. 
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - "test-suite"
+      - "another-thing"
+```
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - step: "test-suite"
+      - step: "another-thing"
+```
+
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
 
 ```yml
@@ -69,8 +87,30 @@ However, if the step you're dependent on is not added to the build due to an `if
 
 ## Allowing dependency failures
 
-You can add the `allow_dependency_failure` attribute to any step. If there is a dependency failure - the dependency doesn't exist - the next step will still run.
+You can add the `allow_dependency_failure` attribute to any step. If any of the dependencies don't exist, the next step will still run.
+
+```yml
+steps:
+  - command: "tests.sh"
+    key: "tests"
+  - command: "build.sh"
+    key: "build"
+    depends_on: "tests"
+    allow_dependency_failure: true
+```
 
 However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
+
+To explictly allow or deny failures on an individual dependency basis, use the `allow_failure` attribute on a defined step dependency.
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - step: "test-suite"
+        allow_failure: true
+      - step: "another-thing"
+        allow_failure: false
+```
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
