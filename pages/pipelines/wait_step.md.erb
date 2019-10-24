@@ -33,6 +33,20 @@ _Optional attributes:_
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>depends_on</code></td>
+    <td>
+      The key of a step that this step depends on. This step will only run after the defined step has completed.<br>
+      <em>Example:</em> <code>"test-suite"</code>
+    </td>
+   </tr>
+   <tr>
+    <td><code>allow_dependency_failure</code></td>
+    <td>
+      Whether to continue to run this step if any of the steps defined in the <code>depends_on</code> attribute fail.<br>
+      <em>Default:</em> <code>false</code>
+    </td>
+  </tr>
 </table>
 
 ## Continuing on failure

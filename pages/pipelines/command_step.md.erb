@@ -54,6 +54,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>allow_dependency_failure</code></td>
+    <td>
+      Whether to continue to run this step if any of the steps defined in the <code>depends_on</code> attribute fail.<br>
+      <em>Default:</em> <code>false</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>artifact_paths</code></td>
     <td>
       The <a href="/docs/agent/v3/cli-artifact#uploading-artifacts">glob path</a> or paths of <a href="/docs/agent/v3/cli-artifact">artifacts</a> to upload from this step. This can be a single line of paths separated by semicolons, or a list.<br>
@@ -82,6 +89,13 @@ _Optional attributes:_
       <em>Example:</em> <code>"my-app/deploy"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>depends_on</code></td>
+    <td>
+      The key of a step that this step depends on. This step will only run after the defined step has completed.<br>
+      <em>Example:</em> <code>"test-suite"</code>
+    </td>
+   </tr>
   <tr>
     <td><code>env</code></td>
     <td>
