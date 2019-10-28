@@ -93,6 +93,26 @@ The below variables are supported by the `if` attribute:
 <table>
 <tbody>
 	<tr>
+		<td><code>build.author.email</code></td>
+		<td><code>String</code></td>
+		<td>The email address of the user who authored the build's commit</td>
+	</tr>
+	<tr>
+		<td><code>build.author.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the user who authored the build's commit</td>
+	</tr>
+	<tr>
+		<td><code>build.author.name</code></td>
+		<td><code>String</code></td>
+		<td>The name of the user who authored the build's commit</td>
+	</tr>
+	<tr>
+		<td><code>build.author.teams</code></td>
+		<td><code>Array</code></td>
+		<td>An array of the team/s which the user who authored the build's commit is a member of</td>
+	</tr>
+	<tr>
 		<td><code>build.branch</code></td>
 		<td><code>String</code></td>
 		<td>The branch on which this build is created from</td>
@@ -103,9 +123,29 @@ The below variables are supported by the `if` attribute:
 		<td>The commit number of the commit the current build is based on</td>
 	</tr>
 	<tr>
-		<td><code>build.env()</code></td>
+		<td><code>build.creator.email</code></td>
 		<td><code>String</code></td>
-		<td>The value of the environment variable specified inside the parentheses</td>
+		<td>The email of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.name</code></td>
+		<td><code>String</code></td>
+		<td>The name of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.teams</code></td>
+		<td><code>Array</code></td>
+		<td>An array of the team/s which the user who created the build is a member of</td>
+	</tr>
+	<tr>
+		<td><code>build.env()</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
 	</tr>
 	<tr>
 		<td><code>build.id</code></td>
