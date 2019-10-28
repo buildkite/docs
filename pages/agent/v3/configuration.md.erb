@@ -12,7 +12,7 @@ You can find the location of your configuration file in your platform’s instal
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
 name="my-app-%n"
 tags="ci=true,docker=true"
-git-clean-flags="-fdqx"
+git-clean-flags="-ffdqx"
 debug=true
 ```
 
@@ -120,8 +120,8 @@ _Optional attributes:_
     <tr>
       <th><code>git-clean-flags</code></th>
       <td>
-        Flags to pass to the <code>git clean</code> command. Prior to 3.0 this defaulted to <code>"-fdq"</code>.
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-fxdq"</code></p>
+        Flags to pass to the <code>git clean</code> command. Agents v3.0.0 and below default to <code>"-fdq"</code>. Agents v3.0.0 to v3.8.0 default to <code>"-fxdq"</code>.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"-ffxdq"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLEAN_FLAGS</code></p>
       </td>
     </tr>
