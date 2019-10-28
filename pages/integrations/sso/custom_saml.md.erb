@@ -11,16 +11,18 @@ There are two ways to set up your custom provider: using the Buildkite meta-data
 Manual SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/integrations/sso/sso-setup-with-graphql). 
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Before starting your provider setup</p>
-<p>Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this during set up.</p>
-<p>You can also retreive this URL and complete your setup manually using GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions.</p>
+  <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-### Step 1. Option A - Setting up with meta-data
+### Step 1. Create an SSO Provider in Buildkite
+
+
+
+### Step 2. Option A - Setting up with meta-data
 
 A custom URL containing your organization's metadata can be generated. You can request the URL from support@buildkite.com alongside your SSO service URL. The custom endpoint contains all the information you need to set up SAML with any provider.
 
-### Step 1. Option B - Setting up manually
+### Step 2. Option B - Setting up manually
 
 Manual setup is different for each provider, however it usually requires the following fields:
 
@@ -48,7 +50,7 @@ Manual setup is different for each provider, however it usually requires the fol
 
 If your custom provider needs further information, please email support@buildkite.com.
 
-### Step 2. Create an SSO Provider in Buildkite
+### Step 3. Update your SSO Provider in Buildkite
 
 In your Buildkite Organization Settings' Single Sign On menu item, choose the Custom SAML provider:
 
@@ -79,11 +81,11 @@ On the following screen you can choose to either set up using a Meta Data URL fr
 
 <%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
 
-### Step 3. Perform a Test Login
+### Step 4. Perform a Test Login
 
 Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
-### Step 4. Enable the new SSO Provider
+### Step 5. Enable the new SSO Provider
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through your provider before organization data can be accessed.
 
