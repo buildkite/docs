@@ -275,3 +275,8 @@ To run only if the build was created from a schedule:
 build.source == "schedule"
 ```
 
+To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
+
+```js
+build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
+```
