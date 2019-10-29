@@ -304,9 +304,9 @@ Example: `"/etc/buildkite-agent/plugins/"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGIN_VALIDATION</h3>
 
-Whether to enable plugin validation (currently experimental). This variable is read by the bootstrap during the `checkout` phase. The value can be set as an environment variable in a `pipeline.yml` file, or in `environment` and `pre-checkout` hooks. It can also be enabled using the `plugin-validation` [agent configuration option](/docs/agent/v3/configuration). 
+Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/v3/configuration). 
 
-Values: `"true"` and `"false"`
+Default: `"false"`
 
 <h3 class="h3-caps">BUILDKITE_PULL_REQUEST</h3>
 
