@@ -333,6 +333,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>default_branch</code></th>
+    <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
   </tr>
