@@ -2,12 +2,32 @@
 
 Buildkite can connect to your GitHub repository and use the Commit Status API to update the status of commits in Pull Requests.
 
+To complete this integration, you will need admin privileges for your GitHub repository.
+
 <%= toc %>
 
 ## Connecting Buildkite and GitHub
 
+- add github to your connected apps settings, which can be found in your buildkite personal settings
+- click connect and follow the prompts
+
 ## Set up a pipeline
+
+- add your github repo URL
+- follow the instructions to set up webhooks (add the webhook in github, add the provided webhook url, select the events)
+- many github repository settings available in Buildkite
+	- build on code pushes, deployments, or forks
+	- disable builds from github events
+
+- you can change your github repo URL at any time in the Github Repository Settings
+- you can find the webhook instructions linked at the bottom of the settings page 
 
 ## Running builds on Pull Requests
 
+- choose the 'build pull requests' checkbox in the github repo settings in your Buildkite pipeline settings
+- can restrict builds by branches with the 'limit pull request branches' option
+- skip PR builds for commits that have already been built
+- build 3rd party PRs, security issues, revise the recommendations in the [managing secrets](/docs/pipelines/secrets) guide
+
 ## Noreply email handling
+
