@@ -28,7 +28,7 @@ Buildkite supports 5 predefined intervals:
 
 ### Crontab time syntax
 
-Intervals can also be defined using a variant of the crontab time syntax:
+Intervals can be defined using a variant of the crontab time syntax:
 
 ```
  ┌───────────── minute (0 - 59)
@@ -41,7 +41,9 @@ Intervals can also be defined using a variant of the crontab time syntax:
  * * * * * Australia/Melbourne
 ```
 
-A time zone may optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
+Buildkite uses the [Fugit](https://github.com/floraison/fugit) ruby gem for parsing cron strings, so features they support such as modulo are also supported by Buildkite schedules. See the [Fugit::Cron documentation](https://github.com/floraison/fugit#fugitcron) for more information and examples.   
+
+A time zone can optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
 
 Examples:
 
