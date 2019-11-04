@@ -12,22 +12,24 @@ To add a plugin to a [command step](/docs/pipelines/command-step), use the `plug
 
 This attribute accepts an array, so you can add as many plugins as you require in each step. The plugins will be run in the order you put them in the array. 
 
-In the example below, the `detect-clowns` `command` hook will run, followed by the commands `yarn install && yarn run test`. As plugins are collections of hooks, the plugin will be run first before any defined commands or scripts. 
+In the example below, the `shellcheck` `command` hook will run, followed by the commands `yarn install && yarn run test`. As plugins are collections of hooks, the plugin will be run first before any defined commands or scripts. 
 
 ```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - detect-clowns#v2.0.0: ~
+      - shellcheck#v1.1.2:
+          files: scripts/*.sh
 ```
 
-In the example below, the `detect-clowns` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`.
+In the example below, the `shellcheck` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`.
 
 ```yml
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - detect-clowns#v2.0.0: ~
+      - shellcheck#v1.1.2:
+          files: scripts/*.sh
       - docker#v3.3.0:
           image: node
           workdir: /app
@@ -55,13 +57,13 @@ If you are using Agent hooks as well as plugins, some hook types will run the Ag
 
 Plugins can be configured on [command steps](/docs/pipelines/command-step) in your `pipeline.yml` [pipeline definitions](/docs/pipelines/defining-steps). When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
 
-The simplest plugin is one that accepts no configuration, such as the [Detect Clowns plugin](https://github.com/buildkite-plugins/detect-clowns-buildkite-plugin), which will return an error if any clown emojis are found in your source code:
+The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin), which updates your `$PATH` to include the `bin` directory that contains the additional commands to expose to build jobs:
 
 ```yml
 steps:
   - label: "\:clown_face\:"
     plugins:
-      - detect-clowns#v2.0.0: ~
+      - library-example#v1.0.0: ~
 ```
 
 More commonly, plugins accept various configuration options. For example, the [Docker plugin] can be configured to use a Docker image to run your command:
