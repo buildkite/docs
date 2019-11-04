@@ -322,7 +322,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>description</code></th><td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td></tr>
   <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
-  <tr><th><code>provider_settings</code></th><td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+  <tr><th><code>provider_settings</code></th><td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
   <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
@@ -435,7 +435,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
-    <td>The source provider settings. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+    <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -489,3 +489,129 @@ curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/
 Required scope: `write_pipelines`
 
 Success response: `204 No Content`
+
+## Provider settings properties
+
+The [Create Pipeline](#create-a-pipeline) and [Update Pipeline](#create-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider’s supported settings are below.
+
+Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`. Other source providers such as Gitlab do not have optional settings available. 
+
+Properties available for Bitbucket Server:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>build_pull_requests</code></th>
+    <td>
+      Whether to create builds for commits that are part of a Pull Request.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      Whether to create builds when tags are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>build_pull_requests</code></th>
+    <td>
+      Whether to create builds for commits that are part of a Pull Request.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>pull_request_branch_filter_enabled</code></th>
+    <td>
+      Whether to limit the creation of builds to specific branches or patterns. 
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+  </tr>
+  <tr>
+    <th><code>pull_request_branch_filter_configuration</code></th>
+    <td>
+      The branch filtering pattern. Only pull requests on branches matching this pattern will cause builds to be created.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"features/*"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>skip_pull_request_builds_for_existing_commits</code></th>
+    <td>
+      Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>build_tags</code></th>
+    <td>
+      Whether to create builds when tags are pushed.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status</code></th>
+    <td>
+      Whether to update the status of commits in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>publish_commit_status_per_step</code></th>
+    <td>
+      Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  </tbody>
+</table>
+
+Additional properties availble for GitHub:
+
+<table>
+  <tbody>
+    <tr>
+      <th><code>trigger_mode</code></th>
+      <td>
+        What type of event to trigger builds on. <code>Code</code> will create builds when code is pushed to GitHub. <code>Deployment</code> will create builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>. <code>Fork</code> will create builds when the GitHub repository is forked. <code>None</code> will not create any builds based on GitHub activity.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
+    </tr>
+    <tr>
+      <th><code>filter_enabled</code></th>
+      <td>
+        Whether filter conditions are being used for this step.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>filter_condition</code></th>
+      <td>
+        The conditions under which this step will run. See the <a href="/docs/pipelines/conditionals">Using Conditionals</a> guide for more information.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.message != 'skip'"</code></p>
+      </td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_forks</code></th>
+      <td>
+        Whether to create builds for pull requests from third-party forks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>prefix_pull_request_fork_branch_names</code></th>
+      <td>
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>master</code> branch from <code>some-user</code> will become <code>some-user:master</code>.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>separate_pull_request_statuses</code></th>
+      <td>
+        Whether to create a separate status for pull request builds, allowing you to require a passing pull request build in your <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> in GitHub.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>publish_blocked_as_pending</code></th>
+      <td>
+        The status to use for blocked builds. <code>Pending</code> can be used with <a href="https://help.github.com/en/articles/enabling-required-status-checks">required status checks</a> to prevent merging pull requests with blocked builds.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>passed</code>, <code>pending</code></p></td>
+    </tr>
+  </tbody>
+</table>

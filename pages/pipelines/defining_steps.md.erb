@@ -44,7 +44,9 @@ Your pipeline will now show a new step labeled :pipeline: that runs a `buildkite
 
 When you run a build, this step will add any steps defined in the `pipeline.yml` file to your Buildkite pipeline.
 
-Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.  
+Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.
+
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. 
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
@@ -201,6 +203,18 @@ To ensure that your existing steps don't run alongside the check, we include a [
 Your steps should then look something like this:
 
 <%= image "pipeline-upload-migrate-existing-steps.png", width: 998/2, height: 940/2, alt: "Screenshot of the above described pipeline upload command, before some existing steps" %>
+
+## Cloning a pipeline
+
+When creating a new pipeline, you can take a shortcut if you want to set up the new pipeline with the same steps as an existing pipeline.
+
+Using the `?clone` URL parameter, you can prefill the new pipeline page with the steps from another pipeline. It will not copy any other fields such as environment variables or repository information. 
+
+The below example URL will copy the steps from the 'My Llamas Pipeline' into the New Pipeline page: 
+
+```
+https://buildkite.com/organizations/acme-inc/pipelines/new?clone=my-llamas-pipeline
+```
 
 ## Further documentation
 

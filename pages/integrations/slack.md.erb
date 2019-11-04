@@ -1,0 +1,53 @@
+# Slack
+
+The [Slack](https://slack.com/) notification service in Buildkite lets you receive notifications about your builds in your Slack workspace.
+
+<%= toc %>
+
+## Adding a notification service
+
+In your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add a Slack notification service:
+
+<%= image "buildkite-add-slack.png", width: 1458/2, height: 208/2, alt: "Screenshot of the 'Add' button for adding a Slack service to Buildkite" %>
+
+Click the "Add to Slack" button:
+
+<%= image "buildkite-add-to-slack.png", width: 1458/2, height: 358/2, alt: "Screenshot of 'Add Slack Service' screen on Buildkite. It shows an 'Add to Slack' button, as well as the option to switch to a custom Webhook URL." %>
+
+This will take you to Slack. Log in, choose a workspace, and grant Buildkite the ability to post in your chosen channel:
+
+<%= image "buildkite-slack-oauth-screen.png", width: 1458/2, height: 1101/2, alt: "Screenshot of Slack's OAuth prompt, with Buildkite requesting access to your Slack workspace. It shows that Buildkite needs to know some information about you and your workspace, and asks you to choose a channel for Buildkite to post in." %>
+
+Once you have granted access to your Slack workspace, give it a description, choose how the notifications should display, and select the type of notifications you want to receive:
+
+<%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
+
+## Changing channels
+
+Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service.
+
+## Upgrading a legacy Slack service
+
+Slack will stop accepting notifications from legacy Buildkite services on January 10th, 2020.
+
+If you have Slack set up with a legacy service or are no longer receiving notifications, add a new Slack notification service in your [Buildkite organization's Notification Settings](https://buildkite.com/organizations/-/services).
+
+### Identify where your existing services post notifications
+
+Compare the webhook URLs from your Buildkite notification service with your Slack integration to find your existing notification settings. 
+
+Finding your Buildkite webhook URL: Click on the Slack notification service in Buildkite, the webhook URL will be listed here. 
+
+Finding your Slack integration's webhook URL: 
+
+1. In your Slack workspace's App Directory, click the Manage button and find the Buildkite app.
+1. Click through the Buildkite app, then click the pencil button to edit your configuration.
+1. The webhook URL will be listed under Integration Settings. 
+
+### Confirm which pipelines, and which events, are posted
+
+Once you've found the matching Buildkite service and Slack app, confirm where and what you're posting to Slack. Take note of the events and pipelines so that you can set up a new notification service. 
+
+### Create a new Slack notification service which posts
+
+Using the instructions above, [add a new Buildkite notification service](/docs/integrations/slack#adding-a-notification-service) with the same settings as the legacy integration.

@@ -128,6 +128,18 @@ The url for this build on Buildkite. The value cannot be modified.
 
 Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
+<h3 class="h3-caps">BUILDKITE_CANCEL_GRACE_PERIOD</h3>
+
+The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+
+Default: `10`
+
+<h3 class="h3-caps">BUILDKITE_CANCEL_SIGNAL</h3>
+
+The value of the `cancel-signal` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+
+Default: `SIGTERM`
+
 <h3 class="h3-caps">BUILDKITE_CLEAN_CHECKOUT</h3>
 
 Whether the build should perform a clean checkout. The variable is read during the default checkout phase of the bootstrap and can be overridden in `environment` or `pre-checkout` hooks.
@@ -292,9 +304,9 @@ Example: `"/etc/buildkite-agent/plugins/"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGIN_VALIDATION</h3>
 
-Whether to enable plugin validation (currently experimental). This variable is read by the bootstrap during the `checkout` phase. The value can be set as an environment variable in a `pipeline.yml` file, or in `environment` and `pre-checkout` hooks. It can also be enabled using the `plugin-validation` [agent configuration option](/docs/agent/v3/configuration). 
+Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/v3/configuration). 
 
-Values: `"true"` and `"false"`
+Default: `"false"`
 
 <h3 class="h3-caps">BUILDKITE_PULL_REQUEST</h3>
 
@@ -344,24 +356,6 @@ How many times this job has been retried. The value cannot be modified.
 
 Example: `"0"`
 
-<h3 class="h3-caps">BUILDKITE_SHELL</h3>
-
-The value of the `shell` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Example: `"/bin/bash -e -c"`
-
-<h3 class="h3-caps">BUILDKITE_SOURCE</h3>
-
-The source of the event that created the build. The value cannot be modified.
-
-Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
-
-<h3 class="h3-caps">BUILDKITE_SSH_KEYSCAN</h3>
-
-The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Values: `"true"` and `"false"`
-
 <h3 class="h3-caps">BUILDKITE_S3_ACCESS_KEY_ID</h3>
 
 The access key ID for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
@@ -391,6 +385,36 @@ Default: `"us-east-1"`
 The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
+
+<h3 class="h3-caps">BUILDKITE_SHELL</h3>
+
+The value of the `shell` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"/bin/bash -e -c"`
+
+<h3 class="h3-caps">BUILDKITE_SOURCE</h3>
+
+The source of the event that created the build. The value cannot be modified.
+
+Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
+
+<h3 class="h3-caps">BUILDKITE_SSH_KEYSCAN</h3>
+
+The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Values: `"true"` and `"false"`
+
+<h3 class="h3-caps">BUILDKITE_STEP_ID</h3>
+
+A unique string that identifies a step. This value cannot be modified.
+
+Example: "080b7d73-986d-4a39-a510-b34f9faf4710"
+
+<h3 class="h3-caps">BUILDKITE_STEP_KEY</h3>
+
+The value of the `key` [command step attribute](/docs/pipelines/command-step#command-step-attributes), a unique string set by you to identify a step. This value cannot be modified as an environment variable. 
+
+Example: "tests-06"
 
 <h3 class="h3-caps">BUILDKITE_TAG</h3>
 
@@ -461,6 +485,10 @@ The following environment variables have been deprecated.
   <tr>
     <th><code>BUILDKITE_SCRIPT_PATH</code></th>
     <td>This has been renamed to `BUILDKITE_COMMAND`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDKITE_STEP_IDENTIFIER</code></th>
+    <td>This has been renamed to `BUILDKITE_STEP_KEY`</td>
   </tr>
 </tbody>
 </table>

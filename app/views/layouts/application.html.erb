@@ -78,7 +78,6 @@
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker-Based Builds", 'tutorials/docker-containerized-builds' %></li>
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Parallelizing Builds", 'tutorials/parallel-builds' %></li>
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Migrating from Bamboo", 'tutorials/migrating-from-bamboo' %></li>
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'tutorials/deploying-to-heroku' %></li>
               </ul>
             <% else %>
               <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
@@ -176,6 +175,7 @@
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "meta-data", 'agent/v3/cli-meta-data' %></li>
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v3/cli-pipeline' %></li>
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "bootstrap", 'agent/v3/cli-bootstrap' %></li>
+                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "step", 'agent/v3/cli-step' %></li>
                   </ul>
                 <% end %>
               <% else %>
@@ -190,6 +190,7 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Secrets", 'pipelines/secrets' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
@@ -217,7 +218,6 @@
                 <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
-
               <% if request.url.include?('/docs/plugins') %>
                 <p class="Docs__nav__section-heading">Plugins</p>
                 <ul class="Docs__nav__sub-nav">
@@ -230,6 +230,16 @@
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+              <% if request.url.include?('/docs/deployments') %>
+              <p class="Docs__nav__section-heading">Deployments</p>
+              <ul class="Docs__nav__sub-nav">
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
+              </ul>
+              <% else %>
+                <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
+                <%= sidebar_link_to "Deployments", 'deployments', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
 
@@ -239,9 +249,11 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitLab", 'integrations/gitlab' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifactory", 'integrations/artifactory' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Slack", 'integrations/slack' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">SSO</p>
                 <ul class="Docs__nav__sub-nav">
@@ -262,6 +274,9 @@
 
               <% if request.url.include?('/docs/apis') %>
                 <p class="Docs__nav__section-heading">APIs</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
+                </ul>
                 <p class="Docs__nav__section-subheading">Webhooks</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
@@ -283,6 +298,7 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "User", 'apis/rest-api/user' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">GraphQL API</p>
                 <ul class="Docs__nav__sub-nav">
