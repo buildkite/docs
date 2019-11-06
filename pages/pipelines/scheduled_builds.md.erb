@@ -12,7 +12,7 @@ Buildkite doesn't support intervals less than 10 minutes.
 
 ### Predefined intervals
 
-Buildkite supports 5 predefined intervals:
+Buildkite supports 6 predefined intervals:
 
 <table>
   <thead>
@@ -23,6 +23,7 @@ Buildkite supports 5 predefined intervals:
     <tr><th><code>@daily</code> or <code>@midnight</code></th><td>Every day at midnight UTC</td><td><code>0 0 * * *</code></td></tr>
     <tr><th><code>@weekly</code></th><td>Every week at midnight Sunday UTC</td><td><code>0 0 * * 0</code></td></tr>
     <tr><th><code>@monthly</code></th><td>Every month, at midnight UTC on the first day</td><td><code>0 0 1 * *</code></td></tr>
+    <tr><th><code>@yearly</code></th><td>Every year, at midnight UTC on the first day</td><td><code>0 0 1 1 *</code></td></tr>
   </tbody>
 </table>
 
@@ -39,13 +40,27 @@ Intervals can be defined using a variant of the crontab time syntax:
  │ │ │ │ │          ┌─── time zone name or offset (optional)
  │ │ │ │ │          │
  * * * * * Australia/Melbourne
-```
-
-Buildkite uses the [Fugit](https://github.com/floraison/fugit) ruby gem for parsing cron strings, so features they support such as modulo are also supported by Buildkite schedules. See the [Fugit::Cron documentation](https://github.com/floraison/fugit#fugitcron) for more information and examples.   
+``` 
 
 A time zone can optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
 
-Examples:
+#### Supported Extensions
+
+Buildkite supports several extensions to the standard POSIX cron syntax.
+
+##### The `/` operator
+
+The slash operator allows you to specify step values within ranges. For example, `*/10 * * * *` would run every ten minutes.
+
+##### `L` or `last` token
+
+Using `L` or `last` in the _day of month_ field represents the last day. Thus `0 0 L * *` represents midnight on the last day of the month, and `0 0 -2-L * *` represents the last two days of the month.
+
+##### Modulo
+
+Using the modulo extension allows you to create schedules for more specific subsets of times. For example, `0 0 * * 0%3` represents midnight on every third Sunday. You can also use the `+` operator to offset this, so for instance you could use `0 0%2+1 * * *` to schedule a build at the top of every odd hour, whereas `0 0%2 * * *` would run every even hour.
+
+#### Examples
 
 <table>
   <tr><th><code>*/10 * * * *</code></th><td>Every 10 minutes</td></tr>
@@ -58,5 +73,8 @@ Examples:
   <tr><th><code>0 8 * * * America/Vancouver</code></th><td>Every day at 8am in Vancouver</td></tr>
   <tr><th><code>0 16 * * SUN</code></th><td>Every Sunday at 4pm UTC</td></tr>
   <tr><th><code>0 0 * * 1-5</code></th><td>Every weekday at midnight UTC</td></tr>
+  <tr><th><code>0 0 L * *</code></th><td>Midnight UTC on the last day of the month</td></tr>
   <tr><th><code>0 0 1 */2 *</code></th><td>Every other month, at midnight UTC on the first day</td></tr>
+  <tr><th><code>0 16 L * *</code></th><td>The last day of the month at 4pm UTC</td></tr>
+  <tr><th><code>0 0%2+1 * * *</code></th><td>The start eEvery odd hour</td></tr>
 </table>
