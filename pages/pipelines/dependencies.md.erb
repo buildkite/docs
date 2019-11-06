@@ -10,7 +10,7 @@ All steps in pipelines have implicit dependencies, often managed with wait and b
 
 By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
 
-A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't run until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step has completed.
+A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
 
 ```yml
 steps:
