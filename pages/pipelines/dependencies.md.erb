@@ -87,7 +87,7 @@ However, if the step you're dependent on is excluded from the build due to an `i
 
 ## Allowing dependency failures
 
-You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, even if those jobs have failed.
+You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, even if those jobs have failed. However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
 
 ```yml
 steps:
@@ -99,9 +99,7 @@ steps:
     allow_dependency_failure: true
 ```
 
-However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
-
-To explictly allow or deny failures on an individual dependency basis, use the `allow_failure` attribute on a defined step dependency.
+For finer control, you can explictly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
 
 ```yml
 steps:
