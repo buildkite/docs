@@ -46,7 +46,21 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
     "scheduled_jobs_count": 0,
     "running_jobs_count": 0,
     "waiting_jobs_count": 0,
-    "visibility": "private"
+    "visibility": "private",
+    "steps": [
+        {
+          "type": "script",
+          "name": "Test :white_check_mark:",
+          "command": "script/test.sh",
+          "artifact_paths": "results/*",
+          "branch_configuration": "master feature/*",
+          "env": { },
+          "timeout_in_minutes": null,
+          "agent_query_rules": [ ]
+        }
+      ],
+      "env": {
+      }
   }
 ]
 ```
