@@ -36,14 +36,14 @@ _Optional attributes:_
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the defined step has completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to run this step if any of the steps defined in the <code>depends_on</code> attribute fail.<br>
+      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
