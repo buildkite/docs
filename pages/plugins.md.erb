@@ -14,8 +14,13 @@ Some plugins allow configuration, this is usually defined in your pipeline.yml f
 
 There are two main types of plugins:
 
-- stuff you want to run before/after you run your script (can define any of the available hooks like pre-command, command, post-command etc.) (login to a service, build an image, pull down some packages or an artifact, automate a workflow)
-- a repo of commands: commands from the files can be referenced in your scripts, it works in a similar way to an import statement
+1. Scripts or commands you want to run before or after you run a step:
+
+	You can define any of the available hooks like `pre-command`, `command`, `post-command` etc. This can also be used to perform tasks like logging in to a service, building an image, pulling down packages or artifacts, or automating a workflow.
+
+2. A repository of commands: 
+
+	Commands from files stored in a plugin can be used by scripts in your build. A plugin like this works in a similar way to an import statement.
 
 ## Common use cases
 
