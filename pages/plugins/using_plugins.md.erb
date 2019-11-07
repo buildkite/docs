@@ -101,16 +101,65 @@ steps:
 
 ## Plugin sources
 
-If you refer to a plugin by name only, the source format will default to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. For example, a plugin with the name `docker` would resolve to `https://github.com/buildkite-plugins/docker-buildkite-plugin`.
+There are different ways to describe the location of your plugins:
 
-To refer to a plugin from your own GitHub organization, prefix the name with the organization. For example, a plugin name of `my-org/docker` would resolve to `https://github.com/my-org/docker-buildkite-plugin`.
+  - The name of the plugin
+  - The GitHub organization + the name of the plugin
+  - A fully qualified Git URL 
 
-You can also use fully qualified Git URLs instead of names, to refer to plugins that aren’t on GitHub, or live in private Git repositories that are only accessible to your agents. For example:
+Always specify a plugin version tag after your plugin (e.g. `v1.2.3`) to prevent behavior changing unexpectedly and to prevent stale checkouts of plugins on your agent machines. Branches, tags and commit hashes are all valid version descriptors.
 
- * `https://github.com/my-org/my-plugin.git#v1.0.0`
- * `ssh://git@github.com/my-org/my-plugin.git#v1.0.0`
- * `file:///a-local-path/my-plugin.git#v1.0.0`
+### Plugin name
 
-Branches, tags and commits are all valid after the `#`.
+When you use the plugin name only, the Agent will assume you're talking about a Buildkite plugin in the `buildkite-plugins` GitHub repository. The source format will default to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. 
 
-Always specify a plugin version tag (e.g. `v1.2.3`) to prevent behavior changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
+For example, you can refer to the Docker plugin by the name `docker`:
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - docker#v3.3.0:
+          image: node
+          workdir: /app
+```
+
+The above `pipeline.yml` will resolve the following plugin source:
+
+```yml
+https://github.com/buildkite-plugins/docker-buildkite-plugin
+```
+
+### Plugin organization and name
+
+When you refer to a plugin using an organization name as well as the plugin name, it will assume that it's hosted on GitHub.com.
+
+For example, using the plugin `my-org/docker` will resolve the source with the specified GitHub organization:
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - my-org/docker#v3.3.0:
+          image: node
+          workdir: /app
+```
+
+```yml
+https://github.com/my-org/docker-buildkite-plugin
+```
+
+### Fully qualified Git URL
+
+You can use fully qualified Git URLs instead of names to refer to plugins that aren’t on GitHub, or that live in private Git repositories that are only accessible to your agents. 
+
+For example:
+
+```yml
+steps:
+  - command: yarn install && yarn run test
+    plugins:
+      - https://github.com/my-org/my-plugin.git#v1.0.0: ~
+      - ssh://git@github.com/my-org/my-plugin.git#v1.0.0: ~
+      - file:///a-local-path/my-plugin.git#v1.0.0: ~
+```
