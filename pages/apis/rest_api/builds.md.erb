@@ -662,7 +662,7 @@ The complete set of timestamps for a <em>job</em> are as follows:
 <tbody>
   <tr>
     <th><code>scheduled_at</code></th>
-    <td>The time when the build was created. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
+    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
