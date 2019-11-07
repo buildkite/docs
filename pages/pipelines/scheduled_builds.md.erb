@@ -58,7 +58,9 @@ Using `L` or `last` in the _day of month_ field represents the last day. Thus `0
 
 ##### Modulo
 
-Using the modulo extension allows you to create schedules for more specific subsets of times. For example, `0 0 * * 0%3` represents midnight on every third Sunday. You can also use the `+` operator to offset this, so for instance you could use `0 0%2+1 * * *` to schedule a build at the top of every odd hour, whereas `0 0%2 * * *` would run every even hour.
+Using the modulo extension allows you to create schedules for less frequent sets of weekdays. Modulo can only be used in the _day of week_ field.
+
+For example, `0 0 * * 0%3` represents midnight on every third Sunday. You can also use the `+` operator to offset this, so for instance you could use `0 * * * 1%2+1` to schedule a build on every odd Monday, whereas `0 * * * 0%2` would run every even Monday.
 
 #### Examples
 
@@ -76,5 +78,5 @@ Using the modulo extension allows you to create schedules for more specific subs
   <tr><th><code>0 0 L * *</code></th><td>Midnight UTC on the last day of the month</td></tr>
   <tr><th><code>0 0 1 */2 *</code></th><td>Every other month, at midnight UTC on the first day</td></tr>
   <tr><th><code>0 16 L * *</code></th><td>The last day of the month at 4pm UTC</td></tr>
-  <tr><th><code>0 0%2+1 * * *</code></th><td>The start eEvery odd hour</td></tr>
+  <tr><th><code>0 * * * 2%2+1</code></th><td>The start of every odd Tuesday</td></tr>
 </table>
