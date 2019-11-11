@@ -152,7 +152,7 @@ $Docs__bp_stacked: 600px;
   padding-bottom: 50px;
   margin-top: -5px;
   @media (max-width: $Docs__bp_stacked) { padding-left: 0; }
-  h1, h2, h3, h4 {
+  h1, h2, h3, h4, h5 {
     font-weight: bold;
     font-family: inherit;
     font-style: normal;
@@ -162,9 +162,10 @@ $Docs__bp_stacked: 600px;
   h1 { font-size: 2rem; margin-bottom: .5em; }
   h3 { font-size: 1.25rem; margin-top: 2em; }
   h3 { font-size: 1.1rem; margin-top: 2em; margin-bottom: .5em; font-weight: 700; font-style: normal; color: inherit; }
-  h4 { font-size: 1em; font-weight: 600; }
   h3.h3-caps { font-size: 1rem; }
   h3 + p { margin-top: 0; }
+  h4 { font-size: 1rem; font-weight: 600; }
+  h5 { font-size: .9rem; font-weight: 600; }
   img, svg { padding: 5px; border: 1px solid #eee; }
   img.no-decoration { padding: 0; border: none; }
   img.emoji { padding: 0; border: none; }
