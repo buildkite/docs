@@ -44,7 +44,9 @@ Your pipeline will now show a new step labeled :pipeline: that runs a `buildkite
 
 When you run a build, this step will add any steps defined in the `pipeline.yml` file to your Buildkite pipeline.
 
-Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.  
+Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.
+
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. 
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 

@@ -10,7 +10,7 @@ The Buildkite Agent’s `annotate` command allows you to add additional informat
 
 The `buildkite-agent annotate` command creates an annotation associated with the current build.
 
-The first five annotations created will be displayed on the build page, however there is no limit to the amount of annotations you can create. All annotations can be retreived using the [GraphQL API](/docs/apis/graphql-api).
+There is no limit to the amount of annotations you can create. All annotations can be retreived using the [GraphQL API](/docs/apis/graphql-api).
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
@@ -110,9 +110,20 @@ p4 pt4 pr4 pb4 pl4 py4 px4
 
 ### Colored console output
 
-Console output in annotations can be displayed with ANSI colors when processed through [our Terminal tool](http://buildkite.github.io/terminal-to-html/) and wrapped in `<pre class="term"><code></code></pre>` tags before uploading.
+Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block with either the `term` or `terminal` syntax.
+
+    ```term
+    \x1b[31mFailure/Error:\x1b[0m \x1b[32mexpect\x1b[0m(new_item.created_at).to eql(now)
+
+    \x1b[31m  expected: 2018-06-20 19:42:26.290538462 +0000\x1b[0m
+    \x1b[31m       got: 2018-06-20 19:42:26.290538000 +0000\x1b[0m
+
+    \x1b[31m  (compared using eql?)\x1b[0m
+    ```
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
+
+Additionally, terminal output processed through [our Terminal tool](http://buildkite.github.io/terminal-to-html/) can be wrapped in `<pre class="term"><code></code></pre>` tags, which will accept the terminal colour styles but not attempt to process it again.
 
 ## Embedding & linking artifacts in annotations
 
