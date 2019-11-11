@@ -260,7 +260,11 @@ build.tag != null
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
 
 ```js
+// Using the tag variable
 build.tag =~ /^v[0-9]+\.0\$/
+
+// Using the env fuction
+build.env("BUILDKITE_TAG") =~ /^v[0-9]+\.0\$/
 ```
 
 To run only if the message doesn't contain `[skip tests]`, case insensitive:
