@@ -1,0 +1,58 @@
+# Triggering Notifications
+
+- you can trigger build notifications to several different services
+- can filter by pipeline events like build status
+
+<%= toc %>
+
+- add notifications to your pipeline with the `notify` attribute
+- at the same level as `steps` in your pipeline yaml
+
+```yaml
+steps:
+  - command: "tests.sh"
+  - wait
+  - command: "build.sh"
+
+notify:
+  - email: "dev@acmeinc.com"
+```
+
+- can trigger notifications as emails or basecamp campfire messages
+
+## Conditional notifications
+
+- You can choose to only trigger notifications when x evaluates to true using the `if` attribute
+- in the below example the email notification will only be triggered if the build passes:
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: "build.status == passed"
+```
+
+## Email
+
+- add an email notification to your pipeline using the `email` attribute of the `notify` yaml block
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+```
+
+- the `email` attribute accepts a single email address as a string
+
+## Basecamp Campfire Message
+
+- add a basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block
+
+```yaml
+notify:
+  - basecamp_campfire: URL
+```
+
+- the `basecamp_campfire` attribute accepts a single URL as a string 
+- the URL for your Basecamp Campfire can be created using the 'Generate a public link' button in Basecamp
+
+
+
