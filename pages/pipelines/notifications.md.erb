@@ -1,12 +1,12 @@
 # Triggering Notifications
 
-- you can trigger build notifications to several different services
-- can filter by pipeline events like build status
+The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build status.
 
 <%= toc %>
 
-- add notifications to your pipeline with the `notify` attribute
-- at the same level as `steps` in your pipeline yaml
+Add notifications to your pipeline with the `notify` attribute. This sits  at the same level as `steps` in your `pipeline.yml` file.
+
+The below example will send a notification email every time a build is created on this pipeline: 
 
 ```yaml
 steps:
@@ -18,12 +18,13 @@ notify:
   - email: "dev@acmeinc.com"
 ```
 
-- can trigger notifications as emails or basecamp campfire messages
+You can trigger notifications as emails or as a message in a Basecamp Campfire.
 
 ## Conditional notifications
 
-- You can choose to only trigger notifications when x evaluates to true using the `if` attribute
-- in the below example the email notification will only be triggered if the build passes:
+You can choose to only trigger notifications when a statement evaluates to true using the `if` attribute.
+
+In the below example the email notification will only be triggered if the build passes:
 
 ```yaml
 notify:
@@ -33,26 +34,25 @@ notify:
 
 ## Email
 
-- add an email notification to your pipeline using the `email` attribute of the `notify` yaml block
+Add an email notification to your pipeline using the `email` attribute of the `notify` yaml block:
 
 ```yaml
 notify:
   - email: "dev@acmeinc.com"
 ```
 
-- the `email` attribute accepts a single email address as a string
+The `email` attribute accepts a single email address as a string.
 
 ## Basecamp Campfire Message
 
-- add a basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block
+Add a basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block:
 
 ```yaml
 notify:
   - basecamp_campfire: URL
 ```
 
-- the `basecamp_campfire` attribute accepts a single URL as a string 
-- the URL for your Basecamp Campfire can be created using the 'Generate a public link' button in Basecamp
+The `basecamp_campfire` attribute accepts a single URL as a string. The URL for your Basecamp Campfire can be created using the 'Generate a public link' button in Basecamp.
 
 
 
