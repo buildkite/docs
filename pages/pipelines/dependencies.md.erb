@@ -4,6 +4,32 @@ All steps in pipelines have implicit dependencies, often managed with wait and b
 
 <%= toc %>
 
+## Implicit dependencies with wait and block
+
+[Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
+
+By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
+
+A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
+
+```yml
+steps:
+  - command: "one.sh"
+  - command: "two.sh"
+  - wait
+  - command: "three.sh"
+  - command: "four.sh"
+```
+
+[Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
+
+If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
+
+```yml
+steps:
+  - input: "What is the name of this release?"
+```
+
 ## Defining explicit dependencies
 
 The `depends_on` attribute can be added to all step types.
@@ -50,32 +76,6 @@ steps:
 ```
 
 Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build. 
-
-## Implicit dependencies with wait and block
-
-[Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
-
-By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
-
-A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
-
-```yml
-steps:
-  - command: "one.sh"
-  - command: "two.sh"
-  - wait
-  - command: "three.sh"
-  - command: "four.sh"
-```
-
-[Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
-
-If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
-
-```yml
-steps:
-  - input: "What is the name of this release?"
-```
 
 ## Order of operations
 
