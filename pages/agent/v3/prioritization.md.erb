@@ -1,8 +1,8 @@
 # Buildkite Agent Prioritization
 
-By setting an agent’s priority value you are able to designate which priority it gets for being assigned build jobs to run. Higher priority agents are assigned work first, with the last priority being given to agents with the default value of `null`.
+By setting an Agent’s priority value you are able to designate which priority it gets for being assigned build jobs to run. Higher priority Agents are assigned work first, with the last priority being given to Agents with the default value of `null`.
 
-To set an agent’s priority you can set it in the configuration file:
+To set an Agent’s priority you can set it in the configuration file:
 
 ```
 priority=9
@@ -19,3 +19,11 @@ or with the `BUILDKITE_AGENT_PRIORITY` an environment variable:
 ```
 env BUILDKITE_AGENT_PRIORITY=9 buildkite-agent start
 ```
+
+## Load balancing
+
+You can use the Agent priority value to load balance jobs across Agents. 
+
+For example if you have 3 Agents on a machine, you would set one Agent to `priority=3`, one to `priority=2`, and one to `priority=1`. 
+
+Buildkite will then automatically load balance the jobs across the Agents, as it will assign jobs to the high priority agents first.
