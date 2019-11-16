@@ -22,8 +22,8 @@ env BUILDKITE_AGENT_PRIORITY=9 buildkite-agent start
 
 ## Load balancing
 
-You can use the Agent priority value to load balance jobs across Agents. 
+You can use the Agent priority value to load balance jobs across machines running multiple Agents. 
 
-For example if you have 3 Agents on a machine, you would set one Agent to `priority=3`, one to `priority=2`, and one to `priority=1`. 
+For example if you have 2 machines with 3 Agents on each machine, you would set one Agent on each machine to `priority=3`, one on each to `priority=2`, and one on each to `priority=1`. 
 
-Buildkite will then automatically load balance the jobs across the Agents, as it will assign jobs to the high priority agents first.
+Buildkite will then automatically load balance the jobs across machines, as it will assign jobs to the high priority agents first.
