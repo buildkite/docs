@@ -18,17 +18,17 @@ Connect via SSH:
 
 Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
-## Running the agent on Google Container Engine
+## Running the agent on Google Kubernetes Engine
 
-[Google Container Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket and binary as volumes. For example:
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket as a volume.
 
-Start a Google Container Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add):
+Start a Google Kubernetes Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add) using the General-purpose Machine family:
 
-<%= image "create-a-cluster.png", size: "2048x1216", alt: "Screenshot of creating a Google Container Engine cluster via the Google Cloud Console" %>
+<%= image "create-a-k8s-cluster.png", width: 2560/2, height: 1396/2, alt: "Screenshot of creating a Google Kubernetes Engine cluster via the Google Cloud Console" %>
 
 Open [Google Cloud Shell](https://cloud.google.com/shell/), or your own console with [gcloud](https://cloud.google.com/sdk/gcloud/) installed and authenticated. You'll need to configure kubectl to talk to your new cluster. The console includes a "Connect" button which shows the exact command to run:
 
-<%= image "connect-to-cluster.png", size: "2048x1216", alt: "Screenshot of cluster connection settings in the Google Cloud Console" %>
+<%= image "connect-to-k8s-cluster.png", width: 2560/2, height: 1398/2, alt: "Screenshot of cluster connection settings in the Google Cloud Console" %>
 
 Running it should look like this, with your details in the right places:
 
@@ -44,10 +44,10 @@ Double check it’s running by taking a look at the cluster info:
 ```shell
 $ kubectl cluster-info
 Kubernetes master is running at https://123.45.67.89
-GLBCDefaultBackend is running at https://123.45.67.89/api/v1/proxy/namespaces/kube-system/services/default-http-backend
-Heapster is running at https://123.45.67.89/api/v1/proxy/namespaces/kube-system/services/heapster
-KubeDNS is running at https://123.45.67.89/api/v1/proxy/namespaces/kube-system/services/kube-dns
-kubernetes-dashboard is running at https://123.45.67.89/api/v1/proxy/namespaces/kube-system/services/kubernetes-dashboard
+GLBCDefaultBackend is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/default-http-backend:http/proxy
+Heapster is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/heapster/proxy
+KubeDNS is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
@@ -55,7 +55,7 @@ To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 Create a [secret](https://kubernetes.io/docs/user-guide/secrets/#using-secrets-as-environment-variables) with your agent registration token:
 
 ```shell
-$ kubectl create secret generic buildkite-agent --from-literal token=INSERT-YOUR-AGENT-TOKEN-HERE
+$ kubectl create secret generic buildkite-agent --from-literal=token=INSERT-YOUR-AGENT-TOKEN-HERE
 secret "buildkite-agent" created
 ```
 
@@ -82,15 +82,14 @@ spec:
            privileged: true
          env:
            - name: BUILDKITE_AGENT_TOKEN
-             valueFrom: {secretKeyRef: {name: buildkite-agent, key: token}}
+             valueFrom:
+              secretKeyRef:
+                name: buildkite-agent
+                key: token
          volumeMounts:
-           - name: docker-binary
-             mountPath: /usr/bin/docker
            - name: docker-socket
              mountPath: /var/run/docker.sock
      volumes:
-       - name: docker-binary
-         hostPath: {path: /usr/bin/docker}
        - name: docker-socket
          hostPath: {path: /var/run/docker.sock}
 # (press Control-D)
