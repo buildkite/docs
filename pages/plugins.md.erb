@@ -12,6 +12,8 @@ Plugins are a snippet of code stored in [hooks](/docs/agent/v3/hooks) files that
 
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file, and is read by the agent before the plugin hooks are run. See each plugin's readme for detailed configuration and usage instructions. 
 
+When a command step with a plugin is run on an agent, the plugin is cloned from its git repository and its hooks are executed, passing any configuration you've specified to your `pipeline.yml` file. 
+
 There are two main types of plugins:
 
 1. Scripts or commands you want to run before or after you run a step:

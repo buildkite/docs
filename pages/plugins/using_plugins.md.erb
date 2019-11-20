@@ -1,8 +1,8 @@
 # Using plugins
 
-You can use plugins in pipeline steps that have been defined in YAML - either in your `pipeline.yml` file in your repository, or in the beta YAML editor in Buildkite.
+Plugins can be used in [command steps](/docs/pipelines/command-step) that have been defined in YAML: either in your `pipeline.yml` file, or using the YAML editor (beta) in Buildkite.
 
-Plugins can be a private git repository, a public repository, a local repository alongside your code, or locally on an Agent's filesystem. 
+Plugins can be stored as a private git repository, a public repository, a repository alongside your code, or locally on an Agent's filesystem. For more information about referencing and storing plugins, see the [Plugin Sources](#plugin-sources) section.
 
 <%= toc %>
 
@@ -10,9 +10,9 @@ Plugins can be a private git repository, a public repository, a local repository
 
 To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute. 
 
-This attribute accepts an array, so you can add as many plugins as you require in each step. The plugins will be run in the order you put them in the array. 
+The `plugins` attribute accepts an array, so you can add as many plugins as you require to a step. The plugins will be run in the order you list them in the array. 
 
-In the example below, the `shellcheck` `command` hook will run, followed by the commands `yarn install && yarn run test`. As plugins are collections of hooks, the plugin will be run first before any defined commands or scripts. 
+In the example below, the `shellcheck` `command` hook will run, followed by the commands `yarn install && yarn run test`. As plugins are collections of hooks, the plugin will be run first before the defined commands. 
 
 ```yml
 steps:
@@ -22,7 +22,7 @@ steps:
           files: scripts/*.sh
 ```
 
-In the example below, the `shellcheck` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`.
+In the example below, the `shellcheck` plugin will run, followed by the `docker` plugin, and finally the commands `yarn install && yarn run test`:
 
 ```yml
 steps:
@@ -35,11 +35,11 @@ steps:
           workdir: /app
 ```
 
-You can also add steps that only run plugins without other commands. This syntax is usually used for actions like pre-building a docker image for use in later steps. 
+Command steps can run plugins alone, without running any other commands or scripts. This syntax is often used to perform tasks like pre-building a docker image for use in later steps. 
 
-When you don't include commands or a script, the step will run the plugin hooks alone on the agent that accepts the job. Athough there's no 'command' attribute, this is still considered a command step, so you can use any of the other attributes available on command steps.
+When you don't include commands or a script, the step will run the plugin hooks alone on the agent that accepts the job. Athough there's no `command` attribute, this is still considered a command step, so all command attributes are available for use.
 
-The below example uses the [`docker-login` plugin]() to authenticate with the docker registry, then the [`docker compose` plugin]() to build the `app` image. The `app` image can then be used by later steps in the pipeline.  
+The below example uses the [`docker-login` plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin) to authenticate with the docker registry, then uses the [`docker compose` plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) to build the `app` image. The `app` image can then be used by later steps in the pipeline.  
 
 ```yml
 steps:
@@ -51,22 +51,24 @@ steps:
           image-repository: index.docker.io/myorg/myrepo
 ```
 
-If you are using Agent hooks as well as plugins, some hook types will run the Agent hooks before the plugin hooks. For a detailed table describing each hook type and the order it is run, see the [Agent Hooks guide](/docs/agent/v3/hooks#available-hooks).
+Pre-building images or performing other tasks at the beginning of your pipeline is commonly workflow for speeding up your build; with the image build separated and run first, subsequent steps that require the image can be run in parallel. 
+
+If you are using Agent hooks as well as plugins, some hook types will run the Agent hooks before the plugin hooks. For a description of each hook type and the order it is run, see the [Agent Hooks guide](/docs/agent/v3/hooks#available-hooks).
 
 ## Configuring plugins
 
-Plugins can be configured on [command steps](/docs/pipelines/command-step) in your `pipeline.yml` [pipeline definitions](/docs/pipelines/defining-steps). When a command step with a plugin is run on an agent, the plugin is cloned from its git repository, and its hooks are executed, passing in any configuration you've specified in your pipeline.yml.
+Plugins are configured using attributes in your `pipeline.yml` file.
 
-The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin), which updates your `$PATH` to include the `bin` directory that contains the additional commands to expose to build jobs:
+The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin). The example below updates your `$PATH` to include the `bin` directory that contains the plugin's library of additional commands to expose to build jobs:
 
 ```yml
 steps:
-  - label: "\:clown_face\:"
+  - label: "\:books\:"
     plugins:
       - library-example#v1.0.0: ~
 ```
 
-More commonly, plugins accept various configuration options. For example, the [Docker plugin] can be configured to use a Docker image to run your command:
+More commonly, plugins accept various configuration options. For example, the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) requires the attribute `image`, and we have included the optional `workdir` attribute. The specified image will be used to run the step's commands:
 
 ```yml
 steps:
@@ -77,7 +79,7 @@ steps:
           workdir: /app
 ```
 
-More advanced plugins, such as [Docker Compose plugin], are designed to be used multiple times in a pipeline:
+More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline:
 
 ```yml
 steps:
@@ -99,19 +101,21 @@ steps:
           run: app
 ```
 
+See each plugin's readme for more information about the config options available. 
+
 ## Plugin sources
 
-There are different ways to describe the location of your plugins:
+There are different groupings of plugins:
 
-  - The name of the plugin
-  - The GitHub organization + the name of the plugin
-  - A fully qualified Git URL 
+  - Buildkite maintained plugins
+  - 3rd party plugins hosted on GitHub
+  - Local, private, and non-GitHub plugins
 
-Always specify a plugin version tag after your plugin (e.g. `v1.2.3`) to prevent behavior changing unexpectedly and to prevent stale checkouts of plugins on your agent machines. Branches, tags and commit hashes are all valid version descriptors.
+When using plugins in YAML, always specify a plugin version tag (e.g. `v1.2.3`) after your plugin name. This prevents behavior changing unexpectedly and prevents stale checkouts of plugins on your agent machines. Branches, tags and commit hashes are all valid version descriptors.
 
-### Plugin name
+### Buildkite maintained plugins
 
-When you use the plugin name only, the Agent will assume you're talking about a Buildkite plugin in the `buildkite-plugins` GitHub repository. The source format will default to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. 
+The plugins maintained by Buildkite can be found in the `buildkite-plugins` GitHub repository. When using these plugins, you can refer to them using just the name of the plugin. The source format will default to `https://github.com/buildkite-plugins/<name>-buildkite-plugin`. 
 
 For example, you can refer to the Docker plugin by the name `docker`:
 
@@ -130,9 +134,9 @@ The above `pipeline.yml` will resolve the following plugin source:
 https://github.com/buildkite-plugins/docker-buildkite-plugin
 ```
 
-### Plugin organization and name
+### 3rd party plugins hosted on GitHub
 
-When you refer to a plugin using an organization name as well as the plugin name, it will assume that it's hosted on GitHub.com.
+If you're using a plugin publically hosted on GitHub that isn't maintained by Buildkite, you'll need to include the organization name as well as the plugin name.
 
 For example, using the plugin `my-org/docker` will resolve the source with the specified GitHub organization:
 
@@ -149,9 +153,9 @@ steps:
 https://github.com/my-org/docker-buildkite-plugin
 ```
 
-### Fully qualified Git URL
+### Local, private, and non-GitHub plugins
 
-You can use fully qualified Git URLs instead of names to refer to plugins that aren’t on GitHub, or that live in private Git repositories that are only accessible to your agents. 
+When using plugins that are stored locally, are private, or are hosted on a non-GitHub source control provider, you'll need to use the fully qualified Git URL. 
 
 For example:
 
@@ -159,7 +163,9 @@ For example:
 steps:
   - command: yarn install && yarn run test
     plugins:
-      - https://github.com/my-org/my-plugin.git#v1.0.0: ~
+      - https://bitbucket.com/my-org/my-plugin.git#v1.0.0: ~
       - ssh://git@github.com/my-org/my-plugin.git#v1.0.0: ~
       - file:///a-local-path/my-plugin.git#v1.0.0: ~
 ```
+
+You can use fully qualified Git URLs instead of names to refer to any plugins, including those hosted on GitHub or maintained by Buildkite.
