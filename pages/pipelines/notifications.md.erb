@@ -41,7 +41,14 @@ notify:
   - email: "dev@acmeinc.com"
 ```
 
-The `email` attribute accepts a single email address as a string.
+The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+  - email: "sre@acmeinc.com"
+  - email: "qa@acmeinc.com"
+```
 
 ## Basecamp Campfire Message
 
