@@ -52,14 +52,18 @@ notify:
 
 ## Basecamp Campfire Message
 
-Add a basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block:
+To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission will be required to setup your chatbot.
+
+1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to. 
+1. Set up your chatbot with a name and URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand Assets](https://buildkite.com/brand-assets).
+1. Add a basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block:
 
 ```yaml
 notify:
   - basecamp_campfire: URL
 ```
 
-The `basecamp_campfire` attribute accepts a single URL as a string. The URL for your Basecamp Campfire can be created using the 'Generate a public link' button in Basecamp.
+The `basecamp_campfire` attribute accepts a single URL as a string. The URL is the Command URL that you added to your Basecamp Chatbot. 
 
 
 
