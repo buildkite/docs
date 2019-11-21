@@ -45,6 +45,10 @@ The below expressions are supported by the `if` attribute:
  			<td><code>|| &&</code></td>
  		</tr>
  		<tr>
+ 			<td>Array operators</td>
+ 			<td><code>includes</code></td>
+ 		</tr>
+ 		<tr>
  			<td>Integers</td>
  			<td><code>12345</code></td>
  		</tr>
@@ -283,4 +287,10 @@ To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
 
 ```js
 build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
+```
+
+To run when the build creator is in the `deploy` team:
+
+```js
+build.creator.teams includes "deploy"
 ```
