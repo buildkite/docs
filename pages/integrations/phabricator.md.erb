@@ -1,0 +1,22 @@
+# Phabricator
+
+- trigger Buildkite builds on revisions or commits in your Phabricator instance using Harbourmaster
+- requires admin permissions in both Phabricator and Buildkite
+
+<%= toc %>
+
+- before beginning ensure that your repository is tracked and you have a Phabricator API token (can create one during setup if required)
+- if you're building from revisions, ensure that you have a staging area set up for your repository
+- add a buildkite pipeline to your staging area 
+
+Harbourmaster
+- add a build plan (can also be added to existing build plans?)
+- add a build step 
+- select "Build with Buildkite" from the available steps
+
+Buildkite
+- set up a webhook in Notification Settings
+- use the webhook URL provided by Harbourmaster
+- choose a token value (any non-empty secret), copy this into the Harbourmaster build step form
+
+- trigger a manual build to test that it's working?
