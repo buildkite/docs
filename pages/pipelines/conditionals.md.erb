@@ -299,3 +299,9 @@ To run when the build creator is in the `deploy` team:
 ```js
 build.creator.teams includes "deploy"
 ```
+
+To run only non-draft pull requests:
+
+```js
+!build.pull_request.draft
+```
