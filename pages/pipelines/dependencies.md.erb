@@ -1,0 +1,114 @@
+# Managing Step Dependencies
+
+All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
+
+<%= toc %>
+
+## Implicit dependencies with wait and block
+
+[Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
+
+By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
+
+A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
+
+```yml
+steps:
+  - command: "one.sh"
+  - command: "two.sh"
+  - wait
+  - command: "three.sh"
+  - command: "four.sh"
+```
+
+[Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
+
+If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
+
+```yml
+steps:
+  - input: "What is the name of this release?"
+```
+
+## Defining explicit dependencies
+
+The `depends_on` attribute can be added to all step types.
+
+To add a dependency on another step, add the attribute with the name of the step you're depending on:
+
+```yml
+steps:
+  - command: "tests.sh"
+    key: "tests"
+  - command: "build.sh"
+    key: "build"
+    depends_on: "tests"
+```
+
+In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
+
+Dependencies can also be added as a list of strings, or a list of steps. 
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - "test-suite"
+      - "another-thing"
+```
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - step: "test-suite"
+      - step: "another-thing"
+```
+
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
+
+```yml
+steps:
+  - command: "tests.sh"
+  - wait
+  - command: "lint.sh"
+    depends_on: ~
+```
+
+Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build. 
+
+## Order of operations
+
+There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.  
+
+If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
+
+However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
+
+## Allowing dependency failures
+
+You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, even if those jobs have failed. However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
+
+```yml
+steps:
+  - command: "tests.sh"
+    key: "tests"
+  - command: "build.sh"
+    key: "build"
+    depends_on: "tests"
+    allow_dependency_failure: true
+```
+
+For finer control, you can explictly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
+
+```yml
+steps:
+  - command: "tests.sh"
+    depends_on:
+      - step: "test-suite"
+        allow_failure: true
+      - step: "another-thing"
+        allow_failure: false
+```
+
+This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.

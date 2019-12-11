@@ -615,3 +615,59 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 Required scope: `write_builds`
 
 Success response: `200 OK`
+
+## Timestamp attributes
+
+There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
+
+The timestamps are available via both the GraphQL and REST APIs. They differ slightly between the build and job objects.
+
+Each <em>build</em> is provided with the following timestamps:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>The time the build was created</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>The time the build was created</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>The time the build's first job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>The time the build is marked as finished (passed, failed, paused, cancelled)</td>
+  </tr>
+</tbody>
+</table>
+
+Each <em>job</em> is provided with the same timestamps, but their values differ from those on each build:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>scheduled_at</code></th>
+    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
+  </tr>
+  <tr>
+    <th><code>created_at</code></th>
+    <td>The time when the job was added to the build</td>
+  </tr>
+  <tr>
+    <th><code>runnable_at</code></th>
+    <td>The time when a job was ready to be accepted by an agent</td>
+  </tr>
+  <tr>
+    <th><code>started_at</code></th>
+    <td>The time the job was started by an agent</td>
+  </tr>
+  <tr>
+    <th><code>finished_at</code></th>
+    <td>The time the job is marked as finished (passed, failed, paused, cancelled)</td>
+  </tr>
+</tbody>
+</table>

@@ -224,6 +224,12 @@ The GitHub deployment payload data as serialized JSON. Only available on builds 
 
 Example: `"production"`
 
+<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
+
+The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"localhost:8080"`
+
 <h3 class="h3-caps">BUILDKITE_HOOKS_PATH</h3>
 
 The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
@@ -385,6 +391,12 @@ Default: `"us-east-1"`
 The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
+
+<h3 class="h3-caps">BUILDKITE_S3_SSE_ENABLED</h3>
+
+Whether to enable encryption for the artifacts in your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
+
+Default: `false`
 
 <h3 class="h3-caps">BUILDKITE_SHELL</h3>
 

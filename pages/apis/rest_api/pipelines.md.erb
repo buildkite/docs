@@ -46,7 +46,21 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
     "scheduled_jobs_count": 0,
     "running_jobs_count": 0,
     "waiting_jobs_count": 0,
-    "visibility": "private"
+    "visibility": "private",
+    "steps": [
+        {
+          "type": "script",
+          "name": "Test :white_check_mark:",
+          "command": "script/test.sh",
+          "artifact_paths": "results/*",
+          "branch_configuration": "master feature/*",
+          "env": { },
+          "timeout_in_minutes": null,
+          "agent_query_rules": [ ]
+        }
+      ],
+      "env": {
+      }
   }
 ]
 ```
@@ -320,15 +334,48 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>description</code></th><td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td></tr>
-  <tr><th><code>env</code></th><td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td></tr>
-  <tr><th><code>provider_settings</code></th><td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
-  <tr><th><code>branch_configuration</code></th><td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td></tr>
-  <tr><th><code>skip_queued_branch_builds</code></th><td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
-  <tr><th><code>skip_queued_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>cancel_running_branch_builds</code></th><td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
-  <tr><th><code>cancel_running_branch_builds_filter</code></th><td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
-  <tr><th><code>team_uuids</code></th><td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either via the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
+  <tr>
+    <th><code>branch_configuration</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds</code></th>
+    <td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>default_branch</code></th>
+    <td>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>env</code></th>
+    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+  </tr>
+  <tr>
+    <th><code>provider_settings</code></th>
+    <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds</code></th>
+    <td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>team_uuids</code></th>
+    <td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either via the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
+  </tr>
 </tbody>
 </table>
 
@@ -414,12 +461,38 @@ Optional [request body properties](/docs/api#request-body-properties):
 <table>
 <tbody>
   <tr>
-    <th><code>name</code></th>
-    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+    <th><code>branch_configuration</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds</code></th>
+    <td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>default_branch</code></th>
+    <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p>
+    </td>
   </tr>
   <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+  </tr>
+    <tr>
+    <th><code>env</code></th>
+    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+  </tr>
+  <tr>
+    <th><code>name</code></th>
+    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>provider_settings</code></th>
+    <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
   </tr>
   <tr>
     <th><code>repository</code></th>
@@ -430,32 +503,12 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
   </tr>
   <tr>
-    <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
-  </tr>
-  <tr>
-    <th><code>provider_settings</code></th>
-    <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
-  </tr>
-  <tr>
-    <th><code>branch_configuration</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
-  </tr>
-  <tr>
     <th><code>skip_queued_branch_builds</code></th>
     <td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
-  </tr>
-  <tr>
-    <th><code>cancel_running_branch_builds</code></th>
-    <td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
-  </tr>
-  <tr>
-    <th><code>cancel_running_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>visibility</code></th>

@@ -175,6 +175,15 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>health-check-addr</code></th>
+      <td>
+        Start an HTTP server on the specified address:port that returns whether the agent is healthy.
+        <p class="Docs__api-param-eg"><em>Default:</em> disabled</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_HEALTH_CHECK_ADDR</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>hooks-path</code></th>
       <td>
         Directory where the global hook scripts are found.
