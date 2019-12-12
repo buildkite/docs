@@ -66,5 +66,34 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
+## Slack Channel Message
 
+Add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block:
 
+```yaml
+notify:
+  - slack: #general
+```
+
+The above example will deliver the notification to all configured workspaces that have a channel named 'general'.
+
+To send a notification to one particular workspace and channel, you can specify the workspace name:
+
+```yaml
+notify:
+  - slack: buildkite-community#general
+```
+
+You can also specify multiple teams and channels with the `channels` attribute:
+
+```yaml
+notify:
+  - slack:
+    channels:
+      - buildkite-community#sre
+      - buildkite-community#announcements
+      - buildkite-team#monitoring
+      - #general
+```
+
+In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
