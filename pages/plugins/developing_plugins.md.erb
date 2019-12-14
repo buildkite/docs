@@ -219,13 +219,13 @@ Outputs a message to the build log.
 
 ## Example
 
-    ```yml
-    steps:
-      - command: "ls"
-        plugins:
-          - username/my-first-plugin#v1.0.0:
-              message: "Oh hai"
-    ```
+```yml
+steps:
+  - command: "ls"
+    plugins:
+      - username/my-first-plugin#v1.0.0:
+          message: "Oh hai"
+```
 
 ## Configuration
 
@@ -239,9 +239,9 @@ To disable the message, set to `false`.
 
 To run the tests:
 
-    ```shell
-    docker-compose run --rm tests
-    ```
+```shell
+docker-compose run --rm tests
+```
 
 ## Contributing
 
