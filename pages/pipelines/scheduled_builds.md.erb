@@ -2,7 +2,11 @@
 
 Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks. 
 
-You can create and manage schedules by going to a pipeline’s _Pipeline Settings_ → _Schedules_, or using the [Buildkite GraphQL API](/docs/apis/graphql-api).
+You can create and manage schedules in the Schedules section of your Pipeline Settings.
+
+<%= image "pipeline-settings-schedules.png", width: 1756/2, height: 312/2, alt: "Screenshot of the Schedules section of Pipeline Settings with an Hourly Security Checks schedule listed" %>
+
+You can also create and manage schedules via the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
 ## Schedule intervals
 
@@ -12,7 +16,7 @@ Buildkite doesn't support intervals less than 10 minutes.
 
 ### Predefined intervals
 
-Buildkite supports 5 predefined intervals:
+Buildkite supports 6 predefined intervals:
 
 <table>
   <thead>
@@ -23,12 +27,13 @@ Buildkite supports 5 predefined intervals:
     <tr><th><code>@daily</code> or <code>@midnight</code></th><td>Every day at midnight UTC</td><td><code>0 0 * * *</code></td></tr>
     <tr><th><code>@weekly</code></th><td>Every week at midnight Sunday UTC</td><td><code>0 0 * * 0</code></td></tr>
     <tr><th><code>@monthly</code></th><td>Every month, at midnight UTC on the first day</td><td><code>0 0 1 * *</code></td></tr>
+    <tr><th><code>@yearly</code></th><td>Every year, at midnight UTC on the first day</td><td><code>0 0 1 1 *</code></td></tr>
   </tbody>
 </table>
 
 ### Crontab time syntax
 
-Intervals can also be defined using a variant of the crontab time syntax:
+Intervals can be defined using a variant of the crontab time syntax:
 
 ```
  ┌───────────── minute (0 - 59)
@@ -39,11 +44,29 @@ Intervals can also be defined using a variant of the crontab time syntax:
  │ │ │ │ │          ┌─── time zone name or offset (optional)
  │ │ │ │ │          │
  * * * * * Australia/Melbourne
-```
+``` 
 
-A time zone may optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
+A time zone can optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
 
-Examples:
+#### Supported Extensions
+
+Buildkite supports several extensions to the standard POSIX cron syntax.
+
+##### The `/` operator
+
+The slash operator allows you to specify step values within ranges. For example, `*/10 * * * *` would run every ten minutes.
+
+##### `L` or `last` token
+
+Using `L` or `last` in the _day of month_ field represents the last day. For example, `0 0 L * *` represents midnight on the last day of the month, and `0 0 -2-L * *` represents the last two days of the month.
+
+##### Modulo
+
+Using the modulo extension allows you to create schedules for less frequent sets of weekdays. Modulo can only be used in the _day of week_ field.
+
+For example, `0 0 * * 0%3` represents midnight on every third Sunday. You can also use the `+` operator to offset this. For instance, you can use `0 0 * * 1%2+1` to schedule a build on every odd Monday, whereas `0 0 * * 0%2` would run every even Monday.
+
+#### Examples
 
 <table>
   <tr><th><code>*/10 * * * *</code></th><td>Every 10 minutes</td></tr>
@@ -56,5 +79,8 @@ Examples:
   <tr><th><code>0 8 * * * America/Vancouver</code></th><td>Every day at 8am in Vancouver</td></tr>
   <tr><th><code>0 16 * * SUN</code></th><td>Every Sunday at 4pm UTC</td></tr>
   <tr><th><code>0 0 * * 1-5</code></th><td>Every weekday at midnight UTC</td></tr>
+  <tr><th><code>0 0 L * *</code></th><td>Midnight UTC on the last day of the month</td></tr>
   <tr><th><code>0 0 1 */2 *</code></th><td>Every other month, at midnight UTC on the first day</td></tr>
+  <tr><th><code>0 16 L * *</code></th><td>The last day of the month at 4pm UTC</td></tr>
+  <tr><th><code>0 0 * * 2%2+1</code></th><td>The start of every odd Tuesday</td></tr>
 </table>

@@ -45,6 +45,10 @@ The below expressions are supported by the `if` attribute:
  			<td><code>|| &&</code></td>
  		</tr>
  		<tr>
+ 			<td>Array operators</td>
+ 			<td><code>includes</code></td>
+ 		</tr>
+ 		<tr>
  			<td>Integers</td>
  			<td><code>12345</code></td>
  		</tr>
@@ -93,14 +97,24 @@ The below variables are supported by the `if` attribute:
 <table>
 <tbody>
 	<tr>
-		<td><code>build.id</code></td>
-		<td width="20%"><code>String</code></td>
-		<td>The ID of the current build</td>
+		<td><code>build.author.email</code></td>
+		<td><code>String</code></td>
+		<td>The email address of the user who authored the build's commit</td>
 	</tr>
 	<tr>
-		<td><code>build.source</code></td>
+		<td><code>build.author.id</code></td>
 		<td><code>String</code></td>
-		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
+		<td>The ID of the user who authored the build's commit</td>
+	</tr>
+	<tr>
+		<td><code>build.author.name</code></td>
+		<td><code>String</code></td>
+		<td>The name of the user who authored the build's commit</td>
+	</tr>
+	<tr>
+		<td><code>build.author.teams</code></td>
+		<td><code>Array</code></td>
+		<td>An array of the team/s which the user who authored the build's commit is a member of</td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
@@ -108,9 +122,39 @@ The below variables are supported by the `if` attribute:
 		<td>The branch on which this build is created from</td>
 	</tr>
 	<tr>
-		<td><code>build.tag</code></td>
+		<td><code>build.commit</code></td>
+		<td><code>String</code></td>
+		<td>The commit number of the commit the current build is based on</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.email</code></td>
+		<td><code>String</code></td>
+		<td>The email of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.name</code></td>
+		<td><code>String</code></td>
+		<td>The name of the user who created the build</td>
+	</tr>
+	<tr>
+		<td><code>build.creator.teams</code></td>
+		<td><code>Array</code></td>
+		<td>An array of the team/s which the user who created the build is a member of</td>
+	</tr>
+	<tr>
+		<td><code>build.env()</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>The tag associated with the commit the current build is based on</td>
+		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
+	</tr>
+	<tr>
+		<td><code>build.id</code></td>
+		<td width="20%"><code>String</code></td>
+		<td>The ID of the current build</td>
 	</tr>
 	<tr>
 		<td><code>build.message</code></td>
@@ -118,25 +162,24 @@ The below variables are supported by the `if` attribute:
 		<td>The current build's message</td>
 	</tr>
 	<tr>
-		<td><code>build.commit</code></td>
-		<td><code>String</code></td>
-		<td>The commit number of the commit the current build is based on</td>
-	</tr>
-	<tr>
 		<td><code>build.number</code></td>
 		<td><code>Integer</code></td>
 		<td>The number of the current build</td>
 	</tr>
-
+	<tr>
+		<td><code>build.pull_request.base_branch</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The base branch that the pull request is targeting, otherwise <code>null</code> if the branch is not a pull request</td>
+	</tr>
 	<tr>
 		<td><code>build.pull_request.id</code></td>
 		<td><code>String</code>, <code>null</code></td>
  		<td>The number of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
-		<td><code>build.pull_request.base_branch</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The base branch that the pull request is targeting, otherwise <code>null</code> if the branch is not a pull request</td>
+		<td><code>build.pull_request.draft</code></td>
+		<td><code>Boolean</code>, <code>null</code></td>
+		<td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
 	</tr>
 	<tr>
 		<td><code>build.pull_request.repository</code></td>
@@ -148,16 +191,15 @@ The below variables are supported by the `if` attribute:
 		<td><code>Boolean</code>, <code>null</code></td>
 		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
-
 	<tr>
-		<td><code>pipeline.id</code></td>
+		<td><code>build.source</code></td>
 		<td><code>String</code></td>
-		<td>The ID of the pipeline the current build is from</td>
+		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
 	</tr>
 	<tr>
-		<td><code>pipeline.slug</code></td>
-		<td><code>String</code></td>
-		<td>The slug of the pipeline the current build is from</td>
+		<td><code>build.tag</code></td>
+		<td><code>String</code>, <code>null</code></td>
+		<td>The tag associated with the commit the current build is based on</td>
 	</tr>
 	<tr>
 		<td><code>pipeline.default_branch</code></td>
@@ -165,9 +207,19 @@ The below variables are supported by the `if` attribute:
 		<td>The default branch of the pipeline the current build is from</td>
 	</tr>
 	<tr>
+		<td><code>pipeline.id</code></td>
+		<td><code>String</code></td>
+		<td>The ID of the pipeline the current build is from</td>
+	</tr>
+	<tr>
 		<td><code>pipeline.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
 		<td>The repository of the pipeline the current build is from</td>
+	</tr>
+	<tr>
+		<td><code>pipeline.slug</code></td>
+		<td><code>String</code></td>
+		<td>The slug of the pipeline the current build is from</td>
 	</tr>
 	<tr>
 		<td><code>organization.id</code></td>
@@ -217,7 +269,11 @@ build.tag != null
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
 
 ```js
+// Using the tag variable
 build.tag =~ /^v[0-9]+\.0\$/
+
+// Using the env fuction
+build.env("BUILDKITE_TAG") =~ /^v[0-9]+\.0\$/
 ```
 
 To run only if the message doesn't contain `[skip tests]`, case insensitive:
@@ -232,3 +288,20 @@ To run only if the build was created from a schedule:
 build.source == "schedule"
 ```
 
+To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
+
+```js
+build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
+```
+
+To run when the build creator is in the `deploy` team:
+
+```js
+build.creator.teams includes "deploy"
+```
+
+To run only non-draft pull requests:
+
+```js
+!build.pull_request.draft
+```
