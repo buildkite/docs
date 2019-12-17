@@ -6,7 +6,9 @@ Any identify provider that supports SAML 2.0 can be used to authorize access to 
 
 ## Step 1. Set up your provider
 
-There are two ways to set up your custom provider: using the Buildkite meta-data XML to your identity provider, or manually adding your Buildkite data into your identity provider. After setting up your provider, you'll need to set up your SSO provider in your Buildkite organization's Single Sign On Settings.
+There are two ways to set up your custom provider: using the Buildkite meta-data XML to your identity provider, or manually adding your Buildkite data into your identity provider. 
+
+After setting up your provider, you'll need to set up your SSO provider in your Buildkite organization's Single Sign On Settings.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
@@ -92,6 +94,10 @@ On the following screen you can choose to either set up using a Meta Data URL fr
 </table>
 
 <%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
+
+If you already have an SSO Provider, select it from the list of Configured SSO Providers. Click the 'Edit Settings' button, and choose an option for entering your meta-data:
+
+
 
 ## Option B - Create a new SSO Provider
 
