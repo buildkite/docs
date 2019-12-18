@@ -2,13 +2,17 @@
 
 Active Directory Federation Services (ADFS) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both your ADFS server and Buildkite.
 
-### Step 1. Create an SSO Provider
-
-
-
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
+
+### Step 1. Create a Buildkite SSO Provider
+
+Click the Buildkite Organization Settings' Single Sign On menu item, then choose the ADFS provider from the available options:
+
+<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
+
+On the following page, copy the ACS URL for use in Step 2. 
 
 ### Step 2. Set up Buildkite in the ADFS management console
 
@@ -32,24 +36,24 @@ With these wizards, you'll set up your domain for SSO and retreive the informati
 
 From the `Actions` sidebar, click `Add relying party trust...` to start the wizard
 
-1. <u>Welcome</u>: select `Claims aware`
-1. <u>Select data source</u>: select `Enter data about the relying party manually`
-1. <u>Specify display name</u>: call your relying party `Buildkite`
-1. <u>Choose profile</u>: select `ADFS profile`
-1. <u>Configure certificate</u>: skip this step, as you don't need a token encryption certificate
+1. <u>Welcome</u>: Select `Claims aware`.
+1. <u>Select data source</u>: Select `Enter data about the relying party manually`.
+1. <u>Specify display name</u>: Call your relying party `Buildkite`.
+1. <u>Choose profile</u>: Select `ADFS profile`.
+1. <u>Configure certificate</u>: Skip this step, as you don't need a token encryption certificate.
 1. <u>Configure URL</u>: 
-	select `Enable support for the SAML 2.0 WebSSO protocol` 
-	enter the ACS URL from Buildkite as your `Relying party SAML 2.0 SSO service URL`
+	Select `Enable support for the SAML 2.0 WebSSO protocol`.
+	Enter the ACS URL from Buildkite as your `Relying party SAML 2.0 SSO service URL`.
 1. <u>Configure identifiers</u>: 
-	enter `https://<your IDP url>/adfs/services/trust` into the `Relying party trust identifier` field
-	click `add` to add it to the `Relying party trust identifiers` list
+	Enter `https://<your IDP url>/adfs/services/trust` into the `Relying party trust identifier` field.
+	Click `Add` to add it to the `Relying party trust identifiers` list.
 1. <u>Choose Access Control Policy</u>:
-	choose `Permit everyone`
-	you can choose to select specific users, but that will involve further steps that aren't covered by this guide
-1. <u>Ready to add trust</u>: review your settings to make sure all the urls are correct
+	Choose `Permit everyone`.
+	You can choose to select specific users, but that will involve further steps that aren't covered by this guide.
+1. <u>Ready to add trust</u>: Review your settings to make sure all the urls are correct.
 1. <u>Finish</u>:
-	leave the `configure claims issuance policy for this application` box checked
-	click `close` to close the wizard and save your setup
+	Leave the `Configure claims issuance policy for this application` box checked.
+	Click `Close` to close the wizard and save your setup.
 
 In the `Actions` sidebar, you should now have a subheading `Buildkite`. 
 
@@ -121,13 +125,11 @@ From the `Service` section of the `ADFS` console tree, select the `Authenticatio
 2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked 
 3. Click `OK` to exit the dialog
 
-### Step 3. Update your SSO Provider
+### Step 3. Update your Buildkite SSO Provider
 
-In your Buildkite Organization Settings' Single Sign On menu item, choose the ADFS provider:
+On your Buildkite Organization Settings' Single Sign On page, select your ADFS provider from the list of Configured SSO Providers. 
 
-<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
-
-On the following screen in the setup form, enter your IdP information:
+Click the 'Edit Settings' button, choose the Manual data option, and enter the IdP data you saved during the previous step: 
 
 <table>
     <tr>
@@ -152,10 +154,10 @@ On the following screen in the setup form, enter your IdP information:
 
 ### Step 4. Perform a Test Login
 
-Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
 ### Step 5. Enable the new SSO Provider
 
-Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through ADFS before organization data can be accessed.
+Once you've performed a test login you can enable your provider using the `Enable` button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through ADFS before organization data can be accessed.
 
 If you need to edit or update your ADFS provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
