@@ -30,7 +30,7 @@ On the following screen you'll find the meta-data URL in the Service Provider se
 
 The custom endpoint contains all the information you need to set up SAML with any provider.
 
-After completing your IdP setup, you'll need to complete your Buildkite SSO Proivder's configuration. Proceed to [Step 3. Option A - Update your SSO Provider in Buildkite](#).
+After completing your IdP setup, you'll need to complete your Buildkite SSO Proivder's configuration. Proceed to [Step 2. Option A - Update your SSO Provider in Buildkite](#option-a-update-your-existing-sso-provider).
 
 ## Option B - Setting up your IdP manually
 
@@ -137,8 +137,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>admin</code>
         </td>
         <td>
-            A boolean value that describes whether the user should be provisioned with admin permissions
-            Example: true
+            A boolean value that describes whether the user should be provisioned with admin permissions<br>
+            <em>Example:</em> true
         </td>
     </tr>
     <tr>
@@ -146,8 +146,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>email</code>
         </td>
         <td>
-            A string of the user's email address
-            Example: "person@company.com"
+            A string of the user's email address<br>
+            <em>Example:</em> "person@company.com"
         </td>
     </tr>
     <tr>
@@ -155,8 +155,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>name</code>
         </td>
         <td>
-            A string of the user's full name
-            Example: "Han Solo"
+            A string of the user's full name<br>
+            <em>Example:</em> "Han Solo"
         </td>
     </tr>
     <tr>
@@ -164,8 +164,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>teams</code>
         </td>
         <td>
-            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite. 
-            Example: `a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee`
+            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite.<br>
+            <em>Example:</em> <code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code>
         </td>
     </tr>
 </table>
