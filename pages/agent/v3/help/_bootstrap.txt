@@ -45,6 +45,7 @@ Options:
    --git-clone-flags value              Flags to pass to "git clone" command (default: "-v") [$BUILDKITE_GIT_CLONE_FLAGS]
    --git-clone-mirror-flags value       Flags to pass to "git clone" command when mirroring (default: "-v --mirror") [$BUILDKITE_GIT_CLONE_MIRROR_FLAGS]
    --git-clean-flags value              Flags to pass to "git clean" command (default: "-ffxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
+   --git-fetch-flags value              Flags to pass to "git fetch" command [$BUILDKITE_GIT_FETCH_FLAGS]
    --git-mirrors-path value             Path to where mirrors of git repositories are stored [$BUILDKITE_GIT_MIRRORS_PATH]
    --git-mirrors-lock-timeout value     Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300) [$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT]
    --bin-path value                     Directory where the buildkite-agent binary lives [$BUILDKITE_BIN_PATH]
@@ -60,6 +61,8 @@ Options:
    --pty                                Run jobs within a pseudo terminal [$BUILDKITE_PTY]
    --shell value                        The shell to use to interpret build commands (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
    --phases value                       The specific phases to execute. The order they're defined is is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
+   --redacted-vars value                Pattern of environment variable names containing sensitive values [$BUILDKITE_REDACTED_VARS]
    --debug                              Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --experiment value                   Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]
+   --profile value                      Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
    
