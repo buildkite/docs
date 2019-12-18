@@ -215,6 +215,10 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Permissions with Teams", 'pipelines/permissions' %></li>
                 </ul>
+                <p class="Docs__nav__section-subheading">Reference</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugin.yml Schema", 'pipelines/plugin-yaml-schema' %></li>
+                </ul>
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
