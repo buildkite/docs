@@ -271,3 +271,80 @@ steps:
           - label: "Oceania"
             value: "aunz"
 ```
+
+## Using block step data in subsequent steps
+
+- use the `key` attribute in your block step to store values in meta-data
+- you can access this meta-data after the block step has passed with the 'buildkite-agent meta-data get' command
+
+<div class="Docs__troubleshooting-note">
+  <p>Meta-data cannot be interpolated directly from the `pipeline.yml` at runtime.</p>
+</div>
+
+- in the below example, our script uses the `buildkite-agent` commands to retrieve the metadata and print it to the log:
+
+```bash
+#!/bin/bash
+
+release="$(buildkite-agent meta-data get "release-name")"
+echo "Release name: $RELEASE_NAME"
+```
+
+- when passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this uses dynamic pipelines to work around the lack of runtime meta-data interpolation
+
+- you can convert your trigger step to dynamically upload itself as follows:
+
+1. Move your trigger step into a script, the below example would be stored in a file named `.buildkite/trigger-deploy.sh`:
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+# Set up a variable to hold the meta-data from your block step
+export RELEASE_NAME=$(buildkite-agent meta-data get "release-name")
+
+# Create a pipeline with your trigger step 
+read -r -d '' PIPELINE << EOM
+steps:
+  - trigger: "deploy-pipeline"
+    label: "Trigger deploy"
+    build:
+      meta_data:
+        release-name: $RELEASE_NAME
+EOM
+
+# Upload the new pipeline and add it to the current build
+echo $PIPELINE | buildkite-agent pipeline upload
+```
+
+1. Replace your trigger step in the `pipeline.yml` with a dynamic pipeline upload:
+
+before:
+
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - trigger: "deploy-pipeline"
+    label: "Trigger Deploy"
+```
+
+after:
+
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - command: ".buildkite/trigger-deploy.sh"
+    label: "Prepare Deploy Trigger"
+```
+
+1. run your pipeline
+
+
+
