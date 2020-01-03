@@ -307,61 +307,65 @@ echo "Release name: $RELEASE_NAME"
 
 ### Passing meta-data to trigger steps
 
-When passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this can be done using dynamic pipelines, and works around the lack of runtime meta-data interpolation.
+When passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this can be done using [dynamic pipelines](/docs/agent/v3/cli-pipeline), and works around the lack of runtime meta-data interpolation.
 
 You can modify a trigger step to dynamically upload itself to a pipeline as follows:
 
 1. Move your trigger step from your `pipeline.yml` file into a script. The below example script is stored in a file named `.buildkite/trigger-deploy.sh`:
 
-  ```bash
-  #!/bin/bash
+```bash
+#!/bin/bash
 
-  set -euo pipefail
+set -euo pipefail
 
-  # Set up a variable to hold the meta-data from your block step
-  export RELEASE_NAME=$(buildkite-agent meta-data get "release-name")
+# Set up a variable to hold the meta-data from your block step
+RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
 
-  # Create a pipeline with your trigger step 
-  read -r -d '' PIPELINE << EOM
-  steps:
-    - trigger: "deploy-pipeline"
-      label: "Trigger deploy"
-      build:
-        meta_data:
-          release-name: $RELEASE_NAME
-  EOM
+# Create a pipeline with your trigger step 
+PIPELINE="steps:
+  - trigger: \"deploy-pipeline\"
+    label: \"Trigger deploy\"
+    build:
+      meta_data:
+        release-name: $RELEASE_NAME
+"
 
-  # Upload the new pipeline and add it to the current build
-  echo $PIPELINE | buildkite-agent pipeline upload
-  ```
+# Upload the new pipeline and add it to the current build
+echo "$PIPELINE" | buildkite-agent pipeline upload
+```
 
 2. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
 
-  Before - `pipeline.yml` with a trigger step:
+#### Before
 
-  ```yaml
-  steps:
-    - block: "\:shipit\:"
-      fields:
-        - text: "Code Name"
-          key: "release-name"
-    - trigger: "deploy-pipeline"
-      label: "Trigger Deploy"
-  ```
+The `pipeline.yml` file with the trigger step:
 
-  After - `pipeline.yml` with dynamic upload:
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - trigger: "deploy-pipeline"
+    label: "Trigger Deploy"
+```
 
-  ```yaml
-  steps:
-    - block: "\:shipit\:"
-      fields:
-        - text: "Code Name"
-          key: "release-name"
-    - command: ".buildkite/trigger-deploy.sh"
-      label: "Prepare Deploy Trigger"
-  ```
+#### After
 
+The `pipeline.yml` file dynamically uploading the trigger step:
 
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - command: ".buildkite/trigger-deploy.sh"
+    label: "Prepare Deploy Trigger"
+```
 
+The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime. 
 
+<%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
 
+In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
