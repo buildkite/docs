@@ -64,27 +64,70 @@ The agent also accepts the following two signals directly:
 
 ## Exit Codes
 
-The Agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below. 
+The agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below.
 
 <table>
 <tr>
-	<td>0</td>
-	<td>The job the Agent has run exited with a status of 0</td>
+  <td>0</td>
+  <td>The job exited with a status of 0 (success)</td>
 </tr>
 <tr>
-	<td>1</td>
-	<td>The job the Agent has run exited with a status of 1</td>
+  <td>1</td>
+  <td>The job exited with a status of 1 (most common error status)</td>
 </tr>
 <tr>
-	<td>-1</td>
-	<td>Buildkite lost contact with the agent or it stopped reporting to us</td>
+<td>128 + <em>N</em>*</td>
+<td>The job was terminated by signal <em>N</em> (see below)</td>
 </tr>
 <tr>
-	<td>143</td>
-	<td>The Agent was killed by signal SIGTERM</td>
+  <td>255</td>
+  <td>The agent was gracefully terminated</td>
 </tr>
 <tr>
-	<td>255</td>
-	<td>The Agent was canceled or interrupted but still terminated cleanly</td>
+  <td>-1</td>
+  <td>Buildkite lost contact with the agent or it stopped reporting to us</td>
 </tr>
+</table>
+
+\* When a command is terminated by a signal whose number is N, a shell sets the variable $? to a value greater than 128. [[Wikipedia]](https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts)
+
+Exit codes for common signals:
+
+<table>
+<tr>
+  <td>Exit code</td>
+  <td>Signal</td>
+  <td>Name</td>
+  <td>Description</td>
+</tr>
+<tr>
+  <td>130</td>
+  <td>2</td>
+  <td>SIGINT</td>
+  <td>Terminal interrupt signal</td>
+<tr>
+<tr>
+  <td>137</td>
+  <td>9</td>
+  <td>SIGKILL</td>
+  <td>Kill (cannot be caught or ignored)</td>
+<tr>
+<tr>
+  <td>139</td>
+  <td>11</td>
+  <td>SIGSEGV</td>
+  <td>Segmentation fault; Invalid memory reference</td>
+<tr>
+<tr>
+  <td>141</td>
+  <td>13</td>
+  <td>SIGPIPE</td>
+  <td>Write on a pipe with no one to read it</td>
+<tr>
+<tr>
+  <td>143</td>
+  <td>15</td>
+  <td>SIGTERM</td>
+  <td>Termination signal (graceful)</td>
+<tr>
 </table>
