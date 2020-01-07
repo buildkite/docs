@@ -12,7 +12,6 @@ Description:
 
 Example:
 
-   
    $ buildkite-agent artifact upload "log/**/*.log"
 
    You can also upload directly to Amazon S3 if you'd like to host your own artifacts:
@@ -33,7 +32,7 @@ Example:
    $ export BUILDKITE_ARTIFACTORY_URL=http://my-artifactory-instance.com/artifactory
    $ export BUILDKITE_ARTIFACTORY_USER=carol-danvers
    $ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
-   $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID`
+   $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID
 
 Options:
 
@@ -45,4 +44,5 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --profile value             Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
    
