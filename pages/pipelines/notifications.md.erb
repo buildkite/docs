@@ -54,6 +54,10 @@ notify:
 
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission will be required to setup your chatbot.
 
+<section class="Docs__troubleshooting-note">
+  <p>Campfire messages can only be sent using Basecamp 3.</p>
+</section>
+
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to. 
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand Assets](https://buildkite.com/brand-assets).
 1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet
@@ -61,12 +65,14 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 
 ```yaml
 notify:
-  - basecamp_campfire: URL
+  - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
 ```
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
 ## Slack Channel Message
+
+To send notifications to a Slack Channel, first set up the Slack notification service in your Organization's notification settings. Detailed instructions for setting up a Slack notification service can be found in the [Slack integration guide](/docs/integrations/slack). 
 
 Add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block:
 
