@@ -26,7 +26,7 @@ The agent can be easily installed onto almost any system large or tiny, and we h
   <pre class="highlight shell"><code>$ buildkite-agent --help
 Usage:
 
-  buildkite-agent <command> [arguments...]
+  buildkite-agent [command] [arguments...]
 
 Available commands are:
 
@@ -38,8 +38,9 @@ Available commands are:
   <a href="/docs/agent/v3/cli-bootstrap">bootstrap</a>  Run a Buildkite job locally
   help       Shows a list of commands or help for one command
 
-Use "buildkite-agent <command> --help" for more information about a command.
-</code></pre></div>
+Use "buildkite-agent [command] --help" for more information about a command.
+</code></pre>
+</div>
 
 To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent via an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
 
@@ -67,29 +68,32 @@ The agent also accepts the following two signals directly:
 The agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below.
 
 <table>
-<tr>
-  <td>0</td>
-  <td>The job exited with a status of 0 (success)</td>
-</tr>
-<tr>
-  <td>1</td>
-  <td>The job exited with a status of 1 (most common error status)</td>
-</tr>
-<tr>
-<td>128 + <em>N</em>*</td>
-<td>The job was terminated by signal <em>N</em> (see below)</td>
-</tr>
-<tr>
-  <td>255</td>
-  <td>The agent was gracefully terminated</td>
-</tr>
-<tr>
-  <td>-1</td>
-  <td>Buildkite lost contact with the agent or it stopped reporting to us</td>
-</tr>
+  <tr>
+    <td>0</td>
+    <td>The job exited with a status of 0 (success)</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>The job exited with a status of 1 (most common error status)</td>
+  </tr>
+  <tr>
+    <td>128 + signal number</td>
+    <td>The job was terminated by a signal (see note below)</td>
+  </tr>
+  <tr>
+    <td>255</td>
+    <td>The agent was gracefully terminated</td>
+  </tr>
+  <tr>
+    <td>-1</td>
+    <td>Buildkite lost contact with the agent or it stopped reporting to us</td>
+  </tr>
 </table>
 
-\* When a command is terminated by a signal whose number is N, a shell sets the variable $? to a value greater than 128. [[Wikipedia]](https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts)
+<div class="Docs__note">
+<p class="Docs__note__heading">Jobs terminated by signals</p>
+<p>When a job is terminated by a signal, the exit code will be set to 128 + the signal number. You can get this value from the special variable <code>$?</code>. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.</p>
+</div>
 
 Exit codes for common signals:
 
