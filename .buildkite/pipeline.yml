@@ -2,17 +2,10 @@ steps:
   - wait
 
   - label: "RSpec :rspec:"
-    command: bundle exec rspec
+    command: false
     artifact_paths: "log/rspec-*.xml"
     env:
       RAILS_ENV: test
-    plugins:
-      - docker-compose#v3.0.0:
-          run: app
-          env:
-            - BUILDKITE_JOB_ID
-            - CI
-            - RAILS_ENV
 
   - wait: ~
     continue_on_failure: true
