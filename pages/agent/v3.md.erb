@@ -2,6 +2,8 @@
 
 The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
+<%= toc %>
+
 ## How it Works
 
 The agent works by polling Buildkite’s agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
@@ -24,7 +26,7 @@ The agent can be easily installed onto almost any system large or tiny, and we h
   <pre class="highlight shell"><code>$ buildkite-agent --help
 Usage:
 
-  buildkite-agent <command> [arguments...]
+  buildkite-agent [command] [arguments...]
 
 Available commands are:
 
@@ -36,8 +38,9 @@ Available commands are:
   <a href="/docs/agent/v3/cli-bootstrap">bootstrap</a>  Run a Buildkite job locally
   help       Shows a list of commands or help for one command
 
-Use "buildkite-agent <command> --help" for more information about a command.
-</code></pre></div>
+Use "buildkite-agent [command] --help" for more information about a command.
+</code></pre>
+</div>
 
 To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent via an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
 
@@ -59,3 +62,76 @@ The agent also accepts the following two signals directly:
 
 * `SIGTERM` - Instructs the agent to gracefully disconnect, after completing any job that it may be running.
 * `SIGQUIT` - Instructs the agent to forcefully disconnect, cancelling any job that it may be running. 
+
+## Exit Codes
+
+The agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below.
+
+<table>
+  <tr>
+    <td>0</td>
+    <td>The job exited with a status of 0 (success)</td>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>The job exited with a status of 1 (most common error status)</td>
+  </tr>
+  <tr>
+    <td>128 + signal number</td>
+    <td>The job was terminated by a signal (see note below)</td>
+  </tr>
+  <tr>
+    <td>255</td>
+    <td>The agent was gracefully terminated</td>
+  </tr>
+  <tr>
+    <td>-1</td>
+    <td>Buildkite lost contact with the agent or it stopped reporting to us</td>
+  </tr>
+</table>
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Jobs terminated by signals</p>
+<p>When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.</p>
+</div>
+
+Exit codes for common signals:
+
+<table>
+<tr>
+  <td>Exit code</td>
+  <td>Signal</td>
+  <td>Name</td>
+  <td>Description</td>
+</tr>
+<tr>
+  <td>130</td>
+  <td>2</td>
+  <td>SIGINT</td>
+  <td>Terminal interrupt signal</td>
+<tr>
+<tr>
+  <td>137</td>
+  <td>9</td>
+  <td>SIGKILL</td>
+  <td>Kill (cannot be caught or ignored)</td>
+<tr>
+<tr>
+  <td>139</td>
+  <td>11</td>
+  <td>SIGSEGV</td>
+  <td>Segmentation fault; Invalid memory reference</td>
+<tr>
+<tr>
+  <td>141</td>
+  <td>13</td>
+  <td>SIGPIPE</td>
+  <td>Write on a pipe with no one to read it</td>
+<tr>
+<tr>
+  <td>143</td>
+  <td>15</td>
+  <td>SIGTERM</td>
+  <td>Termination signal (graceful)</td>
+<tr>
+</table>
