@@ -1,6 +1,6 @@
 # Triggering Notifications
 
-The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build status.
+The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
 <%= toc %>
 
@@ -29,7 +29,7 @@ In the below example the email notification will only be triggered if the build 
 ```yaml
 notify:
   - email: "dev@acmeinc.com"
-    if: "build.status == passed"
+    if: build.state == "passed"
 ```
 
 ## Email
