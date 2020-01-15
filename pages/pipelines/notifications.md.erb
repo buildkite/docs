@@ -6,6 +6,10 @@ The `notify` attribute allows you to trigger build notifications to different se
 
 Add notifications to your pipeline with the `notify` attribute. This sits  at the same level as `steps` in your `pipeline.yml` file.
 
+<section class="Docs__note">
+  <p>The <code>notify</code> attribute can only be used in <code>pipeline.yml</code> files or when using the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Step Editor beta</a>.</p>
+</section>
+
 The below example will send a notification email every time a build is created on this pipeline: 
 
 ```yaml
