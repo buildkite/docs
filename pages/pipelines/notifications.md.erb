@@ -82,8 +82,12 @@ Add a Slack notification to your pipeline using the `slack` attribute of the `no
 
 ```yaml
 notify:
-  - slack: #general
+  - slack: "#general"
 ```
+
+<section class="Docs__troubleshooting-note">
+  <p>When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
+</section>
 
 The above example will deliver the notification to all configured workspaces that have a channel named 'general'.
 
@@ -103,7 +107,7 @@ notify:
       - buildkite-community#sre
       - buildkite-community#announcements
       - buildkite-team#monitoring
-      - #general
+      - "#general"
 ```
 
 In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
