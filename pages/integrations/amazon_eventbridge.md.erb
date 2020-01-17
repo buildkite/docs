@@ -22,7 +22,7 @@ The following events are published to the partner event bus:
 
 <table>
 <thead>
-  <tr><th>Event</th><th>Description</th></tr>
+  <tr><th>Event ("Detail Type")</th><th>Description</th></tr>
 </thead>
 <tbody>
   <tr><th><a href="#events-build-created">Build Created</a></th><td><%= webhook_description "build.created" %></td></tr>
@@ -40,16 +40,42 @@ The following events are published to the partner event bus:
 </tbody>
 </table>
 
-## Example: Log events via CloudWatch Logs
+## Filtering
 
-You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target to log events to [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html):
+When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this respond only to certain events based on the type, or any attribute from within the event payload.
 
-```js
-exports.handler = (event, context, callback) => {
-  console.log(event['detail-type'], JSON.stringify(event['detail']));
-  callback(null, 'Finished');
-};
+(screenshot)
+
+For example, to only process [Build Finished](#events-build-finished) events you’d configure your rule with the following event pattern:
+
+```json
+{
+  "detail-type": "Build Finished",
+}
 ```
+
+To process only [Build Finished](#events-build-finished) events for a particular pipeline, you'd use the following pattern:
+
+```json
+{
+  "detail-type": "Build Finished",
+  "detail": {
+    "pipeline": {
+      "slug": "some-pipeline"
+    }
+  }
+}
+```
+
+## Logging
+
+To debug your EventBridge events you can configure a rule to route the event bus directly to AWS Cloudwatch Logs.
+
+(insert screenshot)
+
+You can then use CloudWatch Insights to query and inspect the live events from your event bus:
+
+(insert screenshot)
 
 ## Example: Track agent wait times via CloudWatch Metrics
 
