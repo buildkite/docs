@@ -14,7 +14,9 @@ Firstly, ensure you're using at least [GitLab version 7.4](https://about.gitlab.
 
 Find the **GitLab (Self Hosted)** section and specify which GitLab edition you're using (Community or Enterprise), and enter the URL to your GitLab installation (e.g. `https://git.mycompany.com`).
 
-<%= image "form.png", width: 1436/2, height: 668/2, alt: "Screen of Buildkite Organiziation GitLab Settings" %>
+Add, if needed, a space separated list of networks in [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) that will be allowed to trigger builds, e.g., your GitLab server IP addresses.
+
+<%= image "form.png", width: 1436/2, height: 764/2, alt: "Screen of Buildkite Organiziation GitLab Settings" %>
 
 Then click **Save GitLab Settings**.
 
