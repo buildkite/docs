@@ -44,21 +44,15 @@ You can then start consuming the events in your AWS account. The links to "Partn
 
 When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this respond only to certain events based on the type, or any attribute from within the event payload.
 
-<%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
-
 For example, to only process [Build Finished](#events-build-finished) events you’d configure your rule with the following event pattern:
 
-```json
-{
-  "detail-type": "Build Finished"
-}
-```
+<%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
 
-To process only [Build Finished](#events-build-finished) events for a particular pipeline, you'd use the following pattern:
+You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
 
 ```json
 {
-  "detail-type": "Build Finished",
+  "detail-type": [ "Build Started", "Build Finished" ],
   "detail": {
     "pipeline": {
       "slug": "some-pipeline"
@@ -66,6 +60,8 @@ To process only [Build Finished](#events-build-finished) events for a particular
   }
 }
 ```
+
+See the [Example Event Payloads](#example-event-payloads) for full list of properties, and the [AWS EventBridge Event Patterns documentation](https://docs.aws.amazon.com/eventbridge/latest/userguide/filtering-examples-structure.html) for full details on the pattern syntax.
 
 ## Logging
 
