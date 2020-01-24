@@ -103,11 +103,11 @@ You can also specify multiple teams and channels with the `channels` attribute:
 ```yaml
 notify:
   - slack:
-    channels:
-      - buildkite-community#sre
-      - buildkite-community#announcements
-      - buildkite-team#monitoring
-      - "#general"
+      channels:
+        - buildkite-community#sre
+        - buildkite-community#announcements
+        - buildkite-team#monitoring
+        - "#general"
 ```
 
 In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
