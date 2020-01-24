@@ -6,8 +6,8 @@ echo "--- :docker: Building docker image"
 
 TAG="${BUILDKITE_BUILD_NUMBER}"
 
-docker build -t "$REPOSITORY:$TAG" .
+docker build -t "$ECR_REPO:$TAG" .
 
 echo "--- :docker: Pushing docker image"
 
-docker push "$REPOSITORY:$TAG"
+docker push "$ECR_REPO:$TAG"
