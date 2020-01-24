@@ -24,25 +24,3 @@ steps:
           formatter:
             type: details
           context: test-summary
-
-  # For master builds only 👇
-
-  - name: "📦"
-    key: "build"
-    command: ".buildkite/build.sh"
-    branches: "master"
-    artifact_paths: "dist/*"
-    plugins:
-      - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
-          run: app
-
-  - name: ":docker: push"
-    command: ".buildkite/push-image.sh"
-    depends_on: "build"
-    branches: "master"
-    agents:
-      queue: deploy-production
-    plugins:
-      ecr#v2.0.0:
-        login: true
-        account-ids: ${ECR_ACCOUNT_ID}
