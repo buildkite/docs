@@ -1,9 +1,9 @@
 steps:
   - name: ":docker:📦 Build Docker Image"
     key: "build"
-    command: ".buildkite/build.sh"
     branches: "master"
-    artifact_paths: "dist/*"
+    agents:
+      queue: elastic-builders
     plugins:
       - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
           run: app
