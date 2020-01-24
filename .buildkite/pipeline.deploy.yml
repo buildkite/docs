@@ -7,3 +7,5 @@ steps:
     plugins:
       - seek-oss/docker-ecr-publish#v1.2.0:
           ecr-name: ${ECR_REPO}
+          tags:
+            - build-$$BUILDKITE_BUILD_NUMBER
