@@ -1,5 +1,5 @@
 steps:
-  - label: "RSpec :rspec:"
+  - label: ":rspec: RSpec"
     command: bundle exec rspec
     artifact_paths: "log/rspec-*.xml"
     key: "rspec"
@@ -13,12 +13,12 @@ steps:
             - CI
             - RAILS_ENV
 
-  - label: Test Summary
+  - label: ":junit: Test Summary"
     depends_on: "rspec"
     plugins:
       - bugcrowd/test-summary#v1.9.0:
           inputs:
-            - label: "RSpec :rspec:"
+            - label: ":rspec: RSpec"
               artifact_path: "log/rspec*"
               type: junit
           formatter:
