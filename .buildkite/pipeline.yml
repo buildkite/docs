@@ -1,9 +1,27 @@
 steps:
-  - wait
+  - name: "📦"
+    key: "build"
+    command: ".buildkite/build.sh"
+    artifact_paths: "dist/*"
+    plugins:
+      - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
+          run: docs
+
+  - name: ":docker: push"
+    command: ".buildkite/push-image.sh"
+    depends_on: "build"
+    branches: "master"
+    agents:
+      queue: deploy-production
+    plugins:
+      ecr#v2.0.0:
+        login: true
+        account-ids: ${ECR_ACCOUNT_ID}
 
   - label: "RSpec :rspec:"
     command: bundle exec rspec
     artifact_paths: "log/rspec-*.xml"
+    key: "rspec"
     env:
       RAILS_ENV: test
     plugins:
@@ -14,10 +32,8 @@ steps:
             - CI
             - RAILS_ENV
 
-  - wait: ~
-    continue_on_failure: true
-
   - label: Annotate
+    depends_on: "rspec"
     plugins:
       - bugcrowd/test-summary#v1.9.0:
           inputs:
