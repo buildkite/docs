@@ -1,5 +1,6 @@
 steps:
   - name: ":docker::ecr: Push to ECR"
+    depends_on: "rspec"
     if: |
       build.branch == "master"
     agents:
