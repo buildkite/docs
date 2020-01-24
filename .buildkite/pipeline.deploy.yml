@@ -1,20 +1,9 @@
 steps:
-  - name: ":docker:📦 Build Docker Image"
-    key: "build"
-    branches: "master"
-    agents:
-      queue: elastic-builders
-    plugins:
-      - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
-          build: app
-
   - name: ":docker::ecr: Push to ECR"
-    command: ".buildkite/push-image.sh"
-    depends_on: "build"
-    branches: "master"
+    if: |
+      build.branch == "master"
     agents:
       queue: deploy-production
     plugins:
-      ecr#v2.0.0:
-        login: true
-        account-ids: ${ECR_ACCOUNT_ID}
+      - seek-oss/docker-ecr-publish#v1.2.0:
+          ecr-name: ${ECR_REPO}
