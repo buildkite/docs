@@ -6,7 +6,7 @@ steps:
       queue: elastic-builders
     plugins:
       - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
-          run: app
+          build: app
 
   - name: ":docker::ecr: Push to ECR"
     command: ".buildkite/push-image.sh"
