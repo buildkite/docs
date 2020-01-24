@@ -1,5 +1,5 @@
 steps:
-  - name: "📦"
+  - name: ":docker:📦 Build Docker Image"
     key: "build"
     command: ".buildkite/build.sh"
     branches: "master"
@@ -8,7 +8,7 @@ steps:
       - docker-compose#ed68516f132338342cd3a85098be65f019136e4c:
           run: app
 
-  - name: ":docker: push"
+  - name: ":docker::ecr: Push to ECR"
     command: ".buildkite/push-image.sh"
     depends_on: "build"
     branches: "master"
