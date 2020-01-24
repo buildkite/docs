@@ -4,25 +4,13 @@ The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification servi
 
 <%= toc %>
 
-## Configuring
-
-In your [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
-
-<%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
-
-Once you’ve entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
-
-<%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
-
-You can then start consuming the events in your AWS account. The links to "Partner Event Sources Console" and "Event Rules" take you to the relevant pages in your AWS Console.
-
 ## Events
 
-The following events are published to the partner event bus:
+Once you’ve configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:
 
 <table>
 <thead>
-  <tr><th>Event</th><th>Description</th></tr>
+  <tr><th>Detail Type</th><th>Description</th></tr>
 </thead>
 <tbody>
   <tr><th><a href="#events-build-created">Build Created</a></th><td><%= webhook_description "build.created" %></td></tr>
@@ -40,18 +28,52 @@ The following events are published to the partner event bus:
 </tbody>
 </table>
 
-## Example: Log events via CloudWatch Logs
+## Configuring
 
-You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target to log events to [CloudWatch Logs](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/WhatIsCloudWatchLogs.html):
+In your Buildkite [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
 
-```js
-exports.handler = (event, context, callback) => {
-  console.log(event['detail-type'], JSON.stringify(event['detail']));
-  callback(null, 'Finished');
-};
+<%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
+
+Once you’ve entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+
+<%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
+
+You can then start consuming the events in your AWS account. The links to "Partner Event Sources Console" and "Event Rules" take you to the relevant pages in your AWS Console.
+
+## Filtering
+
+When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this respond only to certain events based on the type, or any attribute from within the event payload.
+
+For example, to only process [Build Finished](#events-build-finished) events you’d configure your rule with the following event pattern:
+
+<%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
+
+You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
+
+```json
+{
+  "detail-type": [ "Build Started", "Build Finished" ],
+  "detail": {
+    "pipeline": {
+      "slug": "some-pipeline"
+    }
+  }
+}
 ```
 
-## Example: Track agent wait times via CloudWatch Metrics
+See the [Example Event Payloads](#example-event-payloads) for full list of properties, and the [AWS EventBridge Event Patterns documentation](https://docs.aws.amazon.com/eventbridge/latest/userguide/filtering-examples-structure.html) for full details on the pattern syntax.
+
+## Logging
+
+To debug your EventBridge events you can configure a rule to route the event bus directly to AWS Cloudwatch Logs:
+
+<%= image "cloudwatch-logs.png", width: 1636/2, height: 992/2, alt: "Screenshot of configuring an EventBridge Rule to send to CloudWatch Logs" %>
+
+You can then use [CloudWatch Logs Insights](https://docs.aws.amazon.com/AmazonCloudWatch/latest/logs/AnalyzingLogData.html) to query and inspect the live events from your event bus, by choosing the event log group configured above:
+
+<%= image "cloudwatch-insights.png", width: 2280/2, height: 998/2, alt: "Screenshot of CloudWatch Logs Insights" %>
+
+## Lambda Example: Track agent wait times via CloudWatch Metrics
 
 You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
 
@@ -60,11 +82,6 @@ const AWS = require("aws-sdk");
 const cloudWatch = new AWS.CloudWatch();
 
 exports.handler = (event, context, callback) => {
-  if (event["detail-type"] != "Job Started") {
-    callback(null, "Finished");
-    return;
-  }
-
   const waitTime =
     new Date(event.detail.job.started_at) -
     new Date(event.detail.job.runnable_at);
