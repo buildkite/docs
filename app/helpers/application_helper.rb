@@ -1,4 +1,8 @@
 module ApplicationHelper
+  def dashboard_path
+    "/dashboard"
+  end
+
   def sidebar_link_to(name, path, options = {})
     url = "/docs/#{path}"
 

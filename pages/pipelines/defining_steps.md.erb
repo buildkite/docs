@@ -52,7 +52,7 @@ The following example YAML defines a pipeline with one command step that will ec
 
 ```yml
 steps:
-  - label: Example Test
+  - label: "Example Test"
     command: echo "Hello!"
 ```
 
@@ -72,43 +72,43 @@ Here’s a more complete example based on [our Buildkite Agent’s build pipeli
 
 ```yaml
 steps:
-  - label: '\:hammer\: Tests'
-    command: 'scripts/tests.sh'
+  - label: "\:hammer\: Tests"
+    command: scripts/tests.sh
     env:
       BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 
   - wait
 
-  - label: '\:package\: Package'
-    command: 'scripts/build-binaries.sh'
-    artifact_paths: 'pkg/*'
+  - label: "\:package\: Package"
+    command: scripts/build-binaries.sh
+    artifact_paths: "pkg/*"
     env:
       BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 
   - wait
 
-  - label: '\:debian\: Publish'
-    command: 'scripts/build-debian-packages.sh'
-    artifact_paths: 'deb/**/*'
-    branches: 'master'
+  - label: "\:debian\: Publish"
+    command: scripts/build-debian-packages.sh
+    artifact_paths: "deb/**/*"
+    branches: "master"
     agents:
-      queue: 'deploy'
+      queue: "deploy"
 
-  - block: '\:shipit\: Release'
-    branches: 'master'
+  - block: "\:shipit\: Release"
+    branches: "master"
 
-  - label: '\:github\: Release'
-    command: 'scripts/build-github-release.sh'
-    artifact_paths: 'releases/**/*'
-    branches: 'master'
+  - label: "\:github\: Release"
+    command: scripts/build-github-release.sh
+    artifact_paths: "releases/**/*"
+    branches: "master"
 
   - wait
 
-  - label: '\:whale\: Update images'
-    command: 'scripts/release-docker.sh'
-    branches: 'master'
+  - label: "\:whale\: Update images"
+    command: scripts/release-docker.sh
+    branches: "master"
     agents:
-      queue: 'deploy'
+      queue: "deploy"
 ```
 
 ## Step types
@@ -174,10 +174,10 @@ In the below `pipeline.yaml` example, when the build runs it will execute the `.
 ```bash
 steps:
   - command: .buildkite/pipeline.sh | buildkite-agent pipeline upload
-    label: \:pipeline\: Upload
+    label: "\:pipeline\: Upload"
   - wait
   - command: "other-script.sh"
-    label: Run other operations
+    label: "Run other operations"
 ```
 
 ## Migrating existing steps to a pipeline.yml

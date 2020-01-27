@@ -109,7 +109,7 @@ steps:
     command: "scripts/deploy"
     if: build.branch == 'master'
     concurrency_group: "my-app-deploy"
-    concurrency_limit: 1
+    concurrency: 1
 ```
 
 <%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>

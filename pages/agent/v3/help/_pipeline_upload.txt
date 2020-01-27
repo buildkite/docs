@@ -14,6 +14,9 @@ Description:
    - .buildkite/pipeline.yml
    - .buildkite/pipeline.yaml
    - .buildkite/pipeline.json
+   - buildkite/pipeline.yml
+   - buildkite/pipeline.yaml
+   - buildkite/pipeline.json
 
    You can also pipe build pipelines to the command allowing you to create
    scripts that generate dynamic pipelines.
@@ -36,4 +39,5 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --profile value             Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
    

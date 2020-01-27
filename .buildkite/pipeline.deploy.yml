@@ -1,0 +1,10 @@
+steps:
+  - name: ":docker::ecr: Push to ECR"
+    depends_on: "rspec"
+    if: |
+      build.branch == "master"
+    agents:
+      queue: deploy-production
+    plugins:
+      - seek-oss/docker-ecr-publish#v1.2.0:
+          ecr-name: ${ECR_REPO}
