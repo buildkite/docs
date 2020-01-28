@@ -34,6 +34,9 @@ gem 'rouge'
 # For escaping code snippets in markdown
 gem 'escape_utils'
 
+# One rails log line per request, instead of enraging quantity
+gem 'lograge'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
