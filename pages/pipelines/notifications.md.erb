@@ -4,10 +4,10 @@ The `notify` attribute allows you to trigger build notifications to different se
 
 <%= toc %>
 
-Add notifications to your pipeline with the `notify` attribute. This sits  at the same level as `steps` in your `pipeline.yml` file.
+Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your `pipeline.yml` file.
 
 <section class="Docs__note">
-  <p>The <code>notify</code> attribute can only be used in <code>pipeline.yml</code> files or when using the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Step Editor beta</a>.</p>
+  <p>The <code>notify</code> attribute can only be used when using the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Step Editor beta</a>.</p>
 </section>
 
 The below example will send a notification email every time a build is created on this pipeline: 
@@ -35,6 +35,10 @@ notify:
   - email: "dev@acmeinc.com"
     if: build.state == "passed"
 ```
+
+<section class="Docs__troubleshooting-note">
+  <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>. 
+</section>
 
 ## Email
 
