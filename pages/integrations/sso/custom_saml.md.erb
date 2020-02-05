@@ -4,19 +4,17 @@ Any identify provider that supports SAML 2.0 can be used to authorize access to 
 
 <%= toc %>
 
-## Step 1. Set up your provider
-
-There are two ways to set up your custom provider: using the Buildkite meta-data XML to your identity provider, or manually adding your Buildkite data into your identity provider. 
-
-After setting up your provider, you'll need to set up your SSO provider in your Buildkite organization's Single Sign On Settings.
+There are two workflows for setting up a new SAML provider depending on your Idp's setup process: If you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.  
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-## Option A - Setting up your IdP using a meta-data URL or ACS URL
+## Set up with an ACS URL
 
-A custom URL containing your organization's meta-data is available to help you complete your IdP's setup. This option will also generate an ACS URL for IdPs which require that during setup.
+If your IdP requires information from Buildkite as part of the setup process, you can generate your unique Buildkite URLs first and enter the rest of your IdP information later. 
+
+### Get your ACS URL and configure your IdP
 
 Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
 
@@ -24,15 +22,50 @@ Click the Buildkite Organization Settings' Single Sign On menu item, then choose
 
 Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML Provider:
 
-On the following screen you'll find the meta-data URL in the Service Provider section:
+On the following screen you'll find the ACS URL in the Service Provider section:
 
 <%= image "service-provider-urls.png", width: 1768/2, height: 412/2, alt: "Screenshot of the Service Provider section in the Custom SAML SSO Provider details page" %>
 
-The custom endpoint contains all the information you need to set up SAML with any provider.
+If you IdP supports meta-data URL setup, you can find your unique Buildkite organization meta-data URL below the ACS URL.
 
-After completing your IdP setup, you'll need to complete your Buildkite SSO Proivder's configuration. Proceed to [Step 2. Option A - Update your SSO Provider in Buildkite](#option-a-update-your-existing-sso-provider).
+### Update your Buildkite SAML provider
 
-## Option B - Setting up your IdP manually
+In your Buildkite Single Sign-On menu, select your Custom SAML provider from the list of Configured SSO Providers. 
+
+Click the 'Edit Settings' button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+
+Manual data entry requires the following three fields:
+
+<table>
+    <tr>
+        <td>SAML 2.0 Endpoint (HTTP)</td>
+        <td>
+            The SAML endpoint for your chosen provider.
+        </td>
+    </tr>
+    <tr>
+        <td>Issuer URL</td>
+        <td>
+            The identifing URL of your chosen provider.  
+        </td>
+    </tr>
+    <tr>
+        <td>X.509 certificate</td>
+        <td>
+            The public key certificate for your chosen provider.
+        </td>
+    </tr>
+</table>
+
+<%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
+
+After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider). 
+
+## Set up manually
+
+There are two ways to set up your custom provider: using your Buildkite meta-data XML URL, or manually adding your Buildkite data into your identity provider. 
+
+### Set up your IdP
 
 Manual setup is different for each provider, however it usually requires the following fields:
 
@@ -58,19 +91,19 @@ Manual setup is different for each provider, however it usually requires the fol
     </tr>
 </table>
 
-If your IdP requires an ACS URL, follow the instructions in Option A to generate one.
+If your IdP requires an ACS URL before it will provide the above information, follow the instructions in the [Set up with an ACS URL](#set-up-with-an-acs-url) section to generate one.
 
-If your custom provider needs further information, please email support@buildkite.com.
+If your custom provider needs further information, please email [support@buildkite.com](mailto:support@buildkite.com). 
 
-## Step 2. Configure a Buildkite SSO Provider
+### Create a Buildkite SAML provider
 
-## Option A - Update your existing SSO Provider
-
-If you haven't done so already, create a Custom SAML Provider. In your Buildkite Organization Settings' Single Sign On menu item, choose the Custom SAML provider:
+Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-On the following screen you can choose to either set up using a Meta Data URL from your IdP, an XML file, or by entering the following 3 fields:
+Choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+
+Manual data entry requires the following three fields:
 
 <table>
     <tr>
@@ -95,25 +128,13 @@ On the following screen you can choose to either set up using a Meta Data URL fr
 
 <%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
 
-If you already have an SSO Provider, select it from the list of Configured SSO Providers. Click the 'Edit Settings' button, and choose an option for entering your meta-data:
+After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider).
 
-
-
-## Option B - Create a new SSO Provider
-
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
-
-<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
-
-Choose how you'd like to configure your Custom SAML Provider:
-
-
-
-## Step 3. Perform a Test Login
+## Perform a test login
 
 Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
-## Step 4. Enable the new SSO Provider
+## Enable the new SSO provider
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through your provider before organization data can be accessed.
 
