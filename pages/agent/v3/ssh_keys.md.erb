@@ -10,11 +10,10 @@ When the Buildkite Agent runs any git operations, SSH will look for keys in `~/.
 
 ## Debugging SSH key issues
 
-To help debug SSH issues you can enable verbose logging by editing the `~/.ssh/config` file and adding the following settings:
+To help debug SSH issues, you can enable verbose logging by running your build with the following environment variable set:
 
-```
-Host *
-  LogLevel DEBUG3
+```bash
+GIT_SSH_COMMAND="ssh -vvv"
 ```
 
 ## Creating a single SSH key
