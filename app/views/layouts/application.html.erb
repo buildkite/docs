@@ -70,6 +70,13 @@
         <div class="Docs__page-container__inner PageContainer">
 
           <nav class="Docs__nav">
+            <form method="post" action="/search/show" class="search_query">
+              <div class="FormField">
+                <input autofocus="autofocus" class="input" type="search_query" name="search_query">
+                <button class="button" type="submit">Search</button>
+              </div>
+            </form>
+            <br/>
             <% if request.url.include?('/docs/tutorials') %>
               <p class="Docs__nav__section-heading">Tutorials</p>
               <ul class="Docs__nav__sub-nav">
