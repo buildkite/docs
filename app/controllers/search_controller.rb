@@ -7,7 +7,7 @@ class SearchController < ApplicationController
 
     @query = params[:query]
 
-    @data = Search.new.find_word(@query)
+    @data = Search.find_word(@query)
 
     respond_to do |format|
       format.html
