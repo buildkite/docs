@@ -2,10 +2,10 @@ class SearchController < ApplicationController
 
   skip_before_action :verify_authenticity_token, :only => [:show]
 
-  def show
+  def index
     @data = []
 
-    @query = params[:search_query]
+    @query = params[:query]
 
     @data = Search.new.find_word(@query)
 

@@ -120,5 +120,5 @@ Rails.application.routes.draw do
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
 
-  post "/search/show" => "search#show"
+  get '/search' => 'search#index', as: :search
 end
