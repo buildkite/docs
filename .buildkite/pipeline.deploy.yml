@@ -5,7 +5,7 @@ steps:
     if: |
       build.branch == "master"
     agents:
-      queue: deploy-production
+      queue: deploy
     plugins:
      ecr#v2.0.0:
        login: true
