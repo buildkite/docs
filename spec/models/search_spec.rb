@@ -14,4 +14,17 @@ RSpec.describe Search, type: :model do
       expect(Search.all_documents.count).to_not eq(0)
     end
   end
+
+  context 'makes url pretty' do
+    let(:doc) { 'pages/example.md.erb' }
+    it 'makes example link pretty' do
+      expect(Search.make_link_pretty(doc)).to eq('example')
+    end
+  end
+
+  context 'return results for query' do
+    it 'returns 6 results for hello' do
+      expect(Search.find_word('hello').count).to eq(6)
+    end
+  end
 end
