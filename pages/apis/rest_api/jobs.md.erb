@@ -14,7 +14,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
     {
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "type": "script",
-      "name": "scripts/build.sh",
+      "name": ":package:",
+      "step_key": "package",
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "build_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
