@@ -1,13 +1,11 @@
 <h1> Search Results <h1>
 
-<h2>Returning results for <%=@query%><h2>
-
+<h2>Returning results for <%= @query %><h2>
+<table>
 <% @data.each do |result| %>
   <tr>
     <td><%= link_to result[:link], docs_page_path(result[:link]) %></td>
-    </br>
     <td><%= result[:content] %></td>
-    </br>
-    </br>
   </tr>
 <% end %>
+<table>
