@@ -30,21 +30,7 @@ Once created, the Slack channel and workspace cannot be changed. To post to a di
 
 By default, notifications are sent to all configured Slack channels.
 
-To restrict which Slack channels receive notifications:
-
-1. Add a [`notify`](/docs/pipelines/notifications#conditional-notifications) YAML block with a conditional `if` attribute to your `pipeline.yml` 
-
-	```yaml
-	notify:
-	  - slack: buildkite-community#general
-	    if: build.state == "passed"
-	```
-
-1. Update your Buildkite Slack notification service's 'Pipeline' setting to 'Only Some Pipelines', and un-check the pipeline with the conditional `notify` block
-
-	<%= image "buildkite-slack-notification.png", width: 1470/2, height: 1620/2, alt: "Screenshot of Add Buildkite Slack Notification" %>
-
-Further information about adding `notify` to your pipeline can be found in the [Notifications](/docs/pipelines/notifications#conditional-notifications) guide.
+For extra control over which channels receive notifications, it's possible to [define notification rules within pipeline YAML files](/docs/pipelines/notifications#conditional-notifications).
 
 ## Upgrading a legacy Slack service
 
