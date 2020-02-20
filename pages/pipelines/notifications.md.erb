@@ -99,7 +99,7 @@ To send a notification to one particular workspace and channel, you can specify 
 
 ```yaml
 notify:
-  - slack: buildkite-community#general
+  - slack: "buildkite-community#general"
 ```
 
 You can also specify multiple teams and channels with the `channels` attribute:
@@ -108,9 +108,9 @@ You can also specify multiple teams and channels with the `channels` attribute:
 notify:
   - slack:
       channels:
-        - buildkite-community#sre
-        - buildkite-community#announcements
-        - buildkite-team#monitoring
+        - "buildkite-community#sre"
+        - "buildkite-community#announcements"
+        - "buildkite-team#monitoring"
         - "#general"
 ```
 
