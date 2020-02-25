@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent artifact upload <pattern> <destination> [arguments...]
+   buildkite-agent artifact upload <pattern> [arguments...]
 
 Description:
 
