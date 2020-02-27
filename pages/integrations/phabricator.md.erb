@@ -2,6 +2,10 @@
 
 [Phabricator][] can trigger Buildkite on new revisions through Habormaster.
 
+Phabricator and Buildkite integrate via webhooks. Phabricator triggers
+Buildkite via webhook, then Buildkite reports the status via webhook. You need
+to create an API Access Token in Buildkite to configure Phabricator.
+
 <%= toc %>
 
 ## Prerequisites
@@ -32,10 +36,6 @@ Press "Add Build Step" on the next screen. Then select "Build with Buildkite".
 Keep this screen open while you configure Buildkite.
 
 ## Step 2: Configure Buildkite Notification Webhook
-
-Phabricator and Buildkite integrate via webhooks. Phabricator triggers
-Buildkite via webhook, then Buildkite reports the status via webhook. You need
-to create an API Access Token in Buildkite to configure Phabricator.
 
 Open the [New API Access
 Token](https://buildkite.com/user/api-access-tokens/new) page in Buildkite.
