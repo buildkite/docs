@@ -4,22 +4,68 @@ Any identify provider that supports SAML 2.0 can be used to authorize access to 
 
 <%= toc %>
 
-## Set up your provider
-
-There are two ways to set up your custom provider: using the Buildkite meta-data XML to your identity provider, or manually adding your Buildkite data into your identity provider. After setting up your provider, you'll need to set up your SSO provider in your Buildkite organization's Single Sign On Settings.
-
-Manual SSO provisioning in Buildkite is available via our GraphQL explorer. For further information, see the [GraphQL SSO Setup Guide](/docs/integrations/sso/sso-setup-with-graphql). 
+There are two workflows for setting up a new SAML provider depending on your Idp's setup process: If you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.  
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Before starting your provider setup</p>
-<p>Email the Buildkite team at support@buildkite.com to request your unique SSO service URL, you will need this during set up.</p>
+  <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-### Step 1. Option A - Setting up with meta-data
+## Set up with an ACS URL
 
-A custom URL containing your organization's metadata can be generated. You can request the URL from support@buildkite.com alongside your SSO service URL. The custom endpoint contains all the information you need to set up SAML with any provider.
+If your IdP requires information from Buildkite as part of the setup process, you can generate your unique Buildkite URLs first and enter the rest of your IdP information later. 
 
-### Step 1. Option B - Setting up manually
+### Get your ACS URL and configure your IdP
+
+Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
+
+<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
+
+Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML Provider:
+
+On the following screen you'll find the ACS URL in the Service Provider section:
+
+<%= image "service-provider-urls.png", width: 1768/2, height: 412/2, alt: "Screenshot of the Service Provider section in the Custom SAML SSO Provider details page" %>
+
+If you IdP supports meta-data URL setup, you can find your unique Buildkite organization meta-data URL below the ACS URL.
+
+### Update your Buildkite SAML provider
+
+In your Buildkite Single Sign-On menu, select your Custom SAML provider from the list of Configured SSO Providers. 
+
+Click the 'Edit Settings' button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+
+Manual data entry requires the following three fields:
+
+<table>
+    <tr>
+        <td>SAML 2.0 Endpoint (HTTP)</td>
+        <td>
+            The SAML endpoint for your chosen provider.
+        </td>
+    </tr>
+    <tr>
+        <td>Issuer URL</td>
+        <td>
+            The identifing URL of your chosen provider.  
+        </td>
+    </tr>
+    <tr>
+        <td>X.509 certificate</td>
+        <td>
+            The public key certificate for your chosen provider.
+        </td>
+    </tr>
+</table>
+
+<%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
+
+After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider). 
+
+## Set up manually
+
+There are two ways to set up your custom provider: using your Buildkite meta-data XML URL, or manually adding your Buildkite data into your identity provider. 
+
+### Set up your IdP
 
 Manual setup is different for each provider, however it usually requires the following fields:
 
@@ -45,15 +91,19 @@ Manual setup is different for each provider, however it usually requires the fol
     </tr>
 </table>
 
-If your custom provider needs further information, please email support@buildkite.com.
+If your IdP requires an ACS URL before it will provide the above information, follow the instructions in the [Set up with an ACS URL](#set-up-with-an-acs-url) section to generate one.
 
-### Step 2. Create an SSO Provider in Buildkite
+If your custom provider needs further information, please email [support@buildkite.com](mailto:support@buildkite.com). 
 
-In your Buildkite Organization Settings' Single Sign On menu item, choose the Custom SAML provider:
+### Create a Buildkite SAML provider
+
+Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-On the following screen you can choose to either set up using a Meta Data URL from your IdP or by entering the following 3 fields:
+Choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+
+Manual data entry requires the following three fields:
 
 <table>
     <tr>
@@ -78,11 +128,13 @@ On the following screen you can choose to either set up using a Meta Data URL fr
 
 <%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
 
-### Step 3. Perform a Test Login
+After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider).
+
+## Perform a test login
 
 Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
-### Step 4. Enable the new SSO Provider
+## Enable the new SSO provider
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through your provider before organization data can be accessed.
 
@@ -106,8 +158,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>admin</code>
         </td>
         <td>
-            A boolean value that describes whether the user should be provisioned with admin permissions
-            Example: true
+            A boolean value that describes whether the user should be provisioned with admin permissions<br>
+            <em>Example:</em> true
         </td>
     </tr>
     <tr>
@@ -115,8 +167,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>email</code>
         </td>
         <td>
-            A string of the user's email address
-            Example: "person@company.com"
+            A string of the user's email address<br>
+            <em>Example:</em> "person@company.com"
         </td>
     </tr>
     <tr>
@@ -124,8 +176,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>name</code>
         </td>
         <td>
-            A string of the user's full name
-            Example: "Han Solo"
+            A string of the user's full name<br>
+            <em>Example:</em> "Han Solo"
         </td>
     </tr>
     <tr>
@@ -133,8 +185,8 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
             <code>teams</code>
         </td>
         <td>
-            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite. 
-            Example: `a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee`
+            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite.<br>
+            <em>Example:</em> <code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code>
         </td>
     </tr>
 </table>
