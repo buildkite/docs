@@ -75,7 +75,7 @@ You can then use [CloudWatch Logs Insights](https://docs.aws.amazon.com/AmazonCl
 
 ## Lambda Example: Track agent wait times via CloudWatch Metrics
 
-You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) as a rule target to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
+You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) and <a href="#events-job-started">Job Started</a> event to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
 
 ```js
 const AWS = require("aws-sdk");
