@@ -14,6 +14,8 @@ Use this command in your build scripts to save string data in the Buildkite meta
 <%= render 'agent/v3/help/meta_data_set.txt' %>
 ```
 
+Meta-data values are restricted to a maximum of 100 kilobytes. Keys and values larger than 1 kilobyte are discouraged. Please use [artifacts](https://buildkite.com/docs/agent/v3/cli-artifact) for large data which needs to uploaded and downloaded.
+
 ## Getting data
 
 Use this command in your build scripts to get a previously saved value from the Buildkite meta-data store.

@@ -2,7 +2,7 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-An block step is functionally identical to an [input step](/docs/pipelines/block-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. 
+A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. 
 
 <%= toc %>
 
@@ -271,3 +271,101 @@ steps:
           - label: "Oceania"
             value: "aunz"
 ```
+
+## Passing block step data to other steps
+
+Before you can do anything with the values from a block step, you need to store the data using the Buildkite meta-data store. 
+
+Use the `key` attribute in your block step to store values from the text or select fields in meta-data:
+
+```yaml
+steps:
+  - block: "Request Release"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+```
+
+You can access the stored meta-data after the block step has passed. Use the `buildkite-agent meta-data get` command to retreive your data:
+
+```shell
+buildkite-agent meta-data get "release-name"
+```
+
+<div class="Docs__troubleshooting-note">
+  <p>Meta-data cannot be interpolated directly from the `pipeline.yml` at runtime. The meta-data store can only be accessed from within a command step.</p>
+</div>
+
+In the below example, the script uses the `buildkite-agent` meta-data command to retrieve the meta-data and print it to the log:
+
+```bash
+#!/bin/bash
+
+release="$(buildkite-agent meta-data get "release-name")"
+echo "Release name: $RELEASE_NAME"
+```
+
+### Passing meta-data to trigger steps
+
+When passing meta-data values to trigger steps you need to delay adding the trigger step to the pipeline until after the block step has completed; this can be done using [dynamic pipelines](/docs/agent/v3/cli-pipeline), and works around the lack of runtime meta-data interpolation.
+
+You can modify a trigger step to dynamically upload itself to a pipeline as follows:
+
+1. Move your trigger step from your `pipeline.yml` file into a script. The below example script is stored in a file named `.buildkite/trigger-deploy.sh`:
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+# Set up a variable to hold the meta-data from your block step
+RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
+
+# Create a pipeline with your trigger step 
+PIPELINE="steps:
+  - trigger: \"deploy-pipeline\"
+    label: \"Trigger deploy\"
+    build:
+      meta_data:
+        release-name: $RELEASE_NAME
+"
+
+# Upload the new pipeline and add it to the current build
+echo "$PIPELINE" | buildkite-agent pipeline upload
+```
+
+2. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
+
+#### Before
+
+The `pipeline.yml` file with the trigger step:
+
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - trigger: "deploy-pipeline"
+    label: "Trigger Deploy"
+```
+
+#### After
+
+The `pipeline.yml` file dynamically uploading the trigger step:
+
+```yaml
+steps:
+  - block: "\:shipit\:"
+    fields:
+      - text: "Code Name"
+        key: "release-name"
+  - command: ".buildkite/trigger-deploy.sh"
+    label: "Prepare Deploy Trigger"
+```
+
+The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime. 
+
+<%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
+
+In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.

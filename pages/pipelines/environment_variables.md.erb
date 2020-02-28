@@ -26,6 +26,18 @@ The value of the `debug` [agent configuration option](/docs/agent/v3/configurati
 
 Values: `"true"` and `"false"`
 
+<h3 class="h3-caps">BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</h3>
+
+The value of the `disconnect-after-job` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Values: `"true"` and `"false"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT</h3>
+
+The value of the `disconnect-after-idle-timeout` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"10"`
+
 <h3 class="h3-caps">BUILDKITE_AGENT_ENDPOINT</h3>
 
 The value of the `endpoint` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable. This is set as an environment variable by the bootstrap and then read by most of the `buildkite-agent` commands. 
@@ -130,7 +142,7 @@ Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
 <h3 class="h3-caps">BUILDKITE_CANCEL_GRACE_PERIOD</h3>
 
-The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
 
 Default: `10`
 
@@ -283,6 +295,12 @@ Example: `"acme-inc"`
 The default branch for this pipeline. The value cannot be modified.
 
 Example: `"master"`
+
+<h3 class="h3-caps">BUILDKITE_PIPELINE_NAME</h3>
+
+The displayed pipeline name on Buildkite. The value cannot be modified.
+
+Example: `"my_project"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_PROVIDER</h3>
 
