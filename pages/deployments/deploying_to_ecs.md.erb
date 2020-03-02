@@ -1,0 +1,161 @@
+# Deploying to ECS
+
+<%= estimated_time "30 minutes" %>
+
+<%= toc %>
+
+This tutorial demonstrates deploying to Amazon Elastic Container Service (ECS)
+using the `ecs-cli`. You'll need an existing ECS cluster for this
+
+You'll need an existing ECS cluster for this tutorial. If you have not created
+a cluster then you use the [AWS ECS wizard][ecs-wizard] or follow the [Getting
+Started][guide] guide.
+
+<%= image "pipeline.png", alt: 'Successfull Pipeline' %>
+
+## Setup ECS Files
+
+The `ecs-cli` supports Docker Compose files, so we can leverage a simple copy
+and paste example from the ECS sample apps. The `docker-compose.yml` file can
+specify the image, ports, and logging. However we'll need to create another
+file for ECS specifics like the security group and ECS task execution role.
+
+This `docker-compose.yml` uses the ECS "Hello World" sample application.
+
+```yml
+version: '3'
+services:
+  web:
+    image: amazon/amazon-ecs-sample
+    ports:
+      - "80:80"
+    logging:
+      driver: awslogs
+      options:
+        # Replace with the name of your application/service
+        awslogs-group: tutorial
+        awslogs-region: us-east-1
+        # Matches the docker-compose service
+        awslogs-stream-prefix: web
+```
+
+In addition to the Docker compose file, there are some parameters specific to
+Amazon ECS that you must specify. Use the VPC, subnet ID, security group IDs
+from the previous step, and ECS task execution role, to create a
+`ecs-params.yml`.
+
+```yml
+version: 1
+task_definition:
+  # TODO: replace if needed
+  task_execution_role: ecsTaskExecutionRole
+  ecs_network_mode: awsvpc
+  task_size:
+    mem_limit: 0.5GB
+    cpu_limit: 256
+run_params:
+  network_configuration:
+    awsvpc_configuration:
+      subnets:
+        # TODO: replace these subnet ids with the relevant ones
+        # for your ECS cluster
+        - subnet-00964632df9a8afc9
+        - subnet-084c08907654829dd
+      security_groups:
+        # TODO: replace this id with the relevant one for your ECS cluster.
+        - sg-075048b703881a26b
+        assign_public_ip: ENABLED
+```
+
+Now you're ready to add a deploy step to your pipeline.
+
+## Writing a Deploy Script
+
+The `esc-cli` has an `up` command similar to `docker-compose up`. We can use
+this to update our cluster with the correct task definitions. Save this file as
+`script/buildkite/deploy`.
+
+```
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  # Install ecs-cli to a scratch directory if not yet installed.
+  # This does not require sudo permissions.
+  if ! command -v ecs-cli &> /dev/null; then
+    echo "--- Installing the ECS CLI"
+    local scratch="$(mktemp -d)"
+
+    curl -sSL -o "${scratch}/ecs-cli" https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
+    chmod +x "${scratch}/ecs-cli"
+
+    export "PATH=${scratch}:${PATH}"
+  fi
+
+  echo "--- Checking esc-cli verison"
+  ecs-cli --version
+
+  echo "--- Configuring the ECS CLI"
+  ecs-cli configure \
+    --cluster "${ECS_CLUSTER}" \
+    --default-launch-type FARGATE \
+    --config-name buildkite
+
+  echo "--- Deploy"
+  ecs-cli compose \
+    --project-name tutorial \
+    service up \
+    --create-log-groups \
+    --cluster-config buildkite
+
+  echo "--- Check Status"
+  ecs-cli compose \
+    --project-name tutorial \
+    service ps \
+    --cluster-config buildkite
+}
+
+main "$@"
+```
+
+Now add a step to your pipeline:
+
+```yml
+steps:
+  - label: "\:ecs\: Deploy"
+    command: script/buildkite/deploy
+    concurrency: 1
+    concurrency_group: deploy/tutorial
+    env:
+      AWS_REGION: us-east-1
+      # TODO: replace with the name of your ECS cluster
+      ECS_CLUSTER: demo
+```
+
+Set `concurrency` and `concurrency_group` when updating mutable state. These
+settings ensures only one step runs at a time.
+
+## Next Steps
+
+Trigger a build of your pipeline. You'll see the `ecs-cli` updating the
+services and tasks accordingly.
+
+<%= image "deploy_step.png", alt: "Deploy Step" %>
+
+Note the public IP in the "Ports" column. That IP points to the sample
+applications. Open it in your browser.
+
+<%= image "sample_app.png", alt: "Sample Application" %>
+
+:tada: Done! You've successfully deployed to ECS from your Buildkite pipeline.
+Pratically speaking there some things to do next.
+
+- Add "build" step to your pipeline that pushes a Docker Image to ECS (Elastic Container Registry)
+- Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
+  deploy step to enforce manual deploys.
+- Use [Github's Deployment API](https://buildkite.com/blog/github-deployments)
+  to trigger deployments from external tooling (i.e. ChatOps)
+
+[guide]: https://aws.amazon.com/ecs/getting-started/
+[ecs-wizard]: https://console.aws.amazon.com/ecs/home?region=us-east-1#/firstRun
