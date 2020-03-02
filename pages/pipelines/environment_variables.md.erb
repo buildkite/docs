@@ -40,7 +40,7 @@ Example: `"10"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_ENDPOINT</h3>
 
-The value of the `endpoint` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable. This is set as an environment variable by the bootstrap and then read by most of the `buildkite-agent` commands. 
+The value of the `endpoint` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable. This is set as an environment variable by the bootstrap and then read by most of the `buildkite-agent` commands.
 
 Default: `"https://agent.buildkite.com/v3"`
 
@@ -52,7 +52,7 @@ Example: `"experiment1,experiment2"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_META_DATA_*</h3>
 
-The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. The name and value cannot be modified as an environment variable. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable. 
+The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. The name and value cannot be modified as an environment variable. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
 
 Example: `"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue"`, `"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue"`
 
@@ -82,9 +82,9 @@ Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
 
 <h3 class="h3-caps">BUILDKITE_BIN_PATH</h3>
 
-The path to the `buildkite-agent` binary. The value cannot be modified as an environment variable.
+The path to the directory containing the `buildkite-agent` binary. The value cannot be modified as an environment variable.
 
-Example: `"/usr/local/bin/buildkite-agent"`
+Example: `"/usr/local/bin"`
 
 <h3 class="h3-caps">BUILDKITE_BRANCH</h3>
 
@@ -328,7 +328,7 @@ Example: `"/etc/buildkite-agent/plugins/"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGIN_VALIDATION</h3>
 
-Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/v3/configuration). 
+Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/v3/configuration).
 
 Default: `"false"`
 
@@ -406,7 +406,7 @@ Default: `"us-east-1"`
 
 <h3 class="h3-caps">BUILDKITE_S3_SECRET_ACCESS_KEY</h3>
 
-The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks. 
+The secret access key for your S3 IAM user, for use with [private S3 buckets](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks. Do not print or export this variable anywhere except your agent hooks.
 
 Example: `"wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY"`
 
@@ -442,7 +442,7 @@ Example: "080b7d73-986d-4a39-a510-b34f9faf4710"
 
 <h3 class="h3-caps">BUILDKITE_STEP_KEY</h3>
 
-The value of the `key` [command step attribute](/docs/pipelines/command-step#command-step-attributes), a unique string set by you to identify a step. This value cannot be modified as an environment variable. 
+The value of the `key` [command step attribute](/docs/pipelines/command-step#command-step-attributes), a unique string set by you to identify a step. This value cannot be modified as an environment variable.
 
 Example: "tests-06"
 
