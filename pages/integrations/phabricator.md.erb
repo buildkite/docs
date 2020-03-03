@@ -17,7 +17,7 @@ Habormaster is installed. Configure a pipeline for that repository in Buildkite.
 
 ## Step 1: New Phabricator Build Step
 
-Create a new Build Plan in Harbormaster. 
+Create a new Build Plan in Harbormaster.
 
 Inside Habormaster open "Manage Build Plans". Click "Create Build Plan" located in the upper right.
 
@@ -84,10 +84,12 @@ Fill in  the repository name. It should start with "r", so this example is using
 
 <%= image "phabricator_create_rule.png", width:970/2, height:383/2, alt: "Create a Herald Rule" %>
 
-Finally, configure an action associated with this rule. Adding conditions is optional, but you could use this to, for example, limit builds to specific branches. 
+Finally, configure an action associated with this rule. Adding conditions is optional, but you could use this to, for example, limit builds to specific branches.
 
 Select "Run Build Plan", then provide the Build Plan created in the previous step. Finally, press "Save Rule".
 
 <%= image "phabricator_configure_action.png", width:961/2, height:613/2, alt: "Configure Rule Action" %>
 
-Now that your setup is complete, every time there is a new commit in your repository a build will be run on your Buildkite pipeline and the status will appear in Phabricator. 
+Now that your setup is complete, every time there is a new commit in your repository a build will be run on your Buildkite pipeline and the status will appear in Phabricator.
+
+[phabricator]: https://phacility.com/phabricator/
