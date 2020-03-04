@@ -8,19 +8,38 @@ To complete this integration, you will need admin privileges for your GitHub rep
 
 ## Connecting Buildkite and GitHub
 
-- add github to your connected apps settings, which can be found in your buildkite personal settings
-- click connect and follow the prompts
+To connect your GitHub account open Buildkite’s Personal Settings, choose [Connected Apps](https://buildkite.com/user/connected-apps) then click the GitHub Connect button:
 
-## Set up a pipeline
+<%= image "personal-settings.png", width: 745, height: 300, alt: "Screenshot of the Buildkite Connected Apps screen" %>
 
-- add your github repo URL
-- follow the instructions to set up webhooks (add the webhook in github, add the provided webhook url, select the events)
+You'll be prompted to give permission for Buildkite to post status
+updates, and then redirected back to your Connected Apps page.
+
+## Setting up a new pipeline for a GitHub repository
+
+1. Create a new pipeline on Buildkite, using your GitHub repository URL in the form `git@github.com:your/repo`.
+
+    <%= image "new-pipeline.png", width: 740, height: 396, alt: "Screenshot of adding a new pipeline " %>
+
+2. Make sure to add at least one command to your pipeline, before clicking next.
+
+3. Follow the instructions on the page to set up a webhook:
+
+    1. Add a new webhook in Github.
+    2. Paste in the the provided webhook URL.
+    3. Select which events trigger the webhook.
+
 - many github repository settings available in Buildkite
 	- build on code pushes, deployments, or forks
 	- disable builds from github events
 
-- you can change your github repo URL at any time in the Github Repository Settings
-- you can find the webhook instructions linked at the bottom of the settings page 
+## Branch configuration and Settings
+
+You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
+
+<%= image "github-settings.png", width: 875, height: 846, alt: "Screenshot of the Buildkite GitHub settings" %>
+
+And if you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
 ## Running builds on Pull Requests
 
@@ -30,4 +49,3 @@ To complete this integration, you will need admin privileges for your GitHub rep
 - build 3rd party PRs, security issues, revise the recommendations in the [managing secrets](/docs/pipelines/secrets) guide
 
 ## Noreply email handling
-
