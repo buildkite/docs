@@ -29,10 +29,6 @@ updates, and then redirected back to your Connected Apps page.
     2. Paste in the the provided webhook URL.
     3. Select which events trigger the webhook.
 
-- many github repository settings available in Buildkite
-	- build on code pushes, deployments, or forks
-	- disable builds from github events
-
 ## Branch configuration and Settings
 
 You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
@@ -43,9 +39,16 @@ And if you need to set up the webhook again, you can find the instructions linke
 
 ## Running builds on Pull Requests
 
-- choose the 'build pull requests' checkbox in the github repo settings in your Buildkite pipeline settings
-- can restrict builds by branches with the 'limit pull request branches' option
-- skip PR builds for commits that have already been built
-- build 3rd party PRs, security issues, revise the recommendations in the [managing secrets](/docs/pipelines/secrets) guide
+To run builds for GitHub Pull Requests, edit the the GitHub settings for your Buildkite pipeline:
+
+- Choose the 'build pull requests' checkbox.
+- Optionally, limit Pull Request builds to certain branches.
+- Optionally, skip Pull Request Builds for committs that have already been built.
+- Optionally, build pull requests that are ready for review.
+- Optionally, build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+
+<%= image "pull-requests.png", width: 867, height: 415, alt: "Screenshot of the Buildkite GitHub settings" %>
 
 ## Noreply email handling
+
+TODO
