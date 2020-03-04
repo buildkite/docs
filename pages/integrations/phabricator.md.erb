@@ -86,6 +86,8 @@ Fill in  the repository name. It should start with "r", so this example is using
 
 Finally, configure an action associated with this rule. Adding conditions is optional, but you could use this to, for example, limit builds to specific branches. 
 
-Select "Run Build Plan", then provide the Build Plan created in the previous step. Finally press "Save Rule".
+Select "Run Build Plan", then provide the Build Plan created in the previous step. Finally, press "Save Rule".
 
 <%= image "phabricator_configure_action.png", width:961/2, height:613/2, alt: "Configure Rule Action" %>
+
+Now that your setup is complete, every time there is a new commit in your repository a build will be run on your Buildkite pipeline and the status will appear in Phabricator. 
