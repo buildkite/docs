@@ -1,8 +1,12 @@
 # Slack
 
-The [Slack](https://slack.com/) notification service in Buildkite lets you receive notifications about your builds in your Slack workspace.
+The [Slack](https://slack.com/) Notification Service in Buildkite lets you receive notifications about your builds in your Slack workspace.
 
 <%= toc %>
+
+This requires Buildkite to have permission from Slack to message a channel. Configure the authorisation by following the [Slack integration guide](/docs/integrations/slack) for the desired channel. When asked to specify a pipeline, it's fine to select "Only some pipelines" and then check no pipelines.
+
+Setting up a Notification Service requires Buildkite organiziation admin access. 
 
 ## Adding a notification service
 
@@ -22,15 +26,15 @@ Once you have granted access to your Slack workspace, give it a description, cho
 
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
+If you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications, select the 'Only Some Pipelines...' option. Once you're using a Slack `notify` attribute in your `pipeline.yml`, the branch and build filtering from the Slack Notification Service will be overridden by the YAML options you choose. 
+
 ## Changing channels
 
 Once created, the Slack channel and workspace cannot be changed. To post to a different channel or workspace, create a new notification service.
 
 ## Conditional notifications
 
-By default, notifications are sent to all configured Slack channels.
-
-For extra control over which channels receive notifications, it's possible to [define notification rules within pipeline YAML files](/docs/pipelines/notifications#conditional-notifications).
+By default, notifications are sent to all configured Slack channels. For extra control over which channels receive notifications, use the [`notify` YAML attribute](/docs/pipelines/notifications) in your `pipeline.yml` files.
 
 ## Upgrading a legacy Slack service
 
