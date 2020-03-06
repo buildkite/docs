@@ -177,6 +177,11 @@ The below variables are supported by the `if` attribute:
  		<td>The number of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.draft</code></td>
+		<td><code>Boolean</code>, <code>null</code></td>
+		<td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
+	</tr>
+	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
  		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
@@ -228,6 +233,11 @@ The below variables are supported by the `if` attribute:
 	</tr>
 </tbody>
 </table>
+
+<div class="Docs__troubleshooting-note">
+<h1>Using <code>build.env()</code> with custom environment variables</h1>
+<p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
+</div>
 
 ## Example expressions
 
@@ -293,4 +303,10 @@ To run when the build creator is in the `deploy` team:
 
 ```js
 build.creator.teams includes "deploy"
+```
+
+To run only non-draft pull requests:
+
+```js
+!build.pull_request.draft
 ```

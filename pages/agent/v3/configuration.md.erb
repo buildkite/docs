@@ -100,6 +100,15 @@ _Optional attributes:_
     </tr>
 
     <tr>
+      <th><code>disconnect-after-idle-timeout</code></th>
+      <td>
+        The number of idle seconds to wait before shutting down. When setting this option alongside <code>spawn</code>, all agents started by <code>spawn</code> must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>10</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT</code></p>
+      </td>
+    </tr>
+
+    <tr>
       <th><code>endpoint</code></th>
       <td>
         The Agent endpoint.

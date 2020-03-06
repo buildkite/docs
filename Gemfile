@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.6.3'
+ruby '2.6.5'
 
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack"
@@ -33,6 +33,9 @@ gem 'rouge'
 
 # For escaping code snippets in markdown
 gem 'escape_utils'
+
+# One rails log line per request, instead of enraging quantity
+gem 'lograge'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

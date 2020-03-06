@@ -1,0 +1,12 @@
+steps:
+  - name: ":docker::ecr: Push to ECR"
+    command: ".buildkite/push-image.sh"
+    depends_on: "rspec"
+    if: |
+      build.branch == "master"
+    agents:
+      queue: deploy
+    plugins:
+     ecr#v2.0.0:
+       login: true
+       account-ids: ${ECR_ACCOUNT_ID}

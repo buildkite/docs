@@ -51,6 +51,11 @@ GEM
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
       ruby_dep (~> 1.2)
+    lograge (0.11.2)
+      actionpack (>= 4)
+      activesupport (>= 4)
+      railties (>= 4)
+      request_store (~> 1.0)
     loofah (2.3.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -58,10 +63,10 @@ GEM
     mini_mime (1.0.1)
     mini_portile2 (2.4.0)
     minitest (5.11.3)
-    nokogiri (1.10.5)
+    nokogiri (1.10.8)
       mini_portile2 (~> 2.4.0)
     public_suffix (3.0.3)
-    puma (3.12.0)
+    puma (3.12.2)
     rack (2.0.6)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -82,6 +87,8 @@ GEM
       ffi (~> 1.0)
     redcarpet (3.4.0)
     regexp_parser (1.3.0)
+    request_store (1.5.0)
+      rack (>= 1.4)
     rouge (3.3.0)
     rspec-core (3.8.0)
       rspec-support (~> 3.8.0)
@@ -149,6 +156,7 @@ DEPENDENCIES
   escape_utils
   foreman
   listen
+  lograge
   puma
   railties
   redcarpet
@@ -162,7 +170,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 2.6.3p62
+   ruby 2.6.5p114
 
 BUNDLED WITH
-   1.17.2
+   2.1.4

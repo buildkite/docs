@@ -56,7 +56,7 @@ brew info buildkite-agent
 If you installed the buildkite-agent using the [Linux install script](linux) then you'll need to install the plist yourself using the following commands:
 
 ```bash
-# Download the launchd config to /Library/LaunchDaemons/
+# Download the launchd config to ~/Library/LaunchAgents/
 curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist
 
 # Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
