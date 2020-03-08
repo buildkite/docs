@@ -1,0 +1,42 @@
+# Using Bazel on Buildkite
+
+[Bazel](https://www.bazel.build/) is an open-source build and test tool similar to Make, Maven, and Gradle.
+Bazel supports large codebases across multiple repositories, and large numbers of users.
+
+To use Bazel on Buildkite:
+
+1. [Install Bazel](https://docs.bazel.build/versions/2.2.0/install.html) on one or more Buildkite Agents.
+2. [Set up your WORKSPACE](https://docs.bazel.build/versions/2.2.0/tutorial/cpp.html#set-up-the-workspace).
+3. Add a [BUILD](https://docs.bazel.build/versions/2.2.0/tutorial/cpp.html#understand-the-build-file) file to your package.
+
+    <%# Link/explain package %>
+
+    For example, the Bazel C++ tutorial stage 1 `main/BUILD` file contains:
+
+    ```
+    load("@rules_cc//cc:defs.bzl", "cc_binary")
+
+    cc_binary(
+        name = "hello-world",
+        srcs = ["hello-world.cc"],
+    )
+    ```
+
+    `main/BUILD` creates a target `hello-world`, which uses the built in `cc_binary` rule to build the source file `hello-world.cc`.
+
+4. Run the following Bazel command in your Buildkite pipeline to build the `:hello-world` target from the ``//main` package:
+
+    ```
+    cd stage1 && bazel build //main:hello-world
+    ```
+
+5. Optionally, add another step to run the binary which you just built.
+
+    ```
+    cd stage1 && bazel-bin/main/hello-world
+    ```
+
+6. Stage 2 and 3 in the [Bazel C++ tutorial](https://docs.bazel.build/versions/2.2.0/tutorial/cpp.html) go into more detail about how to configure more complex builds.
+    If your project already contains working Bazel builds, repeat step 4. for as many targets as you need.
+
+    
