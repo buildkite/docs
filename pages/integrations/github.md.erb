@@ -35,7 +35,7 @@ You can edit the GitHub settings for each pipeline from the pipeline’s setting
 
 <%= image "github-settings.png", width: 875, height: 846, alt: "Screenshot of the Buildkite GitHub settings" %>
 
-And if you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
+If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
 ## Running builds on Pull Requests
 
@@ -45,10 +45,14 @@ To run builds for GitHub Pull Requests, edit the the GitHub settings for your Bu
 - Optionally, limit Pull Request builds to certain branches.
 - Optionally, skip Pull Request Builds for committs that have already been built.
 - Optionally, build pull requests that are ready for review.
-- Optionally, build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- Optionally, build pull requests for forked repositories. Make sure to take a look at the [managing pipeline secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
 <%= image "pull-requests.png", width: 867, height: 415, alt: "Screenshot of the Buildkite GitHub settings" %>
 
+If you want to run builds *only* on pull requests, set the Branch Filter Pattern in the pipeline to a branch name that will never occur (e.g. "this-branch-will-never-occur"). Pull request builds ignore the Branch Filter Pattern, and all pushes to other branches that don't match the pattern are ignored.
+
+<%= image "branch-limiting.png", width: 548, height: 325, alt: "Screenshot of Branch Filter pattern" %>
+
 ## Noreply email handling
 
-TODO
+When you [connect your GitHub account to Buildkite](#Connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
