@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -e
+set -eu
 
 echo "--- :docker: Building docker image"
 
