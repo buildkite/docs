@@ -14,13 +14,12 @@ The following Bash function takes a URL and optional link text and will output t
 
 ```bash
 function inline_link {
-  LINK="url='"$1"'"
-
+  LINK=$(printf "url='%s'" "$1")
   if [ $# -gt 1 ]; then
-    LINK="$LINK;content='"$2"'"
+    LINK=$(printf "$LINK;content='%s'" "$2")
   fi
-
-  printf '\033]1339;'$LINK'\a\n'
+  # printf '%s' "$LINK"
+  printf '\033]1339;%s\a\n' "$LINK"
 }
 ```
 
