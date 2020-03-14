@@ -15,19 +15,19 @@ You can subscribe to one or more of the following events:
   <tr><th>Event</th><th>Description</th></tr>
 </thead>
 <tbody>
-  <tr><th>ping</th><td><%= webhook_description "ping" %></td></tr>
-  <tr><th>build.scheduled</th><td><%= webhook_description "build.scheduled" %></td></tr>
-  <tr><th>build.running</th><td><%= webhook_description "build.running" %></td></tr>
-  <tr><th>build.finished</th><td><%= webhook_description "build.finished" %></td></tr>
-  <tr><th>job.scheduled</th><td><%= webhook_description "job.scheduled" %></td></tr>
-  <tr><th>job.started</th><td><%= webhook_description "job.started" %></td></tr>
-  <tr><th>job.finished</th><td><%= webhook_description "job.finished" %></td></tr>
-  <tr><th>job.activated</th><td><%= webhook_description "job.activated" %></td></tr>
-  <tr><th>agent.connected</th><td><%= webhook_description "agent.connected" %></td></tr>
-  <tr><th>agent.lost</th><td><%= webhook_description "agent.lost" %></td></tr>
-  <tr><th>agent.disconnected</th><td><%= webhook_description "agent.disconnected" %></td></tr>
-  <tr><th>agent.stopping</th><td><%= webhook_description "agent.stopping" %></td></tr>
-  <tr><th>agent.stopped</th><td><%= webhook_description "agent.stopped" %></td></tr>
+  <tr><th>ping</th><td>Webhook notification settings have changed</td></tr>
+  <tr><th>build.scheduled</th><td>A build has been scheduled</td></tr>
+  <tr><th>build.running</th><td>A build has started running</td></tr>
+  <tr><th>build.finished</th><td>A build has finished</td></tr>
+  <tr><th>job.scheduled</th><td>A job has been scheduled</td></tr>
+  <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
+  <tr><th>job.finished</th><td>A job has finished</td></tr>
+  <tr><th>job.activated</th><td>A block step job has been unblocked via the web or API</td></tr>
+  <tr><th>agent.connected</th><td>An agent has connected</td></tr>
+  <tr><th>agent.lost</th><td>An agent has been marked as lost</td></tr>
+  <tr><th>agent.disconnected</th><td>An agent has disconnected</td></tr>
+  <tr><th>agent.stopping</th><td>An agent is stopping</td></tr>
+  <tr><th>agent.stopped</th><td>An agent has stopped</td></tr>
 </tbody>
 </table>
 
