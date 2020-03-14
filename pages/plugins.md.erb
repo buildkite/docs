@@ -1,45 +1,24 @@
 # Buildkite Plugins
 
-Plugins provide a way to extend the functionality that Buildkite natively offers. They act as an external repository of [Hooks](/docs/agent/v3/hooks) that are referenced from your `pipeline.yml` file, and are downloaded and run as part of your build.
-
-<%= image "buildkite-plugins.png", width: 2006/2, height: 622/2, alt: "Screenshot of a selection of the available Buildkite Plugins" %>
+Plugins can be added to any [command step](/docs/pipelines/command-step) step in a pipeline to extend Buildkite’s native functionality, such as executing steps Docker containers, reading values from a credential store, and adding test summary annotations to builds.
 
 <%= toc %>
 
-Plugins can be hosted on GitHub, BitBucket or a private git repository, and are automatically fetched as required. For instructions on hosting your own, see the [Sources](/docs/plugins/using-plugins) section of the Using Plugins guide.
+## What is a plugin?
 
-Buildkite offers a collection of popular plugins to get you started, including a [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), [Junit Annotate plugin](https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin), and the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin). In the [Buildkite Plugin Directory](https://buildkite.com/plugins) you can find all the plugins maintained by Buildkite, as well as plugins from third party developers. 
+A plugin is a Git repository that provides a set of [hooks](/docs/agent/v3/hooks) that override or extend a command step's behaviour. To use a plugin you use the [command step](/docs/pipelines/command-step)’s `plugins` property. The agent automatically fetches the plugin when executing the step on your agent machine.
+
+Plugins can be open source and available for anyone to use, or private repositories available only to your organization and agents. Plugins can be hosted and referenced in [a number of ways](/docs/plugins/using#plugin-sources).
+
+## Finding plugins
+
+In the [Buildkite Plugin Directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third party developers. 
+
+Buildkite also offers a collection of popular plugins to get you started, including a [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), [Junit Annotate plugin](https://github.com/buildkite-plugins/junit-annotate-buildkite-plugin), and the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin).
 
 ## How plugins work
 
-Plugins are a snippet of code stored in [hooks](/docs/agent/v3/hooks) files that the Agent can access directly. When you add a plugin to a buildkite [command step](/docs/pipelines/command-step), that code is read by the Agent before your commands or scripts are executed.
+Plugins are repositories of code stored in [hooks](/docs/agent/v3/hooks) files that the Agent can access directly. When you add a plugin to a buildkite [command step](/docs/pipelines/command-step), that code is read by the Agent before your commands or scripts are executed.
 
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file, and is read by the agent before the plugin hooks are run. See each plugin's readme for detailed configuration and usage instructions. 
-
-When a command step with a plugin is run on an agent, the plugin is cloned from its git repository and its hooks are executed, passing any configuration you've specified to your `pipeline.yml` file. 
-
-There are two main types of plugins:
-
-1. Scripts or commands you want to run before or after you run a step:
-
-	You can define any of the [available hooks](/docs/agent/v3/hooks) like `pre-command`, `command`, `post-command` etc. These can be used to automate tasks like logging in to a service, building an image, pulling down packages or artifacts, or any other workflows.
-
-2. A repository of commands: 
-
-	Libraries of commands can be stored in plugin hooks, and then used by scripts in your build. A plugin like this works in a similar way to a code import statement.
-
-## Common use cases
-
-Below are some common workflows that can be automated with existing plugins.
-
-- Building docker images for use in subsequent steps ([Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin))
-- Running steps in containers ([Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin))
-- Running steps in VMs or clusters ([Anka plugin](https://github.com/chef/anka-buildkite-plugin), [Kubernetes plugin](https://github.com/EmbarkStudios/k8s-buildkite-plugin))
-- Assuming a role before running a script ([Assume Identity plugin](https://github.com/mgoodings/assume-identity-buildkite-plugin))
-- Logging in to a service ([ECR Login plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), [Docker Login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin), [Azure Login Plugin](https://github.com/cevoaustralia/azure-login-buildkite-plugin))
-- Downloading packages ([Artifacts plugin](https://github.com/buildkite-plugins/artifacts-buildkite-plugin), [S3 cache plugin](https://github.com/coyainsurance/s3-cache-buildkite-plugin))
-
-For more ideas of what you can do with plugins, check out the [Plugins Directory](https://buildkite.com/plugins).
-
-
 
