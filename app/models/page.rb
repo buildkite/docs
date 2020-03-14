@@ -74,10 +74,6 @@ class Page
       @url_helpers
     end
 
-    def t(s)
-      I18n.translate(s)
-    end
-
     def get_binding
       binding
     end
