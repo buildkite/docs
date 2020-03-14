@@ -15,41 +15,6 @@ class Page
       @url_helpers = Page::BuildkiteUrl.new
     end
 
-    def webhook_description(event)
-      case event
-      when "ping"
-        "Webhook notification settings have changed"
-      when "build.scheduled"
-        "A build has been scheduled"
-      when "build.created"
-        "A build has been created"
-      when "build.running"
-        "A build has started running"
-      when "build.started"
-        "A build has started"
-      when "build.finished"
-        "A build has finished"
-      when "job.scheduled"
-        "A job has been scheduled"
-      when "job.started"
-        "A command step job has started running on an agent"
-      when "job.finished"
-        "A job has finished"
-      when "job.activated"
-        "A block step job has been unblocked via the web or API"
-      when "agent.connected"
-        "An agent has connected"
-      when "agent.lost"
-        "An agent has been marked as lost"
-      when "agent.disconnected"
-        "An agent has disconnected"
-      when "agent.stopping"
-        "An agent is stopping"
-      when "agent.stopped"
-        "An agent has stopped"
-      end
-    end
-
     def toc
       if @headings.length > 1
         lis = @headings.map do |name|
@@ -107,10 +72,6 @@ class Page
 
     def url_helpers
       @url_helpers
-    end
-
-    def t(s)
-      I18n.translate(s)
     end
 
     def get_binding
