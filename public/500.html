@@ -1,66 +1,35 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="">
+
 <head>
-  <title>We're sorry, but something went wrong (500)</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <style>
-  .rails-default-error-page {
-    background-color: #EFEFEF;
-    color: #2E2F30;
-    text-align: center;
-    font-family: arial, sans-serif;
-    margin: 0;
-  }
+  <meta charset="utf-8">
+  <title>Under Maintenance · Buildkite</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  .rails-default-error-page div.dialog {
-    width: 95%;
-    max-width: 33em;
-    margin: 4em auto 0;
-  }
-
-  .rails-default-error-page div.dialog > div {
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #BBB;
-    border-top: #B00100 solid 4px;
-    border-top-left-radius: 9px;
-    border-top-right-radius: 9px;
-    background-color: white;
-    padding: 7px 12% 0;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-
-  .rails-default-error-page h1 {
-    font-size: 100%;
-    color: #730E15;
-    line-height: 1.5em;
-  }
-
-  .rails-default-error-page div.dialog > p {
-    margin: 0 0 1em;
-    padding: 1em;
-    background-color: #F7F7F7;
-    border: 1px solid #CCC;
-    border-right-color: #999;
-    border-left-color: #999;
-    border-bottom-color: #999;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    border-top-color: #DADADA;
-    color: #666;
-    box-shadow: 0 3px 8px rgba(50, 50, 50, 0.17);
-  }
-  </style>
+  <link rel="stylesheet" href="https://buildkite-maintenance-page.s3.amazonaws.com/css/normalize.css">
+  <link rel="stylesheet" href="https://buildkite-maintenance-page.s3.amazonaws.com/css/main.css">
+  <link rel="stylesheet" href="https://buildkite-maintenance-page.s3.amazonaws.com/css/fonts.css">
 </head>
 
-<body class="rails-default-error-page">
-  <!-- This file lives in public/500.html -->
-  <div class="dialog">
-    <div>
-      <h1>We're sorry, but something went wrong.</h1>
-    </div>
-    <p>If you are the application owner check the logs for more information.</p>
+<body>
+
+  <div class="header">
+    <a href="https://buildkite.com/">
+      <svg width="37" height="24" viewBox="0 0 37 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 0L12 5.81561V17.6842L0 11.8686V0Z" fill="#30F2A2"/>
+        <path d="M24.6316 0L36.6316 5.88L24.6316 12V0Z" fill="#30F2A2"/>
+        <path d="M24.6316 0L12 5.81561V17.6842L24.6316 11.8686V0Z" fill="#14CC80"/>
+        <path d="M36.6316 5.68421L24.6316 11.8703V24L36.6316 17.8139V5.68421Z" fill="#14CC80"/>
+      </svg>
+    </a>
+      
   </div>
+
+  <img src="https://buildkite-maintenance-page.s3.amazonaws.com/img/error503.gif" alt="" class="maintenance-image" />
+
+  <h1>Under Maintenance</h1>
+  <p>Buildkite is currently under maintenance, and will be available shortly. For updates and status, see&nbsp;<a href="https://www.buildkitestatus.com">buildkitestatus.com</a></p>
+
 </body>
+
 </html>
