@@ -138,6 +138,25 @@ class Page
       end
     end.join("\n")
 
+    headings = []
+    c = contents.split("\n").map do |line|
+      # Keep track of whether or not we're in a code block, so we can ignore
+      # any headings inside it
+      if line.starts_with?("```") || line.starts_with?("~~~")
+        in_code_block = !in_code_block
+      end
+ 
+      if !in_code_block && line =~ HEADING_REGEX
+        text = $1.gsub(/^\#+/, '').chomp
+        anchor = text.to_url
+        headings << text
+ 
+        %{<h2 class="Docs__heading" id="#{anchor}">#{text}<a href="##{anchor}" aria-hidden="true" class="Docs__heading__anchor"></a></h2>}
+      else
+        line
+      end
+    end.join("\n")
+
     renderer = ERB.new(c)
     binding = TemplateBinding.new(headings: headings,
                                   view_helpers: @view,
