@@ -10,9 +10,9 @@ In the below example, the `tests` step will only be run if the build message doe
 
 ```yml
 steps:
-	- command: ./scripts/tests.sh
-	  label: tests
-	  if: build.message !~ /skip tests/
+  - command: ./scripts/tests.sh
+    label: tests
+    if: build.message !~ /skip tests/
 ```
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
@@ -21,13 +21,13 @@ Multi-line conditionals can be added with the `|` character:
 
 ```yml
 steps:
-    - command: ./scripts/tests.sh
-      label: tests
-      if: |
-      	// Don't when the message contains "skip tests"
-      	// Only run on feature branches
-        build.message !~ /skip tests/ &&
-          build.branch =~ /^feature\//
+  - command: ./scripts/tests.sh
+    label: tests
+    if: |
+      // Don't when the message contains "skip tests"
+      // Only run on feature branches
+      build.message !~ /skip tests/ &&
+        build.branch =~ /^feature\//
 ```
 
 ## Supported syntax
@@ -35,52 +35,52 @@ steps:
 The below expressions are supported by the `if` attribute:
 
  <table>
- 	<tbody>
- 		<tr>
- 			<td>Comparators</td>
- 			<td><code>== != =~ !~</code></td>
- 		</tr>
- 		<tr>
- 			<td>Logical operators</td>
- 			<td><code>|| &&</code></td>
- 		</tr>
- 		<tr>
- 			<td>Array operators</td>
- 			<td><code>includes</code></td>
- 		</tr>
- 		<tr>
- 			<td>Integers</td>
- 			<td><code>12345</code></td>
- 		</tr>
- 		<tr>
- 			<td>Strings</td>
- 			<td><code>'feature-branch' "feature-branch"</code></td>
- 		</tr>
-		<tr>
- 			<td>Booleans</td>
- 			<td><code>true false</code></td>
- 		</tr>
- 		<tr>
- 			<td>Null</td>
- 			<td><code>null</code></td>
- 		</tr>
- 		<tr>
- 			<td>Parentheses</td>
- 			<td><code>( )</code></td>
- 		</tr>
- 		<tr>
- 			<td>Regular expressions</td>
- 			<td><code>/^v1\.0/</code></td>
- 		</tr>
- 		<tr>
- 			<td>Prefixes</td>
- 			<td><code>!</code></td>
- 		</tr>
- 		<tr>
- 			<td>Comments</td>
- 			<td><code>// This is a comment</code></td>
- 		</tr>
- 	</tbody>
+   <tbody>
+     <tr>
+       <td>Comparators</td>
+       <td><code>== != =~ !~</code></td>
+     </tr>
+     <tr>
+       <td>Logical operators</td>
+       <td><code>|| &&</code></td>
+     </tr>
+     <tr>
+       <td>Array operators</td>
+       <td><code>includes</code></td>
+     </tr>
+     <tr>
+       <td>Integers</td>
+       <td><code>12345</code></td>
+     </tr>
+     <tr>
+       <td>Strings</td>
+       <td><code>'feature-branch' "feature-branch"</code></td>
+     </tr>
+    <tr>
+       <td>Booleans</td>
+       <td><code>true false</code></td>
+     </tr>
+     <tr>
+       <td>Null</td>
+       <td><code>null</code></td>
+     </tr>
+     <tr>
+       <td>Parentheses</td>
+       <td><code>( )</code></td>
+     </tr>
+     <tr>
+       <td>Regular expressions</td>
+       <td><code>/^v1\.0/</code></td>
+     </tr>
+     <tr>
+       <td>Prefixes</td>
+       <td><code>!</code></td>
+     </tr>
+     <tr>
+       <td>Comments</td>
+       <td><code>// This is a comment</code></td>
+     </tr>
+   </tbody>
  </table>
 
 
@@ -96,141 +96,141 @@ The below variables are supported by the `if` attribute:
 
 <table>
 <tbody>
-	<tr>
-		<td><code>build.author.email</code></td>
-		<td><code>String</code></td>
-		<td>The email address of the user who authored the build's commit</td>
-	</tr>
-	<tr>
-		<td><code>build.author.id</code></td>
-		<td><code>String</code></td>
-		<td>The ID of the user who authored the build's commit</td>
-	</tr>
-	<tr>
-		<td><code>build.author.name</code></td>
-		<td><code>String</code></td>
-		<td>The name of the user who authored the build's commit</td>
-	</tr>
-	<tr>
-		<td><code>build.author.teams</code></td>
-		<td><code>Array</code></td>
-		<td>An array of the team/s which the user who authored the build's commit is a member of</td>
-	</tr>
-	<tr>
-		<td><code>build.branch</code></td>
-		<td><code>String</code></td>
-		<td>The branch on which this build is created from</td>
-	</tr>
-	<tr>
-		<td><code>build.commit</code></td>
-		<td><code>String</code></td>
-		<td>The commit number of the commit the current build is based on</td>
-	</tr>
-	<tr>
-		<td><code>build.creator.email</code></td>
-		<td><code>String</code></td>
-		<td>The email of the user who created the build</td>
-	</tr>
-	<tr>
-		<td><code>build.creator.id</code></td>
-		<td><code>String</code></td>
-		<td>The ID of the user who created the build</td>
-	</tr>
-	<tr>
-		<td><code>build.creator.name</code></td>
-		<td><code>String</code></td>
-		<td>The name of the user who created the build</td>
-	</tr>
-	<tr>
-		<td><code>build.creator.teams</code></td>
-		<td><code>Array</code></td>
-		<td>An array of the team/s which the user who created the build is a member of</td>
-	</tr>
-	<tr>
-		<td><code>build.env()</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
-	</tr>
-	<tr>
-		<td><code>build.id</code></td>
-		<td width="20%"><code>String</code></td>
-		<td>The ID of the current build</td>
-	</tr>
-	<tr>
-		<td><code>build.message</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The current build's message</td>
-	</tr>
-	<tr>
-		<td><code>build.number</code></td>
-		<td><code>Integer</code></td>
-		<td>The number of the current build</td>
-	</tr>
-	<tr>
-		<td><code>build.pull_request.base_branch</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The base branch that the pull request is targeting, otherwise <code>null</code> if the branch is not a pull request</td>
-	</tr>
-	<tr>
-		<td><code>build.pull_request.id</code></td>
-		<td><code>String</code>, <code>null</code></td>
- 		<td>The number of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
-	</tr>
-	<tr>
-		<td><code>build.pull_request.draft</code></td>
-		<td><code>Boolean</code>, <code>null</code></td>
-		<td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
-	</tr>
-	<tr>
-		<td><code>build.pull_request.repository</code></td>
-		<td><code>String</code>, <code>null</code></td>
- 		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
-	</tr>
-	<tr>
-		<td><code>build.pull_request.repository.fork</code></td>
-		<td><code>Boolean</code>, <code>null</code></td>
-		<td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
-	</tr>
-	<tr>
-		<td><code>build.source</code></td>
-		<td><code>String</code></td>
-		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
-	</tr>
-	<tr>
-		<td><code>build.tag</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The tag associated with the commit the current build is based on</td>
-	</tr>
-	<tr>
-		<td><code>pipeline.default_branch</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The default branch of the pipeline the current build is from</td>
-	</tr>
-	<tr>
-		<td><code>pipeline.id</code></td>
-		<td><code>String</code></td>
-		<td>The ID of the pipeline the current build is from</td>
-	</tr>
-	<tr>
-		<td><code>pipeline.repository</code></td>
-		<td><code>String</code>, <code>null</code></td>
-		<td>The repository of the pipeline the current build is from</td>
-	</tr>
-	<tr>
-		<td><code>pipeline.slug</code></td>
-		<td><code>String</code></td>
-		<td>The slug of the pipeline the current build is from</td>
-	</tr>
-	<tr>
-		<td><code>organization.id</code></td>
-		<td><code>String</code></td>
-		<td>The ID of the organization the current build is running in</td>
-	</tr>
-	<tr>
-		<td><code>organization.slug</code></td>
-		<td><code>String</code></td>
-		<td>The slug of the organization the current build is running in</td>
-	</tr>
+  <tr>
+    <td><code>build.author.email</code></td>
+    <td><code>String</code></td>
+    <td>The email address of the user who authored the build's commit</td>
+  </tr>
+  <tr>
+    <td><code>build.author.id</code></td>
+    <td><code>String</code></td>
+    <td>The ID of the user who authored the build's commit</td>
+  </tr>
+  <tr>
+    <td><code>build.author.name</code></td>
+    <td><code>String</code></td>
+    <td>The name of the user who authored the build's commit</td>
+  </tr>
+  <tr>
+    <td><code>build.author.teams</code></td>
+    <td><code>Array</code></td>
+    <td>An array of the team/s which the user who authored the build's commit is a member of</td>
+  </tr>
+  <tr>
+    <td><code>build.branch</code></td>
+    <td><code>String</code></td>
+    <td>The branch on which this build is created from</td>
+  </tr>
+  <tr>
+    <td><code>build.commit</code></td>
+    <td><code>String</code></td>
+    <td>The commit number of the commit the current build is based on</td>
+  </tr>
+  <tr>
+    <td><code>build.creator.email</code></td>
+    <td><code>String</code></td>
+    <td>The email of the user who created the build</td>
+  </tr>
+  <tr>
+    <td><code>build.creator.id</code></td>
+    <td><code>String</code></td>
+    <td>The ID of the user who created the build</td>
+  </tr>
+  <tr>
+    <td><code>build.creator.name</code></td>
+    <td><code>String</code></td>
+    <td>The name of the user who created the build</td>
+  </tr>
+  <tr>
+    <td><code>build.creator.teams</code></td>
+    <td><code>Array</code></td>
+    <td>An array of the team/s which the user who created the build is a member of</td>
+  </tr>
+  <tr>
+    <td><code>build.env()</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
+  </tr>
+  <tr>
+    <td><code>build.id</code></td>
+    <td width="20%"><code>String</code></td>
+    <td>The ID of the current build</td>
+  </tr>
+  <tr>
+    <td><code>build.message</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>The current build's message</td>
+  </tr>
+  <tr>
+    <td><code>build.number</code></td>
+    <td><code>Integer</code></td>
+    <td>The number of the current build</td>
+  </tr>
+  <tr>
+    <td><code>build.pull_request.base_branch</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>The base branch that the pull request is targeting, otherwise <code>null</code> if the branch is not a pull request</td>
+  </tr>
+  <tr>
+    <td><code>build.pull_request.id</code></td>
+    <td><code>String</code>, <code>null</code></td>
+     <td>The number of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
+  </tr>
+  <tr>
+    <td><code>build.pull_request.draft</code></td>
+    <td><code>Boolean</code>, <code>null</code></td>
+    <td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
+  </tr>
+  <tr>
+    <td><code>build.pull_request.repository</code></td>
+    <td><code>String</code>, <code>null</code></td>
+     <td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
+  </tr>
+  <tr>
+    <td><code>build.pull_request.repository.fork</code></td>
+    <td><code>Boolean</code>, <code>null</code></td>
+    <td>If the pull request comes from a forked repository, otherwise <code>null</code> if the branch is not a pull request</td>
+  </tr>
+  <tr>
+    <td><code>build.source</code></td>
+    <td><code>String</code></td>
+    <td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
+  </tr>
+  <tr>
+    <td><code>build.tag</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>The tag associated with the commit the current build is based on</td>
+  </tr>
+  <tr>
+    <td><code>pipeline.default_branch</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>The default branch of the pipeline the current build is from</td>
+  </tr>
+  <tr>
+    <td><code>pipeline.id</code></td>
+    <td><code>String</code></td>
+    <td>The ID of the pipeline the current build is from</td>
+  </tr>
+  <tr>
+    <td><code>pipeline.repository</code></td>
+    <td><code>String</code>, <code>null</code></td>
+    <td>The repository of the pipeline the current build is from</td>
+  </tr>
+  <tr>
+    <td><code>pipeline.slug</code></td>
+    <td><code>String</code></td>
+    <td>The slug of the pipeline the current build is from</td>
+  </tr>
+  <tr>
+    <td><code>organization.id</code></td>
+    <td><code>String</code></td>
+    <td>The ID of the organization the current build is running in</td>
+  </tr>
+  <tr>
+    <td><code>organization.slug</code></td>
+    <td><code>String</code></td>
+    <td>The slug of the organization the current build is running in</td>
+  </tr>
 </tbody>
 </table>
 

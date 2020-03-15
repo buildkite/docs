@@ -1,32 +1,10 @@
 # frozen_string_literal: true
 
 class Page
-  HEADING_REGEX = /^[#]{2}\s(.+)$/
-
   class TemplateBinding
-    # include ResponsiveImageContainerHelper
-    # include EmojiHelper
-    # include WebhookDescriptionsHelper
-
-    def initialize(headings: [], view_helpers: nil, image_path: '')
-      @headings = headings
+    def initialize(view_helpers: nil, image_path: '')
       @view_helpers = view_helpers
       @image_path = image_path
-      @url_helpers = Page::BuildkiteUrl.new
-    end
-
-    def toc
-      if @headings.length > 1
-        lis = @headings.map do |name|
-          anchor = name.to_url
-
-          %{<li><a href="##{anchor}">#{name}</a></li>}
-        end
-
-        return %{<div class="Docs__toc"><p>On this page:</p><ul>#{lis.join("")}</ul></div>}
-      end
-
-      ""
     end
 
     def estimated_time(description)
@@ -62,16 +40,8 @@ class Page
       @view_helpers.image_path(File.join(stripped_image_path, name))
     end
 
-    def paginated_resource_docs_url
-      @url_helpers.docs_path + '/rest-api#pagination'
-    end
-
     def content_tag(*args)
       @view_helpers.content_tag(*args)
-    end
-
-    def url_helpers
-      @url_helpers
     end
 
     def get_binding
@@ -117,41 +87,11 @@ class Page
   end
 
   def body
-    # Look for markdown headings and prepare the TOC
-    in_code_block = false
-    headings = []
-    c = contents.split("\n").map do |line|
-      # Keep track of whether or not we're in a code block, so we can ignore
-      # any headings inside it
-      if line.starts_with?("```")
-        in_code_block = !in_code_block
-      end
-
-      if !in_code_block && line =~ HEADING_REGEX
-        text = $1.gsub(/^\#+/, '').chomp
-        anchor = text.to_url
-        headings << text
-
-        %{<h2 class="Docs__heading" id="#{anchor}">#{text}<a href="##{anchor}" aria-hidden="true" class="Docs__heading__anchor"></a></h2>}
-      else
-        line
-      end
-    end.join("\n")
-
-    renderer = ERB.new(c)
-    binding = TemplateBinding.new(headings: headings,
-                                  view_helpers: @view,
+    renderer = ERB.new(contents)
+    binding = TemplateBinding.new(view_helpers: @view,
                                   image_path: File.join("docs", basename))
 
     post_erb = renderer.result(binding.get_binding)
-
-    # Add the TOC data and links to headings
-    post_erb.gsub!(HEADING_REGEX) do |heading|
-      text = heading.gsub(/^\#+/, '').chomp
-      anchor = text.to_url
-
-      %{<h2 class="Docs__heading" id="#{anchor}">#{text}<a href="##{anchor}" aria-hidden="true" class="Docs__heading__anchor"></a></h2>}
-    end
 
     html = Page::Renderer.render(post_erb)
 

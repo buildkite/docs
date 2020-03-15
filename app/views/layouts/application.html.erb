@@ -49,7 +49,7 @@
     <header class="SiteHeader">
       <div class="SiteHeader__inner PageContainer">
         <h1>
-          <%= link_to docs_path, class: 'SiteHeader__docslink' do %>
+          <%= link_to "/docs", class: 'SiteHeader__docslink' do %>
             <span class="SiteHeader__mark">
               <svg
                   width="<%= local_assigns.fetch(:width) { 42 } %>"

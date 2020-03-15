@@ -8,7 +8,7 @@
   li li { margin-left: 1em; }
   hr { border: none; border-bottom: 1px solid #ddd; }
   a { @extend .Link--on-white; @extend .Link--no-underline; }
-  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; font-size: #{(16/18)}em; line-height: 1.5; }
+  code, pre { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; font-size: 0.8em; line-height: 1.5; }
   em { font-style: italic; }
   strong { font-weight: 600; }
   pre {
@@ -17,10 +17,11 @@
     border: 1px solid #ddd;
     padding: .8em 1em;
     border-radius: 5px;
-    font-size: #{(15/18)}rem;
+    font-size: 13px;
     line-height: 1.5;
     min-width: 0;
     white-space: pre-wrap;
+    code { font-size: 100%; }
     &.overflow-scroll {
       overflow: auto;
       word-break: normal;

@@ -26,7 +26,8 @@ gem 'foreman'
 gem 'stringex'
 
 # Rendering markdown
-gem 'redcarpet'
+gem "html-pipeline"
+gem "commonmarker"
 
 # Syntax highlighting code
 gem 'rouge'

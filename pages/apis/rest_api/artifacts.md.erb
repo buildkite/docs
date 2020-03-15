@@ -29,7 +29,7 @@ An artifact is a file uploaded by your agent during the execution of a build’s
 
 ## List artifacts for a build
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build’s artifacts across all of its jobs.
+Returns a [paginated list](/docs/rest-api#pagination) of a build’s artifacts across all of its jobs.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/artifacts"
@@ -76,7 +76,7 @@ Success response: `200 OK`
 
 ## List artifacts for a job
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a job’s artifacts.
+Returns a [paginated list](/docs/rest-api#pagination) of a job’s artifacts.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/artifacts"
