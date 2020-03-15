@@ -1,16 +1,28 @@
 # Plugin Tutorial
 
-In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with that number. The API we're aiming for looks like the following:
+In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
 
 ```yml
 steps:
-  - command: ...
+  - command: ls
     plugins:
       a-github-user/file-counter#v1.0.0:
         name: '*.md'
 ```
 
-{:toc}
+<div class="Docs__toc">
+  <p>On this page:</p>
+  <ul>
+    <li><a href="#create-a-new-git-repository">Create a new git repository</a></li>
+    <li><a href="#add-a-plugin-dot-yml">Add a plugin.yml</a></li>
+    <li><a href="#add-a-hook">Add a hook</a></li>
+    <li><a href="#add-a-test">Add a test</a></li>
+    <li><a href="#add-a-readme">Add a readme</a></li>
+    <li><a href="#add-the-linter">Add the linter</a></li>
+    <li><a href="#publish-to-the-directory">Publish to the directory</a></li>
+    <li><a href="#further-reading">Further reading</a></li>
+  </ul>
+</div>
 
 ## Create a new git repository
 
@@ -59,7 +71,7 @@ set -euo pipefail
 
 PATTERN="$BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN"
 
-echo "--- :1234: Counting the number of files"
+echo "--- \:1234\: Counting the number of files"
 
 COUNT=$(find . -name "$PATTERN" | wc -l)
 
@@ -149,7 +161,7 @@ Annotates the build with a file count.
 
 ```yml
 steps:
-  - command: ...
+  - command: ls
     plugins:
       a-github-user/file-counter#v1.0.0:
         name: '*.md'
@@ -180,7 +192,7 @@ docker-compose run --rm tests
 
 ## Add the linter
 
-The Buildkite Plugin Linter helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
+The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
 
 You can run the plugin linter with the following Docker command:
 
@@ -208,13 +220,4 @@ docker-compose run --rm linter
 
 ## Publish to the directory
 
-To add your plugin to the [Buildkite Plugin Directory](/docs/plugins/directory), publish your repository to a public GitHub repository and add the `buildkite-plugin` repository topic tag.
-
-<section class="Docs__troubleshooting-note">
-  <p>Before publishing, make sure that all your tests are passing and that the plugin linter does not output any errors, otherwise it may not appear on the directory.</p>
-</section>
-
-## Further reading
-
-* 
-* 
+To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` repository topic tag. For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
