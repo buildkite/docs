@@ -4,6 +4,10 @@ class Page
   HEADING_REGEX = /^[#]{2}\s(.+)$/
 
   class TemplateBinding
+    # include ResponsiveImageContainerHelper
+    # include EmojiHelper
+    # include WebhookDescriptionsHelper
+
     def initialize(headings: [], view_helpers: nil, image_path: '')
       @headings = headings
       @view_helpers = view_helpers
@@ -114,7 +118,7 @@ class Page
 
   def body
     # Look for markdown headings and prepare the TOC
-    in_code_block = false
+    in_code_block = false    
 
     headings = []
     c = contents.split("\n").map do |line|
@@ -142,7 +146,22 @@ class Page
 
     post_erb = renderer.result(binding.get_binding)
 
+    # Add the TOC data and links to headings
+    post_erb.gsub!(HEADING_REGEX) do |heading|
+      text = heading.gsub(/^\#+/, '').chomp
+      anchor = text.to_url
+
+      %{<h2 class="Docs__heading" id="#{anchor}">#{text}<a href="##{anchor}" aria-hidden="true" class="Docs__heading__anchor"></a></h2>}
+    end
+
     html = Page::Renderer.render(post_erb)
+
+    # Syntax highlight curl URL templates
+    html.gsub!(%r{<code>curl.*?</code>}mi) do |curl|
+      curl.gsub(/\{.*?\}/mi) do |uri_template|
+        %(<span class="o">) + uri_template + %(</span>)
+      end
+    end
 
     html.html_safe
   end
