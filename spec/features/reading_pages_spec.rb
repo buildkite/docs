@@ -58,7 +58,9 @@ RSpec.feature "reading pages" do
         # For docs pages, we follow all the links
         if check.path =~ /\A\/docs/
           all('a').each do |a|
-            uri = URI.parse(a[:href])
+            next unless href = a[:href]
+
+            uri = URI.parse(href)
 
             # Don't follow links to other servers
             next if uri.host && uri.host != 'buildkite.localhost'
