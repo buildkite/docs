@@ -15,41 +15,6 @@ class Page
       @url_helpers = Page::BuildkiteUrl.new
     end
 
-    def webhook_description(event)
-      case event
-      when "ping"
-        "Webhook notification settings have changed"
-      when "build.scheduled"
-        "A build has been scheduled"
-      when "build.created"
-        "A build has been created"
-      when "build.running"
-        "A build has started running"
-      when "build.started"
-        "A build has started"
-      when "build.finished"
-        "A build has finished"
-      when "job.scheduled"
-        "A job has been scheduled"
-      when "job.started"
-        "A command step job has started running on an agent"
-      when "job.finished"
-        "A job has finished"
-      when "job.activated"
-        "A block step job has been unblocked via the web or API"
-      when "agent.connected"
-        "An agent has connected"
-      when "agent.lost"
-        "An agent has been marked as lost"
-      when "agent.disconnected"
-        "An agent has disconnected"
-      when "agent.stopping"
-        "An agent is stopping"
-      when "agent.stopped"
-        "An agent has stopped"
-      end
-    end
-
     def toc
       if @headings.length > 1
         lis = @headings.map do |name|
@@ -109,10 +74,6 @@ class Page
       @url_helpers
     end
 
-    def t(s)
-      I18n.translate(s)
-    end
-
     def get_binding
       binding
     end
@@ -157,20 +118,21 @@ class Page
 
   def body
     # Look for markdown headings and prepare the TOC
-    in_code_block = false
+    in_code_block = false    
+
     headings = []
     c = contents.split("\n").map do |line|
       # Keep track of whether or not we're in a code block, so we can ignore
       # any headings inside it
-      if line.starts_with?("```")
+      if line.starts_with?("```") || line.starts_with?("~~~")
         in_code_block = !in_code_block
       end
-
+ 
       if !in_code_block && line =~ HEADING_REGEX
         text = $1.gsub(/^\#+/, '').chomp
         anchor = text.to_url
         headings << text
-
+ 
         %{<h2 class="Docs__heading" id="#{anchor}">#{text}<a href="##{anchor}" aria-hidden="true" class="Docs__heading__anchor"></a></h2>}
       else
         line
