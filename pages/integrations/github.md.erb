@@ -21,7 +21,7 @@ updates, and then redirected back to your Connected Apps page.
 
     <%= image "new-pipeline.png", width: 1464/2, height: 744/2, alt: "Screenshot of adding a new pipeline " %>
 
-2. Make sure to add at least one command to your pipeline, before clicking next.
+2. Add at least one step to your pipeline, then click "Next". Change these steps at any time in Pipeline Settings.
 
 3. Follow the instructions on the page to set up a webhook:
 
@@ -29,13 +29,15 @@ updates, and then redirected back to your Connected Apps page.
     2. Paste in the the provided webhook URL.
     3. Select which events trigger the webhook.
 
+If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
+
 ## Branch configuration and Settings
 
 You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
 
 <%= image "github-settings.png", width: 1096/2, height: 1820/2, alt: "Screenshot of the Buildkite GitHub settings" %>
 
-If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
+If you need more control over your Pipeline configuration, add a [Pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your Pipeline.
 
 ## Running builds on Pull Requests
 

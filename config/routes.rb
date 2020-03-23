@@ -64,7 +64,7 @@ Rails.application.routes.draw do
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started",      status: 302)
-  get "/docs/integrations", to: redirect("/docs/integrations/github-enterprise", status: 302)
+  get "/docs/integrations", to: redirect("/docs/integrations/github",            status: 302)
   get "/docs/apis",         to: redirect("/docs/apis/webhooks",                  status: 302)
 
   # The old un-versioned URLs have a lot of Google juice, so we redirect them to
