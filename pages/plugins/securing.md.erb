@@ -8,7 +8,7 @@ See the [Securing your Buildkite Agent guide](/docs/agent/v3/securing) for relat
 
 ## Pinning plugin versions
 
-Always pin to a particular version of a plugin, for example using `docker-compose#287293c4` in the following example:
+To avoid a plugin’s git tag contents being changed, you can use the commit SHA of the tag, for example using `docker-compose#287293c4` in the following example:
 
 ```yml
 steps:
@@ -17,8 +17,6 @@ steps:
       - docker-compose#287293c4:
           run: app
 ```
-
-You can specify any type of Git ref as the plugin version, but we recommend using a commit to ensure it can't be changed remotely.
 
 ## Disabling plugins
 
