@@ -1,5 +1,11 @@
 # Writing Plugins
 
+This page shows you how to write your own Buildkite plugin, and how to validate the `plugin.yml` file which describes it against the plugin schema.
+
+{:toc}
+
+## Plugin tutorial
+
 In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
 
 ```yml
@@ -10,9 +16,7 @@ steps:
         name: '*.md'
 ```
 
-{:toc}
-
-## Create a new git repository
+### Create a new git repository
 
 Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. Let's create a new Git repository following these naming conventions:
 
@@ -22,7 +26,7 @@ cd file-counter-buildkite-plugin
 git init
 ```
 
-## Add a plugin.yml
+### Add a plugin.yml
 
 Next we'll create the first file: a `plugin.yml` file. This describes how it will appear in the [Buildkite Plugin Directory](/docs/plugins/directory).
 
@@ -43,7 +47,7 @@ configuration:
 
 The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `name` property, of type `string`.
 
-## Add a hook
+### Add a hook
 
 Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, we’ll create a `post-command` hook in a `hooks` directory:
 
@@ -68,7 +72,7 @@ echo "Found ${COUNT} files matching ${PATTERN}"
 buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
 
-## Add a test
+### Add a test
 
 Next step is to test the `post-command` hook using BATS, and the the `buildkite/plugin-tester` Docker image.
 
@@ -132,7 +136,7 @@ You can now run the tests using the following command:
 docker-compose run --rm tests
 ```
 
-## Add a readme
+### Add a readme
 
 Next we'll add a `README.md` file to introduce the plugin to the world:
 
@@ -142,7 +146,7 @@ touch README.md
 
 <%= render 'plugins/tutorial_readme' %>
 
-## Add the linter
+### Add the linter
 
 The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
 
@@ -170,11 +174,11 @@ You can now run the tests using the following command:
 docker-compose run --rm linter
 ```
 
-## Publish to the directory
+### Publish to the directory
 
 To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` repository topic tag. For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
 
-# Plugin Schema
+## Plugin schema
 
 Each plugin must have a `plugin.yml` file, which describes the plugin, what it requires, and what configuration options it accepts.
 
