@@ -6,7 +6,7 @@ Plugins can be used in any pipeline [command steps](/docs/pipelines/command-step
 
 ## Adding a plugin to your pipeline
 
-To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add as many plugins as you require to a step. The plugins will be run in the order you list them in the array. 
+To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step. The plugins will be run in the order you list them in the array. 
 
 In the example below, the `shellcheck` plugin will run, followed by the `docker` plugin:
 
