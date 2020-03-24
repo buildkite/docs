@@ -6,7 +6,7 @@ Plugins can be used in any pipeline [command steps](/docs/pipelines/command-step
 
 ## Adding a plugin to your pipeline
 
-To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step. The plugins will be run in the order you list them in the array. 
+To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step. The plugins will be run in the order you list them in the array.
 
 In the example below, the `shellcheck` plugin will run, followed by the `docker` plugin:
 
@@ -63,7 +63,7 @@ steps:
           workdir: /app
 ```
 
-More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline, making use of the build’s [meta-data](/docs/pipelines/build-meta-data) store for sharing data:
+More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline, using the build’s [meta-data store](/docs/pipelines/build-meta-data) to share information from one step to the next. This means that you can build a Docker image in the first step of a pipeline and refer to that image in subsequent steps.
 
 ```yml
 steps:
@@ -95,7 +95,7 @@ There are main sources of plugins:
   - Non-Buildkite plugins hosted on GitHub
   - Local, private, and non-GitHub plugins
 
-Buildkite maintained plugins can be found in the [Buildkite Plugins GitHub organization](https://github.com/buildkite-plugins). When using these plugins, you can refer to them using just the name of the plugin, for example: 
+Buildkite maintained plugins can be found in the [Buildkite Plugins GitHub organization](https://github.com/buildkite-plugins). When using these plugins, you can refer to them using just the name of the plugin, for example:
 
 ```yml
 steps:
