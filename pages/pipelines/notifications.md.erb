@@ -78,20 +78,30 @@ notify:
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
-## Slack Channel Message
+## Slack Channel and Direct Messages
 
 If you need fine-grained control over your notifications, or want to send notifications triggered by non-build events, the [Slack Notification Service](/docs/integrations/slack) can be extended using the `notify` attribute.
 
 If you only need to send notifications on build status events, you can set this up in Buildkite using your [Slack Notification Service's](/docs/integrations/slack) 'Build State Filtering' settings.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel you want to post to. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
 Once a slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block:
 
-```yaml
+For channels:
+
+```
 notify:
   - slack: "#general"
 ```
+
+For users:
+
+```
+notify:
+  - slack: "@someuser"
+```
+
 
 <section class="Docs__troubleshooting-note">
   <p>When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
@@ -99,11 +109,20 @@ notify:
 
 The above example will deliver the notification to all configured workspaces that have a channel named 'general'.
 
-To send a notification to one particular workspace and channel, you can specify the workspace name:
+To send a notification to one particular workspace and channel or workspace and user, you can specify the workspace name:
+
+For channels
 
 ```yaml
 notify:
   - slack: "buildkite-community#general"
+```
+
+For users:
+
+```yaml
+notify:
+  - slack: "buildkite-community@someuser"
 ```
 
 You can also specify multiple teams and channels with the `channels` attribute:
