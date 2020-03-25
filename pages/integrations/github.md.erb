@@ -41,13 +41,16 @@ If you need more control over your Pipeline configuration, add a [Pipeline.yml](
 
 ## Running builds on Pull Requests
 
-To run builds for GitHub Pull Requests, edit the the GitHub settings for your Buildkite pipeline:
+To run builds for GitHub Pull Requests, edit the the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
 
 - Choose the 'build pull requests' checkbox.
-- Optionally, limit Pull Request builds to certain branches.
-- Optionally, skip Pull Request Builds for committs that have already been built.
-- Optionally, build pull requests that are ready for review.
-- Optionally, build pull requests for forked repositories. Make sure to take a look at the [managing pipeline secrets](/docs/pipelines/secrets) guide if you choose to do this.
+
+Optionally, do one or more of the following:
+
+- limit pull request builds to certain branches.
+- skip pull request builds for committs that have already been built.
+- build pull requests that are ready for review.
+- build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
 <%= image "pull-requests.png", width: 1084/2, height: 968/2, alt: "Screenshot of the Buildkite GitHub settings" %>
 
