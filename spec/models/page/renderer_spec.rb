@@ -115,7 +115,7 @@ RSpec.describe Page::Renderer do
     MD
 
     html = <<~HTML
-      <div class="highlight"><figure><figcaption class="highlight-filename">file.json</figcaption><pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      <div class="highlight"><figure class="highlight-figure"><figcaption>file.json</figcaption><pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">}</span><span class="w">
       </span></code></pre></figure></div>
     HTML
 
