@@ -63,9 +63,15 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
 
   # Doc sections that don't have overview/index pages, so need redirecting
-  get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started",      status: 302)
-  get "/docs/integrations", to: redirect("/docs/integrations/github-enterprise", status: 302)
-  get "/docs/apis",         to: redirect("/docs/apis/webhooks",                  status: 302)
+  # While testing this on fargate, we're temporarily supporting two prefixes so we can load
+  # the fargate-hosted docs at https://buildkite.com/docs-fargate
+  # After moving /docs/ to be served by the fargate-hosted app, we can revert support
+  # for the docs-fargate prefix
+  scope ":prefix", constraints: { prefix: /docs|docs-fargate/}, defaults: { prefix: "docs" } do
+    get "tutorials",    to: redirect { |params| "/#{params[:prefix]}/tutorials/getting-started" }, status: 302
+    get "integrations", to: redirect { |params| "/#{params[:prefix]}/integrations/github-enterprise" }, status: 302
+    get "apis",         to: redirect { |params| "/#{params[:prefix]}/apis/webhooks" }, status: 302
+  end
 
   # The old un-versioned URLs have a lot of Google juice, so we redirect them to
   # the current version. But these are also linked from within the v2 agent
