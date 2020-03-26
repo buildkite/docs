@@ -2,8 +2,8 @@
   {
     "name": "web",
     "image": "",
-    "cpu": "512",
-    "memory": "1024",
+    "cpu": 512,
+    "memory": 1024,
     "portMappings": [
       {
         "containerPort": 3000,
