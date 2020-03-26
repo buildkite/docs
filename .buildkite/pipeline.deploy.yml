@@ -2,6 +2,7 @@ steps:
   - name: ":docker::ecr: Push to ECR"
     command: ".buildkite/push-image.sh"
     depends_on: "rspec"
+    key: "ecr-push"
     if: |
       build.branch == "master"
     agents:
@@ -10,3 +11,35 @@ steps:
      ecr#v2.0.0:
        login: true
        account-ids: ${ECR_ACCOUNT_ID}
+
+  # If the current user is part of the deploy team, then wait for everything to
+  # finish before deploying
+  - wait: ~
+    key: "deploy-check-wait"
+    depends_on: "ecr-push"
+    if: "(build.creator.teams includes 'deploy') && build.branch == 'master'"
+
+  # If the user *isn't* in the deploy team, require a block step for manual
+  # verification by someone who is in the team.
+  - block: ":rocket: Deploy"
+    key: "deploy-check-block"
+    depends_on: "ecr-push"
+    if: "!(build.creator.teams includes 'deploy') && build.branch == 'master'"
+
+  - label: ":docker::rocket:"
+    branches: master
+    depends_on:
+      - "deploy-check-wait"
+      - "deploy-check-block"
+    concurrency: 1
+    concurrency_group: docs-deploy
+    agents:
+      queue: deploy
+    plugins:
+      - ecs-deploy#v1.4.1:
+        cluster: "buildkite-ecs"
+        service: "docs"
+        task-definition: "deploy/task-container-definitions.json"
+        task-family: "docs"
+        image: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
+        execution-role: "${ECS_EXECUTION_ROLE_ARN}"
