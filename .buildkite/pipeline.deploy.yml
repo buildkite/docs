@@ -43,3 +43,5 @@ steps:
           task-family: "docs"
           image: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
           execution-role: "${ECS_EXECUTION_ROLE_ARN}"
+          target-container-name: web
+          target-container-port: 3000
