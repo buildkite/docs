@@ -1,8 +1,9 @@
-{
-  "containerDefinitions": [
+  [
     {
       "name": "web",
       "image": "",
+      "cpu": "512",
+      "memory": "1024",
       "portMappings": [
         {
           "containerPort": 3000,
@@ -36,13 +37,5 @@
         }
       }
     }
-  ],
-  "family": "docs",
-  "executionRoleArn": "",
-  "networkMode": "awsvpc",
-  "requiresCompatibilities": [
-    "FARGATE"
-  ],
-  "cpu": "512",
-  "memory": "1024"
+  ]
 }
