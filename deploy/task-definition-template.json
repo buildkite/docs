@@ -1,0 +1,48 @@
+{
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "",
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 3000,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "environment": [
+        {
+          "name": "RAILS_LOG_TO_STDOUT",
+          "value": "true"
+        },
+        {
+          "name": "RAILS_SERVE_STATIC_FILES",
+          "value": "true"
+        }
+      ],
+      "secrets": [
+        {
+          "name": "SECRET_KEY_BASE",
+          "valueFrom": "/ecs/docs/SECRET_KEY_BASE"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/docs",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      }
+    }
+  ],
+  "family": "docs",
+  "executionRoleArn": "",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "512",
+  "memory": "1024"
+}
