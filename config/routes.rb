@@ -119,4 +119,7 @@ Rails.application.routes.draw do
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
+
+  # Ensure 404s for unmatched routes are logged by lograge
+  get '*unmatched_route', to: 'application#route_not_found'
 end
