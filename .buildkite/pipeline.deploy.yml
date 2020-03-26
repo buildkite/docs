@@ -37,9 +37,9 @@ steps:
       queue: deploy
     plugins:
       - ecs-deploy#v1.4.1:
-        cluster: "buildkite-ecs"
-        service: "docs"
-        task-definition: "deploy/task-container-definitions.json"
-        task-family: "docs"
-        image: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
-        execution-role: "${ECS_EXECUTION_ROLE_ARN}"
+          cluster: "buildkite-ecs"
+          service: "docs"
+          task-definition: "deploy/task-container-definitions.json"
+          task-family: "docs"
+          image: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
+          execution-role: "${ECS_EXECUTION_ROLE_ARN}"
