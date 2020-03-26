@@ -52,4 +52,21 @@
   .dark-gray { color: #8E8E8E; }
   .border { border: 1px solid; }
   .border-gray { border-color: #ddd; }
+
+  .highlight-figure {
+    figcaption {
+      border: 1px solid #ddd;
+      padding: .8em 1em;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+      border-bottom: none;
+      font-size: 14px;
+      color: #777;
+    }
+    pre {
+      margin-top: 0;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+    }
+  }
 }
