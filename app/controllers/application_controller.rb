@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   helper_method :probably_authenticated?
 
+  def route_not_found
+    render file: Rails.root.join("public","404.html"), layout: false, status: 404
+  end
+
   private
 
   # When you login to Buildkite, we set this cookie as an indicator for other

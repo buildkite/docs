@@ -70,7 +70,7 @@
         <div class="Docs__page-container__inner PageContainer">
 
           <nav class="Docs__nav">
-            <% if request.url.include?('/docs/tutorials') %>
+            <% if request.url.include?('/docs/tutorials') || request.url.include?('/docs-fargate/tutorials')%>
               <p class="Docs__nav__section-heading">Tutorials</p>
               <ul class="Docs__nav__sub-nav">
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Getting Started", 'tutorials/getting-started' %></li>
@@ -85,7 +85,7 @@
               </p>
             <% end %>
 
-            <% if request.url.include?('/docs/agent') %>
+            <% if request.url.include?('/docs/agent') || request.url.include?('/docs-fargate/agent') %>
               <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '2' %>
 
               <p class="Docs__nav__section-heading">Agent</p>
@@ -184,7 +184,7 @@
                 </p>
               <% end %>
 
-              <% if request.url.include?('/docs/pipelines') %>
+              <% if request.url.include?('/docs/pipelines') || request.url.include?('/docs-fargate/pipelines') %>
                 <p class="Docs__nav__section-heading">Pipelines</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
@@ -221,7 +221,7 @@
                 <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
-              <% if request.url.include?('/docs/plugins') %>
+              <% if request.url.include?('/docs/plugins') || request.url.include?('/docs-fargate/plugins') %>
                 <p class="Docs__nav__section-heading">Plugins</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
@@ -233,22 +233,23 @@
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+                </p>
               <% end %>
               
-              <% if request.url.include?('/docs/deployments') %>
-              <p class="Docs__nav__section-heading">Deployments</p>
-              <ul class="Docs__nav__sub-nav">
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
-              </ul>
+              <% if request.url.include?('/docs/deployments') || request.url.include?('/docs-fargate/deployments') %>
+                <p class="Docs__nav__section-heading">Deployments</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
+                </ul>
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Deployments", 'deployments', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
 
-              <% if request.url.include?('/docs/integrations') %>
+              <% if request.url.include?('/docs/integrations') || request.url.include?('/docs-fargate/integrations')%>
                 <p class="Docs__nav__section-heading">Integrations</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
@@ -278,7 +279,7 @@
                 </p>
               <% end %>
 
-              <% if request.url.include?('/docs/apis') %>
+              <% if request.url.include?('/docs/apis') || request.url.include?('/docs-fargate/apis')%>
                 <p class="Docs__nav__section-heading">APIs</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
