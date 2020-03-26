@@ -197,7 +197,6 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins", 'pipelines/plugins' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Notifications", 'pipelines/notifications' %></li>
@@ -222,14 +221,28 @@
                 <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
-
-              <% if request.url.include?('/docs/deployments') || request.url.include?('/docs-fargate/deployments')%>
-              <p class="Docs__nav__section-heading">Deployments</p>
-              <ul class="Docs__nav__sub-nav">
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
-                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
-              </ul>
+              <% if request.url.include?('/docs/plugins') || request.url.include?('/docs-fargate/plugins') %>
+                <p class="Docs__nav__section-heading">Plugins</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Plugins", 'plugins/using' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins Directory", 'plugins/directory' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugin Tools", 'plugins/tools' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Plugins", 'plugins/writing' %></li>
+                </ul>
+              <% else %>
+                <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
+                <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+                </p>
+              <% end %>
+              
+              <% if request.url.include?('/docs/deployments') || request.url.include?('/docs-fargate/deployments') %>
+                <p class="Docs__nav__section-heading">Deployments</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
+                </ul>
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
                 <%= sidebar_link_to "Deployments", 'deployments', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
