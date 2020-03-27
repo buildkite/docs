@@ -12,9 +12,9 @@
     <title><%= [ @page_title, yield(:page_title), "Buildkite Documentation" ].join(" | ") %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= stylesheet_link_tag "application", media: "all" %>
+    <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
 
-    <%= javascript_include_tag "application", defer: true, nonce: true %>
+    <%= javascript_include_tag "docsearch", "application", nonce: true %>
 
     <%= csp_meta_tag %>
 
@@ -48,7 +48,7 @@
   <body>
     <header class="SiteHeader">
       <div class="SiteHeader__inner PageContainer">
-        <h1>
+        <h1 class="SiteHeader__logo">
           <%= link_to docs_path, class: 'SiteHeader__docslink' do %>
             <span class="SiteHeader__mark">
               <svg
@@ -61,6 +61,9 @@
         </h1>
         <p class="OffScreen SiteHeader__tagline">Powerful build automation and continous deployment.</p>
         <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
+        <div class="SiteHeader__search">
+          <input id="search" placeholder="Search" />
+        </div>
       </div>
     </header>
     <main id="main" role="main">
@@ -235,7 +238,7 @@
                 <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
-              
+
               <% if request.url.include?('/docs/deployments') || request.url.include?('/docs-fargate/deployments') %>
                 <p class="Docs__nav__section-heading">Deployments</p>
                 <ul class="Docs__nav__sub-nav">
@@ -335,5 +338,13 @@
         </div>
 
     </main>
+    <%= javascript_tag nonce: true do %>
+      docsearch({
+        apiKey: '<%= algolia_api_key %>',
+        indexName: '<%= algolia_index_name %>',
+        appId: '<%= algolia_app_id %>',
+        inputSelector: '#search'
+      });
+    <% end %>
   </body>
 </html>

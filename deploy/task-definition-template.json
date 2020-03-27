@@ -25,6 +25,18 @@
         {
           "name": "SECRET_KEY_BASE",
           "valueFrom": "/ecs/docs/SECRET_KEY_BASE"
+        },
+        {
+          "name": "ALGOLIA_API_KEY",
+          "valueFrom": "/ecs/docs/ALGOLIA_API_KEY"
+        },
+        {
+          "name": "ALGOLIA_APP_ID",
+          "valueFrom": "/ecs/docs/ALGOLIA_APP_ID"
+        },
+        {
+          "name": "ALGOLIA_INDEX_NAME",
+          "valueFrom": "/ecs/docs/ALGOLIA_INDEX_NAME"
         }
       ],
       "logConfiguration": {

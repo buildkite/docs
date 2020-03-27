@@ -26,4 +26,16 @@ module ApplicationHelper
   
     "https://github.com/buildkite/docs/tree/master#{view_file}"
   end
+
+  def algolia_api_key
+    ENV.fetch("ALGOLIA_API_KEY", "unknown")
+  end
+
+  def algolia_index_name
+    ENV.fetch("ALGOLIA_INDEX_NAME","unknown")
+  end
+
+  def algolia_app_id
+    ENV.fetch("ALGOLIA_APP_ID", "unknown")
+  end
 end
