@@ -167,7 +167,7 @@ $Docs__bp_stacked: 600px;
   h4 { font-size: 1rem; font-weight: 600; }
   h5 { font-size: .9rem; font-weight: 600; }
   img, svg { padding: 5px; border: 1px solid #eee; }
-  img.no-decoration { padding: 0; border: none; }
+  img.no-decoration, .responsive-image-container.no-decoration { padding: 0; border: none; margin: 0; }
   img.emoji { padding: 0; border: none; }
   p { max-width: 40em; }
   @extend .TextContent;
