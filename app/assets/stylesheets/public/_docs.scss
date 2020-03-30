@@ -214,17 +214,32 @@ $Docs__bp_stacked: 600px;
 }
 
 a.Docs__example-repo {
-  display: block;
+  display: flex;
+  align-items: top;
   border: 1px solid #ccc;
   padding: 15px;
   &:hover, &:active { text-decoration: none; border-color: #999; }
-  .emoji { margin-right: 7px; transform: translateY(3px); }
+  .icon {
+    width: 22px;
+    margin-right: 10px;
+    flex: none;
+    transform: translateY(3px);
+  }
+  .detail {
+    flex: 1;
+  }
+  .description {
+    display: block;
+    font-weight: normal;
+    color: currentColor;
+    font-size: #{(16/18)}rem;
+  }
   .repo {
     display: block;
     font-weight: normal;
     color: #666;
-    padding-left: 35px;
-    font-size: #{(16/18)}rem;
+    font-size: #{(14/18)}rem;
+    margin-top: .2rem;
   }
 }
 

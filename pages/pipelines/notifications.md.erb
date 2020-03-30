@@ -2,7 +2,7 @@
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
-<%= toc %>
+{:toc}
 
 Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your `pipeline.yml` file.
 
@@ -10,7 +10,7 @@ Add notifications to your pipeline with the `notify` attribute. This sits at the
   <p>The <code>notify</code> attribute can only be used when using the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Step Editor beta</a>.</p>
 </section>
 
-The below example will send a notification email every time a build is created on this pipeline: 
+The below example will send a notification email every time a build is created on this pipeline:
 
 ```yaml
 steps:
@@ -37,7 +37,7 @@ notify:
 ```
 
 <section class="Docs__troubleshooting-note">
-  <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>. 
+  <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
 </section>
 
 ## Email
@@ -66,7 +66,7 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
   <p>Campfire messages can only be sent using Basecamp 3.</p>
 </section>
 
-1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to. 
+1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand Assets](https://buildkite.com/brand-assets).
 1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet
 1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block and the URL copied from your Basecamp chatbot:
@@ -80,9 +80,13 @@ The `basecamp_campfire` attribute accepts a single URL as a string.
 
 ## Slack Channel Message
 
-To send notifications to a Slack Channel, first set up the Slack notification service in your Organization's notification settings. Detailed instructions for setting up a Slack notification service can be found in the [Slack integration guide](/docs/integrations/slack). 
+If you need fine-grained control over your notifications, or want to send notifications triggered by non-build events, the [Slack Notification Service](/docs/integrations/slack) can be extended using the `notify` attribute.
 
-Add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block:
+If you only need to send notifications on build status events, you can set this up in Buildkite using your [Slack Notification Service's](/docs/integrations/slack) 'Build State Filtering' settings.
+
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel you want to post to. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
+
+Once a slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block:
 
 ```yaml
 notify:
@@ -99,7 +103,7 @@ To send a notification to one particular workspace and channel, you can specify 
 
 ```yaml
 notify:
-  - slack: buildkite-community#general
+  - slack: "buildkite-community#general"
 ```
 
 You can also specify multiple teams and channels with the `channels` attribute:
@@ -108,10 +112,18 @@ You can also specify multiple teams and channels with the `channels` attribute:
 notify:
   - slack:
       channels:
-        - buildkite-community#sre
-        - buildkite-community#announcements
-        - buildkite-team#monitoring
+        - "buildkite-community#sre"
+        - "buildkite-community#announcements"
+        - "buildkite-team#monitoring"
         - "#general"
 ```
 
 In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
+
+You can also add conditionals to restrict the events on which notifications are sent:
+
+```yaml
+notify:
+  - slack: "#general"
+    if: build.state == "passed"
+```
