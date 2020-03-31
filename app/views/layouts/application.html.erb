@@ -252,6 +252,7 @@
               <% if request.url.include?('/docs/integrations') || request.url.include?('/docs-fargate/integrations')%>
                 <p class="Docs__nav__section-heading">Integrations</p>
                 <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub", 'integrations/github' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitLab", 'integrations/gitlab' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %></li>

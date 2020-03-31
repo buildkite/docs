@@ -70,7 +70,7 @@ Rails.application.routes.draw do
   # for the docs-fargate prefix
   scope ":prefix", constraints: { prefix: /docs|docs-fargate/}, defaults: { prefix: "docs" } do
     get "tutorials",    to: redirect { |params| "/#{params[:prefix]}/tutorials/getting-started" }, status: 302
-    get "integrations", to: redirect { |params| "/#{params[:prefix]}/integrations/github-enterprise" }, status: 302
+    get "integrations", to: redirect { |params| "/#{params[:prefix]}/integrations/github" }, status: 302
     get "apis",         to: redirect { |params| "/#{params[:prefix]}/apis/webhooks" }, status: 302
   end
 
