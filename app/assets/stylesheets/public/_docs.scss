@@ -2,7 +2,6 @@ $Docs__bp_stacked: 600px;
 
 .Docs__page-container {
   padding-top: 20px;
-  @media (max-width: $Docs__bp_stacked) { padding-top: 0; }
 }
 
 .Docs__page-container__inner {
