@@ -131,6 +131,9 @@ Rails.application.routes.draw do
   # Top level redirect. Needs to be at the end so it doesn't match /docs/sub-page
   get "/docs", to: redirect("/docs/tutorials/getting-started", status: 302), as: :docs
 
+  # A temporary redirect while we're testing this app at https://buildkite.com/docs-fargate
+  get "/docs-fargate", to: redirect("/docs-fargate/tutorials/getting-started", status: 302), as: :docs_fargate
+
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
 
