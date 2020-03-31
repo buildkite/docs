@@ -1,4 +1,16 @@
-# Be sure to restart your server when you modify this file.
+# For now, CSP is in report-only mode.
+#
+# This is because docsearch (a JS library provided by our algolia, our search vendor)
+# uses eval(), which violates CSP unless we make the policies so generous they're not
+# very useful anyway.
+#
+# We'd love to start enforcing CSP on the docs app, but there's been little movement on
+# docsearch adapting to be more CSP friendly (see https://github.com/algolia/docsearch/pull/773).
+#
+# Algolia have an alternative JS library that is CSP friendly and we'd love to use it.
+# Maybe that's our best path to enforcing CSP?
+#
+# https://www.algolia.com/doc/guides/building-search-ui/what-is-instantsearch/js/
 
 # Define an application-wide content security policy
 # For further information see the following documentation
@@ -7,21 +19,16 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, 'https://www2.buildkiteassets.com/'
-  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', Matomo::URL, :data, :https, :http
+  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', Matomo::URL
   policy.object_src  :none
   policy.script_src  :self, Matomo::URL
-  policy.script_src  :self, :unsafe_inline, :strict_dynamic, :report_sample, :https, :http
+  policy.style_src   :self, :unsafe_inline
 
-  # Allow unsafe_eval in development. Mostly because we do the same in the buildktie app, but also
-  # because it's required to load the algolia docsearch JS
-  if Rails.env.development?
-    #policy.script_src :self, :unsafe_eval, Matomo::URL, :unsafe_inline, :strict_dynamic, :report_sample, :https, :http
-    policy.script_src :unsafe_eval, :unsafe_inline, :strict_dynamic, :report_sample, :https, :http
-  end
-  policy.connect_src 'https://*.algolia.net', 'https://*.algolianet.com'
+  # allow AJAX queries against our search vendor
+  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolianet.com"
 
   # Specify URI for violation reports
-  # policy.report_uri "/csp-violation-report-endpoint"
+  policy.report_uri "/_csp-violation-reports"
 end
 
 # We use nonce for inline scripts
@@ -30,4 +37,4 @@ Rails.application.config.content_security_policy_nonce_generator = -> request { 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy-Report-Only
-# Rails.application.config.content_security_policy_report_only = true
+Rails.application.config.content_security_policy_report_only = true
