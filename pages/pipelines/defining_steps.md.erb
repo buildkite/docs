@@ -1,6 +1,6 @@
 # Defining Your Pipeline Steps
 
-Pipeline steps can be defined visually in Buildkite or, more powerfully, in code using a `pipeline.yml` file.  
+Pipeline steps can be defined visually in Buildkite or, more powerfully, in code using a `pipeline.yml` file.
 
 Defining your pipeline steps in a `pipeline.yml` file gives you access to more configuration options than the web interface, and allows you to version, audit and review your build pipelines alongside your source code.
 
@@ -8,7 +8,7 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-Create a pipeline from the Pipelines page of Buildkite using the ➕ button. 
+Create a pipeline from the Pipelines page of Buildkite using the ➕ button.
 
 Required fields are 'name', 'repository', and 'steps'. You can leave the 'steps' with only the default empty command step to get started, the steps can be edited at any time from your pipeine settings page.
 
@@ -46,7 +46,7 @@ When you run a build, this step will add any steps defined in the `pipeline.yml`
 
 Create a file called `pipeline.yml` in a directory called `.buildkite` in your repository. This file will describe your pipeline steps in YAML, and will be versioned alongside your code.
 
-If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. 
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`.
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
@@ -62,7 +62,7 @@ With the above example code in a `pipeline.yml` file, commit and push the file u
 
 For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation: [command steps](/docs/pipelines/command-step), [wait steps](/docs/pipelines/wait-step), [block steps](/docs/pipelines/block-step), and [trigger steps](/docs/pipelines/trigger-step).
 
-If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run.  
+If your pipeline has a lot of steps and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step) to ensure that the steps before the 'wait' are completed before subsequent steps are run.
 
 When each step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps concurrently to speed up your build.
 
@@ -157,7 +157,7 @@ echo "steps:"
 
 # add a new command step to run the tests in each test directory
 for test_dir in test/*/; do
-  echo "  - command: \"run_tests "${test_dir}"\"
+  echo "  - command: \"run_tests "${test_dir}"\""
 done
 ```
 
@@ -208,9 +208,9 @@ Your steps should then look something like this:
 
 When creating a new pipeline, you can take a shortcut if you want to set up the new pipeline with the same steps as an existing pipeline.
 
-Using the `?clone` URL parameter, you can prefill the new pipeline page with the steps from another pipeline. It will not copy any other fields such as environment variables or repository information. 
+Using the `?clone` URL parameter, you can prefill the new pipeline page with the steps from another pipeline. It will not copy any other fields such as environment variables or repository information.
 
-The below example URL will copy the steps from the 'My Llamas Pipeline' into the New Pipeline page: 
+The below example URL will copy the steps from the 'My Llamas Pipeline' into the New Pipeline page:
 
 ```
 https://buildkite.com/organizations/acme-inc/pipelines/new?clone=my-llamas-pipeline
