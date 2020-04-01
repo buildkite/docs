@@ -105,4 +105,20 @@ RSpec.describe Page::Renderer do
 
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
+
+  it "supports {: code-filename=\"file.md\"} filenames for code blocks" do
+    md = <<~MD
+      ```json
+      { "key": "value" }
+      ```
+      {: codeblock-file="file.json"}
+    MD
+
+    html = <<~HTML
+      <div class="highlight"><figure class="highlight-figure"><figcaption>file.json</figcaption><pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">}</span><span class="w">
+      </span></code></pre></figure></div>
+    HTML
+
+    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
 end

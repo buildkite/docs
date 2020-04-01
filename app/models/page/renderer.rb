@@ -15,6 +15,7 @@ class Page::Renderer
     doc = Nokogiri::HTML.fragment(html)
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
+    doc = add_code_filenames(doc)
     doc.to_html.html_safe
   end
 
@@ -90,6 +91,26 @@ class Page::Renderer
       })
     end
 
+    doc
+  end
+
+  def add_code_filenames(doc)
+    doc.search('./p').each do |node|
+      next unless node.to_html.starts_with?('<p>{: codeblock-file=')
+
+      filename = node.content[/codeblock-file="(.*)"}/, 1]
+
+      figure = Nokogiri::XML::Node.new "figure", doc
+      figure["class"] = "highlight-figure"
+      caption = Nokogiri::XML::Node.new "figcaption", doc
+      caption.content = filename
+      figure.add_child(caption)
+      node.previous_element.add_child(figure)
+
+      node.previous_element.first_element_child.parent = figure
+      node.remove
+    end
+    
     doc
   end
 end
