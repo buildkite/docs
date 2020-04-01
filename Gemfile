@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
-ruby '2.6.5'
 
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack"
