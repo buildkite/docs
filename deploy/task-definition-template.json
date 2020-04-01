@@ -19,6 +19,18 @@
         {
           "name": "RAILS_SERVE_STATIC_FILES",
           "value": "true"
+        },
+        {
+          "name": "MATOMO_URL",
+          "value": "thttps://analytics.buildkite.com"
+        },
+        {
+          "name": "MATOMO_TRACKER_JS_URL",
+          "value": "https://analytics.buildkite.com/tracker.js"
+        },
+        {
+          "name": "MATOMO_TRACKER_URL",
+          "value": "https://analytics.buildkite.com/tracker"
         }
       ],
       "secrets": [
