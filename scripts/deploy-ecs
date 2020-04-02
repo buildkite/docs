@@ -8,7 +8,7 @@ task_family="docs"
 service_name="docs"
 image="${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
 executionRole="${ECS_EXECUTION_ROLE_ARN}"
-http_host="https://buildkite.com/docs-fargate/"
+http_host="https://buildkite.com/docs/"
 templateFile="$(dirname $0)/../deploy/task-definition-template.json"
 tmpfile="/tmp/task-definition.json"
 
