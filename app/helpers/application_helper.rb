@@ -4,7 +4,7 @@ module ApplicationHelper
   end
 
   def sidebar_link_to(name, path, options = {})
-    full_path = docs_page_path(path, prefix: params.fetch(:prefix, "docs"))
+    full_path = docs_page_path(path)
 
     options[:class] = [options[:class]].flatten.compact
     options[:class] << 'Docs__nav__sub-nav__item__link Link--on-white Link--no-underline'

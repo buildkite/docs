@@ -64,15 +64,9 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
 
   # Doc sections that don't have overview/index pages, so need redirecting
-  # While testing this on fargate, we're temporarily supporting two prefixes so we can load
-  # the fargate-hosted docs at https://buildkite.com/docs-fargate
-  # After moving /docs/ to be served by the fargate-hosted app, we can revert support
-  # for the docs-fargate prefix
-  scope ":prefix", constraints: { prefix: /docs|docs-fargate/}, defaults: { prefix: "docs" } do
-    get "tutorials",    to: redirect { |params| "/#{params[:prefix]}/tutorials/getting-started" }, status: 302
-    get "integrations", to: redirect { |params| "/#{params[:prefix]}/integrations/github" }, status: 302
-    get "apis",         to: redirect { |params| "/#{params[:prefix]}/apis/webhooks" }, status: 302
-  end
+  get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
+  get "/docs/integrations", to: redirect("/docs/integrations/github"), status: 302
+  get "/docs/apis",         to: redirect("/docs/apis/webhooks"), status: 302
 
   # The old un-versioned URLs have a lot of Google juice, so we redirect them to
   # the current version. But these are also linked from within the v2 agent
@@ -119,20 +113,10 @@ Rails.application.routes.draw do
   get "/docs/agent/v3/agent-meta-data", to: redirect("/docs/agent/v3/cli-start#setting-tags",     status: 301)
 
   # All other standard docs pages
-  # While testing this on fargate, we're temporarily supporting two prefixes so we can load
-  # the fargate-hosted docs at https://buildkite.com/docs-fargate
-  # After moving /docs/ to be served by the fargate-hosted app, we can revert support
-  # for the docs-fargate prefix
-  scope ":prefix", constraints: { prefix: /docs|docs-fargate/}, defaults: { prefix: "docs" } do
-    get "*path" => "pages#show", as: :docs_page
-  end
-  #get "/doc/*path" => "pages#show", as: :docs_page
+  get "/docs/*path" => "pages#show", as: :docs_page
 
   # Top level redirect. Needs to be at the end so it doesn't match /docs/sub-page
   get "/docs", to: redirect("/docs/tutorials/getting-started", status: 302), as: :docs
-
-  # A temporary redirect while we're testing this app at https://buildkite.com/docs-fargate
-  get "/docs-fargate", to: redirect("/docs-fargate/tutorials/getting-started", status: 302), as: :docs_fargate
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
