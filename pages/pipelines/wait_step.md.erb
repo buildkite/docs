@@ -8,13 +8,14 @@ A *wait* step waits for all previous steps to have successfully completed before
 
 <%= image "wait-step.png", width: 1070/2, height: 508/2, alt: "Screenshot of a basic wait step" %>
 
-A basic wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest. 
+A basic wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
 
 ```yml
 - command: "command.sh"
 - wait
 - command: "echo The command passed"
 ```
+{: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
 
@@ -51,19 +52,20 @@ _Optional attributes:_
 
 ## Continuing on failure
 
-You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed. 
+You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed.
 
-This is useful for processing results from previous steps, for example, test coverage or summarizing test failures. Successful steps that run after a `continue_on_failure` step will not affect the status of the build; if there has been a failure, the build will be marked as failed.  
+This is useful for processing results from previous steps, for example, test coverage or summarizing test failures. Successful steps that run after a `continue_on_failure` step will not affect the status of the build; if there has been a failure, the build will be marked as failed.
 
 In the example below, if `command.sh` succeeds, both of the following command steps will be run. If `command.sh` fails, only the first will be run, and the build will then be marked as failed.
 
 ```yml
-- command: "command.sh"
-- wait: ~
-  continue_on_failure: true
-- command: "echo This runs regardless of the success or failure"
-- wait
-- command: "echo The command passed"
+steps:
+  - command: "command.sh"
+  - wait: ~
+    continue_on_failure: true
+  - command: "echo This runs regardless of the success or failure"
+  - wait
+  - command: "echo The command passed"
 ```
 
 If there's a failure followed by a regular wait step, nothing after the wait step will run, including any subsequent wait steps with `continue_on_failure: true`. In the example below, when the first command fails, the second and third commands will not run:
@@ -77,6 +79,7 @@ steps:
     continue_on_failure: true
   - command: "echo THIRD command"
 ```
+{: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example1.png", width: 1086/2, height: 414/2, alt: "Screenshot of a failed pipeline which didn't run the continue_on_failure wait steps" %>
 
@@ -93,6 +96,7 @@ steps:
     continue_on_failure: true
   - command: "echo FOURTH command"
 ```
+{: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example2.png", width: 1402/2, height: 417/2, alt: "Screenshot of a failed pipeline which did run the continue_on_failure wait steps" %>
 

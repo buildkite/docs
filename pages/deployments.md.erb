@@ -14,15 +14,16 @@ The example `pipeline.yml` below shows how to set up continuous deployment using
 steps:
   - label: "🔨"
     command: "scripts/tests"
-  
+
   - wait
-  
+
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'master'
     concurrency: 1
     concurrency_group: "my-app-deploy"
 ```
+{: codeblock-file="pipeline.yml"}
 
 This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the master branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
@@ -71,6 +72,7 @@ steps:
     build:
       commit: "$BUILDKITE_COMMIT"
 ```
+{: codeblock-file="pipeline.yml"}
 
 Once the tests run successfully, if the commit is on the master branch then continuous deployment is done by triggering a build on the deployment pipeline.
 
@@ -84,6 +86,7 @@ steps:
     concurrency: 1
     concurrency_group: "my-app-deploy"
 ```
+{: codeblock-file="pipeline.yml"}
 
 This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
@@ -101,16 +104,17 @@ The below example uses the same pipeline as the [Single deployment step](/docs/d
 steps:
   - label: "🔨"
     command: "scripts/tests"
-  
+
   - block: "Deploy"
     prompt: "Deploy to production?"
-  
+
   - label: "🚀"
     command: "scripts/deploy"
     if: build.branch == 'master'
     concurrency_group: "my-app-deploy"
     concurrency: 1
 ```
+{: codeblock-file="pipeline.yml"}
 
 <%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>
 
@@ -118,7 +122,7 @@ Until the block step is manually unblocked either in Buildkite or via an API cal
 
 ## Deployment plugins
 
-There are [Buildkite plugins](/docs/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin). 
+There are [Buildkite plugins](/docs/plugins) available for various systems and tools. For example, the [ECS Deploy plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) and the [AWS Lambda Deploy plugin](https://github.com/envato/lambda-deploy-buildkite-plugin).
 
 The following example shows how to use the ECS Deploy plugin to automatically deploy an pre-built Docker image to an [AWS ECS](https://aws.amazon.com/ecs/) service:
 
@@ -139,6 +143,7 @@ steps:
         task-role-arn: "deployer"
         deployment-configuration: "100/200"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can find the latest deployment plugins in the [plugins directory](https://buildkite.com/plugins). If there's no plugin for your deployment service of choice, see the [Writing Plugins](/docs/plugins/writing) documentation for information on how to write your own.
 

@@ -55,6 +55,7 @@ steps:
   - label: "Example Test"
     command: echo "Hello!"
 ```
+{: codeblock-file="pipeline.yml"}
 
 With the above example code in a `pipeline.yml` file, commit and push the file up to your repository. If you have set up webhooks, this will automatically create a new build. You can also create a new build using the 'New Build' button on the pipeline page.
 
@@ -110,6 +111,7 @@ steps:
     agents:
       queue: "deploy"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Step types
 
@@ -166,6 +168,7 @@ To use this script, you'd save it to `.buildkite/pipeline.sh` inside your reposi
 ```bash
 .buildkite/pipeline.sh | buildkite-agent pipeline upload
 ```
+{: codeblock-file=".buildkite/pipeline.sh"}
 
 When the build is run it will execute the script and pipe the output to the `pipeline upload` command. The upload command will insert the steps from the script into the build immediately after the upload step.
 
@@ -179,6 +182,7 @@ steps:
   - command: "other-script.sh"
     label: "Run other operations"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Migrating existing steps to a pipeline.yml
 
