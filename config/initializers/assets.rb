@@ -13,4 +13,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # folder are already added.
 Rails.application.config.assets.precompile += %w( docsearch.js docsearch.css )
 
-Rails.application.config.assets.prefix = "/docs-fargate/assets"
+Rails.application.config.assets.prefix = "/docs/assets"
