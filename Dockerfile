@@ -42,7 +42,7 @@ COPY . /app
 RUN if [ "$RAILS_ENV" = "production" ]; then \
       echo "--- :sprockets: Precompiling assets" \
       && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile \
-      && cp -r /app/public/docs-fargate/assets /app/public/assets; \
+      && cp -r /app/public/docs/assets /app/public/assets; \
     fi
 
 EXPOSE 3000
