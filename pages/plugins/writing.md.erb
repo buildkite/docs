@@ -28,11 +28,7 @@ git init
 
 ### Add a plugin.yml
 
-Next we'll create the first file: a `plugin.yml` file. This describes how it will appear in the [Buildkite Plugin Directory](/docs/plugins/directory).
-
-```shell
-touch plugin.yml
-```
+Next we'll create `plugin.yml` to describes how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory).
 
 ```yaml
 name: File Counter
@@ -44,6 +40,7 @@ configuration:
     name: string
   additionalProperties: false
 ```
+{: codeblock-file="plugin.yml"
 
 The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `name` property, of type `string`.
 
@@ -102,6 +99,8 @@ load '/usr/local/lib/bats/load.bash'
   assert_output --partial "Found 1 files matching *.bats"
 }
 ```
+{: codeblock-file="tests/post-command.bats"
+
 
 To run the test, run the following Docker command:
 
@@ -117,10 +116,6 @@ docker run -it --rm -v "$(PWD):/plugin:ro" buildkite/plugin-tester
 
 To make it easier to run this command, create a Docker Compose file:
 
-```shell
-touch docker-compose.yml
-```
-
 ```yml
 version: '2'
 services:
@@ -129,6 +124,7 @@ services:
     volumes:
       - ".:/plugin:ro"
 ```
+{: codeblock-file="docker-compose.yml"
 
 You can now run the tests using the following command:
 
@@ -139,10 +135,6 @@ docker-compose run --rm tests
 ### Add a readme
 
 Next we'll add a `README.md` file to introduce the plugin to the world:
-
-```shell
-touch README.md
-```
 
 <%= render 'plugins/tutorial_readme' %>
 
@@ -167,6 +159,7 @@ services:
     volumes:
       - ".:/plugin:ro"
 ```
+{: codeblock-file="docker-compose.yml"
 
 You can now run the tests using the following command:
 
@@ -194,6 +187,8 @@ configuration:
     name: string
   additionalProperties: false
 ```
+{: codeblock-file="plugin.yml"
+
 
 Valid `plugin.yml` properties:
 
