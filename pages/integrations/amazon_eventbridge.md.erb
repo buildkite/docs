@@ -2,7 +2,7 @@
 
 The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification service in Buildkite lets you stream events in real-time from your Buildkite account to your AWS account.
 
-<%= toc %>
+{:toc}
 
 ## Events
 
@@ -13,18 +13,18 @@ Once you’ve configured an Amazon EventBridge notification service in Buildkite
   <tr><th>Detail Type</th><th>Description</th></tr>
 </thead>
 <tbody>
-  <tr><th><a href="#events-build-created">Build Created</a></th><td><%= webhook_description "build.created" %></td></tr>
-  <tr><th><a href="#events-build-started">Build Started</a></th><td><%= webhook_description "build.started" %></td></tr>
-  <tr><th><a href="#events-build-finished">Build Finished</a></th><td><%= webhook_description "build.finished" %></td></tr>
-  <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td><%= webhook_description "job.scheduled" %></td></tr>
-  <tr><th><a href="#events-job-started">Job Started</a></th><td><%= webhook_description "job.started" %></td></tr>
-  <tr><th><a href="#events-job-finished">Job Finished</a></th><td><%= webhook_description "job.finished" %></td></tr>
-  <tr><th><a href="#events-job-activated">Job Activated</a></th><td><%= webhook_description "job.activated" %></td></tr>
-  <tr><th><a href="#events-agent-connected">Agent Connected</a></th><td><%= webhook_description "agent.connected" %></td></tr>
-  <tr><th><a href="#events-agent-lost">Agent Lost</a></th><td><%= webhook_description "agent.lost" %></td></tr>
-  <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td><%= webhook_description "agent.disconnected" %></td></tr>
-  <tr><th><a href="#events-agent-stopping">Agent Stopping</a></th><td><%= webhook_description "agent.stopping" %></td></tr>
-  <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td><%= webhook_description "agent.stopped" %></td></tr>
+  <tr><th><a href="#events-build-created">Build Created</a></th><td>A build has been created</td></tr>
+  <tr><th><a href="#events-build-started">Build Started</a></th><td>A build has started</td></tr>
+  <tr><th><a href="#events-build-finished">Build Finished</a></th><td>A build has finished</td></tr>
+  <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td>A job has been scheduled</td></tr>
+  <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
+  <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished</td></tr>
+  <tr><th><a href="#events-job-activated">Job Activated</a></th><td>A block step job has been unblocked via the web or API</td></tr>
+  <tr><th><a href="#events-agent-connected">Agent Connected</a></th><td>An agent has connected</td></tr>
+  <tr><th><a href="#events-agent-lost">Agent Lost</a></th><td>An agent has been marked as lost</td></tr>
+  <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td>An agent has disconnected</td></tr>
+  <tr><th><a href="#events-agent-stopping">Agent Stopping</a></th><td>An agent is stopping</td></tr>
+  <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped</td></tr>
 </tbody>
 </table>
 
@@ -438,6 +438,11 @@ exports.handler = (event, context, callback) => {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
     }
   }
 }
@@ -471,6 +476,11 @@ exports.handler = (event, context, callback) => {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
     }
   }
 }
@@ -504,6 +514,11 @@ exports.handler = (event, context, callback) => {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
     }
   }
 }
@@ -537,6 +552,11 @@ exports.handler = (event, context, callback) => {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
     }
   }
 }
@@ -570,6 +590,11 @@ exports.handler = (event, context, callback) => {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
       "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
       "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
     }
   }
 }
