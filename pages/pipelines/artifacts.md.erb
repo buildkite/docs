@@ -6,7 +6,7 @@ In this guide we’ll walk through using the Buildkite Agent’s [artifact suppo
 
 ## Uploading Artifacts
 
-To automatically upload artifacts created by a build step, set the `artifact_paths` attribute on your command step. In this example, any artifacts that are created in the `logs` or `coverage` directories, as well as any of their subdirectories, will be uploaded automatically: 
+To automatically upload artifacts created by a build step, set the `artifact_paths` attribute on your command step. In this example, any artifacts that are created in the `logs` or `coverage` directories, as well as any of their subdirectories, will be uploaded automatically:
 
 ```yaml
 steps:
@@ -18,15 +18,16 @@ steps:
       - "logs/**/*"
       - "coverage/**/*"
 ```
+{: codeblock-file="pipeline.yml"}
 
 If you've defined your pipeline in Buildkite, you can set this field on a command step using the “Automatic Artifact Uploading” option:
 
-<%= image 'artifact_pattern.png', size: '390x125', alt: 'Artifact pattern configuration' %> 
+<%= image 'artifact_pattern.png', size: '390x125', alt: 'Artifact pattern configuration' %>
 
-Defining a pattern here will cause your agents to automatically upload any artifacts that match your file path pattern. 
+Defining a pattern here will cause your agents to automatically upload any artifacts that match your file path pattern.
 
 You can also perform an artifact upload manually in your build scripts by using
-the `buildkite-agent artifact` command. In this example, the file `build.tar.gz` from the `pkg` directory will be uploaded to the default destination: 
+the `buildkite-agent artifact` command. In this example, the file `build.tar.gz` from the `pkg` directory will be uploaded to the default destination:
 
 ```bash
 buildkite-agent artifact upload pkg/build.tar.gz

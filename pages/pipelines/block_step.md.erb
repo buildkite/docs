@@ -2,7 +2,7 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. 
+A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
 {:toc}
 
@@ -10,7 +10,7 @@ A basic block step can be defined in your pipeline settings, or in your [pipelin
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
-You can add form fields to block steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.    
+You can add form fields to block steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). Block steps with input fields can only be defined using a `pipeline.yml`.
 
@@ -76,6 +76,7 @@ _Optional attributes:_
 steps:
   - block: "\:rocket\: Release!"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Text Input Attributes
 
@@ -104,6 +105,7 @@ steps:
       - text: "Code Name"
         key: "release-name"
 ```
+{: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
 
@@ -141,6 +143,7 @@ steps:
         required: false
         default: "Release #"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Select Input Attributes
 
@@ -196,6 +199,7 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+{: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
 
@@ -247,6 +251,7 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ```yml
 steps:
@@ -271,10 +276,11 @@ steps:
           - label: "Oceania"
             value: "aunz"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Passing block step data to other steps
 
-Before you can do anything with the values from a block step, you need to store the data using the Buildkite meta-data store. 
+Before you can do anything with the values from a block step, you need to store the data using the Buildkite meta-data store.
 
 Use the `key` attribute in your block step to store values from the text or select fields in meta-data:
 
@@ -285,6 +291,7 @@ steps:
       - text: "Code Name"
         key: "release-name"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can access the stored meta-data after the block step has passed. Use the `buildkite-agent meta-data get` command to retreive your data:
 
@@ -321,7 +328,7 @@ set -euo pipefail
 # Set up a variable to hold the meta-data from your block step
 RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
 
-# Create a pipeline with your trigger step 
+# Create a pipeline with your trigger step
 PIPELINE="steps:
   - trigger: \"deploy-pipeline\"
     label: \"Trigger deploy\"
@@ -349,6 +356,7 @@ steps:
   - trigger: "deploy-pipeline"
     label: "Trigger Deploy"
 ```
+{: codeblock-file="pipeline.yml"}
 
 #### After
 
@@ -363,8 +371,9 @@ steps:
   - command: ".buildkite/trigger-deploy.sh"
     label: "Prepare Deploy Trigger"
 ```
+{: codeblock-file="pipeline.yml"}
 
-The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime. 
+The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
 
 <%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
 

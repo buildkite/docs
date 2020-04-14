@@ -42,6 +42,8 @@ services:
       REDIS_URL: redis://redis
       MEMCACHE_SERVERS: memcache
 ```
+{: codeblock-file="docker-compose.yml"}
+
 
 Mounting `.` (the directory of current build) as a volume in the container allows any changes from inside the container to be visible to the agent. This is required if you want to upload artifacts that were created in the container.
 
@@ -56,6 +58,8 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
     - docker-compose#v3.0.3:
         run: app
 ```
+{: codeblock-file="pipeline.yml"}
+
 
 This is the equivalent of running:
 
@@ -77,6 +81,7 @@ steps:
           image: "node:8"
           workdir: /app
 ```
+{: codeblock-file="pipeline.yml"}
 
 There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on GitHub](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 

@@ -21,6 +21,7 @@ steps:
 notify:
   - email: "dev@acmeinc.com"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can trigger notifications as emails, as a message in a Basecamp Campfire, or as a message in a Slack Channel.
 
@@ -35,6 +36,7 @@ notify:
   - email: "dev@acmeinc.com"
     if: build.state == "passed"
 ```
+{: codeblock-file="pipeline.yml"}
 
 <section class="Docs__troubleshooting-note">
   <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
@@ -48,6 +50,7 @@ Add an email notification to your pipeline using the `email` attribute of the `n
 notify:
   - email: "dev@acmeinc.com"
 ```
+{: codeblock-file="pipeline.yml"}
 
 The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
 
@@ -57,6 +60,7 @@ notify:
   - email: "sre@acmeinc.com"
   - email: "qa@acmeinc.com"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Basecamp Campfire Message
 
@@ -75,6 +79,7 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 notify:
   - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
 ```
+{: codeblock-file="pipeline.yml"}
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
@@ -94,6 +99,7 @@ For channels:
 notify:
   - slack: "#general"
 ```
+{: codeblock-file="pipeline.yml"}
 
 For users:
 
@@ -101,6 +107,7 @@ For users:
 notify:
   - slack: "@someuser"
 ```
+{: codeblock-file="pipeline.yml"}
 
 
 <section class="Docs__troubleshooting-note">
@@ -117,6 +124,7 @@ For channels
 notify:
   - slack: "buildkite-community#general"
 ```
+{: codeblock-file="pipeline.yml"}
 
 For users:
 
@@ -124,6 +132,7 @@ For users:
 notify:
   - slack: "buildkite-community@someuser"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can also specify multiple teams and channels with the `channels` attribute:
 
@@ -136,6 +145,7 @@ notify:
         - "buildkite-team#monitoring"
         - "#general"
 ```
+{: codeblock-file="pipeline.yml"}
 
 In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
 
@@ -146,3 +156,4 @@ notify:
   - slack: "#general"
     if: build.state == "passed"
 ```
+{: codeblock-file="pipeline.yml"}

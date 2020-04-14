@@ -14,6 +14,7 @@ steps:
 	  label: tests
 	  if: build.message !~ /skip tests/
 ```
+{: codeblock-file="pipeline.yml"}
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
 
@@ -29,6 +30,7 @@ steps:
         build.message !~ /skip tests/ &&
           build.branch =~ /^feature\//
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Supported syntax
 
