@@ -59,7 +59,7 @@ buildkite-agent artifact download logs/* local-logs/
 
 The `buildkite-agent artifact` command will find the most recent file uploaded with a matching filename, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--step` argument.
 
-For example, to download to a `build.zip` you created in the "build" pipeline step:
+For example, to download a `build.zip` artifact you uploaded in the "build" pipeline step:
 
 ```bash
 buildkite-agent artifact download build.zip tmp/ --step build
