@@ -51,21 +51,19 @@ For full documentation of the `buildkite-agent artifact upload` command, and exa
 
 ## Downloading Artifacts
 
-You can download artifacts created by a build job using the `buildkite-agent artifact download` command. For example:
+You can download artifacts created by a build job, from inside a running build, using the `buildkite-agent artifact download` command. For example, to download all artifacts in the `logs`  directory (including subdirectories, which will be recreated) to `local-logs/logs/`:
 
 ```bash
-buildkite-agent artifact download pkg/build.tar.gz pkg/
+buildkite-agent artifact download logs/* local-logs/
 ```
 
-If an artifact was previously uploaded at `pkg/build.tar.gz`, the above command will download it to the `pkg` directory.
+The `buildkite-agent artifact` command will find the most recent file uploaded with a matching filename, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--step` argument.
 
-The `buildkite-agent artifact` command will find the last file uploaded with the matching filename, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--step` argument. For example:
+For example, to download to a `build.zip` you created in the "build" pipeline step:
 
 ```bash
 buildkite-agent artifact download build.zip tmp/ --step build
 ```
-
-This will download the `build.zip` file from the pipeline step with the label "build".
 
 For full documentation and examples, see the [buildkite-agent artifact download documentation](/docs/agent/v3/cli-artifact#downloading-artifacts).
 
