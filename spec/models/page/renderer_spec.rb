@@ -22,19 +22,41 @@ RSpec.describe Page::Renderer do
       md = <<~MD
         {:toc}
 
-        ## Section
-      MD
+        ## Section 1
+
+        ### Subsection 1.1
+
+        ### Subsection 1.2
+
+        ## Section 2
+
+        ### Subsection 2.1
+
+        ### Subsection 2.2
+        MD
 
       html = <<~HTML
         <div class="Docs__toc">
           <p>On this page:</p>
           <ul>
-            <li><a href="#section">Section</a></li>
+            <li><a href="#section-1">Section 1</a></li>
+        <li><a href="#section-2">Section 2</a></li>
           </ul>
         </div>
 
-        <h2 class="Docs__heading" id="section">Section<a href="#section" aria-hidden="true" class="Docs__heading__anchor"></a>
+        <h2 id="section-1" class="Docs__heading">Section 1<a href="#section-1" aria-hidden="true" class="Docs__heading__anchor"></a>
         </h2>
+
+        <h3 id="section-1-subsection-1-dot-1">Subsection 1.1</h3>
+
+        <h3 id="section-1-subsection-1-dot-2">Subsection 1.2</h3>
+
+        <h2 id="section-2" class="Docs__heading">Section 2<a href="#section-2" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h2>
+
+        <h3 id="section-2-subsection-2-dot-1">Subsection 2.1</h3>
+
+        <h3 id="section-2-subsection-2-dot-2">Subsection 2.2</h3>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
@@ -62,7 +84,7 @@ RSpec.describe Page::Renderer do
           </ul>
         </div>
         
-        <h2 class="Docs__heading" id="section">Section<a href="#section" aria-hidden="true" class="Docs__heading__anchor"></a>
+        <h2 id="section" class="Docs__heading">Section<a href="#section" aria-hidden="true" class="Docs__heading__anchor"></a>
         </h2>
         
         <section>
@@ -71,6 +93,26 @@ RSpec.describe Page::Renderer do
             <h2>Subheading</h2>
           </hgroup>
         </section>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
+
+    it "handles custom ids" do
+      md = <<~MD
+        ## A Super Long Section Title
+        {: id="short-id"}
+
+        ### Subsection
+        MD
+
+      html = <<~HTML
+        <h2 id="short-id" class="Docs__heading">A Super Long Section Title<a href="#short-id" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h2>
+        
+        
+        
+        <h3 id="short-id-subsection">Subsection</h3>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
@@ -117,6 +159,20 @@ RSpec.describe Page::Renderer do
     html = <<~HTML
       <div class="highlight"><figure class="highlight-figure"><figcaption>file.json</figcaption><pre class="highlight json"><code><span class="p">{</span><span class="w"> </span><span class="s2">"key"</span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w"> </span><span class="p">}</span><span class="w">
       </span></code></pre></figure></div>
+    HTML
+
+    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
+
+  it "supports {: id=\"some-id\"} for manually specifying an id of the previous bit of content" do
+    md = <<~MD
+      ## This is a section
+      {: id="some-id"}
+    MD
+
+    html = <<~HTML
+      <h2 id="some-id" class="Docs__heading">This is a section<a href="#some-id" aria-hidden="true" class="Docs__heading__anchor"></a>
+      </h2>
     HTML
 
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
