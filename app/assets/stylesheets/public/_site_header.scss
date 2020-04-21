@@ -1,5 +1,6 @@
 $SiteHeaderLogoHeight: 36px;
 $SiteHeader__bp_small_screen_nav: 850px;
+$SiteHeader__bp_wrap_search: 550px;
 
 .SiteHeader {
   position: absolute;
@@ -15,7 +16,10 @@ $SiteHeader__bp_small_screen_nav: 850px;
 .SiteHeader__inner {
   display: flex;
   align-items: stretch;
-  @media (max-width: $SiteHeader__bp_small_screen_nav) { display: block; }
+  justify-content: space-between;
+  @media (max-width: $SiteHeader__bp_wrap_search) {
+    flex-wrap: wrap;
+  }
 }
 
 .SiteHeader_minimal__inner {
@@ -44,6 +48,44 @@ $SiteHeader__bp_small_screen_nav: 850px;
 
 .SiteHeader__logo, .SiteHeader__tagline {
   margin: 0;
+}
+
+.SiteHeader__logo {
+  flex: 0 0 auto;
+  line-height: $SiteHeaderLogoHeight;
+  display: inline-block;
+  margin-right: 1em;
+}
+
+.SiteHeader__search {
+  flex: 0 0 300px;
+  align-self: flex-end;
+  @media (max-width: $SiteHeader__bp_wrap_search) {
+    flex: 1 1 300px;
+  }
+}
+
+.SiteHeader__search input {
+  display: block;
+  box-sizing: border-box;
+  padding: 10px 12px;
+  border-radius: .2em;
+  font-size: 0.8rem;
+  width: 100%;
+  font-family: inherit;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  color: #555;
+  outline: none;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
+  &::-webkit-input-placeholder { color: rgba(#555, .35); }
+  &:-moz-placeholder { color: rgba(#555, .35); }
+  &::-moz-placeholder { color: rgba(#555, .35); }
+  &:-ms-input-placeholder { color: rgba(#555, .35); }
 }
 
 $SiteHeader__logo-width: 173px;

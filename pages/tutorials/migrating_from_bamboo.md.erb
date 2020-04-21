@@ -2,7 +2,7 @@
 
 Migrating continuous integration tools can be hard, so we've put together a guide to help you transition your Bamboo skills to Buildkite. This guide is applicable to both Bamboo Server and Bamboo Cloud.
 
-<%= toc %>
+{:toc}
 
 ## Plans to Pipelines
 
@@ -26,6 +26,7 @@ steps:
   # Second stage
   - command: deploy.sh
 ```
+{: codeblock-file="pipeline.yml"}
 
 The `block` step will also wait for previous steps to complete but instead of automatically continuing, it will stop the build and require a user to manually "Unblock" the Pipeline by clicking the "Continue" button in the web interface, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. These are the equivalent of a *Manual Stage* in Bamboo.
 
@@ -36,6 +37,7 @@ steps:
   - block: 'Deploy to Production'
   - command: deploy.sh
 ```
+{: codeblock-file="pipeline.yml"}
 
 Let’s look at an example Bamboo Plan:
 
@@ -85,6 +87,7 @@ steps:
 
   - command: "scripts/deploy.sh"
 ```
+{: codeblock-file="pipeline.yml"}
 
 Once your Build Pipelines are setup, you can update step labels to something a bit more fun than just text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
 

@@ -2,7 +2,7 @@
 
 A *command* step runs one or more shell commands on an agent.
 
-<%= toc %>
+{:toc}
 
 Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 
@@ -14,6 +14,7 @@ A basic command step can be defined in your pipeline settings, or in your [pipel
 steps:
   - command: "tests.sh"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Command Step Attributes
 
@@ -34,6 +35,7 @@ _Required attributes:_
 steps:
   - command: "npm install && tests.sh"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ```yml
 steps:
@@ -42,6 +44,7 @@ steps:
     - "moretests.sh"
     - "build.sh"
 ```
+{: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
 
@@ -136,7 +139,7 @@ _Optional attributes:_
   <tr>
     <td><code>plugins</code></td>
     <td>
-      An array of <a href="/docs/pipelines/plugins">plugins</a> for this step.<br>
+      An array of <a href="/docs/plugins">plugins</a> for this step.<br>
       <em>Example:</em><br>
       <code>- docker-compose#v1.0.0:<br>
 &nbsp;&nbsp;&nbsp;&nbsp;run: app</code>
@@ -218,6 +221,7 @@ steps:
     retry:
       manual: false
 ```
+{: codeblock-file="pipeline.yml"}
 
 
 ## Automatic Retry Attributes
@@ -258,6 +262,7 @@ steps:
         - exit_status: 255 # Forced agent shutdown
           limit: 2
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Manual Retry Attributes
 
@@ -305,6 +310,7 @@ steps:
         allowed: false
         reason: "Sorry, you can't retry a deployment"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Soft Fail Attributes
 
@@ -329,6 +335,7 @@ steps:
     soft_fail:
       - exit_status: 1
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Examples
 
@@ -389,3 +396,4 @@ steps:
     soft_fail:
       - exit_status: 1
 ```
+{: codeblock-file="pipeline.yml"}

@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get "/docs/projects",                           to: redirect("/docs/pipelines")
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
+  get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/webhooks/setup",                     to: redirect("/docs/apis/webhooks")
   get "/docs/webhooks",                           to: redirect("/docs/apis/webhooks")
@@ -63,9 +64,9 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
 
   # Doc sections that don't have overview/index pages, so need redirecting
-  get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started",      status: 302)
-  get "/docs/integrations", to: redirect("/docs/integrations/github-enterprise", status: 302)
-  get "/docs/apis",         to: redirect("/docs/apis/webhooks",                  status: 302)
+  get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
+  get "/docs/integrations", to: redirect("/docs/integrations/github"), status: 302
+  get "/docs/apis",         to: redirect("/docs/apis/webhooks"), status: 302
 
   # The old un-versioned URLs have a lot of Google juice, so we redirect them to
   # the current version. But these are also linked from within the v2 agent
@@ -119,4 +120,7 @@ Rails.application.routes.draw do
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
+
+  # Ensure 404s for unmatched routes are logged by lograge
+  get '*unmatched_route', to: 'application#route_not_found'
 end

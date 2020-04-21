@@ -4,7 +4,7 @@ Every agent installer comes with a configuration file. You can also customize ma
 
 You can find the location of your configuration file in your platform’s installation documentation, or you can set it using the `BUILDKITE_AGENT_CONFIG` environment variable or the `--config` command line argument.
 
-<%= toc %>
+{:toc}
 
 ## Example Configuration File
 
@@ -53,7 +53,7 @@ _Optional attributes:_
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
       </td>
     </tr>
-    
+
     <tr>
       <th><code>cancel-grace-period</code></th>
       <td>
@@ -71,7 +71,7 @@ _Optional attributes:_
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_CANCEL_SIGNAL</code></p>
       </td>
     </tr>
-    
+
     <tr>
       <th><code>debug</code></th>
       <td>
@@ -309,7 +309,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-ssh-keyscan">
       <th><code>no-ssh-keyscan</code></th>
       <td>
         Do not automatically run ssh-keyscan before checkout.
@@ -354,7 +354,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags">
       <th><code>tags</code></th>
       <td>
         Tags for the agent.
@@ -363,7 +363,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-ec2">
       <th><code>tags-from-ec2</code></th>
       <td>
         Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as tags.
@@ -372,7 +372,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-ec2-tags">
       <th><code>tags-from-ec2-tags</code></th>
       <td>
         Include the host's EC2 tags as agent tags.
@@ -456,7 +456,7 @@ _Optional attributes:_
         Meta data for the agent.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"queue=default"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA</code></p>
-        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags"><em>Use instead:</em> <code>tags</code></a></p>
       </td>
     </tr>
 
@@ -466,7 +466,7 @@ _Optional attributes:_
         Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2</code></p>
-        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags-from-ec2"><em>Use instead:</em> <code>tags-from-ec2</code></a></p>
       </td>
     </tr>
 
@@ -476,7 +476,7 @@ _Optional attributes:_
         Include the host's EC2 tags as meta-data.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
-        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2-tags</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags-from-ec2-tags"><em>Use instead:</em> <code>tags-from-ec2-tags</code></a></p>
       </td>
     </tr>
 
@@ -486,7 +486,7 @@ _Optional attributes:_
         Include the host's GCP meta-data as meta-data.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
-        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>tags-from-ec2-tags</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags-from-ec2-tags"><em>Use instead:</em> <code>tags-from-ec2-tags</code></a></p>
       </td>
     </tr>
 
@@ -496,7 +496,7 @@ _Optional attributes:_
         Do not automatically verify SSH fingerprints for first-time checkouts.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION</code></p>
-        <p class="Docs__api-param-eg"><em>Use instead:</em> <code>no-ssh-keyscan</code></p>
+        <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code><a/></p>
       </td>
     </tr>
   </tbody>

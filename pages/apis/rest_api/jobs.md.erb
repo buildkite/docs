@@ -1,6 +1,6 @@
 # Jobs API
 
-<%= toc %>
+{:toc}
 
 ## Retry a job
 
@@ -49,7 +49,7 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed or timed out jobs can be retried" }</code></td></tr>
+  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td></tr>
 </tbody>
 </table>
 

@@ -4,7 +4,7 @@ Some tasks need to be run with very strict concurrency rules to ensure they donâ
 
 To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
 
-<%= toc %>
+{:toc}
 
 ## Concurrency Limits
 
@@ -23,7 +23,7 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organization wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines. 
+Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organization wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
 
 ```yml
 steps:
@@ -31,6 +31,7 @@ steps:
   concurrency: 1
   concurrency_group: "tests"
 ```
+{: codeblock-file="pipeline.yml"}
 
 The names of these groups should be unique, unless they're accessing a shared resource like a deployment target. You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created. For example, having multiple groups called `deploy` on steps that are accessing different resources will affect which jobs are able to run at the same time.
 
@@ -59,5 +60,6 @@ The following is an example [command step](/docs/pipelines/command-step) that en
   concurrency: 1
   concurrency_group: 'our-payment-gateway/deploy'
 ```
+{: codeblock-file="pipeline.yml"}
 
 If multiple builds are created with this step, each deployment job will be queued up and run one at a time in the order they were created.
