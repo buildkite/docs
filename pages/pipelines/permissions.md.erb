@@ -1,30 +1,33 @@
+# Controlling user permissions
 
-# Controlling permissions with Teams
 
-Enabling Teams for your organizations gives you fine grained control over the permissions for each of your pipelines.
 
 <%= toc %>
+
+
+
+## Team level permissions
+
+Enabling Teams for your organizations gives you fine grained control over the permissions for each of your pipelines. Teams can be enabled from your Organisation Settings in the Teams section. 
 
 When you first enable Teams, a team is automatically created for your organization called “Everyone” that contains all users. This maintains existing access to pipelines for all the users in your organization.
 
 You can see the teams that you're a member of on the Teams page in your Buildkite settings. From this page, you can add new teams or edit existing ones. By clicking on a team, you can view the members, pipelines, and team specific settings.
 
-## Permissions
-
 ### Organization level permissions
 
 Users who are organization admins can:
 
-* enable and disable teams for their organization
-* create new teams
+* Enable and disable teams for their organization
+* Create new teams
 
 ### Team level permissions
 
 Users who are team maintainers can:
 
-* add users to existing teams, of which they are the maintainer
-* remove users from their teams
-* set read, write, and edit permissions for users on pipelines in their team
+* Add users to existing teams, of which they are the maintainer
+* Remove users from their teams
+* Set read, write, and edit permissions for users on pipelines in their team
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions.
 
