@@ -50,6 +50,11 @@ steps:
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
+<div class="Docs__troubleshooting-note">
+<h1>depends_on and block/wait</h1>
+<p>Note that a step with a <code>depends_on</code> attribute will run immediately after the dependency step has completed, ignoring any <code>block</code> or <code>wait</code> steps.</p>
+</div>
+
 Dependencies can also be added as a list of strings, or a list of steps.
 
 ```yml

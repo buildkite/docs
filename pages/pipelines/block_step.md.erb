@@ -2,7 +2,7 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependcies specifed by `depends_on` take precedence over implicit dependencies, and will not wait for `block` or `wait` steps.
 
 {:toc}
 
