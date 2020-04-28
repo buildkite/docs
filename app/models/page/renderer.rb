@@ -16,6 +16,7 @@ class Page::Renderer
     doc = add_custom_ids(doc)
     doc = add_custom_classes(doc)
     doc = add_automatic_ids_to_headings(doc)
+    doc = add_heading_anchor_links(doc)
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
@@ -68,9 +69,8 @@ class Page::Renderer
     doc
   end
 
-  def add_table_of_contents(doc)
-    # First, we find all the top-level h2s
-    headings = doc.search('./h2')
+  def add_heading_anchor_links(doc)
+    headings = doc.search('./h2', './h3')
 
     # Second, we make them all linkable and give them the right classes.
     headings.each do |node|
@@ -79,6 +79,12 @@ class Page::Renderer
         <a href="##{node['id']}" aria-hidden="true" class="Docs__heading__anchor"></a>
       HTML
     end
+
+    doc
+  end
+
+  def add_table_of_contents(doc)
+    headings = doc.search('./h2')
 
     # Third, we generate and replace the actual toc.
     doc.search('./p').each do |node|

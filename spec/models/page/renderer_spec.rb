@@ -47,16 +47,20 @@ RSpec.describe Page::Renderer do
         <h2 id="section-1" class="Docs__heading">Section 1<a href="#section-1" aria-hidden="true" class="Docs__heading__anchor"></a>
         </h2>
 
-        <h3 id="section-1-subsection-1-dot-1">Subsection 1.1</h3>
+        <h3 id="section-1-subsection-1-dot-1" class="Docs__heading">Subsection 1.1<a href="#section-1-subsection-1-dot-1" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
 
-        <h3 id="section-1-subsection-1-dot-2">Subsection 1.2</h3>
+        <h3 id="section-1-subsection-1-dot-2" class="Docs__heading">Subsection 1.2<a href="#section-1-subsection-1-dot-2" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
 
         <h2 id="section-2" class="Docs__heading">Section 2<a href="#section-2" aria-hidden="true" class="Docs__heading__anchor"></a>
         </h2>
 
-        <h3 id="section-2-subsection-2-dot-1">Subsection 2.1</h3>
+        <h3 id="section-2-subsection-2-dot-1" class="Docs__heading">Subsection 2.1<a href="#section-2-subsection-2-dot-1" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
 
-        <h3 id="section-2-subsection-2-dot-2">Subsection 2.2</h3>
+        <h3 id="section-2-subsection-2-dot-2" class="Docs__heading">Subsection 2.2<a href="#section-2-subsection-2-dot-2" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
@@ -112,7 +116,8 @@ RSpec.describe Page::Renderer do
         
         
         
-        <h3 id="short-id-subsection">Subsection</h3>
+        <h3 id="short-id-subsection" class="Docs__heading">Subsection<a href="#short-id-subsection" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
