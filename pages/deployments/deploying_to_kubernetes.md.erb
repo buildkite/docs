@@ -2,12 +2,12 @@
 
 <%= estimated_time "30 minutes" %>
 
-<%= toc %>
+{:toc}
 
 This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.  The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
-pipelines uses the `DOCKER_IMAGE` enviornment variable to create a [Kubernetes
+pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
 deployment][k8s_deployment] via `kubectl`. Then, you'll see how to link them
 together to automate deploys from master.
 
@@ -41,6 +41,7 @@ steps:
     concurrency: 1
     concurrency_group: deploy/tutorial
 ```
+{: codeblock-file="pipeline.yml"}
 
 Set `concurrency` and `concurrency_group` when updating mutable state. These
 settings ensures only one step runs at a time.
@@ -93,6 +94,7 @@ spec:
             # TODO: replace with the correct port for your application
             - containerPort: 3000
 ```
+{: codeblock-file="k8s/deployment.yml"}
 
 Note manifest includes `${DOCKER_IMAGE}`. There is no environment variable
 subsitution in YAML or `kubectl` itself. This is where our custom deploy script
@@ -122,7 +124,7 @@ manifest="$(mktemp)"
 
 echo '--- \:kubernetes\: Shipping'
 
-envsubst < k8s/app.yml > "${manifest}"
+envsubst < k8s/deployment.yml > "${manifest}"
 kubectl apply -f "${manifest}"
 
 echo '--- \:zzz\: Waiting for deployment'
@@ -158,6 +160,7 @@ otherwise deploys will trigger at the wrong time and even for failed builds!
 
   # More steps to follow
 ```
+{: codeblock-file="pipeline.yml"}
 
 Next add a `trigger` step:
 
@@ -175,6 +178,7 @@ Next add a `trigger` step:
         DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
     branches: master
 ```
+{: codeblock-file="pipeline.yml"}
 
 This `trigger` step creates a build with the same message, commit, and branch.
 `buildkite-agent pipeline-upload` interpolates environment variables so the

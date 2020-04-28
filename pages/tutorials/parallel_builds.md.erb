@@ -2,7 +2,7 @@
 
 Running a build's jobs in parallel is a simple technique to decrease your build’s total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
 
-<%= toc %>
+{:toc}
 
 ## Running multiple agents
 
@@ -47,6 +47,7 @@ steps:
     label: "Tests %n"
     parallelism: 5
 ```
+{: codeblock-file="pipeline.yml"}
 
 Now that the pipeline is configured, create a new build:
 

@@ -2,7 +2,7 @@
 
 Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example, you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a repository `pre-command` hook which sets up some repository-specific environment variables.
 
-<%= toc %>
+{:toc}
 
 ## Types of hooks
 
@@ -10,7 +10,7 @@ There are three types of hooks:
 
 1. [Agent hooks](#agent-hooks) - these exist on the agent’s machine, and are run for every job on any pipeline.
 1. [Repository hooks](#repository-hooks) - these exist in your pipeline repository’s `.buildkite/hooks` directory.
-1. [Plugin hooks](#plugin-hooks) - these are provided by any [plugins](/docs/pipelines/plugins) you've defined in your `pipeline.yml`.
+1. [Plugin hooks](#plugin-hooks) - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml`.
 
 ## Available hooks
 
@@ -102,7 +102,7 @@ To get started create a `.buildkite/hooks` directory, add your hook script, and 
 
 Plugin hooks allow any plugins you’ve defined to execute and override any of the default behavior.
 
-See the [plugin documentation](/docs/pipelines/plugins) for how to implement plugin hooks.
+See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
 ## Hooks on Windows
 

@@ -2,7 +2,7 @@
 
 A *trigger* step creates a build on another pipeline. You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines. Trigger steps can only be defined in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
-<%= toc %>
+{:toc}
 
 ## Permissions
 
@@ -133,6 +133,7 @@ _Optional_ `build` _attributes:_
     meta_data:
       release-version: "1.1"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Environment Variables
 
@@ -148,6 +149,7 @@ You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#envi
     commit: "${BUILDKITE_COMMIT}"
     branch: "${BUILDKITE_BRANCH}"
 ```
+{: codeblock-file="pipeline.yml"}
 
 To pass through pull request information to the triggered build, pass through the branch and pull request environment variables:
 
@@ -163,6 +165,7 @@ To pass through pull request information to the triggered build, pass through th
       BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
       BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
+{: codeblock-file="pipeline.yml"}
 
 To set environment variables on the build created by the trigger step, use the `env` attribute:
 
@@ -173,3 +176,4 @@ To set environment variables on the build created by the trigger step, use the `
     env:
       RELEASE_STREAM: "${RELEASE_STREAM:-stable}"
 ```
+{: codeblock-file="pipeline.yml"}

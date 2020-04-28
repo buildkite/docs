@@ -8,7 +8,15 @@ class Page::Renderer
   end
 
   def render(text, options = {})
-    markdown(options).render(Emoji.parse(text, sanitize: false))
+    html = markdown(options).render(Emoji.parse(text, sanitize: false))
+
+    # It's like our own little HTML::Pipeline. These methods are easily
+    # switchable to HTML::Pipeline steps in the future, if we so wish.
+    doc = Nokogiri::HTML.fragment(html)
+    doc = add_table_of_contents(doc)
+    doc = fix_curl_highlighting(doc)
+    doc = add_code_filenames(doc)
+    doc.to_html.html_safe
   end
 
   private
@@ -36,5 +44,73 @@ class Page::Renderer
     def codespan(code)
       %{<code class="dark-gray border border-gray rounded" style="padding: .1em .25em; font-size: 85%">#{EscapeUtils.escape_html(code)}</code>}
     end
+  end
+
+  def add_table_of_contents(doc)
+    # First, we find all the top-level h2s
+    headings = doc.search('./h2')
+
+    # Second, we make them all linkable and give them the right classes.
+    headings.each do |node|
+      node['class'] = 'Docs__heading'
+      node['id'] = node.text.to_url
+      node.add_child(<<~HTML)
+        <a href="##{node['id']}" aria-hidden="true" class="Docs__heading__anchor"></a>
+      HTML
+    end
+
+    # Third, we generate and replace the actual toc.
+    doc.search('./p').each do |node|
+      next unless node.to_html == '<p>{:toc}</p>'
+
+      if headings.empty?
+        node.replace('')
+      else
+        node.replace(<<~HTML.strip)
+          <div class="Docs__toc">
+            <p>On this page:</p>
+            <ul>
+              #{headings.map {|heading|
+                %{<li><a href="##{heading['id']}">#{heading.text.strip}</a></li>}
+              }.join("")}
+            </ul>
+          </div>
+        HTML
+      end
+    end
+    
+    doc
+  end
+
+  def fix_curl_highlighting(doc)
+    doc.search('code').each do |node|
+      next unless node.text.starts_with?('curl ')
+    
+      node.replace(node.to_html.gsub(/\{.*?\}/mi) {|uri_template|
+        %(<span class="o">) + uri_template + %(</span>)
+      })
+    end
+
+    doc
+  end
+
+  def add_code_filenames(doc)
+    doc.search('./p').each do |node|
+      next unless node.to_html.starts_with?('<p>{: codeblock-file=')
+
+      filename = node.content[/codeblock-file="(.*)"}/, 1]
+
+      figure = Nokogiri::XML::Node.new "figure", doc
+      figure["class"] = "highlight-figure"
+      caption = Nokogiri::XML::Node.new "figcaption", doc
+      caption.content = filename
+      figure.add_child(caption)
+      node.previous_element.add_child(figure)
+
+      node.previous_element.first_element_child.parent = figure
+      node.remove
+    end
+    
+    doc
   end
 end

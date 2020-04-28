@@ -2,11 +2,11 @@
 
 Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
 
-<%= toc %>
+{:toc}
 
 ## Overview
 
-To run your steps using Docker, there are two official [Buildkite plugins](/docs/pipelines/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+To run your steps using Docker, there are two official [Buildkite plugins](/docs/plugins): the [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), and the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) supports repositories with `docker-compose.yml` files, projects that use multiple containers or have dependent services, and building docker images inside pipeline steps.
 
@@ -26,7 +26,7 @@ services:
   redis:
     image: redis
   memcache:
-    image: tutum/memcached
+    image: memcached
   app:
     build: .
     working_dir: /app
@@ -42,6 +42,8 @@ services:
       REDIS_URL: redis://redis
       MEMCACHE_SERVERS: memcache
 ```
+{: codeblock-file="docker-compose.yml"}
+
 
 Mounting `.` (the directory of current build) as a volume in the container allows any changes from inside the container to be visible to the agent. This is required if you want to upload artifacts that were created in the container.
 
@@ -56,6 +58,8 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
     - docker-compose#v3.0.3:
         run: app
 ```
+{: codeblock-file="pipeline.yml"}
+
 
 This is the equivalent of running:
 
@@ -77,6 +81,7 @@ steps:
           image: "node:8"
           workdir: /app
 ```
+{: codeblock-file="pipeline.yml"}
 
 There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on GitHub](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 

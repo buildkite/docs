@@ -1,0 +1,30 @@
+# Plugins Directory
+
+The [Plugins Directory](https://buildkite.com/plugins) is where you can discover, and publish, Buildkite plugins. You can visit the directory at https://buildkite.com/plugins
+
+<a href="https://buildkite.com/plugins"><%= image("plugins-directory.png", width: 404, height: 237, alt: "Screenshot of a number of plugins", class: "no-decoration") %></a>
+
+Plugins supported by the Buildkite team display the Buildkite logo in the directory, and can be found in the [Buildkite Plugins GitHub Organization](https://github.com/buildkite-plugins).
+
+{:toc}
+
+## Adding your plugin
+
+To have your plugin appear in the directory:
+
+1. Host your plugin on GitHub as a public repository.
+1. Ensure your repository contains a valid `plugin.yml` file containing at least the `name` and `description` fields.
+1. Add the `buildkite-plugin` [GitHub repository topic](https://help.github.com/en/github/administering-a-repository/classifying-your-repository-with-topics).
+1. Wait up to 1 hour for the plugin directory to sync with GitHub, and for your plugin to appear.
+
+For example:
+
+<%= image "github-topic.png", width: 1214/2, height: 440/2, alt: "Screenshot of the ECR plugin GitHub repo with the Buildkite-plugin topic highlighted by a red box" %>
+
+Once completed, your plugin will display in the directory as pictured below:
+
+<%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite Plugins Directory" %>
+
+<section class="Docs__troubleshooting-note">
+	<p>If you’ve completed the above steps and your plugin doesn't appear, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we’ll investigate it for you.</p>
+</section>

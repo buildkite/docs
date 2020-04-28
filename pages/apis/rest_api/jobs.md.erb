@@ -1,6 +1,6 @@
 # Jobs API
 
-<%= toc %>
+{:toc}
 
 ## Retry a job
 
@@ -14,7 +14,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
     {
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
       "type": "script",
-      "name": "scripts/build.sh",
+      "name": ":package:",
+      "step_key": "package",
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "build_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
@@ -48,7 +49,7 @@ Error responses:
 
 <table>
 <tbody>
-  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed or timed out jobs can be retried" }</code></td></tr>
+  <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Only failed, timed out or canceled jobs can be retried" }</code></td></tr>
 </tbody>
 </table>
 

@@ -1,4 +1,4 @@
-FROM ruby:2.6.5@sha256:2285f291f222e1b53d22449cc52bad2112f519bcce60248ea1c4d5e8f14c7c04
+FROM ruby:2.6.6@sha256:d388ca35f755e19e03de8007a1086c5b16edd8b02e3c45f16af78921e40bc033
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
@@ -41,7 +41,8 @@ COPY . /app
 # Compile sprockets
 RUN if [ "$RAILS_ENV" = "production" ]; then \
       echo "--- :sprockets: Precompiling assets" \
-      && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile; \
+      && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile \
+      && cp -r /app/public/docs/assets /app/public/assets; \
     fi
 
 EXPOSE 3000

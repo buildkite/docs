@@ -2,7 +2,7 @@
 
 All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
-<%= toc %>
+{:toc}
 
 ## Implicit dependencies with wait and block
 
@@ -20,6 +20,7 @@ steps:
   - command: "three.sh"
   - command: "four.sh"
 ```
+{: codeblock-file="pipeline.yml"}
 
 [Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or via an API call before the rest of the steps can be run.
 
@@ -29,6 +30,7 @@ If you are collecting information with your block steps using the `prompt` or `f
 steps:
   - input: "What is the name of this release?"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Defining explicit dependencies
 
@@ -44,10 +46,11 @@ steps:
     key: "build"
     depends_on: "tests"
 ```
+{: codeblock-file="pipeline.yml"}
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
-Dependencies can also be added as a list of strings, or a list of steps. 
+Dependencies can also be added as a list of strings, or a list of steps.
 
 ```yml
 steps:
@@ -56,6 +59,7 @@ steps:
       - "test-suite"
       - "another-thing"
 ```
+{: codeblock-file="pipeline.yml"}
 
 ```yml
 steps:
@@ -64,6 +68,7 @@ steps:
       - step: "test-suite"
       - step: "another-thing"
 ```
+{: codeblock-file="pipeline.yml"}
 
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
 
@@ -74,12 +79,13 @@ steps:
   - command: "lint.sh"
     depends_on: ~
 ```
+{: codeblock-file="pipeline.yml"}
 
-Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build. 
+Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build.
 
 ## Order of operations
 
-There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.  
+There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.
 
 If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
 
@@ -98,6 +104,7 @@ steps:
     depends_on: "tests"
     allow_dependency_failure: true
 ```
+{: codeblock-file="pipeline.yml"}
 
 For finer control, you can explictly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
 
@@ -110,5 +117,6 @@ steps:
       - step: "another-thing"
         allow_failure: false
 ```
+{: codeblock-file="pipeline.yml"}
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
