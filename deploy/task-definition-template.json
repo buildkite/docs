@@ -22,7 +22,7 @@
         },
         {
           "name": "MATOMO_URL",
-          "value": "thttps://analytics.buildkite.com"
+          "value": "https://analytics.buildkite.com"
         },
         {
           "name": "MATOMO_TRACKER_JS_URL",
