@@ -8,9 +8,9 @@ In this guide we’ll walk through using the Buildkite Agent’s [artifact suppo
 
 How you define your build pipeline determines how you automatically upload artifacts created by build steps:
 
-* pipelines defined in the Buildkite UI use the "Automatic Artifact Uploading" option.
-* pipelines defined in a `pipeline.yml` use the `artifact_paths` attribute of your command step.
-* pipelines defined in a build script use the `buildkite-agent artifact upload` command.
+* pipelines defined in the Buildkite UI use the ["Automatic Artifact Uploading"](#uploading-artifacts-automatic-artifact-uploading) option.
+* pipelines defined in a `pipeline.yml` use the [`artifact_paths` attribute](#uploading-artifacts-the-artifact-paths-attribute) of your command step.
+* pipelines defined in a build script use the [`buildkite-agent artifact upload` command](#uploading-artifacts-uploading-artifacts-from-build-scripts).
 
 ### Automatic Artifact Uploading
 
@@ -47,7 +47,12 @@ The following example uploads `build.tar.gz` from the `pkg` directory to `pgk/bu
 buildkite-agent artifact upload pkg/build.tar.gz
 ```
 
-For full documentation of the `buildkite-agent artifact upload` command, and examples of supported glob patterns, see the [buildkite-agent artifact upload documentation](/docs/agent/v3/cli-artifact#uploading-artifacts).
+For full documentation of the `buildkite-agent artifact upload` command see
+
+* [buildkite-agent artifact upload documentation](/docs/agent/v3/cli-artifact#uploading-artifacts)
+* [Artifact upload examples](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-examples)
+* [Artifact upload glob syntax](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax)
+
 
 ## Downloading Artifacts
 
@@ -65,7 +70,11 @@ For example, to download a `build.zip` artifact you uploaded in the "build" pipe
 buildkite-agent artifact download build.zip tmp/ --step build
 ```
 
-For full documentation and examples, see the [buildkite-agent artifact download documentation](/docs/agent/v3/cli-artifact#downloading-artifacts).
+For full documentation of the `buildkite-agent artifact download` command see
+
+* [buildkite-agent artifact download documentation](/docs/agent/v3/cli-artifact#downloading-artifacts)
+* [Artifact download examples](/docs/agent/v3/cli-artifact#downloading-artifacts-artifact-download-examples)
+* [Artifact download pattern syntax](/docs/agent/v3/cli-artifact#downloading-artifacts-artifact-download-pattern-syntax)
 
 ## Downloading Artifacts Outside a Running Build
 
