@@ -62,11 +62,11 @@ Using `L` or `last` in the _day of month_ field represents the last day. For exa
 
 ##### Modulo
 
-Using the modulo extension allows you to create schedules for less frequent sets of weekdays. Modulo can only be used in the _day of week_ field.
+Using the modulo extension allows you to create schedules for less frequent sets of weekdays. Modulo can only be used with the `day of week` field.
 
-For example, `0 0 * * 0%3` represents midnight on every third Sunday. You can also use the `+` operator to offset this. For instance, you can use `0 0 * * 1%2+1` to schedule a build on every odd Monday, whereas `0 0 * * 1%2` would run every even Monday.
+For example, `0 0 * * 0` represents midnight on every Sunday. Adding a modulo of 3 creates a schedule that runs at midnight on every third Sunday: `0 0 * * 0%3`.
 
-The frequency calculated by `%` begins from an arbitrary point in the past. You can think of `1%2+1` as a calculation, based on the starting point, of `(((numberOfMondaysEncountered)+1)%2)` where an output of 0 will run the build if today is a Monday.
+You can also use the offset `+` operator alongside a modulo value. For instance, adding an offset of 1 to our previous example `0 0 * * 0%3+1` will create a schedule to run a build every third Sunday that is an odd calendar number. 
 
 #### Examples
 
