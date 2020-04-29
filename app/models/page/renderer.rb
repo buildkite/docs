@@ -13,6 +13,10 @@ class Page::Renderer
     # It's like our own little HTML::Pipeline. These methods are easily
     # switchable to HTML::Pipeline steps in the future, if we so wish.
     doc = Nokogiri::HTML.fragment(html)
+    doc = add_custom_ids(doc)
+    doc = add_custom_classes(doc)
+    doc = add_automatic_ids_to_headings(doc)
+    doc = add_heading_anchor_links(doc)
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
@@ -46,18 +50,41 @@ class Page::Renderer
     end
   end
 
-  def add_table_of_contents(doc)
-    # First, we find all the top-level h2s
-    headings = doc.search('./h2')
+  def add_automatic_ids_to_headings(doc)
+    doc.search('./h2').each do |node|
+      node['id'] = node.text.to_url if node['id'].blank?
+
+      # Next we find all the h3 siblings between this, and the next h2, and add
+      # automatic ids to them if they don't have a manual one set already
+      sibling_node = node
+      while sibling_node = sibling_node.next_sibling
+        break if sibling_node.matches?('h2')
+
+        next unless sibling_node['id'].blank? && sibling_node.matches?('h3')
+
+        sibling_node['id'] = node['id'] + "-" + sibling_node.text.to_url
+      end
+    end
+
+    doc
+  end
+
+  def add_heading_anchor_links(doc)
+    headings = doc.search('./h2', './h3')
 
     # Second, we make them all linkable and give them the right classes.
     headings.each do |node|
       node['class'] = 'Docs__heading'
-      node['id'] = node.text.to_url
       node.add_child(<<~HTML)
         <a href="##{node['id']}" aria-hidden="true" class="Docs__heading__anchor"></a>
       HTML
     end
+
+    doc
+  end
+
+  def add_table_of_contents(doc)
+    headings = doc.search('./h2')
 
     # Third, we generate and replace the actual toc.
     doc.search('./p').each do |node|
@@ -108,6 +135,32 @@ class Page::Renderer
       node.previous_element.add_child(figure)
 
       node.previous_element.first_element_child.parent = figure
+      node.remove
+    end
+    
+    doc
+  end
+
+  def add_custom_ids(doc)
+    doc.search('./p').each do |node|
+      next unless node.to_html.starts_with?('<p>{: id=')
+
+      id = node.content[/id="(.*)"}/, 1]
+
+      node.previous_element['id'] = id
+      node.remove
+    end
+    
+    doc
+  end
+  
+  def add_custom_classes(doc)
+    doc.search('./p').each do |node|
+      next unless node.to_html.starts_with?('<p>{: class=')
+
+      css_class = node.content[/class="(.*)"}/, 1]
+
+      node.previous_element['class'] = css_class
       node.remove
     end
     

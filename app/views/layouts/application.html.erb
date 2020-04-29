@@ -9,7 +9,7 @@
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
 
-    <title><%= [ @page_title, yield(:page_title), "Buildkite Documentation" ].join(" | ") %></title>
+    <title><%= [ @page_title, "Buildkite Documentation" ].join(" | ") %></title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
@@ -30,7 +30,7 @@
 
     <!-- Open Graph Metadata -->
     <meta property="og:type" content="<%= content_for(:page_og_type) || "website" %>" />
-    <meta property="og:title" content="<%= content_for(:page_og_title) || content_for(:page_title) || "Buildkite" %>" />
+    <meta property="og:title" content="<%= content_for(:page_og_title) || @page_title || "Buildkite" %>" />
     <meta property="og:description" content="<%= content_for(:page_description) || "Automate your team’s software development processes, from testing through to delivery, no matter the language, environment or toolchain." %>" />
     <meta property="og:image" content="<%= content_for(:page_image) || image_url("opengraph_default.png").gsub(/^\/\//, 'https://') %>" />
     <% if page_image_alt = content_for(:page_image_alt) %>
@@ -39,7 +39,7 @@
     <meta property="og:site_name" content="Buildkite" />
     <meta property="og:locale" content="en_US" />
 
-    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
+    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{@page_title}", logged_in: probably_authenticated? %>
 
     <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
       <meta name="robots" content="noindex, nofollow">
@@ -81,6 +81,7 @@
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker-Based Builds", 'tutorials/docker-containerized-builds' %></li>
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Parallelizing Builds", 'tutorials/parallel-builds' %></li>
                 <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Migrating from Bamboo", 'tutorials/migrating-from-bamboo' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Bazel on Buildkite", 'tutorials/bazel' %></li>
               </ul>
             <% else %>
               <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
