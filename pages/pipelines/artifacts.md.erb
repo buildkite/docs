@@ -4,27 +4,15 @@ In this guide we’ll walk through using the Buildkite Agent’s [artifact suppo
 
 {:toc}
 
-## Uploading Artifacts
+## Uploading Artifacts in Build Steps
 
-How you define your build pipeline determines how you automatically upload artifacts created by build steps:
+Upload artifacts in your build steps by defining file path patterns, either in  `artifact_paths` attribute of your command step or in the “Automatic Artifact Uploading” field of the Buildkite UI.
 
-* pipelines defined in the Buildkite UI use the ["Automatic Artifact Uploading"](#uploading-artifacts-automatic-artifact-uploading) option.
-* pipelines defined in a `pipeline.yml` use the [`artifact_paths` attribute](#uploading-artifacts-the-artifact-paths-attribute) of your command step.
-* pipelines defined in a build script use the [`buildkite-agent artifact upload` command](#uploading-artifacts-uploading-artifacts-from-build-scripts).
-
-### Automatic Artifact Uploading
-
-If you've defined your pipeline in Buildkite, use the “Automatic Artifact Uploading” field, adding patterns separated by semi-colons.
-
-In the following example, any artifacts that are created in the `logs` or `coverage` directories, as well as any of their subdirectories, will be uploaded automatically to `logs/` or `coverage/` respectively.
+The following example shows the Buildkite UI configured to upload any artifacts in the `logs` or `coverage` directories, as well as any of their subdirectories. Files will be uploaded automatically to `logs/` or `coverage/` respectively.
 
 <%= image "artifact_pattern.png", width: 959/2, height: 238/2, alt: "Artifact pattern configuration" %>
 
-### The artifact_paths Attribute
-
-To automatically upload artifacts created by a build step defined in a `pipeline.yml`, set the `artifact_paths` attribute on your command step, one file pattern per array entry.
-
-In the following example, any artifacts that are created in the `logs` or `coverage` directories, as well as any of their subdirectories, will be uploaded automatically to `logs/` or `coverage/` respectively.
+And the same configuration in YAML:
 
 ```yaml
 steps:
@@ -38,7 +26,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Uploading Artifacts from Build Scripts
+## Uploading Artifacts from Scripts
 
 Upload artifacts from your build scripts with the `buildkite-agent artifact` command.
 The following example uploads `build.tar.gz` from the `pkg` directory to `pgk/build.tar.gz`:
