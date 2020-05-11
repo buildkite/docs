@@ -90,11 +90,17 @@ Even though the second command step in the above example is after a wait step, t
 
 ## Order of operations
 
-There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.
+There are three step attributes that can each affect when a step is able to run:
+
+* `if`/`branches`
+* `depends_on`
+* `concurrency_group`
 
 If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
 
 However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
+
+Steps that are in a `concurrency_group` run in the order they are created in, and so if a step depends on another step in a concurrency `concurrency_group` that will affect when the first step is able to run.
 
 ## Allowing dependency failures
 
