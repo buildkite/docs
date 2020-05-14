@@ -100,7 +100,7 @@ If the step you're dependent on doesn't exist, the build will fail without runni
 
 However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
 
-Steps that are in a `concurrency_group` run in the order they are created in, and so if a step depends on another step in a concurrency `concurrency_group` that will affect when the first step is able to run.
+Steps that are in a `concurrency_group` run in the order they are created in and can be delayed in running by the `concurrency` attribute. If your step has a dependency on a step that is in a `concurrency_group`, there is an implicit dependency on the rest of the steps in the group. For more information about concurrency groups, see the [Controlling Concurrency guide](https://buildkite.com/docs/pipelines/controlling-concurrency#concurrency-groups).
 
 ## Allowing dependency failures
 
