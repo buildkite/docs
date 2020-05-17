@@ -35,11 +35,7 @@ The following example uploads `build.tar.gz` from the `pkg` directory to `pgk/bu
 buildkite-agent artifact upload pkg/build.tar.gz
 ```
 
-For full documentation of the `buildkite-agent artifact upload` command see
-
-* [buildkite-agent artifact upload documentation](/docs/agent/v3/cli-artifact#uploading-artifacts)
-* [Artifact upload examples](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-examples)
-* [Artifact upload glob syntax](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax)
+For full documentation of the `buildkite-agent artifact upload` command see the [buildkite-agent artifact upload](/docs/agent/v3/cli-artifact#uploading-artifacts) documentation.
 
 
 ## Downloading Artifacts
@@ -58,17 +54,13 @@ For example, to download a `build.zip` artifact you uploaded in the "build" pipe
 buildkite-agent artifact download build.zip tmp/ --step build
 ```
 
-For full documentation of the `buildkite-agent artifact download` command see
-
-* [buildkite-agent artifact download documentation](/docs/agent/v3/cli-artifact#downloading-artifacts)
-* [Artifact download examples](/docs/agent/v3/cli-artifact#downloading-artifacts-artifact-download-examples)
-* [Artifact download pattern syntax](/docs/agent/v3/cli-artifact#downloading-artifacts-artifact-download-pattern-syntax)
+For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation. 
 
 ## Downloading Artifacts Outside a Running Build
 
 The `buildkite-agent artifact download` command only works within the context of a running build.
 
-If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
+If you want to download an artifact from outside a build use our [Artifact Download API](/docs/agent/v3/cli-artifact#downloading-artifacts-outside-a-running-build).
 
 ## Further documentation
 
