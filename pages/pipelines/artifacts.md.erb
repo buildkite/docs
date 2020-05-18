@@ -54,6 +54,12 @@ For example, to download a `build.zip` artifact you uploaded in the "build" pipe
 buildkite-agent artifact download build.zip tmp/ --step build
 ```
 
+To download artifacts from [triggered builds](/docs/pipelines/trigger-step), pass the `$BUILDKITE_TRIGGERED_FROM_BUILD_ID` [environment variable](/docs/pipelines/environment-variables) to the download command:
+
+```bash
+buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
+```
+
 For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation. 
 
 ## Downloading Artifacts Outside a Running Build
