@@ -2,7 +2,7 @@
   line-height: 1.3;
   h2, h3, h4, blockquote, pre, p { margin: 1em 0; }
   h2 { font-size: #{(24/18)}rem; margin-top: 1.5em; }
-  li { margin-left: 2em; }
+  li { margin: 0.5em 0 0.5em 2em; }
   ul > li { list-style: disc; }
   ol > li { list-style: decimal; }
   li li { margin-left: 1em; }
