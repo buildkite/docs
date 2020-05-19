@@ -4,166 +4,118 @@
 
 {:toc}
 
-This tutorial demonstrates deploying to Amazon Elastic Container Service (ECS)
-using Buildkite best practices. The tutorial uses one pipeline for tests and
-another for deploys.  The test pipeline runs tests and push a Docker image to a
-registry. The deploy pipeline uses the `DOCKER_IMAGE` environment variable to
-deploy an ECS service via `ecs-cli`. Then, you'll see how to link them
-together to automate deploys from master.
+This tutorial demonstrates how to deploy a Docker image to Amazon Elastic Container Service (ECS) using Buildkite best practices.
 
-First up, you need to add a step to your existing test pipline that pushes a
-Docker image.
+We'll use one pipeline to run tests and push a Docker image to a registry (the test pipeline).
+We'll use another to deploy the resulting Docker image to ECS using the [ECS Deploy Buildkite Plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin).
+Finally, we'll link the two pipelines together so that commits to your master branch are automatically deployed to ECS.
 
-Second, you'll need an existing ECS cluster for this tutorial. If you have not
-created a cluster then you use the [AWS ECS wizard][ecs-wizard] or follow the
-[Getting Started][guide] guide.
+## Push a Docker image
 
-<%= image "pipeline.png", alt: 'Successfull Pipeline' %>
+If you already have build process that pushes a Docker image to a registry, you can use that instead of the following NGINX example.
 
-## Create the Deploy Pipeline
+Before pushing your Docker image to a registry you'll need to authenticate the Agent with the registry.
 
-This section covers creating a new Buildkite pipeline that loads steps from
-`.buildkite/pipeline.deploy.yml`. We'll use a [trigger
-steps](https://buildkite.com/docs/pipelines/trigger-step) later on to connect
-the test and deploy pipelines.
+This Dockerfile creates a tiny Docker image that serves the [NGINX](https://www.nginx.com/) docs on port 80.
 
-The first step will be a pipeline upload using our new deploy pipeline YML
-file. Create a new pipeline. Enter `buildkite-agent pipeline upload
-.buildkite/pipeline.deploy.yml` in the commands to run field.
-
-<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline'  %>
-
-Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
-deploy script in the next step.
-
-```yml
-steps:
-  - label: "\:rocket\: Push to \:ecs\:"
-    command: script/buildkite/deploy
-    concurrency: 1
-    concurrency_group: deploy/tutorial
-    env:
-      AWS_REGION: us-east-1
-      # TODO: replace with the name of your ECS cluster
-      ECS_CLUSTER: demo
-```
-
-Set `concurrency` and `concurrency_group` when updating mutable state. These
-settings ensures only one step runs at a time.
-
-## Setup ECS Files
-
-The `ecs-cli` supports Docker Compose files, so we can leverage a simple copy
-and paste example from the ECS sample apps. The `docker-compose.yml` file can
-specify the image, ports, and logging. However we'll need to create another
-file for ECS specifics like the security group and ECS task execution role.
-We'll use the `DOCKER_IMAGE` environment variable to specify the image.
-
-```yml
-version: '3'
-services:
-  web:
-    image: ${DOCKER_IMAGE}
-    ports:
-      - "80:80"
-    logging:
-      driver: awslogs
-      options:
-        # Replace with the name of your application/service
-        awslogs-group: tutorial
-        awslogs-region: us-east-1
-        # Matches the docker-compose service
-        awslogs-stream-prefix: web
-```
-
-In addition to the Docker compose file, there are some parameters specific to
-Amazon ECS that you must specify. Use the VPC, subnet ID, security group IDs
-from the previous step, and ECS task execution role, to create a
-`ecs-params.yml`.
-
-```yml
-version: 1
-task_definition:
-  # TODO: replace if needed
-  task_execution_role: ecsTaskExecutionRole
-  ecs_network_mode: awsvpc
-  task_size:
-    mem_limit: 0.5GB
-    cpu_limit: 256
-run_params:
-  network_configuration:
-    awsvpc_configuration:
-      subnets:
-        # TODO: replace these subnet ids with the relevant ones
-        # for your ECS cluster
-        - subnet-00964632df9a8afc9
-        - subnet-084c08907654829dd
-      security_groups:
-        # TODO: replace this id with the relevant one for your ECS cluster.
-        - sg-075048b703881a26b
-        assign_public_ip: ENABLED
-```
-
-Now you're ready to add a deploy step to your pipeline.
-
-## Writing a Deploy Script
-
-The `esc-cli` has an `up` command similar to `docker-compose up`. We can use
-this to update our cluster with the correct task definitions. Save this file as
-`script/buildkite/deploy`.
+TODO we could switch this out to serve a Buildkite themed static page
 
 ```
-#!/usr/bin/env bash
-
-set -euo pipefail
-
-main() {
-  # Install ecs-cli to a scratch directory if not yet installed.
-  # This does not require sudo permissions.
-  if ! command -v ecs-cli &> /dev/null; then
-    echo "--- Installing the ECS CLI"
-    local scratch="$(mktemp -d)"
-
-    curl -sSL -o "${scratch}/ecs-cli" https://amazon-ecs-cli.s3.amazonaws.com/ecs-cli-linux-amd64-latest
-    chmod +x "${scratch}/ecs-cli"
-
-    export "PATH=${scratch}:${PATH}"
-  fi
-
-  echo "--- Checking esc-cli verison"
-  ecs-cli --version
-
-  echo "--- Configuring the ECS CLI"
-  ecs-cli configure \
-    --cluster "${ECS_CLUSTER}" \
-    --default-launch-type FARGATE \
-    --config-name buildkite
-
-  echo "--- Deploy"
-  ecs-cli compose \
-    --project-name tutorial \
-    service up \
-    --create-log-groups \
-    --cluster-config buildkite
-
-  echo "--- Check Status"
-  ecs-cli compose \
-    --project-name tutorial \
-    service ps \
-    --cluster-config buildkite
-}
-
-main "$@"
+FROM nginx:alpine
 ```
+{: codeblock-file="Dockerfile"}
+
+
+1. Create the pipeline
+
+TODO figure out some command specifics
+
+TODO are we going to host this on
+
+```
+# Build image
+
+# Push to registry
+```
+{: codeblock-file=".buildkite/pipeline.deploy.yml"}
+
+## Configure ECS
+
+1. Install [aws cli](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html) on the agent.
+
+2. Grant the following [permissions](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin#aws-roles) to the Buildkite agent:
+
+    ```
+    Policy:
+      Statement:
+      - Action:
+        - ecr:DescribeImages
+        - ecs:DescribeServices
+        - ecs:RegisterTaskDefinition
+        - ecs:UpdateService
+        - ecs:CreateService
+        Effect: Allow
+        Resource: '*'
+    ```
+
+## Deploy to ECS
+
+The ECS Deploy Buildkite Plugin uses a json task definition to define some cluster settings:
+
+```
+[
+    {
+        "essential": true,
+        "image": "amazon/amazon-ecs-sample",
+        "memory": 100,
+        "name": "buildkite-deploy-example",
+        "portMappings": [
+            {
+                "containerPort": 80,
+                "hostPort": 80
+            }
+        ]
+    }
+]
+```
+{: codeblock-file="ecs-task-definition.json"}
+
+The plugin will create the cluster if it doesn't already exist, so as long as the agent has the permissions mentioned in [Configure CS](#configure-ecs), you can create a deploy pipeline.
+
+1. Create a new pipeline. Enter `buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml` in the commands to run field.
+
+     <%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline'  %>
+
+2. Create `.buildkite/pipeline.deploy.yml`:
+
+    ```yml
+    steps:
+      - label: ":ecs: :rocket:"
+        concurrency_group: "my-service-deploy"
+        concurrency: 1
+        plugins:
+          - ecs-deploy#v1.4.1:
+              cluster: "my-ecs-cluster"
+              service: "my-service"
+              task-definition: "examples/hello-world.json"
+              task-family: "hello-world"
+              image: "${ECR_REPOSITORY}/hello-world:${BUILDKITE_BUILD_NUMBER}"
+    ```
+    {: codeblock-file="pipeline.deploy.yml"}
+
+   Set [`concurrency` and `concurrency_group`](/docs/pipelines/controlling-concurrency#concurrency-limits) when updating mutable state to ensure that only one step runs at a time.
+
 
 ## Test the Pipeline
+
+<!-- TODO how do we pass the image? locally? Or just rely on the registry
 
 Open the deployment pipline and click "New Build". Click "Options" and set the
 `DOCKER_IMAGE` environment variable.
 
 <%= image "manual_deployment.png", width: 1440/2, height: 780/2, alt: "New Manual Build" %>
 
-Assuming your agents have the required access, then success! :tada:
+-->
 
 <%= image "deploy_step.png", alt: "Deploy Step" %>
 
@@ -173,26 +125,25 @@ applications. Open it in your browser.
 ## Continuous Deployment
 
 We'll use a [trigger step](https://buildkite.com/docs/pipelines/trigger-step)
-to connect the test and deploy pipelines. This effectively creates a continuous
-deployment pipeline.
+to connect the test and deploy pipelines.
 
-First, add a wait step at the end of your existing `.buildkite/pipeline.yml`
-otherwise deploys will trigger at the wrong time and even for failed builds!
+TODO why does the wait affect these?
 
-```yml
-  # Add a wait step to only deploy after all steps complete
-  - wait
+1. Add a wait step at the end of `.buildkite/build-pipeline.yml` to prevent deploys triggering at the wrong time or for failed builds.
 
-  # More steps to follow
-```
+    ```yml
+      # Add a wait step to only deploy after all steps complete
+      - wait
+    ```
 
-Next add a `trigger` step:
+2. Next add a `trigger` step:
 
 ```yml
   - label: ':rocket: Deploy'
     # TODO: replace with your deploy pipeline's name
     trigger: ecs-deploy-tutorial
     # Only trigger on master build
+    branches: master
     build:
       message: "${BUILDKITE_MESSAGE}"
       commit: "${BUILDKITE_COMMIT}"
@@ -200,7 +151,6 @@ Next add a `trigger` step:
       env:
         # TODO: replace with your Docker image name
         DOCKER_IMAGE: "sample/buildkite-ecs-tutorial:${BUILDKITE_BUILD_NUMBER}"
-    branches: master
 ```
 
 This `trigger` step creates a build with the same message, commit, and branch.
