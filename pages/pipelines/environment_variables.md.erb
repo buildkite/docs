@@ -98,6 +98,18 @@ The path where the agent has checked out your code for this build. This variable
 
 Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
+<h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR</h3>
+
+The name of the user who authored the commit being built. The value cannot be modified.
+
+Example: `"Carol Danvers"`
+
+<h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR_EMAIL</h3>
+
+The notification email of the user who authored the commit being built. The value cannot be modified.
+
+Example: `"cdanvers@kree-net.com"`
+
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR</h3>
 
 The name of the user who created the build. The value cannot be modified.
@@ -396,7 +408,11 @@ Example: `"https://buildkite-artifacts.example.com/"`
 
 The Access Control List to be set on artifacts being uploaded to your [private S3 bucket](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket). The variable is read by the `buildkite-agent artifact upload` command, as well as during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). The value can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
-Default: `"public-read"`
+Must be one of the following values which map to [S3 Canned ACL grants](https://docs.aws.amazon.com/AmazonS3/latest/dev/acl-overview.html#canned-acl).
+
+Values: `"private"`,`"public-read-write"`,`"public-read"`, `"authenticated-read"`,`"bucket-owner-read"`,`"bucket-owner-full-control"`
+
+  Default: `"public-read"`
 
 <h3 class="h3-caps">BUILDKITE_S3_DEFAULT_REGION</h3>
 

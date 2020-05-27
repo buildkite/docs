@@ -19,7 +19,7 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, 'https://www2.buildkiteassets.com/'
-  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', Matomo::URL
+  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', Matomo::URL, ENV.fetch('BADGE_DOMAIN', 'https://badge.buildkite.com')
   policy.object_src  :none
   policy.script_src  :self, Matomo::URL
   policy.style_src   :self, :unsafe_inline
