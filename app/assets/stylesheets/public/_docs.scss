@@ -22,25 +22,47 @@ $Docs__bp_stacked: 600px;
 
 .Docs__nav__section-container {
   margin-bottom: 15px;
+
+  .Docs__nav__section-heading > img {
+    margin-left: 5px;
+    opacity: 0.75;
+    transform: rotate(-90deg);
+    transition: all 0.15s;
+  }
+
   .Docs__nav__section-content {
     display: none;
+    transform: scaleY(0);
+    transform-origin: top;
+    opacity: 100;
+    transition: all 0.15s;
   }
 }
 
 .Docs__nav__section-container.active {
+
+  img {
+    transform: none;
+  }
+
   .Docs__nav__section-content {
     display: block;
+    transform: none;
+    opacity: 100;
   }
 }
 
 .Docs__nav__section-heading {
   cursor: pointer;
+  display: flex;
   margin: 20px 0 13px 0;
   font-size: 1.1rem;
   font-weight: bold;
   font-style: normal;
   font-family: inherit;
   color: black;
+  user-select: none;
+  -webkit-user-select: none;
 
   @media (max-width: $Docs__bp_stacked) {
     font-size: 1.4rem;

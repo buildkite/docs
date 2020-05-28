@@ -1,6 +1,6 @@
 <nav class="Docs__nav">
   <div class="Docs__nav__section-container" data-docs-path="tutorials">
-    <p class="Docs__nav__section-heading">Tutorials</p>
+    <p class="Docs__nav__section-heading">Tutorials <%= image_tag('nav-exp-icon.svg') %></p>
     <div class="Docs__nav__section-content">
       <ul class="Docs__nav__sub-nav">
         <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Getting Started", 'tutorials/getting-started' %></li>
@@ -16,7 +16,7 @@
     <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '2' %>
 
   <div class="Docs__nav__section-container" data-docs-path="agent">
-    <p class="Docs__nav__section-heading">Agent</p>
+    <p class="Docs__nav__section-heading">Agent <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
 
       <select id="agent-version-selector" class="Docs__nav__version-selector">
@@ -112,7 +112,7 @@
     </div>
 
     <div class="Docs__nav__section-container" data-docs-path="pipelines">
-      <p class="Docs__nav__section-heading">Pipelines</p>
+      <p class="Docs__nav__section-heading">Pipelines <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
@@ -148,7 +148,7 @@
     </div>
 
     <div class="Docs__nav__section-container" data-docs-path="plugins">
-      <p class="Docs__nav__section-heading">Plugins</p>
+      <p class="Docs__nav__section-heading">Plugins <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
@@ -161,7 +161,7 @@
     </div>
 
     <div class="Docs__nav__section-container" data-docs-path="deployments">
-      <p class="Docs__nav__section-heading">Deployments</p>
+      <p class="Docs__nav__section-heading">Deployments <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
@@ -172,7 +172,7 @@
     </div>
 
     <div class="Docs__nav__section-container" data-docs-path="integrations">
-      <p class="Docs__nav__section-heading">Integrations</p>
+      <p class="Docs__nav__section-heading">Integrations <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub", 'integrations/github' %></li>
@@ -201,7 +201,7 @@
     </div>
 
     <div class="Docs__nav__section-container" data-docs-path="apis">
-      <p class="Docs__nav__section-heading">APIs</p>
+      <p class="Docs__nav__section-heading">APIs <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
@@ -250,12 +250,18 @@
       let currentContainer = document.querySelector(`.Docs__nav__section-container[data-docs-path='${currentSectionName}']`);
       currentContainer.classList.add("active");
 
-      let containers = document.getElementsByClassName('Docs__nav__section-heading');
-      for(let container of containers){
-        container.onclick = function() {
-          document.querySelector('.Docs__nav__section-container.active').classList.remove('active');
-          let parent = container.parentElement;
-          parent.classList.add('active');
+      let sectionHeaders = document.getElementsByClassName('Docs__nav__section-heading');
+      for(let sectionHeader of sectionHeaders){
+        sectionHeader.onclick = function() {
+          let parent = sectionHeader.parentElement;
+          let alreadyExpanded = parent.classList.contains('active'); // Track whether section is already expanded, in which case we want to hide it
+          let activeContainer = document.querySelector('.Docs__nav__section-container.active');
+          if (activeContainer && activeContainer !== null) {
+            activeContainer.classList.remove('active');
+          }
+          if (!alreadyExpanded) {
+            parent.classList.add('active');
+          }
         }
       };
   })();
