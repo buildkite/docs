@@ -20,7 +20,21 @@ $Docs__bp_stacked: 600px;
   @media (max-width: $Docs__bp_stacked) { margin-left: -20px; margin-right: -20px; margin-bottom: 40px; padding-right: 0; }
 }
 
+.Docs__nav__section-container {
+  margin-bottom: 15px;
+  .Docs__nav__section-content {
+    display: none;
+  }
+}
+
+.Docs__nav__section-container.active {
+  .Docs__nav__section-content {
+    display: block;
+  }
+}
+
 .Docs__nav__section-heading {
+  cursor: pointer;
   margin: 20px 0 13px 0;
   font-size: 1.1rem;
   font-weight: bold;

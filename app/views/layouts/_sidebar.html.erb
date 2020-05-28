@@ -1,68 +1,68 @@
 <nav class="Docs__nav">
-  <% if request.url.include?('/docs/tutorials') %>
+  <div class="Docs__nav__section-container" data-docs-path="tutorials">
     <p class="Docs__nav__section-heading">Tutorials</p>
-    <ul class="Docs__nav__sub-nav">
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Getting Started", 'tutorials/getting-started' %></li>
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Elastic CI Stack for AWS", 'tutorials/elastic-ci-stack-aws' %></li>
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker-Based Builds", 'tutorials/docker-containerized-builds' %></li>
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Parallelizing Builds", 'tutorials/parallel-builds' %></li>
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Migrating from Bamboo", 'tutorials/migrating-from-bamboo' %></li>
-      <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Bazel on Buildkite", 'tutorials/bazel' %></li>
-    </ul>
-  <% else %>
-    <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-    <%= sidebar_link_to "Tutorials", 'tutorials/getting-started', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-    </p>
-  <% end %>
+    <div class="Docs__nav__section-content">
+      <ul class="Docs__nav__sub-nav">
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Getting Started", 'tutorials/getting-started' %></li>
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Elastic CI Stack for AWS", 'tutorials/elastic-ci-stack-aws' %></li>
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker-Based Builds", 'tutorials/docker-containerized-builds' %></li>
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Parallelizing Builds", 'tutorials/parallel-builds' %></li>
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Migrating from Bamboo", 'tutorials/migrating-from-bamboo' %></li>
+        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Bazel on Buildkite", 'tutorials/bazel' %></li>
+      </ul>
+    </div>
+  </div>
 
-  <% if request.url.include?('/docs/agent') %>
     <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '2' %>
 
+  <div class="Docs__nav__section-container" data-docs-path="agent">
     <p class="Docs__nav__section-heading">Agent</p>
+      <div class="Docs__nav__section-content">
 
-    <select id="agent-version-selector" class="Docs__nav__version-selector">
-      <option value="<%= docs_page_path("agent/v3") %>" <% if current_agent_ver == "3" %>selected<% end %>>Version 3.x (Current)</option>
-      <option value="<%= docs_page_path("agent/v2") %>" <% if current_agent_ver == "2" %>selected<% end %>>Version 2.x</option>
-    </select>
+      <select id="agent-version-selector" class="Docs__nav__version-selector">
+        <option value="<%= docs_page_path("agent/v3") %>" <% if current_agent_ver == "3" %>selected<% end %>>Version 3.x (Current)</option>
+        <option value="<%= docs_page_path("agent/v2") %>" <% if current_agent_ver == "2" %>selected<% end %>>Version 2.x</option>
+      </select>
 
-    <%= javascript_tag nonce: true do %>
-      (function() {
-        var select = document.getElementById('agent-version-selector');
-        select.addEventListener("change", function() {
-          var agentVersionDocsURL = select.options[select.selectedIndex].value;
+      <%= javascript_tag nonce: true do %>
+        (function() {
+          var select = document.getElementById('agent-version-selector');
+          select.addEventListener("change", function() {
+            var agentVersionDocsURL = select.options[select.selectedIndex].value;
 
-          if (String(window.location.pathname).indexOf(agentVersionDocsURL) == -1) {
-            window.location = agentVersionDocsURL;
-          }
-        });
-      })();
-    <% end %>
+            if (String(window.location.pathname).indexOf(agentVersionDocsURL) == -1) {
+              window.location = agentVersionDocsURL;
+            }
+          });
+        })();
+      <% end %>
 
-    <% if current_agent_ver == '2' %>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v2' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v2/installation' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading to v2", 'agent/v2/upgrading-to-v2' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v2/configuration' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v2/ssh-keys' %></li>
-        <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v2/github-ssh-keys' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v2/hooks' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v2/queues' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v2/prioritization' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v2/securing' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">Agent Installers</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v2/debian' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v2/osx' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v2/windows' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v2/linux' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v2/docker' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v2/aws' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %></li>
+      <% if current_agent_ver == '2' %>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v2' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v2/installation' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading to v2", 'agent/v2/upgrading-to-v2' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v2/configuration' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v2/ssh-keys' %></li>
+          <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v2/github-ssh-keys' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v2/hooks' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v2/queues' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v2/prioritization' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v2/securing' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">Agent Installers</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v2/debian' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v2/osx' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v2/windows' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v2/linux' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v2/docker' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v2/aws' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %></li>
+        </ul>
         <p class="Docs__nav__section-subheading">Command-Line Reference</p>
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v2/cli-start' %></li>
@@ -70,183 +70,171 @@
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v2/cli-artifact' %></li>
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v2/cli-pipeline' %></li>
         </ul>
-      <% elsif current_agent_ver == "3" %>
-        <ul class="Docs__nav__sub-nav">
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v3' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v3/installation' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading", 'agent/v3/upgrading' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v3/configuration' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v3/ssh-keys' %></li>
-          <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v3/github-ssh-keys' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v3/hooks' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v3/queues' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v3/prioritization' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v3/securing' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Tokens", 'agent/v3/tokens' %></li>
-        </ul>
-        <p class="Docs__nav__section-subheading">Agent Installers</p>
-        <ul class="Docs__nav__sub-nav">
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v3/debian' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v3/osx' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v3/windows' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v3/linux' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v3/docker' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v3/aws' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %></li>
-        </ul>
-        <p class="Docs__nav__section-subheading">Command-Line Reference</p>
-        <ul class="Docs__nav__sub-nav">
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v3/cli-start' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "annotate", 'agent/v3/cli-annotate' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v3/cli-artifact' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "meta-data", 'agent/v3/cli-meta-data' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v3/cli-pipeline' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "bootstrap", 'agent/v3/cli-bootstrap' %></li>
-          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "step", 'agent/v3/cli-step' %></li>
-        </ul>
-      <% end %>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "Agents", 'agent/v3', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
+        <% elsif current_agent_ver == "3" %>
+          <ul class="Docs__nav__sub-nav">
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v3' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v3/installation' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading", 'agent/v3/upgrading' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v3/configuration' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v3/ssh-keys' %></li>
+            <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v3/github-ssh-keys' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v3/hooks' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v3/queues' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v3/prioritization' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v3/securing' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Tokens", 'agent/v3/tokens' %></li>
+          </ul>
+          <p class="Docs__nav__section-subheading">Agent Installers</p>
+          <ul class="Docs__nav__sub-nav">
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v3/debian' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v3/osx' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v3/windows' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v3/linux' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v3/docker' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v3/aws' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %></li>
+          </ul>
+          <p class="Docs__nav__section-subheading">Command-Line Reference</p>
+          <ul class="Docs__nav__sub-nav">
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v3/cli-start' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "annotate", 'agent/v3/cli-annotate' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v3/cli-artifact' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "meta-data", 'agent/v3/cli-meta-data' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v3/cli-pipeline' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "bootstrap", 'agent/v3/cli-bootstrap' %></li>
+            <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "step", 'agent/v3/cli-step' %></li>
+          </ul>
+        <% end %>
+      </div>
+    </div>
 
-    <% if request.url.include?('/docs/pipelines') %>
+    <div class="Docs__nav__section-container" data-docs-path="pipelines">
       <p class="Docs__nav__section-heading">Pipelines</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Secrets", 'pipelines/secrets' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Notifications", 'pipelines/notifications' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">Step Types</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Command Step", 'pipelines/command-step' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Wait Step", 'pipelines/wait-step' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Block Step", 'pipelines/block-step' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Input Step", 'pipelines/input-step' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">Workflows</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Permissions with Teams", 'pipelines/permissions' %></li>
-      </ul>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "Pipelines", 'pipelines', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
-    <% if request.url.include?('/docs/plugins') %>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'pipelines' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Secrets", 'pipelines/secrets' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Notifications", 'pipelines/notifications' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">Step Types</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Command Step", 'pipelines/command-step' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Wait Step", 'pipelines/wait-step' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Block Step", 'pipelines/block-step' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Input Step", 'pipelines/input-step' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">Workflows</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Permissions with Teams", 'pipelines/permissions' %></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="Docs__nav__section-container" data-docs-path="plugins">
       <p class="Docs__nav__section-heading">Plugins</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Plugins", 'plugins/using' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins Directory", 'plugins/directory' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugin Tools", 'plugins/tools' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Plugins", 'plugins/writing' %></li>
-      </ul>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "Plugins", 'plugins', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'plugins' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Using Plugins", 'plugins/using' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugins Directory", 'plugins/directory' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Plugin Tools", 'plugins/tools' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Writing Plugins", 'plugins/writing' %></li>
+        </ul>
+      </div>
+    </div>
 
-    <% if request.url.include?('/docs/deployments') %>
+    <div class="Docs__nav__section-container" data-docs-path="deployments">
       <p class="Docs__nav__section-heading">Deployments</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
-      </ul>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "Deployments", 'deployments', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'deployments' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %></li>
+        </ul>
+      </div>
+    </div>
 
-    <% if request.url.include?('/docs/integrations') %>
+    <div class="Docs__nav__section-container" data-docs-path="integrations">
       <p class="Docs__nav__section-heading">Integrations</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub", 'integrations/github' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitLab", 'integrations/gitlab' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifactory", 'integrations/artifactory' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Slack", 'integrations/slack' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Phabricator", 'integrations/phabricator' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">SSO</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'integrations/sso' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Okta", 'integrations/sso/okta' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Suite", 'integrations/sso/g-suite' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Cloud Identity", 'integrations/sso/g-cloud-identity' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %></li>
-      </ul>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "Integrations", 'integrations', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub", 'integrations/github' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "GitLab", 'integrations/gitlab' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifactory", 'integrations/artifactory' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Slack", 'integrations/slack' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Phabricator", 'integrations/phabricator' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">SSO</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'integrations/sso' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Okta", 'integrations/sso/okta' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Suite", 'integrations/sso/g-suite' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "G Cloud Identity", 'integrations/sso/g-cloud-identity' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %></li>
+        </ul>
+      </div>
+    </div>
 
-    <% if request.url.include?('/docs/apis') %>
+    <div class="Docs__nav__section-container" data-docs-path="apis">
       <p class="Docs__nav__section-heading">APIs</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">Webhooks</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">REST API</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/rest-api' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Organizations", 'apis/rest-api/organizations' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Pipelines", 'apis/rest-api/pipelines' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Builds", 'apis/rest-api/builds' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Jobs", 'apis/rest-api/jobs' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agents", 'apis/rest-api/agents' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %></li>
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "User", 'apis/rest-api/user' %></li>
-      </ul>
-      <p class="Docs__nav__section-subheading">GraphQL API</p>
-      <ul class="Docs__nav__sub-nav">
-        <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/graphql-api' %></li>
-      </ul>
-    <% else %>
-      <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-      <%= sidebar_link_to "APIs", 'apis', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
-      </p>
-    <% end %>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">Webhooks</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">REST API</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/rest-api' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Organizations", 'apis/rest-api/organizations' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Pipelines", 'apis/rest-api/pipelines' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Builds", 'apis/rest-api/builds' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Jobs", 'apis/rest-api/jobs' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agents", 'apis/rest-api/agents' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %></li>
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "User", 'apis/rest-api/user' %></li>
+        </ul>
+        <p class="Docs__nav__section-subheading">GraphQL API</p>
+        <ul class="Docs__nav__sub-nav">
+          <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/graphql-api' %></li>
+        </ul>
+      </div>
+    </div>
 
     <% if probably_authenticated? %>
       <%= link_to "Dashboard", dashboard_path, class: "Docs__nav__homebutton" %>
@@ -254,3 +242,21 @@
       <%= link_to "Home", root_path, class: "Docs__nav__homebutton" %>
     <% end %>
 </nav>
+
+<%= javascript_tag nonce: true do %>
+  (function() {
+      let paths = window.location.pathname.split("/");
+      let currentSectionName = paths[2];
+      let currentContainer = document.querySelector(`.Docs__nav__section-container[data-docs-path='${currentSectionName}']`);
+      currentContainer.classList.add("active");
+
+      let containers = document.getElementsByClassName('Docs__nav__section-heading');
+      for(let container of containers){
+        container.onclick = function() {
+          document.querySelector('.Docs__nav__section-container.active').classList.remove('active');
+          let parent = container.parentElement;
+          parent.classList.add('active');
+        }
+      };
+  })();
+<% end %>
