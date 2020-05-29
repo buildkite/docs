@@ -27,7 +27,7 @@ $color-green: rgb(3, 165, 98);
   .Docs__nav__section-content { display: none; }
   &.current .Docs__nav__section-heading { color: $color-green; }
   &.expanded {
-    img { transform: rotate(180deg); }
+    img { transform: rotate(-180deg); }
     .Docs__nav__section-content { display: block; }
   }
 }
