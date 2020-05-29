@@ -13,31 +13,34 @@
     </div>
   </div>
 
-    <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '2' %>
+    <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '3' %>
 
   <div class="Docs__nav__section-container" data-docs-path="agent">
     <p class="Docs__nav__section-heading">Agent <%= image_tag('nav-exp-icon.svg') %></p>
       <div class="Docs__nav__section-content">
 
       <select id="agent-version-selector" class="Docs__nav__version-selector">
-        <option value="<%= docs_page_path("agent/v3") %>" <% if current_agent_ver == "3" %>selected<% end %>>Version 3.x (Current)</option>
-        <option value="<%= docs_page_path("agent/v2") %>" <% if current_agent_ver == "2" %>selected<% end %>>Version 2.x</option>
+        <option value="3" <% if current_agent_ver == "3" %>selected<% end %>>Version 3.x (Current)</option>
+        <option value="2" <% if current_agent_ver == "2" %>selected<% end %>>Version 2.x</option>
       </select>
 
       <%= javascript_tag nonce: true do %>
         (function() {
           var select = document.getElementById('agent-version-selector');
           select.addEventListener("change", function() {
-            var agentVersionDocsURL = select.options[select.selectedIndex].value;
-
-            if (String(window.location.pathname).indexOf(agentVersionDocsURL) == -1) {
-              window.location = agentVersionDocsURL;
+            let currentContainer = document.querySelector('.Docs__nav__agent_subsection_container.expanded');
+            if (currentContainer && currentContainer !== null) {
+              currentContainer.classList.remove('expanded');
             }
+
+            var selectedAgentVersion = select.options[select.selectedIndex].value;
+            let selectedVersionContainer = document.querySelector(`.Docs__nav__agent_subsection_container[data-agent-version='${selectedAgentVersion}']`);
+            selectedVersionContainer.classList.add("expanded");
           });
         })();
       <% end %>
 
-      <% if current_agent_ver == '2' %>
+      <div class="Docs__nav__agent_subsection_container <% if current_agent_ver == "2" %>expanded<% end %>" data-agent-version="2">
         <ul class="Docs__nav__sub-nav">
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v2' %></li>
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v2/installation' %></li>
@@ -70,7 +73,8 @@
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v2/cli-artifact' %></li>
           <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v2/cli-pipeline' %></li>
         </ul>
-        <% elsif current_agent_ver == "3" %>
+      </div>
+      <div class="Docs__nav__agent_subsection_container <% if current_agent_ver == "3" %>expanded<% end %>" data-agent-version="3">
           <ul class="Docs__nav__sub-nav">
             <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v3' %></li>
             <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v3/installation' %></li>
@@ -107,7 +111,7 @@
             <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "bootstrap", 'agent/v3/cli-bootstrap' %></li>
             <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "step", 'agent/v3/cli-step' %></li>
           </ul>
-        <% end %>
+        </div>
       </div>
     </div>
 

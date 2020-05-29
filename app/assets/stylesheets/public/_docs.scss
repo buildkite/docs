@@ -120,6 +120,13 @@ $color-green: rgb(3, 165, 98);
   }
 }
 
+.Docs__nav__agent_subsection_container {
+  display: none;
+  &.expanded {
+    display: block;
+  }
+}
+
 // .Docs__nav__section-heading--link {
 //   padding: 0;
 // }
