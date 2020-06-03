@@ -4,7 +4,7 @@ Any identify provider that supports SAML 2.0 can be used to authorize access to 
 
 {:toc}
 
-There are two workflows for setting up a new SAML provider depending on your Idp's setup process: If you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.  
+There are two workflows for setting up a new SAML provider depending on your Idp's setup process: If you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
@@ -12,7 +12,7 @@ There are two workflows for setting up a new SAML provider depending on your Idp
 
 ## Set up with an ACS URL
 
-If your IdP requires information from Buildkite as part of the setup process, you can generate your unique Buildkite URLs first and enter the rest of your IdP information later. 
+If your IdP requires information from Buildkite as part of the setup process, you can generate your unique Buildkite URLs first and enter the rest of your IdP information later.
 
 ### Get your ACS URL and configure your IdP
 
@@ -30,7 +30,7 @@ If you IdP supports meta-data URL setup, you can find your unique Buildkite orga
 
 ### Update your Buildkite SAML provider
 
-In your Buildkite Single Sign-On menu, select your Custom SAML provider from the list of Configured SSO Providers. 
+In your Buildkite Single Sign-On menu, select your Custom SAML provider from the list of Configured SSO Providers.
 
 Click the 'Edit Settings' button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
 
@@ -46,7 +46,7 @@ Manual data entry requires the following three fields:
     <tr>
         <td>Issuer URL</td>
         <td>
-            The identifing URL of your chosen provider.  
+            The identifying URL of your chosen provider.
         </td>
     </tr>
     <tr>
@@ -59,11 +59,11 @@ Manual data entry requires the following three fields:
 
 <%= image "custom-saml-settings.png", width: 1746/2, height: 926/2, alt: "Screenshot of the Buildkite Custom SAML Settings Page" %>
 
-After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider). 
+After completing your chosen option, [Perform a test login](#perform-a-test-login), then [Enable the new SSO provider](#enable-the-new-sso-provider).
 
 ## Set up manually
 
-There are two ways to set up your custom provider: using your Buildkite meta-data XML URL, or manually adding your Buildkite data into your identity provider. 
+There are two ways to set up your custom provider: using your Buildkite meta-data XML URL, or manually adding your Buildkite data into your identity provider.
 
 ### Set up your IdP
 
@@ -73,13 +73,13 @@ Manual setup is different for each provider, however it usually requires the fol
     <tr>
         <td>Single Sign-On URL</td>
         <td>
-            Your unique SSO service URL from Buildkite that will be sending requests to your identity provider. 
+            Your unique SSO service URL from Buildkite that will be sending requests to your identity provider.
         </td>
     </tr>
     <tr>
         <td>Entity Identifier</td>
         <td>
-            https://buildkite.com  
+            https://buildkite.com
         </td>
     </tr>
     <tr>
@@ -93,7 +93,7 @@ Manual setup is different for each provider, however it usually requires the fol
 
 If your IdP requires an ACS URL before it will provide the above information, follow the instructions in the [Set up with an ACS URL](#set-up-with-an-acs-url) section to generate one.
 
-If your custom provider needs further information, please email [support@buildkite.com](mailto:support@buildkite.com). 
+If your custom provider needs further information, please email [support@buildkite.com](mailto:support@buildkite.com).
 
 ### Create a Buildkite SAML provider
 
@@ -115,7 +115,7 @@ Manual data entry requires the following three fields:
     <tr>
         <td>Issuer URL</td>
         <td>
-            The identifing URL of your chosen provider.  
+            The identifying URL of your chosen provider.
         </td>
     </tr>
     <tr>
@@ -191,11 +191,10 @@ Buildkite accepts a subset of the SAML attributes from identity providers. The a
     </tr>
 </table>
 
-When using the `teams` attribute, you can also specify roles. The `maintainer` or `member` role can be appended to the team UUID. 
+When using the `teams` attribute, you can also specify roles. The `maintainer` or `member` role can be appended to the team UUID.
 
 For example, the following code will specify the member role for the first team and the maintainer role for the second team:
 
 ```
 teams="b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member, a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer"
 ```
-
