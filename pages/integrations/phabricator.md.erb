@@ -1,6 +1,6 @@
 # Phabricator
 
-[Phabricator](https://phacility.com/phabricator/) can trigger Buildkite builds on new revisions through Habormaster.
+[Phabricator](https://phacility.com/phabricator/) can trigger Buildkite builds on new revisions through Harbormaster.
 
 Phabricator and Buildkite integrate using webhooks. Phabricator triggers builds in Buildkite with webhooks, then Buildkite reports the status back to Phabricator also using webhooks.
 
@@ -9,7 +9,7 @@ Phabricator and Buildkite integrate using webhooks. Phabricator triggers builds 
 ## Prerequisites
 
 Check that your repository is activated in your Phabricator instance and
-Habormaster is installed. Configure a pipeline for that repository in Buildkite. You'll also need to create a Buildkite API Access Token.
+Harbormaster is installed. Configure a pipeline for that repository in Buildkite. You'll also need to create a Buildkite API Access Token.
 
 <div class="Docs__note">
 	<p>Admin access in both Phabricator and your Buildkite organization will be required.</p>
@@ -19,7 +19,7 @@ Habormaster is installed. Configure a pipeline for that repository in Buildkite.
 
 Create a new Build Plan in Harbormaster.
 
-Inside Habormaster open "Manage Build Plans". Click "Create Build Plan" located in the upper right.
+Inside Harbormaster open "Manage Build Plans". Click "Create Build Plan" located in the upper right.
 
 <%= image "phabricator_create_build_plan.png", width: 1900/2, height: 780/2, alt: "Creating a new Build Plan in Phabricator" %>
 
