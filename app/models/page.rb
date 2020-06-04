@@ -60,10 +60,9 @@ class Page
     end
 
     def render(*args)
-      av = ActionView::Base.new
-      av.view_paths = ActionController::Base.view_paths
-      av.view_paths << Rails.root.join("app/views/pages").to_s
-      av.render(*args)
+      ActionController::Base.append_view_path "app/views/pages"
+      renderer = ActionController::Base.renderer.new
+      renderer.render(partial: args.first)
     end
 
     def render_markdown(markdown_path, *args)
