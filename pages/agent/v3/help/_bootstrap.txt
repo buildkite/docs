@@ -60,7 +60,7 @@ Options:
    --git-submodules                     Enable git submodules [$BUILDKITE_GIT_SUBMODULES]
    --pty                                Run jobs within a pseudo terminal [$BUILDKITE_PTY]
    --shell value                        The shell to use to interpret build commands (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
-   --phases value                       The specific phases to execute. The order they're defined is is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
+   --phases value                       The specific phases to execute. The order they're defined is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
    --redacted-vars value                Pattern of environment variable names containing sensitive values [$BUILDKITE_REDACTED_VARS]
    --debug                              Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --experiment value                   Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]

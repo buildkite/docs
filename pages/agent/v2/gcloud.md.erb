@@ -25,7 +25,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v2/ubuntu).
 
 ## Running the agent on Google Container Engine
 
-[Google Container Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket and binary as volumes. For example:
+[Google Container Engine](https://cloud.google.com/container-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the Docker socket and binary as volumes. For example:
 
 Start a Google Container Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add):
 

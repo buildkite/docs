@@ -20,7 +20,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 ## Running the agent on Google Kubernetes Engine
 
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the the Docker socket as a volume.
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the Docker socket as a volume.
 
 Start a Google Kubernetes Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add) using the General-purpose Machine family:
 
@@ -227,7 +227,7 @@ You can upload the [artifacts](/docs/builds/artifacts) created by your builds to
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"
 ```
 
-Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts). 
+Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
 
 You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Agent v3.15.2 and above you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up environment variables.
 
@@ -257,7 +257,7 @@ To override the default path, export the environment variable `BUILDKITE_GCS_PAT
 export BUILDKITE_GCS_PATH_PREFIX="custom-folder-structure/"
 ```
 
-The above variable export will cause the artifact path to use your custom prefix instead of the `GCS_BUCKET_NAME`: 
+The above variable export will cause the artifact path to use your custom prefix instead of the `GCS_BUCKET_NAME`:
 
 ```shell
 # default path
