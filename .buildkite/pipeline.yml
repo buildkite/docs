@@ -24,3 +24,9 @@ steps:
           formatter:
             type: details
           context: test-summary
+  - label: ":lint-roller: Spellcheck"
+    plugins:
+      - docker#v3.5.0:
+          image: jdkato/vale
+          always-pull: true
+          command: ["$(pwd)/vale:/styles", "$(pwd)/.:/docs", "-w", "/docs"]
