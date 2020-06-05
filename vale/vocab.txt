@@ -34,7 +34,6 @@ Dockerfile
 dogstatsd
 env
 eval
-excercised
 Explainshell
 fff
 ffxdq
@@ -68,7 +67,6 @@ mutex
 namespace
 negator
 Noreply
-Notfication
 npm
 nssm
 Okta
@@ -96,7 +94,6 @@ refspec
 repo
 rvm
 sed
-senarios
 sha
 shasum
 Shellcheck
@@ -108,9 +105,7 @@ substrings
 sudo
 svg
 systemd
-tada
 tmp
-toc
 toolmantim
 tooltip
 udp
