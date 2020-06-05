@@ -27,4 +27,4 @@ steps:
   - label: ":lint-roller: Spellcheck"
     commands:
       - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v2.2.2
-      - vale pages
+      - ./bin/vale pages
