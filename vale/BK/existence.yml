@@ -6,3 +6,4 @@ ignorecase: True
 swap:
   whitelist: allowlist
   blacklist: blocklist
+  oAuth: OAuth
