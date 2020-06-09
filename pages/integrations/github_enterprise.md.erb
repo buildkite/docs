@@ -38,13 +38,13 @@ Go to the <a href="https://buildkite.com/organizations/-/settings" rel="nofollow
 
 <%= image "buildkite-organization-settings.png", width:1704/2, height:93/2, alt:"Screenshot of the Buildkite menu bar with the organization settings link selected" %>
 
-Scroll down to the **GitHub Enterprise** settings section. 
+Scroll down to the **GitHub Enterprise** settings section.
 The form requires:
 
 - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1, and
 - The base URL of your GitHub Enterprise Installation
 
-If you're using self-signed certificates, make sure the 'Verify TLS Certificate' checkbox is not checked. 
+If you're using self-signed certificates, make sure the 'Verify TLS Certificate' checkbox is not checked.
 
 Press **Save GitHub Enterprise Settings** to save your settings. After saving, the 'Secret' field will appear blank - it has been saved and will not be displayed on Buildkite.com.
 
@@ -71,7 +71,7 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Installation
 
 ## Firewalled installs
 
-If your GitHub Enterprise is behind a firewall you’ll need to allow Buildkite’s IP address so we can perform oAuth authentications use GitHub Enterprise API to update your pull request statuses.
+If your GitHub Enterprise is behind a firewall you’ll need to allow Buildkite’s IP address so we can perform OAuth authentications use GitHub Enterprise API to update your pull request statuses.
 
 All Buildkite network traffic to your GitHub Enterprise install will come from the following IP address: `54.165.103.71`. Please configure your network to allow traffic from this IP address.
 
