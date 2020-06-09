@@ -1,6 +1,6 @@
 # GitHub Enterprise
 
-Buildkite can connect to your GitHub Enterprise installation and use the Commit Status API to update the status of commits in Pull Requests.
+Buildkite can connect to your GitHub Enterprise Server and use the Commit Status API to update the status of commits in Pull Requests.
 
 {:toc}
 
@@ -28,13 +28,13 @@ After sucessfully registering your application, you can optionally add a logo to
 
 <%= image "buildkite-square.png", width:350/2, height:350/2, alt:"Buildkite Logo" %>
 
-Make a note of your Client ID and Client Secret, you will need those to connect your GitHub Enterprise installation with Buildkite in the next step.
+Make a note of your Client ID and Client Secret, you will need those to connect your GitHub Enterprise Server with Buildkite in the next step.
 
 <%= image "client-id-and-secret.png", width:767/2, height:707/2, alt:"Screenshot of the Client ID and Client Secret section of the Buildkite OAuth App settings page" %>
 
 ## Step 2. Update your Buildkite organization settings
 
-Go to the <a href="https://buildkite.com/organizations/-/settings" rel="nofollow">Organization Settings</a> page of the Buildkite organization you'd like to connect to your GitHub Enterprise installation:
+Go to the <a href="https://buildkite.com/organizations/-/settings" rel="nofollow">Organization Settings</a> page of the Buildkite organization you'd like to connect to your GitHub Enterprise Server:
 
 <%= image "buildkite-organization-settings.png", width:1704/2, height:93/2, alt:"Screenshot of the Buildkite menu bar with the organization settings link selected" %>
 
@@ -42,7 +42,7 @@ Scroll down to the **GitHub Enterprise** settings section.
 The form requires:
 
 - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1, and
-- The base URL of your GitHub Enterprise Installation
+- The base URL of your GitHub Enterprise Server
 
 If you're using self-signed certificates, make sure the 'Verify TLS Certificate' checkbox is not checked.
 
@@ -58,22 +58,22 @@ You can optionally supply a TLS certificate pair to be used by Buildkite as a cl
 
 For Buildkite to mark commits and pull requests as pass or fail, you'll need to authorize your GitHub Enterprise user account with Buildkite.
 
-In your Buildkite Personal Settings, click on the <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps</a> menu item. Here you'll see your GitHub Enterprise Installation along with any other connected apps. Click **Connect**:
+In your Buildkite Personal Settings, click on the <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps</a> menu item. Here you'll see your GitHub Enterprise Server along with any other connected apps. Click **Connect**:
 
 <%= image "buildkite-connected-apps-settings.png", width:1960/2, height:622/2, alt:"Screenshot of the Connected Apps page in Buildkite Personal Settings with the GitHub Enterprise App" %>
 
-You will be redirected back to your GitHub Enterprise Installation, where it will ask you to authorize your new Buildkite OAuth app to use your GitHub Enterprise account. Click **Authorize** to complete your setup:
+You will be redirected back to your GitHub Enterprise Server, where it will ask you to authorize your new Buildkite OAuth app to use your GitHub Enterprise account. Click **Authorize** to complete your setup:
 
 <%= image "authorize-buildkite.png", width:1128/2 , height:1392/2, alt:"Screenshot of the Authorization page in GitHub Enterprise" %>
 
 That's it! Next time you create a pipeline with a repository that's either `https://git.mycompany.com/acme-inc/app.git` or `git@git.mycompany.com:acme-inc/app.git`,
-Buildkite will recognize that it's hosted on your GitHub Enterprise Installation, and use your newly created OAuth authorization to update the commit statuses.
+Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and use your newly created OAuth authorization to update the commit statuses.
 
 ## Firewalled installs
 
 If your GitHub Enterprise is behind a firewall you’ll need to allow Buildkite’s IP address so we can perform OAuth authentications use GitHub Enterprise API to update your pull request statuses.
 
-All Buildkite network traffic to your GitHub Enterprise install will come from the following IP address: `54.165.103.71`. Please configure your network to allow traffic from this IP address.
+All Buildkite network traffic to your GitHub Enterprise Server will come from the following IP address: `54.165.103.71`. Please configure your network to allow traffic from this IP address.
 
 For additional security you can create a proxy which allows only the API endpoints we require:
 
