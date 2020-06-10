@@ -23,7 +23,7 @@ module ApplicationHelper
                   # to them on GitHub. So until we remove the symlink, we'll just rewrite the
                   # URL so it points to the /pages version.
                   sub('/app/views/pages', '/pages')
-
+  
     "https://github.com/buildkite/docs/tree/master#{view_file}"
   end
 
@@ -37,9 +37,5 @@ module ApplicationHelper
 
   def algolia_app_id
     ENV.fetch("ALGOLIA_APP_ID", "unknown")
-  end
-
-  def render_attribute_content(attribute)
-    render(partial: "sidebar/#{attribute}", formats: [:md]).to_json.html_safe
   end
 end
