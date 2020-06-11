@@ -40,6 +40,6 @@ module ApplicationHelper
   end
 
   def render_attribute_content(attribute)
-    render(partial: "sidebar/#{attribute}", formats: [:md]).to_json.html_safe
+    render(partial: "quick_reference/#{attribute}", formats: [:md]).to_json.html_safe
   end
 end
