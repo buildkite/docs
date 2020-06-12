@@ -1,0 +1,7 @@
+allow:
+  - hooks
+  - hook
+  - execute
+  - failure
+  - failures
+  - failed
