@@ -1,0 +1,41 @@
+{
+  "steps": {
+    "name": "Steps",
+    "textContent": <%= render_attribute_content "steps" %>,
+    "attributes": [
+      {
+        "name": "command",
+        "icon": "https://media1.tenor.com/images/aec558591a2bc04a12fe6acea294de62/tenor.gif",
+        "shortDescription": "A command step runs one or more shell commands on an agent.",
+        "docsURL": "https://buildkite.com/docs/pipelines/command-step",
+        "textContent": <%= render_attribute_content "steps/command" %>,
+        "attributes": [
+          {
+            "name": "command",
+            "isRequired": true,
+            "textContent": <%= render_attribute_content "steps/command/command" %>
+          }
+        ]
+      }
+    ]
+  },
+  "notify": {
+    "name": "Notifications",
+    "textContent": <%= render_attribute_content "notifications" %>,
+    "attributes": [
+      {
+        "name": "notify",
+        "icon": "http://www.quickmeme.com/img/22/22465ca876c39fe4b37ffebdd71d123b4f26996156ccb5ee2d60d8b4264bc58b.jpg",
+        "shortDescription": "The notify attribute allows you to trigger build notifications to different services.",
+        "docsURL": "https://buildkite.com/docs/pipelines/notifications",
+        "textContent": <%= render_attribute_content "notifications/notify" %>,
+        "attributes": [
+          {
+            "name": "email",
+            "textContent": <%= render_attribute_content "notifications/notify/email" %>
+          }
+        ]
+      }
+    ]
+  }
+}
