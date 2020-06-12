@@ -8,7 +8,8 @@ RSpec.feature "Quick Reference" do
       body = JSON.parse(page.body)
 
       expect(body).to be_a Hash
-      expect(body["steps"]).to be_an Array
+      expect(body["steps"]).to be_an Hash
+      expect(body["notify"]).to be_an Hash
     end
   end
 end
