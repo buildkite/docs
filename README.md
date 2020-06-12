@@ -33,6 +33,12 @@ docker-compose up --build
 docker-compose -f docker-compose.production.yml up --build
 ```
 
+## Linting
+
+We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors. 
+
+If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
+
 ## License
 
 See [LICENSE.md](LICENSE.md) (MIT)

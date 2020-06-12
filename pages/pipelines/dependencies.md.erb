@@ -52,7 +52,7 @@ In the above example, the second command step (build) will not run until the fir
 
 <div class="Docs__troubleshooting-note">
 <h1>depends_on and block/wait</h1>
-<p>Note that a step with an explicit dependency specificed with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.</p>
+<p>Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.</p>
 </div>
 
 Dependencies can also be added as a list of strings, or a list of steps.
@@ -117,7 +117,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-For finer control, you can explictly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
+For finer control, you can explicitly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
 
 ```yml
 steps:

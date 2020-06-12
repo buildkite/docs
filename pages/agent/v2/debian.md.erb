@@ -5,7 +5,7 @@
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/debian">see the latest version of this document</a>.
 </section>
 
-The Buildkite Agent can be installed on on Debian versions 7.x and 8.x using our signed apt repository.
+The Buildkite Agent can be installed on Debian versions 7.x and 8.x using our signed apt repository.
 
 {:toc}
 
@@ -21,7 +21,7 @@ sudo apt-get update
 <p>Debian doesn't always have <code>sudo</code> available, so you can run these commands as root and omit the <code>sudo</code>, or install the sudo package as root first.</p>
 </div>
 
-Next, ensure you have the `apt-transport-https` package installed for the https package repository, and the `dirmngr` package installed for adding the signing key:
+Next, ensure you have the `apt-transport-https` package installed for the HTTPS package repository, and the `dirmngr` package installed for adding the signing key:
 
 ```shell
 sudo apt-get install -y apt-transport-https dirmngr

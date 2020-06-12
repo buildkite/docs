@@ -16,7 +16,7 @@ To set meta-data in the meta-data store, use the `set` command with a key/value 
 buildkite-agent meta-data set "release-version" "1.1"
 ```
 
-This command results in the value "1.1" being associated with the key "release-version" in the meta-data store. 
+This command results in the value "1.1" being associated with the key "release-version" in the meta-data store.
 
 ## Getting data
 
@@ -30,7 +30,7 @@ To retrieve meta-data, use the `get` command with the previously set key:
 buildkite-agent meta-data get "release-version"
 ```
 
-Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version", it will return an error. 
+Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version", it will return an error.
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Default values</p>
@@ -49,9 +49,11 @@ https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-versi
 
 You can use meta-data to identify builds when searching for builds in the REST API:
 
+<!-- vale off -->
 https://buildkite.com/docs/apis/rest-api/builds
 
 For more information see the [Buildkite REST Builds API documentation](https://buildkite.com/docs/apis/rest-api/builds).
+<!-- vale on -->
 
 ## Further documentation
 

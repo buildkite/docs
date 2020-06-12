@@ -65,6 +65,6 @@ To upgrade a _Red Hat / CentOS_ 1.0 beta agent:
 * Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
 * Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
 
-Note that when you install the agent on a new machine using the debian / rpm packages the agent will be installed and run as the unprivileged `buildkite-agent` user, unlike some beta builds which ran as root.
+Note that when you install the agent on a new machine using the Debian / rpm packages the agent will be installed and run as the unprivileged `buildkite-agent` user, unlike some beta builds which ran as root.
 
 If you didn't install the agent using the above packages then simply update the agent like you did originally and you should get the latest stable version.

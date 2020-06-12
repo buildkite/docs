@@ -24,3 +24,7 @@ steps:
           formatter:
             type: details
           context: test-summary
+  - label: ":lint-roller: Linting"
+    commands:
+      - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v2.2.2
+      - ./bin/vale pages

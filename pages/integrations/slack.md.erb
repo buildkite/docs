@@ -6,7 +6,7 @@ The [Slack](https://slack.com/) Notification Service in Buildkite lets you recei
 
 Configuring a Slack notification service will authorize access for your desired channel. By default, notifications will be sent to all configured Slack channels.
 
-Setting up a Notification Service requires Buildkite organiziation admin access. 
+Setting up a Notification Service requires Buildkite organization admin access. 
 
 ## Adding a notification service
 
@@ -26,7 +26,7 @@ Once you have granted access to your Slack workspace, give it a description, cho
 
 <%= image "buildkite-slack-connected.png", width: 1458/2, height: 1540/2, alt: "Screenshot of Buildkite Slack Notification Settings, requesting a description, your choice of text or emoji message themes, which pipelines and branches to include, and which build states should trigger a notification" %>
 
-If you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications, select the 'Only Some Pipelines...' option. Once you're using a Slack `notify` attribute in your `pipeline.yml`, the branch and build filtering from the Slack Notification Service will be overridden by the YAML options you choose. 
+If you're using the [`notify` YAML attribute](/docs/pipelines/notifications) for more fine grained control over your Slack notifications, select the 'Only Some Pipelines...' option. Once you're using a Slack `notify` attribute in your `pipeline.yml`, the branch and build filtering from the Slack Notification Service will be overridden by the YAML options you choose.
 
 ## Changing channels
 
@@ -34,9 +34,9 @@ Once created, the Slack channel and workspace cannot be changed. To post to a di
 
 ## Conditional notifications
 
-By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the [`notify` YAML attribute](/docs/pipelines/notifications) in your `pipeline.yml` file. 
+By default, notifications are sent to all configured Slack channels. For more control over when each channel receives notifications, use the [`notify` YAML attribute](/docs/pipelines/notifications) in your `pipeline.yml` file.
 
-See the [Slack Channel Message](/docs/pipelines/notifications) section of the Notifications guide for further information. 
+See the [Slack Channel Message](/docs/pipelines/notifications) section of the Notifications guide for further information.
 
 ## Upgrading a legacy Slack service
 
@@ -46,19 +46,19 @@ If you have Slack set up with a legacy service or are no longer receiving notifi
 
 ### Identify where your existing services post notifications
 
-Compare the webhook URLs from your Buildkite notification service with your Slack integration to find your existing notification settings. 
+Compare the webhook URLs from your Buildkite notification service with your Slack integration to find your existing notification settings.
 
-Finding your Buildkite webhook URL: Click on the Slack notification service in Buildkite, the webhook URL will be listed here. 
+Finding your Buildkite webhook URL: Click on the Slack notification service in Buildkite, the webhook URL will be listed here.
 
-Finding your Slack integration's webhook URL: 
+Finding your Slack integration's webhook URL:
 
 1. In your Slack workspace's App Directory, click the Manage button and find the Buildkite app.
 1. Click through the Buildkite app, then click the pencil button to edit your configuration.
-1. The webhook URL will be listed under Integration Settings. 
+1. The webhook URL will be listed under Integration Settings.
 
 ### Confirm which pipelines, and which events, are posted
 
-Once you've found the matching Buildkite service and Slack app, confirm where and what you're posting to Slack. Take note of the events and pipelines so that you can set up a new notification service. 
+Once you've found the matching Buildkite service and Slack app, confirm where and what you're posting to Slack. Take note of the events and pipelines so that you can set up a new notification service.
 
 ### Create a new Slack notification service which posts
 
