@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent artifact upload <pattern> <destination> [arguments...]
+   buildkite-agent artifact upload [options] <pattern> [destination]
 
 Description:
 
@@ -9,6 +9,12 @@ Description:
    You need to ensure that the paths are surrounded by quotes otherwise the
    built-in shell path globbing will provide the files, which is currently not
    supported.
+
+   You can specify an alternate destination on Amazon S3, Google Cloud Storage
+   or Artifactory as per the examples below. This may be specified in the
+   'destination' argument, or in the 'BUILDKITE_ARTIFACT_UPLOAD_DESTINATION'
+   environment variable.  Otherwise, artifacts are uploaded to a
+   Buildkite-managed Amazon S3 bucket.
 
 Example:
 
@@ -44,5 +50,6 @@ Options:
    --debug-http                Enable HTTP debug mode, which dumps all request and response bodies to the log [$BUILDKITE_AGENT_DEBUG_HTTP]
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
+   --experiment value          Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]
    --profile value             Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
    
