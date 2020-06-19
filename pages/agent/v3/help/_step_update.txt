@@ -15,8 +15,8 @@ Example:
 
 Options:
 
-   --step value                The step to update. Can be either it's ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY) [$BUILDKITE_STEP_ID]
-   --build value               The build to look for the step in. Only required when targeting a step using it's key (BUILDKITE_STEP_KEY) [$BUILDKITE_BUILD_ID]
+   --step value                The step to update. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY) [$BUILDKITE_STEP_ID]
+   --build value               The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY) [$BUILDKITE_BUILD_ID]
    --append                    Append to current attribute instead of replacing it [$BUILDKITE_STEP_UPDATE_APPEND]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
