@@ -2,10 +2,8 @@
   "name": "docs",
   "private": true,
   "dependencies": {},
-  "devDependencies": {
-    "alex": "^8.1.1"
-  },
+  "devDependencies": {},
   "scripts": {
-    "lint": "alex --diff pages/**/*.erb pages/**/*.txt"
+    "lint": "npx alex@8 --diff pages/**/*.erb pages/**/*.txt"
   }
 }
