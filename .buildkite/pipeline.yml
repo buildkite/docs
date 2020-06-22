@@ -37,4 +37,4 @@ steps:
       # version, is way faster because we don't have to wait for Ruby gems to
       # install.
       - docker#v3.5.0:
-          image: "node:slim"
+          image: "node:alpine"
