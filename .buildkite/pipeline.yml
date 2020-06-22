@@ -30,5 +30,9 @@ steps:
       - ./bin/vale pages
   - label: ":lint-roller: Linting for insensitive words"
     commands:
+      - wget https://nodejs.org/dist/v12.18.1/node-v12.18.1-linux-x64.tar.xz
+      - mkdir -p /usr/local/lib/nodejs
+      - tar -xJvf node-12.18.1-linux-x64.tar.xz -C /usr/local/lib/nodejs
+      - export PATH=/usr/local/lib/nodejs/node-node-12.18.1-linux-x64/bin:$PATH
       - npm install
       - alex --diff pages/**/*.erb pages/**/*.txt
