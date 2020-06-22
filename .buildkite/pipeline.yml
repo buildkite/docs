@@ -31,12 +31,9 @@ steps:
       - ./bin/vale pages
 
   - label: ":lint-roller: Linting for insensitive words"
+    command: npm run lint
+    env:
+      RAILS_ENV: test
     plugins:
       - docker-compose#v3.0.0:
           run: app
-          env:
-            - BUILDKITE_JOB_ID
-            - CI
-            - RAILS_ENV
-    commands:
-      - npm run lint
