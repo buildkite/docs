@@ -37,4 +37,5 @@ steps:
             - CI
             - RAILS_ENV
     commands:
+      - npm ci
       - alex --diff pages/**/*.erb pages/**/*.txt
