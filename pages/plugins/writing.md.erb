@@ -12,8 +12,8 @@ In this tutorial we'll create a Buildkite plugin called "File Counter", which co
 steps:
   - command: ls
     plugins:
-      a-github-user/file-counter#v1.0.0:
-        name: '*.md'
+      - a-github-user/file-counter#v1.0.0:
+          pattern: '*.md'
 ```
 
 ### Create a new git repository
@@ -36,8 +36,9 @@ description: Annotates the build with a file count
 author: https://github.com/a-github-user
 requirements: []
 configuration:
-  pattern:
-    name: string
+  properties:
+    pattern:
+      type: string
   additionalProperties: false
 ```
 {: codeblock-file="plugin.yml"}
@@ -71,7 +72,7 @@ buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 
 ### Add a test
 
-Next step is to test the `post-command` hook using BATS, and the the `buildkite/plugin-tester` Docker image.
+Next step is to test the `post-command` hook using BATS, and the `buildkite/plugin-tester` Docker image.
 
 ```shell
 mkdir tests
@@ -164,7 +165,7 @@ services:
 You can now run the tests using the following command:
 
 ```shell
-docker-compose run --rm linter
+docker-compose run --rm lint
 ```
 
 ### Publish to the directory

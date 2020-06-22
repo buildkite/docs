@@ -8,11 +8,11 @@ To help you control concurrency, Buildkite provides two primitives: concurrency 
 
 ## Concurrency Limits
 
-Concurrency limits define the number of jobs that are allowed to be running at any one time. These limits are set per-step and only apply to jobs that are based on that step.
+Concurrency limits define the number of jobs that are allowed to run at any one time. These limits are set per-step and only apply to jobs that are based on that step.
 
-Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time. These jobs will not run at the same time, even if there are agents available to do so.
+Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](/docs/pipelines/controlling-concurrency#concurrency-groups) for more information.
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](#concurrency-groups) for more information.
 
 <%= image "concurrency-limits.png", width: 1092/2, height: 214/2, alt: "Screenshot of a step's Global Concurrency Limit field" %>
 
@@ -23,33 +23,9 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
 
 ## Concurrency Groups
 
-Concurrency groups are labels that can be used to group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, it will be available organization wide. These group labels are similar to [agent meta-data](/docs/pipelines/build-meta-data), and are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
+Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
 
-```yml
-steps:
-- command: "tests.sh"
-  concurrency: 1
-  concurrency_group: "tests"
-```
-{: codeblock-file="pipeline.yml"}
-
-The names of these groups should be unique, unless they're accessing a shared resource like a deployment target. You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created. For example, having multiple groups called `deploy` on steps that are accessing different resources will affect which jobs are able to run at the same time.
-
-Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
-
-Common examples for concurrency group values include:
-
-* `our-payment-gateway/deployment`
-* `terraform/update-state`
-* `my-mobile-app/app-store-release`
-
-<section class="Docs__note">
-	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a <code>pipeline.yml</code> file. </p>
-</section>
-
-## Example: Deploy Step
-
-The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time:
+The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one at a time in the order they were created.
 
 ```yaml
 - command: 'deploy.sh'
@@ -62,4 +38,13 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 ```
 {: codeblock-file="pipeline.yml"}
 
-If multiple builds are created with this step, each deployment job will be queued up and run one at a time in the order they were created.
+Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
+For example, giving two entirely different deploy steps the same `concurrency_group` label `deploy` will unintentionally make them part of the same concurrency group and prevent them from running concurrently. A better approach would be to label them more specifically, as `our-payment-gateway/deployment`, `terraform/update-state` or `my-mobile-app/app-store-release`.
+
+You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created.
+
+Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
+
+<section class="Docs__note">
+	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a <code>pipeline.yml</code> file. </p>
+</section>

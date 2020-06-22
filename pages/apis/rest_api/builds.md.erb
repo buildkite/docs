@@ -407,7 +407,7 @@ Error responses:
 
 ## Cancel a build
 
-Cancels the build if it's state is either `scheduled` or `running`.
+Cancels the build if its state is either `scheduled` or `running`.
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{number}/cancel"
@@ -656,7 +656,7 @@ Each <em>job</em> is provided with the same timestamps, but their values differ 
 <tbody>
   <tr>
     <th><code>scheduled_at</code></th>
-    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
+    <td>The time when the scheduler process processes the job. If a job was created after the build, the job's <code>scheduled_at</code> value will inherit the build's <code>created_at</code> value, because of this it can be earlier than the job's <code>created_at</code> timestamp.</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>

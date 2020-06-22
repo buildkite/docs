@@ -12,7 +12,7 @@ Click the Buildkite Organization Settings' Single Sign On menu item, then choose
 
 <%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-On the following page, copy the ACS URL for use in Step 2. 
+On the following page, copy the ACS URL for use in Step 2.
 
 ### Step 2. Set up Buildkite in the ADFS management console
 
@@ -23,13 +23,13 @@ The instructions below will guide you through using a series of wizards to:
 * Export the Token-signing Certificate
 * Update the Authentication Policy
 
-With these wizards, you'll set up your domain for SSO and retreive the information the Buildkite team requires to complete the setup process.
+With these wizards, you'll set up your domain for SSO and retrieve the information the Buildkite team requires to complete the setup process.
 
 <div class="Docs__note">
 <p class="Docs__note__heading">This guide was written for, and tested using, Windows Server 2016</p>
 <p>Some of the wizard pages and dialog tab names have changed across versions of Windows Server.</p>
 
-<p>For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">Pagerduty SSO integration guide</a> is very similar to Buildkite. Follow the Pagerduty instructions, and subsitute in the Buildkite values from the instructions below.</p>
+<p>For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">Pagerduty SSO integration guide</a> is very similar to Buildkite. Follow the Pagerduty instructions, and substitute in the Buildkite values from the instructions below.</p>
 </div>
 
 #### **Step 2.1 Add a Relying Party Trust**
@@ -41,10 +41,10 @@ From the `Actions` sidebar, click `Add relying party trust...` to start the wiza
 1. <u>Specify display name</u>: Call your relying party `Buildkite`.
 1. <u>Choose profile</u>: Select `ADFS profile`.
 1. <u>Configure certificate</u>: Skip this step, as you don't need a token encryption certificate.
-1. <u>Configure URL</u>: 
+1. <u>Configure URL</u>:
 	Select `Enable support for the SAML 2.0 WebSSO protocol`.
 	Enter the ACS URL from Buildkite as your `Relying party SAML 2.0 SSO service URL`.
-1. <u>Configure identifiers</u>: 
+1. <u>Configure identifiers</u>:
 	Enter `https://<your IDP url>/adfs/services/trust` into the `Relying party trust identifier` field.
 	Click `Add` to add it to the `Relying party trust identifiers` list.
 1. <u>Choose Access Control Policy</u>:
@@ -55,7 +55,7 @@ From the `Actions` sidebar, click `Add relying party trust...` to start the wiza
 	Leave the `Configure claims issuance policy for this application` box checked.
 	Click `Close` to close the wizard and save your setup.
 
-In the `Actions` sidebar, you should now have a subheading `Buildkite`. 
+In the `Actions` sidebar, you should now have a subheading `Buildkite`.
 
 #### **Step 2.2 Add an issuance transform rule**
 
@@ -92,7 +92,7 @@ Rule 3
 	<li><u>Configure claim rule</u>:
 	<ul>
 		<li><u>Claim Rule Name</u>: 'Name' Attribute Name Transform</li>
-		<li><u>Custom Rule</u>: 
+		<li><u>Custom Rule</u>:
 <pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
  => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
 </li>
@@ -122,14 +122,14 @@ From the `Service` section of the `ADFS` console tree, select the `Certificates`
 From the `Service` section of the `ADFS` console tree, select the `Authentication Methods` subsection
 
 1. Under the `Primary Authentication Methods` header, click the `Edit` link
-2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked 
+2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked
 3. Click `OK` to exit the dialog
 
 ### Step 3. Update your Buildkite SSO Provider
 
-On your Buildkite Organization Settings' Single Sign On page, select your ADFS provider from the list of Configured SSO Providers. 
+On your Buildkite Organization Settings' Single Sign On page, select your ADFS provider from the list of Configured SSO Providers.
 
-Click the 'Edit Settings' button, choose the Manual data option, and enter the IdP data you saved during the previous step: 
+Click the 'Edit Settings' button, choose the Manual data option, and enter the IdP data you saved during the previous step:
 
 <table>
     <tr>

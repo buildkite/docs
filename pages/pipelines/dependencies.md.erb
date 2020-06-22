@@ -50,6 +50,11 @@ steps:
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
+<div class="Docs__troubleshooting-note">
+<h1>depends_on and block/wait</h1>
+<p>Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.</p>
+</div>
+
 Dependencies can also be added as a list of strings, or a list of steps.
 
 ```yml
@@ -85,11 +90,17 @@ Even though the second command step in the above example is after a wait step, t
 
 ## Order of operations
 
-There are three step attributes that can each affect when a step is able to run: `if`/`branches`, `depends_on`, and `concurrency_group`. They are applied to the step in the order they are listed.
+There are three step attributes that can each affect when a step is able to run:
+
+* `if`/`branches`
+* `depends_on`
+* `concurrency_group`
 
 If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
 
 However, if the step you're dependent on is excluded from the build due to an `if` condition, the dependency will be ignored and the step that depends on it will run once any other dependencies are satisfied.
+
+Steps that are in a `concurrency_group` run in the order they are created in and can be delayed in running by the `concurrency` attribute. If your step has a dependency on a step that is in a `concurrency_group`, there is an implicit dependency on the rest of the steps in the group. For more information about concurrency groups, see the [Controlling Concurrency guide](https://buildkite.com/docs/pipelines/controlling-concurrency#concurrency-groups).
 
 ## Allowing dependency failures
 
@@ -106,7 +117,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-For finer control, you can explictly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
+For finer control, you can explicitly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
 
 ```yml
 steps:

@@ -2,7 +2,8 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies, steps will run when the step they depend on complete, without waiting for `block` or `wait` steps unless those are also explicit dependencies.
+
 
 {:toc}
 
@@ -293,7 +294,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can access the stored meta-data after the block step has passed. Use the `buildkite-agent meta-data get` command to retreive your data:
+You can access the stored meta-data after the block step has passed. Use the `buildkite-agent meta-data get` command to retrieve your data:
 
 ```shell
 buildkite-agent meta-data get "release-name"

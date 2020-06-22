@@ -24,7 +24,7 @@ Options:
    --disconnect-after-job                 Disconnect the agent after running a job [$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB]
    --disconnect-after-idle-timeout value  If no jobs have come in for the specified number of seconds, disconnect the agent (default: 0) [$BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT]
    --cancel-grace-period value            The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts (default: 10) [$BUILDKITE_CANCEL_GRACE_PERIOD]
-   --shell value                          The shell commamnd used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
+   --shell value                          The shell command used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
    --tags value                           A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8") [$BUILDKITE_AGENT_TAGS]
    --tags-from-host                       Include tags from the host (hostname, machine-id, os) [$BUILDKITE_AGENT_TAGS_FROM_HOST]
    --tags-from-ec2-meta-data value        Include the default set of host EC2 meta-data as tags (instance-id, instance-type, and ami-id) [$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA]
@@ -70,4 +70,3 @@ Options:
    --profile value                        Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
    --tags-from-ec2                        Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id) [$BUILDKITE_AGENT_TAGS_FROM_EC2]
    --tags-from-gcp                        Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [$BUILDKITE_AGENT_TAGS_FROM_GCP]
-   

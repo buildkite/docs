@@ -13,7 +13,7 @@ See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step
 
 ## Uploading artifacts
 
-You can use this command in your build scripts to store artifacts in the Buildkite artifact store. The stored artifacts will then be accessable via the web interface and can be downloaded by future build steps. 
+You can use this command in your build scripts to store artifacts in the Buildkite artifact store. The stored artifacts will then be accessible via the web interface and can be downloaded by future build steps. 
 
 You can also configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
@@ -146,7 +146,7 @@ Example:
 
 Options:
 
-   --step value                Scope the search to a paticular step by using either it's name or job ID
+   --step value                Scope the search to a paticular step by using either its name or job ID
    --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
@@ -226,7 +226,7 @@ Example:
    $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
 
    This will search for all the files in the build with the path "pkg/release.tar.gz" and will
-   print to STDOUT it's SHA-1 checksum.
+   print the SHA-1 checksum of each one to STDOUT.
 
    If you would like to target artifacts from a specific build step, you can do
    so by using the --step argument.
@@ -237,7 +237,7 @@ Example:
 
 Options:
 
-   --step value                Scope the search to a paticular step by using either it's name of job ID
+   --step value                Scope the search to a paticular step by using either its name of job ID
    --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]

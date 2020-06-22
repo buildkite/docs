@@ -78,7 +78,7 @@ The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `
 
 ## Isolated jobs
 
-You can safely run multiple build jobs on a single machine, as the agent runs each build in it's own checkout directory. You’ll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
+You can safely run multiple build jobs on a single machine, as the agent runs each build in its own checkout directory. You’ll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
 
 One convenient way of achieving build job isolation is to use the agent’s built in [Docker Compose support](docker-containerized-builds) which will run each job inside a set of completely isolated Docker containers.
 
@@ -88,7 +88,7 @@ In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-
 
 * [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
 * [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
-* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance emphemeral agents.
+* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
 * [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
 * [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
 

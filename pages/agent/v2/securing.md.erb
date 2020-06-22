@@ -11,7 +11,7 @@ In cases where a Buildkite Agent is being deployed into a sensitive environment 
 
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.  
+For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
 ## Disabling automatic SSH fingerprint verification
 
@@ -33,11 +33,11 @@ To disable command line evaluation use one of the following settings:
 * Command line flag: `--no-command-eval`
 * Configuration setting: `no-command-eval=true`
 
-Note: hooks and plugins (Buildkite Agent 3.x) can override this setting. See [Whitelisting](#whitelisting) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
+Note: hooks and plugins (Buildkite Agent 3.x) can override this setting. See [Allowing](#allowing) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
 
-## Whitelisting
+## Allowing
 
-You can use the [agent’s environment hook](hooks) to whitelist repositories, commands, plugins (for the Buildkite Agent 3.x beta), or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
+You can use the [agent’s environment hook](hooks) to allow repositories, commands, plugins (for the Buildkite Agent 3.x beta), or any other logic you wish. The environment hook will be run before any source code is checked out onto the machine.
 
 For example, the following environment hook allows only a single file from a single repository to be executed on the agent machine:
 
