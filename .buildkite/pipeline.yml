@@ -33,5 +33,8 @@ steps:
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint
     plugins:
+      # Using the plain Node image, instead of the custom doc Dockerfile
+      # version, is way faster because we don't have to wait for Ruby gems to
+      # install.
       - docker#v3.5.0:
-          image: node
+          image: "node:slim"
