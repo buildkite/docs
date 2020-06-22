@@ -78,7 +78,7 @@ The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `
 
 ## Isolated jobs
 
-You can safely run multiple build jobs on a single machine, as the agent runs each build in it's own checkout directory. You’ll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
+You can safely run multiple build jobs on a single machine, as the agent runs each build in its own checkout directory. You’ll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
 
 One convenient way of achieving build job isolation is to use the agent’s built in [Docker Compose support](docker-containerized-builds) which will run each job inside a set of completely isolated Docker containers.
 

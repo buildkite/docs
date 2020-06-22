@@ -56,6 +56,16 @@ It should look like this:
 
 What’s happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we’ve tested.
 
+In YAML format, your pipeline will look like:
+
+```yaml
+steps:
+  - label: ":heroku: Deploy"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "git push heroku "$$BUILDKITE_COMMIT":master"
+```
+
 ## Running a build
 
 Once you’ve saved the pipeline settings the final step is to push a commit to master and watch it automatically deploy to Heroku:
@@ -64,9 +74,19 @@ Once you’ve saved the pipeline settings the final step is to push a commit to 
 
 ## Post-deploy scripts
 
-If you want to run post-deploy tasks on Heroku simply a waiter and another command step, for example:
+If you want to run tasks after the deploy, such as running database migrations, you can add a [wait step](/docs/pipelines/wait-step) and additional command step that uses `heroku run`, for example:
 
-```bash
-heroku git:remote --app my-app
-heroku run echo "A post-deploy command"
+```yaml
+steps:
+  - label: ":heroku: Deploy"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "git push heroku "$$BUILDKITE_COMMIT":master"
+
+  - wait
+
+  - label: ":heroku: DB Migrations"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "heroku run rails db:migrate"
 ```

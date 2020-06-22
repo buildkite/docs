@@ -30,7 +30,7 @@ Example:
 Options:
 
    --replace                   Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed. [$BUILDKITE_PIPELINE_REPLACE]
-   --job value                 The job that is making the changes to it's build [$BUILDKITE_JOB_ID]
+   --job value                 The job that is making the changes to its build [$BUILDKITE_JOB_ID]
    --dry-run                   Rather than uploading the pipeline, it will be echoed to stdout [$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN]
    --no-interpolation          Skip variable interpolation the pipeline when uploaded [$BUILDKITE_PIPELINE_NO_INTERPOLATION]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
