@@ -1,5 +1,7 @@
 {
   "name": "docs",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "alex": "^8.1.1"
+  }
 }
