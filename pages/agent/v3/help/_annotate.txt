@@ -22,7 +22,7 @@ Description:
    again and provide the same context as the one you want to update. Or if you
    leave context blank, it will use the default context.
 
-   You can also update just the style of an existing annotation by omitting the
+   You can also update only the style of an existing annotation by omitting the
    body entirely and providing a new style value.
 
 Example:
@@ -45,4 +45,3 @@ Options:
    --no-color                  Don't show colors in logging [$BUILDKITE_AGENT_NO_COLOR]
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --profile value             Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
-   
