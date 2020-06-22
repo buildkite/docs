@@ -6,3 +6,17 @@ allow:
   - failures
   - failed
   - period
+  - periods
+  - host-hostess
+  - hostesses-hosts # Seems strange for these to be separate
+  - color
+  - colors
+  - colored
+  - special
+  - execution
+  - waiter
+  - xxx
+  - executes
+  - executed
+  - invalid
+pronfanitySureness: 2
