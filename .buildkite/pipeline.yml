@@ -33,5 +33,5 @@ steps:
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint
     plugins:
-      - docker-compose#v3.0.0:
-          run: app
+      - docker#v3.5.0:
+          image: node
