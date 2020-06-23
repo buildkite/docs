@@ -79,7 +79,7 @@ tail -f ~/.buildkite-agent/log/buildkite-agent.log
 
 ## Running multiple agents
 
-Launching and managing multiple agents can be done using `launchd`. 
+Launching and managing multiple agents can be done using `launchd`.
 
 If you need the same configuration on each agent, configure a `launchd` service to use the `--spawn` flag on the `buildkite-agent` command.
 
@@ -98,13 +98,13 @@ The below example will start five agents each time the service is started:
 
 If your agents each need different configuration, you can create multiple `launchd` services:
 
-1. Find your agent's `plist`. If you installed the agent with homebrew you can find the `plist` in your user's `~/Library/LaunchAgents` directory. If you installed with the Linux script, you can take a copy of the [template plist](https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist) from the Agent's GitHub repository.
+1. Find your agent's `plist`. If you installed the agent with Homebrew you can find the `plist` in your user's `~/Library/LaunchAgents` directory. If you installed with the Linux script, you can take a copy of the [template plist](https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist) from the Agent's GitHub repository.
 
 2. Make as many copies of the plist as you require, one per configuration, ensuring that each has a unique label.
 
-3. Once you've edited your plist/s with your custom config, make sure that all the referenced paths exist and have the correct permissions. See the [Starting on Login](#starting-on-login) section above for an example of how to check directories and permissions. 
+3. Once you've edited your plist/s with your custom config, make sure that all the referenced paths exist and have the correct permissions. See the [Starting on Login](#starting-on-login) section above for an example of how to check directories and permissions.
 
-4. Load each `plist` into `launchd` using `launchctl`. 
+4. Load each `plist` into `launchd` using `launchctl`.
 
 ## Upgrading
 
