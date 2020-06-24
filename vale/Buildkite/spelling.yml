@@ -3,4 +3,4 @@ message: "Did you really mean '%s'?"
 level: error
 ignore: vale/vocab.txt
 filters:
-  - ':[a-z\-]*:'
+  - ':[a-z\-]*:' # Ignore all custom emoji words
