@@ -1,4 +1,6 @@
 class PagesController < ApplicationController
+  append_view_path "app/views/pages"
+
   def show
     @page = Page.new(view_context, params[:path])
 

@@ -59,10 +59,8 @@ class Page
       binding
     end
 
-    def render(*args)
-      ActionController::Base.append_view_path "app/views/pages"
-      renderer = ActionController::Base.renderer.new
-      renderer.render(partial: args.first)
+    def render(partial)
+      PagesController.render(partial: partial)
     end
 
     def render_markdown(markdown_path, *args)
