@@ -59,11 +59,8 @@ class Page
       binding
     end
 
-    def render(*args)
-      av = ActionView::Base.new
-      av.view_paths = ActionController::Base.view_paths
-      av.view_paths << Rails.root.join("app/views/pages").to_s
-      av.render(*args)
+    def render(partial)
+      PagesController.render(partial: partial)
     end
 
     def render_markdown(markdown_path, *args)
