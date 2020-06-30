@@ -51,16 +51,16 @@ class Page::Renderer
   end
 
   def add_automatic_ids_to_headings(doc)
-    doc.search('./h2').each do |node|
+    doc.xpath('./h2').each do |node|
       node['id'] = node.text.to_url if node['id'].blank?
 
       # Next we find all the h3 siblings between this, and the next h2, and add
       # automatic ids to them if they don't have a manual one set already
       sibling_node = node
       while sibling_node = sibling_node.next_sibling
-        break if sibling_node.matches?('h2')
+        break if sibling_node.name == 'h2'
 
-        next unless sibling_node['id'].blank? && sibling_node.matches?('h3')
+        next unless sibling_node['id'].blank? && sibling_node.name == 'h3'
 
         sibling_node['id'] = node['id'] + "-" + sibling_node.text.to_url
       end
@@ -70,7 +70,7 @@ class Page::Renderer
   end
 
   def add_heading_anchor_links(doc)
-    headings = doc.search('./h2', './h3')
+    headings = doc.xpath('./h2', './h3')
 
     # Second, we make them all linkable and give them the right classes.
     headings.each do |node|
@@ -84,11 +84,11 @@ class Page::Renderer
   end
 
   def add_table_of_contents(doc)
-    headings = doc.search('./h2')
+    headings = doc.xpath('./h2')
 
     # Third, we generate and replace the actual toc.
-    doc.search('./p').each do |node|
-      next unless node.to_html == '<p>{:toc}</p>'
+    doc.xpath('./p').each do |node|
+      next unless node.text == '{:toc}'
 
       if headings.empty?
         node.replace('')
@@ -110,7 +110,7 @@ class Page::Renderer
   end
 
   def fix_curl_highlighting(doc)
-    doc.search('code').each do |node|
+    doc.xpath('.//code').each do |node|
       next unless node.text.starts_with?('curl ')
     
       node.replace(node.to_html.gsub(/\{.*?\}/mi) {|uri_template|
@@ -122,8 +122,8 @@ class Page::Renderer
   end
 
   def add_code_filenames(doc)
-    doc.search('./p').each do |node|
-      next unless node.to_html.starts_with?('<p>{: codeblock-file=')
+    doc.xpath('./p').each do |node|
+      next unless node.text.starts_with?('{: codeblock-file=')
 
       filename = node.content[/codeblock-file="(.*)"}/, 1]
 
@@ -142,8 +142,8 @@ class Page::Renderer
   end
 
   def add_custom_ids(doc)
-    doc.search('./p').each do |node|
-      next unless node.to_html.starts_with?('<p>{: id=')
+    doc.xpath('./p').each do |node|
+      next unless node.text.starts_with?('{: id=')
 
       id = node.content[/id="(.*)"}/, 1]
 
@@ -155,8 +155,8 @@ class Page::Renderer
   end
   
   def add_custom_classes(doc)
-    doc.search('./p').each do |node|
-      next unless node.to_html.starts_with?('<p>{: class=')
+    doc.xpath('./p').each do |node|
+      next unless node.text.starts_with?('{: class=')
 
       css_class = node.content[/class="(.*)"}/, 1]
 
