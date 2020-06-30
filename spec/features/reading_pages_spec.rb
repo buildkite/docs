@@ -68,6 +68,9 @@ RSpec.feature "reading pages" do
             # Ignore emails
             next if uri.is_a?(URI::MailTo)
 
+            # Ignore the hidden links that make our headings clickable
+            next if a[:class] == 'Docs__heading__anchor'
+
             # We have to resolve paths relative to the current page, so that both
             # '/docs/tutorials/getting-started' and 'getting-started' (from
             # '/docs/tutorials/other') work okay, similarly to in the browser.
