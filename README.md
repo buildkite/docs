@@ -1,4 +1,4 @@
-# Buildkite Documentation
+# Buildkite Documentation [![Build status](https://badge.buildkite.com/b1b9e3ef9d893c087f5e5c0a2d04c258ba393bed2379273f63.svg?branch=master)](https://buildkite.com/buildkite/docs)
 
 The source files for the [Buildkite Documentation](https://buildkite.com/docs).
 
