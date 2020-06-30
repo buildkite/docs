@@ -1,0 +1,11 @@
+Whether this step should cause the build to fail if it exits with a non-zero status. Can be either an array of soft failure exit statuses or true to make all exit statuses soft-fail.  
+
+```yaml
+soft_fail: true
+```
+
+```yaml
+soft_fail: 
+  - exit_status: 1
+  - exit_status: "*"
+```

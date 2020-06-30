@@ -1,3 +1,9 @@
-# Command
+The shell command/s to run during this step. This can be a single line of commands, or a list of commands that must all pass. Also available as the alias `commands`.
 
-This is the markdown content for the "command" attribute.
+```yaml
+steps:
+  - commands:
+    - "npm install && npm test"
+    - "moretests.sh"
+    - "build.sh"
+```
