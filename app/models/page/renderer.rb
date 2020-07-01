@@ -52,6 +52,7 @@ class Page::Renderer
 
   def add_automatic_ids_to_headings(doc)
     h2_ids = []
+    h3s_with_manual_ids = []
 
     doc.search('./h2').each do |h2|
       if (id = h2['id']).blank?
@@ -60,10 +61,13 @@ class Page::Renderer
       h2_ids << id
     end
 
+    h3s_with_manual_ids = doc.search('h3[id]')
+
     h2_ids.each do |h2_id|
       # This matches all following h3s each time, but future h3s get overridden
       # each time so it works out to the be value of the previous one.
       doc.css("\##{h2_id} ~ h3").each do |h3|
+        next if h3s_with_manual_ids.include?(h3)
         h3['id'] = h2_id + "-" + h3.text.to_url
       end
     end

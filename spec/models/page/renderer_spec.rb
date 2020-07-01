@@ -108,6 +108,11 @@ RSpec.describe Page::Renderer do
         {: id="short-id"}
 
         ### Subsection
+
+        ## A Title
+        
+        ### Subsection With Custom Id
+        {: id="custom-id"}
         MD
 
       html = <<~HTML
@@ -117,6 +122,12 @@ RSpec.describe Page::Renderer do
         
         
         <h3 id="short-id-subsection" class="Docs__heading">Subsection<a href="#short-id-subsection" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h3>
+
+        <h2 id="a-title" class="Docs__heading">A Title<a href="#a-title" aria-hidden="true" class="Docs__heading__anchor"></a>
+        </h2>
+        
+        <h3 id="custom-id" class="Docs__heading">Subsection With Custom Id<a href="#custom-id" aria-hidden="true" class="Docs__heading__anchor"></a>
         </h3>
       HTML
 
