@@ -1,0 +1,6 @@
+A boolean expression that omits the step when false. See [Using conditionals](https://buildkite.com/docs/pipelines/conditionals) for supported expressions.
+
+```yaml
+- wait: ~
+  if build.message != "skip me"
+```

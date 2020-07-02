@@ -5,7 +5,7 @@
     "attributes": [
       {
         "name": "command",
-        "icon": "https://media1.tenor.com/images/aec558591a2bc04a12fe6acea294de62/tenor.gif",
+        "icon": "step-command",
         "shortDescription": "A command step runs one or more shell commands on an agent.",
         "docsURL": "https://buildkite.com/docs/pipelines/command-step",
         "textContent": <%= render_attribute_content "steps/command" %>,
@@ -84,8 +84,107 @@
             "textContent": <%= render_attribute_content "steps/command/timeout_in_minutes" %>
           }
         ]
+      },
+      {
+        "name": "wait",
+        "icon": "step-wait",
+        "shortDescription": "Wait for all previous steps to have successfully completed before allowing following jobs to continue",
+        "docsURL": "https://buildkite.com/docs/pipelines/wait-step",
+        "textContent": <%= render_attribute_content "steps/wait" %>,
+        "attributes": [
+          {
+            "name": "continue_on_failure",
+            "textContent": <%= render_attribute_content "steps/wait/continue_on_failure" %>
+          },
+          {
+            "name": "if",
+            "textContent": <%= render_attribute_content "steps/wait/if" %>
+          },
+          {
+            "name": "depends_on",
+            "textContent": <%= render_attribute_content "steps/wait/depends_on" %>
+          },
+          {
+            "name": "allow_dependency_failure",
+            "textContent": <%= render_attribute_content "steps/wait/allow_dependency_failure" %>
+          }
+        ]
+      },
+      {
+        "name": "block",
+        "icon": "step-block",
+        "shortDescription": "Pause the execution of a build and wait on a team member to unblock it.",
+        "docsURL": "https://buildkite.com/docs/pipelines/block-step",
+        "textContent": <%= render_attribute_content "steps/block" %>,
+        "attributes": [
+          {
+            "name": "prompt",
+            "textContent": <%= render_attribute_content "steps/block/prompt" %>
+          },
+          {
+            "name": "fields",
+            "textContent": <%= render_attribute_content "steps/block/fields" %>
+          },
+          {
+            "name": "branches",
+            "textContent": <%= render_attribute_content "steps/block/branches" %>
+          },
+          {
+            "name": "if",
+            "textContent": <%= render_attribute_content "steps/block/if" %>
+          },
+          {
+            "name": "depends_on",
+            "textContent": <%= render_attribute_content "steps/block/depends_on" %>
+          },
+          {
+            "name": "allow_dependency_failure",
+            "textContent": <%= render_attribute_content "steps/block/allow_dependency_failure" %>
+          }
+        ]
+      },
+      {
+        "name": "trigger",
+        "icon": "step-trigger",
+        "short-description": "Create a build on another pipeline.",
+        "docsURL": "https://buildkite.com/docs/pipelines/trigger-step",
+        "textContent": <%= render_attribute_content "steps/trigger" %>,
+        "attributes": [
+          {
+            "name": "trigger",
+            "isRequired": true,
+            "textContent": <%= render_attribute_content "steps/trigger/trigger" %>
+          },
+          {
+            "name": "build",
+            "textContent": <%= render_attribute_content "steps/trigger/build" %>
+          },
+          {
+            "name": "label",
+            "textContent": <%= render_attribute_content "steps/trigger/label" %>
+          },
+          {
+            "name": "async",
+            "textContent": <%= render_attribute_content "steps/trigger/async" %>
+          },
+          {
+            "name": "branches",
+            "textContent": <%= render_attribute_content "steps/trigger/branches" %>
+          },
+          {
+            "name": "if",
+            "textContent": <%= render_attribute_content "steps/trigger/if" %>
+          },
+          {
+            "name": "depends_on",
+            "textContent": <%= render_attribute_content "steps/trigger/depends_on" %>
+          },
+          {
+            "name": "allow_dependency_failure",
+            "textContent": <%= render_attribute_content "steps/trigger/allow_dependency_failure" %>
+          }
+        ]
       }
-    ]
   },
   "notify": {
     "name": "Notifications",

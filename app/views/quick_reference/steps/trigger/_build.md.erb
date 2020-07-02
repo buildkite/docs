@@ -1,0 +1,53 @@
+An optional map of attributes for the triggered build. Attributes include:
+
+- `message` - The message for the build. Supports emoji. Default: the label of the trigger step.
+- `commit` - The commit hash for the build. Default: `"HEAD"`
+- `branch` - The branch for the build. Default: The triggered pipeline's default branch.
+- `meta_data` - A map of [meta-data](https://buildkite.com/docs/pipelines/build-meta-data) for the build.
+- `env` - A map of [environment variables](https://buildkite.com/docs/pipelines/environment-variables) for the build.
+
+```yaml
+- trigger: "data-generator"
+  label: ":package: Generate data"
+  build:
+    meta_data:
+      release-version: "1.1"
+```
+
+You can use [environment variable substitution](https://buildkite.com/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
+
+```yaml
+- trigger: "app-deploy"
+  label: ":rocket: Deploy"
+  branches: "master"
+  async: true
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+```
+
+To pass through pull request information to the triggered build, pass through the branch and pull request environment variables:
+
+```yaml
+- trigger: "app-sub-pipeline"
+  label: "Sub-pipeline"
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+    env:
+      BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
+      BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+      BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
+```
+
+To set environment variables on the build created by the trigger step, use the `env` attribute:
+
+```yaml
+- trigger: "release-binaries"
+  label: ":package: Release"
+  build:
+    env:
+      RELEASE_STREAM: "${RELEASE_STREAM:-stable}"
+```

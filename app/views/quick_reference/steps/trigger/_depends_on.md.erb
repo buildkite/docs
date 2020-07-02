@@ -1,0 +1,6 @@
+A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See [managing step dependencies](https://buildkite.com/docs/pipelines/dependencies) for more information.
+
+```yaml
+- trigger: "data-generator"
+  depends_on: "test-suite"
+```

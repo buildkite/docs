@@ -1,0 +1,7 @@
+A wait step waits for all previous steps to have successfully completed before allowing following jobs to continue.
+
+###S Continuing on Failure
+
+You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the wait with continue_on_failure: true have completed.
+
+This is useful for processing results from previous steps, for example, test coverage or summarizing test failures. Successful steps that run after a continue_on_failure step will not affect the status of the build; if there has been a failure, the build will be marked as failed.

@@ -1,0 +1,66 @@
+A list of input fields required to be filled out before unblocking the step.  Available input field types: `text`, `select`
+
+## Text Input Attributes
+
+For a text input field, the required attributes are `text`, for the input's label, and a machine-readable `key`.
+
+```yaml
+- block: "Request Release"
+  fields:
+    - text: "Code Name"
+      key: "release-name"
+```
+
+Optional attributes are: 
+
+- `hint` - The explanatory text shown after the label.
+- `required` - A boolean value that defines whether the field is required for form submission.
+- `default` - The value that is pre-filled in the text field.
+
+```yaml
+- block: "Request Release"
+  fields:
+    - text: "Code Name"
+      key: "release-name"
+      hint: "What’s the code name for this release? :name_badge:"
+      required: false
+      default: "Release #"
+```
+
+## Select Input Attributes
+
+For a select input field, the required attributes are `text`, for the input's label, and a set of `options`, each of which must have a `label` and a `value`.
+
+```yaml
+- block: "Request Release"
+    fields:
+      - select: "Stream"
+        key: "release-stream"
+        options:
+          - label: "Beta"
+            value: "beta"
+          - label: "Stable"
+            value: "stable"
+```
+
+Optional attributes are: 
+
+- `hint` - The explanatory text shown after the label.
+- `required` - A boolean value that defines whether the field is required for form submission.
+- `multiple` - A boolean value that defines whether multiple options may be selected. When multiple options are selected, they are delimited in the meta-data field by a line break (`\\n`).
+- `default` - The value of the option or options that will be pre-selected. When `multiple` is enabled, this can be an array of values to select by default.
+
+```yaml
+- block: "Request Release"
+  fields:
+    - select: "Stream"
+      key: "release-stream"
+      hint: "Which release stream does this belong in? :fork:"
+      required: false
+      default: "beta"
+      options:
+        - label: "Beta"
+          value: "beta"
+        - label: "Stable"
+          value: "stable"
+```
