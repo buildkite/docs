@@ -6,11 +6,20 @@ Input steps will block your build from completing, but will not automatically bl
 
 {:toc}
 
-Input steps can only be defined using a [`pipeline.yml`](/docs/pipelines/defining-steps) file.
+An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
+
+```yml
+steps:
+  - input: "Information please"
+    fields:
+      - text: "What is the date today?"
+        key: "todays-date"
+```
+{: codeblock-file="pipeline.yml"}
 
 You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
-The data you collect from these fields is then available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
+The data you collect from these fields is available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
 
 ## Input Step Attributes
 

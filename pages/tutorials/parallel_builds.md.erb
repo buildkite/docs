@@ -33,19 +33,20 @@ sudo systemctl enable --now buildkite-agent@5
 
 To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
-<%= image 'parallelism.png', size: '555x138', alt: 'Step parallelism field' %>
+```yaml
+steps:
+  - command: "tests.sh"
+    parrallelism: 5
+```
+{: codeblock-file="pipeline.yml"}
 
 Update the name of the step to use `%n`, like the example below. This will substitute a number in at runtime so that you can differentiate the different build jobs:
 
-<%= image 'name.png', size: '555x80', alt: 'Step name field with %n' %>
-
-In pipeline.yml format, this step would look like:
-
 ```yaml
 steps:
-  - command: "test.sh"
-    label: "Tests %n"
-    parallelism: 5
+  - command: "tests.sh"
+    label: "Test %n"
+    parrallelism: 5
 ```
 {: codeblock-file="pipeline.yml"}
 

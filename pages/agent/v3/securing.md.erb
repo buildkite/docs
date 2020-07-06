@@ -120,7 +120,7 @@ To run the agent behind a proxy, you'll need to export the following proxy envir
 
 Both of these variables should be set to the URL for your proxy server.
 
-For example, if using systemd, create a directory named "/etc/systemd/system/buildkite-agent.service.d" that contains a `proxy.conf` file. 
+For example, if using systemd, create a directory named `/etc/systemd/system/buildkite-agent.service.d` that contains a `proxy.conf` file. 
 
 An example systemd `proxy.conf` file:
 
@@ -130,5 +130,6 @@ An example systemd `proxy.conf` file:
 Environment=http_proxy=http://username:password@proxyserver:8080/
 Environment=https_proxy=http://username:password@proxyserver:8080/
 ```
+{: codeblock-file="proxy.conf"}
 
 After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart. 

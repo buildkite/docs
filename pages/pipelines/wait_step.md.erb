@@ -4,9 +4,7 @@ A *wait* step waits for all previous steps to have successfully completed before
 
 {:toc}
 
-<%= image "wait-step.png", width: 1070/2, height: 508/2, alt: "Screenshot of a basic wait step" %>
-
-A basic wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
+A wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
 
 ```yml
 - command: "command.sh"

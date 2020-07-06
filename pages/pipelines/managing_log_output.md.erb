@@ -47,21 +47,27 @@ If your log exceeds 1MB then we highly recommend reconfiguring your build tools 
 
 One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and passing it straight through unchanged to the next command.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
 
 your_build_command | tee build.log | <filter command>
 ```
+{: codeblock-file="build.sh"}
 
 When this script is run it will store the original output of `your_build_command` to the file `build.log`.
 
-To store this file alongside your build, edit your pipeline settings and include  `build.log` in the artifact upload path.
+To store this file alongside your build, add the `artifact_path` attribute to the command step running your script:
 
-<%= image("artifact_upload_path.png", alt: "Screenshot of Artifact Uploading settings", size: '549x119') %>
+```yaml
+steps:
+  - command: build.sh
+    artifact_paths: "build.log"
+```
+{: codeblock-file="pipeline.yml"}
 
-When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable in the "Artifacts" tab on your build page.
+When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable from the "Artifacts" tab on your build page.
 
 <%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
 
@@ -69,7 +75,7 @@ When your build is finished the agent will upload `build.log` as a build artifac
 
 Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
@@ -81,7 +87,7 @@ your_build_command | tee build.log | grep 'some pattern'
 
 Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your output log, whilst storing the original log for artifact uploading.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
@@ -93,7 +99,7 @@ your_build_command | tee build.log | tail -c90000000
 
 [xcpretty](https://github.com/supermarin/xcpretty) is an open-source tool that helps to reduce, format and color-code your [Xcode](http://developer.apple.com/xcode) build output. Once you’ve installed xcpretty you can pipe the output of xcodebuild into it:
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail

@@ -8,11 +8,7 @@ In this guide we’ll walk through using the Buildkite Agent’s [artifact suppo
 
 Upload artifacts in your build steps by defining file path patterns, either in  `artifact_paths` attribute of your command step or in the “Automatic Artifact Uploading” field of the Buildkite UI.
 
-The following example shows the Buildkite UI configured to upload any artifacts in the `logs` or `coverage` directories, as well as any of their subdirectories. Files will be uploaded automatically to `logs/` or `coverage/` respectively.
-
-<%= image "artifact_pattern.png", width: 959/2, height: 238/2, alt: "Artifact pattern configuration" %>
-
-And the same configuration in YAML:
+The following example shows a command step configured to upload any artifacts in the `logs` or `coverage` directories, as well as any of their subdirectories. Files will be uploaded automatically to `logs/` or `coverage/` respectively:
 
 ```yaml
 steps:
