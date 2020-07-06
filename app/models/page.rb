@@ -94,14 +94,20 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def markdown_body
+    erb_renderer = ERB.new(contents)
+    template_binding = TemplateBinding.new(view_helpers: @view,
+                                           image_path: File.join("docs", basename))
+
+    erb_renderer.result(template_binding.get_binding)
+  end
+
   def body
-    renderer = ERB.new(contents)
-    binding = TemplateBinding.new(view_helpers: @view,
-                                  image_path: File.join("docs", basename))
+    Page::Renderer.render(markdown_body)
+  end
 
-    post_erb = renderer.result(binding.get_binding)
-
-    Page::Renderer.render(post_erb)
+  def extracted_data
+    Page::DataExtractor.extract(markdown_body)
   end
 
   def open_source_url

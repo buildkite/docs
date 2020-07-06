@@ -27,6 +27,9 @@ gem 'stringex'
 # Rendering markdown
 gem 'redcarpet'
 
+# Parsing markdown
+gem 'commonmarker'
+
 # Syntax highlighting code
 gem 'rouge', '3.3.0'
 
