@@ -9,6 +9,7 @@ class Page::DataExtractor
     markdown_ast = markdown_doc(text)
 
     page_name = nil
+    # Create an empty markdown document so we can append markdown nodes to it later
     page_description = markdown_doc('')
     page_description_found = false
     page_attributes = []
@@ -28,6 +29,7 @@ class Page::DataExtractor
       when :html
         parsed_html = Nokogiri::HTML.fragment(node.to_html(:UNSAFE).strip)
         # TODO: Does it make a difference that we're not checking non-element children?
+        # TODO: Account for the possibility of markdown content between HTML nodes
         if parsed_html.children.length == 1
           element = parsed_html.first_element_child
           if element.name == "table" && element.attributes.include?("data-attributes")
@@ -45,6 +47,7 @@ class Page::DataExtractor
       end
 
       # End searches for the initial description once we hit a non-paragraph item
+      # TODO: Allow for code examples in description?
       if page_description_found == false &&
         (node.type == :header && node.header_level > 1) ||
         (node.type != :header && node.type != :paragraph)
