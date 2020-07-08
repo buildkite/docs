@@ -22,14 +22,38 @@ class Page::DataExtractor
           page_name = node.to_plaintext(:DEFAULT, 32_767).strip
         end
       when :paragraph, :code_block
-        # Add any paragraphs or code blocks we hit before we find
-        # other information to the description, ignoring any TOC entries
-        unless page_description_found || node.to_plaintext == "{:toc}\n"
-          page_description.append_child(node)
-        end
+        unless page_description_found
+          wrap_figure = false
 
-        if node.type == :code_block
-          # TODO: support turning codeblock-file directives into figure/figcaption elements
+          # Look ahead for code block file names
+          if node.type == :code_block && node.next&.type == :paragraph
+            node_text = node.next&.to_plaintext
+
+            # If it's a codeblock filename, extract the name
+            if node_text.starts_with?('{: codeblock-file=')
+              wrap_figure = node_text[/codeblock-file="(.*)"}/, 1]
+            end
+          end
+
+          # Add the starting HTML fragment for the figure/figcaption pair
+          if wrap_figure
+            figure_start = CommonMarker::Node.new(:html)
+            figure_start.string_content = "<figure class=\"highlight-figure\"><figcaption>#{wrap_figure}</figcaption>"
+            page_description.append_child(figure_start)
+          end
+
+          # Add any paragraphs or code blocks we hit before we find
+          # other information to the description, ignoring any TOC entries
+          unless node.to_plaintext == "{:toc}\n"
+            page_description.append_child(node)
+          end
+
+          # Add the ending HTML fragment for the figure/figcaption pair
+          if wrap_figure
+            figure_end = CommonMarker::Node.new(:html)
+            figure_end.string_content = "</figure>"
+            page_description.append_child(figure_end)
+          end
         end
       when :html
         parsed_html = Nokogiri::HTML.fragment(node.to_html(:UNSAFE).strip)
@@ -49,9 +73,10 @@ class Page::DataExtractor
         end
       end
 
-      # End searches for the initial description once we hit a non-paragraph item
-      # TODO: Allow for code examples in description?
-      #       - TODO: check about emoji
+      # Stop pulling elements out for the description after we hit either;
+      # - a second-level header,
+      # - a code block
+      # - anything which is not a header, paragraph, code block or html fragment
       if page_description_found == false &&
         (node.type == :header && node.header_level > 1) ||
         node.type == :code_block ||
