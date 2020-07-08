@@ -22,11 +22,13 @@ To get started with agent hooks copy the relevant example script and remove the 
 
 Repository hooks allow you to execute repository-specific scripts. Repository hooks live alongside your repository’s source code under the directory `.buildkite/hooks`.
 
-To get started create a `.buildkite/hooks` directory, add your hook script, and make it executable.
+To get started, create a shell script in `.buildkite/hooks` named `post-checkout`.
+It will be sourced and run every build, after the Agent checks your repository out.
+You can also use one of the other available *Repository* hooks, according to when you want your custom script to run.
 
 ### Plugin hooks
 
-Plugin hooks allow any plugins you’ve defined to execute and override any of the default behavior.
+Plugin hooks allow plugins you’ve defined in your Pipeline to overrideq default behavior.
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
@@ -91,13 +93,13 @@ The following is a complete list of available hooks, and the order in which they
 Hooks are shell scripts you can use to run commands and export environment variables.
 Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
 
-Hooks are copied to `$TMPDIR` directory and run by the default shell on the Agent that is running the build, which has a few implications:
+Hooks are copied to `$TMPDIR` directory and *sourced* by the default shell on the Agent that is running the build, which has a few implications:
 
-* `$BASH_SOURCE` contains the location where the hook is stored
-* `$0` contains the location of the copy of the script that is running
+* `$BASH_SOURCE` contains the location the hook is sourced from
+* `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
 
-To write hooks in another programming language, you need to call them from within the shell script, and explicitly pass any Buildkite environment variables you need to the script when you call it. 
+To write hooks in another programming language, you need to call them from within the shell script, and explicitly pass any Buildkite environment variables you need to the script when you call it.
 
 The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline’s release build step:
 
