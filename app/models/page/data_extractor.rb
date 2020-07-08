@@ -6,7 +6,8 @@ class Page::DataExtractor
   end
 
   def extract(text, options = {})
-    markdown_ast = markdown_doc(text)
+    # Hack to unescape any emoji references in this: emoji is unsupported
+    markdown_ast = markdown_doc(Emoji::Parser.parse([], text, sanitize: false))
 
     page_name = nil
     # Create an empty markdown document so we can append markdown nodes to it later
