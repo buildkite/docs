@@ -49,9 +49,9 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a <code>pipeline.yml</code> file. </p>
 </section>
 
-## Concurrency and Parallization
+## Concurrency and Parallelization
 
-Sometimes you need strict concurrency while also having jobs that would benefit from parallization.
+Sometimes you need strict concurrency while also having jobs that would benefit from parallelization.
 In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
 
 In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate the e2e tests can run up to three at a time, subject to Agent availability.
