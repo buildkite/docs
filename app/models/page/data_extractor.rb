@@ -66,7 +66,7 @@ class Page::DataExtractor
               page_attributes.push({
                 name: row.first_element_child.inner_text,
                 isRequired: table_attributes_required,
-                textContent: "<span>#{row.last_element_child.inner_html.strip}</span>"
+                textContent: "<div>#{row.last_element_child.inner_html.strip}</div>"
               })
             end
           end
