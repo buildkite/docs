@@ -87,7 +87,6 @@ class Page::DataExtractor
 
     return {
       "name" => page_name,
-      "icon" => "TK: add icon attribute somewhere",
       "shortDescription" => page_description.first_child.to_plaintext(:DEFAULT, 32_767).strip,
       "textContent" => page_description.to_commonmark(:DEFAULT, 32_767).strip,
       "attributes" => page_attributes
