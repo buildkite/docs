@@ -20,16 +20,18 @@ class Page::DataExtractor
         if node.header_level == 1 && page_name.nil?
           page_name = node.to_plaintext(:DEFAULT, 32_767).strip
         end
-      when :paragraph
-        # Add any paragraphs we hit before we find other information to the
-        # description, ignoring any TOC entries
+      when :paragraph, :code_block
+        # Add any paragraphs or code blocks we hit before we find
+        # other information to the description, ignoring any TOC entries
         unless page_description_found || node.to_plaintext == "{:toc}\n"
           page_description.append_child(node)
         end
+
+        if node.type == :code_block
+          # TODO: support turning codeblock-file directives into figure/figcaption elements
+        end
       when :html
         parsed_html = Nokogiri::HTML.fragment(node.to_html(:UNSAFE).strip)
-        # TODO: Does it make a difference that we're not checking non-element children?
-        # TODO: Account for the possibility of markdown content between HTML nodes
         if parsed_html.children.length == 1
           element = parsed_html.first_element_child
           if element.name == "table" && element.attributes.include?("data-attributes")
@@ -48,9 +50,11 @@ class Page::DataExtractor
 
       # End searches for the initial description once we hit a non-paragraph item
       # TODO: Allow for code examples in description?
+      #       - TODO: check about emoji
       if page_description_found == false &&
         (node.type == :header && node.header_level > 1) ||
-        (node.type != :header && node.type != :paragraph)
+        node.type == :code_block ||
+        !([:header, :paragraph, :code_block, :html].include?(node.type))
         page_description_found = true
       end
     end
