@@ -28,7 +28,7 @@ buildkite-agent start --tags "queue=building,queue=testing"
 
 ## Targeting a queue
 
-Just as you would target agents using a normal [agent tag](/docs/agent/v3/cli-start#setting-tags), you can target specific queues using the `agents` attribute on your pipeline steps. 
+Target specific queues using the `agents` attribute on your pipeline steps. 
 
 For example, the following build step matches only agents running on the `deploy` queue (and ignores the agents running the `default` queue):
 
