@@ -2,11 +2,11 @@
   "steps": {
     "name": "Steps",
     "textContent": <%= render_attribute_content "steps" %>,
-    "attributes": <%= @steps_content.to_json.html_safe %>
+    "attributes": <%= JSON.pretty_generate(@steps_content).indent(4).lstrip.html_safe %>
   },
   "notify": {
     "name": "Notifications",
     "textContent": <%= render_attribute_content "notifications" %>,
-    "attributes": <%= @notifications_content.to_json.html_safe %>
+    "attributes": <%= JSON.pretty_generate(@notifications_content).indent(4).lstrip.html_safe %>
   }
 }
