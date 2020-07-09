@@ -563,8 +563,8 @@ There are many different levels at which environment variables are merged togeth
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job’s Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
 <div class="Docs__note">
-  <p>The precedence of environment variables is different from what's listed here if you are using <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Pipeline Steps (beta)</a>.</p>
-  <p>For more information, please consult <a href="https://forum.buildkite.community/t/changes-to-environment-variable-precedence/107">our Community Forum post about the YAML Pipeline Steps beta</a>.</p>
+  <p>If you are not using YAML Steps, the precedence of environment variables is different from the list below.</p>
+  <p>Please <a href="/docs/tutorials/yaml-pipeline-upgrade">migrate your pipelines</a> to use YAML steps. See the <a href="/docs/tutorials/yaml-pipeline-upgrade">deprecation notice</a> for more information.</p>
 </div>
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
@@ -576,12 +576,12 @@ The job environment is made by merging the following sets of values, where value
     <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
   </tr>
   <tr>
-    <th><em>Step</em></th>
-    <td>Optional variables set by you on a step in the YAML steps editor or a pipeline.yml file</td>
-  </tr>
-  <tr>
     <th><em>Build</em></th>
     <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+  </tr>
+    <tr>
+    <th><em>Step</em></th>
+    <td>Optional variables set by you on a step in the YAML steps editor or a pipeline.yml file</td>
   </tr>
   <tr>
     <th><em>Standard</em></th>
@@ -599,11 +599,11 @@ For example, if you had configured the following environment variables:
       <td><code>MY_ENV1="a"</code></td>
     </tr>
     <tr>
-      <th><em>Step</em></th>
+      <th><em>Build</em></th>
       <td><code>MY_ENV1="b"</code></td>
     </tr>
-    <tr>
-      <th><em>Build</em></th>
+        <tr>
+      <th><em>Step</em></th>
       <td><code>MY_ENV1="c"</code></td>
     </tr>
   </tbody>
