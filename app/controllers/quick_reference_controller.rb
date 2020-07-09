@@ -11,8 +11,21 @@ class QuickReferenceController < ApplicationController
     'pipelines/trigger_step'
   ].freeze
 
+  NOTIFICATION_PAGES = [
+    'pipelines/notifications'
+  ].freeze
+
   def pipelines
-    @steps_content = PIPELINE_PAGES.map do |path|
+    @steps_content = parse_pages(PIPELINE_PAGES)
+    @notifications_content = parse_pages(NOTIFICATION_PAGES)
+
+    render formats: :json
+  end
+
+  private
+
+  def parse_pages(pages)
+    pages.map do |path|
       page = Page.new(view_context, path)
 
       data = page.extracted_data
@@ -21,11 +34,7 @@ class QuickReferenceController < ApplicationController
 
       data
     end
-
-    render formats: :json
   end
-
-  private
 
   def add_cors_headers
     headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"

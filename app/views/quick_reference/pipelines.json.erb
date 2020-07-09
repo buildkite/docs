@@ -7,19 +7,6 @@
   "notify": {
     "name": "Notifications",
     "textContent": <%= render_attribute_content "notifications" %>,
-    "attributes": [
-      {
-        "name": "notify",
-        "shortDescription": "The notify attribute allows you to trigger build notifications to different services.",
-        "docsURL": "https://buildkite.com/docs/pipelines/notifications",
-        "textContent": <%= render_attribute_content "notifications/notify" %>,
-        "attributes": [
-          {
-            "name": "email",
-            "textContent": <%= render_attribute_content "notifications/notify/email" %>
-          }
-        ]
-      }
-    ]
+    "attributes": <%= @notifications_content.to_json.html_safe %>
   }
 }
