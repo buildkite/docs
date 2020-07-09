@@ -1,6 +1,8 @@
 # Trigger Step
 
-A *trigger* step creates a build on another pipeline. You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
+A *trigger* step creates a build on another pipeline. 
+
+You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
 {:toc}
 
@@ -46,6 +48,7 @@ _Optional attributes:_
     <td><code>build</code></td>
     <td>
       An optional map of attributes for the triggered build.
+      Available attributes: <code>branch</code>, <code>commit</code>, <code>env</code>, <code>message</code>, <code>meta_data</code>
     </td>
   </tr>
   <tr>
@@ -58,7 +61,7 @@ _Optional attributes:_
   <tr>
     <td><code>async</code></td>
     <td>
-      If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.
+      If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.<br>
       <em>Default value:</em> <code>false</code>
     </td>
   </tr>
