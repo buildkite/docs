@@ -145,6 +145,7 @@ RSpec.feature "reading pages" do
       /docs/how-tos/github-enterprise
       /docs/how-tos/gitlab
       /docs/how-tos/migrating-from-bamboo
+      /docs/pipelines/emoji
       /docs/pipelines/pipelines
       /docs/pipelines/uploading-pipelines
       /docs/projects
