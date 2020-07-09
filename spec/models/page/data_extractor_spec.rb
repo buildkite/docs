@@ -114,4 +114,75 @@ RSpec.describe Page::DataExtractor do
       })
     end
   end
+
+  describe "attributes" do
+    it "extracts content from HTML table elements" do
+      md = <<~MD
+        <table data-attributes data-attributes-required>
+          <tr>
+            <td><code>command</code></td>
+            <td>
+              <img src="https://placekitten.com/480/272" />
+              <img src="https://placekitten.com/640/480" />
+            </td>
+          </tr>
+        </table>
+
+        <table data-attributes>
+          <tr>
+            <td><code>another-thing</code></td>
+            <td>
+              <img src="https://placekitten.com/480/272" />
+              <img src="https://placekitten.com/640/480" />
+            </td>
+          </tr>
+        </table>
+      MD
+
+      expect(Page::DataExtractor.extract(md)).to eql({
+        "attributes" => [
+          {
+            "isRequired" => true,
+            "name" => "command",
+            "textContent" => <<~MD.strip
+              <div><img src="https://placekitten.com/480/272">
+                    <img src="https://placekitten.com/640/480"></div>
+            MD
+          },
+          {
+            "isRequired" => false,
+            "name" => "another-thing",
+            "textContent" => <<~MD.strip
+              <div><img src="https://placekitten.com/480/272">
+                    <img src="https://placekitten.com/640/480"></div>
+            MD
+          }
+        ],
+        "name" => nil,
+        "shortDescription" => nil,
+        "textContent" => ""
+      })
+    end
+
+    it "ignores tables which do not have data-attributes" do
+      md = <<~MD
+        <table>
+          <tr>
+            <td><code>another-thing</code></td>
+            <td>
+              <img src="https://placekitten.com/480/272" />
+              <img src="https://placekitten.com/640/480" />
+            </td>
+          </tr>
+        </table>
+      MD
+
+      expect(Page::DataExtractor.extract(md)).to eql({
+        "attributes" => [],
+        "name" => nil,
+        "shortDescription" => nil,
+        "textContent" => ""
+      })
+    end
+  end
 end

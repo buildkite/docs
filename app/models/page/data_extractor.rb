@@ -64,9 +64,9 @@ class Page::DataExtractor
 
             element.css('tr').each do |row|
               page_attributes.push({
-                name: row.first_element_child.inner_text,
-                isRequired: table_attributes_required,
-                textContent: "<div>#{row.last_element_child.inner_html.strip}</div>"
+                "name" => row.first_element_child.inner_text,
+                "isRequired" => table_attributes_required,
+                "textContent" => "<div>#{row.last_element_child.inner_html.strip}</div>"
               })
             end
           end
@@ -87,7 +87,7 @@ class Page::DataExtractor
 
     return {
       "name" => page_name,
-      "shortDescription" => page_description.first_child.to_plaintext(:DEFAULT, 32_767).strip,
+      "shortDescription" => page_description.first_child&.to_plaintext(:DEFAULT, 32_767)&.strip,
       "textContent" => page_description.to_commonmark(:DEFAULT, 32_767).strip,
       "attributes" => page_attributes
     }
