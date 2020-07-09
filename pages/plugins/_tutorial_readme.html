@@ -11,12 +11,12 @@ steps:
   - command: ls
     plugins:
       a-github-user/file-counter#v1.0.0:
-        name: '*.md'
+        pattern: '*.md'
 ```
 
 ## Configuration
 
-### `name` (Required, string)
+### `pattern` (Required, string)
 
 The file name pattern, for example `*.ts`. Supports any pattern supported by [find -name](http://man7.org/linux/man-pages/man1/find.1.html).
 
