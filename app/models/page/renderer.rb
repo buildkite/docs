@@ -138,9 +138,8 @@ class Page::Renderer
       caption = Nokogiri::XML::Node.new "figcaption", doc
       caption.content = filename
       figure.add_child(caption)
-      node.previous_element.add_child(figure)
-
-      node.previous_element.first_element_child.parent = figure
+      node.previous_element.add_previous_sibling(figure)
+      node.previous_element.parent = figure
       node.remove
     end
     
