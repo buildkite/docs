@@ -1,0 +1,51 @@
+# Migrating to YAML Steps
+
+The web-based step editor has been deprecated and will be removed on the xx of xxxx 2021. This guide will explain the changes from the web-based editor to the YAML Steps editor, and provides steps for completing the migration for your organization's pipelines. 
+
+{:toc}
+
+## What changes when you migrate
+
+Instead of creating and managing pipeline steps with the GUI-like editor, pipelines will be managed in YAML in the YAML Steps editor.  
+
+screenshot of yaml editor
+
+- two parts, new pipelines and migrating old pipelines
+- both can be performed from the migration page
+
+screenshot of migration page
+
+After migrating to YAML Steps, the web-based step editor will no longer be available. The web-based editor is deprecated and will be removed on the xx of xxxx 2021. See the [deprecation notice]() for further information. 
+
+A new reference sidebar is available alongside the YAML editor. Each step type lists the available top level attributes with short descriptions, for more detailed information on each you can click through to the relevant documentation page
+
+If you've been using the YAML steps editor during its beta, none of your pipelines will have any changes applied. 
+
+### Compatibility issues
+
+- environment interpolation re-ordering
+
+## Steps to migrate
+
+- need to be an org admin, can see which pipelines are already migrated on the pipeline management page
+
+### Individual migration
+
+You can migrate each pipeline individually from the Pipeline Settings page. Under the web-based Steps editor is a button to Convert to YAML Steps:
+
+<%= image "individual-migration.png", width: 1730/2, height: 1086/2, alt: "Screenshot of the YAML Steps conversion panel and button" %>
+
+Click this button to automatically convert your pipeline steps into YAML. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps.
+
+If you expect to have compatability issues with your environment variables, individual migration is recommended. 
+
+### Bulk migration
+
+You can migrate all of the pipelines in your organization at the same time using the bulk migration button on the migration page.
+
+<%= image "bulk-migration.png", width: 1744/2, height: 446/2, alt: "Screenshot of the bulk pipeline migration panel and button" %>
+
+Click the migrate button to convert the steps of every in your organization into YAML. The new YAML steps version of your pipeline will be auto-saved during migration, and will replace the web-based steps. 
+
+After migrating, please manually check each pipeline, ensuring that they have completed sucessfully. 
+
