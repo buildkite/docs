@@ -1,21 +1,18 @@
 # Migrating to YAML Steps
 
-The web-based step editor has been deprecated and will be removed on the xx of xxxx 2021. This guide will explain the changes from the web-based editor to the YAML Steps editor, and provides steps for completing the migration for your organization's pipelines. 
+This guide will explain the differences between the web-based editor and the YAML Steps editor, and provides steps for completing the migration for your organization's pipelines. 
 
 {:toc}
 
 ## What changes when you migrate
 
-Instead of creating and managing pipeline steps with the GUI-like editor, pipelines will be managed in YAML in the YAML Steps editor.  
+Instead of creating and managing pipeline steps with the GUI-like step editor, pipelines will be managed in YAML in the YAML Steps editor.  
 
-screenshot of yaml editor
+There are two parts to migrating: 
+1. Opt-in to using YAML Steps for any new pipelines created by your organization
+1. Migrate all existing pipelines, either one at a time or using the bulk migration button
 
-- two parts, new pipelines and migrating old pipelines
-- both can be performed from the migration page
-
-screenshot of migration page
-
-After migrating to YAML Steps, the web-based step editor will no longer be available. The web-based editor is deprecated and will be removed on the xx of xxxx 2021. See the [deprecation notice]() for further information. 
+After migrating to YAML Steps, you will no longer be able to access the web-based step editor.
 
 A new reference sidebar is available alongside the YAML editor. Each step type lists the available top level attributes with short descriptions, for more detailed information on each you can click through to the relevant documentation page
 
@@ -25,9 +22,17 @@ If you've been using the YAML steps editor during its beta, none of your pipelin
 
 - environment interpolation re-ordering
 
-## Steps to migrate
+## Using YAML Steps for new pipelines
 
-- need to be an org admin, can see which pipelines are already migrated on the pipeline management page
+To use the YAML Steps editor for new pipelines created in your organization, you'll need to opt-in on the Pipeline YAML Migration page in Organization Settings. 
+
+<%= image "bulk-migration.png", width: 1744/2, height: 446/2, alt: "Screenshot of the button to use YAML steps for new pipelines" %>
+
+Clicking the button to start using YAML pipelines won't change anything for any existing pipelines in your organization. Migration of existing pipelines will need to be completed either individually or using the bulk migration tool. See the migration instructions below for further information.  
+
+## Steps to migrate existing pipelines
+
+The migration page can be accessed by organization administrators from the Organization Settings page. On this page you can see which pipelines have already been migrated and which are yet to migrate. 
 
 ### Individual migration
 
