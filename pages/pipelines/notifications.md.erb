@@ -149,6 +149,19 @@ notify:
 
 In the example above, the notification will be sent to the 'sre' and 'announcements' channels in the 'buildkite-community' workspace, the 'monitoring' channel in the 'buildkite-team' workspace, as well as to the 'general' channel of all configured workspaces.
 
+You can add a custom message to the notification:
+
+```yaml
+notify:
+  - slack:
+      - "buildkite-community#sre"
+      message: "SRE related information here..."
+  - slack:
+      - "buildkite-community#announcements"
+      message: "General announcement for the team here..."
+```
+{: codeblock-file="pipeline.yml"}
+
 You can also add conditionals to restrict the events on which notifications are sent:
 
 ```yaml
