@@ -153,11 +153,13 @@ You can add a custom message to the notification:
 
 ```yaml
 notify:
-  - slack:
-      - "buildkite-community#sre"
+  - slack: 
+      channels: 
+        - "buildkite-community#sre"
       message: "SRE related information here..."
   - slack:
-      - "buildkite-community#announcements"
+      channels:
+        - "buildkite-community#announcements"
       message: "General announcement for the team here..."
 ```
 {: codeblock-file="pipeline.yml"}
