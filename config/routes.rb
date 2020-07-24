@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get "/docs/guides/github-enterprise",           to: redirect("/docs/integrations/github-enterprise")
   get "/docs/guides/github-repo-access",          to: redirect("/docs/agent/github-ssh-keys")
   get "/docs/guides/gitlab",                      to: redirect("/docs/integrations/gitlab")
+  get "/docs/pipelines/emoji",                    to: redirect("/docs/pipelines/emojis")
   get "/docs/guides/images-in-build-output",      to: redirect("/docs/pipelines/links-and-images-in-log-output")
   get "/docs/pipelines/images-in-log-output",     to: redirect("/docs/pipelines/links-and-images-in-log-output")
   get "/docs/guides/managing-log-output",         to: redirect("/docs/pipelines/managing-log-output")
