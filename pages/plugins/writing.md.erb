@@ -43,7 +43,10 @@ configuration:
 ```
 {: codeblock-file="plugin.yml"}
 
-The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `name` property, of type `string`.
+The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `pattern` property, of type `string`.
+
+Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>`.  In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
+
 
 ### Add a hook
 
@@ -185,7 +188,7 @@ author: https://github.com/a-github-user
 requirements: []
 configuration:
   pattern:
-    name: string
+    type: string
   additionalProperties: false
 ```
 {: codeblock-file="plugin.yml"}

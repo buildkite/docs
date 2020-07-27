@@ -37,7 +37,7 @@ There are two ways to disable a provider:
 1. Using the 'Disable' button in your SSO provider Settings, or
 1. Using the [GraphQL API](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider)
 
-If you have disabled all your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is disabled, they can perform a 'Forgotten Password' reset.
+If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.
 
 ## Frequently asked questions
 
@@ -54,7 +54,10 @@ You will need to manually remove them from your Buildkite organization. This wil
 Yes, by adding multiple SSO providers. You can enable as many different identity providers for your organization as you need.
 
 ### Will enabling SSO disrupt my team?
-No, SSO must be verified before being enabled, and can easily be disabled by you if required. Once enabled, users will see a new "SSO" badge on the organization and will be required to authorise with your SSO provider to access organization data.
+
+<!--alex ignore easy-->
+
+No, SSO must be verified before being enabled, and can easily be switched off if required. Once enabled, users will see a new "SSO" badge on the organization and will be required to authorise with your SSO provider to access organization data.
 
 ### Will enabling SSO affect builds, agents or pipelines?
 No, all of your builds, agents, and pipelines will continue to run as normal.

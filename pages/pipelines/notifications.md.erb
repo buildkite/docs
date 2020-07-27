@@ -157,3 +157,23 @@ notify:
     if: build.state == "passed"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Webhooks
+
+Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` yaml block:
+
+```yaml
+notify:
+  - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
+```
+{: codeblock-file="pipeline.yml"}
+
+The `webhook` attribute accepts a single webhook URL as a string. To send notifications to more than one endpoint, add each URL as a separate webhook attribute:
+
+```yaml
+notify:
+  - webhook: "https://webhook.site/82n740x6-168b-5aca-9067-3b410g78c23a"
+  - webhook: "https://webhook.site/32raf257-81b6-9067-5aca-78s09m6102b4"
+  - webhook: "https://webhook.site/27f518bw-9067-5aca-b681-102c847j917z"
+```
+{: codeblock-file="pipeline.yml"}

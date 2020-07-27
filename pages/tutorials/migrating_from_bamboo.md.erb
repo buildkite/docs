@@ -6,14 +6,16 @@ Migrating continuous integration tools can be hard, so we've put together a guid
 
 ## Plans to Pipelines
 
+<!--alex ignore easy-->
+
 Most Bamboo workflows can be easily mapped to Buildkite. *Projects
-and Plans* in Bamboo are known simply as *Pipelines* in Buildkite. Bamboo Deployments also simply become Buildkite Pipelines.
+and Plans* in Bamboo are known as *Pipelines* in Buildkite. Bamboo Deployments also become Buildkite Pipelines.
 
 Buildkite Pipelines consist of *Steps*. There are 4 different types of Pipeline Steps: `command`, `trigger`, `wait` and `block`.
 
 The first two types, `command` and `trigger`, run in parallel. The second two types, `wait` and `block` will cause the Pipeline to pause and wait for all previous steps to complete—this way your Pipeline becomes a set of stages.
 
-For example, a simple test and deploy Pipeline might consist of the following steps:
+For example, a test and deploy Pipeline might consist of the following steps:
 
 ```yaml
 steps:
@@ -89,7 +91,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Once your Build Pipelines are setup, you can update step labels to something a bit more fun than just text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
+Once your Build Pipelines are set up, you can update step labels to something more fun than plain text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis))
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
@@ -104,9 +106,9 @@ For example, say you had the following set of Bamboo Tasks:
 
 <%= image("bamboo_task_list.png", size: '621x296', alt: 'Screenshot of a Bamboo Task List') %>
 
-This can be rewritten to be a single script and then committed to your
+This can be rewritten as a single script and then committed to your
 repository. The Buildkite Agent takes care of checking out the repository for
-you before each step, so the script would simply be:
+you before each step, so the script would be:
 
 ```bash
 #!/bin/bash

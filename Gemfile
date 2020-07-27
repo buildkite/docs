@@ -27,8 +27,11 @@ gem 'stringex'
 # Rendering markdown
 gem 'redcarpet'
 
+# Parsing markdown
+gem 'commonmarker'
+
 # Syntax highlighting code
-gem 'rouge'
+gem 'rouge', '3.3.0'
 
 # For escaping code snippets in markdown
 gem 'escape_utils'
@@ -51,7 +54,7 @@ end
 group :test do
   # Who doesn't love tests!?
   gem "rspec-rails"
-  
+
   # We want junit output so we can annotate the build
   gem "rspec_junit_formatter"
 

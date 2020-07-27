@@ -1,6 +1,6 @@
 # Buildkite Agent Hooks
 
-Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example, you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a repository `pre-command` hook which sets up some repository-specific environment variables.
+Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example, you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a repository `pre-command` hook which sets up repository-specific environment variables.
 
 {:toc}
 
@@ -8,17 +8,41 @@ Every agent installer comes with a hooks directory which can be used to override
 
 There are three types of hooks:
 
-1. [Agent hooks](#agent-hooks) - these exist on the agent’s machine, and are run for every job on any pipeline.
-1. [Repository hooks](#repository-hooks) - these exist in your pipeline repository’s `.buildkite/hooks` directory.
-1. [Plugin hooks](#plugin-hooks) - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml`.
+* Agent hooks - these exist on the agent’s machine, and are run for every job on any pipeline.
+* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory.
+* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml`.
+
+### Agent hooks
+
+Each agent installer comes with a hooks directory containing a set of sample hooks. You can find the location of your agent hooks directory in your platform’s installation documentation.
+
+To get started with agent hooks copy the relevant example script and remove the `.sample` file extension.
+
+### Repository hooks
+
+Repository hooks allow you to execute repository-specific scripts. Repository hooks live alongside your repository’s source code under the directory `.buildkite/hooks`.
+
+To get started, create a shell script in `.buildkite/hooks` named `post-checkout`.
+It will be sourced and run every build, after the Agent checks your repository out.
+You can also use one of the other available *Repository* hooks, according to when you want your custom script to run.
+
+### Plugin hooks
+
+Plugin hooks allow plugins you’ve defined in your Pipeline to override default behavior.
+
+See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
 ## Available hooks
 
-The following is a complete list of hooks that can be implemented, and the order in which they are called:
+The following is a complete list of available hooks, and the order in which they are called:
 
 <table>
   <thead>
-    <tr><th>Hook</th><th>Order</th></th><th>Description</th></tr>
+    <tr>
+        <th>Hook</th>
+        <th>Order</th>
+        <th>Description</th>
+    </tr>
   </thead>
   <tbody>
     <tr>
@@ -66,7 +90,16 @@ The following is a complete list of hooks that can be implemented, and the order
 
 ## Creating hook scripts
 
-Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](/docs/pipelines/environment-variables) are available to be used inside your hook scripts.
+Hooks are shell scripts you can use to run commands and export environment variables.
+Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+
+Hooks are copied to `$TMPDIR` directory and *sourced* by the default shell on the Agent that is running the build, which has a few implications:
+
+* `$BASH_SOURCE` contains the location the hook is sourced from
+* `$0` contains the location of the copy of the script that is running from `$TMPDIR`
+* the shebang line of the hook script has no effect
+
+To write hooks in another programming language, you need to call them from within the shell script, and explicitly pass any Buildkite environment variables you need to the script when you call it.
 
 The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline’s release build step:
 
@@ -76,33 +109,6 @@ echo '--- \:house_with_garden\: Setting up the environment'
 
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
-
-The following is an example of a custom `pre-command` hook which changes the working directory before the command is run:
-
-```bash
-set -eu
-echo '--- \:sparkles\: Changing to the CI directory'
-
-cd ci
-```
-
-## Agent hooks
-
-Each agent installer comes with a hooks directory containing a set of sample hooks. You can find the location of your agent hooks directory in your platform’s installation documentation.
-
-To get started with agent hooks copy the relevant example script and remove the `.sample` file extension.
-
-## Repository hooks
-
-Repository hooks allow you to execute repository-specific scripts. Repository hooks live alongside your repository’s source code under the directory `.buildkite/hooks`.
-
-To get started create a `.buildkite/hooks` directory, add your hook script, and make it executable.
-
-## Plugin hooks
-
-Plugin hooks allow any plugins you’ve defined to execute and override any of the default behavior.
-
-See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
 ## Hooks on Windows
 

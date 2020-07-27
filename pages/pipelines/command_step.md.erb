@@ -20,7 +20,7 @@ steps:
 
 _Required attributes:_
 
-<table>
+<table data-attributes data-attributes-required>
   <tr>
     <td><code>command</code></td>
     <td>
@@ -48,7 +48,7 @@ steps:
 
 _Optional attributes:_
 
-<table>
+<table data-attributes>
   <tr>
     <td><code>agents</code></td>
     <td>
@@ -165,12 +165,11 @@ _Optional attributes:_
   <tr>
     <td><code>soft_fail</code></td>
     <td>
-      Should this step cause the build to fail if it exits with a non-zero status.
-      Can be either an array of soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
+      Allow specified non-zero exit statuses not to fail the build. Note that a timeout always causes a build to fail.
+      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em><br>
       <code>- exit_status: 1</code><br>
-      <code>- exit_status: "*"</code><br>
     </td>
   </tr>
   <tr>
@@ -321,7 +320,8 @@ _Optional Attributes_
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number that will cause this job to be soft-failed. <br>
+      Allow specified non-zero exit statuses not to fail the build.
+      Note that a timeout always causes a build to fail. <br>
       <em>Example:</em> <code>"*"</code><br>
       <em>Example:</em> <code>1</code>
     </td>

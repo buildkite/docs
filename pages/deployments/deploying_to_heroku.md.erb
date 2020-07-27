@@ -1,6 +1,6 @@
 # Deploying to Heroku
 
-It’s easy to test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines.
+You can test and deploy [Heroku](https://heroku.com/) applications from your Buildkite pipelines.
 
 For GitHub based pipelines you can use Heroku’s [Automatic Deploys](https://devcenter.heroku.com/articles/github-integration) feature to have a branch deployed once Buildkite has marked the commit as having passed. To get started with automatic deploys: enable it in your Heroku dashboard, check “Wait for CI to pass before deploy”, and when Heroku sees the passing Buildkite commit status it will automatically perform a slug deploy. You can also auto-deploy pull requests using [Review Apps](https://devcenter.heroku.com/articles/github-integration-review-apps).
 
@@ -30,7 +30,7 @@ $ heroku --version
 
 You should see version numbers for both the `heroku-toolbelt` and `heroku-cli` packages.
 
-The next step is to login using the CLI and your Heroku credentials. We recommend creating a new user in Heroku just for this machine (a “machine user”). Creating a machine user in Heroku is simple: sign up to Heroku as a new user and then add that user as a collaborator to your existing Heroku application.
+The next step is to login using the CLI and your Heroku credentials. We recommend creating a new user in Heroku that you only use for this purpose (a “machine user”). To create a machine user in Heroku, sign up to Heroku as a new user and then add that user as a collaborator to your existing Heroku application.
 
 If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
 
@@ -54,7 +54,17 @@ It should look like this:
 
 <%= image "steps.png", size: '726x378', alt: 'Buildkite pipeline heroku deploy step' %>
 
-What’s happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the commit we’ve just tested.
+What’s happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we’ve tested.
+
+In YAML format, your pipeline will look like:
+
+```yaml
+steps:
+  - label: ":heroku: Deploy"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "git push heroku "$$BUILDKITE_COMMIT":master"
+```
 
 ## Running a build
 
@@ -64,9 +74,19 @@ Once you’ve saved the pipeline settings the final step is to push a commit to 
 
 ## Post-deploy scripts
 
-If you want to run post-deploy tasks on Heroku simply a waiter and another command step, for example:
+If you want to run tasks after the deploy, such as running database migrations, you can add a [wait step](/docs/pipelines/wait-step) and additional command step that uses `heroku run`, for example:
 
-```bash
-heroku git:remote --app my-app
-heroku run echo "A post-deploy command"
+```yaml
+steps:
+  - label: ":heroku: Deploy"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "git push heroku "$$BUILDKITE_COMMIT":master"
+
+  - wait
+
+  - label: ":heroku: DB Migrations"
+    commands:
+      - "heroku git:remote --app my-app"
+      - "heroku run rails db:migrate"
 ```
