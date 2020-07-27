@@ -26,6 +26,7 @@ If you've been using the YAML steps editor during its beta, then your pipelines 
 Using YAML Steps changes the order in which environment variables are interpolated.
 
 There are two precedence changes: 
+
 1. Step-level environment variables will now take precedence over build-level variables (i.e. variables set when creating a new build)
 1. Top level `env` blocks in YAML no longer override step-level environment variables
 
