@@ -94,6 +94,10 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def description
+    extracted_data.fetch("shortDescription")
+  end
+
   def markdown_body
     erb_renderer = ERB.new(contents)
     template_binding = TemplateBinding.new(view_helpers: @view,
