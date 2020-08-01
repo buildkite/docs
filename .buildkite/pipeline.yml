@@ -15,6 +15,7 @@ steps:
 
   - label: ":junit: Test Summary"
     depends_on: "rspec"
+    allow_dependency_failure: true
     plugins:
       - bugcrowd/test-summary#v1.9.0:
           inputs:
