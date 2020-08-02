@@ -142,7 +142,7 @@ class Page
 
   def filename
     @filename ||= begin
-                    directory = Rails.root.join("app/views/pages")
+                    directory = Rails.root.join("pages")
 
                     potential_files = [ "#{basename}.md", "#{basename}.md.erb" ].map { |n| directory.join(n) }
                     potential_files.find { |file| File.exist?(file) }
