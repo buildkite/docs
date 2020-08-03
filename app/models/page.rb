@@ -94,6 +94,10 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def description
+    extracted_data.fetch("shortDescription")
+  end
+
   def markdown_body
     erb_renderer = ERB.new(contents)
     template_binding = TemplateBinding.new(view_helpers: @view,
@@ -138,7 +142,7 @@ class Page
 
   def filename
     @filename ||= begin
-                    directory = Rails.root.join("app/views/pages")
+                    directory = Rails.root.join("pages")
 
                     potential_files = [ "#{basename}.md", "#{basename}.md.erb" ].map { |n| directory.join(n) }
                     potential_files.find { |file| File.exist?(file) }

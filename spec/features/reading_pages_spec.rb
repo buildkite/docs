@@ -12,6 +12,12 @@ RSpec.feature "reading pages" do
       expect { visit "/docs/unknown" }.to raise_error(ActionController::RoutingError)
     end
 
+    it "has appropriate meta tags" do
+      visit "/docs/agent"
+      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent (v3)")
+      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
+    end
+
     it "adds the agent version number to the title" do
       visit "/docs/agent/v3"
       expect(page.title).to include("The Buildkite Agent (v3)")

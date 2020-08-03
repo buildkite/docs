@@ -2,14 +2,14 @@
 <html lang='en'>
   <head>
     <meta charset='utf-8'>
-    <link rel="dns-prefetch" href="<%= ENV['ASSET_HOST'] %>" />
+    <%= tag :link, rel: "dns-prefetch", href: ENV["ASSET_HOST"] if ENV["ASSET_HOST"] %>
     <link rel="dns-prefetch" href="//www2.buildkiteassets.com" />
     <link rel="dns-prefetch" href="//<%= Matomo::HOST %>" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
 
-    <title><%= [ @page_title, "Buildkite Documentation" ].join(" | ") %></title>
+    <title><%= content_for(:page_title) %> | Buildkite Documentation</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
@@ -20,26 +20,26 @@
 
     <meta name="referrer" content="origin-when-cross-origin" />
 
-    <link rel="shortcut icon" href="<%= image_path("favicon.png") %>" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="<%= image_url('appicon.png') %>" />
-    <link rel="mask-icon" href="<%= image_url('logo-pinned.svg') %>" color="#14CC80" />
+    <%= tag :link, rel: "shortcut icon", href: image_path("favicon.png"), type: "image/x-icon" %>
+    <%= tag :link, rel: "apple-touch-icon", href: image_path("appicon.png") %>
+    <%= tag :link, rel: "mask-icon", href: image_path("logo-pinned.svg"), color: "#14CC80" %>
 
     <!-- Twitter Cards Metadata -->
-    <meta name="twitter:card" content="<%= content_for(:page_twitter_card) || 'summary_large_image' %>">
+    <%= tag :meta, property: "twitter:card", content: content_for(:page_twitter_card) || "summary_large_image" %>
     <meta name="twitter:site" content="@Buildkite">
 
     <!-- Open Graph Metadata -->
-    <meta property="og:type" content="<%= content_for(:page_og_type) || "website" %>" />
-    <meta property="og:title" content="<%= content_for(:page_og_title) || @page_title || "Buildkite" %>" />
-    <meta property="og:description" content="<%= content_for(:page_description) || "Automate your team’s software development processes, from testing through to delivery, no matter the language, environment or toolchain." %>" />
-    <meta property="og:image" content="<%= content_for(:page_image) || image_url("opengraph_default.png").gsub(/^\/\//, 'https://') %>" />
+    <%= tag :meta, property: "og:type", content: content_for(:page_og_type) || "website" %>
+    <%= tag :meta, property: "og:title", content: content_for(:page_og_title) || content_for(:page_title) || "Buildkite"%>
+    <%= tag :meta, property: "og:description", content: content_for(:page_og_description) || content_for(:page_description) || "Automate your team’s software development processes, from testing through to delivery, no matter the language, environment or toolchain." %>
+    <%= tag :meta, property: "og:image", content: content_for(:page_image) || image_url("opengraph_default.png").gsub(/^\/\//, 'https://') %>
     <% if page_image_alt = content_for(:page_image_alt) %>
-      <meta property="og:image:alt" content="<%= page_image_alt %>" />
+      <%= tag :meta, property: "og:image:alt", content: page_image_alt  %>
     <% end %>
     <meta property="og:site_name" content="Buildkite" />
     <meta property="og:locale" content="en_US" />
 
-    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{@page_title}", logged_in: probably_authenticated? %>
+    <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
     <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
       <meta name="robots" content="noindex, nofollow">

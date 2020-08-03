@@ -58,16 +58,17 @@ class Page::DataExtractor
       when :html
         parsed_html = Nokogiri::HTML.fragment(node.to_html(:UNSAFE).strip)
         if parsed_html.children.length == 1
-          element = parsed_html.first_element_child
-          if element.name == "table" && element.attributes.include?("data-attributes")
-            table_attributes_required = element.attributes.include?("data-attributes-required")
+          if element = parsed_html.first_element_child
+            if element.name == "table" && element.attributes.include?("data-attributes")
+              table_attributes_required = element.attributes.include?("data-attributes-required")
 
-            element.css('tr').each do |row|
-              page_attributes.push({
-                "name" => row.first_element_child.inner_text,
-                "isRequired" => table_attributes_required,
-                "textContent" => "<div>#{row.last_element_child.inner_html.strip}</div>"
-              })
+              element.css('tr').each do |row|
+                page_attributes.push({
+                  "name" => row.first_element_child.inner_text,
+                  "isRequired" => table_attributes_required,
+                  "textContent" => "<div>#{row.last_element_child.inner_html.strip}</div>"
+                })
+              end
             end
           end
         end
