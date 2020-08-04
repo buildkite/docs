@@ -32,6 +32,20 @@ RSpec.feature "reading pages" do
     end
   end
 
+  describe "all pages" do
+    example "render" do
+      root = Rails.root.join("pages")
+      root.glob("**/*.md{,.erb}").each do |path|
+        url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".erb").delete_suffix(".md")
+        puts "Visiting #{url}"
+        visit url
+        if !page.status_code.in?([200, 403])
+          raise "#{url} returned #{page.status_code}"
+        end
+      end
+    end
+  end
+
   describe "clicking links" do
     class Check < Struct.new(:path, :source_link, :fragment, keyword_init: true)
     end
