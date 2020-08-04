@@ -53,6 +53,10 @@
         {
           "name": "ALGOLIA_INDEX_NAME",
           "valueFrom": "/ecs/docs/ALGOLIA_INDEX_NAME"
+        },
+        {
+          "name": "BUGSNAG_API_KEY",
+          "valueFrom": "/ecs/docs/BUGSNAG_API_KEY"
         }
       ],
       "logConfiguration": {
