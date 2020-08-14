@@ -289,6 +289,7 @@
               <% if request.url.include?('/docs/apis') %>
                 <p class="Docs__nav__section-heading">APIs</p>
                 <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/apis' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">REST API</p>
