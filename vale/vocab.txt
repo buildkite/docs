@@ -97,6 +97,7 @@ rvm
 sed
 sha
 shasum
+Saucelabs
 Shellcheck
 Shipit
 sre
