@@ -90,7 +90,7 @@ E.g. if you have a step A and it uses the concurrency group `X` with a concurren
 This is the default behaviour (`ordered`) and for example most helpful for deploys, etc.
 
 However, in some cases concurrency groups are not used in order to guarantee a limited number of execution to happen at the same time and preserving order, they can be used to restrict access to a limited resource for example - let's say a limited capacity in a SaaS service like Saucelabs or similar.
-In that case, the ordering of the executions can work against you, as one execution is waiting for the next before taking up another concurrency slot. If your resource usage tiem is very different (let's say some cross-browser test executes in pipeline A after 1 minute whereas in another pipeline B it executes after 10 minutes then potentially you could run multiple short tests of pipeline B before the execution of the step in pipeline A is due. Ordering is not helpful because it means that depending on the order in which these tests were queued in, the limited resource you're controlling concurrency for is not utilized fully. For this you can set the concurrency method to `eager`, which removes the ordering condition.
+In that case, the ordering of the executions can work against you, as one execution is waiting for the next before taking up another concurrency slot. If your resource usage time is very different (let's say some cross-browser test executes in pipeline A after 1 minute whereas in another pipeline B it executes after 10 minutes then potentially you could run multiple short tests of pipeline B before the execution of the step in pipeline A is due. Ordering is not helpful because it means that depending on the order in which these tests were queued in, the limited resource you're controlling concurrency for is not utilized fully. For this you can set the concurrency method to `eager`, which removes the ordering condition.
 
 ```yaml
 steps:
@@ -100,4 +100,3 @@ steps:
     concurrency_method: eager
 ```
 {: codeblock-file="pipeline.yml"}
-
