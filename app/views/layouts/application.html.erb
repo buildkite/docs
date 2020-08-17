@@ -289,16 +289,8 @@
               <% if request.url.include?('/docs/apis') %>
                 <p class="Docs__nav__section-heading">APIs</p>
                 <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %></li>
-                </ul>
-                <p class="Docs__nav__section-subheading">Webhooks</p>
-                <ul class="Docs__nav__sub-nav">
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">REST API</p>
                 <ul class="Docs__nav__sub-nav">
@@ -317,6 +309,15 @@
                 <p class="Docs__nav__section-subheading">GraphQL API</p>
                 <ul class="Docs__nav__sub-nav">
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/graphql-api' %></li>
+                </ul>
+                <p class="Docs__nav__section-subheading">Webhooks</p>
+                <ul class="Docs__nav__sub-nav">
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'apis/webhooks' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %></li>
                 </ul>
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
