@@ -6,7 +6,7 @@ Pipelines are the top level containers for modelling and defining your workflows
 
 ## What is a pipeline?
 
-A pipeline is a template of the steps you want to run. There are many types of steps, some run scripts, some define conditional logic, and others wait for user input. When you run a pipeline, a build is created. Each of the steps in the pipeline end up as jobs in the build.  
+A pipeline is a template of the steps you want to run. There are many types of steps, some run scripts, some define conditional logic, and others wait for user input. When you run a pipeline, a build is created. Each of the steps in the pipeline end up as jobs in the build, which then get distributed to available agents.
 
 ## Is this just for running tests and deploying code?
 
@@ -20,7 +20,7 @@ Once you’ve set up a few pipelines and have run some builds, you can see an ov
 
 ### Pipeline status
 
-A visual indication of your pipeline’s current status. This icon is based on the latest build on your default branch.  
+A visual indication of your pipeline’s current status. This icon is based on the latest build on your default branch.
 
 <%= image "build-status.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipeline status icon" %>
 
@@ -38,7 +38,7 @@ The speed of your pipeline is calculated from the average of your 30 most recent
 
 ### Reliability
 
-The reliability of your pipeline is a calculation based on passing vs failing builds over the last 30 days. This metric helps you to understand the overall stability of your pipelines. 
+The reliability of your pipeline is a calculation based on passing vs failing builds over the last 30 days. This metric helps you to understand the overall stability of your pipelines.
 
 <%= image "reliability.png", width: 728/2, height: 440/2, alt: "Screenshot of the build reliability metric" %>
 
@@ -56,13 +56,13 @@ You can keep your most used pipelines at the top of the page by clicking the sta
 
 ### Filtering pipelines
 
-You can filter pipelines using the search bar at the top of the page. This will search the titles of pipelines, and return all those matching your search terms. 
+You can filter pipelines using the search bar at the top of the page. This will search the titles of pipelines, and return all those matching your search terms.
 
 If your organization has Teams enabled, you can also filter this page by the teams that you're in. When you have more than one team attached to your buildkite account, you'll see a dropdown list of teams at the top of the pipelines page. This defaults to 'All Teams'. Selecting a specific team will filter the list of pipelines to display only those accessible by the selected team.
 
 ### Customizing the page
 
-Your pipeline’s name, description, its repository, and your default branch are all editable. After you’ve clicked on a pipeline, the settings button is in the top right corner. 
+Your pipeline’s name, description, its repository, and your default branch are all editable. After you’ve clicked on a pipeline, the settings button is in the top right corner.
 
 <%= image "settings.png", width: 728/2, height: 440/2, alt: "Screenshot of the pipelines settings button" %>
 
