@@ -18,7 +18,17 @@ steps:
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
 
-Multi-line conditionals can be added with the `|` character:
+Be careful when defining conditional within YAML. Many symbols have special meaning in YAML and will change the type of a value. You can avoid this by quoting your conditional as a string.
+
+```yml
+steps:
+	- command: ./scripts/tests.sh
+	  label: tests
+	  if: "!build.pull_request.draft"
+```
+{: codeblock-file="pipeline.yml"}
+
+Multi-line conditionals can be added with the `|` character, and avoid the need for quotes:
 
 ```yml
 steps:
