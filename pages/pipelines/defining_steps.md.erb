@@ -22,6 +22,8 @@ You can also use the REST API to create a pipeline and define your steps. See th
 
 There are two ways to add steps to your pipeline: with the visual editor in Buildkite or with a `pipeline.yml` file. You can add steps immediately during your initial pipeline setup, or you can edit them on the pipeline settings page.
 
+Whether you add steps with the visual editor or in a `pipeline.yml`, keep in mind that steps may run on different agents, so it is good practice to install your dependencies in the same step that you run them.
+
 ### Visual pipeline editor
 
 Add steps to your pipeline using the ➕ dropdown button. You can add [command](/docs/pipelines/command-step), [wait](/docs/pipelines/wait-step), and [block](/docs/pipelines/block-step) steps here.
