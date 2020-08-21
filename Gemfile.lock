@@ -25,6 +25,8 @@ GEM
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
     bindex (0.8.1)
+    bugsnag (6.15.0)
+      concurrent-ruby (~> 1.0)
     builder (3.2.4)
     byebug (11.1.3)
     capybara (3.32.2)
@@ -157,6 +159,7 @@ DEPENDENCIES
   actionpack
   actionview
   activesupport
+  bugsnag
   byebug
   capybara
   commonmarker

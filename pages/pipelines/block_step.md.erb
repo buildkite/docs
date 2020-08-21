@@ -26,7 +26,7 @@ The data you collect from these fields is then available to subsequent steps in 
 
 For a complete example pipeline, including dynamically generated input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
 
-<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example">:pipeline: Block Step Example Pipeline<span class="repo">github.com/buildkite/block-step-example</span></a>
+<a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example"><span class="detail">:pipeline: Block Step Example Pipeline</span> <span class="repo">github.com/buildkite/block-step-example</span></a>
 
 ## Block Step Attributes
 
@@ -308,7 +308,7 @@ buildkite-agent meta-data get "release-name"
 ```
 
 <div class="Docs__troubleshooting-note">
-  <p>Meta-data cannot be interpolated directly from the `pipeline.yml` at runtime. The meta-data store can only be accessed from within a command step.</p>
+  <p>Meta-data cannot be interpolated directly from the <code>pipeline.yml</code> at runtime. The meta-data store can only be accessed from within a command step.</p>
 </div>
 
 In the below example, the script uses the `buildkite-agent` meta-data command to retrieve the meta-data and print it to the log:

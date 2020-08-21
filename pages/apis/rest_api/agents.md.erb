@@ -4,7 +4,7 @@
 
 ## List agents
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s agents.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s agents. The list only includes connected agents - agents in a disconnected state are not returned.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
@@ -74,6 +74,8 @@ Required scope: `read_agents`
 Success response: `200 OK`
 
 ## Get an agent
+
+Returns the details for a single agent, looked up by unique ID. Any valid agents can be returned, including running and disconnected agents.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"

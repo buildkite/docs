@@ -91,7 +91,6 @@ pybuildkite
 Readme
 readme
 readmes
-Redhat
 refspec
 repo
 rvm

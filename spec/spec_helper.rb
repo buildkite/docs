@@ -48,7 +48,8 @@ RSpec.configure do |config|
     # As per the docs here:
     # https://github.com/bugcrowd/test-summary-buildkite-plugin
     RSpec.configure do |config|
-      config.add_formatter('RspecJunitFormatter', "log/rspec-#{ENV['BUILDKITE_JOB_ID']}.xml")
+      config.add_formatter("documentation")
+      config.add_formatter("RspecJunitFormatter", "log/rspec-#{ENV['BUILDKITE_JOB_ID']}.xml")
     end
   end
 

@@ -12,6 +12,12 @@ RSpec.feature "reading pages" do
       expect { visit "/docs/unknown" }.to raise_error(ActionController::RoutingError)
     end
 
+    it "has appropriate meta tags" do
+      visit "/docs/agent"
+      expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent (v3)")
+      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
+    end
+
     it "adds the agent version number to the title" do
       visit "/docs/agent/v3"
       expect(page.title).to include("The Buildkite Agent (v3)")
@@ -23,6 +29,20 @@ RSpec.feature "reading pages" do
     it "links to the GitHub source files" do
       visit "/docs/tutorials/getting-started"
       expect(page).to have_css("a[href='https://github.com/buildkite/docs/tree/master/pages/tutorials/getting_started.md.erb']", text: 'contribute an update')
+    end
+  end
+
+  describe "all pages" do
+    example "render" do
+      root = Rails.root.join("pages")
+      root.glob("**/*.md{,.erb}").each do |path|
+        url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".erb").delete_suffix(".md")
+        puts "Visiting #{url}"
+        visit url
+        if !page.status_code.in?([200, 403])
+          raise "#{url} returned #{page.status_code}"
+        end
+      end
     end
   end
 
