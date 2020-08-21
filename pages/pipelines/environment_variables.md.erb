@@ -553,6 +553,27 @@ You can define environment variables in your jobs in a few ways, depending on th
   <p>Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.</p>
 </section>
 
+## Variable interpolation
+
+Any environment variables set by Buildkite will be interpolated by the Agent. 
+
+If you're using the YAML Steps editor to define your pipeline, only a subset of the environment variables are available at this level. Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created.
+
+The following variables are available directly in the YAML Step editor:
+
+- `BUILDKITE_BRANCH`
+- `BUILDKITE_MESSAGE`
+- `BUILDKITE_COMMIT`
+- `BUILDKITE_PIPELINE_SLUG`
+- `BUILDKITE_ORGANIZATION_SLUG`
+- `BUILDKITE_PULL_REQUEST`
+- `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+- `BUILDKITE_PULL_REQUEST_REPO`
+
+You can access the rest of the Buildkite environment variables by using a `pipeline.yml` file. You can define your entire pipeline in the YAML file, or you can do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.  
+
+Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/v3/cli-pipeline#environment-variable-substitution) cli guide.
+
 ## Environment variable precedence
 
 You can set environment variables in lots of different places, and which ones take precedence can get a little confusing.
@@ -563,8 +584,8 @@ There are many different levels at which environment variables are merged togeth
 When a job runs on an agent, the first combination of environment variables happens in the job environment itself. This is the environment you can see in a job’s Environment tab in the Buildkite dashboard, and the one returned by the REST and GraphQL APIs.
 
 <div class="Docs__note">
-  <p>The precedence of environment variables is different from what's listed here if you are using <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Pipeline Steps (beta)</a>.</p>
-  <p>For more information, please consult <a href="https://forum.buildkite.community/t/changes-to-environment-variable-precedence/107">our Community Forum post about the YAML Pipeline Steps beta</a>.</p>
+  <p>If you are not using YAML Steps, the precedence of environment variables is different from the list below.</p>
+  <p>Please <a href="/docs/tutorials/pipeline-upgrade">migrate your pipelines</a> to use YAML steps.</p>
 </div>
 
 The job environment is made by merging the following sets of values, where values in each successive set take precedence:
@@ -576,12 +597,12 @@ The job environment is made by merging the following sets of values, where value
     <td>Optional variables set by you on a pipeline on the Pipeline Settings page</td>
   </tr>
   <tr>
-    <th><em>Step</em></th>
-    <td>Optional variables set by you on a step in the UI or in a pipeline.yml file</td>
-  </tr>
-  <tr>
     <th><em>Build</em></th>
     <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+  </tr>
+    <tr>
+    <th><em>Step</em></th>
+    <td>Optional variables set by you on a step in the YAML steps editor or a pipeline.yml file</td>
   </tr>
   <tr>
     <th><em>Standard</em></th>
@@ -599,11 +620,11 @@ For example, if you had configured the following environment variables:
       <td><code>MY_ENV1="a"</code></td>
     </tr>
     <tr>
-      <th><em>Step</em></th>
+      <th><em>Build</em></th>
       <td><code>MY_ENV1="b"</code></td>
     </tr>
-    <tr>
-      <th><em>Build</em></th>
+        <tr>
+      <th><em>Step</em></th>
       <td><code>MY_ENV1="c"</code></td>
     </tr>
   </tbody>

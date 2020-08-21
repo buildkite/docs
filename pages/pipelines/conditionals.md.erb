@@ -1,10 +1,10 @@
 # Using Conditionals
 
-The `if` parameter provides the ability to conditionally run steps.  Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
+The `if` parameter provides the ability to run steps only when specific conditions are met. Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances.
 
 {:toc}
 
-Use the `if` attribute in your pipeline's YAML to conditionally run a step.
+Use the `if` attribute in your step definition to conditionally run a step.
 
 In the below example, the `tests` step will only be run if the build message does not contain the string "skip tests".
 

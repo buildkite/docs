@@ -2,12 +2,19 @@
 
 A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
-A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies, steps will run when the step they depend on complete, without waiting for `block` or `wait` steps unless those are also explicit dependencies.
-
+A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
 
 {:toc}
 
-A basic block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file. Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
+A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file. 
+
+Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
+
+```yml
+steps:
+  - block: "\:rocket\: Release!"
+```
+{: codeblock-file="pipeline.yml"}
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 

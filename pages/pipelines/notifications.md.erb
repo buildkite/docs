@@ -4,11 +4,7 @@ The `notify` attribute allows you to trigger build notifications to different se
 
 {:toc}
 
-Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your `pipeline.yml` file.
-
-<section class="Docs__note">
-  <p>The <code>notify</code> attribute can only be used when using the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML Step Editor beta</a>.</p>
-</section>
+Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your pipeline YAML.
 
 The below example will send a notification email every time a build is created on this pipeline:
 
@@ -23,7 +19,41 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can trigger notifications as emails, as a message in a Basecamp Campfire, or as a message in a Slack Channel.
+Available notification types:
+<table data-attributes>
+  <tr>
+    <td>email</td>
+    <td>
+      Send an email to the specified email address.<br>
+      <em>Required attributes:</em> <code>email</code>
+    </td>
+  </tr>
+  <tr>
+    <!-- vale off -->
+    <td>basecamp</td>
+    <!-- vale on -->
+    <td>
+      Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.<br>
+      <em>Required attributes:</em> <code>basecamp_campfire</code>
+    </td>
+  </tr>
+  <tr>
+    <td>slack</td>
+    <td>
+      Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.<br>
+      <em>Required attributes:</em> <code>slack</code>
+    </td>
+  </tr>
+  <tr>
+    <td>webhooks</td>
+    <td>
+      Send a notification to the specified webhook URL.<br>
+      <em>Required attributes:</em> <code>webhook</code>
+    </td>
+  </tr>
+</table>
+
+Further details for each attribute can be found in the corresponding sections below. 
 
 ## Conditional notifications
 

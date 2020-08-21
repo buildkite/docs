@@ -43,28 +43,24 @@ You’re now ready to run `heroku` commands in your Buildkite pipelines! :tada:
 
 ## Setting up your build pipeline
 
-In your pipeline setup, add a command step. Limit it to the branch you want to deploy, and have it run the following command:
-
-```bash
-heroku git:remote --app my-app
-git push heroku "$BUILDKITE_COMMIT":master
-```
-
-It should look like this:
-
-<%= image "steps.png", size: '726x378', alt: 'Buildkite pipeline heroku deploy step' %>
-
-What’s happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we’ve tested.
-
-In YAML format, your pipeline will look like:
+In your pipeline, add a command step for your deploy. Limit it to the branch you want to deploy, and add the commands to push to Heroku:
 
 ```yaml
 steps:
-  - label: ":heroku: Deploy"
-    commands:
+  - label: "\:ruby\: Tests"
+    command:
+      - cp .env.sample-dev .env
+      - foreman run rake db:setup spec
+      
+  - label: "\:heroku\: Deploy"
+    branches: "master"
+    command:
       - "heroku git:remote --app my-app"
       - "git push heroku "$$BUILDKITE_COMMIT":master"
 ```
+{: codeblock-file="pipeline.yml"}
+
+What’s happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we’ve tested.
 
 ## Running a build
 
@@ -78,14 +74,14 @@ If you want to run tasks after the deploy, such as running database migrations, 
 
 ```yaml
 steps:
-  - label: ":heroku: Deploy"
+  - label: "\:heroku\: Deploy"
     commands:
       - "heroku git:remote --app my-app"
       - "git push heroku "$$BUILDKITE_COMMIT":master"
 
   - wait
 
-  - label: ":heroku: DB Migrations"
+  - label: "\:heroku\: DB Migrations"
     commands:
       - "heroku git:remote --app my-app"
       - "heroku run rails db:migrate"

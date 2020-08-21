@@ -6,8 +6,6 @@ A *command* step runs one or more shell commands on one or more agents.
 
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 
-<%= image "pipeline-settings.png", width: 1158/2, height: 506/2, alt: "Screenshot of a basic command step" %>
-
 A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
 ```yml
@@ -149,7 +147,7 @@ _Optional attributes:_
     <td><code>retry</code></td>
     <td>
       The conditions for retrying this step.<br>
-      Available retry types: <code>automatic</code>,<code>manual</code>
+      Available types: <code>automatic</code>, <code>manual</code>
     </td>
   </tr>
   <tr>

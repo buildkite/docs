@@ -38,22 +38,15 @@ Once you've started agents with tags you can target them in the build pipeline u
 
 Here's an example of targeting agents that are running with the tag `postgres` and value of `1.9.4`:
 
-<%= image 'agent-selector-matching-1.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
-
-To do this from [uploaded pipeline.yml](/docs/agent/v3/cli-pipeline) you would do:
-
 ```yaml
 steps:
   - command: "script.sh"
     agents:
       postgres: "1.9.4"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can also match for any agent with a `postgres` tag by omitting the value after the `=` sign, or by using `*`, for example:
-
-<%= image 'agent-selector-matching-2.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
-
-To do this from an [uploaded pipeline.yml](/docs/agent/v3/cli-pipeline) you would do:
 
 ```yaml
 steps:
@@ -61,6 +54,7 @@ steps:
     agents:
       postgres: '*'
 ```
+{: codeblock-file="pipeline.yml"}
 
 Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
