@@ -396,14 +396,14 @@ Error responses:
 Updates one or more properties of an existing pipeline:
 
 <div class="Docs__troubleshooting-note">
-<p>To update a pipeline's YAML steps, you can use the cconfiguration value as shown below.</p>
+<p>To update a pipeline's YAML steps, you can use the cconfiguration value as shown.</p>
 </div>
 
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -d '{
     "repository": "git@github.com:acme-inc/new-repo.git",
-    "configuration": "steps:\n  - command: \"new.sh\"\n"
+    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
   }'
 ```
 
@@ -449,7 +449,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
       "env": {},
       "timeout_in_minutes": null,
       "agent_query_rules": [
-        "something=true"
+        "myqueue=true"
       ],
       "concurrency": null,
       "parallelism": null
