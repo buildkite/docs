@@ -395,10 +395,15 @@ Error responses:
 
 Updates one or more properties of an existing pipeline:
 
+<div class="Docs__troubleshooting-note">
+<p>To update a pipeline's YAML steps, you can use the configuration value as shown.</p>
+</div>
+
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -d '{
-    "repository": "git@github.com:acme-inc/new-repo.git"
+    "repository": "git@github.com:acme-inc/new-repo.git",
+    "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
   }'
 ```
 
@@ -433,16 +438,21 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
   "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
   "created_at": "2015-03-01 06:44:40 UTC",
+  "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"something=true\"",
   "steps": [
     {
       "type": "script",
-      "name": "Build \:package\:",
-      "command": "script/release.sh",
-      "artifact_paths": "pkg/*",
+      "name": null,
+      "command": "new.sh",
+      "artifact_paths": null,
       "branch_configuration": null,
-      "env": { },
+      "env": {},
       "timeout_in_minutes": null,
-      "agent_query_rules": [ ]
+      "agent_query_rules": [
+        "myqueue=true"
+      ],
+      "concurrency": null,
+      "parallelism": null
     }
   ],
   "env": {
