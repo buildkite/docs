@@ -36,7 +36,7 @@ To run the same step in parallel over all 5 of the agents, we can set the `paral
 ```yaml
 steps:
   - command: "tests.sh"
-    parrallelism: 5
+    parallelism: 5
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -46,7 +46,7 @@ Update the name of the step to use `%n`, like the example below. This will subst
 steps:
   - command: "tests.sh"
     label: "Test %n"
-    parrallelism: 5
+    parallelism: 5
 ```
 {: codeblock-file="pipeline.yml"}
 
