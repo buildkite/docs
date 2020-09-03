@@ -36,13 +36,13 @@ env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 
 Once you've started agents with tags you can target them in the build pipeline using agent query rules.
 
-Here's an example of targeting agents that are running with the tag `postgres` and value of `1.9.4`:
+Here's an example of targeting agents that are running with the tag `postgres` and value of `12.4`:
 
 ```yaml
 steps:
   - command: "script.sh"
     agents:
-      postgres: "1.9.4"
+      postgres: "12.4"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -56,7 +56,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
+Partial wildcard matching (e.g. `postgres=12*` or `postgres=*12`) is not yet supported.
 
 ## The Queue Tag
 
