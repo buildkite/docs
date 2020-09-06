@@ -93,6 +93,16 @@ _Optional attributes:_
       <em>Default:</em> <code>false</code>
     </td>
   </tr>
+  <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em> <code>false</code><br>
+      <em>Example:</em> <code>"My reason"</code>
+    </td>
+  </tr>
 </table>
 
 _Optional_ `build` _attributes:_
@@ -126,16 +136,6 @@ _Optional_ `build` _attributes:_
     <td>
       A map of <a href="/docs/pipelines/build-meta-data">meta-data</a> for the build.<br>
       <em>Example:</em> <code>release-version: "1.1"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>skip</code></td>
-    <td>
-      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
-      <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
   <tr>
