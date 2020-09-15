@@ -2,19 +2,15 @@
 
 ## Authentication
 
-The Buildkite REST and GraphQL APIs expect the authentication token to be provided via the `Authorization` HTTP header:
+The Buildkite REST and GraphQL APIs expect an access token to be provided via the `Authorization` HTTP header:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 ```
 
-All Webhooks contain the `X-Buildkite-Token` which allows you to verify the authenticity of the request.
-
-```yaml
-Example: 309c9c842d8565adec5d7469160059f9
-```
-
 Generate an [Access Token](https://buildkite.com/user/api-access-tokens).
+
+All webhooks contain an [`X-Buildkite-Token` header](/docs/apis/webhooks#http-headers) which allows you to verify the authenticity of the request.
 
 ## REST API
 
