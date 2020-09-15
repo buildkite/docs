@@ -249,6 +249,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 }
 ```
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>include_retried_jobs</code></th>
+    <td>Include all retried job executions in each build’s jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?include_retried_jobs=true</code></p>
+      Note: The value of this parameter is ignored, <code>?include_retried_jobs=false</code> <em>will include</em> retried jobs.
+    </td>
+  </tr>
+</tbody>
+</table>
+
 Required scope: `read_builds`
 
 Success response: `200 OK`
