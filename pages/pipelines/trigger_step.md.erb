@@ -1,6 +1,6 @@
 # Trigger Step
 
-A *trigger* step creates a build on another pipeline. 
+A *trigger* step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
@@ -26,6 +26,10 @@ If you have [Teams](/docs/pipelines/permissions) enabled in your organization, t
 * 'Build' permission on *every* pipeline that will be triggered
 
 If the author does not have the required access, the build will fail, and builds on subsequent pipelines will not be triggered.
+
+If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/integrations/github#connecting-buildkite-and-github).
+
+
 
 ## Trigger Step Attributes
 
