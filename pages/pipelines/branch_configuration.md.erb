@@ -28,7 +28,7 @@ steps:
     command:
       - "npm install"
       - "tests.sh"
-    branches: "master feature/* release/*"
+    branches: "master feature/* !feature/beta release/*"
   - block: "Release notes"
     prompt: "Please add notes for this release"
     fields:
