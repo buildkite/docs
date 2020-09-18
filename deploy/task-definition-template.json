@@ -57,6 +57,14 @@
         {
           "name": "BUGSNAG_API_KEY",
           "valueFrom": "/ecs/docs/BUGSNAG_API_KEY"
+        },
+        {
+          "name": "POSTHOG_URL",
+          "valueFrom": "/ecs/docs/POSTHOG_URL"
+        },
+        {
+          "name": "POSTHOG_API_KEY",
+          "valueFrom": "/ecs/docs/POSTHOG_API_KEY"
         }
       ],
       "logConfiguration": {
