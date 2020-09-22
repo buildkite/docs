@@ -316,7 +316,7 @@ In the below example, the script uses the `buildkite-agent` meta-data command to
 ```bash
 #!/bin/bash
 
-release="$(buildkite-agent meta-data get "release-name")"
+RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
 echo "Release name: $RELEASE_NAME"
 ```
 
