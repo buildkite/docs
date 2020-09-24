@@ -6,45 +6,50 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 
 ## Creating an AWS EC2 Key Pair
 
-The first thing you’ll need is an [EC2 Key Pair](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to allow you to SSH into EC2 instances created by the Elastic CI stack. If you already have a Key Pair that you'd like to use, you can head straight to [Launching the Stack](#launching-the-stack).
+The first thing you’ll need is an [EC2 Key Pair](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-key-pairs.html) to allow you to SSH into EC2 instances created by the Elastic CI stack. If you already have a Key Pair that you'd like to use, you can head straight to [Launching the Stack](#launching-the-stack).
 
-To create an EC2 Key Pair, sign into the AWS Console, and go to the EC2 service:
+To create an EC2 Key Pair, sign into the AWS Management Console, click _“Services ▼”_ on top left, then go to the EC2 service:
 
-<%= image "ec2-service.png", size: "#{425/2}x#{258/2}", alt: 'AWS EC2' %>
+<%= image "ec2-service.png", size: "#{266/2}x#{264/2}", alt: "AWS EC2" %>
 
 Then go to _“Key Pairs”_ under _“Network & Security”_:
 
-<%= image "ec2-key-pair.png", size: "#{380/2}x#{290/2}", alt: 'AWS EC2 Key Pair' %>
+<%= image "ec2-key-pair.png", size: "#{323/2}x#{392/2}", alt: "AWS EC2 Key Pair" %>
 
-Click the _“Create Key Pair”_ button in the top left hand corner and give it a name.
+Click the _“Create key pair”_ button in the top left hand corner and give it a name.
 
-<%= image "ec2-create-key-pair.png", size: "#{1028/2}x#{416/2}", alt: 'AWS EC2 Create Key Pair' %>
+<%= image "ec2-create-key-pair.png", size: "#{1078/2}x#{840/2}", alt: "AWS EC2 Create Key Pair" %>
 
 ## Launching the Stack
 
-Go to the _“Agents”_ page on Buildkite and select the _“AWS”_ tab:
+Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildkite and select the _“AWS”_ tab:
 
-<%= image "agents-tab.png", size: '647x166', alt: 'Buildkite AWS Agents' %>
+<%= image "agents-tab.png", size: "#{1532/2}x#{296/2}", alt: "Buildkite AWS Agents" %>
 
 Click _“Launch Stack”_ :red_button:
 
-<%= image "agents-tab-launch.png", size: "#{478/2}x#{324/2}", alt: 'Launch Buildkite Elastic CI Stack' %>
+<%= image "agents-tab-launch.png", size: "#{554/2}x#{316/2}", alt: 'Launch Buildkite Elastic CI Stack' %>
 
-<%= image "aws-select-template.png", size: '627x456', alt: 'AWS Select Template Screen' %>
+<%= image "aws-select-template.png", size: "#{1037/2}x#{673/2}", alt: "AWS Select Template Screen" %>
 
 After clicking _“Next”_ you’ll configure the stack using the details from Buildkite:
 
-<%= image "aws-parameters.png", size: '561x311', alt: 'AWS Parameters' %>
+<%= image "aws-parameters.png", size: "#{1019/2}x#{392/2}", alt: "AWS Parameters" %>
 
 By default the stack uses a job queue of `default` but you can specify any other queue name you’d like. See the [Buildkite Agent Job Queue docs](/docs/agent/v3/queues) for more info.
 
-Once you're ready, click the _“I acknowledge that this template might cause AWS CloudFormation to create IAM resources.”_ checkbox then click _“Create”_:
+Review all configure options. Once you're ready, check both checkboxes:
 
-<%= image "aws-create-stack.png", size: "#{1250/2}x#{541/2}", alt: 'AWS Create Stack Button' %>
+- I acknowledge that AWS CloudFOrmation might create IAM resources with custom names.”_
+- I acknowledge that AWS CloudFOrmation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
-After creating the stack, you'll be taken to the CloudFormation console. Click the _“Refresh”_ button in the top right hand corner of the screen until you see the stack being created.
+Then click _“Create stack”_:
 
-<%= image "elastic-stack.gif", width: 1230/2, height: 180/2, alt: "Waiting for the AWS Stack to be created" %>
+<%= image "aws-create-stack.png", size: "#{1257/2}x#{455/2}", alt: "AWS Create Stack Button" %>
+
+After creating the stack, you'll be taken to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the _“Refresh”_ icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
+
+<%= image "elastic-ci-stack.png", width: 2756/2, height: 1406/2, alt: "AWS Elastic CI Stack Create Complete" %>
 
 You've now got a working Elastic CI Stack ready to run builds! :tada:
 
@@ -54,27 +59,25 @@ We’ve created a sample [bash-parallel-example sample pipeline](https://github.
 
 <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="__blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Your pipeline is now ready for its first build. Click "New Build" in the top right and choose a build message (perhaps a little party `\:parrot\:`?):
+Click “Create Pipeline”. Your pipeline is now ready for its first build. Click "New Build" in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
 
-<%= image "buildkite-new-build.png", size: "#{970/2}x#{871/2}", alt: 'Triggering Buildkite Build' %>
+<%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
-Once your build is created head back to [AWS EC2 Autoscaling console](http://console.aws.amazon.com/ec2/autoscaling/home) to monitor the Elastic CI stack creating new EC2 instances:
+Once your build is created head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2autoscaling/home) to monitor the Elastic CI Stack creating new EC2 instances:
 
-<%= image "ec2-service.png", size: "#{425/2}x#{258/2}", alt: 'AWS EC2' %>
+<%= image "ec2-asg.png", size: "#{400/2}x#{200/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
 
-<%= image "ec2-asg.png", size: "#{390/2}x#{170/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
+Select the _“buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx”_ group and then the _“Instances”_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from `Pending` to `InService`:
 
-Select the _“buildkite-AgentAutoScaleGroup-xxx”_ group and then the _“Instances”_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from `Pending` to `InService`:
-
-<%= image "buildkite-demo-instances.png", width: 1876/2, height: 1154/2, alt: 'AWS Auto Scaling Group Launching' %>
+<%= image "buildkite-demo-instances.png", width: 3266/2, height: 1748/2, alt: "AWS Auto Scaling Group Launching" %>
 
 Once the instances are ready you'll see them appear on your Buildkite Agents page:
 
-<%= image "buildkite-connected-agents.png", size: "#{925/2}x#{929/2}", alt: 'Buildkite Connected Agents' %>
+<%= image "buildkite-connected-agents.png", size: "#{1584/2}x#{1508/2}", alt: 'Buildkite Connected Agents' %>
 
 And then your build will start running on your new agents:
 
-<%= image "build.gif", alt: 'Running your first build' %>
+<%= image "build.png", size: "#{2356/2}x#{1488/2}", alt: "Your First Build" %>
 
 Congratulations on running your first Elastic CI Stack build on Buildkite! :clap::tada:
 
