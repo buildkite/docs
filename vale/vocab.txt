@@ -37,6 +37,7 @@ dogstatsd
 env
 eval
 Explainshell
+Eventbridge
 fff
 ffxdq
 Firewalled
