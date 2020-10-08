@@ -2,5 +2,3 @@ extends: spelling
 message: "Did you really mean '%s'?"
 level: error
 ignore: vale/vocab.txt
-filters:
-  - ':[a-z\-]*:' # Ignore all custom emoji words
