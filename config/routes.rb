@@ -119,7 +119,7 @@ Rails.application.routes.draw do
   get "/docs/*path" => "pages#show", as: :docs_page
 
   # Top level redirect. Needs to be at the end so it doesn't match /docs/sub-page
-  get "/docs", to: redirect("/docs/tutorials/getting-started", status: 302), as: :docs
+  get "/docs", to: redirect("/docs/index", status: 302), as: :docs
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
