@@ -27,6 +27,7 @@ chatbot
 chroot
 chroots
 cli
+Cloudwatch
 composable
 config
 cpu
