@@ -14,13 +14,13 @@ vary between customers. Here's a few options.
 
 {:toc}
 
-## Authenticating with a paid Docker Hub account on the Elastic Stack for AWS
+## Authenticating with a paid Docker Hub account on the Elastic CI Stack for AWS
 
-The Elastic Stack for AWS can [authenticate with Docker Hub by adding two
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) can [authenticate with Docker Hub by adding two
 environment variables to the secrets
 bucket](https://github.com/buildkite/elastic-ci-stack-for-aws#docker-registry-support):
 
-Each elastic stack typically has an S3 bucket for storing secrets used during
+Each Elastic CI Stack typically has an S3 bucket for storing secrets used during
 builds. At the start of each job, the agent will attempt to download two
 environment hooks:
 
@@ -39,7 +39,7 @@ Docker Hub requests are authenticated:
 
 All agents will [check the local filesystem for hook scripts to execute during a job](/docs/agent/v3/hooks).
 
-A pre-command hook script like this is one option for authenticating with Docker Hub
+A [pre-command hook](https://buildkite.com/docs/agent/v3/hooks#available-hooks) script like this is one option for authenticating with Docker Hub
 
     #!/bin/bash
 
@@ -82,7 +82,7 @@ This approach requires:
 
 ## Mirror images into AWS Elastic Container Registry
 
-AWS doesn't have specific documentation, however the solution proposed by GCP
+AWS doesn't have specific documentation, however the solution proposed by Google Cloud Platform (GCP)
 above would work with AWS Elastic Container Registry (ECR) as well.
 
 ## Configure docker daemon to try the GCR mirror of popular Docker Hub images
