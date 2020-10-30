@@ -33,7 +33,7 @@ DOCKER_LOGIN_USER="the-user-name"
 DOCKER_LOGIN_PASSWORD="the-password"
 ```
 
-## Other Buuildkite agents authenticating with a paid Docker Hub account
+## Other Buildkite agents authenticating with a paid Docker Hub account
 
 All agents check the local filesystem for [hook scripts to execute during a job](/docs/agent/v3/hooks).
 
@@ -74,8 +74,8 @@ Docker Hub images](https://cloud.google.com/container-registry/docs/migrate-exte
 
 This approach requires:
 
-1. A regular process (eg. nightly) that mirrors the Docker images you need
-2. Updating all pipelines to use the mirrored GCR image (eg from `nginx:1.14.2`
+1. A regular process (e.g. nightly) that mirrors the Docker images you need
+2. Updating all pipelines to use the mirrored GCR image (e.g. from `nginx:1.14.2`
    to `gcr.io/<GCR_PROJECT>/nginx:1.14.2`)
 
 ## Mirroring Docker images into AWS Elastic Container Registry
@@ -83,12 +83,12 @@ This approach requires:
 AWS doesn't have specific documentation, however a similar solution to the one proposed by Google Cloud Platform (GCP)
 above would work with AWS Elastic Container Registry (ECR) as well:
 
-1. A regular process (eg. nightly) that mirrors the Docker images you need
+1. A regular process (e.g. nightly) that mirrors the Docker images you need
 2. Updating all pipelines to use the mirrored ECR image instead of the original one
 
 ## Configuring the docker daemon to use the GCR mirror of popular Docker Hub images
 
-GCP host a mirror of popular Docker Hub images in the mirror.gcr.io registry.
+GCP host a mirror of popular Docker Hub images in the `mirror.gcr.io` registry.
 
 For agents running on GCP, it's possible to configure docker to try the mirror
 first, and transparently fall back to the public Docker Hub registry when the
@@ -109,5 +109,5 @@ origin registry (like Docker Hub).
 * https://github.com/rpardini/docker-registry-proxy
 
 Once the caching registry is operating, pipelines can be updated to use images
-from that registry (eg from `nginx:1.14.2` to `example.com/nginx:1.14.2`) and
+from that registry (e.g. from `nginx:1.14.2` to `example.com/nginx:1.14.2`) and
 new images will be transparently fetched from Docker Hub.
