@@ -1,28 +1,24 @@
 # Docker Hub
 
 [Docker Hub](https://hub.docker.com/) is a public registry of docker images,
-with popular images used in many build pipelines.
+hosting popular images used in many build pipelines.
 
-On 2nd November 2020, [Docker Hub introduced strict rate
+On 2nd November 2020, Docker Hub introduced [strict rate
 limits](https://docs.docker.com/docker-hub/download-rate-limit/) on image
-downloads by unauthenticated clients and authenticated clients on a free plan.
-For many Buildkite customers, this may result in some jobs intermittently
-failing.
+downloads by unauthenticated clients, and authenticated clients on a free plan.
+For Buildkite customers using images hosted on Docker Hub, this results in intermittent job failure.
 
-The appropriate mitigation for build failures caused by the rate limits will
-vary between customers. Here's a few options.
+How to prevent job failure caused by the Docker Hub rates limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
 
 {:toc}
 
-## Authenticating with a paid Docker Hub account on the Elastic CI Stack for AWS
+## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) can [authenticate with Docker Hub by adding two
-environment variables to the secrets
-bucket](https://github.com/buildkite/elastic-ci-stack-for-aws#docker-registry-support):
+If you're using the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), you can authenticate with Docker Hub by [adding two
+environment variables](https://github.com/buildkite/elastic-ci-stack-for-aws#docker-registry-support) to your secrets
+bucket and accessing them from your build.
 
-Each Elastic CI Stack typically has an S3 bucket for storing secrets used during
-builds. At the start of each job, the agent will attempt to download two
-environment hooks:
+Add your Docker Hub credentials to one of the following two environment hooks, which are downloaded at the start of each job:
 
 * `/env` - An agent environment hook, run for every job the agent runs
 * `/{pipeline-slug}/env` - An agent environment hook, specific to a pipeline
@@ -30,26 +26,27 @@ environment hooks:
 Either one of these could be configured with Docker Hub credentials to ensure
 Docker Hub requests are authenticated:
 
-    #!/bin/bash
+```bash
+#!/bin/bash
 
-    DOCKER_LOGIN_USER="the-user-name"
-    DOCKER_LOGIN_PASSWORD="the-password"
+DOCKER_LOGIN_USER="the-user-name"
+DOCKER_LOGIN_PASSWORD="the-password"
+```
 
-## Authenticating with a paid Docker Hub account on other agents
+## Other Buuildkite agents authenticating with a paid Docker Hub account
 
-All agents will [check the local filesystem for hook scripts to execute during a job](/docs/agent/v3/hooks).
+All agents check the local filesystem for [hook scripts to execute during a job](/docs/agent/v3/hooks).
 
-A [pre-command hook](https://buildkite.com/docs/agent/v3/hooks#available-hooks) script like this is one option for authenticating with Docker Hub
+A [pre-command hook](https://buildkite.com/docs/agent/v3/hooks#available-hooks) script like this is one option for authenticating with Docker Hub, and can be configured to fetch credentials from the system you use to store them in:
 
-    #!/bin/bash
+```bash
+#!/bin/bash
 
-    echo "~~~ Logging into Docker Hub"
-    docker login --username "the-user-name" --password-stdin << "the-password"
+echo "~~~ Logging into Docker Hub"
+docker login --username "the-user-name" --password-stdin << "the-password"
+```
 
-Depending on your preferences, it's possible to fetch the credentials from
-another system (vault, AWS SSM, etc) rather than hard code them into the hook.
-
-## Authenticating with a paid Docker Hub account using docker login plugin
+## Using docker-login plugin to authenticate with a paid Docker Hub account
 
 The [docker-login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) can perform the authentication in just the jobs that need it.
 
@@ -61,31 +58,35 @@ Start by setting the password in an [agent environment hook](/docs/agent/v3/hook
 
 Then add the plugin to pipeline YAML steps that need it:
 
+```yaml
     steps:
       - command: ./run_build.sh
         plugins:
           - docker-login#v2.0.1:
               username: the-user-name
               password-env: DOCKER_HUB_PASSWORD
+```
 
-## Mirror images into Google Container Registry
+## Mirroring Docker images into Google Container Registry
 
-For those who use Google Cloud, Google has some [documentation on mirroring
-Docker Hub images to a private Google Container Registry
-(GCR)](https://cloud.google.com/container-registry/docs/migrate-external-containers).
+If you're using Google Cloud, Google has some documentation on [mirroring
+Docker Hub images](https://cloud.google.com/container-registry/docs/migrate-external-containers) to a private Google Container Registry (GCR).
 
 This approach requires:
 
-1. A regular process (eg. nightly) that mirrors images of interest
+1. A regular process (eg. nightly) that mirrors the Docker images you need
 2. Updating all pipelines to use the mirrored GCR image (eg from `nginx:1.14.2`
    to `gcr.io/<GCR_PROJECT>/nginx:1.14.2`)
 
-## Mirror images into AWS Elastic Container Registry
+## Mirroring Docker images into AWS Elastic Container Registry
 
-AWS doesn't have specific documentation, however the solution proposed by Google Cloud Platform (GCP)
-above would work with AWS Elastic Container Registry (ECR) as well.
+AWS doesn't have specific documentation, however a similar solution to the one proposed by Google Cloud Platform (GCP)
+above would work with AWS Elastic Container Registry (ECR) as well:
 
-## Configure docker daemon to try the GCR mirror of popular Docker Hub images
+1. A regular process (eg. nightly) that mirrors the Docker images you need
+2. Updating all pipelines to use the mirrored ECR image instead of the original one
+
+## Configuring the docker daemon to use the GCR mirror of popular Docker Hub images
 
 GCP host a mirror of popular Docker Hub images in the mirror.gcr.io registry.
 
@@ -94,18 +95,18 @@ first, and transparently fall back to the public Docker Hub registry when the
 mirror doesn't have an image. Google have [documented how to set this
 us](https://cloud.google.com/container-registry/docs/pulling-cached-images).
 
-This will avoid the rate limits for many, but it's not foolproof. Google don't
+This will avoid the rate limits for many, but Google don't
 guarantee which images will be on the mirror, so depending on the specific
 images in use you may continue to hit Docker Hub rate limits.
 
-## Run a read-through caching registry
+## Running a read-through caching registry
 
 There are two popular options for running a private caching docker registry,
 where requests for missing images result in the image being fetched from an
 origin registry (like Docker Hub).
 
-1. https://docs.docker.com/registry/recipes/mirror/
-2. https://github.com/rpardini/docker-registry-proxy
+* https://docs.docker.com/registry/recipes/mirror/
+* https://github.com/rpardini/docker-registry-proxy
 
 Once the caching registry is operating, pipelines can be updated to use images
 from that registry (eg from `nginx:1.14.2` to `example.com/nginx:1.14.2`) and

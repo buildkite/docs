@@ -12,6 +12,11 @@ The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-
 
 The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) supports single container applications, and involves less setup than the Docker Compose plugin. It doesn't allow the use of `docker-compose.yml` files, and doesn't support advanced operations like building images.
 
+## Docker Hub rate limits
+
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+
+
 ## Creating a Docker Compose configuration file
 
 For most projects we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
