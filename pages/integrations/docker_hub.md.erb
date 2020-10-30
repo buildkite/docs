@@ -6,7 +6,7 @@ hosting popular images used in many build pipelines.
 On 2nd November 2020, Docker Hub introduced [strict rate
 limits](https://docs.docker.com/docker-hub/download-rate-limit/) on image
 downloads by unauthenticated clients, and authenticated clients on a free plan.
-For Buildkite customers using images hosted on Docker Hub, this results in intermittent job failure.
+For Buildkite customers using images hosted on Docker Hub, this results in intermittent job failures.
 
 How to prevent job failure caused by the Docker Hub rates limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
 
@@ -48,7 +48,7 @@ docker login --username "the-user-name" --password-stdin << "the-password"
 
 ## Using docker-login plugin to authenticate with a paid Docker Hub account
 
-The [docker-login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) can perform the authentication in just the jobs that need it.
+The [docker-login plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin/) can perform the authentication in just the steps that need it.
 
 Start by setting the password in an [agent environment hook](/docs/agent/v3/hooks):
 
@@ -93,7 +93,7 @@ GCP host a mirror of popular Docker Hub images in the `mirror.gcr.io` registry.
 For agents running on GCP, it's possible to configure docker to try the mirror
 first, and transparently fall back to the public Docker Hub registry when the
 mirror doesn't have an image. Google have [documented how to set this
-us](https://cloud.google.com/container-registry/docs/pulling-cached-images).
+up](https://cloud.google.com/container-registry/docs/pulling-cached-images).
 
 This will avoid the rate limits for many, but Google don't
 guarantee which images will be on the mirror, so depending on the specific
