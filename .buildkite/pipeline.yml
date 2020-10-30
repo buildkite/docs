@@ -38,4 +38,4 @@ steps:
       # version, is way faster because we don't have to wait for Ruby gems to
       # install.
       - docker#v3.7.0:
-          image: "node:alpine"
+          image: "node:lts-alpine3.12"
