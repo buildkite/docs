@@ -145,6 +145,10 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
+## Docker Hub rate limits
+
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+
 ## Authenticating private git repositories
 
 To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
