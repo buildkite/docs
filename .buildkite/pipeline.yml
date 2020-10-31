@@ -37,5 +37,5 @@ steps:
       # Using the plain Node image, instead of the custom doc Dockerfile
       # version, is way faster because we don't have to wait for Ruby gems to
       # install.
-      - docker#v3.5.0:
-          image: "node:alpine"
+      - docker#v3.7.0:
+          image: "node:lts-alpine3.12"
