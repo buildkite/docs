@@ -381,7 +381,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-gcp">
       <th><code>tags-from-gcp</code></th>
       <td>
         Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone).
@@ -390,7 +390,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-gcp-labels">
       <th><code>tags-from-gcp-labels</code></th>
       <td>
         Include the host's Google Cloud instance labels as tags.
@@ -399,7 +399,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-host">
       <th><code>tags-from-host</code></th>
       <td>
         Include the host's meta-data as tags (hostname, machine-id, and os).
@@ -485,8 +485,8 @@ _Optional attributes:_
       <td>
         Include the host's GCP meta-data as meta-data.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
-        <p class="Docs__api-param-eg"><a href="#tags-from-ec2-tags"><em>Use instead:</em> <code>tags-from-ec2-tags</code></a></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_GCP_TAGS</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags-from-gcp-tags"><em>Use instead:</em> <code>tags-from-gcp-tags</code></a></p>
       </td>
     </tr>
 
