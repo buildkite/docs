@@ -27,6 +27,10 @@ module ApplicationHelper
     "https://github.com/buildkite/docs/tree/master#{view_file}"
   end
 
+  def agent_installers
+    @agent_installers ||= Psych.safe_load(File.read(Rails.root.join('app/data/agent_installers.yml')))
+  end
+
   def algolia_api_key
     ENV.fetch("ALGOLIA_API_KEY", "unknown")
   end

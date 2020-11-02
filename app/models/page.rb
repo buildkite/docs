@@ -8,7 +8,10 @@ class Page
       @view_helpers = view_helpers
       @image_path = image_path
       @url_helpers = Page::BuildkiteUrl.new
-      @agent_installers = Psych.safe_load(Rails.root.join('data/agent_installers.yml'))
+    end
+
+    def agent_installers
+      @agent_installers ||= Psych.safe_load(File.read(Rails.root.join('app/data/agent_installers.yml')))
     end
 
     def estimated_time(description)
