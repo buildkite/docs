@@ -1,11 +1,17 @@
 class PagesController < ApplicationController
   append_view_path "pages"
 
+  def index
+    render layout: "homepage"
+  end
+
   def show
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, throw a 404
     raise ActionController::RoutingError.new("That documentation page does not exist") unless @page.exists?
+
+    # For the homepage, render with a custom layout that doesn't include the sidebar etc
 
     # If there's another more correct version of the URL (i.e. we changed `_`
     # to `-`), then redirect them to where they should be.
