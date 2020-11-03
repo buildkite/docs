@@ -136,7 +136,20 @@ Success response: `200 OK`
 
 ## Create a pipeline
 
+You can use this endpoint to create both [YAML pipelines](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) and visual step pipelines.
 
+### YAML pipelines
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+  -d '{
+    "name": "My Pipeline",
+    "repository": "git@github.com:acme-inc/my-pipeline.git",
+    "configuration": "steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""
+  }'
+```
+
+### Visual step pipeline
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -185,18 +198,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   }'
 ```
 
-<div class="Docs__troubleshooting-note">
-<p>To create a new YAML pipeline (see the <a href="https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor">Introducing the YAML Steps editor</a>), you can use the configuration value as shown.</p>
-</div>
 
-```bash
-curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
-  -d '{
-    "name": "My Pipeline",
-    "repository": "git@github.com:acme-inc/my-pipeline.git",
-    "configuration": "steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""
-  }'
-```
 
 ```json
 {
@@ -309,6 +311,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
 The resulting pipeline:
 
 <%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 974/2, height: 90/2 %>
+
+### Parameters responses for both YAML pipelines and Visual step pipelines
 
 Required [request body properties](/docs/api#request-body-properties):
 
