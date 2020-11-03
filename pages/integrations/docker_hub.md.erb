@@ -80,9 +80,9 @@ This approach requires:
 
 ## Mirroring Docker images into AWS Elastic Container Registry
 
-AWS doesn't have specific documentation, however [their advice on dealing with
-Docker Hub rate limits suggests mirroring public images into AWS Elastic
-Container Registry (ECR)](https://aws.amazon.com/blogs/containers/advice-for-customers-dealing-with-docker-hub-rate-limits-and-a-coming-soon-announcement/). A similar solution to the one proposed by Google Cloud Platform (GCP):
+AWS doesn't have specific documentation, however their [advice on dealing with
+Docker Hub rate limits](https://aws.amazon.com/blogs/containers/advice-for-customers-dealing-with-docker-hub-rate-limits-and-a-coming-soon-announcement/) suggests mirroring public images into AWS Elastic
+Container Registry (ECR). A similar solution to the one proposed by Google Cloud Platform (GCP):
 
 1. A regular process (e.g. nightly) that mirrors the Docker images you need
 2. Updating all pipelines to use the mirrored ECR image instead of the original one
