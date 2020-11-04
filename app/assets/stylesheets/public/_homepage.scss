@@ -1,0 +1,124 @@
+.HomeHeader {
+  top: 0;
+  left: 0;
+  right: 0;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  text-align: center;
+  z-index: 5;
+
+  h1 {
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 200%;
+    margin-bottom: 60px;
+  }
+
+  input {
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: .2em;
+    font-size: 16px;
+    max-width: 500px;
+    width: 100%;
+    font-family: $font-family;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    color: #555;
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color 0.2s;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
+    &::-webkit-input-placeholder { color: rgba(#555, .35); }
+    &:-moz-placeholder { color: rgba(#555, .35); }
+    &::-moz-placeholder { color: rgba(#555, .35); }
+    &:-ms-input-placeholder { color: rgba(#555, .35); }
+  }
+}
+
+.HomeHeader__mark {
+  > svg {
+    width: 96px;
+    height: auto;
+    margin-top: .55em;
+  }
+}
+
+
+
+
+
+.grid-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.homepage-category {
+    height: 400px;
+    flex-basis: 25%;
+    -ms-flex: auto;
+    width: 259px;
+    position: relative;
+    padding: 10px;
+    box-sizing: border-box;
+
+    h2 {
+      font-weight: bold;
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+
+    span {
+      color: #707070;
+      font-family: $font-family;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    ul {
+      font-family: $font-family;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 125%;
+      margin-top: 30px;
+
+      li {
+        margin: 5px 0;
+
+        a {
+          color: #333;
+          text-decoration: none;
+
+          &:hover {
+            color: #707070;
+          }
+        }
+      }
+    }
+
+
+}
+
+
+@media(max-width: 1073px) {
+        .grid-item {
+        flex-basis: 33.33%;
+    }
+}
+
+@media(max-width: 815px) {
+    .grid-item {
+        flex-basis: 50%;
+    }
+}
+
+@media(max-width: 555px) {
+    .grid-item {
+        flex-basis: 100%;
+    }
+}
