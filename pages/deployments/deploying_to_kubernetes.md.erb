@@ -9,7 +9,7 @@ practices.  The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
 deployment][k8s_deployment] via `kubectl`. Then, you'll see how to link them
-together to automate deploys from master.
+together to automate deploys from `master` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
