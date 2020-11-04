@@ -161,7 +161,7 @@
                   </ul>
                   <p class="Docs__nav__section-subheading">Agent Installers</p>
                   <ul class="Docs__nav__sub-nav">
-                    <% agent_installers.each do |installer| %>
+                    <% AGENT_INSTALLERS.each do |installer| %>
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to installer[:title], installer[:url] %></li>
                     <% end %>
                   </ul>

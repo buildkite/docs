@@ -1,27 +1,4 @@
-module ApplicationHelper
-  AGENT_INSTALLERS = [
-    { title: "Ubuntu",
-      url: "agent/v3/ubuntu" },
-    { title: "Debian",
-      url: "agent/v3/debian" },
-    { title: "Red Hat/CentOS",
-      url: "agent/v3/redhat" },
-    { title: "FreeBSD",
-      url: "agent/v3/freebsd" },
-    { title: "macOS",
-      url: "agent/v3/osx" },
-    { title: "Windows",
-      url: "agent/v3/windows" },
-    { title: "Linux",
-      url: "agent/v3/linux" },
-    { title: "Docker",
-      url: "agent/v3/docker" },
-    { title: "AWS",
-      url: "agent/v3/aws" },
-    { title: "Google Cloud",
-      url: "agent/v3/gcloud" }
-  ].freeze
-  
+module ApplicationHelper  
   def dashboard_path
     "/dashboard"
   end
@@ -48,10 +25,6 @@ module ApplicationHelper
                   sub('/app/views/pages', '/pages')
 
     "https://github.com/buildkite/docs/tree/master#{view_file}"
-  end
-
-  def agent_installers
-    AGENT_INSTALLERS
   end
 
   def algolia_api_key
