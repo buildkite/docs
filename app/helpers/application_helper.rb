@@ -1,4 +1,4 @@
-module ApplicationHelper  
+module ApplicationHelper
   def dashboard_path
     "/dashboard"
   end
