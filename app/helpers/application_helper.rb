@@ -1,4 +1,27 @@
 module ApplicationHelper
+  AGENT_INSTALLERS = [
+    { title: "Ubuntu",
+      url: "agent/v3/ubuntu" },
+    { title: "Debian",
+      url: "agent/v3/debian" },
+    { title: "Red Hat/CentOS",
+      url: "agent/v3/redhat" },
+    { title: "FreeBSD",
+      url: "agent/v3/freebsd" },
+    { title: "macOS",
+      url: "agent/v3/osx" },
+    { title: "Windows",
+      url: "agent/v3/windows" },
+    { title: "Linux",
+      url: "agent/v3/linux" },
+    { title: "Docker",
+      url: "agent/v3/docker" },
+    { title: "AWS",
+      url: "agent/v3/aws" },
+    { title: "Google Cloud",
+      url: "agent/v3/gcloud" }
+  ].freeze
+  
   def dashboard_path
     "/dashboard"
   end
@@ -28,7 +51,7 @@ module ApplicationHelper
   end
 
   def agent_installers
-    @agent_installers ||= Psych.safe_load(File.read(Rails.root.join('app/data/agent_installers.yml')))
+    AGENT_INSTALLERS
   end
 
   def algolia_api_key
