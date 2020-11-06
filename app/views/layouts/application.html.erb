@@ -161,16 +161,9 @@
                   </ul>
                   <p class="Docs__nav__section-subheading">Agent Installers</p>
                   <ul class="Docs__nav__sub-nav">
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v3/debian' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v3/osx' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v3/windows' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v3/linux' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v3/docker' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v3/aws' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %></li>
+                    <% AGENT_INSTALLERS.each do |installer| %>
+                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to installer[:title], installer[:url] %></li>
+                    <% end %>
                   </ul>
                   <p class="Docs__nav__section-subheading">Command-Line Reference</p>
                   <ul class="Docs__nav__sub-nav">
