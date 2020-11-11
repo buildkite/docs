@@ -45,7 +45,7 @@ steps:
   - command: "deploy.sh"
 
 notify:
-  - pagerduty_change_event: "636d22d2efc04188153b49eee3e8"
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -55,6 +55,6 @@ To send Change Events only when the build passes, add a [condition](/docs/pipeli
 
 ```yaml
 notify:
-  - pagerduty_change_event: "636d22d2efc04188153b49eee3e8"
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
     if: "build.state == 'passed'"
 ```
