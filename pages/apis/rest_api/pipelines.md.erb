@@ -410,11 +410,10 @@ Error responses:
 
 ## Update a pipeline
 
-Updates one or more properties of an existing pipeline:
+Updates one or more properties of an existing pipeline.
 
-<div class="Docs__troubleshooting-note">
-<p>To update a pipeline's YAML steps, you can use the configuration value as shown.</p>
-</div>
+To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpoint, passing the `configuration` attribute in the request body:
+
 
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
@@ -423,6 +422,10 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
     "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
   }'
 ```
+
+<div class="Docs__troubleshooting-note">
+<p>Patch requests can only update attributes already present in the pipeline YAML.</p>
+</div>
 
 ```json
 {
