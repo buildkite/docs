@@ -145,7 +145,7 @@ class Page
 
   def agentize_title(title)
     if basename =~ /^agent\/v(.+?)\/?/
-      "#{title} (v#{$1})"
+      "#{title} v#{$1}"
     else
       title
     end
