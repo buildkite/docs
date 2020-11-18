@@ -1,6 +1,5 @@
 aws
 eventbridge
-parallelization
 addr
 Allowlist
 api

@@ -42,36 +42,43 @@ For example, if you have two pipelines that each deploy to a different target bu
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
-## Concurrency and Parallelization
+## Concurrency and Parallelism
 
-Sometimes you need strict concurrency while also having jobs that would benefit from parallelization.
+Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
 In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate the e2e tests can run up to three at a time, subject to Agent availability.
+In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment: 
 
 ```yaml
 steps:
   - command: echo "Running unit tests"
+    key: unit-tests
 
-  - command: echo "Start of concurency gate"
+  - command: echo "--> Start of concurency gate"
     concurrency_group: gate
     concurrency: 1
+    key: start-gate
+    depends_on: unit-tests
 
   - wait
 
-  - command: echo "Running deployment"
-    key: dep
+  - command: echo "Running deployment to staging environment"
+    key: stage-deploy
+    depends_on: start-gate
 
   - command: echo "Running e2e tests after the deployment"
     parallelism: 3
-    depends_on: dep
+    depends_on: [stage-deploy]
+    key: e2e
 
   - wait
 
-  - command: echo "End of concurency gate"
+  - command: echo "End of concurency gate <--"
     concurrency_group: gate
     concurrency: 1
+    key: end-gate
 
   - command: echo "This and subsequent steps run independently"
+    depends_on: end-gate
 ```
 {: codeblock-file="pipeline.yml"}
