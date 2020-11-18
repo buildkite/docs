@@ -8,14 +8,9 @@ This guide will help you setup your first Buildkite pipeline. If you don’t hav
 
 [Buildkite agents](/docs/agent/v3/) are small, reliable and cross-platform build runners that run automated builds. Buildkite never accesses your code, and does not run any agents, so you need to install and run agents on your own infrastructure. You can do this on your local development machine, an existing CI machine, or a new server.
 
-1. Follow the installation instructions for your server environment:
+1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent
 
-    <a href="/docs/agent/v3/ubuntu"><%= image "ubuntu.png", size: '25x25', alt: 'Buildkite agent setup buttons' %>Ubuntu Linux</a>
-    <a href="/docs/agent/v3/debian"><%= image "debian.png", size: '25x25', alt: 'Buildkite agent setup buttons' %>Debian Linux</a>
-
-    <!-- TODO make this look ok and add the rest -->
-
-2. Make sure you’ve configured the agent token, as that is what that connects the agent to your Buildkite account.
+2. Make sure you’ve configured the agent token, as that is what that connects the agent to your Buildkite account
 
 ## Add the sample pipeline
 
