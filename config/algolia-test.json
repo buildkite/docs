@@ -18,7 +18,7 @@
     "lvl4": ".Docs__article h4, .Docs__article td:first-child",
     "lvl5": ".Docs__article h5",
     "lvl6": ".Docs__article h6",
-    "text": ".Docs__article p, .Docs__article li, .Docs__article td"
+    "text": ".Docs__article p, .Docs__article li, .Docs__article td, .Docs_article code"
   },
   "selectors_exclude": [
     ".Docs__toc",
