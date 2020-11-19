@@ -1,4 +1,5 @@
-parallelization
+aws
+eventbridge
 addr
 Allowlist
 api
@@ -25,6 +26,7 @@ chatbot
 chroot
 chroots
 cli
+Cloudwatch
 composable
 config
 cpu
@@ -37,6 +39,7 @@ dogstatsd
 env
 eval
 Explainshell
+Eventbridge
 fff
 ffxdq
 Firewalled

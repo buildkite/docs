@@ -136,7 +136,20 @@ Success response: `200 OK`
 
 ## Create a pipeline
 
+You can use this endpoint to create both [YAML pipelines](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) and visual step pipelines.
 
+### YAML pipelines
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+  -d '{
+    "name": "My Pipeline",
+    "repository": "git@github.com:acme-inc/my-pipeline.git",
+    "configuration": "steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""
+  }'
+```
+
+### Visual step pipeline
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -184,6 +197,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
     ]
   }'
 ```
+
+
 
 ```json
 {
@@ -297,6 +312,8 @@ The resulting pipeline:
 
 <%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 974/2, height: 90/2 %>
 
+### Parameters responses for both YAML pipelines and Visual step pipelines
+
 Required [request body properties](/docs/api#request-body-properties):
 
 <table>
@@ -393,11 +410,10 @@ Error responses:
 
 ## Update a pipeline
 
-Updates one or more properties of an existing pipeline:
+Updates one or more properties of an existing pipeline.
 
-<div class="Docs__troubleshooting-note">
-<p>To update a pipeline's YAML steps, you can use the configuration value as shown.</p>
-</div>
+To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpoint, passing the `configuration` attribute in the request body:
+
 
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
@@ -406,6 +422,10 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
     "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""
   }'
 ```
+
+<div class="Docs__troubleshooting-note">
+<p>Patch requests can only update attributes already present in the pipeline YAML.</p>
+</div>
 
 ```json
 {

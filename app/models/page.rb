@@ -4,6 +4,8 @@ class Page
   HEADING_REGEX = /^[#]{2}\s(.+)$/
 
   class TemplateBinding
+    delegate_missing_to :@view_helpers
+
     def initialize(view_helpers: nil, image_path: '')
       @view_helpers = view_helpers
       @image_path = image_path
@@ -34,10 +36,6 @@ class Page
       end
     end
 
-    def image_tag(*args)
-      @view_helpers.image_tag(*args)
-    end
-
     def image_url(name)
       stripped_image_path = @image_path.sub(/\Adocs\//, "")
       @view_helpers.image_path(File.join(stripped_image_path, name))
@@ -45,10 +43,6 @@ class Page
 
     def paginated_resource_docs_url
       @url_helpers.docs_path + '/rest-api#pagination'
-    end
-
-    def content_tag(*args)
-      @view_helpers.content_tag(*args)
     end
 
     def url_helpers
@@ -151,7 +145,7 @@ class Page
 
   def agentize_title(title)
     if basename =~ /^agent\/v(.+?)\/?/
-      "#{title} (v#{$1})"
+      "#{title} v#{$1}"
     else
       title
     end
