@@ -39,6 +39,12 @@ We spell-check the docs (American English) and run a few automated checks for re
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
 
+## Search index
+
+The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
+To test changes to the indexing configuration (you'll need an API key) run `rake update_test_index`.
+
+
 ## License
 
 See [LICENSE.md](LICENSE.md) (MIT)
