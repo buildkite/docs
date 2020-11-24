@@ -12,6 +12,13 @@ If you have <a href="http://brew.sh/">Homebrew</a> installed you can use our <a 
 brew install buildkite/buildkite/buildkite-agent
 ```
 
+<section class="Docs__troubleshooting-note">
+  <h1>Homebrew and Apple Silicon</h1>
+  <p>Homebrew is <a href="https://github.com/Homebrew/discussions/discussions/153">not yet fully supported on Macs with Apple Silicon</a>.</p>
+  <p>We have confirmed that the <a href="/docs/agent/v3/linux">Linux</a> install method works correctly, and that the Homebrew method will also work if you have a working installation of Homebrew.</p>
+  <p>Currently, we supply only an Intel version of the Agent, and have confirmed that it works under Rosetta 2. We hope to supply an Apple Silicon version of the Agent once it becomes feasible, and to keep an eye on Homebrew’s progress towards full support.</p>
+</section>
+
 Then configure your agent token:
 
 ```shell
