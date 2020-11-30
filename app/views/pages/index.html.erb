@@ -1,4 +1,5 @@
 <div class="grid-row">
+
   <div class="homepage-category">
     <h2>Getting Started</h2>
     <span>For when you're new to Buildkite</span>
@@ -9,55 +10,65 @@
     </ul>
   </div>
 
-  <%
-=begin%>
- TODO: Add other categories once we're comfortable with markup 
-<%
-=end%>
+  <div class="homepage-category">
+    <h2>Repository Management Systems</h2>
+    <span>Trigger builds from wherever your code is stored</span>
+    <ul>
+      <li><%= link_to "GitHub", "/docs/integrations/github" %></li>
+      <li><%= link_to "GitHub Enterprise", "/docs/integrations/github-enterprise" %></li>
+      <li><%= link_to "GitLab", "/docs/integrations/gitlab" %></li>
+      <li><%= link_to "Bitbucket", "/docs/integrations/bitbucket" %></li>
+    </ul>
+  </div>
 
   <div class="homepage-category">
-    <h2>Getting Started</h2>
-    <span>For when you're new to Buildkite</span>
+    <h2>Installing and Running Agents</h2>
+    <span>Run your Buildkite agents on your own infrastructure</span>
     <ul>
-    <li><a href="#">Getting started tutorial</a></li>
-    <li><a href="#">Running builds in Docker containers</a></li>
-    <li><a href="#">Autoscaling builds on Elastic CI stack for AWS</a></li>
+      <li>Install agents on:
+        <ul>
+          <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
+          <li><%= link_to "Red Hat", "/docs/agent/v3/redhat" %></li>
+          <li><%= link_to "macOS", "/docs/agent/v3/osx" %></li>
+          <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
+          <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
+          <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
+          <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
+          <li><%= link_to "More…", "/docs/agent/v3/installation" %></li>
+        </ul>
+      </li>
+      <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
+    </ul>
+  </div>
+
+  <div class="homepage-category">
+    <h2>Configuring Pipelines</h2>
+    <span>Common tasks and workflows</span>
+    <ul>
+      <li><%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %></li>
+      <li><%= link_to "Managing secret information securely", "/docs/pipelines/secrets" %></li>
+      <li><%= link_to "Publishing build artifacts", "/docs/pipelines/artifacts" %></li>
+      <li><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds" %></li>
     </ul>
   </div>
   <div class="homepage-category">
-    <h2>Getting Started</h2>
-    <span>For when you're new to Buildkite</span>
+    <h2>Deployments</h2>
+    <span>Publish to other systems</span>
     <ul>
-    <li><a href="#">Getting started tutorial</a></li>
-    <li><a href="#">Running builds in Docker containers</a></li>
-    <li><a href="#">Autoscaling builds on Elastic CI stack for AWS</a></li>
-    </ul>
-  </div>
-    <div class="homepage-category">
-    <h2>Getting Started</h2>
-    <span>For when you're new to Buildkite</span>
-    <ul>
-    <li><a href="#">Getting started tutorial</a></li>
-    <li><a href="#">Running builds in Docker containers</a></li>
-    <li><a href="#">Autoscaling builds on Elastic CI stack for AWS</a></li>
+    <li><%= link_to "Heroku", "/docs/deployments/deploying-to-heroku" %></li>
+    <li><%= link_to "Kubernetes", "/docs/deployments/deploying-to-kubernetes" %></li>
+    <li><%= link_to "Custom deployments", "/docs/deployments" %></li>
     </ul>
   </div>
   <div class="homepage-category">
-    <h2>Getting Started</h2>
-    <span>For when you're new to Buildkite</span>
+    <h2>APIs and integrations</h2>
+    <span>Write your own customizations</span>
     <ul>
-    <li><a href="#">Getting started tutorial</a></li>
-    <li><a href="#">Running builds in Docker containers</a></li>
-    <li><a href="#">Autoscaling builds on Elastic CI stack for AWS</a></li>
-    </ul>
-  </div>
-  <div class="homepage-category">
-    <h2>Getting Started</h2>
-    <span>For when you're new to Buildkite</span>
-    <ul>
-    <li><a href="#">Getting started tutorial</a></li>
-    <li><a href="#">Running builds in Docker containers</a></li>
-    <li><a href="#">Autoscaling builds on Elastic CI stack for AWS</a></li>
+      <li><%= link_to "REST API", "/docs/apis/rest-api" %></li>
+      <li><%= link_to "GraphQL API", "/docs/apis/graphql-api" %></li>
+      <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
+      <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
+      <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
     </ul>
   </div>
 </div>
