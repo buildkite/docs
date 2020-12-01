@@ -104,7 +104,7 @@ Steps that are in a `concurrency_group` run in the order they are created in and
 
 ## Allowing dependency failures
 
-You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs finish, even if those jobs have failed or did not run. However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
+You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, even if those jobs have failed. However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
 
 ```yml
 steps:
@@ -131,22 +131,3 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
-
-## allow_failure and blocked states
-
-Note that steps which do not run due to failed dependencies are in the `waiting_failed` state, which is included in the scope of `allow_failure` when that is set. For example:
-
-```yml
-steps:
-  - command: echo "step-a fails" && exit 1
-    key: step-a
-  - command: echo "step-b does not run" && exit 0
-    key: step-b
-    depends_on:
-      - step: step-a
-  - command: echo "step-c runs even when step-b does not"
-    key: step-c
-    depends_on:
-      - step: step-b
-        allow_failure: true
-```
