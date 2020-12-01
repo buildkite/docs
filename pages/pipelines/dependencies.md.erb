@@ -131,3 +131,24 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
+
+## Allowed failure and soft fail
+
+Setting [`soft_fail`](docs/pipelines/command-step#soft-fail-attributes) on a step will also allow steps that depend upon it to run, even when [`allow_dependency_failure: false`](/docs/pipelines/dependencies#allowing-dependency-failures) is set on the subsequent step.
+
+In the following example, `step-b` will run because `step-a` is soft failing. If `step-a` were to to fail with a different exit code, `step-b` would not run.
+
+```yml
+steps:
+  - key: "step-a"
+    command: echo "soft fail" && exit 42
+    soft_fail:
+      - exit_status: 42
+
+  - key: "step-b"
+    command: echo "Running"
+    depends_on:
+      - "step-a"
+    allow_dependency_failure: false
+```
+{: codeblock-file="pipeline.yml"}
