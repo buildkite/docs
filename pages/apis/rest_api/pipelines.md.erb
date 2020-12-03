@@ -330,9 +330,9 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
+    <th><code>configuration</code></th>
     <td>
-      An array of the build pipeline steps.
+      The YAML pipeline that consists of the build pipeline steps.
       <p class="Docs__api-param-eg">
         <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
       </p>
@@ -533,8 +533,8 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
-    <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
+    <th><code>configuration</code></th>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
