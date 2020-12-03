@@ -332,19 +332,7 @@ Required [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>configuration</code></th>
     <td>
-      The YAML pipeline that consists of the build pipeline steps.
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/wait-step">Wait</a> for all previous steps to finish:</em> <code>{ "type": "waiter" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/block-step">Block</a> pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/trigger-step">Trigger</a> pipeline:</em> <code>{ "type": "trigger", "trigger_project_slug": "a-pipeline" }</code>
-      </p>
+      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""</code>
     </td>
   </tr>
   </tbody>
@@ -534,7 +522,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>configuration</code></th>
-    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
