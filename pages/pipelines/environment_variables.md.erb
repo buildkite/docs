@@ -581,7 +581,15 @@ The following variables are available directly in the YAML Step editor:
 - `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
 - `BUILDKITE_PULL_REQUEST_REPO`
 
-You can access the rest of the Buildkite environment variables by using a `pipeline.yml` file. You can define your entire pipeline in the YAML file, or you can do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+You can access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+
+When using environment variables that will be evaluated at run-time, make sure you escape the `$` character using `$$` or `\$`. For example:
+
+```yml
+- command: "deploy.sh $$SERVER"
+  env:
+    SERVER: "server-a"
+```
 
 Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/v3/cli-pipeline#environment-variable-substitution) cli guide.
 
