@@ -315,8 +315,6 @@ The resulting pipeline:
 
 <%= image 'pipeline-example.png', alt: 'Image of the pipeline steps that are created in the Buildkite UI', width: 974/2, height: 90/2 %>
 
-### Parameters responses for both YAML pipelines and Visual step pipelines
-
 Required [request body properties](/docs/api#request-body-properties):
 
 <table>
@@ -330,21 +328,9 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
+    <th><code>configuration</code></th>
     <td>
-      An array of the build pipeline steps.
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/wait-step">Wait</a> for all previous steps to finish:</em> <code>{ "type": "waiter" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/block-step">Block</a> pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/trigger-step">Trigger</a> pipeline:</em> <code>{ "type": "trigger", "trigger_project_slug": "a-pipeline" }</code>
-      </p>
+      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
     </td>
   </tr>
   </tbody>
@@ -533,8 +519,8 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
-    <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
+    <th><code>configuration</code></th>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
