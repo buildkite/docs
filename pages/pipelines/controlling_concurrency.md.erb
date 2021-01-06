@@ -54,7 +54,7 @@ steps:
   - command: echo "Running unit tests"
     key: unit-tests
 
-  - command: echo "--> Start of concurency gate"
+  - command: echo "--> Start of concurrency gate"
     concurrency_group: gate
     concurrency: 1
     key: start-gate
@@ -73,7 +73,7 @@ steps:
 
   - wait
 
-  - command: echo "End of concurency gate <--"
+  - command: echo "End of concurrency gate <--"
     concurrency_group: gate
     concurrency: 1
     key: end-gate
