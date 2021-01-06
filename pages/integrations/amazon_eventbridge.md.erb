@@ -50,12 +50,13 @@ For example, to only process [Build Finished](#events-build-finished) events you
 
 You can use any event property in your custom event pattern. For example, the following event pattern allows only “Build Started" and "Build Finished" events containing a particular pipeline slug:
 
+
 ```json
 {
   "detail-type": [ "Build Started", "Build Finished" ],
   "detail": {
     "pipeline": {
-      "slug": "some-pipeline"
+      "slug": [ "some-pipeline" ]
     }
   }
 }
