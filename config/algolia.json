@@ -4,7 +4,7 @@
     "https://buildkite.com/docs"
   ],
   "stop_urls": [
-    "/v2/"
+    "agent/v2"
   ],
   "selectors": {
     "lvl0": {
