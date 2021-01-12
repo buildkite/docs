@@ -1,17 +1,21 @@
 <div class="grid-row">
   <div class="homepage-category">
-    <%= image_tag("/docs/assets/icons/rocketship.svg") %>
-    <h2>Getting Started</h2>
+    <h2>
+      <%= image_tag("/docs/assets/icons/rocketship.svg") %>
+      Getting Started
+    </h2>
     <span>For when you're new to Buildkite</span>
     <ul>
       <li><%= link_to "Getting Started Guide", "/docs/tutorials/getting-started" %></li>
-      <li><%= link_to "Running Builds in Docker Containers", "/docs/tutorials/docker-containerized-builds" %></li>
+      <li><%= link_to "Running Builds in Docker Containers", "/docs/tutorials/docker-containerized-builds" %></li>
       <li><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws" %></li>
     </ul>
   </div>
   <div class="homepage-category">
-    <%= image_tag("/docs/assets/icons/git.svg") %>
-    <h2>Repository Management Systems</h2>
+    <h2>
+      <%= image_tag("/docs/assets/icons/git.svg") %>
+      Repository Management Systems
+    </h2>
     <span>Trigger builds from wherever your code is stored</span>
     <ul>
       <li><%= link_to "GitHub", "/docs/integrations/github" %></li>
@@ -21,11 +25,13 @@
     </ul>
   </div>
   <div class="homepage-category">
-    <%= image_tag("/docs/assets/icons/agents.svg") %>
-    <h2>Installing and Running Agents</h2>
-    <span>Run your Buildkite agents on your own infrastructure</span>
+    <h2>
+      <%= image_tag("/docs/assets/icons/agents.svg") %>
+      Installing and Running Agents
+    </h2>
+    <span>Run Buildkite agents on your own infrastructure</span>
     <ul>
-      <li>Install agents on:
+      <li>
         <ul>
           <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
           <li><%= link_to "Red Hat", "/docs/agent/v3/redhat" %></li>
@@ -33,7 +39,6 @@
           <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
           <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
           <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
-          <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
           <li><%= link_to "More…", "/docs/agent/v3/installation" %></li>
         </ul>
       </li>
@@ -41,8 +46,10 @@
     </ul>
   </div>
   <div class="homepage-category">
+    <h2>
     <%= image_tag("/docs/assets/icons/pipeline.svg") %>
-    <h2>Configuring Pipelines</h2>
+      Configuring Pipelines
+    </h2>
     <span>Common tasks and workflows</span>
     <ul>
       <li><%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %></li>
@@ -52,8 +59,10 @@
     </ul>
   </div>
   <div class="homepage-category">
-    <%= image_tag("/docs/assets/icons/deploy.svg") %>
-    <h2>Deployments</h2>
+    <h2>
+      <%= image_tag("/docs/assets/icons/deploy.svg") %>
+      Deployments
+    </h2>
     <span>Publish to other systems</span>
     <ul>
     <li><%= link_to "Heroku", "/docs/deployments/deploying-to-heroku" %></li>
@@ -62,8 +71,10 @@
     </ul>
   </div>
   <div class="homepage-category">
-    <%= image_tag("/docs/assets/icons/integration.svg") %>
-    <h2>APIs and integrations</h2>
+    <h2>
+      <%= image_tag("/docs/assets/icons/integration.svg") %>
+      APIs and integrations
+    </h2>
     <span>Write your own customizations</span>
     <ul>
       <li><%= link_to "REST API", "/docs/apis/rest-api" %></li>

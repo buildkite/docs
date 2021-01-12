@@ -47,10 +47,6 @@
   }
 }
 
-
-
-
-
 .grid-row {
     display: flex;
     flex-flow: row wrap;
@@ -60,24 +56,33 @@
 
 .homepage-category {
     height: 400px;
-    flex-basis: 25%;
+    flex-basis: 33.3%;
     -ms-flex: auto;
-    width: 259px;
     position: relative;
-    padding: 10px;
+    padding: 10px 50px;
     box-sizing: border-box;
 
     h2 {
       font-weight: bold;
-      font-size: 24px;
+      font-size: 20px;
       margin-bottom: 5px;
+      line-height: 130%;
+      display: flex;
+      align-items: center;
+      position: relative;
+
+      img {
+        position: absolute;
+        top: 3px;
+        left: -30px;
+      }
     }
 
     span {
       color: #707070;
       font-family: $font-family;
-      font-size: 14px;
-      font-weight: 600;
+      font-size: 16px;
+      font-weight: 500;
     }
 
     ul {
@@ -88,7 +93,13 @@
       margin-top: 30px;
 
       li {
-        margin: 5px 0;
+        margin: 10px 0;
+
+        ul {
+          margin-top: 0;
+          font-size: 14px;
+          margin: 10px 0 20px 20px;
+        }
 
         a {
           color: #333;
@@ -96,6 +107,11 @@
 
           &:hover {
             color: #707070;
+          }
+
+          &::after {
+            content: " →";
+            opacity: 0.7;
           }
         }
       }
