@@ -15,7 +15,7 @@ Setting a concurrency limit of `1` on a step in your pipeline will ensure that n
 You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
 <section class="Docs__troubleshooting-note">
-    <h1>I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload</h1>
+    <h3>I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload</h3>
     <p>This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.</p>
 </section>
 

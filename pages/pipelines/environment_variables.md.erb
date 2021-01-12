@@ -555,7 +555,7 @@ You can define environment variables in your jobs in a few ways, depending on th
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 <section class="Docs__troubleshooting-note">
-  <h1>Secrets in environment variables</h1>
+  <h3>Secrets in environment variables</h3>
   <p>Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.</p>
 </section>
 
@@ -691,7 +691,7 @@ After the agent variables have been merged, the bootstrap script is run.
 The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
-  <h1>Take care with environment variables in hooks</h1>
+  <h3>Take care with environment variables in hooks</h3>
   <p>Variables that are defined in hooks can override anything that exists in the environment.</p>
 </div>
 
