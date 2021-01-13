@@ -15,6 +15,7 @@ steps:
       - a-github-user/file-counter#v1.0.0:
           pattern: '*.md'
 ```
+{: codeblock-file="pipeline.yml"}
 
 ### Create a new git repository
 
@@ -72,6 +73,7 @@ echo "Found ${COUNT} files matching ${PATTERN}"
 
 buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
+  {: codeblock-file="hooks/post-command"}
 
 ### Add a test
 
