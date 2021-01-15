@@ -59,12 +59,7 @@
       </div>
     </header>
     <main id="main" role="main">
-      <div class="StandardTopSection--empty"></div>
-
-      <div class="Docs__page-container__inner PageContainer">
-       
-         <%= yield %>
-      </div>
+      <%= yield %>
     </main>
     <%= javascript_tag nonce: true do %>
       docsearch({
