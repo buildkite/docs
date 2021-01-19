@@ -146,24 +146,25 @@
 }
 
 .FooterContainer {
-  max-width: 1024px;
+  max-width: 1044px;
+  padding: 0 20px;
   margin: 150px auto 50px;
 }
 
-@media(max-width: 1073px) {
-  .grid-item {
+@media(max-width: 1080px) {
+  .homepage-category {
     flex-basis: 33.33%;
   }
 }
 
-@media(max-width: 815px) {
-  .grid-item {
+@media(max-width: 940px) {
+  .homepage-category {
     flex-basis: 50%;
   }
 }
 
-@media(max-width: 555px) {
-  .grid-item {
+@media(max-width: 600px) {
+  .homepage-category {
     flex-basis: 100%;
   }
 }
