@@ -143,10 +143,12 @@
         }
       }
     }
-
-
 }
 
+.FooterContainer {
+  max-width: 1024px;
+  margin: 150px auto 50px;
+}
 
 @media(max-width: 1073px) {
   .grid-item {

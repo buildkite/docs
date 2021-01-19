@@ -1,8 +1,9 @@
 <div class="HomeSuggestions">
-<strong>👀 Popular Articles:</strong> 
+<strong>📊 Popular Articles:</strong> 
   <%= link_to "Getting Started", "/docs/tutorials/getting-started" %>, 
-  <%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %>,
-  <%= link_to "Environment variables", "/docs/pipelines/environment-variables" %>
+  <%= link_to "Defining Build Steps", "/docs/pipelines/defining-steps" %>,
+  <%= link_to "Command Steps", "/docs/pipelines/command-step" %>, 
+  <%= link_to "Environment Variables", "/docs/pipelines/environment-variables" %>
 </div>
 <div class="Docs__page-container__inner PageContainer">
   <div class="grid-row">
@@ -91,5 +92,10 @@
         <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
       </ul>
     </div>
+  </div>
+</div>
+<div class="FooterContainer">
+  <div class="Docs__note--footer-typo">
+    <p>Spotted a typo? Something missing? Please <a href="https://github.com/buildkite/docs/issues">open an issue</a> or <a href="<%= open_source_url %>">contribute an update</a>.</p>
   </div>
 </div>
