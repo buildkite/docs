@@ -72,7 +72,7 @@
     width: 100%;
 }
 
-.homepage-category {
+.HomepageCategory {
     // height: 400px;
     flex-basis: 33.3%;
     -ms-flex: auto;
@@ -152,19 +152,19 @@
 }
 
 @media(max-width: 1080px) {
-  .homepage-category {
+  .HomepageCategory {
     flex-basis: 33.33%;
   }
 }
 
 @media(max-width: 940px) {
-  .homepage-category {
+  .HomepageCategory {
     flex-basis: 50%;
   }
 }
 
 @media(max-width: 600px) {
-  .homepage-category {
+  .HomepageCategory {
     flex-basis: 100%;
   }
 }
