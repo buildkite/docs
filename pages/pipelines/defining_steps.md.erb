@@ -203,6 +203,24 @@ The below example URL will copy the steps from the 'My Llamas Pipeline' into the
 https://buildkite.com/organizations/acme-inc/pipelines/new?clone=my-llamas-pipeline
 ```
 
+## Targeting specific agents
+
+To run [command steps](/docs/pipelines/command-step) only on specific agents:
+
+1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli-start#setting-tags)
+2. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step
+
+For example to run commands only on agents running on macOS:
+
+```yaml
+steps:
+  - command: "script.sh"
+    agents:
+      os: "macOS"
+```
+{: codeblock-file="pipeline.yml"}
+
+
 ## Further documentation
 
 You can also upload pipelines from the command line using the `buildkite-agent` command line tool. See the [buildkite-agent pipeline documentation](/docs/agent/v3/cli-pipeline) for a full list of the available parameters.
