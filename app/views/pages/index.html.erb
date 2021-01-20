@@ -1,21 +1,21 @@
 <div class="HomeSuggestions">
-<strong>📊 Popular Articles:</strong> 
-  <%= link_to "Getting Started", "/docs/tutorials/getting-started" %>, 
-  <%= link_to "Defining Build Steps", "/docs/pipelines/defining-steps" %>,
-  <%= link_to "Command Steps", "/docs/pipelines/command-step" %>, 
-  <%= link_to "Environment Variables", "/docs/pipelines/environment-variables" %>
+<strong>📊 Popular articles:</strong>
+  <%= link_to "Getting started", "/docs/tutorials/getting-started" %>,
+  <%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %>,
+  <%= link_to "Command steps", "/docs/pipelines/command-step" %>,jjjjjjjjjjj
+  <%= link_to "Environment variables", "/docs/pipelines/environment-variables" %>
 </div>
 <div class="Docs__page-container__inner PageContainer">
   <div class="grid-row">
     <div class="HomepageCategory">
       <h2>
         <%= image_tag("/docs/assets/icons/rocketship.svg") %>
-        Getting Started
+        Getting started
       </h2>
       <span>For when you're new to Buildkite</span>
       <ul>
-        <li><%= link_to "Getting Started Guide", "/docs/tutorials/getting-started" %></li>
-        <li><%= link_to "Running Builds in Docker Containers", "/docs/tutorials/docker-containerized-builds" %></li>
+        <li><%= link_to "Getting started guide", "/docs/tutorials/getting-started" %></li>
+        <li><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds" %></li>
         <li><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws" %></li>
       </ul>
       <%= image_tag("/docs/assets/home/docs-rocket.jpg", class: "HomepageCategory__icon") %>
@@ -23,7 +23,7 @@
     <div class="HomepageCategory">
       <h2>
         <%= image_tag("/docs/assets/icons/repository.svg") %>
-        Repository Management Systems
+        Repository management systems
       </h2>
       <span>Trigger builds from wherever your code is stored</span>
       <ul>
@@ -36,7 +36,7 @@
     <div class="HomepageCategory">
       <h2>
         <%= image_tag("/docs/assets/icons/agents.svg") %>
-        Installing and Running Agents
+        Installing and running agents
       </h2>
       <span>Run Buildkite agents on your own infrastructure</span>
       <ul>
@@ -48,7 +48,7 @@
             <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
             <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
             <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
-            <li><%= link_to "More Platforms…", "/docs/agent/v3/installation" %></li>
+            <li><%= link_to "More platforms…", "/docs/agent/v3/installation" %></li>
           </ul>
         </li>
         <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
@@ -57,7 +57,7 @@
     <div class="HomepageCategory">
       <h2>
       <%= image_tag("/docs/assets/icons/pipeline.svg") %>
-        Configuring Pipelines
+        Configuring pipelines
       </h2>
       <span>Common tasks and workflows</span>
       <ul>
@@ -65,6 +65,7 @@
         <li><%= link_to "Managing secret information securely", "/docs/pipelines/secrets" %></li>
         <li><%= link_to "Publishing build artifacts", "/docs/pipelines/artifacts" %></li>
         <li><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds" %></li>
+        <li><%= link_to "Example pipelines", "/docs/pipelines/example-pipelines" %></li>
       </ul>
     </div>
     <div class="HomepageCategory">
