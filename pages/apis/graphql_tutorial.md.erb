@@ -21,6 +21,8 @@ query {
 }
 ```
 
+{:toc}
+
 Running that in the GraphQL explorer returns:
 
 ```json
@@ -69,7 +71,7 @@ Getting the name of the current user is one thing, but what about a more complex
 The `builds` [field](https://buildkite.com/user/graphql/documentation/type/User) of the `user` returns a `BuildConnection`.
 A connection is a collection of objects, and requires some metadata called [`edges` and `nodes`](https://graphql.org/learn/pagination/#pagination-and-edges).
 
-In the this query we're asking for for the current user's most recently created build (get one build, starting from the first `first): 1`).
+In the this query we're asking for the current user's most recently created build (get one build, starting from the first `first): 1`).
 
 ```graphql
 query {

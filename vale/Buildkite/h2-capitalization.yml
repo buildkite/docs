@@ -1,0 +1,19 @@
+extends: capitalization
+message: "H2 should be in sentence case "
+nonword: true
+level: warning
+scope: heading.h2
+match: $sentence
+exceptions:
+  - Agent
+  - Agents
+  - AWS
+  - Elastic
+  - EC2
+  - CI
+  - Hub
+  - Docker
+  - Compose
+  - Bazel
+  - Buildkite
+  - Bash

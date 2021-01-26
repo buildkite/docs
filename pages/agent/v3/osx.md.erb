@@ -103,13 +103,18 @@ The below example will start five agents each time the service is started:
 
 If your agents each need different configuration, you can create multiple `launchd` services:
 
+<!-- vale off -->
+
 1. Find your agent's `plist`. If you installed the agent with Homebrew you can find the `plist` in your user's `~/Library/LaunchAgents` directory. If you installed with the Linux script, you can take a copy of the [template plist](https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist) from the Agent's GitHub repository.
 
-2. Make as many copies of the plist as you require, one per configuration, ensuring that each has a unique label.
+2. Make as many copies of the plist as you require, one per configuration, ensuring that each has a unique label
 
 3. Once you've edited your plist/s with your custom config, make sure that all the referenced paths exist and have the correct permissions. See the [Starting on Login](#starting-on-login) section above for an example of how to check directories and permissions.
 
 4. Load each `plist` into `launchd` using `launchctl`.
+
+<!-- vale on -->
+
 
 ## Upgrading
 

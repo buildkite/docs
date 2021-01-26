@@ -1,0 +1,22 @@
+extends: capitalization
+message: "H1 use title case "
+nonword: true
+level: warning
+scope: heading.h1
+match: $title
+style: Chicago # AP or Chicago; only applies when match is set to $title.
+exceptions:
+  - buildkite-agent 
+  - meta-data # Buildkite agent command
+  - start # Buildkite agent command
+  - Docker
+  - Bamboo
+  - GraphQL
+  - Sign-On
+  - macOS
+  - artifact # Buildkite agent command
+  - pipeline # Buildkite agent command
+  - annotate # Buildkite agent command
+  - step # Buildkite agent command
+  - v2
+  - bootstrap # Buildkite agent command

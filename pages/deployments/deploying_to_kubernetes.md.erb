@@ -106,7 +106,7 @@ The full script has three parts:
 
 1. Check `$DOCKER_IMAGE` is set
 2. Generate a complete manifest with `envsubt` and apply with `kubectl`
-3. Wait for Kubernetes to complete the deploy.
+3. Wait for Kubernetes to complete the deploy
 
 This fits neatly into a Bash script. Here's the complete `script/buildkite/deploy`:
 
@@ -201,11 +201,11 @@ Congratulations! :tada: You've setup a continuous deployment pipeline to
 Kubernetes. Practically speaking there are some things to do next.
 
 - Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
-  trigger to enforce manual deploys.
+  trigger to enforce manual deploys
 - Use [Github's Deployment API](https://buildkite.com/blog/github-deployments)
   to trigger deployments from external tooling (i.e. ChatOps)
 - Expose the application to the internet with [Kubernetes
-  Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+  Service](https://kubernetes.io/docs/concepts/services-networking/service/)
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
 ## Configuring kubectl Access
