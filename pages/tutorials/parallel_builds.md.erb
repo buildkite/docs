@@ -71,11 +71,15 @@ You can use these two environment variables to divide your application’s tests
 
 The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
 
+<!-- vale off -->
+
 * [Knapsack](https://github.com/ArturT/knapsack)
 <br>Knapsack is a ruby gem for automatically dividing your tests between parallel jobs, as well as making sure each job runs in comparable time. It supports RSpec, Cucumber, and Minitest.
 
 * [Knapsack Pro](https://github.com/KnapsackPro/knapsack_pro-ruby)
 <br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
+
+<!-- vale on -->
 
 ## Isolated jobs
 
@@ -87,10 +91,10 @@ One convenient way of achieving build job isolation is to use the agent’s buil
 
 In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
-* [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
-* [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
-* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
-* [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
-* [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
+* [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent
+* [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you’re able to fetch each pipeline’s job count, and information about each agent
+* [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents
+* [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes
+* [buildkite-metrics](https://github.com/buildkite/buildkite-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.

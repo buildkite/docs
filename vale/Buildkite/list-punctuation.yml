@@ -1,0 +1,13 @@
+# An example rule from the "Microsoft" style.
+extends: existence
+message: "Don't use end punctuation in lists."
+nonword: true
+level: warning
+scope: list
+action:
+  name: edit
+  params:
+    - remove
+    - '.?!'
+tokens:
+  - '[.?!]$'

@@ -23,7 +23,7 @@ There are two types of hooks: global hooks which exist on the agent’s machine 
 
 Hooks are called in the following order:
 
-1. `environment` (global) - runs before all other commands, useful for [exporting secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks) etc.
+1. `environment` (global) - runs before all other commands, useful for [exporting secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks) etc
 1. `pre-checkout` (global) - runs before checkout
 1. `checkout` (global) - overrides the default `git checkout` behavior
 1. `post-checkout` (global) - runs after checkout

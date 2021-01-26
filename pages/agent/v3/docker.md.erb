@@ -88,11 +88,16 @@ Permissions on the host are set based on the user running the Docker daemon, whi
 
 To ensure correct file permissions, you can:
 
-* Change the way permissions are set on the files created by your Docker container: modify your container’s `USER` or modify your build commands.
+* Change the way permissions are set on the files created by your Docker container: modify your container’s `USER` or modify your build commands
 
-* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
+* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`
+
+<!-- vale off -->
 
 * Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via `sudo`. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
+
+<!-- vale off -->
+
 
 ## Allowing builds to use Docker
 

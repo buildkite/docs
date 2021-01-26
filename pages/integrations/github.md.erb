@@ -34,17 +34,17 @@ updates, and then redirected back to your Connected Apps page. After that you ca
 
 ## Setting up a new pipeline for a GitHub repository
 
-1. Create a new pipeline on Buildkite, using your GitHub repository URL in the form `git@github.com:your/repo`.
+1. Create a new pipeline on Buildkite, using your GitHub repository URL in the form `git@github.com:your/repo`
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
 
-2. Add at least one step to your pipeline, then click "Next". Change these steps at any time in Pipeline Settings.
+2. Add at least one step to your pipeline, then click "Next". Change these steps at any time in Pipeline Settings
 
 3. Follow the instructions on the page to set up a webhook:
 
-    1. Add a new webhook in GitHub.
-    2. Paste in the provided webhook URL.
-    3. Select which events trigger the webhook.
+    1. Add a new webhook in GitHub
+    2. Paste in the provided webhook URL
+    3. Select which events trigger the webhook
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
@@ -60,14 +60,14 @@ If you need more control over your Pipeline configuration, add a [Pipeline.yml](
 
 To run builds for GitHub Pull Requests, edit the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
 
-- Choose the 'build pull requests' checkbox.
+- Choose the 'build pull requests' checkbox
 
 Optionally, select one or more of the following:
 
-- limit pull request builds to certain branches.
-- skip pull request builds for commits that have already been built.
-- build pull requests that are ready for review.
-- build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- limit pull request builds to certain branches
+- skip pull request builds for commits that have already been built
+- build pull requests that are ready for review
+- build pull requests for forked repositories (Make sure to read the [managing secrets](/docs/pipelines/secrets) guide if you do this)
 
 <%= image "pull-requests.png", width: 1550/2, height: 1006/2, alt: "Screenshot of the Buildkite GitHub settings" %>
 
