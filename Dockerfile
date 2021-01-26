@@ -4,7 +4,7 @@ ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
 
 ADD https://deb.nodesource.com/gpgkey/nodesource.gpg.key /etc/apt/trusted.gpg.d/nodesource.asc
-ADD https://dl.yarnpkg.com/debian/pubkey.gpg /etc/apt/trusted.gpg.d/yarn.asc
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
 RUN echo "--- :package: Installing system deps" \
     # Make sure apt can see trusted keys downloaded above (simpler than apt-key)
     && chmod +r /etc/apt/trusted.gpg.d/*.asc \
