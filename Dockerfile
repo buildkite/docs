@@ -8,6 +8,8 @@ ADD https://dl.yarnpkg.com/debian/pubkey.gpg /etc/apt/trusted.gpg.d/yarn.asc
 RUN echo "--- :package: Installing system deps" \
     # Make sure apt can see trusted keys downloaded above (simpler than apt-key)
     && chmod +r /etc/apt/trusted.gpg.d/*.asc \
+    # Yarn's key has carriage returns which confuses debian, so remove them
+    && sed -i 's/\r//' /etc/apt/trusted.gpg.d/*.asc \
     # Cache apt
     && rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
