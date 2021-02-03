@@ -26,13 +26,13 @@ For ARM 64-bit (aarch64)):
 sudo sh -c 'echo -e "[buildkite-agent]\nname = Buildkite Pty Ltd\nbaseurl = https://yum.buildkite.com/buildkite-agent/stable/aarch64/\nenabled=1\ngpgcheck=0\npriority=1" > /etc/yum.repos.d/buildkite-agent.repo'
 ```
 
-Then, install the agent:
+Then install the agent:
 
 ```shell
 sudo yum -y install buildkite-agent
 ```
 
-Configure your agent token:
+Configure your [agent token](/docs/agent/v3/tokens):
 
 ```shell
 sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkite-agent.cfg
