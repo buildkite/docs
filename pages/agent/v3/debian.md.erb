@@ -22,7 +22,7 @@ Next, ensure you have the `apt-transport-https` package installed for the HTTPS 
 sudo apt-get install -y apt-transport-https dirmngr
 ```
 
-Now you can add our signed apt repository:
+Now you can add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
 ```shell
 sudo apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198

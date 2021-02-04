@@ -6,7 +6,7 @@ The Buildkite Agent can be installed on Ubuntu versions 14.04 and above using ou
 
 ## Installation
 
-First, add our signed apt repository:
+First, add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
 ```shell
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
