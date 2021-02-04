@@ -44,12 +44,12 @@ configuration:
 
 The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `pattern` property, of type `string`.
 
-Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is the GitHub repository slug, not the name definited in `plugin.yml`. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
+Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is the GitHub repository slug, not the name defined in `plugin.yml`. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
 <div class="Docs__troubleshooting-note">
   <h3>Plugin properties and git</h3>
   <p>
-    Note that if you <a href="docs/plugins/using#plugin-sources">reference a plugin</a> using a full URL and <code>.git</code> extension, you need to use a slightly different syntax to get access to the configuration properties. For example, to get the value of <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> use  <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
+    Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> using a full URL and <code>.git</code> extension, you need to use a slightly different syntax to get access to the configuration properties. For example, to get the value of <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> use  <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
   </p>
 </div>
 
