@@ -14,6 +14,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 [
   {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
     "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
     "web_url": "https://buildkite.com/acme-inc/my-pipeline",
     "name": "My Pipeline",
@@ -78,6 +79,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 ```json
 {
   "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
@@ -136,7 +138,20 @@ Success response: `200 OK`
 
 ## Create a pipeline
 
+You can use this endpoint to create both [YAML pipelines](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) and visual step pipelines.
 
+### YAML pipelines
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+  -d '{
+    "name": "My Pipeline",
+    "repository": "git@github.com:acme-inc/my-pipeline.git",
+    "configuration": "steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""
+  }'
+```
+
+### Visual step pipeline
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -185,9 +200,12 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   }'
 ```
 
+
+
 ```json
 {
   "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
+  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
@@ -310,21 +328,9 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
+    <th><code>configuration</code></th>
     <td>
-      An array of the build pipeline steps.
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/command-step">Command</a>:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/wait-step">Wait</a> for all previous steps to finish:</em> <code>{ "type": "waiter" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/block-step">Block</a> pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
-      </p>
-      <p class="Docs__api-param-eg">
-        <em><a href="/docs/pipelines/trigger-step">Trigger</a> pipeline:</em> <code>{ "type": "trigger", "trigger_project_slug": "a-pipeline" }</code>
-      </p>
+      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
     </td>
   </tr>
   </tbody>
@@ -393,11 +399,10 @@ Error responses:
 
 ## Update a pipeline
 
-Updates one or more properties of an existing pipeline:
+Updates one or more properties of an existing pipeline.
 
-<div class="Docs__troubleshooting-note">
-<p>To update a pipeline's YAML steps, you can use the configuration value as shown.</p>
-</div>
+To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpoint, passing the `configuration` attribute in the request body:
+
 
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
@@ -407,9 +412,14 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   }'
 ```
 
+<div class="Docs__troubleshooting-note">
+  <p>Patch requests can only update attributes already present in the pipeline YAML.</p>
+</div>
+
 ```json
 {
   "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
+  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
   "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
   "web_url": "https://buildkite.com/acme-inc/my-pipeline",
   "name": "My Pipeline",
@@ -509,8 +519,8 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com/org/repo.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>steps</code></th>
-    <td>An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code></p></td>
+    <th><code>configuration</code></th>
+    <td>The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""</code></p></td>
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds</code></th>
@@ -540,7 +550,7 @@ Error responses:
 </table>
 
 <div class="Docs__troubleshooting-note">
-<p>To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.</p>
+  <p>To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.</p>
 </div>
 
 ## Delete a pipeline

@@ -63,17 +63,19 @@ GEM
       nokogiri (>= 1.5.9)
     method_source (1.0.0)
     mini_mime (1.0.2)
-    mini_portile2 (2.4.0)
+    mini_portile2 (2.5.0)
     minitest (5.14.1)
-    nio4r (2.5.2)
-    nokogiri (1.10.9)
-      mini_portile2 (~> 2.4.0)
+    nio4r (2.5.4)
+    nokogiri (1.11.1)
+      mini_portile2 (~> 2.5.0)
+      racc (~> 1.4)
     pry (0.13.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.5)
-    puma (4.3.5)
+    puma (4.3.6)
       nio4r (~> 2.0)
+    racc (1.5.2)
     rack (2.2.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
@@ -92,7 +94,7 @@ GEM
     rb-fsevent (0.10.4)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redcarpet (3.5.0)
+    redcarpet (3.5.1)
     regexp_parser (1.7.0)
     request_store (1.5.0)
       rack (>= 1.4)
@@ -181,4 +183,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.1.4
+   2.2.4

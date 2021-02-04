@@ -3,7 +3,7 @@
 You can run the Buildkite Agent inside a Docker container using the [official image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Running each build in it’s own container</p>
+<p class="Docs__note__heading">Running each build in its own container</p>
 <p>These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized Builds with Docker</a> guide.</p>
 </div>
 
@@ -24,7 +24,7 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 ```
 
 <section class="Docs__troubleshooting-note">
-  <h1>Caveats for builds that need Docker access.</h1>
+  <h3>Caveats for builds that need Docker access.</h3>
   <p>If your build jobs require Docker access, and you’re passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
 </section>
 
@@ -115,7 +115,7 @@ docker run \
 ```
 
 <section class="Docs__troubleshooting-note">
-  <h1>Security considerations</h1>
+  <h3>Security considerations</h3>
   <p>Providing builds with a Docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is <code>root</code>, which means builds have full root system access. This can be mitigated somewhat with <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>, but caution should still be exercised.</p>
 </section>
 

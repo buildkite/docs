@@ -40,7 +40,7 @@ In the YAML steps editor, add the following YAML:
 
 ```yml
 steps:
-  - label: ":pipeline: Pipeline upload"
+  - label: "\:pipeline\: Pipeline upload"
     command: buildkite-agent pipeline upload
 ```
 
@@ -117,7 +117,7 @@ steps:
 
 ## Step types
 
-There are four different step types you can use in your Buildkite pipelines. Click through each step type for detailed usage documentation:
+There are five different step types you can use in your Buildkite pipelines. Click through each step type for detailed usage documentation:
 
 * [Command Step](/docs/pipelines/command-step)
 * [Wait Step](/docs/pipelines/wait-step)
@@ -131,7 +131,7 @@ By default the pipeline upload step reads your pipeline definition from `.buildk
 
 ```yml
 steps:
-  - label: ":pipeline: Pipeline upload"
+  - label: "\:pipeline\: Pipeline upload"
     command: buildkite-agent pipeline upload .buildkite/deploy.yml
 ```
 
@@ -202,6 +202,24 @@ The below example URL will copy the steps from the 'My Llamas Pipeline' into the
 ```
 https://buildkite.com/organizations/acme-inc/pipelines/new?clone=my-llamas-pipeline
 ```
+
+## Targeting specific agents
+
+To run [command steps](/docs/pipelines/command-step) only on specific agents:
+
+1. In the agent configuration file, [tag the agent](/docs/agent/v3/cli-start#setting-tags)
+2. In the pipeline command step, [set the agent property](/docs/agent/v3/cli-start#agent-targeting) in the command step
+
+For example to run commands only on agents running on macOS:
+
+```yaml
+steps:
+  - command: "script.sh"
+    agents:
+      os: "macOS"
+```
+{: codeblock-file="pipeline.yml"}
+
 
 ## Further documentation
 

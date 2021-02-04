@@ -1,6 +1,5 @@
 aws
 eventbridge
-parallelization
 addr
 Allowlist
 api
@@ -114,6 +113,7 @@ tmp
 toolmantim
 tooltip
 udp
+unarchive
 untrusted
 url
 urls

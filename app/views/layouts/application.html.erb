@@ -93,13 +93,6 @@
             <% if request.url.include?('/docs/agent') %>
               <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '2' %>
 
-              <p class="Docs__nav__section-heading">Agent</p>
-
-              <select id="agent-version-selector" class="Docs__nav__version-selector">
-                <option value="<%= docs_page_path("agent/v3") %>" <% if current_agent_ver == "3" %>selected<% end %>>Version 3.x (Current)</option>
-                <option value="<%= docs_page_path("agent/v2") %>" <% if current_agent_ver == "2" %>selected<% end %>>Version 2.x</option>
-              </select>
-
               <%= javascript_tag nonce: true do %>
                 (function() {
                   var select = document.getElementById('agent-version-selector');
@@ -112,67 +105,68 @@
                   });
                 })();
               <% end %>
+              <% if current_agent_ver == "2" %>
+              <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
+              <%= sidebar_link_to "Agent v3", 'agent/v3', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+              </p>
+              <p class="Docs__nav__section-heading">Agent v2 (deprecated)</p>
+              <ul class="Docs__nav__sub-nav">
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v2' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v2/installation' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading to v2", 'agent/v2/upgrading-to-v2' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading to v3", 'agent/v2/upgrading-to-v3' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v2/configuration' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v2/ssh-keys' %></li>
+              <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v2/github-ssh-keys' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v2/hooks' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v2/queues' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v2/prioritization' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v2/securing' %></li>
+            </ul>
+            <p class="Docs__nav__section-subheading">Agent Installers</p>
+            <ul class="Docs__nav__sub-nav">
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v2/debian' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v2/osx' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v2/windows' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v2/linux' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v2/docker' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v2/aws' %></li>
+              <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %></li>
+              <p class="Docs__nav__section-subheading">Command-Line Reference</p>
+              <ul class="Docs__nav__sub-nav">
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v2/cli-start' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "meta-data", 'agent/v2/cli-meta-data' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v2/cli-artifact' %></li>
+                <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v2/cli-pipeline' %></li>
+              </ul>
+              </ul>
+              <% elsif current_agent_ver == "3" %>
+                <p class="Docs__nav__section-heading">Agents v3</p>
 
-              <% if current_agent_ver == '2' %>
                 <ul class="Docs__nav__sub-nav">
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v2' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v2/installation' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading to v2", 'agent/v2/upgrading-to-v2' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v2/configuration' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v2/ssh-keys' %></li>
-                  <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v2/github-ssh-keys' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v2/hooks' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v2/queues' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v2/prioritization' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v2/securing' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v3' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v3/installation' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading", 'agent/v3/upgrading' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v3/configuration' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v3/ssh-keys' %></li>
+                  <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v3/github-ssh-keys' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v3/hooks' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v3/queues' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v3/prioritization' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v3/securing' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Tokens", 'agent/v3/tokens' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Agent v2 (deprecated)", 'agent/v2' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">Agent Installers</p>
                 <ul class="Docs__nav__sub-nav">
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v2/debian' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v2/osx' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v2/windows' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v2/linux' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v2/docker' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v2/aws' %></li>
-                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %></li>
-                  <p class="Docs__nav__section-subheading">Command-Line Reference</p>
-                  <ul class="Docs__nav__sub-nav">
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v2/cli-start' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "meta-data", 'agent/v2/cli-meta-data' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "artifact", 'agent/v2/cli-artifact' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "pipeline", 'agent/v2/cli-pipeline' %></li>
-                  </ul>
-                <% elsif current_agent_ver == "3" %>
-                  <ul class="Docs__nav__sub-nav">
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Overview", 'agent/v3' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Installation", 'agent/v3/installation' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Upgrading", 'agent/v3/upgrading' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Configuration", 'agent/v3/configuration' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "SSH Keys", 'agent/v3/ssh-keys' %></li>
-                    <li class="Docs__nav__sub-nav__item--sub"><%= sidebar_link_to "GitHub SSH Keys", 'agent/v3/github-ssh-keys' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Hooks", 'agent/v3/hooks' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Queues", 'agent/v3/queues' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Prioritization", 'agent/v3/prioritization' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Securing", 'agent/v3/securing' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Tokens", 'agent/v3/tokens' %></li>
-                  </ul>
-                  <p class="Docs__nav__section-subheading">Agent Installers</p>
-                  <ul class="Docs__nav__sub-nav">
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Debian", 'agent/v3/debian' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "macOS", 'agent/v3/osx' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Windows", 'agent/v3/windows' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Linux", 'agent/v3/linux' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Docker", 'agent/v3/docker' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "AWS", 'agent/v3/aws' %></li>
-                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %></li>
-                  </ul>
-                  <p class="Docs__nav__section-subheading">Command-Line Reference</p>
+                    <% AGENT_INSTALLERS.each do |installer| %>
+                    <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to installer[:title], installer[:url] %></li>
+                    <% end %>
+                </ul>
+                <p class="Docs__nav__section-subheading">Command-Line Reference</p>
                   <ul class="Docs__nav__sub-nav">
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "start", 'agent/v3/cli-start' %></li>
                     <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "annotate", 'agent/v3/cli-annotate' %></li>
@@ -185,7 +179,7 @@
                 <% end %>
               <% else %>
                 <p class="Docs__nav__section-heading Docs__nav__section-heading--link">
-                <%= sidebar_link_to "Agents", 'agent/v3', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
+                <%= sidebar_link_to "Agents v3", 'agent/v3', class: 'Link Link--on-white Link--underline Docs__nav__section-heading-link', data: { prefetch: true } %>
                 </p>
               <% end %>
 
@@ -207,6 +201,7 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Notifications", 'pipelines/notifications' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Emojis", 'pipelines/emojis' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Archiving and deleting Pipelines", 'pipelines/archiving-and-deleting-pipelines' %></li>
 
                 </ul>
                 <p class="Docs__nav__section-subheading">Step Types</p>
@@ -271,6 +266,7 @@
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Slack", 'integrations/slack' %></li>
                   <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "Phabricator", 'integrations/phabricator' %></li>
+                  <li class="Docs__nav__sub-nav__item"><%= sidebar_link_to "PagerDuty", 'integrations/pagerduty' %></li>
                 </ul>
                 <p class="Docs__nav__section-subheading">SSO</p>
                 <ul class="Docs__nav__sub-nav">
@@ -345,6 +341,7 @@
           </div>
 
         </div>
+      </div>
 
     </main>
     <%= javascript_tag nonce: true do %>

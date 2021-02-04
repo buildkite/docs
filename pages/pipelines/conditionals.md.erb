@@ -1,6 +1,6 @@
 # Using Conditionals
 
-The `if` parameter provides the ability to run steps only when specific conditions are met. Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances.
+The `if` parameter provides the ability to run steps only when specific conditions are met. Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Note that we do not support Build Meta-data for conditionals.
 
 {:toc}
 
@@ -94,8 +94,8 @@ The below expressions are supported by the `if` attribute:
 
 
 <div class="Docs__troubleshooting-note">
-<h1>Formatting regular expressions</h1>
-<p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
+  <h3>Formatting regular expressions</h3>
+  <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
 ## Supported variables
@@ -190,6 +190,11 @@ The below variables are supported by the `if` attribute:
 		<td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.labels</code></td>
+		<td><code>Array</code></td>
+		<td>An array of label names attached to the pull request</td>
+	</tr>
+	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
  		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
@@ -243,7 +248,7 @@ The below variables are supported by the `if` attribute:
 </table>
 
 <div class="Docs__troubleshooting-note">
-<h1>Using <code>build.env()</code> with custom environment variables</h1>
+<h3>Using <code>build.env()</code> with custom environment variables</h3>
 <p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
 </div>
 

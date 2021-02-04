@@ -2,9 +2,7 @@
 
 You can use branch patterns to ensure pipelines are only triggered when necessary. This guide shows you how to set up branch patterns for whole pipelines and individual build steps.
 
-<!--alex ignore just-->
-
-In step-level and pipeline-level branch filtering you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than just branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
+In step-level and pipeline-level branch filtering you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
 
 {:toc}
 
@@ -13,7 +11,7 @@ In step-level and pipeline-level branch filtering you can use `*` as a wildcard,
 By default a pipeline will trigger builds for all branches (`*` or blank). In your pipeline settings you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build will be created.
 
 <section class="Docs__troubleshooting-note">
-  <h1>Pull Request Builds</h1>
+  <h3>Pull Request Builds</h3>
   <p>Builds created for pull requests will ignore any pipeline-level branch filters. If you want to limit the branches that can build pull requests, add an additional branch filter in your pipeline's source control settings.</p>
   <p>This filter can be found under 'Build pull requests' if you have chosen the 'Trigger builds after pushing code' option.</p>
 </section>
@@ -30,7 +28,7 @@ steps:
     command:
       - "npm install"
       - "tests.sh"
-    branches: "feature/* release/* master !infrastructure"
+    branches: "master feature/* !feature/beta release/*"
   - block: "Release notes"
     prompt: "Please add notes for this release"
     fields:
@@ -54,16 +52,16 @@ steps:
 
 ## Branch pattern examples
 
-When you define a value in the `branch` attribute of a step, only builds on the specified branch/es will contain that step. Adding more values to the `branch` attribute will expand the set of branches that will include that step.
+When combining positive and negative patterns, any positive pattern must match, and every negative pattern must not match.
 
 The following are examples of patterns, and the branches that they will match:
 
-* `master production` will match `master` branch and `production` branch only
-* `master features/*` will match `master` branch and any branch that starts with `features/`
-* `*/release-123` will match any branch that ends with `/release-123` such as `feature-123/release-123`
-* `v*.0` will match branch that begins with a `v` and ends with a `.0`, such as `v1.0`
-* `v*.*.*` will match branch that begins with a `v` and has two periods, such as `v1.2.3`
+* `master` will match `master` only
 * `!production` will match any branch that's not `production`
-* `staging !production development` will match staging and development only
+* `master features/*` will match `master` and any branch that starts with `features/`
+* `*-test` will match any branch ending with `-test`, such as `rails-update-test`
+* `stages/* !stages/production` will match any branch starting with `stages/` except `stages/production`, such as `stages/demo`
+* `v*.0` will match any branch that begins with a `v` and ends with a `.0`, such as `v1.0`
+* `v* !v1.*` will match any branch that begins with a `v` unless it also begins with `v1.`, such as `v2.3`, but not `v1.1`
 
 For more advanced step filtering, see the [Using conditionals](/docs/pipelines/conditionals) guide.

@@ -4,29 +4,35 @@ This guide will help you setup your first Buildkite pipeline. If you don’t hav
 
 {:toc}
 
-## Start your first agent
+## Install and run your first agent
 
-Once you’ve logged in, follow the instructions on the Agents page to install and start an agent. You can do this on your local development machine, an existing CI machine, or a new server.
+[Buildkite agents](/docs/agent/v3/) are small, reliable and cross-platform build runners that run automated builds. Buildkite never accesses your code, and does not run any agents, so you need to install and run agents on your own infrastructure. You can do this on your local development machine, an existing CI machine, or a new server.
 
-<%= image "start-agent.png", size: '610x165', alt: 'Buildkite agent setup buttons' %>
+1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent
+
+2. Make sure you’ve configured the agent token, as that is what connects the agent to your Buildkite account
 
 ## Add the sample pipeline
 
+[Pipelines](/docs/pipelines/) are how Buildkite represents your CI workflow, a series of steps that will be run on your code.
+
 We’ve created a [bash-example test repository](https://github.com/buildkite/bash-example) to use as your first pipeline. Click the “Add to Buildkite” button below to open a new pipeline page for the example pipeline:
 
-<a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="__blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+<a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-## Create your first build
+Accept the pre-filled defaults, and click *Create Pipeline*.
 
-Now that you’ve started an agent and created a pipeline you’re ready to run your first build. Click the *New Build* button in the top right corner:
+## Run your first build
+
+Now that you’re running an agent and have created a pipeline you’re ready to run your first build. Click the *New Build* button in the top right corner:
 
 <%= image "new-build.png", size: "270x60", alt: "New build button" %>
 
-Type in a build message (being sure to add some emojis) and click *Create Build*:
+Type in a build message (being sure to add some [emojis](/docs/pipelines/emojis)) and click *Create Build*:
 
 <%= image "trigger-build.png", size: "600x460", alt: "New build dialog" %>
 
-You should now see the build start to run, and once it’s finished it should turn green!
+The build will run, and once it’s finished it’ll turn green!
 
 <%= image "green-build.png", size: "226x84", alt: "Green build" %>
 

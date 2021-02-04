@@ -25,7 +25,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.style_src   :self, :unsafe_inline
 
   # allow AJAX queries against our search vendor
-  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolianet.com", Posthog::URL
+  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com", Posthog::URL
 
   # Specify URI for violation reports
   policy.report_uri "/_csp-violation-reports"

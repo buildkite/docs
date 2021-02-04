@@ -70,6 +70,8 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+See [Build States](#build-states) for possible values for the build state.
+
 <section class="Docs__troubleshooting-note">
   <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
 </section>
@@ -205,6 +207,8 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+See [Build States](#build-states) for possible values for the build state.
+
 ## Webhooks
 
 Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` yaml block:
@@ -224,3 +228,8 @@ notify:
   - webhook: "https://webhook.site/27f518bw-9067-5aca-b681-102c847j917z"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Build States
+
+Build state can be one of `scheduled`, `running`, `passed`, `failed`, `blocked`, `canceling`, `canceled`, `skipped`, `not_run`, and `finished`.
+`finished` is a shortcut for a build of `passed`, `failed`, `blocked`, and `canceled` state.
