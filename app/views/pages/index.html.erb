@@ -41,6 +41,8 @@
       </h2>
       <span>Run Buildkite agents on your own infrastructure</span>
       <ul>
+        <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
+        <li><h3><%= link_to "Installing Buildkite Agent", "/docs/agent/v3/installation" %></h3></li>
         <li>
           <ul>
             <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
@@ -49,10 +51,8 @@
             <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
             <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
             <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
-            <li><%= link_to "More platforms…", "/docs/agent/v3/installation" %></li>
           </ul>
         </li>
-        <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
       </ul>
     </div>
     <div class="HomepageCategory">
@@ -99,6 +99,6 @@
 </div>
 <div class="FooterContainer">
   <div class="Docs__note--footer-typo">
-    <p>Spotted a typo? Something missing? Please <a href="https://github.com/buildkite/docs/issues">open an issue</a> or <a href="<%= open_source_url %>">contribute an update</a>.</p>
+    <p>Spotted a typo? Something missing? Please <a href="https://github.com/buildkite/docs/issues" class="Link--on-white">open an issue</a> or <a href="<%= open_source_url %>" class="Link--on-white">contribute an update</a>.</p>
   </div>
 </div>
