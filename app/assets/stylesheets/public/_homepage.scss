@@ -17,7 +17,7 @@
   input {
     display: inline-block;
     box-sizing: border-box;
-    padding: 10px 12px;
+    padding: 15px 12px;
     border-radius: .2em;
     font-size: 16px;
     max-width: 500px;
@@ -25,17 +25,15 @@
     font-family: $font-family;
     background-color: #fff;
     border: 1px solid #ccc;
-    color: #555;
+    color: #333;
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     transition: border-color 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
-    &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
-    &::-webkit-input-placeholder { color: rgba(#555, .35); }
-    &:-moz-placeholder { color: rgba(#555, .35); }
-    &::-moz-placeholder { color: rgba(#555, .35); }
-    &:-ms-input-placeholder { color: rgba(#555, .35); }
+    &:focus { border-color: #14CC80; }
+    &::placeholder { color: #707070; transition: all 0.2s; }
+    &:focus::placeholder { color: #333; }
   }
 }
 
