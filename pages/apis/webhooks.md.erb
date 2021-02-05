@@ -44,7 +44,7 @@ The following HTTP headers are present in every webhook request, which allow you
 
 ## HTTP request body
 
-Each event’s data is sent JSON encoded in the request body. See each event’s documentation to see which keys are available in the payload. For example:
+Each event’s data is sent JSON encoded in the request body. See each event’s documentation ([agent](/docs/apis/webhooks/agent-events), [build](/docs/apis/webhooks/build-events#request-body-data), [job](/docs/apis/webhooks/job-events), [ping](/docs/apis/webhooks/ping-events)) to see which keys are available in the payload. For example:
 
 ```json
 {
@@ -57,6 +57,11 @@ Each event’s data is sent JSON encoded in the request body. See each event’s
   }
 }
 ```
+
+<div class="Docs__troubleshooting-note">
+  <h3>fast transitions and webhooks</h3>
+  <p>Note that if a builds transitions between states very quickly, for example from blocked (`finished`) to unblocked (`running`), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
+</div>
 
 ## Example implementations
 
