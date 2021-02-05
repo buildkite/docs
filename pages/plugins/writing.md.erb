@@ -4,8 +4,6 @@ This page shows you how to write your own Buildkite plugin, and how to validate 
 
 {:toc}
 
-## Plugin tutorial
-
 In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
 
 ```yml
@@ -17,7 +15,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Create a new git repository
+## Create a new git repository
 
 Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. Let's create a new Git repository following these naming conventions:
 
@@ -27,9 +25,9 @@ cd file-counter-buildkite-plugin
 git init
 ```
 
-### Add a plugin.yml
+## Add a plugin.yml
 
-Next we'll create `plugin.yml` to describes how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory).
+Next we'll create `plugin.yml` to describes how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -46,10 +44,78 @@ configuration:
 
 The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `pattern` property, of type `string`.
 
-Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>`.  In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
+Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is the GitHub repository slug, not the name defined in `plugin.yml`. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
+<div class="Docs__troubleshooting-note">
+  <h3>Plugin properties and git</h3>
+  <p>
+    Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> using a full URL and <code>.git</code> extension, you need to use a slightly different syntax to get access to the configuration properties. For example, to get the value of <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> use  <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
+  </p>
+</div>
 
-### Add a hook
+### Valid plugin.yml properties
+
+<table>
+  <thead>
+    <tr>
+      <th>Property</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>name</th>
+      <td>The name of the plugin, in Title Case.</th>
+    </tr>
+    <tr>
+      <td>description</th>
+      <td>A short sentence describing what the plugin does.</th>
+    </tr>
+    <tr>
+      <td>author</th>
+      <td>A URL to the plugin author (e.g. website or GitHub profile).</th>
+    </tr>
+    <tr>
+      <td>requirements</th>
+      <td>An array of commands that are expected to exist in the agent’s <code>$PATH</code>.</th>
+    </tr>
+    <tr>
+      <td>configuration</th>
+      <td>A <a href="https://json-schema.org">JSON Schema</a> describing the valid configuration options available.</th>
+    </tr>
+  </tbody>
+</table>
+
+## Validate the plugin.yml
+
+The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
+
+You can run the plugin linter with the following Docker command:
+
+```shell
+docker run -it --rm -v "$(PWD):/plugin:ro" buildkite/plugin-linter --id a-github-user/file-counter
+```
+
+To make it easier to run this command, add it to the `docker-compose.yml` file:
+
+```yml
+services:
+  tests: ...
+  lint:
+    image: buildkite/plugin-linter
+    command: ['--id', 'a-github-user/file-counter']
+    volumes:
+      - ".:/plugin:ro"
+```
+{: codeblock-file="docker-compose.yml"}
+
+You can now run the tests using the following command:
+
+```shell
+docker-compose run --rm lint
+```
+
+## Add a hook
 
 Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, we’ll create a `post-command` hook in a `hooks` directory:
 
@@ -75,7 +141,7 @@ buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
   {: codeblock-file="hooks/post-command"}
 
-### Add a test
+## Add a test
 
 Next step is to test the `post-command` hook using BATS, and the `buildkite/plugin-tester` Docker image.
 
@@ -142,93 +208,12 @@ You can now run the tests using the following command:
 docker-compose run --rm tests
 ```
 
-### Add a readme
+## Add a readme
 
 Next we'll add a `README.md` file to introduce the plugin to the world:
 
 <%= render 'plugins/tutorial_readme' %>
 
-### Add the linter
-
-The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
-
-You can run the plugin linter with the following Docker command:
-
-```shell
-docker run -it --rm -v "$(PWD):/plugin:ro" buildkite/plugin-linter --id a-github-user/file-counter
-```
-
-To make it easier to run this command, add it to the `docker-compose.yml` file:
-
-```yml
-services:
-  tests: ...
-  lint:
-    image: buildkite/plugin-linter
-    command: ['--id', 'a-github-user/file-counter']
-    volumes:
-      - ".:/plugin:ro"
-```
-{: codeblock-file="docker-compose.yml"}
-
-You can now run the tests using the following command:
-
-```shell
-docker-compose run --rm lint
-```
-
-### Publish to the directory
+## Publish to the directory
 
 To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` repository topic tag. For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
-
-## Plugin schema
-
-Each plugin must have a `plugin.yml` file, which describes the plugin, what it requires, and what configuration options it accepts.
-
-For example:
-
-```yml
-name: File Counter
-description: Annotates the build with a file count
-author: https://github.com/a-github-user
-requirements: []
-configuration:
-  pattern:
-    type: string
-  additionalProperties: false
-```
-{: codeblock-file="plugin.yml"}
-
-
-Valid `plugin.yml` properties:
-
-<table>
-  <thead>
-    <tr>
-      <th>Property</th>
-      <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>name</th>
-      <td>The name of the plugin, in Title Case.</th>
-    </tr>
-    <tr>
-      <td>description</th>
-      <td>A short sentence describing what the plugin does.</th>
-    </tr>
-    <tr>
-      <td>author</th>
-      <td>A URL to the plugin author (e.g. website or GitHub profile).</th>
-    </tr>
-    <tr>
-      <td>requirements</th>
-      <td>An array of commands that are expected to exist in the agent’s <code>$PATH</code>.</th>
-    </tr>
-    <tr>
-      <td>configuration</th>
-      <td>A <a href="https://json-schema.org">JSON Schema</a> describing the valid configuration options available.</th>
-    </tr>
-  </tbody>
-</table>
