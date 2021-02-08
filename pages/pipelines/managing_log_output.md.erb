@@ -58,7 +58,7 @@ your_build_command | tee build.log | <filter command>
 
 When this script is run it will store the original output of `your_build_command` to the file `build.log`.
 
-To store this file alongside your build, add the `artifact_path` attribute to the command step running your script:
+To store this file alongside your build, add the `artifact_paths` attribute to the command step running your script:
 
 ```yaml
 steps:
