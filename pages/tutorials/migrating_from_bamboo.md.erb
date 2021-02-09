@@ -43,7 +43,7 @@ steps:
 
 Let’s look at an example Bamboo Plan:
 
-<%= image "bamboo_stages_and_tasks.png", width: 698, height: 331, alt: "Screenshot of a Bamboo Plan" %>
+<%= image "bamboo_stages_and_tasks.png", width: 680, height: 312, alt: "Screenshot of a Bamboo Plan" %>
 
 We can map this to a Buildkite Pipeline using a combination of `command`, `wait` and `block` steps.
 
@@ -93,7 +93,7 @@ If you have many Pipelines to migrate or manage at once, you can use the [Update
 
 For example, say you had the following set of Bamboo Tasks:
 
-<%= image("bamboo_task_list.png", size: '621x296', alt: 'Screenshot of a Bamboo Task List') %>
+<%= image("bamboo_task_list.png", size: '610x267', alt: 'Screenshot of a Bamboo Task List') %>
 
 This can be rewritten as a single script and then committed to your
 repository. The Buildkite Agent takes care of checking out the repository for you before each step, so the script would be:
