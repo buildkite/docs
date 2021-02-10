@@ -37,12 +37,11 @@
     <div class="HomepageCategory">
       <h2>
         <%= image_tag("/docs/assets/icons/agents.svg") %>
-        Installing and running agents
+        Installing Buildkite agents
       </h2>
-      <span>Run Buildkite agents on your own infrastructure</span>
+      <span>Install Buildkite agents on your own infrastructure</span>
       <ul>
-        <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
-        <li><h3><%= link_to "Installing Buildkite Agent", "/docs/agent/v3/installation" %></h3></li>
+        <li><h3><%= link_to "Installing Buildkite agents", "/docs/agent/v3/installation" %></h3></li>
         <li>
           <ul>
             <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
@@ -53,8 +52,24 @@
             <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
           </ul>
         </li>
+        <li><%= link_to "Agent tokens", "/docs/agent/v3/tokens" %></li>
+        <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
       </ul>
     </div>
+    <div class="HomepageCategory">
+    <h2>
+      <%= image_tag("/docs/assets/icons/agents.svg") %>
+      Running Buildkite agents
+    </h2>
+    <span>Configure and run your Buildkite agents</span>
+    <ul>
+      <li><%= link_to "Configuring agents", " /docs/agent/v3/configuration" %></li>
+      <li><%= link_to "Securing agents", "/docs/agent/v3/securing" %></li>
+      <li><%= link_to "Managing agent queues", "/docs/agent/v3/queues" %></li>
+      <li><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks" %></li>
+    </ul>
+    <p>...more <a href="/docs/agent/v3">info about agents</a></p>
+  </div>
     <div class="HomepageCategory">
       <h2>
       <%= image_tag("/docs/assets/icons/pipeline.svg") %>
@@ -68,6 +83,8 @@
         <li><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds" %></li>
         <li><%= link_to "Example pipelines", "/docs/pipelines/example-pipelines" %></li>
       </ul>
+      <p>...more <a href="/docs/piplines/">info about pipelines</a></p>
+
     </div>
     <div class="HomepageCategory">
       <h2>
@@ -90,6 +107,7 @@
       <ul>
         <li><%= link_to "REST API", "/docs/apis/rest-api" %></li>
         <li><%= link_to "GraphQL API", "/docs/apis/graphql-api" %></li>
+        <li><%= link_to "API tokens", "/docs/apis/managing-api-tokens" %></li>
         <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
         <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
         <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
