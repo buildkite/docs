@@ -231,7 +231,12 @@ _Optional attributes:_
     <tr>
       <th><code>name</code></th>
       <td>
-        The name of the agent. Supports the template variables <code>%hostname</code> (the agent machine’s hostname), <code>%n</code> (a unique number for the agent), and <code>%pid</code> (the agent process id).
+        The name of the agent. Supports the template variables
+        <ul>
+        <li><code>%hostname</code> (the agent machine’s hostname)</li>
+        <li><code>%n</code> (a unique number for the agent)</li>
+        <li><code>%pid</code> (the agent process id)</li>
+         Note that if you're using <code>--spawn</code> to run multiple agents in a single process, they all share the same <code>%pid</code>. Make sure that each agent running on a host with the same <code>build-path</code> has a unique name.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"%hostname-%n"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NAME</code></p>
       </td>
