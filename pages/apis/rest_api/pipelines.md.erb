@@ -563,6 +563,37 @@ Required scope: `write_pipelines`
 
 Success response: `204 No Content`
 
+## Add a webhook
+
+Create webhook for an existing pipeline.
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
+```
+
+Required [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>id</code></th>
+    <td>The GraphQL ID of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"JKlwZWxpbmUtLS02ZWM3NDPxZi042DB0LTQ1NzUtOTMyYy3mOTZkAThkMmI0MbM="</code></p></td>
+  </tr>
+  </tbody>
+</table>
+
+Required scope: `write_pipelines`
+
+Success response: `201 CREATED`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden"}</code></td></tr>
+</tbody>
+</table>
+
 ## Provider settings properties
 
 The [Create Pipeline](#create-a-pipeline) and [Update Pipeline](#create-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider’s supported settings are below.
