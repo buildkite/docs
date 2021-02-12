@@ -75,7 +75,7 @@
     flex-basis: 33.3%;
     -ms-flex: auto;
     position: relative;
-    padding: 10px 50px;
+    padding: 10px 50px 50px;
     box-sizing: border-box;
 
     h2 {
@@ -122,7 +122,7 @@
           text-decoration: none;
 
           &:hover {
-            color: #707070;
+            color: #555;
 
             &::after {
               transform: translateX(2px);
@@ -138,6 +138,22 @@
             opacity: 0.7;
             transition: transform 0.1s;
             position: absolute;
+          }
+
+          &.more-link {
+            font-weight: 700;
+            text-decoration: underline;
+            padding-top: 10px;
+            display: inline-block;
+            color: black;
+
+            &:hover {
+              color: #333;
+            }
+            
+            &::after {
+              content: "";
+            }
           }
         }
       }
