@@ -10,10 +10,10 @@ Buildkite supports the following SSO providers:
 
 * [Okta](/docs/integrations/sso/okta)
 * [ADFS](/docs/integrations/sso/adfs)
+* [GitHub](/docs/integrations/sso/github_sso)
 * [G Suite](/docs/integrations/sso/g-suite)
 * [G Cloud Identity](/docs/integrations/sso/g-cloud-identity)
 * [OneLogin](/docs/integrations/sso/onelogin)
-* GitHub
 * [Custom SAML](/docs/integrations/sso/custom-saml)
 
 ## Adding SSO
@@ -37,7 +37,20 @@ There are two ways to disable a provider:
 1. Using the 'Disable' button in your SSO provider Settings, or
 1. Using the [GraphQL API](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider)
 
-If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.
+If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.  
+
+## Migrating from one SSO provider to another SSO provider    
+
+If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:  
+
+1. [Add](/docs/integrations/sso#adding-sso) a new SSO provider, verify it, and allow login from both SSO providers. The users in your organization can continue to sign in and use the same user accounts within Buildkite as long as the emails stay the same.
+2. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.  
+
+<div class="Docs__note">
+  <p>If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider. Otherwise, new user accounts will be created, and your organization will be billed for the same users twice.</p>
+</div>
+
+If you’d like to have some help with the migration, contact support@buildkite.com. 
 
 ## Frequently asked questions
 
@@ -49,6 +62,9 @@ Yes, we do.
 
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
+
+### Can I use different SSO providers for my Buildkite organization at the same time?
+Yes, as an admin you need to [add](/docs/integrations/sso#adding-sso) and verify a new SSO provider. Next, you need to allow login from both SSO providers in the [Organization settings](https://buildkite.com/organizations/-/sso). As long as the sign-in emails stay the same, the users in your organization can continue to sign in and use the same user accounts within Buildkite.  
 
 ### Can we enable SSO on multiple domains for one organization?
 Yes, by adding multiple SSO providers. You can enable as many different identity providers for your organization as you need.
@@ -66,4 +82,10 @@ No, all of your builds, agents, and pipelines will continue to run as normal.
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
 
 ### Can I sync my identity provider's groups with my Buildkite teams?
-Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).
+Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).  
+
+### I want to rename my Buildkite organization. Will it affect my SSO provider(s)?  
+No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.  
+
+### Can I merge two organizations that use different SSO providers?  
+In short, yes, you can. However, merging Buildkite organizations that already have SSO providers is not a simple scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
