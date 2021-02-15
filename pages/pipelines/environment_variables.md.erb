@@ -519,7 +519,7 @@ Example: `"everyone:platform"`
 
 <h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
 
-Set to either `""` or `"datadog"` to send metrics nowhere, or to [Datadog APM](https://docs.datadoghq.com/tracing/)
+Set to either `""` or `"datadog"` to send metrics nowhere, or to [Datadog APM](https://docs.datadoghq.com/tracing/). When set to `"datadog"`, will send metrics to `localhost:8126`, or `DD_AGENT_HOST` and `DD_AGENT_APM_PORT`.
 
 Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
 
