@@ -420,7 +420,8 @@ _Optional attributes:_
     <tr>
       <th><code>tracing-backend</code></th>
       <td>
-        Address to process <a href="https://github.com/buildkite/agent/pull/1273">APM metrics</a>. Accepts blank string or "datadog"
+        Indicates if tracing should be supplied for builds/jobs with Datadog APM, or not at all.
+        Accepts blank string or "datadog".
         <p class="Docs__api-param-eg"><em>Default:</em> <code>""</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TRACING_BACKEND</code></p>
       </td>
