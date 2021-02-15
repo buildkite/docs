@@ -517,6 +517,14 @@ A colon separated list of non-private team names that the user who unblocked the
 
 Example: `"everyone:platform"`
 
+<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
+
+Set to either `""` or `"datadog"` to send metrics nowhere, or to [Datadog APM](https://docs.datadoghq.com/tracing/)
+
+Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
+
+Example: `"datadog"`
+
 <h3 class="h3-caps">CI</h3>
 
 Always `"true"`. The value cannot be modified.
