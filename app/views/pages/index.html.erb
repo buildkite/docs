@@ -41,21 +41,15 @@
         <%= image_tag("icons/agents_install.svg") %>
         Installing Buildkite agents
       </h2>
-      <span>Install Buildkite agents on your own infrastructure</span>
+      <span>Install agents on your infrastructure</span>
       <ul>
-        <li><h3><%= link_to "Installing Buildkite agents", "/docs/agent/v3/installation" %></h3></li>
-        <li>
-          <ul>
-            <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
-            <li><%= link_to "Red Hat", "/docs/agent/v3/redhat" %></li>
-            <li><%= link_to "macOS", "/docs/agent/v3/osx" %></li>
-            <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
-            <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
-            <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
-          </ul>
-        </li>
+        <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
+        <li><%= link_to "macOS", "/docs/agent/v3/osx" %></li>
+        <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
+        <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
+        <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
         <li><%= link_to "Agent tokens", "/docs/agent/v3/tokens" %></li>
-        <li><%= link_to "Configuring SSH keys for private repositories", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
+        <li><%= link_to "More installation options…", "/docs/agent/v3/installation", class: "more-link Link--on-white" %></li>
       </ul>
     </div>
     <div class="HomepageCategory">
@@ -63,9 +57,10 @@
       <%= image_tag("icons/agents.svg") %>
       Running Buildkite agents
     </h2>
-    <span>Configure and run your Buildkite agents</span>
+    <span>Configuring your Buildkite agents</span>
     <ul>
       <li><%= link_to "Configuring agents", "/docs/agent/v3/configuration" %></li>
+      <li><%= link_to "Configuring SSH keys", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
       <li><%= link_to "Securing agents", "/docs/agent/v3/securing" %></li>
       <li><%= link_to "Managing agent queues", "/docs/agent/v3/queues" %></li>
       <li><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks" %></li>
@@ -80,7 +75,7 @@
       <span>Common tasks and workflows</span>
       <ul>
         <li><%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %></li>
-        <li><%= link_to "Managing secret information securely", "/docs/pipelines/secrets" %></li>
+        <li><%= link_to "Managing build secrets", "/docs/pipelines/secrets" %></li>
         <li><%= link_to "Publishing build artifacts", "/docs/pipelines/artifacts" %></li>
         <li><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds" %></li>
         <li><%= link_to "Example pipelines", "/docs/pipelines/example-pipelines" %></li>
