@@ -37,6 +37,10 @@
   }
 }
 
+.HomeHeader__search .algolia-autocomplete {
+  max-width: 500px;
+}
+
 .HomeHeader__mark {
   > svg {
     width: 96px;
@@ -150,7 +154,7 @@
             &:hover {
               color: #333;
             }
-            
+
             &::after {
               content: "";
             }
