@@ -116,13 +116,10 @@ Rails.application.routes.draw do
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference
 
   # Homepage
-  get "/docs/index" => "pages#index", as: :home_page
+  get "/docs" => "pages#index", as: :home_page
 
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page
-
-  # Top level redirect. Needs to be at the end so it doesn't match /docs/sub-page
-  get "/docs", to: redirect("/docs/index", status: 302), as: :docs
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
