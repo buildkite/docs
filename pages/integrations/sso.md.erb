@@ -47,7 +47,7 @@ If you are the administrator of an organization within Buildkite with an existin
 2. [Disable and remove](/docs/integrations/sso#disabling-and-removing-sso) the SSO provider you no longer need. If the user credentials (email) stay the same, this is all you need to migrate from one SSO provider to another.  
 
 <div class="Docs__note">
-  <p>If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider. Otherwise, new user accounts will be created, and your organization will be billed for the same users twice.</p>
+  <p>If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.</p>
 </div>
 
 If you’d like to have some help with the migration, contact support@buildkite.com. 
@@ -88,4 +88,4 @@ Yes, if you are able to associate your provider's groups with your Buildkite tea
 No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.  
 
 ### Can I merge two organizations that use different SSO providers?  
-In short, yes, you can. However, merging Buildkite organizations that already have SSO providers is not a simple scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
+In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
