@@ -6,7 +6,7 @@ Google Cloud Identity can be used as an SSO provider for your Buildkite organiza
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-### Step 1. Create a Buildkite SSO Provider
+## Step 1. Create a Buildkite SSO Provider
 
 Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
 
@@ -16,7 +16,7 @@ Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML
 
 On the following page, copy the ACS URL for use in Step 2. 
 
-### Step 2. Add Buildkite in Google Cloud Identity
+## Step 2. Add Buildkite in Google Cloud Identity
 
 Log into your Google Admin Console, and follow these instructions:
 
@@ -30,7 +30,7 @@ Log into your Google Admin Console, and follow these instructions:
     * Entity ID: https://buildkite.com
 1. Attribute mapping can be added after the initial setup and testing. Click 'Finish' to complete the setup.
 
-### Step 3. Update your Buildkite SSO Provider
+## Step 3. Update your Buildkite SSO Provider
 
 On your Buildkite Organization Settings' Single Sign On page, select your Custom SAML provider from the list of Configured SSO Providers. 
 
@@ -59,11 +59,11 @@ Click the 'Edit Settings' button, choose the Manual data option, and enter the I
 
 Save your new settings and you'll be returned to your provider page.
 
-### Step 3. Perform a Test Login
+## Step 3. Perform a Test Login
 
 Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
-### Step 4. Enable the new SSO Provider
+## Step 4. Enable the new SSO Provider
 
 Once you've performed a test login you can enable your provider using the `Enable` button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Cloud Identity before organization data can be accessed.
 
