@@ -47,19 +47,18 @@ We’ve created a sample [bash-parallel-example sample pipeline](https://github.
 
 <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Click “Create Pipeline”.
+Click “Create Pipeline”. Depending on your organization's settings, the next step will vary slightly: 
 
-If your organization is configured to use the web-based steps editor (default), your pipeline is now ready for its first build. 
+- If your organization is configured to use the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
 
-If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a "Choose a Starting Point" wizard. Select "Pipeline Upload" from the list:
-
-<%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
+- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a "Choose a Starting Point" wizard. Select "Pipeline Upload" from the list:
+    <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
 Click "New Build" in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
 
 <%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
-Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2autoscaling/home) to monitor the Elastic CI Stack creating new EC2 instances:
+Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://console.aws.amazon.com/ec2autoscaling/home) to watch the Elastic CI Stack creating new EC2 instances:
 
 <%= image "ec2-asg.png", size: "#{400/2}x#{200/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
 
