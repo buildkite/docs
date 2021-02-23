@@ -1,0 +1,23 @@
+# Meta API
+
+The Meta API endpoint returns a list of IP addresses that Buildkite uses to send outbound traffic such as webhooks and commit statuses.
+
+It does not require authentication.
+
+{:toc}
+
+## Get IP addresses
+
+Returns IP addresses:
+
+```bash
+curl "https://api.buildkite.com/v2/user"
+```
+
+```json
+{
+  "webhook_ips":["54.165.103.71"]
+}
+```
+
+Success response: `200 OK`
