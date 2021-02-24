@@ -9,7 +9,13 @@
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
 
-    <title><%= content_for(:page_title) || "Documentations" %> | Buildkite Documentation</title>
+    <title>
+      <% if content_for? :page_title %>
+        <%= yield :page_title  %>
+      <% else %>
+        Buildkite Documentation
+      <% end %>
+    </title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
