@@ -420,7 +420,7 @@ _Optional attributes:_
     <tr>
       <th><code>tracing-backend</code></th>
       <td>
-        Indicates if tracing should be supplied for builds/jobs with Datadog APM, or not at all. When set to Datadog backend, will use default APM address `localhost:8126`, or provided (Datadog) variables like `DD_AGENT_HOST` and `DD_AGENT_APM_PORT`.        
+        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT<code>.        
         Accepts blank string or "datadog".
         <p class="Docs__api-param-eg"><em>Default:</em> <code>""</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TRACING_BACKEND</code></p>
