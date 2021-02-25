@@ -101,6 +101,8 @@ rvm
 sed
 sha
 shasum
+sharding
+Shardy
 Shellcheck
 Shipit
 sre
