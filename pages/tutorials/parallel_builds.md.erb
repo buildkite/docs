@@ -78,7 +78,7 @@ The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `
 <br>A commercially supported version of Knapsack that provides a hosted service for test timing data and additional job distribution modes. See the [documentation](https://github.com/KnapsackPro/knapsack_pro-ruby#info-for-buildkitecom-users) and [step-by-step tutorial](http://docs.knapsackpro.com/2017/auto-balancing-7-hours-tests-between-100-parallel-jobs-on-ci-buildkite-example) for setup instructions and example pipelines.
 
 * [Shardy McShardFace](https://www.npmjs.com/package/shardy-mc-shard-face)
-<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding less items than parallelization count and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See the [documentation](https://github.com/joscha/ShardyMcShardFace#readme).
+<br>Shardy McShardFace is an npm package for dividing your tests between parallel jobs. it shards as evenly as possible, uneven splits will end up in the tail shards, supports sharding fewer items than the parallelism count, and distributes items into shards based on a given seed for a random number generator to provide random, but stable distribution. See the [documentation](https://github.com/joscha/ShardyMcShardFace#readme).
 
 
 ## Isolated jobs
