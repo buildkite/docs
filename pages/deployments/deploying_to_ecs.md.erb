@@ -1,0 +1,179 @@
+# Deploying to ECS
+
+<%= estimated_time "30 minutes" %>
+
+{:toc}
+
+This tutorial demonstrates how to deploy a Docker image to Amazon Elastic Container Service (ECS) using Buildkite best practices.
+
+We'll run a simple test, before pushing the Docker image to the Amazon Elastic Container Registry (ECR) and then using a single deployment step to deploy that same image to ECS.
+
+If you already have build process that runs tests and then pushes a Docker image to a registry, you can use that instead of the following NGINX example.
+
+## Run a simple test
+
+We'll use an [NGINX](https://www.nginx.com/) server as our example Docker image, serving the Buildkite logo, so for a simple test we can check that the logo exists in the images directory of the repository:
+
+```yaml
+steps:
+  - label: "🔨"
+    command: "test -f images/logo.jpg || exit"
+
+  - wait
+```
+{: codeblock-file=".buildkite/pipeline.deploy.yml"}
+
+If you're carrying out multiple complex test steps it is good practice to add a wait step to make sure they all finish before doing anything else.
+
+## AWS ECR and ECS Authorization
+
+In our example we're pushing a Docker image to ECR, and then deploying it to ECS.
+Both are hosted on Amazon Web Services, so we just need to Authorize the Buildkite Agent once, making sure it has permsissions for both.
+
+
+To push a Docker image to ECR grant the user the following permissions:
+
+TODO which is more common? YAML or JSON?
+
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "ecr:GetAuthorizationToken",
+                "ecr:BatchCheckLayerAvailability",
+                "ecr:GetDownloadUrlForLayer",
+                "ecr:GetRepositoryPolicy",
+                "ecr:DescribeRepositories",
+                "ecr:ListImages",
+                "ecr:DescribeImages",
+                "ecr:BatchGetImage",
+                "ecr:GetLifecyclePolicy",
+                "ecr:GetLifecyclePolicyPreview",
+                "ecr:ListTagsForResource",
+                "ecr:DescribeImageScanFindings"
+            ],
+            "Resource": "*"
+        }
+    ]
+}
+```
+
+To deply to ECS, you'll need to grant the following [permissions](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin#aws-roles) to the Buildkite agent:
+
+```yml
+Policy:
+  Statement:
+  - Action:
+    - ecr:DescribeImages
+    - ecs:DescribeServices
+    - ecs:RegisterTaskDefinition
+    - ecs:UpdateService
+    - ecs:CreateService
+    Effect: Allow
+    Resource: '*'
+```
+
+
+If you're already using Buildkite on [Elastic Stack](/docs/tutorials/elastic-ci-stack-aws) the AWS client is already installed, otherwise you'll need to [install the AWS cli](https://docs.aws.amazon.com/AmazonECS/latest/developerguide/ECS_CLI_installation.html) on the agent.
+
+Run `aws configure` and provide the `AWS Access Key ID` and `AWS Secret Access Key` for the user you've given access to:
+
+```sh
+$ aws configure
+AWS Access Key ID [None]: AKIAIOSFODNN7EXAMPLE
+AWS Secret Access Key [None]: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+Default region name [None]: us-west-2
+Default output format [None]: json
+```
+
+## Push a Docker image to the registry
+
+This Dockerfile creates a tiny Docker image that serves the Buildkite logo that we've copied to the default directory:
+
+```
+FROM nginx:alpine
+COPY images /usr/share/nginx/html
+```
+{: codeblock-file="Dockerfile"}
+
+
+We can use the [Docker ECR Publish Buildkite Plugin](https://github.com/seek-oss/docker-ecr-publish-buildkite-plugin) to make pushing images to ECR easier, we just need to tell it the name of the ECR Docker registry:
+
+```
+steps:
+  - plugins:
+      - seek-oss/docker-ecr-publish#v1.4.0:
+          ecr-name: docs
+
+```
+{: codeblock-file=".buildkite/pipeline.deploy.yml"}
+
+The plugin defaults to building `./Dockerfile` and tagging the resulting image with `$BUILDKITE_BUILD_NUMBER`, but you can change that using the `dockerfile:` and `tags:` keys respectively.
+
+## Deploy to ECS
+
+The [ECS Deploy Buildkite Plugin](https://github.com/buildkite-plugins/ecs-deploy-buildkite-plugin) uses a json task definition to define some cluster settings:
+
+```json
+[
+  {
+    "essential": true,
+    "image": "docs:$BUILDKITE_BUILD_NUMBER",
+    "memory": 100,
+    "name": "buildkite-hello-world",
+    "portMappings": [
+      {
+        "containerPort": 80,
+        "hostPort": 80
+      }
+    ]
+  }
+]
+```
+{: codeblock-file="ecs-task-definition.json"}
+
+The plugin will create the cluster if it doesn't already exist, so as long as the agent has the permissions mentioned in [AWS ECR and ECS Authorization](#aws-ecr-and-ecs-authorization) you don't need to create the cluster in advance.
+
+Now we can add a deploy step to deploy the image to the cluster if the tests pass on the master branch:
+
+```yml
+steps:
+  - label: ":ecs: :rocket:"
+    if: build.branch == 'master'
+    concurrency_group: "my-service-deploy"
+    concurrency: 1
+    plugins:
+      - ecs-deploy#v1.4.1:
+          cluster: "my-ecs-cluster"
+          service: "my-service"
+          task-definition: "examples/hello-world.json"
+          task-family: "hello-world"
+          image: "${ECR_REPOSITORY}/hello-world:${BUILDKITE_BUILD_NUMBER}"
+```
+{: codeblock-file="pipeline.deploy.yml"}
+
+Set [`concurrency` and `concurrency_group`](/docs/pipelines/controlling-concurrency#concurrency-limits) when updating mutable state to ensure that only one step runs at a time.
+
+TODO reword explain mutable state
+
+## Check the deployment
+
+Check the deployment by finding the public IP address from the build log:
+
+<%= image "deploy_step.png", alt: "Deploy Step" %>
+
+Open `IP/logo.png` in your browser, and say hi to the Buildkite logo.
+
+## Next Steps
+
+Congratulations! :tada: You've setup a continuous deployment pipeline to ECS.
+Here are some things you might want to look at next:
+
+- Make a [dedicated deployment pipeline](/docs/deployments#dedicated-deployment-pipelines)
+- Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
+  deployment step to enforce manual deploys
+- Use [Github's Deployment API](https://buildkite.com/blog/github-deployments)
+  to trigger deployments from external tooling (i.e. ChatOps)
