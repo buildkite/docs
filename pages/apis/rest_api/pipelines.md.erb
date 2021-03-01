@@ -565,7 +565,7 @@ Success response: `204 No Content`
 
 ## Add a webhook
 
-Create an SCM webhook for an existing pipeline. Currently supports pipelines configured using our GitHub App.
+Create an Githook webhook for an existing pipeline that is configured using our GitHub App. Pushes to the linked GitHub repository will trigger builds.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/webhook"
