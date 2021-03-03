@@ -52,7 +52,7 @@ Options:
    --build-path value                   Directory where builds will be created [$BUILDKITE_BUILD_PATH]
    --hooks-path value                   Directory where the hook scripts are found [$BUILDKITE_HOOKS_PATH]
    --plugins-path value                 Directory where the plugins are saved to [$BUILDKITE_PLUGINS_PATH]
-   --command-eval                       Allow running of arbitary commands [$BUILDKITE_COMMAND_EVAL]
+   --command-eval                       Allow running of arbitrary commands [$BUILDKITE_COMMAND_EVAL]
    --plugins-enabled                    Allow plugins to be run [$BUILDKITE_PLUGINS_ENABLED]
    --plugin-validation                  Validate plugin configuration [$BUILDKITE_PLUGIN_VALIDATION]
    --local-hooks-enabled                Allow local hooks to be run [$BUILDKITE_LOCAL_HOOKS_ENABLED]
