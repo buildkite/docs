@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent meta-data exists <key> [arguments...]
+   buildkite-agent meta-data exists <key> [options...]
 
 Description:
 
