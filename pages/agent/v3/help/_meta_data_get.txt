@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent meta-data get <key> [arguments...]
+   buildkite-agent meta-data get <key> [options...]
 
 Description:
 

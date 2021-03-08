@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent start [arguments...]
+   buildkite-agent start [options...]
 
 Description:
 
@@ -38,7 +38,7 @@ Options:
    --git-clone-flags value                Flags to pass to the "git clone" command (default: "-v") [$BUILDKITE_GIT_CLONE_FLAGS]
    --git-clean-flags value                Flags to pass to "git clean" command (default: "-ffxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
    --git-fetch-flags value                Flags to pass to "git fetch" command (default: "-v --prune") [$BUILDKITE_GIT_FETCH_FLAGS]
-   --git-clone-mirror-flags value         Flags to pass to the "git clone" command when used for mirroring (default: "-v --mirror") [$BUILDKITE_GIT_CLONE_MIRROR_FLAGS]
+   --git-clone-mirror-flags value         Flags to pass to the "git clone" command when used for mirroring (default: "-v") [$BUILDKITE_GIT_CLONE_MIRROR_FLAGS]
    --git-mirrors-path value               Path to where mirrors of git repositories are stored [$BUILDKITE_GIT_MIRRORS_PATH]
    --git-mirrors-lock-timeout value       Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300) [$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT]
    --bootstrap-script value               The command that is executed for bootstrapping a job, defaults to the bootstrap sub-command of this binary [$BUILDKITE_BOOTSTRAP_SCRIPT_PATH]
@@ -60,6 +60,7 @@ Options:
    --spawn value                          The number of agents to spawn in parallel (default: 1) [$BUILDKITE_AGENT_SPAWN]
    --cancel-signal value                  The signal to use for cancellation (default: "SIGTERM") [$BUILDKITE_CANCEL_SIGNAL]
    --redacted-vars value                  Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN") [$BUILDKITE_REDACTED_VARS]
+   --tracing-backend value                The name of the tracing backend to use. [$BUILDKITE_TRACING_BACKEND]
    --token value                          Your account agent token [$BUILDKITE_AGENT_TOKEN]
    --endpoint value                       The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
    --no-http2                             Disable HTTP2 when communicating with the Agent API. [$BUILDKITE_NO_HTTP2]

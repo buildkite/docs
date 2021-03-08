@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent bootstrap [arguments...]
+   buildkite-agent bootstrap [options...]
 
 Description:
 
@@ -36,6 +36,7 @@ Options:
    --plugins value                      The plugins for the job [$BUILDKITE_PLUGINS]
    --pullrequest value                  The number/id of the pull request this commit belonged to [$BUILDKITE_PULL_REQUEST]
    --agent value                        The name of the agent running the job [$BUILDKITE_AGENT_NAME]
+   --queue value                        The name of the queue the agent belongs to, if tagged [$BUILDKITE_AGENT_META_DATA_QUEUE]
    --organization value                 The slug of the organization that the job is a part of [$BUILDKITE_ORGANIZATION_SLUG]
    --pipeline value                     The slug of the pipeline that the job is a part of [$BUILDKITE_PIPELINE_SLUG]
    --pipeline-provider value            The id of the SCM provider that the repository is hosted on [$BUILDKITE_PIPELINE_PROVIDER]
@@ -43,7 +44,7 @@ Options:
    --artifact-upload-destination value  A custom location to upload artifact paths to (i.e. s3://my-custom-bucket) [$BUILDKITE_ARTIFACT_UPLOAD_DESTINATION]
    --clean-checkout                     Whether or not the bootstrap should remove the existing repository before running the command [$BUILDKITE_CLEAN_CHECKOUT]
    --git-clone-flags value              Flags to pass to "git clone" command (default: "-v") [$BUILDKITE_GIT_CLONE_FLAGS]
-   --git-clone-mirror-flags value       Flags to pass to "git clone" command when mirroring (default: "-v --mirror") [$BUILDKITE_GIT_CLONE_MIRROR_FLAGS]
+   --git-clone-mirror-flags value       Flags to pass to "git clone" command when mirroring (default: "-v") [$BUILDKITE_GIT_CLONE_MIRROR_FLAGS]
    --git-clean-flags value              Flags to pass to "git clean" command (default: "-ffxdq") [$BUILDKITE_GIT_CLEAN_FLAGS]
    --git-fetch-flags value              Flags to pass to "git fetch" command [$BUILDKITE_GIT_FETCH_FLAGS]
    --git-mirrors-path value             Path to where mirrors of git repositories are stored [$BUILDKITE_GIT_MIRRORS_PATH]
@@ -60,8 +61,9 @@ Options:
    --git-submodules                     Enable git submodules [$BUILDKITE_GIT_SUBMODULES]
    --pty                                Run jobs within a pseudo terminal [$BUILDKITE_PTY]
    --shell value                        The shell to use to interpret build commands (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
-   --phases value                       The specific phases to execute. The order they're defined is is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
+   --phases value                       The specific phases to execute. The order they're defined is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
    --redacted-vars value                Pattern of environment variable names containing sensitive values [$BUILDKITE_REDACTED_VARS]
+   --tracing-backend value              The name of the tracing backend to use. [$BUILDKITE_TRACING_BACKEND]
    --debug                              Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --experiment value                   Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]
    --profile value                      Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]

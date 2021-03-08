@@ -1,6 +1,6 @@
 Usage:
 
-   buildkite-agent meta-data set <key> [value] [arguments...]
+   buildkite-agent meta-data set <key> [value] [options...]
 
 Description:
 
@@ -26,4 +26,4 @@ Options:
    --debug                     Enable debug mode [$BUILDKITE_AGENT_DEBUG]
    --experiment value          Enable experimental features within the buildkite-agent [$BUILDKITE_AGENT_EXPERIMENT]
    --profile value             Enable a profiling mode, either cpu, memory, mutex or block [$BUILDKITE_AGENT_PROFILE]
-
+   
