@@ -22,7 +22,7 @@ _Required attributes:_
 
 <table>
   <tbody>
-   <tr>
+   <tr id="token">
       <th><code>token</code></th>
       <td>
         The agent registration token from your organization’s Agents page, used only to register new agents.
@@ -36,7 +36,7 @@ _Optional attributes:_
 
 <table>
   <tbody>
-    <tr>
+    <tr id="bootstrap-script">
       <th><code>bootstrap-script</code></th>
       <td>
         Command to invoke the bootstrap process.
@@ -45,7 +45,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="build-path">
       <th><code>build-path</code></th>
       <td>
         Path to where the builds will run from.
@@ -54,7 +54,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="cancel-grace-period">
       <th><code>cancel-grace-period</code></th>
       <td>
         The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
@@ -63,7 +63,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="cancel-signal">
       <th><code>cancel-signal</code></th>
       <td>
         The signal that the agent sends to the bootstrap to signal cancellation.
@@ -72,7 +72,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="debug">
       <th><code>debug</code></th>
       <td>
         Enable debug mode.
@@ -81,7 +81,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="debug-http">
       <th><code>debug-http</code></th>
       <td>
         Log all HTTP request and response bodies.
@@ -90,7 +90,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="disconnect-after-job">
       <th><code>disconnect-after-job</code></th>
       <td>
         Disconnect after processing a single job.
@@ -99,7 +99,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="disconnect-after-idle-timeout">
       <th><code>disconnect-after-idle-timeout</code></th>
       <td>
         The number of idle seconds to wait before shutting down. When setting this option alongside <code>spawn</code>, all agents started by <code>spawn</code> must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
@@ -108,7 +108,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="endpoint">
       <th><code>endpoint</code></th>
       <td>
         The Agent endpoint.
@@ -117,7 +117,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="experiment">
       <th><code>experiment</code></th>
       <td>
         A list of the experimental agent features to enable.
@@ -126,7 +126,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clean-flags">
       <th><code>git-clean-flags</code></th>
       <td>
         Flags to pass to the <code>git clean</code> command.<br>Agents below v3.0.0 default to <code>"-fdq"</code>.<br>Agents v3.0.0 to v3.7.0 default to <code>"-fxdq"</code>.
@@ -135,7 +135,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clone-flags">
       <th><code>git-clone-flags</code></th>
       <td>
         Flags to pass to the <code>git clone</code> command.
@@ -144,7 +144,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clone-mirror-flags">
       <th><code>git-clone-mirror-flags</code></th>
       <td>
         Flags to pass to the <code>git clone</code> command when used for mirroring. This is an experimental flag. <br>
@@ -154,7 +154,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-fetch-flags">
       <th><code>git-fetch-flags</code></th>
       <td>
         Flags to pass to the <code>git fetch</code> command.
@@ -163,7 +163,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-mirrors-lock-timeout">
       <th><code>git-mirrors-lock-timeout</code></th>
       <td>
         Seconds to lock a git mirror during clone, should exceed your longest checkout. This is an experimental flag. <br>
@@ -173,7 +173,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-mirrors-path">
       <th><code>git-mirrors-path</code></th>
       <td>
         Path to where mirrors of git repositories are stored. This is an experimental flag. <br>
@@ -183,7 +183,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="health-check-addr">
       <th><code>health-check-addr</code></th>
       <td>
         Start an HTTP server on the specified address:port that returns whether the agent is healthy.
@@ -192,7 +192,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="hooks-path">
       <th><code>hooks-path</code></th>
       <td>
         Directory where the global hook scripts are found.
@@ -201,7 +201,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="log-format">
       <th><code>log-format</code></th>
       <td>
         The format to use for the logger output.
@@ -210,7 +210,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="metrics-datadog">
       <th><code>metrics-datadog</code></th>
       <td>
         Send metrics to DogStatsD for Datadog.
@@ -219,7 +219,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="metrics-datadog-host">
       <th><code>metrics-datadog-host</code></th>
       <td>
         The DogStatsD instance to send metrics to via udp.
@@ -228,7 +228,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="name">
       <th><code>name</code></th>
       <td>
         The name of the agent. Supports the template variables
@@ -244,7 +244,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-color">
       <th><code>no-color</code></th>
       <td>
         Do not show colors in logging.
@@ -253,7 +253,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-command-eval">
       <th><code>no-command-eval</code></th>
       <td>
         Do not allow this agent to run arbitrary console commands.
@@ -262,7 +262,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-git-submodules">
       <th><code>no-git-submodules</code></th>
       <td>
         Do not automatically checkout git submodules.
@@ -271,7 +271,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-http2">
       <th><code>no-http2</code></th>
       <td>
         Disable HTTP2 when communicating with the Agent API.
@@ -280,7 +280,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-local-hooks">
       <th><code>no-local-hooks</code></th>
       <td>
         Do not execute any local hooks.
@@ -289,7 +289,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-plugins">
       <th><code>no-plugins</code></th>
       <td>
         Do not load any plugins.
@@ -298,7 +298,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-plugin-validation">
       <th><code>no-plugin-validation</code></th>
       <td>
         Do not validate plugin configuration and requirements.
@@ -307,7 +307,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-pty">
       <th><code>no-pty</code></th>
       <td>
         Do not run jobs within a pseudo terminal.
@@ -325,7 +325,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="plugins-path">
       <th><code>plugins-path</code></th>
       <td>
         Directory where the plugins are saved.
@@ -334,7 +334,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="priority">
       <th><code>priority</code></th>
       <td>
         The priority of the agent. Higher priorities are assigned work first, null is assigned last.
@@ -343,7 +343,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="shell">
       <th><code>shell</code></th>
       <td>
         The shell command used to interpret build commands. E.g <code>/bin/bash -e -c</code>.
@@ -352,7 +352,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="spawn">
       <th><code>spawn</code></th>
       <td>
         The number of agents to spawn in parallel.
@@ -415,7 +415,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="timestamp-lines">
       <th><code>timestamp-lines</code></th>
       <td>
         Prepend timestamps on each line of output.
@@ -424,7 +424,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tracing-backend">
       <th><code>tracing-backend</code></th>
       <td>
         Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT<code>.        
@@ -435,7 +435,7 @@ _Optional attributes:_
     </tr>
 
     
-    <tr>
+    <tr id="wait-for-ec2-tags-timeout">
       <th><code>wait-for-ec2-tags-timeout</code></th>
       <td>
         The amount of time to wait for tags from EC2 before proceeding.
@@ -444,7 +444,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="wait-for-gcp-labels-timeout">
       <th><code>wait-for-gcp-labels-timeout</code></th>
       <td>
         The amount of time to wait for labels from GCP before proceeding.
@@ -459,7 +459,7 @@ _Optional attributes:_
 
 <table>
   <tbody>
-    <tr>
+    <tr id="disconnect-after-job-timeout">
       <th><code>disconnect-after-job-timeout</code></th>
       <td>
         When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down.
@@ -468,7 +468,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data">
       <th><code>meta-data</code></th>
       <td>
         Meta data for the agent.
@@ -478,7 +478,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-ec2">
       <th><code>meta-data-ec2</code></th>
       <td>
         Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data.
@@ -488,7 +488,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-ec2-tags">
       <th><code>meta-data-ec2-tags</code></th>
       <td>
         Include the host's EC2 tags as meta-data.
@@ -498,7 +498,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-gcp">
       <th><code>meta-data-gcp</code></th>
       <td>
         Include the host's GCP meta-data as meta-data.
@@ -508,7 +508,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-automatic-ssh-fingerprint-verification">
       <th><code>no-automatic-ssh-fingerprint-verification</code></th>
       <td>
         Do not automatically verify SSH fingerprints for first-time checkouts.
