@@ -58,6 +58,12 @@ steps:
 
 Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
+<section class="Docs__note">
+  <h3>Setting agent defaults</h3>
+  <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
+</section>
+
+
 ## The Queue Tag
 
 The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
