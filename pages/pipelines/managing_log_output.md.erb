@@ -110,3 +110,14 @@ xcodebuild <build options> | tee -a build.log | xcpretty -c
 Make sure to set the `-o pipefail` option in your buildscript as above, otherwise the build failure status might not be passed through correctly.
 
 <%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
+
+## Redacted environment variables
+
+Environment variables matching common patterns for passwords and other secure information are redacted before the build log is uploaded to Buildkite.
+
+The default patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting `BUILDKITE_REDACTED_VARS`](/docs/agent/v3/configuration#redacted-vars) *on your agents*. 
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Setting environment variables</p>
+<p>Note that if you **set** an environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
+</div>

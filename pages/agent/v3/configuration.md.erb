@@ -343,6 +343,15 @@ _Optional attributes:_
       </td>
     </tr>
 
+    <tr id="redacted-vars">
+      <th><code>redacted-vars</code></th>
+      <td>
+        Environment variables matching this pattern are redacted before being printed to the build log.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
+      </td>
+    </tr>
+
     <tr id="shell">
       <th><code>shell</code></th>
       <td>
