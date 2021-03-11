@@ -36,7 +36,7 @@ steps:
 
 The `depends_on` attribute can be added to all step types.
 
-To add a dependency on another step, add the attribute with the name of the step you're depending on:
+To add a dependency on another step, add the `depends_on` attribute with the `key` of the step you're depending on:
 
 ```yml
 steps:
@@ -55,7 +55,7 @@ In the above example, the second command step (build) will not run until the fir
   <p>Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.</p>
 </div>
 
-Dependencies can also be added as a list of strings, or a list of steps.
+Dependencies can also be added as a list of strings, or a list of steps. Both formats use the the step `key` to refer to the step.
 
 ```yml
 steps:
