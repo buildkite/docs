@@ -26,6 +26,30 @@ If you have not yet migrated to YAML Steps, you can do on your pipeline's settin
 
 However you add steps to your pipeline, keep in mind that steps may run on different agents. It is good practice to install your dependencies in the same step that you run them.
 
+## Step defaults
+
+If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
+
+* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+
+For example, to set steps `blah.sh` and `blahblah.sh` to use the `something` queue and the step `yada.sh` to use the `other` queue:
+
+```yml
+agents:
+  queue: "something"
+
+steps:
+  - command: "blah.sh"
+  - command: "blahblah.sh"
+  - label: "Yada"
+    command: "yada.sh"
+    agents:
+      queue: "other"
+```
+{: codeblock-file="pipeline.yml"}
+
+
 ### YAML steps editor
 
 To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
