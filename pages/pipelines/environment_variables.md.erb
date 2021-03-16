@@ -303,6 +303,18 @@ The organization name on Buildkite as used in URLs. The value cannot be modified
 
 Example: `"acme-inc"`
 
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB</h3>
+
+The number of parallel jobs created from a parallel build step. Starting from 0. For a build step with `parallelism: 5`, the value would be 0, 1, 2, 3, and 4 respectively.
+
+Example: `"0"`
+
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB_COUNT</h3>
+
+The total number of parallel jobs created from a parallel build step. For a build step with `parallelism: 5`, the value is 5.
+
+Example: `"5"`
+
 <h3 class="h3-caps">BUILDKITE_PIPELINE_DEFAULT_BRANCH</h3>
 
 The default branch for this pipeline. The value cannot be modified.
