@@ -142,7 +142,7 @@ This probably goes without saying, but do not use code fragments in page heading
 ### Adding and naming new documentation pages  
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to 
-app>views>layouts>application.html.erb with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app/views/layouts/application.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.     
 
 
