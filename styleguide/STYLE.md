@@ -1,5 +1,5 @@
 # Styleguide  
-Welcome to the Buildkite styleguide. These are the rules and some useful links for creating new docs. 
+Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs. 
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/). 
 
 Table of contents:
