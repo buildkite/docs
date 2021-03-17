@@ -109,7 +109,7 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | Single sign-on            | In a sentence single sign-on, in a title Single Sign-On, in short form SSO                       |  
 
 ### Common trip-ups
-Linter cannot do all of the work for you, so please pay attention to the following cases:
+Linters cannot do all of the work for you, so please pay attention to the following cases:
 
 * **Their/they’re/there, your/you’re** - [check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!  
 * **Affect/effect** - affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change. 
