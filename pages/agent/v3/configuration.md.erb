@@ -346,7 +346,7 @@ _Optional attributes:_
     <tr id="redacted-vars">
       <th><code>redacted-vars</code></th>
       <td>
-        Environment variables matching this pattern are redacted before being printed to the build log.
+        Strings matching the values of environment variables whose names match these pattern are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. This is an experimental feature, set <code>experiment="redacted-vars"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
