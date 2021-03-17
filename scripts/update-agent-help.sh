@@ -3,6 +3,7 @@ set -euo pipefail
 
 commands=(
   "annotate"
+  "annotation remove"
   "artifact download"
   "artifact shasum"
   "artifact upload"

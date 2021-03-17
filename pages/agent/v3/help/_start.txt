@@ -27,7 +27,7 @@ Options:
    --shell value                          The shell command used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
    --tags value                           A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8") [$BUILDKITE_AGENT_TAGS]
    --tags-from-host                       Include tags from the host (hostname, machine-id, os) [$BUILDKITE_AGENT_TAGS_FROM_HOST]
-   --tags-from-ec2-meta-data value        Include the default set of host EC2 meta-data as tags (instance-id, instance-type, and ami-id) [$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA]
+   --tags-from-ec2-meta-data value        Include the default set of host EC2 meta-data as tags (instance-id, instance-type, ami-id, and instance-life-cycle) [$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA]
    --tags-from-ec2-meta-data-paths value  Include additional tags fetched from EC2 meta-data via tag & path suffix pairs, e.g "tag_name=path/to/value" [$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA_PATHS]
    --tags-from-ec2-tags                   Include the host's EC2 tags as tags [$BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS]
    --tags-from-gcp-meta-data value        Include the default set of host Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [$BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA]
