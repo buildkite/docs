@@ -4,7 +4,7 @@ If something isn't included in this guide, see the [Microsoft Style Guide](https
 
 Table of contents:
 * [Language](#Language)
-* [Style and formatting ](#Style-and-formatting)  
+* [Style and formatting](#Style-and-formatting)  
 * [Code and filenames](#Code-and-filenames)
 * [Screenshots](#Screenshots)
 
@@ -13,7 +13,7 @@ This section covers everything related to the language and formatting used in Bu
 
 ### Dictionary  
 We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/ ). It is not a single source of truth, just a good starting/reference point.  
-We also use [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/master/vale/vocab.txt) that may confuse the spellchecker.
+We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/master/vale/vocab.txt) that may confuse the spellchecker.
 
 ### English flavor 
 Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) Eglish to watch out for.  
@@ -29,7 +29,7 @@ Generally, use passive voice. It gives a bit more distance from what we're talki
 
 ### Gender 
 Always use ‘they’, never use ‘he’ or ‘she’. 
-Same, but written by [Microsoft](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns). 
+More info on writing about pronouns and in the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns). 
 
 ## Style and formatting 
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.  
@@ -47,7 +47,7 @@ Use Sentence case in section headings:
 *"The quick brown fox jumps over the lazy dog."*  
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
-Same, but [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
+More info [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
 
 ### Capital letters in proper names 
 Only capitalize the name of the product - e.g. 'GitHub organization' and not 'GitHub Organization'.  
@@ -58,9 +58,6 @@ Use title capitalization for names of tabs and buttons in the Buildkite interfac
 ### Bullet lists  
 
 Capitalize the first word; no full stops at the end if it’s only one sentence. If there are two or more sentences in the list element, the final one will have a full stop.  
-
-Only use bullet lists in the body of the text and never - in page or section headings.
-
 
 See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists). 
 
@@ -75,17 +72,11 @@ No restrictions on using numbers in the body of the text.
 Use 24hr time with hours and minutes, but not seconds. Include timezone. e.g. 17:00 AEST 
 More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
 
-### Non-breaking characters
-[Non-breaking spaces](https://www.oxygenxml.com/dita/styleguide/webhelp-feedback/Artefact/Syntax_and_Markup/c_Non_Breaking_Spaces.html) are intended for use when the separation of two adjacent words through line wrapping will result in a loss of meaning or legibility. For example, some authors prefer values and their units, such as "12 kg", to be treated as a single word. Likewise, soft hyphens are intended for use when there is a preferred point for the breaking of a word during line-wrapping. 
-
-Generally not used in Buildkite documentation. If you really feel the need for a non-breaking hyphen, just make sure it’s not in a URL.
-
 ### Spacing after full stops  
 **Question:** Should you use one or two spaces after end punctuation?
 **Answer:** One space.
 
 A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
-!["Two spaces after a period!" vs. "One space after a period" vs. "Line break after every sentence" comic image](https://imgs.xkcd.com/comics/third_way.png "https://xkcd.com/ Third Way comic image")  
 P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.  
 
 ### Platform differences  
@@ -137,7 +128,24 @@ To add a code block, indent it using four (4) spaces or use 3 backticks (\`\`\`)
 ```
 Hello, world!
 ```
-This probably goes without saying, but do not use code fragments in page headings or section headings.
+
+To add a filename to a codeblock, immediately after the block use `{: codeblock-file="filename.extension"}` (for example, `{: codeblock-file="pipeline.yml"}`).   
+
+To add syntax highlighting, you can use [Rouge](http://rouge.jneen.net/), for example:  
+```
+```bash
+#!/bin/sh
+echo "Hello world"```
+```  
+turns into 
+```bash
+#!/bin/sh
+echo "Hello world"
+```  
+You can see the full list of supported languages and lexers [here](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers)
+
+This probably goes without saying, but do not use code fragments in page headings or section headings.  
+
 
 ### Adding and naming new documentation pages  
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
@@ -145,23 +153,64 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 `app/views/layouts/application.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.     
 
+### Escaping vale linting  
 
+If you absolutely need to add some word that triggers the linter, you can use escaping via the following syntax: 
+
+```
+<!-- vale off -->
+
+This is some text
+
+more text here...
+
+<!-- vale on -->
+```
+Use the `vale on` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.  
+
+### Custom elements  
+We have a few custom scripts for adding useful custom elements that are missing in vanilla Markdown.  
+
+#### Table of contents  
+To generate a table of contents from all your \##\-level headings, use `{:toc}`. 
+>Note: Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.  
+
+#### Docs Note  
+
+Use the following example to add a 'note' in the documentation.  
+ 
+```
+<section class="Docs__note">
+  <h3>Setting agent defaults</h3>
+  <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
+</section>
+```   
+
+#### Docs Troubleshooting Note  
+Use the following example to add a 'troubleshooting note' in the documentation.  
+
+```<section class="Docs__troubleshooting-note">
+  <p class="Docs__note__heading">Running each build in it’s own container</p>
+  <p>This page references the out-of-date Buildkite Agent v2.</p>
+  <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
+</section>
+```   
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
 ### Taking and processing screenshots  
-**Format:** PNG
-**Ratio:** arbitrary, but **strictly even number of pixels** for both height and width
-**Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, e.g. `width: 2280/2, height: 998/2`).
-**Border:** no border
-**Drop shadow:** no
-**Cursor:** include when relevant
-**Area highlight selection:** rectangular, no shadow, color either red `#FC2A1C` or blue `#96C3F1` (currently undecided)
-**Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
-**User info:** blur out everything except for the name
-**Dummy data:** use Acme Inc as dummy company title
-**Naming screenshots:** lowercase, words separated by hyphens; number after the title, e.g. "installation-1"  
+* **Format:** PNG  
+* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width  
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, e.g. `width: 2280/2, height: 998/2`).  
+* **Border:** no border  
+* **Drop shadow:** no  
+* **Cursor:** include when relevant  
+* **Area highlight selection:** rectangular, no shadow, color either red `#FC2A1C` or blue `#96C3F1` (currently undecided)  
+* **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated  
+* **User info:** blur out everything except for the name  
+* **Dummy data:** use Acme Inc as dummy company title  
+* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, e.g. "installation-1"  
 
 ### Adding screenshots or other images  
 
@@ -171,4 +220,5 @@ Steps for adding add an image to a documentation page:
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, e.g. 'installation-1' if you are adding several images to the same page)
 2. Put the file into the corresponding `images` folder (a folder with the same name as the page you are adding this image to; create such folder if it doesn't exist yet)
 3. Compose relevant alt text for the image file using Title case
-4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`. For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
+4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.  
+For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.  
