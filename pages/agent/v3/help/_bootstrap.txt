@@ -62,6 +62,7 @@ Options:
    --pty                                Run jobs within a pseudo terminal [$BUILDKITE_PTY]
    --shell value                        The shell to use to interpret build commands (default: "/bin/bash -e -c") [$BUILDKITE_SHELL]
    --phases value                       The specific phases to execute. The order they're defined is irrelevant. [$BUILDKITE_BOOTSTRAP_PHASES]
+   --cancel-signal value                The signal to use for cancellation (default: "SIGTERM") [$BUILDKITE_CANCEL_SIGNAL]
    --redacted-vars value                Pattern of environment variable names containing sensitive values [$BUILDKITE_REDACTED_VARS]
    --tracing-backend value              The name of the tracing backend to use. [$BUILDKITE_TRACING_BACKEND]
    --debug                              Enable debug mode [$BUILDKITE_AGENT_DEBUG]
