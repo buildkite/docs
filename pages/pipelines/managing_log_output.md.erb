@@ -126,5 +126,5 @@ For example, if you have environmment variable `MY_SECRET="topsecret"`and you ru
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Setting environment variables</p>
-<p>Note that if you <emphasis>set</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>. Also if an environment variable is present in a Buildkite command step it will not be redacted.</p>
+<p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
 </div>
