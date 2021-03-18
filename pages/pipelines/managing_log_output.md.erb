@@ -122,7 +122,7 @@ The Buildkite agent can redact strings that match the value of environment varia
 
 The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting the environment variable](/docs/agent/v3/configuration#redacted-vars) `BUILDKITE_REDACTED_VARS` **on your agent**.
 
-For example, if you have environnment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
+For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Setting environment variables</p>
