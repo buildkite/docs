@@ -16,7 +16,7 @@ We use American English, so our first-call dictionary is [Merriam Webster](https
 We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/master/vale/vocab.txt) that may confuse the spellchecker.
 
 ### English flavor 
-Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) Eglish to watch out for.  
+Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.  
 
 ### Commas  
 Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
