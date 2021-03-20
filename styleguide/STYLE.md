@@ -160,9 +160,7 @@ If you absolutely need to add some word that triggers the linter, you can use es
 ```
 <!-- vale off -->
 
-This is some text
-
-more text here...
+This is some text that you do NOT want the linter to check
 
 <!-- vale on -->
 ```
