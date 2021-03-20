@@ -80,11 +80,11 @@ A little [historical background](https://www.onlinegrammar.com.au/the-grammar-fa
 P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.  
 
 ### Platform differences  
-|                      | Docs                                                      | Twitter                                                                 | Blog                                                                    | Changelog                                                               |
-|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| We (as in Buildkite) | No                                                        | Yes                                                                     | Yes                                                                     | Avoid if possible; use 'I' if you need to                                 |
-| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
-| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
+|                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
+|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
+| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
+| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
 
 
 ### Glossary of notable terms and their spelling   
