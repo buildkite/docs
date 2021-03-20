@@ -169,7 +169,7 @@ more text here...
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.  
 
 ### Custom elements  
-We have a few custom scripts for adding useful custom elements that are missing in vanilla Markdown.  
+We have a few custom scripts for adding useful elements that are missing in Markdown.  
 
 #### Table of contents  
 To generate a table of contents from all your \##\-level headings, use `{:toc}`. 
