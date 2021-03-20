@@ -47,6 +47,8 @@ Use Sentence case in section headings:
 *"The quick brown fox jumps over the lazy dog."*  
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
+When in doubt, consult [Title.sh](https://title.sh/) for proper capitalization according to the The Chicago Manual of Style.
+
 More info [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
 
 ### Capital letters in proper names 
