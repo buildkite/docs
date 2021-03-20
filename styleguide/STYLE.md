@@ -12,11 +12,11 @@ Table of contents:
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
 
 ### Dictionary  
-We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/ ). It is not a single source of truth, just a good starting/reference point.  
+We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.  
 We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/master/vale/vocab.txt) that may confuse the spellchecker.
 
 ### English flavor 
-Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) Eglish to watch out for.  
+Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.  
 
 ### Commas  
 Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
@@ -82,11 +82,11 @@ A little [historical background](https://www.onlinegrammar.com.au/the-grammar-fa
 P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.  
 
 ### Platform differences  
-|                      | Docs                                                      | Twitter                                                                 | Blog                                                                    | Changelog                                                               |
-|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| We (as in Buildkite) | No                                                        | Yes                                                                     | Yes                                                                     | Avoid if possible; use 'I' if you need to                                 |
-| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
-| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
+|                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
+|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
+| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
+| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
 
 
 ### Glossary of notable terms and their spelling   
@@ -116,7 +116,7 @@ Be consistent about heading levels - H1, H2, H3 - no jumping from H1 to H3 or H2
 This section deals with adding and properly formatting code in the documentation + naming files, pages, and their derivative URLs.  
 
 ### Code formatting  
-We use the basic GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code). 
+We use the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code). 
 
 For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`. 
 In markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
@@ -162,16 +162,14 @@ If you absolutely need to add some word that triggers the linter, you can use es
 ```
 <!-- vale off -->
 
-This is some text
-
-more text here...
+This is some text that you do NOT want the linter to check
 
 <!-- vale on -->
 ```
-Use the `vale on` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.  
+Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.  
 
 ### Custom elements  
-We have a few custom scripts for adding useful custom elements that are missing in vanilla Markdown.  
+We have a few custom scripts for adding useful elements that are missing in Markdown.  
 
 #### Table of contents  
 To generate a table of contents from all your \##\-level headings, use `{:toc}`. 
