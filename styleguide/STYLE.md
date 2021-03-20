@@ -12,7 +12,7 @@ Table of contents:
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
 
 ### Dictionary  
-We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/ ). It is not a single source of truth, just a good starting/reference point.  
+We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.  
 We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/master/vale/vocab.txt) that may confuse the spellchecker.
 
 ### English flavor 
