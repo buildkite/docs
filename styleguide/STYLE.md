@@ -114,7 +114,7 @@ Be consistent about heading levels - H1, H2, H3 - no jumping from H1 to H3 or H2
 This section deals with adding and properly formatting code in the documentation + naming files, pages, and their derivative URLs.  
 
 ### Code formatting  
-We use the basic GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code). 
+We use the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code). 
 
 For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`. 
 In markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
