@@ -60,10 +60,43 @@ When you enable Teams we’ll create a default team called “Everyone”, conta
 When a user joins the organization via SSO, they’ll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
 
 #### Can I delete the “Everyone” team?
-Yes you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
+Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
 
 #### Once enabled, can I disable Teams?
-You can disable teams by deleting all your teams, and then selecting “Disable Teams”.
+Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.  
+
+#### Can I automate the removal of users from Buildkite?  
+Yes, you can do it using the GraphQL API (you can use [GraphQL Explorer console](https://buildkite.com/user/graphql/console) or [Buildkite GraphQL Explorer](https://graphql.buildkite.com/explorer) if you have configured your Buildkite API Token).  
+You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Knowing this information, run the following script to get the ID of the user as you will need it for the removal process:  
+```bash
+query FindOrganizationMember {
+  organization(slug: "your-organization-slug") {
+    members(first: 1, search: "Jane Doe") {
+      edges {
+        node {
+          id # You will need to use this info on the next step as OrganizationMember.id
+          user {
+            # Double check that this is the right user you are about to remove
+            name
+            email
+          }
+        }
+      }
+    }
+  }
+}
+```  
+
+Copy the user ID you've received in the output into the following script and run it to remove the user from your Buildkite organization:  
+```bash
+mutation RemoveOrganizationMember {
+  organizationMemberDelete(input: { id: "user-ID-you-copied-goes-here" }) {
+    deletedOrganizationMemberID
+  }
+}
+```  
+
+The user is now removed from your Buildkite organization.  
 
 ## Member Permissions
 
