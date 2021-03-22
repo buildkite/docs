@@ -21,7 +21,7 @@ commands=(
 base_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")/.." ; pwd -P )
 
 for command in "${commands[@]}" ; do
-  file="${base_dir}/pages/agent/v3/help/_${command//[- ]/_}.txt"
+  file="${base_dir}/pages/agent/v3/help/_${command//[- ]/_}.md"
   if [[ ! -f "$file" ]] ; then
     echo "File $file doesn't exist"
     exit 1
