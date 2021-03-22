@@ -9,7 +9,7 @@ and terminated with a trailing newline.
 
 ## Example
 
-   $ buildkite-agent meta-data keys
+    $ buildkite-agent meta-data keys
 
 ## Options
 

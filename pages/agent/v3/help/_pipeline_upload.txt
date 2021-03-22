@@ -23,9 +23,9 @@ scripts that generate dynamic pipelines.
 
 ## Example
 
-   $ buildkite-agent pipeline upload
-   $ buildkite-agent pipeline upload my-custom-pipeline.yml
-   $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+    $ buildkite-agent pipeline upload
+    $ buildkite-agent pipeline upload my-custom-pipeline.yml
+    $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
 
 ## Options
 

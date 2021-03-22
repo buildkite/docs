@@ -8,7 +8,7 @@ Get data from a builds key/value store.
 
 ## Example
 
-   $ buildkite-agent meta-data get "foo"
+    $ buildkite-agent meta-data get "foo"
 
 ## Options
 
