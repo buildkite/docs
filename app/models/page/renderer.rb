@@ -20,6 +20,9 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+
+    doc = demote(doc)
+
     doc.to_html.html_safe
   end
 
@@ -72,6 +75,14 @@ class Page::Renderer
       end
     end
 
+    doc
+  end
+
+  def demote(doc)
+    headings = doc.search('./h2')
+    headings.each do |node|
+      node.name = 'h3'
+    end
     doc
   end
 

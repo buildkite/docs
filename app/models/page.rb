@@ -57,6 +57,10 @@ class Page
       PagesController.render(partial: partial)
     end
 
+    def render_and_demote(partial)
+      PagesController.render(partial: partial, demote: true)
+    end
+
     def render_markdown(markdown_path, *args)
       Page::Renderer.render(render(markdown_path + '.md', *args)).html_safe
     end
