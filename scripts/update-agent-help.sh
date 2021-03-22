@@ -10,9 +10,12 @@ commands=(
   "bootstrap"
   "meta-data exists"
   "meta-data get"
+  "meta-data keys"
   "meta-data set"
   "pipeline upload"
   "start"
+  "step get"
+  "step update"
 )
 
 base_dir=$( cd "$(dirname "${BASH_SOURCE[0]}")/.." ; pwd -P )
@@ -25,5 +28,5 @@ for command in "${commands[@]}" ; do
   fi
 
   echo Updating docs for buildkite-agent "$command"
-  buildkite-agent $command --help &> "$file"
+  buildkite-agent $command --help | ruby cli2md.rb > "$file"
 done
