@@ -63,35 +63,38 @@ Create a [deployment](https://kubernetes.io/docs/user-guide/deployments/#creatin
 
 ```shell
 $ cat | kubectl apply -f -
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
- name: buildkite-agent
+  name: buildkite-agent
 spec:
- replicas: 1
- template:
-   metadata:
-     labels:
-       app: buildkite-agent
-   spec:
-     containers:
-       - name: buildkite-agent
-         image: buildkite/agent
-         imagePullPolicy: Always
-         securityContext:
-           privileged: true
-         env:
-           - name: BUILDKITE_AGENT_TOKEN
-             valueFrom:
-              secretKeyRef:
-                name: buildkite-agent
-                key: token
-         volumeMounts:
-           - name: docker-socket
-             mountPath: /var/run/docker.sock
-     volumes:
-       - name: docker-socket
-         hostPath: {path: /var/run/docker.sock}
+  replicas: 1
+  selector:
+    matchLabels:
+      app: buildkite-agent
+  template:
+    metadata:
+      labels:
+        app: buildkite-agent
+    spec:
+      containers:
+        - name: buildkite-agent
+          image: buildkite/agent
+          imagePullPolicy: Always
+          securityContext:
+            privileged: true
+          env:
+            - name: BUILDKITE_AGENT_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: buildkite-agent
+                  key: token
+          volumeMounts:
+            - name: docker-socket
+              mountPath: /var/run/docker.sock
+      volumes:
+        - name: docker-socket
+          hostPath: {path: /var/run/docker.sock}
 # (press Control-D)
 
 deployment "buildkite-agent" created
