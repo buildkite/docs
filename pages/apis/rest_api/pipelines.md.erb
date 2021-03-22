@@ -50,6 +50,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
       "created_at": "2013-08-29T10:10:03.000Z"
     },
     "created_at": "2013-09-03 13:24:38 UTC",
+    "archived_at": null,
     "scheduled_builds_count": 0,
     "running_builds_count": 0,
     "scheduled_jobs_count": 0,
@@ -124,6 +125,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
     "created_at": "2013-08-29T10:10:03.000Z"
   },
   "created_at": "2013-09-03 13:24:38 UTC",
+  "archived_at": null,
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
@@ -250,6 +252,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
   "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
   "created_at": "2018-08-15T05:47:45.813Z",
+  "archived_at": null,
   "steps": [
     {
       "type": "script",
@@ -464,6 +467,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
   "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
   "created_at": "2015-03-01 06:44:40 UTC",
+  "archived_at": null,
   "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"something=true\"",
   "steps": [
     {
