@@ -115,7 +115,7 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 <div class="Docs__experiment">
 <p class="Docs__experiment__heading">Experimental feature</p>
-<p>This is an experimental feature, set <code>experiment="redacted-vars"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.</p>
+<p>This is an experimental feature, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.</p>
 </div>
 
 The Buildkite agent can redact strings that match the value of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
