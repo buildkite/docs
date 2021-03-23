@@ -1,6 +1,6 @@
 ARGF.each_with_index do |line, line_num|
     # Headings 
-    if /^([A-z]*):/ =~ line
+    if /^(\w*):/ =~ line
         puts "## #{$1}"
     # Initial usage command
     elsif line_num == 2
@@ -13,9 +13,9 @@ ARGF.each_with_index do |line, line_num|
     elsif /\s{3}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
         command = $1.rstrip
         desc    = $2
-        desc.gsub!(/(\$BUILDKITE[A-Z0-1_]*)/,"`\\1`")
+        desc.gsub!(/(\$BUILDKITE[A-Z0-9_]*)/,"`\\1`")
         puts "* `#{command}` - #{desc}"
-    elsif
+    else
         puts line.lstrip
     end
 end
