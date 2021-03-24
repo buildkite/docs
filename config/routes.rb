@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  mount Rswag::Api::Engine => '/api-docs'
+  mount Rswag::Ui::Engine => '/api-docs'
+  
   # Pages and guides that have been renamed (and we don't want to break old URLs)
   get "/docs/api",                                to: redirect("/docs/rest-api")
   get "/docs/api/accounts",                       to: redirect("/docs/rest-api/organizations")

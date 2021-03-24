@@ -50,6 +50,8 @@ GEM
     foreman (0.87.1)
     i18n (1.8.9)
       concurrent-ruby (~> 1.0)
+    json-schema (2.8.1)
+      addressable (>= 2.4)
     listen (3.4.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -118,6 +120,15 @@ GEM
     rspec-support (3.9.3)
     rspec_junit_formatter (0.4.1)
       rspec-core (>= 2, < 4, != 2.12.0)
+    rswag-api (2.4.0)
+      railties (>= 3.1, < 7.0)
+    rswag-specs (2.4.0)
+      activesupport (>= 3.1, < 7.0)
+      json-schema (~> 2.2)
+      railties (>= 3.1, < 7.0)
+    rswag-ui (2.4.0)
+      actionpack (>= 3.1, < 7.0)
+      railties (>= 3.1, < 7.0)
     ruby-enum (0.8.0)
       i18n
     sass-rails (6.0.0)
@@ -175,6 +186,9 @@ DEPENDENCIES
   rouge (= 3.3.0)
   rspec-rails
   rspec_junit_formatter
+  rswag-api
+  rswag-specs
+  rswag-ui
   sass-rails
   sprockets-rails
   stringex
