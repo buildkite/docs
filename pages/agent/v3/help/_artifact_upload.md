@@ -1,8 +1,8 @@
-## Usage
+### Usage
 
 `buildkite-agent artifact upload [options] <pattern> [destination]`
 
-## Description
+### Description
 
 Uploads files to a job as artifacts.
 
@@ -16,7 +16,7 @@ or Artifactory as per the examples below. This may be specified in the
 environment variable.  Otherwise, artifacts are uploaded to a
 Buildkite-managed Amazon S3 bucket.
 
-## Example
+### Example
 
     $ buildkite-agent artifact upload "log/**/*.log"
 
@@ -44,13 +44,13 @@ Or upload directly to Artifactory:
     $ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
     $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID
 
-## Options
+### Options
 
 * `--job value` - Which job should the artifacts be uploaded to [`$BUILDKITE_JOB_ID`]
 * `--content-type value` - A specific Content-Type to set for the artifacts (otherwise detected) [`$BUILDKITE_ARTIFACT_CONTENT_TYPE`]
 * `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
 * `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
-* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP`2]
+* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
 * `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]

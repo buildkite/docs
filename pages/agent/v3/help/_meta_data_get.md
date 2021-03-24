@@ -1,22 +1,22 @@
-## Usage
+### Usage
 
 `buildkite-agent meta-data get <key> [options...]`
 
-## Description
+### Description
 
 Get data from a builds key/value store.
 
-## Example
+### Example
 
     $ buildkite-agent meta-data get "foo"
 
-## Options
+### Options
 
 * `--default value` - If the meta-data value doesn't exist return this instead
 * `--job value` - Which job's build should the meta-data be retrieved from [`$BUILDKITE_JOB_ID`]
 * `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
 * `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
-* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP`2]
+* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
 * `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]

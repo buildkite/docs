@@ -1,8 +1,8 @@
-## Usage
+### Usage
 
 `buildkite-agent artifact shasum [options...]`
 
-## Description
+### Description
 
 Prints to STDOUT the SHA-1 for the artifact provided. If your search query
 for artifacts matches multiple agents, and error will be raised.
@@ -11,7 +11,7 @@ Note: You need to ensure that your search query is surrounded by quotes if
 using a wild card as the built-in shell path globbing will provide files,
 which will break the download.
 
-## Example
+### Example
 
     $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
 
@@ -25,14 +25,14 @@ so by using the --step argument.
 
 You can also use the step's job id (provided by the environment variable $BUILDKITE_JOB_ID)
 
-## Options
+### Options
 
 * `--step value` - Scope the search to a particular step by using either its name of job ID
 * `--build value` - The build that the artifacts were uploaded to [`$BUILDKITE_BUILD_ID`]
 * `--include-retried-jobs` - Include artifacts from retried jobs in the search [`$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS`]
 * `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
 * `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
-* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP`2]
+* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
 * `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]
