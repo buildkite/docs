@@ -66,7 +66,7 @@ Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted acc
 Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.  
 
 #### Can I automate the removal of users from Buildkite?  
-Yes, you can do it using the GraphQL API (you can use [GraphQL Explorer console](https://buildkite.com/user/graphql/console) or [Buildkite GraphQL Explorer](https://graphql.buildkite.com/explorer) if you have configured your Buildkite API Token).  
+Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens).
 You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Knowing this information, run the following script to get the ID of the user as you will need it for the removal process:  
 ```bash
 query FindOrganizationMember {
