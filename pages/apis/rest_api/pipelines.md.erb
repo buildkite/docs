@@ -688,6 +688,19 @@ Additional properties available for GitHub:
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
     </tr>
     <tr>
+      <th><code>filter_enabled</code></th>
+      <td>
+        Whether filter conditions are being used for this step.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>filter_condition</code></th>
+      <td>
+        The conditions under which this step will run. See the <a href="/docs/pipelines/conditionals">Using Conditionals</a> guide for more information.
+        <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.message != 'skip'"</code></p>
+      </td>
+    </tr>        
+    <tr>
       <th><code>build_pull_request_forks</code></th>
       <td>
         Whether to create builds for pull requests from third-party forks.
