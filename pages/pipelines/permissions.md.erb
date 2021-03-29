@@ -66,8 +66,8 @@ Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted acc
 Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.  
 
 #### Can I automate the removal of users from Buildkite?  
-Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens).
-You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Knowing this information, run the following script to get the ID of the user as you will need it for the removal process:  
+Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to do it.
+You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name or email of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Next, use the first query to get the user ID (make sure to replace `your-organization-slug` with your Buildkite organization's slug and `Jane Doe` with the name or email of the user you want to remove), and then run the RemoveOrganizationMember mutation with the user ID to remove the user:  
 ```bash
 query FindOrganizationMember {
   organization(slug: "your-organization-slug") {
@@ -87,7 +87,7 @@ query FindOrganizationMember {
 }
 ```  
 
-Copy the user ID you've received in the output into the following script and run it to remove the user from your Buildkite organization:  
+Copy the user ID you've received into the following script and run it to remove the user from your Buildkite organization:  
 ```bash
 mutation RemoveOrganizationMember {
   organizationMemberDelete(input: { id: "user-ID-you-copied-goes-here" }) {
