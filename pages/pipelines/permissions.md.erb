@@ -87,7 +87,7 @@ query FindOrganizationMember {
 }
 ```  
 
-Copy the user ID you've received into the following script and run it to remove the user from your Buildkite organization:  
+Copy the user ID you've received into the following mutation and run it to remove the user from your Buildkite organization:  
 ```bash
 mutation RemoveOrganizationMember {
   organizationMemberDelete(input: { id: "user-ID-you-copied-goes-here" }) {
