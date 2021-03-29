@@ -1,3 +1,4 @@
+incode = false
 ARGF.each_with_index do |line, line_num|
     # Headings 
     if /^(\w*):/ =~ line
@@ -7,7 +8,15 @@ ARGF.each_with_index do |line, line_num|
         puts "`#{line.strip}`"      
     # Code sections
     elsif /\s{3}\$/ =~ line
+        # Break code lines that end in \
+        if line [-2] == "\\"
+            incode=true
+        end
         puts " #{line}"
+    # If previous line ends in \ indent to code block
+    elsif incode == true
+        incode = false
+        puts "   #{line}"
     # Lists of parameters
     #    --config value                         Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
     elsif /\s{3}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
