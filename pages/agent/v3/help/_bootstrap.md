@@ -21,7 +21,7 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 ## Example
 
     $ eval $(curl -s -H "Authorization: Bearer xxx" \
-"https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | sed 's/^/export /')
+        "https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | sed 's/^/export /')
     $ buildkite-agent bootstrap --build-path builds
 
 ## Options
