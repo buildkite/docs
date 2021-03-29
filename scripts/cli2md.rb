@@ -13,7 +13,10 @@ ARGF.each_with_index do |line, line_num|
     elsif /\s{3}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
         command = $1.rstrip
         desc    = $2
+        # Wrap $BUILDKITE_* env vars in code
         desc.gsub!(/(\$BUILDKITE[A-Z0-9_]*)/,"`\\1`")
+        # Wrap https://agent.buildkite.com/v3 in code
+        desc.gsub!('https://agent.buildkite.com/v3',"`https://agent.buildkite.com/v3`")
         puts "* `#{command}` - #{desc}"
     else
         puts line.lstrip
