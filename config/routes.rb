@@ -121,6 +121,9 @@ Rails.application.routes.draw do
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page
 
+  # Less noise in the log please
+  post "/_csp-violation-reports", to: proc { [201, {}, ['']] }
+
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")
 
