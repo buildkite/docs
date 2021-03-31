@@ -54,11 +54,11 @@ class Page
     end
 
     def render(partial)
-      PagesController.render(partial: partial)
+      PagesController.render(partial: partial, formats: [:md])
     end
 
     def render_markdown(markdown_path, *args)
-      Page::Renderer.render(render(markdown_path + '.md', *args)).html_safe
+      Page::Renderer.render(render(markdown_path)).html_safe
     end
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
