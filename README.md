@@ -1,4 +1,4 @@
-# Buildkite Documentation [![Build status](https://badge.buildkite.com/b1b9e3ef9d893c087f5e5c0a2d04c258ba393bed2379273f63.svg?branch=master)](https://buildkite.com/buildkite/docs)
+# Buildkite Documentation [![Build status](https://badge.buildkite.com/b1b9e3ef9d893c087f5e5c0a2d04c258ba393bed2379273f63.svg?branch=main)](https://buildkite.com/buildkite/docs)
 
 The source files for the [Buildkite Documentation](https://buildkite.com/docs).
 
@@ -35,7 +35,7 @@ docker-compose -f docker-compose.production.yml up --build
 
 ## Linting
 
-We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors. 
+We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors.
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
 

@@ -24,7 +24,7 @@ module ApplicationHelper
                   # URL so it points to the /pages version.
                   sub('/app/views/pages', '/pages')
 
-    "https://github.com/buildkite/docs/tree/master#{view_file}"
+    "https://github.com/buildkite/docs/tree/main#{view_file}"
   end
 
   def algolia_api_key
