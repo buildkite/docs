@@ -109,7 +109,7 @@ class Page
   end
 
   def open_source_url
-    "https://github.com/buildkite/docs/tree/master/pages/#{basename}.md.erb"
+    "https://github.com/buildkite/docs/tree/main/pages/#{basename}.md.erb"
   end
 
   def canonical_url
