@@ -70,8 +70,18 @@ Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt,
 Do not use numbers in page headings. Only use numbers less than 10 in section headings.
 No restrictions on using numbers in the body of the text.
 
+
+### Referring to UI elements
+
+UI elements should be italic. For example:
+
+To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
+
+
 ### Time and date
+
 Use 24hr time with hours and minutes, but not seconds. Include timezone. e.g. 17:00 AEST
+
 More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
 
 ### Spacing after full stops
