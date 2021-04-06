@@ -19,7 +19,7 @@ Update an attribute of a step in the build
 * `--build value` - The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY) [`$BUILDKITE_BUILD_ID`]
 * `--append` - Append to current attribute instead of replacing it [`$BUILDKITE_STEP_UPDATE_APPEND`]
 * `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
-* `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
+* `--endpoint value` - The Agent API endpoint (default: "`https://agent.buildkite.com/v3`") [`$BUILDKITE_AGENT_ENDPOINT`]
 * `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]

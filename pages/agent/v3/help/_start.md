@@ -62,7 +62,7 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 * `--redacted-vars value` - Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN") [`$BUILDKITE_REDACTED_VARS`]
 * `--tracing-backend value` - The name of the tracing backend to use. [`$BUILDKITE_TRACING_BACKEND`]
 * `--token value` - Your account agent token [`$BUILDKITE_AGENT_TOKEN`]
-* `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
+* `--endpoint value` - The Agent API endpoint (default: "`https://agent.buildkite.com/v3`") [`$BUILDKITE_AGENT_ENDPOINT`]
 * `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
