@@ -68,6 +68,7 @@ nssm.exe set buildkite-agent AppStdout "C:\buildkite-agent\buildkite-agent.log"
 nssm.exe set buildkite-agent AppStderr "C:\buildkite-agent\buildkite-agent.log"
 
 nssm.exe status buildkite-agent
+# Expected output: SERVICE_STOPPED
 nssm.exe start buildkite-agent
 nssm.exe status buildkite-agent
 ```
