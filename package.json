@@ -6,6 +6,6 @@
   },
   "devDependencies": {},
   "scripts": {
-    "lint": "npx alex@9 --diff pages/**/*.erb pages/**/*.txt"
+    "lint": "npx alex@9 --diff \"pages/**/*.erb\" \"pages/**/*.txt\""
   }
 }
