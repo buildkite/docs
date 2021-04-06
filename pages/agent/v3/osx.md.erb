@@ -62,7 +62,7 @@ If you installed the buildkite-agent using the [Linux install script](linux) the
 
 ```bash
 # Download the launchd config to ~/Library/LaunchAgents/
-curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist
+curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/main/templates/launchd_local_with_gui.plist
 
 # Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
 sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
@@ -103,7 +103,7 @@ The below example will start five agents each time the service is started:
 
 If your agents each need different configuration, you can create multiple `launchd` services:
 
-1. Find your agent's `plist`. If you installed the agent with Homebrew you can find the `plist` in your user's `~/Library/LaunchAgents` directory. If you installed with the Linux script, you can take a copy of the [template plist](https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist) from the Agent's GitHub repository.
+1. Find your agent's `plist`. If you installed the agent with Homebrew you can find the `plist` in your user's `~/Library/LaunchAgents` directory. If you installed with the Linux script, you can take a copy of the [template plist](https://raw.githubusercontent.com/buildkite/agent/main/templates/launchd_local_with_gui.plist) from the Agent's GitHub repository.
 
 2. Make as many copies of the plist as you require, one per configuration, ensuring that each has a unique label.
 
