@@ -72,7 +72,7 @@ No restrictions on using numbers in the body of the text.
 
 ### Referring to UI elements
 
-UI elements should be bold. For example:
+UI elements should be italic. For example:
 
 To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
 
