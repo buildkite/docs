@@ -28,7 +28,8 @@ class Page::Renderer
   def markdown(options)
     Redcarpet::Markdown.new(HTMLWithSyntaxHighlighting.new(options), autolink: true,
                                                                      space_after_headers: true,
-                                                                     fenced_code_blocks: true)
+                                                                     fenced_code_blocks: true,
+                                                                     no_intra_emphasis: true)
   end
 
   class HTMLWithSyntaxHighlighting < Redcarpet::Render::HTML

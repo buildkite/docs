@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
-  get "/docs/api",                                to: redirect("/docs/rest-api")
-  get "/docs/api/accounts",                       to: redirect("/docs/rest-api/organizations")
-  get "/docs/api/projects",                       to: redirect("/docs/rest-api/pipelines")
-  get "/docs/api/*page",                          to: redirect("/docs/rest-api/%{page}")
+  get "/docs/api",                                to: redirect("/docs/apis/rest-api")
+  get "/docs/api/accounts",                       to: redirect("/docs/apis/rest-api/organizations")
+  get "/docs/api/projects",                       to: redirect("/docs/apis/rest-api/pipelines")
+  get "/docs/api/*page",                          to: redirect("/docs/apis/rest-api/%{page}")
   get "/docs/basics/pipelines",                   to: redirect("/docs/pipelines")
   get "/docs/builds",                             to: redirect("/docs/tutorials")
   get "/docs/builds/parallelizing-builds",        to: redirect("/docs/tutorials/parallel-builds")
@@ -120,6 +120,9 @@ Rails.application.routes.draw do
 
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page
+
+  # Content Security Policy violations are sent here, and in production the path is handled by buildkite/buildkite. This is a stub response so CSP violations in development don't generate extra noise in the development log
+  post "/_csp-violation-reports", to: proc { [201, {}, ['']] }
 
   # Take us straight to the docs when running standalone
   root to: redirect("/docs")

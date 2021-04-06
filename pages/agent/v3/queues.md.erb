@@ -8,9 +8,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## The default queue
 
-All agents include an extra default [tag](/docs/agent/v3/cli-start#setting-tags) of `queue=default`.
-
-Setting no queue value will match every available agent in the 'default' queue. 
+If you don't configure a queue for your agent by setting an [agent tag](/docs/agent/v3/cli-start#setting-tags) of `queue=my_example_queue` it will accept jobs from the default queue as if you had set `queue=default`.
 
 ## Setting an agent’s queue
 
