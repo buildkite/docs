@@ -266,13 +266,13 @@ a.Docs__example-repo {
   border-left-color: orange;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  h1 {
+  .Docs__wip-heading {
     font: inherit;
     color: inherit;
     font-weight: bold;
     color: orange;
     &:before {
-      content: '🚧 ';
+      content: '🛠 ';
     }
   }
 }
