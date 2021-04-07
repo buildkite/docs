@@ -10,7 +10,9 @@ module ApplicationHelper
     options[:class] << 'Docs__nav__sub-nav__item__link Link--on-white Link--no-underline'
     options[:class] << "active" if current_page?(full_path)
 
-    link_to name, full_path, options
+    link = link_to name, full_path, options
+
+    content_tag(:li, link, class: 'Docs__nav__sub-nav__item')
   end
 
   def open_source_url
