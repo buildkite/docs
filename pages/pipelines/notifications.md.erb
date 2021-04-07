@@ -240,25 +240,18 @@ Job states have a similar flow to [build states](#build-states) but with a few e
 
 <%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
 
-As well as the states shown in the diagram, the following states can progress to `skipped`:
+As well as the states shown in the diagram, the following progressions can occur:
 
-* `pending`
-* `waiting`
-* `blocked`
-* `limiting`
-* `limited`
-* `accepted`
-* `broken`
-
-And the following states can progress to `canceling` or `canceled`:
-
-* `accepted`
-* `pending`
-* `limiting`
-* `limited`
-* `blocked`
-* `unblocked`
-
+can progress to `skipped`  | can progress to `canceling` or `canceled`
+-------------------------- | -----------------------------------------
+`pending`                  | `accepted`
+`waiting`                  | `pending`
+`blocked`                  | `limiting`
+`limiting`                 | `limited`
+`limited`                  | `blocked`
+`accepted`                 | `unblocked`
+`broken`                   |
+{: class="no-formatting"}
 
 <section class="Docs__note">
   <p>The REST API does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
