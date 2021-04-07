@@ -8,14 +8,41 @@ The Buildkite Agent’s `step` command provides the ability to retrieve and  upd
 
 Use this command in your build scripts to update an attribute of a step. 
 
-```
-<%= render 'agent/v3/help/step_update.txt' %>
-```
+<%= render 'agent/v3/help/step_update' %>
 
 ## Getting a step
 
 Use this command in your build scripts to get the value of a particular attribute from a step. 
 
-```
-<%= render 'agent/v3/help/step_get.txt' %>
+<%= render 'agent/v3/help/step_get' %>
+
+## Getting the outcome of a step
+
+If you're just interested in whether a step passed or failed, perhaps to use conditional logic inside your build script, you can use the same approach as above in [Getting a Step](#getting-a-step).
+
+For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli-annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
+
+The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/pipelines/command-step#soft-fail-attributes) is a non-zero exit status that does not fail the build.
+
+```yaml
+steps:
+  - label: 'Step 1'
+    command: "false"
+    key: 'one'
+  - label: 'Step 2'
+    command: "true"
+    key: 'two'
+
+  - wait:
+    continue_on_failure: true
+
+  - label: 'Step 3'
+    command: 'echo `buildkite-agent step get "outcome" --step "one"`'
+  - label: 'Step 4'
+    command: 'echo `buildkite-agent step get "outcome" --step "two"`'
+  - label: 'Step 5'
+    command: |
+      if [ $(buildkite-agent step get "outcome" --step "one") == "hard_failed" ]; then
+        buildkite-agent annotate 'this build failed' --style 'error'
+      fi
 ```
