@@ -30,7 +30,7 @@ docker run -e BUILDKITE_AGENT_TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" buildkite/age
 
 ## Running on startup
 
-By default Docker [starts containers on restart](https://docs.docker.com/articles/host_integration/) so there's no need for upstart or similar. Simply start your container with `-d` to daemonize it and it will be restarted on system boot with the same environment variables and arguments.
+By default Docker [starts containers on restart](https://docs.docker.com/articles/host_integration/) so there's no need for upstart or similar. Start your container with `-d` to daemonize it and it will be restarted on system boot with the same environment variables and arguments.
 
 ## SSH Keys, Configuration and Customization
 
