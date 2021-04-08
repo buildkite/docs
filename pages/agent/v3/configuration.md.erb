@@ -32,6 +32,20 @@ _Required attributes:_
   </tbody>
 </table>
 
+_ Test attributes:_
+
+<table>
+  <tbody>
+    <% AGENT_ATTRIBUTES.each do |attr| %>
+      <tr id="<%= attr['attribute'] %>">
+        <th><code><%= attr['attribute'] %></code></th>
+        <td><%= attr['desc'] %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+
+
 _Optional attributes:_
 
 <table>
