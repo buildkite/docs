@@ -18,7 +18,7 @@ Use this command in your build scripts to get the value of a particular attribut
 
 ## Getting the outcome of a step
 
-If you're just interested in whether a step passed or failed, perhaps to use conditional logic inside your build script, you can use the same approach as above in [Getting a Step](#getting-a-step).
+If you're only interested in whether a step passed or failed, perhaps to use conditional logic inside your build script, you can use the same approach as above in [Getting a Step](#getting-a-step).
 
 For example, the following pipeline has one step that fails (`one`), and another that passes (`two`). After the `wait`, the next two steps print the `outcome` attribute of steps `one` and `two`, and the last step [annotates the build](/docs/agent/v3/cli-annotate#creating-an-annotation) if step `one` fails. Note that `step get` needs the `key` of the step to identify it, not the `label`.
 
