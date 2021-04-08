@@ -50,6 +50,16 @@ To start an agent you’ll need your organization’s agent token from the Agent
 
 The agent has a standard configuration file format on all systems to set meta-data, priority, etc. See the [configuration documentation](/docs/agent/v3/configuration) for more details.
 
+## Experimental features
+
+[experiment](/docs/agent/v3/configuration#experiment):
+
+* [redacted-vars](/docs/agent/v3/configuration#redacted-vars)
+* [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
+* [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
+* [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
+
+
 ## Customising with Hooks
 
 The agent’s behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline’s code repository. Hooks can be used to set up [secrets](/docs/pipelines/secrets) as well as overriding default behavior. See the [hooks](/docs/agent/v3/hooks) documentation for full details.

@@ -147,10 +147,14 @@ _Optional attributes:_
     <tr id="git-clone-mirror-flags">
       <th><code>git-clone-mirror-flags</code></th>
       <td>
-        Flags to pass to the <code>git clone</code> command when used for mirroring. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        Flags to pass to the <code>git clone</code> command when used for mirroring.<br>
+        <div class="Docs__experiment">
+          <p class="Docs__experiment__heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="git-mirror,git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
+
       </td>
     </tr>
 
@@ -166,8 +170,11 @@ _Optional attributes:_
     <tr id="git-mirrors-lock-timeout">
       <th><code>git-mirrors-lock-timeout</code></th>
       <td>
-        Seconds to lock a git mirror during clone, should exceed your longest checkout. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        Seconds to lock a git mirror during clone, should exceed your longest checkout.<br>
+        <div class="Docs__experiment">
+          <p class="Docs__experiment__heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="git-mirror, git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>300</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></p>
       </td>
@@ -176,8 +183,11 @@ _Optional attributes:_
     <tr id="git-mirrors-path">
       <th><code>git-mirrors-path</code></th>
       <td>
-        Path to where mirrors of git repositories are stored. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value.
+        Path to where mirrors of git repositories are stored.<br>
+        <div class="Docs__experiment">
+          <p class="Docs__experiment__heading">Experimental feature</p>
+          To use it, set the <code>experiment=git-mirror</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>/tmp/buildkite-git-mirrors</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_PATH</code></p>
       </td>
@@ -346,7 +356,11 @@ _Optional attributes:_
     <tr id="redacted-vars">
       <th><code>redacted-vars</code></th>
       <td>
-        Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. This is an experimental feature, set <code>experiment="redacted-vars"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.
+        Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
+        <div class="Docs__experiment">
+          <p class="Docs__experiment__heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="redacted-vars"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
