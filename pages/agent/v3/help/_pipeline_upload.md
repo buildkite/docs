@@ -34,7 +34,7 @@ scripts that generate dynamic pipelines.
 * `--dry-run` - Rather than uploading the pipeline, it will be echoed to stdout [`$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN`]
 * `--no-interpolation` - Skip variable interpolation the pipeline when uploaded [`$BUILDKITE_PIPELINE_NO_INTERPOLATION`]
 * `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
-* `--endpoint value` - The Agent API endpoint (default: "https://agent.buildkite.com/v3") [`$BUILDKITE_AGENT_ENDPOINT`]
+* `--endpoint value` - The Agent API endpoint (default: "`https://agent.buildkite.com/v3`") [`$BUILDKITE_AGENT_ENDPOINT`]
 * `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
 * `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
 * `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
