@@ -1,0 +1,11 @@
+---
+- attribute: bootstrap-script
+  desc: |
+      <p>Command to invoke the bootstrap process.</p>
+      <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
+      <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
+- attribute: build-path
+  desc: |
+      <p>Path to where the builds will run from.</p>
+      <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+      <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
