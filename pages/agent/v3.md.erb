@@ -52,13 +52,30 @@ The agent has a standard configuration file format on all systems to set meta-da
 
 ## Experimental features
 
-[experiment](/docs/agent/v3/configuration#experiment):
+We frequently introduce new experimental features to the agent. Use the `--experiment` [flag](/docs/agent/v3/configuration#experiment) to opt-in to them and test them out:
+
+```
+buildkite-agent start --experiment experiment1 --experiment experiment2
+```
+
+Or you can set them in your agent configuration file:
+
+```
+experiment="experiment1,experiment2"
+```
+
+If an experiment doesn't exist, no error will be raised.
+
+<div class="Docs__troubleshooting-note">
+Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!
+</div>
+
+Experimental agent features:
 
 * [redacted-vars](/docs/agent/v3/configuration#redacted-vars)
 * [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
 * [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
 * [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
-
 
 ## Customising with Hooks
 

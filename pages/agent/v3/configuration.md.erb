@@ -120,7 +120,7 @@ _Optional attributes:_
     <tr id="experiment">
       <th><code>experiment</code></th>
       <td>
-        A list of the experimental agent features to enable.
+        A list of the <a href="/docs/agent/v3#experimental-features">experimental agent features</a> to enable.
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"experiment1,experiment2"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_EXPERIMENT</code></p>
       </td>
@@ -148,8 +148,8 @@ _Optional attributes:_
       <th><code>git-clone-mirror-flags</code></th>
       <td>
         Flags to pass to the <code>git clone</code> command when used for mirroring.<br>
-        <div class="Docs__experiment">
-          <p class="Docs__experiment__heading">Experimental feature</p>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
           <p>To use it, set <code>experiment="git-mirror,git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
@@ -171,8 +171,8 @@ _Optional attributes:_
       <th><code>git-mirrors-lock-timeout</code></th>
       <td>
         Seconds to lock a git mirror during clone, should exceed your longest checkout.<br>
-        <div class="Docs__experiment">
-          <p class="Docs__experiment__heading">Experimental feature</p>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
           <p>To use it, set <code>experiment="git-mirror, git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>300</code></p>
@@ -184,8 +184,8 @@ _Optional attributes:_
       <th><code>git-mirrors-path</code></th>
       <td>
         Path to where mirrors of git repositories are stored.<br>
-        <div class="Docs__experiment">
-          <p class="Docs__experiment__heading">Experimental feature</p>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
           To use it, set the <code>experiment=git-mirror</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>/tmp/buildkite-git-mirrors</code></p>
@@ -357,8 +357,8 @@ _Optional attributes:_
       <th><code>redacted-vars</code></th>
       <td>
         Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
-        <div class="Docs__experiment">
-          <p class="Docs__experiment__heading">Experimental feature</p>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
           <p>To use it, set <code>experiment="redacted-vars"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
