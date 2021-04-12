@@ -150,7 +150,7 @@ _Optional attributes:_
         Flags to pass to the <code>git clone</code> command when used for mirroring.<br>
         <div class="Docs__wip-note">
           <p class="Docs__wip-heading">Experimental feature</p>
-          <p>To use it, set <code>experiment="git-mirror,git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+          <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
@@ -173,7 +173,7 @@ _Optional attributes:_
         Seconds to lock a git mirror during clone, should exceed your longest checkout.<br>
         <div class="Docs__wip-note">
           <p class="Docs__wip-heading">Experimental feature</p>
-          <p>To use it, set <code>experiment="git-mirror, git-mirrors-path"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+          <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>300</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></p>
@@ -186,7 +186,7 @@ _Optional attributes:_
         Path to where mirrors of git repositories are stored.<br>
         <div class="Docs__wip-note">
           <p class="Docs__wip-heading">Experimental feature</p>
-          To use it, set the <code>experiment=git-mirror</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+          To use it, set the <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>/tmp/buildkite-git-mirrors</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_PATH</code></p>
