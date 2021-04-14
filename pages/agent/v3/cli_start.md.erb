@@ -30,6 +30,18 @@ or with the `BUILDKITE_AGENT_TAGS` an environment variable:
 env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 ```
 
+## Job targeting
+
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished.
+
+[TODO: add use cases]
+
+`value` is the job ID. There are several ways to find this:
+
+* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+* Using the GUI: select a job, and the job ID is the final value in the URL.
+* [TODO: may be more ways, await basecamp responses]
+
 ## Agent Targeting
 
 Once you've started agents with tags you can target them in the build pipeline using agent query rules.
