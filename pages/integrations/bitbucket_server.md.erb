@@ -1,6 +1,8 @@
-# Bitbucket server
+# Bitbucket Server
 
-Buildkite can connect to your self-hosted Bitbucket server and use . . . 
+Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. Your code pushes to BitBucket Server can automatically trigger Buildkite builds using a webhook.
+
+This guide shows you how to set up your BitBucket Server builds with Buildkite.
 
 <div class="Docs__note">
 This guide was written using Bitbucket server version 7.11.1
@@ -8,12 +10,27 @@ This guide was written using Bitbucket server version 7.11.1
 
 {:toc}
 
-bb server needs to be able to reach buildkite to send webhooks. No oauth or anything. No firewall considerations.
+## Step 1: connect a repository provider and set up a pipeline
 
-org settings -> repo providers -> select bitbucket server - > enter URL (homepage of bb server) -> create repo -> enter bb server repo url (buildkite auto recognised based on URL) -> follow in app server setup instructions to create a webhook in your bb instance
+1. In your *Settings*, navigate to *Repository Providers*.
+2. Select *Bitbucket Server*.
+3. In *URLs*, enter the address of your Bitbucket Server, including a port if needed. For example, if you have it installed locally and running on `localhost:8000`, enter `localhost:8000`. You also have the option to add *Allowed IP Addresses* in *Network Settings*.
+4. Select *Save Settings*.
+5. Set up a pipeline as normal. Refer to [Pipelines](/docs/pipelines) for more information.
 
-can enter IP range to limit IPs with access (see other docs)
+## Step 2: confirm your setup
 
-## Step 1: 
+If your configuration worked, Buildkite automatically recognizes your repository URL as a Bitbucket Server repository. To check this, go to *Pipelines* > *your_pipeline* > *Pipeline Settings*. You should see *Bitbucket Server* in the *Pipeline Settings* menu.
 
-## Step 2:
+## Step 3: work through the in-app guide to set up your webhook
+
+Buildkite includes built-in instructions on how to set up a Bitbucket Server webhook.
+
+1. Navigate to *Pipelines* > *your_pipeline* > *Pipeline Settings* > *Bitbucket Server*. 
+2. Select *Bitbucket Server Setup Instructions*.
+3. Follow the on screen instructions to configure your webhook.
+
+
+
+
+
