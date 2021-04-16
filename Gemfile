@@ -63,4 +63,7 @@ group :test do
 
   # Browser testing stuff
   gem "capybara"
+
+  # Validate html
+  gem "w3c_rspec_validators"
 end
