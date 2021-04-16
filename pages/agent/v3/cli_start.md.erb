@@ -32,7 +32,7 @@ env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 
 ## Run a single job
 
-`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then exits when complete.
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
 
 ### Getting the value
 
