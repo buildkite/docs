@@ -5,7 +5,7 @@ RSpec.feature "Validate HTML" do
     visit "/"
     page.body.should be_valid_html
   end
-  scenario "visit pipeline" do
+  scenario "visit pipelines page" do
     visit "/pipelines"
     page.body.should be_valid_html
   end
