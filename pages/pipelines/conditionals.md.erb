@@ -252,6 +252,10 @@ The below variables are supported by the `if` attribute:
 <p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
 </div>
 
+## Conditionals and the broken state
+
+Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned false. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+
 ## Example expressions
 
 To run only when the branch is `master` or `production`:

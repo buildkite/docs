@@ -231,28 +231,12 @@ notify:
 
 ## Build states
 
-Build state can be one of `scheduled`, `running`, `passed`, `failed`, `blocked`, `canceling`, `canceled`, `skipped`, `not_run`, and `finished`.
-`finished` is a shortcut for a build of `passed`, `failed`, `blocked`, and `canceled` state.
+<%= render_markdown 'pipelines/build_states' %>
+
+See the full [build states diagram](/docs/pipelines/defining-steps#build-states) for more information on how builds transition between states.
 
 ## Job states
 
-Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows the possible states and expected flow of a job.
+<%= render_markdown 'pipelines/job_states' %>
 
-<%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
-
-As well as the states shown in the diagram, the following progressions can occur:
-
-can progress to `skipped`  | can progress to `canceling` or `canceled`
--------------------------- | -----------------------------------------
-`pending`                  | `accepted`
-`waiting`                  | `pending`
-`blocked`                  | `limiting`
-`limiting`                 | `limited`
-`limited`                  | `blocked`
-`accepted`                 | `unblocked`
-`broken`                   |
-{: class="no-formatting"}
-
-<section class="Docs__note">
-  <p>The REST API does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
-</section>
+See the full [job states diagram](/docs/pipelines/defining-steps#job-states) for more information on how jobs transition between states.
