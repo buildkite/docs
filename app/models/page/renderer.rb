@@ -29,7 +29,8 @@ class Page::Renderer
     Redcarpet::Markdown.new(HTMLWithSyntaxHighlighting.new(options), autolink: true,
                                                                      space_after_headers: true,
                                                                      fenced_code_blocks: true,
-                                                                     tables: true)
+                                                                     tables: true,
+                                                                     no_intra_emphasis: true)
   end
 
   class HTMLWithSyntaxHighlighting < Redcarpet::Render::HTML
