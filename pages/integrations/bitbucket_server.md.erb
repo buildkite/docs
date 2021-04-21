@@ -1,6 +1,6 @@
 # Bitbucket Server
 
-Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. Your code pushes to BitBucket Server can automatically trigger Buildkite builds using a webhook.
+Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. You can run a build every time you push code to BitBucket Server, using a webhook that you create in your Bitbucket Server.
 
 <div class="Docs__note">
 This guide shows you how to set up your BitBucket Server builds with Buildkite. It was written using Bitbucket server version 7.11.1
@@ -8,7 +8,7 @@ This guide shows you how to set up your BitBucket Server builds with Buildkite. 
 
 {:toc}
 
-## Step 1: connect a repository provider and set up a pipeline
+## Step 1: connect Bitbucket Server and set up a pipeline
 
 1. In your *Settings*, navigate to *Repository Providers*.
 2. Select *Bitbucket Server*.
@@ -22,7 +22,7 @@ If your configuration worked, Buildkite automatically recognizes your repository
 
 ## Step 3: work through the in-app guide to set up your webhook
 
-Buildkite includes built-in instructions on how to set up a Bitbucket Server webhook.
+Buildkite includes built-in instructions on how to set up a Bitbucket Server webhook. This webhook allows Bitbucket Server to trigger Buildkite builds in response to events like code pushes and pull requests.
 
 1. Navigate to *Pipelines* > *`your-pipeline`* > *Pipeline Settings* > *Bitbucket Server*. 
 2. Select *Bitbucket Server Setup Instructions*.
