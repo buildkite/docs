@@ -1,4 +1,5 @@
 $Docs__bp_stacked: 600px;
+$color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
   padding-top: 20px;
@@ -18,6 +19,51 @@ $Docs__bp_stacked: 600px;
   padding-right: 20px;
   margin-top: .8em;
   @media (max-width: $Docs__bp_stacked) { margin-left: -20px; margin-right: -20px; margin-bottom: 40px; padding-right: 0; }
+  position: relative;
+}
+
+.Docs__nav__section-container {
+  margin-bottom: 20px;
+  width: 100%;
+
+  .Docs__nav__section-heading { 
+    cursor: pointer;
+    position: relative;
+    user-select: none;
+
+    &:hover {
+      transition: all 0.1s;
+      color: $color-green;
+      &::after {opacity: 1.0;}
+    }
+    &::after {
+      content: '';
+      display: block;
+      width: 8px;
+      height: 8px;
+      border-right: 1px solid #aaa;
+      border-bottom: 1px solid #aaa;
+      right: 0;
+      top: 4px;
+      position: absolute;
+      transform: rotate(45deg);
+      transform-origin: 75% 75%;
+      transition: all 0.2s;
+      opacity: 0;
+    }
+  }
+  &.current .Docs__nav__section-heading { color: $color-green; }
+
+  .Docs__nav__section-content { display: none; }
+  &.expanded {
+    .Docs__nav__section-heading::after { transform: rotate(-135deg); }
+    img { transform: rotate(-180deg); }
+    .Docs__nav__section-content { display: block; }
+  }
+
+  &.hidden {
+    display: none;
+  }
 }
 
 .Docs__nav__section-heading {

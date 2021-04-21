@@ -125,6 +125,6 @@ The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and 
 For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Setting environment variables</p>
+<h3 class="Docs__note__heading">Setting environment variables</h3>
 <p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
 </div>

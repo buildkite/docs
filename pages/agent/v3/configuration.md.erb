@@ -213,7 +213,13 @@ _Optional attributes:_
     <tr id="metrics-datadog">
       <th><code>metrics-datadog</code></th>
       <td>
-        Send metrics to DogStatsD for Datadog.
+        Send metrics to DogStatsD for Datadog. This will generate the following metrics:<br>
+        <code>buildkite.jobs.success</code><br>
+        <code>buildkite.jobs.duration.success.avg</code><br>
+        <code>buildkite.jobs.duration.success.max</code><br>
+        <code>buildkite.jobs.duration.success.count</code><br>
+        <code>buildkite.jobs.duration.success.median</code><br>
+        <code>buildkite.jobs.duration.success.95percentile</code><br>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG</code></p>
       </td>
