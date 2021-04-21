@@ -68,9 +68,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         "timeout_in_minutes": null,
         "agent_query_rules": [ ]
       }
-    ],
-    "env": {
-    }
+    ]
   }
 ]
 ```
@@ -143,9 +141,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
       "timeout_in_minutes": null,
       "agent_query_rules": [ ]
     }
-  ],
-  "env": {
-  }
+  ]
 }
 ```
 
@@ -319,8 +315,6 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
       "parallelism": null
     }
   ],
-  "env": {
-  },
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
@@ -380,10 +374,6 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
@@ -485,8 +475,6 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
       "parallelism": null
     }
   ],
-  "env": {
-  },
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
@@ -521,10 +509,6 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
-  </tr>
-    <tr>
-    <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>name</code></th>
