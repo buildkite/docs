@@ -52,6 +52,7 @@ group :development do
   gem "web-console"
   gem "listen"
   gem "pry"
+  gem 'erb_lint', require: falseq
 end
 
 group :test do
@@ -64,3 +65,4 @@ group :test do
   # Browser testing stuff
   gem "capybara"
 end
+
