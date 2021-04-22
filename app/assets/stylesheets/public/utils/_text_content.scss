@@ -34,7 +34,10 @@
   li, p, dt, td, th {
     > code { border: 1px solid #ddd; font-size: 85%; padding: .1em .25em; }
   }
-  table { font-size: #{(16/18)}rem; }
+  table {
+    font-size: #{(16/18)}rem;
+    word-wrap: break-word;
+  }
   table, tbody, tr, th, td { color: currentColor; }
   th, td { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   th code, td code { border: none; }
