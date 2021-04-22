@@ -1,0 +1,20 @@
+---
+glob: '**/*.html.erb'
+EnableDefaultLinters: true
+exclude:
+  - '**/docs/app/views/layouts/_analytics.html.erb'
+linters:
+  ErbSafety:
+    enabled: true
+  Rubocop:
+    enabled: false
+  SpaceIndentation:
+    enabled: false
+  SpaceInHtmlTag:
+    enabled: false
+  NoJavascriptTagHelper:
+    enabled: false
+  TrailingWhitespace:
+    enabled: false
+  ExtraNewline:
+    enabled: false
