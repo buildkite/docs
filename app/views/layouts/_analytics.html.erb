@@ -3,7 +3,7 @@
   posthog.init(<%= raw json_escape(Posthog::API_KEY.to_json) %>, {
     api_host: <%= raw json_escape(Posthog::URL.to_json) %>
   });
-  posthog.register({ "bk_site": "docs" });  
+  posthog.register({ "bk_site": "docs" });
 <% end -%>
 
 <%= javascript_tag nonce: true do -%>
