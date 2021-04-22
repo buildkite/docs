@@ -20,6 +20,7 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+    doc = hide_code(doc)
     doc.to_html.html_safe
   end
 
@@ -144,6 +145,22 @@ class Page::Renderer
       node.remove
     end
     
+    doc
+  end
+
+  def hide_code(doc)
+    doc.search('./p').each do |node|
+      next unless node.text.starts_with?('{: code="hidden"')
+
+      details = Nokogiri::XML::Node.new "details", doc
+      summary = Nokogiri::XML::Node.new "summary", doc
+      summary.content = "Show response body"
+      details.add_child(summary)
+      node.previous_element.add_previous_sibling(details)
+      node.previous_element.parent = details
+      node.remove
+    end
+
     doc
   end
 
