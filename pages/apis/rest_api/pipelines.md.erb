@@ -154,22 +154,220 @@ Required scope: `read_pipelines`
 Success response: `200 OK`
 
 
-## Create a pipeline
+## Create a YAML pipeline
 
-You can use this endpoint to create both [YAML pipelines](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) and visual step pipelines.
+YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade). To create a YAML pipeline using this endpoint, set the `configuration` key in your json request body to an the YAML you want in your pipeline.
 
-### YAML pipelines
+For example, to create a pipeline called `"My Pipeline"` containing the following command step
+
+```yaml
+steps:
+ - command: "script/release.sh"
+   name: "Build \:package\:"
+```
+
+make the following POST request, substituting your organization slug instead of `{org.slug}`. Make sure to escape the quotes (`"`) in your YAML, and  to replace line breaks with `\n`:
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
     "name": "My Pipeline",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
-    "configuration": "steps:\n - command: \"script/release.sh\"\n "Build \:package\:"\n""
+    "configuration": "steps:\n - command: \"script/release.sh\"\n   name: "Build \:package\:"
   }'
 ```
 
-### Visual step pipeline
+The response contains information about your new pipeline:
+
+```json
+{
+  "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
+  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
+  "web_url": "https://buildkite.com/acme-inc/my-pipeline",
+  "name": "My Pipeline",
+  "description": null,
+  "slug": "my-pipeline",
+  "repository": "git@github.com:acme-inc/my-pipeline.git",
+  "branch_configuration": null,
+  "default_branch": "master"
+  "provider": {
+    "id": "github",
+    "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+    "settings": {
+      "publish_commit_status": true,
+      "build_pull_requests": true,
+      "build_pull_request_forks": false,
+      "build_tags": false,
+      "publish_commit_status_per_step": false,
+      "repository": "acme-inc/my-pipeline",
+      "trigger_mode": "code"
+    }
+  },
+  "skip_queued_branch_builds": false,
+  "skip_queued_branch_builds_filter": null,
+  "cancel_running_branch_builds": false,
+  "cancel_running_branch_builds_filter": null,
+  "builtype": "script",
+      "name": "Build \:package\:",
+      "command": "script/release.sh",
+      "artifact_paths": null,
+      "branch_configuration": null,
+      "env": {},
+      "timeout_in_minutes": null,
+      "agent_query_rules": [],
+      "concurrency": null,
+      "parallelism": null
+    },
+    {
+      "type": "waiter"
+    },
+    {
+      "type": "script",
+      "name": "Test \:wrench\:",
+      "command": "script/release.sh",
+      "artifact_paths": "log/*",
+      "branch_configuration": null,
+      "env": {},
+      "timeout_in_minutes": null,
+      "agent_query_rules": [
+
+      ],
+      "concurrency": null,
+      "parallelism": null
+    },
+    {
+      "type": "manual",
+      "label": "Deploy"
+    },
+    {
+      "type": "script",
+      "name": "Release \:rocket\:",
+      "command": "script/release.sh",
+      "artifact_paths": null,
+      "branch_configuration": "master",
+      "env": {
+        "AMAZON_S3_BUCKET_NAME": "my-pipeline-releases"
+      },
+      "timeout_in_minutes": 10,
+      "agent_query_rules": [
+        "aws=true"
+      ],
+      "concurrency": null,
+      "parallelism": null
+    },
+    {
+      "type": "trigger",
+      "label": "Deploy \:ship\:",
+      "pipeline": "deploy",
+      "build": {
+        "message": null,
+        "branch": "master",
+        "commit": "HEAD",
+        "env": null
+      },
+      "async": true,
+      "branch_configuration": null,
+      "concurrency": null,
+      "parallelism": null
+    }
+  ],
+  "env": {
+  },
+  "scheduled_builds_count": 0,
+  "running_builds_count": 0,
+  "scheduled_jobs_count": 0,
+  "running_jobs_count": 0,
+  "waiting_jobs_count": 0,
+  "visibility": "private"
+}
+```
+
+Required [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>name</code></th>
+    <td>The name of the pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"New Pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>repository</code></th>
+    <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>configuration</code></th>
+    <td>
+      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>branch_configuration</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds</code></th>
+    <td>Cancel intermediate builds. When a new build is created on a branch, any previous builds that are running on the same branch will be automatically canceled.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cancel_running_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build cancelling applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"develop prs/*"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>default_branch</code></th>
+    <td>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p>
+    </td>
+  </tr>
+  <tr>
+    <th><code>description</code></th>
+    <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>env</code></th>
+    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
+  </tr>
+  <tr>
+    <th><code>provider_settings</code></th>
+    <td>The source provider settings. See the <a href="#provider-settings-properties">Provider Settings</a> section for accepted properties. <p class="Docs__api-param-eg"><em>Example:</em> <code>{ "publish_commit_status": true, "build_pull_request_forks": true }</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds</code></th>
+    <td>Skip intermediate builds. When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.<p class="Docs__api-param-eg"><em>Example:</em> <code>true</code><br><em>Default:</em> <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>skip_queued_branch_builds_filter</code></th>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
+    <th><code>team_uuids</code></th>
+    <td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either via the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
+  </tr>
+</tbody>
+</table>
+
+Required scope: `write_pipelines`
+
+Success response: `201 Created`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
+</tbody>
+</table>
+
+## Create a visual step pipeline
+
+YAML pipelines are the recommended way to [manage your pipelines](https://buildkite.com/docs/tutorials/pipeline-upgrade) but if you're still using visual steps you can add them by setting the `steps` key in your json request body to an array of steps:
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -218,7 +416,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   }'
 ```
 
-
+The response contains information about your new pipeline:
 
 ```json
 {
@@ -249,13 +447,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   "skip_queued_branch_builds_filter": null,
   "cancel_running_branch_builds": false,
   "cancel_running_branch_builds_filter": null,
-  "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
-  "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-  "created_at": "2018-08-15T05:47:45.813Z",
-  "archived_at": null,
-  "steps": [
-    {
-      "type": "script",
+  "builtype": "script",
       "name": "Build \:package\:",
       "command": "script/release.sh",
       "artifact_paths": null,
@@ -347,9 +539,9 @@ Required [request body properties](/docs/api#request-body-properties):
     <td>The repository URL.<p class="Docs__api-param-eg"><em>Example:</em> <code>"git@github.com:acme-inc/my-pipeline.git"</code></p></td>
   </tr>
   <tr>
-    <th><code>configuration</code></th>
+    <th><code>steps</code></th>
     <td>
-      The YAML pipeline that consists of the build pipeline steps.<p class="Docs__api-param-eg"><em>Example:</em> <code>"steps:\n - command: \"script/release.sh\"\n"</code>
+      An array of the build pipeline steps.<p class="Docs__api-param-eg"><em>Script:</em> <code>{ "type": "script", "name": "Script", "command": "command.sh" }</code></p><p class="Docs__api-param-eg"><em>Wait for all previous steps to finish:</em> <code>{ "type": "waiter" }</code></p><p class="Docs__api-param-eg"><em>Block pipeline (see the <a href="/docs/apis/rest-api/jobs#unblock-a-job">job unblock API</a>):</em> <code>{ "type": "manual" }</code>
     </td>
   </tr>
   </tbody>
@@ -607,7 +799,7 @@ Error responses:
 
 ## Provider settings properties
 
-The [Create Pipeline](#create-a-pipeline) and [Update Pipeline](#create-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider’s supported settings are below.
+The [Create a YAML pipeline](#create-a-yaml-pipeline) and [Update Pipeline](#update-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider’s supported settings are below.
 
 Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`. Other source providers such as GitLab do not have optional settings available.
 
