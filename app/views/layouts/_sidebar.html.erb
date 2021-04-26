@@ -1,6 +1,7 @@
+<% current_section = request.original_fullpath.split('/')[2] %>
 <nav class="Docs__nav">
   <div class="Docs__nav__sections">
-    <div class="Docs__nav__section-container" data-docs-path="tutorials">
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
       <p class="Docs__nav__section-heading">Tutorials</p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
@@ -18,7 +19,7 @@
 
     <% current_agent_ver = request.url[%r{agent/v(\d)}, 1] || '3' %>
 
-    <div class="Docs__nav__section-container" data-docs-path="agent-v3">
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'agent' && current_agent_ver == '3' %>" data-docs-path="agent-v3">
       <p class="Docs__nav__section-heading">Agent</p>
       <div class="Docs__nav__section-content">
         <ul class="Docs__nav__sub-nav">
@@ -63,7 +64,7 @@
       </div>
     </div>
 
-    <div class="Docs__nav__section-container" data-docs-path="agent-v2">
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'agent' && current_agent_ver != '3' %>" data-docs-path="agent-v2" >
       <p class="Docs__nav__section-heading">Agent v2 (deprecated)</p>
       <div class="Docs__nav__section-content">
         <div class="Docs__nav__agent_subsection_container <% if current_agent_ver == "2" %>expanded<% end %>" data-agent-version="2">
@@ -103,7 +104,7 @@
       </div>
     </div>
 
-      <div class="Docs__nav__section-container" data-docs-path="pipelines">
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'pipelines' %>" data-docs-path="pipelines">
         <p class="Docs__nav__section-heading">Pipelines</p>
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
@@ -139,7 +140,7 @@
         </div>
       </div>
 
-      <div class="Docs__nav__section-container" data-docs-path="plugins">
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'plugins' %>" data-docs-path="plugins">
         <p class="Docs__nav__section-heading">Plugins</p>
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
@@ -152,7 +153,7 @@
         </div>
       </div>
 
-      <div class="Docs__nav__section-container" data-docs-path="deployments">
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'deployments' %>" data-docs-path="deployments">
         <p class="Docs__nav__section-heading">Deployments</p>
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
@@ -163,7 +164,7 @@
         </div>
       </div>
 
-      <div class="Docs__nav__section-container" data-docs-path="integrations">
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'integrations' %>" data-docs-path="integrations">
         <p class="Docs__nav__section-heading">Integrations</p>
         <div class="Docs__nav__section-content">
           <p class="Docs__nav__section-subheading">Source control</p>
@@ -197,7 +198,7 @@
         </div>
       </div>
 
-      <div class="Docs__nav__section-container" data-docs-path="apis">
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'apis' %>" data-docs-path="apis">
         <p class="Docs__nav__section-heading">APIs</p>
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
@@ -249,8 +250,6 @@
       if (currentSectionName == "agent") {
         currentSectionName = `${currentSectionName}-${agentVersion}`
       }
-      let currentContainer = document.querySelector(`.Docs__nav__section-container[data-docs-path='${currentSectionName}']`);
-      currentContainer.classList.add("expanded", "current");
 
       if (currentSectionName != "agent-v2") {
         let v2section = document.querySelector(`.Docs__nav__section-container[data-docs-path='agent-v2']`);
