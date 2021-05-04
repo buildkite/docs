@@ -4,6 +4,8 @@ This page shows you how to write your own Buildkite plugin, and how to validate 
 
 {:toc}
 
+## Tutorial: write a plugin
+
 In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
 
 ```yml
@@ -15,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Create a new git repository
+### Create a new git repository
 
 Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. Let's create a new Git repository following these naming conventions:
 
@@ -25,7 +27,7 @@ cd file-counter-buildkite-plugin
 git init
 ```
 
-## Add a plugin.yml
+### Add a plugin.yml
 
 Next we'll create `plugin.yml` to describes how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
 
@@ -53,7 +55,7 @@ Configuration properties are available to the hook script as environment variabl
   </p>
 </div>
 
-### Valid plugin.yml properties
+#### Valid plugin.yml properties
 
 <table>
   <thead>
@@ -86,7 +88,7 @@ Configuration properties are available to the hook script as environment variabl
   </tbody>
 </table>
 
-## Validate the plugin.yml
+### Validate the plugin.yml
 
 The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
 
@@ -115,7 +117,7 @@ You can now run the tests using the following command:
 docker-compose run --rm lint
 ```
 
-## Add a hook
+### Add a hook
 
 Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, we’ll create a `post-command` hook in a `hooks` directory:
 
@@ -141,7 +143,7 @@ buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 ```
   {: codeblock-file="hooks/post-command"}
 
-## Add a test
+### Add a test
 
 Next step is to test the `post-command` hook using BATS, and the `buildkite/plugin-tester` Docker image.
 
@@ -208,7 +210,7 @@ You can now run the tests using the following command:
 docker-compose run --rm tests
 ```
 
-## Add a readme
+### Add a readme
 
 Next we'll add a `README.md` file to introduce the plugin to the world:
 
@@ -217,3 +219,10 @@ Next we'll add a `README.md` file to introduce the plugin to the world:
 ## Publish to the directory
 
 To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` repository topic tag. For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
+
+## Designing plugins: single-command plugins versus library plugins
+
+When writing plugins, there are two design patterns you can choose from:
+
+* A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern. 
+* A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
