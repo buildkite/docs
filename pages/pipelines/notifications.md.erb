@@ -23,6 +23,7 @@ Available notification types:
 * [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
 * [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
+* [PagerDuty](#pagerduty-change-events)
 
 ## Conditional notifications
 
@@ -208,6 +209,35 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks#event
 * `build started`
 * `build blocked`
 * `build finished`
+
+## PagerDuty Change Events
+
+If you've set up a [PagerDuty integration](/docs/integrations/pagerduty) you can send Change Events from your pipeline using the `pagerduty_change_event` attribute of the `notify` yaml block:
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+```
+{: codeblock-file="pipeline.yml"}
+
+Email notifications happen at the following [event](/docs/apis/webhooks#events):
+
+* `build finished`
+
+Restrict notifications to passed builds by adding a [conditional](#conditional-notifications):
+
+```yaml
+steps:
+  - command: "tests.sh"
+
+notify:
+  - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
+    if: "build.state == 'passed'"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Build States
 
