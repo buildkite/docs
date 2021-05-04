@@ -173,7 +173,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
     "name": "My Pipeline",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
-    "configuration": "steps:\n - command: \"script/release.sh\"\n   name: "Build \:package\:"
+    "configuration": "env:\n  FOO: \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   name: "Build \:package\:"
   }'
 ```
 
@@ -228,7 +228,7 @@ The response contains information about your new pipeline:
       "command": "script/release.sh",
       "artifact_paths": "log/*",
       "branch_configuration": null,
-      "env": {},
+      "env": { "FOO": "bar"},
       "timeout_in_minutes": null,
       "agent_query_rules": [
 
@@ -329,10 +329,6 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
