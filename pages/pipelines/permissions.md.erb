@@ -115,9 +115,10 @@ From the Member Permissions page, organization admins can toggle whether or not 
 
 If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page. 
 
-Organization admin can delete orgranization members. To do it, the admin needs to:
+Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
   1. Find the ID for the user to be deleted ("Jane Doe"):  
-```bash
+
+```graphql
 query {
   organization(slug: "your-organization-slug") {
     members(search: "Jane Doe", first: 10) {
@@ -135,7 +136,9 @@ query {
 }
 ```
 
-  2. Use the ID ("abc123") in a mutation:  
+  2. Use the ID ("abc123") in a mutation: 
+
+  ```graphql 
   mutation deleteOrgMember {
   organizationMemberDelete(input: { id: "abc123" }){
     organization{
@@ -147,3 +150,5 @@ query {
     }
   }
 }
+```
+
