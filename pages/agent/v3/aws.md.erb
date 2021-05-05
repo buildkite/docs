@@ -21,3 +21,37 @@ button on your organization’s Agents page.
 
    [github]: https://github.com/buildkite/elastic-ci-stack-for-aws
    [Red Hat/CentOS installer]: /docs/agent/v3/redhat
+
+## (Optional) Restrict access to Amazon EC2 metadata  
+If you have AWS permission sandboxes from which a variety of infrastructures are further provisioned (e.g., RDS, Redis, SQS), you may want to restrict access to your builds for Amazon Elastic Compute Cloud (EC2) metadata. 
+
+Restricting permissions can be useful when you assign a role with many permissions to the EC2 instances on which your builds run and then allow agents to generate and inject some sandboxed AWS credentials into the build secrets. 
+
+Such builds will have access to the EC2 metadata API, and as a result - access to the same permissions as your EC2. So you need to prevent the builds from accessing your EC2 metadata (or provide sandboxed AWS credentials for each build).
+
+There are two ways to restrict access to the EC2 metadata.
+
+### 1. Restricting permissions via compartmentalization of agents
+You can divide the agents by responsibilities, e.g., agents building for development environments, building for release, deploying for staging, or deploying for production to reflect multiple AWS environments at your organization. For each pipeline, you will need to use a [third-party plugin] (https://github.com/cultureamp/aws-assume-role-buildkite-plugin/) to give the relevant teams sandboxed IAM permissions for their own microservices from development to production. The plugin also takes care of the suggested injection of AWS credentials.   
+
+To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a pre-checkout [hook on the agent](https://buildkite.com/docs/agent/v3/hooks).
+
+### 2. Restricting permissions by downgrading an instance profile role
+This [method is suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and will be useful if you are not using Elastic Stack for AWS. 
+
+To restrict the permissions, you can permanently downgrade an instance’s profile from a high-permission bootstrap role to a low-permission steady-state role. The high-permission role has a policy that allows replacing the instance profile with a low-permission role, but a low-permission role has no such policy.
+
+For even better security, you can expire agents after a job. For example, you can:  
+1. Create a new agent for a pending job  
+2. Transition the agent to a sandbox role  
+3. Terminate the agent instance when the agent completes the job  
+
+Spinning a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to spin new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance. A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.  
+
+If you’re less concerned about the CI spend, spinning time, and other resources, you can also specify a minimum stack size to keep a pool of agents ready to go and replace any terminated agent instance with a clean instance. This is the approach used by Buildkite to secure open-source agent instances as they could be running untrusted code.  
+
+For more information on AWS security practices regarding restricting access to the API in EKS, see [Amazon EKS security best practices](https://docs.aws.amazon.com/eks/latest/userguide/best-practices-security.html). 
+
+#### If you are using Kubernetes or Docker containers
+* If you run all the build steps in Docker containers, you should use the CI stack approach for the best results.  
+* If you are using Kubernetes for your Buildkite CI, you can check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.  
