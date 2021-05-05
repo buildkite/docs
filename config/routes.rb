@@ -115,6 +115,8 @@ Rails.application.routes.draw do
   # Quick Reference JSON
   get "/docs/quick-reference/pipelines", to: "quick_reference#pipelines", as: :pipelines_quick_reference
 
+  get "/docs/redoc", to: "redoc#index", as: :redoc
+
   # Homepage
   get "/docs" => "pages#index", as: :home_page
 
