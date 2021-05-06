@@ -86,6 +86,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+> NOTE: For JSON pipeline files, use `null` instead of `~`.
+
 Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build.
 
 Explicit dependencies on block steps can be added without setting additional input values. You can use this to define a "Deploy" button, for example.
