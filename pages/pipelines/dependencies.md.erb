@@ -75,7 +75,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
 
 ```yml
 steps:
