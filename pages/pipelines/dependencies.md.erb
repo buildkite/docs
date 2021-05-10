@@ -75,7 +75,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character. This also ensures that the step will run immediately at the start of the build:
+To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
 
 ```yml
 steps:
@@ -85,8 +85,6 @@ steps:
     depends_on: ~
 ```
 {: codeblock-file="pipeline.yml"}
-
-> NOTE: For JSON pipeline files, use `null` instead of `~`.
 
 Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build.
 
