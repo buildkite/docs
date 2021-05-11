@@ -97,6 +97,7 @@ readmes
 refspec
 repo
 rvm
+sandboxed
 sed
 sha
 shasum
