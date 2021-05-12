@@ -8,9 +8,9 @@ To complete this integration, you need admin privileges for your GitHub reposito
 
 ## Connecting Buildkite and GitHub
 
-You can now use our [GitHub App](#to-connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
+You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
 
-If you want to [connect using OAuth](#to-connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
+If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
 
 ## Connect your Buildkite account to GitHub using the GitHub App
 
@@ -23,7 +23,7 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 4. Select the GitHub organization you want to connect to your Buildkite organization. 
 5. Choose which repositories Buildkite should have access to, then select _Install_. 
 
-You can now [set up a pipeline](#setting-up-a-new-pipeline-for-a-github-repository).
+You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Connect your Buildkite account to GitHub using OAuth
 
@@ -35,14 +35,14 @@ To connect your GitHub account:
     <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
 4. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page. 
 
-You can now [set up a pipeline](#setting-up-a-new-pipeline-for-a-github-repository).
+You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 ## Set up a new pipeline for a GitHub repository
 
 
-1. Select _Pipelines_ > _New Pipeline_ <span style="border-radius:50%;"><svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
+1. Select _Pipelines_ > _New Pipeline_ <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;border-radius:50%;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
 <rect x="10" y="4" width="2" height="14"></rect>
-</svg></span>
+</svg>
 2. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
@@ -62,30 +62,22 @@ If you need to set up the webhook again, you can find the instructions linked at
 
 ## Branch configuration and settings
 
-You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
+You can edit the GitHub settings for each pipeline from the pipeline’s settings page. Go to _Pipelines_ > _Pipeline Menu_ > _Pipeline Settings_ > _GitHub_.
 
-<%= image "github-settings.png", width: 1700/2, height: 2497/2, alt: "Screenshot of the Buildkite GitHub settings" %>
-
-If you need more control over your Pipeline configuration, add a [Pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your Pipeline.
+If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your pipeline.
 
 ## Running builds on pull requests
 
-To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
-
-- Choose the 'build pull requests' checkbox.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the _Build Pull Requests_ checkbox.
 
 Optionally, select one or more of the following:
 
-- limit pull request builds to certain branches.
-- skip pull request builds for commits that have already been built.
-- build pull requests that are ready for review.
-- build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- _Limit pull request branches_
+- _Skip pull request builds for existing commits_
+- _Rebuild pull requests when they become ready for review_
+- _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
-<%= image "pull-requests.png", width: 1550/2, height: 1006/2, alt: "Screenshot of the Buildkite GitHub settings" %>
-
-If you want to run builds *only* on pull requests, set the Branch Filter Pattern in the pipeline to a branch name that will never occur (e.g. "this-branch-will-never-occur"). Pull request builds ignore the Branch Filter Pattern, and all pushes to other branches that don't match the pattern are ignored.
-
-<%= image "branch-limiting.png", width: 1550/2, height: 694/2, alt: "Screenshot of Branch Filter pattern" %>
+If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
 ## Noreply email handling
 
