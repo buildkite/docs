@@ -171,115 +171,92 @@ make the following POST request, substituting your organization slug instead of 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
-    "name": "My Pipeline",
-    "repository": "git@github.com:acme-inc/my-pipeline.git",
-    "configuration": "steps:\n - command: \"script/release.sh\"\n   name: "Build \:package\:"
-  }'
+      "name": "My Pipeline X",
+      "repository": "git@github.com:acme-inc/my-pipeline.git",
+      "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
+    }'
 ```
 
 The response contains information about your new pipeline:
 
 ```json
 {
-  "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
-  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
-  "web_url": "https://buildkite.com/acme-inc/my-pipeline",
-  "name": "My Pipeline",
+  "id": "ad93b461-96ab-4a1e-9281-260ead506a0e",
+  "graphql_id": "UGlwZWxpbmUtLS1hZDkzYjQ2MS05NmFiLTRhMWUtOTI4MS0yNjBlYWQ1MDZhMGU=",
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x",
+  "web_url": "https://buildkite.com/acme-inc/my-pipeline-x",
+  "name": "My Pipeline X",
   "description": null,
-  "slug": "my-pipeline",
+  "slug": "my-pipeline-x",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
+  "cluster_id": null,
   "branch_configuration": null,
-  "default_branch": "master"
-  "provider": {
-    "id": "github",
-    "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
-    "settings": {
-      "publish_commit_status": true,
-      "build_pull_requests": true,
-      "build_pull_request_forks": false,
-      "build_tags": false,
-      "publish_commit_status_per_step": false,
-      "repository": "acme-inc/my-pipeline",
-      "trigger_mode": "code"
-    }
-  },
+  "default_branch": "master",
   "skip_queued_branch_builds": false,
   "skip_queued_branch_builds_filter": null,
   "cancel_running_branch_builds": false,
   "cancel_running_branch_builds_filter": null,
-  "builtype": "script",
-      "name": "Build \:package\:",
-      "command": "script/release.sh",
-      "artifact_paths": null,
-      "branch_configuration": null,
-      "env": {},
-      "timeout_in_minutes": null,
-      "agent_query_rules": [],
-      "concurrency": null,
-      "parallelism": null
+  "allow_rebuilds": true,
+  "provider": {
+    "id": "github",
+    "settings": {
+      "trigger_mode": "code",
+      "build_pull_requests": true,
+      "pull_request_branch_filter_enabled": false,
+      "skip_builds_for_existing_commits": false,
+      "skip_pull_request_builds_for_existing_commits": true,
+      "build_pull_request_ready_for_review": false,
+      "build_pull_request_labels_changed": false,
+      "build_pull_request_forks": false,
+      "prefix_pull_request_fork_branch_names": true,
+      "build_branches": true,
+      "build_tags": false,
+      "cancel_deleted_branch_builds": false,
+      "publish_commit_status": true,
+      "publish_commit_status_per_step": false,
+      "separate_pull_request_statuses": false,
+      "publish_blocked_as_pending": false,
+      "use_step_key_as_commit_status": false,
+      "filter_enabled": false,
+      "repository": "acme-inc/my-pipeline"
     },
-    {
-      "type": "waiter"
-    },
-    {
-      "type": "script",
-      "name": "Test \:wrench\:",
-      "command": "script/release.sh",
-      "artifact_paths": "log/*",
-      "branch_configuration": null,
-      "env": {},
-      "timeout_in_minutes": null,
-      "agent_query_rules": [
-
-      ],
-      "concurrency": null,
-      "parallelism": null
-    },
-    {
-      "type": "manual",
-      "label": "Deploy"
-    },
-    {
-      "type": "script",
-      "name": "Release \:rocket\:",
-      "command": "script/release.sh",
-      "artifact_paths": null,
-      "branch_configuration": "master",
-      "env": {
-        "AMAZON_S3_BUCKET_NAME": "my-pipeline-releases"
-      },
-      "timeout_in_minutes": 10,
-      "agent_query_rules": [
-        "aws=true"
-      ],
-      "concurrency": null,
-      "parallelism": null
-    },
-    {
-      "type": "trigger",
-      "label": "Deploy \:ship\:",
-      "pipeline": "deploy",
-      "build": {
-        "message": null,
-        "branch": "master",
-        "commit": "HEAD",
-        "env": null
-      },
-      "async": true,
-      "branch_configuration": null,
-      "concurrency": null,
-      "parallelism": null
-    }
-  ],
+    "webhook_url": "https://webhook.buildkite.com/deliver/fe08e0f823297a158fc4ca2bfddd6ea3ced92b5167a658a0bb"
+  },
+  "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x/builds",
+  "badge_url": "https://badge.buildkite.com/05bf6d997d16c993ae6180ed7d85d29c9be8f8d8f37ac96477.svg",
+  "created_by": {
+    "id": "3cc415b8-3d63-4b9a-acb0-c120dbcb231c",
+    "graphql_id": "VXNlci0tLTNjYzQxNWI4LTNkNjMtNGI5YS1hY2IwLWMxMjBkYmNiMjMxYw==",
+    "name": "Sam Wright",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/3536621b97b6d9d39488202709317051",
+    "created_at": "2020-02-14T16:57:23.153Z"
+  },
+  "created_at": "2021-05-06T14:54:21.088Z",
+  "archived_at": null,
   "env": {
+    "FOO": "bar"
   },
   "scheduled_builds_count": 0,
   "running_builds_count": 0,
   "scheduled_jobs_count": 0,
   "running_jobs_count": 0,
   "waiting_jobs_count": 0,
-  "visibility": "private"
+  "visibility": "private",
+  "tags": null,
+  "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\"",
+  "steps": [{
+    "type": "script",
+    "name": "Build :package:",
+    "command": "script/release.sh",
+    "artifact_paths": null,
+    "branch_configuration": null,
+    "env": {},
+    "timeout_in_minutes": null,
+    "agent_query_rules": [],
+    "concurrency": null,
+    "parallelism": null
+  }]
 }
 ```
 
@@ -329,10 +306,6 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>description</code></th>
     <td>The pipeline description. <p class="Docs__api-param-eg"><em>Example:</em> <code>":package: A testing pipeline"</code></p></td>
-  </tr>
-  <tr>
-    <th><code>env</code></th>
-    <td>The pipeline environment variables. <p class="Docs__api-param-eg"><em>Example:</em> <code>{"KEY":"value"}</code></p></td>
   </tr>
   <tr>
     <th><code>provider_settings</code></th>
