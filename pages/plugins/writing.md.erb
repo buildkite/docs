@@ -19,7 +19,7 @@ steps:
 
 ### Create a new git repository
 
-Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. Let's create a new Git repository following these naming conventions:
+Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. This suffix is required: Buildkite automatically adds `-buildkite-plugin` to the plugin name specified in the `pipeline.yml`. Let's create a new Git repository following these naming conventions:
 
 ```shell
 mkdir file-counter-buildkite-plugin
