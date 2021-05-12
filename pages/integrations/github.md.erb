@@ -16,8 +16,8 @@ If you want to [connect using OAuth](#to-connect-your-buildkite-account-to-githu
 
 Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization admins see permissions and manage access on a per-repository basis.
 
-1. Open your Buildkite organization's _Settings_ and choose _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_.
-2. Select _GitHub_.
+1. Open your Buildkite organization's _Settings_.
+2. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
     <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
 3. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
 4. Select the GitHub organization you want to connect to your Buildkite organization. 
@@ -37,23 +37,30 @@ To connect your GitHub account:
 
 You can now [set up a pipeline](#setting-up-a-new-pipeline-for-a-github-repository).
 
-## Setting up a new pipeline for a GitHub repository
+## Set up a new pipeline for a GitHub repository
 
-1. Create a new pipeline on Buildkite, using your GitHub repository URL in the form `git@github.com:your/repo`.
+
+1. Select _Pipelines_ > _New Pipeline_ <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
+<rect x="10" y="4" width="2" height="14"></rect>
+</svg>
+2. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
 
-2. Add at least one step to your pipeline, then click "Next". Change these steps at any time in Pipeline Settings.
-
-3. Follow the instructions on the page to set up a webhook:
+3. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](docs/pipelines/defining_steps#adding-steps) for more information.
+4. Select _Create Pipeline_.
+4. Follow the onscreen instructions to set up a webhook:
 
     1. Add a new webhook in GitHub.
     2. Paste in the provided webhook URL.
     3. Select which events trigger the webhook.
+5. If using the YAML steps editor, add at least one step to your pipeline, then select _Save and Build_. Refer to [Defining Steps - Adding steps](docs/pipelines/defining_steps#adding-steps) for more information.
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
-## Branch configuration and Settings
+ You can edit your pipeline configuration at any time in _Pipeline Settings_.
+
+## Branch configuration and settings
 
 You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
 
@@ -61,9 +68,9 @@ You can edit the GitHub settings for each pipeline from the pipeline’s setting
 
 If you need more control over your Pipeline configuration, add a [Pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your Pipeline.
 
-## Running builds on Pull Requests
+## Running builds on pull requests
 
-To run builds for GitHub Pull Requests, edit the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
 
 - Choose the 'build pull requests' checkbox.
 
