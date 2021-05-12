@@ -1,8 +1,8 @@
 # GitHub
 
-Buildkite can connect to your GitHub repository and use the Commit Status API to update the status of commits in Pull Requests.
+Buildkite can connect to your GitHub repository and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
 
-To complete this integration, you will need admin privileges for your GitHub repository.
+To complete this integration, you need admin privileges for your GitHub repository.
 
 {:toc}
 
@@ -10,18 +10,20 @@ To complete this integration, you will need admin privileges for your GitHub rep
 
 You can now use our [GitHub App](#to-connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
 
-If you want to [connect using OAuth](#to-connect-your-buildkite-account-to-github-using-oauth) you can still do so from your Buildkite Personal Settings.
+If you want to [connect using OAuth](#to-connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
 
-## To connect your Buildkite account to GitHub using the GitHub App
+## Connect your Buildkite account to GitHub using the GitHub App
 
-Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization Admins see permissions and manage access on a per-repository basis.
+Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization admins see permissions and manage access on a per-repository basis.
 
-1. Open your Buildkite organization's Settings and choose [Repository Providers](https://buildkite.com/organizations/~/repository-providers)
-2. Click GitHub and select the GitHub organization you want to connect to your Buildkite organization
+1. Open your Buildkite organization's _Settings_ and choose _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_.
+2. Select _GitHub_.
+    <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
+3. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
+4. Select the GitHub organization you want to connect to your Buildkite organization. 
+5. Choose which repositories Buildkite should have access to, then select _Install_. 
 
-<%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
-
-You'll be prompted to give the GitHub App permission to submit commit statuses to your organization's repositories. After that you can [set up a pipeline](#setting-up-a-new-pipeline-for-a-github-repository).
+You can now [set up a pipeline](#setting-up-a-new-pipeline-for-a-github-repository).
 
 ## To connect your Buildkite account to GitHub using OAuth
 
