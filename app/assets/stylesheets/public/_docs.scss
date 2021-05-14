@@ -215,7 +215,7 @@ $Docs__bp_stacked: 600px;
 .Docs__attribute__table {
   tr {
     .Docs__attribute__link {
-      color: #aaa;
+      color: #ccc;
       opacity: 0;
       transition: all 0.2s;
     }
@@ -223,6 +223,10 @@ $Docs__bp_stacked: 600px;
     &:hover {
       .Docs__attribute__link {
         opacity: 1.0;
+
+        &:hover {
+          color: #aaa;
+        }
       }
     }
   }
