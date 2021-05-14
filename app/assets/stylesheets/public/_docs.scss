@@ -285,6 +285,26 @@ $color-green: rgb(3, 165, 98);
   margin-top: 3rem;
 }
 
+.Docs__attribute__table {
+  tr {
+    .Docs__attribute__link {
+      color: #ccc;
+      opacity: 0;
+      transition: all 0.2s;
+    }
+
+    &:hover {
+      .Docs__attribute__link {
+        opacity: 1.0;
+
+        &:hover {
+          color: #aaa;
+        }
+      }
+    }
+  }
+}
+
 a.Docs__example-repo {
   align-items: top;
   border: 1px solid #ccc;

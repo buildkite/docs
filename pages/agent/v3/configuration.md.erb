@@ -35,11 +35,11 @@ _Required attributes:_
 
 _ Test attributes:_
 
-<table>
+<table class="Docs__attribute__table">
   <tbody>
     <% AGENT_ATTRIBUTES.each do |attr| %>
       <tr id="<%= attr['attribute'] %>">
-        <th><code><%= attr['attribute'] %></code></th>
+        <th><code><%= attr['attribute'] %> <a class="Docs__attribute__link" href="#<%= attr['attribute'] %>">#</a></code></th>
         <td><%= attr['desc'] %></td>
       </tr>
       <% end %>
