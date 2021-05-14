@@ -137,7 +137,7 @@ steps:
     command: |
       buildkite-agent artifact upload "indy.png"
       cat << EOF | buildkite-agent annotate --style "info"
-        <img src="artifact://indy.png" alt="Belongs in a museum" height=250 />
+        <img src="artifact://indy.png" alt="Belongs in a museum" height=250 >
       EOF
 ```
 
