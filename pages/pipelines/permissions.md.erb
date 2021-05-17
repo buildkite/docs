@@ -119,23 +119,23 @@ Organization admin can delete organization members. To delete organization membe
 
 1. Find the ID for the user to be deleted ("Jane Doe"):  
 
-```graphql
-query {
-  organization(slug: "your-organization-slug") {
-    members(search: "Jane Doe", first: 10) {
-      edges {
-        node {
-          role
-          user {
-            name
-          }
-          id
+    ```graphql
+    query {
+    organization(slug: "your-organization-slug") {
+        members(search: "Jane Doe", first: 10) {
+        edges {
+            node {
+            role
+            user {
+                name
+            }
+            id
+            }
         }
-      }
+        }
     }
-  }
-}
-```
+    }
+    ```
 
 2. Use the ID from the previous query in a mutation: 
 
