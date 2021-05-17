@@ -117,7 +117,7 @@ If your organization has teams enabled, the pipeline creation permissions are ma
 
 Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
 
-  1. Find the ID for the user to be deleted ("Jane Doe"):  
+1. Find the ID for the user to be deleted ("Jane Doe"):  
 
 ```graphql
 query {
@@ -137,7 +137,7 @@ query {
 }
 ```
 
-  2. Use the ID ("abc123") in a mutation: 
+2. Use the ID from the previous query in a mutation: 
 
   ```graphql 
   mutation deleteOrgMember {
