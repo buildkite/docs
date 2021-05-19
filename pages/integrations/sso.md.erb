@@ -90,16 +90,15 @@ No, SSO providers are setup using a unique identifier and are unaffected when a 
 ### Can I merge two organizations that use different SSO providers?  
 In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
 
-### Why am I being asked for my password in the "Authorization Required" screen on top of signing in to Buildkite using my organization's SSO? Can this authorization process be simplified?  
-The short answer is no. Signing in to your Buildkite organization requires both authorization and authentication procedures via Buildkite and your SSO provider. The two-factor authentication confirms that you are who you claim to be. Authorization (your password) verifies that you have permission to access and perform various actions in this Buildkite organization.  
+### Why am I being asked for my password in the "Authorization Required" screen when signing in using SSO?  
+In short, signing in to your Buildkite organization requires both authorization and authentication procedures via Buildkite and your SSO provider. The two-factor authentication confirms that you are who you claim to be. Authorization (your password) verifies that you have permission to access and perform various actions in this Buildkite organization.  
 
-The long answer is still no, but with more details.  
-
-SSO is set up per Buildkite organization and allows a user to register or sign in via the organization's preferred identity system (Okta, GSuite, etc.) to add another layer of security. However, it only provides access to that particular organization, which is why both authentication and authorization are necessary to verify your identity and the permission to access that particular Builkite organization.
+SSO is set up per Buildkite organization and allows a user to register or sign in via the organization's preferred identity system (Okta, GSuite, etc.) to add another layer of security. However, it only provides access to that particular organization, which is why both authentication and authorization are necessary to verify your identity and the permission to access that particular Buildkite organization.
  
 Buildkite user accounts are created to be cross-organizational. This means that users can participate in multiple organizations (if they have multiple employers, multiple open-source projects, etc.). SSO via one organization shouldn't provide access to the other organizations that the user belongs to. Asking for the password is Buildkite's way to ensure the user is the correct person who can access this particular organization with particular permissions.
 
-### I'm currently a member of a single Buildkite organization. I want to join another Buildkite organization (for open source work or my own pet project). Should I create a new separate Buildkite user account for that?  
+### I'm already a member of a Buildkite organization. Should I create a new Buildkite user account if I want to work within a different organization (pet project, open source work, etc.)?  
+<!--alex ignore easy-->
 
 Some people choose to have multiple user accounts, one per Buildkite organization. It's fine to do this, but it can be slightly inconvenient as such an approach does not provide easy tools for switching between accounts. You will need to use different browsers or log in and out quite often.  
 
