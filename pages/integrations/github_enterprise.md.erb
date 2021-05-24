@@ -68,7 +68,14 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and 
 
 If your GitHub Enterprise is behind a firewall you’ll need to allow Buildkite’s IP address so we can perform OAuth authentications use GitHub Enterprise API to update your pull request statuses.
 
-All Buildkite network traffic to your GitHub Enterprise Server will come from the following IP address: `54.165.103.71`. Please configure your network to allow traffic from this IP address.
+All Buildkite network traffic to your GitHub Enterprise Server will come from the following IP addresses:
+
+* `100.24.182.113`
+* `35.172.45.249`
+* `54.165.103.71`
+* `54.85.125.32`
+
+This list can be retrieved from the [Meta API](/docs/api/rest-api/meta#get-meta-information). Please configure your network to allow traffic from this IP address.
 
 For additional security you can create a proxy which allows only the API endpoints we require:
 
