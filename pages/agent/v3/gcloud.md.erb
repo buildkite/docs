@@ -22,13 +22,15 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 [Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-pod-containers) and mount the Docker socket as a volume.
 
-Start a Google Kubernetes Engine cluster [through the console](https://console.cloud.google.com/kubernetes/add) using the General-purpose Machine family:
+In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a _Standard_ Google Kubernetes Engine cluster:
 
-<%= image "create-a-k8s-cluster.png", width: 2560/2, height: 1396/2, alt: "Screenshot of creating a Google Kubernetes Engine cluster via the Google Cloud Console" %>
+<%= image "create-a-k8s-cluster.png", width: 863, height: 917, alt: "Screenshot of creating a Google Kubernetes Engine cluster via the Google Cloud Console" %>
 
-Open [Google Cloud Shell](https://cloud.google.com/shell/), or your own console with [gcloud](https://cloud.google.com/sdk/gcloud/) installed and authenticated. You'll need to configure kubectl to talk to your new cluster. The console includes a "Connect" button which shows the exact command to run:
+Open [Google Cloud Shell](https://cloud.google.com/shell/), or your own console with [gcloud](https://cloud.google.com/sdk/gcloud/) installed and authenticated.j
 
-<%= image "connect-to-k8s-cluster.png", width: 2560/2, height: 1398/2, alt: "Screenshot of cluster connection settings in the Google Cloud Console" %>
+Then, after a minute, configure kubectl to talk to your new cluster. The console includes a _Connect_ button which shows the exact command to run:
+
+<%= image "connect-to-k8s-cluster.png", width: 1044, height: 511, alt: "Screenshot of cluster connection settings in the Google Cloud Console" %>
 
 Running it should look like this, with your details in the right places:
 
@@ -43,23 +45,22 @@ Double check it’s running by taking a look at the cluster info:
 
 ```shell
 $ kubectl cluster-info
-Kubernetes master is running at https://123.45.67.89
-GLBCDefaultBackend is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/default-http-backend:http/proxy
-Heapster is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/heapster/proxy
-KubeDNS is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
-Metrics-server is running at https://123.45.67.89/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
+Kubernetes control plane is running at https://34.71.166.83
+GLBCDefaultBackend is running at https://34.71.166.83/api/v1/namespaces/kube-system/services/default-http-backend:http/proxy
+KubeDNS is running at https://34.71.166.83/api/v1/namespaces/kube-system/services/kube-dns:dns/proxy
+Metrics-server is running at https://34.71.166.83/api/v1/namespaces/kube-system/services/https:metrics-server:/proxy
 
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-Create a [secret](https://kubernetes.io/docs/user-guide/secrets/#using-secrets-as-environment-variables) with your agent registration token:
+Create a [secret](https://kubernetes.io/docs/user-guide/secrets/#using-secrets-as-environment-variables) with your [agent registration token](/docs/agent/v3/tokens#main):
 
 ```shell
 $ kubectl create secret generic buildkite-agent --from-literal=token=INSERT-YOUR-AGENT-TOKEN-HERE
 secret "buildkite-agent" created
 ```
 
-Create a [deployment](https://kubernetes.io/docs/user-guide/deployments/#creating-a-deployment) to start an agent:
+Create a [Kubernetes deployment](https://kubernetes.io/docs/user-guide/deployments/#creating-a-deployment) to start an agent:
 
 ```shell
 $ cat | kubectl apply -f -
@@ -110,36 +111,39 @@ spec:
 deployment "buildkite-agent" created
 ```
 
-Verify this started a [pod](https://kubernetes.io/docs/user-guide/pods/) running the agent:
+After waiting another minute, verify that your agent [pod](https://kubernetes.io/docs/user-guide/pods/) is running:
 
 ```shell
 $ kubectl get pods
-NAME                               READY     STATUS    RESTARTS   AGE
-buildkite-agent-3220167863-dtzcf   1/1       Running   0          30s
+NAME                               READY   STATUS    RESTARTS   AGE
+buildkite-agent-67d54b9b88-jnzxg   2/2     Running   0          22s
 ```
 
-And verify that the agent has registered successfully in the logs:
+And that the Buildkite agent has registered successfully:
 
 ```shell
-$ kubectl logs buildkite-agent-3220167863-dtzcf buildkite
+$ kubectl logs buildkite-agent-67d54b9b88-jnzxg buildkite
 
-  _           _ _     _ _    _ _                                _
- | |         (_) |   | | |  (_) |                              | |
- | |__  _   _ _| | __| | | ___| |_ ___    __ _  __ _  ___ _ __ | |_
- | '_ \| | | | | |/ _` | |/ / | __/ _ \  / _` |/ _` |/ _ \ '_ \| __|
- | |_) | |_| | | | (_| |   <| | ||  __/ | (_| | (_| |  __/ | | | |_
- |_.__/ \__,_|_|_|\__,_|_|\_\_|\__\___|  \__,_|\__, |\___|_| |_|\__|
-                                                __/ |
- http://buildkite.com/agent                    |___/
-2017-02-16 03:34:10 NOTICE Starting buildkite-agent v3.0.0 with PID: 5
-2017-02-16 03:34:10 NOTICE The agent source code can be found here: https://github.com/buildkite/agent
-2017-02-16 03:34:10 NOTICE For questions and support, email us at: hello@buildkite.com
-2017-02-16 03:34:10 INFO   Registering agent with Buildkite...
-2017-02-16 03:34:11 INFO   Successfully registered agent "buildkite-agent-3220167863-1cvr5" with meta-data []
-2017-02-16 03:34:11 INFO   Connecting to Buildkite...
-2017-02-16 03:34:11 INFO   Agent successfully connected
-2017-02-16 03:34:11 INFO   You can press Ctrl-C to stop the agent
-2017-02-16 03:34:11 INFO   Waiting for work...
+   _           _ _     _ _    _ _                                _
+  | |         (_) |   | | |  (_) |                              | |
+  | |__  _   _ _| | __| | | ___| |_ ___    __ _  __ _  ___ _ __ | |_
+  | '_ \| | | | | |/ _` | |/ / | __/ _ \  / _` |/ _` |/ _ \ '_ \| __|
+  | |_) | |_| | | | (_| |   <| | ||  __/ | (_| | (_| |  __/ | | | |_
+  |_.__/ \__,_|_|_|\__,_|_|\_\_|\__\___|  \__,_|\__, |\___|_| |_|\__|
+                                                 __/ |
+ https://buildkite.com/agent                    |___/
+
+2021-05-26 12:55:27 NOTICE Starting buildkite-agent v3.29.0 with PID: 7
+2021-05-26 12:55:27 NOTICE The agent source code can be found here: https://github.com/buildkite/agent
+2021-05-26 12:55:27 NOTICE For questions and support, email us at: hello@buildkite.com
+2021-05-26 12:55:27 INFO   Configuration loaded path=/buildkite/buildkite-agent.cfg
+2021-05-26 12:55:27 INFO   Registering agent with Buildkite...
+2021-05-26 12:55:27 WARN   Failed to find unique machine-id: machineid: machineid: open /etc/machine-id: no such file or directory
+2021-05-26 12:55:27 INFO   Successfully registered agent "buildkite-agent-67d54b9b88-jnzxg-1" with tags []
+2021-05-26 12:55:27 INFO   Starting 1 Agent(s)
+2021-05-26 12:55:27 INFO   You can press Ctrl-C to stop the agents
+2021-05-26 12:55:27 INFO   buildkite-agent-67d54b9b88-jnzxg-1 Connecting to Buildkite...
+2021-05-26 12:55:27 INFO   buildkite-agent-67d54b9b88-jnzxg-1 Waiting for work...
 ```
 
 You’re successfully running a Buildkite Agent!
@@ -151,14 +155,18 @@ To run more than one agent you can increase `replicas`:
 ```shell
 $ kubectl scale --replicas=5 deployment buildkite-agent
 deployment "buildkite-agent" scaled
+```
 
+Confirm after a few seconds:
+
+```shell
 $ kubectl get pods
-NAME                               READY     STATUS    RESTARTS   AGE
-buildkite-agent-3220167863-0m269   1/1       Running   0          24s
-buildkite-agent-3220167863-0mtps   1/1       Running   0          24s
-buildkite-agent-3220167863-1cvr5   1/1       Running   0          3m
-buildkite-agent-3220167863-9psz9   1/1       Running   0          24s
-buildkite-agent-3220167863-m3nm2   1/1       Running   0          24s
+NAME                               READY   STATUS    RESTARTS   AGE
+buildkite-agent-67d54b9b88-6pl9k   2/2     Running   0          69s
+buildkite-agent-67d54b9b88-7gzcr   2/2     Running   0          69s
+buildkite-agent-67d54b9b88-cqdt6   2/2     Running   0          69s
+buildkite-agent-67d54b9b88-jnzxg   2/2     Running   0          8m23s
+buildkite-agent-67d54b9b88-qwfc5   2/2     Running   0          69s
 ```
 
 ### Authenticating to private repositories
