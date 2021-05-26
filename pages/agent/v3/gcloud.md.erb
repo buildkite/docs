@@ -76,8 +76,6 @@ spec:
     metadata:
       labels:
         app: buildkite-agent
-      annotations:
-        "cluster-autoscaler.kubernetes.io/safe-to-evict": "true"
     spec:
       containers:
         - name: buildkite
@@ -189,15 +187,15 @@ spec:
   containers:
   - ...
     volumeMounts:
-    - name: buildkite-agent-ssh
+    - name: ssh-keys
       mountPath: /root/.ssh/id_rsa
       subPath: id_rsa
-    - name: buildkite-agent-ssh
+    - name: ssh-keys
       mountPath: /root/.ssh/id_rsa.pub
       subPath: id_rsa.pub
     ...
   volumes:
-  - name: buildkite-agent-ssh
+  - name: ssh-keys
     secret:
       secretName: buildkite-agent-ssh
       defaultMode: 0400
