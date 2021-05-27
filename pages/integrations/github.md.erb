@@ -82,3 +82,7 @@ If you want to run builds only on pull requests, set the _Branch Filter Pattern_
 ## Noreply email handling
 
 When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
+
+## Using one repository in multiple pipelines and organizations
+
+If you want to use the same repository in multiple pipelines (including pipelines in different Buildkite organizations), you need to configure a separate webhook for each pipeline. Follow the _GitHub Webhook Setup_ instructions in the Buildkite UI. Buildkite shows you these instructions when you create the pipeline, but you can also find them in _Pipeline Settings_ > _GitHub_ > _GitHub Setup Instructions_.
