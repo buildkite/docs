@@ -60,11 +60,7 @@ If you need to set up the webhook again, you can find the instructions linked at
 
  You can edit your pipeline configuration at any time in _Pipeline Settings_.
 
-## Branch configuration and settings
-
-You can edit the GitHub settings for each pipeline from the pipeline’s settings page. Go to _Pipelines_ > _Pipeline Menu_ > _Pipeline Settings_ > _GitHub_.
-
-If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your pipeline.
+<%= render_markdown 'integrations/branch-config-settings' %>
 
 ## Running builds on pull requests
 
@@ -82,5 +78,7 @@ If you want to run builds only on pull requests, set the _Branch Filter Pattern_
 ## Noreply email handling
 
 When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
+
+
 
 <%= render_markdown 'integrations/one-repo-multi-org' %>

@@ -25,12 +25,6 @@ If you host your repositories on [gitlab.com](https://gitlab.com/) enter your gi
 6. Select _Save GitLab Settings_ before leaving this page.
 7. Create a new pipeline on Buildkite using your GitLab repository's URL (for example, `git@git.mycompany.com:your/repo.git`) and follow the instructions on the pipeline creation page.
 
-## Branch configuration and settings
+<%= render_markdown 'integrations/branch-config-settings' %>
 
-You can edit the GitLab settings for each pipeline from the pipeline’s settings page. Go to _Pipelines_ > _Pipeline Menu_ > _Pipeline Settings_ > _GitLab_ | _GitLab Enterprise_.
-
-If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your pipeline.
-
-## Using one repository in multiple pipelines and organizations
-
-If you want to use the same repository in multiple pipelines (including pipelines in different Buildkite organizations), you need to configure a separate webhook for each pipeline. Follow the _GitLab Webhook Setup_ instructions in the Buildkite UI. Buildkite shows you these instructions when you create the pipeline, but you can also find them in _Pipeline Settings_ > _GitLab_ > _GitLab Setup Instructions_.
+<%= render_markdown 'integrations/one-repo-multi-org' %>
