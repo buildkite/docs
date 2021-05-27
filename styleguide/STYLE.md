@@ -25,7 +25,8 @@ Keep it clean and uncluttered. If the sentence can live without that comma - lea
 Absolutely yes, yes, and yes.
 
 ### Active/passive voice
-Generally, use passive voice. It gives a bit more distance from what we're talking about, even if it is a bit longer. There are certainly times for active voice, but it's too nuanced for this guide! [Look here](https://www.aje.com/en/arc/writing-with-active-or-passive-voice/) for some guidance.
+
+Generally, use active voice. It's usually clearer and simpler.
 
 ### Gender
 Always use ‘they’, never use ‘he’ or ‘she’.
@@ -158,6 +159,9 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
+## Working with the docs site
+
+Our docs website is a custom build. This section gives some guidance on working with the setup.
 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
@@ -177,6 +181,16 @@ This is some text that you do NOT want the linter to check
 <!-- vale on -->
 ```
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
+
+### Links
+
+Use standard markdown links for both internal and external links.
+
+Internal links need to start with `/docs`, for example:
+
+```
+Read more about [environment variables](/docs/pipelines/environment-variables)
+```
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
