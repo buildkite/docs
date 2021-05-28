@@ -19,4 +19,4 @@ allow:
   - executes
   - executed
   - invalid
-pronfanitySureness: 2
+profanitySureness: 2

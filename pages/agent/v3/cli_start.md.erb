@@ -30,6 +30,26 @@ or with the `BUILDKITE_AGENT_TAGS` an environment variable:
 env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 ```
 
+## Run a single job
+
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
+
+### Getting the value
+
+`value` is the job ID. There are several ways to find it:
+
+* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+* Through the [GraphQL API](/docs/apis/graphql_api).
+* The `BUILDKITE_JOB_ID` build environment variable.
+* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+* Using the GUI: select a job, and the job ID is the final value in the URL.
+
+### When to use
+
+Normally, you don't set up an agent to run a specific job. Instead, you'll have a pool of agents running, waiting for Buildkite to send jobs to them.
+
+`--acquire-job` is useful if you want to create your own scheduler to run a specific job.
+
 ## Agent Targeting
 
 Once you've started agents with tags you can target them in the build pipeline using agent query rules.
