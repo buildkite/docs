@@ -2,7 +2,7 @@
 
 The source files for the [Buildkite Documentation](https://buildkite.com/docs).
 
-To contribute simply send a pull request! :heart:
+To contribute, send a pull request! :heart:
 
 ## Development
 
