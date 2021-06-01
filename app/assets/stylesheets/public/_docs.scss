@@ -20,23 +20,16 @@ $color-green: rgb(3, 165, 98);
   flex: 2;
   padding-right: 20px;
   margin-top: .8em;
-  @media (max-width: $Docs__bp_stacked) { margin-left: -20px; margin-right: -20px; margin-bottom: 40px; padding-right: 0; }
+  @media (max-width: $Docs__bp_stacked) {
+    margin: 0 -20px 40px -20px;
+    padding-right: 0;
+  }
   position: relative;
 }
 
 .Docs__nav__sections {
   @media (max-width: $Docs__bp_stacked) {
-    margin-top: 40px;
-    &::before {
-      content: "Menu";
-      display: block;
-      color: #767676;
-      text-transform: uppercase;
-      font-size: 11px;
-      font-weight: 600;
-      margin-left: 20px;
-      margin-bottom: 15px;
-    }
+    margin-top: 30px;
   }
 }
 
@@ -44,15 +37,21 @@ $color-green: rgb(3, 165, 98);
   margin-bottom: 20px;
   width: 100%;
 
+  &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
+    opacity: 1;
+  }
+
   .Docs__nav__section-heading { 
     cursor: pointer;
     position: relative;
     user-select: none;
 
-    &:hover {
-      transition: all 0.1s;
-      color: $color-green;
-      &::after {opacity: 1.0;}
+    @media (hover: hover) {
+      &:hover {
+        transition: transform 0.1s;
+        color: $color-green;
+        &::after { opacity: 1; }
+      }
     }
 
     &::after {
@@ -62,12 +61,12 @@ $color-green: rgb(3, 165, 98);
       height: 8px;
       border-right: 1px solid #aaa;
       border-bottom: 1px solid #aaa;
-      right: 20px;
+      right: 25px;
       top: 4px;
       position: absolute;
       transform: rotate(45deg);
       transform-origin: 75% 75%;
-      transition: all 0.2s;
+      transition: transform 0.2s;
       opacity: 0;
     }
   }
@@ -197,6 +196,7 @@ $color-green: rgb(3, 165, 98);
   transition: background-color 300ms;
 
   @media (max-width: $Docs__bp_stacked) {
+    margin-top: 10px;
     margin-left: 20px;
   }
 
