@@ -1,6 +1,6 @@
 $SiteHeaderLogoHeight: 36px;
 $SiteHeader__bp_small_screen_nav: 850px;
-$SiteHeader__bp_wrap_search: 550px;
+$SiteHeader__bp_wrap_search: 400px;
 
 .SiteHeader {
   position: absolute;
@@ -55,11 +55,10 @@ $SiteHeader__bp_wrap_search: 550px;
   line-height: $SiteHeaderLogoHeight;
   display: inline-block;
   margin-right: 1em;
+  margin-bottom: 1em;
 }
 
 .SiteHeader__search {
-  flex: 0 0 300px;
-  align-self: flex-end;
   @media (max-width: $SiteHeader__bp_wrap_search) {
     flex: 1 1 300px;
   }
