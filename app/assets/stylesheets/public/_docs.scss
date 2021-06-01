@@ -3,11 +3,13 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
   padding-top: 20px;
+  @media (max-width: $Docs__bp_stacked) { padding: 0; }
 }
 
 .Docs__page-container__inner {
   display: flex;
-  @media (max-width: $Docs__bp_stacked) { display: block; }
+  margin-top: 75px;
+  @media (max-width: $Docs__bp_stacked) { display: block; margin-top: 0; }
 }
 
 .Docs__header {
@@ -20,6 +22,22 @@ $color-green: rgb(3, 165, 98);
   margin-top: .8em;
   @media (max-width: $Docs__bp_stacked) { margin-left: -20px; margin-right: -20px; margin-bottom: 40px; padding-right: 0; }
   position: relative;
+}
+
+.Docs__nav__sections {
+  @media (max-width: $Docs__bp_stacked) {
+    margin-top: 40px;
+    &::before {
+      content: "Menu";
+      display: block;
+      color: #767676;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 20px;
+      margin-bottom: 15px;
+    }
+  }
 }
 
 .Docs__nav__section-container {
@@ -36,6 +54,7 @@ $color-green: rgb(3, 165, 98);
       color: $color-green;
       &::after {opacity: 1.0;}
     }
+
     &::after {
       content: '';
       display: block;
@@ -43,7 +62,7 @@ $color-green: rgb(3, 165, 98);
       height: 8px;
       border-right: 1px solid #aaa;
       border-bottom: 1px solid #aaa;
-      right: 0;
+      right: 20px;
       top: 4px;
       position: absolute;
       transform: rotate(45deg);
@@ -75,11 +94,7 @@ $color-green: rgb(3, 165, 98);
   color: black;
 
   @media (max-width: $Docs__bp_stacked) {
-    font-size: 1.4rem;
-    margin: 0;
     padding-left: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
   }
 
   &:first-of-type { margin-top: 0; }
