@@ -97,6 +97,9 @@ When a step is run by an agent, it will be run with a clean checkout of the pipe
 
 When you run a pipeline, a build is created. The following diagram shows you how builds progress from start to end.
 
+<%= image "build-states.svg", size: "900x615", alt: "Build state diagram" %>
+
+
 <%= render_markdown 'pipelines/build_states' %>
 
 ## Job states
@@ -118,8 +121,14 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 `broken`                   |
 {: class="no-formatting"}
 
+Differentiating between `broken`, `skipped` and `canceled` states:
+
+- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+
 <section class="Docs__note">
-  <p>The REST API does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
+  <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
 </section>
 
 <%= render_markdown 'pipelines/job_states' %>
