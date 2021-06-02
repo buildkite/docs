@@ -36,10 +36,10 @@ _Test attributes:_
 
 <table class="Docs__attribute__table">
   <tbody>
-    <% AGENT_ATTRIBUTES.each do |attr| %>
+    <% AGENT_ATTRIBUTES['attributes'].each do |attr| %>
       <% if !attr['required'] %>
-      <tr id="<%= attr['attribute'] %>">
-        <th><code><%= attr['attribute'] %> <a class="Docs__attribute__link" href="#<%= attr['attribute'] %>">#</a></code></th>
+      <tr id="<%= attr['name'] %>">
+        <th><code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code></th>
         <td><%= attr['desc'] %></td>
         <td><code><%= attr['env_var'] %></code></td>
       </tr>
