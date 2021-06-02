@@ -1,0 +1,19 @@
+---
+attributes:
+  -
+    name:
+      type: string
+      required: true
+    env_var:
+      type: string
+      required: true
+    default_value:
+      type: string
+      required: true
+    required:
+      type: boolean
+      required: true
+    desc:
+      type: string
+      required: true
+

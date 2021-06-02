@@ -1,11 +1,26 @@
 ---
-- attribute: bootstrap-script
+attributes:
+- name: token
+  env_var: BUILDKITE_AGENT_TOKEN
+  default_value: None
+  required: true
+  desc: |
+      The agent registration token from your organization’s Agents page, used only to register new agents. To get your token, log in to Buildkite, navigate to Agents, then select Reveal Agent Token.
+- name: bootstrap-script
+  env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
+  default_value: "buildkite-agent bootstrap"
+  required: false
   desc: |
       <p>Command to invoke the bootstrap process.</p>
-      <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
-      <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
-- attribute: build-path
+- name: build-path
+  env_var: BUILDKITE_BUILD_PATH
+  default_value: "b(depends on platform)"
+  required: false
   desc: |
       <p>Path to where the builds will run from.</p>
-      <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
-      <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
+- name: test
+  env_var: BUILDKITE_BUILD_PATH
+  default_value: "b(depends on platform)"
+  required: false
+  desc: | 
+      Some cools **markdown** text.

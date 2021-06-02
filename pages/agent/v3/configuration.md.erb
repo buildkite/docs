@@ -32,16 +32,19 @@ _Required attributes:_
   </tbody>
 </table>
 
-_ Test attributes:_
+_Test attributes:_
 
 <table class="Docs__attribute__table">
   <tbody>
     <% AGENT_ATTRIBUTES.each do |attr| %>
+      <% if !attr['required'] %>
       <tr id="<%= attr['attribute'] %>">
         <th><code><%= attr['attribute'] %> <a class="Docs__attribute__link" href="#<%= attr['attribute'] %>">#</a></code></th>
         <td><%= attr['desc'] %></td>
+        <td><code><%= attr['env_var'] %></code></td>
       </tr>
       <% end %>
+    <% end %>
   </tbody>
 </table>
 
