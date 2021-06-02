@@ -93,6 +93,46 @@ If your pipeline has more than one step and you have multiple agents available t
 
 When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.
 
+## Build states
+
+When you run a pipeline, a build is created. The following diagram shows you how builds progress from start to end.
+
+<%= image "build-states.svg", size: "900x615", alt: "Build state diagram" %>
+
+
+<%= render_markdown 'pipelines/build_states' %>
+
+## Job states
+
+When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
+
+<%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
+
+As well as the states shown in the diagram, the following progressions can occur:
+
+can progress to `skipped`  | can progress to `canceling` or `canceled`
+-------------------------- | -----------------------------------------
+`pending`                  | `accepted`
+`waiting`                  | `pending`
+`blocked`                  | `limiting`
+`limiting`                 | `limited`
+`limited`                  | `blocked`
+`accepted`                 | `unblocked`
+`broken`                   |
+{: class="no-formatting"}
+
+Differentiating between `broken`, `skipped` and `canceled` states:
+
+- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+
+<section class="Docs__note">
+  <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
+</section>
+
+<%= render_markdown 'pipelines/job_states' %>
+
 ## Example pipeline
 
 Here’s a more complete example based on [the Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:

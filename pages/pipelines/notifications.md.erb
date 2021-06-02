@@ -241,5 +241,12 @@ notify:
 
 ## Build States
 
-Build state can be one of `scheduled`, `running`, `passed`, `failed`, `blocked`, `canceling`, `canceled`, `skipped`, `not_run`, and `finished`.
-`finished` is a shortcut for a build of `passed`, `failed`, `blocked`, and `canceled` state.
+<%= render_markdown 'pipelines/build_states' %>
+
+See the full [build states diagram](/docs/pipelines/defining-steps#build-states) for more information on how builds transition between states.
+
+## Job states
+
+<%= render_markdown 'pipelines/job_states' %>
+
+See the full [job states diagram](/docs/pipelines/defining-steps#job-states) for more information on how jobs transition between states.

@@ -774,7 +774,27 @@ Error responses:
 
 The [Create a YAML pipeline](#create-a-yaml-pipeline) and [Update Pipeline](#update-a-pipeline) endpoints accept a `provider_settings` property, which allows you to configure how the pipeline is triggered based on source code provider events. Each pipeline provider’s supported settings are below.
 
-Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`. Other source providers such as GitLab do not have optional settings available.
+Properties available for all providers:
+
+<table>
+<tbody>
+  <tr>
+    <th><code>filter_enabled</code></th>
+    <td>
+      Whether filter conditions are used for this pipeline.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
+    <th><code>filter_condition</code></th>
+    <td>
+      The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/conditionals">Using Conditionals</a> guide for more information.
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /master/"</code></p>
+    </td>
+  </tr>    
+</tbody>
+</table>
+
+Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have optional `provider_settings`.
 
 Properties available for Bitbucket Server:
 
@@ -855,20 +875,7 @@ Additional properties available for GitHub:
       <td>
         What type of event to trigger builds on. <code>Code</code> will create builds when code is pushed to GitHub. <code>Deployment</code> will create builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>. <code>Fork</code> will create builds when the GitHub repository is forked. <code>None</code> will not create any builds based on GitHub activity.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
-    </tr>
-    <tr>
-      <th><code>filter_enabled</code></th>
-      <td>
-        Whether filter conditions are being used for this step.
-        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
-    </tr>
-    <tr>
-      <th><code>filter_condition</code></th>
-      <td>
-        The conditions under which this step will run. See the <a href="/docs/pipelines/conditionals">Using Conditionals</a> guide for more information.
-        <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.message != 'skip'"</code></p>
-      </td>
-    </tr>        
+    </tr>    
     <tr>
       <th><code>build_pull_request_forks</code></th>
       <td>
