@@ -79,3 +79,40 @@ If you want to run builds *only* on pull requests, set the Branch Filter Pattern
 ## Noreply email handling
 
 When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
+
+## Customizing commit statuses
+
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests. Normally, Buildkite autogenerates these statuses. 
+
+For example: if you select _Update commit statuses_ in your _Pipeline Settings_, your checks will appear on your pull request as _buildkite/<pipeline-name>/pr_.
+
+<%= image "update-commit-statuses-on-to-github.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
+Sometimes, you may wish to customize these statuses. This can be especially useful if you reuse the same pipeline for multiple components in a monorepo.
+
+You can do this at both the build and step level, using the [`notify`](/docs/pipelines/notifications) attribute in your `pipeline.yml`.
+
+### Build level
+
+1. Add the following to your `pipeline.yml`, not nested under any other parameters:
+
+    ```yaml
+    notify:
+    - github_commit_status:
+        context: "my-custom-status"
+    ```
+<%= render_markdown 'integrations/_step_2_3_github_custom_status' %>
+
+### Step level
+
+1. Add `notify` to a command in your `pipeline.yml`:
+
+    ```yaml
+    steps:
+    - label: "Example Script"
+        command: "script.sh"
+        notify:
+        - github_commit_status:
+            context: "my-custom-status"
+    ```
+<%= render_markdown 'integrations/_step_2_3_github_custom_status' %>
