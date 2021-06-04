@@ -138,6 +138,7 @@ After creating this file, systemd will require a reload and the `buildkite-agent
  
 Suppose your Buildkite agent is being deployed into a sensitive environment. In that case, there are a few default settings that you'd want to adjust to specifically safeguard the rest of your Buildkite Organization's infrastructure in case of the agent's compromise (for example, if the agent API gets compromised).
 To keep your Buildkite Organization's infrastructure safe in case of Buildkite agent's compromisation:  
+
 * Disallow execution of arbitrary commands by [customizing the list of allowed plugins](https://buildkite.com/docs/agent/v3/securing#allowing-a-list-of-plugins) or outright [disable plugins](https://buildkite.com/docs/agent/v3/securing#disabling-plugins)  
 * [Disable command-eval](docs/agent/v3/securing#disabling-command-eval)  
 * [Disable local hooks](https://buildkite.com/docs/agent/v3/securing#disabling-local-hooks)  
