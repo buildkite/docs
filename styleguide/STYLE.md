@@ -192,6 +192,20 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
+### Content reuse
+
+Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+
+Thus
+
+`/integrations/_step_2_3_github_custom_status.md.erb`
+
+Becomes
+
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
+
+
+
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
 
