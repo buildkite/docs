@@ -25,7 +25,7 @@ Once you’ve followed the link you can add a new webhook:
 
 <%= image "bitbucket-webhook-add.png", width: 1396/2, height: 528/2, alt: "Screenshot of a Bitbucket webhook settings" %>
 
-After filling out the webhook details using the instructions from your Buildkite pipeline settings, select _Save_, and you’re ready to push a build.
+After filling out the webhook details using the instructions from your Buildkite pipeline settings, select _Save_, and you’re ready to trigger a build.
 
 ## Enable commit status updates
 
@@ -41,19 +41,10 @@ To connect your Bitbucket account:
 
 Buildkite prompts you to give permission for Buildkite to post status updates, then redirects back to your _Connected Apps_ page.
 
-## Branch configuration and settings
-
-You can edit the Bitbucket settings for each pipeline from the pipeline’s settings page. Go to _Pipelines_ > _Pipeline Menu_ > _Pipeline Settings_ > _Bitbucket_.
-
-If you need more control over your pipeline configuration, add a [pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your pipeline.
-
-
+<%= render_markdown 'integrations/branch_config_settings' %>
 
 ## Mercurial support
 
 Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use Buildkite with a Bitbucket Mercurial repository, you need to add your own Mercurial checkout code using a custom [Buildkite Agent global checkout hook](/docs/agent/v3/hooks).
-
-
-<%= render_markdown 'integrations/branch_config_settings' %>
 
 <%= render_markdown 'integrations/one_repo_multi_org' %>
