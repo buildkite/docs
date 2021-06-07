@@ -84,9 +84,14 @@ When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-gi
 
 The commit status is the label used to identify the Buildkite checks on your commits and pull requests. Normally, Buildkite autogenerates these statuses. 
 
-For example: if you select _Update commit statuses_ in your _Pipeline Settings_, your checks will appear on your pull request as _buildkite/`<pipeline-name>`_.
+For example, if you select _Update commit statuses_ in your _Pipeline Settings_:
 
-<%= image "update-commit-statuses-on-to-github.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+<%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
+
+Your checks will appear on your pull request as _buildkite/`<pipeline-name>`_:
+
+<%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
+
 
 Sometimes, you may wish to customize these statuses. This can be especially useful if you reuse the same pipeline for multiple components in a monorepo.
 
@@ -94,14 +99,15 @@ You can do this at both the build and step level, using the [`notify`](/docs/pip
 
 ### Build level
 
-1. Add the following to your `pipeline.yml`, not nested under any other parameters:
+1. Add the following to your `pipeline.yml`, at the top level:
 
     ```yaml
     notify:
-    - github_commit_status:
-        context: "my-custom-status"
+        - github_commit_status:
+            context: "my-custom-status"
     ```
-<%= render_markdown 'integrations/step_2_3_github_custom_status' %>
+2. In _Pipeline Settings_ > _GitHub_, make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
 ### Step level
@@ -113,8 +119,9 @@ You can do this at both the build and step level, using the [`notify`](/docs/pip
     - label: "Example Script"
         command: "script.sh"
         notify:
-        - github_commit_status:
-            context: "my-custom-status"
+          - github_commit_status:
+              context: "my-custom-status"
     ```
-<%= render_markdown 'integrations/step_2_3_github_custom_status' %>
+2. In _Pipeline Settings_ > _GitHub_, make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
