@@ -51,5 +51,5 @@ done
 for command in "${commands_to_demote[@]}" ; do
   file="${base_dir}/pages/agent/v3/help/_${command//[- ]/_}.md"
   echo "Demoting H2 to H3 in $command"
-  sed -i '' -e 's/^##/###/' "$file"
+  sed -i'.bak' -e 's/^##/###/' "$file"
 done
