@@ -60,3 +60,9 @@ steps:
     plugins:
       - docker#v3.7.0:
           image: "node:lts-alpine3.14"
+
+  - label: "Validate YAML"
+    command: npm run validate-yaml
+    plugins:
+      - docker#v3.7.0:
+          image: "node:lts-alpine3.14"
