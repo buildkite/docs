@@ -45,6 +45,7 @@ fff
 ffxdq
 Firewalled
 Flexbox
+Fugit
 gcloud
 gif
 GitHub
