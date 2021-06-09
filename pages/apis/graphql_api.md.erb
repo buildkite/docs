@@ -1,6 +1,6 @@
 # GraphQL API Overview
 
-The Buildkite GraphQL API provides an alternative to the [REST API](/docs/rest-api). It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request. The Buildkite GraphQL API is currently in beta.
+The Buildkite GraphQL API provides an alternative to the [REST API](/docs/apis/rest-api). It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request. The Buildkite GraphQL API is currently in beta.
 
 {:toc}
 
@@ -10,7 +10,12 @@ The quickest way to get started with the GraphQL API is to generate an <a href="
 
 <a href="https://graphql.buildkite.com/explorer"><%= image "explorer.png", width: 1065, height: 489, alt: "Screenshot of the Buildkite GraphQL Explorer" %></a>
 
-See our [Getting Started Tutorial](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) for a step-by-step guide to using GraphQL queries and mutations.
+See our [Getting Started Tutorial](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) for a step-by-step guide to using GraphQL queries and mutations.  
+
+<section class="Docs__note">
+  <h3>Note for contributors to public and open-source projects</h3>
+  <p>You need to be a member of the Buildkite organisation to be able to generate and use an API token for it.</p>
+</section>  
 
 ## Endpoint
 
@@ -107,7 +112,7 @@ query {
 
 ## Relay compatibility
 
-The Buildkite GraphQL API adheres to the [Relay Specification](https://relay.dev/docs/en/graphql-server-specification.html), which defines standards for querying [paginated collections](https://relay.dev/docs/en/graphql-server-specification.html#connections) ("Connections" and "Edges"), [identifying objects](https://relay.dev/docs/en/graphql-server-specification.html#object-identification) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://relay.dev/docs/en/graphql-server-specification.html#mutations).
+The Buildkite GraphQL API adheres to the [Relay Specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
 
 ## Learning more about GraphQL
 
@@ -115,4 +120,3 @@ Further resources for learning more about GraphQL:
 
 * Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
 * [graphql.org/learn](https://graphql.org/learn/) — The Learn section of the official GraphQL website
-

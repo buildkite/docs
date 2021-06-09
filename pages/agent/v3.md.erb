@@ -50,6 +50,83 @@ To start an agent you’ll need your organization’s agent token from the Agent
 
 The agent has a standard configuration file format on all systems to set meta-data, priority, etc. See the [configuration documentation](/docs/agent/v3/configuration) for more details.
 
+## Experimental features
+
+We frequently introduce new experimental features to the agent. Use the `--experiment` [flag](/docs/agent/v3/configuration#experiment) to opt-in to them and test them out:
+
+```
+buildkite-agent start --experiment experiment1 --experiment experiment2
+```
+
+Or you can set them in your agent [configuration file](/docs/agent/v3/configuration):
+
+```
+experiment="experiment1,experiment2"
+```
+
+If an experiment doesn't exist, no error will be raised.
+
+<div class="Docs__troubleshooting-note">
+Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!
+</div>
+
+### Redacted variables
+
+The Buildkite agent can redact strings that match the value of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+</div>
+
+See [redacted-vars](/docs/pipelines/managing-log-output#redacted-environment-variables) for more information.
+
+### Git mirrors
+
+Maintain a single bare git mirror for each repository on a host that is shared amongst multiple agents and pipelines. Checkouts reference the git mirror using `git clone --reference`, as do submodules.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+</div>
+
+See the following agent configuration options for more information:
+
+  - [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
+  - [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
+  - [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
+
+### ANSI timestamps
+
+Outputs inline ANSI timestamps for each line of log output which enables toggle-able timestamps in the Buildkite UI.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>To use it, set <code>experiment="ansi-timestamps"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+</div>
+
+### Normalised upload paths
+
+Artifacts uploaded by `buildkite-agent artifact upload` will be uploaded using URI/Unix-style paths, even on Windows. This makes sure that artifacts uploaded from Windows agents are stored in a URI-compatible URL.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+</div>
+
+Artifact names displayed in Buildkite's web UI, as well as in the API, are changed by this.
+
+For example, when using this experimental feature `buildkite-agent artifact upload coverage\report.xml` uploads to `s3://example/coverage/report.xml` instead of to `s3://example/coverage\report.xml`.
+
+### Resolve commit after checkout
+
+After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This makes `BUILDKITE_COMMIT` useful for builds triggered against non-commit-hash refs such as `HEAD`.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+</div>
+
 ## Customising with Hooks
 
 The agent’s behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline’s code repository. Hooks can be used to set up [secrets](/docs/pipelines/secrets) as well as overriding default behavior. See the [hooks](/docs/agent/v3/hooks) documentation for full details.
@@ -93,7 +170,7 @@ The agent reports its activity to Buildkite using exit codes. The most common ex
 </table>
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Jobs terminated by signals</p>
+<h3 class="Docs__note__heading">Jobs terminated by signals</h3>
 <p>When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.</p>
 </div>
 

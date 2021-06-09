@@ -103,7 +103,7 @@ buildkite-agent artifact upload test.log
 
 Keep in mind while you’re writing your path pattern:
 
-- patterns must match whole path strings, not just substrings
+- patterns must match whole path strings, not only substrings
 - there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
   + `*` to match a sequence of characters
   + `?` to match a single character
@@ -193,7 +193,7 @@ buildkite-agent artifact download "*.png" images/
 
 Artifact downloads support pattern-matching using the `*` character.
 
-Unlike artifact upload glob patterns, these operate over the entire path and not just between separator characters. For example, a download path pattern of `log/*` matches all files under the log directory and all subdirectories.
+Unlike artifact upload glob patterns, these operate over the entire path and not only between separator characters. For example, a download path pattern of `log/*` matches all files under the log directory and all subdirectories.
 
 There is no need to escape characters such as `?`, `[` and `]`.
 

@@ -12,9 +12,9 @@ You can use this command in your build scripts to store artifacts in the Buildki
 
 You can also configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
-```
-<%= render 'agent/v3/help/artifact_upload.txt' %>
-```
+
+<%= render 'agent/v3/help/artifact_upload' %>
+
 
 ### Artifact upload examples
 
@@ -67,6 +67,8 @@ buildkite-agent artifact upload test.log
 
 Keep in mind while you’re writing your path pattern:
 
+<!--alex ignore just-->
+
 - patterns must match whole path strings, not just substrings
 - there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
   + `*` to match a sequence of characters
@@ -81,9 +83,7 @@ Keep in mind while you’re writing your path pattern:
 
 Use this command in your build scripts to download artifacts.
 
-```
-<%= render 'agent/v3/help/artifact_download.txt' %>
-```
+<%= render 'agent/v3/help/artifact_download' %>
 
 ### Artifact download examples
 
@@ -123,6 +123,8 @@ buildkite-agent artifact download "*.png" images/
 
 Artifact downloads support pattern-matching using the `*` character.
 
+<!--alex ignore just-->
+
 Unlike artifact upload glob patterns, these operate over the entire path and not just between separator characters. For example, a download path pattern of `log/*` matches all files under the log directory and all subdirectories.
 
 There is no need to escape characters such as `?`, `[` and `]`.
@@ -139,9 +141,9 @@ If you want to download an artifact from outside a build use our [Artifact Downl
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
-```
-<%= render 'agent/v3/help/artifact_shasum.txt' %>
-```
+
+<%= render 'agent/v3/help/artifact_shasum' %>
+
 
 ## Using your private AWS S3 bucket
 

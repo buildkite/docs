@@ -47,7 +47,7 @@ Default: `"https://agent.buildkite.com/v3"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_EXPERIMENT</h3>
 
-A list of the experimental agent features that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/configuration).
+A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/configuration).
 
 Example: `"experiment1,experiment2"`
 
@@ -303,6 +303,18 @@ The organization name on Buildkite as used in URLs. The value cannot be modified
 
 Example: `"acme-inc"`
 
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB</h3>
+
+The index of each parallel job created from a parallel build step, starting from 0. For a build step with `parallelism: 5`, the value would be 0, 1, 2, 3, and 4 respectively.
+
+Example: `"0"`
+
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB_COUNT</h3>
+
+The total number of parallel jobs created from a parallel build step. For a build step with `parallelism: 5`, the value is 5.
+
+Example: `"5"`
+
 <h3 class="h3-caps">BUILDKITE_PIPELINE_DEFAULT_BRANCH</h3>
 
 The default branch for this pipeline. The value cannot be modified.
@@ -516,6 +528,14 @@ Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 A colon separated list of non-private team names that the user who unblocked the build belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
+
+<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
+
+Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) via `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
+
+Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
+
+Example: `"datadog"`
 
 <h3 class="h3-caps">CI</h3>
 

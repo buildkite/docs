@@ -38,13 +38,13 @@ The following HTTP headers are present in every webhook request, which allow you
 <table>
 <tbody>
   <tr><th><code>X-Buildkite-Event</code></th><td>The type of event<p class="Docs__api-param-eg"><em>Example:</em> <code>build.scheduled</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Token</code></th><td>The token from your webhook configuration settings, used to verify the authenticity of the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The token from your webhook configuration settings. It's presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
 </tbody>
 </table>
 
 ## HTTP request body
 
-Each event’s data is sent JSON encoded in the request body. See each event’s documentation to see which keys are available in the payload. For example:
+Each event’s data is sent JSON encoded in the request body. See each event’s documentation ([agent](/docs/apis/webhooks/agent-events), [build](/docs/apis/webhooks/build-events#request-body-data), [job](/docs/apis/webhooks/job-events), [ping](/docs/apis/webhooks/ping-events)) to see which keys are available in the payload. For example:
 
 ```json
 {
@@ -57,6 +57,11 @@ Each event’s data is sent JSON encoded in the request body. See each event’s
   }
 }
 ```
+
+<div class="Docs__troubleshooting-note">
+  <h3>fast transitions and webhooks</h3>
+  <p>Note that if a builds transitions between states very quickly, for example from blocked (`finished`) to unblocked (`running`), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
+</div>
 
 ## Example implementations
 
