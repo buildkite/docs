@@ -89,3 +89,15 @@ No, SSO providers are setup using a unique identifier and are unaffected when a 
 
 ### Can I merge two organizations that use different SSO providers?  
 In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
+
+### Why am I being asked for my password in the "Authorization Required" screen when signing in using SSO?  
+Signing in to your Buildkite organization requires authentication and authorization with both Buildkite and your SSO provider. Authentication determines if you are who you claim to be. Authorization determines if you have the correct permissions within the Buildkite organization you're trying to access.
+
+Both authentication and authorization are necessary because SSO via one Buildkite organization shouldn't provide access to your other Buildkite organizations. Confirming your password is Buildkite's way to ensure that you are who you say you are. Once you've authenticated with Buildkite, it determines which organizations your account is authorized to access. 
+
+### I'm already a member of a Buildkite organization. Should I create a new Buildkite user account if I want to work within a different organization (pet project, open source work, etc.)?  
+<!--alex ignore easy-->
+
+Some people choose to have multiple user accounts, one per Buildkite organization. It's fine to do this, but it can be slightly inconvenient as such an approach does not provide easy tools for switching between accounts. You will need to use different browsers or log in and out quite often.  
+
+It's recommended to have a single Buildkite user account and join multiple organizations when required.  
