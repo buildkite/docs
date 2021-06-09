@@ -2,12 +2,13 @@
   "name": "docs",
   "private": true,
   "dependencies": {
-    "alex": "^9.0.1"
+    "alex": "^9.0.1",
+    "schema": "^1.2.2"
   },
   "devDependencies": {},
   "scripts": {
     "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
-    "lint-yaml": "npx schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
+    "validate-yaml": "npx schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
   }
 
 }
