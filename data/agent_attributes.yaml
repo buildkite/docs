@@ -1,26 +1,89 @@
----
 attributes:
 - name: token
   env_var: BUILDKITE_AGENT_TOKEN
   default_value: None
   required: true
   desc: |
-      The agent registration token from your organization’s Agents page, used only to register new agents. To get your token, log in to Buildkite, navigate to Agents, then select Reveal Agent Token.
+      The agent registration token from your organization’s _Agents_ page, used only to register new agents. To get your token, log in to Buildkite, navigate to _Agents_, then select _Reveal Agent Token_.
 - name: bootstrap-script
   env_var: BUILDKITE_BOOTSTRAP_SCRIPT_PATH
   default_value: "buildkite-agent bootstrap"
   required: false
   desc: |
-      <p>Command to invoke the bootstrap process.</p>
+      Command to invoke the bootstrap process.
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
-  default_value: "b(depends on platform)"
+  default_value: "(depends on platform)"
   required: false
   desc: |
-      <p>Path to where the builds will run from.</p>
-- name: test
-  env_var: BUILDKITE_BUILD_PATH
-  default_value: "b(depends on platform)"
+      Path to where the builds will run from.
+- name: cancel-grace-period
+  env_var: BUILDKITE_CANCEL_GRACE_PERIOD
+  default_value: "10"
   required: false
   desc: | 
-      Some cools **markdown** text.
+      The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
+- name: cancel-signal
+  env_var: BUILDKITE_CANCEL_SIGNAL
+  default_value: "SIGTERM"
+  required: false
+  desc: | 
+      The signal that the agent sends to the bootstrap to signal cancellation.
+- name: debug
+  env_var: BUILDKITE_AGENT_DEBUG
+  default_value: "false"
+  required: false
+  desc: | 
+      Enable debug mode.
+- name: debug-http
+  env_var: BUILDKITE_AGENT_DEBUG_HTTP
+  default_value: "false"
+  required: false
+  desc: | 
+      Log all HTTP request and response bodies.
+- name: disconnect-after-job
+  env_var: BUILDKITE_AGENT_DISCONNECT_AFTER_JOB
+  default_value: "false"
+  required: false
+  desc: | 
+      Disconnect after processing a single job.
+- name: disconnect-after-idle-timeout
+  env_var: BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT
+  default_value: ""
+  required: false
+  desc: | 
+      The number of idle seconds to wait before shutting down. When setting this option alongside `spawn`, all agents started by `spawn` must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
+- name: endpoint
+  env_var: BUILDKITE_AGENT_ENDPOINT
+  default_value: "https://agent.buildkite.com/v3"
+  required: false
+  desc: | 
+      The Agent endpoint.
+- name: experiment
+  env_var: BUILDKITE_AGENT_EXPERIMENT
+  default_value: ""
+  required: false
+  desc: | 
+      A list of [experimental agent features](https://buildkite.com/docs/agent/v3#experimental-features) you want to enable.
+- name: git-clean-flags
+  env_var: BUILDKITE_GIT_CLEAN_FLAGS
+  default_value: "-ffxdq"
+  required: false
+  desc: | 
+      Flags to pass to the `git clean` command.
+      Agents below v3.0.0 default to "-fdq".
+      Agents v3.0.0 to v3.7.0 default to "-fxdq".
+- name: git-clone-flags
+  env_var: BUILDKITE_GIT_CLONE_FLAGS
+  default_value: "-v"
+  required: false
+  desc: | 
+      Flags to pass to the `git clone` command.
+- name: 
+  env_var: BUILDKITE_
+  default_value: ""
+  required: false
+  desc: | 
+      
+
+
