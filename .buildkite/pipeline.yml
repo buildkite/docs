@@ -41,3 +41,13 @@ steps:
           # Alpine 3.12 - EOS 01-05-2022
           # lts = Node 1415.1 - 2023-04-30
           image: "node:lts-alpine3.12"
+  - label: "Validate YAML"
+    command: npx schema validate -f data/agent_attributes.yaml -s data/agent_attributes.schema.yaml
+    plugins:
+      # Using the plain Node image, instead of the custom doc Dockerfile
+      # version, is way faster because we don't have to wait for Ruby gems to
+      # install.
+      - docker#v3.7.0:
+          # Alpine 3.12 - EOS 01-05-2022
+          # lts = Node 1415.1 - 2023-04-30
+          image: "node:lts-alpine3.12"
