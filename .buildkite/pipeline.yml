@@ -28,7 +28,7 @@ steps:
 
   - label: ":lint-roller: Linting"
     commands:
-      - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s v2.9
+      - curl -sfL https://install.goreleaser.com/github.com/ValeLint/vale.sh | sh -s 2.9.1
       - ./bin/vale pages
 
   - label: ":lint-roller: Linting for insensitive words"
