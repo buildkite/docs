@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "alex": "^9.0.1",
-    "schema": "^1.2.2"
+    "yaml-schema-validator": "1.2.2"
   },
   "devDependencies": {},
   "scripts": {
