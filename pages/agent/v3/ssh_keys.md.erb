@@ -106,10 +106,12 @@ Alternatively, you can use a shorter approach to creating multiple SSH keys by a
 
    ```bash
    GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
+   ```
 2. Create an identity file at that location:
 
    ```bash
    ~/.ssh/id_rsa_mypipeline
+   ```
 3. Add the public key for that identity file to `mypipeline` on the git repository provider.  
 
 ## Using multiple keys with ssh-agent
