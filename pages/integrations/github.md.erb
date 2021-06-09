@@ -110,22 +110,7 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
 
 In a setup for a repository containing one codebase and one `pipeline.yml`, this customizes the commit status for the pipeline. However, if you have multiple `pipeline.yml` files in one repo, feeding in to the same Buildkite pipeline, this allows you to have different statuses when building different sections of the repo.
 
-For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application:
-
-```
-|__api/
-|   |_api-pipeline.yml
-|
-|__web/
-|   |_web-pipeline.yml
-|
-|__docs/
-|   |_docs-pipeline.yml
-```
-
-Each `pipeline.yml` can contain a different GitHub status.
-
-
+For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
 
 ### Step level
 
