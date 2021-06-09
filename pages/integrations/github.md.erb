@@ -108,6 +108,25 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
+In a basic setup (one `pipeline.yml` for a repo containing one codebase), this customizes the commit status for the pipeline. However, if you have multiple `pipeline.yml` files in one repo, feeding in to the same Buildkite pipeline, this allows you to have different statuses when building different sections of the repo.
+
+For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application:
+
+```
+|__api/
+|   |_api-pipeline.yml
+|
+|__web/
+|   |_web-pipeline.yml
+|
+|__docs/
+|   |_docs-pipeline.yml
+```
+
+Each `pipeline.yml` can contain a different GitHub status, allowing you to see which app was built.
+
+
+
 ### Step level
 
 1. Add `notify` to a command in your `pipeline.yml`:
@@ -120,6 +139,8 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
           - github_commit_status:
               context: "my-custom-status"
     ```
-2. In _Pipeline Settings_ > _GitHub_, make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+2. In _Pipeline Settings_ > _GitHub_, you can choose to either:
+    * Make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+    * Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
