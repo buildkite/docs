@@ -49,7 +49,7 @@ attributes:
       Disconnect after processing a single job.
 - name: disconnect-after-idle-timeout
   env_var: BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT
-  default_value: ""
+  default_value: "none"
   required: false
   desc: | 
       The number of idle seconds to wait before shutting down. When setting this option alongside `spawn`, all agents started by `spawn` must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
@@ -61,7 +61,7 @@ attributes:
       The Agent endpoint.
 - name: experiment
   env_var: BUILDKITE_AGENT_EXPERIMENT
-  default_value: ""
+  default_value: "none"
   required: false
   desc: | 
       A list of [experimental agent features](https://buildkite.com/docs/agent/v3#experimental-features) you want to enable.
@@ -79,11 +79,85 @@ attributes:
   required: false
   desc: | 
       Flags to pass to the `git clone` command.
-- name: 
-  env_var: BUILDKITE_
-  default_value: ""
+- name: git-clone-mirror-flags
+  env_var: BUILDKITE_GIT_CLONE_MIRROR_FLAGS
+  default_value: "none"
   required: false
   desc: | 
+      Flags to pass to the `git clone` command when used for mirroring.  
+      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.  
+      _Example:_ `-v --mirror`.
+- name: git-fetch-flags
+  env_var: BUILDKITE_GIT_FETCH_FLAGS
+  default_value: "-v --prune"
+  required: false
+  desc: | 
+      Flags to pass to the `git fetch` command.
+- name: git-mirrors-lock-timeout
+  env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
+  default_value: "300"
+  required: false
+  desc: | 
+      Seconds to lock a git mirror during clone. Should exceed your longest checkout.  
+      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. 
+- name: git-mirrors-path
+  env_var: BUILDKITE_GIT_MIRRORS_PATH
+  default_value: "none"
+  required: false
+  desc: | 
+      Path to where mirrors of git repositories are stored.  
+      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.  
+      _Example:_ `/tmp/buildkite-git-mirrors`
+- name: health-check-addr
+  env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
+  default_value: "disabled"
+  required: false
+  desc: | 
+      Start an HTTP server on the specified `address:port` that returns whether the agent is healthy.
+- name: hooks-path
+  env_var: BUILDKITE_HOOKS_PATH
+  default_value: "(depends on platform)"
+  required: false
+  desc: | 
+      Directory containing the global hook scripts.
+- name: log-format
+  env_var: BUILDKITE_LOG_FORMAT
+  default_value: "text"
+  required: false
+  desc: | 
+      The format to use for the logger output.
+- name: metrics-datadog
+  env_var: BUILDKITE_METRICS_DATADOG
+  default_value: "false"
+  required: false
+  desc: | 
+      Send metrics to DogStatsD for Datadog. This will generate the following metrics (duration measured in milliseconds):  
+      `buildkite.jobs.success`  
+      `buildkite.jobs.duration.success.avg`  
+      `buildkite.jobs.duration.success.max`  
+      `buildkite.jobs.duration.success.count`  
+      `buildkite.jobs.duration.success.median`  
+      `buildkite.jobs.duration.success.95percentile`
+- name: metrics-datadog-host
+  env_var: BUILDKITE_METRICS_DATADOG_HOST
+  default_value: "127.0.0.1:8125"
+  required: false
+  desc: | 
+        The DogStatsD instance to send metrics to via UDP.
+- name: name
+  env_var: BUILDKITE_AGENT_NAME
+  default_value: "%hostname-%n"
+  required: false
+  desc: | 
+      The name of the agent. Supports template variables.
+
+      - `%hostname` (the agent machine’s hostname)
+      - `%spawn` (a unique number for each agent started using `--spawn`; added in [v3.27.0](https://github.com/buildkite/agent/releases/tag/v3.27.0)).
+      - `%n` (a unique number for the agent).
+      - `%pid` (the agent process id).
+
+      Note that if you're using `--spawn` to run multiple agents in a single process, we recommend using `%spawn` in your agent name, or to ensure that each agent running on a host with the same `build-path` has a unique name.
+
       _Default on Elastic CI Stack for AWS:_ "`%hostname-%spawn`" ([v5.2.0](https://github.com/buildkite/elastic-ci-stack-for-aws/releases/tag/v5.2.0) and later).
 - name: no-color
   env_var: BUILDKITE_AGENT_NO_COLOR
