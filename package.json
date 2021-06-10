@@ -3,12 +3,11 @@
   "private": true,
   "dependencies": {
     "alex": "^9.0.1",
-    "yaml-schema-validator": "1.2.2"
+    "yaml-schema-validator": "^1.2.2"
   },
   "devDependencies": {},
   "scripts": {
     "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "validate-yaml": "npx schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
   }
-
 }
