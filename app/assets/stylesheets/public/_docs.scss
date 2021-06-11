@@ -230,6 +230,8 @@ $Docs__bp_stacked: 600px;
       }
     }
   }
+  td p:first-child { margin-top: 0; }
+  td p:last-child { margin-bottom: 0; }
 }
 
 a.Docs__example-repo {
