@@ -3,6 +3,6 @@
   "private": true,
   "scripts": {
     "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
-    "validate-yaml": "npx --package yaml-schema-validator@1 schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
+    "validate-yaml": "npx --package ajv-cli ajv validate -s \"data/agent_attributes.schema.yaml\" -d \"data/agent_attributes.yaml\""
   }
 }

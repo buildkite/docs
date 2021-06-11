@@ -234,7 +234,7 @@ attributes:
       This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.
 - name: shell
   env_var: BUILDKITE_SHELL
-  default_value: "`C:\Windows\System32\CMD.exe`" on Windows, "`/bin/bash`" on *nix systems
+  default_value: "`C:\\Windows\\System32\\CMD.exe`\" on Windows, \"`/bin/bash`\" on *nix systems"
   required: false
   desc: | 
       The shell command used to interpret build commands. 
