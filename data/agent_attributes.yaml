@@ -230,7 +230,7 @@ attributes:
   default_value: "'*_PASSWORD', '*_SECRET', '*_TOKEN'"
   required: false
   desc: | 
-      The values of environment variables whose names match these patterns are [redacted](docs/pipelines/managing-log-output#redacted-environment-variables) before being printed to the build log.  
+      The values of environment variables whose names match these patterns are [redacted](/docs/pipelines/managing-log-output#redacted-environment-variables) before being printed to the build log.
       This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.
 - name: shell
   env_var: BUILDKITE_SHELL
