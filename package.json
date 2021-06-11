@@ -7,7 +7,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
-    "validate-yaml": "npx schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
+    "lint": "alex -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
+    "validate-yaml": "schema validate -f \"data/agent_attributes.yaml\" -s \"data/agent_attributes.schema.yaml\""
   }
 }
