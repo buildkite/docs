@@ -47,17 +47,17 @@ tail -f /var/log/upstart/buildkite-agent.log
 
 ## SSH Key Configuration
 
-<%= render_markdown 'agent/v3/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
 ## File Locations
 
-<%= render_markdown 'agent/v3/apt_locations' %>
+<%= render_markdown partial: 'agent/v3/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown 'agent/v3/apt_configuration' %>
+<%= render_markdown partial: 'agent/v3/apt_configuration' %>
 
 ## Running multiple agents
 
@@ -90,4 +90,4 @@ sudo tail -f /var/log/upstart/buildkite-agent-2.log
 
 ## Upgrading
 
-<%= render_markdown 'agent/v3/apt_upgrading' %>
+<%= render_markdown partial: 'agent/v3/apt_upgrading' %>
