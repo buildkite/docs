@@ -42,7 +42,7 @@ _Test attributes:_
       <% if !attr['required'] %>
       <tr id="<%= attr['name'] %>">
         <th><code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code></th>
-        <td><%= attr['desc'] %></td>
+        <td><%= render_markdown(text: attr['desc']) %></td>
         <td><code><%= attr['env_var'] %></code></td>
       </tr>
       <% end %>

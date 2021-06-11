@@ -303,6 +303,8 @@ $color-green: rgb(3, 165, 98);
       }
     }
   }
+  td p:first-child { margin-top: 0; }
+  td p:last-child { margin-bottom: 0; }
 }
 
 a.Docs__example-repo {

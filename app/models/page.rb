@@ -57,8 +57,18 @@ class Page
       PagesController.render(partial: partial, formats: [:md])
     end
 
-    def render_markdown(markdown_path, *args)
-      Page::Renderer.render(render(markdown_path)).html_safe
+    def render_markdown(partial: nil, text: nil)
+      if partial.blank? && text.blank?
+        raise ArgumentError, "partial or nil not specified"
+      end
+
+      text = if partial
+                 render(partial)
+               else
+                text
+               end
+
+      Page::Renderer.render(text).html_safe
     end
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
