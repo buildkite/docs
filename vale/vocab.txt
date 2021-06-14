@@ -19,7 +19,6 @@ boolean
 Boomper
 boomper
 Buildbox
-Buildkit
 Buildkite
 buildkite
 buildscript
