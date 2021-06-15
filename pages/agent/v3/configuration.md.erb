@@ -364,10 +364,6 @@ _Optional attributes:_
       <th><code>redacted-vars</code></th>
       <td>
         Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
-        <div class="Docs__wip-note">
-          <p class="Docs__wip-heading">Experimental feature</p>
-          <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-        </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
