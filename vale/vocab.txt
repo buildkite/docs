@@ -21,7 +21,6 @@ boolean
 Boomper
 boomper
 Buildbox
-Buildkit
 Buildkite
 buildkite
 buildscript
@@ -47,6 +46,7 @@ fff
 ffxdq
 Firewalled
 Flexbox
+Fugit
 gcloud
 gif
 GitHub
