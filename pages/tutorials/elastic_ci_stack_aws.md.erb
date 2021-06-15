@@ -62,7 +62,11 @@ Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://c
 
 <%= image "ec2-asg.png", size: "#{400/2}x#{200/2}", alt: 'AWS EC2 Auto Scaling Group Menu' %>
 
+<!-- vale off -->
+
 Select the _“buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx”_ group and then the _“Instances”_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from `Pending` to `InService`:
+
+<!-- vale on -->
 
 <%= image "buildkite-demo-instances.png", width: 3266/2, height: 1748/2, alt: "AWS Auto Scaling Group Launching" %>
 
