@@ -364,7 +364,7 @@ _Optional attributes:_
       <th><code>redacted-vars</code></th>
       <td>
         A list of environment variable name patterns whose values should be <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. To disable redaction, set this to an empty string.
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>*_PASSWORD,*_SECRET,*_TOKEN,*_ACCESS_KEY,*_SECRET_KEY</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
     </tr>
