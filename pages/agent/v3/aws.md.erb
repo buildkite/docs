@@ -7,17 +7,11 @@ The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS.
 ## Install the Agent on your own AWS instance
 
 To run the agent on your own AWS instances use whichever installer matches your
-instance type. For Amazon Linux use the [Red Hat/CentOS installer].
+instance type. For Amazon Linux use the [Red Hat/CentOS installer](/docs/agent/v3/redhat).
 
 ## Use our pre-built Elastic CI Stack for AWS
 
-The [Elastic CI Stack for AWS][github] is a pre-built CloudFormation template
+The [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci) is a pre-built CloudFormation template
 that gives you an autoscaling Buildkite Agent cluster in your own AWS. The
 stack includes Docker, S3 and Cloudwatch integration, and is suitable for
 parallelizing large legacy test suites, testing any Linux-based project that can run within Docker, and performing AWS ops related tasks.
-
-[Read the documentation][github] on GitHub, and launch it using the
-button on your organization’s Agents page.
-
-   [github]: https://github.com/buildkite/elastic-ci-stack-for-aws
-   [Red Hat/CentOS installer]: /docs/agent/v3/redhat
