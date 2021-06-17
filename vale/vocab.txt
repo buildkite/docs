@@ -30,7 +30,7 @@ chroots
 CI
 ci
 cli
-Cloudwatch
+CloudWatch
 composable
 config
 cpu
