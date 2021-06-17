@@ -26,7 +26,7 @@ The Buildkite Elastic CI Stack supports:
 
 ## Getting started
 
-See the [Elastic CI Stack for AWS guide]/docs/tutorials/eleastic_ci_stack_aws) for a step-by-step guide, or jump straight in by going to the [repo](https://github.com/buildkite/elastic-ci-stack-for-aws) and selecting _Launch Stack_.
+See the [Elastic CI Stack for AWS guide]/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in by going to the [repo](https://github.com/buildkite/elastic-ci-stack-for-aws) and selecting _Launch Stack_.
 
 > Although the stack will create it's own VPC by default, we highly recommend following best practice by setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
 
@@ -86,8 +86,10 @@ If you want to store your secrets unencrypted, you can disable it entirely with 
 * [Buildkite Agent v3.27.0](https://buildkite.com/docs/agent)
 * [Docker](https://www.docker.com) - 19.03.13 (Linux) and 19.03.12 (Windows)
 * [Docker Compose](https://docs.docker.com/compose/) - 1.27.4 (Linux) and 1.27.2 (Windows)
-* [aws-cli](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
-* [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from cli tools such as aws-cli or the Buildkite API
+* [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
+<!-- vale off -->
+* [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
+<!-- vale on -->
 
 ## What type of builds does this support?
 
@@ -97,7 +99,7 @@ This stack is designed to run your builds in a share-nothing pattern similar to 
 * Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
 * Secrets are configured via environment variables exposed using the S3 secrets bucket.
 
-By following these conventions you get a scaleable, repeatable, and source-controlled CI environment that any team within your organization can use.
+By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
 ## Multiple instances of the stack
 
@@ -159,7 +161,7 @@ Prior to updating, it's a good idea to set the desired instance size on the `Aut
 
 Metrics are calculated every minute from the Buildkite API using a Lambda function.
 
-<img width="544" alt="cloudwatch" src="https://cloud.githubusercontent.com/assets/153/16836158/85abdbc6-49ff-11e6-814c-eaf2400e8333.png">
+<img width="544" alt="Cloudwatch metrics" src="https://cloud.githubusercontent.com/assets/153/16836158/85abdbc6-49ff-11e6-814c-eaf2400e8333.png">
 
 You can view the stack’s metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
 
