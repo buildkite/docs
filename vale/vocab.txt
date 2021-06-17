@@ -127,6 +127,8 @@ toolmantim
 tooltip
 udp
 unarchive
+Unencrypted
+unencrypted
 untrusted
 url
 urls
