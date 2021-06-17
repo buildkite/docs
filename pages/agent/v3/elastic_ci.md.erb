@@ -237,7 +237,7 @@ See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) 
 
 This repository hasn't been reviewed by security researchers so exercise caution and careful thought with what credentials you make available to your builds.
 
-Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) will have access to your secrets bucket files.
+Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
 
 Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
 
@@ -269,22 +269,5 @@ If you need to build your own AMI (because you've changed something in the `pack
 make packer
 ```
 
-## Questions and Support
 
-Feel free to drop an email to support@buildkite.com with questions. It helps us if you can provide the following details:
-
-```
-# List your stack parameters
-aws cloudformation describe-stacks --stack-name MY_STACK_NAME \
-  --query 'Stacks[].Parameters[].[ParameterKey,ParameterValue]' --output table
-```
-
-Provide us with logs from Cloudwatch Logs:
-
-```
-/buildkite/elastic-stack/{instance-id}
-/buildkite/systemd/{instance-id}
-```
-
-Alternately, drop by `#aws-stack` and `#aws` channels in [Buildkite Community Slack](https://chat.buildkite.com/) and ask your question!
 
