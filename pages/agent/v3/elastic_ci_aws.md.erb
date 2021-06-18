@@ -26,11 +26,13 @@ The Buildkite Elastic CI Stack supports:
 
 ## Getting started
 
-See the [Elastic CI Stack for AWS tutorial]/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in by going to the [repo](https://github.com/buildkite/elastic-ci-stack-for-aws) and selecting _Launch Stack_.
+See the [Elastic CI Stack for AWS tutorial]/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in:
 
-> Although the stack will create it's own VPC by default, we highly recommend following best practice by setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
+[![Launch AWS Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/), download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, and then run the below command:
+> The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
+
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/), download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your values, and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
@@ -75,12 +77,13 @@ aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```
 <div class="Docs__note">
-Currently, you must use the default KMS key for S3. follow [#235](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235) for progress on using specific KMS keys.
+Currently, you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
 </div>
 
 If you want to store your secrets unencrypted, you can disable it entirely with `BUILDKITE_USE_KMS=false`.
 
-## What’s on each machine?
+## What's on each machine?
+
 
 * [Amazon Linux 2 LTS](https://aws.amazon.com/amazon-linux-2/)
 * [Buildkite Agent v3.27.0](https://buildkite.com/docs/agent)
@@ -123,7 +126,7 @@ Metrics are collected with a Lambda function, polling every minute based on the 
 
 You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance to terminate after it completes a job. Setting this value to `true` tells the stack to enable `disconnect-after-job` in the `buildkite-agent.cfg` file.
 
-We strongly encourage you to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
+It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
 
 ## Docker Registry support
 
@@ -143,7 +146,7 @@ If you want to log in to an ECR server on another AWS account, you can set `AWS_
 
 The AWS ECR options are powered by an embedded version of the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), so if you require options that aren't listed here, you can disable the embedded version as above and call the plugin directly. See [its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for more examples (requires Agent v3.x).
 
-## Versions
+## Elastic Stack CI releases
 
 We recommend running the latest release, which is available at `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`, or on the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
@@ -173,10 +176,10 @@ Within each stream the logs are grouped by instance ID.
 
 To debug an agent:
 
-1.Find the instance ID from the agent in Buildkite.
-2. Go to your [CloudWatch Logs Dashboard](https://console.aws.amazon.com/cloudwatch/home?#logs:).
-3. Choose the desired log group.
-4. Search for the instance ID in the list of log streams.
+1. Find the instance ID from the agent in Buildkite
+2. Go to your [CloudWatch Logs Dashboard](https://console.aws.amazon.com/cloudwatch/home?#logs:)
+3. Choose the desired log group
+4. Search for the instance ID in the list of log streams
 
 ## Customizing instances with a bootstrap script
 
