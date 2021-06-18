@@ -17,13 +17,8 @@
 # https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy
 
 Rails.application.config.content_security_policy do |policy|
-  policy.default_src    :self
-  policy.font_src       :self, "https://www2.buildkiteassets.com/"
-  policy.img_src        :self, "https://buildkiteassets.com/", "https://buildkite.com/", Matomo::URL, ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com")
-  policy.object_src     :none
-  policy.script_src     :self, Matomo::URL, Posthog::URL, "https://www.googletagmanager.com/"
-  policy.style_src      :self, :unsafe_inline
-  policy.style_src_attr :self, :unsafe_inline
+  policy.object_src :none
+  policy.script_src :self, Matomo::URL, Posthog::URL, "https://www.googletagmanager.com/"
 
   # allow AJAX queries against our search vendor
   policy.connect_src "https://#{ENV["ALGOLIA_APP_ID"]}-dsn.algolia.net", "https://#{ENV["ALGOLIA_APP_ID"]}-1.algolianet.com", "https://#{ENV["ALGOLIA_APP_ID"]}-2.algolianet.com", "https://#{ENV["ALGOLIA_APP_ID"]}-3.algolianet.com", Posthog::URL, "https://www.google-analytics.com/"
