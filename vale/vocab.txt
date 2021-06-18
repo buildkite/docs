@@ -4,6 +4,7 @@ addr
 Allowlist
 api
 architecting
+argumentless
 Artifactory
 artifactory
 Atlassian
