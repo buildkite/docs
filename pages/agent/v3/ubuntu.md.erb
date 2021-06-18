@@ -28,21 +28,13 @@ sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkit
 And then start the agent:
 
 ```shell
-# Ubuntu 15.04+ (systemd)
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
-
-# Older Ubuntu (upstart)
-sudo service buildkite-agent start
 ```
 
 You can view the logs at:
 
 ```shell
-# Ubuntu 15.04+ (systemd)
 journalctl -f -u buildkite-agent
-
-# Older Ubuntu (upstart)
-tail -f /var/log/upstart/buildkite-agent.log
 ```
 
 ## SSH Key Configuration
@@ -64,8 +56,6 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 You can run as many parallel agents on the one machine as you wish by duplicating the upstart service configuration file, for example:
 
 ```shell
-# For Ubuntu 15.04 and above (using systemd)
-
 # Disable the default unit
 sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
 
@@ -81,11 +71,6 @@ sudo journalctl -f -u "buildkite-agent@*"
 
 # Or one-by-one
 sudo journalctl -f -u buildkite-agent@2
-
-# For older Ubuntu (using upstart)
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
-sudo service buildkite-agent-2 start
-sudo tail -f /var/log/upstart/buildkite-agent-2.log
 ```
 
 ## Upgrading
