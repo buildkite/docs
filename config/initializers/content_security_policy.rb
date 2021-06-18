@@ -18,7 +18,9 @@
 
 Rails.application.config.content_security_policy do |policy|
   policy.object_src :none
-  policy.script_src :self, Matomo::URL, Posthog::URL, "https://www.googletagmanager.com/"
+
+  # algolia requires eval
+  policy.script_src :self, :unsafe_eval, Matomo::URL, Posthog::URL, "https://www.googletagmanager.com/"
 
   # allow AJAX queries against our search vendor
   policy.connect_src "https://#{ENV["ALGOLIA_APP_ID"]}-dsn.algolia.net", "https://#{ENV["ALGOLIA_APP_ID"]}-1.algolianet.com", "https://#{ENV["ALGOLIA_APP_ID"]}-2.algolianet.com", "https://#{ENV["ALGOLIA_APP_ID"]}-3.algolianet.com", Posthog::URL, "https://www.google-analytics.com/"
