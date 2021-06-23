@@ -20,7 +20,7 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 > The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
 
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/), download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your values, and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
@@ -86,7 +86,7 @@ aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```
 <div class="Docs__note">
-Currently, you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
+Currently (as of June 2021), you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
 </div>
 
 If you want to store your secrets unencrypted, you can disable it entirely with `BUILDKITE_USE_KMS=false`.
@@ -125,7 +125,7 @@ Examples:
 
 ## Autoscaling
 
-If you configure `MinSize` < `MaxSize`, the stack automatically scales up and down based on the number of scheduled jobs.
+If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, the stack automatically scales up and down based on the number of scheduled jobs.
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
