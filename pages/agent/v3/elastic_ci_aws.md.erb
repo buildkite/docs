@@ -94,13 +94,15 @@ If you want to store your secrets unencrypted, you can disable it entirely with 
 ## What's on each machine?
 
 
+<!-- vale off -->
+
 * [Amazon Linux 2 LTS](https://aws.amazon.com/amazon-linux-2/)
 * [Buildkite Agent v3.27.0](https://buildkite.com/docs/agent)
 * [Docker](https://www.docker.com) - 19.03.13 (Linux) and 19.03.12 (Windows)
 * [Docker Compose](https://docs.docker.com/compose/) - 1.27.4 (Linux) and 1.27.2 (Windows)
 * [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
-<!-- vale off -->
 * [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
+
 <!-- vale on -->
 
 ## What type of builds does this support?
@@ -167,7 +169,7 @@ Branches are published in the form of `https://s3.amazonaws.com/buildkite-aws-st
 
 To update your stack to the latest version use CloudFormation’s stack update tools with one of the URLs in the [Elastic Stack CI releases](#elastic-stack-ci-releases) section.
 
-Prior to updating, it's a good idea to set the desired instance size on the `AutoscalingGroup` to `0`. manually.
+Prior to updating, it's a good idea to set the desired instance size on the `AutoscalingGroup` to `0` manually.
 
 ## CloudWatch metrics
 
@@ -205,7 +207,8 @@ If the file is private, you also need to create an IAM policy to allow the insta
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": ["arn:aws:s3:::my_bucket_name/my_bootstrap.sh"]
+      "Resource": ["arn\:aws\:s3::my_bucket_name/my_bootstrap.sh"]
+
     }
   ]
 }
@@ -227,7 +230,7 @@ Here is an example build pipeline based on a production Rails application:
 
 ```yaml
 steps:
-  - name: ":docker: :package:"
+  - name: "\:docker\: :package:"
     plugins:
       docker-compose:
         build: app
@@ -245,7 +248,7 @@ steps:
     parallelism: 75
 ```
 
-See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) for ideas on other solutions (contributions welcome!).
+See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) for ideas on other solutions (contributions are welcome).
 
 ## Security
 
@@ -254,7 +257,3 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
 
 Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
-
-
-
-
