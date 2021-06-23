@@ -207,7 +207,8 @@ If the file is private, you also need to create an IAM policy to allow the insta
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": ["arn:aws:s3:::my_bucket_name/my_bootstrap.sh"]
+      "Resource": ["arn\:aws\:s3::my_bucket_name/my_bootstrap.sh"]
+
     }
   ]
 }
@@ -256,6 +257,5 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
 
 Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
-
 
 
