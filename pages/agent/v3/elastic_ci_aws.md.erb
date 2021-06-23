@@ -13,9 +13,9 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 <!-- vale off -->
 <!-- alex ignore master -->
 
-<a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml"><img src="https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg", alt="Launch AWS Stack" /></a>
+<a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml"><%= image "launch-stack.png", alt: "Launch stack button" %></a>
 
-<!-- vale on -->
+<!-- vale on -->    
 
 > The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
 
@@ -173,7 +173,7 @@ Prior to updating, it's a good idea to set the desired instance size on the `Aut
 
 Metrics are calculated every minute from the Buildkite API using a Lambda function.
 
-<%= image "https://cloud.githubusercontent.com/assets/153/16836158/85abdbc6-49ff-11e6-814c-eaf2400e8333.png", size: "#{400/2}x#{200/2}", alt: 'CloudWatch metrics' %>
+<%= image "cloudwatch-metrics.png", size: "#{400/2}x#{200/2}", alt: 'CloudWatch metrics' %>
 
 You can view the stack’s metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
 
