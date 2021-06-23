@@ -4,6 +4,26 @@ The Buildkite Elastic CI Stack gives you a private, autoscaling [Buildkite Agent
 
 {:toc}
 
+
+## Quickstart
+
+See the [Elastic CI Stack for AWS tutorial]/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in:
+
+[![Launch AWS Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml)
+
+> The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
+
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/), download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your values, and then run the below command:
+
+```bash
+aws cloudformation create-stack \
+  --output text \
+  --stack-name buildkite \
+  --template-url "https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml" \
+  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+  --parameters "$(cat config.json)"
+```
+
 ## Features
 
 The Buildkite Elastic CI Stack supports:
@@ -24,24 +44,6 @@ The Buildkite Elastic CI Stack supports:
 
 
 
-## Getting started
-
-See the [Elastic CI Stack for AWS tutorial]/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in:
-
-[![Launch AWS Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml)
-
-> The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
-
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/), download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your values, and then run the below command:
-
-```bash
-aws cloudformation create-stack \
-  --output text \
-  --stack-name buildkite \
-  --template-url "https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml" \
-  --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
-  --parameters "$(cat config.json)"
-```
 
 ## Build secrets
 
@@ -240,38 +242,12 @@ See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) 
 
 ## Security
 
-This repository hasn't been reviewed by security researchers so exercise caution and careful thought with what credentials you make available to your builds.
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
 
 Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
 
 Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
 
-## Development
 
-To get started with customizing your own stack, or contributing fixes and features:
-
-```bash
-# Checkout all submodules
-git submodule update --init --recursive
-
-# Build all AMIs and render a cloud formation template - this requires AWS credentials (in the ENV)
-# to build an AMI with packer
-make build
-
-# To create a new stack on AWS using the local template
-make create-stack
-
-# You can use any of the AWS* environment variables that the aws-cli supports
-AWS_PROFILE="some-profile" make create-stack
-
-# You can also use aws-vault or similar
-aws-vault exec some-profile -- make create-stack
-```
-
-If you need to build your own AMI (because you've changed something in the `packer` directory), run:
-
-```bash
-make packer
-```
 
 
