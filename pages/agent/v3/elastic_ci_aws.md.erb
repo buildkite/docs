@@ -31,6 +31,14 @@ aws cloudformation create-stack \
   --parameters "$(cat config.json)"
 ```
 
+## Security
+
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
+
+Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
+
+Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
+
 ## Features
 
 The Buildkite Elastic CI Stack supports:
@@ -131,7 +139,7 @@ If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, th
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
-Metrics are collected with a Lambda function, polling every minute based on the queue the stack is configured with. The autoscaler monitors only one queue.
+Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastick stack per queue.
 
 ## Terminating the instance after the job is complete
 
@@ -250,10 +258,4 @@ steps:
 
 See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) for ideas on other solutions (contributions are welcome).
 
-## Security
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
-
-Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) has access to your secrets bucket files.
-
-Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
