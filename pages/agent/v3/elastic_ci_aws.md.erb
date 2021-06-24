@@ -139,7 +139,7 @@ If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, th
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
-Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastick stack per queue.
+Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastic stack per queue.
 
 ## Terminating the instance after the job is complete
 
