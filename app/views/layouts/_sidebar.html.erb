@@ -49,6 +49,7 @@
           <%= sidebar_link_to "Linux", 'agent/v3/linux' %>
           <%= sidebar_link_to "Docker", 'agent/v3/docker' %>
           <%= sidebar_link_to "AWS", 'agent/v3/aws' %>
+          <%= sidebar_link_to "Elastic CI Stack for AWS", 'agent/v3/elastic-ci-aws' %>
           <%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %>
         </ul>
         <p class="Docs__nav__section-subheading">Command-Line Reference</p>
@@ -82,16 +83,9 @@
           </ul>
           <p class="Docs__nav__section-subheading">Agent Installers</p>
           <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %>
-            <%= sidebar_link_to "Debian", 'agent/v2/debian' %>
-            <%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %>
-            <%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %>
-            <%= sidebar_link_to "macOS", 'agent/v2/osx' %>
-            <%= sidebar_link_to "Windows", 'agent/v2/windows' %>
-            <%= sidebar_link_to "Linux", 'agent/v2/linux' %>
-            <%= sidebar_link_to "Docker", 'agent/v2/docker' %>
-            <%= sidebar_link_to "AWS", 'agent/v2/aws' %>
-            <%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %>
+            <% AGENT_INSTALLERS.each do |installer| %>
+              <%= sidebar_link_to installer[:title], installer[:url] %>
+            <% end %>
           </ul>
           <p class="Docs__nav__section-subheading">Command-Line Reference</p>
           <ul class="Docs__nav__sub-nav">
