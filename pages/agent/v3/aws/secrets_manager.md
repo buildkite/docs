@@ -21,7 +21,7 @@ The important points to note are:
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : [
-        "arn:aws:iam::[redacted]:role/buildkite-secretsmanager-test-Role”
+        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-test-Role”
       ]
     },
     "Action" : "secretsmanager:GetSecretValue",
