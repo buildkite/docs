@@ -1,0 +1,49 @@
+# Job Prioritization
+
+Jobs are dispatched in the following order
+
+  - priority desc (highest priority -> lowest priority)
+  - scheduled_at asc (oldest jobs, note that jobs inherit "scheduled_at" from pipeline upload jobs, meaning jobs that are pipeline uploaded in an older build will be dispatched before later created builds)
+  - order asc (the order they were uploaded in a pipeline)
+  - internal id asc (used as a tie breaker if all value are the same, meaning older jobs will be dispatched first)
+
+Jobs default to a priority of 0, you can prioritise or deprioritise by using higher or lower numbers.
+
+<video src="https://user-images.githubusercontent.com/14028/122886342-39460a00-d383-11eb-898d-692aa057ffa0.mov"></video>
+
+Here's a very basic example:
+
+```yml
+steps:
+  - command: "will-run-last.sh"
+    priority: -1
+  - command: "will-run-first.sh"
+    priority: 1
+```
+{: codeblock-file="pipeline.yml"}
+
+Priority is considered across the entire organization when dispatching.
+Meaning if a job in Pipeline A has a higher priorirty over another job in Pipeline A, the Pipeline A job will be dispatched first.
+
+Here's an example of changing the priority of jobs in a build depending on whether or not the build is for a PR or not.
+
+```yaml
+steps:
+- label: ":pipeline:"
+  agents: {queue: uploaders}
+  command: |
+    if [[ "$${BUILDKITE_BRANCH}" == "$${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]]; then
+      export PRIORITY=1
+    else
+      export PRIORITY=0
+    fi
+    buildkite-agent pipeline upload <<YAML
+    steps:
+    - label: priority $${PRIORITY}
+      command: sleep 3
+      priority: $${PRIORITY}
+    YAML
+```
+{: codeblock-file="pipeline.yml"}
+
+Prioritization can only be set on jobs currently. Build level prioritization is coming soon.
