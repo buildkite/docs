@@ -1,6 +1,6 @@
 # Installing Buildkite Agent on Debian
 
-The Buildkite Agent can be installed on Debian versions 7.x and above using our signed apt repository.
+The Buildkite Agent is supported on Debian versions 8 and above using our signed apt repository.
 
 {:toc}
 
@@ -25,7 +25,7 @@ sudo apt-get install -y apt-transport-https dirmngr
 Now you can add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
 ```shell
-sudo apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+sudo apt-key adv --keyserver keys.openpgp.org --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
 echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
 ```
 
@@ -44,27 +44,13 @@ sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkit
 And then start the agent:
 
 ```shell
-# For Debian 8.x and above (systemd)
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
-
-# For Debian 7.x (using upstart)
-sudo service buildkite-agent start
-
-# For Debian 7.x (using sysvinit)
-sudo /etc/init.d/buildkite-agent start
 ```
 
 You can view the logs at:
 
 ```shell
-# For Debian 8.x and above (systemd)
 sudo journalctl -f -u buildkite-agent
-
-# For Debian 7.x (using upstart)
-sudo tail -f /var/log/upstart/buildkite-agent.log
-
-# For Debian 7.x (using sysvinit)
-sudo tail -f /var/log/buildkite-agent.log
 ```
 
 ## SSH Key Configuration
@@ -85,8 +71,6 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
 
-### For Debian 8.x and above (systemd)
-
 ```shell
 # Disable the default unit
 sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
@@ -103,14 +87,6 @@ sudo journalctl -f -u "buildkite-agent@*"
 
 # Or one-by-one
 sudo journalctl -f -u buildkite-agent@2
-```
-
-### For Debian 7.x (using upstart)
-
-```shell
-sudo cp /etc/init/buildkite-agent.conf /etc/init/buildkite-agent-2.conf
-sudo service buildkite-agent-2 start
-sudo tail -f /var/log/upstart/buildkite-agent-2.log
 ```
 
 ## Upgrading

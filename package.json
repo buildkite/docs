@@ -1,6 +1,9 @@
 {
   "name": "docs",
   "private": true,
+  "dependencies": {
+  },
+  "devDependencies": {},
   "scripts": {
     "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "validate-yaml": "npx --package ajv-cli ajv validate -s \"data/agent_attributes.schema.yaml\" -d \"data/agent_attributes.yaml\""
