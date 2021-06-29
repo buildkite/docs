@@ -5,7 +5,7 @@ Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/d
 ### What kind of information on incoming webhooks is logged by Buildkite? 
 Buildkite only logs and temporarily stores the incoming webhook information as it was received, the relevant HTTP headers, and the remote IP for diagnostics purposes. This information is soon erased and cannot be used for audit.
  
-### How long does Buildkite store the information regarding incoming webhooks?
+### How long does Buildkite store the information on incoming webhooks?
 Buildkite stores the information on recent incoming webhooks received per pipeline for approximately a week. It is done for troubleshooting purposes only — for example, to diagnose why a given hook didn’t trigger a build. This functionality is not exposed in the UI.
  
 ### What security information is stored in the secret in a Buildkite URL? Does it only say that I — as a user — am talking to Buildkite, and not that the webhook is triggered from my GitHub organization (or any other GitHub entity)? 
