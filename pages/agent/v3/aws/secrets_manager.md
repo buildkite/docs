@@ -2,17 +2,16 @@
 
 The Elastic CI Stack for AWS supports reading a Buildkite Agent token from
 the AWS Systems Manager Parameter Store. The token can be stored in a plaintext
-parameter, or encrypted with a KMS Key for access control purposes. It is also
-possible to store your Buildkite Agent token using AWS Secrets Manager should
-you need to make use of the advanced functionality it offers over the Parameter
+parameter, or encrypted with a KMS Key for access control purposes. You can also store your Buildkite Agent token using AWS Secrets Manager if
+you need the advanced functionality it offers over the Parameter
 Store.
 
-For example, AWS Secrets Manager can be configured to automatically rotate and
+For example, AWS Secrets Manager can automatically rotate and
 revoke secrets using Lambda functions, and replicate secrets across multiple
 regions in your account.
 
-If you would prefer to store your Buildkite Agent token as an AWS Secrets
-Manager secret, you can configure the Elastic CI Stack’s
+To store your Buildkite Agent token as an AWS Secrets
+Manager secret, configure the Elastic CI Stack’s
 `BuildkiteAgentTokenParameterStorePath` parameter to reference your secret with
 the special `/aws/reference/secretsmanager/your_Secrets_Manager_secret_ID`
 parameter path which will transparently fetch the secret from AWS Secrets
@@ -30,14 +29,14 @@ To ensure your Elastic CI Stack instance IAM role has access to the secret:
   policy, if you re-create the IAM role you will need to save the resource
   policy again to grant access.
 
-```
+```json
 {
   "Version" : "2012-10-17",
   "Statement" : [ {
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : [
-        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-test-Role”
+        "arn\:aws\:iam":":[redacted]:role/buildkite-secretsmanager-test-Role",
       ]
     },
     "Action" : "secretsmanager:GetSecretValue",
@@ -63,9 +62,9 @@ it will be retrieving the secret from.
     multiple regions.
 - Ensure each region’s IAM role has `kms:Decrypt` permission for the key used to
 encrypt the secret in that region.
-    - I used the AWS Secrets Manager key e.g. aws/secretsmanager in Secrets
-    Manager and then looked up the underlying CMK ID of that key alias in each
-    region I deployed the stack template to. Provide that value for the
+    - You can do this with the AWS Secrets Manager key e.g. aws/secretsmanager in Secrets
+    Manager, and looking up the underlying CMK ID of that key alias in each
+    region the stack template is deployed to. Provide that value for the
     `BuildkiteAgentTokenParameterStoreKMSKey` parameter for the stack in that
     region.
 - Apply a resource policy to the primary Secrets Manager secret that grants
