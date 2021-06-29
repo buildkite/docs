@@ -62,7 +62,7 @@ it will be retrieving the secret from.
     multiple regions.
 - Ensure each region’s IAM role has `kms:Decrypt` permission for the key used to
 encrypt the secret in that region.
-    - You can do this with the AWS Secrets Manager key e.g. aws/secretsmanager in Secrets
+    - You can do this with the AWS Secrets Manager key e.g. `aws/secretsmanager` in Secrets
     Manager, and looking up the underlying CMK ID of that key alias in each
     region the stack template is deployed to. Provide that value for the
     `BuildkiteAgentTokenParameterStoreKMSKey` parameter for the stack in that
@@ -72,7 +72,7 @@ encrypt the secret in that region.
 be replicated.
 
 Now, changes to the agent token secret (either made by hand or using Automatic
-Secret Rotation) will be replicated from the primary region to each replia
+Secret Rotation) will be replicated from the primary region to each replica
 region.
 
 The Elastic CI Stack will only retrieve the Buildkite Agent token once when the
