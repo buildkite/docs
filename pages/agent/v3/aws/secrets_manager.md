@@ -14,8 +14,8 @@ To store your Buildkite Agent token as an AWS Secrets
 Manager secret, configure the Elastic CI Stack’s
 `BuildkiteAgentTokenParameterStorePath` parameter to reference your secret with
 the special parameter path `/aws/reference/secretsmanager/your_Secrets_Manager_secret_ID`.
-Reads from this parameter path will transparently fetch the token from AWS Secrets
-Manager.
+Parameter Store will transparently fetch the token from AWS Secrets
+Manager when this parameter is read.
 
 See the AWS documentation on [Referencing AWS Secrets Manager secrets from Parameter Store parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-ps-secretsmanager.html)
 for more details.
