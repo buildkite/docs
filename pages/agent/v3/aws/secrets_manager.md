@@ -36,7 +36,7 @@ To ensure your Elastic CI Stack instance IAM role has access to the secret:
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : [
-        "arn\:aws\:iam\:\:[redacted]:role/buildkite-secretsmanager-test-Role",
+        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-test-Role",
       ]
     },
     "Action" : "secretsmanager:GetSecretValue",
