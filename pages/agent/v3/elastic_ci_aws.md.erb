@@ -192,7 +192,18 @@ Branch releases can only be deployed to `us-east-1`.
 
 To update your stack to the latest version use CloudFormation’s stack update tools with one of the URLs in the [Elastic Stack CI releases](#elastic-stack-ci-releases) section.
 
-Prior to updating, it's a good idea to set the desired instance size on the `AutoscalingGroup` to `0` manually.
+You may wish to [update your stack using a Change Set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html)
+to scrutinise the changes present in the updated template version.
+
+The CloudFormation template supports zero downtime deployment when updating.
+If you are concerned about causing a service interruption during the template
+update, use the AWS Console to temporarily pause auto scaling. Open the
+CloudFormation console and select your stack instance. Using the Resources tab,
+find the `AutoscalingFunction`. Use the Lambda console to find the function’s
+Triggers and Disable the trigger rule. Next, find the stack’s
+`AgentAutoScaleGroup` and set the `DesiredCount` to `0`. Once the remaining
+instances have terminated you can deploy the updated stack and undo the manual
+changes to resume instance auto scaling.
 
 ## CloudWatch metrics
 
