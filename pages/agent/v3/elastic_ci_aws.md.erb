@@ -180,8 +180,13 @@ We publish the most recent build of the stack to
 a version for each commit at
 `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
 
+<!-- vale off -->
+<!-- alex ignore master -->
+
 A master branch release can also be deployed to any of our supported AWS
 Regions.
+
+<!-- vale on -->
 
 Branches are published to a per-branch URL
 `https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
