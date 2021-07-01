@@ -169,11 +169,24 @@ The AWS ECR options are powered by an embedded version of the [ECR plugin](https
 
 ## Elastic Stack CI releases
 
-We recommend running the latest release, which is available at `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`, or on the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
+We recommend running the latest stable release of the CloudFormation template,
+available at `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`, or a
+specific release from the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
-We publish the latest build of the stack to `https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with a version for each commit in the form of `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+The latest stable release can be deployed to any of our supported AWS Regions.
 
-Branches are published in the form of `https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
+We publish the most recent build of the stack to
+`https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with
+a version for each commit at
+`https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+
+A master branch release can also be deployed to any of our supported AWS
+Regions.
+
+Branches are published to a per-branch URL
+`https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
+
+Branch releases can only be deployed to `us-east-1`.
 
 ## Updating your stack
 
