@@ -93,6 +93,7 @@ Pagerduty
 Phabricator
 phabricator
 php
+plaintext
 plist
 png
 pngs
