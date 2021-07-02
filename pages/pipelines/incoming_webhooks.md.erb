@@ -1,17 +1,17 @@
 # Incoming Webhooks
 
-Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/integrations/github), [GitLab](/docs/integrations/gitlab), [Bitbucket](/docs/integrations/bitbucket), etc.) to trigger builds. This page covers the most frequent questions that arise regarding the security of incoming webhooks in Buildkite.    
+Incoming webhooks are sent to Buildkite by source control providers ([GitHub](/docs/integrations/github), [GitLab](/docs/integrations/gitlab), [Bitbucket](/docs/integrations/bitbucket), etc.) to trigger builds. This page answers the most frequent questions about the security of incoming webhooks in Buildkite.    
 
 ### What kind of information on incoming webhooks is logged by Buildkite? 
 Buildkite only logs and temporarily stores the incoming webhook information as it was received, the relevant HTTP headers, and the remote IP for diagnostics purposes. This information is soon erased and cannot be used for audit.
  
-### How long does Buildkite store the information regarding incoming webhooks?
-Buildkite stores the information on recent incoming webhooks received per pipeline for approximately a week. It is done for troubleshooting purposes only — for example, to diagnose why a given hook didn’t trigger a build. This functionality is not exposed in the UI.
+### How long does Buildkite store the information on incoming webhooks?
+Buildkite stores the information on recent incoming webhooks received per pipeline for approximately one week. It is used for troubleshooting purposes only — for example, to diagnose why a given hook didn’t trigger a build. This functionality is not exposed in the UI.
  
-### What security information is stored in the secret in a Buildkite URL? Does it only say that I — as a user — am talking to Buildkite, and not that the webhook is triggered from my GitHub organization (or any other GitHub entity)? 
+### What security information is stored in the secret in a Buildkite URL?
 Secrets are pipeline-specific. A secret can’t prove that it hasn’t been acquired by somebody else and added as a webhook inside their own GitHub repository (which is equally true of any other secret). However, all incoming webhooks coming from GitHub-hosted repositories are IP-filtered to provide an additional layer of security.
 
-As a Buildkite user, you can [setup a pipeline and request a URL](/docs/integrations/github#set-up-a-new-pipeline-for-a-github-repository) to add it to your GitHub organization as a webhook. It means that you would prove that it is coming from your GitHub organization.
+As a Buildkite user, you can [setup a pipeline and request a URL](/docs/integrations/github#set-up-a-new-pipeline-for-a-github-repository) to add it to your GitHub organization as a webhook which would prove that it is coming from your GitHub organization.
  
 ### Would adding a separate secret per webhook make it more secure?
 The webhook URL already contains a secret value, so a second secret field is redundant and doesn’t increase security. 
