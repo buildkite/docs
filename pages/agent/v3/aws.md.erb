@@ -30,8 +30,8 @@ If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite
 
 To avoid this, you need to prevent the builds from accessing your EC2 metadata or provide sandboxed AWS credentials for each build and restrict their permissions. There are two main ways to do it:
 
-* Via compartmentalization of Buildkite agents
-* Through downgrading an instance profile role
+* Compartmentalizing your Buildkite agents
+* Downgrading an instance profile role
 
 If you run all the build steps in Docker containers, you should use the latter approach for the best results. And if you are using Kubernetes for your Buildkite CI, you can check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.  
 
