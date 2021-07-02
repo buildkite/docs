@@ -133,3 +133,15 @@ Environment=https_proxy=http://username:password@proxyserver:8080/
 {: codeblock-file="proxy.conf"}
 
 After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart. 
+
+## Restricting access by the Buildkite agent controller
+ 
+To safeguard your organization's infrastructure in case of Buildkite infrastructure being compromised, you want to restrict what the agent can and cannot do. All of the information above about securing the Buildkite agent applies, specifically:
+
+* Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
+* [Disable command-eval](#disabling-command-eval)  
+* [Disable local hooks](#disabling-local-hooks)  
+* [Enable strict validation in agent hooks](#strict-checks-using-agent-hooks)  
+ 
+As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you. 
+Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.  

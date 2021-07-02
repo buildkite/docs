@@ -38,6 +38,11 @@
         <ul class="Docs__nav__sub-nav" style="margin-top: 15px;">
           <%= sidebar_link_to "Agent v2 (Deprecated)", 'agent/v2' %>
         </ul>
+        <p class="Docs__nav__section-subheading">Elastic CI Stack for AWS</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
+          <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets_manager.md' %>
+        </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
         <ul class="Docs__nav__sub-nav">
           <%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %>
@@ -82,16 +87,9 @@
           </ul>
           <p class="Docs__nav__section-subheading">Agent Installers</p>
           <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Ubuntu", 'agent/v2/ubuntu' %>
-            <%= sidebar_link_to "Debian", 'agent/v2/debian' %>
-            <%= sidebar_link_to "Red Hat/CentOS", 'agent/v2/redhat' %>
-            <%= sidebar_link_to "FreeBSD", 'agent/v2/freebsd' %>
-            <%= sidebar_link_to "macOS", 'agent/v2/osx' %>
-            <%= sidebar_link_to "Windows", 'agent/v2/windows' %>
-            <%= sidebar_link_to "Linux", 'agent/v2/linux' %>
-            <%= sidebar_link_to "Docker", 'agent/v2/docker' %>
-            <%= sidebar_link_to "AWS", 'agent/v2/aws' %>
-            <%= sidebar_link_to "Google Cloud", 'agent/v2/gcloud' %>
+            <% AGENT_INSTALLERS.each do |installer| %>
+              <%= sidebar_link_to installer[:title], installer[:url] %>
+            <% end %>
           </ul>
           <p class="Docs__nav__section-subheading">Command-Line Reference</p>
           <ul class="Docs__nav__sub-nav">
@@ -121,6 +119,8 @@
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
             <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
             <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
+            <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
+            <%= sidebar_link_to "Incoming Webhooks", 'pipelines/incoming-webhooks' %>
           </ul>
           <p class="Docs__nav__section-subheading">Step Types</p>
           <ul class="Docs__nav__sub-nav">
@@ -193,9 +193,10 @@
             <%= sidebar_link_to "Artifactory", 'integrations/artifactory' %>
             <%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %>
             <%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %>
-            <%= sidebar_link_to "Slack", 'integrations/slack' %>
+            <%= sidebar_link_to "PagerDuty", 'integrations/pagerduty' %>
             <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
-          </ul>
+            <%= sidebar_link_to "Slack", 'integrations/slack' %>
+            </ul>
         </div>
       </div>
 
@@ -259,7 +260,7 @@
       }
       
       let sectionHeaders = document.getElementsByClassName('Docs__nav__section-heading');
-      for(let sectionHeader of sectionHeaders){
+      for (let sectionHeader of sectionHeaders) {
         sectionHeader.onclick = function() {
           let parent = sectionHeader.parentElement;
           let alreadyExpanded = parent.classList.contains('expanded'); // Track whether section is already expanded, in which case we want to hide it
@@ -273,9 +274,12 @@
         }
       };
 
-      // hide agent v2 section if we're not browsing it 
-      if (window.location.pathname.indexOf('v2') == -1) {
-        
-      }
+      // don't auto-expand nav on small screens
+      if (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
+        let expandedSectionContainers = document.querySelectorAll('.Docs__nav__section-container.expanded');
+        for (let expandedSectionContainer of expandedSectionContainers) {
+          expandedSectionContainer.classList.remove('expanded');
+        }
+      }      
   })();
 <% end %>

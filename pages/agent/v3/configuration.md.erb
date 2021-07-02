@@ -224,7 +224,7 @@ _Optional attributes:_
     <tr id="metrics-datadog">
       <th><code>metrics-datadog</code></th>
       <td>
-        Send metrics to DogStatsD for Datadog. This will generate the following metrics:<br>
+        Send metrics to DogStatsD for Datadog. This will generate the following metrics (duration measured in milliseconds):<br>
         <code>buildkite.jobs.success</code><br>
         <code>buildkite.jobs.duration.success.avg</code><br>
         <code>buildkite.jobs.duration.success.max</code><br>
@@ -457,7 +457,7 @@ _Optional attributes:_
     <tr id="tracing-backend">
       <th><code>tracing-backend</code></th>
       <td>
-        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT<code>.        
+        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT</code>.
         Accepts blank string or "datadog".
         <p class="Docs__api-param-eg"><em>Default:</em> <code>""</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TRACING_BACKEND</code></p>
@@ -544,7 +544,7 @@ _Optional attributes:_
         Do not automatically verify SSH fingerprints for first-time checkouts.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION</code></p>
-        <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code><a/></p>
+        <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code></a></p>
       </td>
     </tr>
   </tbody>
