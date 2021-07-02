@@ -41,7 +41,7 @@ This approach suggests the use of Elastic Stack. However, these instructions can
 
 You can divide your Buildkite agents by responsibilities. For example — agents building for development environments or release, agents deploying for staging or production, etc. This will help reflect multiple AWS environments at your Buildkite organization. 
 
-To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin] (https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.   
+To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin](https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.   
 
 To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a pre-checkout [hook on the agent](https://buildkite.com/docs/agent/v3/hooks).
 
