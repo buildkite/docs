@@ -24,7 +24,7 @@ button on your organization’s Agents page.
 
 ## Preventing builds from accessing Amazon EC2 metadata  
 
-For security reasons, you may choose to restrict access to Amazon EC2 metadata that your builds have if you provision various elements of your infrastructure (RDS, Redis, SQS, etc.) using AWS permission sandboxes (a role with many permissions to EC2 instances).
+If you provision infrastructure like databases, Redis, SQS, etc using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
 
 If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2. 
 
