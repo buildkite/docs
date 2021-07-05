@@ -33,6 +33,25 @@ _Required attributes:_
   </tbody>
 </table>
 
+_Test attributes:_
+
+<!-- vale off -->
+<table class="Docs__attribute__table">
+  <tbody>
+    <% AGENT_ATTRIBUTES['attributes'].each do |attr| %>
+      <% if !attr['required'] %>
+      <tr id="<%= attr['name'] %>">
+        <th><code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code></th>
+        <td><%= render_markdown(text: attr['desc']) %></td>
+        <td><code><%= attr['env_var'] %></code></td>
+      </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+<!-- vale on -->
+
+
 _Optional attributes:_
 
 <table>

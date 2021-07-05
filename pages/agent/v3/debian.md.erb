@@ -55,17 +55,17 @@ sudo journalctl -f -u buildkite-agent
 
 ## SSH Key Configuration
 
-<%= render_markdown 'agent/v3/ssh_key_with_buildkite_agent_user' %>
+<%= render_markdown partial: 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
 ## File Locations
 
-<%= render_markdown 'agent/v3/apt_locations' %>
+<%= render_markdown partial: 'agent/v3/apt_locations' %>
 
 ## Configuration
 
-<%= render_markdown 'agent/v3/apt_configuration' %>
+<%= render_markdown partial: 'agent/v3/apt_configuration' %>
 
 ## Running multiple agents
 
@@ -91,4 +91,4 @@ sudo journalctl -f -u buildkite-agent@2
 
 ## Upgrading
 
-<%= render_markdown 'agent/v3/apt_upgrading' %>
+<%= render_markdown partial: 'agent/v3/apt_upgrading' %>
