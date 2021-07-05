@@ -169,13 +169,13 @@ The AWS ECR options are powered by an embedded version of the [ECR plugin](https
 
 ## Elastic Stack CI releases
 
-We recommend running the latest stable release of the CloudFormation template,
-available at `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`, or a
-specific release from the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
+It is recommended to run the latest stable release of the CloudFormation
+template, available from `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`,
+or a specific release available from the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
 The latest stable release can be deployed to any of our supported AWS Regions.
 
-We publish the most recent build of the stack to
+The most recent build of the CloudFormation stack is published to
 `https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with
 a version for each commit at
 `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
@@ -188,7 +188,7 @@ Regions.
 
 <!-- vale on -->
 
-Branches are published to a per-branch URL
+GitHub branches are also automatically published to a per-branch URL
 `https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
 
 Branch releases can only be deployed to `us-east-1`.
