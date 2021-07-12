@@ -24,11 +24,31 @@ In your Buildkite Organization Settings' Single Sign On menu item, choose the Ok
 
 On the following screen in the Metadata URL field, enter the 'Identity Provider Metadata' link that you copied in the previous step.
 
-<%= image "okta-settings.png", width: 1848/2, height: 732/2, alt: "Screenshot of the Buildkite Okta Settings Page" %>
+<%= image "okta-settings.png", width: 1742/2, height: 606/2, alt: "Screenshot of the Buildkite Okta Settings Page" %>
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
+
+### SCIM Deprovisioning
+
+Using the provisioning settings in Okta you can enable automatic deprovisioning of users in your Buildkite organization.
+
+After creating your SSO Provider in Buildkite, an access token and SCIM URL will be generated. 
+
+These are found in your Okta SSO Provider Settings:
+
+<%= image "okta-scim-settings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the Buildkite Okta Settings SCIM Deprovisioning section" %>
+
+Copy both the token and URL, then return to your Buildkite application in Okta. 
+
+Set up deprovisioning in Okta: 
+
+1. On the 'Provisioning' tab in the Okta Buildkite application, select 'Integrations' from the left side menu
+1. Enter the token and URL that you copied from your Buildkite SSO Provider
+1. Save and test your settings
+
+Return to Buildkite and your SSO Provider Settings before continuing to the next step.
 
 ## Step 3. Perform a Test Login
 
