@@ -24,7 +24,8 @@ To ensure your Elastic CI Stack instance IAM role has access to the secret:
 
 - Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter.
 	- The CloudFormation template includes an IAM policy with `kms:Decrypt` permission for this key.
-- Use the Secret Manager secret’s resource policy to grant `secretsmanager:GetSecretValue` permission to the Elastic CI Stack’s IAM role.
+- Use the Secret Manager secret’s resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
+  - Use your CloudFormation template’s Resources tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their ARNs in the policy given below.
 	- Secret Manager will capture the role’s Unique ID when saving the resource
   policy, if you re-create the IAM role you will need to save the resource
   policy again to grant access.
@@ -36,7 +37,8 @@ To ensure your Elastic CI Stack instance IAM role has access to the secret:
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : [
-        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-test-Role",
+        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-AutoscalingLambdaExecutionRole",
+        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-Role"
       ]
     },
     "Action" : "secretsmanager:GetSecretValue",
