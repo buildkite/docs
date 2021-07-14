@@ -363,12 +363,9 @@ _Optional attributes:_
     <tr id="redacted-vars">
       <th><code>redacted-vars</code></th>
       <td>
-        Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
-        <div class="Docs__wip-note">
-          <p class="Docs__wip-heading">Experimental feature</p>
-          <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-        </div>
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
+        A list of environment variable name patterns whose values should be <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. To disable redaction, set this to an empty string.
+        <p><em>Introduced in:</em> <a href="https://github.com/buildkite/agent/releases/tag/v3.31.0">v3.31</a></p>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>*_PASSWORD,*_SECRET,*_TOKEN,*_ACCESS_KEY,*_SECRET_KEY</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
     </tr>
