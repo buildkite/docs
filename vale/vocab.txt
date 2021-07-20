@@ -73,6 +73,7 @@ json
 junit
 kubectl
 kustomize
+launchd
 linux
 Memcache
 Minitest
@@ -123,6 +124,8 @@ Shipit
 sre
 stdout
 subfolders
+subnet
+subnets
 substrings
 sudo
 svg
