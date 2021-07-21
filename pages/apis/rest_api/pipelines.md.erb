@@ -820,6 +820,88 @@ Error responses:
 </tbody>
 </table>
 
+## Unarchive a pipeline
+
+Unarchived pipelines are editable, and are shown on the Pipeline pages.
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}/unarchive"
+```
+
+```json
+{
+  "id": "14e9501c-69fe-4cda-ae07-daea9ca3afd3",
+  "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
+  "web_url": "https://buildkite.com/acme-inc/my-pipeline",
+  "name": "My Pipeline",
+  "description": null,
+  "slug": "my-pipeline",
+  "repository": "git@github.com:acme-inc/new-repo.git",
+  "branch_configuration": "master",
+  "default_branch": "master"
+  "provider": {
+    "id": "github",
+    "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+    "settings": {
+      "publish_commit_status": true,
+      "build_pull_requests": true,
+      "build_pull_request_forks": false,
+      "build_tags": false,
+      "publish_commit_status_per_step": false,
+      "repository": "acme-inc/new-repo",
+      "trigger_mode": "code"
+    }
+  },
+  "skip_queued_branch_builds": false,
+  "skip_queued_branch_builds_filter": null,
+  "cancel_running_branch_builds": false,
+  "cancel_running_branch_builds_filter": null,
+  "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
+  "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+  "created_at": "2015-03-01 06:44:40 UTC",
+  "archived_at": null,
+  "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"something=true\"",
+  "steps": [
+    {
+      "type": "script",
+      "name": null,
+      "command": "new.sh",
+      "artifact_paths": null,
+      "branch_configuration": null,
+      "env": {},
+      "timeout_in_minutes": null,
+      "agent_query_rules": [
+        "myqueue=true"
+      ],
+      "concurrency": null,
+      "parallelism": null
+    }
+  ],
+  "env": {
+  },
+  "scheduled_builds_count": 0,
+  "running_builds_count": 0,
+  "scheduled_jobs_count": 0,
+  "running_jobs_count": 0,
+  "waiting_jobs_count": 0,
+  "visibility": "private"
+}
+```
+
+Required scope: `write_pipelines`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table>
+<tbody>
+  <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Pipeline could not be unarchived." }</code></td></tr>
+</tbody>
+</table>
+
 ## Delete a pipeline
 
 ```bash
