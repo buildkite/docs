@@ -1,61 +1,60 @@
 # Elastic CI Stack for AWS
 
-The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) gives you a private, autoscaling Buildkite Agent cluster in your own AWS account. This guide leads you through getting started with the stack :cloudformation::tada:
-
-
+The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) gives you a private, autoscaling Buildkite Agent cluster in your own AWS account. This guide will lead you through getting started with the stack :cloudformation::tada:
 
 {:toc}
 
-## Launching the stack
+## Launching the Stack
 
-Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildkite and select the _AWS_ tab:
+Go to the [Agents page](https://buildkite.com/organizations/-/agents) on Buildkite and select the _“AWS”_ tab:
 
 <%= image "agents-tab.png", size: "#{1532/2}x#{296/2}", alt: "Buildkite AWS Agents" %>
 
-Click _Launch Stack_ :red_button:
+Click _“Launch Stack”_ :red_button:
 
 <%= image "agents-tab-launch.png", size: "#{554/2}x#{316/2}", alt: 'Launch Buildkite Elastic CI Stack' %>
 
 <%= image "aws-select-template.png", size: "#{1037/2}x#{673/2}", alt: "AWS Select Template Screen" %>
 
-After clicking _Next_, configure the stack using your Buildkite agent token:
+After clicking _“Next”_ you’ll configure the stack using your Buildkite agent token:
 
 <%= image "aws-parameters.png", size: "#{1019/2}x#{392/2}", alt: "AWS Parameters" %>
 
-If you don't know your agent token, there is a _Reveal Agent Token_ button available on the right-hand side of the [Agents page](https://buildkite.com/organizations/-/agents):
+If you don't know your agent token, there is a "Reveal Agent Token" button available on the right-hand side of the [Agents page](https://buildkite.com/organizations/-/agents):
 
 <%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
 
-By default the stack uses a job queue of `default`, but you can specify any other queue name you like. See the [Buildkite Agent Job Queue docs](/docs/agent/v3/queues) for more info.
+By default the stack uses a job queue of `default` but you can specify any other queue name you’d like. See the [Buildkite Agent Job Queue docs](/docs/agent/v3/queues) for more info.
 
 Review all configured options. Once you're ready, check both checkboxes:
 
-- I acknowledge that AWS CloudFormation might create IAM resources with custom names.
+- I acknowledge that AWS CloudFormation might create IAM resources with custom names.”_
 - I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
-Then click _Create stack_:
+Then click _“Create stack”_:
 
 <%= image "aws-create-stack.png", size: "#{1257/2}x#{455/2}", alt: "AWS Create Stack Button" %>
 
-After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the _Refresh_ icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
+After creating the stack, you'll be taken to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the _“Refresh”_ icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
 
 <%= image "elastic-ci-stack.png", width: 2756/2, height: 1406/2, alt: "AWS Elastic CI Stack Create Complete" %>
 
-You now have a working Elastic CI Stack ready to run builds! :tada:
+You've now got a working Elastic CI Stack ready to run builds! :tada:
 
 ## Running your first build
 
-We’ve created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the _Add to Buildkite_ button below (or on the [GitHub Readme](https://github.com/buildkite/bash-parallel-example)):
+We’ve created a sample [bash-parallel-example sample pipeline](https://github.com/buildkite/bash-parallel-example) for you to test with your new autoscaling stack. Click the _“Add to Buildkite”_ button below (or on the [GitHub Readme](https://github.com/buildkite/bash-parallel-example)):
 
 <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Click _Create Pipeline_. Depending on your organization's settings, the next step will vary slightly: 
+Click “Create Pipeline”. Depending on your organization's settings, the next step will vary slightly: 
 
-- If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
+- If your organization is configured to use the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
+
+- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a "Choose a Starting Point" wizard. Select "Pipeline Upload" from the list:
     <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
-Click _New Build_ in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
+Click "New Build" in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
 
 <%= image "buildkite-new-build.png", size: "#{1140/2}x#{898/2}", alt: 'Triggering Buildkite Build' %>
 
@@ -65,13 +64,13 @@ Once your build is created, head back to [AWS EC2 Auto Scaling Groups](https://c
 
 <!-- vale off -->
 
-Select the _buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx_ group and then the _Instances_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from _Pending_ to _InService_:
+Select the _“buildkite-AgentAutoScaleGroup-xxxxxxxxxxxx”_ group and then the _“Instances”_ tab. You'll see instances starting up to run your new build and after a few minutes they'll transition from `Pending` to `InService`:
 
 <!-- vale on -->
 
 <%= image "buildkite-demo-instances.png", width: 3266/2, height: 1748/2, alt: "AWS Auto Scaling Group Launching" %>
 
-Once the instances are ready they will appear on your Buildkite Agents page:
+Once the instances are ready you'll see them appear on your Buildkite Agents page:
 
 <%= image "buildkite-connected-agents.png", size: "#{1584/2}x#{1508/2}", alt: 'Buildkite Connected Agents' %>
 
@@ -83,6 +82,6 @@ Congratulations on running your first Elastic CI Stack build on Buildkite! :clap
 
 ## Further documentation
 
-You can read more about the Elastic CI Stack in our [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws) docs. You can also view the [GitHub repo](https://github.com/buildkite/elastic-ci-stack-for-aws).
+You can read more about the Elastic CI Stack over on the GitHub repository:
 
-
+https://github.com/buildkite/elastic-ci-stack-for-aws

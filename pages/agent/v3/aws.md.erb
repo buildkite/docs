@@ -7,18 +7,14 @@ The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS.
 ## Install the Agent on your own AWS instance
 
 To run the agent on your own AWS instances use whichever installer matches your
-instance type. For Amazon Linux 2 use the
-[Red Hat/CentOS installer](/docs/agent/v3/redhat).
+instance type. For Amazon Linux use the [Red Hat/CentOS installer].
 
-## Use our Elastic CI Stack for AWS
+## Use our pre-built Elastic CI Stack for AWS
 
-The [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws) is a
-CloudFormation template to deploy an autoscaling Buildkite Agent cluster. The
-agent instances include Docker, S3 and CloudWatch integration.
-
-You can use an Elastic CI Stack deployment to test Linux or Windows projects,
-parallelize large test suites, run Docker containers or docker-compose
-integration tests, or perform any AWS ops related tasks.
+The [Elastic CI Stack for AWS][github] is a pre-built CloudFormation template
+that gives you an autoscaling Buildkite Agent cluster in your own AWS. The
+stack includes Docker, S3 and Cloudwatch integration, and is suitable for
+parallelizing large legacy test suites, testing any Linux-based project that can run within Docker, and performing AWS ops related tasks.
 
 [Read the documentation][github] on GitHub, and launch it using the
 button on your organization’s Agents page.
@@ -41,55 +37,3 @@ There is an excellent blog post on [running iOS agents in the cloud](https://www
 * You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
 * Launching the agent at [boot](https://github.com/buildkite/agent/issues/1423)
 
-## Preventing builds from accessing Amazon EC2 metadata  
-
-If you provision infrastructure like databases, Redis, Amazon SQS, etc using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
-
-If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2. 
-
-To avoid this, you need to prevent the builds from accessing your EC2 metadata or provide sandboxed AWS credentials for each build and restrict their permissions. There are two main ways to do it:
-
-* Compartmentalizing your Buildkite agents
-* Downgrading an instance profile role
-
-If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-via-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-via-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.  
-
-### Restricting permissions via compartmentalization of agents
-
-This approach suggests the use of Elastic Stack. However, these instructions can also be followed using hooks or scripts.
-
-You can divide your Buildkite agents by responsibilities. For example — agents building for development environments or release, agents deploying for staging or production, etc. This will help reflect multiple AWS environments at your Buildkite organization. 
-
-To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin](https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.   
-
-To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a [pre-checkout hook](https://buildkite.com/docs/agent/v3/hooks) on the agent.
-
-### Restricting permissions by downgrading an instance profile role  
-
-This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS. 
-
-To restrict permissions of an instance, you can permanently downgrade an instance’s profile from a high-permission bootstrap role to a low-permission steady-state role. The high-permission role has a policy that allows replacing the instance profile with a low-permission role, but there is no such policy for a low-permission role.
-
-## Further tightening the security around EC2 permissions  
-
-For added security, you can expire agents after a job. For example, you can:  
-1. Create a new agent for a pending job  
-2. Transition the agent to a sandbox role  
-3. Terminate the agent instance when the agent completes the job  
-
-Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance. 
-
-A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.  
-
-If you’re less concerned about the CI spend, new EC2 instance starting time, and other resources, you can specify a minimum stack size large enough to keep a pool of agents ready to go. This way, you can quickly replace any terminated agent instance with a clean instance. 
-Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.  
-
-For more information on AWS security practices regarding restricting access to the API in EKS, see [Amazon EKS security best practices](https://docs.aws.amazon.com/eks/latest/userguide/best-practices-security.html).
-
-### A note on recommended pool size  
-
-There is no exact recommended quantity of agents in a pool. An optimal pool size is the minimum number of available agents you would want to have ready to run jobs instantly. 
-
-You can start with one or two extra instances that are always available for running lightweight jobs (e.g., pipeline uploads), and you can increase the number of agents per machine so that they can run in parallel. 
-
-For organizations where at any given moment there are engineers working (for example, for shift-based 24/7 schedules or in globally distributed teams), having a large pool of build agents always available makes sense. Otherwise, idly running agents overnight might be a waste of resources.  

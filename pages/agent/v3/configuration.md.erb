@@ -363,9 +363,12 @@ _Optional attributes:_
     <tr id="redacted-vars">
       <th><code>redacted-vars</code></th>
       <td>
-        A list of environment variable name patterns whose values should be <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. To disable redaction, set this to an empty string.
-        <p><em>Introduced in:</em> <a href="https://github.com/buildkite/agent/releases/tag/v3.31.0">v3.31</a></p>
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>*_PASSWORD,*_SECRET,*_TOKEN,*_ACCESS_KEY,*_SECRET_KEY</code></p>
+        Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
     </tr>
@@ -454,7 +457,7 @@ _Optional attributes:_
     <tr id="tracing-backend">
       <th><code>tracing-backend</code></th>
       <td>
-        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT</code>.
+        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT<code>.        
         Accepts blank string or "datadog".
         <p class="Docs__api-param-eg"><em>Default:</em> <code>""</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TRACING_BACKEND</code></p>

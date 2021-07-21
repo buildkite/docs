@@ -2,6 +2,7 @@
   "name": "docs",
   "private": true,
   "dependencies": {
+    "alex": "^9.0.1"
   },
   "devDependencies": {},
   "scripts": {
