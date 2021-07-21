@@ -1,19 +1,15 @@
 # Running Buildkite Agent on AWS
 
-The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS.
+The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS
+CloudFormation template, or by installing the agent on your self-managed
+instances.
 
 {:toc}
 
-## Install the Agent on your own AWS instance
-
-To run the agent on your own AWS instances use whichever installer matches your
-instance type. For Amazon Linux 2 use the
-[Red Hat/CentOS installer](/docs/agent/v3/redhat).
-
-## Use our Elastic CI Stack for AWS
+## Using our Elastic CI Stack for AWS CloudFormation template
 
 The [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws) is a
-CloudFormation template to deploy an autoscaling Buildkite Agent cluster. The
+CloudFormation template for an autoscaling Buildkite Agent cluster. The
 agent instances include Docker, S3 and CloudWatch integration.
 
 You can use an Elastic CI Stack deployment to test Linux or Windows projects,
@@ -25,6 +21,48 @@ button on your organization’s Agents page.
 
    [github]: https://github.com/buildkite/elastic-ci-stack-for-aws
    [Red Hat/CentOS installer]: /docs/agent/v3/redhat
+
+## Installing the Agent on your own AWS instances
+
+To run the agent on your own AWS instances, use whichever installer matches your
+instance operating system. For Amazon Linux 2 use the
+[Red Hat/CentOS installer](/docs/agent/v3/redhat). For macOS, see
+[installing the agent on AWS mac1.metal instances](#installing-the-agent-on-aws-mac1-dot-metal-instances)
+
+## Installing the Agent on AWS mac1.metal instances
+
+Setting up a macOS AMI that starts a Buildkite Agent on launch is a multi
+step process. You can start with one of the macOS AMIs from AWS, or with an AMI you've already installed Xcode or other software on.
+
+To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
+session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
+
+
+1. Reserve a [AWS mac1.metal](https://aws.amazon.com/ec2/instance-types/mac/)
+Dedicated Instance.
+1. Boot a macOS instance using your desired AMI on the Dedicated Instance
+1. Configure instance VPC subnets, security groups, and key pairs so that you
+can access the instance.
+1. Using an SSH or SSM session, set a password for the ec2-user and enable
+screen sharing.
+1. Using a VNC session, enable auto-login for the ec2-user in System Preferences
+and disable the auto screen lock and screen saver.
+1. Follow the [OS X installation guide](/docs/agent/v3/osx#installation)
+instructions to install the Buildkite Agent using Homebrew and configure
+starting on login.
+1. Verify that the Buildkite Agent has connected to buildkite.com with your
+desired agent tags.
+1. Create an AMI from your instance.
+
+Your saved AMI can now be used to boot as many macOS instances as you require.
+To make this process repeatable, save your instance configuration in a Launch
+Template.
+
+There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
+
+### Known issues
+
+* You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
 
 ## Preventing builds from accessing Amazon EC2 metadata  
 
