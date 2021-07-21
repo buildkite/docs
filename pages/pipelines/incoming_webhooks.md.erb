@@ -13,7 +13,26 @@ Secrets are pipeline-specific. A secret can’t prove that it hasn’t been acqu
 
 You can also provide the permitted IPs for GitHub Enterprise Server, BitBucket Server, GitLab Community, and GitLabEnterprise in your [organization's settings](https://buildkite.com/organizations/~/settings). To enable IP filtering for them, in the [Repository providers](https://buildkite.com/organizations/krnswry/repository-providers) tab, enter the allowed IP addresses. 
 
-For non-server BitBucket, IP filtering for webhooks is currently unavailable.
+For non-server BitBucket, IP filtering for webhooks is currently unavailable.  
+
+### Can the webhook that triggered a build be accessed in the UI or API?  
+Yes, and both approaches are possible. 
+ 
+* To display the webhook that triggered the build, go to the build page and add "/webhook" at the end of its URL. 
+* To find the actual payload of a webhook that triggered a build, use the following GraphQL snippet:  
+
+```graphql
+query FindWebhookPayload {
+  build(uuid: "...") {
+    source {
+      ...on BuildSourceWebhook {
+        headers
+        payload
+      }
+    }
+  }
+}
+```   
  
 ### Would adding a separate secret per webhook make it more secure?
 The webhook URL already contains a secret value, so a second secret field is redundant and doesn’t increase security. 
