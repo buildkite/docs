@@ -63,6 +63,8 @@ Rails.application.routes.draw do
   get "/docs/tutorials/deploying-to-heroku",      to: redirect("/docs/deployments/deploying-to-heroku")
   get "/docs/integrations/sso/google-oauth",      to: redirect("/docs/integrations/sso/g-suite")
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
+  get "/docs/agent/v3/osx",                       to: redirect("/docs/agent/v3/macos")
+
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
@@ -78,7 +80,7 @@ Rails.application.routes.draw do
   get "/docs/agent/debian",              to: redirect("/docs/agent/v3/debian",                     status: 301)
   get "/docs/agent/redhat",              to: redirect("/docs/agent/v3/redhat",                     status: 301)
   get "/docs/agent/freebsd",             to: redirect("/docs/agent/v3/freebsd",                    status: 301)
-  get "/docs/agent/osx",                 to: redirect("/docs/agent/v3/osx",                        status: 301)
+  get "/docs/agent/osx",                 to: redirect("/docs/agent/v3/macos",                      status: 301)
   get "/docs/agent/windows",             to: redirect("/docs/agent/v3/windows",                    status: 301)
   get "/docs/agent/linux",               to: redirect("/docs/agent/v3/linux",                      status: 301)
   get "/docs/agent/docker",              to: redirect("/docs/agent/v3/docker",                     status: 301)

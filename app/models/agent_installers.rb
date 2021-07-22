@@ -8,7 +8,7 @@ AGENT_INSTALLERS = [
   { title: "FreeBSD",
     url: "agent/v3/freebsd" },
   { title: "macOS",
-    url: "agent/v3/osx" },
+    url: "agent/v3/macos" },
   { title: "Windows",
     url: "agent/v3/windows" },
   { title: "Linux",
