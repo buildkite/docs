@@ -58,6 +58,12 @@ Your saved AMI can now be used to boot as many macOS instances as you require.
 To make this process repeatable, save your instance configuration in a Launch
 Template.
 
+Use of an Auto-Scaling Group and Host Resource Group to maintain capacity in the
+face of hardware failures is recommended. Load based auto-scaling of macOS
+mac1.metal instances is not recommended, the instances are slow to boot and slow
+to terminate. It is likely that your agents will overprovision in response to
+load resulting in a high minimum charge per dedicated instance.
+
 There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
 
 ### Known issues
