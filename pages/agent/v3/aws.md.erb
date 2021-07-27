@@ -38,8 +38,8 @@ To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
 session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
 
 1. Reserve a [AWS mac1.metal](https://aws.amazon.com/ec2/instance-types/mac/)
-Dedicated Instance.
-1. Boot a macOS instance using your desired AMI on the Dedicated Instance.
+Dedicated Host.
+1. Boot a macOS instance using your desired AMI on the Dedicated Host.
 1. Configure instance VPC subnets, security groups, and key pairs so that you
 can access the instance.
 1. Using an SSH or SSM session, set a password for the ec2-user and enable
@@ -64,7 +64,7 @@ maintain capacity in the face of hardware failures is recommended, load based
 dynamic auto-scaling of macOS instances is not recommended. The instances are
 currently slow to boot and slow to terminate. Use of load based auto-scaling is
 likely to result in an overprovision of agents which carries a high minimum
-charge per dedicated instance.
+charge per dedicated host.
 
 There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
 
