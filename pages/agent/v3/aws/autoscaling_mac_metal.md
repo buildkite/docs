@@ -3,6 +3,7 @@
 We have built a [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws)
 that configures an Auto Scaling group, Launch Template, and Host Resource Group
 suitable for maintaining a pool of mac1.metal instance based Buildkite Agents.
+This can be used to build Xcode Project based software projects using Buildkite.
 
 Using an Auto Scaling Group for your instances enables automatic instance
 replacement when hardware failures occur.
