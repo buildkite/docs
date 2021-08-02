@@ -14,14 +14,14 @@ not been incorporated into the Elastic CI Stack for AWS.
 
 ## Choose a VPC Layout
 
-Can use the default VPC and a security group to permit inbound SSH access.
+Before deploying this template you must choose a VPC subnet layout for your
+instances and which VPC security groups you want them to belong to.
 
-Consider whether giving your mac1.metal instances a public IP address is
-appropriate.
-
-May wish to use a VPC with separate Public / Private subnets with a NAT Gateway,
-and a Bastion instance or VPN for SSH and VNC access to the mac1.metal
-instances.
+Depending on your threat model, you may find running these instances in you AWS
+account’s default VPC public subnets with public IP addresses suitable.
+Otherwise, you may wish to explore options like separate Public/Private subnets
+and a NAT Gateway, and using a Bastion or VPN to access the instances over SSH
+and VNC.
 
 ## Build an AMI
 
