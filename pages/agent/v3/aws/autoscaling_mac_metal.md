@@ -6,7 +6,8 @@ suitable for maintaining a pool of mac1.metal instance based Buildkite Agents.
 This can be used to build Xcode Project based software projects using Buildkite.
 
 Using an Auto Scaling Group for your instances enables automatic instance
-replacement when hardware failures occur.
+replacement when hardware failures occur, freeing you from the responsibility to
+reprovision instances.
 
 As you must prepare and supply your own AMI for this template, macOS support has
 not been incorporated into the Elastic CI Stack for AWS.
