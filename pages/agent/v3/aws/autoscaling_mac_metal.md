@@ -5,12 +5,17 @@ that configures an Auto Scaling group, Launch Template, and Host Resource Group
 suitable for maintaining a pool of mac1.metal instance based Buildkite Agents.
 This can be used to build Xcode Project based software projects using Buildkite.
 
-Using an Auto Scaling Group for your instances enables automatic instance
-replacement when hardware failures occur, freeing you from the responsibility to
-reprovision instances.
-
 As you must prepare and supply your own AMI for this template, macOS support has
 not been incorporated into the Elastic CI Stack for AWS.
+
+Using an Auto Scaling Group for your instances enables automatic instance
+replacement when hardware failures occur, freeing you from the responsibility to
+manually reprovision instances.
+
+## Prerequisites
+
+Familiarity with AWS VPCs, and EC2 AMIs is required. You should also have
+familiarity with the macOS GUI.
 
 ## Choose a VPC Layout
 
@@ -37,6 +42,10 @@ You do not need to install the buildkite-agent, this will be done automatically
 by the Launch Template `UserData` script.
 
 Create an AMI from the instance using the AWS Console.
+
+## Register your AMI with an AWS License Manager License
+
+To launch 
 
 ## Deploy the CloudFormation template
 
@@ -74,3 +83,18 @@ Host Resource Group, and boot instances on them. The Launch Template’s
 
 Caveat the use of dynamic scaling policies on the Auto Scaling Group, instances
 are slow to boot and slow to terminate. Consider using Scheduled Scaling Rules.
+
+## F.A.Q.
+
+### My ASG reports an error launching instances
+
+Ensure you [associate your AMI]() with an AWS License Manager License
+Configuration.
+
+Ensure the License uses `Core` type tracking.
+
+### My buildkite-agent doesn’t launch automatically
+
+Ensure your AMI is configured to auto-login as the ec2-user in the GUI. The
+buildkite-agent launchd job configuration requires an `Aqua` session type to
+allow your pipelines to use Xcode and the iOS Simulator.
