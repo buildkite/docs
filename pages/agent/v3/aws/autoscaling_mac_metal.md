@@ -2,15 +2,16 @@
 
 We have built a [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws)
 that configures an Auto Scaling group, Launch Template, and Host Resource Group
-suitable for maintaining a pool of mac1.metal instance based Buildkite Agents.
-This can be used to build Xcode Project based software projects using Buildkite.
+suitable for maintaining a pool of EC2 mac1.metal instance based Buildkite
+Agents. These agents can be used to run Buildkite Pipelines that build Xcode
+based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
 As you must prepare and supply your own AMI for this template, macOS support has
-not been incorporated into the Elastic CI Stack for AWS.
+**not** been incorporated into the Elastic CI Stack for AWS.
 
 Using an Auto Scaling Group for your instances enables automatic instance
 replacement when hardware failures occur, freeing you from the responsibility to
-manually reprovision instances.
+monitor and manually reprovision instances.
 
 ## Prerequisites
 
@@ -22,11 +23,15 @@ familiarity with the macOS GUI.
 Before deploying this template you must choose a VPC subnet layout for your
 instances and which VPC security groups you want them to belong to.
 
-Depending on your threat model, you may find running these instances in you AWS
-account’s default VPC public subnets with public IP addresses suitable.
+Depending on your threat model, you may find running these instances in your AWS
+account’s default VPC’s public subnets with public IP addresses suitable.
 Otherwise, you may wish to explore options like separate Public/Private subnets
 and a NAT Gateway, and using a Bastion or VPN to access the instances over SSH
 and VNC.
+
+You also need to define the VPC Security Groups your instance network interfaces
+should belong to. At a minimum, inbound SSH access is required to set up your
+initial template AMI.
 
 ## Build an AMI
 
