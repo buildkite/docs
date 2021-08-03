@@ -177,12 +177,11 @@ If your ASG does not launch any instances, check the ASG Activity to see what
 error is occuring.
 
 It may be that there are no `mac1.metal` instances available in the region, or
-Availability Zones of your VPC subnets.
+Availability Zones of your VPC subnets. This error is likely transient, wait for
+some more ASG scale out attempts to see if the error persists.
 
 It may be that your Launch Template’s AMI is not associated with a Customer
-Managed License in AWS License Manager.
-
-Ensure you [associate your AMI](#associate-your-AMI-with-a-Customer-managed-license-in-AWS-License-Manager)
+Managed License in AWS License Manager. Ensure you [associate your AMI](#associate-your-AMI-with-a-Customer-managed-license-in-AWS-License-Manager)
 and any new AMIs with a Customer managed license. Ensure the License
 Configuration has a License Type of `Core`.
 
