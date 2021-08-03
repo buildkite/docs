@@ -176,8 +176,8 @@ are slow to boot and slow to terminate. Consider using Scheduled Scaling Rules.
 If your ASG does not launch any instances, check the ASG Activity to see what
 error is occuring.
 
-It may be that there are no mac1.metal instances available in the region or
-subnets you have chosen.
+It may be that there are no `mac1.metal` instances available in the region, or
+Availability Zones of your VPC subnets.
 
 It may be that your Launch Template’s AMI is not associated with a Customer
 Managed License in AWS License Manager.
