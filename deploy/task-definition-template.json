@@ -21,18 +21,6 @@
           "value": "true"
         },
         {
-          "name": "MATOMO_URL",
-          "value": "https://analytics.buildkite.com"
-        },
-        {
-          "name": "MATOMO_TRACKER_JS_URL",
-          "value": "https://analytics.buildkite.com/tracker.js"
-        },
-        {
-          "name": "MATOMO_TRACKER_URL",
-          "value": "https://analytics.buildkite.com/tracker"
-        },
-        {
           "name": "BADGE_DOMAIN",
           "value": "https://badge.buildkite.com"
         }
@@ -57,14 +45,6 @@
         {
           "name": "BUGSNAG_API_KEY",
           "valueFrom": "/ecs/docs/BUGSNAG_API_KEY"
-        },
-        {
-          "name": "POSTHOG_URL",
-          "valueFrom": "/ecs/docs/POSTHOG_URL"
-        },
-        {
-          "name": "POSTHOG_API_KEY",
-          "valueFrom": "/ecs/docs/POSTHOG_API_KEY"
         }
       ],
       "logConfiguration": {
