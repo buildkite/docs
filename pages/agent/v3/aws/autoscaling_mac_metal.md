@@ -36,7 +36,7 @@ VPC’s public subnets with a public IP address suitable. Otherwise, you may wis
 to explore options like separate Public/Private subnets and a NAT Gateway, and
 using a Bastion or VPN to access the instances over SSH and VNC.
 
-In supported regions, `mac1.metal` dedicated hosts may not be availabile in
+In supported regions, `mac1.metal` dedicated hosts may not be available in
 every Availability Zone. Consider using a subnet in every Availability Zone to
 maximise the pool of instances available to boot from.
 
@@ -174,7 +174,7 @@ are slow to boot and slow to terminate. Consider using Scheduled Scaling Rules.
 ### My ASG doesn’t launch any instances
 
 If your ASG does not launch any instances, check the ASG Activity to see what
-error is occuring.
+error is occurring.
 
 It may be that there are no `mac1.metal` instances available in the region, or
 Availability Zones of your VPC subnets. This error is likely transient, wait for
