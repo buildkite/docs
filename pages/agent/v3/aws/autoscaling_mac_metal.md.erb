@@ -181,12 +181,12 @@ Availability Zones of your VPC subnets. This error is likely transient, wait for
 some more ASG scale out attempts to see if the error persists.
 
 It may be that your Launch Template’s AMI is not associated with a Customer
-Managed License in AWS License Manager. Ensure you [associate your AMI](#associate-your-AMI-with-a-Customer-managed-license-in-AWS-License-Manager)
+Managed License in AWS License Manager. Ensure you [associate your AMI](#associate-your-ami-with-a-customer-managed-license-in-aws-license-manager)
 and any new AMIs with a Customer managed license. Ensure the License
 Configuration has a License Type of `Core`.
 
 ### My instances don’t start the buildkite-agent
 
-Ensure your AMI has been [configured to auto-login as the ec2-user](#Build-an-AMI)
+Ensure your AMI has been [configured to auto-login as the ec2-user](#build-an-ami)
 in the GUI. The buildkite-agent launchd job configuration requires an `Aqua`
 session type to allow your pipelines to use Xcode and the iOS Simulator.
