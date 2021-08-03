@@ -36,9 +36,13 @@ VPC’s public subnets with a public IP address suitable. Otherwise, you may wis
 to explore options like separate Public/Private subnets and a NAT Gateway, and
 using a Bastion or VPN to access the instances over SSH and VNC.
 
-You also need to define the VPC Security Groups your instance network interfaces
-should belong to. At a minimum, inbound SSH access is required to set up your
-initial template AMI.
+In supported regions, `mac1.metal` dedicated hosts may not be availabile in
+every Availability Zone. Consider using a subnet in every Availability Zone to
+maximise the pool of instances available to boot from.
+
+You also need to configure or define the VPC Security Groups your instance
+network interfaces should belong to. At a minimum, inbound SSH access is
+required to set up your initial template AMI.
 
 ## Build an AMI
 
