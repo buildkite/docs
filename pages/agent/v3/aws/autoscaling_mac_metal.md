@@ -45,7 +45,16 @@ Create an AMI from the instance using the AWS Console.
 
 ## Associate your AMI with a Customer managed license in AWS License Manager
 
-To launch 
+To launch an instances using a Host Resource Group, the instance AMI must be
+associated with a Customer managed license in AWS License Manager.
+
+Using the AWS Console, open the AWS License Manager dashboard and naviate to
+Customer managed licenses. Create a new Customer managed license, enter a
+descriptive name and select a License Type of `Cores`.
+
+Once your Customer managed license has been saved, open the detail view for your
+license. Open the Associated AMIs tab and choose Associate AMI. From the list of
+Available AMIs, select your macOS AMIs and then click Associate.
 
 ## Deploy the CloudFormation template
 
