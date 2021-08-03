@@ -61,7 +61,7 @@ can access the instance.
 	1. Sign in as the ec2-user
 	1. Enable Automatic login for the ec2-user in System Preferences > Users & Accounts > Login Options
 	1. Disable Require password in System Preferences > Security & Privacy > General
-1. Install your required Xcode version
+1. Install your required version of Xcode
 	1. Ensure you launch Xcode at least once so you are presented with the EULA prompt.
 1. Using the AWS Console, create an AMI from your instance.
 
