@@ -104,6 +104,17 @@ The default AWS Limit for mac1.metal is 3 dedicated hosts per account region. If
 you require more than 3 instances, request an increased limit using the AWS
 Console.
 
+### Using the AWS Console
+
+To deploy using the AWS Console:
+
+[![Launch AWS Stack](https://cdn.rawgit.com/buildkite/cloudformation-launch-stack-button-svg/master/launch-stack.svg)](https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite-mac&templateURL=https://s3.amazonaws.com/buildkite-serverless-apps-us-east-1/elastic-mac/template/latest.yml)
+
+Ensure you have selected the same region as your VPC and AMI resources, give
+your stack a unique name, and fill in the required parameters.
+
+### Using the AWS CLI
+
 To deploy using the AWS CLI, save your parameters in a `.parameters.json` file
 and run the following commands:
 
@@ -145,15 +156,15 @@ $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --te
 See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
 for more details.
 
+## Starting your Buildkite Agents
 
-
-Once you have deployed the template, use the template Resources tab to find the
-Auto Scaling Group. Edit the Auto Scaling Group and set the Desired Capacity to
-the number of instances you require.
+Once you have successfully deployed the template, use the template Resources tab
+to find the Auto Scaling Group. Edit the Auto Scaling Group and set the Desired
+Capacity to the number of instances you require.
 
 The Auto Scaling Group will automatically provision Dedicated Hosts using the
-Host Resource Group, and boot instances on them. The Launch Template’s
-`UserData` script will install, configure, and start the Buildkite Agent.
+Host Resource Group and boot instances on them. The Launch Template’s `UserData`
+script will install, configure, and start the Buildkite Agent.
 
 Caveat the use of dynamic scaling policies on the Auto Scaling Group, instances
 are slow to boot and slow to terminate. Consider using Scheduled Scaling Rules.
