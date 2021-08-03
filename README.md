@@ -24,7 +24,7 @@ bundle exec rspec
 bin/rails server
 ```
 
-> **Note**: The documentation uses Ruby 2.7.2. You also need Node installed. The current LTS (long term support) version should be ok.
+> **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
 
 Or if you have Docker installed:
 
