@@ -38,7 +38,8 @@ The following HTTP headers are present in every webhook request, which allow you
 <table>
 <tbody>
   <tr><th><code>X-Buildkite-Event</code></th><td>The type of event<p class="Docs__api-param-eg"><em>Example:</em> <code>build.scheduled</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature signed from your webhook secret. It's presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62c6134a63db768f1d40e0edbe6e43f0</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The token from your webhook configuration settings. It will only be sent if you selected the option to send the token in the token header. Its presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature signed from your webhook token. It will only be sent if you selected the option to send an HMAC signature in the signature header. Its presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62c6134a63db768f1d40e0edbe6e43f0</code></p></td></tr>
 </tbody>
 </table>
 
