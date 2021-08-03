@@ -110,7 +110,7 @@ Ensure you [associate your AMI](#associate-your-AMI-with-a-Customer-managed-lice
 and any new AMIs with a Customer managed license. Ensure the License
 Configuration has a License Type of `Core`.
 
-### The buildkite-agent doesn’t launch automatically when the instance starts
+### My instances don’t start the buildkite-agent
 
 Ensure your AMI has been [configured to auto-login as the ec2-user](#Build-an-AMI)
 in the GUI. The buildkite-agent launchd job configuration requires an `Aqua`
