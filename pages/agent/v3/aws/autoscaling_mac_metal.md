@@ -9,14 +9,21 @@ based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 As you must prepare and supply your own AMI for this template, macOS support has
 **not** been incorporated into the Elastic CI Stack for AWS.
 
-Using an Auto Scaling Group for your instances enables automatic instance
-replacement when hardware failures occur, freeing you from the responsibility to
-monitor and manually reprovision instances.
+Using an Auto Scaling Group for your instances ensures booting your macOS
+Buildkite Agents is repeatable, and provides automatic instance replacement when
+hardware failures occur.
 
 ## Prerequisites
 
 Familiarity with AWS VPCs, and EC2 AMIs is required. You should also have
 familiarity with the macOS GUI.
+
+See [Amazon EC2 Mac instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-considerations)
+for more details on AWS EC2 mac1.metal instances.
+
+You must also choose an AWS Region to create your resources in. `mac1.metal`
+instances are not available in all AWS Regions or in all Availability Zones
+within those regions.
 
 ## Choose a VPC Layout
 
