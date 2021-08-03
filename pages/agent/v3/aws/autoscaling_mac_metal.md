@@ -78,8 +78,8 @@ Available AMIs, select your macOS AMIs and then click Associate.
 
 ## Deploy the CloudFormation template
 
-Using the VPC and AMI prepared earlier, deploy this template and fill in values
-for the parameters:
+Using the VPC and AMI prepared earlier, provide values for the following
+required parameters:
 
 * ImageId
 * RootVolumeSize
@@ -89,18 +89,57 @@ for the parameters:
 * BuildkiteAgentToken
 * BuildkiteAgentQueue
 
-Using the AWS CLI:
+There are also optional parameters to configure the Auto Scaling Group:
 
-```
-aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --parameters-override file:///.parameters.json
-```
+* MinSize, defaults to 0
+* MaxSize, defaults to 3
 
-There are optional parameters to configure the Auto Scaling Group `MinSize` and
-`MaxSize` which default to 0 and 3 respectively.
-
-The default AWS limit for mac1.metal is 3 dedicated hosts per account region. If
+The default AWS Limit for mac1.metal is 3 dedicated hosts per account region. If
 you require more than 3 instances, request an increased limit using the AWS
 Console.
+
+To deploy using the AWS CLI, save your parameters in a `.parameters.json` file
+and run the following commands:
+
+```
+$ cat .parameters.json
+> [
+	{
+		"ParameterKey": "ImageId",
+		"ParameterValue": "ami-0c3a7d0c15048b6b5"
+	},
+	{
+		"ParameterKey": "RootVolumeSize",
+		"ParameterValue": "250"
+	},
+	{
+		"ParameterKey": "Subnets",
+		"ParameterValue": "subnet-f3e72abb,subnet-f23fe294"
+	},
+	{
+		"ParameterKey": "SecurityGroupIds",
+		"ParameterValue": "sg-a09db9d7"
+	},
+	{
+		"ParameterKey": "BuildkiteAgentQueue",
+		"ParameterValue": "mac"
+	},
+	{
+		"ParameterKey": "BuildkiteAgentToken",
+		"ParameterValue": "[redacted]"
+	}
+]
+
+$ make
+> sed "s/%v/v0.0.1-9-g1790b0d/" <template.yml >build/template.yml
+
+$ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --template-file build/template.yml --parameters-override file:///$PWD/.parameters.json
+```
+
+See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
+for more details.
+
+
 
 Once you have deployed the template, use the template Resources tab to find the
 Auto Scaling Group. Edit the Auto Scaling Group and set the Desired Capacity to
