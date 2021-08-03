@@ -20,14 +20,13 @@ familiarity with the macOS GUI.
 
 ## Choose a VPC Layout
 
-Before deploying this template you must choose a VPC subnet layout for your
-instances and which VPC security groups you want them to belong to.
+Before deploying this template you must choose a VPC subnet design, and which
+VPC security groups your instances should belong to.
 
-Depending on your threat model, you may find running these instances in your AWS
-account’s default VPC’s public subnets with public IP addresses suitable.
-Otherwise, you may wish to explore options like separate Public/Private subnets
-and a NAT Gateway, and using a Bastion or VPN to access the instances over SSH
-and VNC.
+Depending on your threat model, you may find running instances in your default
+VPC’s public subnets with a public IP address suitable. Otherwise, you may wish
+to explore options like separate Public/Private subnets and a NAT Gateway, and
+using a Bastion or VPN to access the instances over SSH and VNC.
 
 You also need to define the VPC Security Groups your instance network interfaces
 should belong to. At a minimum, inbound SSH access is required to set up your
@@ -35,18 +34,27 @@ initial template AMI.
 
 ## Build an AMI
 
-Set up a password for the ec2-user so you can connect using VNC.
+Before deploying this template, you must create a template AMI that can be
+horizontally scaled across multiple instances.
 
-Using screen sharing, set up auto-login for the ec2-user. Disable auto screen
-lock.
+1. Reserve a [AWS mac1.metal](https://aws.amazon.com/ec2/instance-types/mac/)
+Dedicated Host.
+1. Boot a macOS instance using your desired AMI on the Dedicated Host.
+1. Configure instance VPC subnets, security groups, and key pairs so that you
+can access the instance.
+1. Using an SSH or SSM session:
+	1. Set a password for the ec2-user using `sudo passwd ec2-user`
+	1. Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+1. Using a VNC session:
+	1. Sign in as the ec2-user
+	1. Enable Automatic login for the ec2-user in System Preferences > Users & Accounts > Login Options
+	1. Disable Require password in System Preferences > Security & Privacy > General
+1. Install your required Xcode version
+	1. Ensure you launch Xcode at least once so you are presented with the EULA prompt.
+1. Using the AWS Console, create an AMI from your instance.
 
-Install Xcode and Xcode Command Line Utilities. Launch them once so you are
-presented with the EULA prompt.
-
-You do not need to install the buildkite-agent, this will be done automatically
-by the Launch Template `UserData` script.
-
-Create an AMI from the instance using the AWS Console.
+You do not need to install the `buildkite-agent`, it is automatically by the
+Launch Template `UserData` script.
 
 ## Associate your AMI with a Customer managed license in AWS License Manager
 
