@@ -8,12 +8,14 @@ To contribute, send a pull request! :heart:
 
 ```bash
 git clone https://github.com/buildkite/docs.git
+cd docs
 git submodule update --init
 ```
 
 If you have Ruby installed:
 
 ```bash
+# Navigate into the docs directory
 # Install the dependencies
 bundle
 # Run the specs
@@ -21,6 +23,8 @@ bundle exec rspec
 # Start the app on http://localhost:3000/
 bin/rails server
 ```
+
+> **Note**: The documentation uses Ruby 2.7.2. You also need Node installed. The current LTS should be ok.
 
 Or if you have Docker installed:
 
