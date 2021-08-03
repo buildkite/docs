@@ -18,12 +18,13 @@ hardware failures occur.
 Familiarity with AWS VPCs, and EC2 AMIs is required. You should also have
 familiarity with the macOS GUI.
 
-See [Amazon EC2 Mac instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-considerations)
-for more details on AWS EC2 mac1.metal instances.
+You must choose an AWS Region with `mac1.metal` instances available. See
+[Amazon EC2 Mac Instances](https://aws.amazon.com/ec2/instance-types/mac/) and
+[Amazon EC2 Dedicated Hosts Pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
+for details on which regions have `mac1.metal` hosts available.
 
-You must also choose an AWS Region to create your resources in. `mac1.metal`
-instances are not available in all AWS Regions or in all Availability Zones
-within those regions.
+See also the [Amazon EC2 Mac instances User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
+for more details on AWS EC2 Mac instances.
 
 ## Choose a VPC Layout
 
