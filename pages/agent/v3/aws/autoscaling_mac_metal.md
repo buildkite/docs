@@ -73,7 +73,7 @@ Launch Template `UserData` script.
 To launch an instances using a Host Resource Group, the instance AMI must be
 associated with a Customer managed license in AWS License Manager.
 
-Using the AWS Console, open the AWS License Manager dashboard and naviate to
+Using the AWS Console, open the AWS License Manager dashboard and navigate to
 Customer managed licenses. Create a new Customer managed license, enter a
 descriptive name and select a License Type of `Cores`.
 
@@ -83,18 +83,19 @@ Available AMIs, select your macOS AMIs and then click Associate.
 
 ## Deploy the CloudFormation template
 
-Using the VPC and AMI prepared earlier, provide values for the following
+Using the VPC and AMI prepared earlier, prepare values for the following
 required parameters:
 
-* ImageId
+* ImageId, from your API set up
 * RootVolumeSize
 * Subnets, from your VPC set up
 * SecurityGroupIds, from your VPC set up
-* IamInstanceProfile, if using additional AWS services from your builds provide an instance profile with appropriate IAM role
-* BuildkiteAgentToken
-* BuildkiteAgentQueue
+* IamInstanceProfile, if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
+* BuildkiteAgentToken, an Agent Token from http://buildkite.com/organizations/-/agents for your Buildkite Organization
+* BuildkiteAgentQueue, the Buildkite Queue your Pipeline Steps target
 
-There are also optional parameters to configure the Auto Scaling Group:
+There are also optional parameters to configure the size of the Auto Scaling
+Group:
 
 * MinSize, defaults to 0
 * MaxSize, defaults to 3
