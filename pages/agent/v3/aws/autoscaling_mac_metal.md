@@ -43,7 +43,7 @@ by the Launch Template `UserData` script.
 
 Create an AMI from the instance using the AWS Console.
 
-## Register your AMI with an AWS License Manager License
+## Associate your AMI with a Customer managed license in AWS License Manager
 
 To launch 
 
@@ -86,15 +86,23 @@ are slow to boot and slow to terminate. Consider using Scheduled Scaling Rules.
 
 ## F.A.Q.
 
-### My ASG reports an error launching instances
+### My ASG doesn’t launch any instances
 
-Ensure you [associate your AMI]() with an AWS License Manager License
-Configuration.
+If your ASG does not launch any instances, check the ASG Activity to see what
+error is occuring.
 
-Ensure the License uses `Core` type tracking.
+It may be that there are no mac1.metal instances available in the region or
+subnets you have chosen.
 
-### My buildkite-agent doesn’t launch automatically
+It may be that your Launch Template’s AMI is not associated with a Customer
+Managed License in AWS License Manager.
 
-Ensure your AMI is configured to auto-login as the ec2-user in the GUI. The
-buildkite-agent launchd job configuration requires an `Aqua` session type to
-allow your pipelines to use Xcode and the iOS Simulator.
+Ensure you [associate your AMI](#associate-your-AMI-with-a-Customer-managed-license-in-AWS-License-Manager)
+and any new AMIs with a Customer managed license. Ensure the License
+Configuration has a License Type of `Core`.
+
+### The buildkite-agent doesn’t launch automatically when the instance starts
+
+Ensure your AMI has been [configured to auto-login as the ec2-user](#Build-an-AMI)
+in the GUI. The buildkite-agent launchd job configuration requires an `Aqua`
+session type to allow your pipelines to use Xcode and the iOS Simulator.
