@@ -66,7 +66,7 @@ Each event’s data is sent JSON encoded in the request body. See each event’s
 
 ## Verifying Webhook signatures
 
-The `X-Buildkite-Signature` header included in each signed event contains a timestamp and one signature. The timestamp is prefixed by `timestamp=`, and each signature is prefixed by `signature=`.
+The `X-Buildkite-Signature` header included in each signed event contains a timestamp and one signature. The timestamp is prefixed by `timestamp=`, and the signature is prefixed by `signature=`.
 
 Buildkite generates signature using a hash-based message authentication code ([HMAC](https://en.wikipedia.org/wiki/HMAC)) with [SHA-256](https://en.wikipedia.org/wiki/SHA-2). The timestamp is an integer represents UTC timestamp.
 
