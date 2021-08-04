@@ -1,11 +1,11 @@
 # Buildkite Agent Hooks
 
-Every agent installer comes with a hooks directory which can be used to override
-and extend the built-in agent behavior. For example, you could create an agent
-`checkout` hook which speeds up a fresh `git clone` on a new build machine, an
-agent `environment` hook which exports secret API keys as environment
-variables, or a repository `pre-command` hook which sets up repository-specific
-environment variables.
+Hooks can be used to extend or override built-in behaviours of the Buildkite
+Agent. Hooks can be configured on your agent hosts, in your repository, or from
+Pipeline Plug-ins. For example, you could create an agent `checkout` hook which
+speeds up a fresh `git clone` on a new build machine, a repository `pre-command`
+hook which sets up repository-specific environment variables, or a plug-in
+`environment` hook which exports secret API keys as environment variables.
 
 {:toc}
 
@@ -13,29 +13,32 @@ environment variables.
 
 There are two types of hook:
 
-* Agent hooks
+* Lifecycle hooks
 * Step hooks
 
-Agent hooks are executed as part of the agent lifecycle. For example, the
-`pre-bootstrap` hook is executed before starting the per-job bootstrap process.
+Lifecycle hooks are **executed** as part of the agent lifecycle. For example,
+the `pre-bootstrap` hook is executed before starting the per-job bootstrap
+process, and the `agent-shutdown` is executed before the agent process
+terminates.
 
-Step hooks are sourced as part of each Buildkite Job. Step hooks are run in a
-per-job shell environment, and environment variables are carried between the
-phases and hooks for a given step. For example, the `environment` hook can
-modify or export new environment variables for the subsequent job phases and
-hooks.
+Step hooks are **sourced** as part of each Buildkite Job. Step hooks are run in
+a per-job shell environment, and any exported environment variables are carried
+to subsequent phases and hooks for a given job. For example, the `environment`
+hook can modify or export new environment variables for the subsequent job
+phases and hooks.
 
-## Hook locations
+## Agent Hook Locations
 
-There are three hook locations:
+There are three locations that agent hooks are found:
 
-* Agent hooks - these exist on the agent’s machine and can define both agent and step hooks. Step hooks are run for every job on any pipeline.
-* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory and can define step hooks.
-* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml` and can define step hooks.
+* Global hooks - these exist on the agent file system in a directory created by your agent installer and can define both
+Lifecycle and Step hooks. The Step hooks are run for every job on any pipeline.
+* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory and can define Step hooks.
+* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml` and can define Step hooks.
 
-### Agent hooks
+### Global hooks
 
-Each agent installer comes with a hooks directory containing a set of sample
+Each agent installer creates a global hooks directory containing a set of sample
 hooks. You can find the location of your agent hooks directory in your
 platform’s installation documentation.
 
@@ -60,7 +63,7 @@ behavior.
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
-## Available Agent Hooks
+## Available Lifecycle hooks
 
 <table>
   <thead>
@@ -80,7 +83,7 @@ See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
   </tbody>
 </table>
 
-## Available Step Hooks
+## Available Step hooks
 
 The following is a complete list of available step hooks, and the order in which
 they are run as part of each job:
@@ -137,11 +140,11 @@ they are run as part of each job:
   </tbody>
 </table>
 
-## Creating agent hooks
+## Creating Lifecycle hooks
 
 Agent hooks are executed and can be written in any programming language.
 
-## Creating step hooks
+## Creating Step hooks
 
 Step hooks are shell scripts you can use to run commands and export environment
 variables. Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
