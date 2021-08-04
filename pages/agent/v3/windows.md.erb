@@ -74,6 +74,8 @@ While the agent will work without Git installed, you will require [Git for Windo
 The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create the service using the command-line:
 
 ```
+# These commands assume you installed the agent using PowerShell 
+# Your paths may be different if you did a manual installation
 nssm install buildkite-agent "C:\buildkite-agent\bin\buildkite-agent.exe" "start"
 nssm set buildkite-agent AppStdout "C:\buildkite-agent\buildkite-agent.log"
 nssm set buildkite-agent AppStderr "C:\buildkite-agent\buildkite-agent.log"

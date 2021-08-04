@@ -10,6 +10,7 @@ This guide will help you setup your first Buildkite pipeline. If you don’t hav
 
 1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent.
 2. Make sure you've configured the agent token, as that is what connects the agent to your Buildkite account. Refer to [Buildkite Agent Configuration](/docs/agent/v3/configuration) for more information.
+3. Opt in to the YAML steps editor. This is the newer way of configuring pipelines. Refer to [Pipeline Upgrade - Using YAML Steps for new pipelines](/docs/tutorials/pipeline-upgrade#using-yaml-steps-for-new-pipelines) for more information.
 
 ## Add the sample pipeline
 
@@ -18,6 +19,7 @@ This guide will help you setup your first Buildkite pipeline. If you don’t hav
 We've created sample pipelines to use as your first pipeline:
 
 1. Click the appropriate *Add to Buildkite* button:
+
     [bash-example test repository](https://github.com/buildkite/bash-example) 
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
@@ -26,29 +28,19 @@ We've created sample pipelines to use as your first pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-2. Accept the pre-filled defaults, and click *Create Pipeline*.
+2. Accept the pre-filled defaults, and select *Create Pipeline*.
 3. The example repositories contain a `pipeline.yml` setting out the pipeline steps, so on the *Steps* screen, add the following to upload and use the `pipeline.yml`:
+
     ```yml
     steps:
-      - label: ":pipeline: Pipeline upload"
+      - label: "Pipeline upload"
         command: buildkite-agent pipeline upload
     ```
+    <div class="Docs__note">
+    <p>If you do not see the <i>Steps</i> screen, or if the previous screen included a <i>Steps</i> section, you are still using the old web-based editor. This will be deprecated at some point. Please make sure to opt in to the YAML steps editor. Refer to <a href="https://buildkite.com/docs/tutorials/pipeline-upgrade#using-yaml-steps-for-new-pipelines">Pipeline Upgrade - Using YAML Steps for new pipelines</a> for more information.</p>
+    </div>
 4. Select *Save and Build*. Buildkite opens the *New Build* modal.
 5. You can usually accept the defaults here. If your repository uses 'main' rather than 'master' branch, edit the *Branch* option. Select *Create build*. Buildkite takes you to the pipeline build.
-
-## Run your first build
-
-Now that you’re running an agent and have created a pipeline you’re ready to run your first build. Click the *New Build* button in the top right corner:
-
-<%= image "new-build.png", size: "270x60", alt: "New build button" %>
-
-Type in a build message (being sure to add some [emojis](/docs/pipelines/emojis)) and click *Create Build*:
-
-<%= image "trigger-build.png", size: "600x460", alt: "New build dialog" %>
-
-The build will run, and once it’s finished it’ll turn green!
-
-<%= image "green-build.png", size: "226x84", alt: "Green build" %>
 
 Congratulations, you have run your first Buildkite build! :tada:
 
