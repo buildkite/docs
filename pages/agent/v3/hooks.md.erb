@@ -1,40 +1,89 @@
 # Buildkite Agent Hooks
 
-Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example, you could create an agent `checkout` hook which speeds up a fresh `git clone` on a new build machine, an agent `environment` hook which exports secret API keys as environment variables, or a repository `pre-command` hook which sets up repository-specific environment variables.
+Every agent installer comes with a hooks directory which can be used to override
+and extend the built-in agent behavior. For example, you could create an agent
+`checkout` hook which speeds up a fresh `git clone` on a new build machine, an
+agent `environment` hook which exports secret API keys as environment
+variables, or a repository `pre-command` hook which sets up repository-specific
+environment variables.
 
 {:toc}
 
 ## Types of hooks
 
-There are three types of hooks:
+There are two types of hook:
 
-* Agent hooks - these exist on the agent’s machine, and are run for every job on any pipeline.
-* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory.
-* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml`.
+* Agent hooks
+* Step hooks
+
+Agent hooks are executed as part of the agent lifecycle. For example, the
+`pre-bootstrap` hook is executed before starting the per-job bootstrap process.
+
+Step hooks are sourced as part of each Buildkite Job. Step hooks are run in a
+per-job shell environment, and environment variables are carried between the
+phases and hooks for a given step. For example, the `environment` hook can
+modify or export new environment variables for the subsequent job phases and
+hooks.
+
+## Hook locations
+
+There are three hook locations:
+
+* Agent hooks - these exist on the agent’s machine and can define both agent and step hooks. Step hooks are run for every job on any pipeline.
+* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory and can define step hooks.
+* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml` and can define step hooks.
 
 ### Agent hooks
 
-Each agent installer comes with a hooks directory containing a set of sample hooks. You can find the location of your agent hooks directory in your platform’s installation documentation.
+Each agent installer comes with a hooks directory containing a set of sample
+hooks. You can find the location of your agent hooks directory in your
+platform’s installation documentation.
 
-To get started with agent hooks copy the relevant example script and remove the `.sample` file extension.
+To get started with agent hooks copy the relevant example script and remove the
+`.sample` file extension.
 
 ### Repository hooks
 
-Repository hooks allow you to execute repository-specific scripts. Repository hooks live alongside your repository’s source code under the directory `.buildkite/hooks`.
+Repository hooks allow you to execute repository-specific scripts. Repository
+hooks live alongside your repository’s source code under the directory
+`.buildkite/hooks`.
 
-To get started, create a shell script in `.buildkite/hooks` named `post-checkout`.
-It will be sourced and run every build, after the Agent checks your repository out.
-You can also use one of the other available *Repository* hooks, according to when you want your custom script to run.
+To get started, create a shell script in `.buildkite/hooks` named
+`post-checkout`. It will be sourced and run every build, after the Agent checks
+your repository out. You can also use one of the other available *Repository*
+hooks, according to when you want your custom script to run.
 
 ### Plugin hooks
 
-Plugin hooks allow plugins you’ve defined in your Pipeline to override default behavior.
+Plugin hooks allow plugins you’ve defined in your Pipeline to override default
+behavior.
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
 
-## Available hooks
+## Available Agent Hooks
 
-The following is a complete list of available hooks, and the order in which they are called:
+<table>
+  <thead>
+    <tr>
+        <th>Hook</th>
+        <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="white-space: nowrap"><code>pre-bootstrap</code></td>
+      <td>Runs before a step’s job is started. Useful for <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a> before jobs are permitted to run.</td></tr>
+    <tr>
+      <td style="white-space: nowrap"><code>agent-shutdown</code></td>
+      <td>Runs when each agent shuts down. Useful for performing cleanup tasks
+      for the entire agent, outside of the job lifecycle.</td></tr>
+  </tbody>
+</table>
+
+## Available Step Hooks
+
+The following is a complete list of available step hooks, and the order in which
+they are run as part of each job:
 
 <table>
   <thead>
@@ -48,7 +97,7 @@ The following is a complete list of available hooks, and the order in which they
     <tr>
       <td style="white-space: nowrap"><code>environment</code></td>
       <td style="white-space: nowrap">Agent, Plugin</td>
-      <td>Runs before all other hooks. Useful for <a href="/docs/pipelines/secrets#storing-secrets-in-environment-hooks">exposing secret keys</a> and <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a>.</td></tr>
+      <td>Runs before all other hooks. Useful for <a href="/docs/pipelines/secrets#storing-secrets-in-environment-hooks">exposing secret keys</a>.</td></tr>
     <tr>
       <td style="white-space: nowrap"><code>pre-checkout</code></td>
       <td style="white-space: nowrap">Agent, Plugin</td>
@@ -85,27 +134,31 @@ The following is a complete list of available hooks, and the order in which they
       <td style="white-space: nowrap"><code>pre-exit</code></td>
       <td style="white-space: nowrap">Agent, Repository, Plugin</td>
       <td>Runs before the job finishes. Useful for performing cleanup tasks.</td></tr>
-    <tr>
-      <td style="white-space: nowrap"><code>agent-shutdown</code></td>
-      <td style="white-space: nowrap">Agent</td>
-      <td>Runs when each agent shuts down, and prints output only to the agent log. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle.</td></tr>
   </tbody>
 </table>
 
-## Creating hook scripts
+## Creating agent hooks
 
-Hooks are shell scripts you can use to run commands and export environment variables.
-Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+Agent hooks are executed and can be written in any programming language.
 
-Hooks are copied to `$TMPDIR` directory and *sourced* by the default shell on the Agent that is running the build, which has a few implications:
+## Creating step hooks
+
+Step hooks are shell scripts you can use to run commands and export environment
+variables. Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+
+Step hooks are copied to `$TMPDIR` directory and *sourced* by the default shell
+on the Agent that is running the build, which has a few implications:
 
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
 
-To write hooks in another programming language, you need to call them from within the shell script, and explicitly pass any Buildkite environment variables you need to the script when you call it.
+To write step hooks in another programming language, you need to call them from
+within the shell script, and explicitly pass any Buildkite environment variables
+you need to the script when you call it.
 
-The following is an example of a custom `environment` hook which exports a GitHub API key for the pipeline’s release build step:
+The following is an example of a custom `environment` hook which exports a
+GitHub API key for the pipeline’s release build step:
 
 ```bash
 set -eu
@@ -114,7 +167,7 @@ echo '--- \:house_with_garden\: Setting up the environment'
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
 
-## Hooks on Windows
+## Step hooks on Windows
 
 Agents running Windows require hook files to have either:
 
