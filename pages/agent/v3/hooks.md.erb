@@ -1,12 +1,13 @@
 # Buildkite Agent Hooks
 
-Agent hooks can be used to extend or override built-in behaviours of the
-Buildkite Agent. Hooks can be configured on your agent hosts, in your
-repository, or from Pipeline Plug-ins. For example, you could create a global
-`checkout` hook which speeds up a fresh `git clone` on a new build machine, a
-repository `pre-command` hook which sets up repository-specific environment
-variables, or a plug-in `environment` hook which exports secret API keys as
-environment variables.
+Agent hooks can be used to extend or override the built-in behaviours of the
+Buildkite Agent.
+
+Hooks can be configured on your agent hosts, in your repository, or from
+Pipeline Plugins. For example, you could create a global `checkout` hook which
+speeds up a fresh `git clone` on a new build machine, a repository `pre-command`
+hook which sets up repository-specific environment variables, or a plug-in
+`environment` hook which exports secret API keys as environment variables.
 
 {:toc}
 
