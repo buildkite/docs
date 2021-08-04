@@ -8,19 +8,33 @@ This guide will help you setup your first Buildkite pipeline. If you don’t hav
 
 [Buildkite agents](/docs/agent/v3/) are small, reliable and cross-platform build runners that run automated builds. Buildkite never accesses your code, and does not run any agents, so you need to install and run agents on your own infrastructure. You can do this on your local development machine, an existing CI machine, or a new server.
 
-1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent
-
-2. Make sure you’ve configured the agent token, as that is what connects the agent to your Buildkite account. Refer to [Buildkite Agent Configuration](/docs/agent/v3/configuration) for more information.
+1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent.
+2. Make sure you've configured the agent token, as that is what connects the agent to your Buildkite account. Refer to [Buildkite Agent Configuration](/docs/agent/v3/configuration) for more information.
 
 ## Add the sample pipeline
 
 [Pipelines](/docs/pipelines/) are how Buildkite represents your CI workflow, a series of steps that will be run on your code.
 
-We’ve created a [bash-example test repository](https://github.com/buildkite/bash-example) to use as your first pipeline. Click the “Add to Buildkite” button below to open a new pipeline page for the example pipeline:
+We've created sample pipelines to use as your first pipeline:
 
-<a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+1. Click the appropriate *Add to Buildkite* button:
+    [bash-example test repository](https://github.com/buildkite/bash-example) 
 
-Accept the pre-filled defaults, and click *Create Pipeline*.
+    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+
+    [powershell-example test repository](https://github.com/buildkite/powershell-example)
+
+    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+
+2. Accept the pre-filled defaults, and click *Create Pipeline*.
+3. The example repositories contain a `pipeline.yml` setting out the pipeline steps, so on the *Steps* screen, add the following to upload and use the `pipeline.yml`:
+    ```yml
+    steps:
+      - label: ":pipeline: Pipeline upload"
+        command: buildkite-agent pipeline upload
+    ```
+4. Select *Save and Build*. Buildkite opens the *New Build* modal.
+5. You can usually accept the defaults here. If your repository uses 'main' rather than 'master' branch, edit the *Branch* option. Select *Create build*. Buildkite takes you to the pipeline build.
 
 ## Run your first build
 
