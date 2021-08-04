@@ -6,18 +6,12 @@ The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer.
 
 ## Automated install with PowerShell
 
-You'll need to run the automated installer within PowerShell with Administrative Privileges.
-
-To start a PowerShell session as an Administrator:
-
-1. Open the Start menu and type "powershell"
-2. Highlight "Windows PowerShell" in the results
-3. Press CTRL+SHIFT+ENTER (Windows will prompt you to allow this app to make changes)
+You'll need to run the automated installer within PowerShell with administrative privileges.
 
 Once you're in an escalated PowerShell session, you can run this script to install the latest version of the agent:
 
 ```shell
-$env:buildkiteAgentToken = "my_token"
+$env:buildkiteAgentToken = "<your_token>"
 Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
@@ -53,13 +47,19 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 There are two options to be aware of for this initial setup:
 
 * Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` config option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
+* If you are on Windows, you may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
-    shell="<path-to-powershell-executable"
+    shell="<path-to-powershell-executable>"
     ```
 
-    Note that this allows you to run a PowerShell script, but that your build hooks must still be either `.bat` files or `.sh` files (if you have access to Git for Windows). Refer to [Hooks - Hooks on Windows](/docs/agent/v3/hooks/#Hooks-on-Windows) for more information.
+    <div class="Docs__note">
+    <p>This allows you to run a PowerShell script, but your build hooks must still be either `.bat` or `.sh` files (if you have access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
+    </div>
+
+    <div class="Docs__note">
+    <p>Buildkite does not support the cross-platform edition of PowerShell (PowerShell 6 and 7). Make sure `shell` points to a `powershell.exe` file, not `pwsh.exe`.</p>
+    </div>
 
 ## Upgrading
 
