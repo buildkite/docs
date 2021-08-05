@@ -12,35 +12,36 @@ variables.
 
 {:toc}
 
-## Types of hooks
+## Categories of hooks
 
-There are two types of hook:
+There are two categories of hook:
 
 * Lifecycle hooks
-* Step hooks
+* Job hooks
 
 Lifecycle hooks are **executed** as part of the agent lifecycle. For example,
 the `pre-bootstrap` hook is executed before starting the per-job bootstrap
 process, and the `agent-shutdown` hook is executed before the agent process
 terminates.
 
-Step hooks are **sourced** as part of each Buildkite Job. Step hooks are run in
-a per-job shell environment, and any exported environment variables are carried
-to subsequent phases and hooks for a given job. For example, the `environment`
-hook can modify or export new environment variables for the subsequent job
-phases and hooks.
+Job hooks are **sourced** as part a job’s phases. Job hooks are run in a per-job
+shell environment, and any exported environment variables are carried to the
+job’s subsequent phases and hooks. For example, the `environment` hook can
+modify or export new environment variables for the job’s subsequent phases and
+hooks.
 
 ## Agent Hook Locations
 
 There are three locations that agent hooks are found:
 
 * Global hooks - these exist on the agent file system in a directory created by
-your agent installer and can define both Lifecycle and Step hooks. These step
-hooks are run for every job the agent receives, from any pipeline.
+your agent installer. The global hooks directory can define both Lifecycle and
+Job hooks. Global job hooks are run for every job the agent receives, from any
+pipeline.
 * Repository hooks - these exist in your pipeline repository’s
-`.buildkite/hooks` directory and can define step hooks.
+`.buildkite/hooks` directory and can define job hooks.
 * Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
-defined in your `pipeline.yml` and can define step hooks.
+defined in your `pipeline.yml` and can define job hooks.
 
 ### Global hooks
 
@@ -48,26 +49,34 @@ Every agent installer creates a global hooks directory containing a set of
 sample hooks. You can find the location of your agent hooks directory in your
 platform’s installation documentation.
 
-To get started with agent hooks copy the relevant example script and remove the
+To get started with global hooks copy the relevant example script and remove the
 `.sample` file extension.
+
+See the lists of [lifecycle hooks](#available-lifecycle-hooks) and
+[job hooks](#available-job-hooks) for the hook types that can be included in the
+global hooks directory.
 
 ### Repository hooks
 
 Repository hooks allow you to execute repository-specific scripts. Repository
-hooks live alongside your repository’s source code under the directory
-`.buildkite/hooks`.
+hooks live alongside your repository’s source code under the `.buildkite/hooks`
+directory.
 
 To get started, create a shell script in `.buildkite/hooks` named
-`post-checkout`. It will be sourced and run every build, after the Agent checks
-your repository out. You can also use one of the other available *Repository*
-hooks, according to when you want your custom script to run.
+`post-checkout`. It will be sourced and run after your repository has been
+checked out as part of every job for any pipeline that uses this repository.
+
+You can include any of the [available job hooks](#available-job-hooks) whose
+`Order` includes *Repository*.
 
 ### Plugin hooks
 
-Plugin hooks allow plugins you’ve defined in your Pipeline to override default
-behavior.
+Plugin hooks allow plugins you’ve defined in your Pipeline Steps to override
+default behavior.
 
-See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
+See the [plugin documentation](/docs/plugins) for how to implement plugin hooks
+and [available job hooks](#available-job-hooks) for the list of hook types that
+a plugin can include.
 
 ## Available Lifecycle hooks
 
@@ -81,17 +90,27 @@ See the [plugin documentation](/docs/plugins) for how to implement plugin hooks.
   <tbody>
     <tr>
       <td style="white-space: nowrap"><code>pre-bootstrap</code></td>
-      <td>Runs before a step’s job is started. Useful for <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a> before jobs are permitted to run.</td></tr>
+      <td>
+        <p>Executed before any job is started. Useful for <a href="/docs/agent/v3/securing#strict-checks-using-agent-hooks">adding strict checks</a> before jobs are permitted to run.</p>
+        <p>The proposed job command and environment is written to a file and
+        the path to this file provided in the <code>BUILDKITE_ENV_FILE</code>
+        environment variable. Use the contents of this file to determine whether
+        to permit the job to run on this agent.</p>
+        <p>If the <code>pre-bootstrap</code> hook terminates with an exit code
+        of <code>0</code>, the job is permitted to run. Any other exit code
+        results in the job being rejected, and job failure being reported to the
+        Buildkite API.</p>
+        </td></tr>
     <tr>
       <td style="white-space: nowrap"><code>agent-shutdown</code></td>
-      <td>Runs when each agent shuts down. Useful for performing cleanup tasks
-      for the entire agent, outside of the job lifecycle.</td></tr>
+      <td>Executed when the agent shuts down. Useful for performing cleanup
+      tasks for the entire agent, outside of the job lifecycle.</td></tr>
   </tbody>
 </table>
 
-## Available Step hooks
+## Available Job hooks
 
-The following is a complete list of available step hooks, and the order in which
+The following is a complete list of available job hooks, and the order in which
 they are run as part of each job:
 
 <table>
@@ -148,23 +167,29 @@ they are run as part of each job:
 
 ## Creating Lifecycle hooks
 
-Agent hooks are executed and can be written in any programming language.
+Lifecycle hooks are executed and can be written in any programming language of
+your choice. See the specific lifecycle hook documentation for details on the
+interface between them and the Buildkite Agent.
 
-## Creating Step hooks
+Lifecycle hooks are only executed from the [global hooks](#global-hooks)
+directory.
 
-Step hooks are shell scripts you can use to run commands and export environment
-variables. Hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+## Creating Job hooks
 
-Step hooks are copied to `$TMPDIR` directory and *sourced* by the default shell
-on the Agent that is running the build, which has a few implications:
+Job hooks are shell scripts you can use to run commands and export environment
+variables. Job hooks have access to all the standard
+[Buildkite environment variables](/docs/pipelines/environment-variables).
+
+Job hooks are copied to `$TMPDIR` directory and *sourced* by the default shell
+on the Agent that is running the build. This has a few implications:
 
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
 
-To write step hooks in another programming language, you need to call them from
-within the shell script, and explicitly pass any Buildkite environment variables
-you need to the script when you call it.
+To write job hooks in another programming language, you need to execute them
+from within the shell script, and explicitly pass any Buildkite environment
+variables you need to the script when you call it.
 
 The following is an example of a custom `environment` hook which exports a
 GitHub API key for the pipeline’s release build step:
@@ -176,9 +201,9 @@ echo '--- \:house_with_garden\: Setting up the environment'
 export GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
 
-## Step hooks on Windows
+## Job hooks on Windows
 
-Agents running Windows require hook files to have either:
+Agents running on Windows require hook files to have either:
 
 * A `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
 * Access to <a href="/docs/agent/v3/windows#git-for-windows">Git for Windows</a>, which includes bash
