@@ -30,55 +30,6 @@ environment variables are carried to the job’s subsequent phases and hooks. Fo
 example, the `environment` hook can modify or export new environment variables
 for the job’s subsequent phases and hooks.
 
-## Agent Hook Locations
-
-Agent hooks can be defined in three locations:
-
-* Global hooks - these exist on the agent file system in a directory created by
-your agent installer. The global hooks directory can define both Lifecycle and
-Job hooks. Global job hooks are run for every job the agent receives, from any
-pipeline.
-* Repository hooks - these exist in your pipeline repository’s
-`.buildkite/hooks` directory and can define job hooks. Repository hooks are run
-for every pipeline that uses the repository.
-* Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
-defined in your `pipeline.yml` and can define job hooks.
-
-### Global hooks
-
-Every agent installer creates a global hooks directory containing a set of
-sample hooks. You can find the location of your agent hooks directory in your
-platform’s installation documentation.
-
-To get started with global hooks copy the relevant example script and remove the
-`.sample` file extension.
-
-See the lists of [lifecycle hooks](#available-lifecycle-hooks) and
-[job hooks](#available-job-hooks) for the hook types that can be included in the
-global hooks directory.
-
-### Repository hooks
-
-Repository hooks allow you to execute repository-specific scripts. Repository
-hooks live alongside your repository’s source code under the `.buildkite/hooks`
-directory.
-
-To get started, create a shell script in `.buildkite/hooks` named
-`post-checkout`. It will be sourced and run after your repository has been
-checked out as part of every job for any pipeline that uses this repository.
-
-You can include any of the [available job hooks](#available-job-hooks) whose
-`Order` includes *Repository*.
-
-### Plugin hooks
-
-Plugin hooks allow plugins you’ve defined in your Pipeline Steps to override
-default behavior.
-
-See the [plugin documentation](/docs/plugins) for how to implement plugin hooks
-and [available job hooks](#available-job-hooks) for the list of hook types that
-a plugin can include.
-
 ## Available Lifecycle hooks
 
 <table>
@@ -216,3 +167,52 @@ An example of a windows `environment.bat` hook:
 ECHO "--- \:house_with_garden\: Setting up the environment"
 SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 ```
+
+## Agent Hook Locations
+
+Agent hooks can be defined in three locations:
+
+* Global hooks - these exist on the agent file system in a directory created by
+your agent installer. The global hooks directory can define both Lifecycle and
+Job hooks. Global job hooks are run for every job the agent receives, from any
+pipeline.
+* Repository hooks - these exist in your pipeline repository’s
+`.buildkite/hooks` directory and can define job hooks. Repository hooks are run
+for every pipeline that uses the repository.
+* Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
+defined in your `pipeline.yml` and can define job hooks.
+
+### Global hooks
+
+Every agent installer creates a global hooks directory containing a set of
+sample hooks. You can find the location of your agent hooks directory in your
+platform’s installation documentation.
+
+To get started with global hooks copy the relevant example script and remove the
+`.sample` file extension.
+
+See the lists of [lifecycle hooks](#available-lifecycle-hooks) and
+[job hooks](#available-job-hooks) for the hook types that can be included in the
+global hooks directory.
+
+### Repository hooks
+
+Repository hooks allow you to execute repository-specific scripts. Repository
+hooks live alongside your repository’s source code under the `.buildkite/hooks`
+directory.
+
+To get started, create a shell script in `.buildkite/hooks` named
+`post-checkout`. It will be sourced and run after your repository has been
+checked out as part of every job for any pipeline that uses this repository.
+
+You can include any of the [available job hooks](#available-job-hooks) whose
+`Order` includes *Repository*.
+
+### Plugin hooks
+
+Plugin hooks allow plugins you’ve defined in your Pipeline Steps to override
+default behavior.
+
+See the [plugin documentation](/docs/plugins) for how to implement plugin hooks
+and [available job hooks](#available-job-hooks) for the list of hook types that
+a plugin can include.
