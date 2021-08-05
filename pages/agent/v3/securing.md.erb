@@ -18,7 +18,7 @@ ssh-keyscan "<host>" >> "~/.ssh/known_hosts"
 
 If you choose to disable this functionality, you'll need to manually perform your first checkout, or ensure the SSH fingerprint of your source code host is already present on your build machine.
 
-This operation can be disabled by setting `no-ssh-keyscan` in one of the following ways:
+Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/agent/v3/configuration#no-ssh-keyscan):
 
 * Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
 * Command line flag: `--no-ssh-keyscan`
@@ -30,7 +30,7 @@ By default the agent allows you to run any command on the build server (e.g. `ma
 
 Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
 
-To disable command line evaluation use one of the following settings:
+Command line evaluation can be disabled by setting [`no-command-eval`](/agent/v3/configuration#no-command-eval):
 
 * Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
 * Command line flag: `--no-command-eval`
@@ -45,13 +45,15 @@ To disable command line evaluation use one of the following settings:
 
 As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
-You can disable plugins with the command line flag: `--no-plugins`.
+You can disable plugins with the [`no-plugins`](/agent/v3/configuration#no-plugins)
+setting.
 
 ## Disabling local hooks
 
 If you have configured your agent to do very specific things with global hooks (i.e. run commands within a Docker container or a chroot environment), you probably don't want them overridden with local ones. Disabling local hooks will also disable plugins.
 
-You can disable local hooks with the command line flag: `--no-local-hooks`.
+You can disable local hooks with the [`no-local-hooks`](/agent/v3/configuration#no-local-hooks)
+setting.
 
 ## Strict checks using agent hooks
 
@@ -105,7 +107,7 @@ By default Buildkite will reuse (after cleaning) a previous checkout. This may n
 
 The default bootstrap script will execute hooks from the agent configuration (global) and the repository (local). Running local hooks may be undesirable if you are building commits from untrusted sources (e.g. 3rd party pull requests).
 
-Local hooks can be disabled by setting `BUILDKITE_NO_LOCAL_HOOKS=true` in the environment.
+Local hooks can be disabled by setting [no-local-hooks](/agent/v3/configuration#no-local-hooks).
 
 If local hooks are disabled and one is in the checkout, the job will fail.
 
