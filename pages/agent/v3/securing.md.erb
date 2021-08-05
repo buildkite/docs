@@ -58,6 +58,15 @@ also disable plugins.
 You can disable local hooks with the [`no-local-hooks`](/agent/v3/configuration#no-local-hooks)
 setting.
 
+If local hooks are disabled and one is in the checkout, the job will fail.
+
+<div class="Docs__troubleshooting-note">
+  <h3>Building untrusted commits</h3>
+  <p>If you build untrusted commits, be careful to contain the build scripts
+  and anything else that may be influenced by the repository contents within
+  chroots, containers, VMs, etc as is appropriate for your needs.</p>
+</div>
+
 ## Strict checks using agent hooks
 
 You can use a [global `pre-bootstrap` hook](hooks) to add strict checks for
@@ -123,18 +132,6 @@ exit 1
 ## Forcing clean checkouts
 
 By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (e.g. 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment.
-
-## Disallowing hooks in the repository
-
-The default bootstrap script will execute hooks from the agent hots (global) and
-the repository (local). Running local hooks may be undesirable if you are
-building commits from untrusted sources (e.g. 3rd party pull requests).
-
-Local hooks can be disabled by setting [no-local-hooks](/agent/v3/configuration#no-local-hooks).
-
-If local hooks are disabled and one is in the checkout, the job will fail.
-
-NOTE: If building untrusted commits, you should also contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
 
 ## Running the Agent behind a proxy
 
