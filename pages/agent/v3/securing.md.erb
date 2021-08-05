@@ -69,9 +69,9 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 
 ## Strict checks using agent hooks
 
-You can use a [global `pre-bootstrap` hook](hooks) to add strict checks for
-which repositories, commands, and plugins are allowed to run. The
-`pre-bootstrap` hook will be run before any source code is checked out, and
+You can use a [`pre-bootstrap` hook](hooks#lifecycle-hooks) to add strict checks
+for which repositories, commands, and plugins are allowed to run. The
+`pre-bootstrap` hook is executed before any source code is checked out, and
 before any commands are executed.
 
 For example, the following `pre-bootstrap` hook allows only a single file from a
