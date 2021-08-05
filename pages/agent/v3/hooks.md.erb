@@ -33,15 +33,18 @@ phases and hooks.
 
 There are three locations that agent hooks are found:
 
-* Global hooks - these exist on the agent file system in a directory created by your agent installer and can define both
-Lifecycle and Step hooks. The Step hooks are run for every job on any pipeline.
-* Repository hooks - these exist in your pipeline repository’s `.buildkite/hooks` directory and can define Step hooks.
-* Plugin hooks - these are provided by any [plugins](/docs/plugins) you've defined in your `pipeline.yml` and can define Step hooks.
+* Global hooks - these exist on the agent file system in a directory created by
+your agent installer and can define both Lifecycle and Step hooks. These step
+hooks are run for every job the agent receives, from any pipeline.
+* Repository hooks - these exist in your pipeline repository’s
+`.buildkite/hooks` directory and can define step hooks.
+* Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
+defined in your `pipeline.yml` and can define step hooks.
 
 ### Global hooks
 
-Each agent installer creates a global hooks directory containing a set of sample
-hooks. You can find the location of your agent hooks directory in your
+Every agent installer creates a global hooks directory containing a set of
+sample hooks. You can find the location of your agent hooks directory in your
 platform’s installation documentation.
 
 To get started with agent hooks copy the relevant example script and remove the
