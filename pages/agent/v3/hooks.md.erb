@@ -19,27 +19,28 @@ There are two categories of hook:
 * Lifecycle hooks
 * Job hooks
 
-Lifecycle hooks are **executed** as part of the agent lifecycle. For example,
-the `pre-bootstrap` hook is executed before starting the per-job bootstrap
-process, and the `agent-shutdown` hook is executed before the agent process
-terminates.
+Lifecycle hooks are **executed** by the Buildkite Agent as part of the agent
+lifecycle. For example, the `pre-bootstrap` hook is executed before starting a
+per-job bootstrap process, and the `agent-shutdown` hook is executed before the
+agent process terminates.
 
-Job hooks are **sourced** as part a job’s phases. Job hooks are run in a per-job
-shell environment, and any exported environment variables are carried to the
-job’s subsequent phases and hooks. For example, the `environment` hook can
-modify or export new environment variables for the job’s subsequent phases and
-hooks.
+Job hooks are **sourced** by the Buildkite Bootstrap in the different job
+phases. They are run in a per-job shell environment, and any exported
+environment variables are carried to the job’s subsequent phases and hooks. For
+example, the `environment` hook can modify or export new environment variables
+for the job’s subsequent phases and hooks.
 
 ## Agent Hook Locations
 
-There are three locations that agent hooks are found:
+Agent hooks can be defined in three locations:
 
 * Global hooks - these exist on the agent file system in a directory created by
 your agent installer. The global hooks directory can define both Lifecycle and
 Job hooks. Global job hooks are run for every job the agent receives, from any
 pipeline.
 * Repository hooks - these exist in your pipeline repository’s
-`.buildkite/hooks` directory and can define job hooks.
+`.buildkite/hooks` directory and can define job hooks. Repository hooks are run
+for every pipeline that uses the repository.
 * Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
 defined in your `pipeline.yml` and can define job hooks.
 
