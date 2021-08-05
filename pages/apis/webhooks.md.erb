@@ -70,9 +70,11 @@ The `X-Buildkite-Signature` header included in each signed event contains a time
 
 Buildkite generates signature using a hash-based message authentication code ([HMAC](https://en.wikipedia.org/wiki/HMAC)) with [SHA-256](https://en.wikipedia.org/wiki/SHA-2). The timestamp is an integer representation of a UTC timestamp.
 
-Example using Ruby:
+Example using Ruby to verify the signature and timestamp:
 
 ```ruby
+require 'openssl'
+
 class BuildkiteWebhook
   def self.valid?(payload, header, secret)
     timestamp, signature = get_timestamp_and_signatures(header)
@@ -95,7 +97,9 @@ BuildkiteWebhook.valid?(
 
 ### Preventing replay attacks
 
-A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks, Buildkite includes a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload, it is also verified by the signature, so an attacker cannot change the timestamp without invalidating the signature.
+A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks, Buildkite includes a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload, it is also verified by the signature, so an attacker cannot change the timestamp without invalidating the signature. To mitigate against a replay attack, the webhook receiver needs to:
+1. Verify the signature
+2. Check that the timestamp is within a reasonable timeframe (e.g. 5 minutes)
 
 ## Example implementations
 
