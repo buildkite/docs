@@ -50,16 +50,23 @@ setting.
 
 ## Disabling local hooks
 
-If you have configured your agent to do very specific things with global hooks (i.e. run commands within a Docker container or a chroot environment), you probably don't want them overridden with local ones. Disabling local hooks will also disable plugins.
+If you have configured your agent to do very specific things with global hooks
+(i.e. run commands within a Docker container or a chroot environment), you
+probably don't want them overridden with local ones. Disabling local hooks will
+also disable plugins.
 
 You can disable local hooks with the [`no-local-hooks`](/agent/v3/configuration#no-local-hooks)
 setting.
 
 ## Strict checks using agent hooks
 
-You can use the [agent’s environment hook](hooks) to add strict checks for what repositories, commands, and plugins are allowed to run. The environment hook will be run before any source code is checked out onto the machine, and before any commands are executed.
+You can use a [global `pre-bootstrap` hook](hooks) to add strict checks for
+which repositories, commands, and plugins are allowed to run. The
+`pre-bootstrap` hook will be run before any source code is checked out, and
+before any commands are executed.
 
-For example, the following environment hook allows only a single file from a single repository to be executed on the agent machine:
+For example, the following `pre-bootstrap` hook allows only a single file from a
+single repository to be executed by the agent:
 
 ```bash
 #!/bin/bash
@@ -75,18 +82,32 @@ if [[ "${BUILDKITE_COMMAND}" != "some-script.sh" ]]; then
   exit 1
 fi
 ```
-  
+
 ## Allowing a list of plugins
 
-Using the [agent’s environment hook](hooks), you can create a list of plugins that an agent is allowed to run using the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables). For example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository on GitHub.
+Using a [global environment hook](hooks), you can create a list of plugins
+that an agent is allowed to run using the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+For an example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
+repository on GitHub.
 
 ## Customizing the bootstrap
 
-The Buildkite Agent comes with a default bootstrap script, but can be [configured](/docs/agent/v3/configuration) to run your own. Providing your own bootstrap provides the highest level of security and control of your agent machine. You can use it to customize your agent, sanitize command output, and implement your own security logic.
+The Buildkite Agent comes with a default bootstrap handler, but can be
+[configured](/docs/agent/v3/configuration#bootstrap-script) to run your own
+instead. Providing your own bootstrap provides the highest level of security and
+control of your agent. You can use it to customize your agent, sanitize command
+output, and implement your own security logic.
 
-The Buildkite Agent is separated into a daemon executable and a bootstrap executable. The daemon is responsible for communicating with the Buildkite API and executing the bootstrap. The bootstrap is responsible for checking out source code, calling hooks, running commands, and uploading build artifacts. The bootstrap is passed environment variables by the daemon process, and has its output streams and exit status captured.
+The Buildkite Agent is separated into a daemon executable and a bootstrap
+executable. The daemon is responsible for communicating with the Buildkite API
+and executing the bootstrap for each assigned job. The bootstrap is responsible
+for checking out source code, calling hooks, running commands, and uploading
+build artifacts. The bootstrap is passed environment variables by the daemon
+process, and has its output streams and exit status captured.
 
-For example, the following custom bootstrap will print out the environment variables passed by the main agent process, print a hello world, and exit with a failure status:
+For example, the following custom bootstrap will print out the environment
+variables passed by the main agent process, print a hello world, and exit with a
+failure status:
 
 ```bash
 #!/bin/bash
@@ -105,7 +126,9 @@ By default Buildkite will reuse (after cleaning) a previous checkout. This may n
 
 ## Disallowing hooks in the repository
 
-The default bootstrap script will execute hooks from the agent configuration (global) and the repository (local). Running local hooks may be undesirable if you are building commits from untrusted sources (e.g. 3rd party pull requests).
+The default bootstrap script will execute hooks from the agent hots (global) and
+the repository (local). Running local hooks may be undesirable if you are
+building commits from untrusted sources (e.g. 3rd party pull requests).
 
 Local hooks can be disabled by setting [no-local-hooks](/agent/v3/configuration#no-local-hooks).
 
