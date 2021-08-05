@@ -147,10 +147,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins you can use a Global [environment hook](/docs/agent/v3/hooks) and the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables). See the [github.com/buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository for an example implementation.
+To selectively allow and disallow plugins you can use a [global environment hook](/docs/agent/v3/hooks) and the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables). See the [github.com/buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository for an example implementation.
 
-To disable plugins entirely, set the `no-plugins` [agent configuration](/docs/agent/v3/configuration) option:
-
-```
-no-plugins: true
-```
+To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
+option.
