@@ -40,10 +40,9 @@ steps:
 Although there's no `command` attribute in the above example, this is still
 considered a command step, so all command attributes are available for use. 
 
-If you are using [Agent Hooks](/docs/agent/v3/hooks) as well as plugins, some
-Step hooks will run a Global hook before any plugin hooks. For a description of
-each hook type and the order it is run, see the
-[Available Step Hooks](/docs/agent/v3/hooks#available-step-hooks). 
+If you are using [global hooks](/docs/agent/v3/hooks) as well as plugins, some
+global hooks will run before any plugin hooks. For a description of each job
+hook type, and the order it is run in, see [Available Job Hooks](/docs/agent/v3/hooks#available-job-hooks).
 
 ## Configuring plugins
 
