@@ -3,8 +3,8 @@
 Agent hooks can be used to extend or override the built-in behaviours of the
 Buildkite Agent and Bootstrap binaries.
 
-Hooks can be configured globally on your agent hosts, in your repository, or
-from [Plugins](/docs/plugins). For example, you could create a global `checkout` hook
+Hooks can be defined globally on your agent hosts, in your repository, or from
+[Plugins](/docs/plugins). For example, you could create a global `checkout` hook
 which speeds up a fresh `git clone` on a new build machine, a repository
 `pre-command` hook which sets up repository-specific environment variables, or a
 plugin `environment` hook which exports secret API keys as environment
