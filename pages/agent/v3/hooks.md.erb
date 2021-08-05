@@ -30,7 +30,7 @@ environment variables are carried to the job’s subsequent phases and hooks. Fo
 example, the `environment` hook can modify or export new environment variables
 for the job’s subsequent phases and hooks.
 
-## Available Lifecycle hooks
+## Lifecycle hooks
 
 <table>
   <thead>
@@ -60,7 +60,7 @@ for the job’s subsequent phases and hooks.
   </tbody>
 </table>
 
-## Available Job hooks
+## Job hooks
 
 The following is a complete list of available job hooks, and the order in which
 they are run as part of each job:
@@ -191,9 +191,8 @@ platform’s installation documentation.
 To get started with global hooks copy the relevant example script and remove the
 `.sample` file extension.
 
-See the lists of [lifecycle hooks](#available-lifecycle-hooks) and
-[job hooks](#available-job-hooks) for the hook types that can be included in the
-global hooks directory.
+See [lifecycle hooks](#lifecycle-hooks) and [job hooks](#job-hooks) for the hook
+types that can be defined in the global hooks directory.
 
 ### Repository hooks
 
@@ -205,8 +204,8 @@ To get started, create a shell script in `.buildkite/hooks` named
 `post-checkout`. It will be sourced and run after your repository has been
 checked out as part of every job for any pipeline that uses this repository.
 
-You can include any of the [available job hooks](#available-job-hooks) whose
-`Order` includes *Repository*.
+You can define any of the [job hooks](#job-hooks) whose `Order` includes
+*Repository*.
 
 ### Plugin hooks
 
@@ -214,5 +213,4 @@ Plugin hooks allow plugins you’ve defined in your Pipeline Steps to override
 default behavior.
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks
-and [available job hooks](#available-job-hooks) for the list of hook types that
-a plugin can include.
+and [job hooks](#job-hooks) for the list of hook types that a plugin can define.
