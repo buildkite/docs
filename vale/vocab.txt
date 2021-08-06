@@ -103,7 +103,6 @@ Powershell
 powershell
 preemptible
 prefill
-Programatically
 pty
 pullrequest
 pybuildkite
