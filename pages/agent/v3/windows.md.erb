@@ -47,18 +47,18 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 There are two options to be aware of for this initial setup:
 
 * Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-* If you are on Windows, you may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
+* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
     shell="<path-to-powershell-executable>"
     ```
 
     <div class="Docs__note">
-    <p>This allows you to run a PowerShell script, but your build hooks must still be either `.bat` or `.sh` files (if you have access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
+    <p>This allows you to run a PowerShell script, but your build hooks must still be either `.bat` or `.sh` files (`.sh` files require access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
     </div>
 
     <div class="Docs__note">
-    <p>Buildkite does not support the cross-platform edition of PowerShell (PowerShell 6 and 7). Make sure `shell` points to a `powershell.exe` file, not `pwsh.exe`.</p>
+    <p>Buildkite does not support the cross-platform edition of PowerShell (PowerShell 6 and 7, also knows as PowerShell Core). Make sure `shell` points to a `powershell.exe` file, not `pwsh.exe`.</p>
     </div>
 
 ## Upgrading
