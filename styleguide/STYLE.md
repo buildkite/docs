@@ -192,6 +192,15 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
+### Anchor links  
+
+To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
+`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
+
+If you need to create a link to an H3-level heading, start with an H2-level anchor link, add a `-`, and append the full name of the H3-level title to it. The result will be a long link. For example:  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.   
+
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
 
