@@ -108,10 +108,11 @@ User-level permissions are managed by organization administrators, and can be fo
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
 - Create new pipelines
+- Delete pipelines
 - Make an existing private pipeline public
 - Create, edit, and delete notification services
 - Create, edit, and delete agent registration tokens
-- Disconnect agents
+- Stop (disconnect) agents
 
 If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page. 
 
@@ -121,19 +122,19 @@ Organization admin can delete organization members. To delete organization membe
 
     ```graphql
     query {
-    organization(slug: "your-organization-slug") {
+      organization(slug: "your-organization-slug") {
         members(search: "Jane Doe", first: 10) {
-        edges {
+          edges {
             node {
-            role
-            user {
+              role
+              user {
                 name
+              }
+              id
             }
-            id
-            }
+          }
         }
-        }
-    }
+      }
     }
     ```
 
@@ -141,14 +142,14 @@ Organization admin can delete organization members. To delete organization membe
 
     ```graphql 
     mutation deleteOrgMember {
-    organizationMemberDelete(input: { id: "abc123" }){
-        organization{
-        name
+      organizationMemberDelete(input: { id: "abc123" }) {
+        organization {
+          name
         }
         deletedOrganizationMemberID
-        user{
-            name
+        user {
+          name
         }
-    }
+      }
     }
     ```

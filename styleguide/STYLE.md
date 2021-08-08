@@ -32,6 +32,11 @@ Generally, use active voice. It's usually clearer and simpler.
 Always use ‘they’, never use ‘he’ or ‘she’.
 More info on writing about pronouns and in the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns).
 
+### Talking about YAML
+
+* Attributes not parameters. For example, "Add the `notify` attribute".
+* When discussing nesting/indenting, first attributes (attributes not nested under any other are "top level".
+
 ## Style and formatting
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
 
@@ -200,6 +205,18 @@ To use an anchor link where you need to link to an H2-level heading, append the 
 If you need to create a link to an H3-level heading, start with an H2-level anchor link, add a `-`, and append the full name of the H3-level title to it. The result will be a long link. For example:  
 `/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
 Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.   
+
+### Content reuse
+
+Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+
+So
+
+`/integrations/_step_2_3_github_custom_status.md.erb`
+
+Becomes
+
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.

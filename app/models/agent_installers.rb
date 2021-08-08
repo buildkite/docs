@@ -8,7 +8,7 @@ AGENT_INSTALLERS = [
   { title: "FreeBSD",
     url: "agent/v3/freebsd" },
   { title: "macOS",
-    url: "agent/v3/osx" },
+    url: "agent/v3/macos" },
   { title: "Windows",
     url: "agent/v3/windows" },
   { title: "Linux",
@@ -17,6 +17,8 @@ AGENT_INSTALLERS = [
     url: "agent/v3/docker" },
   { title: "AWS",
     url: "agent/v3/aws" },
+  { title: "Elastic CI Stack for AWS",
+    url: "agent/v3/elastic-ci-aws" },
   { title: "Google Cloud",
     url: "agent/v3/gcloud" }
 ].freeze
