@@ -40,11 +40,11 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 ### Title capitalisation
 
-Use Title case in page headings:
+Use Title case in page headings (\#-level - H1):
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
-Use Sentence case in section headings:
+Use Sentence case in section headings (\#\#-H2,\#\#\#-H3, \#\#\#\#-H4, etc.):
 *"The quick brown fox jumps over the lazy dog."*
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
@@ -166,7 +166,7 @@ Our docs website is a custom build. This section gives some guidance on working 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app/views/layouts/application.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app\views\layouts\_sidebar.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Escaping vale linting
