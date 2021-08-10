@@ -100,7 +100,7 @@ BuildkiteWebhook.valid?(
 A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks, Buildkite includes a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload, it is also verified by the signature, so an attacker cannot change the timestamp without invalidating the signature. To mitigate against a replay attack, the webhook receiver needs to:
 
 1. Verify the signature
-2. Check that the timestamp is within a reasonable timeframe (e.g. 5 minutes)
+2. Check that the timestamp is within a reasonable time frame (e.g. 5 minutes)
 
 ## Example implementations
 
