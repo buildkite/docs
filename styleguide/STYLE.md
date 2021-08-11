@@ -45,7 +45,7 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 ### Title capitalisation
 
-Use Title case in page headings (\#-level - H1):
+Use Title case in H1 page headings `#Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
