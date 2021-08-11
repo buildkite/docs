@@ -49,7 +49,7 @@ Use Title case in H1 page headings `#Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
-Use Sentence case in section headings (\#\#-H2,\#\#\#-H3, \#\#\#\#-H4, etc.):
+Use Sentence case in section headings (`##Heading`,`###Heading`, `####Heading`, etc.):
 *"The quick brown fox jumps over the lazy dog."*
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
@@ -171,7 +171,7 @@ Our docs website is a custom build. This section gives some guidance on working 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app\views\layouts\_sidebar.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app/views/layouts/_sidebar.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Escaping vale linting
@@ -202,9 +202,9 @@ Read more about [environment variables](/docs/pipelines/environment-variables)
 To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
 `/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
-If you need to create a link to an H3-level heading, start with an H2-level anchor link, add a `-`, and append the full name of the H3-level title to it. The result will be a long link. For example:  
-`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
-Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.   
+If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
 
 ### Content reuse
 
