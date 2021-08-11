@@ -11,8 +11,8 @@ You'll need to run the automated installer within PowerShell with administrative
 Once you're in an escalated PowerShell session, you can run this script to install the latest version of the agent:
 
 ```shell
-$env:buildkiteAgentToken = "<your_token>"
-Set-ExecutionPolicy Bypass -Scope Process -Force
+PS> $env:buildkiteAgentToken = "<your_token>"
+PS> Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
@@ -54,7 +54,7 @@ There are two options to be aware of for this initial setup:
     ```
 
     <div class="Docs__note">
-    <p>This allows you to run a PowerShell script, but your build hooks must still be either `.bat` or `.sh` files (`.sh` files require access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
+    <p>This allows you to run a PowerShell script, but your build hooks must still be either <code>.bat</code> or <code>.sh</code> files (`.sh` files require access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
     </div>
 
     <div class="Docs__note">
