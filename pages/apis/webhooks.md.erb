@@ -38,8 +38,15 @@ The following HTTP headers are present in every webhook request, which allow you
 <table>
 <tbody>
   <tr><th><code>X-Buildkite-Event</code></th><td>The type of event<p class="Docs__api-param-eg"><em>Example:</em> <code>build.scheduled</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Token</code></th><td>The token from your webhook configuration settings. It will only be sent if you selected the option to send the token in the token header. Its presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature signed from your webhook token. It will only be sent if you selected the option to send an HMAC signature in the signature header. Its presence in the header of the webhook confirms that you are the originator of the the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62c6134a63db768f1d40e0edbe6e43f0</code></p></td></tr>
+</tbody>
+</table>
+
+One of either the Token or Signature headers will be present in every webhook request. Your selection in the Webhook notification service will determine which is sent:
+
+<table>
+<tbody>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's token. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature created from your webhook payload and .<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62c6134a63db768f1d40e0edbe6e43f0</code></p></td></tr>
 </tbody>
 </table>
 
@@ -60,17 +67,33 @@ Each event’s data is sent JSON encoded in the request body. See each event’s
 ```
 
 <div class="Docs__troubleshooting-note">
-  <h3>fast transitions and webhooks</h3>
-  <p>Note that if a builds transitions between states very quickly, for example from blocked (`finished`) to unblocked (`running`), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
+  <h3>Fast transitions and webhooks</h3>
+  <p>Note that if a builds transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
 </div>
 
-## Verifying Webhook signatures
+## Webhook token
 
-The `X-Buildkite-Signature` header included in each signed event contains a timestamp and one signature. The timestamp is prefixed by `timestamp=`, and the signature is prefixed by `signature=`.
+By default, Buildkite will send a token with each webhook in the `X-Buildkite-Token` header.
 
-Buildkite generates the signature using a hash-based message authentication code ([HMAC](https://en.wikipedia.org/wiki/HMAC)) with [SHA-256](https://en.wikipedia.org/wiki/SHA-2). The timestamp is an integer representation of a UTC timestamp.
+The token is passed in clear text.
 
-Example using Ruby to verify the signature and timestamp:
+## Webhook signature
+
+Buildkite can optionally send an HMAC signature in place of a webhook token.
+
+The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. The timestamp is prefixed by `timestamp=` and the signature is prefixed by `signature=`. 
+
+Buildkite generates the signature using HMAC-SHA256; a hash-based message authentication code [HMAC](https://en.wikipedia.org/wiki/HMAC) used with the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash function and a secret key. The webhook token value is used as the secret key. The timestamp is an integer representation of a UTC timestamp.
+
+### Verifying HMAC signatures
+
+When using HMAC signatures, you'll want to verify that the signature is legitimate.
+
+Using the token as the secret along with the timestamp and signature from the webhook, compute the authentication code. There should be a library available in the programming language you are using that can perform this operation.
+
+Compare the code to the signature received in the webhook. If they do not match, your payload has been altered.
+
+The below example in Ruby verifies the signature and timestamp using the OpenSSL gem's HMAC :
 
 ```ruby
 require 'openssl'
@@ -95,12 +118,18 @@ BuildkiteWebhook.valid?(
 )
 ```
 
-### Preventing replay attacks
+### Defending against replay attacks
 
-A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. To mitigate such attacks, Buildkite includes a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload, it is also verified by the signature, so an attacker cannot change the timestamp without invalidating the signature. To mitigate against a replay attack, the webhook receiver needs to:
+A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (e.g. 5 minutes). 
+
+Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload so that it is verified by the signature. An attacker will not be able to change the timestamp without invalidating the signature. 
+
+To help protect against a replay attack, upon receipt of a webhook:
 
 1. Verify the signature
-2. Check that the timestamp is within a reasonable time frame (e.g. 5 minutes)
+2. Check the timestamp against the current time
+
+If the webhook's timestamp is within your chosen window of the current time, it can reasonably be assumed to be the original webhook.
 
 ## Example implementations
 
