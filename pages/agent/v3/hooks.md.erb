@@ -10,10 +10,6 @@ which speeds up a fresh `git clone` on a new build machine, a repository
 plugin `environment` hook which exports secret API keys as environment
 variables.
 
-{:toc}
-
-## Categories of hooks
-
 There are two categories of hook:
 
 * Lifecycle hooks
@@ -29,6 +25,8 @@ phases. They are run in a per-job shell environment, and any exported
 environment variables are carried to the job’s subsequent phases and hooks. For
 example, the `environment` hook can modify or export new environment variables
 for the job’s subsequent phases and hooks.
+
+{:toc}
 
 ## Lifecycle hooks
 
