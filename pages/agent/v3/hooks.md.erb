@@ -26,6 +26,10 @@ environment variables are carried to the job’s subsequent phases and hooks. Fo
 example, the `environment` hook can modify or export new environment variables
 for the job’s subsequent phases and hooks.
 
+In July 2021 we changed how we refer to Agent Hooks to differentiate between the
+global file system location that hooks are defined in, and the feature which
+covers hooks for both the Agent and Bootstrap processes.
+
 {:toc}
 
 ## Lifecycle hooks
