@@ -178,13 +178,14 @@ Agent hooks can be defined in three locations:
 
 * Global hooks - these exist on the agent file system in a directory created by
 your agent installer. The global hooks directory can define both Lifecycle and
-Job hooks. Global job hooks are run for every job the agent receives, from any
-pipeline.
+Job hooks. The agent will run the global job hooks for every job it receives,
+from any pipeline.
 * Repository hooks - these exist in your pipeline repository’s
-`.buildkite/hooks` directory and can define job hooks. Repository hooks are run
-for every pipeline that uses the repository.
+`.buildkite/hooks` directory and can define job hooks. The agent will run the
+repository hooks for every pipeline that uses the repository that defines them.
 * Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
-defined in your `pipeline.yml` and can define job hooks.
+defined in your `pipeline.yml` and can define job hooks. The agent will run any
+plugin hooks defined by the step’s [plugins](plugins) for every job it receives.
 
 ### Global hooks
 
