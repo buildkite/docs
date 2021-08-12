@@ -131,6 +131,7 @@ sudo
 svg
 systemd
 tmp
+timeframe
 toolmantim
 tooltip
 udp
