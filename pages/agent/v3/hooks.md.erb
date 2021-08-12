@@ -65,6 +65,16 @@ covers hooks for both the Agent and Bootstrap processes.
   </tbody>
 </table>
 
+### Creating lifecycle hooks
+
+Lifecycle hooks can be written in the programming language of your choice and
+are executed by the Buildkite Agent. See the documentation for each lifecycle
+hook for details on the interface between the Buildkite Agent and the
+Lifecycle hook.
+
+Lifecycle hooks can only be defined in the [global hooks](#agent-hook-locations-global-hooks)
+directory.
+
 ## Job hooks
 
 The following is a complete list of available job hooks, and the order in which
@@ -122,17 +132,7 @@ they are run as part of each job:
   </tbody>
 </table>
 
-## Creating Lifecycle hooks
-
-Lifecycle hooks can be written in the programming language of your choice and
-are executed by the Buildkite Agent. See the documentation for each lifecycle
-hook for details on the interface between the Buildkite Agent and the
-Lifecycle hook.
-
-Lifecycle hooks can only be defined in the [global hooks](#agent-hook-locations-global-hooks)
-directory.
-
-## Creating Job hooks
+### Creating job hooks
 
 Job hooks are shell scripts you can use to run commands and export environment
 variables. Job hooks have access to all the standard
