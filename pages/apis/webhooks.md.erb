@@ -41,12 +41,14 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. Your selection in the Webhook notification service will determine which is sent:
+One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under _Token_ in your _Webhook Notification service_. 
+
+Your selection in the _Webhook Notification service_ will determine which is sent:
 
 <table>
 <tbody>
-  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's token. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature created from your webhook payload and .<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62c6134a63db768f1d40e0edbe6e43f0</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's token. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842g8565adecpd7469x6005989</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature created from your webhook payload, webhook token, and the SHA-256 hash function.<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62cb134a6ldb768f1d40e0edbn6e43f0</code></p></td></tr>
 </tbody>
 </table>
 
