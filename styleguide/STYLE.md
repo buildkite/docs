@@ -45,11 +45,11 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 ### Title capitalisation
 
-Use Title case in H1 page headings `#Heading`:
+Use Title case in H1 page headings `# Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
-Use Sentence case in section headings (`##Heading`,`###Heading`, `####Heading`, etc.):
+Use Sentence case in section headings (`## Heading`,`### Heading`, `#### Heading`, etc.):
 *"The quick brown fox jumps over the lazy dog."*
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
