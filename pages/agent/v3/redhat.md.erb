@@ -1,6 +1,6 @@
-# Installing Buildkite Agent on Red Hat, CentOS and Amazon Linux
+# Installing Buildkite Agent on Red Hat, CentOS, and Amazon Linux
 
-The Buildkite Agent can be installed on Red Hat, CentOS and Amazon Linux using our yum repository.
+The Buildkite Agent can be installed on Red Hat, CentOS, and Amazon Linux using our yum repository.
 
 {:toc}
 
@@ -44,13 +44,13 @@ sudo service buildkite-agent start
 sudo tail -f /var/log/buildkite-agent.log
 ```
 
-## SSH Key Configuration
+## SSH key configuration
 
 <%= render_markdown 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
-## File Locations
+## File locations
 
 * Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
 * Hooks: `/etc/buildkite-agent/hooks/`
