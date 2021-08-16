@@ -4,7 +4,7 @@ An *input* step is used to collect information from a user.
 
 An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
-Input steps will block your build from completing, but will not automatically block other steps from running unless they specifically depend upon it.
+Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
 {:toc}
 
@@ -21,9 +21,28 @@ steps:
 
 You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
-The data you collect from these fields is available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
+The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data). 
 
-## Input Step Attributes
+In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step by getting that key from the meta-data.
+
+```yml
+  - input: "Who is running this script?"
+    fields:
+      - text: "Your name"
+        key: "name"
+```
+{: codeblock-file="pipeline.yml"}
+
+```bash
+NAME=$(buildkite-agent meta-data get name)
+```
+
+
+For an example pipeline, see the [Input Step Example Pipeline](https://github.com/buildkite/input-step-example) on GitHub:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
+
+## Input step attributes
 
 Input and block steps have the same attributes available for use.
 
