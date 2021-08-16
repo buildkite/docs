@@ -81,15 +81,25 @@ single repository to be executed by the agent:
 #!/bin/bash
 set -euo pipefail
 
-if [[ "${BUILDKITE_REPO}" != "git@server:repo.git" ]]; then
-  echo "Repository not allowed: ${BUILDKITE_REPO}"
-  exit 1
-fi
+for line in "$(grep "^BUILDKITE_REPO=" "${BUILDKITE_ENV_FILE}")"
+do
+  repo="$(echo "${line}" | cut -d= -f2)"
+  if [ "${repo}" != "git@server:repo.git" ]
+  then
+    echo "Repository not allowed: ${repo}"
+    exit 1
+  fi
+done
 
-if [[ "${BUILDKITE_COMMAND}" != "some-script.sh" ]]; then
-  echo "Command not allowed: ${BUILDKITE_COMMAND}"
-  exit 1
-fi
+for line in "$(grep "^BUILDKITE_COMMAND=" "${BUILDKITE_ENV_FILE}")"
+do
+  command="$(echo "${line}" | cut -d= -f2)"
+  if [ "${command}" != "some-script.sh" ]
+  then
+    echo "Command not allowed: ${command}"
+    exit 1
+  fi
+done
 ```
 
 ## Allowing a list of plugins
