@@ -38,6 +38,7 @@ In this example, the `pipeline.yml` defines an input step with the key `release-
 ```bash
 RELEASE_NAME=$(buildkite-agent meta-data get release-name)
 ```
+{: codeblock-file="script.sh"}
 
 For a complete example pipeline, including dynamically generated input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
 
