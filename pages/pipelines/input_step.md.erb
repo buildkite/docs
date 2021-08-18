@@ -19,11 +19,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
+You can add form fields to input steps by adding the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
-The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data). 
+The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data) command. 
 
-In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step by getting that key from the meta-data.
+In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
 ```yml
   - input: "Who is running this script?"
