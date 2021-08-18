@@ -24,7 +24,7 @@ You can add form fields to block steps with the `fields` attribute. There are tw
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). 
 
-In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step by getting that key from the meta-data.
+In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
 ```yml
  - block: "Release"
