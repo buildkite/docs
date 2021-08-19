@@ -46,6 +46,8 @@ Buildkite prompts you to give permission for Buildkite to post status updates, t
 
 ## Mercurial support
 
-Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use Buildkite with a Bitbucket Mercurial repository, you need to add your own Mercurial checkout code using a custom [Buildkite Agent global checkout hook](/docs/agent/v3/hooks).
+Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use
+Buildkite with a Bitbucket Mercurial repository, you need to add your own
+Mercurial checkout code using a [checkout hook](/docs/agent/v3/hooks#job-hooks).
 
 <%= render_markdown 'integrations/one_repo_multi_org' %>

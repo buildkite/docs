@@ -50,7 +50,7 @@ setting.
 
 ## Disabling local hooks
 
-If you have configured your agent to do very specific things with global hooks
+If you have configured your agent to do very specific things with agent hooks
 (i.e. run commands within a Docker container or a chroot environment), you
 probably don't want them overridden with local ones. Disabling local hooks will
 also disable plugins.
@@ -104,8 +104,9 @@ done
 
 ## Allowing a list of plugins
 
-Using a [global environment hook](hooks), you can create a list of plugins
-that an agent is allowed to run using the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+Defining an [agent](hooks#agent-hook-locations-agent-hooks)
+[environment hook](hooks#job-hooks), you can create a list of plugins that an
+agent is allowed to run by inspecting the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
 For an example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
 repository on GitHub.
 

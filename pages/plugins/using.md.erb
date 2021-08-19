@@ -40,10 +40,12 @@ steps:
 Although there's no `command` attribute in the above example, this is still
 considered a command step, so all command attributes are available for use. 
 
-If you are using [global hooks](/docs/agent/v3/hooks) as well as plugins, some
-hooks types run a globally defined hook before a plugin defined hook. See
-[Job Hooks](/docs/agent/v3/hooks#job-hooks) for a description of each job hook
-type, the order their locations are run in, and the overall order of hooks.
+If you are using [agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks)
+as well as [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks), some
+hooks types run an agent defined hook before a plugin defined hook. See
+[job hooks](/docs/agent/v3/hooks#job-hooks) for a description of each job hook
+type, the order their locations are run in, and the overall order of hooks for a
+job.
 
 ## Configuring plugins
 
@@ -148,7 +150,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins you can use a [global environment hook](/docs/agent/v3/hooks) and the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables). See the [github.com/buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository for an example implementation.
+To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/securing#allowing-a-list-of-plugins).
 
 To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
 option.
