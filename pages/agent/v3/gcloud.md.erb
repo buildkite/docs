@@ -174,7 +174,7 @@ buildkite-agent-67d54b9b88-qwfc5   2/2     Running   0          69s
 To run builds from private repositories you can store [an SSH key for the agent](/docs/agent/v3/ssh-keys) in a secret and map it into the containers:
 
 ```shell
-# Use an existing keypair, or generate a new one with something like:
+# Use an existing key pair, or generate a new one with something like:
 $ ssh-keygen -t rsa -b 2048 -N "" -C buildkite-agent -f id_rsa
 Generating public/private rsa key pair.
 Your identification has been saved in id_rsa.
