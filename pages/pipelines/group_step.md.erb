@@ -53,11 +53,12 @@ The `group` step type:
 * Allows adding a label to groups
 * Helps manage step notifications across multiple steps
  
-## Using parallel groups
- 
+## Using parallel groups  
+
+<!-- vale off --> 
 Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
 
-<!-- vale off -->
+
 If a parallel step exists within a group, parallel jobs are treated as simple jobs within the step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
 <!-- vale on -->
 
