@@ -38,7 +38,7 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 
 <div class="Docs__troubleshooting-note">
   <h3>Custom hooks</h3>
-  <p>If you have a custom 'command' hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
+  <p>If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
 </div>
 
 ## Disabling plugins
@@ -50,10 +50,10 @@ setting.
 
 ## Disabling local hooks
 
-If you have configured your agent to do very specific things with agent hooks
-(i.e. run commands within a Docker container or a chroot environment), you
-probably don't want them overridden with local ones. Disabling local hooks will
-also disable plugins.
+If you have enforced a security policy using agent hooks (e.g. force commands to
+run within a Docker container or a chroot environment), you should also disable
+local hooks so that your security measures cannot be evaded with local hooks.
+Disabling local hooks will also disable plugins.
 
 You can disable local hooks with the [`no-local-hooks`](/docs/agent/v3/configuration#no-local-hooks)
 setting.
@@ -67,12 +67,12 @@ If local hooks are disabled and one is in the checkout, the job will fail.
   chroots, containers, VMs, etc as is appropriate for your needs.</p>
 </div>
 
-## Strict checks using agent hooks
+## Strict checks using a `pre-bootstrap` hook
 
-You can use a [`pre-bootstrap` hook](hooks#lifecycle-hooks) to add strict checks
-for which repositories, commands, and plugins are allowed to run. The
-`pre-bootstrap` hook is executed before any source code is checked out, and
-before any commands are executed.
+You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
+checks for which repositories, commands, and plugins are allowed to run on your
+agent. The `pre-bootstrap` hook is executed before any source code is checked
+out, and before any commands are executed.
 
 For example, the following `pre-bootstrap` hook allows only a single file from a
 single repository to be executed by the agent:
@@ -104,10 +104,11 @@ done
 
 ## Allowing a list of plugins
 
-Defining an [agent](hooks#agent-hook-locations-agent-hooks)
-[environment hook](hooks#job-hooks), you can create a list of plugins that an
-agent is allowed to run by inspecting the `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
-For an example of how to do this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
+Defining an [environment hook](hooks#job-lifecycle-hooks) in the
+[agent `hooks-path`](hooks#agent-hook-locations-agent-hooks), you can create a
+list of plugins that an agent is allowed to run by inspecting the
+`BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
+For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
 repository on GitHub.
 
 ## Customizing the bootstrap
@@ -174,7 +175,7 @@ To safeguard your organization's infrastructure in case of Buildkite infrastruct
 * Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
 * [Disable command-eval](#disabling-command-eval)  
 * [Disable local hooks](#disabling-local-hooks)  
-* [Enable strict validation in agent hooks](#strict-checks-using-agent-hooks)  
+* [Enable strict validation](#strict-checks-using-agent-hooks)  
  
 As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you. 
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.  

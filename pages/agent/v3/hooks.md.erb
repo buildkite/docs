@@ -1,38 +1,39 @@
 # Buildkite Agent Hooks
 
-Agent hooks extend or override the built-in behaviours of the
-Buildkite Agent and Bootstrap binaries.
+Hooks extend or override the built-in behaviours of the Buildkite Agent and
+Bootstrap binaries.
 
 Hooks can be defined in three locations: agent-wide, your pipeline’s repository,
-or specific [plugins](/docs/plugins). For example, you could create an agent
-level `checkout` hook which speeds up a fresh `git clone` on a new build
+or in [plugins](/docs/plugins) applied to steps. For example, you could define
+an agent wide `checkout` hook which speeds up a fresh `git clone` on a new build
 machine, a repository `pre-command` hook which sets up repository-specific
 environment variables, or a plugin `environment` hook which fetches API keys
-from a secret management service.
+from a secrets storage service.
 
 There are two categories of hook:
 
-* Lifecycle hooks
-* Job hooks
+* Agent Lifecycle
+* Job Lifecycle
 
-Lifecycle hooks are **executed** by the Buildkite Agent as part of the agent
-lifecycle. For example, the `pre-bootstrap` hook is executed before starting a
-job’s bootstrap process, and the `agent-shutdown` hook is executed before the
-agent process terminates.
+Agent lifecycle hooks are **executed** by the Buildkite Agent as part of the
+agent’s lifecycle. For example, the `pre-bootstrap` hook is executed before
+starting a job’s bootstrap process, and the `agent-shutdown` hook is executed
+before the agent process terminates.
 
-Job hooks are **sourced** by the Buildkite Bootstrap in the different job
-phases. They are run in a per-job shell environment, and any exported
+Job lifecycle hooks are **sourced** by the Buildkite Bootstrap in the different
+job phases. They are run in a per-job shell environment, and any exported
 environment variables are carried to the job’s subsequent phases and hooks. For
 example, the `environment` hook can modify or export new environment variables
-for the job’s subsequent phases and hooks.
+for the job’s subsequent checkout and command phases.
 
-In July 2021 we changed how we refer to Agent Hooks to differentiate between the
-agent configuration for the location that hooks are defined in, and the hooks
-feature which covers hooks for both the Agent and Bootstrap processes.
+In August 2021 we changed how we refer to Agent Hooks to differentiate between
+the hooks feature for both the Agent and Bootstrap processes, and the agent
+[`hooks-path` configuration](configuration#hooks-path) for the
+directory that agent level hooks are defined.
 
 {:toc}
 
-## Lifecycle hooks
+## Agent lifecycle hooks
 
 <table>
   <thead>
@@ -65,17 +66,16 @@ feature which covers hooks for both the Agent and Bootstrap processes.
   </tbody>
 </table>
 
-### Creating lifecycle hooks
+### Creating agent lifecycle hooks
 
-Lifecycle hooks can be written in the programming language of your choice and
-are executed by the Buildkite Agent. See the documentation for each lifecycle
-hook for details on the interface between the Buildkite Agent and the
-Lifecycle hook.
+Agent lifecycle hooks can be written in the programming language of your choice
+and are executed by the Buildkite Agent. See the documentation for each agent
+lifecycle hook for details on the interface between them and the Buildkite
+Agent.
 
-Lifecycle hooks can only be defined in the [agent hooks](#hook-locations-agent-hooks)
-directory.
+These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory.
 
-## Job hooks
+## Job lifecycle hooks
 
 The following is a complete list of available job hooks, and the order in which
 they are run as part of each job:
@@ -132,25 +132,25 @@ they are run as part of each job:
   </tbody>
 </table>
 
-### Creating job hooks
+### Creating job lifecycle hooks
 
-Job hooks are shell scripts you can use to run commands and export environment
-variables. Job hooks have access to all the standard
-[Buildkite environment variables](/docs/pipelines/environment-variables).
+Job lifecyle hooks run for every job an agent accepts. They are shell
+scripts you can use to run commands and export environment variables. These
+hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
 
-Job hooks are copied to `$TMPDIR` directory and *sourced* by the default shell
-on the Agent that is running the build. This has a few implications:
+Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the
+agent’s default shell. This has a few implications:
 
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
 
-To write job hooks in another programming language, you need to execute them
-from within the shell script, and explicitly pass any Buildkite environment
-variables you need to the script when you call it.
+To write job lifecycle hooks in another programming language, you need to
+execute them from within the shell script, and explicitly pass any Buildkite
+environment variables you need to the script when you call it.
 
-The following is an example of a custom `environment` hook which exports a
-GitHub API key for the pipeline’s release build step:
+The following is an example of an `environment` hook which exports a GitHub API
+key for the pipeline’s release build step:
 
 ```bash
 set -eu
@@ -161,12 +161,12 @@ export GITHUB_RELEASE_ACCESS_KEY='xxx'
 
 ## Job hooks on Windows
 
-Agents running on Windows require hook files to have either:
+Buildkite Agents running on Windows require job lifecycle hooks to have either:
 
 * A `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
 * Access to <a href="/docs/agent/v3/windows#git-for-windows">Git for Windows</a>, which includes bash
 
-An example of a windows `environment.bat` hook:
+An example of a Windows `environment.bat` hook:
 
 ```batch
 @ECHO OFF
@@ -179,16 +179,17 @@ SET GITHUB_RELEASE_ACCESS_KEY='xxx'
 Hooks can be defined in three locations:
 
 * Agent hooks - these exist on the agent file system in a directory created by
-your agent installer and configured by the [`hooks-path`](/docs/agent/v3/configuration#hooks-path)
-setting. You can define both Lifecycle and Job hooks in the agent hooks
-location. Job hooks defined here will be run for every job the agent receives,
-from any pipeline.
+your agent installer and configured by the [`hooks-path`](configuration#hooks-path)
+setting. You can define both agent lifecycle and job lifecycle hooks in the
+agent hooks location. Job lifecycle hooks defined here will be run for every job
+the agent receives, from any pipeline.
 * Repository hooks - these exist in your pipeline repository’s
-`.buildkite/hooks` directory and can define job hooks. Job hooks defined here
-will be run for every pipeline that uses the repository.
+`.buildkite/hooks` directory and can define job lifecycle hooks. Job lifecycle
+hooks defined here will be run for every pipeline that uses the repository.
 * Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
-included in your pipeline steps and can define job hooks. Job hooks defined by
-a plugin will only be run for the step that includes them.
+included in your pipeline steps and can define job lifecycle hooks. Job
+lifecycle hooks defined by a plugin will only be run for the step that includes
+them.
 
 ### Agent hooks
 
@@ -199,8 +200,9 @@ platform’s installation documentation.
 To get started with agent hooks copy the relevant example script and remove the
 `.sample` file extension.
 
-See [lifecycle hooks](#lifecycle-hooks) and [job hooks](#job-hooks) for the hook
-types that can be defined in the agent hooks directory.
+See [agent lifecycle hooks](#agent-lifecycle-hooks) and
+[job lifecycle hooks](#job-lifecycle-hooks) for the hook types that can be
+defined in the agent hooks directory.
 
 ### Repository hooks
 
@@ -212,8 +214,8 @@ To get started, create a shell script in `.buildkite/hooks` named
 `post-checkout`. It will be sourced and run after your repository has been
 checked out as part of every job for any pipeline that uses this repository.
 
-You can define any of the [job hooks](#job-hooks) whose `Order` includes
-*Repository*.
+You can define any of the [job lifecycle hooks](#job-lifecycle-hooks) whose
+`Order` includes *Repository*.
 
 ### Plugin hooks
 
@@ -221,4 +223,5 @@ Plugin hooks allow plugins you’ve defined in your Pipeline Steps to override
 default behavior.
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks
-and [job hooks](#job-hooks) for the list of hook types that a plugin can define.
+and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that
+a plugin can define.
