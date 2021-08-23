@@ -105,7 +105,7 @@ done
 ## Allowing a list of plugins
 
 Defining an [environment hook](hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](hooks#agent-hook-locations-agent-hooks), you can create a
+[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
 list of plugins that an agent is allowed to run by inspecting the
 `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
 For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)
@@ -175,7 +175,7 @@ To safeguard your organization's infrastructure in case of Buildkite infrastruct
 * Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
 * [Disable command-eval](#disabling-command-eval)  
 * [Disable local hooks](#disabling-local-hooks)  
-* [Enable strict validation](#strict-checks-using-agent-hooks)  
+* [Enable strict validation](#strict-checks-using-a-pre-bootstrap-hook)
  
 As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you. 
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.  
