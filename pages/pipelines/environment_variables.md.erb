@@ -1,6 +1,7 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
@@ -708,7 +709,10 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 
 After the agent variables have been merged, the bootstrap script is run.
 
-The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
+The bootstrap runs any hooks that have been defined by your
+[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
+Variables that are set in these hooks will be merged into the runtime
+environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
   <h3>Take care with environment variables in hooks</h3>
