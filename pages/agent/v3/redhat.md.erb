@@ -1,6 +1,7 @@
-# Installing Buildkite Agent on Red Hat, CentOS and Amazon Linux
+# Installing Buildkite Agent on Red Hat Enterprise Linux, CentOS and Amazon Linux
 
-The Buildkite Agent can be installed on Red Hat, CentOS and Amazon Linux using our yum repository.
+The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2
+using our yum repository.
 
 {:toc}
 
@@ -41,13 +42,8 @@ sudo sed -i "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" /etc/buildkite-agent/buildkit
 And then start the agent, and tail the logs:
 
 ```shell
-# For distributions with systemctl
 sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 sudo tail -f /var/log/messages
-
-# For distributions without systemctl (such as Amazon Linux)
-sudo service buildkite-agent start
-sudo tail -f /var/log/buildkite-agent.log
 ```
 
 ## SSH Key Configuration
@@ -59,7 +55,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## File Locations
 
 * Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
-* Hooks: `/etc/buildkite-agent/hooks/`
+* Agent Hooks: `/etc/buildkite-agent/hooks/`
 * Builds: `/var/buildkite-agent/builds/`
 * Logs, depending on your system:
   - `journalctl -f -u buildkite-agent` (systemd)
@@ -91,14 +87,6 @@ sudo journalctl -f -u "buildkite-agent@*"
 
 # Or one-by-one
 sudo journalctl -f -u buildkite-agent@2
-```
-
-For older systems without `systemd` (such as Amazon Linux) you instead use:
-
-```shell
-sudo cp /etc/init.d/buildkite-agent /etc/init.d/buildkite-agent-2
-sudo chkconfig --add buildkite-agent-2
-sudo service buildkite-agent-2 start
 ```
 
 ## Upgrading

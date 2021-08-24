@@ -37,9 +37,15 @@ steps:
           image-repository: index.docker.io/myorg/myrepo
 ```
 
-Although there's no `command` attribute in the above example, this is still considered a command step, so all command attributes are available for use. 
+Although there's no `command` attribute in the above example, this is still
+considered a command step, so all command attributes are available for use. 
 
-If you are using Agent hooks as well as plugins, some hook types will run the Agent hooks before the plugin hooks. For a description of each hook type and the order it is run, see the [Agent Hooks guide](/docs/agent/v3/hooks#available-hooks). 
+It is possible to define multiple hooks of the same type in both a
+[plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks) and the
+[agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks) location.
+See [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
+for the overall order of hooks, and the relative order of invocation for each
+location.
 
 ## Configuring plugins
 
@@ -144,10 +150,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins you can use the agent’s [environment hook](/docs/agent/v3/hooks) and the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables). See the [github.com/buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository for an example implementation.
+To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/securing#allowing-a-list-of-plugins).
 
-To disable plugins entirely, set the `no-plugins` [agent configuration](/docs/agent/v3/configuration) option:
-
-```
-no-plugins: true
-```
+To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
+option.

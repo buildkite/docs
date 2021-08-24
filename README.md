@@ -8,12 +8,14 @@ To contribute, send a pull request! :heart:
 
 ```bash
 git clone https://github.com/buildkite/docs.git
+cd docs
 git submodule update --init
 ```
 
 If you have Ruby installed:
 
 ```bash
+# Navigate into the docs directory
 # Install the dependencies
 bundle
 # Run the specs
@@ -21,6 +23,8 @@ bundle exec rspec
 # Start the app on http://localhost:3000/
 bin/rails server
 ```
+
+> **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
 
 Or if you have Docker installed:
 
@@ -31,6 +35,16 @@ docker-compose run app bundle exec rspec
 docker-compose up --build
 # To start it in production mode on http://localhost:3000/
 docker-compose -f docker-compose.production.yml up --build
+```
+
+## Updating buildkite-agent CLI Docs
+
+With the development dependencies installed you can update the CLI docs using
+`script/update-agent-help.sh`:
+
+```bash
+# Set a custom PATH to select a locally built buildkite-agent
+PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
 ```
 
 ## Linting

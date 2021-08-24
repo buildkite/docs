@@ -4,7 +4,6 @@
     <meta charset='utf-8'>
     <%= tag :link, rel: "dns-prefetch", href: ENV["ASSET_HOST"] if ENV["ASSET_HOST"] %>
     <link rel="dns-prefetch" href="//www2.buildkiteassets.com" />
-    <link rel="dns-prefetch" href="//<%= Matomo::HOST %>" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-book-39c5d1ed54e49102939d0280aeb20f01ef021bf5ffa74dc25fcafb43fce62ff3.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-bold-23e71bdfef13622d0d52b2b4b7ed3c1edb9e81f210692130dee9a521e97d062f.woff2" crossorigin="anonymous" />
     <link rel="preload" as="font" type="font/woff2" href="https://www2.buildkiteassets.com/assets/lineto-circular/lineto-circular-black-a8002849ea799a4dcf1be0b1abe0f010991cbae508f24f62e9ee0262590197eb.woff2" crossorigin="anonymous" >
@@ -54,12 +53,12 @@
               <svg
                   width="<%= local_assigns.fetch(:width) { 42 } %>"
                   height="<%= local_assigns.fetch(:height) { 28 } %>"
-                  viewBox="0 0 42 28" xmlns="http://www.w3.org/2000/svg"><title>Buildkite Mark</title><g fill="none" fill-rule="evenodd"><path fill="#30F2A2" d="M0 0l13.965 6.94v13.988L0 13.99M28.042 0l13.854 6.94-13.854 7.05"/><path fill="#14CC80" d="M28.042 0L13.965 6.94v13.988l14.077-6.938M41.896 6.94l-13.854 7.05v13.99l13.854-7.052"/></g></svg>
+                  viewBox="0 0 42 28" xmlns="http://www.w3.org/2000/svg"><title></title><g fill="none" fill-rule="evenodd"><path fill="#30F2A2" d="M0 0l13.965 6.94v13.988L0 13.99M28.042 0l13.854 6.94-13.854 7.05"/><path fill="#14CC80" d="M28.042 0L13.965 6.94v13.988l14.077-6.938M41.896 6.94l-13.854 7.05v13.99l13.854-7.052"/></g></svg>
             </span>
-            Docs
+            Buildkite Docs
           <% end %>
         </h1>
-        <p class="OffScreen SiteHeader__tagline">Powerful build automation and continous deployment.</p>
+        <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
         <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
         <div class="SiteHeader__search">
           <input id="search" placeholder="Search" />
@@ -67,8 +66,6 @@
       </div>
     </header>
     <main id="main" role="main">
-      <div class="StandardTopSection--empty"></div>
-
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
           <%= render 'layouts/sidebar' %>

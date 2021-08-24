@@ -56,7 +56,7 @@ You'd then add this key to the user’s settings on [GitHub](/docs/agent/v3/gith
 
 If you need to use multiple SSH keys for different pipelines, we support a special repository hostname format which you can use with your `~/.ssh/config`.
 
-To use a different key for a given pipeline, first change the repository hostname in your Buildkite pipeline settings from `server.com` to `server.com-mypipeline`, and then add an entry to the SSH config file on your agent machine for the host `server.com-mypipeline` and specify your custom SSH key.
+To use a different key for a given pipeline, first change the repository hostname in your Buildkite pipeline settings from `server.com` to `server.com-mypipeline`, add an entry to the SSH config file on your agent machine for the host `server.com-mypipeline`, and specify your custom SSH key.
 
 For example, if you had a pipeline repository URL of `git@github.com:org/pipeline-1.git` you would change it in your Buildkite repository settings to `git@github.com-pipeline-1:org/pipeline-1.git` and create the following SSH config file:
 
@@ -96,11 +96,29 @@ $ ls
 id_rsa.pipeline-1  id_rsa.pipeline-1.pub
 ```
 
+Alternatively, you can use a shorter approach to creating multiple SSH keys by adding pipeline-specific environments:
+
+<section class="Docs__note">
+  <p>Note that if you are using Elastic Stack, the following approach is redundant as [secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) allows you to specify an SSH key per pipeline as `/{pipeline-slug}/private_ssh_key`.</p>
+</section>
+
+1. Add a pipeline-specific environment (for example, by using [Elastic Stack's secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):  
+
+    ```bash
+    GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
+    ```
+2. Create an identity file at that location:
+
+    ```bash
+    ~/.ssh/id_rsa_mypipeline
+    ```
+3. Add the public key for that identity file to `mypipeline` on the git repository provider.  
+
 ## Using multiple keys with ssh-agent
 
 If you need to use multiple keys, or want to use keys with pass-phrases, an alternative to the above hostname method is to use `ssh-agent`.
 
-After running `ssh-agent` and adding the keys, you’ll need to ensure the `SSH_AUTH_SOCK` environment variable is exported in your environment [agent hook](/docs/agent/v3/hooks).
+After starting an `ssh-agent` process and adding the keys, ensure the `SSH_AUTH_SOCK` environment variable is exported by your [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For example, if you set up `ssh-agent` like so:
 
@@ -114,7 +132,8 @@ $ ssh-add ~/.ssh/id_rsa-pipeline-2
 Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-pipeline-2
 ```
 
-Then you will need the following environment [agent hook](/docs/agent/v3/hooks) so that the build’s git operations use the `ssh-agent` socket:
+The following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
+will direct your build’s git operations to use the `ssh-agent` socket:
 
 ```bash
 #!/bin/bash

@@ -146,7 +146,7 @@ Example:
 
 Options:
 
-   --step value                Scope the search to a paticular step by using either its name or job ID
+   --step value                Scope the search to a particular step by using either its name or job ID
    --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
@@ -237,7 +237,7 @@ Example:
 
 Options:
 
-   --step value                Scope the search to a paticular step by using either its name of job ID
+   --step value                Scope the search to a particular step by using either its name of job ID
    --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
@@ -248,7 +248,7 @@ Options:
 
 ## Using your own private AWS S3 bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment agent hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
+You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```bash
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
