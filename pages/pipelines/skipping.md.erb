@@ -40,9 +40,35 @@ If your pipeline has multiple command steps, you can manually cancel a step, and
 4. Select *Cancel*.
 
 
-## Ignore commits and branches
+## Ignore a commit
 
-For information on skipping individual commits, refer to [Ignore commits](/docs/pipelines/ignoring-a-commit).
+Some code changes, such as editing a Readme, may not require a Buildkite build. If you want Buildkite to ignore a commit, add `[ci skip]` or `[skip ci]` anywhere in the commit message.
+
+For example, the following commit message will cause Buildkite to ignore the commit and not create a corresponding build:
+
+```
+Fix readme typos [skip ci]
+```
+
+Multi-line commit messages are also supported. For example, the following commit message will also cause Buildkite to ignore the commit:
+
+```
+Fix readme typos
+
+* Fixed the build badge
+* Fixed broken GitHub link
+
+[skip ci]
+```
+
+For more advanced build filtering and commit skipping, see the [Using conditionals](/docs/pipelines/conditionals) guide.
+
+<div class="Docs__troubleshooting-note">
+  <h3>Skipping Commits with Bitbucket Server</h3>
+  <p>Not all webhooks from Bitbucket Server contain the commit message. When a commit message is not included in a webhook, the build will run.</p>
+</div>
+
+## Ignore branches
 
 You can choose to always ignore certain branches. Refer to [Branch configuration](/docs/pipelines/branch-configuration) for more information.
 

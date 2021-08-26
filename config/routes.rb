@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get "/docs/how-tos/migrating-from-bamboo",      to: redirect("/docs/tutorials/migrating-from-bamboo")
   get "/docs/projects",                           to: redirect("/docs/pipelines")
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
+  get "/docs/pipelines/ignoring-a-commit",        to: redirect("/docs/pipelines/skipping#ignore-a-commit")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
   get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
