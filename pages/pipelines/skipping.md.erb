@@ -6,7 +6,7 @@ Build skipping allows you to avoid unnecessary rebuilds, conserving resources an
 
 ## Skip queued intermediate builds
 
-Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can choose to skip these intermediate builds, and only build the latest commit.
+Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can configure your pipeline to always skip these intermediate builds, and only build the latest commit.
 
 To skip pending builds on the same branch:
 
@@ -19,7 +19,7 @@ You can also configure these options using the [REST API](/docs/apis/rest-api/pi
 
 ## Cancel running intermediate builds
 
-Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can choose to cancel any running builds, and only build the latest commit.
+Sometimes you may push several commits in quick succession, leading to Buildkite building each commit in turn. You can configure your pipeline to always cancel any running builds, and only build the latest commit.
 
 To cancel running builds on the same branch:
 
