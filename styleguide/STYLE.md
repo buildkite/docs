@@ -6,7 +6,9 @@ Table of contents:
 * [Language](#Language)
 * [Style and formatting](#Style-and-formatting)
 * [Code and filenames](#Code-and-filenames)
+* [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
+
 
 ## Language
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
