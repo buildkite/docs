@@ -682,7 +682,7 @@ There are two places in a pipeline.yml file that you can set environment variabl
 Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step.
 
 <div class="Docs__note">
-  <p>Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.</p>
+  <p>Individual step environment variables will override what is set in the top level pipeline <code>env</code> attribute.</p>
 </div>
 
 #### Setting variables in a Trigger step
