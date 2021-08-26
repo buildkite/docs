@@ -30,6 +30,16 @@ To cancel running builds on the same branch:
 
 You can also configure these options using the [REST API](docs/apis/rest-api/pipelines#create-a-yaml-pipeline).
 
+## Manually cancel jobs and skip to next step
+
+If your pipeline has multiple command steps, you can manually cancel a step, and Buildkite will proceed to the next step. This does not cause the build to fail.
+
+1. From your Buildkite dashboard, select your pipeline.
+2. Select the running build.
+3. Select the job (step) you want to cancel.
+4. Select *Cancel*.
+
+
 ## Ignore commits and branches
 
 For information on skipping individual commits, refer to [Ignore commits](/docs/pipelines/ignoring_a_commit).
