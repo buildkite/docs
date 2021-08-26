@@ -45,7 +45,7 @@ This section covers the matters that go beyond language and provides guidelines 
 ### Consistency
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
-### Title capitalisation
+### Title capitalization
 
 Use Title case in H1 page headings `# Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
@@ -65,9 +65,9 @@ Only capitalize the name of the product - e.g. 'GitHub organization' and not 'Gi
 ### Capital letters in UX elements
 Use title capitalization for names of tabs and buttons in the Buildkite interface - e.g. 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
 
-### Bullet lists
+### Lists (bullet lists and numbered steps)
 
-Capitalize the first word; no full stops at the end if it’s only one sentence. If there are two or more sentences in the list element, the final one will have a full stop.
+Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
 
 See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
 
