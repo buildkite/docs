@@ -17,7 +17,7 @@ To set up Single Sign-On, follow the [SAML configuration guide](https://saml-doc
 
 ### Configuration instructions
 
-Using the SCIM provisioning settings in Okta you can automatically remove user accounts from your Buildkite organization. In Okta this feature is called 'Deactivating' a user. You need an enabled Okta SSO Provider before you can set up SCIM.
+Using the SCIM provisioning settings in Okta, Enterprise customers can automatically remove user accounts from your Buildkite organization. In Okta this feature is called 'Deactivating' a user. You need an enabled Okta SSO Provider before you can set up SCIM.
 
 After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and _API Token_ from your Okta SSO Provider Settings:
 
@@ -34,3 +34,11 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 1. Edit the _Provisioning to App_ settings, and enable _Create Users_ and _Deactivate Users_
 1. Save and test your settings
 
+### Provisioning Existing Users
+
+Existing Okta users aren't automatically provisioned in Buildkite; you'll need to sync your users in order to deprovision them.
+
+This can be done one of two ways:
+
+1. Using the _Provision User_ function on the _Assignments_ tab of the Okta Buildkite app (if it's available), or
+1. By removing and re-assigning the users and groups to the Okta Buildkite app.
