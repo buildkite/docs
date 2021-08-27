@@ -43,6 +43,7 @@ crontab
 Datadog
 Deprovisioning
 deprovisioning
+deprovision
 Dockerfile
 dogstatsd
 env
