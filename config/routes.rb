@@ -63,7 +63,9 @@ Rails.application.routes.draw do
   get "/docs/tutorials/sso-setup-with-graphql",   to: redirect("/docs/integrations/sso/sso-setup-with-graphql")
   get "/docs/tutorials/deploying-to-heroku",      to: redirect("/docs/deployments/deploying-to-heroku")
   get "/docs/integrations/sso/google-oauth",      to: redirect("/docs/integrations/sso/g-suite")
+  get "/docs/integrations/sso/g-suite",           to: redirect("/docs/integrations/sso/google-workspace")
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
+  get "/docs/integrations/sso/g-cloud-identity",  to: redirect("/docs/integrations/sso/google-workspace-saml")
   get "/docs/agent/v3/osx",                       to: redirect("/docs/agent/v3/macos")
 
 
