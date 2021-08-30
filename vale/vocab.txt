@@ -69,6 +69,8 @@ kustomize
 linux
 Memcache
 Minitest
+mitigation
+mitigations
 mutex
 namespace
 negator
