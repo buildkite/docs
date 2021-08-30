@@ -2,7 +2,7 @@
 
 <section class="Docs__troubleshooting-note">
   <p>This page references the out-of-date Buildkite Agent v2.</p>
-  <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/osx">see the latest version of this document</a>.
+  <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/macos">see the latest version of this document</a>.
 </section>
 
 The Buildkite Agent can be installed on macOS 10.9 or higher using Homebrew or our installer script, and supports pre-release versions of both OS X and Xcode.
@@ -41,14 +41,14 @@ See the [Agent SSH Keys](/docs/agent/v2/ssh-keys) documentation for more details
 Homebrew install file locations:
 
 * Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
-* Hooks: `/usr/local/etc/buildkite-agent/hooks`
+* Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
 * Builds: `/usr/local/var/buildkite-agent/builds`
 * Log: `/usr/local/var/log/buildkite-agent.log`
 
 Linux installer script file locations:
 
 * Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Hooks: `~/.buildkite-agent/hooks`
+* Agent Hooks: `~/.buildkite-agent/hooks`
 * Builds: `~/.buildkite-agent/builds`
 
 ## Configuration
@@ -67,7 +67,7 @@ If you installed the buildkite-agent using the [Linux install script](linux) the
 
 ```bash
 # Download the launchd config to /Library/LaunchDaemons/
-curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/master/templates/launchd_local_with_gui.plist
+curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/main/templates/launchd_local_with_gui.plist
 
 # Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
 sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
@@ -90,4 +90,4 @@ If you installed the agent using Homebrew you can use the standard brew upgrade 
 brew update && brew upgrade buildkite-agent
 ```
 
-If you installed the buildkite-agent using the [Linux install script](linux) then you should simply run the installer script again and it will update your agent.
+If you installed the buildkite-agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.

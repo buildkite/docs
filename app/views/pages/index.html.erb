@@ -10,8 +10,8 @@
   <div class="grid-row">
     <div class="HomepageCategory">
       <h2>
-        <%= image_tag("icons/rocketship.svg") %>
-        Getting started
+        <%= image_tag("icons/rocketship.svg", alt: "") %>
+        <a href="/docs/tutorials/getting-started">Getting started</a>
       </h2>
       <span>For when you're new to Buildkite</span>
       <ul>
@@ -22,8 +22,8 @@
     </div>
     <div class="HomepageCategory">
       <h2>
-        <%= image_tag("icons/repository.svg") %>
-        Repository management systems
+        <%= image_tag("icons/repository.svg", alt: "") %>
+        <a href="/docs/integrations/source-control">Source control</a>
       </h2>
       <span>Trigger builds from wherever your code is stored</span>
       <ul>
@@ -31,20 +31,21 @@
         <li><%= link_to "GitHub Enterprise", "/docs/integrations/github-enterprise" %></li>
         <li><%= link_to "GitLab", "/docs/integrations/gitlab" %></li>
         <li><%= link_to "Bitbucket", "/docs/integrations/bitbucket" %></li>
+        <li><%= link_to "Bitbucket Server", "/docs/integrations/bitbucket_server" %></li>
       </ul>
     </div>
     <div class="HomepageCategory" style="text-align: center; padding-top: 40px;">
-      <%= image_tag("home/docs-rocket.jpg", class: "HomepageCategory__icon") %>
+      <%= image_tag("home/docs-rocket.jpg", class: "HomepageCategory__icon", alt: "") %>
     </div>
     <div class="HomepageCategory">
       <h2>
-        <%= image_tag("icons/agents_install.svg") %>
-        Installing Buildkite agents
+        <%= image_tag("icons/agents_install.svg", alt: "") %>
+        <a href="/docs/agent/v3#installation">Installing Buildkite agents</a>
       </h2>
       <span>Install agents on your infrastructure</span>
       <ul>
         <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
-        <li><%= link_to "macOS", "/docs/agent/v3/osx" %></li>
+        <li><%= link_to "macOS", "/docs/agent/v3/macos" %></li>
         <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
         <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
         <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
@@ -54,8 +55,8 @@
     </div>
     <div class="HomepageCategory">
     <h2>
-      <%= image_tag("icons/agents.svg") %>
-      Running Buildkite agents
+      <%= image_tag("icons/agents.svg", alt: "") %>
+      <a href="/docs/agent/v3">Running Buildkite agents</a>
     </h2>
     <span>Configuring your Buildkite agents</span>
     <ul>
@@ -69,8 +70,8 @@
   </div>
     <div class="HomepageCategory">
       <h2>
-      <%= image_tag("icons/pipeline.svg") %>
-        Configuring pipelines
+      <%= image_tag("icons/pipeline.svg", alt: "") %>
+        <a href="/docs/pipelines">Configuring pipelines</a>
       </h2>
       <span>Common tasks and workflows</span>
       <ul>
@@ -84,8 +85,8 @@
     </div>
     <div class="HomepageCategory">
       <h2>
-        <%= image_tag("icons/deploy.svg") %>
-        Deployments
+        <%= image_tag("icons/deploy.svg", alt: "") %>
+        <a href="/docs/deployments">Deployments</a>
       </h2>
       <span>Publish to other systems</span>
       <ul>
@@ -96,8 +97,8 @@
     </div>
     <div class="HomepageCategory">
       <h2>
-        <%= image_tag("icons/integration.svg") %>
-        APIs and integrations
+        <%= image_tag("icons/integration.svg", alt: "") %>
+        <a href="/docs/apis">APIs and integrations</a>
       </h2>
       <span>Write your own customizations</span>
       <ul>

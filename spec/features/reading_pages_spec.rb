@@ -15,7 +15,7 @@ RSpec.feature "reading pages" do
     it "has appropriate meta tags" do
       visit "/docs/agent"
       expect(page.find(%{meta[property="og:title"]}, visible: false)[:content]).to eql("The Buildkite Agent v3")
-      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
+      expect(page.find(%{meta[property="og:description"]}, visible: false)[:content]).to eql("The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.")
     end
 
     it "adds the agent version number to the title" do
@@ -28,7 +28,7 @@ RSpec.feature "reading pages" do
 
     it "links to the GitHub source files" do
       visit "/docs/tutorials/getting-started"
-      expect(page).to have_css("a[href='https://github.com/buildkite/docs/tree/master/pages/tutorials/getting_started.md.erb']", text: 'contribute an update')
+      expect(page).to have_css("a[href='https://github.com/buildkite/docs/tree/main/pages/tutorials/getting_started.md.erb']", text: 'contribute an update')
     end
   end
 

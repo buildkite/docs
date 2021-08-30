@@ -1,6 +1,6 @@
 # GraphQL API Overview
 
-The Buildkite GraphQL API provides an alternative to the [REST API](/docs/rest-api). It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request. The Buildkite GraphQL API is currently in beta.
+The Buildkite GraphQL API provides an alternative to the [REST API](/docs/apis/rest-api). It allows for more efficient retrieval of data by enabling you to fetch multiple, nested resources in a single request. The Buildkite GraphQL API is currently in beta.
 
 {:toc}
 
@@ -58,7 +58,7 @@ curl https://graphql.buildkite.com/v1 \
 }
 ```
 
-For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL Explorer](#getting-started).
+For documentation on the full list of fields and types, see the interactive documentation in the [GraphQL Explorer](https://graphql.buildkite.com/explorer).
 
 ## GraphQL IDs
 
@@ -112,7 +112,7 @@ query {
 
 ## Relay compatibility
 
-The Buildkite GraphQL API adheres to the [Relay Specification](https://relay.dev/docs/en/graphql-server-specification.html), which defines standards for querying [paginated collections](https://relay.dev/docs/en/graphql-server-specification.html#connections) ("Connections" and "Edges"), [identifying objects](https://relay.dev/docs/en/graphql-server-specification.html#object-identification) directly from the root of a query (avoiding long nested queries), and for providing [mutation input data](https://relay.dev/docs/en/graphql-server-specification.html#mutations).
+The Buildkite GraphQL API adheres to the [Relay Specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
 
 ## Learning more about GraphQL
 
@@ -120,4 +120,3 @@ Further resources for learning more about GraphQL:
 
 * Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
 * [graphql.org/learn](https://graphql.org/learn/) — The Learn section of the official GraphQL website
-

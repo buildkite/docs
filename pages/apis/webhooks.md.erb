@@ -38,7 +38,17 @@ The following HTTP headers are present in every webhook request, which allow you
 <table>
 <tbody>
   <tr><th><code>X-Buildkite-Event</code></th><td>The type of event<p class="Docs__api-param-eg"><em>Example:</em> <code>build.scheduled</code></p></td></tr>
-  <tr><th><code>X-Buildkite-Token</code></th><td>The token from your webhook configuration settings, used to verify the authenticity of the webhook request<p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842d8565adec5d7469160059f9</code></p></td></tr>
+</tbody>
+</table>
+
+One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under _Token_ in your _Webhook Notification service_. 
+
+Your selection in the _Webhook Notification service_ will determine which is sent:
+
+<table>
+<tbody>
+  <tr><th><code>X-Buildkite-Token</code></th><td>The webhook's token. <p class="Docs__api-param-eg"><em>Example:</em> <code>309c9c842g8565adecpd7469x6005989</code></p></td></tr>
+  <tr><th><code>X-Buildkite-Signature</code></th><td>The signature created from your webhook payload, webhook token, and the SHA-256 hash function.<p class="Docs__api-param-eg"><em>Example:</em> <code>timestamp=1619071700,signature=30222eb518dc3fb61ec9e64dd78d163f62cb134a6ldb768f1d40e0edbn6e43f0</code></p></td></tr>
 </tbody>
 </table>
 
@@ -59,9 +69,73 @@ Each event’s data is sent JSON encoded in the request body. See each event’s
 ```
 
 <div class="Docs__troubleshooting-note">
-  <h3>fast transitions and webhooks</h3>
-  <p>Note that if a builds transitions between states very quickly, for example from blocked (`finished`) to unblocked (`running`), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
+  <h3>Fast transitions and webhooks</h3>
+  <p>Note that if a builds transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
 </div>
+
+## Webhook token
+
+By default, Buildkite will send a token with each webhook in the `X-Buildkite-Token` header.
+
+The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
+
+The token is passed in clear text.
+
+## Webhook signature
+
+Buildkite can optionally send an HMAC signature in place of a webhook token.
+
+The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. The timestamp is prefixed by `timestamp=` and the signature is prefixed by `signature=`. 
+
+Buildkite generates the signature using HMAC-SHA256; a hash-based message authentication code [HMAC](https://en.wikipedia.org/wiki/HMAC) used with the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash function and a secret key. The webhook token value is used as the secret key. The timestamp is an integer representation of a UTC timestamp.
+
+The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
+
+### Verifying HMAC signatures
+
+When using HMAC signatures, you'll want to verify that the signature is legitimate.
+
+Using the token as the secret along with the timestamp and signature from the webhook, compute the authentication code. There should be a library available in the programming language you are using that can perform this operation.
+
+Compare the code to the signature received in the webhook. If they do not match, your payload has been altered.
+
+The below example in Ruby verifies the signature and timestamp using the OpenSSL gem's HMAC :
+
+```ruby
+require 'openssl'
+
+class BuildkiteWebhook
+  def self.valid?(payload, header, secret)
+    timestamp, signature = get_timestamp_and_signatures(header)
+    expected = OpenSSL::HMAC.hexdigest("sha256", secret, "#{timestamp}.#{payload}")
+    Rack::Utils.secure_compare(expected, signature)
+  end
+
+  def self.get_timestamp_and_signatures(header)
+    parts = header.split(",").map { |kv| kv.split("=", 2).map(&:strip) }.to_h
+    [parts["timestamp"], parts["signature"]]
+  end
+end
+
+BuildkiteWebhook.valid?(
+  request.body.read,
+  request.headers["X-Buildkite-Signature"],
+  ENV["BUILDKITE_WEBHOOK_SECRET"]
+)
+```
+
+### Defending against replay attacks
+
+A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (e.g. 5 minutes). 
+
+Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload so that it is verified by the signature. An attacker will not be able to change the timestamp without invalidating the signature. 
+
+To help protect against a replay attack, upon receipt of a webhook:
+
+1. Verify the signature
+2. Check the timestamp against the current time
+
+If the webhook's timestamp is within your chosen window of the current time, it can reasonably be assumed to be the original webhook.
 
 ## Example implementations
 
