@@ -4,7 +4,7 @@
 
 ## Retry a job
 
-Retries a `failed` or `timed_out` job.
+Retries a `failed` or `timed_out` job. You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/retry"

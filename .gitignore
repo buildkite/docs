@@ -25,3 +25,5 @@
 
 # Ignore algolia api key
 /.env
+
+/vendor/bundle

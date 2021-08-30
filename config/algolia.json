@@ -8,7 +8,7 @@
   ],
   "selectors": {
     "lvl0": {
-      "selector": ".Docs__nav__section-heading:not(.Docs__nav__section-heading--link)",
+      "selector": ".Docs__nav__section-container.current > .Docs__nav__section-heading",
       "global": true,
       "default_value": "Documentation"
     },
@@ -22,6 +22,7 @@
   },
   "selectors_exclude": [
     ".Docs__toc",
-    ".Docs__note--footer-typo"
+    ".Docs__note--footer-typo",
+    ".HomepageCategory"
   ]
 }

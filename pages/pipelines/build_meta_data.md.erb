@@ -1,6 +1,6 @@
 # Using Build Meta-data
 
-In this guide we’ll walk through using the Buildkite Agent’s [meta-data command](/docs/agent/v2/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
+In this guide we’ll walk through using the Buildkite Agent’s [meta-data command](/docs/agent/v3/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
 
 Meta-data is intended to store data 1 kilobyte or less in size, to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version. For anything over 1 kb use an [artifact](/docs/pipelines/artifacts) instead.
 
@@ -33,7 +33,7 @@ buildkite-agent meta-data get "release-version"
 Assuming that the "release-version" key was set with the value from the Setting Data example, this command will return "1.1". If there are no keys matching the name "release-version", it will return an error.
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Default values</p>
+<h3 class="Docs__note__heading">Default values</h3>
 <p>The `get` command has a `default` flag. You can use this to return a value in the case that the key has not been set.</p>
 </div>
 
@@ -59,4 +59,4 @@ For more information see the [Buildkite REST Builds API documentation](https://b
 
 ## Further documentation
 
-See the [Buildkite Agent build meta-data documentation](/docs/agent/v2/cli-meta-data) for a full list of options and details of Buildkite’s meta-data support.
+See the [Buildkite Agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite’s meta-data support.

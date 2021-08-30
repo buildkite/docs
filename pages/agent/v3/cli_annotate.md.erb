@@ -14,9 +14,11 @@ There is no limit to the amount of annotations you can create. All annotations c
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
-```
-<%= render 'agent/v3/help/annotate.txt' %>
-```
+<%= render 'agent/v3/help/annotate' %>
+
+## Removing an annotation
+
+Annotations can be removed using [the `buildkite-agent annotation remove` command](/docs/agent/v3/cli-annotation).
 
 ## Annotation styles
 
@@ -41,7 +43,7 @@ steps:
 
 We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
 
-GitHub [kindly provide a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
+GitHub [kindly provides a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
 
 Annotations do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
 
@@ -135,7 +137,7 @@ steps:
     command: |
       buildkite-agent artifact upload "indy.png"
       cat << EOF | buildkite-agent annotate --style "info"
-        <img src="artifact://indy.png" alt="Belongs in a museum" height=250 />
+        <img src="artifact://indy.png" alt="Belongs in a museum" height=250 >
       EOF
 ```
 

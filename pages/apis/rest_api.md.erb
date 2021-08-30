@@ -45,7 +45,7 @@ The data encoding is assumed to be `application/json`. Unless explicitly stated 
 
 You can authenticate with the Buildkite API using access tokens.
 
-API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/rest-api/access-token#revoke-the-current-token).
+API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/apis/rest-api/access-token#revoke-the-current-token).
 
 To authenticate using a token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 
@@ -55,7 +55,7 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 
 <section class="Docs__troubleshooting-note">
   <h3>Basic Authentication</h3>
-  <p>Access using basic authentication is no longer available.</p>
+  <p>Access using basic HTTP authentication is no longer available.</p>
 </section>
 
 ## Pagination
@@ -105,9 +105,13 @@ The following changes were made in v2 of our API:
 
 To make getting started easier, check out these clients available from our contributors:
 
+<!-- vale off -->
+
  * [Buildkit](https://github.com/Shopify/buildkit) for [Ruby](https://www.ruby-lang.org)
  * [go-buildkite](https://github.com/buildkite/go-buildkite) for [Go](https://golang.org)
  * [PSBuildkite](https://github.com/felixfbecker/PSBuildkite) for [PowerShell](https://microsoft.com/powershell)
  * [pybuildkite](https://github.com/pyasi/pybuildkite) for [Python](https://www.python.org/)
  * [buildkite-php](https://github.com/bbaga/buildkite-php) for [PHP](https://www.php.net/)
  * [buildkite-swift](https://github.com/aaronsky/buildkite-swift) for [Swift](https://swift.org)
+
+<!-- vale on -->

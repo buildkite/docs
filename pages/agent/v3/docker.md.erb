@@ -3,7 +3,7 @@
 You can run the Buildkite Agent inside a Docker container using the [official image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Running each build in its own container</p>
+<h3 class="Docs__note__heading">Running each build in its own container</h3>
 <p>These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized Builds with Docker</a> guide.</p>
 </div>
 
@@ -35,7 +35,7 @@ The default tag (i.e. `buildkite/agent:latest`) will always point to the latest 
 ## Default file locations
 
 * Configuration: `/buildkite/buildkite-agent.cfg`
-* Hooks: `/buildkite/hooks`
+* Agent Hooks: `/buildkite/hooks`
 * Builds: `/buildkite/builds`
 * Agent user home: `/root`
 
@@ -151,7 +151,8 @@ If you're using Docker with Docker images hosted on Docker Hub, note that as of 
 
 ## Authenticating private git repositories
 
-To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following
+[`environment` hook](/docs/agent/hooks#job-lifecycle-hooks) mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash
@@ -164,7 +165,9 @@ git config --global credential.helper "store --file=/buildkite-secrets/git-crede
 # export FOO=bar
 ```
 
-To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git` you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git`
+you could use the following [`environment` hook](/docs/agent/hooks#job-lifecycle-hooks)
+mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash

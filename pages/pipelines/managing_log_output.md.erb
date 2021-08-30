@@ -122,3 +122,16 @@ If you choose to [host your own build artifacts](/docs/agent/v3/cli-artifact#usi
 If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
 
 To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data via the REST and GraphQL API. 
+
+## Redacted environment variables
+
+The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
+
+The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
+
+For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
+
+<div class="Docs__note">
+<h3 class="Docs__note__heading">Setting environment variables</h3>
+<p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
+</div>

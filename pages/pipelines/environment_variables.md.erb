@@ -1,6 +1,7 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
@@ -47,7 +48,7 @@ Default: `"https://agent.buildkite.com/v3"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_EXPERIMENT</h3>
 
-A list of the experimental agent features that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/configuration).
+A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/configuration).
 
 Example: `"experiment1,experiment2"`
 
@@ -302,6 +303,18 @@ Example: `"Added a great new feature"`
 The organization name on Buildkite as used in URLs. The value cannot be modified.
 
 Example: `"acme-inc"`
+
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB</h3>
+
+The index of each parallel job created from a parallel build step, starting from 0. For a build step with `parallelism: 5`, the value would be 0, 1, 2, 3, and 4 respectively.
+
+Example: `"0"`
+
+<h3 class="h3-caps">BUILDKITE_PARALLEL_JOB_COUNT</h3>
+
+The total number of parallel jobs created from a parallel build step. For a build step with `parallelism: 5`, the value is 5.
+
+Example: `"5"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_DEFAULT_BRANCH</h3>
 
@@ -696,7 +709,10 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 
 After the agent variables have been merged, the bootstrap script is run.
 
-The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
+The bootstrap runs any hooks that have been defined by your
+[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
+Variables that are set in these hooks will be merged into the runtime
+environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
   <h3>Take care with environment variables in hooks</h3>
