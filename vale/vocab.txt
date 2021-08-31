@@ -129,6 +129,8 @@ sed
 sha
 sharding
 shasum
+Shellcheck
+Shipit
 sre
 stdout
 subfolders
