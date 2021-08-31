@@ -1,63 +1,135 @@
 # GitHub
 
-Buildkite can connect to your GitHub repository and use the Commit Status API to update the status of commits in Pull Requests.
+Buildkite can connect to your GitHub repository and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
 
-To complete this integration, you will need admin privileges for your GitHub repository.
+To complete this integration, you need admin privileges for your GitHub repository.
 
 {:toc}
 
 ## Connecting Buildkite and GitHub
 
-To connect your GitHub account open Buildkite’s Personal Settings, choose [Connected Apps](https://buildkite.com/user/connected-apps) then click the GitHub Connect button:
+You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
 
-<%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
+If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
 
-You'll be prompted to give permission for Buildkite to post status
-updates, and then redirected back to your Connected Apps page.
+## Connect your Buildkite account to GitHub using the GitHub App
 
-## Setting up a new pipeline for a GitHub repository
+Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization admins see permissions and manage access on a per-repository basis.
 
-1. Create a new pipeline on Buildkite, using your GitHub repository URL in the form `git@github.com:your/repo`.
+1. Open your Buildkite organization's _Settings_.
+2. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
+    <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
+3. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
+4. Select the GitHub organization you want to connect to your Buildkite organization. 
+5. Choose which repositories Buildkite should have access to, then select _Install_. 
+
+You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
+
+## Connect your Buildkite account to GitHub using OAuth
+
+To connect your GitHub account:
+
+1. Open Buildkite’s _Personal Settings_.
+2. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
+3. Select the GitHub _Connect_ button: 
+    <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
+4. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page. 
+
+You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
+
+## Set up a new pipeline for a GitHub repository
+
+
+1. Select _Pipelines_ > _New Pipeline_ <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;border-radius:50%;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
+<rect x="10" y="4" width="2" height="14"></rect>
+</svg>
+2. Enter your pipeline details, including your GitHub repository URL in the form `git@github.com:your/repo`.
 
     <%= image "new-pipeline.png", width: 1550/2, height: 846/2, alt: "Screenshot of adding a new pipeline " %>
 
-2. Add at least one step to your pipeline, then click "Next". Change these steps at any time in Pipeline Settings.
-
-3. Follow the instructions on the page to set up a webhook:
+3. If you are still using the web steps visual editor, add at least one step to your pipeline. Refer to [Defining Steps - Adding steps](/docs/pipelines/defining_steps#adding-steps) for more information.
+4. Select _Create Pipeline_.
+4. Follow the onscreen instructions to set up a webhook:
 
     1. Add a new webhook in GitHub.
     2. Paste in the provided webhook URL.
     3. Select which events trigger the webhook.
+5. If using the YAML steps editor, add at least one step to your pipeline, then select _Save and Build_. Refer to [Defining Steps - Adding steps](/docs/pipelines/defining_steps#adding-steps) for more information.
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
-## Branch configuration and Settings
+ You can edit your pipeline configuration at any time in _Pipeline Settings_.
 
-You can edit the GitHub settings for each pipeline from the pipeline’s settings page:
+<%= render_markdown 'integrations/branch_config_settings' %>
 
-<%= image "github-settings.png", width: 1550/2, height: 1762/2, alt: "Screenshot of the Buildkite GitHub settings" %>
+## Running builds on pull requests
 
-If you need more control over your Pipeline configuration, add a [Pipeline.yml](/docs/pipelines/defining-steps#adding-steps) to your repository. Then you can use [conditionals](/docs/pipelines/conditionals) and [branch filtering](/docs/pipelines/branch-configuration) to configure your Pipeline.
-
-## Running builds on Pull Requests
-
-To run builds for GitHub Pull Requests, edit the GitHub settings for your Buildkite pipeline and choose the 'Build Pull Requests' checkbox.
-
-- Choose the 'build pull requests' checkbox.
+To run builds for GitHub pull requests, edit the GitHub settings for your Buildkite pipeline and choose the _Build Pull Requests_ checkbox.
 
 Optionally, select one or more of the following:
 
-- limit pull request builds to certain branches.
-- skip pull request builds for commits that have already been built.
-- build pull requests that are ready for review.
-- build pull requests for forked repositories. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+- _Limit pull request branches_
+- _Skip pull request builds for existing commits_
+- _Rebuild pull requests when they become ready for review_
+- _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
-<%= image "pull-requests.png", width: 1550/2, height: 1006/2, alt: "Screenshot of the Buildkite GitHub settings" %>
-
-If you want to run builds *only* on pull requests, set the Branch Filter Pattern in the pipeline to a branch name that will never occur (e.g. "this-branch-will-never-occur"). Pull request builds ignore the Branch Filter Pattern, and all pushes to other branches that don't match the pattern are ignored.
-
-<%= image "branch-limiting.png", width: 1550/2, height: 694/2, alt: "Screenshot of Branch Filter pattern" %>
+If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
 ## Noreply email handling
 
 When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
+
+## Customizing commit statuses
+
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses. 
+
+For example, if you select _Update commit statuses_ in your _Pipeline Settings_:
+
+<%= image "update-commit-statuses-on.png", alt: "Screenshot of GitHub build settings with Update commit statuses enabled" %>
+
+Your checks will appear on your pull request as _buildkite/`<pipeline-name>`_:
+
+<%= image "github-default-status.png", alt: "Screenshot of the resulting GitHub pull request statuses" %>
+
+
+You can customize the commit statuses, for example to reuse the same pipeline for multiple components in a monorepo, at both the build and step level, using the [`notify`](/docs/pipelines/notifications) attribute in your `pipeline.yml`.
+
+### Build level
+
+1. Add the following to your `pipeline.yml`, at the top level:
+
+    ```yaml
+    notify:
+        - github_commit_status:
+            context: "my-custom-status"
+    ```
+2. In _Pipeline Settings_ > _GitHub_, make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
+    <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
+In a setup for a repository containing one codebase and one `pipeline.yml`, this customizes the commit status for the pipeline. However, if you have multiple `pipeline.yml` files in one repo, feeding in to the same Buildkite pipeline, this allows you to have different statuses when building different sections of the repo.
+
+For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
+
+### Step level
+
+1. Add `notify` to a command in your `pipeline.yml`:
+
+    ```yaml
+    steps:
+    - label: "Example Script"
+        command: "script.sh"
+        notify:
+          - github_commit_status:
+              context: "my-custom-status"
+    ```
+2. In _Pipeline Settings_ > _GitHub_, you can choose to either:
+    * Make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+    * Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
+3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
+    <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
+    
+<%= render_markdown 'integrations/one_repo_multi_org' %>
+
+<%= render_markdown 'integrations/build_skipping' %>

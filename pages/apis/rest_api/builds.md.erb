@@ -2,6 +2,21 @@
 
 {:toc}
 
+## Build number vs build ID
+
+All builds have both an ID which is unique within the whole of Buildkite (*build ID*), and a sequential number which is unique to the pipeline (*build number*).
+
+For example build number `27` of the `Test` pipeline might have a build ID of `f62a1b4d-10f9-4790-bc1c-e2c3a0c80983`.
+
+API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
+
+* [Get a build](#get-a-build)
+* [Cancel a build](#cancel-a-build)
+* [Rebuild a build](#cancel-a-build)
+* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+
+
 ## List all builds
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines.
@@ -50,6 +65,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 [
   {
     "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
     "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
     "number": 1,
@@ -70,6 +86,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "jobs": [
       {
         "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+        "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
         "type": "script",
         "name": ":package:",
         "step_key": "package",
@@ -102,6 +119,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "pull_request": { },
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+      "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
       "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline",
       "name": "great-pipeline",
@@ -160,6 +178,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
@@ -180,6 +199,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "jobs": [
     {
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
       "type": "script",
       "name": ":package:",
       "step_key": "package",
@@ -194,6 +214,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "artifact_paths": "",
       "agent": {
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
         "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
@@ -225,6 +246,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "pull_request": { },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
     "name": "Great Pipeline",
     "slug": "great-pipeline",
@@ -248,6 +270,19 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   }
 }
 ```
+
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<table>
+<tbody>
+  <tr>
+    <th><code>include_retried_jobs</code></th>
+    <td>Include all retried job executions in each build’s jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?include_retried_jobs=true</code></p>
+    </td>
+  </tr>
+</tbody>
+</table>
 
 Required scope: `read_builds`
 
@@ -278,6 +313,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
@@ -312,6 +348,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "artifact_paths": "",
       "agent": {
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
         "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
@@ -321,6 +358,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
         "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
         "creator": {
           "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
           "name": "Keith Pitt",
           "email": "keith@buildkite.com",
           "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -343,6 +381,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "pull_request": { },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
     "name": "Great Pipeline",
     "slug": "great-pipeline",
@@ -416,6 +455,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
@@ -428,6 +468,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "source": "webhook",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
     "name": "Keith Pitt",
     "email": "keith@buildkite.com",
     "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -436,6 +477,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "jobs": [
     {
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
       "type": "script",
       "name": ":package:",
       "step_key": "package",
@@ -450,6 +492,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "artifact_paths": "",
       "agent": {
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
         "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
@@ -459,6 +502,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
         "creator": {
           "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
           "name": "Keith Pitt",
           "email": "keith@buildkite.com",
           "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -481,6 +525,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "pull_request": { },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
     "name": "Great Pipeline",
     "slug": "great-pipeline",
@@ -528,6 +573,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 ```json
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 2,
@@ -540,6 +586,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "source": "api",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
     "name": "Keith Pitt",
     "email": "keith@buildkite.com",
     "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -548,6 +595,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "jobs": [
     {
       "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
       "type": "script",
       "name": ":package:",
       "step_key": "package",
@@ -562,6 +610,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "artifact_paths": "",
       "agent": {
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
         "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
@@ -571,6 +620,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
         "creator": {
           "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
           "name": "Keith Pitt",
           "email": "keith@buildkite.com",
           "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -593,6 +643,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "pull_request": { },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
     "name": "Great Pipeline",
     "slug": "great-pipeline",

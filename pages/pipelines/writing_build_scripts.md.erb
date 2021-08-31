@@ -1,6 +1,8 @@
 # Writing Build Scripts
 
-One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file. The [Buildkite Agent](/docs/agent/v2) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
+One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file. 
+
+The [Buildkite Agent](/docs/agent/v3) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
 {:toc}
 
@@ -46,7 +48,7 @@ run_tests
 For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 <section class="Docs__troubleshooting-note">
-  <h1>Unbound variable errors</h1>
+  <h3>Unbound variable errors</h3>
   <p>Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or you can surround the command causing the error with <code>set +u</code> and <code>set -u</code> to temporarily disable the option.</p>
 </section>
 
@@ -98,7 +100,11 @@ The first step in debugging your build script is to view the environment variabl
 
 <%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job’s environment tab' %>
 
-There may be additional environment variables available in your build job that don’t appear in this list, such as ones set by your own [agent hooks](/docs/agent/v3/hooks). To debug these, you can print them using `echo $SOME_VAR` before the command you're wanting to run. For example:
+There may be additional environment variables available in your build job that
+don’t appear in this list, such as ones set by your
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
+To debug these, you can print them using `echo $SOME_VAR` before the command
+you're wanting to run. For example:
 
 ```bash
 #!/bin/bash
@@ -111,7 +117,7 @@ some_command
 If you require more environment information, you can execute `env` to print out all the environment variable names and their values. If you use `env` you should filter the output using a tool such as `grep` or `egrep`, to ensure you don't leak private keys or other information.
 
 <section class="Docs__troubleshooting-note">
-  <h1>Security recommendation</h1>
+  <h3>Security recommendation</h3>
   <p>If you use environment variables to define sensitive data such as API keys or Secret Access Keys, you should always filter the output of <code>env</code> to ensure you’re not exposing any secrets in your build log.</p>
 </section>
 

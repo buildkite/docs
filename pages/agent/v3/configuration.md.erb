@@ -2,11 +2,9 @@
 
 Every agent installer comes with a configuration file. You can also customize many of the configuration values using environment variables.
 
-You can find the location of your configuration file in your platform’s installation documentation, or you can set it using the `BUILDKITE_AGENT_CONFIG` environment variable or the `--config` command line argument.
-
 {:toc}
 
-## Example Configuration File
+## Example configuration file
 
 ```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
@@ -15,17 +13,20 @@ tags="ci=true,docker=true"
 git-clean-flags="-ffdqx"
 debug=true
 ```
+{: codeblock-file="/buildkite/buildkite-agent.cfg"}
 
-## Configuration Settings
+You can find the location of your configuration file in your platform’s installation documentation, or you can set it using the `--config` command line argument.
+
+## Configuration settings
 
 _Required attributes:_
 
 <table>
   <tbody>
-   <tr>
+   <tr id="token">
       <th><code>token</code></th>
       <td>
-        The agent registration token from your organization’s Agents page, used only to register new agents.
+        The agent registration token from your organization’s Agents page, used only to register new agents. To get your token, log in to Buildkite, navigate to <i>Agents</i>, then select <i>Reveal Agent Token</i>.
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
       </td>
     </tr>
@@ -36,7 +37,7 @@ _Optional attributes:_
 
 <table>
   <tbody>
-    <tr>
+    <tr id="bootstrap-script">
       <th><code>bootstrap-script</code></th>
       <td>
         Command to invoke the bootstrap process.
@@ -45,7 +46,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="build-path">
       <th><code>build-path</code></th>
       <td>
         Path to where the builds will run from.
@@ -54,7 +55,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="cancel-grace-period">
       <th><code>cancel-grace-period</code></th>
       <td>
         The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
@@ -63,7 +64,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="cancel-signal">
       <th><code>cancel-signal</code></th>
       <td>
         The signal that the agent sends to the bootstrap to signal cancellation.
@@ -72,7 +73,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="debug">
       <th><code>debug</code></th>
       <td>
         Enable debug mode.
@@ -81,7 +82,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="debug-http">
       <th><code>debug-http</code></th>
       <td>
         Log all HTTP request and response bodies.
@@ -90,7 +91,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="disconnect-after-job">
       <th><code>disconnect-after-job</code></th>
       <td>
         Disconnect after processing a single job.
@@ -99,7 +100,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="disconnect-after-idle-timeout">
       <th><code>disconnect-after-idle-timeout</code></th>
       <td>
         The number of idle seconds to wait before shutting down. When setting this option alongside <code>spawn</code>, all agents started by <code>spawn</code> must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
@@ -108,7 +109,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="endpoint">
       <th><code>endpoint</code></th>
       <td>
         The Agent endpoint.
@@ -117,16 +118,16 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="experiment">
       <th><code>experiment</code></th>
       <td>
-        A list of the experimental agent features to enable.
+        A list of the <a href="/docs/agent/v3#experimental-features">experimental agent features</a> to enable.
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"experiment1,experiment2"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_EXPERIMENT</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clean-flags">
       <th><code>git-clean-flags</code></th>
       <td>
         Flags to pass to the <code>git clean</code> command.<br>Agents below v3.0.0 default to <code>"-fdq"</code>.<br>Agents v3.0.0 to v3.7.0 default to <code>"-fxdq"</code>.
@@ -135,7 +136,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clone-flags">
       <th><code>git-clone-flags</code></th>
       <td>
         Flags to pass to the <code>git clone</code> command.
@@ -144,17 +145,21 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-clone-mirror-flags">
       <th><code>git-clone-mirror-flags</code></th>
       <td>
-        Flags to pass to the <code>git clone</code> command when used for mirroring. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        Flags to pass to the <code>git clone</code> command when used for mirroring.<br>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
+
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-fetch-flags">
       <th><code>git-fetch-flags</code></th>
       <td>
         Flags to pass to the <code>git fetch</code> command.
@@ -163,27 +168,33 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-mirrors-lock-timeout">
       <th><code>git-mirrors-lock-timeout</code></th>
       <td>
-        Seconds to lock a git mirror during clone, should exceed your longest checkout. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value, and the <code>git-mirrors-path</code> option.
+        Seconds to lock a git mirror during clone, should exceed your longest checkout.<br>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
+          <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>300</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="git-mirrors-path">
       <th><code>git-mirrors-path</code></th>
       <td>
-        Path to where mirrors of git repositories are stored. This is an experimental flag. <br>
-        Must set the <code>experiment</code> option with the <code>git-mirror</code> value.
+        Path to where mirrors of git repositories are stored.<br>
+        <div class="Docs__wip-note">
+          <p class="Docs__wip-heading">Experimental feature</p>
+          To use it, set the <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
+        </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>/tmp/buildkite-git-mirrors</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_MIRRORS_PATH</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="health-check-addr">
       <th><code>health-check-addr</code></th>
       <td>
         Start an HTTP server on the specified address:port that returns whether the agent is healthy.
@@ -192,16 +203,16 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="hooks-path">
       <th><code>hooks-path</code></th>
       <td>
-        Directory where the global hook scripts are found.
+        A directory containing <a href="/docs/agent/v3/hooks#hook-locations-agent-hooks">agent hooks</a>.
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="log-format">
       <th><code>log-format</code></th>
       <td>
         The format to use for the logger output.
@@ -210,16 +221,22 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="metrics-datadog">
       <th><code>metrics-datadog</code></th>
       <td>
-        Send metrics to DogStatsD for Datadog.
+        Send metrics to DogStatsD for Datadog. This will generate the following metrics (duration measured in milliseconds):<br>
+        <code>buildkite.jobs.success</code><br>
+        <code>buildkite.jobs.duration.success.avg</code><br>
+        <code>buildkite.jobs.duration.success.max</code><br>
+        <code>buildkite.jobs.duration.success.count</code><br>
+        <code>buildkite.jobs.duration.success.median</code><br>
+        <code>buildkite.jobs.duration.success.95percentile</code><br>
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="metrics-datadog-host">
       <th><code>metrics-datadog-host</code></th>
       <td>
         The DogStatsD instance to send metrics to via udp.
@@ -228,16 +245,23 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="name">
       <th><code>name</code></th>
       <td>
-        The name of the agent. Supports the template variables <code>%hostname</code> (the agent machine’s hostname) and <code>%n</code> (a unique number for the agent).
+        The name of the agent. Supports the template variables
+        <ul>
+        <li><code>%hostname</code> (the agent machine’s hostname)</li>
+        <li><code>%spawn</code> (a unique number for each agent started using <code>--spawn</code>; added in <a href="https://github.com/buildkite/agent/releases/tag/v3.27.0">v3.27.0</a>)</li>
+        <li><code>%n</code> (a unique number for the agent)</li>
+        <li><code>%pid</code> (the agent process id)</li>
+        Note that if you're using <code>--spawn</code> to run multiple agents in a single process, we recommend using <code>%spawn</code> in your agent name, or to ensure that each agent running on a host with the same <code>build-path</code> has a unique name.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"%hostname-%n"</code></p>
+        <p class="Docs__api-param-eg"><em>Default on Elastic CI Stack for AWS:</em> <code>"%hostname-%spawn"</code> (<a href="https://github.com/buildkite/elastic-ci-stack-for-aws/releases/tag/v5.2.0">v5.2.0</a> and later)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_NAME</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-color">
       <th><code>no-color</code></th>
       <td>
         Do not show colors in logging.
@@ -246,7 +270,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-command-eval">
       <th><code>no-command-eval</code></th>
       <td>
         Do not allow this agent to run arbitrary console commands.
@@ -255,7 +279,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-git-submodules">
       <th><code>no-git-submodules</code></th>
       <td>
         Do not automatically checkout git submodules.
@@ -264,7 +288,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-http2">
       <th><code>no-http2</code></th>
       <td>
         Disable HTTP2 when communicating with the Agent API.
@@ -273,7 +297,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-local-hooks">
       <th><code>no-local-hooks</code></th>
       <td>
         Do not execute any local hooks.
@@ -282,7 +306,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-plugins">
       <th><code>no-plugins</code></th>
       <td>
         Do not load any plugins.
@@ -291,7 +315,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-plugin-validation">
       <th><code>no-plugin-validation</code></th>
       <td>
         Do not validate plugin configuration and requirements.
@@ -300,7 +324,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-pty">
       <th><code>no-pty</code></th>
       <td>
         Do not run jobs within a pseudo terminal.
@@ -318,7 +342,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="plugins-path">
       <th><code>plugins-path</code></th>
       <td>
         Directory where the plugins are saved.
@@ -327,7 +351,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="priority">
       <th><code>priority</code></th>
       <td>
         The priority of the agent. Higher priorities are assigned work first, null is assigned last.
@@ -336,16 +360,26 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="redacted-vars">
+      <th><code>redacted-vars</code></th>
+      <td>
+        A list of environment variable name patterns whose values should be <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. To disable redaction, set this to an empty string.
+        <p><em>Introduced in:</em> <a href="https://github.com/buildkite/agent/releases/tag/v3.31.0">v3.31</a></p>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>*_PASSWORD,*_SECRET,*_TOKEN,*_ACCESS_KEY,*_SECRET_KEY</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
+      </td>
+    </tr>
+
+    <tr id="shell">
       <th><code>shell</code></th>
       <td>
-        The shell command used to interpret build commands. E.g <code>/bin/bash -e -c</code>.
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
+        The shell command used to interpret build commands. E.g <code>/bin/bash -e -c</code>. PowerShell 6 and 7 are not supported.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems.</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="spawn">
       <th><code>spawn</code></th>
       <td>
         The number of agents to spawn in parallel.
@@ -381,7 +415,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-gcp">
       <th><code>tags-from-gcp</code></th>
       <td>
         Include the host's Google Cloud meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone).
@@ -390,7 +424,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-gcp-labels">
       <th><code>tags-from-gcp-labels</code></th>
       <td>
         Include the host's Google Cloud instance labels as tags.
@@ -399,7 +433,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tags-from-host">
       <th><code>tags-from-host</code></th>
       <td>
         Include the host's meta-data as tags (hostname, machine-id, and os).
@@ -408,7 +442,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="timestamp-lines">
       <th><code>timestamp-lines</code></th>
       <td>
         Prepend timestamps on each line of output.
@@ -417,7 +451,18 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="tracing-backend">
+      <th><code>tracing-backend</code></th>
+      <td>
+        Set to <code>datadog</code> to enable Datadog API tracing for builds using the default APM address <code>localhost:8126</code>, or Datadog variables like <code>DD_AGENT_HOST</code> and <code>DD_AGENT_APM_PORT</code>.
+        Accepts blank string or "datadog".
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>""</code></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_TRACING_BACKEND</code></p>
+      </td>
+    </tr>
+
+    
+    <tr id="wait-for-ec2-tags-timeout">
       <th><code>wait-for-ec2-tags-timeout</code></th>
       <td>
         The amount of time to wait for tags from EC2 before proceeding.
@@ -426,7 +471,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="wait-for-gcp-labels-timeout">
       <th><code>wait-for-gcp-labels-timeout</code></th>
       <td>
         The amount of time to wait for labels from GCP before proceeding.
@@ -441,7 +486,7 @@ _Optional attributes:_
 
 <table>
   <tbody>
-    <tr>
+    <tr id="disconnect-after-job-timeout">
       <th><code>disconnect-after-job-timeout</code></th>
       <td>
         When <code>disconnect-after-job</code> is specified, the number of seconds to wait for a job before shutting down.
@@ -450,7 +495,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data">
       <th><code>meta-data</code></th>
       <td>
         Meta data for the agent.
@@ -460,7 +505,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-ec2">
       <th><code>meta-data-ec2</code></th>
       <td>
         Include the host's EC2 meta-data (instance-id, instance-type, and ami-id) as meta-data.
@@ -470,7 +515,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-ec2-tags">
       <th><code>meta-data-ec2-tags</code></th>
       <td>
         Include the host's EC2 tags as meta-data.
@@ -480,29 +525,29 @@ _Optional attributes:_
       </td>
     </tr>
 
-    <tr>
+    <tr id="meta-data-gcp">
       <th><code>meta-data-gcp</code></th>
       <td>
         Include the host's GCP meta-data as meta-data.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_EC2_TAGS</code></p>
-        <p class="Docs__api-param-eg"><a href="#tags-from-ec2-tags"><em>Use instead:</em> <code>tags-from-ec2-tags</code></a></p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_META_DATA_GCP_TAGS</code></p>
+        <p class="Docs__api-param-eg"><a href="#tags-from-gcp"><em>Use instead:</em> <code>tags-from-gcp</code></a></p>
       </td>
     </tr>
 
-    <tr>
+    <tr id="no-automatic-ssh-fingerprint-verification">
       <th><code>no-automatic-ssh-fingerprint-verification</code></th>
       <td>
         Do not automatically verify SSH fingerprints for first-time checkouts.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION</code></p>
-        <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code><a/></p>
+        <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code></a></p>
       </td>
     </tr>
   </tbody>
 </table>
 
-## Environment Variables
+## Environment variables
 
 Most configuration options can be specified as environment variables when starting the agent, for example:
 
@@ -510,4 +555,4 @@ Most configuration options can be specified as environment variables when starti
 BUILDKITE_AGENT_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
-These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hook scripts](/docs/agent/v3/hooks).
+These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).

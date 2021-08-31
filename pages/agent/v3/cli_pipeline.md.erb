@@ -8,16 +8,16 @@ See the [Defining Your Pipeline Steps](/docs/pipelines/defining-steps) guide for
 
 ## Uploading pipelines
 
-```
-<%= render 'agent/v3/help/pipeline_upload.txt' %>
-```
+<%= render 'agent/v3/help/pipeline_upload' %>
 
 ## Pipeline format
 
-The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are two top level properties you can specify:
+The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
 
+* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 * `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+
 
 ## Environment variable substitution
 

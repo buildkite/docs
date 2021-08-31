@@ -6,7 +6,12 @@ On the API Access Audit page, organization admins can view all tokens that have 
 
 ## Token scopes
 
-When you create a token, select the organizations it grants access to, and the scope of the access.
+When you create a token, select the organizations it grants access to, and the scope of the access.  
+
+<section class="Docs__note">
+  <h3>Note for contributors to public and open-source projects</h3>
+  <p>You need to be a member of the Buildkite organisation to be able to generate and use an API token for it.</p>
+</section>
 
 REST API scopes are very granular, you can select some or all of the following:
 
@@ -29,7 +34,7 @@ GraphQL tokens cannot be limited by scope.
 
 ## Auditing tokens
 
-Viewing the API Access Audit page requires admin privileges. The page can be found in the Security section of the Organization Settings sidebar.
+Viewing the API Access Audit page requires admin privileges. The page can be found in the Audit section of the Organization Settings sidebar.
 
 All tokens that currently have access to your organization's data will be listed. The table includes the scope of each token, how long ago they were created, and how long since they've been used.
 
@@ -57,7 +62,7 @@ Removing access from a token will send a notification email to the token's owner
 <p>Removing access from a token does not delete the token. Token owners can re-add your organization to their token's scope.</p>
 </div>
 
-## Programatically managing tokens
+## Programmatically managing tokens
 
 The `access-token` REST API endpoint can be used to retrieve or revoke an API access token. See the [REST API Access Token](/docs/apis/rest-api/access-token) page for further information.
 

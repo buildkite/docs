@@ -1,6 +1,5 @@
 $SiteHeaderLogoHeight: 36px;
-$SiteHeader__bp_small_screen_nav: 850px;
-$SiteHeader__bp_wrap_search: 550px;
+$SiteHeader__bp_wrap_search: 600px;
 
 .SiteHeader {
   position: absolute;
@@ -11,21 +10,18 @@ $SiteHeader__bp_wrap_search: 550px;
   padding-bottom: 20px;
   line-height: $SiteHeaderLogoHeight;
   z-index: 5;
+
+  @media (max-width: $SiteHeader__bp_wrap_search) {
+    position: relative;
+    padding-bottom: 0;
+  }
 }
 
 .SiteHeader__inner {
   display: flex;
-  align-items: stretch;
-  justify-content: space-between;
   @media (max-width: $SiteHeader__bp_wrap_search) {
-    flex-wrap: wrap;
+    flex-direction: column;
   }
-}
-
-.SiteHeader_minimal__inner {
-  display: flex;
-  align-items: stretch;
-  justify-content: center;
 }
 
 .SiteHeader__docslink {
@@ -40,9 +36,14 @@ $SiteHeader__bp_wrap_search: 550px;
   &:hover, &:focus, &:active {
     color: #14CC80;
   }
+}
 
-  > .SiteHeader__mark {
-    margin-right: .5em;
+.SiteHeader__mark {
+  margin-right: .5em;
+  svg {
+    width: 28px;
+    height: auto;
+    margin-top: .55em;
   }
 }
 
@@ -55,13 +56,13 @@ $SiteHeader__bp_wrap_search: 550px;
   line-height: $SiteHeaderLogoHeight;
   display: inline-block;
   margin-right: 1em;
+  margin-bottom: .5em;
 }
 
 .SiteHeader__search {
-  flex: 0 0 300px;
-  align-self: flex-end;
+  margin-left: auto;
   @media (max-width: $SiteHeader__bp_wrap_search) {
-    flex: 1 1 300px;
+    width: 100%;
   }
 }
 
@@ -70,7 +71,7 @@ $SiteHeader__bp_wrap_search: 550px;
   box-sizing: border-box;
   padding: 10px 12px;
   border-radius: .2em;
-  font-size: 0.8rem;
+  font-size: 16px;
   width: 100%;
   font-family: inherit;
   background-color: #fff;
@@ -86,47 +87,4 @@ $SiteHeader__bp_wrap_search: 550px;
   &:-moz-placeholder { color: rgba(#555, .35); }
   &::-moz-placeholder { color: rgba(#555, .35); }
   &:-ms-input-placeholder { color: rgba(#555, .35); }
-}
-
-$SiteHeader__logo-width: 173px;
-$SiteHeader__logo-height: 33px;
-
-.SiteHeader__logo {
-  position: relative;
-  width: $SiteHeader__logo-width * .95;
-  height: $SiteHeader__logo-height * .95;
-  left: 4px;
-  top: 3px;
-  @media (max-width: $SiteHeader__bp_small_screen_nav) {
-    left: 0px;
-    top: 1px;
-  }
-}
-
-.SiteHeader__mark {
-  > svg {
-    width: 30px;
-    height: auto;
-    margin-top: .55em;
-  }
-}
-
-.SiteHeader__nav {
-  flex: 1;
-  margin-left: 30px;
-}
-
-.SiteHeader__small_nav_toggle {
-  display: none;
-  @media (max-width: $SiteHeader__bp_small_screen_nav) {
-    display: block;
-    position: absolute;
-    text-align: center;
-    padding: 0;
-    width: 40px;
-    height: 40px;
-    .fa { line-height: 42px; }
-    top: 15px;
-    right: 15px;
-  }
 }

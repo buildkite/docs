@@ -1,39 +1,44 @@
 # Single Sign-On with Okta
 
-Okta can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both Okta and Buildkite.
+To add Okta as an SSO provider for your Buildkite organization, you need admin privileges for both Okta and Buildkite.
 
-### Step 1. Add the Buildkite App to your Okta Account
+To set up Single Sign-On, follow the [SAML configuration guide](https://saml-doc.okta.com/SAML_Docs/How-to-Configure-SAML-2.0-for-Buildkite.html).
 
-Log into your Okta account, and follow these steps:
-
-1. Click the Admin button in Okta to access your Admin dashboard
-1. In the Shortcuts menu, click 'Add Applications' to search the Okta application directory
-1. Search for 'Buildkite'
-1. Click 'Add' to add the Buildkite app to your Okta account
-1. Fill out the 'General Settings' form, entering your case sensitive Buildkite organization slug as the 'Organization ID'
-1. In the Buildkite application in Okta, select the tab labelled 'Sign On'
-1. In the Sign On section 'Settings', click the 'Identity Provider Metadata' link and copy the URL for use in the next step
-
-### Step 2. Create an SSO Provider
-
-In your Buildkite Organization Settings' Single Sign On menu item, choose the Okta provider:
-
-<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
-
-On the following screen in the Metadata URL field, enter the 'Identity Provider Metadata' link that you copied in the previous step.
-
-<%= image "okta-settings.png", width: 1848/2, height: 732/2, alt: "Screenshot of the Buildkite Okta Settings Page" %>
+## Using SCIM to manage users
 
 <div class="Docs__note">
-  <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
+  <p>This integration with Okta is currently available only to a limited number of customers. Contact support@buildkite.com to learn more.</p>
 </div>
 
-### Step 3. Perform a Test Login
+### Supported SCIM Features
 
-Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+* Create Users (note that users added to Okta won't be billed for until they have signed up with Buildkite)
+* Deactivate Users (Deprovisioning)
 
-### Step 4. Enable the new SSO Provider
+### Configuration instructions
 
-Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Okta before organization data can be accessed.
+Using the SCIM provisioning settings in Okta, Enterprise customers can automatically remove user accounts from your Buildkite organization. In Okta this feature is called 'Deactivating' a user. You need an enabled Okta SSO Provider before you can set up SCIM.
 
-If you need to edit or update your Okta provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and _API Token_ from your Okta SSO Provider Settings:
+
+<%= image "okta-scim-settings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the Buildkite Okta Settings SCIM Deprovisioning section" %>
+
+Go to your Buildkite application in Okta to set up deprovisioning:
+
+1. On the _Sign On_ tab in the Okta Buildkite application, edit the _Credential Details_ settings, select _Email_ for the _Application username format_ and press _Save_
+1. On the _Provisioning_ tab, select _Integration_ from the left side menu
+1. Click _Configure API Integration_
+1. Tick _Enable API integration_ and enter the URL and API token copied from your Buildkite SSO Provider settings
+1. Click _Test API Credentials_ and then _Save_ once successfully verified
+1. Select _To App_ from the left side menu
+1. Edit the _Provisioning to App_ settings, and enable _Create Users_ and _Deactivate Users_
+1. Save and test your settings
+
+### Provisioning Existing Users
+
+Existing Okta users aren't automatically provisioned in Buildkite; you'll need to sync your users in order to deprovision them.
+
+This can be done one of two ways:
+
+1. Using the _Provision User_ function on the _Assignments_ tab of the Okta Buildkite app (if it's available), or
+1. By removing and re-assigning the users and groups to the Okta Buildkite app.

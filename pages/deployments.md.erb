@@ -19,13 +19,13 @@ steps:
 
   - label: "🚀"
     command: "scripts/deploy"
-    if: build.branch == 'master'
+    if: build.branch == 'main'
     concurrency: 1
     concurrency_group: "my-app-deploy"
 ```
 {: codeblock-file="pipeline.yml"}
 
-This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the master branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
+This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the main branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
 <%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
 
@@ -41,7 +41,7 @@ A dedicated deployment pipeline separates your deploy steps from any other testi
 * Use teams for role based access control
 * Allowlist deploy pipelines in agent hooks
 
-A common pattern is to have two separate pipelines, each with its own pipeline.yml file in your project’s repository:
+A common pattern is to have two separate pipelines, each with its own `pipeline.yml` file in your project’s repository:
 
 ```
 .buildkite/tests.pipeline.yml
@@ -68,13 +68,13 @@ steps:
 
   - label: "🚀"
     trigger: "my-app-deploy"
-    if: build.branch == 'master'
+    if: build.branch == 'main'
     build:
       commit: "$BUILDKITE_COMMIT"
 ```
 {: codeblock-file="pipeline.yml"}
 
-Once the tests run successfully, if the commit is on the master branch then continuous deployment is done by triggering a build on the deployment pipeline.
+Once the tests run successfully, if the commit is on the main branch then continuous deployment is done by triggering a build on the deployment pipeline.
 
 The deployment pipeline (with slug `my-app-deployment`) could be configured to upload the following `.buildkite/deploy.pipeline.yml` file:
 
@@ -82,7 +82,7 @@ The deployment pipeline (with slug `my-app-deployment`) could be configured to u
 steps:
   - label: "🚀"
     command: "scripts/deploy"
-    if: build.branch == 'master'
+    if: build.branch == 'main'
     concurrency: 1
     concurrency_group: "my-app-deploy"
 ```
@@ -110,7 +110,7 @@ steps:
 
   - label: "🚀"
     command: "scripts/deploy"
-    if: build.branch == 'master'
+    if: build.branch == 'main'
     concurrency_group: "my-app-deploy"
     concurrency: 1
 ```

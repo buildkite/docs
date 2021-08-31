@@ -1,9 +1,10 @@
 {
   "name": "docs",
   "private": true,
-  "dependencies": {},
+  "dependencies": {
+  },
   "devDependencies": {},
   "scripts": {
-    "lint": "npx alex@8 --diff pages/**/*.erb pages/**/*.txt"
+    "lint": "npx alex@9 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\""
   }
 }

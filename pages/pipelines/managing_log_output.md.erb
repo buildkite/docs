@@ -47,21 +47,27 @@ If your log exceeds 1MB then we highly recommend reconfiguring your build tools 
 
 One method for storing the original log is the Unix `tee` command. It allows you to store the output stream of a command to a file and passing it straight through unchanged to the next command.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
 
 your_build_command | tee build.log | <filter command>
 ```
+{: codeblock-file="build.sh"}
 
 When this script is run it will store the original output of `your_build_command` to the file `build.log`.
 
-To store this file alongside your build, edit your pipeline settings and include  `build.log` in the artifact upload path.
+To store this file alongside your build, add the `artifact_paths` attribute to the command step running your script:
 
-<%= image("artifact_upload_path.png", alt: "Screenshot of Artifact Uploading settings", size: '549x119') %>
+```yaml
+steps:
+  - command: build.sh
+    artifact_paths: "build.log"
+```
+{: codeblock-file="pipeline.yml"}
 
-When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable in the "Artifacts" tab on your build page.
+When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable from the "Artifacts" tab on your build page.
 
 <%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
 
@@ -69,7 +75,7 @@ When your build is finished the agent will upload `build.log` as a build artifac
 
 Grep is a Unix tool to help you filter lines of text that match a pattern. For example, the following script only sends Buildkite the matching lines as your log output, whilst storing the original log for artifact uploading.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
@@ -81,7 +87,7 @@ your_build_command | tee build.log | grep 'some pattern'
 
 Tail is a Unix tool that returns the last portion of a file. This is useful if your log output is exceeding our hard limit of 100MB. For example, the following script only sends Buildkite the last 90MB as your output log, whilst storing the original log for artifact uploading.
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
@@ -93,7 +99,7 @@ your_build_command | tee build.log | tail -c90000000
 
 [xcpretty](https://github.com/supermarin/xcpretty) is an open-source tool that helps to reduce, format and color-code your [Xcode](http://developer.apple.com/xcode) build output. Once you’ve installed xcpretty you can pipe the output of xcodebuild into it:
 
-```
+```bash
 #!/bin/bash
 
 set -euo pipefail
@@ -104,3 +110,16 @@ xcodebuild <build options> | tee -a build.log | xcpretty -c
 Make sure to set the `-o pipefail` option in your buildscript as above, otherwise the build failure status might not be passed through correctly.
 
 <%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
+
+## Redacted environment variables
+
+The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
+
+The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
+
+For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
+
+<div class="Docs__note">
+<h3 class="Docs__note__heading">Setting environment variables</h3>
+<p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
+</div>

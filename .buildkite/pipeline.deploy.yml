@@ -4,7 +4,7 @@ steps:
     depends_on: "rspec"
     key: "ecr-push"
     if: |
-      build.branch == "master"
+      build.branch == "main"
     agents:
       queue: deploy
     plugins:
@@ -17,17 +17,17 @@ steps:
   - wait: ~
     key: "deploy-check-wait"
     depends_on: "ecr-push"
-    if: "(build.creator.teams includes 'deploy') && build.branch == 'master'"
+    if: "(build.creator.teams includes 'deploy') && build.branch == 'main'"
 
   # If the user *isn't* in the deploy team, require a block step for manual
   # verification by someone who is in the team.
   - block: ":rocket: Deploy"
     key: "deploy-check-block"
     depends_on: "ecr-push"
-    if: "!(build.creator.teams includes 'deploy') && build.branch == 'master'"
+    if: "!(build.creator.teams includes 'deploy') && build.branch == 'main'"
 
   - label: ":docker::rocket:"
-    branches: master
+    branches: main
     depends_on:
       - "deploy-check-wait"
       - "deploy-check-block"

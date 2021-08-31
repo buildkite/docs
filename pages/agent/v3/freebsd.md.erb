@@ -23,10 +23,10 @@ sudo chsh -s /usr/local/bin/bash `whoami`
 bash
 ```
 
-Once they have been installed, you can run the following script (<a href="https://raw.githubusercontent.com/buildkite/agent/master/install.sh">view the source</a>), which will download and install the correct binary for your system and architecture:
+Once they have been installed, you can run the following script (<a href="https://raw.githubusercontent.com/buildkite/agent/main/install.sh">view the source</a>), which will download and install the correct binary for your system and architecture (you will need your [agent token](/docs/agent/v3/tokens)):
 
 ```shell
-TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/master/install.sh`"
+TOKEN="INSERT-YOUR-AGENT-TOKEN-HERE" bash -c "`curl -sL https://raw.githubusercontent.com/buildkite/agent/main/install.sh`"
 ```
 
 Then, start the agent:
@@ -51,7 +51,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## File Locations
 
 * Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Hooks: `~/.buildkite-agent/hooks`
+* Agent Hooks: `~/.buildkite-agent/hooks`
 * Builds: `~/.buildkite-agent/builds`
 * SSH keys: `~/.ssh`
 
@@ -61,4 +61,4 @@ The configuration file is located at `~/.buildkite-agent/buildkite-agent.cfg`. S
 
 ## Upgrading
 
-Simply rerun the install script.
+Rerun the install script.

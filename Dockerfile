@@ -1,4 +1,4 @@
-FROM ruby:2.6.6@sha256:d388ca35f755e19e03de8007a1086c5b16edd8b02e3c45f16af78921e40bc033
+FROM ruby:2.7.2@sha256:19cfb36f6e63fa964c984bd7837d7e2ba18263e34a5da1725324b80271dd475a
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
@@ -8,6 +8,8 @@ ADD https://dl.yarnpkg.com/debian/pubkey.gpg /etc/apt/trusted.gpg.d/yarn.asc
 RUN echo "--- :package: Installing system deps" \
     # Make sure apt can see trusted keys downloaded above (simpler than apt-key)
     && chmod +r /etc/apt/trusted.gpg.d/*.asc \
+    # Yarn's key has carriage returns which confuses debian, so remove them
+    && sed -i 's/\r//' /etc/apt/trusted.gpg.d/*.asc \
     # Cache apt
     && rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \

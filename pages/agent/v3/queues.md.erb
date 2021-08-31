@@ -8,11 +8,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## The default queue
 
-All agents include an extra default [tag](/docs/agent/v3/cli-start#setting-tags) of `queue=default`.
-
-For example, the following empty query pattern matches the 6 agents running the `default` queue:
-
-<%= image "agent-selector-2.png", width: 553, height: 353, alt: "Agent Selector showing all but the deploy selected" %>
+If you don't configure a queue for your agent by setting an [agent tag](/docs/agent/v3/cli-start#setting-tags) of `queue=my_example_queue` it will accept jobs from the default queue as if you had set `queue=default`.
 
 ## Setting an agent’s queue
 
@@ -30,8 +26,13 @@ buildkite-agent start --tags "queue=building,queue=testing"
 
 ## Targeting a queue
 
-Just as you would target agents using a normal [agent tag](/docs/agent/v3/cli-start#setting-tags), you can target specific queues using `queue=name` in your build pipeline query rules.
+Target specific queues using the `agents` attribute on your pipeline steps. 
 
-For example, the following build step matches only agents running the `deploy` queue (and ignores the agents running the `default` queue):
+For example, the following build step matches only agents running on the `deploy` queue (and ignores the agents running the `default` queue):
 
-<%= image 'agent-selector.png', width: 553, height: 353, alt: 'Agent Selector showing only the deploy selected' %>
+```yaml
+steps:
+  - command: tests.sh
+    agents:
+      queue: "deploy"
+```

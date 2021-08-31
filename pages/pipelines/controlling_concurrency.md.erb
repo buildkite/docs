@@ -12,20 +12,18 @@ Concurrency limits define the number of jobs that are allowed to run at any one 
 
 Setting a concurrency limit of `1` on a step in your pipeline will ensure that no two jobs created from that step will run at the same time, even if there are agents available.
 
-You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. Defining concurrency in a `pipeline.yml` file also requires the use of the `concurrency_group` attribute. See [Concurrency Groups](#concurrency-groups) for more information.
-
-<%= image "concurrency-limits.png", width: 1092/2, height: 214/2, alt: "Screenshot of a step's Global Concurrency Limit field" %>
+You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
 <section class="Docs__troubleshooting-note">
-    <h1>I'm seeing an error about a missing concurrency_group_id when I run my pipeline upload</h1>
-    <p>This error is caused by a missing concurrency group label. If you set a concurrency limit in a `pipeline.yml` file, you must also set a group label.</p>
+    <h3>I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload</h3>
+    <p>This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.</p>
 </section>
 
 ## Concurrency Groups
 
-Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step in a `pipeline.yml` file, the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run concurrently. Although they're created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
+Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run in parallel. Although concurrency groups are created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
 
-The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one at a time in the order they were created.
+The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 
 ```yaml
 - command: 'deploy.sh'
@@ -39,47 +37,49 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 {: codeblock-file="pipeline.yml"}
 
 Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
-For example, giving two entirely different deploy steps the same `concurrency_group` label `deploy` will unintentionally make them part of the same concurrency group and prevent them from running concurrently. A better approach would be to label them more specifically, as `our-payment-gateway/deployment`, `terraform/update-state` or `my-mobile-app/app-store-release`.
 
-You may want to ensure that order or volume sensitive operations like deploys or API access don't happen at the same time, and run in order that they were created.
+For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group. 
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
-<section class="Docs__note">
-	<p>When you create a step using the Buildkite web interface, you can’t set a custom concurrency group label. A label will be automatically generated for you based on that step. If you want to use group labels, you can define your steps in a <code>pipeline.yml</code> file. </p>
-</section>
+## Concurrency and Parallelism
 
-## Concurrency and Parallelization
-
-Sometimes you need strict concurrency while also having jobs that would benefit from parallelization.
+Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
 In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate the e2e tests can run up to three at a time, subject to Agent availability.
+In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment: 
 
 ```yaml
 steps:
   - command: echo "Running unit tests"
+    key: unit-tests
 
-  - command: echo "Start of concurency gate"
+  - command: echo "--> Start of concurrency gate"
     concurrency_group: gate
     concurrency: 1
+    key: start-gate
+    depends_on: unit-tests
 
   - wait
 
-  - command: echo "Running deployment"
-    key: dep
+  - command: echo "Running deployment to staging environment"
+    key: stage-deploy
+    depends_on: start-gate
 
   - command: echo "Running e2e tests after the deployment"
     parallelism: 3
-    depends_on: dep
+    depends_on: [stage-deploy]
+    key: e2e
 
   - wait
 
-  - command: echo "End of concurency gate"
+  - command: echo "End of concurrency gate <--"
     concurrency_group: gate
     concurrency: 1
+    key: end-gate
 
   - command: echo "This and subsequent steps run independently"
+    depends_on: end-gate
 ```
 {: codeblock-file="pipeline.yml"}
 

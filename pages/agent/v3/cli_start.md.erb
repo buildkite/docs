@@ -6,9 +6,7 @@ The Buildkite Agent’s `start` command is used to manually start an agent and r
 
 ## Starting an Agent
 
-```
-<%= render 'agent/v3/help/start.txt' %>
-```
+<%= render 'agent/v3/help/start' %>
 
 ## Setting Tags
 
@@ -32,15 +30,31 @@ or with the `BUILDKITE_AGENT_TAGS` an environment variable:
 env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 ```
 
+## Run a single job
+
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
+
+### Getting the value
+
+`value` is the job ID. There are several ways to find it:
+
+* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+* Through the [GraphQL API](/docs/apis/graphql_api).
+* The `BUILDKITE_JOB_ID` build environment variable.
+* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+* Using the GUI: select a job, and the job ID is the final value in the URL.
+
+### When to use
+
+Normally, you don't set up an agent to run a specific job. Instead, you'll have a pool of agents running, waiting for Buildkite to send jobs to them.
+
+`--acquire-job` is useful if you want to create your own scheduler to run a specific job.
+
 ## Agent Targeting
 
 Once you've started agents with tags you can target them in the build pipeline using agent query rules.
 
 Here's an example of targeting agents that are running with the tag `postgres` and value of `1.9.4`:
-
-<%= image 'agent-selector-matching-1.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
-
-To do this from [uploaded pipeline.yml](/docs/agent/v3/cli-pipeline) you would do:
 
 ```yaml
 steps:
@@ -48,12 +62,9 @@ steps:
     agents:
       postgres: "1.9.4"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can also match for any agent with a `postgres` tag by omitting the value after the `=` sign, or by using `*`, for example:
-
-<%= image 'agent-selector-matching-2.png', size: '553x353', alt: 'Agent Selector showing a single match' %>
-
-To do this from an [uploaded pipeline.yml](/docs/agent/v3/cli-pipeline) you would do:
 
 ```yaml
 steps:
@@ -61,8 +72,15 @@ steps:
     agents:
       postgres: '*'
 ```
+{: codeblock-file="pipeline.yml"}
 
 Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
+
+<section class="Docs__note">
+  <h3>Setting agent defaults</h3>
+  <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
+</section>
+
 
 ## The Queue Tag
 

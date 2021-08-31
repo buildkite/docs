@@ -55,7 +55,7 @@ You can use any event property in your custom event pattern. For example, the fo
   "detail-type": [ "Build Started", "Build Finished" ],
   "detail": {
     "pipeline": {
-      "slug": "some-pipeline"
+      "slug": [ "some-pipeline" ]
     }
   }
 }
@@ -115,6 +115,39 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
+## Official AWS Quick Start Examples
+
+AWS have published three example implementations of using Buildkite with Amazon Eventbridge:
+
+<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/">
+  <span class="icon">:aws:</span>
+  <span class="detail">
+    <strong>Build Workflows with Amazon SNS</strong>
+    <span class="description">Combine EventBridge with a workflow to evaluate, store, and publish build events.</span>
+    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-build-workflow/</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-visualization/">
+  <span class="icon">:aws:</span>
+  <span class="detail">
+    <strong>Build Event Visualization with Amazon QuickSight</strong>
+    <span class="description">Store and visualize build events from continuous-integration pipelines.</span>
+    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-visualization/</span>
+  </span>
+</a>
+
+<a class="Docs__example-repo" href="https://aws.amazon.com/quickstart/eventbridge/buildkite-pipeline-alerts/">
+  <span class="icon">:aws:</span>
+  <span class="detail">
+    <strong>Build Alerts with Amazon SNS and Webhooks</strong>
+    <span class="description">Send customized notifications when builds complete.</span>
+    <span class="repo">aws.amazon.com/quickstart/eventbridge/buildkite-pipeline-alerts/</span>
+  </span>
+</a>
+
+Each AWS Quick Start example has a corresponding GitHub repository with full example code.
+
 ## Example Event Payloads
 
 <h3 id="events-build-created">Build Created</h3>
@@ -139,7 +172,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -172,7 +206,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -205,7 +240,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -239,7 +275,8 @@ exports.handler = (event, context, callback) => {
       "state": "assigned",
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": null,
-      "finished_at": null
+      "finished_at": null,
+      "unblocked_by": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -254,7 +291,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -288,7 +326,8 @@ exports.handler = (event, context, callback) => {
       "state": "started",
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": null
+      "finished_at": null,
+      "unblocked_by": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -303,7 +342,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -337,7 +377,8 @@ exports.handler = (event, context, callback) => {
       "state": "finished",
       "runnable_at": "2019-08-11 06:01:14 UTC",
       "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": "2019-08-11 06:01:35 UTC"
+      "finished_at": "2019-08-11 06:01:35 UTC",
+      "unblocked_by": null
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -352,7 +393,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -384,7 +426,12 @@ exports.handler = (event, context, callback) => {
       "state": "finished",
       "runnable_at": null,
       "started_at": null,
-      "finished_at": null
+      "finished_at": null,
+      "unblocked_by": {
+        "uuid": "c07c69c6-11d2-4375-9148-9d0338b0a836",
+        "graphql_id": "VXNlci0tLWMwN2M2OWM2LTExZDItNDM3NS05MTQ4LTlkMDMzOGIwYTgzNg==",
+        "name": "bell"
+      }
     },
     "build": {
       "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
@@ -399,7 +446,8 @@ exports.handler = (event, context, callback) => {
     "pipeline": {
       "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
       "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline"
+      "slug": "my-pipeline",
+      "repo": "git@somewhere.com:project.git"
     },
     "organization": {
       "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",

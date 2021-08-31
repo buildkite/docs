@@ -28,7 +28,9 @@ class Page::Renderer
   def markdown(options)
     Redcarpet::Markdown.new(HTMLWithSyntaxHighlighting.new(options), autolink: true,
                                                                      space_after_headers: true,
-                                                                     fenced_code_blocks: true)
+                                                                     fenced_code_blocks: true,
+                                                                     tables: true,
+                                                                     no_intra_emphasis: true)
   end
 
   class HTMLWithSyntaxHighlighting < Redcarpet::Render::HTML
@@ -46,7 +48,7 @@ class Page::Renderer
     end
 
     def codespan(code)
-      %{<code class="dark-gray border border-gray rounded" style="padding: .1em .25em; font-size: 85%">#{EscapeUtils.escape_html(code)}</code>}
+      %{<code>#{EscapeUtils.escape_html(code)}</code>}
     end
   end
 

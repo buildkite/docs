@@ -7,8 +7,14 @@
   ol > li { list-style: decimal; }
   li li { margin-left: 1em; }
   hr { border: none; border-bottom: 1px solid #ddd; }
-  a { @extend .Link--on-white; @extend .Link--no-underline; }
-  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; font-size: #{(16/18)}em; line-height: 1.5; }
+  a {
+    @extend .Link--on-white;
+  }
+  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
+  pre code {
+    font-size: #{(16/18)}em;
+    line-height: 1.5;
+  }
   em { font-style: italic; }
   strong { font-weight: 600; }
   pre {
@@ -31,10 +37,15 @@
     border: 1px solid #ddd;
   }
   p { max-width: 37em; }
-  li, p, dt, td, th {
-    > code { border: 1px solid #ddd; color: #8E8E8E; font-size: 85%; padding: .1em .25em; }
+  li, p, dt, td, th, a {
+    > code {
+      font-size: #{(16/18)}em;
+    }
   }
-  table { font-size: #{(16/18)}rem; }
+  table {
+    font-size: #{(16/18)}rem;
+    word-wrap: break-word;
+  }
   table, tbody, tr, th, td { color: currentColor; }
   th, td { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   th code, td code { border: none; }
@@ -49,7 +60,7 @@
 
   /* Some styles from Bass that our Markdown render outputs */
   .rounded { border-radius: 3px; }
-  .dark-gray { color: #8E8E8E; }
+  .dark-gray { color: #767676; }
   .border { border: 1px solid; }
   .border-gray { border-color: #ddd; }
 
@@ -61,7 +72,7 @@
       border-top-right-radius: 5px;
       border-bottom: none;
       font-size: 14px;
-      color: #777;
+      color: #767676;
     }
     pre {
       margin-top: 0;

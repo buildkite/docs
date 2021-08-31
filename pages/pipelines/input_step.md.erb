@@ -1,18 +1,51 @@
 # Input Step
 
-An *input* step is used to collect information from a user. An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+An *input* step is used to collect information from a user.
 
-Input steps will block your build from completing, but will not automatically block other steps from running unless they specifically depend upon it.
+An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
+
+Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
 {:toc}
 
-Input steps can only be defined using a [`pipeline.yml`](/docs/pipelines/defining-steps) file.
+An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
-You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
+```yml
+steps:
+  - input: "Information please"
+    fields:
+      - text: "What is the date today?"
+        key: "todays-date"
+```
+{: codeblock-file="pipeline.yml"}
 
-The data you collect from these fields is then available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
+You can add form fields to input steps by adding the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
-## Input Step Attributes
+The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data) command. 
+
+In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+
+```yml
+  - input: "Who is running this script?"
+    fields:
+      - text: "Your name"
+        key: "name"
+  - label: "Run script"
+    command: script.sh
+```
+{: codeblock-file="pipeline.yml"}
+
+```bash
+NAME=$(buildkite-agent meta-data get name)
+```
+{: codeblock-file="script.sh"}
+
+
+For an example pipeline, see the [Input Step Example Pipeline](https://github.com/buildkite/input-step-example) on GitHub:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
+
+## Input step attributes
 
 Input and block steps have the same attributes available for use.
 
@@ -73,7 +106,7 @@ steps:
 ## Text Input Attributes
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Line endings</p>
+<h3 class="Docs__note__heading">Line endings</h3>
 <p>A text field normalizes line endings to Unix format (<code>\n</code>).</p>
 </div>
 

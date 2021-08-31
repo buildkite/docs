@@ -1,10 +1,22 @@
 # Using Conditionals
 
-The `if` parameter provides the ability to conditionally run steps.  Using C-like expressions, boolean conditions are defined to restrict the running of steps to specific circumstances. Conditionals can be used in all YAML-based pipelines.
+Using conditionals, you can run builds or steps only when specific conditions are met. Define boolean conditions using C-like expressions. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
+
+You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
 {:toc}
 
-Use the `if` attribute in your pipeline's YAML to conditionally run a step.
+## Conditionals in Pipelines
+
+Define conditionals in the _Pipeline Settings_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
+
+<%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
+
+Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise) and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise).
+
+## Conditionals in Steps
+
+Use the `if` attribute in your step definition to conditionally run a step.
 
 In the below example, the `tests` step will only be run if the build message does not contain the string "skip tests".
 
@@ -18,7 +30,17 @@ steps:
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
 
-Multi-line conditionals can be added with the `|` character:
+Be careful when defining conditionals within YAML. Many symbols have special meaning in YAML and will change the type of a value. You can avoid this by quoting your conditional as a string.
+
+```yml
+steps:
+	- command: ./scripts/tests.sh
+	  label: tests
+	  if: "!build.pull_request.draft"
+```
+{: codeblock-file="pipeline.yml"}
+
+Multi-line conditionals can be added with the `|` character, and avoid the need for quotes:
 
 ```yml
 steps:
@@ -84,9 +106,22 @@ The below expressions are supported by the `if` attribute:
 
 
 <div class="Docs__troubleshooting-note">
-<h1>Formatting regular expressions</h1>
-<p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
+  <h3>Formatting regular expressions</h3>
+  <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
+
+## Conditional Notifications
+
+To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
+
+For example, the following email notification will only be triggered if the build passes:
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: build.state == "passed"
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Supported variables
 
@@ -180,6 +215,11 @@ The below variables are supported by the `if` attribute:
 		<td>If the pull request is a draft, otherwise <code>null</code> if the branch is not a pull request or the provider doesn't support draft pull requests</td>
 	</tr>
 	<tr>
+		<td><code>build.pull_request.labels</code></td>
+		<td><code>Array</code></td>
+		<td>An array of label names attached to the pull request</td>
+	</tr>
+	<tr>
 		<td><code>build.pull_request.repository</code></td>
 		<td><code>String</code>, <code>null</code></td>
  		<td>The repository URL of the pull request, otherwise <code>null</code> if the branch is not a pull request</td>
@@ -193,6 +233,11 @@ The below variables are supported by the `if` attribute:
 		<td><code>build.source</code></td>
 		<td><code>String</code></td>
 		<td>The source of the event that created the build<br><em>Available sources:</em> <code>ui</code>, <code>api</code>, <code>webhook</code>, <code>trigger_job</code>, <code>schedule</code></td>
+	</tr>
+	<tr>
+		<td><code>build.state</code></td>
+		<td><code>String</code></td>
+		<td>The state the current build is in<br><em>Available states:</em> <code> scheduled</code>, <code> running</code>, <code> passed</code>, <code> failed</code>, <code> blocked</code>, <code> canceling</code>, <code> canceled</code>, <code> skipped</code>, <code> not_run</code>, <code> finished</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
@@ -233,9 +278,13 @@ The below variables are supported by the `if` attribute:
 </table>
 
 <div class="Docs__troubleshooting-note">
-<h1>Using <code>build.env()</code> with custom environment variables</h1>
+<h3>Using <code>build.env()</code> with custom environment variables</h3>
 <p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
 </div>
+
+## Conditionals and the broken state
+
+Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned false. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
 
 ## Example expressions
 
@@ -275,7 +324,7 @@ To run only when building a tag beginning with a `v` and ends with a `.0`, such 
 // Using the tag variable
 build.tag =~ /^v[0-9]+\.0\$/
 
-// Using the env fuction
+// Using the env function
 build.env("BUILDKITE_TAG") =~ /^v[0-9]+\.0\$/
 ```
 

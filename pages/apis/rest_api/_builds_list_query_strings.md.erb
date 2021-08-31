@@ -12,8 +12,10 @@
   </tr>
   <tr>
     <th><code>commit</code></th>
-    <td>Filters the results by the commit (only works for full sha, not for shortened ones).<p class="Docs__api-param-eg">
+    <td>Filters the results by the commit (only works for full SHA, not for shortened ones).<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?commit=long-hash</code></p>
+      You can query for multiple commits using Rails array syntax: <p class="Docs__api-param-eg">
+      <em>Example:</em> <code>?commit[]=sha2&commit[]=sha1</code></p>
     </td>
   </tr>
   <tr>
@@ -55,7 +57,7 @@
   <tr>
     <th><code>state</code></th>
     <td>
-      <span>Filters the results by the given build state. The <code>finished</code> state is a shortcut to automatically search for builds with <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>canceled</code> states.</span>
+      <span>Filters the results by the given <a href="/docs/pipelines/notifications#build-states">build state</a>. The <code>finished</code> state is a shortcut to automatically search for builds with <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>canceled</code> states.</span>
       <p class="Docs__api-param-eg">
         <em>Valid states:</em> <code>running</code>, <code>scheduled</code>, <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>canceled</code>, <code>canceling</code>, <code>skipped</code>, <code>not_run</code>, <code>finished</code>
       </p>

@@ -14,6 +14,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 [
   {
     "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
     "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
     "name": "my-agent",
@@ -32,6 +33,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
     "created_at": "2014-02-24T22:33:45.263Z",
     "job": {
       "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
+      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
       "type": "script",
       "name": "rspec",
       "agent_query_rules": ["*"],
@@ -84,6 +86,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 ```json
 {
   "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+  "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
   "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
   "name": "my-agent",
@@ -94,6 +97,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
   "version": "2.1.0",
   "creator": {
     "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
+    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
     "name": "Keith Pitt",
     "email": "me@keithpitt.com",
     "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
@@ -102,6 +106,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
   "created_at": "2015-05-09T21:05:59.874Z",
   "job": {
     "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
+    "graphql_id": "Sm9iLS0tZGM5YTg5MmQtM2I5Ny00MzgyLWEzYzItNWJhZmU5M2RlZWI1",
     "type": "script",
     "name": "rspec",
     "agent_query_rules": ["*"],
@@ -133,6 +138,16 @@ Required scope: `read_agents`
 Success response: `200 OK`
 
 ## Stop an agent
+
+<div class="Docs__note">
+  <p class="Docs__note__heading">Required permissions</p>
+To stop an agent you need either
+    <ul>
+       <li>An Admin user API token with <em>write_agents</em> <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a></li>
+       <li>Or, if you're using <a href="/docs/pipelines/permissions#member-permissions">Enterprise Member Permissions</a>, a user token with the <em>Stop Agents</em> permission</li>
+    </ul>
+  </p>
+</div>
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

@@ -12,6 +12,11 @@ The [Docker Compose plugin](https://github.com/buildkite-plugins/docker-compose-
 
 The [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) supports single container applications, and involves less setup than the Docker Compose plugin. It doesn't allow the use of `docker-compose.yml` files, and doesn't support advanced operations like building images.
 
+## Docker Hub rate limits
+
+If you're using Docker with Docker images hosted on Docker Hub, note that as of 2nd November 2020 there are [strict rate limits](/docs/integrations/docker-hub) for image downloads.
+
+
 ## Creating a Docker Compose configuration file
 
 For most projects we recommend using [Docker Compose](https://docs.docker.com/compose/) as it allows each pipeline to define its own `docker-compose.yml` with dependent containers and environment variables to be passed through.
@@ -86,7 +91,7 @@ steps:
 There are many configuration options available for the Docker plugin. For the complete list, see the readme for the [Docker Buildkite Plugin on GitHub](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 <div class="Docs__note">
-<p class="Docs__note__heading">Pinning plugin versions</p>
+<h3 class="Docs__note__heading">Pinning plugin versions</h3>
 <p>Specifying the version of your plugin using the <code>plugin-name#vx.x.x</code> format is recommended, to ensure that no changes are introduced without your knowledge.</p>
 </div>
 
@@ -94,7 +99,8 @@ There are many configuration options available for the Docker plugin. For the co
 
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
-To do this see the [agent hooks](/docs/agent/v3/hooks) and [parallel builds](parallel-builds) documentation.
+To do this, see the [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
+and [parallel builds](parallel-builds) documentation.
 
 ## Adding buildkite-agent to the Docker group
 
