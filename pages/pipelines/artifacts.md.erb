@@ -70,7 +70,7 @@ Buildkite has zero access to your source code in the pipelines and only receives
 
 !!!
 
-Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted by an insider, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+Logs are AES-encrypted, and  build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, keys cannot be extracted by an insider, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, control over security measures within your infrastructure is up to you.
 
 If you choose to [host your own build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), they never leave your infrastructure and end up in your private AWS bucket.
 
