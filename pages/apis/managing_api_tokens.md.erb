@@ -86,6 +86,6 @@ The token will lose access to the organization data. Any future API requests wil
 
 API Access Tokens are issued for users within a Buildkite organization. They are stored both in the Buildkite database (linked to the user ID) and with the user for which they're issued.
 
-API Access Tokens are associated with a specific user and can only be revoked by that user. However, admins of a Buildkite organization can remove a user from an organization, and the removed user won't be able to access any organization's resources (like pipelines) using the existing API Access Token.
+API Access Tokens are associated with a specific user and can only be revoked by that user. Admins of a Buildkite organization can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API Access Token associated with that user.
 
 API Access Tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and the new tokens are issued. 
