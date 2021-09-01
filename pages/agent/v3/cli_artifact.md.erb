@@ -149,14 +149,17 @@ Use this command in your build scripts to verify downloaded artifacts against th
 
 You can use the `buildkite-agent artifact` command to store artifacts in your private Amazon S3 bucket. To do so, you’ll need to export some artifact environment variables.
 
-You can set these environment variables from a variety of places, but we recommend storing your exports in an [environment agent hook](/docs/agent/v3/hooks) as a best practice:
+You can set these environment variables from a variety of places. Exporting them
+from an [environment hook](/docs/agent/v3/hooks#job-lifecycle-hooks) defined in
+your [agent `hooks-path` directory](/docs/agent/v3/hooks#hook-locations-agent-hooks)
+ensures they are applied to all jobs:
 
 ```bash
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
-You will need to make sure your agent instances have the following IAM policy to read and write objects in the bucket, for example:
+You will also need to make sure your agent instances have the following IAM policy to read and write objects in the bucket, for example:
 
 ```json
 {

@@ -7,8 +7,14 @@
   ol > li { list-style: decimal; }
   li li { margin-left: 1em; }
   hr { border: none; border-bottom: 1px solid #ddd; }
-  a { @extend .Link--on-white; @extend .Link--no-underline; }
-  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; font-size: #{(16/18)}em; line-height: 1.5; }
+  a {
+    @extend .Link--on-white;
+  }
+  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
+  pre code {
+    font-size: #{(16/18)}em;
+    line-height: 1.5;
+  }
   em { font-style: italic; }
   strong { font-weight: 600; }
   pre {
@@ -31,8 +37,10 @@
     border: 1px solid #ddd;
   }
   p { max-width: 37em; }
-  li, p, dt, td, th {
-    > code { border: 1px solid #ddd; font-size: 85%; padding: .1em .25em; }
+  li, p, dt, td, th, a {
+    > code {
+      font-size: #{(16/18)}em;
+    }
   }
   table {
     font-size: #{(16/18)}rem;
@@ -44,6 +52,23 @@
   th, td { padding: .5rem; }
   th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
   th code { white-space: nowrap; font-weight: normal; }
+  table.two-column {
+    td {
+      border: none;
+    }
+
+    th:first-of-type,
+    td:first-of-type {
+      border-right: 1px solid #ddd;
+    }
+  }
+
+  table.no-formatting {
+    th,
+    td {
+      border: none;
+    }
+  }
 
   blockquote { padding-left: 1em; border-left: 5px solid #8E8E8E; }
 

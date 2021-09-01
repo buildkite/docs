@@ -118,7 +118,7 @@ Alternatively, you can use a shorter approach to creating multiple SSH keys by a
 
 If you need to use multiple keys, or want to use keys with pass-phrases, an alternative to the above hostname method is to use `ssh-agent`.
 
-After running `ssh-agent` and adding the keys, you’ll need to ensure the `SSH_AUTH_SOCK` environment variable is exported in your environment [agent hook](/docs/agent/v3/hooks).
+After starting an `ssh-agent` process and adding the keys, ensure the `SSH_AUTH_SOCK` environment variable is exported by your [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For example, if you set up `ssh-agent` like so:
 
@@ -132,7 +132,8 @@ $ ssh-add ~/.ssh/id_rsa-pipeline-2
 Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-pipeline-2
 ```
 
-Then you will need the following environment [agent hook](/docs/agent/v3/hooks) so that the build’s git operations use the `ssh-agent` socket:
+The following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
+will direct your build’s git operations to use the `ssh-agent` socket:
 
 ```bash
 #!/bin/bash

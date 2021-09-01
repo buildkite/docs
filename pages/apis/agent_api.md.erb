@@ -1,0 +1,32 @@
+# Agent REST API Overview
+
+The Agent REST API is used for agent registration, agent deregistration, job starting and job finishing, and agent metrics.
+As of August 2021 the only documented end-point is `/metrics`. Reach out to [support@buildkite.com](mailto:support@buildkite.com?subject=Agent%20API) if you're interested in knowing more about the other endpoints.
+
+The current version of the Agent API is v3.
+
+{:toc}
+
+## Schema
+
+All API access is over HTTPS, and accessed from the `agent.buildkite.com` domain. All data is sent as JSON.
+
+```bash
+curl https://agent.buildkite.com
+```
+
+```json
+{
+"message":"👋"
+}
+```
+
+## Authentication
+
+Unlike the [Buildkite REST API](/docs/apis/rest-api), which uses an [API Access token](/docs/apis/rest-api#authentication), the Agent REST API uses an [Agent registration token](/docs/agent/v3/tokens) for authentication.
+
+To authenticate using an Agent registration token, set the `Authorization` HTTP header to the word `Bearer`, followed by a space, followed by the access token. For example:
+
+```bash
+curl -H "Authorization: Token $TOKEN" https://agent.buildkite.com/v3/metrics
+```

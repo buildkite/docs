@@ -6,7 +6,9 @@ Table of contents:
 * [Language](#Language)
 * [Style and formatting](#Style-and-formatting)
 * [Code and filenames](#Code-and-filenames)
+* [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
+
 
 ## Language
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
@@ -43,13 +45,13 @@ This section covers the matters that go beyond language and provides guidelines 
 ### Consistency
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
-### Title capitalisation
+### Title capitalization
 
-Use Title case in page headings:
+Use Title case in H1 page headings `# Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
-Use Sentence case in section headings:
+Use Sentence case in section headings (`## Heading`,`### Heading`, `#### Heading`, etc.):
 *"The quick brown fox jumps over the lazy dog."*
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
@@ -63,9 +65,9 @@ Only capitalize the name of the product - e.g. 'GitHub organization' and not 'Gi
 ### Capital letters in UX elements
 Use title capitalization for names of tabs and buttons in the Buildkite interface - e.g. 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
 
-### Bullet lists
+### Lists (bullet lists and numbered steps)
 
-Capitalize the first word; no full stops at the end if it’s only one sentence. If there are two or more sentences in the list element, the final one will have a full stop.
+Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
 
 See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
 
@@ -171,7 +173,7 @@ Our docs website is a custom build. This section gives some guidance on working 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app/views/layouts/application.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app/views/layouts/_sidebar.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Escaping vale linting
@@ -197,6 +199,15 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
+### Anchor links  
+
+To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
+`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
+
+If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
+
 ### Content reuse
 
 Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
@@ -207,9 +218,7 @@ So
 
 Becomes
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
-
-
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.

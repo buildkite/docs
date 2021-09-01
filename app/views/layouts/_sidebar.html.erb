@@ -38,18 +38,22 @@
         <ul class="Docs__nav__sub-nav" style="margin-top: 15px;">
           <%= sidebar_link_to "Agent v2 (Deprecated)", 'agent/v2' %>
         </ul>
+        <p class="Docs__nav__section-subheading">Elastic CI Stack for AWS</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
+          <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets_manager.md' %>
+        </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
         <ul class="Docs__nav__sub-nav">
           <%= sidebar_link_to "Ubuntu", 'agent/v3/ubuntu' %>
           <%= sidebar_link_to "Debian", 'agent/v3/debian' %>
           <%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %>
           <%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %>
-          <%= sidebar_link_to "macOS", 'agent/v3/osx' %>
+          <%= sidebar_link_to "macOS", 'agent/v3/macos' %>
           <%= sidebar_link_to "Windows", 'agent/v3/windows' %>
           <%= sidebar_link_to "Linux", 'agent/v3/linux' %>
           <%= sidebar_link_to "Docker", 'agent/v3/docker' %>
           <%= sidebar_link_to "AWS", 'agent/v3/aws' %>
-          <%= sidebar_link_to "Elastic CI Stack for AWS", 'agent/v3/elastic-ci-aws' %>
           <%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %>
         </ul>
         <p class="Docs__nav__section-subheading">Command-Line Reference</p>
@@ -109,13 +113,14 @@
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
             <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
-            <%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %>
+            <%= sidebar_link_to "Skipping builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
             <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
             <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
             <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
             <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
+            <%= sidebar_link_to "Incoming Webhooks", 'pipelines/incoming-webhooks' %>
           </ul>
           <p class="Docs__nav__section-subheading">Step Types</p>
           <ul class="Docs__nav__sub-nav">
@@ -211,7 +216,7 @@
             <%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %>
             <%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %>
           </ul>
-          <p class="Docs__nav__section-subheading">REST API</p>
+          <p class="Docs__nav__section-subheading">Buildkite REST API</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'apis/rest-api' %>
             <%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %>
@@ -225,6 +230,11 @@
             <%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %>
             <%= sidebar_link_to "User", 'apis/rest-api/user' %>
             <%= sidebar_link_to "Meta", 'apis/rest-api/meta' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">Agent REST API</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Overview", 'apis/agent-api' %>
+            <%= sidebar_link_to "Metrics", 'apis/agent-api/metrics' %>
           </ul>
           <p class="Docs__nav__section-subheading">GraphQL API</p>
           <ul class="Docs__nav__sub-nav">

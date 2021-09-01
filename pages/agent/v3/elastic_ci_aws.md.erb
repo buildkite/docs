@@ -1,6 +1,9 @@
 # Elastic CI Stack for AWS
 
-The Buildkite Elastic CI Stack gives you a private, autoscaling [Buildkite Agent](/docs/agent/v3) cluster. Use it to parallelize legacy tests across hundreds of nodes, run tests and deployments for all your Linux-based services and apps, or run AWS ops tasks.
+The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
+[Buildkite Agent](/docs/agent/v3) cluster. Use it to parallelize large test
+suites across hundreds of nodes, run tests and deployments for Linux or Windows
+based services and apps, or run AWS ops tasks.
 
 {:toc}
 
@@ -43,7 +46,8 @@ Also keep in mind the EC2 HTTP metadata server is available from within builds, 
 
 The Buildkite Elastic CI Stack supports:
 
-- All major AWS regions
+- All AWS regions (except China and US GovCloud)
+- Linux and Windows operating systems
 - Configurable instance size
 - Configurable number of Buildkite agents per instance
 - Configurable spot instance bid price
@@ -54,10 +58,8 @@ The Buildkite Elastic CI Stack supports:
 - CloudWatch logs for system and Buildkite agent events
 - CloudWatch metrics from the Buildkite API
 - Support for stable, beta or edge Buildkite Agent releases
-- Create as many instances of the stack as you need
+- Multiple stacks in the same AWS Account
 - Rolling updates to stack instances to reduce interruption
-
-
 
 
 ## Build secrets
@@ -107,10 +109,10 @@ If you want to store your secrets unencrypted, you can disable it entirely with 
 
 <!-- vale off -->
 
-* [Amazon Linux 2 LTS](https://aws.amazon.com/amazon-linux-2/)
-* [Buildkite Agent v3.27.0](https://buildkite.com/docs/agent)
-* [Docker](https://www.docker.com) - 19.03.13 (Linux) and 19.03.12 (Windows)
-* [Docker Compose](https://docs.docker.com/compose/) - 1.27.4 (Linux) and 1.27.2 (Windows)
+* [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
+* [Buildkite Agent v3.30.0](https://buildkite.com/docs/agent)
+* [Docker](https://www.docker.com) - 20.10.6 (Linux) and 20.10.0 (Windows)
+* [Docker Compose](https://docs.docker.com/compose/) - 1.28.6 (Linux) and 1.28.5 (Windows)
 * [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
 * [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
 
@@ -170,17 +172,51 @@ The AWS ECR options are powered by an embedded version of the [ECR plugin](https
 
 ## Elastic Stack CI releases
 
-We recommend running the latest release, which is available at `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`, or on the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
+It is recommended to run the latest stable release of the CloudFormation
+template, available from `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`,
+or a specific release available from the [releases page](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
-We publish the latest build of the stack to `https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with a version for each commit in the form of `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+The latest stable release can be deployed to any of our supported AWS Regions.
 
-Branches are published in the form of `https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
+The most recent build of the CloudFormation stack is published to
+`https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with
+a version for each commit at
+`https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+
+<!-- vale off -->
+<!-- alex ignore master -->
+
+A master branch release can also be deployed to any of our supported AWS
+Regions.
+
+<!-- vale on -->
+
+GitHub branches are also automatically published to a per-branch URL
+`https://s3.amazonaws.com/buildkite-aws-stack/${BRANCH}/aws-stack.yml`.
+
+Branch releases can only be deployed to `us-east-1`.
 
 ## Updating your stack
 
-To update your stack to the latest version use CloudFormation’s stack update tools with one of the URLs in the [Elastic Stack CI releases](#elastic-stack-ci-releases) section.
+To update your stack to the latest version, use CloudFormation’s stack update
+tools with one of the URLs from the
+[Elastic Stack CI releases](#elastic-stack-ci-releases) section.
 
-Prior to updating, it's a good idea to set the desired instance size on the `AutoscalingGroup` to `0` manually.
+To preview changes to your stack before executing them, use a
+[CloudFormation Change Set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html).
+
+### Pause Auto Scaling
+
+The CloudFormation template supports zero downtime deployment when updating.
+If you are concerned about causing a service interruption during the template
+update, use the AWS Console to temporarily pause auto scaling.
+
+Open the CloudFormation console and select your stack instance. Using the
+Resources tab, find the `AutoscalingFunction`. Use the Lambda console to find
+the function’s Triggers and Disable the trigger rule. Next, find the stack’s
+`AgentAutoScaleGroup` and set the `DesiredCount` to `0`. Once the remaining
+instances have terminated, deploy the updated stack and undo the manual
+changes to resume instance auto scaling.
 
 ## CloudWatch metrics
 
