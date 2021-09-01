@@ -1,24 +1,25 @@
 # Single Sign-On with Azure Active Directory (Azure AD)
 
-Azure Active Directory can be used an an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both Azure and Buildkite.
+[Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/#overview) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both Azure and Buildkite.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
+{:toc}
+
 ## Step 1. Create a Buildkite SSO Provider
 
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
+In your [Buildkite Organization Settings](https://buildkite.com/organizations/~/settings), click _Single Sign On_, then choose the Custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML Provider:
-
-On the following page, copy the ACS URL for use in Step 2.
+1. Choose the _Provide IdP Metadata Later_ option when configuring your Custom SAML Provider
+2. Copy the Assertion Consumer Service (ACS) URL for use in [Step 2](#step-2-add-buildkite-in-azure-ad)
 
 ## Step 2. Add Buildkite in Azure AD
 
-Log into your Azure Admin Console, and follow these instructions:
+In your [Azure Admin Console](TODO), follow these instructions:
 
 1. Choose 'Azure Active Directory'
 1. Under 'Quick actions', choose 'Add enterprise application'
@@ -31,57 +32,60 @@ Log into your Azure Admin Console, and follow these instructions:
 1. Enter the following configuration and click Save:
     * Identifier (Entity ID): https://buildkite.com
     * Reply URL (Assertion Consumer Service URL): the ACS URL you copied in Step 1
-1. Copy the 'App Federation Metadata Url' value from the 'SAML Signing Certificate' box
+1. Copy the 'App Federation Metadata Url' value from the 'SAML Signing Certificate' box for use in [Step 3](#step-3-update-your-buildkite-sso-provider)
 
 ## Step 3. Update your Buildkite SSO Provider
 
-On your Buildkite Organization Settings' Single Sign On page, select your Custom SAML provider from the list of Configured SSO Providers.
+On your [Buildkite Organization Settings](https://buildkite.com/organizations/~/sso) _Single Sign On_ page, select the Custom SAML provider from the list of _Configured SSO Providers_.
 
-Click the 'Edit Settings' button, choose the 'Configure Using IdP Meta Data URL' option and enter the 'App Federation Metadata Url' you copied in Step 2.
+1. Click the _Edit Provider_ button, choose the _Configure Using IdP Meta Data URL_ option, and enter the 'App Federation Metadata Url' you copied in Step 2
+1. Save your new settings and you'll be returned to your Custom SAML provider page
 
-Save your new settings and you'll be returned to your provider page.
+## Step 4. Perform a Test Login
 
-## Step 3. Perform a Test Login
-
-Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+On your Custom SAML provider page, click _Perform Test Login_ to verify that SSO is working correctly before you activate it for your organization members.
 
 If you receive an error from Microsoft about the user not being assigned to the application, you can assign an initial user:
 
-1. Return to the Azure Admin Console and select the new 'Buildkite' enterprise app
+1. In your Azure Admin Console, select the new 'Buildkite' enterprise app
 1. Choose 'Users and groups' from the navigation sidebar
 1. Click 'Add user/group'
 1. Select the user and click 'Assign'
 
-Then, retry the test login from to SSO provider page on Buildkite.
 
-## Step 4. Enable the new SSO Provider
+Then, on your [Buildkite Organization Settings](https://buildkite.com/organizations/~/sso) _Single Sign On_ page, select the Custom SAML provider from the list of _Configured SSO Providers_, and retry the test login.
 
-Once you've performed a test login you can enable your provider using the `Enable` button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Cloud Identity before organization data can be accessed.
+## Step 5. Enable the new SSO Provider
 
-If you need to edit or update your Azure Active Directory provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the _Enable_ button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Azure AD before acessing any organization data.
+
+<div class="Docs__troubleshooting-note">
+  <p>If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/integrations/sso#disabling-and-removing-sso">disable the SSO provider</a> first.</p>
+</div>
 
 ## Using SCIM to provision and manage users
 
+Using the SCIM provisioning settings in Azure AD, Buildkite Enterprise customers can automatically add and remove user accounts from their Buildkite organization.
+
 <div class="Docs__note">
-  <p>This integration with AzureAD is currently available only to a limited number of customers. Contact support@buildkite.com to learn more.</p>
+  <p>This integration with Azure AD is currently available only to a limited number of customers. Contact support@buildkite.com to learn more.</p>
 </div>
 
 ### Supported SCIM Features
 
-* Create Users (note that users added to Okta won't be billed for until they have signed up with Buildkite)
+* Create Users (note that users added to Azure AD won't be billed for until they have signed up with Buildkite)
 * Deactivate Users (Deprovisioning)
 
 ### Configuration instructions
 
-Using the SCIM provisioning settings in AzureAD, Enterprise customers can automatically remove user accounts from your Buildkite organization. In AzureAD this feature is called 'Provisioning'. You need an enabled AzureAD SSO Provider before you can set up SCIM.
+Adding and removing users accounts in Azure AD is called 'Provisioning'. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
-After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and _API Token_ from your AzureAD SSO Provider Settings:
+After enabling your Azure AD SSO Provider in Buildkite, get the _Base URL_ and _API Token_ from your Azure AD SSO Provider Settings:
 
 <%= image "azuread-scim-settings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the Buildkite Settings SCIM Deprovisioning section" %>
 
-Go to your Buildkite application in AzureAD to set up provisioning:
+Then go to your [Azure Admin Console](TODO) and select the new 'Buildkite' enterprise app to set up provisioning:
 
-1. Return to the Azure Admin Console and select the new 'Buildkite' enterprise app
 1. Choose 'Provisioning' from the navigation sidebar
 1. Click 'Get started'
 1. Select 'Automatic' provisioning mode and enter the following details:
