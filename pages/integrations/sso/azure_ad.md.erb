@@ -21,24 +21,21 @@ In your [Buildkite Organization Settings](https://buildkite.com/organizations/~/
 
 In your [Azure Admin Console](TODO), follow these instructions:
 
-1. Choose 'Azure Active Directory'
-1. Under 'Quick actions', choose 'Add enterprise application'
-1. Click '+ Create your own application
-1. Give your application a name, for example 'Buildkite'.
-1. Choose 'Integrate any other application you don't find in the gallery (Non-gallery)' and click 'Create'
-1. Choose '2. Set up single sign on'
-1. Choose 'SAML'
-1. Choose 'Edit' in the 'Basic SAML Configuration' box
-1. Enter the following configuration and click Save:
-    * Identifier (Entity ID): https://buildkite.com
-    * Reply URL (Assertion Consumer Service URL): the ACS URL you copied in Step 1
-1. Copy the 'App Federation Metadata Url' value from the 'SAML Signing Certificate' box for use in [Step 3](#step-3-update-your-buildkite-sso-provider)
+1. Choose _Azure Active Directory_, and under _Quick actions_, choose _Add enterprise application_
+1. Click _+ Create your own application_
+1. Give your application a name, for example 'Buildkite'
+1. Choose _Integrate any other application you don't find in the gallery (Non-gallery)_ and click _Create_
+1. Choose _Set up single sign on_, then _SAML_, then in the _Basic SAML Configuration_ box, choose _Edit_
+1. Enter the following configuration and save:
+    * _Identifier (Entity ID)_: `https://buildkite.com`
+    * _Reply URL (Assertion Consumer Service URL)_: the ACS URL you copied in [Step 1](#step-1-create-a-buildkite-sso-provider)
+1. Copy the _App Federation Metadata Url_ value from the _SAML Signing Certificate_ box for use in [Step 3](#step-3-update-your-buildkite-sso-provider)
 
 ## Step 3. Update your Buildkite SSO Provider
 
 On your [Buildkite Organization Settings](https://buildkite.com/organizations/~/sso) _Single Sign On_ page, select the Custom SAML provider from the list of _Configured SSO Providers_.
 
-1. Click the _Edit Provider_ button, choose the _Configure Using IdP Meta Data URL_ option, and enter the 'App Federation Metadata Url' you copied in Step 2
+1. Click the _Edit Provider_ button, choose the _Configure Using IdP Meta Data URL_ option, and enter the _App Federation Metadata Url_ you copied in Step 2
 1. Save your new settings and you'll be returned to your Custom SAML provider page
 
 ## Step 4. Perform a Test Login
@@ -47,10 +44,10 @@ On your Custom SAML provider page, click _Perform Test Login_ to verify that SSO
 
 If you receive an error from Microsoft about the user not being assigned to the application, you can assign an initial user:
 
-1. In your Azure Admin Console, select the new 'Buildkite' enterprise app
-1. Choose 'Users and groups' from the navigation sidebar
-1. Click 'Add user/group'
-1. Select the user and click 'Assign'
+1. In your Azure Admin Console, select the new _Buildkite_ enterprise app
+1. Choose _Users and groups_ from the navigation sidebar
+1. Click _Add user/group_
+1. Select the user and click _Assign_
 
 
 Then, on your [Buildkite Organization Settings](https://buildkite.com/organizations/~/sso) _Single Sign On_ page, select the Custom SAML provider from the list of _Configured SSO Providers_, and retry the test login.
@@ -78,38 +75,29 @@ Using the SCIM provisioning settings in Azure AD, Buildkite Enterprise customers
 
 ### Configuration instructions
 
-Adding and removing users accounts in Azure AD is called 'Provisioning'. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
+Adding and removing users accounts in Azure AD is called _Provisioning_. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 After enabling your Azure AD SSO Provider in Buildkite, get the _Base URL_ and _API Token_ from your Azure AD SSO Provider Settings:
 
 <%= image "azuread-scim-settings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the Buildkite Settings SCIM Deprovisioning section" %>
 
-Then go to your [Azure Admin Console](TODO) and select the new 'Buildkite' enterprise app to set up provisioning:
+Then go to your [Azure Admin Console](TODO) and select the new Buildkite enterprise app to set up provisioning:
 
-1. Choose 'Provisioning' from the navigation sidebar
-1. Click 'Get started'
-1. Select 'Automatic' provisioning mode and enter the following details:
+1. Choose _Provisioning_ from the navigation sidebar, click _Get started_
+1. Select _Automatic_ provisioning mode and enter the following details:
     * Tenant URL: the Base URL from your Buildkite SSO Provider settings
     * Secret Token: the API Token from your Buildkite SSO Provider settings
-1. Click 'Test Connection'
-1. Click 'Save' once you receive confirmation the settings are valid
+1. Click _Test Connection_, and when you receive confirmation the settings are valid, save
 1. Disable Group synchronization:
-    * Expand 'Mappings'
-    * Click 'Provision Azure Active Directory Groups'
-    * Toggle 'Enabled' to 'No' and click 'Save'
-    * Return to provisioning setttings
-1. Customise the User mappings
-    * Expand 'Mappings'
-    * Click 'Provision Azure Active Directory Users'
-    * Click the first row of the 'Attribute Mappings' table ('userPrincipalName'), change the 'Source attribute' to 'mail' and click 'OK'
-    * Delete all remaining mappings except for the four listed in the following screenshot:
+    1. Expand _Mappings_, then click _Provision Azure Active Directory Groups_
+    1. Toggle _Enabled_ to _No_ and click _Save_
+1. Customise the User mappings:
+    1. Expand _Mappings_, then click _Provision Azure Active Directory Users_
+    1. Click the first row of the _Attribute Mappings_ table, _userPrincipalName_ and change the _Source attribute_ to `mail` then click _OK_
+    1. Delete all remaining mappings except for the four listed in the following screenshot:
+
     <%= image "azuread-user-mappings.png", width: 1440/2, height: 548/2, alt: "Screenshot of the required user mappings on Azure" %>
-    * Click 'Save'
-    * Return to provisioning setttings
-1. Toggle 'Provisioning Status' to 'On'
-1. Click 'Save'
-1. Return to the `Provisioning` menu of the enterprise app and view the 'Current cycle status' section.
-    * If provisioning is working, this should say 'Initial cycle completed'
-    * If errors are displayed, click 'View provisioning logs' and for further details on what went wrong
-
-
+1. Toggle _Provisioning Status_ to _On_ and save
+1. Return to the `Provisioning` menu of your Buildkite enterprise app and view the _Current cycle status_ section.
+    * If provisioning is working, this will say _Initial cycle completed_
+    * If errors are displayed, click _View provisioning logs_ and for further details on what went wrong
