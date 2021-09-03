@@ -274,11 +274,21 @@ $color-green: rgb(3, 165, 98);
 }
 
 a.Docs__example-repo {
-  display: flex;
   align-items: top;
   border: 1px solid #ccc;
+  display: flex;
   padding: 15px;
-  &:hover, &:active { text-decoration: none; border-color: #999; }
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+    border-color: $color-brand-green;
+    color: black;
+
+    .repo {
+      color: $color-brand-green;
+    }
+  }
+
   .icon {
     width: 22px;
     margin-right: 10px;
@@ -289,17 +299,18 @@ a.Docs__example-repo {
     flex: 1;
   }
   .description {
-    display: block;
-    font-weight: normal;
     color: currentColor;
+    display: block;
     font-size: #{(16/18)}rem;
+    font-weight: normal;
   }
   .repo {
-    display: block;
-    font-weight: normal;
     color: #666;
+    display: block;
     font-size: #{(14/18)}rem;
+    font-weight: normal;
     margin-top: .2rem;
+    text-decoration: underline;
   }
 }
 
