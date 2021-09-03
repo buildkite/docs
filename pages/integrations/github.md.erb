@@ -37,6 +37,14 @@ To connect your GitHub account:
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
+## Buildkite GitHub permissions
+
+When you connect your GitHub organization, Buildkite needs the following permissions:
+
+* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your file-based Buildkite configuration.
+* Read access to metadata
+* Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
+
 ## Set up a new pipeline for a GitHub repository
 
 
