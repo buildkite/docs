@@ -237,6 +237,7 @@ $color-green: rgb(3, 165, 98);
   thead th { font-weight: 600; }
   .image, img { max-width: 100%; }
   .responsive-image-container { margin: .5rem 0 2rem 0; }
+  li .responsive-image-container { margin: .5rem 0 0 0; }
 }
 
 .Docs__nav__section-heading--link + .Docs__nav__section-heading--link {
