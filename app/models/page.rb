@@ -62,10 +62,8 @@ class Page
     end
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
-      styles = [ "padding-bottom: #{height.to_f / width.to_f * 100}%" ]
-
       max_width = image_tag_options.delete(:max_width)
-      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]], style: styles.join("; ")
+      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]]
 
       if max_width
         content_tag :div, container, style: "max-width: #{max_width}px", class: image_tag_options[:class]
