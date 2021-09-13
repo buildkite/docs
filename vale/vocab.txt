@@ -134,6 +134,7 @@ Shipit
 sre
 stdout
 subfolders
+submenu
 subnet
 subnets
 substrings
