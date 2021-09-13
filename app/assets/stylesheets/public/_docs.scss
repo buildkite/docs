@@ -237,6 +237,7 @@ $color-green: rgb(3, 165, 98);
   thead th { font-weight: 600; }
   .image, img { max-width: 100%; }
   .responsive-image-container { margin: .5rem 0 2rem 0; }
+  li .responsive-image-container { margin: .5rem 0 0 0; }
 }
 
 .Docs__nav__section-heading--link + .Docs__nav__section-heading--link {
@@ -274,11 +275,21 @@ $color-green: rgb(3, 165, 98);
 }
 
 a.Docs__example-repo {
-  display: flex;
   align-items: top;
   border: 1px solid #ccc;
+  display: flex;
   padding: 15px;
-  &:hover, &:active { text-decoration: none; border-color: #999; }
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+    border-color: $color-brand-green;
+    color: black;
+
+    .repo {
+      color: $color-brand-green;
+    }
+  }
+
   .icon {
     width: 22px;
     margin-right: 10px;
@@ -289,17 +300,18 @@ a.Docs__example-repo {
     flex: 1;
   }
   .description {
-    display: block;
-    font-weight: normal;
     color: currentColor;
+    display: block;
     font-size: #{(16/18)}rem;
+    font-weight: normal;
   }
   .repo {
-    display: block;
-    font-weight: normal;
     color: #666;
+    display: block;
     font-size: #{(14/18)}rem;
+    font-weight: normal;
     margin-top: .2rem;
+    text-decoration: underline;
   }
 }
 

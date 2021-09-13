@@ -99,6 +99,10 @@ kubectl
 kustomize
 launchd
 linux
+Memcache
+Minitest
+mitigation
+mitigations
 monorepo
 mutex
 namespace
