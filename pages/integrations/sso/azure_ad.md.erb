@@ -92,7 +92,7 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
     1. Toggle _Enabled_ to _No_ and click _Save_
 1. Customise the User mappings:
     1. Expand _Mappings_, then click _Provision Azure Active Directory Users_
-    1. Keep the following four mappings and any others:
+    1. Keep the following four mappings, and delete any others:
         * _userPrincipalName_ to _userName_
         * _Switch([IsSoftDeleted], , "False", "True", "True", "False")_ to _active_
         * _givenName_ to _name.givenName_
