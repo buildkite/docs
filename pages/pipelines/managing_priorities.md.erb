@@ -7,9 +7,6 @@ Jobs are dispatched to agents in the following order
 3. Upload order in pipeline, first to last. 
 4. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
 
-
-<!-- <video src="https://user-images.githubusercontent.com/14028/122886342-39460a00-d383-11eb-898d-692aa057ffa0.mov"></video> -->
-
 Job `priority` is 0 by default, you can prioritise or deprioritise jobs by assigning them a higher or lower integer value. For example:
 
 ```yml
@@ -46,4 +43,4 @@ steps:
 
 <!-- date -->
 
-Prioritization can only be set on jobs, and only applies to command jobs, including plugin commands. Setting a default command job priority across a whole build is coming soon (as August 2021).
+Prioritization can only be set on jobs, and only applies to command jobs, including plugin commands. Setting a default command job priority across a whole build is coming soon (as of August 2021).
