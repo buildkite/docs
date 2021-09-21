@@ -83,14 +83,23 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-### Controlling execution order
+### Controlling command order
 
-By default steps that belong to the same concurrency group are executed in the order they are added to the pipeline execution.
-E.g. if you have a step A and it uses the concurrency group `X` with a concurrency of `1` at time 0 and you add another step B with the same concurrency group `X` and also a concurrency of `1` at time 1, then you are guaranteed that step A will run before step B.
-This is the default behaviour (`ordered`) and for example most helpful for deploys, etc.
+By default, steps that belong to the same concurrency group are run in the order that they are added to the pipeline.
 
-However, in some cases concurrency groups are not used in order to guarantee a limited number of execution to happen at the same time and preserving order, they can be used to restrict access to a limited resource for example - let's say a limited capacity in a SaaS service like Sauce Labs or similar.
-In that case, the ordering of the jobs can work against you, as one execution is waiting for the next before taking up another concurrency slot. If your resource usage time is very different - let's say some cross-browser test executes in pipeline A after 1 minute whereas in another pipeline B it executes after 10 minutes then potentially you could run multiple short tests of pipeline B before the execution of the step in pipeline A is due. Ordering is not helpful because it means that depending on the order in which these tests were queued in, the limited resource you're controlling concurrency for is not utilized fully. For this you can set the concurrency method to `eager`, which removes the ordering condition.
+For example, if you have two steps:
+
+* Step `A` in concurrency group `X` with a concurrency of `1` at time 0
+* Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
+
+Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
+
+However, in some cases concurrency groups are used to restrict access to a limited resource, such as a SaaS service like Sauce Labs.
+In that case, the default ordering of the jobs can work against you, as one step waits for the next before taking up another concurrency slot.
+
+If your resource usage time is very different, for example if tests in pipeline A take 1 minute to run and tests in pipeline B take 10 minutes to run, the default ordering is not helpful because it means that the limited resource you're controlling concurrency for is not fully utilized.
+
+In that case, setting the concurrency method to `eager`, removes the ordering condition for that resource.
 
 ```yaml
 steps:
@@ -100,3 +109,7 @@ steps:
     concurrency_method: eager
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Concurrency and prioritization
+
+If you're using `eager` concurrency and [job prioritization](/docs/pipelines/managing-priorities), higher priority jobs will always take precedence when a concurrency slot becomes available.

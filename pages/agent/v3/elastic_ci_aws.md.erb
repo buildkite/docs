@@ -95,6 +95,9 @@ echo "export MY_ENV_VAR=something secret" > myenv
 aws s3 cp --acl private --sse aws:kms myenv "s3://${SecretsBucket}/env"
 rm myenv
 ```
+
+<!-- date -->
+
 <div class="Docs__note">
 Currently (as of June 2021), you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
 </div>
