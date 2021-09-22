@@ -24,67 +24,67 @@ parameters = template['Parameters']
 %>
 
 <% parameter_groups.each do |group| %>
-	<h2><%= group['Label']['default'] %></h2>
+<h2><%= group['Label']['default'] %></h2>
 
-	<table>
-		<tbody>
-			<tr>
-      			<th>Parameter</th>
-      			<th>Description</th>
-      			<th>Type</th>
-      			<th>Default Value</th>
-      			<th>Constraints</th>
-    		</tr>
-    		<% group['Parameters'].each do |parameter_name| %>
-    			<% parameter = parameters[parameter_name] %>
-    			<tr id="<%= parameter_name %>">
-    				<td><code><%= parameter_name %></code></td>
-    				<td><%= parameter['Description'] %></td>
-    				<td><code><%= parameter['Type'] || 'String' %></code></td>
-    				<td><%= parameter['Default'] %></td>
-    				<td>
-    					<table>
-    						<tbody>
-    							<% if allowed = parameter['AllowedValues'] %>
-		    						<th>Allowed Values</th>
-		    						<td>
-		    							<ul>
-		    								<% allowed.each do |allow| %>
-		    									<li><code><%= allow %></code></li>
-	    									<% end %>
-		    							</ul>
-		    						</td>
-    							<% end %>
+<table>
+	<tbody>
+		<tr>
+  			<th>Parameter</th>
+  			<th>Description</th>
+  			<th>Type</th>
+  			<th>Default Value</th>
+  			<th>Constraints</th>
+		</tr>
+		<% group['Parameters'].each do |parameter_name| %>
+			<% parameter = parameters[parameter_name] %>
+			<tr id="<%= parameter_name %>">
+				<td><code><%= parameter_name %></code></td>
+				<td><%= parameter['Description'] %></td>
+				<td><code><%= parameter['Type'] || 'String' %></code></td>
+				<td><%= parameter['Default'] %></td>
+				<td>
+					<table>
+						<tbody>
+							<% if allowed = parameter['AllowedValues'] %>
+	    						<th>Allowed Values</th>
+	    						<td>
+	    							<ul>
+	    								<% allowed.each do |allow| %>
+	    									<li><code><%= allow %></code></li>
+    									<% end %>
+	    							</ul>
+	    						</td>
+							<% end %>
 
-    							<% if pattern = parameter['AllowedPattern'] %>
-    								<th>Allowed Pattern</th>
-    								<td><code><%= pattern %></code></td>
-    							<% end %>
+							<% if pattern = parameter['AllowedPattern'] %>
+								<th>Allowed Pattern</th>
+								<td><code><%= pattern %></code></td>
+							<% end %>
 
-    							<% if minLength = parameter['MinLength'] %>
-    								<th>Minimum Length</th>
-    								<td><%= minLength %></td>
-    							<% end %>
-    							<% if maxLength = parameter['MaxLength'] %>
-    								<th>Maximum Length</th>
-    								<td><%= maxLength %></td>
-    							<% end %>
+							<% if minLength = parameter['MinLength'] %>
+								<th>Minimum Length</th>
+								<td><%= minLength %></td>
+							<% end %>
+							<% if maxLength = parameter['MaxLength'] %>
+								<th>Maximum Length</th>
+								<td><%= maxLength %></td>
+							<% end %>
 
-    							<% if minValue = parameter['MinValue'] %>
-    								<th>Minimum Value</th>
-    								<td><%= minValue %></td>
-    							<% end %>
-    							<% if maxValue = parameter['MaxValue'] %>
-    								<th>Maximum Value</th>
-    								<td><%= maxValue %></td>
-    							<% end %>
-    						</tbody>
-    					</table>
-    				</td>
-    			</tr>
-    		<% end %>
-		</tbody>
-	</table>
+							<% if minValue = parameter['MinValue'] %>
+								<th>Minimum Value</th>
+								<td><%= minValue %></td>
+							<% end %>
+							<% if maxValue = parameter['MaxValue'] %>
+								<th>Maximum Value</th>
+								<td><%= maxValue %></td>
+							<% end %>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
 <% end %>
 
 <!-- vale on -->
