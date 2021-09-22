@@ -1,5 +1,12 @@
 # Elastic CI Stack for AWS Parameters
 
+The following tables list all the available template parameters. These can be
+used to customise a stack deployment for your needs.
+
+You must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
+or [`BuildkiteAgentToken`](#BuildkiteAgentToken), all other parameters are
+optional.
+
 <!-- vale off -->
 
 <%
@@ -28,7 +35,7 @@ parameters = template['Parameters']
     		</tr>
     		<% group['Parameters'].each do |parameter_name| %>
     			<% parameter = parameters[parameter_name] %>
-    			<tr>
+    			<tr id="<%= parameter_name %>">
     				<td><code><%= parameter_name %></code></td>
     				<td><%= parameter['Description'] %></td>
     				<td><code><%= parameter['Type'] || 'String' %></code></td>
