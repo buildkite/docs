@@ -1,0 +1,77 @@
+# Elastic CI Stack for AWS Parameters
+
+<%
+require 'yaml'
+file = File.join(File.dirname(__FILE__), 'aws-stack.yml')
+template = YAML.load(File.read(file))
+
+metadata = template['Metadata']
+interface = metadata['AWS::CloudFormation::Interface']
+parameter_groups = interface['ParameterGroups']
+
+parameters = template['Parameters']
+%>
+
+<% parameter_groups.each do |group| %>
+	<h3><%= group['Label']['default'] %></h3>
+
+	<table>
+		<tbody>
+			<tr>
+      			<th>Parameter</th>
+      			<th>Description</th>
+      			<th>Type</th>
+      			<th>Default Value</th>
+      			<th>Constraints</th>
+    		</tr>
+    		<% group['Parameters'].each do |parameter_name| %>
+    			<% parameter = parameters[parameter_name] %>
+    			<tr>
+    				<td><code><%= parameter_name %></code></td>
+    				<td><%= parameter['Description'] %></td>
+    				<td><code><%= parameter['Type'] || 'String' %></code></td>
+    				<td><%= parameter['Default'] %></td>
+    				<td>
+    					<table>
+    						<tbody>
+    							<% if allowed = parameter['AllowedValues'] %>
+		    						<th>Allowed Values</th>
+		    						<td>
+		    							<ul>
+		    								<% allowed.each do |allow| %>
+		    									<li><code><%= allow %></code></li>
+	    									<% end %>
+		    							</ul>
+		    						</td>
+    							<% end %>
+
+    							<% if pattern = parameter['AllowedPattern'] %>
+    								<th>Allowed Pattern</th>
+    								<td><code><%= pattern %></code></td>
+    							<% end %>
+
+    							<% if minLength = parameter['MinLength'] %>
+    								<th>Minimum Length</th>
+    								<td><%= minLength %></td>
+    							<% end %>
+    							<% if maxLength = parameter['MaxLength'] %>
+    								<th>Maximum Length</th>
+    								<td><%= maxLength %></td>
+    							<% end %>
+
+    							<% if minValue = parameter['MinValue'] %>
+    								<th>Minimum Value</th>
+    								<td><%= minValue %></td>
+    							<% end %>
+    							<% if maxValue = parameter['MaxValue'] %>
+    								<th>Maximum Value</th>
+    								<td><%= maxValue %></td>
+    							<% end %>
+    						</tbody>
+    					</table>
+    				</td>
+    			</tr>
+    		<% end %>
+		</tbody>
+	</table>
+<% end %>
