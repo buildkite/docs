@@ -29,7 +29,7 @@ for details on which regions have `mac1.metal` dedicated hosts.
 See also the [Amazon EC2 Mac instances User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
 for more details on AWS EC2 Mac instances.
 
-## Choose a VPC Layout
+## Step 1: Choose a VPC Layout
 
 Before deploying this template you must choose a VPC subnet design, and which
 VPC security groups your instances should belong to.
@@ -47,7 +47,7 @@ You also need to configure or define the VPC Security Groups your instance
 network interfaces should belong to. At a minimum, inbound SSH access is
 required to set up your initial template AMI.
 
-## Build an AMI
+## Step 2: Build an AMI
 
 Before deploying this template, you must create a template AMI that can be
 horizontally scaled across multiple instances.
@@ -71,7 +71,7 @@ once so you are presented with the EULA prompt.
 You do not need to install the `buildkite-agent`, it is automatically installed
 by the Launch Template `UserData` script.
 
-## Associate your AMI with a Customer managed license in AWS License Manager
+## Step 3: Associate your AMI with a Customer managed license in AWS License Manager
 
 To launch an instances using a Host Resource Group, the instance AMI must be
 associated with a Customer managed license in *AWS License Manager*.
@@ -84,7 +84,7 @@ Once your Customer managed license has been saved, open the detail view for your
 license. Open the *Associated AMIs* tab and choose *Associate AMI*. From the
 list of *Available AMIs*, select your macOS AMIs and then click *Associate*.
 
-## Deploy the CloudFormation template
+## Step 4: Deploy the CloudFormation template
 
 Using the VPC and AMI prepared earlier, prepare values for the following
 required parameters:
@@ -162,7 +162,7 @@ $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --te
 See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
 for more details.
 
-## Starting your Buildkite Agents
+## Step 5: Starting your Buildkite Agents
 
 Once you have successfully deployed the template, use the deployed stack’s
 *Resources* tab to find the `AutoScaleGroup` and open the *Physical ID* link.
