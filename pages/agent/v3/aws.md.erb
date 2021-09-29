@@ -70,9 +70,11 @@ desired agent tags.
 
 Your saved AMI can now be used to boot as many macOS instances as you require.
 
-To make this process repeatable, save your instance configuration in a Launch
-Template. To automate instance replacement, use an Auto Scaling group to boot
-Instances and a Host Resource Group to reserve Dedicated Instances.
+To make this process repeatable, save your instance configuration in a
+[Launch Template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html). 
+To automate instance replacement, use an [Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
+to boot Instances and a [Host Resource Group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
+to reserve Dedicated Instances.
 
 While the use of an Auto-Scaling Group and Host Resource Group to automatically
 maintain capacity in the face of hardware failures is recommended, load based
