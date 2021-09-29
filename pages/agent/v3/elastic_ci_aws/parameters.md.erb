@@ -13,7 +13,7 @@ optional.
 
 <%
 require 'yaml'
-file = File.join(File.dirname(__FILE__), 'aws-stack.yml')
+file = File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'data', 'aws-stack.yml')
 template = YAML.load(File.read(file))
 
 metadata = template['Metadata']
