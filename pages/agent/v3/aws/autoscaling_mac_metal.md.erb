@@ -98,18 +98,18 @@ required parameters:
 * `BuildkiteAgentQueue` the Buildkite Queue your Pipeline Steps target
 
 There are also optional parameters to configure the size of the Auto Scaling
-Group:
+group:
 
 * `MinSize` defaults to 0
 * `MaxSize` defaults to 3
 
-The default AWS Limit for `mac1.metal` is 3 dedicated hosts per account region. If
-you require more than 3 instances, request an increased limit in the *AWS
+The default AWS Limit for `mac1.metal` is three dedicated hosts per account region. If
+you require more than three instances, request an increased limit in the *AWS
 Service Quotas Dashboard*.
 
-### Deploy Using the AWS Console
+### Deploy using the AWS Console
 
-Use the launch button below to Create a CloudFormation stack from the latest
+Use the launch button below to create a CloudFormation stack from the latest
 version of our template:
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite-mac&templateURL=https://s3.amazonaws.com/buildkite-serverless-apps-us-east-1/elastic-mac/template/latest.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
@@ -119,7 +119,7 @@ and AMI resources.
 
 Give your stack a unique name, and fill in the required parameters.
 
-### Deploy Using the AWS CLI
+### Deploy using the AWS CLI
 
 To deploy using the AWS CLI, save your parameters in a `.parameters.json` file
 and run the following commands:
@@ -162,7 +162,11 @@ $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --te
 See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
 for more details.
 
+<<<<<<< HEAD
 ## Step 5: Starting your Buildkite Agents
+=======
+## Starting your Buildkite agents
+>>>>>>> origin/keithduncan/mac-docs-boogaloo
 
 Once you have successfully deployed the template, use the deployed stack’s
 *Resources* tab to find the `AutoScaleGroup` and open the *Physical ID* link.
@@ -171,7 +175,7 @@ number of instances you require.
 
 The Auto Scaling group will automatically provision Dedicated Hosts using the
 Host Resource Group and boot instances on them. The Launch Template’s `UserData`
-script will install, configure, and start the Buildkite Agent.
+script will install, configure, and start the Buildkite agent.
 
 `mac1.metal` instances are slow to boot and slow to terminate. If want to match
 your *Desired capacity* to your workload, consider using an Auto Scale group
@@ -179,7 +183,7 @@ your *Desired capacity* to your workload, consider using an Auto Scale group
 
 ## Frequently Asked Questions
 
-### My ASG doesn’t launch any instances
+### My Auto Scaling group doesn’t launch any instances
 
 If your ASG does not launch any instances, check the ASG Activity to see what
 error is occurring.
@@ -197,4 +201,4 @@ Configuration has a License Type of `Core`.
 
 Ensure your AMI has been [configured to auto-login as the ec2-user](#build-an-ami)
 in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
-Buildkite Agent launchd job configuration requires an `Aqua` session type.
+Buildkite agent launchd job configuration requires an `Aqua` session type.
