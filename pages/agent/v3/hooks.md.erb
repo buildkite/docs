@@ -161,10 +161,10 @@ export GITHUB_RELEASE_ACCESS_KEY='xxx'
 
 ## Job hooks on Windows
 
-Buildkite agents running on Windows require either:
+Buildkite agents running on Windows require that either:
 
 * The hooks files have a `.bat` extension, and be written in [Windows Batch](https://en.wikipedia.org/wiki/Batch_file), or
-* The agent `shell` option points to the PowerShell or PowerShell Core executable. PowerShell hooks are supported in Buildkite agent version 3.32.3 onwards.
+* The agent `shell` option points to the PowerShell or PowerShell Core executable. PowerShell hooks are supported in Buildkite agent version 3.32.3 and above.
 
 This is because Buildkite defaults to using the Batch shell on Windows.
 
