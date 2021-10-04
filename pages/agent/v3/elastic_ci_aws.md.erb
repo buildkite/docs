@@ -254,7 +254,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
       "Action": [
         "s3:GetObject"
       ],
-      "Resource": ["arn\:aws\:s3::my_bucket_name/my_bootstrap.sh"]
+      "Resource": ["arn\:aws\:s3:::my_bucket_name/my_bootstrap.sh"]
 
     }
   ]
@@ -296,5 +296,3 @@ steps:
 ```
 
 See [Issue 81](https://github.com/buildkite/elastic-ci-stack-for-aws/issues/81) for ideas on other solutions (contributions are welcome).
-
-
