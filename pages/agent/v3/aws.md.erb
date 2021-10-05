@@ -70,17 +70,17 @@ desired agent tags.
 Your saved AMI can now be used to boot as many macOS instances as you require.
 
 To make this process repeatable, save your instance configuration in a
-[Launch Template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html). 
+[launch template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html). 
 To automate instance replacement, use an [Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
-to boot Instances and a [Host Resource Group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
-to reserve Dedicated Instances.
+to boot instances and a [host resource group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
+to reserve Dedicated Hosts.
 
-While the use of an Auto Scaling group and Host Resource Group to automatically
+While the use of an Auto Scaling group and host resource group to automatically
 maintain capacity in the face of hardware failures is recommended, load based
 dynamic auto-scaling of macOS instances is not recommended. The instances are
 currently slow to boot and slow to terminate. Use of load based auto-scaling is
 likely to result in an over-provision of agents which carries a high minimum
-charge per dedicated host.
+charge per Dedicated Host.
 
 There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
 
