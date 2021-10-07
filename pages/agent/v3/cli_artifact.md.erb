@@ -155,7 +155,7 @@ your [agent `hooks-path` directory](/docs/agent/v3/hooks#hook-locations-agent-ho
 ensures they are applied to all jobs:
 
 ```bash
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
