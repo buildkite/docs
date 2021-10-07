@@ -1,9 +1,9 @@
 # CloudFormation Service Role
 
 If you want to explicitly specify the actions CloudFormation can perform on
-your behalf, you can either create your stack using the credentials of an IAM
-identity with limited permissions, or use an
-[AWS CloudFormation service role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html).
+your behalf when deploying the Elastic CI Stack for AWS, you can create your
+stack using an IAM User or Role that has been granted limited permissions, or
+use an [AWS CloudFormation service role](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-iam-servicerole.html).
 
 The Elastic CI Stack for AWS repository contains an experimental
 [service role template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/templates/service-role.yml).
