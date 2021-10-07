@@ -40,4 +40,4 @@ aws cloudformation describe-stacks \
 ```
 
 This role ARN can be passed to an `aws cloudformation create-stack` invocation
-under the `--role-arn` flag.
+as a value for the `--role-arn` flag.
