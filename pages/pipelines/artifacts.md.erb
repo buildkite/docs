@@ -73,10 +73,6 @@ Logs are AES-encrypted, and the build artifacts are encrypted in transit and at 
 
 If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
 
-Logs are AES-encrypted, and  build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, keys cannot be extracted by an insider, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, control over security measures within your infrastructure is up to you.
-
-If you choose to [host your own build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), they never leave your infrastructure and end up in your private AWS bucket.
-
 If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
 
 To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data via the REST and GraphQL API. 
