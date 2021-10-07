@@ -11,10 +11,15 @@ example.
 
 ## Uploading artifacts
 
-You can use this command in your build scripts to store artifacts. Artifacts can
-be stored in the Buildkite-managed artifact store, or your own storage location,
-depending on how you have configured your Buildkite Agent. Artifacts are
+You can use this command in your build scripts to store artifacts. Artifacts are
 accessible via the web interface and can be downloaded by future build steps.
+Artifacts can be stored in the Buildkite-managed artifact store, or your own
+storage location, depending on how you have configured your Buildkite Agent.
+
+For documentation on configuring a custom storage location, see:
+- [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
+- [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
+- [Using your Artifactory instance](#using-your-artifactory-instance)
 
 You can also configure the agent to automatically upload artifacts after your
 step’s command has completed based on a file pattern (see the
