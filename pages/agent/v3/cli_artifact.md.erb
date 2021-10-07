@@ -182,8 +182,10 @@ export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILD
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
-You will also need to make sure your agent instances have the following IAM
-policy to read and write objects in the bucket, for example:
+### Permissions
+
+You will need to make sure your agent instances have the following IAM policy to
+read and write objects in the bucket, for example:
 
 ```json
 {
@@ -214,6 +216,8 @@ If you are using the Elastic CI Stack for AWS, provide your bucket name in the
 `ArtifactsBucket` template parameter for an appropriate IAM policy to be
 included in the instance’s IAM role.
 
+### Credentials
+
 If you’re running your agents on an AWS EC2 Instance we suggest adding the above
 policy to [an IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html).
 If you're running outside of AWS, or you’re unable to use an instance role, you
@@ -221,6 +225,8 @@ can use export `BUILDKITE_S3_ACCESS_KEY_ID` and `BUILDKITE_S3_SECRET_ACCESS_KEY`
 containing the [Access Key credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 for an IAM user. See the [Managing Pipeline Secrets](/docs/pipelines/secrets)
 documentation for how to securely set up these environment variables.
+
+### Access Control
 
 By default the agent will create objects with `public-read` permissions, so that
 clicking on an artifact link in the Buildkite web interface can go directly to
@@ -242,7 +248,7 @@ proxy, export the following environment variable:
 export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 ```
 
-See the BUILDKITE&#95;S3&#95;ACL variable in the
+See the `BUILDKITE_S3_ACL` variable in the
 [environment variables list](/docs/pipelines/environment-variables#bk-env-vars)
 for a full list of access control options.
 
