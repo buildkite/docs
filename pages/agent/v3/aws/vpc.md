@@ -25,7 +25,8 @@ as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
 The simplest VPC subnet design involves using only public subnets whose route
 table’s default route points to an internet gateway. Under this design your EC2
 instances or ECS tasks are provided with a public IPv4 address in order to
-access the internet. You can use [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)
+access the internet directly. You can use
+[security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)
 to limit traffic and block inbound network connections to your instances.
 
 ## Private/public subnets
