@@ -20,6 +20,9 @@ parameters for whether to make public and private subnets. Once deployed, these
 subnets can be provided as parameters to the agent orchestration templates such
 as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
 
+Use your organisation’s threat model to guide the selection of a solution that
+balances operational complexity against acceptable risk for your workload.
+
 ## Only public subnets
 
 The simplest VPC subnet design involves using only public subnets whose route
@@ -69,8 +72,8 @@ additional security group is then used to permit SSH access from the public
 subnet bastion instance to the private subnet agent instances.
 
 This limits the public surface area of your VPC, but still requires exposing
-an instance to public traffic. A well considered threat model can be used to
-guide whether that is an acceptable risk for your workload.
+an instance to public traffic. Public facing instances should be patched and
+updated regularly.
 
 See the [Linux Bastion Hosts on AWS QuickStart](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
 for a example of this pattern.
