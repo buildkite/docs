@@ -165,13 +165,13 @@ You can configure the `buildkite-agent artifact` command to store artifacts in
 your private Amazon S3 bucket. To do so, you’ll need to export some artifact
 environment variables.
 
-Environment Variable | Default Value | Description
---- | --- | ---
-`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | N/A | An S3 scheme URL for the bucket and path prefix, e.g. s3://your-bucker/path/prefix/
-`BUILDKITE_S3_DEFAULT_REGION` | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service. 
-`BUILDKITE_S3_ACL` | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
-`BUILDKITE_S3_SSE_ENABLED` | `false` | If `true`, bucket uploads request AES256 server side encryption.
-`BUILDKITE_S3_ACCESS_URL` | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact’s location stored with the Buildkite API.
+Environment Variable | Required | Default Value | Description
+--- | --- | --- | ---
+`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, e.g. s3://your-bucker/path/prefix/
+`BUILDKITE_S3_DEFAULT_REGION` | No | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service. 
+`BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
+`BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.
+`BUILDKITE_S3_ACCESS_URL` | No | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact’s location stored with the Buildkite API.
 
 You can set these environment variables from a variety of places. Exporting them
 from an [environment hook](/docs/agent/v3/hooks#job-lifecycle-hooks) defined in
