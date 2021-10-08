@@ -80,5 +80,12 @@ for a example of this pattern.
 
 #### VPN
 
+[AWS Client VPN](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html)
+provides a managed client-based VPN that can be used to connect to a VPC’s
+private subnets.
+
+Your VPN can also be combined with a bastion instance and SSH to provide
+additional defence in depth.
+
 ### S3 VPC Endpoint
 
