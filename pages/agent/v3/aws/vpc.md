@@ -14,9 +14,11 @@ Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
 can be routed over the public internet, or though a
 [VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html).
 
-The [AWS VPC QuickStart](https://aws.amazon.com/quickstart/architecture/vpc/)
-provides a template for deploying a 2, 3, or 4 Availability Zone VPC with a mix
-of public and private subnets.
+[AWS VPC QuickStart](https://aws.amazon.com/quickstart/architecture/vpc/)
+provides a template for deploying a 2, 3, or 4 Availability Zone VPC with
+parameters for whether to make public and private subnets. Once deployed, these
+subnets can be provided as parameters to the agent orchestration templates such
+as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
 
 ## Only public subnets
 
