@@ -14,7 +14,7 @@ Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
 can be routed over the public internet, or though a
 [VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html).
 
-[AWS VPC QuickStart](https://aws.amazon.com/quickstart/architecture/vpc/)
+[AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
 provides a template for deploying a 2, 3, or 4 Availability Zone VPC with
 parameters for whether to make public and private subnets. Once deployed, these
 subnets can be provided as parameters to the agent orchestration templates such
@@ -75,7 +75,7 @@ This limits the public surface area of your VPC, but still requires exposing
 an unmanaged instance to public traffic. Public facing instances should be
 patched and updated regularly.
 
-See the [Linux Bastion Hosts on AWS QuickStart](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
+See the [Linux Bastion Hosts on AWS Quick Start](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
 for a example of this pattern.
 
 #### VPN
