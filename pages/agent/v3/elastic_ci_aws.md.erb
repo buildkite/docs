@@ -61,6 +61,29 @@ The Buildkite Elastic CI Stack supports:
 - Multiple stacks in the same AWS Account
 - Rolling updates to stack instances to reduce interruption
 
+Most instance features are supported on both Linux and Windows. See below for a
+per-operating system breakdown:
+
+Feature | Linux | Windows
+--- | --- | ---
+Docker | ✅ | ✅ 
+Docker Compose | ✅ | ✅ 
+AWS CLI | ✅ | ✅ 
+S3 Secrets Bucket | ✅ | ✅ 
+ECR Login | ✅ | ✅ 
+Docker Login | ✅ | ✅ 
+CloudWatch Logs Agent | ✅ | ✅ 
+Per-Instance Bootstrap Script | ✅ | ✅ 
+🧑‍🔬 git-mirrors experiment | ✅ | ✅ 
+SSM Access | ✅ | ✅ 
+Instance Storage (NVMe) | ✅ | 
+SSH Access | ✅ | 
+Periodic authorized_keys Refresh | ✅ | 
+Periodic Instance Health Check | ✅ | 
+Git LFS | ✅ | 
+Additional sudo Permissions | ✅ | 
+RDP Access | | ✅ 
+
 
 ## Build secrets
 
@@ -110,7 +133,7 @@ If you want to store your secrets unencrypted, you can disable it entirely with 
 <!-- vale off -->
 
 * [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
-* [Buildkite Agent v3.32.3](https://buildkite.com/docs/agent)
+* [Buildkite Agent v3.33.3](https://buildkite.com/docs/agent)
 * [Docker](https://www.docker.com) - 20.10.6 (Linux) and 20.10.0 (Windows)
 * [Docker Compose](https://docs.docker.com/compose/) - 1.28.6 (Linux) and 1.28.5 (Windows)
 * [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
