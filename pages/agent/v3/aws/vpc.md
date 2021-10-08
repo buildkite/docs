@@ -63,6 +63,18 @@ See the [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/system
 
 #### Bastion
 
+The bastion pattern involves deploying a host to a public subnet with a publicly
+routable IP address and security group that allows inbound SSH connections. An
+additional security group is then used to permit SSH access from the public
+subnet bastion instance to the private subnet agent instances.
+
+This limits the public surface area of your VPC, but still requires exposing
+an instance to public traffic. A well considered threat model can be used to
+guide whether that is an acceptable risk for your workload.
+
+See the [Linux Bastion Hosts on AWS QuickStart](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
+for a example of this pattern.
+
 #### VPN
 
 ### S3 VPC Endpoint
