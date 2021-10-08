@@ -21,7 +21,7 @@ CloudFormation service role.
 ## Deploying the service role template
 
 With a copy of the Elastic CI Stack for AWS repository, the service role
-template can be deployed using the AWS CLI:
+template can be deployed using the [AWS CLI](https://aws.amazon.com/cli/):
 
 ```bash
 aws cloudformation deploy \
@@ -30,7 +30,7 @@ aws cloudformation deploy \
 	--capabilities CAPABILITY_IAM
 ```
 
-Once the stack has been created, the role ARN can be retrieved using:
+Once the stack has been created, the role ARN (Amazon Resource Name) can be retrieved using:
 
 ```bash
 aws cloudformation describe-stacks \
