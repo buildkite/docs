@@ -40,8 +40,9 @@ A private subnet’s route table does not grant direct routable access to or fro
 the internet. Instead, a private subnet’s default route is pointed to a
 [NAT instance)(https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html)
 or a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html).
-A NAT device rewrites the private IP address in any outbound connections, and
-statefully limits response traffic to known outbound network connections,
+A NAT device lives in the public subnet, and rewrites the private source IP
+address of any outbound connections to its own public IP address. NAT devices
+statefully limit response traffic to known outbound network connections,
 similar to a security group.
 
 ### Access
