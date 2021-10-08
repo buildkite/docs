@@ -72,8 +72,8 @@ additional security group is then used to permit SSH access from the public
 subnet bastion instance to the private subnet agent instances.
 
 This limits the public surface area of your VPC, but still requires exposing
-an instance to public traffic. Public facing instances should be patched and
-updated regularly.
+an unmanaged instance to public traffic. Public facing instances should be
+patched and updated regularly.
 
 See the [Linux Bastion Hosts on AWS QuickStart](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
 for a example of this pattern.
