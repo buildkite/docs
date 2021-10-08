@@ -160,8 +160,8 @@ Use this command in your build scripts to verify downloaded artifacts against th
 
 ## Using your private AWS S3 bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your
-private Amazon S3 bucket. To do so, you’ll need to export some artifact
+You can configure the `buildkite-agent artifact` command to store artifacts in
+your private Amazon S3 bucket. To do so, you’ll need to export some artifact
 environment variables.
 
 Environment Variable | Default Value | Description
@@ -261,12 +261,12 @@ export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 
 ## Using your private Google Cloud bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your
-private Google Cloud storage bucket. For instructions for how to set this up,
-see our [Google Cloud Installation Guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
+You can configure the `buildkite-agent artifact` command to store artifacts in
+your private Google Cloud storage bucket. For instructions for how to set this
+up, see our [Google Cloud Installation Guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
 
 ## Using your Artifactory instance
 
-You can use the `buildkite-agent artifact` command to store artifacts in
+You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
 [Artifactory Guide](/docs/integrations/artifactory).
