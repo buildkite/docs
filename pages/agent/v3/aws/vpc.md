@@ -54,8 +54,8 @@ options available for remote access to instances in a private subnet.
 #### SSM
 
 Installing the [AWS SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html)
-allows you to initiate connect to private instances without requiring publicly
-routable SSH, or a VPN gateway, to your VPC.
+allows you to initiate sessions on private instances without requiring publicly
+routable SSH, or adding a VPN gateway to your VPC.
 
 > Session Manager provides secure and auditable instance management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys. Session Manager also allows you to comply with corporate policies that require controlled access to instances, strict security practices, and fully auditable logs with instance access details, while still providing end users with simple one-click cross-platform access to your managed instances.
 
