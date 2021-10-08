@@ -31,10 +31,10 @@ to limit traffic and block inbound network connections to your instances.
 
 ## Private/public subnets
 
-For an added layer of defence against external connectivity, you can place your
-`buildkite-agent` instances in a private subnet. A private subnet provides the
-greatest level of control when seeking to restrict the inbound and outbound
-network connections of your instances.
+For an added layer of defence against unwanted external connectivity, you can
+place your instances in a private subnet. A private subnet provides the greatest
+level of control when seeking to restrict the inbound and outbound network
+connections of your instances.
 
 A private subnet’s route table does not grant direct routable access to or from
 the internet. Instead, a private subnet’s default route is pointed to a
