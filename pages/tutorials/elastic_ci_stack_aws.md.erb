@@ -6,9 +6,18 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 
 {:toc}
 
-## Prerequisites and requirements
+## Prerequisites and requirements  
  
-Most Elastic CI Stack features are supported on both Linux and Windows. See this [overview page](/docs/agent/v3/elastic-ci-aws#features) for extensive information on compatibility, configuration, security, and other topics that will allow you to effectively use Elastic CI Stack for AWS.
+Most Elastic CI Stack features are supported on both Linux and Windows.
+the following AMIs can be built and deployed to all the supported regions:
+
+* Amazon Linux 2 (64-bit x86)
+* Amazon Linux 2 (64-bit Arm)
+* Windows Server 2019 (64-bit x86)
+
+See this [overview page](/docs/agent/v3/elastic-ci-aws#features) for extensive information on compatibility, configuration, security, and other topics that will allow you to effectively use Elastic CI Stack for AWS.
+
+### Required and recommended skills  
 
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, at least a basic understanding of the following AWS services is required:
  
@@ -20,7 +29,8 @@ Elastic CI Stack provides defaults and pre-configurations suited for most use ca
  
 For post-deployment diagnostic purposes, deeper familiarity with EC2 is recommended to be able to access the instances launched to execute Buildkite jobs over SSH or [AWS Systems Manager Sessions](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html). 
 
-### Billable services 
+### Billable services  
+
 The Elastic CI Stack template deploys several billable Amazon services that require no upfront payment and operate on a pay-as-you-go principle, with the bill proportional to usage.
 
 | Service name                    | Purpose                                                                                           | Required |
