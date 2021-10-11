@@ -72,6 +72,8 @@ config
 cpu
 cron
 crontab
+Datadog
+deprioritise
 deprovisioning
 deregistration
 deprovision
@@ -98,6 +100,7 @@ junit
 kubectl
 kustomize
 launchd
+LFS
 linux
 Memcache
 Minitest

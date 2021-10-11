@@ -1,0 +1,46 @@
+# Job Prioritization
+
+Jobs are dispatched to agents in the following order
+
+1. Job priority in descending order, highest number to lowest (`priority`)
+2. Date and time scheduled in ascending order, oldest to most recent (`scheduled_at`). Note that jobs inherit `scheduled_at` from pipeline upload jobs, meaning jobs that are uploaded by a pipeline in an older build will be dispatched before builds created after that.
+3. Upload order in pipeline, first to last. 
+4. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
+
+Job `priority` is 0 by default, you can prioritise or deprioritise jobs by assigning them a higher or lower integer value. For example:
+
+```yml
+steps:
+  - command: "will-run-last.sh"
+    priority: -1
+  - command: "will-run-first.sh"
+    priority: 1
+```
+{: codeblock-file="pipeline.yml"}
+
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority will be assigned before jobs with lower priority.
+
+Here's an example of prioritising jobs running on a default branch before pull request jobs:
+
+```yaml
+steps:
+- label: ":pipeline:"
+  agents: {queue: uploaders}
+  command: |
+    if [[ "$${BUILDKITE_BRANCH}" == "$${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]]; then
+      export PRIORITY=1
+    else
+      export PRIORITY=0
+    fi
+    buildkite-agent pipeline upload <<YAML
+    steps:
+    - label: priority $${PRIORITY}
+      command: sleep 3
+      priority: $${PRIORITY}
+    YAML
+```
+{: codeblock-file="pipeline.yml"}
+
+<!-- date -->
+
+Prioritization can only be set on jobs, and only applies to command jobs, including plugin commands. Setting a default command job priority across a whole build is coming soon (as of October 2021).

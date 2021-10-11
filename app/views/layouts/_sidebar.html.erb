@@ -42,6 +42,7 @@
         <ul class="Docs__nav__sub-nav">
           <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
           <%= sidebar_link_to "Template Parameters", 'agent/v3/elastic_ci_aws/parameters.md' %>
+          <%= sidebar_link_to "CloudFormation Service Role", 'agent/v3/elastic_ci_aws/cloudformation_service_role.md' %>
           <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets_manager.md' %>
         </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
@@ -133,6 +134,7 @@
           </ul>
           <p class="Docs__nav__section-subheading">Workflows</p>
           <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Prioritizing jobs", 'pipelines/managing-priorities' %>
             <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
             <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
             <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
