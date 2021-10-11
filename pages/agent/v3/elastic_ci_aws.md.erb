@@ -64,6 +64,17 @@ See [CloudFormation service role](elastic_ci_aws/cloudformation_service_role.md)
 for a listing of the IAM actions required to create, update, and delete a stack
 with the Elastic CI Stack for AWS template.
 
+### Key creation
+
+It’s not required to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
+* KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
+* KMS key for S3 SSE protection of secrets and artifacts
+* SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
+
+Remember that such keys are not intended to be public, and you must not grant public access to them.
+
+See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager).
+
 ## Features
 
 The Buildkite Elastic CI Stack supports:
