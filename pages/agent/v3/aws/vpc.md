@@ -5,10 +5,12 @@ network.
 
 Your VPC needs to provide routable access to the buildkite.com service
 so that `buildkite-agent` processes can connect, and retrieve the jobs assigned
-to them. This can be achieved using a public subnet, whose route table has a
-default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html),
-or a private subnet, whose route table’s default route points to a
-[NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html).
+to them. The options are:
+
+*  a public subnet, with a route table that has a
+default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
+* a private subnet, with a route table that has a default route pointing to an
+[NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html)
 
 Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
 can be routed over the public internet, or though a
