@@ -11,9 +11,9 @@ This template creates an IAM Role and set of IAM Policies with the IAM Actions
 necessary to create, update, and delete a CloudFormation Stack created with the
 Elastic CI Stack template.
 
-The role created by this template is currently being exercised as part of our
-test suite, but it is likely that the permissions needed for some stack
-parameter permutations are missing.
+The IAM role created by this template is used to create and delete CloudFormation stacks in our 
+test suite, but it is likely that the permissions needed for some stack parameter permutations are 
+missing.
 
 This template can be deployed as is, or used as the basis for your own
 CloudFormation service role.
@@ -21,7 +21,7 @@ CloudFormation service role.
 ## Deploying the service role template
 
 With a copy of the Elastic CI Stack for AWS repository, the service role
-template can be deployed using the AWS CLI:
+template can be deployed using the [AWS CLI](https://aws.amazon.com/cli/):
 
 ```bash
 aws cloudformation deploy \
@@ -30,7 +30,7 @@ aws cloudformation deploy \
 	--capabilities CAPABILITY_IAM
 ```
 
-Once the stack has been created, the role ARN can be retrieved using:
+Once the stack has been created, the role ARN (Amazon Resource Name) can be retrieved using:
 
 ```bash
 aws cloudformation describe-stacks \
