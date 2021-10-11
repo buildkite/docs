@@ -130,6 +130,7 @@ readme
 readmes
 refspec
 repo
+routable
 rvm
 sandboxed
 sed
