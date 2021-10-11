@@ -94,3 +94,15 @@ in depth, if appropriate or required for your use case.
 
 ### S3 VPC Endpoint
 
+A [gateway VPC endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html)
+can be used to route traffic directly to regional AWS services. Gateway VPC
+endpoints can also be used to [control access to services](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints-access.html), for example restricting which S3 buckets
+your VPC resources are allowed to access.
+
+The AWS VPC Quick Start creates and configures a gateway VPC endpoint for AWS
+S3. The private subnet route tables are configured forward the endpoint’s
+IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
+from the private subnets will routed directly over the VPC endpoint, and bypass
+the NAT gateway. By default, the VPC endpoint has a permissive “Full Access”
+policy. Should you wish to customise this, or the security group that the
+endpoint belongs to, create a fork of the CloudFormation template.
