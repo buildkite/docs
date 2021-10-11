@@ -131,7 +131,19 @@ rm myenv
 Currently (as of June 2021), you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
 </div>
 
-If you want to store your secrets unencrypted, you can disable it entirely with `BUILDKITE_USE_KMS=false`.
+If you want to store your secrets unencrypted, you can disable it entirely with `BUILDKITE_USE_KMS=false`.  
+
+## Sensitive data
+
+There are the following types of sensitive data are present in Elastic CI Stack:
+
+* **Buildkite agent token credential** (`BuildkiteAgentToken`) retrieved from your Buildkite account. When provided to the deployment template, it’s is stored in plaintext in AWS SSM Parameter Store (there is no support for creating an encrypted SSM Parameter from CloudFormation). If you need to store it in encrypted form, you can create your own SSM Parameter and provide the `BuildkiteAgentTokenParameterStorePath` value along with `BuildkiteAgentTokenParameterStoreKMSKey` for decrypting it.
+
+* **Secrets and artifacts** stored in S3. You can use server-side encryption (SSE) to control access to these objects.
+
+* **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic Stack CI deployment template does not support configuring EBS encryption.
+
+CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but these logs don’t contain sensitive information.
 
 ## What's on each machine?
 
