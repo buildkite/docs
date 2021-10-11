@@ -118,6 +118,10 @@ class Page
     @name == canonical_url
   end
 
+  def basename
+    @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
+  end
+
   private
 
   def contents
@@ -126,10 +130,6 @@ class Page
                   rescue => e
                     raise e
                   end
-  end
-
-  def basename
-    @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
   def filename
