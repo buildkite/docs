@@ -42,6 +42,15 @@ Anyone with commit access to your codebase (including third-party pull-requests 
 
 Also keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
 
+### Limiting CloudFormation Permissions
+
+By default, CloudFormation will operate using the permissions granted to the
+identity, AWS IAM User or Role, used to create or update a stack.
+
+See [CloudFormation service role](elastic_ci_aws/cloudformation_service_role.md)
+for a listing of the IAM actions required to create, update, and delete a stack
+with the Elastic CI Stack for AWS template.
+
 ## Features
 
 The Buildkite Elastic CI Stack supports:
