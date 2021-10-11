@@ -9,7 +9,7 @@ class PagesController < ApplicationController
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, throw a 404
-    raise ActionController::RoutingError.new("That documentation page does not exist") unless @page.exists?
+    raise ActionController::RoutingError.new("#{@page.basename} documentation page does not exist") unless @page.exists?
 
     # For the homepage, render with a custom layout that doesn't include the sidebar etc
 
