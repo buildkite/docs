@@ -14,16 +14,16 @@ Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
 can be routed over the public internet, or though a
 [VPC Endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpc-endpoints.html).
 
-[AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
+The [AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
 provides a template for deploying a 2, 3, or 4 Availability Zone VPC with
-parameters for whether to make public and private subnets. Once deployed, these
-subnets can be provided as parameters to the agent orchestration templates such
-as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
+parameters for whether to create public and private subnets. Once deployed,
+these subnets can then be provided as parameters to the agent orchestration
+templates such as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
 
 Use your organisation’s threat model to guide the selection of a solution that
 balances operational complexity against acceptable risk for your workload.
 
-## Only public subnets
+## Public subnets only
 
 The simplest VPC subnet design involves using only public subnets whose route
 table’s default route points to an internet gateway. Under this design your EC2
@@ -34,10 +34,10 @@ to limit traffic and block inbound network connections to your instances.
 
 ## Private/public subnets
 
-For an added layer of defence against unwanted external connectivity, you can
+For an added layer of defence against unwanted inbound connectivity, you can
 place your instances in a private subnet. A private subnet provides the greatest
 level of control when seeking to restrict the inbound and outbound network
-connections of your instances.
+connections of your agent instances.
 
 A private subnet’s route table does not grant direct routable access to or from
 the internet. Instead, a private subnet’s default route is pointed to a
@@ -50,11 +50,11 @@ similar to a security group.
 
 ### Access
 
-In order to diagnose instance performance and behaviour problems, it is common
-to remotely access an interactive prompt on an instance. There are a number of
-options available for remote access to instances in a private subnet.
+In order to diagnose agent instance performance and behaviours, it is common
+to remotely access an interactive prompt. There are a number of options
+available for remote access to instances in a private subnet.
 
-#### SSM
+#### AWS Systems Manager Session Manager
 
 Installing the [AWS SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html)
 allows you to initiate sessions on private instances without requiring publicly
@@ -64,28 +64,33 @@ routable SSH, or adding a VPN gateway to your VPC.
 
 See the [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) documentation for more details.
 
-#### Bastion
+#### Bastion Instance
 
-The bastion pattern involves deploying a host to a public subnet with a publicly
-routable IP address and security group that allows inbound SSH connections. An
-additional security group is then used to permit SSH access from the public
-subnet bastion instance to the private subnet agent instances.
+The bastion or jump host pattern, involves deploying an instance to a public
+subnet with a publicly routable IP address and a security group that allows
+external inbound SSH connections. An additional security group is used to
+restrict SSH access to the private subnet agent instances to the bastion
+instances.
 
 This limits the public surface area of your VPC, but still requires exposing
 an unmanaged instance to public traffic. Public facing instances should be
 patched and updated regularly.
 
-See the [Linux Bastion Hosts on AWS Quick Start](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
-for a example of this pattern.
+The [Linux Bastion Hosts on AWS Quick Start](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
+provides a example of this pattern.
 
 #### VPN
 
+A client VPN can be used to provide hosts outside your VPC with access to your
+otherwise non-internet routable private subnets.
 [AWS Client VPN](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/what-is.html)
-provides a managed client-based VPN that can be used to connect to a VPC’s
-private subnets.
+provides a managed client-based VPN.
 
-Your VPN can also be combined with a bastion instance and SSH to provide
-additional defence in depth.
+You can control which resources can be accessed by your Client VPN Endpoint
+using [Client VPN authorization](https://docs.aws.amazon.com/vpn/latest/clientvpn-admin/client-authorization.html).
+
+A VPN can also be combined with bastion instances to provide additional defence
+in depth, if appropriate or required for your use case.
 
 ### S3 VPC Endpoint
 
