@@ -198,12 +198,12 @@ Zones of your VPC subnets. This error is likely transient, wait for for your
 Auto Scaling group to attempt to scale out again and see if the error persists.
 
 Your launch template’s AMI may not have been associated with a Customer
-Managed License in AWS License Manager. Ensure you [associate your AMI](#associate-your-ami-with-a-customer-managed-license-in-aws-license-manager)
+Managed License in AWS License Manager. Ensure you [associate your AMI](#step-3-associate-your-ami-with-a-customer-managed-license-in-aws-license-manager)
 and any new AMIs with a Customer managed license. Ensure the License
 configuration has a *License type* of `Cores`.
 
 ### My instances don’t start the buildkite-agent
 
-Ensure your AMI has been [configured to auto-login as the `ec2-user`](#build-an-ami)
+Ensure your AMI has been [configured to auto-login as the `ec2-user`](#step-2-build-an-ami)
 in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
 Buildkite Agent launchd job configuration requires an `Aqua` session type.
