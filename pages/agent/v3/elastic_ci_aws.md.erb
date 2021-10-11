@@ -286,6 +286,34 @@ If the file is private, you also need to create an IAM policy to allow the insta
 
 After creating the policy, you must specify the policy’s ARN in the `ManagedPolicyARN` stack parameter.
 
+## Health monitoring 
+
+You can assess and monitor health and proper function of the Elastic CI Stack using a combination of the following tools.
+
+* **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
+
+* **CloudWatch Metrics** as the Buildkite namespace contains ScheduledJobsCount, RunningJobsCount, and WaitingJobsCount measurements for the Buildkite Queue your Elastic CI Stack was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
+
+* **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
+
+## Troubleshooting
+
+### Auto Scaling group fails to boot instances 
+
+A shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics. 
+
+To fix this issue, change or add more instance types to the `InstanceType` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
+
+### Instances fail to boot Buildkite Agent
+
+See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting instances to determine the issue. Observe where in the UserData the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
+
+### Instances fail jobs
+
+Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them. 
+
+An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
+
 ## Optimizing for slow Docker builds
 
 For large legacy applications the Docker build process might take a long time on new instances. For these cases it’s recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
