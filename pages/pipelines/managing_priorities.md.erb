@@ -24,7 +24,7 @@ Here's an example of prioritising jobs running on a default branch before pull r
 
 ```yaml
 steps:
-- label: ":pipeline:"
+- label: "\:pipeline\:"
   agents: {queue: uploaders}
   command: |
     if [[ "$${BUILDKITE_BRANCH}" == "$${BUILDKITE_PIPELINE_DEFAULT_BRANCH}" ]]; then
