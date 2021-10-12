@@ -596,6 +596,42 @@ optional.
 			</tr>
 		
 			
+			<tr id="EnableInstanceStorage">
+				<td><code>EnableInstanceStorage</code></td>
+				<td>Mount available NVMe Instance Storage at /mnt/ephemeral</td>
+				<td><code>String</code></td>
+				<td><code>false</code></td>
+				<td>
+					<table>
+						<tbody>
+							
+								<tr>
+	    							<th>Allowed Values</th>
+	    							<td>
+	    								<ul>
+	    									
+	    										<li><code>true</code></li>
+    										
+	    										<li><code>false</code></li>
+    										
+	    								</ul>
+	    							</td>
+	    						</tr>
+							
+
+							
+
+							
+							
+
+							
+							
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		
+			
 			<tr id="AgentsPerInstance">
 				<td><code>AgentsPerInstance</code></td>
 				<td>Number of Buildkite agents to run on each instance</td>

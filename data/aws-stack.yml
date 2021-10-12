@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v5.6.1"
+Description: "Buildkite stack v5.7.0"
 
 Transform: AWS::Serverless-2016-10-31
 
@@ -41,6 +41,7 @@ Metadata:
         - ImageId
         - ImageIdParameter
         - InstanceType
+        - EnableInstanceStorage
         - AgentsPerInstance
         - KeyName
         - SpotPrice
@@ -383,6 +384,14 @@ Parameters:
       - "false"
     Default: "false"
 
+  EnableInstanceStorage:
+    Type: String
+    Description: Mount available NVMe Instance Storage at /mnt/ephemeral
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "false"
+
   EnableCostAllocationTags:
     Type: String
     Description: Enables AWS Cost Allocation tags for all resources in the stack. See https://docs.aws.amazon.com/awsaccountbilling/latest/aboutv2/cost-alloc-tags.html
@@ -567,26 +576,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0db800b1d4e4c42ac, linuxarm64: ami-06622fe4adeef7a5f, windows: ami-032163b3de3b5a342 }
-    us-east-2 : { linuxamd64: ami-01ad5b37204be0746, linuxarm64: ami-07a57ce6f2c34788f, windows: ami-03c18c7199b66c0c7 }
-    us-west-1 : { linuxamd64: ami-0159387a4dd0e60fa, linuxarm64: ami-05307e44069c5bf4e, windows: ami-0bb6d3ab7c608687e }
-    us-west-2 : { linuxamd64: ami-0ebaa3ac26a365bb9, linuxarm64: ami-0aca075d3944733e7, windows: ami-0cd7590c74482b7a8 }
-    af-south-1 : { linuxamd64: ami-02aaea04b27b2114e, linuxarm64: ami-06e4756de98c2a2aa, windows: ami-042d71096ef68256a }
-    ap-east-1 : { linuxamd64: ami-086e479853f9a8ba6, linuxarm64: ami-0d4f41560191b485d, windows: ami-00bde4e96958b9b62 }
-    ap-south-1 : { linuxamd64: ami-0b1306778aed58313, linuxarm64: ami-0d1993d84e50fa28c, windows: ami-068394f0b24da0244 }
-    ap-northeast-2 : { linuxamd64: ami-075bffa875daadf4f, linuxarm64: ami-0cb0bd8ce99b69996, windows: ami-0f63fc7b7b2d62896 }
-    ap-northeast-1 : { linuxamd64: ami-03f2ac67af38ca085, linuxarm64: ami-006f60354266f8300, windows: ami-02fd63def8bca6f51 }
-    ap-southeast-2 : { linuxamd64: ami-0636b88e2ef52ddf5, linuxarm64: ami-017a910a83abf7f52, windows: ami-0e9937f04df55cbc7 }
-    ap-southeast-1 : { linuxamd64: ami-0ef8b4355012d513b, linuxarm64: ami-0c09367908919c6ba, windows: ami-0ea5711342310e461 }
-    ca-central-1 : { linuxamd64: ami-0f1fb91f72b1871e2, linuxarm64: ami-08fef531bb26c6641, windows: ami-015b5105952978551 }
-    eu-central-1 : { linuxamd64: ami-01ff04b099cf9a329, linuxarm64: ami-0d4ec98ebe1d3bfad, windows: ami-014aa1795a1b65e9e }
-    eu-west-1 : { linuxamd64: ami-0e268e5d4aafeb978, linuxarm64: ami-0692b93ef766151ae, windows: ami-0841dfd9c61cbe32b }
-    eu-west-2 : { linuxamd64: ami-03990b58f2731cec8, linuxarm64: ami-0b3337edb514d624e, windows: ami-0730d5da98f473a51 }
-    eu-south-1 : { linuxamd64: ami-02ac0e279fea0731d, linuxarm64: ami-0d0d89416213a6513, windows: ami-0baa445ea7b5dfdd5 }
-    eu-west-3 : { linuxamd64: ami-003289c250b86ef8d, linuxarm64: ami-09a21749d99515e30, windows: ami-0912e205f6a74723d }
-    eu-north-1 : { linuxamd64: ami-0d30fb62b84ab1609, linuxarm64: ami-0e22264f3a631c42c, windows: ami-0874170d4b4b1c7bb }
-    me-south-1 : { linuxamd64: ami-0d7a06c6369ed444f, linuxarm64: ami-0672eadd17326daf8, windows: ami-026433aa7cbf61a23 }
-    sa-east-1 : { linuxamd64: ami-0c54b19781b103370, linuxarm64: ami-02b378d9e816b914b, windows: ami-0a5403f036d5b1956 }
+    us-east-1 : { linuxamd64: ami-061319af1aa5f5218, linuxarm64: ami-0e78eae66ed6907d0, windows: ami-049efaa4da5381b50 }
+    us-east-2 : { linuxamd64: ami-05b012b57beb630f1, linuxarm64: ami-0382e6319f43fbaed, windows: ami-0f4cceabbe4528c76 }
+    us-west-1 : { linuxamd64: ami-0890185fe642381ae, linuxarm64: ami-000d3f8284e158bf2, windows: ami-04b62b929c10d3778 }
+    us-west-2 : { linuxamd64: ami-09d628a3b050c2321, linuxarm64: ami-0ddbf5b027f6ce684, windows: ami-0a05a2ac6f3032441 }
+    af-south-1 : { linuxamd64: ami-0f60d9a72cf9c9d76, linuxarm64: ami-0c660d1d44d8cc3e9, windows: ami-0b370472a9ce7b6ca }
+    ap-east-1 : { linuxamd64: ami-08149a2027999c64c, linuxarm64: ami-0a29df565903bf3e0, windows: ami-0d085668f0fa8daa0 }
+    ap-south-1 : { linuxamd64: ami-01751b9604fbd8a9f, linuxarm64: ami-09b0efbaa8756303c, windows: ami-0e7cef547b51b3168 }
+    ap-northeast-2 : { linuxamd64: ami-0d9a511f2fed533d1, linuxarm64: ami-0cab107eb6c3f4888, windows: ami-0bb5c3bd8c14b0631 }
+    ap-northeast-1 : { linuxamd64: ami-04930f85fe84d165d, linuxarm64: ami-02df73ed6cfae4745, windows: ami-0c9871b0512a6cec3 }
+    ap-southeast-2 : { linuxamd64: ami-093bbb13984040330, linuxarm64: ami-070b4ac99873b3474, windows: ami-0b6bb379c822ca621 }
+    ap-southeast-1 : { linuxamd64: ami-0d239bac07529a5ce, linuxarm64: ami-0723e388bf3454702, windows: ami-00ca9fc7810f74bd2 }
+    ca-central-1 : { linuxamd64: ami-0ee8e5a9d3ce0a008, linuxarm64: ami-0058105c8c4ad4555, windows: ami-08ee598512684792b }
+    eu-central-1 : { linuxamd64: ami-01f62072443482919, linuxarm64: ami-0dc3c3e26c1f9014b, windows: ami-01cbb1ab36ec2ed5c }
+    eu-west-1 : { linuxamd64: ami-0a7f81aa7f91a298b, linuxarm64: ami-034b32f469aaab664, windows: ami-0f0424d752b320af7 }
+    eu-west-2 : { linuxamd64: ami-0e7976eb4474f0646, linuxarm64: ami-0efb6cfb0e94a5a87, windows: ami-0fc38d9892fce3427 }
+    eu-south-1 : { linuxamd64: ami-091a35583e93c8d44, linuxarm64: ami-01e61ec082fd59167, windows: ami-0d07817cb9b505963 }
+    eu-west-3 : { linuxamd64: ami-03409c9241bf57652, linuxarm64: ami-0a2afa3354921ecb7, windows: ami-06840aaf8aaa3354c }
+    eu-north-1 : { linuxamd64: ami-0cbf8a542e63e0ebd, linuxarm64: ami-09d9388460b5d23cb, windows: ami-0bdabe12955d39dc1 }
+    me-south-1 : { linuxamd64: ami-0397dff5420759326, linuxarm64: ami-0bd377b1de196c11b, windows: ami-0a71b3c2b6d4f4b76 }
+    sa-east-1 : { linuxamd64: ami-059b58f4ff2853c09, linuxarm64: ami-009a12a85c67deeaf, windows: ami-0ef9b8423059c2680 }
 
 Resources:
   Vpc:
@@ -617,6 +626,8 @@ Resources:
   Subnet0:
     Type: AWS::EC2::Subnet
     Condition: CreateVpcResources
+    DependsOn:
+      - GatewayAttachment
     Properties:
       AvailabilityZone:
         !If
@@ -632,6 +643,8 @@ Resources:
   Subnet1:
     Type: AWS::EC2::Subnet
     Condition: CreateVpcResources
+    DependsOn:
+      - GatewayAttachment
     Properties:
       AvailabilityZone:
         !If
@@ -656,7 +669,8 @@ Resources:
   RouteDefault:
     Type: AWS::EC2::Route
     Condition: CreateVpcResources
-    DependsOn: GatewayAttachment
+    DependsOn:
+      - GatewayAttachment
     Properties:
       DestinationCidrBlock: 0.0.0.0/0
       GatewayId: !Ref Gateway
@@ -675,6 +689,16 @@ Resources:
     Properties:
       SubnetId: !Ref Subnet1
       RouteTableId: !Ref Routes
+
+  # A resource that depends on the leaf nodes of the VPC configuration so that
+  # a strict ordering can be established on teardown.
+  VpcComplete:
+    Type: AWS::CloudFormation::WaitConditionHandle
+    Metadata:
+      VpcResources: !If
+        - CreateVpcResources
+        - [ !Ref RouteDefault, !Ref Subnet0Routes, !Ref Subnet1Routes ]
+        - !Ref AWS::NoValue
 
   BuildkiteAgentTokenParameter:
     Type: AWS::SSM::Parameter
@@ -750,24 +774,76 @@ Resources:
       PolicyName: InstancePolicy
       PolicyDocument:
         Statement:
+          - !If
+            - HasSecretsBucket
+            - Sid: SecretsBucket
+              Effect: Allow
+              Action:
+                - s3:Get*
+                - s3:List*
+              Resource:
+                - !Sub
+                  - "arn:aws:s3:::${Bucket}/*"
+                  - Bucket: !If [ CreateSecretsBucket, !Ref ManagedSecretsBucket, !Ref SecretsBucket ]
+                - !Sub
+                  - "arn:aws:s3:::${Bucket}"
+                  - Bucket: !If [ CreateSecretsBucket, !Ref ManagedSecretsBucket, !Ref SecretsBucket ]
+            - !Ref AWS::NoValue
+          - !If
+            - UseArtifactsBucket
+            - Sid: ArtifactsBucket
+              Effect: Allow
+              Action:
+                - s3:GetObject
+                - s3:GetObjectAcl
+                - s3:GetObjectVersion
+                - s3:GetObjectVersionAcl
+                - s3:ListBucket
+                - s3:PutObject
+                - s3:PutObjectAcl
+                - s3:PutObjectVersionAcl
+              Resource:
+                - !Sub "arn:aws:s3:::${ArtifactsBucket}/*"
+                - !Sub "arn:aws:s3:::${ArtifactsBucket}"
+            - !Ref AWS::NoValue
           - Effect: Allow
             Action:
               - cloudwatch:PutMetricData
               - cloudformation:DescribeStackResource
               - ec2:DescribeTags
             Resource: "*"
-          - Effect: Allow
+          - Sid: TerminateInstance
+            Effect: Allow
             Action:
               - autoscaling:DescribeAutoScalingInstances
               - autoscaling:SetInstanceHealth
               - autoscaling:TerminateInstanceInAutoScalingGroup
             Resource: !Sub arn:${AWS::Partition}:autoscaling:${AWS::Region}:${AWS::AccountId}:autoScalingGroup:*:autoScalingGroupName/${AWS::StackName}-AgentAutoScaleGroup-*
-          - Effect: Allow
+          - Sid: Logging
+            Effect: Allow
             Action:
               - logs:CreateLogGroup
               - logs:CreateLogStream
               - logs:PutLogEvents
               - logs:DescribeLogStreams
+            Resource: "*"
+          - Sid: Ssm
+            Effect: Allow
+            Action:
+              - ssm:DescribeInstanceProperties
+              - ssm:ListAssociations
+              - ssm:PutInventory
+              - ssm:UpdateInstanceInformation
+              - ssmmessages:CreateControlChannel
+              - ssmmessages:CreateDataChannel
+              - ssmmessages:OpenControlChannel
+              - ssmmessages:OpenDataChannel
+              - ec2messages:AcknowledgeMessage
+              - ec2messages:DeleteMessage
+              - ec2messages:FailMessage
+              - ec2messages:GetEndpoint
+              - ec2messages:GetMessages
+              - ec2messages:SendRepl
             Resource: "*"
       Roles:
         - !Ref IAMRole
@@ -800,50 +876,6 @@ Resources:
           - Key: !Ref CostAllocationTagName
             Value: !Ref CostAllocationTagValue
           - !Ref "AWS::NoValue"
-
-  SecretsBucketPolicy:
-    Type: AWS::IAM::Policy
-    Condition: HasSecretsBucket
-    Properties:
-      PolicyName: SecretsBucketPolicy
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:Get*
-              - s3:List*
-            Resource:
-              - !Sub
-                  - "arn:aws:s3:::${Bucket}/*"
-                  - Bucket: !If [ CreateSecretsBucket, !Ref ManagedSecretsBucket, !Ref SecretsBucket ]
-              - !Sub
-                  - "arn:aws:s3:::${Bucket}"
-                  - Bucket: !If [ CreateSecretsBucket, !Ref ManagedSecretsBucket, !Ref SecretsBucket ]
-      Roles:
-        - !Ref IAMRole
-
-  ArtifactsBucketPolicies:
-    Type: AWS::IAM::Policy
-    Condition: UseArtifactsBucket
-    Properties:
-      PolicyName: ArtifactsBucketPolicy
-      PolicyDocument:
-        Statement:
-          - Effect: Allow
-            Action:
-              - s3:GetObject
-              - s3:GetObjectAcl
-              - s3:GetObjectVersion
-              - s3:GetObjectVersionAcl
-              - s3:ListBucket
-              - s3:PutObject
-              - s3:PutObjectAcl
-              - s3:PutObjectVersionAcl
-            Resource:
-              - !Sub "arn:aws:s3:::${ArtifactsBucket}/*"
-              - !Sub "arn:aws:s3:::${ArtifactsBucket}"
-      Roles:
-        - !Ref IAMRole
 
   ImageIdParameterStack:
     Type: AWS::CloudFormation::Stack
@@ -921,7 +953,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v5.6.1"
+                  $Env:BUILDKITE_STACK_VERSION="v5.7.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}"
@@ -955,15 +987,20 @@ Resources:
                   MIME-Version: 1.0
                   --==BOUNDARY==
                   Content-Type: text/cloud-boothook; charset="us-ascii"
+                  BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
+                    /usr/local/bin/bk-mount-instance-storage.sh
+                  --==BOUNDARY==
+                  Content-Type: text/cloud-boothook; charset="us-ascii"
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
                   DOCKER_EXPERIMENTAL=${EnableDockerExperimental} \
+                  BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                     /usr/local/bin/bk-configure-docker.sh
                   --==BOUNDARY==
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION=v5.6.1 \
-                  BUILDKITE_SCALE_IN_IDLE_PERIOD=${ScaleInIdlePeriod} \
+                  BUILDKITE_STACK_VERSION="v5.7.0" \
+                  BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_AGENT_TOKEN_PATH="${AgentTokenPath}" \
                   BUILDKITE_AGENTS_PER_INSTANCE="${AgentsPerInstance}" \
@@ -972,17 +1009,19 @@ Resources:
                   BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
-                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT=${EnableAgentGitMirrorsExperiment} \
+                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT="${EnableAgentGitMirrorsExperiment}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
+                  BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                   BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}" \
-                  BUILDKITE_ECR_POLICY=${ECRAccessPolicy} \
-                  BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB=${BuildkiteTerminateInstanceAfterJob} \
-                  BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS=${BuildkiteAdditionalSudoPermissions} \
-                  AWS_DEFAULT_REGION=${AWS::Region} \
-                  SECRETS_PLUGIN_ENABLED=${EnableSecretsPlugin} \
-                  ECR_PLUGIN_ENABLED=${EnableECRPlugin} \
-                  DOCKER_LOGIN_PLUGIN_ENABLED=${EnableDockerLoginPlugin} \
-                  AWS_REGION=${AWS::Region} \
+                  BUILDKITE_ECR_POLICY="${ECRAccessPolicy}" \
+                  BUILDKITE_TERMINATE_INSTANCE_AFTER_JOB="${BuildkiteTerminateInstanceAfterJob}" \
+                  BUILDKITE_ADDITIONAL_SUDO_PERMISSIONS="${BuildkiteAdditionalSudoPermissions}" \
+                  AWS_DEFAULT_REGION="${AWS::Region}" \
+                  SECRETS_PLUGIN_ENABLED="${EnableSecretsPlugin}" \
+                  ECR_PLUGIN_ENABLED="${EnableECRPlugin}" \
+                  DOCKER_LOGIN_PLUGIN_ENABLED="${EnableDockerLoginPlugin}" \
+                  DOCKER_EXPERIMENTAL="${EnableDockerExperimental}" \
+                  AWS_REGION="${AWS::Region}" \
                     /usr/local/bin/bk-install-elastic-stack.sh
                   --==BOUNDARY==--
                 - {
@@ -992,6 +1031,9 @@ Resources:
 
   AgentAutoScaleGroup:
     Type: AWS::AutoScaling::AutoScalingGroup
+    DependsOn:
+      - IAMPolicies
+      - VpcComplete
     Properties:
       VPCZoneIdentifier: !If [ "CreateVpcResources", [ !Ref Subnet0, !Ref Subnet1 ], !Ref Subnets ]
       MixedInstancesPolicy:
@@ -1031,6 +1073,7 @@ Resources:
       TerminationPolicies:
         - OldestLaunchConfiguration
         - ClosestToNextInstanceHour
+      NewInstancesProtectedFromScaleIn: true
     CreationPolicy:
       ResourceSignal:
         Timeout: !If [ UseDefaultInstanceCreationTimeout, !If [ UseWindowsAgents, PT10M, PT5M ], !Ref InstanceCreationTimeout ]
