@@ -1,7 +1,11 @@
 # Using Build Artifacts
 
-In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/v3/cli-artifact) to store and retrieve files between different steps in a build pipeline. Artifacts are uploaded to a Buildkite-managed Amazon S3 bucket, where they’re retained for six months, or you can specify an alternate destination on Amazon S3, Google Cloud Storage
-or Artifactory.
+In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/v3/cli-artifact)
+to store and retrieve files between different steps in a build pipeline.
+Artifacts can be uploaded to a Buildkite-managed storage location, where they’re
+retained for six months, or your own artifact storage location on Amazon S3,
+Google Cloud Storage, or Artifactory. Presently, Buildkite-managed artifacts are
+stored on Amazon S3.
 
 {:toc}
 
@@ -72,10 +76,6 @@ Buildkite has zero access to your source code in the pipelines and only receives
 Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
 If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
-
-Logs are AES-encrypted, and  build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, keys cannot be extracted by an insider, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, control over security measures within your infrastructure is up to you.
-
-If you choose to [host your own build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket), they never leave your infrastructure and end up in your private AWS bucket.
 
 If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
 
