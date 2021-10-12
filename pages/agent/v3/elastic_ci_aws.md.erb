@@ -36,7 +36,7 @@ aws cloudformation create-stack \
 
 ## Network configuration
 
-The deployment of Elastic CI Stack only contains Auto Scaling group and a launch template. Together they boot instances in either the template-created public subnet or you can create and designate a set of VPC subnets. 
+An Elastic CI Stack deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets. 
 
 After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite) to fulfill their function. This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly via an Internet Gateway or indirectly via a NAT Instance or NAT Gateway. 
 
