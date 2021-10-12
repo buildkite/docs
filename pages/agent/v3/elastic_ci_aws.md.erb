@@ -64,9 +64,18 @@ See [CloudFormation service role](elastic_ci_aws/cloudformation_service_role.md)
 for a listing of the IAM actions required to create, update, and delete a stack
 with the Elastic CI Stack for AWS template.
 
+### Default IAM policies  
+
+You're not required to create any special IAM roles or policies, though the deployment template creates several of these on your behalf. For more info, see:  
+
+* [cli_artifact](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/cli_artifact.md.erb#L162-L187), a policy to allow the Buildkite agent to read/write artifacts to a custom S3 artifact storage location
+* [elastic_ci_aws](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/elastic_ci_aws.md.erb#L269-L285), a policy to allow the EC2 instances to read S3-stored `BootstrapScriptUrl` objects
+* [secrets_manager](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/aws/secrets_manager.md#L28), a [resource policy](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/aws/secrets_manager.md#L33-L48) that demonstrates granting the Elastic CI Stack for AWS roles (scaling Lambda and EC2 Instance Profile) permission to read the Buildkite agent token you have stored there.
+
 ### Key creation
 
 It’s not required to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
+
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
 * SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
