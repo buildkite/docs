@@ -35,15 +35,16 @@
           <%= sidebar_link_to "Securing", 'agent/v3/securing' %>
           <%= sidebar_link_to "Tokens", 'agent/v3/tokens' %>
         </ul>
-        <ul class="Docs__nav__sub-nav" style="margin-top: 15px;">
+        <ul class="Docs__nav__sub-nav deprecated">
           <%= sidebar_link_to "Agent v2 (Deprecated)", 'agent/v2' %>
         </ul>
         <p class="Docs__nav__section-subheading">Elastic CI Stack for AWS</p>
         <ul class="Docs__nav__sub-nav">
           <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
           <%= sidebar_link_to "Template Parameters", 'agent/v3/elastic-ci-aws/parameters' %>
-          <%= sidebar_link_to "CloudFormation Service Role", 'agent/v3/elastic_ci_aws/cloudformation_service_role.md' %>
-          <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets_manager.md' %>
+          <%= sidebar_link_to "CloudFormation Service Role", 'agent/v3/elastic-ci-aws/cloudformation-service-role' %>
+          <%= sidebar_link_to "VPC Design", 'agent/v3/aws/vpc' %>
+          <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets-manager' %>
         </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
         <ul class="Docs__nav__sub-nav">
