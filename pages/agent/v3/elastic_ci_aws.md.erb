@@ -171,7 +171,7 @@ If you want to store your secrets unencrypted, you can disable encryption entire
 
 ## Sensitive data
 
-There are the following types of sensitive data are present in Elastic CI Stack:
+The following types of sensitive data are present in Elastic CI Stack:
 
 * **Buildkite agent token credential** (`BuildkiteAgentToken`) retrieved from your Buildkite account. When provided to the deployment template, it’s is stored in plaintext in AWS SSM Parameter Store (there is no support for creating an encrypted SSM Parameter from CloudFormation). If you need to store it in encrypted form, you can create your own SSM Parameter and provide the `BuildkiteAgentTokenParameterStorePath` value along with `BuildkiteAgentTokenParameterStoreKMSKey` for decrypting it.
 
