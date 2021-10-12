@@ -362,7 +362,7 @@ You can assess and monitor health and proper function of the Elastic CI Stack us
 
 ### Auto Scaling group fails to boot instances 
 
-A shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics. 
+Resource shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics. 
 
 To fix this issue, change or add more instance types to the `InstanceType` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
 
