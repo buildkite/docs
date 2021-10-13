@@ -354,7 +354,7 @@ You can assess and monitor health and proper function of the Elastic CI Stack us
 
 * **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
 
-* **CloudWatch Metrics** as the Buildkite namespace contains ScheduledJobsCount, RunningJobsCount, and WaitingJobsCount measurements for the Buildkite Queue your Elastic CI Stack was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
+* **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
 * **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
 
