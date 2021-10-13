@@ -72,7 +72,7 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (5.5.1)
+    puma (5.5.2)
       nio4r (~> 2.0)
     racc (1.5.2)
     rack (2.2.3)
@@ -179,4 +179,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.2.4
+   2.2.20
