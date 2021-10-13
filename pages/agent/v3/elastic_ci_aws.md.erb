@@ -368,7 +368,7 @@ To fix this issue, change or add more instance types to the `InstanceType` templ
 
 ### Instances fail to boot Buildkite Agent
 
-See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting instances to determine the issue. Observe where in the UserData the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
+See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting instances to determine the issue. Observe where in the `UserData` script the boot is failing. Identify what resource is failing when the instances are attempting to use it, and fix that issue.
 
 ### Instances fail jobs
 
