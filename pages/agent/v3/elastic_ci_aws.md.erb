@@ -69,7 +69,7 @@ with the Elastic CI Stack for AWS template.
 You're not required to create any special IAM roles or policies, though the deployment template creates several of these on your behalf. For more info, see:  
 
 * [`buildkite-agent artifact` IAM Permissions](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket-iam-permissions), a policy to allow the Buildkite agent to read/write artifacts to a custom S3 artifact storage location
-* [elastic_ci_aws](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/elastic_ci_aws.md.erb#L269-L285), a policy to allow the EC2 instances to read S3-stored `BootstrapScriptUrl` objects
+* [`BootstrapScriptUrl` IAM Policy](/docs/agent/v3/elastic-ci-aws#customizing-instances-with-a-bootstrap-script), a policy to allow the EC2 instances to read an S3-stored `BootstrapScriptUrl` object
 * [secrets_manager](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/aws/secrets_manager.md#L28), a [resource policy](https://github.com/buildkite/docs/blob/a0a2a644b16b4105cb58b7254ef1e811f04fb1a8/pages/agent/v3/aws/secrets_manager.md#L33-L48) that demonstrates granting the Elastic CI Stack for AWS roles (scaling Lambda and EC2 Instance Profile) permission to read the Buildkite agent token you have stored there.
 
 ### Key creation
