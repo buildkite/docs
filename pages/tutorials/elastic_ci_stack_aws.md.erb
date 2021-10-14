@@ -36,12 +36,12 @@ The Elastic CI Stack template deploys several billable Amazon services that do n
 | Service name                    | Purpose                                                                                           | Required |
 |---------------------------------|---------------------------------------------------------------------------------------------------|----------|
 | EC2                             | Deployment of instances                                                                                 | ☑️        |
-| EBS                             | Root disk storage of EC2 instances                                                            | +        |
-| Lambda                          | Scaling of Auto Scaling group and modifying Auto Scaling group's properties                     | +        |
-| Systems Manager Parameter Store | Storing the Buildkite agent token                                                                     | +        |
-| CloudWatch Logs                 | Logs for instances and Lambda scaler                                                              | +        |
-| CloudWatch Metrics              | Metrics recorded by Lambda scaler                                                             | +        |
-| S3                              | Charging based on storage and transfers in/and out of the secrets bucket (on by default) | -        |
+| EBS                             | Root disk storage of EC2 instances                                                            | ☑️        |
+| Lambda                          | Scaling of Auto Scaling group and modifying Auto Scaling group's properties                     | ☑️        |
+| Systems Manager Parameter Store | Storing the Buildkite agent token                                                                     | ☑️        |
+| CloudWatch Logs                 | Logs for instances and Lambda scaler                                                              | ☑️        |
+| CloudWatch Metrics              | Metrics recorded by Lambda scaler                                                             | ☑️        |
+| S3                              | Charging based on storage and transfers in/and out of the secrets bucket (on by default) | ❌        |
 
 Buildkite services are billed according to your [subscription tier](https://buildkite.com/pricing).
 
