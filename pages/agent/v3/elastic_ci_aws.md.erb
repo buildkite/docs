@@ -96,11 +96,11 @@ See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
-<%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", width: 1110/2, height: 719/2, alt: "Elastic CI Stack for AWS Architecture Diagram" %>`.
+<%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", width: 1110/2, height: 719/2, alt: "Elastic CI Stack for AWS Architecture Diagram" %>`.  
 
 ## Features
 
-The Buildkite Elastic CI Stack supports:
+The Buildkite Elastic CI Stack supports:  
 
 - All AWS regions (except China and US GovCloud)
 - Linux and Windows operating systems
@@ -140,7 +140,7 @@ Git LFS | ✅ |
 Additional sudo Permissions | ✅ | 
 RDP Access | | ✅ 
 
-## Build secrets
+## Build secrets  
 
 The stack creates an S3 bucket for you (or uses the one you provide as the `SecretsBucket` parameter). This is where the agent fetches your SSH private keys for source control, and environment hooks to provide other secrets to your builds.
 
