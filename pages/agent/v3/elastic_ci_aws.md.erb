@@ -41,6 +41,13 @@ An Elastic CI Stack deployment contains an Auto Scaling group and a launch templ
 
 After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly via an Internet Gateway or indirectly via a NAT Instance or NAT Gateway. 
 
+By default, the template creates a public subnet VPC for your EC2 instances. The
+VPC your stack’s instances are booted in can be customised using the `VpcId`,
+and `Subnets` template parameters. If you choose to use a VPC with split
+public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
+turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
+documentation for guidance on choosing a VPC layout suitable for your use case.
+
 ## Security
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
@@ -83,7 +90,13 @@ It’s not required to create keys for the default deployment of Elastic CI Stac
 
 Remember that such keys are not intended to be public, and you must not grant public access to them.
 
-See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager).
+See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager).  
+
+## Architecture diagram  
+
+This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
+
+<%= image "elastic-ci-stack-on-aws.png", width: 1110/2, height: 719/2, alt: "Elastic CI Stack for AWS Architecture Diagram" %>`.
 
 ## Features
 
@@ -126,15 +139,6 @@ Periodic Instance Health Check | ✅ |
 Git LFS | ✅ | 
 Additional sudo Permissions | ✅ | 
 RDP Access | | ✅ 
-
-## VPC Network
-
-By default, the template creates a public subnet VPC for your EC2 instances. The
-VPC your stack’s instances are booted in can be customised using the `VpcId`,
-and `Subnets` template parameters. If you choose to use a VPC with split
-public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
-turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
-documentation for guidance on choosing a VPC layout suitable for your use case.
 
 ## Build secrets
 
