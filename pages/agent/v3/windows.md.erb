@@ -47,19 +47,15 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 There are two options to be aware of for this initial setup:
 
 * Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
+* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
     shell="<path-to-powershell-executable>"
     ```
 
-    <div class="Docs__note">
-    <p>This allows you to run a PowerShell script, but your build hooks must still be either <code>.bat</code> or <code>.sh</code> files (<code>.sh</code> files require access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
-    </div>
-
-    <div class="Docs__note">
-    <p>Buildkite does not support the cross-platform edition of PowerShell (PowerShell 6 and 7, also known as PowerShell Core). Make sure `shell` points to a `powershell.exe` file, not `pwsh.exe`.</p>
-    </div>
+<div class="Docs__note">
+<p>Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
+</div>
 
 ## Upgrading
 
