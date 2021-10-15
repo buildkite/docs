@@ -70,6 +70,14 @@ steps:
 
 When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
 
+<div class="Docs__note">
+
+<p>When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
+<ul>
+ <li>Use the YAML steps editor alone</li>
+ <li>Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.</li></ul>  </p>
+</div>
+
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
 If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory. 

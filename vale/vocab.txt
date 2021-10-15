@@ -15,6 +15,7 @@ CloudWatch
 Crontab
 Datadog
 Deprovisioning
+Distro
 Dockerfile
 Eventbridge
 Explainshell
@@ -78,6 +79,7 @@ deprioritise
 deprovisioning
 deregistration
 deprovision
+distro
 Dockerfile
 dogstatsd
 env
