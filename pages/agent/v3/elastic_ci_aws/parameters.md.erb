@@ -14,7 +14,7 @@ optional.
 
 
 
-<h2>Buildkite Configuration</h2>
+## Buildkite Configuration
 
 <table>
 	<tbody>
@@ -131,237 +131,19 @@ optional.
 	</tbody>
 </table>
 
-<h2>Advanced Buildkite Configuration</h2>
+## Advanced Buildkite Configuration
 
-<table>
-	<tbody>
-		<tr>
-  			<th>Parameter</th>
-  			<th>Description</th>
-  			<th>Type</th>
-  			<th>Default Value</th>
-  			<th>Constraints</th>
-		</tr>
-		
-			
-			<tr id="BuildkiteAgentRelease">
-				<td><code>BuildkiteAgentRelease</code></td>
-				<td></td>
-				<td><code>String</code></td>
-				<td><code>stable</code></td>
-				<td>
-					<table>
-						<tbody>
-							
-								<tr>
-	    							<th>Allowed Values</th>
-	    							<td>
-	    								<ul>
-	    									
-	    										<li><code>stable</code></li>
-    										
-	    										<li><code>beta</code></li>
-    										
-	    										<li><code>edge</code></li>
-    										
-	    								</ul>
-	    							</td>
-	    						</tr>
-							
+| Parameter                          | Description                                                                                                                             | Type   | Default Value | Constraints                                                |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|--------|---------------|------------------------------------------------------------|
+| BuildkiteAgentRelease              |                                                                                                                                         | String | stable        | Allowed Values:<br/> * stable<br/> * beta<br/> * edge<br/> |
+| BuildkiteAgentTags                 | Additional tags separated by commas to provide to the agent.</br> For example: `os=linux,llamas=always`                                 | String |               |                                                            |
+| BuildkiteAgentTimestampLines       | Set to `true` to prepend timestamps to every line of output.                                                                            | String | false         | Allowed Values: <br/> * true<br/> * false<br/>             |
+| BuildkiteAgentExperiments          | Agent experiments to enable, comma delimited.</br> See [EXPERIMENTS.md](https://github.com/buildkite/agent/blob/master/EXPERIMENTS.md). | String |               |                                                            |
+| BuildkiteTerminateInstanceAfterJob | Set to `true` to terminate the instance after a job has completed.                                                                      | String | false         | Allowed Values: <br/> * true<br/> * false<br/>             |
+| BuildkiteAdditionalSudoPermissions | Optional, comma-separated list of commands to allow</br> the "buildkite-agent" user to run using `sudo`.                                | String |               |                                                            |
+| BuildkiteWindowsAdministrator      | Set to `true` to add the local "buildkite-agent" user account</br> to the local Windows Administrator group.                            | String | true          | Allowed Values: <br/> * true<br/> * false<br/>             |
 
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteAgentTags">
-				<td><code>BuildkiteAgentTags</code></td>
-				<td>Additional tags separated by commas to provide to the agent. E.g os=linux,llamas=always</td>
-				<td><code>String</code></td>
-				<td><code></code></td>
-				<td>
-					<table>
-						<tbody>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteAgentTimestampLines">
-				<td><code>BuildkiteAgentTimestampLines</code></td>
-				<td>Set to true to prepend timestamps to every line of output</td>
-				<td><code>String</code></td>
-				<td><code>false</code></td>
-				<td>
-					<table>
-						<tbody>
-							
-								<tr>
-	    							<th>Allowed Values</th>
-	    							<td>
-	    								<ul>
-	    									
-	    										<li><code>true</code></li>
-    										
-	    										<li><code>false</code></li>
-    										
-	    								</ul>
-	    							</td>
-	    						</tr>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteAgentExperiments">
-				<td><code>BuildkiteAgentExperiments</code></td>
-				<td>Agent experiments to enable, comma delimited. See https://github.com/buildkite/agent/blob/master/EXPERIMENTS.md.</td>
-				<td><code>String</code></td>
-				<td><code></code></td>
-				<td>
-					<table>
-						<tbody>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteTerminateInstanceAfterJob">
-				<td><code>BuildkiteTerminateInstanceAfterJob</code></td>
-				<td>Set to "true" to terminate the instance after a job has completed.</td>
-				<td><code>String</code></td>
-				<td><code>false</code></td>
-				<td>
-					<table>
-						<tbody>
-							
-								<tr>
-	    							<th>Allowed Values</th>
-	    							<td>
-	    								<ul>
-	    									
-	    										<li><code>true</code></li>
-    										
-	    										<li><code>false</code></li>
-    										
-	    								</ul>
-	    							</td>
-	    						</tr>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteAdditionalSudoPermissions">
-				<td><code>BuildkiteAdditionalSudoPermissions</code></td>
-				<td>Optional - Comma separated list of commands to allow the buildkite-agent user to run using sudo.</td>
-				<td><code>String</code></td>
-				<td><code></code></td>
-				<td>
-					<table>
-						<tbody>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-			
-			<tr id="BuildkiteWindowsAdministrator">
-				<td><code>BuildkiteWindowsAdministrator</code></td>
-				<td>Set to "true" to add the local "buildkite-agent" user account to the local Windows Administrator group.</td>
-				<td><code>String</code></td>
-				<td><code>true</code></td>
-				<td>
-					<table>
-						<tbody>
-							
-								<tr>
-	    							<th>Allowed Values</th>
-	    							<td>
-	    								<ul>
-	    									
-	    										<li><code>true</code></li>
-    										
-	    										<li><code>false</code></li>
-    										
-	    								</ul>
-	    							</td>
-	    						</tr>
-							
-
-							
-
-							
-							
-
-							
-							
-						</tbody>
-					</table>
-				</td>
-			</tr>
-		
-	</tbody>
-</table>
-
-<h2>Network Configuration</h2>
+## Network Configuration
 
 <table>
 	<tbody>
@@ -504,7 +286,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Instance Configuration</h2>
+## Instance Configuration
 
 <table>
 	<tbody>
@@ -956,7 +738,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Auto-scaling Configuration</h2>
+## Auto-scaling Configuration
 
 <table>
 	<tbody>
@@ -1160,7 +942,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Cost Allocation Configuration</h2>
+## Cost Allocation Configuration
 
 <table>
 	<tbody>
@@ -1257,7 +1039,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Docker Daemon Configuration</h2>
+## Docker Daemon Configuration
 
 <table>
 	<tbody>
@@ -1344,7 +1126,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Docker Registry Configuration</h2>
+## Docker Registry Configuration
 
 <table>
 	<tbody>
@@ -1399,7 +1181,7 @@ optional.
 	</tbody>
 </table>
 
-<h2>Plugin Configuration</h2>
+## Plugin Configuration
 
 <table>
 	<tbody>
