@@ -1,0 +1,145 @@
+# GraphQL API cookbook
+
+{:toc}
+
+## Get all environment variables set on a build
+
+Retrieve all of a job's environment variables for a given build. This is the equivalent of what you see on the _Environment_ tab.
+
+```graphql
+query GetEnvVarsBuild {
+  build(slug:"{organization-slug}/{pipeline-slug}/{build-number}") {
+    message
+    jobs(first: 10, state:FINISHED) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            label
+            env
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Get all jobs in a queue for a given timeframe
+
+TODO: NEXT!
+
+## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
+
+Remove edit access from existing teams. This is helpful when you want to centralize pipeline edit permissions to a single system user, controlled by an organization admin.
+
+First, walk through all teams:
+
+```graphqlquery Teams {
+  organization(slug: "{organization-slug}") {
+    teams(first: 500) {
+      edges {
+        node {
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+Then, get the team pipeline IDs from the team slugs. Use the `id` returned here as the `{TEAM-PIPELINE-ID}` in the next step.
+
+```graphql
+query TeamPipelineIDs {
+  team(slug: "{organization-slug}/{team-slug}") {
+    pipelines(first: 500) {
+      edges {
+        node {
+          id 
+        }
+      }
+    }
+  }
+}
+```
+
+Finally, update all pipelines in a team to have either READ_ONLY or BUILD_AND_READ access:
+
+```graphql
+mutation UpdateTeamPipelineReadonly {
+  teamPipelineUpdate(input: {
+    id: "{TEAM-PIPELINE-ID}",
+    accessLevel: BUILD_AND_READ
+  }) {
+    teamPipeline {
+      permissions {
+        teamPipelineDelete {
+          allowed
+          code
+          message
+        }
+        teamPipelineUpdate {
+          allowed
+          code
+          message
+        }
+      }
+    }
+    clientMutationId
+  }
+}
+```
+
+## Add a user to a team, and set user permissions
+
+Add an existing user to a team, and set their role.
+
+Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _{team name}_ > _Settings_.
+
+```graphql
+mutation CreateUser {
+  organizationInvitationCreate(input: {
+    organizationID: "{organization-id}",
+    emails: ["{newUser@example.com}"],
+    role: MEMBER,
+    teams: [
+      {
+        id: "{team-id}",
+        role: MAINTAINER
+      }
+    ]
+  }) {
+    invitationEdges {
+      node {
+        email
+        createdAt
+      }
+    }
+  }
+}
+```
+
+## Delete a pipeline
+
+First, get the ID of the pipeline you want to delete:
+
+```graphql
+query {
+  pipeline(slug:"{organization-slug}/{pipeline-slug}") {
+    id
+  }
+}
+```
+
+Then, use the ID to delete the pipeline:
+
+```graphql
+mutation PipelineDelete {
+  pipelineDelete(input: {
+    id: "{pipeline-id}"
+  })
+  {
+    deletedPipelineID
+  }
+}
+```
