@@ -8,7 +8,7 @@ Retrieve all of a job's environment variables for a given build. This is the equ
 
 ```graphql
 query GetEnvVarsBuild {
-  build(slug:"{organization-slug}/{pipeline-slug}/{build-number}") {
+  build(slug:"organization-slug/pipeline-slug/build-number") {
     message
     jobs(first: 10, state:FINISHED) {
       edges {
@@ -24,9 +24,194 @@ query GetEnvVarsBuild {
 }
 ```
 
-## Get all jobs in a queue for a given timeframe
+## Get a list of recently created pipelines
 
-TODO: NEXT!
+Get a list of the 500 most recently created pipelines.
+
+```graphql
+query RecentPipelineSlugs {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500) {
+      edges {
+        node {
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+## Get the creation date of the most recent build in every pipeline
+
+Get the creation date of the most recent build in every pipeline. Use pagination to handle large responses. Buildkite sorts builds by newest first.
+
+Get the first 500:
+
+```graphql
+query {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500) {
+      count
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          name
+          slug
+          builds(first: 1) {
+            edges {
+              node {
+                createdAt
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Then, if there are more than 500 results, use the value of `organization.pipelines.pageInfo.endCursor` to get the next page:
+
+```graphql
+query {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500, after: "value-from-organization.pipelines.pageInfo.endCursor") {
+      count
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+      edges {
+        node {
+          name
+          slug
+          builds(first: 1) {
+            edges {
+              node {
+                createdAt
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Get all jobs in a given queue for a given timeframe
+
+Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name.
+
+
+```graphql
+query PipelineRecentBuildLastJobQueue {
+  organization(slug: "organization-slug") {
+    pipelines(first: 500) {
+      edges {
+        node {
+          slug
+          builds(first: 1) {
+            edges {
+              node {
+                number
+                jobs(state: FINISHED, first: 1, agentQueryRules: "queue=queue-name", createdAtFrom: "DateTime") {
+                  edges {
+                    node {
+                      ... on JobTypeCommand {
+                        uuid
+                        agentQueryRules
+                        createdAt
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+}
+```
+
+## Count the number of builds on a branch
+
+Count how many builds a pipeline has done for a given repository branch.
+
+```graphql
+query PipelineBuildCountForBranchQuery {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    builds(branch:"branch-name") {
+      count
+    }
+  }  
+}
+```
+
+You can limit the results to a certain timeframe using `createdAtFrom` or `createdAtTo`:
+
+```graphql
+query PipelineBuildCountForBranchQuery {
+  pipeline(slug:"organization-slug/pipeline-slug") {
+    builds(branch:"branch-name", createdAtTo:"DateTime") {
+      count
+    }
+  }  
+}
+```
+
+## List organization members
+
+List the first 100 members in the organization:
+
+query getOrgMembers{
+  organization(slug: "organization-slug") {
+    members(first: 100) {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+
+## Search for an organization member by email address
+
+Get details of a single organization member by their email address.
+
+query getOrgMember{
+  organization(slug: "starfall-projects") {
+    members(first: 1, search: "user-email") {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
 
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 
@@ -35,7 +220,7 @@ Remove edit access from existing teams. This is helpful when you want to central
 First, walk through all teams:
 
 ```graphqlquery Teams {
-  organization(slug: "{organization-slug}") {
+  organization(slug: "organization-slug") {
     teams(first: 500) {
       edges {
         node {
@@ -47,11 +232,11 @@ First, walk through all teams:
 }
 ```
 
-Then, get the team pipeline IDs from the team slugs. Use the `id` returned here as the `{TEAM-PIPELINE-ID}` in the next step.
+Then, get the team pipeline IDs from the team slugs. Use the `id` returned here as the `team-pipeline-id` in the next step.
 
 ```graphql
 query TeamPipelineIDs {
-  team(slug: "{organization-slug}/{team-slug}") {
+  team(slug: "organization-slug/team-slug") {
     pipelines(first: 500) {
       edges {
         node {
@@ -68,7 +253,7 @@ Finally, update all pipelines in a team to have either READ_ONLY or BUILD_AND_RE
 ```graphql
 mutation UpdateTeamPipelineReadonly {
   teamPipelineUpdate(input: {
-    id: "{TEAM-PIPELINE-ID}",
+    id: "team-pipeline-id",
     accessLevel: BUILD_AND_READ
   }) {
     teamPipeline {
@@ -90,21 +275,21 @@ mutation UpdateTeamPipelineReadonly {
 }
 ```
 
-## Add a user to a team, and set user permissions
+## Create a user, add them to a team, and set user permissions
 
-Add an existing user to a team, and set their role.
+Invite a new user to the organization, add them to a team, and set their role.
 
-Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _{team name}_ > _Settings_.
+Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _team-name_ > _Settings_.
 
 ```graphql
 mutation CreateUser {
   organizationInvitationCreate(input: {
-    organizationID: "{organization-id}",
-    emails: ["{newUser@example.com}"],
+    organizationID: "organization-id",
+    emails: ["user-email"],
     role: MEMBER,
     teams: [
       {
-        id: "{team-id}",
+        id: "team-id",
         role: MAINTAINER
       }
     ]
@@ -119,13 +304,94 @@ mutation CreateUser {
 }
 ```
 
+## Add an existing organization user to a team
+
+First, get a list of teams in the organization, to get the team ID:
+
+```graphql
+query getOrgTeams {
+  organization(slug: "starfall-projects") {
+    teams(first: 500) {
+      edges {
+        node {
+          name
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+Then, add a team member. You can get the `user-id` using the example in [Search organization members](#search-organization-members).
+
+<section class="Docs__note">
+<code>clientMutationId</code> is null when the mutation is successful.
+</section>
+
+```graphql
+mutation addTeamMember{
+  teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
+    clientMutationId
+  }
+}
+```
+
+## Remove a team member
+
+This deletes a user from a team, but not from the organization.
+
+First, get a list of teams and members, to get the team IDs and current memberships.
+
+```graphql
+query TeamMembersQuery {
+  organization(slug: "organization-slug") {
+    teams(first: 500) {
+      edges {
+        node {
+          name
+          id
+          members(first: 100) {
+            edges {
+              node {
+                role
+                id
+                user {
+                  name
+                  email
+                  id
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+Then delete a team member. Check that you have the team member ID and not the user ID.
+
+<section class="Docs__note">
+<code>clientMutationId</code> is null when the mutation is successful.
+</section>
+
+```graphql
+mutation deleteTeamMember {
+  teamMemberDelete(input: {id: "team-member-id"}) {
+    clientMutationId
+  }
+}
+```
+
 ## Delete a pipeline
 
 First, get the ID of the pipeline you want to delete:
 
 ```graphql
 query {
-  pipeline(slug:"{organization-slug}/{pipeline-slug}") {
+  pipeline(slug:"organization-slug/pipeline-slug") {
     id
   }
 }
@@ -136,10 +402,40 @@ Then, use the ID to delete the pipeline:
 ```graphql
 mutation PipelineDelete {
   pipelineDelete(input: {
-    id: "{pipeline-id}"
+    id: "pipeline-id"
   })
   {
     deletedPipelineID
+  }
+}
+```
+
+## Increase the next build number
+
+Set the number for the next build to run in this pipeline.
+
+First, get the pipeline ID:
+
+```graphql
+query PipelineId {
+  pipeline(slug: "organization-slug/pipeline-slug") {
+    id
+  }
+}
+```
+
+Then mutate the next build number. In this example, we set `nextBuildNumber` to 300:
+
+```graphql
+mutation PipelineUpdate {
+  pipelineUpdate(input: {
+  id: "pipeline-id",
+  nextBuildNumber: 300
+  }) {
+    pipeline {
+      name 
+      nextBuildNumber
+    }
   }
 }
 ```
