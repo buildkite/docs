@@ -20,7 +20,7 @@ commands=(
 
 # This is awful, but I can't be bothered with figuring out multi dimensional arrays in bash
 # or passing individual arguments as well as STDIN to ruby
-# More than one of these pages is included in the same doc page, so we need H3 instead of H3
+# More than one of these pages is included in the same doc page, so we need H3 instead of H2
 commands_to_demote=(
   "artifact download"
   "artifact shasum"
