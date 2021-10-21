@@ -175,6 +175,7 @@ query PipelineBuildCountForBranchQuery {
 
 List the first 100 members in the organization:
 
+```graphql
 query getOrgMembers{
   organization(slug: "organization-slug") {
     members(first: 100) {
@@ -191,11 +192,43 @@ query getOrgMembers{
     }
   }
 }
+```
+
+## Get the most recent SSO sign-in for all users
+
+Use this to get the last sign-in date for users in your organization, if your organization has SSO enabled.
+
+```graphql{
+  organization(slug: "organization-slug") {
+    members(first: 100) {
+      edges {
+        node {
+          user {
+            name
+            email
+          }
+          sso {
+            authorizations(first: 1) {
+              edges {
+                node {
+                  createdAt
+                  expiredAt
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Search for an organization member by email address
 
 Get details of a single organization member by their email address.
 
+```graphql
 query getOrgMember{
   organization(slug: "starfall-projects") {
     members(first: 1, search: "user-email") {
@@ -212,6 +245,26 @@ query getOrgMember{
     }
   }
 }
+```
+
+## Get a list of agent token IDs
+
+```graphql
+query token {
+  organization(slug: "organization-slug") {
+    id
+    name
+    agentTokens(first: 5) {
+      edges {
+        node {
+          id
+          description
+        }
+      }
+    }
+  }
+}
+```
 
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 
@@ -275,35 +328,6 @@ mutation UpdateTeamPipelineReadonly {
 }
 ```
 
-## Create a user, add them to a team, and set user permissions
-
-Invite a new user to the organization, add them to a team, and set their role.
-
-Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _team-name_ > _Settings_.
-
-```graphql
-mutation CreateUser {
-  organizationInvitationCreate(input: {
-    organizationID: "organization-id",
-    emails: ["user-email"],
-    role: MEMBER,
-    teams: [
-      {
-        id: "team-id",
-        role: MAINTAINER
-      }
-    ]
-  }) {
-    invitationEdges {
-      node {
-        email
-        createdAt
-      }
-    }
-  }
-}
-```
-
 ## Add an existing organization user to a team
 
 First, get a list of teams in the organization, to get the team ID:
@@ -333,6 +357,75 @@ Then, add a team member. You can get the `user-id` using the example in [Search 
 mutation addTeamMember{
   teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
     clientMutationId
+  }
+}
+```
+
+## Create a user, add them to a team, and set user permissions
+
+Invite a new user to the organization, add them to a team, and set their role.
+
+Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _team-name_ > _Settings_.
+
+```graphql
+mutation CreateUser {
+  organizationInvitationCreate(input: {
+    organizationID: "organization-id",
+    emails: ["user-email"],
+    role: MEMBER,
+    teams: [
+      {
+        id: "team-id",
+        role: MAINTAINER
+      }
+    ]
+  }) {
+    invitationEdges {
+      node {
+        email
+        createdAt
+      }
+    }
+  }
+}
+```
+
+## Create a team
+
+Create a new team.
+
+First, get the organization ID:
+
+```graphql
+query getOrganizationId {
+  organization(slug: "organization-slug") {
+    id
+  }
+}
+```
+
+Then use the ID to create a new team within the organization:
+
+```graphql
+mutation CreateTeam {
+  teamCreate(input: {
+    organizationID: "organization-id",
+    name: "team-name",
+    privacy: SECRET,
+    isDefaultTeam: false,
+    defaultMemberRole: MEMBER
+  }) {
+    organization {
+      uuid
+      teams(first: 1, order: RECENTLY_CREATED) {
+        count
+        edges {
+          node {
+            name
+          }
+        }
+      }
+    }
   }
 }
 ```
@@ -435,6 +528,45 @@ mutation PipelineUpdate {
     pipeline {
       name 
       nextBuildNumber
+    }
+  }
+}
+```
+
+## Delete an organization member
+
+This deletes a member from an organization. It does not delete their Buildkite user account.
+
+First, find the member's ID:
+
+```graphql
+query {
+  organization(slug: "organization-slug") {
+    members(search: "organization-member-name", first: 10) {
+      edges {
+        node {
+          role
+          user {
+            name
+          }
+          id
+        }
+      }
+    }
+  }
+```
+
+Then, use the ID to delete the user:
+
+```graphql
+mutation deleteOrgMember {
+  organizationMemberDelete(input: { id: "organization-member-id" }){
+    organization{
+      name
+    }
+    deletedOrganizationMemberID
+    user{
+        name
     }
   }
 }
