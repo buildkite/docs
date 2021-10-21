@@ -145,6 +145,33 @@ query PipelineRecentBuildLastJobQueue {
 }
 ```
 
+## Get pipeline metrics
+
+The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API:
+
+```graphql
+query AllPipelineMetrics {
+  organization(slug: "organization-slug") {
+    name
+    pipelines(first: 50) {
+      edges {
+        node {
+          name
+          metrics {
+            edges {
+              node {
+                label
+                value
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Count the number of builds on a branch
 
 Count how many builds a pipeline has done for a given repository branch.
@@ -365,7 +392,25 @@ mutation addTeamMember{
 
 Invite a new user to the organization, add them to a team, and set their role.
 
-Log in to your organization, then get the organization ID from  _Settings_ > _GraphQL API Integration_, and team ID from _Settings_ > _Teams_ > _team-name_ > _Settings_.
+First, get the organization and team ID:
+
+```graphql
+query getOrganizationAndTeamId {
+  organization(slug: "organization-slug") {
+    id
+    teams(first:500) {
+      edges {
+        node {
+          id
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+Then invite the user and add them to a team, setting their role to 'maintainer'.
 
 ```graphql
 mutation CreateUser {
@@ -422,6 +467,54 @@ mutation CreateTeam {
         edges {
           node {
             name
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Create a pipeline
+
+Create a pipeline programmatically. 
+
+First, get the organization ID and team ID:
+
+```graphql
+query getOrganizationAndTeamId {
+  organization(slug: "starfall-projects") {
+    id
+    teams(first:500) {
+      edges {
+        node {
+          id
+          slug
+        }
+      }
+    }
+  }
+}
+```
+
+Then, create the pipeline:
+
+```graphql
+mutation createPipeline {
+  pipelineCreate(input: {
+    organizationId: "organization-id"
+    name: "pipeline-name",
+    repository: {url: "repo-url"},
+    steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" },
+    teams: { id: "team-id" }
+  }) {
+    pipeline {
+      id
+      name
+      teams(first: 10) {
+        edges {
+          node {
+            id
           }
         }
       }
