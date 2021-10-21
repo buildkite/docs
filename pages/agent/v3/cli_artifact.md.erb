@@ -151,6 +151,13 @@ For example, executing the `buildkite-agent artifact download` command on your l
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
+## Searching artifacts
+
+Return a list of artifacts that match a query. 
+
+<%= render 'agent/v3/help/artifact_search' %>
+
+
 ## Fetching the SHA of an artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
