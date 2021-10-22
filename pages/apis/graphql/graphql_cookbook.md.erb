@@ -397,7 +397,7 @@ First, get a list of teams in the organization, to get the team ID:
 
 ```graphql
 query getOrgTeams {
-  organization(slug: "starfall-projects") {
+  organization(slug: "organization-slug") {
     teams(first: 500) {
       edges {
         node {
