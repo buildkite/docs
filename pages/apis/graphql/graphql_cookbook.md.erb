@@ -559,6 +559,46 @@ mutation createPipeline {
 }
 ```
 
+## Revoke an agent token
+
+Revoking an agent token means no new agents can start using the token. It does not affect any connected agents.
+
+First, get the token ID. You can find it in the Buildkite dashboard, in _Agents_ > _Reveal Agent Token_, or you can retrieve a list of agent token IDs using this query:
+
+```graphql
+query GetAgentTokenID {
+  organization(slug: "organization-slug") {
+    agentTokens(first:50) {
+      edges {
+        node {
+          id
+          uuid
+          description
+        }
+      }
+    }
+  }
+}
+```
+
+Then, using the token ID, revoke the agent token:
+
+```graphql
+mutation {
+  agentTokenRevoke(input: {
+    id: "token-id",
+    reason: "A reason"
+  }) {
+    agentToken {
+      description
+      revokedAt
+      revokedReason
+    }
+  }
+}
+```
+
+
 ## Remove a team member
 
 This deletes a user from a team, but not from the organization.
