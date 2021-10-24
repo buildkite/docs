@@ -31,8 +31,6 @@ parameters = template['Parameters']
 		<tr>
   			<th>Parameter</th>
   			<th>Description</th>
-  			<th>Type</th>
-  			<th>Default Value</th>
   			<th>Constraints</th>
 		</tr>
 		<% group['Parameters'].each do |parameter_name| %>
@@ -45,6 +43,7 @@ parameters = template['Parameters']
 				<td>
 					<table>
 						<tbody>
+							
 							<% if allowed = parameter['AllowedValues'] %>
 								<tr>
 	    							<th>Allowed Values</th>
@@ -56,6 +55,20 @@ parameters = template['Parameters']
 	    								</ul>
 	    							</td>
 	    						</tr>
+							<% end %>
+
+							<% if pattern = parameter['Type'] %>
+								<tr>
+									<th>Type</th>
+									<td><code><%= pattern %></code></td>
+								</tr>
+							<% end %>
+							
+							<% if pattern = parameter['Default'] %>
+								<tr>
+									<th>Default Value</th>
+									<td><code><%= pattern %></code></td>
+								</tr>
 							<% end %>
 
 							<% if pattern = parameter['AllowedPattern'] %>
@@ -71,6 +84,7 @@ parameters = template['Parameters']
 									<td><%= minLength %></td>
 								</tr>
 							<% end %>
+							
 							<% if maxLength = parameter['MaxLength'] %>
 								<tr>
 									<th>Maximum Length</th>
