@@ -36,10 +36,10 @@ parameters = template['Parameters']
 			<% parameter = parameters[parameter_name] %>
 			<tr id="<%= parameter_name %>">
 				<td><code><%= parameter_name %></code></td>
-				<td><%= parameter['Description'] %></td>
 				<td>
 					<table>
 						<tbody>
+							<%= parameter['Description'] %>
 							
 							<% if allowed = parameter['AllowedValues'] %>
 								<tr>
