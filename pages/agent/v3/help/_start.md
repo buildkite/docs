@@ -18,7 +18,7 @@ script.
 
 ## Description
 
-When a job is ready to run it will call the "bootstrap-script"
+When a job is ready to run it will call the &quot;bootstrap-script&quot;
 and pass it all the environment variables required for the job to run.
 This script is responsible for checking out the code, and running the
 actual build script defined in the pipeline.

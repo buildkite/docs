@@ -19,7 +19,7 @@ script.
 ### Description
 
 The command exits with a status of 0 if the key has been set, or it will
-exit with a status of 100 if the key doesn't exist.
+exit with a status of 100 if the key doesn&#39;t exist.
 
 ### Example
 
