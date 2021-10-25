@@ -1,0 +1,3 @@
+steps:
+  - label: "Update agent help"
+    command: ".buildkite/steps/update-agent-help.sh"
