@@ -32,3 +32,13 @@ curl --fail --show-error --location "${asset_url}" | tar -xzf - -C tmp
 
 echo "Updating agent help with downloaded agent..." >&2
 PATH="$PWD/tmp:$PATH" ./scripts/update-agent-help.sh
+
+# Detect whether there are any changes in the pages/ directory
+git update-index --refresh || true
+if [ git diff-index --quiet HEAD -- pages/ ]
+then
+	echo "No changes to the agent help" >&2
+	exit 0
+fi
+
+echo "Changes to the agent help" >&2
