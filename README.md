@@ -37,16 +37,6 @@ docker-compose up --build
 docker-compose -f docker-compose.production.yml up --build
 ```
 
-## Updating buildkite-agent CLI Docs
-
-With the development dependencies installed you can update the CLI docs using
-`script/update-agent-help.sh`:
-
-```bash
-# Set a custom PATH to select a locally built buildkite-agent
-PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
-```
-
 ## Linting
 
 We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors.
