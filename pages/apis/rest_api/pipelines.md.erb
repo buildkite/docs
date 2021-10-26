@@ -173,9 +173,19 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
   -d '{
       "name": "My Pipeline X",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
-      "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
+      "configuration": "env:\n \"FOO\": \"bar\"\nsteps:\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\""
     }'
 ```
+
+<div class="Docs__note">
+<p>When setting pipeline configuration using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.</p>
+<p> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your configuration to tell Buildkite where to find it. This means you only need the following:</p>
+<p>
+<code>
+"configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""
+</code>
+</p>
+</div>
 
 The response contains information about your new pipeline:
 
