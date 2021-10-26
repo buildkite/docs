@@ -1,5 +1,9 @@
 # GraphQL API cookbook
 
+This page provides examples for common API tasks. Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
+
+You can test out the Buildkite API using the [Buildkite Explorer](https://graphql.buildkite.com/explorer). This includes built in documentation under the _Docs_ panel.
+
 {:toc}
 
 ## Get all environment variables set on a build
@@ -106,7 +110,7 @@ query {
 
 ## Get all jobs in a given queue for a given timeframe
 
-Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name.
+Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name, so can omit the `agentQueryRules` option. `createdAtFrom` is a parameter provided by the Buildkite GraphQL API. It takes an ISO-8601 encoded UTC date string.
 
 
 ```graphql
@@ -558,6 +562,16 @@ mutation createPipeline {
   }
 }
 ```
+
+<div class="Docs__note">
+<p>When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.</p>
+<p> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:</p>
+<p>
+<code>
+steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
+</code>
+</p>
+</div>
 
 ## Revoke an agent token
 
