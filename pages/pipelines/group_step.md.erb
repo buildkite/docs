@@ -1,8 +1,14 @@
 # Group Step
  
-A *group* step groups up parallel jobs into logical groups and allows displaying them on the build page in the Buildkite UI.  
+A *group* step groups jobs and steps like block step, trigger step, comand step, etc. into logical groups, and allows displaying them within groups on the build page in the Buildkite UI.
 
-Job groups allow creating and then displaying logical groups in the Buildkite UI. They also help manage dependencies between a collection of steps in a dag (for example, step X depends on everything in a group Y).
+> Note: Group steps cannot be nested. 
+
+You can scale your build pipelines in Buildkite to support an unlimited number of jobs. However, a large number of jobs on the build page can look messy. If pipelines contain 4-5 steps that can be logically grouped together, you can put them in a group using the `group` step type.
+
+The group step also helps manage dependencies between a collection of steps in a DAG (for example, step X depends on everything in a group Y).
+
+> Note: In some cases, using group step might break the DAG visualisation feature.  
 
 {:toc}
  
@@ -19,16 +25,29 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can scale your build pipelines in Buildkite to support an unlimited number of jobs. However, a large number of jobs on the build page can look messy. If pipelines contain 4-5 steps that can be logically grouped together, you can put them in a group using the `group` step type.  
- 
+This is what a typical group step use looks like:
 
-<%= image "job-groups-in-UI.png", width: 760, height: 328, alt: "Job groups displayed in the Buildkite UI" %>
+```yml
+- group: ":broom: Linting"
+  key: "linting"
+  depends_on: docker
+  steps:
+    - name: ":rubocop: RuboCop"
+      command: ".buildkite/steps/rubocop"
+    - name: ":eslint: ESlint"
+      command: ".buildkite/steps/eslint"
+    - name: ":flowtype: Flow"
+      command: ".buildkite/steps/flow"
+```
 
+And this is how it's displayed in the UI: 
 
+<%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
 ## Group step attributes  
 
-_Step attributes:_
+_Step attributes:_  
+
 <table data-attributes>
   <tr>
     <td><code>allow_dependency_failure</code></td>
@@ -100,7 +119,7 @@ _Step attributes:_
 
 ## Grouping jobs by group identifier
  
-The `group` step type not only groups up parallel jobs and also groups them up by a `group_identifier` if it exists. For example:  
+The `group` step type not only groups up jobs and also groups them up by a `group_identifier` if it exists. For example:  
  
 ```yml 
 steps:
@@ -121,20 +140,12 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}  
 
-The `group` step type:  
- 
-* Internally switches the build to `dag` mode
-* Makes groups run in parallel next to each other
-* Allows adding a label to groups
-* Helps manage step notifications across multiple steps
- 
 ## Using parallel groups  
 
 <!-- vale off --> 
 Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
 
-
-If a parallel step exists within a group, parallel jobs are treated as simple jobs within the step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
+If a parallel step exists within a group, parallel jobs are treated as simple jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
 <!-- vale on -->
 
 ## Limitations in job groups
@@ -170,3 +181,29 @@ steps:
     depends_on: "toast"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Group merging  
+
+Different droups that have the same name are merged together in the UI. 
+
+For example, if you have a YAML file:
+
+```yml
+- group: "Setup"
+  steps:
+    - command: "buildkite agent pipeline upload"
+```
+{: codeblock-file="pipeline-01.yml"}
+
+And this YAML file uploads a pipeline that has a group with the same name:
+
+```yml
+- group: "Setup"
+  steps:
+    - command: "docker build"
+```yml
+{: codeblock-file="pipeline-02.yml"}
+
+As a result, the groups will be merged into one in the UI and the `"docker build"` step will be added to the existing group.
+
+[image placeholder]
