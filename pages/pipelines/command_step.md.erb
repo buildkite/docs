@@ -33,18 +33,17 @@ _Required attributes:_
 
 ```yml
 steps:
-  - command: "npm install && tests.sh"
-```
-{: codeblock-file="pipeline.yml"}
-
-```yml
-steps:
   - commands:
     - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
 ```
 {: codeblock-file="pipeline.yml"}
+
+<div class="Docs__note">
+  <h3 class="Docs__note__heading">Pipelines without command steps</h3>
+  <p>Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.</p>
+</div>
 
 _Optional attributes:_
 
@@ -98,7 +97,7 @@ _Optional attributes:_
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
-   </tr>
+  </tr>
   <tr>
     <td><code>env</code></td>
     <td>
