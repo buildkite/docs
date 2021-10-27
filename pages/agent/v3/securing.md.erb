@@ -45,8 +45,14 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 
 As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
+You can disable plugins with the command line flag: `--no-plugins`.  
+
 You can disable plugins with the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
 setting.
+
+If you still want to use plugins, a third-party tool for signing pipelines will help you do it securely. See [Signing pipelines](/docs/agent/v3/securing#signing-pipelines) for more information.  
+
+
 
 ## Disabling local hooks
 
@@ -101,6 +107,10 @@ do
   fi
 done
 ```
+
+## Signing pipelines  
+
+If using plugins is crucial to your workflow, but you would still like to preserve strong security guarantees, take a look at [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. It is a reference implementation that adds extra security guarantees around Buildkite’s jobs by allowing to sign the uploaded pipelines with a secret shared by all agents. You can use it as an inspiration to build a similar tool that meets your needs, and it not recommended to use this tool 'as is' in a production setting.  
 
 ## Allowing a list of plugins
 
