@@ -75,7 +75,7 @@ _Optional attributes:_
     <td><code>branches</code></td>
     <td>
       The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"master stable/*"</code>
+      <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
@@ -126,7 +126,7 @@ _Optional attributes:_
     <td><code>label</code></td>
     <td>
       The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
-      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as "🔨: Tests"</code><br></code><br>
     </td>
   </tr>
   <tr>
@@ -345,7 +345,7 @@ steps:
     commands:
       - "npm install"
       - "npm run tests"
-    branches: "master"
+    branches: "main"
     env:
       NODE_ENV: "test"
     agents:
@@ -381,7 +381,7 @@ steps:
 
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
-    branches: "master"
+    branches: "main"
     concurrency: 1
     concurrency_group: "my-app/deploy"
     retry:
