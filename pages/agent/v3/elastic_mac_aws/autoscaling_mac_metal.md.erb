@@ -1,8 +1,8 @@
-# Auto Scaling mac1.metal instances
+# Auto Scaling EC2 Mac instances
 
-Run your builds on AWS `mac1.metal` using our [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws).
+Run your builds on AWS EC2 Mac using our [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws).
 This template creates an Auto Scaling group, launch template, and host resource
-group for maintaining a pool of EC2 `mac1.metal` instances that run the
+group for maintaining a pool of EC2 Mac instances that run the
 Buildkite Agent. These agents can be used to run Buildkite Pipelines and build
 Xcode based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
@@ -21,10 +21,10 @@ You should have familiarity with:
 * AWS EC2 AMIs
 * macOS GUI
 
-You must also choose an AWS Region with `mac1.metal` instances available. See
+You must also choose an AWS Region with EC2 Mac instances available. See
 [Amazon EC2 Mac Instances](https://aws.amazon.com/ec2/instance-types/mac/) and
 [Amazon EC2 Dedicated Hosts Pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
-for details on which regions have `mac1.metal` Dedicated Hosts.
+for details on which regions have EC2 Mac Dedicated Hosts.
 
 See also the [Amazon EC2 Mac instances User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
 for more details on AWS EC2 Mac instances.
@@ -40,7 +40,7 @@ to explore options like separate public/private subnets with a NAT Gateway, and
 using a bastion instance or VPN to access the private instances over SSH and
 VNC.
 
-`mac1.metal` Dedicated Hosts are not available in every Availability Zone in the
+EC2 Mac Dedicated Hosts are not available in every Availability Zone in the
 supported regions. Provision a VPC subnet in every Availability Zone to
 maximise the size of your instance pool.
 
@@ -53,7 +53,7 @@ required to set up your initial template EC2 AMI.
 Before deploying this template, you must create a template AMI that will be
 horizontally scaled across multiple instances.
 
-1. Reserve a [AWS `mac1.metal`](https://aws.amazon.com/ec2/instance-types/mac/)
+1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
 Dedicated Host.
 1. Boot a macOS instance using your desired AMI on the Dedicated Host. Ensure
 the root disk is large enough for the version of Xcode you plan to download and
@@ -180,8 +180,8 @@ host resource group and boot instances on them. The launch template’s `UserDat
 script will resize the root disk, then install, configure, and start the
 Buildkite Agent.
 
-`mac1.metal` instances are slow to boot and slow to terminate. If want to match
-your *Desired capacity* to your workload, consider configuring
+EC2 Mac instances are slower to boot and terminate than Linux instances. If want
+to match your *Desired capacity* to your workload, consider configuring
 [scheduled scaling for your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)
 
 ## Frequently Asked Questions
