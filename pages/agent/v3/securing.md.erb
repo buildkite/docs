@@ -110,10 +110,6 @@ done
 
 ## Signing pipelines  
 
-<section class="Docs__troubleshooting-note">
-  <p>Please remember that for maximum security it’s not recommended to use plugins.</p>
-</section>
-
 If using plugins is crucial to your workflow, but you would still like to preserve strong security guarantees, you can use the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) plugin. It adds extra security guarantees around Buildkite’s jobs by allowing the uploaded steps to be signed with a secret shared by all agents. As a result, plugins can run without concerns of tampering by third parties. 
 
 ## Allowing a list of plugins
