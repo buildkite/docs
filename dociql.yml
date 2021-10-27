@@ -1,0 +1,20 @@
+# To fetch schema from
+introspection: https://graphql.buildkite.com/v1
+
+servers: # same format as for OpenAPI Specification
+  - url: https://dev-server.com
+    description: Dev
+  - url: https://prod-server.com
+    description: Prod
+
+info: # same format as for OpenAPI Specification
+    title: Your API Title
+    description: Markdown enabled description of your api.
+
+domains:
+  - name: Top Level Menu Section # Name of the domain
+    description: Description # Description of the domain
+    usecases:
+      - name: Fetch 'Some' field # Operation name
+        description: Markdown enabled description for operation # Opearation description
+        query: "query.viewer"
