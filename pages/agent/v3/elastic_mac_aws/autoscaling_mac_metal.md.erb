@@ -103,6 +103,11 @@ required parameters:
 * `BuildkiteAgentToken` an Agent Token for your [Buildkite Organization](http://buildkite.com/organizations/-/agents)
 * `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
+There are optional parameters to configure which EC2 Mac instance types to use:
+
+* `HostFamily` defaults to `mac1`
+* `InstanceType` defaults to `mac1.metal`
+
 There are also optional parameters to configure the size of the Auto Scaling
 group:
 
