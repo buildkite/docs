@@ -37,8 +37,10 @@ VPC security groups your instances will belong to.
 Depending on your threat model, you may find running instances in your default
 VPC’s public subnets with a public IP address suitable. Otherwise, you may wish
 to explore options like separate public/private subnets with a NAT Gateway, and
-using a bastion instance or VPN to access the private instances over SSH and
-VNC.
+a bastion instance or VPN to access the private instances over SSH and VNC.
+See the [AWS VPC Design documentation](/docs/agent/v3/aws/vpc) for more
+details, and the [AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
+for a ready to use CloudFormation template.
 
 EC2 Mac Dedicated Hosts are not available in every Availability Zone in the
 supported regions. Provision a VPC subnet in all of your region’s Availability
