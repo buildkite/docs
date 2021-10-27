@@ -70,6 +70,14 @@ steps:
 
 When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
 
+<div class="Docs__note">
+
+<p>When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
+<ul>
+ <li>Use the YAML steps editor alone</li>
+ <li>Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.</li></ul>  </p>
+</div>
+
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
 If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory. 
@@ -119,7 +127,7 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 `limited`                  | `blocked`
 `accepted`                 | `unblocked`
 `broken`                   |
-{: class="no-formatting"}
+{: class="two-column"}
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
@@ -241,7 +249,7 @@ To use this script, you'd save it to `.buildkite/pipeline.sh` inside your reposi
 .buildkite/pipeline.sh | buildkite-agent pipeline upload
 ```
 
-When the build is run it will execute the script and pipe the output to the `pipeline upload` command. The upload command will insert the steps from the script into the build immediately after the upload step.
+When the build is running it will execute the script and pipe the output to the `pipeline upload` command. The upload command will insert the steps from the script into the build immediately after the upload step.
 
 In the below `pipeline.yml` example, when the build runs it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build before the wait step and command step. After the test steps have run, the wait and command step will run.
 

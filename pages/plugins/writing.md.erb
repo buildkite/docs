@@ -102,7 +102,6 @@ To make it easier to run this command, add it to the `docker-compose.yml` file:
 
 ```yml
 services:
-  tests: ...
   lint:
     image: buildkite/plugin-linter
     command: ['--id', 'a-github-user/file-counter']
@@ -218,7 +217,7 @@ Next we'll add a `README.md` file to introduce the plugin to the world:
 
 ## Publish to the Buildkite Plugin Directory
 
-To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin`[repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
+To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
 
 ## Designing plugins: single-command plugins versus library plugins
 

@@ -1,12 +1,17 @@
 # Using Build Artifacts
 
-In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/v3/cli-artifact) to store and retrieve files between different steps in a build pipeline.
+In this guide we’ll walk through using the Buildkite Agent’s [artifact support](/docs/agent/v3/cli-artifact)
+to store and retrieve files between different steps in a build pipeline.
+Artifacts can be uploaded to a Buildkite-managed storage location, where they’re
+retained for six months, or your own artifact storage location on Amazon S3,
+Google Cloud Storage, or Artifactory. Presently, Buildkite-managed artifacts are
+stored on Amazon S3.
 
 {:toc}
 
 ## Uploading Artifacts in Build Steps
 
-Upload artifacts in your build steps by defining file path patterns, either in  `artifact_paths` attribute of your command step or in the “Automatic Artifact Uploading” field of the Buildkite UI.
+Upload artifacts in your build steps by defining file path patterns, either in `artifact_paths` attribute of your command step or in the “Automatic Artifact Uploading” field of the Buildkite UI.
 
 The following example shows a command step configured to upload any artifacts in the `logs` or `coverage` directories, as well as any of their subdirectories. Files will be uploaded automatically to `logs/` or `coverage/` respectively:
 
@@ -36,7 +41,7 @@ For full documentation of the `buildkite-agent artifact upload` command see the 
 
 ## Downloading Artifacts
 
-You can download artifacts created by a build job, from inside a running build, using the `buildkite-agent artifact download` command. For example, to download all artifacts in the `logs`  directory (including subdirectories, which will be recreated) to `local-logs/logs/`:
+You can download artifacts created by a build job, from inside a running build, using the `buildkite-agent artifact download` command. For example, to download all artifacts in the `logs` directory (including subdirectories, which will be recreated) to `local-logs/logs/`:
 
 ```bash
 buildkite-agent artifact download logs/* local-logs/
@@ -63,6 +68,18 @@ For full documentation of the `buildkite-agent artifact download` command see th
 The `buildkite-agent artifact download` command only works within the context of a running build.
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/agent/v3/cli-artifact#downloading-artifacts-outside-a-running-build).
+
+## Encryption and security  
+
+Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form. 
+
+Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+
+If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
+
+If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
+
+To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data via the REST and GraphQL API. 
 
 ## Further documentation
 

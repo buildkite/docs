@@ -18,17 +18,33 @@ steps:
 
 <%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
 
-You can add form fields to block steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
-
-The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). Block steps with input fields can only be defined using a `pipeline.yml`.
+You can add form fields to block steps by adding a `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items. Block steps with input fields can only be defined using a `pipeline.yml`.
 
 <%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
+
+The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). 
+
+In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+
+```yml
+ - block: "Release"
+    prompt: "Fill out the details for release"
+    fields: 
+      - text: "Release Name"
+        key: "release-name"
+```
+{: codeblock-file="pipeline.yml"}
+
+```bash
+RELEASE_NAME=$(buildkite-agent meta-data get release-name)
+```
+{: codeblock-file="script.sh"}
 
 For a complete example pipeline, including dynamically generated input fields, see the [Block Step Example Pipeline](https://github.com/buildkite/block-step-example) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example"><span class="detail">:pipeline: Block Step Example Pipeline</span> <span class="repo">github.com/buildkite/block-step-example</span></a>
 
-## Block Step Attributes
+## Block step attributes
 
 Input and block steps have the same attributes available for use.
 
@@ -53,8 +69,8 @@ _Optional attributes:_
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. If you don't set this to something other than the default (`nil`), the build will show as passed in the Buildkite UI and other integrations.<br>
-      <em>Default:</em> <code>nil</code><br>
+      The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>, but you can also set it to <code>failed</code> or <code>running</code>.<br>
+      <em>Default:</em> <code>passed</code><br>
       <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
     </td>
   </tr>
@@ -101,7 +117,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Text Input Attributes
+## Text input attributes
 
 <div class="Docs__note">
 <h3 class="Docs__note__heading">Line endings</h3>
@@ -168,7 +184,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Select Input Attributes
+## Select input attributes
 
 _Required attributes:_
 

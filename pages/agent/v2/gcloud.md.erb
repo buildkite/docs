@@ -159,7 +159,7 @@ buildkite-agent-3220167863-m3nm2   1/1       Running   0          24s
 To run builds from private repositories you can store [an SSH key for the agent](/docs/agent/v2/ssh-keys) in a secret and map it into the containers:
 
 ```shell
-# Use an existing keypair, or generate a new one with something like:
+# Use an existing key pair, or generate a new one with something like:
 $ ssh-keygen -t rsa -b 2048 -N "" -C buildkite-agent -f id_rsa
 Generating public/private rsa key pair.
 Your identification has been saved in id_rsa.
@@ -229,7 +229,7 @@ See [our Docker setup instructions](/docs/agent/v2/docker) for more details on c
 You can upload the [artifacts](/docs/builds/artifacts) created by your builds to your own [Google Cloud Storage](https://cloud.google.com/storage) bucket. Configure the agent to target your bucket by exporting the following environment variables using an [environment agent hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```shell
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_JOB_ID"
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 ```
 
 Make sure the agent has permission to create new objects. If running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).

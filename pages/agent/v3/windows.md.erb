@@ -1,37 +1,31 @@
 # Installing Buildkite Agent on Windows
 
-The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer.
+The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
 
 {:toc}
 
-## Automated install with Powershell
+## Automated install with PowerShell
 
-You'll need to run the automated installer within Powershell with Administrative Privileges.
+You'll need to run the automated installer within PowerShell with administrative privileges.
 
-To start a Powershell session as an Administrator:
+Once you're in an escalated PowerShell session, you can run this script to install the latest version of the agent:
 
-1. Open the Start menu and type "powershell"
-2. Highlight "Windows Powershell" in the results
-3. Press CTRL+SHIFT+ENTER (you'll be prompted to allow this app to make changes)
-
-Once you're in an escalated Powershell session, you can run this script to install the latest version of the Agent:
-
-```
-$env:buildkiteAgentToken = "my_token"
-Set-ExecutionPolicy Bypass -Scope Process -Force
+```shell
+PS> $env:buildkiteAgentToken = "<your_token>"
+PS> Set-ExecutionPolicy Bypass -Scope Process -Force
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/buildkite/agent/main/install.ps1'))
 ```
 
-## Manual Installation
+## Manual installation
 
 1. Download the latest Windows release from <a href="https://github.com/buildkite/agent/releases">Buildkite Agent releases on GitHub</a>
 2. Extract the files to a directory of your choice (we recommend `C:\buildkite-agent`)
 3. Edit `buildkite-agent.cfg` and add your [agent token](/docs/agent/v3/tokens)
 4. Run `buildkite-agent.exe start` from a command prompt
 
-## SSH Key Configuration
+## SSH key configuration
 
-SSH keys should be copied to (or generated into) in the user’s `.ssh` directory. For example, typing the following into Git Bash will generate a new private key which you can add to your source code host:
+Copy or generate SSH keys into your `.ssh` directory. For example, typing the following into Git Bash generates a new private key which you can add to your source code host:
 
 ```bash
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
@@ -39,10 +33,10 @@ $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
-## File Locations
+## File locations
 
 * Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
-* Hooks: `C:\buildkite-agent\hooks`
+* Agent Hooks: `C:\buildkite-agent\hooks`
 * Builds: `C:\buildkite-agent\builds`
 * SSH keys: `%USERPROFILE%\.ssh`
 
@@ -50,25 +44,54 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
 
+There are two options to be aware of for this initial setup:
+
+* Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
+* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
+
+    ```cfg
+    shell="<path-to-powershell-executable>"
+    ```
+
+<div class="Docs__note">
+<p>Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
+</div>
+
 ## Upgrading
 
 Rerun the install script.
 
 ## Git for Windows
 
-While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git or SSH. Git for Windows also includes Bash and a variety of standard linux tools which are frequently required for [plugins](/docs/plugins).
+While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below. 
+
+<div class="Docs__note">
+<p>Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline.</p>
+</div>
 
 ## Running as a service
 
-The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create via the command-line:
+The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create the service using the command-line:
 
 ```
-nssm.exe install buildkite-agent "C:\buildkite-agent\bin\buildkite-agent.exe" "start"
-nssm.exe set buildkite-agent AppStdout "C:\buildkite-agent\buildkite-agent.log"
-nssm.exe set buildkite-agent AppStderr "C:\buildkite-agent\buildkite-agent.log"
+# These commands assume you installed the agent using PowerShell 
+# Your paths may be different if you did a manual installation
+nssm install buildkite-agent "C:\buildkite-agent\bin\buildkite-agent.exe" "start"
+nssm set buildkite-agent AppStdout "C:\buildkite-agent\buildkite-agent.log"
+nssm set buildkite-agent AppStderr "C:\buildkite-agent\buildkite-agent.log"
 
-nssm.exe status buildkite-agent
+nssm status buildkite-agent
 # Expected output: SERVICE_STOPPED
-nssm.exe start buildkite-agent
-nssm.exe status buildkite-agent
+nssm start buildkite-agent
+nssm status buildkite-agent
 ```
+
+## Installing Buildkite on Windows Subsystem for Linux 2
+
+You can use Buildkite on Windows through WSL2. This gives you a way to work with Buildkite on Windows using a Bash shell. This can be useful, as many [plugins](https://buildkite.com/plugins) use Bash.
+
+To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
+
+<div class="Docs__note">
+<p>Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
+</div>

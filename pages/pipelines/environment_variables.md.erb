@@ -1,6 +1,7 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
@@ -79,7 +80,7 @@ Example: `"tmp/capybara/**/*;coverage/**/*"`
 
 The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
-Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
+Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"`
 
 <h3 class="h3-caps">BUILDKITE_BIN_PATH</h3>
 
@@ -563,6 +564,26 @@ The following environment variables have been deprecated.
     <th><code>BUILDKITE_STEP_IDENTIFIER</code></th>
     <td>This has been renamed to `BUILDKITE_STEP_KEY`</td>
   </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ID</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ID`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_NAME</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_NAME`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_META_DATA_*</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_META_DATA_*`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ACCESS_TOKEN</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ACCESS_TOKEN`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_API_URL</code></th>
+    <td>This has been removed with no replacement</td>
+  </tr>
 </tbody>
 </table>
 
@@ -708,7 +729,10 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 
 After the agent variables have been merged, the bootstrap script is run.
 
-The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
+The bootstrap runs any hooks that have been defined by your
+[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
+Variables that are set in these hooks will be merged into the runtime
+environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
   <h3>Take care with environment variables in hooks</h3>

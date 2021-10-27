@@ -6,7 +6,7 @@ Pipeline permissions can be centrally managed by enabling Teams. Enterprise cust
 
 ## Permissions with teams
 
-Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organisation Settings in the Teams section. 
+Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organization Settings in the Teams section. 
 
 When you first enable Teams, a team is automatically created for your organization called “Everyone” that contains all users. This maintains existing access to pipelines for all the users in your organization.
 
@@ -40,7 +40,8 @@ If you're creating pipelines programmatically using the REST API, you can add th
 
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can allow or disallow builds based on the creator's team memberships.
 
-For example, the following [agent environment hook](/docs/agent/v3/hooks) prevents anyone from outside of the ops team from running a build on the agent:
+For example, the following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) 
+prevents anyone from outside of the ops team from running a build on the agent:
 
 ```bash
 set -euo pipefail

@@ -48,7 +48,7 @@ class Page::Renderer
     end
 
     def codespan(code)
-      %{<code class="dark-gray border border-gray rounded" style="padding: .1em .25em; font-size: 85%">#{EscapeUtils.escape_html(code)}</code>}
+      %{<code>#{EscapeUtils.escape_html(code)}</code>}
     end
   end
 
