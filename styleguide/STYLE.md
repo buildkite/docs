@@ -198,7 +198,9 @@ To use an anchor link where you need to link to an H2-level heading, append the 
 `/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
 If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
+  
 `/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+
 Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
 
 ### Content reuse
@@ -240,7 +242,21 @@ Use the following example to add a 'troubleshooting note' in the documentation.
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
 </section>
 ```
-Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
+Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.  
+
+#### Two-column tables   
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:  
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="two-column"}
+```
+
+The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
