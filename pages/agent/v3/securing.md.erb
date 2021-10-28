@@ -45,10 +45,7 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 
 As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
-You can disable plugins with the command line flag: `--no-plugins`.  
-
-You can disable plugins with the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
-setting.
+You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
 
 If you still want to use plugins, a third-party tool for signing pipelines will help you do it securely. See [Signing pipelines](/docs/agent/v3/securing#signing-pipelines) for more information.  
 
