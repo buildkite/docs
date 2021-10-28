@@ -20,7 +20,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     # This option will default to `true` in RSpec 4. It makes the `description`
     # and `failure_message` of custom matchers include text for helper methods
-    # defined using `chain`, e.g.:
+    # defined using `chain`, for example,:
     #     be_bigger_than(2).and_smaller_than(4).description
     #     # => "be bigger than 2 and smaller than 4"
     # ...rather than:
@@ -81,7 +81,7 @@ RSpec.configure do |config|
   if config.files_to_run.one?
     # Use the documentation formatter for detailed output,
     # unless a formatter has already been configured
-    # (e.g. via a command-line flag).
+    # (for example, via a command-line flag).
     config.default_formatter = "doc"
   end
 

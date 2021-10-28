@@ -27,7 +27,7 @@ Using YAML Steps changes the order in which environment variables are interpolat
 
 There are two precedence changes: 
 
-1. Step-level environment variables will now take precedence over build-level variables (i.e. variables set when creating a new build)
+1. Step-level environment variables will now take precedence over build-level variables (variables set when creating a new build)
 1. Top level `env` blocks in YAML no longer override step-level environment variables
 
 For example, in the `pipeline.yml` below, the command will echo `step` after you have migrated to using YAML Steps:
