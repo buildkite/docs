@@ -99,7 +99,7 @@ id_rsa.pipeline-1  id_rsa.pipeline-1.pub
 Alternatively, you can use a shorter approach to creating multiple SSH keys by adding pipeline-specific environments:
 
 <section class="Docs__note">
-  <p>Note that if you are using Elastic Stack, the following approach is redundant as [secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) allows you to specify an SSH key per pipeline as `/{pipeline-slug}/private_ssh_key`.</p>
+  <p>Note that if you are using Elastic Stack, the following approach is redundant as <a href="https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets">secrets support</a> allows you to specify an SSH key per pipeline as <code>/{pipeline-slug}/private_ssh_key</code>.</p>
 </section>
 
 1. Add a pipeline-specific environment (for example, by using [Elastic Stack's secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):  

@@ -1,16 +1,30 @@
 # buildkite-agent artifact
 
-The Buildkite Agent’s `artifact` command provides support for uploading and downloading of build artifacts, allowing you to share binary data between build steps no matter the machine or network.
+The Buildkite Agent’s `artifact` command provides support for uploading and
+downloading of build artifacts, allowing you to share binary data between build
+steps no matter the machine or network.
 
-See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step example.
+See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step
+example.
 
 {:toc}
 
 ## Uploading artifacts
 
-You can use this command in your build scripts to store artifacts in the Buildkite artifact store. The stored artifacts will then be accessible via the web interface and can be downloaded by future build steps.
+You can use this command in your build scripts to store artifacts. Artifacts are
+accessible via the web interface and can be downloaded by future build steps.
+Artifacts can be stored in the Buildkite-managed artifact store, or your own
+storage location, depending on how you have configured your Buildkite Agent.
 
-You can also configure the agent to automatically upload artifacts based on a file pattern (see the [Using Build Artifacts guide](/docs/builds/artifacts) for details).
+For documentation on configuring a custom storage location, see:
+
+- [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
+- [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
+- [Using your Artifactory instance](#using-your-artifactory-instance)
+
+You can also configure the agent to automatically upload artifacts after your
+step’s command has completed based on a file pattern (see the
+[Using Build Artifacts guide](/docs/builds/artifacts) for details).
 
 
 <%= render 'agent/v3/help/artifact_upload' %>
@@ -137,6 +151,13 @@ For example, executing the `buildkite-agent artifact download` command on your l
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
+## Searching artifacts
+
+Return a list of artifacts that match a query. 
+
+<%= render 'agent/v3/help/artifact_search' %>
+
+
 ## Fetching the SHA of an artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
@@ -147,7 +168,17 @@ Use this command in your build scripts to verify downloaded artifacts against th
 
 ## Using your private AWS S3 bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your private Amazon S3 bucket. To do so, you’ll need to export some artifact environment variables.
+You can configure the `buildkite-agent artifact` command to store artifacts in
+your private Amazon S3 bucket. To do so, you’ll need to export some artifact
+environment variables.
+
+Environment Variable | Required | Default Value | Description
+--- | --- | --- | ---
+`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, e.g. s3://your-bucker/path/prefix/
+`BUILDKITE_S3_DEFAULT_REGION` | No | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service. 
+`BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
+`BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.
+`BUILDKITE_S3_ACCESS_URL` | No | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact’s location stored with the Buildkite API.
 
 You can set these environment variables from a variety of places. Exporting them
 from an [environment hook](/docs/agent/v3/hooks#job-lifecycle-hooks) defined in
@@ -155,11 +186,14 @@ your [agent `hooks-path` directory](/docs/agent/v3/hooks#hook-locations-agent-ho
 ensures they are applied to all jobs:
 
 ```bash
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 
-You will also need to make sure your agent instances have the following IAM policy to read and write objects in the bucket, for example:
+### IAM Permissions
+
+Make sure your agent instances have the following IAM policy to
+read and write objects in the bucket, for example:
 
 ```json
 {
@@ -186,26 +220,62 @@ You will also need to make sure your agent instances have the following IAM poli
 }
 ```
 
-If you’re running your agents on an AWS EC2 Instance we suggest adding the above policy to [an IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html). If you're running outside of AWS, or you’re unable to use an instance role, you can use export `BUILDKITE_S3_ACCESS_KEY_ID` and `BUILDKITE_S3_SECRET_ACCESS_KEY` containing the [Access Key credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html) for an IAM user. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up these environment variables.
+If you are using the Elastic CI Stack for AWS, provide your bucket name in the
+`ArtifactsBucket` template parameter for an appropriate IAM policy to be
+included in the instance’s IAM role.
 
-By default the agent will create objects with `public-read` permissions, so that clicking on an artifact link in the Buildkite web interface can go directly to the S3 object to be viewed in the browser. You can set this to private by exporting the following environment variable:
+### Credentials
+
+`buildkite-agent artifact upload` will use the first available AWS credentials
+from the following locations:
+
+- Buildkite environment variables, `BUILDKITE_S3_ACCESS_KEY_ID`, `BUILDKITE_S3_SECRET_ACCESS_KEY`, `BUILDKITE_S3_SESSION_TOKEN`
+- AWS environment variables, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`
+- Web Identity environment variables, `AWS_ROLE_ARN`, `AWS_ROLE_SESSION_NAME`, `AWS_WEB_IDENTITY_TOKEN_FILE`
+- EC2 or ECS role, your EC2 instance or ECS task’s IAM Role
+
+If your agents are running on an AWS EC2 Instance, adding the
+policy above to the instance’s [IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) and using the instance profile credentials is the
+most secure option as there are no long lived credentials to manage.
+
+If your agents are running outside of AWS, or you’re unable to use an instance
+profile, you can export
+[long lived credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
+belonging to an IAM user using one of the environment variable groups listed
+above. See the [Managing Pipeline Secrets](/docs/pipelines/secrets)
+documentation for how to securely set up these environment variables.
+
+### Access Control
+
+By default the agent will create objects with the [`public-read` ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl). This allows the artifact links in the
+Buildkite web interface to show the S3 object directly in the browser. You can
+set this to `private` instead, exporting a value for the `BUILDKITE_S3_ACL`
+environment variable:
 
 ```bash
 export BUILDKITE_S3_ACL="private"
 ```
 
-If you set your S3 ACL to `private` you won't be able to click through to the artifacts in the Buildkite web interface. You can use an authenticating S3 proxy such as [aws-s3-proxy](https://github.com/pottava/aws-s3-proxy) to provide web access protected by HTTP Basic authentication, which will allow you to view embedded assets such as HTML pages with images. To set the access URL for your proxy, export the following environment variable:
+If you set your S3 ACL to `private` you won't be able to click through to the
+artifacts in the Buildkite web interface. You can use an authenticating S3 proxy
+such as [aws-s3-proxy](https://github.com/pottava/aws-s3-proxy) to provide web
+access protected by HTTP Basic authentication, which will allow you to view
+embedded assets such as HTML pages with images. To set the access URL for your
+artifacts, export a value for the `BUILDKITE_S3_ACCESS_URL` environment
+variable:
 
 ```bash
 export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 ```
 
-See the BUILDKITE&#95;S3&#95;ACL variable in the [environment variables list](/docs/pipelines/environment-variables#bk-env-vars) for a full list of access control options.
-
 ## Using your private Google Cloud bucket
 
-You can use the `buildkite-agent artifact` command to store artifacts in your private Google Cloud storage bucket. For instructions for how to set this up, see our [Google Cloud Installation Guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
+You can configure the `buildkite-agent artifact` command to store artifacts in
+your private Google Cloud storage bucket. For instructions for how to set this
+up, see our [Google Cloud Installation Guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
 
 ## Using your Artifactory instance
 
-You can use the `buildkite-agent artifact` command to store artifacts in Artifactory. For instructions for how to set this up, see our [Artifactory Guide](/docs/integrations/artifactory).
+You can configure the `buildkite-agent artifact` command to store artifacts in
+Artifactory. For instructions for how to set this up, see our
+[Artifactory Guide](/docs/integrations/artifactory).

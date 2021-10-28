@@ -33,18 +33,17 @@ _Required attributes:_
 
 ```yml
 steps:
-  - command: "npm install && tests.sh"
-```
-{: codeblock-file="pipeline.yml"}
-
-```yml
-steps:
   - commands:
     - "npm install && npm test"
     - "moretests.sh"
     - "build.sh"
 ```
 {: codeblock-file="pipeline.yml"}
+
+<div class="Docs__note">
+  <h3 class="Docs__note__heading">Pipelines without command steps</h3>
+  <p>Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.</p>
+</div>
 
 _Optional attributes:_
 
@@ -75,7 +74,7 @@ _Optional attributes:_
     <td><code>branches</code></td>
     <td>
       The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"master stable/*"</code>
+      <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
@@ -98,7 +97,7 @@ _Optional attributes:_
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
-   </tr>
+  </tr>
   <tr>
     <td><code>env</code></td>
     <td>
@@ -126,7 +125,7 @@ _Optional attributes:_
     <td><code>label</code></td>
     <td>
       The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
-      <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+      <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as "🔨: Tests"</code><br></code><br>
     </td>
   </tr>
   <tr>
@@ -165,7 +164,7 @@ _Optional attributes:_
   <tr>
     <td><code>soft_fail</code></td>
     <td>
-      Allow specified non-zero exit statuses not to fail the build. Note that a timeout always causes a build to fail.
+      Allow specified non-zero exit statuses not to fail the build.
       Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em><br>
@@ -321,7 +320,7 @@ _Optional Attributes_
     <td><code>exit_status</code></td>
     <td>
       Allow specified non-zero exit statuses not to fail the build.
-      Note that a timeout always causes a build to fail. <br>
+      <br>
       <em>Example:</em> <code>"*"</code><br>
       <em>Example:</em> <code>1</code>
     </td>
@@ -345,7 +344,7 @@ steps:
     commands:
       - "npm install"
       - "npm run tests"
-    branches: "master"
+    branches: "main"
     env:
       NODE_ENV: "test"
     agents:
@@ -381,7 +380,7 @@ steps:
 
   - label: "\:shipit\: Deploy"
     command: "deploy.sh"
-    branches: "master"
+    branches: "main"
     concurrency: 1
     concurrency_group: "my-app/deploy"
     retry:

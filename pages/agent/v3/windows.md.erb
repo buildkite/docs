@@ -47,19 +47,15 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 There are two options to be aware of for this initial setup:
 
 * Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or Bash, you must point Buildkite to the correct shell. For example, to use PowerShell:
+* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
     shell="<path-to-powershell-executable>"
     ```
 
-    <div class="Docs__note">
-    <p>This allows you to run a PowerShell script, but your build hooks must still be either <code>.bat</code> or <code>.sh</code> files (<code>.sh</code> files require access to Git for Windows). Refer to <a href="https://buildkite.com/docs/agent/v3/hooks#hooks-on-windows">Hooks - Hooks on Windows</a> for more information.</p>
-    </div>
-
-    <div class="Docs__note">
-    <p>Buildkite does not support the cross-platform edition of PowerShell (PowerShell 6 and 7, also known as PowerShell Core). Make sure `shell` points to a `powershell.exe` file, not `pwsh.exe`.</p>
-    </div>
+<div class="Docs__note">
+<p>Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
+</div>
 
 ## Upgrading
 
@@ -67,7 +63,11 @@ Rerun the install script.
 
 ## Git for Windows
 
-While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git or SSH. Git for Windows also includes Bash and a variety of standard linux tools which are frequently required for [plugins](/docs/plugins).
+While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below. 
+
+<div class="Docs__note">
+<p>Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline.</p>
+</div>
 
 ## Running as a service
 
@@ -85,3 +85,13 @@ nssm status buildkite-agent
 nssm start buildkite-agent
 nssm status buildkite-agent
 ```
+
+## Installing Buildkite on Windows Subsystem for Linux 2
+
+You can use Buildkite on Windows through WSL2. This gives you a way to work with Buildkite on Windows using a Bash shell. This can be useful, as many [plugins](https://buildkite.com/plugins) use Bash.
+
+To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
+
+<div class="Docs__note">
+<p>Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
+</div>

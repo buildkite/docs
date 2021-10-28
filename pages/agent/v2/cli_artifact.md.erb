@@ -251,7 +251,7 @@ Options:
 You can use the `buildkite-agent artifact` command to store artifacts in your own private Amazon S3 bucket. To do so, you’ll need to export the following environment variables using an [environment hook](/docs/agent/v2/hooks) (this can not be set via the Buildkite web interface, API, or during pipeline upload):
 
 ```bash
-export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"
+export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 export BUILDKITE_S3_DEFAULT_REGION="eu-central-1" # default: us-east-1
 ```
 

@@ -80,7 +80,7 @@ Example: `"tmp/capybara/**/*;coverage/**/*"`
 
 The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
-Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
+Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"`
 
 <h3 class="h3-caps">BUILDKITE_BIN_PATH</h3>
 
@@ -563,6 +563,26 @@ The following environment variables have been deprecated.
   <tr>
     <th><code>BUILDKITE_STEP_IDENTIFIER</code></th>
     <td>This has been renamed to `BUILDKITE_STEP_KEY`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ID</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ID`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_NAME</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_NAME`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_META_DATA_*</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_META_DATA_*`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ACCESS_TOKEN</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ACCESS_TOKEN`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_API_URL</code></th>
+    <td>This has been removed with no replacement</td>
   </tr>
 </tbody>
 </table>
