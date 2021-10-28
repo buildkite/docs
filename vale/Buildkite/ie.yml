@@ -4,5 +4,5 @@ level: warning
 code: false
 ignorecase: true
 tokens:
-  - i.e
-  - i.e.
+  - \bi.e\b
+  - \bi.e.\b
