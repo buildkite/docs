@@ -26,11 +26,9 @@ bin/rails server
 
 > **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
 
-Or if you have Docker installed:
+If you have Docker installed:
 
 ```bash
-# Run the specs
-docker-compose run app bundle exec rspec
 # Start the app on http://localhost:3000/
 docker-compose up --build
 # To start it in production mode on http://localhost:3000/

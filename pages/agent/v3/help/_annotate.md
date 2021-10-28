@@ -26,13 +26,13 @@ show information that may surface from your builds. Some examples include:
 - Graphs that include analysis about your codebase
 - Helpful information for team members about what happened during a build
 
-Annotations are written in CommonMark-compliant Markdown, with "GitHub
-Flavored Markdown" extensions.
+Annotations are written in CommonMark-compliant Markdown, with &quot;GitHub
+Flavored Markdown&quot; extensions.
 
 The annotation body can be supplied as a command line argument, or by piping
 content into the command.
 
-You can update an existing annotation's body by running the annotate command
+You can update an existing annotation&#39;s body by running the annotate command
 again and provide the same context as the one you want to update. Or if you
 leave context blank, it will use the default context.
 

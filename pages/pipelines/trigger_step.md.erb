@@ -73,7 +73,7 @@ _Optional attributes:_
     <td><code>branches</code></td>
     <td>
       The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"master stable/*"</code>
+      <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
@@ -167,7 +167,7 @@ You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#envi
 ```yml
 - trigger: "app-deploy"
   label: "\:rocket\: Deploy"
-  branches: "master"
+  branches: "main"
   async: true
   build:
     message: "${BUILDKITE_MESSAGE}"

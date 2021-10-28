@@ -13,7 +13,7 @@ optional.
 
 <%
 require 'yaml'
-file = File.join(File.dirname(__FILE__), '..', '..', '..', '..', 'data', 'aws-stack.yml')
+file = File.join(File.dirname(__FILE__), 'data', 'aws-stack.yml')
 template = YAML.load(File.read(file))
 
 metadata = template['Metadata']
@@ -29,69 +29,52 @@ parameters = template['Parameters']
 <table>
 	<tbody>
 		<tr>
-  			<th>Parameter</th>
-  			<th>Description</th>
-  			<th>Type</th>
-  			<th>Default Value</th>
-  			<th>Constraints</th>
+			<th>Parameter</th>
+			<th>Description</th>
 		</tr>
 		<% group['Parameters'].each do |parameter_name| %>
 			<% parameter = parameters[parameter_name] %>
 			<tr id="<%= parameter_name %>">
-				<td><code><%= parameter_name %></code></td>
-				<td><%= parameter['Description'] %></td>
-				<td><code><%= parameter['Type'] || 'String' %></code></td>
-				<td><code><%= parameter['Default'] %></code></td>
 				<td>
-					<table>
-						<tbody>
-							<% if allowed = parameter['AllowedValues'] %>
-								<tr>
-	    							<th>Allowed Values</th>
-	    							<td>
-	    								<ul>
-	    									<% allowed.each do |allow| %>
-	    										<li><code><%= allow %></code></li>
-    										<% end %>
-	    								</ul>
-	    							</td>
-	    						</tr>
-							<% end %>
+					<code><%= parameter_name %></code>
+					<br><code>(<%= parameter['Type'] %>)</code>
+				</td>
+				<td>
+					<%= parameter['Description'] %>
 
-							<% if pattern = parameter['AllowedPattern'] %>
-								<tr>
-									<th>Allowed Pattern</th>
-									<td><code><%= pattern %></code></td>
-								</tr>
-							<% end %>
+					<% if allowed = parameter['AllowedValues'] %>
+						<br/><strong>Allowed Values</strong>:
+							<ul>
+								<% allowed.each do |allow| %>
+									<li><code><%= allow %></code></li>
+								<% end %>
+							</ul>
+					<% end %>
 
-							<% if minLength = parameter['MinLength'] %>
-								<tr>
-									<th>Minimum Length</th>
-									<td><%= minLength %></td>
-								</tr>
-							<% end %>
-							<% if maxLength = parameter['MaxLength'] %>
-								<tr>
-									<th>Maximum Length</th>
-									<td><%= maxLength %></td>
-								</tr>
-							<% end %>
+					<% if parameter['Default'] && parameter['Default'] != "" %>
+						<br/><strong>Default Value:</strong> <code><%= parameter['Default'] %></code>
+					<% end %>
 
-							<% if minValue = parameter['MinValue'] %>
-								<tr>
-									<th>Minimum Value</th>
-									<td><%= minValue %></td>
-								</tr>
-							<% end %>
-							<% if maxValue = parameter['MaxValue'] %>
-								<tr>
-									<th>Maximum Value</th>
-									<td><%= maxValue %></td>
-								</tr>
-							<% end %>
-						</tbody>
-					</table>
+					<% if pattern = parameter['AllowedPattern'] %>
+						<br/><strong>Allowed Pattern:</strong> <code><%= pattern %></code>
+					<% end %>
+
+					<% if minLength = parameter['MinLength'] %>
+						<br/><strong>Minimum Length:</strong> <%= minLength %>
+					<% end %>
+
+					<% if maxLength = parameter['MaxLength'] %>
+						<br/><strong>Maximum Length:</strong> <%= maxLength %>
+					<% end %>
+
+					<% if minValue = parameter['MinValue'] %>
+						<br/><strong>Minimum Value:</strong> <%= minValue %>
+					<% end %>
+
+					<% if maxValue = parameter['MaxValue'] %>
+						<br/><strong>Maximum Value:</strong> <%= maxValue %>
+					<% end %>
+
 				</td>
 			</tr>
 		<% end %>
