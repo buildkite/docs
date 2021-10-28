@@ -32,7 +32,7 @@ steps:
       - ./bin/vale pages
 
   - label: ":lint-roller: Linting for insensitive words"
-    command: npm run lint
+    command: npm run lint -y
     plugins:
       # Using the plain Node image, instead of the custom doc Dockerfile
       # version, is way faster because we don't have to wait for Ruby gems to
