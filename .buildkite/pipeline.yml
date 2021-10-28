@@ -40,4 +40,4 @@ steps:
       - docker#v3.7.0:
           # Alpine 3.12 - EOS 01-05-2022
           # lts = Node 1415.1 - 2023-04-30
-          image: "node:lts-alpine3.12"
+          image: "node:lts-alpine3.14"
