@@ -18,7 +18,7 @@ Always `"true"`.
 
 <h3 class="h3-caps">BUILDKITE_AGENT_ACCESS_TOKEN</h3>
 
-The agent session token for the job. The variable is read by the agent’s `artifact` and `meta-data` commands. The value cannot be modified.
+The agent session token for the job. The variable is read by the agent’s `artifact` and `meta-data` commands. The value cannot be modified as an environment variable.
 
 Example: `"83d544ccc223c157d2bf80d3f2a32982c32c3c0db8e3674820da5064783fb091"`
 
@@ -78,7 +78,7 @@ Example: `"elastic-builders-088264dc4f9"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_PID</h3>
 
-The process ID of the agent. The value cannot be modified.
+The process ID of the agent. The value cannot be modified as an environment variable.
 
 Example: `"6"`
 
@@ -102,7 +102,7 @@ Example: `"/usr/local/bin"`
 
 <h3 class="h3-caps">BUILDKITE_BRANCH</h3>
 
-The branch being built. The value cannot be modified.
+The branch being built. The value cannot be modified as an environment variable.
 
 Example: `"master"`
 
@@ -114,43 +114,43 @@ Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR</h3>
 
-The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
+The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified as an environment variable.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR_EMAIL</h3>
 
-The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
+The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified as an environment variable.
 
 Example: `"cdanvers@kree-net.com"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR</h3>
 
-The name of the user who created the build. The value cannot be modified.
+The name of the user who created the build. The value cannot be modified as an environment variable.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR_EMAIL</h3>
 
-The notification email of the user who created the build. The value cannot be modified.
+The notification email of the user who created the build. The value cannot be modified as an environment variable.
 
 Example: `"cdanvers@kree-net.com"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR_TEAMS</h3>
 
-A colon separated list of non-private team names that the build creator belongs to. The value cannot be modified.
+A colon separated list of non-private team names that the build creator belongs to. The value cannot be modified as an environment variable.
 
 Example: `"everyone:platform"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_ID</h3>
 
-The UUID of the build. The value cannot be modified.
+The UUID of the build. The value cannot be modified as an environment variable.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_NUMBER</h3>
 
-The build number. This number increases by 1 with every build, and is guaranteed to be unique within each pipeline. The value cannot be modified.
+The build number. This number increases by 1 with every build, and is guaranteed to be unique within each pipeline. The value cannot be modified as an environment variable.
 
 Example: `"1514"`
 
@@ -162,7 +162,7 @@ Example: `"/var/lib/buildkite-agent/builds/"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_URL</h3>
 
-The url for this build on Buildkite. The value cannot be modified.
+The url for this build on Buildkite. The value cannot be modified as an environment variable.
 
 Example: `"https://buildkite.com/acme-inc/my-project/builds/1514"`
 
@@ -186,7 +186,7 @@ Values: `"true"` or `"false"`
 
 <h3 class="h3-caps">BUILDKITE_COMMAND</h3>
 
-The command that will be run for the job. The value cannot be modified.
+The command that will be run for the job. The value cannot be modified as an environment variable.
 
 Example: `"script/buildkite/specs"`
 
@@ -198,13 +198,13 @@ Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_COMMAND_EXIT_STATUS</h3>
 
-The exit code from the last command run in the command hook. The value cannot be modified.
+The exit code from the last command run in the command hook. The value cannot be modified as an environment variable.
 
 Example: `"-1"`
 
 <h3 class="h3-caps">BUILDKITE_COMMIT</h3>
 
-The git commit object of the build. This is usually a 40-byte hexadecimal SHA-1 hash, but can also be a symbolic name like `HEAD`. The value cannot be modified.
+The git commit object of the build. This is usually a 40-byte hexadecimal SHA-1 hash, but can also be a symbolic name like `HEAD`. The value cannot be modified as an environment variable.
 
 Example: `"83a20ec058e2fb00e7fa4558c4c6e81e2dcf253d"`
 
@@ -216,7 +216,7 @@ Default: `"/buildkite/buildkite-agent.cfg"`
 
 <h3 class="h3-caps">BUILDKITE_ENV_FILE</h3>
 
-The path to the file containing the job’s environment variables. The value cannot be modified.
+The path to the file containing the job’s environment variables. The value cannot be modified as an environment variable.
 
 Example: `"/tmp/job-env-36711a2a-711a-484e-b180-e1b3711a80cf51b18711a"`
 
@@ -270,25 +270,25 @@ Example: `"/etc/buildkite-agent/hooks/"`
 
 <h3 class="h3-caps">BUILDKITE_IGNORED_ENV</h3>
 
-A list of environment variables that have been set in your pipeline that are protected and will be overridden, used internally to pass data from the bootstrap to the agent. The value cannot be modified.
+A list of environment variables that have been set in your pipeline that are protected and will be overridden, used internally to pass data from the bootstrap to the agent. The value cannot be modified as an environment variable.
 
 Example: `"BUILDKITE_GIT_CLEAN_FLAGS"`
 
 <h3 class="h3-caps">BUILDKITE_JOB_ID</h3>
 
-The internal UUID Buildkite uses for this job. The value cannot be modified.
+The internal UUID Buildkite uses for this job. The value cannot be modified as an environment variable.
 
 Example: `"e44f9784-e20e-4b93-a21d-f41fd5869db9"`
 
 <h3 class="h3-caps">BUILDKITE_LABEL</h3>
 
-The label/name of the current job. The value cannot be modified.
+The label/name of the current job. The value cannot be modified as an environment variable.
 
 Example: `"\:hammer\: Specs"`
 
 <h3 class="h3-caps">BUILDKITE_LAST_HOOK_EXIT_STATUS</h3>
 
-The exit code of the last hook that ran, used internally by the hooks. The value cannot be modified.
+The exit code of the last hook that ran, used internally by the hooks. The value cannot be modified as an environment variable.
 
 Example: `"-1"`
 
@@ -300,13 +300,13 @@ Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_MESSAGE</h3>
 
-The message associated with the build, usually the commit message. The value cannot be modified.
+The message associated with the build, usually the commit message. The value cannot be modified as an environment variable.
 
 Example: `"Added a great new feature"`
 
 <h3 class="h3-caps">BUILDKITE_ORGANIZATION_SLUG</h3>
 
-The organization name on Buildkite as used in URLs. The value cannot be modified.
+The organization name on Buildkite as used in URLs. The value cannot be modified as an environment variable.
 
 Example: `"acme-inc"`
 
@@ -324,25 +324,25 @@ Example: `"5"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_DEFAULT_BRANCH</h3>
 
-The default branch for this pipeline. The value cannot be modified.
+The default branch for this pipeline. The value cannot be modified as an environment variable.
 
 Example: `"master"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_NAME</h3>
 
-The displayed pipeline name on Buildkite. The value cannot be modified.
+The way pipeline name is displayed in Buildkite. The value cannot be modified as an environment variable.
 
 Example: `"my_project"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_PROVIDER</h3>
 
-The ID of the source code provider for the pipeline’s repository. The value cannot be modified.
+The ID of the source code provider for the pipeline’s repository. The value cannot be modified as an environment variable.
 
 Example: `"github"`
 
 <h3 class="h3-caps">BUILDKITE_PIPELINE_SLUG</h3>
 
-The pipeline slug on Buildkite as used in URLs. The value cannot be modified.
+The pipeline slug on Buildkite as used in URLs. The value cannot be modified as an environment variable.
 
 Example: `"my-pipeline"`
 
@@ -366,31 +366,31 @@ Default: `"false"`
 
 <h3 class="h3-caps">BUILDKITE_PULL_REQUEST</h3>
 
-The number of the pull request, if this branch is a pull request. The value cannot be modified.
+The number of the pull request, if this branch is a pull request. The value cannot be modified as an environment variable.
 
 Example: `"123"` for pull request #123, or `"false"` if not a pull request.
 
 <h3 class="h3-caps">BUILDKITE_PULL_REQUEST_BASE_BRANCH</h3>
 
-The base branch that the pull request is targeting. The value cannot be modified.
+The base branch that the pull request is targeting. The value cannot be modified as an environment variable.
 
 Example: `"master"`, or `""` if not a pull request.
 
 <h3 class="h3-caps">BUILDKITE_PULL_REQUEST_REPO</h3>
 
-The repository URL of the pull request. The value cannot be modified.
+The repository URL of the pull request. The value cannot be modified as an environment variable.
 
 Example: `"git://github.com/acme-inc/my-project.git"`, or `""` if not a pull request.
 
 <h3 class="h3-caps">BUILDKITE_REBUILT_FROM_BUILD_ID</h3>
 
-The UUID of the original build this was rebuilt from. The value cannot be modified.
+The UUID of the original build this was rebuilt from. The value cannot be modified as an environment variable.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`, or `""` if not a rebuild.
 
 <h3 class="h3-caps">BUILDKITE_REBUILT_FROM_BUILD_NUMBER</h3>
 
-The UUID of the original build this was rebuilt from. The value cannot be modified.
+The UUID of the original build this was rebuilt from. The value cannot be modified as an environment variable.
 
 Example: `"1514"`, or `""` if not a rebuild.
 
@@ -408,7 +408,7 @@ Example: `"git@github.com:acme-inc/my-project.git"`
 
 <h3 class="h3-caps">BUILDKITE_RETRY_COUNT</h3>
 
-How many times this job has been retried. The value cannot be modified.
+How many times this job has been retried. The value cannot be modified as an environment variable.
 
 Example: `"0"`
 
@@ -460,7 +460,7 @@ Example: `"/bin/bash -e -c"`
 
 <h3 class="h3-caps">BUILDKITE_SOURCE</h3>
 
-The source of the event that created the build. The value cannot be modified.
+The source of the event that created the build. The value cannot be modified as an environment variable.
 
 Values: `"webhook"`, `"api"`, `"ui"`, `"trigger_job"`, or `"schedule"`
 
@@ -472,7 +472,7 @@ Values: `"true"` and `"false"`
 
 <h3 class="h3-caps">BUILDKITE_STEP_ID</h3>
 
-A unique string that identifies a step. This value cannot be modified.
+A unique string that identifies a step. This value cannot be modified as an environment variable.
 
 Example: "080b7d73-986d-4a39-a510-b34f9faf4710"
 
@@ -484,55 +484,55 @@ Example: "tests-06"
 
 <h3 class="h3-caps">BUILDKITE_TAG</h3>
 
-The name of the tag being built, if this build was triggered from a tag. The value cannot be modified.
+The name of the tag being built, if this build was triggered from a tag. The value cannot be modified as an environment variable.
 
 Example: `"v1.2.3"`
 
 <h3 class="h3-caps">BUILDKITE_TIMEOUT</h3>
 
-The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. The value cannot be modified.
+The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. The value cannot be modified as an environment variable.
 
 Example: `"15"` for 15 minutes, or `"false"` if no timeout is set
 
 <h3 class="h3-caps">BUILDKITE_TRIGGERED_FROM_BUILD_ID</h3>
 
-The UUID of the build that triggered this build. The value cannot be modified.
+The UUID of the build that triggered this build. The value cannot be modified as an environment variable.
 
 Example: `"5aa7c894-c8c0-435b-bc17-13923b90f163"`, or `""` if the build was not triggered from another build.
 
 <h3 class="h3-caps">BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</h3>
 
-The number of the build that triggered this build. The value cannot be modified.
+The number of the build that triggered this build. The value cannot be modified as an environment variable.
 
 Example: `"1264"`, or `""` if the build was not triggered from another build.
 
 <h3 class="h3-caps">BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</h3>
 
-The slug of the pipeline that was used to trigger this build. The value cannot be modified.
+The slug of the pipeline that was used to trigger this build. The value cannot be modified as an environment variable.
 
 Example: `"build-and-test"`, or `""` if the build was not triggered from another build.
 
 <h3 class="h3-caps">BUILDKITE_UNBLOCKER</h3>
 
-The name of the user who unblocked the build. The value cannot be modified.
+The name of the user who unblocked the build. The value cannot be modified as an environment variable.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_UNBLOCKER_EMAIL</h3>
 
-The notification email of the user who unblocked the build. The value cannot be modified.
+The notification email of the user who unblocked the build. The value cannot be modified as an environment variable.
 
 Example: `"carol@nasa.gov"`
 
 <h3 class="h3-caps">BUILDKITE_UNBLOCKER_ID</h3>
 
-The UUID of the user who unblocked the build. The value cannot be modified.
+The UUID of the user who unblocked the build. The value cannot be modified as an environment variable.
 
 Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 
 <h3 class="h3-caps">BUILDKITE_UNBLOCKER_TEAMS</h3>
 
-A colon separated list of non-private team names that the user who unblocked the build belongs to. The value cannot be modified.
+A colon separated list of non-private team names that the user who unblocked the build belongs to. The value cannot be modified as an environment variable.
 
 Example: `"everyone:platform"`
 
