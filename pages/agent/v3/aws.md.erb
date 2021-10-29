@@ -16,47 +16,72 @@ You can use an Elastic CI Stack deployment to test Linux or Windows projects,
 parallelize large test suites, run Docker containers or docker-compose
 integration tests, or perform any AWS ops related tasks.
 
-[Read the documentation][github] on GitHub, and launch it using the
-button on your organization’s Agents page.
+You can launch an instance of the Elastic CI Stack for AWS from your
+organization’s [Agents page](http://buildkite.com/organizations/-/agents) or
+the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 
-   [github]: https://github.com/buildkite/elastic-ci-stack-for-aws
-   [Red Hat/CentOS installer]: /docs/agent/v3/redhat
+## Installing the agent on your own AWS instances
 
-## Installing the Agent on your own AWS instances
+To run the agent on your own AWS instances, use the installer that matches your
+instance operating system:
 
-To run the agent on your own AWS instances, use whichever installer matches your
-instance operating system. For Amazon Linux 2 use the
-[Red Hat/CentOS installer](/docs/agent/v3/redhat). For macOS, see
-[installing the agent on AWS mac1.metal instances](#installing-the-agent-on-aws-mac1-dot-metal-instances)
+* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat). 
+* For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
-## Installing the Agent on AWS mac1.metal instances
+## Using the experimental Elastic Mac for AWS CloudFormation template
+
+[Elastic Mac for AWS](https://github.com/buildkite/elastic-mac-for-aws) is an
+experimental CloudFormation template for an autoscaling macOS Buildkite agent
+cluster.
+
+You can use an Elastic Mac deployment to build and test macOS, iOS, iPadOS,
+tvOS, and watchOS projects.
+
+Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic_mac_aws/autoscaling_mac_metal) documentation for instructions on preparing and deploying this template.
+
+## Installing the Agent on your own AWS EC2 Mac instances
 
 Setting up a macOS AMI that starts a Buildkite Agent on launch is a multi
-step process. You can start with one of the macOS AMIs from AWS, or with an AMI you've already installed Xcode or other software on.
+step process. You can start with one of the macOS AMIs from AWS, or with an AMI
+you've already installed Xcode or other software on.
 
 To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
 session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
 
-
-1. Reserve a [AWS mac1.metal](https://aws.amazon.com/ec2/instance-types/mac/)
-Dedicated Instance.
-1. Boot a macOS instance using your desired AMI on the Dedicated Instance
+1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
+Dedicated Host.
+1. Boot a macOS instance using your desired AMI on the Dedicated Host.
 1. Configure instance VPC subnets, security groups, and key pairs so that you
 can access the instance.
-1. Using an SSH or SSM session, set a password for the ec2-user and enable
-screen sharing.
-1. Using a VNC session, enable auto-login for the ec2-user in System Preferences
-and disable the auto screen lock and screen saver.
-1. Follow the [OS X installation guide](/docs/agent/v3/osx#installation)
-instructions to install the Buildkite Agent using Homebrew and configure
+1. Using an SSH or AWS SSM session:
+	* Set a password for the `ec2-user` using `sudo passwd ec2-user`
+	* Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+	* Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
+	1. Sign in as the `ec2-user`
+	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
+	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
+1. Follow the [macOS Installation Guide](/docs/agent/v3/macos#installation)
+instructions to install the Buildkite agent using Homebrew and configure
 starting on login.
-1. Verify that the Buildkite Agent has connected to buildkite.com with your
+1. Verify that the Buildkite agent has connected to buildkite.com with your
 desired agent tags.
 1. Create an AMI from your instance.
 
 Your saved AMI can now be used to boot as many macOS instances as you require.
-To make this process repeatable, save your instance configuration in a Launch
-Template.
+
+To make this process repeatable, save your instance configuration in a
+[launch template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html). 
+To automate instance replacement, use an [Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
+to boot instances and a [host resource group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
+to reserve Dedicated Hosts.
+
+While the use of an Auto Scaling group and host resource group to automatically
+maintain capacity in the face of hardware failures is recommended, load based
+dynamic auto-scaling of macOS instances is not recommended. The instances are
+currently slow to boot and slow to terminate. Use of load based auto-scaling is
+likely to result in an over-provision of agents which carries a high minimum
+charge per Dedicated Host.
 
 There is an excellent blog post on [running iOS agents in the cloud](https://www.starkandwayne.com/blog/buildkite-2/) that goes into more detail on preparing macOS AMIs using [Packer](https://www.packer.io/).
 
