@@ -50,7 +50,19 @@ Default: `"https://agent.buildkite.com/v3"`
 
 A list of the [experimental agent features](/docs/agent/v3#experimental-features) that are currently enabled. The value cannot be modified as an environment variable. The value can be set using the `--experiment` flag on the [`buildkite-agent start` command](/docs/agent/v3/cli-start#starting-an-agent) or in your [agent configuration file](/docs/agent/v3/configuration).
 
-Example: `"experiment1,experiment2"`
+Example: `"experiment1,experiment2"`  
+
+<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
+
+The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"localhost:8080"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_ID</h3>
+
+The UUID of the agent. <em>Example:</em> <code>""</code>  
+
+Example: `"1a222222-e999-3636-8ddd-802222222222"`
 
 <h3 class="h3-caps">BUILDKITE_AGENT_META_DATA_*</h3>
 
@@ -250,12 +262,6 @@ The GitHub deployment payload data as serialized JSON. Only available on builds 
 
 Example: `"production"`
 
-<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
-
-The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Example: `"localhost:8080"`
-
 <h3 class="h3-caps">BUILDKITE_HOOKS_PATH</h3>
 
 The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
@@ -338,7 +344,7 @@ Example: `"github"`
 
 The pipeline slug on Buildkite as used in URLs. The value cannot be modified.
 
-Example: `"my-project"`
+Example: `"my-pipeline"`
 
 <h3 class="h3-caps">BUILDKITE_PLUGINS_ENABLED</h3>
 
