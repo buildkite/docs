@@ -174,7 +174,7 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Escaping vale linting
-If you absolutely need to add some word that triggers the linter, you can use escaping via the following syntax:
+If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
 ```
 <!-- vale off -->

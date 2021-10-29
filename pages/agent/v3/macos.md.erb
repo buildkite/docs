@@ -64,7 +64,7 @@ If you installed the buildkite-agent using the [Linux install script](linux) the
 # Download the launchd config to ~/Library/LaunchAgents/
 curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/main/templates/launchd_local_with_gui.plist
 
-# Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
+# Set buildkite-agent to be run as the current user (a full user, created using System Prefs)
 sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 
 # Create the agent's log directory with the correct permissions

@@ -1,7 +1,7 @@
 extends: existence
-message: Consider replacing '%s' with 'and so on'
+message: Consider replacing '%s' with 'using'
 level: warning
 code: false
 ignorecase: true
 tokens:
-  - \betc\.\b
+  - \bvia\b

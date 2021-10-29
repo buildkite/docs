@@ -4,5 +4,5 @@ level: warning
 code: false
 ignorecase: true
 tokens:
-  - \be.g\b
-  - \be.g.\b
+  - \be\.g\b
+  - \be\.g.\b

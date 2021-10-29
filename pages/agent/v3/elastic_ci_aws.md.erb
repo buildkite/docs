@@ -39,7 +39,7 @@ aws cloudformation create-stack \
 
 An Elastic CI Stack deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets. 
 
-After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly via an Internet Gateway or indirectly via a NAT Instance or NAT Gateway. 
+After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway. 
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
 VPC your stack’s instances are booted in can be customised using the `VpcId`,
@@ -214,7 +214,7 @@ This stack is designed to run your builds in a share-nothing pattern similar to 
 
 * Each project should encapsulate its dependencies through Docker and Docker Compose.
 * Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
-* Secrets are configured via environment variables exposed using the S3 secrets bucket.
+* Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
 By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 

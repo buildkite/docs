@@ -1,6 +1,6 @@
 # Block Step
 
-A *block* step is used to pause the execution of a build and wait on a team member to unblock it via the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
+A *block* step is used to pause the execution of a build and wait on a team member to unblock it using the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
 A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
 
@@ -130,7 +130,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -192,7 +192,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -220,7 +220,7 @@ Each select option has the following _required attributes:_
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (to be later retrieved via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>
