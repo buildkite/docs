@@ -4,4 +4,4 @@ level: warning
 code: false
 ignorecase: true
 tokens:
-  - \bvia\b
+  - '\bvia\b'
