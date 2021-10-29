@@ -52,6 +52,18 @@ A list of the [experimental agent features](/docs/agent/v3#experimental-features
 
 Example: `"experiment1,experiment2"`
 
+<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
+
+The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"localhost:8080"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_ID</h3>
+
+The UUID of the agent. The value cannot be modified as an environment variable.  
+
+Example: `"1a222222-e999-3636-8ddd-802222222222"`
+
 <h3 class="h3-caps">BUILDKITE_AGENT_META_DATA_*</h3>
 
 The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. The name and value cannot be modified as an environment variable. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
@@ -249,12 +261,6 @@ Example: `"deploy"`
 The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/). The value cannot be modified as an environment variable.
 
 Example: `"production"`
-
-<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
-
-The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Example: `"localhost:8080"`
 
 <h3 class="h3-caps">BUILDKITE_HOOKS_PATH</h3>
 
