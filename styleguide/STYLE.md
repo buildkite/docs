@@ -60,10 +60,10 @@ When in doubt, consult [Title.sh](https://title.sh/) for proper capitalization a
 More info [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
 
 ### Capital letters in proper names
-Only capitalize the name of the product - e.g. 'GitHub organization' and not 'GitHub Organization'.
+Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
 
 ### Capital letters in UX elements
-Use title capitalization for names of tabs and buttons in the Buildkite interface - e.g. 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
+Use title capitalization for names of tabs and buttons in the Buildkite interface - for example, 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
 
 ### Lists (bullet lists and numbered steps)
 Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
@@ -85,7 +85,8 @@ To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
 
 
 ### Time and date
-Use 24hr time with hours and minutes, but not seconds. Include timezone. e.g. 17:00 AEST
+
+Use 24hr time with hours and minutes, but not seconds. Include timezone. For example, 17:00 AEST
 
 More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
 
@@ -169,11 +170,11 @@ Our docs website is a custom build. This section gives some guidance on working 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app/views/layouts/_sidebar.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app/views/layouts/_sidebar.html.erb` with a description (for example, `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Escaping vale linting
-If you absolutely need to add some word that triggers the linter, you can use escaping via the following syntax:
+If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
 ```
 <!-- vale off -->
@@ -264,7 +265,7 @@ This information was aggregated by going over the existing screenshots in the do
 ### Taking and processing screenshots
 * **Format:** PNG
 * **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, e.g. `width: 2280/2, height: 998/2`).
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, for example, `width: 2280/2, height: 998/2`).
 * **Border:** no border
 * **Drop shadow:** no
 * **Cursor:** include when relevant
@@ -272,13 +273,13 @@ This information was aggregated by going over the existing screenshots in the do
 * **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
 * **User info:** blur out everything except for the name
 * **Dummy data:** use Acme Inc as dummy company title
-* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, e.g. "installation-1"
+* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
 
 ### Adding screenshots or other images
 > Before you proceed, make sure that both the width and the height of the image are an even number of pixels!
 
 Steps for adding add an image to a documentation page:
-1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, e.g. 'installation-1' if you are adding several images to the same page)
+1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page)
 2. Put the file into the corresponding `images` folder (a folder with the same name as the page you are adding this image to; create such folder if it doesn't exist yet)
 3. Compose relevant alt text for the image file using Title case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.

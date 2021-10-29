@@ -64,7 +64,7 @@ it will be retrieving the secret from.
     multiple regions.
 - Ensure each region’s IAM role has `kms:Decrypt` permission for the key used to
 encrypt the secret in that region.
-    - You can do this with the AWS Secrets Manager key e.g. `aws/secretsmanager` in Secrets
+    - You can do this with the AWS Secrets Manager key in Secrets
     Manager, and looking up the underlying CMK ID of that key alias in each
     region the stack template is deployed to. Provide that value for the
     `BuildkiteAgentTokenParameterStoreKMSKey` parameter for the stack in that

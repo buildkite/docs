@@ -94,7 +94,7 @@ Metadata:
 
 Parameters:
   KeyName:
-    Description: Optional - SSH keypair used to access the buildkite instances via ec2_user, setting this will enable SSH ingress
+    Description: Optional - SSH keypair used to access the buildkite instances using ec2_user, setting this will enable SSH ingress
     Type: String
     Default: ""
 
@@ -574,7 +574,7 @@ Mappings:
     poweruser : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPowerUser' }
     full      : { Policy: 'arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess' }
 
-  # Generated from Makefile via build/mappings.yml
+  # Generated from Makefile using build/mappings.yml
   AWSRegion2AMI:
     us-east-1 : { linuxamd64: ami-061319af1aa5f5218, linuxarm64: ami-0e78eae66ed6907d0, windows: ami-049efaa4da5381b50 }
     us-east-2 : { linuxamd64: ami-05b012b57beb630f1, linuxarm64: ami-0382e6319f43fbaed, windows: ami-0f4cceabbe4528c76 }

@@ -102,13 +102,13 @@ Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR</h3>
 
-The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered via API or Buildkite web interface. The value cannot be modified.
+The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR_EMAIL</h3>
 
-The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered via API or Buildkite web interface. The value cannot be modified.
+The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"cdanvers@kree-net.com"`
 
@@ -532,7 +532,7 @@ Example: `"everyone:platform"`
 
 <h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
 
-Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) via `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
+Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
 
 Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
 
@@ -658,7 +658,7 @@ The job environment is made by merging the following sets of values, where value
   </tr>
   <tr>
     <th><em>Build</em></th>
-    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+    <td>Optional variables set by you on the build when creating a new build in the UI or using the REST API</td>
   </tr>
     <tr>
     <th><em>Step</em></th>
@@ -715,7 +715,7 @@ Separate to the job's base environment, your `buildkite-agent` process has an en
 
 - operating system environment variables
 - any variables you set on your agent when you started it
-- any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
+- any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
 For a list of variables and configuration flags you can set on your agent, see the Buildkite Agent’s [start command documentation](/docs/agent/v3/cli-start).
 
