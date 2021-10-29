@@ -37,8 +37,8 @@ To ensure your Elastic CI Stack instance IAM role has access to the secret:
     "Effect" : "Allow",
     "Principal" : {
       "AWS" : [
-        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-AutoscalingLambdaExecutionRole",
-        "arn\:aws\:iam::[redacted]:role/buildkite-secretsmanager-Role"
+        "arn\:aws\:iam::[redacted]:role/buildkite-stack-AutoscalingLambdaExecutionRole",
+        "arn\:aws\:iam::[redacted]:role/buildkite-stack-Role"
       ]
     },
     "Action" : "secretsmanager:GetSecretValue",
