@@ -22,7 +22,7 @@ You can subscribe to one or more of the following events:
   <tr><th>job.scheduled</th><td>A job has been scheduled</td></tr>
   <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
   <tr><th>job.finished</th><td>A job has finished</td></tr>
-  <tr><th>job.activated</th><td>A block step job has been unblocked via the web or API</td></tr>
+  <tr><th>job.activated</th><td>A block step job has been unblocked using the web or API</td></tr>
   <tr><th>agent.connected</th><td>An agent has connected</td></tr>
   <tr><th>agent.lost</th><td>An agent has been marked as lost</td></tr>
   <tr><th>agent.disconnected</th><td>An agent has disconnected</td></tr>
@@ -126,7 +126,7 @@ BuildkiteWebhook.valid?(
 
 ### Defending against replay attacks
 
-A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (e.g. 5 minutes). 
+A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (for example, 5 minutes). 
 
 Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload so that it is verified by the signature. An attacker will not be able to change the timestamp without invalidating the signature. 
 

@@ -239,7 +239,7 @@ _Optional attributes:_
     <tr id="metrics-datadog-host">
       <th><code>metrics-datadog-host</code></th>
       <td>
-        The DogStatsD instance to send metrics to via udp.
+        The DogStatsD instance to send metrics to using udp.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>127.0.0.1:8125</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG_HOST</code></p>
       </td>
@@ -555,4 +555,4 @@ Most configuration options can be specified as environment variables when starti
 BUILDKITE_AGENT_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
-These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).
+These variables cannot be modified through the Buildkite web interface, API or using pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).
