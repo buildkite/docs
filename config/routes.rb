@@ -1,9 +1,10 @@
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
   get "/docs/api",                                to: redirect("/docs/apis/rest-api")
-  get "/docs/api/accounts",                       to: redirect("/docs/apis/rest-api/organizations")
+  get "/docs/api/accounts",                       to: redirect("/docs/apis/rest-api/organizations") 
   get "/docs/api/projects",                       to: redirect("/docs/apis/rest-api/pipelines")
   get "/docs/api/*page",                          to: redirect("/docs/apis/rest-api/%{page}")
+  get "/docs/apis/graphql-tutorial",              to: redirect("/docs/apis/graphql/graphql-tutorial")
   get "/docs/basics/pipelines",                   to: redirect("/docs/pipelines")
   get "/docs/builds",                             to: redirect("/docs/tutorials")
   get "/docs/builds/parallelizing-builds",        to: redirect("/docs/tutorials/parallel-builds")

@@ -12,7 +12,7 @@ example.
 ## Uploading artifacts
 
 You can use this command in your build scripts to store artifacts. Artifacts are
-accessible via the web interface and can be downloaded by future build steps.
+accessible using the web interface and can be downloaded by future build steps.
 Artifacts can be stored in the Buildkite-managed artifact store, or your own
 storage location, depending on how you have configured your Buildkite Agent.
 
@@ -56,7 +56,7 @@ Uploading all the files and folders inside the `coverage` directory:
 buildkite-agent artifact upload "coverage/**/*"
 ```
 
-Uploading a file name with special characters e.g. `hello??.html`:
+Uploading a file name with special characters, for example, `hello??.html`:
 
 ```bash
 buildkite-agent artifact upload "hello\?\?.html"
@@ -151,6 +151,13 @@ For example, executing the `buildkite-agent artifact download` command on your l
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/api/artifacts#download-an-artifact).
 
+## Searching artifacts
+
+Return a list of artifacts that match a query. 
+
+<%= render 'agent/v3/help/artifact_search' %>
+
+
 ## Fetching the SHA of an artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
@@ -167,7 +174,7 @@ environment variables.
 
 Environment Variable | Required | Default Value | Description
 --- | --- | --- | ---
-`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, e.g. s3://your-bucker/path/prefix/
+`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, for example, s3://your-bucker/path/prefix/
 `BUILDKITE_S3_DEFAULT_REGION` | No | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service. 
 `BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
 `BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.

@@ -13,7 +13,7 @@ class PagesController < ApplicationController
 
     # For the homepage, render with a custom layout that doesn't include the sidebar etc
 
-    # If there's another more correct version of the URL (i.e. we changed `_`
+    # If there's another more correct version of the URL (for example, we changed `_`
     # to `-`), then redirect them to where they should be.
     unless @page.is_canonical?
       redirect_to "/docs/#{@page.canonical_url}", status: :moved_permanently
