@@ -107,7 +107,7 @@ done
 
 ## Signing pipelines  
 
-If using plugins is crucial to your workflow, but you would still like to preserve strong security guarantees, take a look at [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. It is an experimental reference implementation that adds extra security guarantees around Buildkite’s jobs by allowing to sign the uploaded pipelines with a secret shared by all agents. You can use it as an inspiration to build a similar tool that meets your needs, and it not recommended to use this tool 'as is' in a production setting.  
+If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without any concerns of tampering by third-parties. Disclaimer: This functionality is not officially supported by Buildkite; use it at your own risk.  
 
 ## Allowing a list of plugins
 
