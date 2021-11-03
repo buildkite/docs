@@ -1,11 +1,11 @@
 # Group Step
  
-A *group* step groups jobs and other steps into logical groups, and allows displaying them within groups on the build page in Buildkite UI.  
+A *group* step groups jobs and other steps into logical groups, and allows displaying them within groups on the build page in Buildkite UI.    
 
 For example, your build pipelines in Buildkite are able to support an unlimited number of jobs. However, a large number of jobs on the build page can look messy. If pipelines contain 4-5 steps that can be logically grouped together, you can put them in a group using the `group` step.  
 
 The group step also helps manage dependencies between a collection of steps in a DAG (for example, "step X" depends on everything in "group Y").
-
+ 
 <section class="Docs__note">
   <h3>Note</h3>
   <p>In some cases, using group steps might break the DAG visualisation of a build.</p>
@@ -41,6 +41,8 @@ Only the first 100 jobs within a build header will be displayed, so you might no
   <h3>Note</h3>
   <p>Sub-groups and nested groups are not supported.</p>
 </section>  
+
+The group step type also groups them up by a `group_identifier` if it exists.
 
 ## Group step attributes  
 
@@ -126,29 +128,6 @@ _Optional attributes:_
     </td>
   </tr>
 </table>
-
-## Grouping jobs by group identifier
- 
-The `group` step type not only groups up jobs and also groups them up by a `group_identifier` if it exists. For example:  
- 
-```yml 
-steps:
-  - command: "echo hello"
-  - group: "hello group"
-    steps:
-      - command: "echo hello"
-      - wait
-      - command: "echo hello"
-        parallelism: 3
-  - group: ~
-    steps:
-      - command: "echo hello"
-      - wait
-      - command: "echo hello"
-  - command: "echo goodbye"
-    parallelism: 2
-```
-{: codeblock-file="pipeline.yml"}  
 
 ## Using parallel groups  
 
