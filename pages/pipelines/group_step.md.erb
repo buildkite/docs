@@ -129,14 +129,37 @@ _Optional attributes:_
   </tr>
 </table>
 
-## Using parallel groups  
+## Parallel groups  
+
+If you have two group steps next to each other, they run in parallel. For example:  
+
+```yml
+# 1.sh and 3.sh will start at the same time.
+# 2.sh will start when 1.sh finishes, and 4.sh will start
+# when 3.sh finishes.
+steps:
+  - group: "first"
+    steps:
+      - command: '1.sh'
+      - wait
+      - command: '2.sh'
+  - group: "second"
+    steps:
+      - command: '3.sh'
+      - wait
+      - command: '4.sh'
+```
+{: codeblock-file="parallel-groups.yml"}  
+
+Running jobs in parallel has some limitations:  
 
 <!-- vale off --> 
-Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
+* Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
+* If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.  
+<!-- vale on -->
+* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.  
+* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.  
 
-If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
-<!-- vale on -->  
- 
 ## Using wait steps in job groups
  
 You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning "d" won't wait on "a" to finish:  
@@ -162,33 +185,6 @@ steps:
     depends_on: "toast"
 ```
 {: codeblock-file="pipeline-with-wait-steps.yml"}  
-
-## Parallel groups  
-
-If you have two group steps next to each other, they run in parallel. For example:  
-
-```yml
-# 1.sh and 3.sh will start at the same time.
-# 2.sh will start when 1.sh finishes, and 4.sh will start
-# when 3.sh finishes.
-steps:
-  - group: "first"
-    steps:
-      - command: '1.sh'
-      - wait
-      - command: '2.sh'
-  - group: "second"
-    steps:
-      - command: '3.sh'
-      - wait
-      - command: '4.sh'
-```
-{: codeblock-file="parallel-groups.yml"}  
-
-Running jobs in parallel has some limitations:
-
-* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.  
-* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.  
 
 ## Group merging  
 
