@@ -1,17 +1,15 @@
 # Group Step
  
-A *group* step groups jobs and steps like block step, trigger step, command step, etc. (but not other group steps) into logical groups, and allows displaying them within groups on the build page in Buildkite UI.  
+A *group* step groups jobs and other steps into logical groups, and allows displaying them within groups on the build page in Buildkite UI.  
 
 For example, your build pipelines in Buildkite are able to support an unlimited number of jobs. However, a large number of jobs on the build page can look messy. If pipelines contain 4-5 steps that can be logically grouped together, you can put them in a group using the `group` step.  
 
-The group step also helps manage dependencies between a collection of steps in a DAG (for example, step X depends on everything in a group Y).
+The group step also helps manage dependencies between a collection of steps in a DAG (for example, "step X" depends on everything in "group Y").
 
-```
 <section class="Docs__note">
   <h3>Note</h3>
-  <p>In some cases, using group step might break the DAG visualisation feature.</p>
-</section>
-```    
+  <p>In some cases, using group steps might break the DAG visualisation of a build.</p>
+</section>   
 
 {:toc}
  
@@ -31,14 +29,41 @@ This is what a typical group step use looks like:
     - name: ":flowtype: Flow"
       command: ".buildkite/steps/flow"
 ```
+{: codeblock-file="group-step-in-pipeline.yml"} 
 
 And this is how it's displayed in the UI: 
 
 <%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
+Only the first 100 jobs within a build header will be displayed, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
+
+<section class="Docs__note">
+  <h3>Note</h3>
+  <p>Sub-groups and nested groups are not supported.</p>
+</section>  
+
 ## Group step attributes  
 
-_Step attributes:_  
+_Required attributes:_  
+
+<table data-attributes>
+<tr>
+    <td><code>group</code></td>
+    <td>
+    Name of the group in the UI. In YAML, if you don't want a label, pass a `~`. Can also be provided in the `label` attribute if `null` is provided to the `group` attribute.<br>
+      <em>Type:</em> <code>string</code> or <code>null</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>steps</code></td>
+    <td>
+    A list of steps in the group; at least 1 step is required. Allowed step types: `wait` and `trigger`.<br>
+      <em>Type:</em> <code>array</code>
+    </td>
+  </tr>
+</table>
+
+_Optional attributes:_  
 
 <table data-attributes>
   <tr>
@@ -58,7 +83,7 @@ _Step attributes:_
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step keys that this step depends on. This group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
@@ -72,35 +97,28 @@ _Step attributes:_
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A conditional to whether or not this group should be included in the build. A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-    	A unique string to identify the block step.
+    	A unique string to identify the block step. Alias: `identifier` or `id`.
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>  
   <tr>
     <td><code>label</code></td>
     <td>
-      The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
+      The label that will be displayed in the pipeline visualisation in Buildkite (name of the group in the UI). Supports emoji.<br>
       <em>Example:</em> <code>"\:hammer\: Tests" will be rendered as "🔨: Tests"</code><br>
-    </td>
-  </tr>
-  <tr>
-    <td><code>notify</code></td>
-    <td>
-      An attribute that allows you to trigger build notifications to different services.<br>
-      <em>Example:</em> <code>github_check</code><br>
     </td>
   </tr>
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Whether to skip this group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
       Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code><br>
@@ -164,7 +182,34 @@ steps:
   - command: "yay.sh"
     depends_on: "toast"
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline-with-wait-steps.yml"}  
+
+## Parallel groups  
+
+If you have two group steps next to each other, they run in parallel. For example:  
+
+```yml
+# 1.sh and 3.sh will start at the same time.
+# 2.sh will start when 1.sh finishes, and 4.sh will start
+# when 3.sh finishes.
+steps:
+  - group: "first"
+    steps:
+      - command: '1.sh'
+      - wait
+      - command: '2.sh'
+  - group: "second"
+    steps:
+      - command: '3.sh'
+      - wait
+      - command: '4.sh'
+```
+{: codeblock-file="parallel-groups.yml"}  
+
+Running jobs in parallel has some limitations:
+
+* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.  
+* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.  
 
 ## Group merging  
 
@@ -188,13 +233,4 @@ And this YAML file uploads a pipeline that has a group with the same name:
 ```
 {: codeblock-file="pipeline-02.yml"}  
 
-As a result, the groups will be merged into one in the UI and the `"docker build"` step will be added to the existing group.  
-
-## Limitations in job groups
- 
-There are several limitations regarding the job groups' behavior:
- 
-* Only the first 100 jobs within a build header will be displayed, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
-* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
-* Sub-groups and nested groups are not supported.
-* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
+As a result, the groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.  
