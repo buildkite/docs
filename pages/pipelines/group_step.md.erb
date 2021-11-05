@@ -15,18 +15,18 @@ The group step also helps manage dependencies between a collection of steps in a
  
 A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.  
 
-This is what a typical group step use looks like:
+Here is an example of using the group step:  
 
 ```yml
-- group: ":broom: Linting"
+- group: "\:broom\: Linting"
   key: "linting"
   depends_on: docker
   steps:
-    - name: ":rubocop: RuboCop"
+    - name: "\:rubocop\: RuboCop"
       command: ".buildkite/steps/rubocop"
-    - name: ":eslint: ESlint"
+    - name: "\:eslint\: ESlint"
       command: ".buildkite/steps/eslint"
-    - name: ":flowtype: Flow"
+    - name: "\:flowtype\: Flow"
       command: ".buildkite/steps/flow"
 ```
 {: codeblock-file="group-step-in-pipeline.yml"} 
@@ -42,7 +42,7 @@ Only the first 100 jobs within a build header will be displayed, so you might no
   <p>Sub-groups and nested groups are not supported.</p>
 </section>  
 
-The group step type also groups them up by a `group_identifier` if it exists.
+The group step type also groups jobs up by a `group_identifier` if it exists.
 
 ## Group step attributes  
 
@@ -59,7 +59,7 @@ _Required attributes:_
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: `wait` and `trigger`.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: `wait`, `trigger`, `command`.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -106,7 +106,7 @@ _Optional attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-    	A unique string to identify the block step. Alias: `identifier` or `id`.
+    	A unique string to identify the step. Alias: `identifier` or `id`.
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>  
