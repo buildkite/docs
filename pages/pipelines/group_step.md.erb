@@ -1,15 +1,8 @@
 # Group Step
  
-A *group* step groups jobs and other steps into logical groups, and allows displaying them within groups on the build page in Buildkite UI.    
+A *group* step groups jobs and other steps into logical groups and displays them in a single logical group on the Build page. Sub-groups and nested groups are not supported. 
 
-For example, your build pipelines in Buildkite are able to support an unlimited number of jobs. However, a large number of jobs on the build page can look messy. If pipelines contain 4-5 steps that can be logically grouped together, you can put them in a group using the `group` step.  
-
-The group step also helps manage dependencies between a collection of steps in a DAG (for example, "step X" depends on everything in "group Y").
- 
-<section class="Docs__note">
-  <h3>Note</h3>
-  <p>In some cases, using group steps might break the DAG visualisation of a build.</p>
-</section>   
+The group step also helps manage dependencies between a collection of steps in a DAG (for example, "step X" [`depends-on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y").
 
 {:toc}
  
@@ -36,11 +29,6 @@ And this is how it's displayed in the UI:
 <%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
 Only the first 100 jobs within a build header will be displayed, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
-
-<section class="Docs__note">
-  <h3>Note</h3>
-  <p>Sub-groups and nested groups are not supported.</p>
-</section>  
 
 The group step type also groups jobs up by a `group_identifier` if it exists.
 
