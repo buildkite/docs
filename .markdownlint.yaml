@@ -1,3 +1,7 @@
+default: false
+
 MD013: false
 MD033: false
 MD010: false
+
+MD047: true
