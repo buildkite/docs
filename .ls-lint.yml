@@ -1,0 +1,7 @@
+ls:
+  .md.erb: snake_case
+
+ignore:
+  - node_modules
+  - .git
+  - vendor
