@@ -1,7 +1,17 @@
 default: false
 
-MD013: false
-MD033: false
-MD010: false
+# Need to figure out how to make exceptions for pages/agent/v3/help/_*
+#MD002:
+  # Heading level
+  #level: 1
 
+MD023: true # Headings at start of line
+
+MD025:
+  # Heading level
+  level: 1
+
+MD042: true
+
+# MD047/single-trailing-newline - Files should end with a single newline character
 MD047: true
