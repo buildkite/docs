@@ -1,6 +1,6 @@
 # Group Step
  
-A *group* step groups jobs and other steps into logical groups and displays them in a single logical group on the Build page. Sub-groups and nested groups are not supported. 
+A *group* step groups jobs and other steps into logical groups and displays them in a single logical group on the Build page. For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported. 
 
 The group step also helps manage dependencies between a collection of steps in a DAG (for example, "step X" [`depends-on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y").
 
@@ -73,28 +73,28 @@ _Optional attributes:_
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
+      A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
    </tr>
   <tr>
     <td><code>env</code></td>
     <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step.<br>
+      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step or group.<br>
       <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A conditional to whether or not this group should be included in the build. A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      A conditional to whether or not this step, block, or group should be included in the build. A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
       <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-    	A unique string to identify the step. Alias: `identifier` or `id`.
+    	A unique string to identify the step, block, or group. Alias: `identifier` or `id`.
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>  
@@ -108,8 +108,8 @@ _Optional attributes:_
   <tr>
     <td><code>skip</code></td>
     <td>
-      Whether to skip this group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
+      Whether to skip this step or group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Note: Skipped steps or groups will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
       <em>Example:</em> <code>true</code><br>
       <em>Example:</em> <code>false</code><br>
       <em>Example:</em> <code>"My reason"</code>
@@ -119,7 +119,7 @@ _Optional attributes:_
 
 ## Parallel groups  
 
-If you have two group steps next to each other, they run in parallel. For example:  
+If you put two group steps next to each other, they run in parallel. For example:  
 
 ```yml
 # 1.sh and 3.sh will start at the same time.
