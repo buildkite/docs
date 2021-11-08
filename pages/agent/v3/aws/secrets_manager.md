@@ -23,10 +23,10 @@ for more details.
 To ensure your Elastic CI Stack instance IAM role has access to the secret:
 
 - Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter.
-	- The CloudFormation template includes an IAM policy with `kms:Decrypt` permission for this key.
+  + The CloudFormation template includes an IAM policy with `kms:Decrypt` permission for this key.
 - Use the Secret Manager secret’s resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
-  - Use your CloudFormation template’s Resources tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their ARNs in the policy given below.
-	- Secret Manager will capture the role’s Unique ID when saving the resource
+  + Use your CloudFormation template’s Resources tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their ARNs in the policy given below.
+    - Secret Manager will capture the role’s Unique ID when saving the resource
   policy, if you re-create the IAM role you will need to save the resource
   policy again to grant access.
 
@@ -58,13 +58,13 @@ Some additional points to keep in mind when using multi-region replication:
 
 - Ensure each region’s IAM role has `ssm:GetParameter` permission for the region
 it will be retrieving the secret from.
-    - By default, the template will grant permission to only the region it is
+  + By default, the template will grant permission to only the region it is
     deployed to, limiting the role’s utility to the stack’s region. This isn’t a
     problem just a caveat to be aware of. Don’t expect to use the same role in
     multiple regions.
 - Ensure each region’s IAM role has `kms:Decrypt` permission for the key used to
 encrypt the secret in that region.
-    - You can do this with the AWS Secrets Manager key in Secrets
+  + You can do this with the AWS Secrets Manager key in Secrets
     Manager, and looking up the underlying CMK ID of that key alias in each
     region the stack template is deployed to. Provide that value for the
     `BuildkiteAgentTokenParameterStoreKMSKey` parameter for the stack in that
