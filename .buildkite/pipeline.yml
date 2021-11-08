@@ -43,7 +43,7 @@ steps:
           image: "node:lts-alpine3.14"
 
   - label: ":snake: Linting markdown files for snake case"
-    command: npx @ls-lint/ls-lint
+    command: npx -y @ls-lint/ls-lint
     plugins:
       - docker#v3.7.0:
           image: "node:lts-alpine3.14"
