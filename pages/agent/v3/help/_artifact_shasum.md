@@ -29,7 +29,7 @@ which will break the download.
 
     $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
 
-This will search for all the files in the build with the path "pkg/release.tar.gz" and will
+This will search for all the files in the build with the path &quot;pkg/release.tar.gz&quot; and will
 print the SHA-1 checksum of each one to STDOUT.
 
 If you would like to target artifacts from a specific build step, you can do
@@ -37,7 +37,7 @@ so by using the --step argument.
 
     $ buildkite-agent artifact shasum "pkg/release.tar.gz" --step "release" --build xxx
 
-You can also use the step's job id (provided by the environment variable $BUILDKITE_JOB_ID)
+You can also use the step&#39;s job id (provided by the environment variable $BUILDKITE_JOB_ID)
 
 ### Options
 

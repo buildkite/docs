@@ -4,11 +4,11 @@ The Buildkite Agent’s `start` command is used to manually start an agent and r
 
 {:toc}
 
-## Starting an Agent
+## Starting an agent
 
 <%= render 'agent/v3/help/start' %>
 
-## Setting Tags
+## Setting tags
 
 Each agent has tags (in 2.x we called this metadata) which can be used to group and target the agents in your build pipelines. This way you're free to dynamically scale your agents and target them based on their capabilities rather than maintaining a static list.
 
@@ -30,29 +30,9 @@ or with the `BUILDKITE_AGENT_TAGS` an environment variable:
 env BUILDKITE_AGENT_TAGS="docker=true,ruby2=true" buildkite-agent start
 ```
 
-## Run a single job
+## Agent targeting
 
-`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
-
-### Getting the value
-
-`value` is the job ID. There are several ways to find it:
-
-* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
-* Through the [GraphQL API](/docs/apis/graphql_api).
-* The `BUILDKITE_JOB_ID` build environment variable.
-* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
-* Using the GUI: select a job, and the job ID is the final value in the URL.
-
-### When to use
-
-Normally, you don't set up an agent to run a specific job. Instead, you'll have a pool of agents running, waiting for Buildkite to send jobs to them.
-
-`--acquire-job` is useful if you want to create your own scheduler to run a specific job.
-
-## Agent Targeting
-
-Once you've started agents with tags you can target them in the build pipeline using agent query rules.
+Once you've started agents with [tags](#setting-tags) you can target them in the build pipeline using agent query rules.
 
 Here's an example of targeting agents that are running with the tag `postgres` and value of `1.9.4`:
 
@@ -74,7 +54,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
+Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
 <section class="Docs__note">
   <h3>Setting agent defaults</h3>
@@ -82,14 +62,84 @@ Partial wildcard matching (e.g. `postgres=1.9*` or `postgres=*1.9`) is not yet s
 </section>
 
 
-## The Queue Tag
+## The queue tag
 
 The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
 
-## Sourcing Tags from Amazon Web Services
+## Sourcing tags from Amazon Web Services
 
-You can load an Agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `--tags-from-ec2` to load the EC2 metadata (e.g instance name and machine type).
+You can load an Agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `--tags-from-ec2` to load the EC2 metadata (for example, instance name and machine type).
 
-## Sourcing Tags from Google Cloud
+## Sourcing tags from Google Cloud
 
 You can load an Agent's tags from the underlying Google Cloud metadata using `--tags-from-gcp`.
+
+## Run a job on the agent that uploaded it (also known as node affinity)
+
+You can configure your agent and your pipeline steps so that the steps run on the same agent that performed `pipeline upload`. This is sometimes referred to as "node affinity", but note that what we describe here does not involve Kubernetes (where the term is more widely used).
+
+<div class="Docs__note">
+  <p>Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).</p>
+</div>
+
+First, set the agent hostname tag.  
+
+You can do this when starting the agent. This uses the system hostname:  
+
+```sh
+buildkite-agent start --tags "hostname=`hostname`"
+```
+
+Or you can add it to the agent config file, along with any other tags:  
+
+```txt
+tags="hostname=`hostname`"
+```
+
+Then, make sure you are using `pipeline upload` to upload a `pipeline.yml`. In Buildkite's YAML steps editor: 
+
+```yaml
+steps:
+  - command: "buildkite-agent pipeline upload"
+```
+
+Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:  
+
+```yamlsteps:
+  - command: "I will stick!"
+    agents:
+      hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"
+  - command: "I might not"
+```
+
+When Buildkite uploads the pipeline, `$BUILDKITE_AGENT_META_DATA_HOSTNAME` is replaced with the agent's hostname tag value. In effect, the previous example becomes:
+
+```yaml
+  - command: "I will stick!"
+    agents:
+      hostname: "agents-computer-hostname"
+  - command: "I might not"
+```
+
+This means the first step in the example can only run on an agent with the hostname "agents-computer-hostname". This is the hostname of the agent that uploaded the job. The second step may run on the same agent, or a different one.
+
+
+## Run a single job
+
+`--acquire-job value` allows you to start an agent and only run the specified job, stopping the agent after it's finished. This means that when you start the agent, instead of it waiting for work, it sends a request to Buildkite to check if it can acquire (self-assign and accept) the job. Once the agent acquires the job, it runs it, then stops the agent when the job is complete.
+
+### Getting the job ID for a single job
+
+`value` is the job ID. There are several ways to find it:
+
+* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+* Through the [GraphQL API](/docs/apis/graphql_api).
+* The `BUILDKITE_JOB_ID` build environment variable.
+* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+* Using the GUI: select a job, and the job ID is the final value in the URL.
+
+### When to use
+
+Normally, you don't set up an agent to run a specific job. Instead, you'll have a pool of agents running, waiting for Buildkite to send jobs to them.
+
+`--acquire-job` is useful if you want to create your own scheduler to run a specific job.

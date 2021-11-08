@@ -1,3 +1,5 @@
+require 'cgi'
+
 incode = false
 ARGF.each_with_index do |line, line_num|
     # Headings 
@@ -28,6 +30,6 @@ ARGF.each_with_index do |line, line_num|
         desc.gsub!('https://agent.buildkite.com/v3',"`https://agent.buildkite.com/v3`")
         puts "* `#{command}` - #{desc}"
     else
-        puts line.lstrip
+        puts CGI::escapeHTML(line.lstrip)
     end
 end
