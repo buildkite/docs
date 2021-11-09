@@ -406,6 +406,12 @@ The repository of your pipeline. This variable can be set by exporting the envir
 
 Example: `"git@github.com:acme-inc/my-project.git"`
 
+<h3 class="h3-caps">BUILDKITE_REPO_MIRROR</h3>
+
+Only available if the experimental feature [git-mirrors](/docs/agent/v3#experimental-features-git-mirrors) is enabled. The path to the shared git mirror. The value cannot be modified.
+
+Example: `"/tmp/buildkite-git-mirrors"`
+
 <h3 class="h3-caps">BUILDKITE_RETRY_COUNT</h3>
 
 How many times this job has been retried. The value cannot be modified.
