@@ -21,7 +21,11 @@ Available notification types:
 
 * [Email](#email): Send an email to the specified email address.
 * [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
+* [Basecamp campfire message](#basecamp-campfire-message):
 * [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.
+* [GitHub check](#github-check): Use the `pipeline.yml` to tell Buildkite to add details of checks to pull requests.
+* [GitHub commit status](#github-commit-status): Customize the commit status that Buildkite displays on GitHub commits and pull requests.
+* [GitHub pull request comment](#github-pull-request-comment):
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
 
@@ -68,7 +72,7 @@ Email notifications happen at the following [event](/docs/apis/webhooks#events):
 
 * `build finished`
 
-## Basecamp Campfire Message
+## Basecamp Campfire message
 
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
 
@@ -97,7 +101,7 @@ Basecamp notifications happen at the following [events](/docs/apis/webhooks#even
 * `build finished`
 * `build skipped`
 
-## Slack Channel and Direct Messages
+## Slack channel and direct messages
 
 If you need fine-grained control over your notifications, or want to send notifications triggered by non-build events, the [Slack Notification Service](/docs/integrations/slack) can be extended using the `notify` attribute.
 
@@ -183,6 +187,32 @@ Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
 * `build finished`
 
+## GitHub check
+
+Buildkite can add details of the checks it runs to your pull request.
+
+<%= image "github-buildkite-checks.jpg", alt: "Screenshot of a GitHub pull request, showing the Buildkite checks run." %>
+
+If you have _Update commit statuses_ enabled in your pipeline's GitHub settings, Buildkite automatically adds the checks.
+
+However, there may be situations where you disable automatic commit status updates (such as when using custom commit statuses) In this case, you need to manually tell Buildkite to add the checks information:
+
+```yaml
+notify:
+  - github_check
+```
+{: codeblock-file="pipeline.yml"}
+
+You can use this at the build level and step level.
+
+## GitHub commit status
+
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses, but you can set custom statuses at both the build and step level. Refer to [GitHub - Customizing commit statuses](/docs/integrations/github#customizing-commit-statuses) for detailed guidance.
+
+## GitHub pull request comment
+
+TODO: checking if this is actually available yet
+
 ## Webhooks
 
 Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` yaml block:
@@ -210,7 +240,7 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks#event
 * `build blocked`
 * `build finished`
 
-## PagerDuty Change Events
+## PagerDuty change events
 
 If you've set up a [PagerDuty integration](/docs/integrations/pagerduty) you can send Change Events from your pipeline using the `pagerduty_change_event` attribute of the `notify` yaml block:
 
@@ -239,7 +269,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Build States
+## Build states
 
 <%= render_markdown 'pipelines/build_states' %>
 
