@@ -91,6 +91,7 @@ gcloud
 gif
 globbing
 golang
+Graviton
 gz
 heroku
 hostname
