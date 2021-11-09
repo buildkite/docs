@@ -20,12 +20,12 @@ Manager when this parameter is read.
 See the AWS documentation on [Referencing AWS Secrets Manager secrets from Parameter Store parameters](https://docs.aws.amazon.com/systems-manager/latest/userguide/integration-ps-secretsmanager.html)
 for more details.
 
-To ensure your Elastic CI Stack instance IAM role has access to the secret:
+To ensure your Elastic CI Stack has access to the secret:
 
 - Provide the Key ID (not the alias) used to encrypt the Secrets Manager secret to the `BuildkiteAgentTokenParameterStoreKMSKey` parameter. An IAM policy with `kms:Decrypt` permission for this key is included in the CloudFormation template.
+- Use the CloudFormation stacks’ *Resources* tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their ARNs in the policy below.
+- Secret Manager will capture a role’s Unique ID when saving the resource policy; if you re-create the IAM role you must save the resource policy again to grant access.
 - Use the Secret Manager secret’s resource policy to grant `secretsmanager:GetSecretValue` permission to both the instance IAM role and the scaling Lambda IAM Role.
-- Use your CloudFormation template’s Resources tab to find the `AutoscalingLambdaExecutionRole` and `IAMRole` roles, use their ARNs in the policy below.
-- Secret Manager will capture the role’s Unique ID when saving the resource policy; if you re-create the IAM role you will need to save the resource policy again to grant access.
 
 ```json
 {
