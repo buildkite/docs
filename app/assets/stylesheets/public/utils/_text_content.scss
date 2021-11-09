@@ -19,6 +19,14 @@
   ul li {
     list-style: disc;
     margin-left: 1em;
+
+    ul > li {
+      list-style: circle;
+
+      ul > li {
+        list-style: square;
+      }
+    }
   }
   li ul,
   li p { margin-bottom: 0.5em; }
