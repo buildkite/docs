@@ -25,7 +25,7 @@ the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 To run the agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
-* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat).
+* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
 ## Using the experimental Elastic Mac for AWS CloudFormation template
@@ -122,10 +122,11 @@ To restrict permissions of an instance, you can permanently downgrade an instanc
 
 ## Further tightening the security around EC2 permissions  
 
-For added security, you can expire agents after a job. For example, you can:  
+For added security, you can expire agents after a job. For example, you can:
+  
 1. Create a new agent for a pending job  
-2. Transition the agent to a sandbox role  
-3. Terminate the agent instance when the agent completes the job  
+1. Transition the agent to a sandbox role  
+1. Terminate the agent instance when the agent completes the job  
 
 Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance.
 
