@@ -45,7 +45,7 @@ mutation CreateProvider {
 }
 ```
 
-You'll need the provider's `id` from the output of this mutation in step three. 
+You'll need the provider's `id` from the output of this mutation in step three.
 
 ### Step 2
 
@@ -109,7 +109,7 @@ mutation CreateProvider {
 }
 ```
 
-You'll need the provider's `id` from the output of this mutation in steps three and four. 
+You'll need the provider's `id` from the output of this mutation in steps three and four.
 
 ### Step 2
 
@@ -144,9 +144,9 @@ mutation UpdateProviderMetaData {
   }
 }
 ```
-      
+
 If your SSO provider didn't provide a metadata URL, then copy SSO URL, Issuer (also known as Entity ID), and Certificate into the `ssoProviderUpdate` mutation:
-      
+
 ```graphql
 mutation UpdateProviderMetaData {
   ssoProviderUpdate(input: {

@@ -18,7 +18,7 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
 
-<!-- vale on -->    
+<!-- vale on -->
 
 > The stack creates its own VPC (virtual private cloud) by default. Best practice involves setting up a separate development AWS account and using role switching and consolidated billing. Refer to the [Delegate Access Across AWS Accounts tutorial](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
 
@@ -37,12 +37,12 @@ aws cloudformation create-stack \
 
 ## Network configuration
 
-An Elastic CI Stack deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets. 
+An Elastic CI Stack deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets.
 
-After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway. 
+After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
-VPC your stack’s instances are booted in can be customised using the `VpcId`,
+VPC in which your stack’s instances are booted can be customised using the `VpcId`,
 and `Subnets` template parameters. If you choose to use a VPC with split
 public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
 turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
@@ -52,7 +52,7 @@ documentation for guidance on choosing a VPC layout suitable for your use case.
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
 
-The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customise this, it's recommended that you create your own VPC and provide values for the [Network Configuration](/docs/agent/v3/elastic-ci-aws/parameters#network-configuration) template section: 
+The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customise this, it's recommended that you create your own VPC and provide values for the [Network Configuration](/docs/agent/v3/elastic-ci-aws/parameters#network-configuration) template section:
 
 * `VpcId`
 * `Subnets`
@@ -102,43 +102,43 @@ This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
 The Buildkite Elastic CI Stack supports:  
 
-- All AWS regions (except China and US GovCloud)
-- Linux and Windows operating systems
-- Configurable instance size
-- Configurable number of Buildkite agents per instance
-- Configurable spot instance bid price
-- Configurable auto-scaling based on build activity
-- Docker and Docker Compose
-- Per-pipeline S3 secret storage (with SSE encryption support)
-- Docker Registry push/pull
-- CloudWatch logs for system and Buildkite agent events
-- CloudWatch metrics from the Buildkite API
-- Support for stable, beta or edge Buildkite Agent releases
-- Multiple stacks in the same AWS Account
-- Rolling updates to stack instances to reduce interruption
+* All AWS regions (except China and US GovCloud)
+* Linux and Windows operating systems
+* Configurable instance size
+* Configurable number of Buildkite agents per instance
+* Configurable spot instance bid price
+* Configurable auto-scaling based on build activity
+* Docker and Docker Compose
+* Per-pipeline S3 secret storage (with SSE encryption support)
+* Docker Registry push/pull
+* CloudWatch logs for system and Buildkite agent events
+* CloudWatch metrics from the Buildkite API
+* Support for stable, beta or edge Buildkite Agent releases
+* Multiple stacks in the same AWS Account
+* Rolling updates to stack instances to reduce interruption
 
 Most instance features are supported on both Linux and Windows. See below for a
 per-operating system breakdown:
 
 Feature | Linux | Windows
 --- | --- | ---
-Docker | ✅ | ✅ 
-Docker Compose | ✅ | ✅ 
-AWS CLI | ✅ | ✅ 
-S3 Secrets Bucket | ✅ | ✅ 
-ECR Login | ✅ | ✅ 
-Docker Login | ✅ | ✅ 
-CloudWatch Logs Agent | ✅ | ✅ 
-Per-Instance Bootstrap Script | ✅ | ✅ 
-🧑‍🔬 git-mirrors experiment | ✅ | ✅ 
-SSM Access | ✅ | ✅ 
-Instance Storage (NVMe) | ✅ | 
-SSH Access | ✅ | 
-Periodic authorized_keys Refresh | ✅ | 
-Periodic Instance Health Check | ✅ | 
-Git LFS | ✅ | 
-Additional sudo Permissions | ✅ | 
-RDP Access | | ✅ 
+Docker | ✅ | ✅
+Docker Compose | ✅ | ✅
+AWS CLI | ✅ | ✅
+S3 Secrets Bucket | ✅ | ✅
+ECR Login | ✅ | ✅
+Docker Login | ✅ | ✅
+CloudWatch Logs Agent | ✅ | ✅
+Per-Instance Bootstrap Script | ✅ | ✅
+🧑‍🔬 git-mirrors experiment | ✅ | ✅
+SSM Access | ✅ | ✅
+Instance Storage (NVMe) | ✅ |
+SSH Access | ✅ |
+Periodic authorized_keys Refresh | ✅ |
+Periodic Instance Health Check | ✅ |
+Git LFS | ✅ |
+Additional sudo Permissions | ✅ |
+RDP Access | | ✅
 
 ## Build secrets  
 
@@ -353,7 +353,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
 
 After creating the policy, you must specify the policy’s ARN in the `ManagedPolicyARN` stack parameter.
 
-## Health monitoring 
+## Health monitoring
 
 You can assess and monitor health and proper function of the Elastic CI Stack using a combination of the following tools:
 
@@ -365,9 +365,9 @@ You can assess and monitor health and proper function of the Elastic CI Stack us
 
 ## Troubleshooting
 
-### Auto Scaling group fails to boot instances 
+### Auto Scaling group fails to boot instances
 
-Resource shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics. 
+Resource shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics.
 
 To fix this issue, change or add more instance types to the `InstanceType` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
 
@@ -377,7 +377,7 @@ See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting i
 
 ### Instances fail jobs
 
-Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them. 
+Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them.
 
 An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
 
@@ -415,7 +415,7 @@ steps:
 
 ## Further references  
 
-To gain a better understanding of how Elastic CI Stack works and how to use it most effectively and securely, check out the following resources:   
+To gain a better understanding of how Elastic CI Stack works and how to use it most effectively and securely, check out the following resources:
 
 * [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic-ci-stack-aws)
 * [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
