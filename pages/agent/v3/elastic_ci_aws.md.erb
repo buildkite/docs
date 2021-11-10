@@ -42,7 +42,7 @@ An Elastic CI Stack deployment contains an Auto Scaling group and a launch templ
 After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
-VPC your stack’s instances are booted in can be customised using the `VpcId`,
+VPC in which your stack’s instances are booted can be customised using the `VpcId`,
 and `Subnets` template parameters. If you choose to use a VPC with split
 public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
 turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
