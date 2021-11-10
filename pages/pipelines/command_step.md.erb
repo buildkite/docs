@@ -98,7 +98,7 @@ _Optional attributes:_
       A list of step keys that this step depends on. This step will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
-   </tr>
+  </tr>
   <tr>
     <td><code>env</code></td>
     <td>
@@ -127,6 +127,18 @@ _Optional attributes:_
     <td>
       The label that will be displayed in the pipeline visualisation in Buildkite. Supports emoji.<br>
       <em>Example:</em> <code>"\:hammer\: Tests"</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>matrix</code></td>
+    <td>
+      Either an array of values to be used in the matrix expansion, or a single <code>setup</code> key, and an optional <code>adjustments</code> key.<br>
+      <code>steps:<br>
+- label: "{{matrix}} build"<br>
+&nbsp;&nbsp;command: "echo '.buildkite/steps/build-binary.sh {{matrix}}'"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;matrix:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- "macOS"<br>
+&nbsp;&nbsp;&nbsp;&nbsp;- "Linux"<code>
     </td>
   </tr>
   <tr>
@@ -334,6 +346,53 @@ steps:
     command: "tests.sh"
     soft_fail:
       - exit_status: 1
+```
+{: codeblock-file="pipeline.yml"}
+
+## Matrix Attributes
+
+<table>
+  <tr>
+    <td><code>setup</code></td>
+    <td>
+      A list of elements, each containing an array of values. The job matrix is built by combinining all values of each element with the other elements.
+    </td>
+  </tr>
+  <tr>
+    <td><code>adjustments</code></td>
+    <td>
+      A array of <code>with</code> keys, each containing a combination of array setup entries, and the attribute to modify for that combination.<br>
+      Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
+    </td>
+  </tr>
+</table>
+
+```yaml
+steps:
+- label: "💥 Matrix build with adjustments"
+  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  matrix:
+    setup:
+      arch:
+        - "amd64"
+        - "arm64"
+      os:
+        - "windows"
+        - "linux"
+      test:
+        - "A"
+        - "B"
+    adjustments:
+      - with:
+          os: "windows"
+          arch: "arm64"
+          test: "B"
+        soft_fail: true
+      - with:
+          os: "linux"
+          arch: "arm64"
+          test: "B"
+        skip: true
 ```
 {: codeblock-file="pipeline.yml"}
 

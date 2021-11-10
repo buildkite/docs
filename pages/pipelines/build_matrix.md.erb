@@ -1,0 +1,76 @@
+# Build Matrix
+
+Build Matrices lets you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
+
+For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
+
+```yaml
+steps:
+  - label: "macOS build"
+    command: "echo '.buildkite/steps/build-binary.sh macOS'"
+  - label: "Linux build"
+    command: "echo '.buildkite/steps/build-binary.sh Linux'"
+  - label: "Windows build"
+    command: "echo '.buildkite/steps/build-binary.sh Windows'"
+```
+
+You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and commandstep with each value provided in the `matrix` array.
+
+```yaml
+steps:
+  - label: "{{matrix}} build"
+    command: "echo '.buildkite/steps/build-binary.sh {{matrix}}'"
+    matrix:
+      - "macOS"
+      - "Linux"
+      - "Windows"
+```
+
+For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add multiplies by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`), creates an 8 job build (2 * 2 * 2 = 8):
+
+```yaml
+steps:
+- label: "💥 Matrix Build"
+  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  matrix:
+    setup:
+      arch:
+        - "amd64"
+        - "arm64"
+      os:
+        - "windows"
+        - "linux"
+      test:
+        - "A"
+        - "B"
+```
+
+Use the `adjustments` key to change specific entries in the build matrix. You can set the `skip` attribute to effectively remove them from the matrix,  or `soft_fail` attributes to allow them to fail without breaking the build.
+
+```yaml
+steps:
+- label: "💥 Matrix build with adjustments"
+  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  matrix:
+    setup:
+      arch:
+        - "amd64"
+        - "arm64"
+      os:
+        - "windows"
+        - "linux"
+      test:
+        - "A"
+        - "B"
+    adjustments:
+      - with:
+          os: "windows"
+          arch: "arm64"
+          test: "B"
+        soft_fail: true
+      - with:
+          os: "linux"
+          arch: "arm64"
+          test: "B"
+        skip: true
+```
