@@ -3,9 +3,9 @@
 Jobs are dispatched to agents in the following order
 
 1. Job priority in descending order, highest number to lowest (`priority`)
-2. Date and time scheduled in ascending order, oldest to most recent (`scheduled_at`). Note that jobs inherit `scheduled_at` from pipeline upload jobs, meaning jobs that are uploaded by a pipeline in an older build will be dispatched before builds created after that.
-3. Upload order in pipeline, first to last.
-4. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
+1. Date and time scheduled in ascending order, oldest to most recent (`scheduled_at`). Note that jobs inherit `scheduled_at` from pipeline upload jobs, meaning jobs that are uploaded by a pipeline in an older build will be dispatched before builds created after that.
+1. Upload order in pipeline, first to last.
+1. Internal id in ascending order, used as a tie breaker if all other value are the same, meaning older jobs will be dispatched first.
 
 Job `priority` is 0 by default, you can prioritise or deprioritise jobs by assigning them a higher or lower integer value. For example:
 
