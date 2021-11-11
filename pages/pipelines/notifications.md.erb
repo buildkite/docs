@@ -24,7 +24,7 @@ Available notification types:
 * [Basecamp campfire message](#basecamp-campfire-message):
 * [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.
 * [GitHub check](#github-check): Use the `pipeline.yml` to tell Buildkite to add details of checks to pull requests. Refer to [GitHub - Manually add check details using `github_check`](/docs/integrations/github#manually-add-check-details-using-github-check) for detailed guidance.
-* [GitHub commit status](#github-commit-status): Customize the commit status that Buildkite displays on GitHub commits and pull requests. Refer to [GitHub - Customizing commit statuses](/docs/integrations/github#customizing-commit-statuses) for detailed guidance.
+* [GitHub commit status](#github-commit-status): Customize the commit status that Buildkite displays on GitHub commits and pull requests. Refer to [GitHub - Customizing GitHub commit statuses](/docs/integrations/github#customizing-github-commit-statuses) for detailed guidance.
 * [GitHub pull request comment](#github-pull-request-comment): Refer to [GitHub - Add comments to GitHub pull requests](/docs/integrations/github#add-comments-to-github-pull-requests) for detailed guidance.
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
@@ -197,7 +197,7 @@ Normally, Buildkites adds this automatically, but if you disable _Update commit 
 <!-- vale on -->
 ## GitHub commit status
 
-The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses, but you can set custom statuses at both the build and step level. Refer to [GitHub - Customizing commit statuses](/docs/integrations/github#customizing-commit-statuses) for detailed guidance.
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses, but you can set custom statuses at both the build and step level. Refer to [GitHub - Customizing GitHub commit statuses](/docs/integrations/github#customizing-github-commit-statuses) for detailed guidance.
 
 ## GitHub pull request comment
 <!-- vale off -->
