@@ -61,7 +61,7 @@ To download artifacts from [triggered builds](/docs/pipelines/trigger-step), pas
 buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
 ```
 
-For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation. 
+For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation.
 
 ## Downloading Artifacts Outside a Running Build
 
@@ -71,7 +71,7 @@ If you want to download an artifact from outside a build use our [Artifact Downl
 
 ## Encryption and security  
 
-Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form. 
+Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 
 Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
 
@@ -79,7 +79,7 @@ If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-y
 
 If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
 
-To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data using the REST and GraphQL API. 
+To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data using the REST and GraphQL API.
 
 ## Further documentation
 

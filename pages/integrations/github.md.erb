@@ -17,11 +17,11 @@ If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-u
 Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization admins see permissions and manage access on a per-repository basis.
 
 1. Open your Buildkite organization's _Settings_.
-2. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
+1. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
     <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
-3. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
-4. Select the GitHub organization you want to connect to your Buildkite organization. 
-5. Choose which repositories Buildkite should have access to, then select _Install_. 
+1. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
+1. Select the GitHub organization you want to connect to your Buildkite organization.
+1. Choose which repositories Buildkite should have access to, then select _Install_.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
@@ -30,10 +30,10 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 To connect your GitHub account:
 
 1. Open Buildkite’s _Personal Settings_.
-2. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
-3. Select the GitHub _Connect_ button: 
+1. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
+1. Select the GitHub _Connect_ button:
     <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
-4. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page. 
+1. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
@@ -78,10 +78,10 @@ To run builds for GitHub pull requests, edit the GitHub settings for your Buildk
 
 Optionally, select one or more of the following:
 
-- _Limit pull request branches_
-- _Skip pull request builds for existing commits_
-- _Rebuild pull requests when they become ready for review_
-- _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+* _Limit pull request branches_
+* _Skip pull request builds for existing commits_
+* _Rebuild pull requests when they become ready for review_
+* _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
@@ -91,7 +91,7 @@ When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-gi
 
 ## Customizing GitHub commit statuses
 
-The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses. 
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses.
 
 For example, if you select _Update commit statuses_ in your _Pipeline Settings_:
 
@@ -138,6 +138,7 @@ For example, if you have a monorepo containing three applications, you could use
     * Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
 
 ## Manually add check details using `github_check`
 
@@ -208,6 +209,9 @@ The `github_pull_request_comment` parameters correspond to parameters in GitHub'
 
 
     
+
+
+
 <%= render_markdown 'integrations/one_repo_multi_org' %>
 
 <%= render_markdown 'integrations/build_skipping' %>

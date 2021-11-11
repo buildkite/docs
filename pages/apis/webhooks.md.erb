@@ -41,7 +41,7 @@ The following HTTP headers are present in every webhook request, which allow you
 </tbody>
 </table>
 
-One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under _Token_ in your _Webhook Notification service_. 
+One of either the [Token](/docs/apis/webhooks#webhook-token) or [Signature](/docs/apis/webhooks#webhook-signature) headers will be present in every webhook request. The token value and header setting can be found under _Token_ in your _Webhook Notification service_.
 
 Your selection in the _Webhook Notification service_ will determine which is sent:
 
@@ -85,7 +85,7 @@ The token is passed in clear text.
 
 Buildkite can optionally send an HMAC signature in place of a webhook token.
 
-The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. The timestamp is prefixed by `timestamp=` and the signature is prefixed by `signature=`. 
+The `X-Buildkite-Signature` header contains a timestamp and an HMAC signature. The timestamp is prefixed by `timestamp=` and the signature is prefixed by `signature=`.
 
 Buildkite generates the signature using HMAC-SHA256; a hash-based message authentication code [HMAC](https://en.wikipedia.org/wiki/HMAC) used with the [SHA-256](https://en.wikipedia.org/wiki/SHA-2) hash function and a secret key. The webhook token value is used as the secret key. The timestamp is an integer representation of a UTC timestamp.
 
@@ -126,9 +126,9 @@ BuildkiteWebhook.valid?(
 
 ### Defending against replay attacks
 
-A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (for example, 5 minutes). 
+A [replay attack](https://en.wikipedia.org/wiki/Replay_attack) is when an attacker intercepts a valid payload and its signature, then re-transmits them. One way to help mitigate such attacks is to send a timestamp with your payload and only accept them within a short window (for example, 5 minutes).
 
-Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload so that it is verified by the signature. An attacker will not be able to change the timestamp without invalidating the signature. 
+Buildkite sends a timestamp in the `X-Buildkite-Signature` header. The timestamp is part of the signed payload so that it is verified by the signature. An attacker will not be able to change the timestamp without invalidating the signature.
 
 To help protect against a replay attack, upon receipt of a webhook:
 

@@ -11,8 +11,8 @@ This template creates an IAM Role and set of IAM Policies with the IAM Actions
 necessary to create, update, and delete a CloudFormation Stack created with the
 Elastic CI Stack template.
 
-The IAM role created by this template is used to create and delete CloudFormation stacks in our 
-test suite, but it is likely that the permissions needed for some stack parameter permutations are 
+The IAM role created by this template is used to create and delete CloudFormation stacks in our
+test suite, but it is likely that the permissions needed for some stack parameter permutations are
 missing.
 
 This template can be deployed as is, or used as the basis for your own

@@ -27,7 +27,7 @@ balances operational complexity against acceptable risk for your workload.
 
 ## Public subnets only
 
-The simplest VPC subnet design involves using only public subnets whose route
+The most basic VPC subnet design involves using only public subnets whose route
 table’s default route points to an internet gateway. Under this design your EC2
 instances or ECS tasks are provided with a public IPv4 address in order to
 access the internet directly. You can use
@@ -62,7 +62,7 @@ Installing the [AWS SSM Agent](https://docs.aws.amazon.com/systems-manager/lates
 allows you to initiate sessions on private instances without requiring publicly
 routable SSH, or adding a VPN gateway to your VPC.
 
-> Session Manager provides secure and auditable instance management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys. Session Manager also allows you to comply with corporate policies that require controlled access to instances, strict security practices, and fully auditable logs with instance access details, while still providing end users with simple one-click cross-platform access to your managed instances.
+> Session Manager provides secure and auditable instance management without the need to open inbound ports, maintain bastion hosts, or manage SSH keys. Session Manager also allows you to comply with corporate policies that require controlled access to instances, strict security practices, and fully auditable logs with instance access details, while still providing end users with one-click cross-platform access to your managed instances.
 
 See the [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) documentation for more details.
 
