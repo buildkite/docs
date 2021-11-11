@@ -106,7 +106,7 @@ You can set notifications:
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite Enterprise users can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
-Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block.
+Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
 <section class="Docs__troubleshooting-note">
   <p>When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
