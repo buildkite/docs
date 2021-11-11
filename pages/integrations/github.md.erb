@@ -89,7 +89,7 @@ If you want to run builds only on pull requests, set the _Branch Filter Pattern_
 
 When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-github) the email address associated with the GitHub account is added to your Buildkite account. If you've got GitHub set not to display your email, `[username]@users.noreply.github.com` or the more recent `[username+id]@users.noreply.github.com` is added instead. The email address of a commit is one of the ways Buildkite matches webhook builds to users.
 
-## Customizing commit statuses
+## Customizing GitHub commit statuses
 
 The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses. 
 
@@ -138,6 +138,74 @@ For example, if you have a monorepo containing three applications, you could use
     * Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
+## Manually add check details using `github_check`
+
+Buildkite can add details of the checks it runs to your pull request.
+
+<%= image "github-buildkite-checks.jpg", alt: "Screenshot of a GitHub pull request, showing the Buildkite checks run." %>
+
+If you have _Update commit statuses_ enabled in your pipeline's GitHub settings, Buildkite automatically adds the checks.
+
+However, there may be situations where you disable automatic commit status updates. In this case, you need to manually tell Buildkite to add the checks information:
+
+```yaml
+notify:
+  - github_check
+```
+{: codeblock-file="pipeline.yml"}
+
+You can use this at the build level and step level.
+
+Note that if you use custom commit statuses, Buildkite shows the checks relating to the custom statuses, without needing `github_check`. For example, assuming _Update commit statuses_ is disabled, the following YAML:
+
+```yaml
+steps:
+  - label: "First script"
+    command: "echo 'hello from a step with a notification'"
+    notify:
+      - github_commit_status:
+          context: "custom-status"
+  - label: "Second script"
+    command: "echo 'hello from a step with no notification'"
+notify:
+  github_check
+```
+{: codeblock-file="pipeline.yml"}
+
+produces these check details:
+
+<%= image "custom-status-manual-check-example.jpg", alt: "Screenshot of a GitHub pull request, showing details from two checks. Buildkite has added details about the overall build, and the first script, but not the second." %>
+
+Buildkite has added check details for the overall build, and the first script, but not the second script.
+
+
+## Add comments to GitHub pull requests
+
+You can add review comments to files in a pull request. This is a step level action (you cannot add comments at build level).
+
+Unlike `github_check` and `github_commit_status`, `github_pull_request_comment` is not affected by your pipeline's _Update commit statuses_ settings.
+
+To add a comment:
+
+```yaml
+steps:
+  - label: "An example step"
+    command: "echo 'hello'"
+    notify:
+      - github_pull_request_comment:
+          body: "This is the comment text"
+          position: 3
+          path: "<relative-path-to-file>"
+```
+{: codeblock-file="pipeline.yml"}
+
+The `github_pull_request_comment` parameters correspond to parameters in GitHub's [create a review comment for a pull request API endpoint](https://docs.github.com/en/rest/reference/pulls#create-a-review-comment-for-a-pull-request).
+
+ <div class="Docs__note">
+    <p>The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.</p>
+    </div>
+
 
     
 <%= render_markdown 'integrations/one_repo_multi_org' %>
