@@ -7,12 +7,12 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 {:toc}
 
 ## Prerequisites and requirements  
- 
+
 Most Elastic CI Stack features are supported on both Linux and Windows.
 The following AMIs are available in all the supported regions:
 
 * Amazon Linux 2 (64-bit x86)
-* Amazon Linux 2 (64-bit ARM)
+* Amazon Linux 2 (64-bit ARM, Graviton)
 * Windows Server 2019 (64-bit x86)
 
 See this [overview page](/docs/agent/v3/elastic-ci-aws) for extensive information on compatibility, configuration, security, and other topics that will allow you to effectively use Elastic CI Stack for AWS.
@@ -20,14 +20,14 @@ See this [overview page](/docs/agent/v3/elastic-ci-aws) for extensive informatio
 ### Required and recommended skills  
 
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
- 
-* [AWS CloudFormation](https://aws.amazon.com/cloudformation/) 
+
+* [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
 * [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceType` stack parameter appropriate for your workload)
 * [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
- 
-For post-deployment diagnostic purposes, deeper familiarity with EC2 is recommended to be able to access the instances launched to execute Buildkite jobs over SSH or [AWS Systems Manager Sessions](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html). 
+
+For post-deployment diagnostic purposes, deeper familiarity with EC2 is recommended to be able to access the instances launched to execute Buildkite jobs over SSH or [AWS Systems Manager Sessions](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html).
 
 ### Billable services  
 
@@ -71,8 +71,8 @@ Review the parameters, see [Elastic CI Stack for AWS Parameters](/docs/agent/v3/
 
 Once you're ready, check both checkboxes:
 
-- I acknowledge that AWS CloudFormation might create IAM resources with custom names.
-- I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
+* I acknowledge that AWS CloudFormation might create IAM resources with custom names.
+* I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
 Then click _Create stack_:
 
@@ -90,10 +90,10 @@ We’ve created a sample [bash-parallel-example sample pipeline](https://github.
 
 <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-parallel-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-Click _Create Pipeline_. Depending on your organization's settings, the next step will vary slightly: 
+Click _Create Pipeline_. Depending on your organization's settings, the next step will vary slightly:
 
-- If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
+* If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
+* If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
     <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
 Click _New Build_ in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):

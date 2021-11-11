@@ -54,7 +54,7 @@ steps:
 
 To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
 
-Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right. 
+Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
 ### Pipeline.yml file
 
@@ -80,7 +80,7 @@ When you eventually run a build from this pipeline, this step will look for a di
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
-If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory. 
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory.
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
@@ -137,9 +137,9 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
-- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
-- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
-- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+* Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+* This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+* Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
 <section class="Docs__note">
   <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>

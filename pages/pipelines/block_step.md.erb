@@ -6,7 +6,7 @@ A block step is functionally identical to an [input step](/docs/pipelines/input-
 
 {:toc}
 
-A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file. 
+A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
 Once all steps before the block have completed, the pipeline will pause and wait for a team member to unblock it. Clicking on a block step in the Buildkite web UI opens a dialog box asking if you'd like to continue.
 
@@ -22,7 +22,7 @@ You can add form fields to block steps by adding a `fields` attribute. There are
 
 <%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
 
-The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data). 
+The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data).
 
 In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 

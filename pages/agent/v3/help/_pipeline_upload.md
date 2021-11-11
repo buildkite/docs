@@ -55,4 +55,3 @@ scripts that generate dynamic pipelines.
 * `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]
 * `--experiment value` - Enable experimental features within the buildkite-agent [`$BUILDKITE_AGENT_EXPERIMENT`]
 * `--profile value` - Enable a profiling mode, either cpu, memory, mutex or block [`$BUILDKITE_AGENT_PROFILE`]
-
