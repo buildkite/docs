@@ -46,7 +46,7 @@ See [Build States](#build-states) for possible values for the build state.
 
 ## Email
 
-Add an email notification to your pipeline using the `email` attribute of the `notify` yaml block:
+Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
 
 ```yaml
 notify:
@@ -79,7 +79,7 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand Assets](https://buildkite.com/brand-assets).
 1. On the next page of the chatbot setup, copy the URL that Basecamp provides in the `curl` code snippet
-1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` yaml block and the URL copied from your Basecamp chatbot:
+1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` YAML block and the URL copied from your Basecamp chatbot:
 
 ```yaml
 notify:
@@ -106,7 +106,7 @@ You can set notifications:
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite Enterprise users can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
-Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` yaml block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
+Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
 <section class="Docs__troubleshooting-note">
   <p>When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
@@ -263,7 +263,7 @@ Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
 ## Webhooks
 
-Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` yaml block:
+Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` YAML block:
 
 ```yaml
 notify:
@@ -290,7 +290,7 @@ Webhook notifications happen at the following [events](/docs/apis/webhooks#event
 
 ## PagerDuty Change Events
 
-If you've set up a [PagerDuty integration](/docs/integrations/pagerduty) you can send Change Events from your pipeline using the `pagerduty_change_event` attribute of the `notify` yaml block:
+If you've set up a [PagerDuty integration](/docs/integrations/pagerduty) you can send Change Events from your pipeline using the `pagerduty_change_event` attribute of the `notify` YAML block:
 
 ```yaml
 steps:
