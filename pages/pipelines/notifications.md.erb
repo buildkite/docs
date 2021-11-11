@@ -18,7 +18,7 @@ notify:
 {: codeblock-file="pipeline.yml"}
 
 Available notification types:
-
+<!-- vale off -->
 * [Email](#email): Send an email to the specified email address.
 * [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
 * [Basecamp campfire message](#basecamp-campfire-message):
@@ -28,7 +28,7 @@ Available notification types:
 * [GitHub pull request comment](#github-pull-request-comment): Refer to [GitHub - Add comments to GitHub pull requests](/docs/integrations/github#add-comments-to github-pull-requests) for detailed guidance.
 * [Webhooks](#webhooks): Send a notification to the specified webhook URL.
 * [PagerDuty](#pagerduty-change-events)
-
+<!-- vale on -->
 ## Conditional notifications
 
 To only trigger notifications under certain conditions, add the `if` attribute.
@@ -192,17 +192,17 @@ Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 Buildkite can add details of the checks it runs to your pull request.
 
 <%= image "github-buildkite-checks.jpg", alt: "Screenshot of a GitHub pull request, showing the Buildkite checks run." %>
-
+<!-- vale off -->
 Normally, Buildkites adds this automatically, but if you disable _Update commit statuses_ in your pipeline settings, you need to manually add the check notification. Refer to [GitHub - Manually add check details using `github_check`](/docs/integrations/github#manually-add-check-details-using-github_check) for detailed guidance.
-
+<!-- vale on -->
 ## GitHub commit status
 
 The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses, but you can set custom statuses at both the build and step level. Refer to [GitHub - Customizing commit statuses](/docs/integrations/github#customizing-commit-statuses) for detailed guidance.
 
 ## GitHub pull request comment
-
+<!-- vale off -->
 You can add review comments to files in a pull request. This is a step level action (you cannot add comments at build level). Refer to [GitHub - Add comments to GitHub pull requests](/docs/integrations/github#add-comments-to github-pull-requests) for detailed guidance.
-
+<!-- vale on -->
 ## Webhooks
 
 Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` yaml block:
