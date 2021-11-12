@@ -1,0 +1,2239 @@
+# Buildkite tutorial
+
+You have many choices for running your tests, deployment, and
+miscellaneous automation, yet we've found more and more individuals and
+organizations are adopting [Buildkite](https://buildkite.com/). This
+12000-word article will provide you the most in-depth tutorial for
+getting started with Buildkite. It will cover the basic concepts, setup,
+secrets, and all the way to how we are currently deploy this very blog
+into production with support for whitelisted and guest pull requests.
+
+This is a very special long-form article that has taken weeks to write,
+check, and improve. We hope you enjoy the article. We especially hope
+you enjoy Buildkite like we do.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-dashboard-wide.png){.kg-image}
+
+Buildkite is a semi-SaaS. The service provides an aggregated dashboard,
+CLI tools, and an API; whilst providing you the security and
+cost-management of running your own infrastructure for build workers. It
+is a *free service for individuals*, and their corporate pricing is a
+flat per-user rate regardless how many pipelines you own or how many
+build steps you execute each day.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-sample-build.png){.kg-image}
+
+Buildkite can scale with your applications and with your organization.
+You can start with tiny, infrequent pipelines up to huge, highly
+parallel, dynamic pipelines whose work is spread across 10,000 worker
+nodes.
+
+## Topics covered
+
+In this special long-form article we will explore:
+
+-   What is [Buildkite](https://buildkite.com/) and what is its model
+    for CI/CD testing and pipelines?
+-   How to get started with Continuous Integration testing with
+    Buildkite?
+-   How to locally iterate on Buildkite pipelines without affecting
+    everyone else?
+-   How to get started with Buildkite running builds upon your laptop?
+-   When should I start running Buildkite steps inside Docker
+    containers?
+-   How and when to start running Buildkite Agent worker servers on
+    Linode?
+-   How can I install Rancher k3s or other dependencies on my Linode
+    agent workers?
+-   How do I assign Buildkite steps to a subset of Agents or host
+    servers?
+-   How can I automatically scale up and down my Buildkite Agents worker
+    servers? How can I run Buildkite Agent servers on AWS EC2?
+-   How do I configure my pipelines with environment variables and where
+    do I store secrets?
+-   How do I prevent other people modifying my Pipeline with their
+    commits?
+-   How can I deploy applications?
+
+## Your first Buildkite pipeline
+
+Click the following button to start [the
+tutorial](https://github.com/starkandwayne/buildkite-tutorial) on your
+[free Buildkite account](https://buildkite.com/pricing):
+
+[![Start tutorial on
+Buildkite](https://buildkite.com/button.svg)](https://buildkite.com/new?template=https%3A%2F%2Fgithub.com%2Fstarkandwayne%2Fbuildkite-tutorial)
+
+No fields need to be changed at this time, nor you need to fork the
+[tutorial
+repository](https://github.com/starkandwayne/buildkite-tutorial). Scroll
+to the bottom button to "Create Pipeline".
+
+We will skip the next page "GitHub Webhook Setup." Scroll to the bottom
+and click "Continue to Pipeline."
+
+Now click "New Build" at the top right. Enter an arbitrary message. It
+can include [Buildkite Emoji](https://github.com/buildkite/emojis), such
+as "Learning to :pipeline: is fun."
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-first-build-no-agents.png){.kg-image}
+
+Your Pipeline starts with a single Step (the blue pipline icon), but the
+Pipeline build will wait forever until a [Buildkite
+Agent](https://buildkite.com/agent) is provided to process the Step.
+
+You are responsible for running your own fleet of Buildkite Agent worker
+servers. Agents can run on cloud servers, bare metal datacenters,
+Raspberry Pis, or your local laptop. The only require outbound Internet
+access to Buildkite APIs.
+
+[Install](https://buildkite.com/docs/agent/v3/installation) and run
+`buildkite-agent start --spawn 2` to host some Buildkite Agents on your
+local machine:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-agent-start-local-spawn-2.png){.kg-image}
+
+The Agents will immediately be allocated work -- "jobs" -- from our
+Pipeline. Our blue pipeline icon Step immediately becomes an Agent job.
+
+Back at the dashboard our Pipeline will show success.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-show-environment-success.png){.kg-image}
+
+Your Pipeline Build started with one Step (the blue pipeline icon) but
+finished with two Steps (the computer icon). We will discuss Pipeline
+Builds and Steps soon.
+
+Expand the `./src/show_environment.sh` step to see its output. What you
+see here will depend on the server running the Agent.
+
+## Run Buildkite Pipelines locally
+
+Any Buildkite Pipeline YAML can be run locally -- even without having
+configuring the Pipeline within [buildkite.com](https://buildkite.com)
+-- using the [convenient `bk` tool](https://github.com/buildkite/cli):
+
+    bk local run .buildkite/pipeline.show-environment.yml
+
+The `bk local run` command will spin up a single local temporary Agent.
+The command is also aliased to `bk run` and `bk`. Explicitly passing the
+path to the pipeline YAML file is not required if it is one of the
+defaults, such as `.buildkite/pipeline.yml`. The tutorial repo contains
+[multiple pipeline YAML
+files](https://github.com/starkandwayne/buildkite-tutorial/tree/master/.buildkite),
+so we need to explicitly specify which Pipeline YAML to run.
+
+You can pass additional environment variables into `bk local run` with
+the `-E` flag:
+
+    export SOME_EXISTING_TOKEN=somevalue
+    bk local run -E SOME_EXISTING_TOKEN="$SOME_EXISTING_TOKEN" -E DEBUG=true
+
+To pass in all the environment variables in a local `.env` file
+containing `SOME_EXISTING_TOKEN=somevalue` lines, we can use some Perl:
+
+    bk local run $(perl -n -e 'chomp; print "-E $_ ";' <.env)
+
+Thanks James Hunt for the Perl magic.
+
+## Quick look at a Pipeline YAML file
+
+The [`pipeline.show-environment.yml`
+file](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.show-environment.yml)
+describes a single step that runs a [Bash shell
+script](https://buildkite.com/docs/pipelines/writing-build-scripts).
+
+``` yaml
+steps:
+- label: ":desktop_computer:"
+  command: ./src/show_environment.sh
+```
+
+We give each step a small label, often a single
+[emoji](https://github.com/buildkite/emojis). As our pipelines grow,
+adding more and more steps, the label/emoji will help us quickly
+identify what steps is currently running, or what step just failed.
+
+Our `show_environment.sh` command is the smallest thing we might ever do
+within a pipeline: it consumes no inputs from the outside world, nor
+from preceding steps; and it produces no outputs to the outside world,
+nor passing meta-data to subsequent steps.
+
+## Editing Pipelines
+
+Earlier we created our Buildkite Pipeline to run the single step defined
+in `.buildkite/pipeline.show-environment.yml`.
+
+What do we do if we want to modify our Pipeline?
+
+You would edit the Pipeline YAML file, commit it, push it, and the new
+Pipeline YAML will be used for all future Builds.
+
+Try cloning the [tutorial
+repository](https://github.com/starkandwayne/buildkite-tutorial), edit
+the Pipeline YAML, and run it with `bk`:
+
+    git clone https://github.com/starkandwayne/buildkite-tutorial ~/workspace/buildkite-tutorial
+    cd ~/workspace/buildkite-tutorial
+    bk local run .buildkite/pipeline.show-environment.yml
+
+Later in this article we will fork this repository and setup a GitHub
+webhook into your Pipeline. Your committed changes to Pipeline YAML will
+be immediately used by [buildkite.com](https://buildkite.com).
+
+By the end of this article you will also fully understand the mechanism
+for how Buildkite dynamically updates the Pipeline whenever you modify
+it.
+
+## Switching to next tutorial pipeline
+
+We can also change the Pipeline behavior by asking Buildkite to load a
+different YAML file.
+
+On any Buildkite Pipeline page, click "Pipeline Settings" in the upper
+right corner and you'll be taken to the Steps settings page. Find the
+highlighted "Pipeline emoji" icon, and toggle it to open up the Step's
+configuration.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-settings-steps-toggle-pipeline-upload.png){.kg-image}
+
+You can now edit the command that decides what Pipeline YAML should be
+loaded whenever we commence a Build.
+
+Change the "Commands to run" field to
+`buildkite-agent pipeline upload .buildkite/pipeline.pass-random-number.yml`:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-change-pass-random-number.png){.kg-image}
+
+Scroll down and click "Save Steps" button.
+
+A clue as to what is happening here: The Pipeline we registered with
+[buildkite.com](https://buildkite.com) is *not yet* the Pipeline YAML
+files in our tutorial repository. When we initially created the Pipeline
+at the start of this article we created a Pipeline with one step -- to
+inject our own Pipeline YAML file from our repository. We will come back
+to the `buildkite-agent pipeline upload` command again soon.
+
+We can trigger a "New Build" of our Pipeline, which will in turn load
+the alternate `pipeline.pass-random-number.yml` steps and append them to
+our Pipeline, and those steps will start running. Run "New Build" a few
+times to watch this sequence.
+
+Our successful Pipeline Build shows four icons for the four steps in our
+full Pipeline:
+
+1.  Wiggly line in a blue circle. This step loads our actual Pipeline
+    YAML steps, as discussed above.
+2.  Ballot being placed in a ballot box. This step generates a random
+    number and stores it in meta-data (see the next section).
+3.  Greater-than symbol. Wait for all preceding steps to successfully
+    complete (see section [Waiting](#waiting) below).
+4.  Computer. Fetch the stored number from meta-data and display it (see
+    the next section).
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-pass-random-number-success-hightlight-steps.png){.kg-image}
+
+## Passing meta-data between steps
+
+Our [new
+pipeline](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.pass-random-number.yml)
+generates a random number in the first Step and passes that number to
+subsequent Steps. It is configured in YAML:
+
+    steps:
+    - label: ":ballot_box_with_ballot:"
+      command: ./src/generate-and-store-number.sh
+    - wait
+    - label: ":desktop_computer:"
+      command: ./src/fetch-and-display-number.sh
+
+The `generate-and-store-number.sh` script performs two steps:
+
+1.  Generate a random number between 1 and 10
+2.  Stores it into [Buildkite
+    Meta-Data](https://buildkite.com/docs/agent/v3/cli-meta-data) using
+    `buildkite-agent meta-data set "generated-number" "some-value"`.
+
+The `fetch-and-display-number.sh` script:
+
+1.  Fetches the value using
+    `buildkite-agent meta-data get "generated-number"`
+2.  Displays it to the build logs.
+
+The `buildkite-agent meta-data [set|get]` commands interact with the
+[buildkite.com](https://buildkite.com) API to store and fetch
+key/values. Avoid using Buildkite Meta-Data service to store
+[Secrets](#secrets) and large things ([Artifacts](#artifacts)), both of
+which we will introduce later in this article.
+
+## Waiting
+
+Since this final step requires that the first step be fully completed,
+we introduce the concept of a `wait` step into our pipeline.
+
+Steps are performed in parallel, until we hit a `wait` or a `block`
+step. Steps before `wait` or `block` are performed in parallel, and the
+steps after a `wait` or `block` are subsequently performed in parallel.
+
+### Depends On
+
+The `wait` step is an easy way to ensure that all preceding steps have
+been completed. For larger Pipelines you may wish more granularity in
+declaring that a Step is specifically blocked, or `depends_on`,
+preceding Steps.
+
+We could replace the `wait` step by declaring the latter Step is
+dependent upon the first Step. The first Step needs a `key` name for
+reference.
+
+    steps:
+      - label: ":ballot_box_with_ballot:"
+        command: ./src/generate-and-store-number.sh
+        key: generate-number
+      - label: ":desktop_computer:"
+        command: ./src/fetch-and-display-number.sh
+        depends_on:
+        - generate-number
+
+[Test this Pipeline
+yourself](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.pass-random-number-depends-on.yml):
+
+    $ bk local run .buildkite/pipeline.pass-random-number-depends-on.yml
+    >>> Executing command step 🗳️
+    + buildkite-agent meta-data set generated-number 9
+    >>> Executing command step 🖥️
+    + buildkite-agent meta-data get generated-number
+    9
+
+## Parallel steps and multiple Agents
+
+How many parallel Buildkite steps will be performed at the same time?
+Each step is allocated to a single Agent, and a single Agent can perform
+one step at a time. So, you can increase the parallelism of your
+pipeline(s) by increasing the number of Agents. Either run more Agents
+per worker server, or run more worker servers.
+
+Earlier we ran `buildkite-agent start --spawn 2` and now we have two
+Agents.
+
+We can schedule two steps at the same time. Let's add some parallelism
+our pipeline.
+
+## Dynamic Pipelines
+
+Our [next tutorial
+pipeline](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.dynamic-steps.yml)
+will dynamically create additional steps on the fly.
+
+Each time you trigger a New Build, it will take the generated number and
+create that many parallel steps. What does each new Step do? Why of
+course, it will generate another number.
+
+Update the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.dynamic-steps.yml`
+as per the [Switching to next tutorial
+pipeline](/blog/p/6abe872b-b5ec-4afd-8658-ff88cb9f9039/switching-to-next-tutorial-pipeline)
+instructions, and run a New Build, giving it the name "Dynamic 1". And
+then trigger New Build to create "Dynamic 2", and again to create Build
+"Dynamic 3".
+
+Rather than just watch one Build in progress, we can watch all the
+Builds in progress. Click on either inline buttons "Builds" or
+"Running".
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipelines-dynamic-3.png){.kg-image}
+
+You would have also watched the steps be performed in batches of two --
+for the two Agents you have running.
+
+Each Build has a different number of Steps. My output above will
+different to yours. That's randomness for you.
+
+But how did Buildkite allow us to generate new Steps whilst the Build
+was in progress?
+
+It is thanks to the magic of `buildkite-agent pipeline upload`. We can
+run it multiple times during each pipeline build to insert new steps.
+
+    - label: ":pipeline:"
+      command: ./src/generate-steps-from-stored-number.sh | buildkite-agent pipeline upload
+
+I've reused the same `:pipeline:` emoji to indicate that a step is about
+to spit out more steps. Of course, you can use any text or emojis for
+your step labels, but I think it lowers cognative load to reuse the
+`:pipeline:` emoji for a step that generates new steps, just like the
+first step did.
+
+Our `buildkite-agent pipeline upload` command above did not load a
+static file, rather we piped it dynamically-generated YAML from the
+[`./src/generate-steps-from-stored-number.sh`
+script](https://github.com/starkandwayne/buildkite-tutorial/blob/master/src/generate-steps-from-stored-number.sh).
+
+First, we decide how many steps to create. In this trivial tutorial
+example, we're using the randomly generated number stored in meta-data:
+
+    steps_count=$(buildkite-agent meta-data get generated-number)
+
+In your own projects, you might dynamically decide how much parallelism,
+or which steps are required, after inspecting your repository,
+environment variables, artifacts, or meta-data.
+
+Next, loop over our `$steps_count` variable to print some YAML to
+STDOUT:
+
+    echo "steps:"
+    for((i=0;i<steps_count;i++));
+    do
+      cat <<YAML
+    - label: "$i"
+      command: ./src/generate-and-store-number.sh $i
+    YAML
+    done
+
+An example YAML output, if `$steps_count` was 4:
+
+    steps:
+    - label: "0"
+      command: ./src/generate-and-store-number.sh 0
+    - label: "1"
+      command: ./src/generate-and-store-number.sh 1
+    - label: "2"
+      command: ./src/generate-and-store-number.sh 2
+    - label: "3"
+      command: ./src/generate-and-store-number.sh 3
+
+This YAML is piped into `buildpack-agent pipeline upload`, which in turn
+inserts the 3 steps into the running Pipeline Build. The new steps have
+labels 0, 1, 2, and 3, and will look like the "Dynamic 2" example build
+in my sample image above.
+
+What can you do with Dynamic Pipelines? I've heard tales -- urban
+legends -- of Buildkite founder Keith Pitt using Dynamic Pipelines to
+create interactive dungeon crawling adventure games. Answer a question,
+and the response is used to generate the next part of the pipeline;
+which in turn will ask a question and wait for a response.
+
+### How do I prevent contributors from changing my Pipeline?
+
+There is a novel consequence to how we are asking Buildkite to run
+`buildkite-agent pipeline upload [path/to/some/pipeline.yml]` as our
+first step: the behavior of the Pipeline is defined by the Git commit.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-yaml-from-git-commit.png){.kg-image}
+
+Each new commit can contribute a new improvement to the Pipeline YAML
+itself. It's very cool.
+
+But you might not want this. Perhaps you're OK allowing and encouraging
+your own team to mutate the Pipeline with their commits, but you do not
+want new contributors to be able to change the Pipeline within their
+commit or Pull Requests.
+
+There are some options to restrict this behavior.
+
+### Fetch Pipeline YAML from a remote file
+
+You can fetch the Pipeline YAML from a trusted remote location, rather
+than from the Build's Git commit. That way every Build uses the same
+Pipeline YAML, rather than the Pipeline YAML from the current Git
+commit.
+
+On GitHub, each file has a "Raw" button, which provides a URL to the raw
+contents of a file for a specific branch. In the example below, the
+"Raw" button will provide the latest contents of the
+`.buildkite/pipeline.show-environment.yml` file on the `master` branch.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/github-pipeline-yaml-raw-file-contents.png){.kg-image}
+
+We now pipe this remote file into `buildkite-agent pipeline upload`, say
+using `curl`:
+
+    curl -sSL https://raw.githubusercontent.com/starkandwayne/buildkite-tutorial/master/.buildkite/pipeline.show-environment.yml | buildkite-agent pipeline upload
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-yaml-from-remote-git-raw.png){.kg-image}
+
+The initial pipeline will now be loaded from a trusted remote file, not
+from the Build's Git commit.
+
+If the Pipeline YAML references any scripts, or generates additional
+Pipeline Steps, then this behavior will come from the Build Git commit.
+
+### Embed Pipeline YAML within Buildkite
+
+In all our Pipelines in this article you start with a single blue
+pipeline icon Step -- to dynamically load the remainder of the Steps
+from `.buildkite/pipeline.yml`, another file, or from YAML piped in via
+STDIN.
+
+You can also remove this "load the pipeline" step -- to stop running
+`buildkite-agent pipeline upload` -- and to embed the pipeline YAML
+within Buildkite.
+
+On the Pipeline Settings's Steps page, you could scroll down to the
+section "Convert to YAML Steps", and click Convert to YAML Steps.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-convert-to-yaml-steps.png){.kg-image}
+
+This action is permanent and its not necessary for you to perform now.
+
+On the next page, you will be shown your existing single
+`buildkite-agent pipeline upload` Step pipeline as YAML. Replace this
+with your multi-step Pipeline YAML and save.
+
+No longer can anyone modify the initial Pipeline steps and environment
+variables with their Git commits.
+
+## Can my Buildkite pipelines ask questions?
+
+All Pipelines will proceed uninterrupted and completed all steps. Robots
+are awesome. How do you add some behavior to a pipeline that is only
+executed sometimes on special occasions? How do you block a pipeline and
+ask a human for permission to proceed? How do you ask a human for some
+additional information -- such as release notes or a support ticket ID
+-- before continuing?
+
+Buildkite answers all these questions with [`block`
+steps](https://buildkite.com/docs/pipelines/block-step).
+
+You can block a pipeline and ask for a simple "OK to proceed?" prompt:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/image-1.png){.kg-image}
+
+Better yet, whilst your Pipeline has the human's attention it can ask
+them for human information:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/image-2.png){.kg-image}
+
+The answers to this `block` step will be stored in Meta-Data. Learn more
+from the [Buildkite Block Step
+Example](https://github.com/buildkite/block-step-example) repository.
+
+We can add a simple "OK to continue?" `block` step to our earlier
+pipeline. The
+[`pipeline.ask-to-continue.yml`](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.ask-to-continue.yml)
+pipeline contains the following additional step:
+
+    - block: ":incoming_envelope: generate"
+      prompt: "Should we generate some numbers?"
+
+For good measure, the `label` includes both an emoji and some text. The
+`prompt` message will be hidden until the human becomes involved.
+
+Update the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.ask-to-continue.yml`
+as per the [Switching to next tutorial
+pipeline](/blog/p/6abe872b-b5ec-4afd-8658-ff88cb9f9039/switching-to-next-tutorial-pipeline)
+instructions, and run a New Build called "Ask Me".
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipelines-ask-me-blocked.png){.kg-image}
+
+Once the "Ask Me" build finishes running, it changes from yellow to
+green. Green is good. But we can see that the "Ask Me" Build is
+different from the preceding "Dynamics 3" Build:
+
+1.  It has a red Cancel button.
+2.  The latter Pipeline step icons are white, not green.
+3.  The "generate" step icon is preceded by a lock symbol.
+4.  Instead of "Passed in 30s", the summary of the pipeline so far is
+    "Passed in 27s and blocked."
+
+Blocked pipelines are OK. Blocked might be fine. The remaining steps in
+the pipeline might be completely optional to your organization.
+
+Today, our pipeline needs you. Click on the locked "generate" step
+button to see the prompt. Click "OK" to continue.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-blocks-asking-question.png){.kg-image}
+
+Instead of generating a random number, the Pipeline could ask the human
+(that's you) for how many Pipeline Steps it should generate.
+
+Update the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.ask-for-steps.yml`
+as per the [Switching to next tutorial
+pipeline](/blog/p/6abe872b-b5ec-4afd-8658-ff88cb9f9039/switching-to-next-tutorial-pipeline)
+instructions, and run a New Build, giving it the name "Ask Me for
+Steps".
+
+The Pipeline Build will load in our new pipeline YAML steps, which now
+immediately blocks.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-ask-me-for-steps-blocked.png){.kg-image}
+
+When we click on the locked ballot box icon we are given a beautiful
+form to fill in.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-ask-me-for-steps-answers.png){.kg-image}
+
+After proceeding with "Continue" button, our pipeline will use the
+form's meta-data to generate five new steps.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-ask-me-for-steps-5-in-progress.png){.kg-image}
+
+Alas, at the time of writing, I did not find something amusing to
+achieve with your fruit selection.
+
+How did I [configure the Buildkite block step
+form](https://buildkite.com/docs/pipelines/block-step)?
+
+    steps:
+    - block: ":ballot_box_with_ballot:"
+      prompt: "We robots have questions. Many questions."
+      fields:
+      - text: "How many steps to create?"
+        key: "generated-number"
+        hint: "Think of any number. But a positive number."
+      - select: "Do you have a favorite?"
+        key: "favourite-thing"
+        options:
+        - label: ":green_apple:"
+          value: "green_apple"
+        - label: ":apple:"
+          value: "apple"
+        ...
+
+Try this at home: dynamically generate a form to populate the items in
+the `select` field `options` list.
+
+## Configuring Buildkite Pipeline with environment variables
+
+In the preceding example, every time you trigger the pipeline it blocks
+and ask "How many steps to create?" More than likely you only want to
+provide this information once. One answer -- say, 5 parallel steps --
+would be sufficient for all future Pipeline Builds until you had reason
+to change it for all subsequent builds.
+
+We can configure Pipelines using environment variables.
+
+Let's allow an environment variable `$STEPS_COUNT` to be provided in
+Pipeline Settings that determines the number of parallel Steps to be
+generated.
+
+Update the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.dynamic-steps-from-env-var.yml`
+as per the [Switching to next tutorial
+pipeline](/blog/p/6abe872b-b5ec-4afd-8658-ff88cb9f9039/switching-to-next-tutorial-pipeline)
+instructions.
+
+Next, we configure all our future Builds by configuring the
+`$STEPS_COUNT` environment variable in the "Steps" page whilst we're
+editing the Step above.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-settings-steps-env-var-2.png){.kg-image}
+
+Run a New Build. In my example below I called the Build "STEPS_COUNT=6",
+but of course the Build name does not set the environment variable. Only
+a mad person would write a confusing tutorial.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-settings-pass-env-var.png){.kg-image}
+
+Environment variables can also be hard-coded into the Pipeline YAML in
+two places.
+
+A variable can be fixed for the entire Pipeline and all its Steps:
+
+    env:
+      STEPS_COUNT: 4
+    steps:
+    - label: ":pipeline:"
+      command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
+
+Or we can set a variable for only a single step:
+
+    steps:
+    - label: ":pipeline:"
+      command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
+      env:
+        STEPS_COUNT: 2
+
+### Precedence of environment variables in Buildkite Builds
+
+What if we did all three?
+
+1.  set `STEPS_COUNT=6` in the Pipeline Settings,
+2.  set `STEPS_COUNT=4` for all Steps in the Pipeline YAML, and
+3.  set `STEPS_COUNT=2` for a single step, say `:pipeline:` above.
+
+The answer? The single step `:pipeline:` would receive `STEPS_COUNT=2`,
+and all other steps would receive `STEPS_COUNT=4`.
+
+No step would receive the `STEPS_COUNT=6` value.
+
+### Default values for Buildkite environment variables
+
+In our current pipeline, if `STEPS_COUNT` is missing then
+`./src/generate-steps-from-env-var.sh` exits with an error because the
+variable is missing. I did this with the following fancy Bash
+expression:
+
+    : ${STEPS_COUNT:?please configure pipeline with \$STEPS_COUNT environment variable}
+
+I could have set a default value, rather than an error. The following
+example will default `STEPS_COUNT=1`.
+
+    export STEPS_COUNT=${STEPS_COUNT:-1}
+
+## Secrets
+
+One of the benefits of Buildkite over other SaaS CI/CD services is
+security -- your code and your secrets never leave your servers. They
+are never stored on Buildkite's servers or databases.
+
+Do not set your [AWS credentials as environment
+variables](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html)
+in the Buildkite Dashboard. Nor your private keys nor certificates.
+These environment variables are stored in Buildkite's databases.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-bad-secrets.png){.kg-image}
+
+Buildkite [Secrets
+documentation](https://buildkite.com/docs/pipelines/secrets) includes a
+longer list of "anti-patterns" for secrets.
+
+### What are the options for retrieving Secrets?
+
+There are three paths to Build steps having access to Secrets:
+
+1.  Explicitly fetch the secrets from a secrets storage service during
+    each step; for example, make an API call out to Hashicorp Vault or
+    your Cloud Provider's Secrets Service.
+2.  Pass Secrets into all Pipelines via Buildkite Agent.
+3.  Pass Secrets into a specific Step via a Buildkite Plugin.
+
+Option 1 and 3 allows for fine-grained access to Secrets, without
+exposing them to an entire pipeline. Option 2 allows sharing of common
+secrets to all Pipelines.
+
+Option 2 allows for Secrets to be stored or cached on the host server
+and loaded into each Step quickly.
+
+All Options above allow Secrets to be fetched from remote secrets
+storage services
+
+Option 1 would require you to explicitly invoke `vault read` or
+`aws secretsmanager get-secret-value` commands to fetch seccrets from
+Hashicorp Vault or AWS SecretsManager during your step scripts.
+
+Option 2 would encapsulate these commands inside a Buildkite Plugin for
+your convenience. We will investigate an AWS SecretsManager plugin
+later.
+
+Option 2 and 3 pass Secrets to a Step command via environment variables
+that are local to that Step only.
+
+The Buildkite method for allowing Option 2 and 3 to inject Secrets as
+environment variables is [Buildkite Agent
+Hooks](https://buildkite.com/docs/agent/v3/hooks).
+
+### Injecting environment variables with Buildkite Hooks
+
+Buildkite Agents, Plugins, and your Git repository can be configured to
+run additional setup scripts via
+[Hooks](https://buildkite.com/docs/agent/v3/hooks#types-of-hooks). These
+are your own scripts that can be run at [different
+phases](https://buildkite.com/docs/agent/v3/hooks#available-hooks) of
+each Pipeline or its Steps.
+
+We will pass Secrets to our Steps via environment variables. To [inject
+environment
+variables](https://buildkite.com/docs/agent/v3/hooks#available-hooks) we
+can register Hooks into our Buildkite Agents or activate a Buildkite
+Plugin within a specific Step.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-docs-available-hooks-1.png){.kg-image}
+
+We will now use an Agent Hook to set the `$STEPS_COUNT` environment
+variable for all Pipelines that use our local Agents.
+
+Update your Pipeline Settings to remove any environment variables.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-settings-dynamic-from-agent-env-var-1.png){.kg-image}
+
+To configure our local Buildkite Agent to provide `$STEPS_COUNT` to all
+pipeline steps/jobs that it processes, we create a `environment` script
+in a `hooks` directory and use it to `export` environment variables.
+
+    mkdir -p ~/.buildkite-agent/hooks
+    cat > ~/.buildkite-agent/hooks/environment <<SHELL
+    export STEPS_COUNT=10
+    SHELL
+    buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+
+The `environment` hook will run before all other commands, and can be
+used to set up secrets, data, etc.
+
+Run a "New Build" and we'll see that `$STEPS_COUNT` is now being
+provided by the Agent Hook, and is set to 10 as declared in our
+`hooks/environment` file above.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-build-agent-hook-set-env-var.png){.kg-image}
+
+If you manage a fleet of Buildkite Agent worker servers, you are
+responsible for distributing this `hooks/environment` script to all
+servers, plus any future updates, and ensuring no one has access to it
+except the `buildkite-agent` process.
+
+### Storing secrets in an encrypted AWS S3 bucket
+
+Another path to dynamically and securely distributing secrets to all
+Buildkite Agents is to use the [AWS S3 Secrets Buildkite
+Plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks/).
+
+We will store secrets in encrypted files in an AWS S3 bucket, and ask
+our Buildkite Agents to fetch those secrets and inject them into our
+Builds. New secrets will be immediately distributed to all Agents.
+
+You can try out S3 secrets using a public S3 bucket I've created for
+this article.
+
+First, install the S3 plugin, and create a `hooks/environment` Agent
+Hook to delegate to the S3 Secrets plugin fetch the secrets from an S3
+bucket.
+
+    S3_SECRETS_DIR=~/.buildkite-agent/plugins/elastic-ci-stack-s3-secrets-hooks
+    git clone \
+        https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks \
+        $S3_SECRETS_DIR
+    cat > ~/.buildkite-agent/hooks/environment <<SHELL
+      export BUILDKITE_PLUGIN_S3_SECRETS_BUCKET="buildkite-tutorial-public-example-secrets"
+      source $S3_SECRETS_DIR/hooks/environment
+    SHELL
+
+You will need to [install the `aws`
+CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
+on your Buildkite Agent servers.
+
+I've using a publicly accessible S3 bucket for this article, that sets
+`STEPS_COUNT=12`.
+
+Restart the Agent and set `--hooks-path` to the folder containing the
+`~/.buildkite-agent/hooks/environment` wrapper hook above.
+
+    buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+
+Finally, when you re-run your Build against the local Agent, the Logs
+for each step show "Downloading secrets from
+buildkite-tutorial-public-example-secrets" below, and later we see
+"STEPS_COUNT changed" which indicates that this environment variable has
+been set.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-job-load-env-from-s3-1.png){.kg-image}
+
+We can see that the `STEPS_COUNT` value fetched from the S3 bucket was
+12, and 12 steps have been generated.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-build-agent-hook-s3-secrets.png){.kg-image}
+
+To verify that `STEPS_COUNT=12` came from an `env` or `environment` file
+in my tutorial bucket, you can inspect the file:
+
+    $ curl https://buildkite-tutorial-public-example-secrets.s3.us-east-2.amazonaws.com/env
+    export STEPS_COUNT=12
+
+The tutorial bucket is public so you do not need to setup `aws` CLI
+credentials for the S3 Plugin on this occasion.
+
+### Creating own secret encrypted S3 environment variables for Buildkite
+
+You will not get very far using my public bucket and its hard-coded
+`STEPS_COUNT=12`. You have your own secrets. You have your own AWS
+account. [You can create S3
+buckets.](https://s3.console.aws.amazon.com/) You are ready.
+
+If your S3 bucket contains a file `env` or `environment` in the root of
+the bucket, then it will be loaded into all Step scripts of all
+Pipelines.
+
+If your S3 bucket contains a file `my-fancy-pipeline/env` then this
+`env` file will be loaded into all Steps of only the `my-fancy-pipeline`
+Pipeline builds.
+
+Here's a sample command for creating a temporary local `env` file, and
+uploading it to your AWS S3 bucket as an encrypted file.
+
+    cat > env <<SHELL
+    export STEPS_COUNT=14
+    SHELL
+    aws s3 cp --acl private --sse aws:kms ./env "s3://<my-special-bucket-of-secrets>/env"
+    rm env
+
+Your Agent host servers need the `aws` CLI installed and configured with
+credentials to read from the S3 bucket.
+
+This step is already done here on your local laptop. You will need to
+remember this when you start running remote worker servers. If you are
+running AWS EC2 Agent workers then you'll get `aws` authentication setup
+for free.
+
+For other environments, some sample code to configure `aws` can be found
+on my [Linode StackScript for
+Buildkite](https://cloud.linode.com/stackscripts/633367).
+
+### AWS S3 Secrets Plugin is slow
+
+I found the [AWS S3 Secrets Buildkite
+Plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks/)
+solution above to be slow. It might add 10-60 seconds to each Step
+whilst it invokes `aws s3` commands to pull down and decrypt files from
+S3 buckets. In the screenshot above, it took 39 seconds to fetch a few
+Secrets from the example AWS S3 bucket.
+
+So, currently I've split my Secrets into two groups:
+
+-   Common secrets that I need for all Pipelines (such as Git SSH
+    private keys, which are discussed later in the article) are stored
+    on Agent host servers, and will be rotated by rebuilding those host
+    servers.
+-   Secrets that are only required by some Steps (such as Cloud Foundry
+    passwords during a deployment Step) are fetched on demand by
+    Buildkite Plugins.
+
+### Fetching Buildkite Secrets only when you need them with AWS Secrets Manager and Buildkite Plugins
+
+AWS provides a hosted [Secrets
+Manager](https://aws.amazon.com/secrets-manager/) which is \$0.40 USD
+per secret per month. There is a Buildkite Plugin that can fetch one or
+more secrets for a Step. Bingo, let's do this.
+
+In a moment I'll explain the `aws` commands to create or update Secrets.
+
+First, [here is the gist of how I retrieve a
+secret](https://github.com/starkandwayne/ghost-for-cloudfoundry/blob/production/.buildkite/pipeline.master.yml)
+from AWS Secrets Manager using a community Buildkite Plugin and store it
+in an environment variable:
+
+``` yaml
+steps:
+  - label: ":cloudfoundry: deploy"
+    plugins:
+      seek-oss/aws-sm#v2.0.0:
+        env:
+          PASSWORD: arn:aws:secretsmanager:us-east-1:868593321044:secret:pipelines/pws/drnic/cf-password-dUL5fd
+    command: ./deploy-this-thing.sh
+    env:
+      USERNAME: [email protected]
+```
+
+In this example Step, the command `deploy-this-thing.sh` will be run and
+will be provided with two environment variables:
+
+-   `USERNAME` provided by the public `env` section of the Step
+-   `PASSWORD` provided by the [AWS SecretsManager Buildkite
+    Plugin](https://github.com/seek-oss/aws-sm-buildkite-plugin) written
+    by [Seek](https://www.seek.com.au/).
+
+The AWS SM plugin runs `aws secretsmanager get-secret-value` to fetch
+the `arn:aws:secretsmanager:...` secret, and stores it in the
+environment variable `PASSWORD` for all other plugins and the
+`command:`.
+
+I've now isolated this Secret to this Step only.
+
+To create a new Secret within AWS SecretsManager try the following
+command:
+
+    aws secretsmanager create-secret --cli-auto-prompt
+
+## Triggering new builds for Buildkite Pipelines
+
+We want "Continuous Integration" and "Continuous Delivery". We don't
+want to have to press "New Build" whenever we have new code or new
+pipeline changes to test.
+
+### Triggers and webhooks in Buildkite versus polling resources in Concourse Ci
+
+Buildkite supports *inbound triggers or webhooks* to create new Builds
+when there are changes to the external resource (your Git repository).
+
+Other systems like [Concourse CI](https://concourse-ci.org/) support
+*outbound polling* of external resources (such as your Git repository)
+to periodically detect if there are any changes.
+
+There are different pros and cons to triggers/webhooks and to polling.
+
+One pro for webhooks is you are immediately informed of new events, such
+as new commits. One con for webhooks is that you might not be able to
+register for webhooks for third-party resources, such as being informed
+of new commits on someone else's Git repository or new GitHub Releases.
+
+One pro for polling is the ability to monitor any resource to which you
+have visibility and to trigger builds, such as detecting new GitHub
+Releases in upstream dependencies. One con of polling is the need to run
+full-time watcher processes to continuously perform polling activities,
+and being rate limited by third-party APIs that may be unhappy with
+excessively asking "are we there yet?"
+
+### Can I setup a Github Webhook to watch someone else's repository? {#can-i-setup-a-github-webhook-to-watch-someone-else-s-repository}
+
+You cannot setup a GitHub Webhook to watch my
+<https://github.com/starkandwayne/buildkite-tutorial> repository.
+
+This is not Buildkite's fault. It is a limitation of GitHub.
+
+Funny story: Someone asked the question ["WebHooks from someone else's
+repository? Is that
+possible?"](https://github.community/t5/How-to-use-Git-and-GitHub/WebHooks-from-someone-else-s-repository-Is-that-possible/td-p/2862)
+I was very excited that it was a green-colored "Solved! Go to Solution."
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-community-webhooks-question.png){.kg-image}
+
+Alas, <https://github.community> website does not have a red-colored
+resolution "[That's a hard No for
+you](https://github.community/t5/How-to-use-Git-and-GitHub/WebHooks-from-someone-else-s-repository-Is-that-possible/td-p/2862)."
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-community-webhooks-answer.png){.kg-image}
+
+I do not think the color green, the word "Solution" and the word "No,
+..." go together.
+
+### Setting up GitHub Webhooks for a new Buildkite Pipeline
+
+To setup Github Webhooks you must now fork my
+<https://github.com/starkandwayne/buildkite-tutorial> repository. Visit
+the tutorial, click the "Fork" button at the top right, and choose your
+personal account.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-fork-repo.png){.kg-image}
+
+You'll be redirected to your own fork.
+
+To create a new Buildkite Pipeline based on your new repository:
+
+Scroll down to the README, find the "Add to Buildkite" button and click
+it to create a new Pipeline based on your own fork.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-add-to-buildkite.png){.kg-image}
+
+Give your new Pipeline the title "My Buildkite Tutorial Fork" and note
+that the "Git Repository" points to your fork, and not the read-only
+repository that you've been using earlier.
+
+Click "Create Pipeline" and you'll be taken to the "GitHub Webhook
+Setup" page. We now know that we *can* create a Webhook for a repository
+if we have appropriate permissions, so let's do that now. Follow the
+detailed instructions. I'll only make them longer if I write them up
+here.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-webhook-setup.png){.kg-image}
+
+Buildkite asks that you select "Deployments," "Pushes," and "Pull
+Requests."
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-webhook-pushes-and-pull-requests.png){.kg-image}
+
+Scroll to the bottom, ensure the Webhook is "Active" and click "Add
+webhook"
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-webhook-active.png){.kg-image}
+
+Buildkite API will now receive requests from GitHub whenever you or
+other people push commits to your repository or forks of your
+repository. You can control what actually triggers a new Build from
+within Buildkite, which we will see soon.
+
+Let's automatically trigger a new Build on your repository by creating a
+new file directly within [github.com](https://github.com).
+
+On the home page of your forked repository, click "Create New File" and
+call the new file anything you like. Everytime you edit this file in
+GitHub it will trigger a Webhook event to Buildkite and trigger our
+Pipeline to create a new Build.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-create-new-file.png){.kg-image}
+
+Scroll to the bottom and click "Commit new file"
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/github-commit-new-file-to-master.png){.kg-image}
+
+Rush back over to the [Buildkite Dashboard](https://buildkite.com/-) to
+see your new Pipeline has a new Build. At the bottom of the Build we see
+"Triggered from Webhook." Well done.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-fork-first-commit-build.png){.kg-image}
+
+### Configuring when Buildkite starts new Builds from GitHub
+
+When you visit the Pipeline Settings, one of the options on the left is
+GitHub. This page includes a subse\
+ction "GitHub Settings".
+
+The example below is from the Buildkite pipeline for
+<https://github.com/starkandwayne/ghost-for-cloudfoundry> which we drive
+the deployment of the blog software you are now reading.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-github-settings-prs-allowed.png){.kg-image}
+
+There are three primary options for triggering Builds of your Pipeline:
+
+-   Trigger builds after pushing code
+-   Trigger builds on deployments
+-   Trigger builds on fork
+-   or, Disable all GitHub activity.
+
+I am allowing Pipeline Builds to be run when commits are pushed to
+GitHub Pull Requests for the repository (the checkbox "Build Pull
+Requests"), and I have even allowed "Build pull requests from
+third-party forked repositories." This means that if you submit a PR to
+the ghost-for-cloudfoundry repository then I will automatically run a
+Build.
+
+I use a combination of techniques to protect my Buildkite account and
+its host workers from malicious attacks. See the
+<https://github.com/starkandwayne/ghost-for-cloudfoundry/blob/production/.buildkite/pipeline.yml>
+pipeline and its sibling pipeline YAML files for more ideas. If you're
+interested, leave a comment and I'll write up more about this technique
+in future.
+
+The checkbox "Update commit statuses" will feedback the real-time status
+of each Git commit's Build status into the GitHub website. These are
+displayed in GitHub as green tickets, yellow circles, and red crosses.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/github-build-status-per-commit.png){.kg-image}
+
+I set "Show blocked builds in GitHub as" to "Pending". In my solution to
+allowing unknown contributors to automatically trigger Builds, I block
+the Builds from doing destructive actions (like deploying the
+application to Cloud Foundry) until someone has had a chance to review
+the PR. The blocked Build will be reported back into a PR so the
+contributor knows that CI has not yet fulled passed.
+
+### Security and Pull Requests
+
+Until you've considered the security implications of automatically
+triggering your Pipelines based on unsolicited and potentially malicious
+code from unknown people, please do not trigger Builds from third-party
+Pull Requests.
+
+A [healthy discussion and links to
+resources](https://github.com/buildkite/feedback/issues/360) can be
+found in the Buildkite Feedback project.
+
+Also, as suggested above, review the ideas we have implemented for the
+[ghost-for-cloudfoundry
+repository](https://github.com/starkandwayne/ghost-for-cloudfoundry/tree/production/.buildkite).
+
+## Private Git repository access
+
+So far you have been asking our Buildkite Agent to run `git clone` to
+fetch public Git repositories -- both my tutorial repo and then your
+fork. You did not need to set up any user credentials, special tokens,
+or SSH keys to clone a public repository. You are anonymous to the
+GitHub servers to fetch these public, free repositories. They don't even
+serve ASCII advertisements in the output.
+
+To allow your Buildkite Agents to clone you personal and organizations'
+private repositories you will need to configure your Agents with
+authentication information so that your Git host can identify you and
+decide if you have permissions to clone the repository (authorization).
+
+Different Git hosts might offer multiple methods, such as deployment
+keys, access tokens, and more. In this article, I'll get you started
+with SSH private keys.
+
+### Private Git repository access over SSH
+
+When your forked my tutorial repository and created a new Pipeline, it
+was based on the forked repository's HTTPS URL. This repository is
+automatically public because you forked a public repository. You did not
+need to configure any Secrets to grant your Buildkite Agent permission
+to clone this public repository.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-settings-git-https.png){.kg-image}
+
+Your own private projects will have private repositories. Let's switch
+to `[email protected]` URL format and then investigate how to register a
+SSH private key to allow the Buildkite Agent to clone your private
+repositories.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-settings-git-ssh.png){.kg-image}
+
+When you run a "New Build," the first Step of the Pipeline will fail to
+perform the initial `git clone` with the error "Failed to find an SSH
+key in secret bucket".
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-git-ssh-key-missing-2.png){.kg-image}
+
+The Step did download all [Secrets](#secrets) from the S3 Plugin bucket,
+but it did not find any files that contained private SSH keys that
+matched to those registered with GitHub (or your own Git host).
+
+Buildkite documentation discusses [Agent SSH
+Keys](https://buildkite.com/docs/agent/v3/ssh-keys), and some options
+specifically for GitHub SSH Keys.
+
+Since we have the [S3 Secrets
+plugin](https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks),
+we can distribute our SSH key via our S3 bucket. Alternately, you would
+need to install the SSH private key into your Buildkite Agent's host
+server some other way.
+
+At Stark & Wayne we have a separate GitHub user `@starkandwayne-bot`who
+is given the authority to clone our private repositories. We distribute
+it's SSH private key to our Buildkite Agent host servers, which allows
+the Buildkite Agents to `git clone [email protected]:starkandwayne/...`
+our private repositories.
+
+Today we will use your own personal Git SSH key to allow you to
+`git clone` your fork of the tutorial repo. To figure out which private
+key works with your target Git host, try `ssh -vT [email protected]`.
+
+    $ ssh -vT [email protected]
+    ...
+    debug1: Next authentication method: publickey
+    debug1: Offering public key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
+    debug1: Server accepts key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
+    debug1: Authentication succeeded (publickey).
+    Authenticated to github.com ([2001:8004:11d0:4e2a::dec:e515]:22).
+    ...
+    Hi drnic! You've successfully authenticated, but GitHub does not provide shell access.
+
+My `/Users/drnic/.ssh/id_rsa` private SSH key authenticates me as
+`drnic` user on GitHub.
+
+To upload this file to my S3 Secrets bucket for all Pipelines to use:
+
+    aws s3 cp --acl private --sse aws:kms \
+        /Users/drnic/.ssh/id_rsa \
+        s3://buildkite-pipelines-starkandwayne-secrets/id_rsa_github
+
+When we re-run the Build, the first step now discovers the secret
+`id_rsa_github` file, adds it to the Agent host machine's ssh-agent, and
+uses the private SSH key to `git clone [email protected]:...`
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-git-ssh-key-found.png){.kg-image}
+
+In production, you may wish to create a dedicated "machine user" or "bot
+user" with their own SSH keys, and specific permissions about which
+projects they can clone, pull, and push. This will mean that any new
+commits are clearly marked as having been created by the Pipeline,
+rather than a human who did nothing except loan their SSH keys to the CI
+secrets bucket.
+
+## Docker Docker Docker, but first... {#docker-docker-docker-but-first-}
+
+Grab a hot beverage. Relax.
+
+Also, could you please post to your Twitter/Facebook/LinkedIn account
+about your thoughts of joy about Buildkite, and your accomplishment for
+proceding through this fabulous article on Buildkite. Write a blog post.
+Sketch a sonnet on the bark of the oldest tree in your local park?
+Perform an interpretive dance on TikTok?
+
+It's cool to celebrate shiny new things whilst you're still learning
+them.
+
+### Where are my Buildkite Steps being executed?
+
+We have not yet discussed where and how the commands/scripts executed.
+We should do that now. We can then have a subsequent discussion about
+where and how the commands/scripts *should* be executed*.*
+
+You ran the Buildkite Agents on your laptop. The Pipelines all worked.
+What else is there to know?
+
+To be fair, the Pipelines' Steps haven't really done any work yet. They
+were Bash scripts, and used Bash special variable `$RANDOM` to generate
+a number between 1 and 10. The Buildkite Agent had access to some
+version of `bash`.
+
+The scripts used the `buildkite-agent` CLI to set and get meta-data and
+to update the pipeline with new steps. The Buildkite Agent had access it
+its own `buildkite-agent` executable.
+
+What magical place contains `/bin/bash` and `buildkite-agent`? Your
+laptop.
+
+As each of the Pipelines was being built, the individual Steps were
+allocated to Agents as Jobs to do. The Agent run
+`command: ./path/to/some/script.sh` scripts and any STDOUT/STDERR was
+captured and made visible on the Buildkite dashboard.
+
+So. Let's ask some questions.
+
+What if you needed to test a NodeJS project? Then your laptop would need
+to have NodeJS/NPM/Yarn installed.
+
+What if you needed to interact with a remote API, to deploy to
+Kubernetes, Cloud Foundry, or Heroku? Then your laptop would need to
+have outbound network access to those systems. Your laptop would also
+need to have the secret credentials/tokens/passwords to authenticate
+with the remote APIs.
+
+What if 17 different Pipelines all needed 17 different versions of
+NodeJS or Ruby or OpenJDK or Rust, and specific versions of other
+dependencies? Well...
+
+What if a Pipeline doesn't know what version of dependencies it needs in
+advance, but it cannot just wait until a human installs software?
+Well...
+
+What if a Pipeline runs a Pull Request to one of your projects and it
+includes malicious code on your laptop? Well...
+
+Well, well, well, indeed.
+
+The path to solving Bring-Your-Own dependencies, and perhaps security,
+is to run Step commands inside Docker containers.
+
+### Should I run Buildkite Commands inside Docker?
+
+You should not expect that the dependencies you require for your
+Pipelines are available nor that they have the correct version on the
+host server.
+
+So, yes, you should run Buildkite commands inside Docker.
+
+Or some other container system, like runc or containerd. Though at the
+time of writing there are no [Buildkite
+Plugins](https://buildkite.com/plugins) for runc nor containerd.
+
+You could write a runc or containerd plugin, or you could use either
+the:
+
+-   [Docker
+    plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin)
+-   [Docker Compose
+    plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)
+
+Obviously, we will explore the two Docker plugins in this article.
+
+Or, [you could write a runc or containerd
+plugin](https://buildkite.com/docs/pipelines/plugins#developing-a-plugin).
+But we won't do that. But you might.
+
+### Running Buildkite Commands inside Docker
+
+**Viewer alert**: this section includes screenshots that contain
+deliberate errors and bright red colors for the benefit of your
+education.
+
+To ask the Agent to run a Step inside Docker, we use the Docker plugin.
+Our "Show Environment" Pipeline YAML will look like this:
+
+``` yaml
+steps:
+  - label: ":ubuntu:"
+    command: ./src/show_environment.sh
+    plugins:
+      - docker#v3.5.0:
+          image: "ubuntu:latest"
+          propagate-environment: true
+  - label: ":ski: missing bash"
+    command: ./src/show_environment.sh
+    plugins:
+      - docker#v3.5.0:
+          image: "alpine:latest"
+          propagate-environment: true
+```
+
+In this example we now run the `./src/show_environment.sh` command
+twice. Once inside an [Ubuntu](https://ubuntu.com/)-based Docker
+container, and once inside an [Alpine
+Linux](https://alpinelinux.org/about/)-based Docker container.
+
+Update the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.show-environment-docker.yml`
+as per the [Switching to next tutorial
+pipeline](/blog/p/6abe872b-b5ec-4afd-8658-ff88cb9f9039/switching-to-next-tutorial-pipeline)
+instructions, and run a New Build, giving it the name "Show Env Docker".
+
+The Ubuntu step succeeds. The output shows the `uname -a` information,
+and shows that neither NodeJS nor Yarn are installed. NodeJS and Yarn
+might be installed on your laptop, but they are not installed inside
+containers spun up from the `ubuntu:latest` Docker image.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-docker-ubuntu-show-env.png){.kg-image}
+
+Alas, the "Alpine -- missing bash" Step fails.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-docker-ubuntu-alpine-missing-bash.png){.kg-image}
+
+What happened?
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-docker-alpine-missing-bash.png){.kg-image}
+
+The error `/bin/sh: ./src/show_environment.sh: not found` is singularly
+unhelpful. It is misleading. That file is definitely there.
+
+What is missing is `/bin/bash`. The first line of
+`./src/show_environment.sh` begins by asking to use `/bin/bash` to
+process the remainder of the script. It is `/bin/bash` that is not
+found.
+
+The `alpine:latest` Docker image does not come with `bash` installed.
+
+### Propagating environment variables into Docker
+
+The two Steps above were configured to pass through any Pipeline
+environment variables or Secrets into each Docker container with the
+`propagate-environment: true` parameter.
+
+See the [Docker Plugin "Configuration"
+section](https://github.com/buildkite-plugins/docker-buildkite-plugin#configuration)
+for other options for propagating only a selection of environment
+variables.
+
+### Using Meta-Data or Artifacts within Docker
+
+To set and get Meta-Data, Artifacts, or to update the Pipeline itself,
+our Docker containers need the `buildkite-agent` CLI, and the
+appropriate authentication tokens.
+
+Fortunately it is easy with the [`mount-buildkite-agent: true`
+parameter](https://github.com/buildkite-plugins/docker-buildkite-plugin#mount-buildkite-agent-optional-boolean).
+
+    steps:
+      - label: ":ballot_box_with_ballot:"
+        command: ./src/generate-and-store-number.sh
+        plugins:
+          - docker#v3.5.0:
+              image: "ubuntu:latest"
+              propagate-environment: true
+              mount-buildkite-agent: true
+
+This will pass the host machine's `buildkite-agent` CLI and Agent Access
+Token into the Docker container.
+
+However, this only works when both the host machine and the Docker
+container are the same operating system platform (for example, based on
+Linux).
+
+What happens if your host machine is macOS and you're running Linux
+containers via Docker Daemon?
+
+### Buildkite Agent, Docker, and macOS
+
+Docker has been a blessing for macOS users -- a quick way to launch
+Linux OS processes. We should be able to continue running our Buildkite
+Agent on a macOS machine and feeding it Build jobs.
+
+Let's try `bk local run`:
+
+    $ bk local run .buildkite/pipeline.pass-random-number-docker.yml
+    ...
+    docker: Error response from daemon: Mounts denied:
+    The path /usr/local/bin/buildkite-agent
+    is not shared from OS X and is not known to Docker.
+    You can configure shared paths from Docker -> Preferences... -> File Sharing.
+    See https://docs.docker.com/docker-for-mac/osxfs/#namespaces for more info.
+
+The same issue occurs when Buildkite dashboard delegates the Steps' jobs
+to our running Agents:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/buildkite-pipeline-fails-buildkite-agent-meta-data-in-docker.png){.kg-image}
+
+This problem is two-fold:
+
+1.  My `buildkite-agent` is installed at
+    `/usr/local/bin/buildkite-agent` but the path `/usr/local/bin` is
+    not configured to be shared with my Docker on Mac installation.
+2.  Even if I fix this, my macOS `buildkite-agent` binary is not
+    designed to run inside a Linux Docker container. I would get
+    `Exec format error`:
+
+```{=html}
+<!-- -->
+```
+    + buildkite-agent meta-data get generated-number
+    ./src/fetch-and-display-number.sh: line 14: /usr/bin/buildkite-agent: cannot execute binary file: Exec format error
+
+This problem affects users on macOS/Windows who run Buildkite Agents
+locally, or run `bk local run`, and want to use Docker-based plugins
+(which you should). The initial issue for this has been raised at
+<https://github.com/buildkite/agent/issues/1181>.
+
+## Running Buildkite Agent machines on Linode
+
+At the time of writing, the Buildkite Agent host machine must be the
+same operating system platform as the Docker container environment
+(Linux). We need Linux host machines.
+
+Also, about now you will also realize that new Builds triggered by Pull
+Requests and Git commits from other people will not be processed whilst
+your laptop is shut, or disconnected from the Internet.
+
+You can cheaply run Linux-based Buildkite Agents on
+[Linode](https://www.linode.com/?r=ef966c03a84b6f8f1fbc95f77f3b49b596a06d1c),
+using either their web UI or CLI (see below).
+
+### Provisioning Buildkite Agents on Linodes using a StackScript
+
+Navigate to my public [StackScript for provisioning Buildkite
+Agent/Docker Daemon on a vanilla Alpine
+VM](https://cloud.linode.com/stackscripts/633367).
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/linode-stackscript-for-buildkite-agent-alpine-1.png){.kg-image}
+
+Click "Deploy New Linode" and populate the required fields, including
+your Buildkite Token.
+
+At the time of writing, a 2 GiB Linode will be \$10 per month in any
+region.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/02/linode-choose-2g-10dollars-for-buildkite.png){.kg-image}
+
+Once the Linode VM is created, the StackScript will install and run
+Docker Daemon and the latest Buildkite Agent. It also installs the Git
+CLI so the agent can clone repositories.
+
+The Buildkite Agents page will update automatically as each Linode
+Buildkite Agent calls home.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-linode-agents-with-tags-and-local-agent-no-tags.png){.kg-image}
+
+You now have 7 agents -- 5 Agent processes running on your single
+Linode, and the 2 Agent processes on your laptop.
+
+Keep running your laptop Agents. We will soon look at Agent Targeting to
+run our Docker pipelines on our new Linux hosts.
+
+### Provisioning Buildkite Agents with Linode CLI
+
+You can also use the [`linode`
+CLI](https://www.linode.com/docs/platform/api/linode-cli/) to provision
+your Agent Linodes:
+
+    pip3 install linode-cli
+    export BUILDKITE_TOKEN="..."
+    export BUILDKITE_SPAWN=5
+    linode-cli linodes create \
+      --stackscript_id 633367 \
+      --stackscript_data "{\"buildkite_token\": \"$BUILDKITE_TOKEN\", \"buildkite_spawn\": \"5\", \"buildkite_bootstrap_script_url\": \"\", \"buildkite_secrets_bucket\": \"$BUILDKITE_SECRETS_BUCKET\", \"aws_access_key\": \"$AWS_ACCESS_KEY_ID\", \"aws_secret_password\": \"$AWS_ACCESS_SECRET_KEY\"}" \
+      --region us-west \
+      --type g6-standard-2 \
+      --image linode/alpine3.11 \
+      --tags buildkite-agent \
+      --label buildkite-agent-1 \
+      --root_pass <something-secret>
+
+To terminate all Linodes running Buildkite Agents, first find their IDs
+and then delete:
+
+    $ linode-cli linodes list --tags buildkite-agent
+    ┌──────────┬───────────────────┬─────────┬───────────────┬───────────────────┬─────────┬─────────────┐
+    │ id       │ label             │ region  │ type          │ image             │ status  │ ipv4        │
+    ├──────────┼───────────────────┼─────────┼───────────────┼───────────────────┼─────────┼─────────────┤
+    │ 19553029 │ buildkite-agent-1 │ us-west │ g6-standard-2 │ linode/alpine3.11 │ running │ 45.33.51.85 │
+    └──────────┴───────────────────┴─────────┴───────────────┴───────────────────┴─────────┴─────────────┘
+    $ linode-cli linodes delete 19553029
+
+To destroy all your Linodes you can sprinkle in some `jq` filtering to
+combine `linode-cli` commands:
+
+    linode-cli linodes list --tags buildkite-agent --json | \
+      jq -r ".[].id" | \
+      xargs -L1 linode-cli linodes delete
+
+### Targeting Agents running on Linux host machines
+
+Before we re-run our Pipeline we need to ensure it only tries to run the
+Steps on the Linux hosts, not on my macOS laptop.
+
+We can configure Pipeline Steps to target a subset of Agents by
+filtering the tags. On the [Agents
+page](https://buildkite.com/organizations/-/agents) we can explore tag
+filter expressions. Try the following
+
+-   `os=linux`
+-   `os` and `linux`
+-   `docker=19` and `docker`
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-filter-agents-by-tags.png){.kg-image}
+
+We can use these tags to assign our Steps that require Docker and
+Buildkite Agent to `os=linux` tagged hosts.
+
+In our Pipeline YAML we can add the `agents:` parameter to filter each
+Step to a subset of Agents:
+
+    steps:
+      - label: ":ballot_box_with_ballot:"
+        command: ./src/generate-and-store-number.sh
+        agents:
+          os: linux
+        plugins:
+          - docker#v3.5.0:
+              image: "starkandwayne/buildkite-base:latest"
+              propagate-environment: true
+              mount-buildkite-agent: true
+
+Change the Pipeline Settings to run
+`buildkite-agent pipeline upload .buildkite/pipeline.pass-random-number-docker-os-linux.yml`.
+
+Our host machine operating system and our Docker operating system now
+match -- they are both Linux.
+
+We can now run a New Build of our Pipeline and confirm that our
+Linode-based running on Linux can use the Linux version of
+`buildkite-agent` CLI to interact with the Meta-Data service.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-step-targets-agent.png){.kg-image}
+
+Each Step documents the reasons that it was allocated to an Agent. Above
+we can see that the `os=linux` and `queue=default` tags were used to
+select one of the Linode-based Agents running on our Linode.
+
+### AWS S3 Secrets on Linode
+
+My Linode StackScript conveniently allows you to specify an AWS S3
+bucket, and its API credentials, to fetch `env` environment secrets.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/linode-s3-bucket-secrets.png){.kg-image}
+
+### Install additional dependencies on Linode
+
+You can optionally configure or install dependencies on your Buildkite
+Agent Linode by providing a URL to a script that will be run once during
+boot, just before the Buildkite Agent is started.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/linode-run-script-on-boot-3.png){.kg-image}
+
+### Install Rancher k3s Kubernetes on each Linode
+
+If you wish to have standalone Kubernetes available on each Buildkite
+Agent host, then try installing Rancher's k3s at boot time.
+
+Provide the
+[install-k3s.sh](https://raw.githubusercontent.com/starkandwayne/buildkite-linode-stackscript/master/samples/bootstrap-scripts/install-k3s.sh)
+URL into the field above, and it will download, install, and make k3s
+Kubernetes available to your Buildkite Agent.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/linode-install-k3s-on-boot.png){.kg-image}
+
+## Pipeline Artifacts
+
+We used Buildkite Meta-Data feature to pass small pieces of Meta-Data
+between Steps in a Pipeline Build. Values larger than 1 kilobyte are
+discouraged and we're asked to use
+[Artifacts](https://buildkite.com/docs/pipelines/artifacts) instead.
+Whereas Meta-Data is text data, Artifacts are files.
+
+There are two ways to store Artifacts files:
+
+1.  Steps can include `artifact_paths:` with an array of globs to files
+    that might exist.
+2.  Run `buildkite-agent artifact upload` from within a command.
+
+I personally prefer to declare the artifacts to be provided across a
+Pipeline Steps in the YAML. See an example in
+<https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.image-artifacts.yml>
+and below:
+
+    steps:
+    - label: ":camera_with_flash:"
+      command: "ls -al images/*.png"
+      artifact_paths:
+      - "./images/*.png"
+      key: upload
+    - label: ":package:"
+      command: "./src/inspect-image-artifacts.sh"
+      depends_on: upload
+
+To consume one or more artifacts in a subsequent step run
+`buildkite-agent artifact download path/to/things/* path/to/store/them/`,
+which is being performed by `inspect-image-artifacts.sh` above.
+
+The result of the first step is to upload the images in the `images/`
+folder of the Tutorial repository. We can view each on, or download
+them, from the browser.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-uploaded-artifacts.png){.kg-image}
+
+These artifacts are now available for download into subsequent steps.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-downloaded-artifacts-1.png){.kg-image}
+
+### Storing Artifacts in JFrog Artifactory, AWS S3, or Google Cloud
+
+Buildkite will conveniently store your Artifacts in its own storage
+service at [no extra cost, even for the Free
+Plan](https://buildkite.com/pricing).
+
+If you want to expose Artifacts to the world beyond your Buildkite
+pipelines, then you might wish to [publish some Artifacts to your own
+JFrog Artifactory, AWS S3 or Google Cloud
+buckets](https://buildkite.com/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket).
+
+The `bk local run` command also supports free local Artifacts, as well
+as remote Artifacts via Plugins.
+
+## Create own Docker Images
+
+Now that your Step commands are running inside Docker containers, you
+will want to curate a set of Docker images that contain the dependencies
+you need for your pipelines.
+
+At one end of the spectrum you could curate one Docker image for every
+distinct Step with only the dependencies required for that Step. But
+that will quickly become unwieldy to create and maintain, and you will
+have many duplicate images.
+
+At the other end of the spectrum, you can create a single Docker image
+with all the dependencies your organization uses across all its Pipeline
+steps.
+
+Somewhere in the middle of the spectrum, you can create a common base
+Docker image, and then create variations for specific programming
+languages, or other use cases.
+
+### How to build and push a Docker image
+
+To build and tag a Docker image, and then push that image to the remote
+Docker Hub repository you would run the following commands:
+
+    docker build . -t myorg/myimage:latest
+    docker push myorg/myimage:latest
+
+We want a Buildkite Step to run these two commands.
+
+I am going to explain three different variations of a Buildkite step
+that can run these two `docker` commands.
+
+### Running Docker commands on the host machine
+
+In the first example, we ask the Agent to run `docker build` and
+`docker push`. If we know our Agent host server is running Docker
+Daemon, then we also know it has the `docker` CLI available.
+
+    steps:
+      - label: ":docker:"
+        command:
+          - "docker build . -t myorg/myimage:latest"
+          - "docker push myorg/myimage:latest"
+
+In this first example, we assume that the host worker server has already
+had `docker login` invoked with a user who is authorized to push
+`myorg/myimage` image.
+
+### Login to Docker registry
+
+If you need to perform `docker login` user authentication, you can add
+the [`docker-login` Buildkite
+plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin)
+to the step.
+
+    steps:
+      - label: ":docker:"
+        command:
+          - "docker build . -t myorg/myimage:latest"
+          - "docker push myorg/myimage:latest"
+        plugins:
+          - docker-login#v2.0.1:
+              username: drnic
+              password-env: DOCKER_LOGIN_PASSWORD
+
+The username `drnic` for the Registry is provided in the Pipeline YAML
+above.
+
+The password for the Registry is provided via an environment variable
+`$DOCKER_LOGIN_PASSWORD`. See the section [Secrets](#secrets) about to
+learn more about configuring the Agent with secret environment
+variables.
+
+By default, the Docker Login plugin authenticates with [Docker
+Hub](https://hub.docker.com/) registry. Provide the
+[`server: my.registry.com`
+parameter](https://github.com/buildkite-plugins/docker-login-buildkite-plugin#server-optional)
+for alternate public or private registries.
+
+### Run Docker commands inside Docker containers
+
+Finally, you can run `docker` commands inside a Docker container.
+
+    steps:
+      - label: ":docker:"
+        command:
+          - "docker build . -t myorg/myimage:latest"
+          - "docker push myorg/myimage:latest"
+        plugins:
+          - docker-login#v2.0.1:
+              username: myusername
+              password-env: DOCKER_LOGIN_PASSWORD
+          - docker#v3.5.0:
+              image: "docker:latest"
+              always-pull: true
+              volumes:
+                - "/var/run/docker.sock:/var/run/docker.sock"
+                - "/home/buildkite/.docker/config.json:/root/.docker/config.json"
+
+The `docker-login` plugin runs on the host server to perform
+`docker login` against that server's Docker Daemon and the Agent's
+user's `~/.docker/config.json` file.
+
+The last line of the YAML above passes through the host server's
+`~/.docker/config.json` into the Docker container, thus allowing that
+Docker container to perform the `docker push` command as an
+authenticated user.
+
+### Security implications of mounting /var/run/docker.sock {#security-implications-of-mounting-var-run-docker-sock}
+
+This last YAML example is longer, but theoretically adds slightly more
+security around the commands being run. Except, not really.
+
+I don't actually think this last "docker inside docker" option is
+substantially more secure than the preceding options, and I don't think
+I will bother with it myself.
+
+We're passing the host machine's `/var/run/docker.sock` into the Docker
+container. A bad actor can now run new containers, can access other
+containers or volumes on the host machine, and can probably easily
+escalate their privileges to access the full host server.
+
+Until someone can educate me of a safer path, do not automatically allow
+non-trusted commits or Pull Requests to trigger `docker push` or similar
+scenarios where you have exposed access to the host server or
+`/var/run/docker.sock`.
+
+Place a `block` in the Pipeline to prevent it from automatically running
+potentially malicious code that has access to `/var/run/docker.sock`. A
+human can verify the new code is safe before freeing the Pipeline to
+continue.
+
+### Buildkite Sockguard
+
+On my TODO list is to investigate
+<https://github.com/buildkite/sockguard> as a progressive solution to
+improving Docker security. It offers a proxy for `/var/run/docker.sock`
+that enforces access control and isolated privileges.
+
+## Elastic On-Demand Clusters of Buildkite Agents with AWS
+
+The volume of work to be performed by your Buildkite Agents will change
+throughout the day. At night time you have have no Pipeline's being
+built, or at least substantially less or sporadically at best. It may be
+desirable to elastically scale up and down your cluster of Buildkite
+Agent host servers.
+
+The Buildkite team have published an [AWS CloudFormation
+stack](https://aws.amazon.com/cloudformation/) that does everything
+you'll need to run a fleet of elastic scaling Agent servers.
+
+### Launching the AWS stack for Elastic Buildkite Agents
+
+Under [Getting
+Started](https://github.com/buildkite/elastic-ci-stack-for-aws#getting-started)
+click [Launch
+Stack](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-east-2#/stacks/create/template?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml),
+and populate the following subset of fields:
+
+-   BuildkiteAgentToken -- [Reveal your Agent
+    token](https://buildkite.com/organizations/-/agents) on the
+    right-hand side of the Agents page.
+-   BuildkiteAgentTags -- Additional tags you'd like to use, such as
+    `os=linux`.
+-   InstanceType -- As an example [instance
+    type](https://aws.amazon.com/ec2/instance-types/), try the General
+    Purpose Burstable "t2.small" with 1 vCPU, 2GiB for each VM. 1 x
+    t2.small, 8 hours a day, will cost around \$6 per month in the
+    cheaper AWS regions.
+-   AgentsPerInstance -- 5 and you can adjust this up or down with the
+    InstanceType, and based on the performance of your Pipelines (if
+    they are CPU intensive then have fewer AgentsPerInstance, or a
+    higher CPU InstanceType).
+-   SecretsBucket -- Use your Secrets AWS S3 bucket from earlier in the
+    article.
+-   ScaleUpAdjustment -- "1" -- adjust your auto-scaling group later if
+    you need it to scale up in larger groups
+-   EnableExperimentalLambdaBasedAutoscaling -- "true" -- let's live a
+    little and assume that a Lambda-based autoscaling system will be
+    more dynamic and more awesome than standard AWS AutoScaling; it will
+    be the default option in future.
+
+Continue though the pages and press the Create Stack button.
+
+AWS will create a VPC, an Auto-Scaling Group, and much more.
+
+But it will not immediately provision any AWS EC2 instances running the
+Buildkite Agent. AWS will wait for Buildkite to tell it that it needs
+more VMs.
+
+### Create demand for Elastic EC2 Agents
+
+Right now we have 7 agents -- 5 running on Linode, and 2 running on your
+laptop. There will not be a need to provision additional EC2 instances
+until we create demand for them.
+
+Reconfigure your Pipeline Settings:
+
+-   Run the Dynamic Steps pipeline
+    `buildkite-agent pipeline upload .buildkite/pipeline.dynamic-steps-from-env-var.yml`
+-   Configure the Environment Variable `STEPS_COUNT=20` or add it to
+    your s3 Secrets bucket's `env` file.
+
+Launch a "New Build". Whilst the existing Agents will attempt to process
+all the work, Buildkite will make a mayday call to the AWS Auto-Scaling
+Group to ask for temporary additional infrastructure.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/aws-autoscale-3-instances.png){.kg-image}
+
+Once they are spun up, 15 new Agents will register with Buildkite.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-agents-aws-and-linode.png){.kg-image}
+
+The AWS EC2 instances will be destroyed at the end of their billing hour
+if they do not have any further work to perform.
+
+### Updating the Buildkite Elastic CI configuration
+
+You can Update your CloudFormation Stack later, and it will recreate any
+EC2 instances if necessary.
+
+### Autoscaling EC2 with large parallel Pipelines
+
+If we run a Pipeline that has many parallel steps, the AWS EC2
+Auto-Scaling Group will grow the cluster of EC2 instances. Consider our
+Dynamic Pipeline example with 12 parallel steps, and the 5 Agents per
+EC2 instance configuration above, we should see 3 EC2 instances
+provisioned to provide 15 Agents.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-elastic-ec2-3-vms-15-agents-1.png){.kg-image}
+
+Unused EC2 instances will be destroyed just before the end of the hour
+billing cycle.
+
+## Polling External Dependencies
+
+Buildkite Pipelines are centric to a single remote Git repository, and
+Buildkite natively supports triggering new Builds of the Pipeline based
+on incoming remote Git-related events, such as new commits, pull
+requests, new forks, etc.
+
+Your project will use many other dependencies aside from its own Git
+repository -- programming languages, system dependencies, and
+programming libraries -- but Buildkite does not have native support to
+trigger new Builds upon the event of an upstream dependency changing.
+
+Buildkite does have some tools that could help:
+
+-   Scheduled Builds to trigger a Pipeline each minute, hour, or day,
+    etc
+-   Pipelines can trigger other Pipelines to commence a Build
+-   Use of third-party services like [Snyk](https://snyk.io/) to
+    generate Pull Requests to be made aware of updates for upstream
+    dependencies.
+
+### Scheduled Builds
+
+Buildkite offers a convenient [cron-based scheduler to t\
+rigger new
+Builds](https://buildkite.com/docs/pipelines/scheduled-builds). You
+could use a Scheduled Build to run a script that polls for a remote
+resource.
+
+To add an hourly scheduled Build for our tutorial pipeline visit the
+[Settings \>
+Schedules](https://buildkite.com/-/buildkite-tutorial-by-stark-and-wayne/settings/schedules)
+page.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-schedules-1.png){.kg-image}
+
+Click "New Schedule"
+
+Now you will immediately recall that *you don't remember how to
+configure a Cron schedule*.
+
+Fortunately [Crontab Guru](https://crontab.guru) has you covered. *["At
+minute 0 past every hour."](https://crontab.guru/#0_*/1_*_*_*) ["At
+06:00 on every day-of-month."](https://crontab.guru/#0_6_*/1_*_*)* Try
+random ideas until the English text matches what you need. There might
+be another approach to Cron configuration, but I cannot find it -- I'm
+too busy being resentful that Cron configuration is still a thing.
+
+Let's try an *["At every 10th
+minute."](https://crontab.guru/#*/1_*_*_*_*)* schedule rather than
+waiting until midnight to watch scheduled builds in action.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-new-schedule-every-10-mins-2.png){.kg-image}
+
+You can provide special environment variables for your Scheduled Builds,
+which might allow you to indicate that it is a Scheduled Build and to
+run or not run some subset of your test suite.
+
+Now you wait until the turn of the "Every 10th minute" to see your
+pipeline run automatically.
+
+Our next Build will be annotated with "Triggered from Pipeline
+Schedule".
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-build-triggered-by-schedule-1.png){.kg-image}
+
+You could use Scheduled Builds on Pipelines dedicated to monitoring
+upstream dependencies against the versions you are currently using.
+
+If you find a new version you could trigger your main Pipeline, where
+your downstream Pipeline will pick up and use the new version.
+
+### Triggering another Buildkite Pipeline
+
+Buildkite offers a [Trigger
+Step](https://buildkite.com/docs/pipelines/trigger-step) for your
+Pipeline YAML to creates a Build on another Pipeline.
+
+### Remotely Triggering a Pipeline Build
+
+Buildkite offers a rich API, which includes the ability to [Create a
+Build](https://buildkite.com/docs/apis/rest-api/builds#create-a-build)
+on your Pipeline.
+
+You could write an application that watches for upstream resources,
+detects new versions, and then triggers Buildkite to Create a Build upon
+your Pipelines.
+
+To demonstrate this API endpoint we need to:
+
+1.  Create an [API Access
+    Token](https://buildkite.com/user/api-access-tokens)
+2.  Scope the token to only access your Organization, and the the
+    "Modify Builds" scope. In the image below, I threw in "Read Builds"
+    for good measure.
+
+![...](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-api-token-header.png){.kg-image}
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-api-token-create-builds.png){.kg-image}
+
+Try to never add too many scopes to your API Tokens for any API, you
+never know if/when the [token may
+leak](https://edoverflow.com/2019/ci-knew-there-would-be-bugs-here/#results-and-notable-findings)
+into the hands of a wrong-doer.
+
+You will be shown your API Access Token once. Store in somewhere. If you
+lose it, delete the API Access Token can create a new one.
+
+We can use the `curl` command to trigger a new Build:
+
+    BUILDKITE_TOKEN_CREATE_BUILDS="<the value I was shown>"
+    curl -H "Authorization: Bearer ${BUILDKITE_TOKEN_CREATE_BUILDS}" \
+      -X POST \
+      "https://api.buildkite.com/v2/organizations/starkandwayne/pipelines/buildkite-tutorial-by-stark-and-wayne/builds" \
+      -d '{"commit": "HEAD", "branch": "master", "message": "If curl can trigger a Build, anything can"}'
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-build-triggered-by-api.png){.kg-image}
+
+The Build summary shows "Triggered from API" to indicate the reason for
+this Build.
+
+## Docker Compose
+
+The [most popular Buildkite plugin is for Docker
+Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin).
+It's README is very thorough and I'm not yet sure how to add more value
+than ask you to read it.
+
+The plugin allows you to build, run, and push build steps using [Docker
+Compose](https://docs.docker.com/compose/).
+
+-   Containers are built, run and linked on demand using Docker Compose
+-   Containers are namespaced to each build job, and cleaned up after
+    use
+-   Supports pre-building of images, allowing for fast parallel builds
+    across distributed agents
+-   Supports pushing tagged images to a repository
+
+To run our `./src/show_environment.sh` script using Docker Compose
+[would require us to pass a volume through into the
+container](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.show-environment-docker-compose.yml):
+
+    steps:
+      - label: ":ubuntu:"
+        command: /app/src/show_environment.sh
+        plugins:
+          - docker-compose#v3.2.0:
+              run: app
+              volumes:
+                - "./src:/app/src"
+
+When this Step runs we see the `docker-compose` command in the output:
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-docker-compose-show-env.png){.kg-image}
+
+## Deploying applications
+
+Many application developers will come to Buildkite for the testing, and
+will stay for the deployment automation. Buildkite does not have a
+preferred target for your deployments, you script your deployment to
+your target platform on your target infrastructure.
+
+In this section we'll look at some topics associated with deploying code
+into production, plus a look at deploying applications to Cloud Foundry
+and Kubernetes platforms.
+
+### How to only run a Buildkite Step on master branch
+
+By default, a webhook for your Pipeline will trigger new Pipeline Builds
+for Git commits to any branch. It is possible too to trigger Pipeline
+Builds from different branches on a fork of your repository (thanks to
+Pull Requests).
+
+You do not want to deploy all these branches into production.
+
+If you want to isolate your "deploy" Step to only trigger on commits to
+the `master` branch, your `command` Step can include the `if:`
+parameter:
+
+    steps:
+      - label: "🔨"
+        command: "./scripts/tests"
+      - wait
+      - label: "🚀"
+        command: "./scripts/deploy"
+        if: build.branch == 'master'
+
+### How to limit to one deployment at a time
+
+You can restrict a `command` Step to only allow one invocation to run at
+a time with the `concurrency: 1` and `concurrency_group:` parameters.
+
+    steps:
+    ...
+      - label: "🚀"
+        command: "./scripts/deploy"
+        if: build.branch == 'master'
+        concurrency: 1
+        concurrency_group: "production-app-deploy"
+
+Generally speaking, set `concurrency` and `concurrency_group` when
+updating mutable state, such as your deployed application. These
+settings ensures only one step runs at a time.
+
+### Buildkite plugin to Deploy applications to Cloud Foundry
+
+At Stark & Wayne we advocate the use of Cloud Foundry for your Cloud
+Native applications during development and production.
+
+We've working on a [Buildkite plugin to deploy your repository to any
+Cloud
+Foundry](https://github.com/starkandwayne/cloudfoundry-deploy-buildkite-plugin).
+
+    steps:
+    ...
+      - label: "🚀"
+        concurrency: 1
+        concurrency_group: "cf/production"
+        plugins:
+          - starkandwayne/cloudfoundry-deploy#v0.5.0:
+            api: "https://api.run.pivotal.io"
+            username: "[email protected]"
+            organization: "starkandwayne"
+    space: "buildkite-demo-app"
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-cloudfoundry-deploy-output.png){.kg-image}
+
+### Deploy to Kubernetes
+
+Preparing for deployment to Kubernetes is more involved than can fit in
+this article, and the Buildkite documentation includes a [30-minute
+stand-alone tutorial for building Docker images and deploying to
+Kubernetes](https://buildkite.com/docs/deployments/deploying-to-kubernetes).
+
+### Deploy BOSH releases using Buildkite
+
+We have had success using Buildkite to deploy systems to Cloud Foundry
+[BOSH](https://bosh.io/). In fact, we run a fleet of Buildkite Agents
+into our own vSphere cluster using BOSH using our
+[buildkite-agent-boshrelease](https://github.com/starkandwayne/buildkite-agent-boshrelease/)
+project and the corresponding [genesis
+kit](https://github.com/genesis-community/buildkite-agent-genesis-kit/).
+If you're a BOSH user and want more information, please let us know in
+the comments below.
+
+## Annotate each Build with information
+
+If your tests fail, how can you summarize the errors at the top of the
+Build so they are easy to find? If your deployment succeeds, how can you
+publish the URL and some information about the deployment? How can you
+add memes and animated GIFs to your Builds? All this and more is
+available with `buildkite-agent annotate`.
+
+In the example below, we automatically deployed a private branch of our
+<https://starkandwayne.com> site. We used annotations to display the
+branch's own URL so anyone can quickly find the URL for this branch's
+deployment.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/04/buildkite-annotations-example.gpn.png){.kg-image}
+
+The first "info" annotation is created with
+`buildkite-agent annotate --style info`, and the bland second annotation
+is created without the `--style` flag.
+
+These two annotations are published from the
+[cloudfoundry-deploy-buildkite-plugin](https://github.com/starkandwayne/cloudfoundry-deploy-buildkite-plugin/)
+if deployment was successful. See the bottom of the `hooks/command`
+script for the examples.
+
+## Owning and operating Buildkite Agent host servers
+
+By the end of this article you may have a Linode running Buildkite
+Agents, plus some EC2 instances, and I even mentioned using BOSH to
+deploy a fleet of Buildkite Agents. Eventually you'll ask the question,
+"Can I use Buildkite to deploy my Buildkite Agent host servers?"
+
+Of course you can! Buildkite can script anything.
+
+**Except you will need two independent sets of Buildkite Agents.**
+
+If you use a Buildkite Agent to run a job that turns around and updates
+or restarts all your Buildkite Agents, then your job will be killed when
+the Agent is restarted. Your Pipeline Build will look like it failed;
+but really you accidentally restarted the Agent that was busy running
+that Pipeline Build's jobs.
+
+The solution is to have a second, independent Buildkite Agent whose
+primary role is to run the Buildkite pipeline builds that update your
+main Buildkite Agents.
+
+If our collection of Stark & Wayne agents we have one special Agent
+called "meta".
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/04/buildkite-meta-agent.png){.kg-image}
+
+The Pipeline that deploys and scales our Buildkite Agent fleet is
+configured to use this single independent "meta" agent in its Agent
+Targeting Rules.
+
+![](https://s3.amazonaws.com/starkandwayne-cdn/2020/04/buildkite-using-meta-agent.png){.kg-image}
+
+## Summary
+
+There is a lot to like about Buildkite, and a couple of features I
+missed from other CI/CD systems.
+
+I prefer their security model for an organization to run their own
+secure Agent worker servers, without sharing secrets nor code with the
+central Buildkite service.
+
+I like the instantaneous triggering of Pipelines from events triggered
+by GitHub or similar, rather than waiting 1 minute or longer until my CI
+system has polled for new commits.
+
+I like that I can deploy bare Alpine or Ubuntu host machines that only
+have Docker, Buildkite Agent, and some plugins installed. I believe
+Application teams should curate their own Docker images containing their
+own dependencies, rather than expect another "Buildkite team" to curate
+host machines filled with dependencies.
+
+I wrote a Linode StackScript and found it was relatively easy to bring
+Buildkite Agent, Docker, and my selection of plugins to a new Cloud
+Provider.
+
+I also liked the Buildkite Elastic CI for AWS CloudFormation which shuts
+down my AWS EC2 instances when there are no active Pipeline Builds at
+the end of a billing hour.
+
+Distributing secrets via an S3 bucket seemed a reasonable solution, and
+one that could be easily adopted by most users. If an organization was
+already running Hashicorp Vault, or using their Cloud Provider Secret
+Service, then they might directly interact with those services to pull
+out secrets as needed.
+
+The Buildkite Dashboard was very responsive and I always felt it was up
+to date; that events were being pushed all the way through to my browser
+in real time.
+
+What I miss from five years working with Concourse CI is the ability to
+watch 3rd party resources, such as GitHub Releases or S3 buckets, and
+trigger my Pipelines when those resources publish new versions. A lot of
+our existing Stark & Wayne pipelines use this feature of Concourse CI to
+continuously upgrade and test our software and production systems when
+new upstream dependencies are available. I may need to build a service
+that allows you to register webhooks for other people's resources, and
+not just Git-based resources.
