@@ -13,7 +13,6 @@ Here is an example of using the group step:
 ```yml
 - group: "\:broom\: Linting"
   key: "linting"
-  depends_on: docker
   steps:
     - name: "\:rubocop\: RuboCop"
       command: ".buildkite/steps/rubocop"
@@ -22,7 +21,7 @@ Here is an example of using the group step:
     - name: "\:flowtype\: Flow"
       command: ".buildkite/steps/flow"
 ```
-{: codeblock-file="group-step-in-pipeline.yml"} 
+{: codeblock-file="pipeline.yml"} 
 
 This is how it's displayed in the UI: 
 
@@ -144,7 +143,7 @@ steps:
       - wait
       - command: '4.sh'
 ```
-{: codeblock-file="parallel-groups.yml"}  
+{: codeblock-file="pipeline.yml"}  
 
 Running jobs in parallel has some limitations:  
 
@@ -182,7 +181,7 @@ steps:
   - command: "yay.sh"
     depends_on: "toast"
 ```
-{: codeblock-file="pipeline-with-wait-steps.yml"}  
+{: codeblock-file="pipeline.yml"}  
 
 ## Group merging  
 
@@ -195,7 +194,7 @@ For example, if you have a YAML file:
   steps:
     - command: "buildkite agent pipeline upload"
 ```
-{: codeblock-file="pipeline-01.yml"}
+{: codeblock-file="pipeline.yml"}
 
 And this YAML file uploads a pipeline that has a group with the same name:
 
@@ -204,6 +203,6 @@ And this YAML file uploads a pipeline that has a group with the same name:
   steps:
     - command: "docker build"
 ```
-{: codeblock-file="pipeline-02.yml"}  
+{: codeblock-file="pipeline.yml"}  
 
 As a result, the groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.  
