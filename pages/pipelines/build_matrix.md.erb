@@ -14,7 +14,7 @@ steps:
     command: "echo '.buildkite/steps/build-binary.sh Windows'"
 ```
 
-You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and commandstep with each value provided in the `matrix` array.
+You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command step with each value provided in the `matrix` array.
 
 ```yaml
 steps:
@@ -45,7 +45,7 @@ steps:
         - "B"
 ```
 
-Use the `adjustments` key to change specific entries in the build matrix. You can set the `skip` attribute to effectively remove them from the matrix,  or `soft_fail` attributes to allow them to fail without breaking the build.
+Use the `adjustments` key to change specific entries in the build matrix. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
 ```yaml
 steps:
