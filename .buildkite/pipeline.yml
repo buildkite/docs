@@ -29,8 +29,8 @@ steps:
   - label: ":lint-roller: Linting"
     commands:
       - wget https://github.com/errata-ai/vale/releases/download/v2.12.1/vale_2.12.1_Linux_64-bit.tar.gz
-      - tar -xf 'vale_2.12.1_Linux_64-bit.tar.gz'
-      - ./vale
+      - tar --transform='s/vale/vale-bin/'  -xf 'vale_2.12.1_Linux_64-bit.tar.gz'
+      - ./vale-bin
 
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint -y
