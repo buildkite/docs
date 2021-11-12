@@ -11,15 +11,17 @@ A group step can be defined in your pipeline settings or your [pipeline.yml](/do
 Here is an example of using the group step:  
 
 ```yml
-- group: "\:broom\: Linting"
-  key: "linting"
+- group: "\:lock_with_ink_pen\: Security Audits"
+  key: "audits"
   steps:
-    - name: "\:rubocop\: RuboCop"
-      command: ".buildkite/steps/rubocop"
-    - name: "\:eslint\: ESlint"
-      command: ".buildkite/steps/eslint"
-    - name: "\:flowtype\: Flow"
-      command: ".buildkite/steps/flow"
+    - name: "\:brakeman\: Brakeman"
+      command: ".buildkite/steps/brakeman"
+    - name: "\:bundleaudit\: Bundle Audit"
+      command: ".buildkite/steps/bundleaudit"
+    - name: "\:yarn\: Yarn Audit"
+      command: ".buildkite/steps/yarn"
+    - name: "\:yarn\: Outdated Check"
+      command: ".buildkite/steps/outdated"
 ```
 {: codeblock-file="pipeline.yml"} 
 
