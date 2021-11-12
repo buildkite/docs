@@ -102,7 +102,7 @@ Basecamp notifications happen at the following [events](/docs/apis/webhooks#even
 You can set notifications:
 
 * On build status events in the Buildkite UI by using your Slack Notification Service's 'Build State Filtering' settings.
-* On step status and other non-build events by extending the Slack Notification Service using the `notify` attribute to your `pipeline.yml`.
+* On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite Enterprise users can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
