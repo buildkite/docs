@@ -28,33 +28,6 @@ You can start with tiny, infrequent pipelines up to huge, highly
 parallel, dynamic pipelines whose work is spread across 10,000 worker
 nodes.
 
-## Topics covered
-
-In this special long-form article we will explore:
-
--   What is [Buildkite](https://buildkite.com/) and what is its model
-    for CI/CD testing and pipelines?
--   How to get started with Continuous Integration testing with
-    Buildkite?
--   How to locally iterate on Buildkite pipelines without affecting
-    everyone else?
--   How to get started with Buildkite running builds upon your laptop?
--   When should I start running Buildkite steps inside Docker
-    containers?
--   How and when to start running Buildkite Agent worker servers on
-    Linode?
--   How can I install Rancher k3s or other dependencies on my Linode
-    agent workers?
--   How do I assign Buildkite steps to a subset of Agents or host
-    servers?
--   How can I automatically scale up and down my Buildkite Agents worker
-    servers? How can I run Buildkite Agent servers on AWS EC2?
--   How do I configure my pipelines with environment variables and where
-    do I store secrets?
--   How do I prevent other people modifying my Pipeline with their
-    commits?
--   How can I deploy applications?
-
 ## Your first Buildkite pipeline
 
 Click the following button to start [the
@@ -113,7 +86,9 @@ Any Buildkite Pipeline YAML can be run locally -- even without having
 configuring the Pipeline within [buildkite.com](https://buildkite.com)
 -- using the [convenient `bk` tool](https://github.com/buildkite/cli):
 
-    bk local run .buildkite/pipeline.show-environment.yml
+```yaml
+bk local run .buildkite/pipeline.show-environment.yml
+```
 
 The `bk local run` command will spin up a single local temporary Agent.
 The command is also aliased to `bk run` and `bk`. Explicitly passing the
@@ -126,13 +101,17 @@ so we need to explicitly specify which Pipeline YAML to run.
 You can pass additional environment variables into `bk local run` with
 the `-E` flag:
 
-    export SOME_EXISTING_TOKEN=somevalue
-    bk local run -E SOME_EXISTING_TOKEN="$SOME_EXISTING_TOKEN" -E DEBUG=true
+```yaml
+export SOME_EXISTING_TOKEN=somevalue
+bk local run -E SOME_EXISTING_TOKEN="$SOME_EXISTING_TOKEN" -E DEBUG=true
+```
 
 To pass in all the environment variables in a local `.env` file
 containing `SOME_EXISTING_TOKEN=somevalue` lines, we can use some Perl:
 
-    bk local run $(perl -n -e 'chomp; print "-E $_ ";' <.env)
+```yaml
+bk local run $(perl -n -e 'chomp; print "-E $_ ";' <.env)
+```
 
 Thanks James Hunt for the Perl magic.
 
@@ -173,9 +152,11 @@ Try cloning the [tutorial
 repository](https://github.com/starkandwayne/buildkite-tutorial), edit
 the Pipeline YAML, and run it with `bk`:
 
-    git clone https://github.com/starkandwayne/buildkite-tutorial ~/workspace/buildkite-tutorial
-    cd ~/workspace/buildkite-tutorial
-    bk local run .buildkite/pipeline.show-environment.yml
+```yaml
+git clone https://github.com/starkandwayne/buildkite-tutorial ~/workspace/buildkite-tutorial
+cd ~/workspace/buildkite-tutorial
+bk local run .buildkite/pipeline.show-environment.yml
+```
 
 Later in this article we will fork this repository and setup a GitHub
 webhook into your Pipeline. Your committed changes to Pipeline YAML will
@@ -223,13 +204,21 @@ Our successful Pipeline Build shows four icons for the four steps in our
 full Pipeline:
 
 1.  Wiggly line in a blue circle. This step loads our actual Pipeline
-    YAML steps, as discussed above.
+```yaml
+```
+
 2.  Ballot being placed in a ballot box. This step generates a random
-    number and stores it in meta-data (see the next section).
+```yaml
+```
+
 3.  Greater-than symbol. Wait for all preceding steps to successfully
-    complete (see section [Waiting](#waiting) below).
+```yaml
+```
+
 4.  Computer. Fetch the stored number from meta-data and display it (see
-    the next section).
+```yaml
+the next section).
+```
 
 ![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-pass-random-number-success-hightlight-steps.png){.kg-image}
 
@@ -240,24 +229,30 @@ pipeline](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.build
 generates a random number in the first Step and passes that number to
 subsequent Steps. It is configured in YAML:
 
-    steps:
-    - label: ":ballot_box_with_ballot:"
-      command: ./src/generate-and-store-number.sh
-    - wait
-    - label: ":desktop_computer:"
-      command: ./src/fetch-and-display-number.sh
+```yaml
+steps:
+- label: ":ballot_box_with_ballot:"
+  command: ./src/generate-and-store-number.sh
+- wait
+- label: ":desktop_computer:"
+  command: ./src/fetch-and-display-number.sh
+```
 
 The `generate-and-store-number.sh` script performs two steps:
 
 1.  Generate a random number between 1 and 10
 2.  Stores it into [Buildkite
-    Meta-Data](https://buildkite.com/docs/agent/v3/cli-meta-data) using
-    `buildkite-agent meta-data set "generated-number" "some-value"`.
+```yaml
+Meta-Data](https://buildkite.com/docs/agent/v3/cli-meta-data) using
+`buildkite-agent meta-data set "generated-number" "some-value"`.
+```
 
 The `fetch-and-display-number.sh` script:
 
 1.  Fetches the value using
-    `buildkite-agent meta-data get "generated-number"`
+```yaml
+```
+
 2.  Displays it to the build logs.
 
 The `buildkite-agent meta-data [set|get]` commands interact with the
@@ -286,24 +281,28 @@ We could replace the `wait` step by declaring the latter Step is
 dependent upon the first Step. The first Step needs a `key` name for
 reference.
 
-    steps:
-      - label: ":ballot_box_with_ballot:"
-        command: ./src/generate-and-store-number.sh
-        key: generate-number
-      - label: ":desktop_computer:"
-        command: ./src/fetch-and-display-number.sh
-        depends_on:
-        - generate-number
+```yaml
+steps:
+  - label: ":ballot_box_with_ballot:"
+    command: ./src/generate-and-store-number.sh
+    key: generate-number
+  - label: ":desktop_computer:"
+    command: ./src/fetch-and-display-number.sh
+    depends_on:
+    - generate-number
+```
 
 [Test this Pipeline
 yourself](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.pass-random-number-depends-on.yml):
 
-    $ bk local run .buildkite/pipeline.pass-random-number-depends-on.yml
-    >>> Executing command step 🗳️
-    + buildkite-agent meta-data set generated-number 9
-    >>> Executing command step 🖥️
-    + buildkite-agent meta-data get generated-number
-    9
+```yaml
+$ bk local run .buildkite/pipeline.pass-random-number-depends-on.yml
+>>> Executing command step 🗳️
++ buildkite-agent meta-data set generated-number 9
+>>> Executing command step 🖥️
++ buildkite-agent meta-data get generated-number
+9
+```
 
 ## Parallel steps and multiple Agents
 
@@ -355,8 +354,10 @@ was in progress?
 It is thanks to the magic of `buildkite-agent pipeline upload`. We can
 run it multiple times during each pipeline build to insert new steps.
 
-    - label: ":pipeline:"
-      command: ./src/generate-steps-from-stored-number.sh | buildkite-agent pipeline upload
+```yaml
+- label: ":pipeline:"
+  command: ./src/generate-steps-from-stored-number.sh | buildkite-agent pipeline upload
+```
 
 I've reused the same `:pipeline:` emoji to indicate that a step is about
 to spit out more steps. Of course, you can use any text or emojis for
@@ -372,7 +373,9 @@ script](https://github.com/starkandwayne/buildkite-tutorial/blob/master/src/gene
 First, we decide how many steps to create. In this trivial tutorial
 example, we're using the randomly generated number stored in meta-data:
 
-    steps_count=$(buildkite-agent meta-data get generated-number)
+```yaml
+steps_count=$(buildkite-agent meta-data get generated-number)
+```
 
 In your own projects, you might dynamically decide how much parallelism,
 or which steps are required, after inspecting your repository,
@@ -381,26 +384,30 @@ environment variables, artifacts, or meta-data.
 Next, loop over our `$steps_count` variable to print some YAML to
 STDOUT:
 
-    echo "steps:"
-    for((i=0;i<steps_count;i++));
-    do
-      cat <<YAML
-    - label: "$i"
-      command: ./src/generate-and-store-number.sh $i
-    YAML
-    done
+```yaml
+echo "steps:"
+for((i=0;i<steps_count;i++));
+do
+  cat <<YAML
+- label: "$i"
+  command: ./src/generate-and-store-number.sh $i
+YAML
+done
+```
 
 An example YAML output, if `$steps_count` was 4:
 
-    steps:
-    - label: "0"
-      command: ./src/generate-and-store-number.sh 0
-    - label: "1"
-      command: ./src/generate-and-store-number.sh 1
-    - label: "2"
-      command: ./src/generate-and-store-number.sh 2
-    - label: "3"
-      command: ./src/generate-and-store-number.sh 3
+```yaml
+steps:
+- label: "0"
+  command: ./src/generate-and-store-number.sh 0
+- label: "1"
+  command: ./src/generate-and-store-number.sh 1
+- label: "2"
+  command: ./src/generate-and-store-number.sh 2
+- label: "3"
+  command: ./src/generate-and-store-number.sh 3
+```
 
 This YAML is piped into `buildpack-agent pipeline upload`, which in turn
 inserts the 3 steps into the running Pipeline Build. The new steps have
@@ -448,7 +455,9 @@ contents of a file for a specific branch. In the example below, the
 We now pipe this remote file into `buildkite-agent pipeline upload`, say
 using `curl`:
 
-    curl -sSL https://raw.githubusercontent.com/starkandwayne/buildkite-tutorial/master/.buildkite/pipeline.show-environment.yml | buildkite-agent pipeline upload
+```yaml
+curl -sSL https://raw.githubusercontent.com/starkandwayne/buildkite-tutorial/master/.buildkite/pipeline.show-environment.yml | buildkite-agent pipeline upload
+```
 
 ![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-pipeline-yaml-from-remote-git-raw.png){.kg-image}
 
@@ -513,8 +522,10 @@ pipeline. The
 [`pipeline.ask-to-continue.yml`](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.ask-to-continue.yml)
 pipeline contains the following additional step:
 
-    - block: ":incoming_envelope: generate"
-      prompt: "Should we generate some numbers?"
+```yaml
+- block: ":incoming_envelope: generate"
+  prompt: "Should we generate some numbers?"
+```
 
 For good measure, the `label` includes both an emoji and some text. The
 `prompt` message will be hidden until the human becomes involved.
@@ -535,7 +546,9 @@ different from the preceding "Dynamics 3" Build:
 2.  The latter Pipeline step icons are white, not green.
 3.  The "generate" step icon is preceded by a lock symbol.
 4.  Instead of "Passed in 30s", the summary of the pipeline so far is
-    "Passed in 27s and blocked."
+```yaml
+"Passed in 27s and blocked."
+```
 
 Blocked pipelines are OK. Blocked might be fine. The remaining steps in
 the pipeline might be completely optional to your organization.
@@ -576,21 +589,23 @@ achieve with your fruit selection.
 How did I [configure the Buildkite block step
 form](https://buildkite.com/docs/pipelines/block-step)?
 
-    steps:
-    - block: ":ballot_box_with_ballot:"
-      prompt: "We robots have questions. Many questions."
-      fields:
-      - text: "How many steps to create?"
-        key: "generated-number"
-        hint: "Think of any number. But a positive number."
-      - select: "Do you have a favorite?"
-        key: "favourite-thing"
-        options:
-        - label: ":green_apple:"
-          value: "green_apple"
-        - label: ":apple:"
-          value: "apple"
-        ...
+```yaml
+steps:
+- block: ":ballot_box_with_ballot:"
+  prompt: "We robots have questions. Many questions."
+  fields:
+  - text: "How many steps to create?"
+    key: "generated-number"
+    hint: "Think of any number. But a positive number."
+  - select: "Do you have a favorite?"
+    key: "favourite-thing"
+    options:
+    - label: ":green_apple:"
+      value: "green_apple"
+    - label: ":apple:"
+      value: "apple"
+    ...
+```
 
 Try this at home: dynamically generate a form to populate the items in
 the `select` field `options` list.
@@ -632,19 +647,23 @@ two places.
 
 A variable can be fixed for the entire Pipeline and all its Steps:
 
-    env:
-      STEPS_COUNT: 4
-    steps:
-    - label: ":pipeline:"
-      command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
+```yaml
+env:
+  STEPS_COUNT: 4
+steps:
+- label: ":pipeline:"
+  command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
+```
 
 Or we can set a variable for only a single step:
 
-    steps:
-    - label: ":pipeline:"
-      command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
-      env:
-        STEPS_COUNT: 2
+```yaml
+steps:
+- label: ":pipeline:"
+  command: ./src/generate-steps-from-env-var.sh | buildkite-agent pipeline upload
+  env:
+    STEPS_COUNT: 2
+```
 
 ### Precedence of environment variables in Buildkite Builds
 
@@ -666,12 +685,16 @@ In our current pipeline, if `STEPS_COUNT` is missing then
 variable is missing. I did this with the following fancy Bash
 expression:
 
-    : ${STEPS_COUNT:?please configure pipeline with \$STEPS_COUNT environment variable}
+```yaml
+: ${STEPS_COUNT:?please configure pipeline with \$STEPS_COUNT environment variable}
+```
 
 I could have set a default value, rather than an error. The following
 example will default `STEPS_COUNT=1`.
 
-    export STEPS_COUNT=${STEPS_COUNT:-1}
+```yaml
+export STEPS_COUNT=${STEPS_COUNT:-1}
+```
 
 ## Secrets
 
@@ -695,8 +718,10 @@ longer list of "anti-patterns" for secrets.
 There are three paths to Build steps having access to Secrets:
 
 1.  Explicitly fetch the secrets from a secrets storage service during
-    each step; for example, make an API call out to Hashicorp Vault or
-    your Cloud Provider's Secrets Service.
+```yaml
+each step; for example, make an API call out to Hashicorp Vault or
+```
+
 2.  Pass Secrets into all Pipelines via Buildkite Agent.
 3.  Pass Secrets into a specific Step via a Buildkite Plugin.
 
@@ -753,11 +778,13 @@ To configure our local Buildkite Agent to provide `$STEPS_COUNT` to all
 pipeline steps/jobs that it processes, we create a `environment` script
 in a `hooks` directory and use it to `export` environment variables.
 
-    mkdir -p ~/.buildkite-agent/hooks
-    cat > ~/.buildkite-agent/hooks/environment <<SHELL
-    export STEPS_COUNT=10
-    SHELL
-    buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+```yaml
+mkdir -p ~/.buildkite-agent/hooks
+cat > ~/.buildkite-agent/hooks/environment <<SHELL
+export STEPS_COUNT=10
+SHELL
+buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+```
 
 The `environment` hook will run before all other commands, and can be
 used to set up secrets, data, etc.
@@ -790,14 +817,16 @@ First, install the S3 plugin, and create a `hooks/environment` Agent
 Hook to delegate to the S3 Secrets plugin fetch the secrets from an S3
 bucket.
 
-    S3_SECRETS_DIR=~/.buildkite-agent/plugins/elastic-ci-stack-s3-secrets-hooks
-    git clone \
-        https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks \
-        $S3_SECRETS_DIR
-    cat > ~/.buildkite-agent/hooks/environment <<SHELL
-      export BUILDKITE_PLUGIN_S3_SECRETS_BUCKET="buildkite-tutorial-public-example-secrets"
-      source $S3_SECRETS_DIR/hooks/environment
-    SHELL
+```yaml
+S3_SECRETS_DIR=~/.buildkite-agent/plugins/elastic-ci-stack-s3-secrets-hooks
+git clone \
+    https://github.com/buildkite/elastic-ci-stack-s3-secrets-hooks \
+    $S3_SECRETS_DIR
+cat > ~/.buildkite-agent/hooks/environment <<SHELL
+  export BUILDKITE_PLUGIN_S3_SECRETS_BUCKET="buildkite-tutorial-public-example-secrets"
+  source $S3_SECRETS_DIR/hooks/environment
+SHELL
+```
 
 You will need to [install the `aws`
 CLI](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
@@ -809,7 +838,9 @@ I've using a publicly accessible S3 bucket for this article, that sets
 Restart the Agent and set `--hooks-path` to the folder containing the
 `~/.buildkite-agent/hooks/environment` wrapper hook above.
 
-    buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+```yaml
+buildkite-agent start --spawn 2 --hooks-path ~/.buildkite-agent/hooks
+```
 
 Finally, when you re-run your Build against the local Agent, the Logs
 for each step show "Downloading secrets from
@@ -827,8 +858,10 @@ We can see that the `STEPS_COUNT` value fetched from the S3 bucket was
 To verify that `STEPS_COUNT=12` came from an `env` or `environment` file
 in my tutorial bucket, you can inspect the file:
 
-    $ curl https://buildkite-tutorial-public-example-secrets.s3.us-east-2.amazonaws.com/env
-    export STEPS_COUNT=12
+```yaml
+$ curl https://buildkite-tutorial-public-example-secrets.s3.us-east-2.amazonaws.com/env
+export STEPS_COUNT=12
+```
 
 The tutorial bucket is public so you do not need to setup `aws` CLI
 credentials for the S3 Plugin on this occasion.
@@ -851,11 +884,13 @@ Pipeline builds.
 Here's a sample command for creating a temporary local `env` file, and
 uploading it to your AWS S3 bucket as an encrypted file.
 
-    cat > env <<SHELL
-    export STEPS_COUNT=14
-    SHELL
-    aws s3 cp --acl private --sse aws:kms ./env "s3://<my-special-bucket-of-secrets>/env"
-    rm env
+```yaml
+cat > env <<SHELL
+export STEPS_COUNT=14
+SHELL
+aws s3 cp --acl private --sse aws:kms ./env "s3://<my-special-bucket-of-secrets>/env"
+rm env
+```
 
 Your Agent host servers need the `aws` CLI installed and configured with
 credentials to read from the S3 bucket.
@@ -881,12 +916,16 @@ Secrets from the example AWS S3 bucket.
 So, currently I've split my Secrets into two groups:
 
 -   Common secrets that I need for all Pipelines (such as Git SSH
-    private keys, which are discussed later in the article) are stored
-    on Agent host servers, and will be rotated by rebuilding those host
-    servers.
+```yaml
+private keys, which are discussed later in the article) are stored
+on Agent host servers, and will be rotated by rebuilding those host
+```
+
 -   Secrets that are only required by some Steps (such as Cloud Foundry
-    passwords during a deployment Step) are fetched on demand by
-    Buildkite Plugins.
+```yaml
+passwords during a deployment Step) are fetched on demand by
+Buildkite Plugins.
+```
 
 ### Fetching Buildkite Secrets only when you need them with AWS Secrets Manager and Buildkite Plugins
 
@@ -905,13 +944,15 @@ in an environment variable:
 ``` yaml
 steps:
   - label: ":cloudfoundry: deploy"
-    plugins:
-      seek-oss/aws-sm#v2.0.0:
-        env:
-          PASSWORD: arn:aws:secretsmanager:us-east-1:868593321044:secret:pipelines/pws/drnic/cf-password-dUL5fd
-    command: ./deploy-this-thing.sh
+```yaml
+plugins:
+  seek-oss/aws-sm#v2.0.0:
     env:
-      USERNAME: [email protected]
+      PASSWORD: arn:aws:secretsmanager:us-east-1:868593321044:secret:pipelines/pws/drnic/cf-password-dUL5fd
+command: ./deploy-this-thing.sh
+env:
+```
+
 ```
 
 In this example Step, the command `deploy-this-thing.sh` will be run and
@@ -919,8 +960,10 @@ will be provided with two environment variables:
 
 -   `USERNAME` provided by the public `env` section of the Step
 -   `PASSWORD` provided by the [AWS SecretsManager Buildkite
-    Plugin](https://github.com/seek-oss/aws-sm-buildkite-plugin) written
-    by [Seek](https://www.seek.com.au/).
+```yaml
+Plugin](https://github.com/seek-oss/aws-sm-buildkite-plugin) written
+by [Seek](https://www.seek.com.au/).
+```
 
 The AWS SM plugin runs `aws secretsmanager get-secret-value` to fetch
 the `arn:aws:secretsmanager:...` secret, and stores it in the
@@ -932,7 +975,9 @@ I've now isolated this Secret to this Step only.
 To create a new Secret within AWS SecretsManager try the following
 command:
 
-    aws secretsmanager create-secret --cli-auto-prompt
+```yaml
+aws secretsmanager create-secret --cli-auto-prompt
+```
 
 ## Triggering new builds for Buildkite Pipelines
 
@@ -1177,24 +1222,28 @@ Today we will use your own personal Git SSH key to allow you to
 `git clone` your fork of the tutorial repo. To figure out which private
 key works with your target Git host, try `ssh -vT [email protected]`.
 
-    $ ssh -vT [email protected]
-    ...
-    debug1: Next authentication method: publickey
-    debug1: Offering public key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
-    debug1: Server accepts key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
-    debug1: Authentication succeeded (publickey).
-    Authenticated to github.com ([2001:8004:11d0:4e2a::dec:e515]:22).
-    ...
-    Hi drnic! You've successfully authenticated, but GitHub does not provide shell access.
+```yaml
+$ ssh -vT [email protected]
+...
+debug1: Next authentication method: publickey
+debug1: Offering public key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
+debug1: Server accepts key: /Users/drnic/.ssh/id_rsa RSA SHA256:0J3A1VSw5let5tQ2L+xNW0OWG6GLL+k5MjZeeSLsUb8
+debug1: Authentication succeeded (publickey).
+Authenticated to github.com ([2001:8004:11d0:4e2a::dec:e515]:22).
+...
+Hi drnic! You've successfully authenticated, but GitHub does not provide shell access.
+```
 
 My `/Users/drnic/.ssh/id_rsa` private SSH key authenticates me as
 `drnic` user on GitHub.
 
 To upload this file to my S3 Secrets bucket for all Pipelines to use:
 
-    aws s3 cp --acl private --sse aws:kms \
-        /Users/drnic/.ssh/id_rsa \
-        s3://buildkite-pipelines-starkandwayne-secrets/id_rsa_github
+```yaml
+aws s3 cp --acl private --sse aws:kms \
+    /Users/drnic/.ssh/id_rsa \
+    s3://buildkite-pipelines-starkandwayne-secrets/id_rsa_github
+```
 
 When we re-run the Build, the first step now discovers the secret
 `id_rsa_github` file, adds it to the Agent host machine's ssh-agent, and
@@ -1291,9 +1340,13 @@ You could write a runc or containerd plugin, or you could use either
 the:
 
 -   [Docker
-    plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin)
+```yaml
+```
+
 -   [Docker Compose
-    plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)
+```yaml
+plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin)
+```
 
 Obviously, we will explore the two Docker plugins in this article.
 
@@ -1313,17 +1366,21 @@ Our "Show Environment" Pipeline YAML will look like this:
 ``` yaml
 steps:
   - label: ":ubuntu:"
-    command: ./src/show_environment.sh
-    plugins:
-      - docker#v3.5.0:
-          image: "ubuntu:latest"
-          propagate-environment: true
+```yaml
+command: ./src/show_environment.sh
+plugins:
+  - docker#v3.5.0:
+      image: "ubuntu:latest"
+```
+
   - label: ":ski: missing bash"
-    command: ./src/show_environment.sh
-    plugins:
-      - docker#v3.5.0:
-          image: "alpine:latest"
-          propagate-environment: true
+```yaml
+command: ./src/show_environment.sh
+plugins:
+  - docker#v3.5.0:
+      image: "alpine:latest"
+```
+
 ```
 
 In this example we now run the `./src/show_environment.sh` command
@@ -1382,14 +1439,16 @@ appropriate authentication tokens.
 Fortunately it is easy with the [`mount-buildkite-agent: true`
 parameter](https://github.com/buildkite-plugins/docker-buildkite-plugin#mount-buildkite-agent-optional-boolean).
 
-    steps:
-      - label: ":ballot_box_with_ballot:"
-        command: ./src/generate-and-store-number.sh
-        plugins:
-          - docker#v3.5.0:
-              image: "ubuntu:latest"
-              propagate-environment: true
-              mount-buildkite-agent: true
+```yaml
+steps:
+  - label: ":ballot_box_with_ballot:"
+    command: ./src/generate-and-store-number.sh
+    plugins:
+      - docker#v3.5.0:
+          image: "ubuntu:latest"
+          propagate-environment: true
+          mount-buildkite-agent: true
+```
 
 This will pass the host machine's `buildkite-agent` CLI and Agent Access
 Token into the Docker container.
@@ -1409,13 +1468,15 @@ Agent on a macOS machine and feeding it Build jobs.
 
 Let's try `bk local run`:
 
-    $ bk local run .buildkite/pipeline.pass-random-number-docker.yml
-    ...
-    docker: Error response from daemon: Mounts denied:
-    The path /usr/local/bin/buildkite-agent
-    is not shared from OS X and is not known to Docker.
-    You can configure shared paths from Docker -> Preferences... -> File Sharing.
-    See https://docs.docker.com/docker-for-mac/osxfs/#namespaces for more info.
+```yaml
+$ bk local run .buildkite/pipeline.pass-random-number-docker.yml
+...
+docker: Error response from daemon: Mounts denied:
+The path /usr/local/bin/buildkite-agent
+is not shared from OS X and is not known to Docker.
+You can configure shared paths from Docker -> Preferences... -> File Sharing.
+See https://docs.docker.com/docker-for-mac/osxfs/#namespaces for more info.
+```
 
 The same issue occurs when Buildkite dashboard delegates the Steps' jobs
 to our running Agents:
@@ -1425,17 +1486,23 @@ to our running Agents:
 This problem is two-fold:
 
 1.  My `buildkite-agent` is installed at
-    `/usr/local/bin/buildkite-agent` but the path `/usr/local/bin` is
-    not configured to be shared with my Docker on Mac installation.
+```yaml
+`/usr/local/bin/buildkite-agent` but the path `/usr/local/bin` is
+```
+
 2.  Even if I fix this, my macOS `buildkite-agent` binary is not
-    designed to run inside a Linux Docker container. I would get
-    `Exec format error`:
+```yaml
+designed to run inside a Linux Docker container. I would get
+`Exec format error`:
+```
 
 ```{=html}
 <!-- -->
 ```
-    + buildkite-agent meta-data get generated-number
-    ./src/fetch-and-display-number.sh: line 14: /usr/bin/buildkite-agent: cannot execute binary file: Exec format error
+```yaml
++ buildkite-agent meta-data get generated-number
+./src/fetch-and-display-number.sh: line 14: /usr/bin/buildkite-agent: cannot execute binary file: Exec format error
+```
 
 This problem affects users on macOS/Windows who run Buildkite Agents
 locally, or run `bk local run`, and want to use Docker-based plugins
@@ -1493,36 +1560,42 @@ You can also use the [`linode`
 CLI](https://www.linode.com/docs/platform/api/linode-cli/) to provision
 your Agent Linodes:
 
-    pip3 install linode-cli
-    export BUILDKITE_TOKEN="..."
-    export BUILDKITE_SPAWN=5
-    linode-cli linodes create \
-      --stackscript_id 633367 \
-      --stackscript_data "{\"buildkite_token\": \"$BUILDKITE_TOKEN\", \"buildkite_spawn\": \"5\", \"buildkite_bootstrap_script_url\": \"\", \"buildkite_secrets_bucket\": \"$BUILDKITE_SECRETS_BUCKET\", \"aws_access_key\": \"$AWS_ACCESS_KEY_ID\", \"aws_secret_password\": \"$AWS_ACCESS_SECRET_KEY\"}" \
-      --region us-west \
-      --type g6-standard-2 \
-      --image linode/alpine3.11 \
-      --tags buildkite-agent \
-      --label buildkite-agent-1 \
-      --root_pass <something-secret>
+```yaml
+pip3 install linode-cli
+export BUILDKITE_TOKEN="..."
+export BUILDKITE_SPAWN=5
+linode-cli linodes create \
+  --stackscript_id 633367 \
+  --stackscript_data "{\"buildkite_token\": \"$BUILDKITE_TOKEN\", \"buildkite_spawn\": \"5\", \"buildkite_bootstrap_script_url\": \"\", \"buildkite_secrets_bucket\": \"$BUILDKITE_SECRETS_BUCKET\", \"aws_access_key\": \"$AWS_ACCESS_KEY_ID\", \"aws_secret_password\": \"$AWS_ACCESS_SECRET_KEY\"}" \
+  --region us-west \
+  --type g6-standard-2 \
+  --image linode/alpine3.11 \
+  --tags buildkite-agent \
+  --label buildkite-agent-1 \
+  --root_pass <something-secret>
+```
 
 To terminate all Linodes running Buildkite Agents, first find their IDs
 and then delete:
 
-    $ linode-cli linodes list --tags buildkite-agent
-    ┌──────────┬───────────────────┬─────────┬───────────────┬───────────────────┬─────────┬─────────────┐
-    │ id       │ label             │ region  │ type          │ image             │ status  │ ipv4        │
-    ├──────────┼───────────────────┼─────────┼───────────────┼───────────────────┼─────────┼─────────────┤
-    │ 19553029 │ buildkite-agent-1 │ us-west │ g6-standard-2 │ linode/alpine3.11 │ running │ 45.33.51.85 │
-    └──────────┴───────────────────┴─────────┴───────────────┴───────────────────┴─────────┴─────────────┘
-    $ linode-cli linodes delete 19553029
+```yaml
+$ linode-cli linodes list --tags buildkite-agent
+┌──────────┬───────────────────┬─────────┬───────────────┬───────────────────┬─────────┬─────────────┐
+│ id       │ label             │ region  │ type          │ image             │ status  │ ipv4        │
+├──────────┼───────────────────┼─────────┼───────────────┼───────────────────┼─────────┼─────────────┤
+│ 19553029 │ buildkite-agent-1 │ us-west │ g6-standard-2 │ linode/alpine3.11 │ running │ 45.33.51.85 │
+└──────────┴───────────────────┴─────────┴───────────────┴───────────────────┴─────────┴─────────────┘
+$ linode-cli linodes delete 19553029
+```
 
 To destroy all your Linodes you can sprinkle in some `jq` filtering to
 combine `linode-cli` commands:
 
-    linode-cli linodes list --tags buildkite-agent --json | \
-      jq -r ".[].id" | \
-      xargs -L1 linode-cli linodes delete
+```yaml
+linode-cli linodes list --tags buildkite-agent --json | \
+  jq -r ".[].id" | \
+  xargs -L1 linode-cli linodes delete
+```
 
 ### Targeting Agents running on Linux host machines
 
@@ -1546,16 +1619,18 @@ Buildkite Agent to `os=linux` tagged hosts.
 In our Pipeline YAML we can add the `agents:` parameter to filter each
 Step to a subset of Agents:
 
-    steps:
-      - label: ":ballot_box_with_ballot:"
-        command: ./src/generate-and-store-number.sh
-        agents:
-          os: linux
-        plugins:
-          - docker#v3.5.0:
-              image: "starkandwayne/buildkite-base:latest"
-              propagate-environment: true
-              mount-buildkite-agent: true
+```yaml
+steps:
+  - label: ":ballot_box_with_ballot:"
+    command: ./src/generate-and-store-number.sh
+    agents:
+      os: linux
+    plugins:
+      - docker#v3.5.0:
+          image: "starkandwayne/buildkite-base:latest"
+          propagate-environment: true
+          mount-buildkite-agent: true
+```
 
 Change the Pipeline Settings to run
 `buildkite-agent pipeline upload .buildkite/pipeline.pass-random-number-docker-os-linux.yml`.
@@ -1611,7 +1686,9 @@ Whereas Meta-Data is text data, Artifacts are files.
 There are two ways to store Artifacts files:
 
 1.  Steps can include `artifact_paths:` with an array of globs to files
-    that might exist.
+```yaml
+```
+
 2.  Run `buildkite-agent artifact upload` from within a command.
 
 I personally prefer to declare the artifacts to be provided across a
@@ -1619,15 +1696,17 @@ Pipeline Steps in the YAML. See an example in
 <https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.image-artifacts.yml>
 and below:
 
-    steps:
-    - label: ":camera_with_flash:"
-      command: "ls -al images/*.png"
-      artifact_paths:
-      - "./images/*.png"
-      key: upload
-    - label: ":package:"
-      command: "./src/inspect-image-artifacts.sh"
-      depends_on: upload
+```yaml
+steps:
+- label: ":camera_with_flash:"
+  command: "ls -al images/*.png"
+  artifact_paths:
+  - "./images/*.png"
+  key: upload
+- label: ":package:"
+  command: "./src/inspect-image-artifacts.sh"
+  depends_on: upload
+```
 
 To consume one or more artifacts in a subsequent step run
 `buildkite-agent artifact download path/to/things/* path/to/store/them/`,
@@ -1681,8 +1760,10 @@ languages, or other use cases.
 To build and tag a Docker image, and then push that image to the remote
 Docker Hub repository you would run the following commands:
 
-    docker build . -t myorg/myimage:latest
-    docker push myorg/myimage:latest
+```yaml
+docker build . -t myorg/myimage:latest
+docker push myorg/myimage:latest
+```
 
 We want a Buildkite Step to run these two commands.
 
@@ -1695,11 +1776,13 @@ In the first example, we ask the Agent to run `docker build` and
 `docker push`. If we know our Agent host server is running Docker
 Daemon, then we also know it has the `docker` CLI available.
 
-    steps:
-      - label: ":docker:"
-        command:
-          - "docker build . -t myorg/myimage:latest"
-          - "docker push myorg/myimage:latest"
+```yaml
+steps:
+  - label: ":docker:"
+    command:
+      - "docker build . -t myorg/myimage:latest"
+      - "docker push myorg/myimage:latest"
+```
 
 In this first example, we assume that the host worker server has already
 had `docker login` invoked with a user who is authorized to push
@@ -1712,15 +1795,17 @@ the [`docker-login` Buildkite
 plugin](https://github.com/buildkite-plugins/docker-login-buildkite-plugin)
 to the step.
 
-    steps:
-      - label: ":docker:"
-        command:
-          - "docker build . -t myorg/myimage:latest"
-          - "docker push myorg/myimage:latest"
-        plugins:
-          - docker-login#v2.0.1:
-              username: drnic
-              password-env: DOCKER_LOGIN_PASSWORD
+```yaml
+steps:
+  - label: ":docker:"
+    command:
+      - "docker build . -t myorg/myimage:latest"
+      - "docker push myorg/myimage:latest"
+    plugins:
+      - docker-login#v2.0.1:
+          username: drnic
+          password-env: DOCKER_LOGIN_PASSWORD
+```
 
 The username `drnic` for the Registry is provided in the Pipeline YAML
 above.
@@ -1740,21 +1825,23 @@ for alternate public or private registries.
 
 Finally, you can run `docker` commands inside a Docker container.
 
-    steps:
-      - label: ":docker:"
-        command:
-          - "docker build . -t myorg/myimage:latest"
-          - "docker push myorg/myimage:latest"
-        plugins:
-          - docker-login#v2.0.1:
-              username: myusername
-              password-env: DOCKER_LOGIN_PASSWORD
-          - docker#v3.5.0:
-              image: "docker:latest"
-              always-pull: true
-              volumes:
-                - "/var/run/docker.sock:/var/run/docker.sock"
-                - "/home/buildkite/.docker/config.json:/root/.docker/config.json"
+```yaml
+steps:
+  - label: ":docker:"
+    command:
+      - "docker build . -t myorg/myimage:latest"
+      - "docker push myorg/myimage:latest"
+    plugins:
+      - docker-login#v2.0.1:
+          username: myusername
+          password-env: DOCKER_LOGIN_PASSWORD
+      - docker#v3.5.0:
+          image: "docker:latest"
+          always-pull: true
+          volumes:
+            - "/var/run/docker.sock:/var/run/docker.sock"
+            - "/home/buildkite/.docker/config.json:/root/.docker/config.json"
+```
 
 The `docker-login` plugin runs on the host server to perform
 `docker login` against that server's Docker Daemon and the Agent's
@@ -1817,27 +1904,41 @@ Stack](https://us-east-2.console.aws.amazon.com/cloudformation/home?region=us-ea
 and populate the following subset of fields:
 
 -   BuildkiteAgentToken -- [Reveal your Agent
-    token](https://buildkite.com/organizations/-/agents) on the
-    right-hand side of the Agents page.
+```yaml
+token](https://buildkite.com/organizations/-/agents) on the
+```
+
 -   BuildkiteAgentTags -- Additional tags you'd like to use, such as
-    `os=linux`.
+```yaml
+```
+
 -   InstanceType -- As an example [instance
-    type](https://aws.amazon.com/ec2/instance-types/), try the General
-    Purpose Burstable "t2.small" with 1 vCPU, 2GiB for each VM. 1 x
-    t2.small, 8 hours a day, will cost around \$6 per month in the
-    cheaper AWS regions.
+```yaml
+type](https://aws.amazon.com/ec2/instance-types/), try the General
+Purpose Burstable "t2.small" with 1 vCPU, 2GiB for each VM. 1 x
+t2.small, 8 hours a day, will cost around \$6 per month in the
+```
+
 -   AgentsPerInstance -- 5 and you can adjust this up or down with the
-    InstanceType, and based on the performance of your Pipelines (if
-    they are CPU intensive then have fewer AgentsPerInstance, or a
-    higher CPU InstanceType).
+```yaml
+InstanceType, and based on the performance of your Pipelines (if
+they are CPU intensive then have fewer AgentsPerInstance, or a
+```
+
 -   SecretsBucket -- Use your Secrets AWS S3 bucket from earlier in the
-    article.
+```yaml
+```
+
 -   ScaleUpAdjustment -- "1" -- adjust your auto-scaling group later if
-    you need it to scale up in larger groups
+```yaml
+```
+
 -   EnableExperimentalLambdaBasedAutoscaling -- "true" -- let's live a
-    little and assume that a Lambda-based autoscaling system will be
-    more dynamic and more awesome than standard AWS AutoScaling; it will
-    be the default option in future.
+```yaml
+little and assume that a Lambda-based autoscaling system will be
+more dynamic and more awesome than standard AWS AutoScaling; it will
+be the default option in future.
+```
 
 Continue though the pages and press the Create Stack button.
 
@@ -1856,9 +1957,13 @@ until we create demand for them.
 Reconfigure your Pipeline Settings:
 
 -   Run the Dynamic Steps pipeline
-    `buildkite-agent pipeline upload .buildkite/pipeline.dynamic-steps-from-env-var.yml`
+```yaml
+```
+
 -   Configure the Environment Variable `STEPS_COUNT=20` or add it to
-    your s3 Secrets bucket's `env` file.
+```yaml
+your s3 Secrets bucket's `env` file.
+```
 
 Launch a "New Build". Whilst the existing Agents will attempt to process
 all the work, Buildkite will make a mayday call to the AWS Auto-Scaling
@@ -1906,11 +2011,15 @@ trigger new Builds upon the event of an upstream dependency changing.
 Buildkite does have some tools that could help:
 
 -   Scheduled Builds to trigger a Pipeline each minute, hour, or day,
-    etc
+```yaml
+```
+
 -   Pipelines can trigger other Pipelines to commence a Build
 -   Use of third-party services like [Snyk](https://snyk.io/) to
-    generate Pull Requests to be made aware of updates for upstream
-    dependencies.
+```yaml
+generate Pull Requests to be made aware of updates for upstream
+dependencies.
+```
 
 ### Scheduled Builds
 
@@ -1982,10 +2091,14 @@ your Pipelines.
 To demonstrate this API endpoint we need to:
 
 1.  Create an [API Access
-    Token](https://buildkite.com/user/api-access-tokens)
+```yaml
+```
+
 2.  Scope the token to only access your Organization, and the the
-    "Modify Builds" scope. In the image below, I threw in "Read Builds"
-    for good measure.
+```yaml
+"Modify Builds" scope. In the image below, I threw in "Read Builds"
+for good measure.
+```
 
 ![...](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-api-token-header.png){.kg-image}
 
@@ -2001,11 +2114,13 @@ lose it, delete the API Access Token can create a new one.
 
 We can use the `curl` command to trigger a new Build:
 
-    BUILDKITE_TOKEN_CREATE_BUILDS="<the value I was shown>"
-    curl -H "Authorization: Bearer ${BUILDKITE_TOKEN_CREATE_BUILDS}" \
-      -X POST \
-      "https://api.buildkite.com/v2/organizations/starkandwayne/pipelines/buildkite-tutorial-by-stark-and-wayne/builds" \
-      -d '{"commit": "HEAD", "branch": "master", "message": "If curl can trigger a Build, anything can"}'
+```yaml
+BUILDKITE_TOKEN_CREATE_BUILDS="<the value I was shown>"
+curl -H "Authorization: Bearer ${BUILDKITE_TOKEN_CREATE_BUILDS}" \
+  -X POST \
+  "https://api.buildkite.com/v2/organizations/starkandwayne/pipelines/buildkite-tutorial-by-stark-and-wayne/builds" \
+  -d '{"commit": "HEAD", "branch": "master", "message": "If curl can trigger a Build, anything can"}'
+```
 
 ![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-build-triggered-by-api.png){.kg-image}
 
@@ -2024,23 +2139,29 @@ Compose](https://docs.docker.com/compose/).
 
 -   Containers are built, run and linked on demand using Docker Compose
 -   Containers are namespaced to each build job, and cleaned up after
-    use
+```yaml
+```
+
 -   Supports pre-building of images, allowing for fast parallel builds
-    across distributed agents
+```yaml
+```
+
 -   Supports pushing tagged images to a repository
 
 To run our `./src/show_environment.sh` script using Docker Compose
 [would require us to pass a volume through into the
 container](https://github.com/starkandwayne/buildkite-tutorial/blob/master/.buildkite/pipeline.show-environment-docker-compose.yml):
 
-    steps:
-      - label: ":ubuntu:"
-        command: /app/src/show_environment.sh
-        plugins:
-          - docker-compose#v3.2.0:
-              run: app
-              volumes:
-                - "./src:/app/src"
+```yaml
+steps:
+  - label: ":ubuntu:"
+    command: /app/src/show_environment.sh
+    plugins:
+      - docker-compose#v3.2.0:
+          run: app
+          volumes:
+            - "./src:/app/src"
+```
 
 When this Step runs we see the `docker-compose` command in the output:
 
@@ -2070,26 +2191,30 @@ If you want to isolate your "deploy" Step to only trigger on commits to
 the `master` branch, your `command` Step can include the `if:`
 parameter:
 
-    steps:
-      - label: "🔨"
-        command: "./scripts/tests"
-      - wait
-      - label: "🚀"
-        command: "./scripts/deploy"
-        if: build.branch == 'master'
+```yaml
+steps:
+  - label: "🔨"
+    command: "./scripts/tests"
+  - wait
+  - label: "🚀"
+    command: "./scripts/deploy"
+    if: build.branch == 'master'
+```
 
 ### How to limit to one deployment at a time
 
 You can restrict a `command` Step to only allow one invocation to run at
 a time with the `concurrency: 1` and `concurrency_group:` parameters.
 
-    steps:
-    ...
-      - label: "🚀"
-        command: "./scripts/deploy"
-        if: build.branch == 'master'
-        concurrency: 1
-        concurrency_group: "production-app-deploy"
+```yaml
+steps:
+...
+  - label: "🚀"
+    command: "./scripts/deploy"
+    if: build.branch == 'master'
+    concurrency: 1
+    concurrency_group: "production-app-deploy"
+```
 
 Generally speaking, set `concurrency` and `concurrency_group` when
 updating mutable state, such as your deployed application. These
@@ -2104,17 +2229,19 @@ We've working on a [Buildkite plugin to deploy your repository to any
 Cloud
 Foundry](https://github.com/starkandwayne/cloudfoundry-deploy-buildkite-plugin).
 
-    steps:
-    ...
-      - label: "🚀"
-        concurrency: 1
-        concurrency_group: "cf/production"
-        plugins:
-          - starkandwayne/cloudfoundry-deploy#v0.5.0:
-            api: "https://api.run.pivotal.io"
-            username: "[email protected]"
-            organization: "starkandwayne"
-    space: "buildkite-demo-app"
+```yaml
+steps:
+...
+  - label: "🚀"
+    concurrency: 1
+    concurrency_group: "cf/production"
+    plugins:
+      - starkandwayne/cloudfoundry-deploy#v0.5.0:
+        api: "https://api.run.pivotal.io"
+        username: "[email protected]"
+        organization: "starkandwayne"
+space: "buildkite-demo-app"
+```
 
 ![](https://s3.amazonaws.com/starkandwayne-cdn/2020/03/buildkite-cloudfoundry-deploy-output.png){.kg-image}
 
