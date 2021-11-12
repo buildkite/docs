@@ -1,6 +1,6 @@
 # Group Step
  
-A *group* step groups jobs and other steps into logical groups and displays them in a single logical group on the Build page. For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported. 
+A *group* step can contain various sub-steps, and display them in a single logical group on the Build page. For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends-on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
 
@@ -24,11 +24,11 @@ Here is an example of using the group step:
 ```
 {: codeblock-file="group-step-in-pipeline.yml"} 
 
-And this is how it's displayed in the UI: 
+This is how it's displayed in the UI: 
 
 <%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
-Only the first 100 jobs within a build header can be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
+Only the first 100 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
 
 The group step type also groups jobs up by a `group_identifier` ([`key` attribute](/docs/pipelines/group-step#group-step-attributes)) if it exists.
 
@@ -106,6 +106,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>notify</code></td>
+    <td>
+      Allows you to <a href="/docs/pipelines/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
+      <em>Example:</em> <code>"github_check:"</code><br>
+    </td>
+  </tr>
+  <tr>
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
@@ -119,7 +126,7 @@ _Optional attributes:_
 
 ## Parallel groups  
 
-If you put two (or more) group steps in a YAML config file consecutively, they run in parallel. For example:  
+If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:  
 
 ```yml
 # 1.sh and 3.sh will start at the same time.
@@ -142,13 +149,13 @@ steps:
 Running jobs in parallel has some limitations:  
 
 <!-- vale off -->
-* If you put even a single command between consecutive groups in a YAML config, the groups will no longer be interpreted as parallel.
+* If you put a command between consecutive groups in a YAML config, the groups will no longer be interpreted as parallel.
 * Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
 * If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
 <!-- vale on -->
 
-* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.  
-* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.  
+* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
+* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
 
 ## Using wait steps in job groups
  
@@ -178,7 +185,7 @@ steps:
 
 ## Group merging  
 
-Different groups that are have the same name and are defined consecutively in the pipeline will be merged together in the Buildkite UI. 
+Different groups that have the same name and are defined consecutively in the pipeline will be merged together in the Buildkite UI. 
 
 For example, if you have a YAML file:
 
