@@ -85,11 +85,11 @@ Optionally, select one or more of the following:
 
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
-## Running builds on tags
+## Running builds on git tags
 
 To run builds for commit tags, edit the GitHub settings for your Buildkite pipeline and choose the _Build Tags_ checkbox.
 
-If you are triggering builds from the [API](/docs/apis/rest-api/builds#create-a-build) or a [schedule](/docs/pipelines/scheduled-builds), you will need to update your agent environment variable like so `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"` in order to fetch tags.
+Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
 
 ## Noreply email handling
 
