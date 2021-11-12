@@ -32,12 +32,18 @@ steps:
       - ./bin/vale pages
 
   - label: ":lint-roller: Linting for insensitive words"
-    command: npm run lint
+    command: npm run lint -y
     plugins:
       # Using the plain Node image, instead of the custom doc Dockerfile
       # version, is way faster because we don't have to wait for Ruby gems to
       # install.
       - docker#v3.7.0:
-          # Alpine 3.12 - EOS 01-05-2022
+          # Alpine 3.14 - EOS 01 May 2023
           # lts = Node 1415.1 - 2023-04-30
-          image: "node:lts-alpine3.12"
+          image: "node:lts-alpine3.14"
+
+  - label: ":snake: Linting markdown files for snake case"
+    command: npx -y @ls-lint/ls-lint
+    plugins:
+      - docker#v3.7.0:
+          image: "node:lts-alpine3.14"

@@ -26,9 +26,9 @@ Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/docs/agent/
 
 ## Disabling command eval
 
-By default the agent allows you to run any command on the build server (e.g. `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution.
+By default the agent allows you to run any command on the build server (for example, `make test`). You can disable command evaluation and allow only the execution of scripts (with no ability to pass command line flags). Disabling command evaluation will also disable plugin execution.
 
-Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is via environment variables.
+Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is using environment variables.
 
 Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/configuration#no-command-eval):
 
@@ -45,12 +45,15 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 
 As plugins execute in the same way as local hooks, they can pose a potential security risk. If you're using third party plugins, you'll be executing the third party's code on your agent.
 
-You can disable plugins with the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
-setting.
+You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
+
+If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).  
+
+
 
 ## Disabling local hooks
 
-If you have enforced a security policy using agent hooks (e.g. force commands to
+If you have enforced a security policy using agent hooks (for example, you force commands to
 run within a Docker container or a chroot environment), you should also disable
 local hooks so that your security measures cannot be evaded with local hooks.
 Disabling local hooks will also disable plugins.
@@ -102,6 +105,10 @@ do
 done
 ```
 
+## Signing pipelines  
+
+If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.  
+
 ## Allowing a list of plugins
 
 Defining an [environment hook](hooks#job-lifecycle-hooks) in the
@@ -143,7 +150,7 @@ exit 1
 
 ## Forcing clean checkouts
 
-By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (e.g. 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment.
+By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (for example, 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment.
 
 ## Running the Agent behind a proxy
 

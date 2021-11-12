@@ -15,6 +15,7 @@ CloudWatch
 Crontab
 Datadog
 Deprovisioning
+Distro
 Dockerfile
 Eventbridge
 Explainshell
@@ -78,6 +79,7 @@ deprioritise
 deprovisioning
 deregistration
 deprovision
+distro
 Dockerfile
 dogstatsd
 env
@@ -89,6 +91,7 @@ gcloud
 gif
 globbing
 golang
+Graviton
 gz
 heroku
 hostname
@@ -151,6 +154,7 @@ substrings
 sudo
 svg
 systemd
+templated
 timeframe
 tmp
 toolmantim

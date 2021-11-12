@@ -19,7 +19,7 @@ Once you’ve configured an Amazon EventBridge notification service in Buildkite
   <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td>A job has been scheduled</td></tr>
   <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
   <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished</td></tr>
-  <tr><th><a href="#events-job-activated">Job Activated</a></th><td>A block step job has been unblocked via the web or API</td></tr>
+  <tr><th><a href="#events-job-activated">Job Activated</a></th><td>A block step job has been unblocked using the web or API</td></tr>
   <tr><th><a href="#events-agent-connected">Agent Connected</a></th><td>An agent has connected</td></tr>
   <tr><th><a href="#events-agent-lost">Agent Lost</a></th><td>An agent has been marked as lost</td></tr>
   <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td>An agent has disconnected</td></tr>
@@ -73,7 +73,7 @@ You can then use [CloudWatch Logs Insights](https://docs.aws.amazon.com/AmazonCl
 
 <%= image "cloudwatch-insights.png", width: 2280/2, height: 998/2, alt: "Screenshot of CloudWatch Logs Insights" %>
 
-## Lambda Example: Track agent wait times via CloudWatch Metrics
+## Lambda Example: Track agent wait times using CloudWatch Metrics
 
 You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) and <a href="#events-job-started">Job Started</a> event to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
 

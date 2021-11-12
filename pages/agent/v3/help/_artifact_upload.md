@@ -26,7 +26,7 @@ supported.
 
 You can specify an alternate destination on Amazon S3, Google Cloud Storage
 or Artifactory as per the examples below. This may be specified in the
-'destination' argument, or in the 'BUILDKITE_ARTIFACT_UPLOAD_DESTINATION'
+&#39;destination&#39; argument, or in the &#39;BUILDKITE_ARTIFACT_UPLOAD_DESTINATION&#39;
 environment variable.  Otherwise, artifacts are uploaded to a
 Buildkite-managed Amazon S3 bucket, where they’re retained for six months.
 
@@ -34,7 +34,7 @@ Buildkite-managed Amazon S3 bucket, where they’re retained for six months.
 
     $ buildkite-agent artifact upload "log/**/*.log"
 
-You can also upload directly to Amazon S3 if you'd like to host your own artifacts:
+You can also upload directly to Amazon S3 if you&#39;d like to host your own artifacts:
 
     $ export BUILDKITE_S3_ACCESS_KEY_ID=xxx
     $ export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy

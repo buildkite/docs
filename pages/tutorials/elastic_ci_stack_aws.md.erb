@@ -1,10 +1,49 @@
-# Elastic CI Stack for AWS
+# Launching and Running Elastic CI Stack for AWS
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws) gives you a private, autoscaling Buildkite Agent cluster in your own AWS account. This guide leads you through getting started with the stack :cloudformation::tada:
 
 
 
 {:toc}
+
+## Prerequisites and requirements  
+ 
+Most Elastic CI Stack features are supported on both Linux and Windows.
+The following AMIs are available in all the supported regions:
+
+* Amazon Linux 2 (64-bit x86)
+* Amazon Linux 2 (64-bit ARM, Graviton)
+* Windows Server 2019 (64-bit x86)
+
+See this [overview page](/docs/agent/v3/elastic-ci-aws) for extensive information on compatibility, configuration, security, and other topics that will allow you to effectively use Elastic CI Stack for AWS.
+
+### Required and recommended skills  
+
+The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
+ 
+* [AWS CloudFormation](https://aws.amazon.com/cloudformation/) 
+* [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceType` stack parameter appropriate for your workload)
+* [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
+
+Elastic CI Stack provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
+ 
+For post-deployment diagnostic purposes, deeper familiarity with EC2 is recommended to be able to access the instances launched to execute Buildkite jobs over SSH or [AWS Systems Manager Sessions](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html). 
+
+### Billable services  
+
+The Elastic CI Stack template deploys several billable Amazon services that do not require upfront payment and operate on a pay-as-you-go principle, with the bill proportional to usage.
+
+| Service name                    | Purpose                                                                                           | Required |
+|---------------------------------|---------------------------------------------------------------------------------------------------|----------|
+| EC2                             | Deployment of instances                                                                                 | ☑️        |
+| EBS                             | Root disk storage of EC2 instances                                                            | ☑️        |
+| Lambda                          | Scaling of Auto Scaling group and modifying Auto Scaling group's properties                     | ☑️        |
+| Systems Manager Parameter Store | Storing the Buildkite agent token                                                                     | ☑️        |
+| CloudWatch Logs                 | Logs for instances and Lambda scaler                                                              | ☑️        |
+| CloudWatch Metrics              | Metrics recorded by Lambda scaler                                                             | ☑️        |
+| S3                              | Charging based on storage and transfers in/and out of the secrets bucket (on by default) | ❌        |
+
+Buildkite services are billed according to your [subscription tier](https://buildkite.com/pricing).
 
 ## Launching the stack
 
@@ -28,7 +67,9 @@ If you don't know your agent token, there is a _Reveal Agent Token_ button avail
 
 By default the stack uses a job queue of `default`, but you can specify any other queue name you like. See the [Buildkite Agent Job Queue docs](/docs/agent/v3/queues) for more info.
 
-Review all configured options. Once you're ready, check both checkboxes:
+Review the parameters, see [Elastic CI Stack for AWS Parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
+
+Once you're ready, check both checkboxes:
 
 - I acknowledge that AWS CloudFormation might create IAM resources with custom names.
 - I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
@@ -83,6 +124,12 @@ Congratulations on running your first Elastic CI Stack build on Buildkite! :clap
 
 ## Further documentation
 
-You can read more about the Elastic CI Stack in our [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws) docs. You can also view the [GitHub repo](https://github.com/buildkite/elastic-ci-stack-for-aws).
+To gain a better understanding of how Elastic CI Stack works and how to use it most effectively and securely, check out the following resources:  
 
-
+* [Elastic CI Stack for AWS overview](/docs/agent/v3/elastic_ci_aws).
+* [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
+* [GitHub repo for Elastic CI Stack](https://github.com/buildkite/elastic-ci-stack-for-aws)
+* [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/parameters)
+* [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager)
+* [VPC Design](/docs/agent/v3/aws/vpc)
+* [CloudFormation Service Role](/docs/agent/v3/elastic-ci-aws/cloudformation-service-role)

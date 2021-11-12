@@ -62,7 +62,7 @@ You can use it like so:
 inline_image 'https://media0.giphy.com/media/8Ry7iAVwKBQpG/giphy.gif' 'Rainbows'
 ```
 
-When rendered in Buildkite (via our open-source [Terminal tool](http://buildkite.github.io/terminal-to-html/)) it will look like this:
+When rendered in Buildkite (using our open-source [Terminal tool](http://buildkite.github.io/terminal-to-html/)) it will look like this:
 
 <%= image("external_image.png", size: '598x410') %>
 
@@ -80,7 +80,7 @@ by using the following URL:
 inline_image 'artifact://tmp/images/omg.gif' 'OMG'
 ```
 
-Be careful to ensure the part of the URL after `artifact://` exactly matches the path you see in the Artifacts tab (e.g. it can't have a preceding `./`).
+Be careful to ensure the part of the URL after `artifact://` exactly matches the path you see in the Artifacts tab (for example, it can't have a preceding `./`).
 
 The image artifact does not have to be uploaded at the time it’s written to the build log. If the artifact has not been uploaded you'll see a loading placeholder, and as soon as it's ready the image will automatically appear.
 
