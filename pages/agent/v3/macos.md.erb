@@ -86,7 +86,7 @@ tail -f ~/.buildkite-agent/log/buildkite-agent.log
 
 Launching and managing multiple agents can be done using `launchd`.
 
-If you need the same configuration on each agent, configure a `launchd` service to use the `--spawn` flag on the `buildkite-agent` command.
+If you need the same configuration on each agent, configure a `launchd` service to use the `--spawn` flag on the `buildkite-agent` command or you can configure this in the buildkite-agent.cfg file.
 
 Using the existing agent `plist`, add the spawn flag to the `ProgramArguments` and change the number to how many agents you want to run.
 
