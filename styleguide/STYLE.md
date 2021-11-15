@@ -173,6 +173,10 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 `app/views/layouts/_sidebar.html.erb` with a description (for example, `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
+### Filenames and filename linting
+Use `snake_case` for filenames. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+
 ### Escaping vale linting
 If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
@@ -188,13 +192,9 @@ Use the `vale off` syntax before a phrase that needs to be bypassed by the linte
 ### Markdown linting
 A [markdown linter](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md) is at work in Buildkite documentation. 
 
-The enabled markdown linting rules are in [`.markdownlint.yaml`](.markdownlint.yaml) file.
+The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
-Please keep the [help](/pages/agent/v3/help) files exempt from markdown linting at all times!
-
-### Filenames and filename linting
-Use `snake_case` for filenames. The [`.ls-lint` linter](.ls-lint.yml) checks if this rule is observed.
-See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+Please keep the [help](https://github.com/buildkite/docs/tree/main/pages/agent/v3/help) files exempt from markdown linting at all times!
 
 ### Links
 Use standard markdown links syntax for both internal and external links.
