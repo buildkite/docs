@@ -1,4 +1,4 @@
-# Styleguide
+# Style Guide
 
 Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
@@ -16,7 +16,7 @@ This section covers everything related to the language and formatting used in Bu
 
 ### Dictionary
 We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker.
+We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### English flavor
 Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
@@ -185,6 +185,17 @@ This is some text that you do NOT want the linter to check
 ```
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
+### Markdown linting
+A [markdown linter](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md) is at work in Buildkite documentation. 
+
+The enabled markdown linting rules are in [`.markdownlint.yaml`](.markdownlint.yaml) file.
+
+Please keep the [help](/docs/tree/main/pages/agent/v3/help) files exempt from markdown linting at all times!
+
+### Filenames and filename linting
+Use `snake_case` for filenames. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+
 ### Links
 Use standard markdown links syntax for both internal and external links.
 
@@ -231,7 +242,7 @@ Use the following example to add a 'note' in the documentation.
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
-```  
+```
 Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
 #### Troubleshooting Note blocks
