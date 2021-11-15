@@ -2,7 +2,7 @@
  
 A *group* step can contain various sub-steps, and display them in a single logical group on the Build page. For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
-The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends-on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
+The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
 
 {:toc}
  
@@ -95,7 +95,7 @@ _Optional attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-    	A unique string to identify the step, block, or group. Alias: `identifier` or `id`.
+    	A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
   </tr>  
@@ -215,7 +215,7 @@ And this YAML file uploads a pipeline that has a group with the same name:
 ```
 {: codeblock-file="pipeline.yml"}  
 
-As a result, the groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
+These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
 
 ```yml
 - group: "Setup"
@@ -246,4 +246,4 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In this case, `echo .buildkite/steps/flow` command will be added to the existing group.
+The command `echo .buildkite/steps/flow` will be added to the existing group and the groups will be displayed as one in the UI.
