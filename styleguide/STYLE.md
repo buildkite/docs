@@ -188,9 +188,9 @@ Use the `vale off` syntax before a phrase that needs to be bypassed by the linte
 ### Markdown linting
 A [markdown linter](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md) is at work in Buildkite documentation. 
 
-The enabled markdown linting rules are in [`.markdownlint.yaml`](.markdownlint.yaml) file.
+The enabled markdown linting rules are in [`.markdownlint.yaml`](/main/.markdownlint.yaml) file.
 
-Please keep the [help](/docs/tree/main/pages/agent/v3/help) files exempt from markdown linting at all times!
+Please keep the [help](/main/pages/agent/v3/help) files exempt from markdown linting at all times!
 
 ### Filenames and filename linting
 Use `snake_case` for filenames. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
