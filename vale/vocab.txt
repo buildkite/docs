@@ -133,6 +133,7 @@ readme
 readmes
 refspec
 repo
+RSpec
 routable
 rvm
 sandboxed
