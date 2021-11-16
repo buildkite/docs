@@ -174,7 +174,7 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
 ### Filenames and filename linting
-Use `snake_case` for filenames. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+Use `snake_case` for `*.md.erb` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
 See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
 
 ### Escaping vale linting
@@ -190,11 +190,10 @@ This is some text that you do NOT want the linter to check
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
 ### Markdown linting
-A [markdown linter](https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md) is at work in Buildkite documentation. 
+A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation. 
 
 The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
-Please keep the [help](https://github.com/buildkite/docs/tree/main/pages/agent/v3/help) files exempt from markdown linting at all times!
 
 ### Links
 Use standard markdown links syntax for both internal and external links.
@@ -242,7 +241,6 @@ Use the following example to add a 'note' in the documentation.
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
-```
 Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
 #### Troubleshooting Note blocks
