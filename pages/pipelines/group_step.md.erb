@@ -145,9 +145,9 @@ steps:
       - wait
       - command: '4.sh'
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
-Running jobs in parallel has some limitations:  
+Running jobs in parallel has some limitations:
 
 <!-- vale off -->
 * If you put a command between consecutive groups in a YAML config, the groups will no longer be interpreted as parallel.
@@ -160,7 +160,7 @@ Running jobs in parallel has some limitations:
 * It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
 
 ## Using wait steps in job groups
- 
+
 You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:  
 
 ```yml
@@ -183,9 +183,9 @@ steps:
   - command: "yay.sh"
     depends_on: "toast"
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
-## Group merging  
+## Group merging
 
 Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI. 
 
@@ -213,7 +213,7 @@ And this YAML file uploads a pipeline that has a group with the same name:
   steps:
     - command: "docker build"
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
 These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
 
