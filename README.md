@@ -49,15 +49,20 @@ PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
 
 ## Linting
 
-We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors.
+We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
+
+## Style guide
+
+Our documentation is based on the principles of common sense, clarity, and brevity.
+
+The [style guide](/styleguide/STYLE.md) should provide you a general idea and an insight into using custom formatting elements.
 
 ## Search index
 
 The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
 To test changes to the indexing configuration (you'll need an API key) run `rake update_test_index`.
-
 
 ## License
 

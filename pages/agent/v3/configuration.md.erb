@@ -154,7 +154,7 @@ _Optional attributes:_
           <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
+        <p class="Docs__api-param-eg"><a href="/docs/pipelines/environment-variables#bk-env-vars-buildkite-repo-mirror"><em>Environment variable</em></a>: <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
 
       </td>
     </tr>
@@ -163,6 +163,7 @@ _Optional attributes:_
       <th><code>git-fetch-flags</code></th>
       <td>
         Flags to pass to the <code>git fetch</code> command.
+        Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v --prune"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_FETCH_FLAGS</code></p>
       </td>

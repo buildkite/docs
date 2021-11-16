@@ -63,13 +63,14 @@ install.
 1. Configure the instance VPC subnet, security groups, and key name so that you
 can access the instance.
 1. Using an SSH or AWS SSM session:
-	* Set a password for the `ec2-user` using `sudo passwd ec2-user`
-	* Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	* Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
+	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`
 	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
 	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
+	1. Disable the screen saver in *System Preferences* > *Desktop & Screen Saver* > *Show screen saver after*
 1. Install your required version of Xcode, and ensure you launch Xcode at least
 once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.

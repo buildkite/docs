@@ -47,7 +47,7 @@ As plugins execute in the same way as local hooks, they can pose a potential sec
 
 You can disable plugins with the command line flag: `--no-plugins` or the [`no-plugins`](/docs/agent/v3/configuration#no-plugins) setting.
 
-If you still want to use plugins, you can check out an experimental third-party tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).  
+If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).  
 
 
 
@@ -107,7 +107,7 @@ done
 
 ## Signing pipelines  
 
-If using plugins is crucial to your workflow, but you would still like to preserve strong security guarantees, take a look at [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. It is an experimental reference implementation that adds extra security guarantees around Buildkite’s jobs by allowing to sign the uploaded pipelines with a secret shared by all agents. You can use it as an inspiration to build a similar tool that meets your needs, and it not recommended to use this tool 'as is' in a production setting.  
+If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.  
 
 ## Allowing a list of plugins
 
@@ -161,7 +161,7 @@ To run the agent behind a proxy, you'll need to export the following proxy envir
 
 Both of these variables should be set to the URL for your proxy server.
 
-For example, if using systemd, create a directory named `/etc/systemd/system/buildkite-agent.service.d` that contains a `proxy.conf` file. 
+For example, if using systemd, create a directory named `/etc/systemd/system/buildkite-agent.service.d` that contains a `proxy.conf` file.
 
 An example systemd `proxy.conf` file:
 
@@ -173,16 +173,16 @@ Environment=https_proxy=http://username:password@proxyserver:8080/
 ```
 {: codeblock-file="proxy.conf"}
 
-After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart. 
+After creating this file, systemd will require a reload and the `buildkite-agent` service will require a restart.
 
 ## Restricting access by the Buildkite agent controller
- 
+
 To safeguard your organization's infrastructure in case of Buildkite infrastructure being compromised, you want to restrict what the agent can and cannot do. All of the information above about securing the Buildkite agent applies, specifically:
 
 * Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
 * [Disable command-eval](#disabling-command-eval)  
 * [Disable local hooks](#disabling-local-hooks)  
 * [Enable strict validation](#strict-checks-using-a-pre-bootstrap-hook)
- 
-As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you. 
+
+As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.  
