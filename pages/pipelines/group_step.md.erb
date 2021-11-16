@@ -1,14 +1,14 @@
 # Group Step
- 
+
 A *group* step can contain various sub-steps, and display them in a single logical group on the Build page. For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
 
 {:toc}
- 
-A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.  
 
-Here is an example of using the group step:  
+A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.
+
+Here is an example of using the group step:
 
 ```yml
 - group: "\:lock_with_ink_pen\: Security Audits"
@@ -23,19 +23,19 @@ Here is an example of using the group step:
     - name: "\:yarn\: Outdated Check"
       command: ".buildkite/steps/outdated"
 ```
-{: codeblock-file="pipeline.yml"} 
+{: codeblock-file="pipeline.yml"}
 
-This is how it's displayed in the UI: 
+This is how it's displayed in the UI:
 
 <%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
-Only the first 100 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page. 
+Only the first 100 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page.
 
 You can [merge groups](#group-merging) by giving them the same `label` or name.
 
-## Group step attributes  
+## Group step attributes
 
-_Required attributes:_  
+_Required attributes:_
 
 <table data-attributes>
 <tr>
@@ -54,7 +54,7 @@ _Required attributes:_
   </tr>
 </table>
 
-_Optional attributes:_  
+_Optional attributes:_
 
 <table data-attributes>
   <tr>
@@ -77,7 +77,7 @@ _Optional attributes:_
       A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
-   </tr>
+  </tr>
   <tr>
     <td><code>env</code></td>
     <td>
@@ -95,10 +95,10 @@ _Optional attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-    	A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
+    A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
       <em>Example:</em> <code>"test-suite"</code>
     </td>
-  </tr>  
+  </tr>
   <tr>
     <td><code>label</code></td>
     <td>
@@ -125,7 +125,7 @@ _Optional attributes:_
   </tr>
 </table>
 
-## Parallel groups  
+## Parallel groups
 
 If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:  
 
@@ -145,14 +145,14 @@ steps:
       - wait
       - command: '4.sh'
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
-Running jobs in parallel has some limitations:  
+Running jobs in parallel has some limitations:
 
 <!-- vale off -->
 * If you put a command between consecutive groups in a YAML config, the groups will no longer be interpreted as parallel.
 * Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
-* If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps. 
+* If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.
 
 <!-- vale on -->
 
@@ -160,7 +160,7 @@ Running jobs in parallel has some limitations:
 * It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
 
 ## Using wait steps in job groups
- 
+
 You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:  
 
 ```yml
@@ -183,11 +183,11 @@ steps:
   - command: "yay.sh"
     depends_on: "toast"
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
-## Group merging  
+## Group merging
 
-Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI. 
+Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI.
 
 ```
 <section class="Docs__note">
@@ -213,7 +213,7 @@ And this YAML file uploads a pipeline that has a group with the same name:
   steps:
     - command: "docker build"
 ```
-{: codeblock-file="pipeline.yml"}  
+{: codeblock-file="pipeline.yml"}
 
 These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
 
