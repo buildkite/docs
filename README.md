@@ -12,7 +12,7 @@ cd docs
 git submodule update --init
 ```
 
-> **Note**: On Mac, install Ruby using [rbenv](https://github.com/rbenv/rbenv) instead of using Ruby provided by MacOS or installed using homebrew.
+> **Note**: If you're having trouble with an installation on an M1 Mac, use [rbenv](https://github.com/rbenv/rbenv) instead of the Ruby version provided by macOS or Homebrew.
 
 If you have Ruby installed:
 
