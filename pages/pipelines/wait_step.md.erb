@@ -98,9 +98,19 @@ steps:
 
 The explicit null `~` character used in the above examples isn't required, but is recommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
 
-## When wait and block steps are placed one after another
+## Block step after the wait step
   
-If a wait step is immediately surrounded by a block step, then the wait step would be ignored and only block step would be run.
+If a block step follows or precedes a wait step in the YAML config file, the wait step will be ignored and only the block step will run.
+
+```yml
+steps:
+  - command: ".buildkite/steps/yarn"
+  - wait: ~
+  - block: "unblock me"
+```
+{: codeblock-file="pipeline.yml"}
+
+In tis example, the wait step will be ignored. But let's consider a different example:
 
 ```yml
 steps:
@@ -111,9 +121,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In the above case, though continue_on_failure is set to true, block step will not be executed. This is because, the wait step is ignored as its surrounded by (followed by or preceded by) a block step.
+Here the wait step will be ignored, but the block step will not be executed because `continue_on_failure` is set to true.
 
-If a block step has to be run after a failed step, a [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) can be setup like below:
+If a block step has to be run after a failed step, a [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) can be used:
 
 ```yml
 steps:
