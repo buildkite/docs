@@ -48,7 +48,7 @@ _Required attributes:_
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: `wait`, `trigger`, `command`.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/command-step"><code>command</code>/<code>commands</code></a>.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -127,7 +127,7 @@ _Optional attributes:_
 
 ## Parallel groups
 
-If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:  
+If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:
 
 ```yml
 # 1.sh and 3.sh will start at the same time.
@@ -185,6 +185,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+
 ## Group merging
 
 Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI.
@@ -199,7 +200,9 @@ For example, you have a YAML file:
 ```yml
 - group: "Setup"
   steps:
-    - command: "buildkite agent pipeline upload"
+    - commands:
+      - "buildkite agent pipeline upload"
+      - "abc.sh"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -212,15 +215,17 @@ And this YAML file uploads a pipeline that has a group with the same name:
 ```
 {: codeblock-file="pipeline.yml"}
 
-These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
+These groups will be merged into one in the UI, and the `docker build` step will be added to the existing group.
 
 ```yml
 - group: "Setup"
   steps:
-    - command: "buildkite agent pipeline upload"
+    - commands:
+      - "buildkite agent pipeline upload"
+      - "abc.sh"
 - group: "Setup"
   steps:
-      - command: "docker build"
+    - command: "docker build"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -231,14 +236,14 @@ steps:
 - group: ~
   label: "linting"
   steps:
-    - name: ":rubocop: RuboCop"
+    - name: "\:rubocop\: RuboCop"
       command: "echo .buildkite/steps/rubocop"
-    - name: ":eslint: ESlint"
+    - name: "\:eslint\: ESlint"
       command: "echo .buildkite/steps/eslint"
 - group: ~
   label: "linting"
   steps:
-    - label: ":flowtype: Flow"
+    - label: "\:flowtype\: Flow"
       command: "echo .buildkite/steps/flow"
 ```
 {: codeblock-file="pipeline.yml"}
