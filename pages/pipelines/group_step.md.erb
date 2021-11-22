@@ -14,13 +14,13 @@ Here is an example of using the group step:
 - group: "\:lock_with_ink_pen\: Security Audits"
   key: "audits"
   steps:
-    - name: "\:brakeman\: Brakeman"
+    - label: "\:brakeman\: Brakeman"
       command: ".buildkite/steps/brakeman"
-    - name: "\:bundleaudit\: Bundle Audit"
+    - label: "\:bundleaudit\: Bundle Audit"
       command: ".buildkite/steps/bundleaudit"
-    - name: "\:yarn\: Yarn Audit"
+    - label: "\:yarn\: Yarn Audit"
       command: ".buildkite/steps/yarn"
-    - name: "\:yarn\: Outdated Check"
+    - label: "\:yarn\: Outdated Check"
       command: ".buildkite/steps/outdated"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -136,14 +136,14 @@ If you put two or more group steps in a YAML config file consecutively, they wil
 steps:
   - group: "first"
     steps:
-      - command: '1.sh'
+      - command: "1.sh"
       - wait
-      - command: '2.sh'
+      - command: "2.sh"
   - group: "second"
     steps:
-      - command: '3.sh'
+      - command: "3.sh"
       - wait
-      - command: '4.sh'
+      - command: "4.sh"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -161,18 +161,18 @@ Running jobs in parallel has some limitations:
 
 ## Using wait steps in job groups
 
-You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:  
+You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:
 
 ```yml
 steps:
-  - group: "111"
+  - group: "Group01"
     depends_on: "tests"
     steps:
       - command: "a.sh"
       - wait
       - command: "b.sh"
 
-  - group: "222"
+  - group: "Group02"
     depends_on: "tests"
     id: "toast"
     steps:
@@ -238,7 +238,7 @@ steps:
 - group: ~
   label: "linting"
   steps:
-    - name: ":flowtype: Flow"
+    - label: ":flowtype: Flow"
       command: "echo .buildkite/steps/flow"
 ```
 {: codeblock-file="pipeline.yml"}
