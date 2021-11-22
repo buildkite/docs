@@ -114,7 +114,7 @@ p4 pt4 pr4 pb4 pl4 py4 px4
 
 Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax.
 
-<!-- Following codeblock needs to be indented to show the codeblock as well as the code -->
+<!-- Following code block needs to be indented to show the code block as well as the code -->
 
     ```term
     \x1b[31mFailure/Error:\x1b[0m \x1b[32mexpect\x1b[0m(new_item.created_at).to eql(now)
@@ -129,10 +129,10 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
 
 
 <div class="Docs__note">
-<p>Make sure you escape the backticks (<code>`</code>) that demarcate the codeblock.</p>
+<p>Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're .</p>
 </div>
 
-For example, the following pipeline prints an escaped markdown block, adds linebreaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
+The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
 
 ```yaml
 steps:
@@ -152,7 +152,7 @@ Or for more complex annotations, pipe an entire file to the `buildkite-agent ann
 printf '%b\n' "$(cat markdown-for-annotation.md)" | buildkite-agent annotate
 ```
 
-If you're using our [terminal to html](http://buildkite.github.io/terminal-to-html/) tool, wrap the output in `<pre class="term"><code></code></pre>` tags, so it displays the terminal colour styles but won't process it again:
+If you're using our [terminal to HTML](http://buildkite.github.io/terminal-to-html/) tool, wrap the output in `<pre class="term"><code></code></pre>` tags, so it displays the terminal colour styles but won't process it again:
 
 ```html
 <pre class="term">
