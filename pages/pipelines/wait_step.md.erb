@@ -111,7 +111,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In the above case, though continue_on_failure is set to true, block step will not be executed. This is because, the wait step is ignored as its surrounded by (followed by or preceeded by) a block step. 
+In the above case, though continue_on_failure is set to true, block step will not be executed. This is because, the wait step is ignored as its surrounded by (followed by or preceded by) a block step.
 
 If a block step has to be run after a failed step, a [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) can be setup like below:
 
