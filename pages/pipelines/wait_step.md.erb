@@ -46,6 +46,11 @@ _Optional attributes:_
   </tr>
 </table>
 
+<div class="Docs__troubleshooting-note">
+  <h3>When Wait and Block steps are placed one after another</h3>
+  <p>If a wait step is immediately surrounded by a block step, then the wait step would be ignored and only block step would be run.</p>
+</div>
+
 ## Continuing on failure
 
 You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed.
