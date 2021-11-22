@@ -1,0 +1,34 @@
+## Block steps interacting with wait steps
+
+If a block step follows or precedes a wait step in your build, the wait step will be ignored and only the block step will run, like this example:
+
+```yml
+steps:
+  - command: ".buildkite/steps/yarn"
+  - wait: ~
+  - block: "unblock me"
+```
+{: codeblock-file="pipeline.yml"}
+
+But let's consider a different example. Now the wait step will be ignored, but the block step will not be executed because `continue_on_failure` is set to `true`.
+
+
+```yml
+steps:
+  - command: "exit -1"
+  - wait: ~
+    continue_on_failure: true
+  - block: "unblock me"
+```
+{: codeblock-file="pipeline.yml"}
+
+If you need to run a block step after a failed step, set [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) on the failing step:
+
+```yml
+steps:
+  - command: "exit -1"
+    soft_fail:
+      - exit_status: "*"
+  - block: "unblock me"
+```
+{: codeblock-file="pipeline.yml"}
