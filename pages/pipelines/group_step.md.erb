@@ -127,7 +127,7 @@ _Optional attributes:_
 
 ## Parallel groups
 
-If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:  
+If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:
 
 ```yml
 # 1.sh and 3.sh will start at the same time.
@@ -168,24 +168,38 @@ steps:
   - group: "Group01"
     depends_on: "tests"
     steps:
-      - commands:
-        - "a.sh"
-        - wait
-        - "b.sh"
+      - command: "a.sh"
+      - wait
+      - command: "b.sh"
 
   - group: "Group02"
     depends_on: "tests"
     id: "toast"
     steps:
-      - commands:
-        - "c.sh"
-        - wait
-        - "d.sh"
+      - command: "c.sh"
+      - wait
+      - command: "d.sh"
 
   - command: "yay.sh"
     depends_on: "toast"
 ```
 {: codeblock-file="pipeline.yml"}
+
+Note that a wait step placed inside a set of `commands` will not work because `wait` does not belong to the [command step attributes](/docs/pipelines/command-step#command-step-attributes):
+
+```yml
+steps:
+  - group: "Group01"
+    depends_on: "tests"
+    steps:
+      - commands:
+        - "a.sh"
+        - wait
+        - "b.sh"
+```
+{: codeblock-file="pipeline.yml"}
+
+In the example above, the wait step between `a.sh` and `b.sh` will be ignored during deployment.
 
 ## Group merging
 
