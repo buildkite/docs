@@ -185,21 +185,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Note that a wait step placed inside a set of `commands` will not work because `wait` does not belong to the [command step attributes](/docs/pipelines/command-step#command-step-attributes):
-
-```yml
-steps:
-  - group: "Group01"
-    depends_on: "tests"
-    steps:
-      - commands:
-        - "a.sh"
-        - wait
-        - "b.sh"
-```
-{: codeblock-file="pipeline.yml"}
-
-In the example above, the wait step between `a.sh` and `b.sh` will be ignored during deployment.
+Remember that a wait step placed inside a set of `commands` will be ignored because <code>wait</code> is not a command.
 
 ## Group merging
 
@@ -215,7 +201,9 @@ For example, you have a YAML file:
 ```yml
 - group: "Setup"
   steps:
-    - command: "buildkite agent pipeline upload"
+    - commands:
+      - "buildkite agent pipeline upload"
+      - "abc.sh"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -228,15 +216,17 @@ And this YAML file uploads a pipeline that has a group with the same name:
 ```
 {: codeblock-file="pipeline.yml"}
 
-These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
+These groups will be merged into one in the UI, and the `docker build` step will be added to the existing group.
 
 ```yml
 - group: "Setup"
   steps:
-    - command: "buildkite agent pipeline upload"
+    - commands:
+      - "buildkite agent pipeline upload"
+      - "abc.sh"
 - group: "Setup"
   steps:
-      - command: "docker build"
+    - command: "docker build"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -247,14 +237,14 @@ steps:
 - group: ~
   label: "linting"
   steps:
-    - name: ":rubocop: RuboCop"
+    - name: "\:rubocop\: RuboCop"
       command: "echo .buildkite/steps/rubocop"
-    - name: ":eslint: ESlint"
+    - name: "\:eslint\: ESlint"
       command: "echo .buildkite/steps/eslint"
 - group: ~
   label: "linting"
   steps:
-    - label: ":flowtype: Flow"
+    - label: "\:flowtype\: Flow"
       command: "echo .buildkite/steps/flow"
 ```
 {: codeblock-file="pipeline.yml"}
