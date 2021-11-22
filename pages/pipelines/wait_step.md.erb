@@ -98,9 +98,9 @@ steps:
 
 The explicit null `~` character used in the above examples isn't required, but is recommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
 
-## Block step after the wait step
-  
-If a block step follows or precedes a wait step in the YAML config file, the wait step will be ignored and only the block step will run.
+## Block steps interacting with wait steps
+
+If a block step follows or precedes a wait step in your build, the wait step will be ignored and only the block step will run, like this example:
 
 ```yml
 steps:
@@ -110,7 +110,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-In this example, the wait step will be ignored. But let's consider a different example:
+But let's consider a different example. Now the wait step will be ignored, but the block step will not be executed because `continue_on_failure` is set to `true`.
+
 
 ```yml
 steps:
@@ -121,14 +122,12 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Here the wait step will be ignored, but the block step will not be executed because `continue_on_failure` is set to true.
-
-If a block step has to be run after a failed step, a [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) can be used:
+If you need to run a block step after a failed step, set [soft_fail](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) on the failing step:
 
 ```yml
 steps:
   - command: "exit -1"
-    soft_fail: 
+    soft_fail:
       - exit_status: "*"
   - block: "unblock me"
 ```
