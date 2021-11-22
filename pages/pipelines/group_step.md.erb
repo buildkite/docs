@@ -48,7 +48,7 @@ _Required attributes:_
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: `wait`, `trigger`, `command`.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: `wait`, `trigger`, `command`, `commands`.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -168,17 +168,19 @@ steps:
   - group: "Group01"
     depends_on: "tests"
     steps:
-      - command: "a.sh"
-      - wait
-      - command: "b.sh"
+      - commands:
+        - "a.sh"
+        - wait
+        - "b.sh"
 
   - group: "Group02"
     depends_on: "tests"
     id: "toast"
     steps:
-      - command: "c.sh"
-      - wait
-      - command: "d.sh"
+      - commands:
+        - "c.sh"
+        - wait
+        - "d.sh"
 
   - command: "yay.sh"
     depends_on: "toast"
