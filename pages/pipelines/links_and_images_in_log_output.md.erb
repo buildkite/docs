@@ -85,12 +85,12 @@ Be careful to ensure the part of the URL after `artifact://` exactly matches the
 The image artifact does not have to be uploaded at the time it’s written to the build log. If the artifact has not been uploaded you'll see a loading placeholder, and as soon as it's ready the image will automatically appear.
 
 <section class="Docs__note">
-  <p>If you are using private artifacts, your images need to be base64-encoded to allow Buildkite to access and inline them.</p>
+  <p>If you are using private artifacts, your images need to be <a href="#images-base64-encoded-images">base64-encoded</a> so that Buildkite can access and inline them.</p>
 </section>
 
 ### Base64-encoded images
 
-If you want to embed an image encoded in base64, you can use [iTerm’s image format](http://iterm2.com/images.html#/section/home), but be mindful of the [log output limits](/docs/pipelines/managing-log-output#log-output-limits). It's more recommended to upload the image as a build artifact and reference it using the `artifact://` URL.
+If you want to embed an image encoded in base64, you can use [iTerm’s image format](http://iterm2.com/images.html#/section/home), but be mindful of the [log output limits](/docs/pipelines/managing-log-output#log-output-limits). Unless you're embedding images for a specific reason, it's better to upload the image as a [build artifact](/docs/pipelines/artifacts#uploading-artifacts-in-build-steps) and reference it using the `artifact://` URL.
 
 ### Library support
 
