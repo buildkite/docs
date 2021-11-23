@@ -129,7 +129,7 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
 
 
 <div class="Docs__note">
-<p>Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're .</p>
+<p>Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're echoing to the terminal, so it doesn't get interpreted as a shell interpreted command.</p>
 </div>
 
 The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
