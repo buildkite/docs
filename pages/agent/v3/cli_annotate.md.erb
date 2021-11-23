@@ -43,7 +43,7 @@ steps:
 
 We use CommonMark with GitHub Flavored Markdown extensions to provide consistent, unambiguous Markdown syntax.
 
-GitHub [kindly provides a guide](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) to this syntax.
+GitHub kindly provides a [guide to this syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown).
 
 Annotations do not support GitHub-style syntax highlighting, task lists, user mentions, or automatic links for references to issues, pull requests or commits.
 
@@ -112,7 +112,9 @@ p4 pt4 pr4 pb4 pl4 py4 px4
 
 ### Colored console output
 
-Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block with either the `term` or `terminal` syntax.
+Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax.
+
+<!-- Following code block needs to be indented to show the code block as well as the code -->
 
     ```term
     \x1b[31mFailure/Error:\x1b[0m \x1b[32mexpect\x1b[0m(new_item.created_at).to eql(now)
@@ -125,7 +127,40 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
-Additionally, terminal output processed through [our Terminal tool](http://buildkite.github.io/terminal-to-html/) can be wrapped in `<pre class="term"><code></code></pre>` tags, which will accept the terminal colour styles but not attempt to process it again.
+
+<div class="Docs__note">
+<p>Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're .</p>
+</div>
+
+The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
+
+```yaml
+steps:
+  - label: "Annotation Test"
+    command:
+      - echo -e "\`\`\`term\nThis is a \033[0;31mtest\033[0m\n\`\`\`" | buildkite-agent annotate
+```
+{: codeblock-file="pipeline.yml"}
+
+The results are piped though to the `buildkite-agent annotate` command:
+
+<%= image "annotations-terminal-output-color.png", alt: "Screenshot of colored terminal output in an annotation" %>
+
+Or for more complex annotations, pipe an entire file to the `buildkite-agent annotate` command:
+
+```bash
+printf '%b\n' "$(cat markdown-for-annotation.md)" | buildkite-agent annotate
+```
+
+If you're using our [terminal to HTML](http://buildkite.github.io/terminal-to-html/) tool, wrap the output in `<pre class="term"><code></code></pre>` tags, so it displays the terminal colour styles but won't process it again:
+
+```html
+<pre class="term">
+  <code>
+    terminal-to-html output
+  </code>
+</pre>
+```
 
 ## Embedding & linking artifacts in annotations
 
@@ -140,6 +175,7 @@ steps:
         <img src="artifact://indy.png" alt="Belongs in a museum" height=250 >
       EOF
 ```
+{: codeblock-file="pipeline.yml"}
 
 <%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
 
@@ -154,6 +190,7 @@ steps:
         Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
       EOF
 ```
+{: codeblock-file="pipeline.yml"}
 
 ## Using annotations to report test results
 
@@ -172,3 +209,4 @@ steps:
       - junit-annotate#v1.2.0:
           artifacts: tmp/junit-*.xml
 ```
+{: codeblock-file="pipeline.yml"}
