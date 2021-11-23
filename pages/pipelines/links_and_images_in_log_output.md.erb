@@ -84,7 +84,10 @@ Be careful to ensure the part of the URL after `artifact://` exactly matches the
 
 The image artifact does not have to be uploaded at the time it’s written to the build log. If the artifact has not been uploaded you'll see a loading placeholder, and as soon as it's ready the image will automatically appear.
 
-If you are using private artifacts, you will need to base64 encode the images since Buildkite won't be able to access the image in order to inline it.
+<section class="Docs__troubleshooting-note">
+  <p>If you are using private artifacts, you will need to base64 encode the images since Buildkite won't be able to access the image in order to inline it.</p>
+</section>
+
 
 ### Library Support
 
