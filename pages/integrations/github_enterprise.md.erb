@@ -43,7 +43,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
    - If you're using self-signed certificates, make sure the _Verify TLS Certificate_ checkbox is not checked.
 4. Select _Save GitHub Enterprise Settings_ to save your settings. After saving, the _Secret_ field appears blank. Buildkite has saved it, and will not display it.
 
-<%= image "buildkite-github-enterprise-settings.png", width:1738/2, height:1216/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
+<%= image "buildkite-github-enterprise-settings.png", width:2598/2, height:1650/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
 
 You can optionally supply a TLS certificate pair to be used by Buildkite as a client certificate when contacting your GitHub Enterprise endpoints.
 
@@ -70,6 +70,8 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and 
 If you need to leave your current GitHub Enterprise Organization, you need to transfer the OAuth ownership first. Without this, the remaining members of your Buildkite team who are using that GitHub Enterprise Organization for OAth won't be able to log in.
 
 To correctly transfer the OAuth ownership over your GitHub Enterprise Organization, see GitHub's official documentation for [Transferring ownership of an OAuth App](https://docs.github.com/en/developers/apps/managing-oauth-apps/transferring-ownership-of-an-oauth-app) and [Maintaining ownership continuity for your organization](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization).
+
+## Branch configuration and settings
 
 <%= render_markdown 'integrations/branch_config_settings' %>
 
@@ -120,6 +122,10 @@ http {
 }
 ```
 
+## Using one repository in multiple pipelines and organizations
+
 <%= render_markdown 'integrations/one_repo_multi_org' %>
+
+## Build skipping
 
 <%= render_markdown 'integrations/build_skipping' %>
