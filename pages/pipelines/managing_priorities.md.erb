@@ -1,5 +1,7 @@
 # Job Prioritization
 
+Jobs dispatch is when the job is taken from the queue and assigned to an agent.
+
 Jobs are dispatched to agents in the following order
 
 1. Job priority in descending order, highest number to lowest (`priority`)
@@ -18,7 +20,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority will be assigned before jobs with lower priority.
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority will be assigned before jobs with lower priority, even if the last one was waiting longer.
 
 Here's an example of prioritising jobs running on a default branch before pull request jobs:
 
