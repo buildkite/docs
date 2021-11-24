@@ -84,7 +84,7 @@ attributes:
   default_value: "none"
   required: false
   desc: | 
-      Flags to pass to the `git clone` command when used for mirroring.  
+      Flags to pass to the `git clone` command when used for mirroring.
       This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.  
       _Example:_ `-v --mirror`.
 - name: git-fetch-flags
@@ -92,7 +92,7 @@ attributes:
   default_value: "-v --prune"
   required: false
   desc: | 
-      Flags to pass to the `git fetch` command.
+      Flags to pass to the `git fetch` command. Before [running builds on git tags](https://buildkite.com/docs/integrations/github#running-builds-on-git-tags), make sure your agent is fetching git tags.
 - name: git-mirrors-lock-timeout
   env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
   default_value: "300"
@@ -119,7 +119,7 @@ attributes:
   default_value: "(depends on platform)"
   required: false
   desc: | 
-      Directory containing the global hook scripts.
+      The directory to use for agent hooks. See [Hook locations](https://buildkite.com/docs/agent/v3/hooks#hook-locations) for details.
 - name: log-format
   env_var: BUILDKITE_LOG_FORMAT
   default_value: "text"
@@ -143,7 +143,7 @@ attributes:
   default_value: "127.0.0.1:8125"
   required: false
   desc: | 
-        The DogStatsD instance to send metrics to via UDP.
+        The DogStatsD instance to send metrics to using UDP.
 - name: name
   env_var: BUILDKITE_AGENT_NAME
   default_value: "%hostname-%n"
@@ -227,18 +227,17 @@ attributes:
       The priority of the agent. Higher priorities are assigned work first, null is assigned last.
 - name: redacted-vars 
   env_var: BUILDKITE_REDACTED_VARS
-  default_value: "'*_PASSWORD', '*_SECRET', '*_TOKEN'"
+  default_value: "'*_PASSWORD', '*_SECRET', '*_TOKEN', '*_ACCESS_KEY', '*_SECRET_KEY'"
   required: false
   desc: | 
-      The values of environment variables whose names match these patterns are [redacted](/docs/pipelines/managing-log-output#redacted-environment-variables) before being printed to the build log.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration.
+      A list of environment variable name patterns whose values should be [redacted](/docs/pipelines/managing-log-output#redacted-environment-variables) before being printed to the build log. To disable redaction, set this to an empty string. Introduced in [v3.31](https://github.com/buildkite/agent/releases/tag/v3.31.0).
 - name: shell
   env_var: BUILDKITE_SHELL
   default_value: "`C:\\Windows\\System32\\CMD.exe`\" on Windows, \"`/bin/bash`\" on *nix systems"
   required: false
   desc: | 
       The shell command used to interpret build commands. 
-      _Example:_ `/bin/bash -e -c`.
+      _Example:_ `/bin/bash -e -c`. PowerShell 6 and 7 are not supported.
 - name: spawn
   env_var: BUILDKITE_AGENT_SPAWN
   default_value: "1"

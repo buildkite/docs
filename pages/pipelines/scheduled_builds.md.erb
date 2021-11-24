@@ -1,12 +1,12 @@
 # Scheduled Builds
 
-Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks. 
+Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks.
 
 You can create and manage schedules in the Schedules section of your Pipeline Settings.
 
 <%= image "pipeline-settings-schedules.png", width: 1756/2, height: 312/2, alt: "Screenshot of the Schedules section of Pipeline Settings with an Hourly Security Checks schedule listed" %>
 
-You can also create and manage schedules via the [Buildkite GraphQL API](/docs/apis/graphql-api).
+You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
 ## Schedule intervals
 
@@ -44,7 +44,7 @@ Intervals can be defined using a variant of the crontab time syntax:
  │ │ │ │ │          ┌─── time zone name or offset (optional)
  │ │ │ │ │          │
  * * * * * Australia/Melbourne
-``` 
+```
 
 A time zone can optionally be specified as the last segment, either as an [IANA Time Zone name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) like `Australia/Melbourne` or `Europe/Berlin`, or as an offset from UTC like `+09:00` or `-05:00`. If no time zone is given, the schedule will run in UTC.
 
@@ -62,7 +62,7 @@ Using `L` or `last` in the _day of month_ field represents the last day. For exa
 
 ##### Modulo
 
-Using the modulo extension allows you to create schedules for less common sets of weekdays. 
+Using the modulo extension allows you to create schedules for less common sets of weekdays.
 
 Modulo can only be used with the 'day of week' field. For example, 0 0 * * 0 represents midnight on every Sunday. Adding a modulo of 3 creates a schedule that runs at midnight on every third Sunday: 0 0 * * 0%3.
 

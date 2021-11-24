@@ -22,7 +22,7 @@ If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) in
 
 ## SSH Key Configuration
 
-SSH keys should be copied to (or generated into) the `.ssh` directory in the users’s home directory (i.e. `/Users/some-user/.ssh`). For example, to generate a new private key which you can add to your source code host:
+SSH keys should be copied to (or generated into) the `.ssh` directory in the users’s home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
 
 ```bash
 $ mkdir -p ~/.ssh && cd ~/.ssh
@@ -36,14 +36,14 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 Homebrew install file locations:
 
 * Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
-* Hooks: `/usr/local/etc/buildkite-agent/hooks`
+* Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
 * Builds: `/usr/local/var/buildkite-agent/builds`
 * Log: `/usr/local/var/log/buildkite-agent.log`
 
 Linux installer script file locations:
 
 * Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Hooks: `~/.buildkite-agent/hooks`
+* Agent Hooks: `~/.buildkite-agent/hooks`
 * Builds: `~/.buildkite-agent/builds`
 
 ## Configuration
@@ -64,7 +64,7 @@ If you installed the buildkite-agent using the [Linux install script](linux) the
 # Download the launchd config to ~/Library/LaunchAgents/
 curl -o ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist https://raw.githubusercontent.com/buildkite/agent/main/templates/launchd_local_with_gui.plist
 
-# Set buildkite-agent to be run as the current user (a full user, created via System Prefs)
+# Set buildkite-agent to be run as the current user (a full user, created using System Prefs)
 sed -i '' "s/your-build-user/$(whoami)/g" ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 
 # Create the agent's log directory with the correct permissions
@@ -86,7 +86,7 @@ tail -f ~/.buildkite-agent/log/buildkite-agent.log
 
 Launching and managing multiple agents can be done using `launchd`.
 
-If you need the same configuration on each agent, configure a `launchd` service to use the `--spawn` flag on the `buildkite-agent` command.
+If you need the same configuration on each agent, either configure the `launchd` service to use the [`--spawn` flag](/docs/agent/v3/cli-start#options) on the `buildkite-agent`, or the [`spawn` setting](/docs/agent/v3/configuration#spawn) in the `buildkite-agent.cfg` file.
 
 Using the existing agent `plist`, add the spawn flag to the `ProgramArguments` and change the number to how many agents you want to run.
 

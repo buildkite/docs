@@ -1,0 +1,97 @@
+# Elastic CI Stack for AWS Parameters
+
+The following tables list all the available template parameters. These can be
+used to customise a stack deployment for your needs.
+
+You must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
+or [`BuildkiteAgentToken`](#BuildkiteAgentToken), all other parameters are
+optional.
+
+{:toc}
+
+<!--
+  _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
+ |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
+ | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |   
+ | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |   
+ | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |   
+ |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|   
+
+The template below provides correct layouts for auto-generated configuration tables based on script/generate-elastic-ci-stack-for-aws-parameters.sh.
+Proceed with caution.
+-->
+
+<!-- vale off -->
+
+<%
+require 'yaml'
+file = File.join(File.dirname(__FILE__), 'data', 'aws-stack.yml')
+template = YAML.load(File.read(file))
+
+metadata = template['Metadata']
+interface = metadata['AWS::CloudFormation::Interface']
+parameter_groups = interface['ParameterGroups']
+
+parameters = template['Parameters']
+%>
+
+<% parameter_groups.each do |group| %>
+<h2><%= group['Label']['default'] %></h2>
+
+<table>
+	<tbody>
+		<tr>
+			<th>Parameter</th>
+			<th>Description</th>
+		</tr>
+		<% group['Parameters'].each do |parameter_name| %>
+			<% parameter = parameters[parameter_name] %>
+			<tr id="<%= parameter_name %>">
+				<td>
+					<code><%= parameter_name %></code>
+					<br><code>(<%= parameter['Type'] %>)</code>
+				</td>
+				<td>
+					<%= parameter['Description'] %>
+
+					<% if allowed = parameter['AllowedValues'] %>
+						<br/><strong>Allowed Values</strong>:
+							<ul>
+								<% allowed.each do |allow| %>
+									<li><code><%= allow %></code></li>
+								<% end %>
+							</ul>
+					<% end %>
+
+					<% if parameter['Default'] && parameter['Default'] != "" %>
+						<br/><strong>Default Value:</strong> <code><%= parameter['Default'] %></code>
+					<% end %>
+
+					<% if pattern = parameter['AllowedPattern'] %>
+						<br/><strong>Allowed Pattern:</strong> <code><%= pattern %></code>
+					<% end %>
+
+					<% if minLength = parameter['MinLength'] %>
+						<br/><strong>Minimum Length:</strong> <%= minLength %>
+					<% end %>
+
+					<% if maxLength = parameter['MaxLength'] %>
+						<br/><strong>Maximum Length:</strong> <%= maxLength %>
+					<% end %>
+
+					<% if minValue = parameter['MinValue'] %>
+						<br/><strong>Minimum Value:</strong> <%= minValue %>
+					<% end %>
+
+					<% if maxValue = parameter['MaxValue'] %>
+						<br/><strong>Maximum Value:</strong> <%= maxValue %>
+					<% end %>
+
+				</td>
+			</tr>
+		<% end %>
+	</tbody>
+</table>
+<% end %>
+
+<!-- vale on -->

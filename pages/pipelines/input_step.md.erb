@@ -4,7 +4,7 @@ An *input* step is used to collect information from a user.
 
 An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
-Input steps will block your build from completing, but will not automatically block other steps from running unless they specifically depend upon it.
+Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
 {:toc}
 
@@ -19,11 +19,33 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can add form fields to input steps with the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
+You can add form fields to input steps by adding the `fields` attribute. There are two field types available: text or select. The select input type is displayed as radio buttons when it contains less than six items, and as a drop down list when it contains more than six items.
 
-The data you collect from these fields is available to subsequent steps via the [build meta-data](/docs/pipelines/build-meta-data).
+The data you collect from these fields is available to subsequent steps through the [build meta-data](/docs/pipelines/build-meta-data) command.
 
-## Input Step Attributes
+In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+
+```yml
+  - input: "Who is running this script?"
+    fields:
+      - text: "Your name"
+        key: "name"
+  - label: "Run script"
+    command: script.sh
+```
+{: codeblock-file="pipeline.yml"}
+
+```bash
+NAME=$(buildkite-agent meta-data get name)
+```
+{: codeblock-file="script.sh"}
+
+
+For an example pipeline, see the [Input Step Example Pipeline](https://github.com/buildkite/input-step-example) on GitHub:
+
+<a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
+
+## Input step attributes
 
 Input and block steps have the same attributes available for use.
 
@@ -49,7 +71,7 @@ _Optional attributes:_
     <td><code>branches</code></td>
     <td>
       The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this input step in their builds.<br>
-      <em>Example:</em> <code>"master stable/*"</code>
+      <em>Example:</em> <code>"main stable/*"</code>
     </td>
   </tr>
   <tr>
@@ -94,7 +116,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-name"</code>
     </td>
@@ -156,7 +178,7 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (e.g. via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       The key may only contain alphanumeric characters, slashes or dashes.
       <em>Example:</em> <code>"release-stream"</code>
     </td>
@@ -184,7 +206,7 @@ Each select option has the following _required attributes:_
   <tr>
     <td><code>value</code></td>
     <td>
-      The value to be stored as meta-data (e.g. to be later retrieved via the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The value to be stored as meta-data (to be later retrieved using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
       <em>Example:</em> <code>"stable"</code>
     </td>
   </tr>

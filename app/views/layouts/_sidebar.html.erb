@@ -35,8 +35,16 @@
           <%= sidebar_link_to "Securing", 'agent/v3/securing' %>
           <%= sidebar_link_to "Tokens", 'agent/v3/tokens' %>
         </ul>
-        <ul class="Docs__nav__sub-nav" style="margin-top: 15px;">
+        <ul class="Docs__nav__sub-nav deprecated">
           <%= sidebar_link_to "Agent v2 (Deprecated)", 'agent/v2' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Elastic CI Stack for AWS</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
+          <%= sidebar_link_to "Template Parameters", 'agent/v3/elastic-ci-aws/parameters' %>
+          <%= sidebar_link_to "CloudFormation Service Role", 'agent/v3/elastic-ci-aws/cloudformation-service-role' %>
+          <%= sidebar_link_to "VPC Design", 'agent/v3/aws/vpc' %>
+          <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets-manager' %>
         </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
         <ul class="Docs__nav__sub-nav">
@@ -44,12 +52,11 @@
           <%= sidebar_link_to "Debian", 'agent/v3/debian' %>
           <%= sidebar_link_to "Red Hat/CentOS", 'agent/v3/redhat' %>
           <%= sidebar_link_to "FreeBSD", 'agent/v3/freebsd' %>
-          <%= sidebar_link_to "macOS", 'agent/v3/osx' %>
+          <%= sidebar_link_to "macOS", 'agent/v3/macos' %>
           <%= sidebar_link_to "Windows", 'agent/v3/windows' %>
           <%= sidebar_link_to "Linux", 'agent/v3/linux' %>
           <%= sidebar_link_to "Docker", 'agent/v3/docker' %>
           <%= sidebar_link_to "AWS", 'agent/v3/aws' %>
-          <%= sidebar_link_to "Elastic CI Stack for AWS", 'agent/v3/elastic-ci-aws' %>
           <%= sidebar_link_to "Google Cloud", 'agent/v3/gcloud' %>
         </ul>
         <p class="Docs__nav__section-subheading">Command-Line Reference</p>
@@ -109,13 +116,14 @@
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
             <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
-            <%= sidebar_link_to "Ignoring a Commit", 'pipelines/ignoring-a-commit' %>
+            <%= sidebar_link_to "Skipping builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
             <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
             <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
             <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
             <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
+            <%= sidebar_link_to "Incoming Webhooks", 'pipelines/incoming-webhooks' %>
           </ul>
           <p class="Docs__nav__section-subheading">Step Types</p>
           <ul class="Docs__nav__sub-nav">
@@ -124,9 +132,11 @@
             <%= sidebar_link_to "Block Step", 'pipelines/block-step' %>
             <%= sidebar_link_to "Input Step", 'pipelines/input-step' %>
             <%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %>
+            <%= sidebar_link_to "Group Step", 'pipelines/group-step' %>
           </ul>
           <p class="Docs__nav__section-subheading">Workflows</p>
           <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Prioritizing jobs", 'pipelines/managing-priorities' %>
             <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
             <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
             <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
@@ -176,9 +186,10 @@
             <%= sidebar_link_to "Overview", 'integrations/sso' %>
             <%= sidebar_link_to "Okta", 'integrations/sso/okta' %>
             <%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %>
-            <%= sidebar_link_to "G Suite", 'integrations/sso/g-suite' %>
-            <%= sidebar_link_to "G Cloud Identity", 'integrations/sso/g-cloud-identity' %>
+            <%= sidebar_link_to "Google Workspace", 'integrations/sso/google-workspace' %>
+            <%= sidebar_link_to "Google Workspace (SAML)", 'integrations/sso/google-workspace-saml' %>
             <%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %>
+            <%= sidebar_link_to "Azure AD", 'integrations/sso/azure-ad' %>
             <%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %>
             <%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %>
           </ul>
@@ -210,7 +221,7 @@
             <%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %>
             <%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %>
           </ul>
-          <p class="Docs__nav__section-subheading">REST API</p>
+          <p class="Docs__nav__section-subheading">Buildkite REST API</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'apis/rest-api' %>
             <%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %>
@@ -225,9 +236,16 @@
             <%= sidebar_link_to "User", 'apis/rest-api/user' %>
             <%= sidebar_link_to "Meta", 'apis/rest-api/meta' %>
           </ul>
+          <p class="Docs__nav__section-subheading">Agent REST API</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Overview", 'apis/agent-api' %>
+            <%= sidebar_link_to "Metrics", 'apis/agent-api/metrics' %>
+          </ul>
           <p class="Docs__nav__section-subheading">GraphQL API</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'apis/graphql-api' %>
+            <%= sidebar_link_to "Console and CLI tutorial", 'apis/graphql/graphql-tutorial' %>
+            <%= sidebar_link_to "Cookbook", 'apis/graphql/graphql-cookbook' %>
           </ul>
         </div>
       </div>

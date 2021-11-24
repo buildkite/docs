@@ -45,15 +45,15 @@ mutation CreateProvider {
 }
 ```
 
-You'll need the provider's `id` from the output of this mutation in step three. 
+You'll need the provider's `id` from the output of this mutation in step three.
 
 ### Step 2
 
-The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login via G Suite.
+The second step is to use the `url` that was returned above to perform a test login. Open the `url` in a browser, and perform a test login using G Suite.
 
 ### Step 3
 
-Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize via your G Suite provider before they can access your organization on Buildkite.
+Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize using your G Suite provider before they can access your organization on Buildkite.
 
 ```graphql
 mutation EnableProvider {
@@ -109,7 +109,7 @@ mutation CreateProvider {
 }
 ```
 
-You'll need the provider's `id` from the output of this mutation in steps three and four. 
+You'll need the provider's `id` from the output of this mutation in steps three and four.
 
 ### Step 2
 
@@ -144,9 +144,9 @@ mutation UpdateProviderMetaData {
   }
 }
 ```
-      
+
 If your SSO provider didn't provide a metadata URL, then copy SSO URL, Issuer (also known as Entity ID), and Certificate into the `ssoProviderUpdate` mutation:
-      
+
 ```graphql
 mutation UpdateProviderMetaData {
   ssoProviderUpdate(input: {
@@ -177,7 +177,7 @@ If your SSO provider requests additional info, use the `ssoURL` property for the
 
 You can now perform a test login from your SSO provider’s web interface, or using the `url` returned from the update mutation.
 
-Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize via your SSO provider before they can access your organization on Buildkite.
+Once a test login has been completed, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize using your SSO provider before they can access your organization on Buildkite.
 
 ```graphql
 mutation EnableProvider {

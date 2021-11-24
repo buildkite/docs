@@ -1,12 +1,12 @@
 # Controlling user permissions
 
-Pipeline permissions can be centrally managed by enabling Teams. Enterprise customers have the additional option to set fine-grained user permissions for their organization with the member Permissions page. 
+Pipeline permissions can be centrally managed by enabling Teams. Enterprise customers have the additional option to set fine-grained user permissions for their organization with the member Permissions page.
 
 {:toc}
 
 ## Permissions with teams
 
-Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organisation Settings in the Teams section. 
+Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organization Settings in the Teams section.
 
 When you first enable Teams, a team is automatically created for your organization called “Everyone” that contains all users. This maintains existing access to pipelines for all the users in your organization.
 
@@ -40,7 +40,8 @@ If you're creating pipelines programmatically using the REST API, you can add th
 
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can allow or disallow builds based on the creator's team memberships.
 
-For example, the following [agent environment hook](/docs/agent/v3/hooks) prevents anyone from outside of the ops team from running a build on the agent:
+For example, the following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
+prevents anyone from outside of the ops team from running a build on the agent:
 
 ```bash
 set -euo pipefail
@@ -57,7 +58,7 @@ fi
 When you enable Teams we’ll create a default team called “Everyone”, containing all your users and pipelines. This ensures that users, and their API tokens, will still have access to their pipelines.
 
 #### How does Teams work with SSO?
-When a user joins the organization via SSO, they’ll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
+When a user joins the organization using SSO, they’ll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
 
 #### Can I delete the “Everyone” team?
 Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
@@ -101,19 +102,20 @@ mutation RemoveOrganizationMember {
 
 ## Member Permissions
 
-Enterprise customers can control user permissions for selected pipeline actions. These permissions can be used both with or without Teams enabled. 
+Enterprise customers can control user permissions for selected pipeline actions. These permissions can be used both with or without Teams enabled.
 
 User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.  
 
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
-- Create new pipelines
-- Make an existing private pipeline public
-- Create, edit, and delete notification services
-- Create, edit, and delete agent registration tokens
-- Disconnect agents
+* Create new pipelines
+* Delete pipelines
+* Make an existing private pipeline public
+* Create, edit, and delete notification services
+* Create, edit, and delete agent registration tokens
+* Stop (disconnect) agents
 
-If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page. 
+If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page.
 
 Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
 
@@ -121,34 +123,34 @@ Organization admin can delete organization members. To delete organization membe
 
     ```graphql
     query {
-    organization(slug: "your-organization-slug") {
+      organization(slug: "your-organization-slug") {
         members(search: "Jane Doe", first: 10) {
-        edges {
+          edges {
             node {
-            role
-            user {
+              role
+              user {
                 name
+              }
+              id
             }
-            id
-            }
+          }
         }
-        }
-    }
+      }
     }
     ```
 
-2. Use the `id` from the previous query in a mutation: 
+2. Use the `id` from the previous query in a mutation:
 
-    ```graphql 
+    ```graphql
     mutation deleteOrgMember {
-    organizationMemberDelete(input: { id: "abc123" }){
-        organization{
-        name
+      organizationMemberDelete(input: { id: "abc123" }) {
+        organization {
+          name
         }
         deletedOrganizationMemberID
-        user{
-            name
+        user {
+          name
         }
-    }
+      }
     }
     ```

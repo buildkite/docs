@@ -38,7 +38,7 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 
 Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
 
-For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group. 
+For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
@@ -47,7 +47,7 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
 In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment: 
+In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 
 ```yaml
 steps:
@@ -82,3 +82,34 @@ steps:
     depends_on: end-gate
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Controlling command order
+
+By default, steps that belong to the same concurrency group are run in the order that they are added to the pipeline.
+
+For example, if you have two steps:
+
+* Step `A` in concurrency group `X` with a concurrency of `1` at time 0
+* Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
+
+Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
+
+However, in some cases concurrency groups are used to restrict access to a limited resource, such as a SaaS service like Sauce Labs.
+In that case, the default ordering of the jobs can work against you, as one step waits for the next before taking up another concurrency slot.
+
+If your resource usage time is very different, for example if tests in pipeline A take 1 minute to run and tests in pipeline B take 10 minutes to run, the default ordering is not helpful because it means that the limited resource you're controlling concurrency for is not fully utilized.
+
+In that case, setting the concurrency method to `eager`, removes the ordering condition for that resource.
+
+```yaml
+steps:
+  - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
+    concurrency_group: saucelabs
+    concurrency: 10
+    concurrency_method: eager
+```
+{: codeblock-file="pipeline.yml"}
+
+### Concurrency and prioritization
+
+If you're using `eager` concurrency and [job prioritization](/docs/pipelines/managing-priorities), higher priority jobs will always take precedence when a concurrency slot becomes available.

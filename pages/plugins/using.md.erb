@@ -22,7 +22,7 @@ steps:
 ```
 
 <div class="Docs__note">
-<p>Always specify a tag or commit (e.g. <code>v1.2.3</code>) to prevent the plugin changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.</p>
+<p>Always specify a tag or commit (for example, <code>v1.2.3</code>) to prevent the plugin changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.</p>
 </div>
 
 Not all plugins require a `command` attribute, for example:
@@ -37,9 +37,15 @@ steps:
           image-repository: index.docker.io/myorg/myrepo
 ```
 
-Although there's no `command` attribute in the above example, this is still considered a command step, so all command attributes are available for use. 
+Although there's no `command` attribute in the above example, this is still
+considered a command step, so all command attributes are available for use.
 
-If you are using Agent hooks as well as plugins, some hook types will run the Agent hooks before the plugin hooks. For a description of each hook type and the order it is run, see the [Agent Hooks guide](/docs/agent/v3/hooks#available-hooks). 
+It is possible to define multiple hooks of the same type in both a
+[plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks) and the
+[agent hooks](/docs/agent/v3/hooks#hook-locations-agent-hooks) location.
+See [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
+for the overall order of hooks, and the relative order of invocation for each
+location.
 
 ## Configuring plugins
 
@@ -91,9 +97,9 @@ See each plugin’s readme for a list of which options are available.
 
 There are three main sources of plugins:
 
-  - Buildkite maintained plugins
-  - Non-Buildkite plugins hosted on GitHub
-  - Local, private, and non-GitHub plugins
+- Buildkite maintained plugins
+- Non-Buildkite plugins hosted on GitHub
+- Local, private, and non-GitHub plugins
 
 Buildkite maintained plugins can be found in the [Buildkite Plugins GitHub organization](https://github.com/buildkite-plugins). When using these plugins, you can refer to them using only the name of the plugin, for example:
 
@@ -144,10 +150,7 @@ steps:
 
 ## Disabling plugins
 
-To selectively allow and disallow plugins you can use the agent’s [environment hook](/docs/agent/v3/hooks) and the `BUILDKITE_PLUGINS` [environment variable](/docs/pipelines/environment-variables). See the [github.com/buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example) repository for an example implementation.
+To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/securing#allowing-a-list-of-plugins).
 
-To disable plugins entirely, set the `no-plugins` [agent configuration](/docs/agent/v3/configuration) option:
-
-```
-no-plugins: true
-```
+To disable plugins entirely, set the [`no-plugins`](/docs/agent/v3/configuration#no-plugins)
+option.

@@ -75,7 +75,7 @@ Configuration properties are available to the hook script as environment variabl
     </tr>
     <tr>
       <td>author</th>
-      <td>A URL to the plugin author (e.g. website or GitHub profile).</th>
+      <td>A URL to the plugin author (for example, website or GitHub profile).</th>
     </tr>
     <tr>
       <td>requirements</th>
@@ -102,7 +102,6 @@ To make it easier to run this command, add it to the `docker-compose.yml` file:
 
 ```yml
 services:
-  tests: ...
   lint:
     image: buildkite/plugin-linter
     command: ['--id', 'a-github-user/file-counter']
@@ -218,11 +217,11 @@ Next we'll add a `README.md` file to introduce the plugin to the world:
 
 ## Publish to the Buildkite Plugin Directory
 
-To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin`[repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
+To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
 
 ## Designing plugins: single-command plugins versus library plugins
 
 When writing plugins, there are two patterns you can choose from:
 
-* A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern. 
+* A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
 * A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.

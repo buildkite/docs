@@ -44,7 +44,7 @@ Use "buildkite-agent [command] --help" for more information about a command.
 </code></pre>
 </div>
 
-To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent via an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
+To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent using an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
 
 ## Configuration
 
@@ -74,11 +74,6 @@ Please note that there is every chance we will remove or change these experiment
 
 The Buildkite agent can redact strings that match the value of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
-
 See [redacted-vars](/docs/pipelines/managing-log-output#redacted-environment-variables) for more information.
 
 ### Git mirrors
@@ -92,9 +87,9 @@ Maintain a single bare git mirror for each repository on a host that is shared a
 
 See the following agent configuration options for more information:
 
-  - [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
-  - [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
-  - [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
+- [git-clone-mirror-flags](/docs/agent/v3/configuration#git-clone-mirror-flags)
+- [git-mirrors-lock-timeout](/docs/agent/v3/configuration#git-mirrors-lock-timeout)
+- [git-mirrors-path](/docs/agent/v3/configuration#git-mirrors-path)
 
 ### ANSI timestamps
 
@@ -139,8 +134,8 @@ If the process does not exit within the 10s grace period it will be forcefully t
 
 The agent also accepts the following two signals directly:
 
-* `SIGTERM` - Instructs the agent to gracefully disconnect, after completing any job that it may be running.
-* `SIGQUIT` - Instructs the agent to forcefully disconnect, cancelling any job that it may be running.
+- `SIGTERM` - Instructs the agent to gracefully disconnect, after completing any job that it may be running.
+- `SIGQUIT` - Instructs the agent to forcefully disconnect, cancelling any job that it may be running.
 
 ## Exit Codes
 

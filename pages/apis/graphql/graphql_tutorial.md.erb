@@ -1,15 +1,15 @@
-# GraphQL Tutorial
+# Getting started with GraphQL from the Buildkite Console or the command line
 
 [GraphQL](http://graphql.org) is a standard for defining, querying and documenting APIs in a human-friendly way, with built-in documentation, a friendly query language and a bunch of tools to help you get started.
 
-This guide shows you how to query the GraphQL API using the [GraphQL Explorer](https://buildkite.com/user/graphql/console) and from the command line.
+This guide shows you how to query the GraphQL API using the [GraphQL Console](https://buildkite.com/user/graphql/console) and from the command line.
 You'll first need a [Buildkite](https://buildkite.com/) account, and a [Buildkite API Access Token](https://buildkite.com/user/api-access-tokens/new) with GraphQL scope.
 
 {:toc}
 
-## Running your first GraphQL request in the explorer
+## Running your first GraphQL request in the console
 
-The following is a GraphQL query that requests the name of the current user (the account attached to the API Access Token, i.e. you!)
+The following is a GraphQL query that requests the name of the current user (the account attached to the API Access Token, in other words, you!)
 
 ```graphql
 query {
@@ -21,7 +21,7 @@ query {
 }
 ```
 
-Running that in the GraphQL explorer returns:
+Running that in the GraphQL console returns:
 
 ```json
 {

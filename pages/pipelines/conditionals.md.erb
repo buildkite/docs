@@ -237,7 +237,7 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em> <code> scheduled</code>, <code> running</code>, <code> passed</code>, <code> failed</code>, <code> blocked</code>, <code> canceling</code>, <code> canceled</code>, <code> skipped</code>, <code> not_run</code>, <code> finished</code></td>
+		<td>The state the current build is in<br><em>Available states:</em> <code> scheduled</code>, <code> running</code>, <code> passed</code>, <code> failed</code>, <code> blocked</code>, <code> canceling</code>, <code> canceled</code>, <code> skipped</code>, <code> not_run</code>, <code> fixed</code>, <code> finished</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
@@ -324,7 +324,7 @@ To run only when building a tag beginning with a `v` and ends with a `.0`, such 
 // Using the tag variable
 build.tag =~ /^v[0-9]+\.0\$/
 
-// Using the env fuction
+// Using the env function
 build.env("BUILDKITE_TAG") =~ /^v[0-9]+\.0\$/
 ```
 

@@ -9,7 +9,7 @@ You can run the Buildkite Agent inside a Docker container using the [official im
 
 {:toc}
 
-## Running via Docker
+## Running using Docker
 
 Start an agent with the [official image](https://hub.docker.com/r/buildkite/agent/) based on Alpine Linux:
 
@@ -30,12 +30,12 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 
 ## Version tagging
 
-The default tag (i.e. `buildkite/agent:latest`) will always point to the latest stable release, but we recommend you use `buildkite/agent:3` to prevent breaking changes. If you want to use an exact version, you can use the corresponding tag, such as `buildkite/agent:3.0.1`. See [Docker Hub](https://hub.docker.com/r/buildkite/agent/tags/) for a list of all the available versions.
+The default tag (`buildkite/agent:latest`) will always point to the latest stable release, but we recommend you use `buildkite/agent:3` to prevent breaking changes. If you want to use an exact version, you can use the corresponding tag, such as `buildkite/agent:3.0.1`. See [Docker Hub](https://hub.docker.com/r/buildkite/agent/tags/) for a list of all the available versions.
 
 ## Default file locations
 
 * Configuration: `/buildkite/buildkite-agent.cfg`
-* Hooks: `/buildkite/hooks`
+* Agent Hooks: `/buildkite/hooks`
 * Builds: `/buildkite/builds`
 * Agent user home: `/root`
 
@@ -92,13 +92,13 @@ To ensure correct file permissions, you can:
 
 * Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
 
-* Run a script before or after builds that resets permissions. You can do this either via Docker (because it runs as root) or via `sudo`. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
+* Run a script before or after builds that resets permissions. You can do this either using Docker (because it runs as root) or using `sudo`. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
 
 ## Allowing builds to use Docker
 
 To use Docker and volume mounting from build scripts, you need to ensure that the builds directory, and the `buildkite-agent` binary path, are mounted in from the host machine, and that their paths on the host and in the agent container are the same.
 
-For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent’s container (e.g. `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
+For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent’s container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
 
 The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATH` configuration:
 
@@ -151,7 +151,8 @@ If you're using Docker with Docker images hosted on Docker Hub, note that as of 
 
 ## Authenticating private git repositories
 
-To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a [git-credentials file](https://git-scm.com/docs/git-credential-store#_storage_format) located at `/buildkite-secrets/git-credentials`, you could use the following
+[`environment` hook](/docs/agent/hooks#job-lifecycle-hooks) mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash
@@ -164,7 +165,9 @@ git config --global credential.helper "store --file=/buildkite-secrets/git-crede
 # export FOO=bar
 ```
 
-To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git` you could use the following `environment` [agent hook](/docs/agent/hooks) mounted to `/buildkite/hooks/environment`:
+To configure a private SSH key located at `/buildkite-secrets/id_rsa_buildkite_git`
+you could use the following [`environment` hook](/docs/agent/hooks#job-lifecycle-hooks)
+mounted to `/buildkite/hooks/environment`:
 
 ```bash
 #!/bin/bash
@@ -181,7 +184,7 @@ ssh-add -k /buildkite-secrets/id_rsa_buildkite_git
 Other options for configuring Git and SSH include:
 
 * Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](/docs/agent/ssh-keys) for examples on using ssh-agent.
-* The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys via environment variables.
+* The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys using environment variables.
 
 ## Entrypoint customizations
 

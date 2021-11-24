@@ -8,12 +8,16 @@ To contribute, send a pull request! :heart:
 
 ```bash
 git clone https://github.com/buildkite/docs.git
+cd docs
 git submodule update --init
 ```
+
+> **Note**: If you're having trouble with an installation on an M1 Mac, use [rbenv](https://github.com/rbenv/rbenv) instead of the Ruby version provided by macOS or Homebrew.
 
 If you have Ruby installed:
 
 ```bash
+# Navigate into the docs directory
 # Install the dependencies
 bundle
 # Run the specs
@@ -22,16 +26,18 @@ bundle exec rspec
 bin/rails server
 ```
 
-Or if you have Docker installed:
+> **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
+
+If you have Docker installed:
 
 ```bash
-# Run the specs
-docker-compose run app bundle exec rspec
 # Start the app on http://localhost:3000/
 docker-compose up --build
 # To start it in production mode on http://localhost:3000/
 docker-compose -f docker-compose.production.yml up --build
 ```
+
+> **Note**: You need to use `sudo` if your username is not added to the `docker` group.
 
 ## Updating buildkite-agent CLI Docs
 
@@ -45,15 +51,20 @@ PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
 
 ## Linting
 
-We spell-check the docs (American English) and run a few automated checks for repeated words and other common errors.
+We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
+
+## Style guide
+
+Our documentation is based on the principles of common sense, clarity, and brevity.
+
+The [style guide](/styleguide/STYLE.md) should provide you a general idea and an insight into using custom formatting elements.
 
 ## Search index
 
 The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
 To test changes to the indexing configuration (you'll need an API key) run `rake update_test_index`.
-
 
 ## License
 

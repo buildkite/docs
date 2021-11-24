@@ -20,7 +20,7 @@ Both the REST API and GraphQL API can be used to create a pipeline programmatica
 
 ## Adding steps
 
-There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML Steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future. 
+There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML Steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future.
 
 If you have not yet migrated to YAML Steps, you can do on your pipeline's settings page. See the [Migrating to YAML Steps guide](/docs/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
 
@@ -54,7 +54,7 @@ steps:
 
 To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
 
-Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right. 
+Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
 ### Pipeline.yml file
 
@@ -70,9 +70,17 @@ steps:
 
 When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
 
+<div class="Docs__note">
+
+<p>When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
+<ul>
+ <li>Use the YAML steps editor alone</li>
+ <li>Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.</li></ul>  </p>
+</div>
+
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
-If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory. 
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory.
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
@@ -87,7 +95,13 @@ With the above example code in a `pipeline.yml` file, commit and push the file u
 
 <%= image "show-example-test.png", width: 968/2, height: 698/2, alt: "Screenshot of the build passing with pipeline upload step first, and then the example step" %>
 
-For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation: [command steps](/docs/pipelines/command-step), [wait steps](/docs/pipelines/wait-step), [block steps](/docs/pipelines/block-step), [input steps](/docs/pipelines/input-step), and [trigger steps](/docs/pipelines/trigger-step).
+For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation:
+
+* [command steps](/docs/pipelines/command-step)
+* [wait steps](/docs/pipelines/wait-step)
+* [block steps](/docs/pipelines/block-step)
+* [input steps](/docs/pipelines/input-step)
+* [trigger steps](/docs/pipelines/trigger-step)
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
@@ -119,13 +133,13 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 `limited`                  | `blocked`
 `accepted`                 | `unblocked`
 `broken`                   |
-{: class="no-formatting"}
+{: class="two-column"}
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
-- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
-- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
-- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+* Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+* This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+* Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
 <section class="Docs__note">
   <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
@@ -188,6 +202,7 @@ There are five different step types you can use in your Buildkite pipelines. Cli
 * [Block Step](/docs/pipelines/block-step)
 * [Input Step](/docs/pipelines/input-step)
 * [Trigger Step](/docs/pipelines/trigger-step)
+* [Group Step](/docs/pipelines/group-step)
 
 ## Customizing the pipeline upload path
 
@@ -241,7 +256,7 @@ To use this script, you'd save it to `.buildkite/pipeline.sh` inside your reposi
 .buildkite/pipeline.sh | buildkite-agent pipeline upload
 ```
 
-When the build is run it will execute the script and pipe the output to the `pipeline upload` command. The upload command will insert the steps from the script into the build immediately after the upload step.
+When the build is running it will execute the script and pipe the output to the `pipeline upload` command. The upload command will insert the steps from the script into the build immediately after the upload step.
 
 In the below `pipeline.yml` example, when the build runs it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build before the wait step and command step. After the test steps have run, the wait and command step will run.
 

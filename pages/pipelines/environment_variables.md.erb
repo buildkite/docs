@@ -1,6 +1,7 @@
 # Environment Variables
 
-When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and [agent hooks](/docs/agent/v3/hooks).
+When the agent invokes your build scripts it passes in a set of standard Buildkite environment variables, along with any that you've defined in your build configuration. You can use these environment variables in your [build steps](/docs/pipelines/defining-steps) and
+[job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing Secrets](/docs/pipelines/secrets) guide.
 
@@ -51,6 +52,18 @@ A list of the [experimental agent features](/docs/agent/v3#experimental-features
 
 Example: `"experiment1,experiment2"`
 
+<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
+
+The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
+
+Example: `"localhost:8080"`
+
+<h3 class="h3-caps">BUILDKITE_AGENT_ID</h3>
+
+The UUID of the agent. The value cannot be modified as an environment variable.  
+
+Example: `"1a222222-e999-3636-8ddd-802222222222"`
+
 <h3 class="h3-caps">BUILDKITE_AGENT_META_DATA_*</h3>
 
 The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. The name and value cannot be modified as an environment variable. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
@@ -79,7 +92,7 @@ Example: `"tmp/capybara/**/*;coverage/**/*"`
 
 The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
 
-Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID"`
+Example: `"s3://name-of-your-s3-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"`
 
 <h3 class="h3-caps">BUILDKITE_BIN_PATH</h3>
 
@@ -101,13 +114,13 @@ Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR</h3>
 
-The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered via API or Buildkite web interface. The value cannot be modified.
+The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR_EMAIL</h3>
 
-The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered via API or Buildkite web interface. The value cannot be modified.
+The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"cdanvers@kree-net.com"`
 
@@ -248,12 +261,6 @@ Example: `"deploy"`
 The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/). The value cannot be modified as an environment variable.
 
 Example: `"production"`
-
-<h3 class="h3-caps">BUILDKITE_AGENT_HEALTH_CHECK_ADDR</h3>
-
-The value of the `health-check-addr` [agent configuration option](/docs/agent/v3/configuration). The value cannot be modified as an environment variable.
-
-Example: `"localhost:8080"`
 
 <h3 class="h3-caps">BUILDKITE_HOOKS_PATH</h3>
 
@@ -399,6 +406,12 @@ The repository of your pipeline. This variable can be set by exporting the envir
 
 Example: `"git@github.com:acme-inc/my-project.git"`
 
+<h3 class="h3-caps">BUILDKITE_REPO_MIRROR</h3>
+
+Only available if the experimental feature [git-mirrors](/docs/agent/v3#experimental-features-git-mirrors) is enabled. The path to the shared git mirror. The value cannot be modified.
+
+Example: `"/tmp/buildkite-git-mirrors"`
+
 <h3 class="h3-caps">BUILDKITE_RETRY_COUNT</h3>
 
 How many times this job has been retried. The value cannot be modified.
@@ -531,7 +544,7 @@ Example: `"everyone:platform"`
 
 <h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
 
-Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) via `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
+Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
 
 Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
 
@@ -563,6 +576,26 @@ The following environment variables have been deprecated.
     <th><code>BUILDKITE_STEP_IDENTIFIER</code></th>
     <td>This has been renamed to `BUILDKITE_STEP_KEY`</td>
   </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ID</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ID`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_NAME</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_NAME`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_META_DATA_*</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_META_DATA_*`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_ACCESS_TOKEN</code></th>
+    <td>This has been renamed to `BUILDKITE_AGENT_ACCESS_TOKEN`</td>
+  </tr>
+  <tr>
+    <th><code>BUILDBOX_AGENT_API_URL</code></th>
+    <td>This has been removed with no replacement</td>
+  </tr>
 </tbody>
 </table>
 
@@ -587,19 +620,19 @@ If you're using the YAML Steps editor to define your pipeline, only a subset of 
 
 The following variables are available directly in the YAML Step editor:
 
-- `BUILDKITE_BRANCH`
-- `BUILDKITE_TAG`
-- `BUILDKITE_MESSAGE`
-- `BUILDKITE_COMMIT`
-- `BUILDKITE_PIPELINE_SLUG`
-- `BUILDKITE_PIPELINE_NAME`
-- `BUILDKITE_PIPELINE_ID`
-- `BUILDKITE_ORGANIZATION_SLUG`
-- `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
-- `BUILDKITE_REPO`
-- `BUILDKITE_PULL_REQUEST`
-- `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
-- `BUILDKITE_PULL_REQUEST_REPO`
+* `BUILDKITE_BRANCH`
+* `BUILDKITE_TAG`
+* `BUILDKITE_MESSAGE`
+* `BUILDKITE_COMMIT`
+* `BUILDKITE_PIPELINE_SLUG`
+* `BUILDKITE_PIPELINE_NAME`
+* `BUILDKITE_PIPELINE_ID`
+* `BUILDKITE_ORGANIZATION_SLUG`
+* `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
+* `BUILDKITE_REPO`
+* `BUILDKITE_PULL_REQUEST`
+* `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+* `BUILDKITE_PULL_REQUEST_REPO`
 
 You can access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
@@ -637,7 +670,7 @@ The job environment is made by merging the following sets of values, where value
   </tr>
   <tr>
     <th><em>Build</em></th>
-    <td>Optional variables set by you on the build when creating a new build in the UI or via the REST API</td>
+    <td>Optional variables set by you on the build when creating a new build in the UI or using the REST API</td>
   </tr>
     <tr>
     <th><em>Step</em></th>
@@ -678,7 +711,7 @@ There are two places in a pipeline.yml file that you can set environment variabl
   1. In the `env` attribute of command and trigger steps.
   2. At the top of the yaml file, before you define your pipeline's steps.
 
-Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step.
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
 
 <div class="Docs__note">
   <p>Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.</p>
@@ -692,15 +725,15 @@ Environment variables are not automatically passed through to builds created wit
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-- operating system environment variables
-- any variables you set on your agent when you started it
-- any environment variables that were inherited from how you started the process (i.e. systemd sets some env vars for you)
+* operating system environment variables
+* any variables you set on your agent when you started it
+* any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
 For a list of variables and configuration flags you can set on your agent, see the Buildkite Agent’s [start command documentation](/docs/agent/v3/cli-start).
 
 ### Job runtime environment
 
-Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the Job Environment section, we merge in some of the variables from the agent environment.
+Once the job is accepted by an agent, more environment merging happens. Starting with the environment that we put together in the [Job Environment section](#environment-variable-precedence-job-environment), we merge in some of the variables from the agent environment.
 
 <div class="Docs__note">
   <p>Not all variables from the agent are available in the job runtime. For example, we remove the agent’s registration token and replace it with a build session token that has limited permissions. This new session token is used when you run the <code>artifact</code>, <code>meta-data</code> and <code>pipeline</code> commands inside the job.</p>
@@ -708,7 +741,10 @@ Once the job is accepted by an agent, more environment merging happens. Starting
 
 After the agent variables have been merged, the bootstrap script is run.
 
-The bootstrap runs any local and global <a href="/docs/agent/v3/hooks">hooks</a> that have been defined on the agent machine, and any hooks provided by <a href="/docs/plugins">plugins</a>. Variables that are set in these hooks will be merged into the runtime environment, and will override any previous values that are set.
+The bootstrap runs any hooks that have been defined by your
+[agent](/docs/agent/v3/hooks#hook-locations-agent-hooks), your [repository](/docs/agent/v3/hooks#hook-locations-repository-hooks) or [plugins](/docs/agent/v3/hooks#hook-locations-plugin-hooks).
+Variables that are set in these hooks will be merged into the runtime
+environment, and will override any previous values that are set.
 
 <div class="Docs__troubleshooting-note">
   <h3>Take care with environment variables in hooks</h3>

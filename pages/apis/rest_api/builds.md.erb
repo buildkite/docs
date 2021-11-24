@@ -2,6 +2,21 @@
 
 {:toc}
 
+## Build number vs build ID
+
+All builds have both an ID which is unique within the whole of Buildkite (*build ID*), and a sequential number which is unique to the pipeline (*build number*).
+
+For example build number `27` of the `Test` pipeline might have a build ID of `f62a1b4d-10f9-4790-bc1c-e2c3a0c80983`.
+
+API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
+
+* [Get a build](#get-a-build)
+* [Cancel a build](#cancel-a-build)
+* [Rebuild a build](#cancel-a-build)
+* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+
+
 ## List all builds
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines.
@@ -395,7 +410,8 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code></td></tr>
+  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code><br><em>Note:</em>Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
+</td></tr>
   <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"master"</code></td></tr>
 </tbody>
 </table>
@@ -661,7 +677,7 @@ Success response: `200 OK`
 
 There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
 
-The timestamps are available via both the GraphQL and REST APIs. They differ slightly between the build and job objects.
+The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
 
 Each <em>build</em> is provided with the following timestamps:
 

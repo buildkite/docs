@@ -8,7 +8,12 @@ To complete this integration, you need admin privileges for your GitHub reposito
 
 ## Connecting Buildkite and GitHub
 
-You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
+You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
+
+<div class="Docs__note">
+<h3 class="Docs__note__heading">Benefits of using GitHub App</h3>
+<p>Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a></p>
+</div>
 
 If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
 
@@ -17,11 +22,11 @@ If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-u
 Connecting Buildkite and GitHub using the GitHub App lets your GitHub organization admins see permissions and manage access on a per-repository basis.
 
 1. Open your Buildkite organization's _Settings_.
-2. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
+1. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
     <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
-3. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
-4. Select the GitHub organization you want to connect to your Buildkite organization. 
-5. Choose which repositories Buildkite should have access to, then select _Install_. 
+1. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
+1. Select the GitHub organization you want to connect to your Buildkite organization.
+1. Choose which repositories Buildkite should have access to, then select _Install_.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
@@ -30,12 +35,22 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 To connect your GitHub account:
 
 1. Open Buildkite’s _Personal Settings_.
-2. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
-3. Select the GitHub _Connect_ button: 
+1. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
+1. Select the GitHub _Connect_ button:
     <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
-4. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page. 
+1. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page.
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
+
+## Buildkite GitHub permissions
+
+When you connect your GitHub organization, Buildkite needs the following permissions:
+
+* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your file-based Buildkite configuration.
+* Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
+
+    > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
+* Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
 ## Set up a new pipeline for a GitHub repository
 
@@ -68,12 +83,18 @@ To run builds for GitHub pull requests, edit the GitHub settings for your Buildk
 
 Optionally, select one or more of the following:
 
-- _Limit pull request branches_
-- _Skip pull request builds for existing commits_
-- _Rebuild pull requests when they become ready for review_
-- _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
+* _Limit pull request branches_
+* _Skip pull request builds for existing commits_
+* _Rebuild pull requests when they become ready for review_
+* _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
+
+## Running builds on git tags
+
+To run builds for commit tags, edit the GitHub settings for your Buildkite pipeline and choose the _Build Tags_ checkbox.
+
+Before triggering builds for git tags from the [API](/docs/apis/rest-api/builds#create-a-build) or a [scheduled build](/docs/pipelines/scheduled-builds), make sure your agent is configured to fetch git tags: `BUILDKITE_GIT_FETCH_FLAGS="-v --prune --tags"`.
 
 ## Noreply email handling
 
@@ -81,7 +102,7 @@ When you [connect your GitHub account to Buildkite](#connecting-buildkite-and-gi
 
 ## Customizing commit statuses
 
-The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses. 
+The commit status is the label used to identify the Buildkite checks on your commits and pull requests on GitHub. Normally, Buildkite autogenerates these statuses.
 
 For example, if you select _Update commit statuses_ in your _Pipeline Settings_:
 
@@ -124,10 +145,12 @@ For example, if you have a monorepo containing three applications, you could use
               context: "my-custom-status"
     ```
 2. In _Pipeline Settings_ > _GitHub_, you can choose to either:
-    * Make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
-    * Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
+    - Make sure _Update commit statuses_ is not selected. Note that this prevents Buildkite from automatically creating and sending statuses for this pipeline, meaning you will have to handle all commit statuses through the `pipeline.yml`.
+    - Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
-    
+
 <%= render_markdown 'integrations/one_repo_multi_org' %>
+
+<%= render_markdown 'integrations/build_skipping' %>

@@ -111,16 +111,23 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 <%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
 
+## Encryption and security  
+
+Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
+
+Logs are AES-encrypted, and the build artifacts are encrypted in transit and at rest using AWS encryption (KMS or S3 SSE). As a result, the keys cannot be extracted on the Buildkite's side, and the AWS solutions provide mitigations against zero-day attacks and other security issues. Beyond this, the control over security measures within your infrastructure is up to you.
+
+If you choose to [host your build artifacts](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket) yourself, they end up in your private AWS bucket.
+
+If you are a Buildkite Enterprise user, you can also set up a private AWS S3 build log archive location and store the logs in your private bucket.
+
+To further tighten the security in a Buildkite organization, you can use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) to track the actions of the users who have API Access Tokens that can access your organization's data using the REST and GraphQL API.
+
 ## Redacted environment variables
 
-<div class="Docs__wip-note">
-<p class="Docs__wip-heading">Experimental feature</p>
-<p>This is an experimental feature, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a> to use it.</p>
-</div>
+The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
 
-The Buildkite agent can redact strings that match the value of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
-
-The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting the environment variable](/docs/agent/v3/configuration#redacted-vars) `BUILDKITE_REDACTED_VARS` **on your agent**.
+The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
 
 For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
 

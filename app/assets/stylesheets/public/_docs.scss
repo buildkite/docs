@@ -18,13 +18,14 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__nav {
   flex: 2;
+  margin-top: 0.4em;
   padding-right: 20px;
-  margin-top: .8em;
+  position: relative;
+
   @media (max-width: $Docs__bp_stacked) {
     margin: 0 -20px 40px -20px;
     padding-right: 0;
   }
-  position: relative;
 }
 
 .Docs__nav__sections {
@@ -34,7 +35,6 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__nav__section-container {
-  margin-bottom: 20px;
   width: 100%;
 
   &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
@@ -48,33 +48,32 @@ $color-green: rgb(3, 165, 98);
 
     @media (hover: hover) {
       &:hover {
-        transition: transform 0.1s;
         color: $color-green;
+        transition: transform 0.1s;
         &::after { opacity: 1; }
       }
     }
 
     &::after {
-      content: '';
+      color: $color-green;
+      content: '+';
       display: block;
-      width: 8px;
-      height: 8px;
-      border-right: 1px solid #aaa;
-      border-bottom: 1px solid #aaa;
-      right: 25px;
-      top: 4px;
+      font-size: 24px;
+      height: 15px;
+      line-height: 1.8;
       position: absolute;
-      transform: rotate(45deg);
-      transform-origin: 75% 75%;
-      transition: transform 0.2s;
-      opacity: 0;
+      right: 15px;
+      top: 0;
+      width: 5px;
     }
   }
   &.current .Docs__nav__section-heading { color: $color-green; }
 
   .Docs__nav__section-content { display: none; }
   &.expanded {
-    .Docs__nav__section-heading::after { transform: rotate(-135deg); }
+    .Docs__nav__section-heading::after {
+      content: '–';
+    }
     img { transform: rotate(-180deg); }
     .Docs__nav__section-content { display: block; }
   }
@@ -85,12 +84,14 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__nav__section-heading {
-  margin: 20px 0 13px 0;
-  font-size: 1.1rem;
-  font-weight: bold;
-  font-style: normal;
-  font-family: inherit;
+  border-top: 1px solid #e5e5e5;
   color: black;
+  font-family: inherit;
+  font-size: 1.334rem;
+  font-style: normal;
+  font-weight: 700;
+  margin: 0;
+  padding: 10px 0 10px 0;
 
   @media (max-width: $Docs__bp_stacked) {
     padding-left: 20px;
@@ -104,12 +105,12 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__nav__section-subheading {
-  text-transform: uppercase;
-  color: #767676;
-  font-size: 11px;
-  line-height: 1.2;
-  margin: 15px 0 10px 0;
+  color: #02854F;
+  font-size: 0.778rem;
   font-weight: 600;
+  line-height: 1.26;
+  margin: 12px 0 9px 9px;
+  text-transform: uppercase;
 
   @media (max-width: $Docs__bp_stacked) {
     padding-left: 20px;
@@ -117,10 +118,19 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__nav__sub-nav {
+  color: #666;
+  font-size: 0.89rem;
+  line-height: 1.2;
   list-style: none;
-  margin: 0;
+  margin: 9px 0 12px 19px;
   padding: 0;
-  font-size: #{(15/18)}rem;
+
+  &.deprecated {
+    .Docs__nav__sub-nav__item::before {
+      content: "→";
+      margin-right: 5px;
+    }
+  }
 
   @media (max-width: $Docs__bp_stacked) {
     font-size: 1rem;
@@ -143,6 +153,7 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__nav__sub-nav__item__link {
+  color: #666;
   font-weight: 400;
   &.active {
     font-weight: 600;
@@ -237,6 +248,7 @@ $color-green: rgb(3, 165, 98);
   thead th { font-weight: 600; }
   .image, img { max-width: 100%; }
   .responsive-image-container { margin: .5rem 0 2rem 0; }
+  li .responsive-image-container { margin: .5rem 0 0 0; }
 }
 
 .Docs__nav__section-heading--link + .Docs__nav__section-heading--link {
@@ -296,11 +308,21 @@ $color-green: rgb(3, 165, 98);
 }
 
 a.Docs__example-repo {
-  display: flex;
   align-items: top;
   border: 1px solid #ccc;
+  display: flex;
   padding: 15px;
-  &:hover, &:active { text-decoration: none; border-color: #999; }
+  text-decoration: none;
+
+  &:hover, &:active, &:focus {
+    border-color: $color-brand-green;
+    color: black;
+
+    .repo {
+      color: $color-brand-green;
+    }
+  }
+
   .icon {
     width: 22px;
     margin-right: 10px;
@@ -311,17 +333,18 @@ a.Docs__example-repo {
     flex: 1;
   }
   .description {
-    display: block;
-    font-weight: normal;
     color: currentColor;
+    display: block;
     font-size: #{(16/18)}rem;
+    font-weight: normal;
   }
   .repo {
-    display: block;
-    font-weight: normal;
     color: #666;
+    display: block;
     font-size: #{(14/18)}rem;
+    font-weight: normal;
     margin-top: .2rem;
+    text-decoration: underline;
   }
 }
 

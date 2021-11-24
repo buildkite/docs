@@ -31,7 +31,7 @@ RSpec.configure do |config|
   # `post` in specs under `spec/controllers`.
   #
   # You can disable this behaviour by removing the line below, and instead
-  # explicitly tag your specs with their type, e.g.:
+  # explicitly tag your specs with their type, for example:
   #
   #     RSpec.describe UsersController, :type => :controller do
   #       # ...
@@ -43,6 +43,6 @@ RSpec.configure do |config|
 
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
-  # arbitrary gems may also be filtered via:
+  # arbitrary gems may also be filtered using:
   # config.filter_gems_from_backtrace("gem name")
 end

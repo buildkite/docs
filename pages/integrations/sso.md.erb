@@ -11,8 +11,9 @@ Buildkite supports the following SSO providers:
 * [Okta](/docs/integrations/sso/okta)
 * [ADFS](/docs/integrations/sso/adfs)
 * [GitHub](/docs/integrations/sso/github-sso)
-* [G Suite](/docs/integrations/sso/g-suite)
-* [G Cloud Identity](/docs/integrations/sso/g-cloud-identity)
+* [Google Workspace](/docs/integrations/sso/google-workspace)
+* [Google Workspace (SAML)](/docs/integrations/sso/google-workspace-saml)
+* [Azure Active Directory](/docs/integrations/sso/azure-ad)
 * [OneLogin](/docs/integrations/sso/onelogin)
 * [Custom SAML](/docs/integrations/sso/custom-saml)
 
@@ -20,7 +21,7 @@ Buildkite supports the following SSO providers:
 
 Many of the SSO providers can be configured by an organization admin using [Organisation Settings → SSO Settings](https://buildkite.com/organizations/-/sso):
 
-<%= image "sso-settings.png", width: 1458/2, height: 926/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
+<%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
 You can also [configure SSO manually using the GraphQL API](/docs/integrations/sso/sso-setup-with-graphql).
 
@@ -39,7 +40,7 @@ There are two ways to disable a provider:
 
 If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.  
 
-## Migrating from one SSO provider to another SSO provider    
+## Migrating from one SSO provider to another SSO provider
 
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:  
 
@@ -50,7 +51,7 @@ If you are the administrator of an organization within Buildkite with an existin
   <p>If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.</p>
 </div>
 
-If you’d like to have some help with the migration, contact support@buildkite.com. 
+If you’d like to have some help with the migration, contact support@buildkite.com.
 
 ## Frequently asked questions
 
@@ -93,7 +94,7 @@ In short, yes, you can. However, merging Buildkite organizations that already ha
 ### Why am I being asked for my password in the "Authorization Required" screen when signing in using SSO?  
 Signing in to your Buildkite organization requires authentication and authorization with both Buildkite and your SSO provider. Authentication determines if you are who you claim to be. Authorization determines if you have the correct permissions within the Buildkite organization you're trying to access.
 
-Both authentication and authorization are necessary because SSO via one Buildkite organization shouldn't provide access to your other Buildkite organizations. Confirming your password is Buildkite's way to ensure that you are who you say you are. Once you've authenticated with Buildkite, it determines which organizations your account is authorized to access. 
+Both authentication and authorization are necessary because SSO using one Buildkite organization shouldn't provide access to your other Buildkite organizations. Confirming your password is Buildkite's way to ensure that you are who you say you are. Once you've authenticated with Buildkite, it determines which organizations your account is authorized to access.
 
 ### I'm already a member of a Buildkite organization. Should I create a new Buildkite user account if I want to work within a different organization (pet project, open source work, etc.)?  
 <!--alex ignore easy-->

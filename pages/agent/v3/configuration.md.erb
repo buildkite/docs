@@ -4,7 +4,7 @@ Every agent installer comes with a configuration file. You can also customize ma
 
 {:toc}
 
-## Example Configuration File
+## Example configuration file
 
 ```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
@@ -17,7 +17,7 @@ debug=true
 
 You can find the location of your configuration file in your platform’s installation documentation, or you can set it using the `--config` command line argument.
 
-## Configuration Settings
+## Configuration settings
 
 _Required attributes:_
 
@@ -173,7 +173,7 @@ _Optional attributes:_
           <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
         </div>
         <p class="Docs__api-param-eg"><em>Example:</em> <code>"-v --mirror"</code></p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
+        <p class="Docs__api-param-eg"><a href="/docs/pipelines/environment-variables#bk-env-vars-buildkite-repo-mirror"><em>Environment variable</em></a>: <code>BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></p>
 
       </td>
     </tr>
@@ -182,6 +182,7 @@ _Optional attributes:_
       <th><code>git-fetch-flags</code></th>
       <td>
         Flags to pass to the <code>git fetch</code> command.
+        Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"-v --prune"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_GIT_FETCH_FLAGS</code></p>
       </td>
@@ -225,7 +226,7 @@ _Optional attributes:_
     <tr id="hooks-path">
       <th><code>hooks-path</code></th>
       <td>
-        Directory where the global hook scripts are found.
+        A directory containing <a href="/docs/agent/v3/hooks#hook-locations-agent-hooks">agent hooks</a>.
         <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_HOOKS_PATH</code></p>
       </td>
@@ -258,7 +259,7 @@ _Optional attributes:_
     <tr id="metrics-datadog-host">
       <th><code>metrics-datadog-host</code></th>
       <td>
-        The DogStatsD instance to send metrics to via udp.
+        The DogStatsD instance to send metrics to using udp.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>127.0.0.1:8125</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_METRICS_DATADOG_HOST</code></p>
       </td>
@@ -382,12 +383,9 @@ _Optional attributes:_
     <tr id="redacted-vars">
       <th><code>redacted-vars</code></th>
       <td>
-        Strings matching the values of environment variables whose names match these patterns are <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. 
-        <div class="Docs__wip-note">
-          <p class="Docs__wip-heading">Experimental feature</p>
-          <p>To use it, set <code>experiment="output-redactor"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-        </div>
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"*_PASSWORD", "*_SECRET", "*_TOKEN"</code></p>
+        A list of environment variable name patterns whose values should be <a href="/docs/pipelines/managing-log-output#redacted-environment-variables">redacted</a> before being printed to the build log. To disable redaction, set this to an empty string.
+        <p><em>Introduced in:</em> <a href="https://github.com/buildkite/agent/releases/tag/v3.31.0">v3.31</a></p>
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>*_PASSWORD,*_SECRET,*_TOKEN,*_ACCESS_KEY,*_SECRET_KEY</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_REDACTED_VARS</code></p>
       </td>
     </tr>
@@ -395,8 +393,8 @@ _Optional attributes:_
     <tr id="shell">
       <th><code>shell</code></th>
       <td>
-        The shell command used to interpret build commands. E.g <code>/bin/bash -e -c</code>.
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems</p>
+        The shell command used to interpret build commands. E.g <code>/bin/bash -e -c</code>. PowerShell 6 and 7 are not supported.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>"C:\Windows\System32\CMD.exe"</code> on Windows, <code>"/bin/bash"</code> on *nix systems.</p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_SHELL</code></p>
       </td>
     </tr>
@@ -569,7 +567,7 @@ _Optional attributes:_
   </tbody>
 </table>
 
-## Environment Variables
+## Environment variables
 
 Most configuration options can be specified as environment variables when starting the agent, for example:
 
@@ -577,4 +575,4 @@ Most configuration options can be specified as environment variables when starti
 BUILDKITE_AGENT_TAGS="queue=deploy,host=$(hostname)" buildkite-agent start
 ```
 
-These variables cannot be modified through the Buildkite web interface, API or via pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hook scripts](/docs/agent/v3/hooks).
+These variables cannot be modified through the Buildkite web interface, API or using pipeline upload for security reasons. You may be able to modify some of the options, such as `BUILDKITE_GIT_CLONE_FLAGS`, from within [hooks](/docs/agent/v3/hooks).

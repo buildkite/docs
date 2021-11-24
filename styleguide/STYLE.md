@@ -1,4 +1,5 @@
-# Styleguide
+# Style Guide
+
 Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
@@ -6,14 +7,16 @@ Table of contents:
 * [Language](#Language)
 * [Style and formatting](#Style-and-formatting)
 * [Code and filenames](#Code-and-filenames)
+* [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
+
 
 ## Language
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
 
 ### Dictionary
 We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker.
+We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### English flavor
 Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
@@ -43,13 +46,12 @@ This section covers the matters that go beyond language and provides guidelines 
 ### Consistency
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
-### Title capitalisation
-
-Use Title case in page headings:
+### Title capitalization
+Use Title case in H1 page headings `# Heading`:
 *"The Quick Brown Fox Jumps Over the Lazy Dog."*
 Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
 
-Use Sentence case in section headings:
+Use Sentence case in section headings (`## Heading`,`### Heading`, `#### Heading`, etc.):
 *"The quick brown fox jumps over the lazy dog."*
 The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
@@ -58,14 +60,13 @@ When in doubt, consult [Title.sh](https://title.sh/) for proper capitalization a
 More info [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
 
 ### Capital letters in proper names
-Only capitalize the name of the product - e.g. 'GitHub organization' and not 'GitHub Organization'.
+Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
 
 ### Capital letters in UX elements
-Use title capitalization for names of tabs and buttons in the Buildkite interface - e.g. 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
+Use title capitalization for names of tabs and buttons in the Buildkite interface - for example, 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
 
-### Bullet lists
-
-Capitalize the first word; no full stops at the end if it’s only one sentence. If there are two or more sentences in the list element, the final one will have a full stop.
+### Lists (bullet lists and numbered steps)
+Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
 
 See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
 
@@ -78,7 +79,6 @@ No restrictions on using numbers in the body of the text.
 
 
 ### Referring to UI elements
-
 UI elements should be italic. For example:
 
 To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
@@ -86,7 +86,7 @@ To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
 
 ### Time and date
 
-Use 24hr time with hours and minutes, but not seconds. Include timezone. e.g. 17:00 AEST
+Use 24hr time with hours and minutes, but not seconds. Include timezone. For example, 17:00 AEST
 
 More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
 
@@ -165,18 +165,20 @@ You can see the full list of supported languages and lexers [here](https://githu
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
 ## Working with the docs site
-
 Our docs website is a custom build. This section gives some guidance on working with the setup.
 
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app/views/layouts/application.html.erb` with a description (e.g. `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
+`app/views/layouts/_sidebar.html.erb` with a description (for example, `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
-### Escaping vale linting
+### Filenames and filename linting
+Use `snake_case` for `*.md.erb` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
 
-If you absolutely need to add some word that triggers the linter, you can use escaping via the following syntax:
+### Escaping vale linting
+If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
 ```
 <!-- vale off -->
@@ -187,9 +189,14 @@ This is some text that you do NOT want the linter to check
 ```
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
-### Links
+### Markdown linting
+A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation. 
 
-Use standard markdown links for both internal and external links.
+The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
+
+
+### Links
+Use standard markdown links syntax for both internal and external links.
 
 Internal links need to start with `/docs`, for example:
 
@@ -197,8 +204,17 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
-### Content reuse
+### Anchor links  
+To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
+`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
+If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
+  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
+
+### Content reuse
 Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
 So
@@ -207,19 +223,17 @@ So
 
 Becomes
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
-
-
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
+To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
 
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.
->Note: Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
+Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
 
-#### Docs Note
-
+#### Note blocks
 Use the following example to add a 'note' in the documentation.
 
 ```
@@ -227,9 +241,9 @@ Use the following example to add a 'note' in the documentation.
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
-```
+Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
-#### Docs Troubleshooting Note
+#### Troubleshooting Note blocks
 Use the following example to add a 'troubleshooting note' in the documentation.
 
 ```<section class="Docs__troubleshooting-note">
@@ -238,6 +252,21 @@ Use the following example to add a 'troubleshooting note' in the documentation.
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
 </section>
 ```
+Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.  
+
+#### Two-column tables   
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:  
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="two-column"}
+```
+
+The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
@@ -245,7 +274,7 @@ This information was aggregated by going over the existing screenshots in the do
 ### Taking and processing screenshots
 * **Format:** PNG
 * **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, e.g. `width: 2280/2, height: 998/2`).
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, for example, `width: 2280/2, height: 998/2`).
 * **Border:** no border
 * **Drop shadow:** no
 * **Cursor:** include when relevant
@@ -253,14 +282,13 @@ This information was aggregated by going over the existing screenshots in the do
 * **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
 * **User info:** blur out everything except for the name
 * **Dummy data:** use Acme Inc as dummy company title
-* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, e.g. "installation-1"
+* **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
 
 ### Adding screenshots or other images
-
 > Before you proceed, make sure that both the width and the height of the image are an even number of pixels!
 
 Steps for adding add an image to a documentation page:
-1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, e.g. 'installation-1' if you are adding several images to the same page)
+1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page)
 2. Put the file into the corresponding `images` folder (a folder with the same name as the page you are adding this image to; create such folder if it doesn't exist yet)
 3. Compose relevant alt text for the image file using Title case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
