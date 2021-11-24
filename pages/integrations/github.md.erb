@@ -75,6 +75,8 @@ If you need to set up the webhook again, you can find the instructions linked at
 
  You can edit your pipeline configuration at any time in _Pipeline Settings_.
 
+ ## Branch configuration and settings
+
 <%= render_markdown 'integrations/branch_config_settings' %>
 
 ## Running builds on pull requests
@@ -150,7 +152,10 @@ For example, if you have a monorepo containing three applications, you could use
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
+## Using one repository in multiple pipelines and organizations
 
 <%= render_markdown 'integrations/one_repo_multi_org' %>
+
+## Build skipping
 
 <%= render_markdown 'integrations/build_skipping' %>
