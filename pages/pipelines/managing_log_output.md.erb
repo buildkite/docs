@@ -12,7 +12,13 @@ You can group and collapse your build output by echoing `--- [group name]` in yo
 echo "--- A section of the build"
 ```
 
-If you want to have the group open by default, use `+++` instead of `---`:
+You can group, collapse and de-emphasize your build output by echoing `~~~ [group name]` in your build output.
+
+```bash
+echo "~~~ An unimportant section of the build"
+```
+
+If you want to have the group open by default, use `+++` instead:
 
 ```bash
 echo "+++ A section of the build"
