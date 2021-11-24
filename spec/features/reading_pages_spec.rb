@@ -155,6 +155,7 @@ RSpec.feature "reading pages" do
       /docs/guides/images-in-build-output
       /docs/guides/managing-log-output
       /docs/guides/migrating-from-bamboo
+      /docs/guides/migrating-from-circleci
       /docs/guides/parallelizing-builds
       /docs/guides/skipping-a-build
       /docs/guides/uploading-pipelines
@@ -165,6 +166,7 @@ RSpec.feature "reading pages" do
       /docs/how-tos/github-enterprise
       /docs/how-tos/gitlab
       /docs/how-tos/migrating-from-bamboo
+      /docs/how-tos/migrating-from-circleci
       /docs/pipelines/emoji
       /docs/pipelines/pipelines
       /docs/pipelines/uploading-pipelines
