@@ -260,7 +260,7 @@ When the build is running it will execute the script and pipe the output to the 
 
 In the below `pipeline.yml` example, when the build runs it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build before the wait step and command step. After the test steps have run, the wait and command step will run.
 
-```yml
+```bash
 steps:
   - command: .buildkite/pipeline.sh | buildkite-agent pipeline upload
     label: "\:pipeline\: Upload"
@@ -269,27 +269,6 @@ steps:
     label: "Run other operations"
 ```
 {: codeblock-file="pipeline.yml"}
-
-## Dynamic pipeline templates
-
-If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/v3/cli-pipeline#uploading-pipelines) command to make this happen, or [write custom plugins](/docs/plugins/writing) and share them across your organization.
-
-To use dynamic pipelines and the pipeline upload command, you'd make a pipeline that looks something like this:
-
-```yml
-steps:
-  - command: enforce-rules.sh | buildkite-agent pipeline upload
-    label: "\:pipeline\: Upload"
-```
-
-Where each team defines their steps in `team-steps.yml`, and your templating logic is in `enforce-rules.sh` (which can be written in any language that can pass YAML to the pipeline upload).
-
-In `enforce-rules.sh` you can add steps to the YAML, require certain versions of dependencies or plugins, or implement any other logic you can program. Depending on your use case you might want to get `enforce-rules.sh` from an external catalog instead of committing it to the team repository.
-
-
-
-
-
 
 ## Cloning a pipeline
 
