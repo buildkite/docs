@@ -1,8 +1,6 @@
 # Job Prioritization
 
-Jobs dispatch is when the job is taken from the queue and assigned to an agent.
-
-Jobs are dispatched to agents in the following order
+Jobs are dispatched (taken from the queue and assigned to agents) in the following order
 
 1. Job priority in descending order, highest number to lowest (`priority`)
 1. Date and time scheduled in ascending order, oldest to most recent (`scheduled_at`). Note that jobs inherit `scheduled_at` from pipeline upload jobs, meaning jobs that are uploaded by a pipeline in an older build will be dispatched before builds created after that.
@@ -20,7 +18,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority will be assigned before jobs with lower priority, even if the last one was waiting longer.
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority will be assigned before jobs with lower priority, regardless of which has been longest in the queue.
 
 Here's an example of prioritising jobs running on a default branch before pull request jobs:
 
