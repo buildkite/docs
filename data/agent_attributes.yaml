@@ -237,7 +237,7 @@ attributes:
   required: false
   desc: | 
       The shell command used to interpret build commands. 
-      _Example:_ `/bin/bash -e -c`. PowerShell 6 and 7 are not supported.
+      _Example:_ `/bin/bash -e -c`. 
 - name: spawn
   env_var: BUILDKITE_AGENT_SPAWN
   default_value: "1"
