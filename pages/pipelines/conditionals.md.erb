@@ -14,6 +14,11 @@ Define conditionals in the _Pipeline Settings_ for your repository provider to r
 
 Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise) and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise).
 
+<div class="Docs__note">
+  <h3>Evaluating conditionals</h3>
+  <p>Conditional expressions are evaluated at pipeline upload, not at step runtime.</p>
+</div>
+
 ## Conditionals in Steps
 
 Use the `if` attribute in your step definition to conditionally run a step.
