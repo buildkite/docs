@@ -30,7 +30,8 @@ steps:
     commands:
       - wget https://github.com/errata-ai/vale/releases/download/v2.12.1/vale_2.12.1_Linux_64-bit.tar.gz
       - tar --transform='s/vale/vale-bin/'  -xf 'vale_2.12.1_Linux_64-bit.tar.gz'
-      - ./vale-bin pages
+      - ./vale-bin --config .vale.ini pages
+      - ./vale-bin --config .vale.snippets.ini pages/**/_*
 
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint -y
@@ -43,7 +44,7 @@ steps:
           # lts = Node 1415.1 - 2023-04-30
           image: "node:lts-alpine3.14"
   - label: "Validate YAML"
-    command: npm run validate-yaml
+    command: npm run -y validate-yaml
     plugins:
       - docker#v3.7.0:
           image: "node:lts-alpine3.14"

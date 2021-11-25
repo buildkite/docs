@@ -1,0 +1,4 @@
+extends: existence
+message: Don't use headings in snippets :-(
+level: error
+scope: heading
