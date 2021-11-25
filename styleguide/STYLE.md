@@ -223,7 +223,7 @@ So
 
 Becomes
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
+`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`  
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
