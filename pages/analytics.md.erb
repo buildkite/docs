@@ -1,7 +1,5 @@
 # Buildkite Test Analytics
 
-Find flaky tests fast.
-
 - Ship code to production faster by optimizing test suites
 - Works with Buildkite, GitHub Actions, Jenkins, CircleCI
 - Identify, fix, and monitor test suite performance
@@ -9,9 +7,28 @@ Find flaky tests fast.
 
 {:toc}
 
-
 ## What is a test suite
+
+<%= image "overview.jpg", width: 728, height: 299, alt: "Screenshot of test suite overview" %>
 
 ## What is a monitor
 
+Configure monitors to track only the things you care about. Track [reliability](#reliability-monitor) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches get below your defined threshold.
 
+## Reliability monitor
+
+_Reliability_ is defined as the percentage of passed test _runs_. It can be measured for individual tests, or for the whole test suite.
+
+## Runtime monitor
+
+_Runtime_ is defined as the total duration of the tests from start to finish.
+
+## Alerts
+
+When you get an alert from one of your monitors, see
+
+- when it was last seen
+- when it was first seen
+- how many times it has happened
+
+Mark it as resolved or, mute it, or leave it open.

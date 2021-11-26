@@ -2,4 +2,72 @@
 
 ## RSpec
 
+1. Create a new branch:
+
+    ```
+    git checkout -b install-buildkite-test-analytics
+    ```
+
+2. Add rspec-buildkite-analytics to your Gemfile in the test group:
+
+    ```rb
+    group :test do
+      gem "rspec-buildkite-analytics"
+    end
+    ```
+
+3. Run bundler to install the gem and update your Gemfile.lock:
+
+    ```sh
+    $ bundle
+    ```
+
+3. Add the Test analytics code to your application in `spec/spec_helper.rb`:
+
+    ```rb
+    require "rspec/buildkite/analytics"
+
+    RSpec::Buildkite::Analytics.configure(token: "9kNZ9cDMkpVNu7CiGPDch9rP")
+    ```
+
+4. Commit and push your changes:
+
+    ```sh
+    $ git add .
+    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git push
+    ```
+
+Once you’re done, in your Test analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+
+## JUnit XML
+
+Upload your JUNIT XML data (with escaped quote marks `"`) to Test analytics:
+
+<!-- TODO: update URL -->
+
+```sh
+curl --request POST \
+  --url http://analytics-api.buildkite.localhost/v1/runs/v1/runs \
+  --header 'Authorization: Token token="$TA_API_TOKEN"' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "format": "junit",
+  "data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
+}'
+
+```
+
+This will parse the xml and queue all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and counts for the number of `queued` and `skipped` test cases.
+
+```json
+{
+  "id": "eac9b176-7869-464d-952e-7f87e2579128",
+  "queued": 3,
+  "skipped": 0
+}
+```
+
 ## Integrate your suite?
+
+How does one do this?
