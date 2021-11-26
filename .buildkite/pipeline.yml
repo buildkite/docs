@@ -33,6 +33,11 @@ steps:
       - ./vale-bin --config .vale.ini pages
       - ./vale-bin --config .vale.snippets.ini pages/**/_*
 
+  - label: "Find common spelling mistakes"
+    commands:
+      - pip install codespell
+      - codespell -L iterm pages
+
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint -y
     plugins:
