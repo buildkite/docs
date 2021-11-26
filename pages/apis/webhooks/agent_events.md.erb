@@ -8,23 +8,23 @@
 <tbody>
   <tr>
     <th><code>agent.connected</code></th>
-    <td>An agent has connected</td>
+    <td>An agent has connected to the API</td>
   </tr>
   <tr>
     <th><code>agent.lost</code></th>
-    <td>An agent has been marked as lost  </td>
+    <td>An agent has been marked as lost. This happens when Buildkite stops receiving pings from the agent.</td>
   </tr>
   <tr>
     <th><code>agent.disconnected</code></th>
-    <td>An agent has disconnected</td>
+    <td>An agent has disconnected. This happens when the agent shuts down and disconnects from the API.</td>
   </tr>
   <tr>
     <th><code>agent.stopping</code></th>
-    <td>An agent is stopping</td>
+    <td>An agent is stopping. This happens when an agent is instructed to stop from the API. It first transitions to stopping and finishes any current jobs.</td>
   </tr>
   <tr>
     <th><code>agent.stopped</code></th>
-    <td>An agent has stopped</td>
+    <td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful.</td>
   </tr>
 </tbody>
 </table>
