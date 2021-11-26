@@ -388,7 +388,7 @@ For large legacy applications the Docker build process might take a long time on
 An example of how to set this up:
 
 1. Create a Docker Hub repository for pushing images to
-1. Update the pipeline’s `env` hook in your secrets bucket to perform a `docker login`
+1. Update the pipeline’s [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in your secrets bucket to perform a `docker login`
 1. Create a builder stack with its own queue (for example, `elastic-builders`)
 
 Here is an example build pipeline based on a production Rails application:
