@@ -8,7 +8,7 @@
     git checkout -b install-buildkite-test-analytics
     ```
 
-2. Add rspec-buildkite-analytics to your Gemfile in the test group:
+2. Add rspec-buildkite-analytics to your `Gemfile` in the test group:
 
     ```rb
     group :test do
@@ -16,7 +16,7 @@
     end
     ```
 
-3. Run bundler to install the gem and update your Gemfile.lock:
+3. Run `bundle` to install the gem and update your `Gemfile.lock`:
 
     ```sh
     $ bundle
@@ -58,7 +58,7 @@ curl --request POST \
 
 ```
 
-This will parse the xml and queue all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and counts for the number of `queued` and `skipped` test cases.
+This will parse the XML and queue all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and counts for the number of `queued` and `skipped` test cases.
 
 ```json
 {
