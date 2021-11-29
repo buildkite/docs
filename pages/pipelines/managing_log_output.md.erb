@@ -24,7 +24,7 @@ If you want to have the group open by default, use `+++` instead:
 echo "+++ A section of the build"
 ```
 
-If no group is explicitly expanded (`+++`), then the last collapsed regular group (`---`) gets expanded instead. By default, the last group it's going to be expanded.
+If no group is explicitly expanded (`+++`), then the last collapsed regular group (`---`) gets expanded instead. If you really want all groups to be collapsed, add an empty expanded group (`+++`).
 
 If you'd like to open the previously defined group, use `^^^ +++`. This is useful if a command within a group fails, and you'd like to have the group already open when you view the log.
 
