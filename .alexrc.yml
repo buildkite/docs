@@ -1,5 +1,5 @@
 allow:
-  - actors
+  - actors-actresses
   - hooks
   - hook
   - execute
