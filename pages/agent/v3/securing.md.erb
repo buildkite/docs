@@ -31,6 +31,7 @@ By default the agent allows you to run any command on the build server (for exam
 Once disabled your build steps will need to be checked into your repository as scripts, and the only way to pass arguments is using environment variables.
 
 <!-- vale off -->
+
 This option is intended to protect your infrastructure from a general Buildkite compromise that might attempt to send arbitrary commands to your agents. It is not designed, nor effective, at protecting against malicious actors with commit access to the repository.
 
 <!-- vale on -->
