@@ -59,6 +59,28 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
+
+To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/command-step) like in the example below:
+
+```yml
+steps:
+  - label: "Validation check"
+    command: ./scripts/validation_tests.sh
+    key: "validation-check"
+  - label: "Run regression only if validation check is passed"
+    depends_on: "validation-check"
+    command: |
+      if [ $$(buildkite-agent step get "outcome" --step "validation-check") == "passed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload
+         steps:
+           - label: "Run Regression"
+             command: ./scripts/regression_tests.sh
+      YAML
+      fi
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Supported syntax
 
 The below expressions are supported by the `if` attribute:
