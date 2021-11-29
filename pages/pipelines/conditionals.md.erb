@@ -59,9 +59,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-As `'if'` conditions are evaluated at the time of the pipeline upload, its not possible to use a `if` attribute to conditionally run a step based on the result of another step.
+Since `'if'` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
 
-So in order to run a step based on the result of another step, we upload a new pipeline based on a `if` condition set up in command step like below:
+In order to run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/command-step) like in the example below:
 
 ```yml
 steps:
