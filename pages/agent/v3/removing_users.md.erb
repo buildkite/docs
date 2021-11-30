@@ -10,9 +10,9 @@ You can remove a user in your organization's Settings in the Buildkite UI.
 
 ## Security guarantees of removing a user
 
-When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available via the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user. 
+When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available via the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user.
 
-Within Buildkite's access model, organizations don't own users, so they can't control users' sessions because users represent individuals who may be members of multiple organizations. 
+Within Buildkite's access model, organizations don't own users, so they can't control users' sessions because users represent individuals who may be members of multiple organizations.
 
 Removing a compromised user from your organization immediately protects all the organization's resources from that user. The user will technically still be able to view their personal settings page.
 
@@ -23,7 +23,7 @@ In case of a non-responsive or rogue user, or if multiple accounts are compromis
   <p>As a part of the Buildkite’s SLA, Enterprise users have an emergency email available for both operational and security incidents: <a href=”mailto:wake-me-up@buildkite.com”>wake-me-up@buildkite.com</a>.</p>
 </section>
 
-If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization. 
+If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization.
 
 Note that resetting a password might not always be an option. If you have SSO enabled for your organization, the user in question may not even have a dedicated password for their Buildkite account.
 
@@ -45,4 +45,4 @@ Admins of your Buildkite organization can disable and then re-enable the SSO, wh
 
 You can [disable](/docs/integrations/sso/sso-setup-with-graphql#disabling-an-sso-provider) and [re-enable](/docs/integrations/sso/sso-setup-with-graphql#setting-up-saml-google-cloud-identity-okta-onelogin-adfs-and-others-step-4) the SSO using GraphQL or the Buildkite UI.
 
-Remember that if an attacker had a fully authenticated session, they've potentially configured API tokens, which will not be subject to SSO requirements. Therefore, the only truly safe response is still to remove the compromised user from your Buildkite organization. 
+Remember that if an attacker had a fully authenticated session, they've potentially configured API tokens, which will not be subject to SSO requirements. Therefore, the only truly safe response is still to remove the compromised user from your Buildkite organization.
