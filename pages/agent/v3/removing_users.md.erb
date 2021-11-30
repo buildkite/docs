@@ -19,8 +19,8 @@ Removing a compromised user from your organization immediately protects all the 
 In case of a non-responsive or rogue user, or if multiple accounts are compromised, you can send a list of impacted user IDs to [support@buildkite.com](mailto:support@buildkite.com) and ask the Buildkite support to log out the specific user or all the users out of all sessions.
 
 <section class="Docs__note">
-  <h3>Enterprise users</h3>
-  <p>As a part of the Buildkite’s SLA, Enterprise users have an emergency email available for both operational and security incidents: <a href=”mailto:wake-me-up@buildkite.com”>wake-me-up@buildkite.com</a>.</p>
+<h3>Enterprise users</h3>
+<p>As a part of the Buildkite’s SLA, Enterprise users have an emergency email available for both operational and security incidents: <a href=”mailto:wake-me-up@buildkite.com”>wake-me-up@buildkite.com</a>.</p>
 </section>
 
 If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization.
@@ -38,7 +38,7 @@ If the attacker has control of the SSO, the scope of the security incident is be
 The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated via your SSO provider.
 
 <section class="Docs__troubleshooting-note">
-  <p>Before you proceed, make sure that you have at least one user with SSO as an optional log in requirement in your organization to make it possible for someone to log back in!</p>
+<p>Before you proceed, make sure that you have at least one user with SSO as an optional log in requirement in your organization to make it possible for someone to log back in!</p>
 </section>
 
 Admins of your Buildkite organization can disable and then re-enable the SSO, which will force all users in your organization to re-authorize with SSO. When you disable an SSO provider, it rescinds all active SSO authorizations for all users _including the admin who disables the SSO_! The admin will need to log back into the organization by using a non-SSO method.
