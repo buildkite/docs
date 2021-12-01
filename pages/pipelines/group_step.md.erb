@@ -188,7 +188,7 @@ steps:
 
 ## Group merging
 
-Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI.
+If you upload a pipeline that has a `group` or `label` already present in your YAML configuration file, the groups will be merged together in the Buildkite UI.
 
 <section class="Docs__note">
   <h3>You can't define the same key twice</h3>
@@ -201,8 +201,8 @@ For example, you have a YAML file:
 - group: "Setup"
   steps:
     - commands:
-      - "buildkite agent pipeline upload"
-      - "abc.sh"
+      - buildkite-agent pipeline upload
+      - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -217,35 +217,25 @@ And this YAML file uploads a pipeline that has a group with the same name:
 
 These groups will be merged into one in the UI, and the `docker build` step will be added to the existing group.
 
+Similarly, if you have a YAML file:
+
 ```yml
-- group: "Setup"
+- group: ~
+  label: "Setup"
   steps:
     - commands:
-      - "buildkite agent pipeline upload"
-      - "abc.sh"
-- group: "Setup"
-  steps:
-    - command: "docker build"
+      - buildkite-agent pipeline upload
+      - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
 
-Similarly, here consecutive groups have the same label:
+And this YAML file uploads a pipeline that has a group with the same label:
 
 ```yml
-steps:
 - group: ~
-  label: "linting"
+  label: "Setup"
   steps:
-    - name: "\:rubocop\: RuboCop"
-      command: "echo .buildkite/steps/rubocop"
-    - name: "\:eslint\: ESlint"
-      command: "echo .buildkite/steps/eslint"
-- group: ~
-  label: "linting"
-  steps:
-    - label: "\:flowtype\: Flow"
-      command: "echo .buildkite/steps/flow"
-```
+    - command: echo "proceed"
 {: codeblock-file="pipeline.yml"}
 
-The command `echo .buildkite/steps/flow` will be added to the existing group and the groups will be displayed as one in the UI.
+These groups will be merged into one in the UI, and the `echo "proceed"` step will be added to the existing group.
