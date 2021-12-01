@@ -203,7 +203,7 @@ steps:
   - group: "Setup"
     steps:
       - commands:
-        - buildkite-agent pipeline upload
+        - "buildkite-agent pipeline upload"
         - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
@@ -228,7 +228,7 @@ steps:
     label: "Setup"
     steps:
       - commands:
-        - buildkite-agent pipeline upload
+        - "buildkite-agent pipeline upload"
         - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
