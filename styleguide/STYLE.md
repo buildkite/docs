@@ -190,7 +190,7 @@ This is some text that you do NOT want the linter to check
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
 ### Markdown linting
-A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation. 
+A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
 
 The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
@@ -204,18 +204,20 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
-### Anchor links  
-To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
+### Anchor links
+To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:
 `/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
-If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
-  
-`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:
 
-Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
 
-### Content reuse
-Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.
+
+### Content reuse (snippets)
+You can use snippets for single sourcing - to reuse the same piece of documentation in several documentation pages by referring to it. This way, you'll also be able to update the snippet once, and the changes will be visible on all pages that use this snippet.
+
+Add snippet files to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
 So
 
@@ -223,7 +225,15 @@ So
 
 Becomes
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
+
+Know that if the snippet is placed within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+
+So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder, will need to look like this:
+
+<%= render_markdown 'apis/webhooks/agent_events_table' %>
+
+> Note: Do not use H2, H3, etc. level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. If you need to start a snippet with a heading, add the heading to the main document just before you add a snippet.
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
@@ -252,10 +262,10 @@ Use the following example to add a 'troubleshooting note' in the documentation.
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
 </section>
 ```
-Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.  
+Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
 
-#### Two-column tables   
-To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:  
+#### Two-column tables
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
 
 ```
 Column header 1   | Column header 2
