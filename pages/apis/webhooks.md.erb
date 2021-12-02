@@ -23,11 +23,7 @@ You can subscribe to one or more of the following events:
   <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
   <tr><th>job.finished</th><td>A job has finished</td></tr>
   <tr><th>job.activated</th><td>A block step job has been unblocked using the web or API</td></tr>
-  <tr><th>agent.connected</th><td>An agent has connected</td></tr>
-  <tr><th>agent.lost</th><td>An agent has been marked as lost</td></tr>
-  <tr><th>agent.disconnected</th><td>An agent has disconnected</td></tr>
-  <tr><th>agent.stopping</th><td>An agent is stopping</td></tr>
-  <tr><th>agent.stopped</th><td>An agent has stopped</td></tr>
+  <%= render_markdown 'webhooks/agent_events_table' %>
 </tbody>
 </table>
 
