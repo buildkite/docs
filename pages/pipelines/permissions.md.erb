@@ -64,9 +64,9 @@ When a user joins the organization using SSO, they’ll be automatically added t
 Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
 
 #### Once enabled, can I disable Teams?
-Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.  
+Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.
 
-#### Can I automate the removal of users from Buildkite?  
+#### Can I automate the removal of users from Buildkite?
 Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to do it.
 You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name or email of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Next, use the first query to get the user ID (make sure to replace `your-organization-slug` with your Buildkite organization's slug and `Jane Doe` with the name or email of the user you want to remove), and then run the RemoveOrganizationMember mutation with the user ID to remove the user:  
 
@@ -89,7 +89,7 @@ query FindOrganizationMember {
 }
 ```
 
-Copy the user ID you've received into the following mutation and run it to remove the user from your Buildkite organization:  
+Copy the user ID you've received into the following mutation and run it to remove the user from your Buildkite organization:
 
 ```bash
 mutation RemoveOrganizationMember {
@@ -104,7 +104,7 @@ mutation RemoveOrganizationMember {
 
 Enterprise customers can control user permissions for selected pipeline actions. These permissions can be used both with or without Teams enabled.
 
-User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.  
+User-level permissions are managed by organization administrators, and can be found in the Organization Settings under Member Permissions.
 
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
@@ -119,7 +119,7 @@ If your organization has teams enabled, the pipeline creation permissions are ma
 
 Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
 
-1. Find the `id` for the user to be deleted (in this example `Jane Doe`):  
+1. Find the `id` for the user to be deleted (in this example `Jane Doe`):
 
     ```graphql
     query {

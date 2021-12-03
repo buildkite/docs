@@ -6,7 +6,7 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 {:toc}
 
-## Conditionals in Pipelines
+## Conditionals in pipelines
 
 Define conditionals in the _Pipeline Settings_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
 
@@ -19,7 +19,7 @@ Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbuc
   <p>Conditional expressions are evaluated at pipeline upload, not at step runtime.</p>
 </div>
 
-## Conditionals in Steps
+## Conditionals in steps
 
 Use the `if` attribute in your step definition to conditionally run a step.
 
@@ -137,7 +137,7 @@ The below expressions are supported by the `if` attribute:
   <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
-## Conditional Notifications
+## Conditional notifications
 
 To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
 

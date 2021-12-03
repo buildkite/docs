@@ -30,7 +30,7 @@ If neither condition is true, the build will fail, and builds on subsequent pipe
 
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/integrations/github#connecting-buildkite-and-github).
 
-## Trigger Step Attributes
+## Trigger step attributes
 
 _Required attributes:_
 
@@ -160,7 +160,7 @@ _Optional_ `build` _attributes:_
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Environment Variables
+## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
 
