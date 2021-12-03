@@ -2,22 +2,22 @@
 
 GitHub can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both the Buildkite organization and your GitHub organization.
 
-## Step 1.  
-Set up the [Buildkite GitHub Application](https://github.com/apps/buildkite) for your GitHub organization. You need to install Buildkite for the GitHub organization that you want to connect to Buildkite as an SSO provider.  
+## Step 1.
+Set up the [Buildkite GitHub Application](https://github.com/apps/buildkite) for your GitHub organization. You need to install Buildkite for the GitHub organization that you want to connect to Buildkite as an SSO provider.
 
 ## Step 2.
 In your Buildkite Organization Settings' Repository Providers menu item, connect your GitHub user account to Buildkite. Grant Buildkite the permission to verify your GitHub identity.
 
-## Step 3. Create an SSO Provider  
-In your Buildkite Organization Settings' Single Sign On menu item, choose the GitHub provider:  
+## Step 3. Create an SSO Provider
+In your Buildkite Organization Settings' Single Sign On menu item, choose the GitHub provider:
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-You need to specify the name of your GitHub Organization for which you'd like to enable the SSO using GitHub and click Create Provider.  
+You need to specify the name of your GitHub Organization for which you'd like to enable the SSO using GitHub and click Create Provider.
 
 ## Step 4. Perform a Test Login
-Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.  
+Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
 ## Step 5. Enable the new SSO Provider
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through GitHub before organization data can be accessed.
 
-If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/integrations/sso#disabling-and-removing-sso) first. For more information on disabling a provider, see the disabling SSO section of the SSO overview.  
+If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/integrations/sso#disabling-and-removing-sso) first. For more information on disabling a provider, see the disabling SSO section of the SSO overview.

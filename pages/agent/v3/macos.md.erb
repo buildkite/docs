@@ -20,7 +20,7 @@ sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkit
 
 If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) install instructions.
 
-## SSH Key Configuration
+## SSH key configuration
 
 SSH keys should be copied to (or generated into) the `.ssh` directory in the users’s home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
 
@@ -31,7 +31,7 @@ $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
-## File Locations
+## File locations
 
 Homebrew install file locations:
 
@@ -50,7 +50,7 @@ Linux installer script file locations:
 
 See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
 
-## Starting on Login
+## Starting on login
 
 If you installed the agent using Homebrew you can run the following command to get instructions on how to install the correct plist and have buildkite-agent start on login:
 

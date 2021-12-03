@@ -40,7 +40,7 @@ Hooks are called in the following order:
 1. `pre-exit` (local) - runs before the job finishes, useful for performing cleanup tasks
 1. `pre-exit` (global) - runs before the job finishes, useful for performing cleanup tasks
 
-## Creating Hook Scripts
+## Creating hook scripts
 
 Hooks are bash scripts you can use to execute commands and export environment variables. All the standard [Buildkite environment variables](/docs/pipelines/environment-variables) are available to be used inside your hook scripts.
 
@@ -62,7 +62,7 @@ echo '--- \:sparkles\: Changing to the CI directory'
 cd ci
 ```
 
-## Global Hooks
+## Global hooks
 
 Each agent installer comes with a hooks directory containing a sample set of hooks. You can find the location of your global hooks directory in your platform’s installation documentation.
 
