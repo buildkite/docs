@@ -215,25 +215,27 @@ If you need to create a link to an H3-level heading, start with an H2-level anch
 Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.
 
 ### Content reuse (snippets)
-You can use snippets for single sourcing - to reuse the same piece of documentation in several documentation pages by referring to it. This way, you'll also be able to update the snippet once, and the changes will be visible on all pages that use this snippet.
+You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
-Add snippet files to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
-So
+This way, this:
 
 `/integrations/_step_2_3_github_custom_status.md.erb`
 
-Becomes
+Needs to become this in a snippet render link:
 
 `<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
 
-Know that if the snippet is placed within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+Put the snippet render link where you need to add the content of the snippet.
 
-So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder, will need to look like this:
+Do not use H2, H3-level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+
+If a snippet is stored within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+
+So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
 
 <%= render_markdown 'apis/webhooks/agent_events_table' %>
-
-> Note: Do not use H2, H3, etc. level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. If you need to start a snippet with a heading, add the heading to the main document just before you add a snippet.
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
