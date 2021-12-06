@@ -6,7 +6,7 @@ This page shows you how to write your own Buildkite plugin, and how to validate 
 
 ## Tutorial: write a plugin
 
-In this tutorial we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished, and creates a build annotation with the count.
+In this tutorial, we'll create a Buildkite plugin called "File Counter", which counts the number of files in the build directory once the command has finished and creates a build annotation with the count.
 
 ```yml
 steps:
@@ -29,7 +29,7 @@ git init
 
 ## Step 2: Add a plugin.yml
 
-Next we'll create `plugin.yml` to describes how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
+Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -44,7 +44,7 @@ configuration:
 ```
 {: codeblock-file="plugin.yml"}
 
-The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. We’ve specified that the plugin has a single `pattern` property, of type `string`.
+The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. The plugin in this tutorial has a single `pattern` property, of type `string`.
 
 Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is the GitHub repository slug, not the name defined in `plugin.yml`. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
@@ -118,7 +118,7 @@ docker-compose run --rm lint
 
 ## Step 4: Add a hook
 
-Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, we’ll create a `post-command` hook in a `hooks` directory:
+Plugins can implement a number of [plugin hooks](/docs/agent/v3/hooks). For this plugin, create a `post-command` hook in a `hooks` directory:
 
 ```shell
 mkdir hooks
@@ -144,7 +144,7 @@ buildkite-agent annotate "Found ${COUNT} files matching ${PATTERN}"
 
 ## Step 5: Add a test
 
-Next step is to test the `post-command` hook using BATS, and the `buildkite/plugin-tester` Docker image.
+The next step is to test the `post-command` hook using BATS, and the `buildkite/plugin-tester` Docker image.
 
 ```shell
 mkdir tests
@@ -211,7 +211,7 @@ docker-compose run --rm tests
 
 ## Step 6: Add a readme
 
-Next we'll add a `README.md` file to introduce the plugin to the world:
+Next, add a `README.md` file to introduce the plugin to the world:
 
 <%= render 'plugins/tutorial_readme' %>
 
