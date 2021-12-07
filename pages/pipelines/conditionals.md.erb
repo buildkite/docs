@@ -12,7 +12,7 @@ You can have complete control over when to trigger pipeline builds by using cond
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
-Limiting at the pipeline level affects whether builds get created at all, so conditional filtering has the highest priority. Build conditionals are run before any other build qualifier tests, so branch filters always run second. If both are present, such build will have to pass both filters to be created – first the pipeline-level limiting filter and then the conditional filter.
+Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
 Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your _Pipeline Settings page_ in the Buildkite UI or via the REST API.
 
