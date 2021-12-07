@@ -1,10 +1,10 @@
 # Migrating from Circle CI
 
-Migrating continuous integration tools can be hard, so we've put together a guide to help you transition your Circle CI skills to Buildkite. This guide is explains about Buildkite Compat tool that helps with transform Pipelines from other CI providers to Buildkite.
+Migrating continuous integration tools can be hard, so we've put together a guide to help you transition your Circle CI skills to Buildkite. This guide is explains about Buildkite Compat tool that helps with transform pipelines from other CI providers to Buildkite.
 
-## Jobs to Pipelines
+## Jobs to pipelines
 
-CircleCI jobs can be mapped to Pipelines in Buildkite. Let us look at an example CircleCI job and see how we can migrate it to Pipeline in Buildkite using Buildkite Compat tool.
+CircleCI jobs can be mapped to pipelines in Buildkite. Let's look at an example CircleCI job and see how you can migrate it to a pipeline in Buildkite using Buildkite Compat tool.
 
 ```yaml
 version: 2
@@ -16,16 +16,15 @@ jobs:
       - checkout
       - run: pip install -r requirements/dev.txt
 ```
-
 {: codeblock-file="basic.yml"}
 
-Now we can convert above CirclCI job to a pipeline in Buildkite using Buildkite Compat tool using below command
+Now you can convert above CirclCI job to a pipeline in Buildkite with Buildkite Compat tool using the following command:
 
 ```bash
 buildkite-compat basic.yml
 ```
 
-It generates below pipeline file that can be used in Buildkite
+It generates the following pipeline file that can be used in Buildkite:
 
 ```yaml
 steps:
@@ -41,10 +40,9 @@ steps:
       image: "circleci/python:3.6.2-stretch-browsers"
       workdir: "/buildkite-checkout"
 ```
-
 {: codeblock-file="pipeline.yml"}
 
-Buildkite Compat tool can also be used via HTTP API as shown below
+Buildkite Compat tool can also be used via HTTP API, for example:
 
 ```bash
 curl -X POST -F 'file=basic.yml' https://buildkite-compat.herokuapp.com
@@ -52,4 +50,4 @@ curl -X POST -F 'file=basic.yml' https://buildkite-compat.herokuapp.com
 
 ## Further Reading
 
-Here is github repository for code base of [Buildkite Compat tool](https://github.com/buildkite/compat)
+Here is the GitHub repository for [Buildkite Compat](https://github.com/buildkite/compat) tool.
