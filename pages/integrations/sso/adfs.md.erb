@@ -20,10 +20,10 @@ On the following page, copy the ACS URL for use in Step 2.
 
 The instructions below guide you through using a series of wizards to:
 
-* Add a Relying Party Trust
-* Add an Issuance Transform Rule, a type of Claim Rule
-* Export the Token-signing Certificate
-* Update the Authentication Policy
+- Add a Relying Party Trust
+- Add an Issuance Transform Rule, a type of Claim Rule
+- Export the Token-signing Certificate
+- Update the Authentication Policy
 
 With these wizards, you'll set up your domain for SSO and retrieve the information the Buildkite team requires to complete the setup process.
 
@@ -72,8 +72,8 @@ Rule 1
 	- _Claim Rule Name_: Get Attributes
 	- _Attribute Store_: Active Directory
 	- _Mapping of LDAP Attributes to outgoing claim types_:
-		* _LDAP Attribute_: Email Addresses, Outgoing claim type: Email address
-		* _LDAP Attribute_: Display-Name, Outgoing claim type: Name
+		- _LDAP Attribute_: Email Addresses, Outgoing claim type: Email address
+		- _LDAP Attribute_: Display-Name, Outgoing claim type: Name
 3. Click _Finish_ to add the rule
 
 Rule 2
@@ -91,8 +91,8 @@ Rule 3
 
 1. _Choose rule type_: _Send claims using a custom rule_
 2. _Configure claim rule_:
-	* _Claim Rule Name_: Attribute Name Transform
-	* _Custom Rule_:
+	- _Claim Rule Name_: Attribute Name Transform
+	- _Custom Rule_:
 		<pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
 		=> issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
 3. Click _Finish_ to add the rule.
