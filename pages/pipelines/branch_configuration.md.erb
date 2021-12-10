@@ -2,21 +2,23 @@
 
 You can use branch patterns to ensure pipelines are only triggered when necessary. This guide shows you how to set up branch patterns for whole pipelines and individual build steps.
 
-In step-level and pipeline-level branch filtering you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
+In step-level and pipeline-level branch filtering, you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
 
 {:toc}
 
 ## Pipeline-level branch filtering
 
-By default a pipeline will trigger builds for all branches (`*` or blank). In your pipeline settings you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build will be created.
+By default, a pipeline triggers builds for all branches (`*` or blank). In your pipeline settings, you can set specific branch patterns for the entire pipeline. If a commit doesn't match the branch pattern, no build is created.
 
 <%= image "pipeline-level.png", width: 864, height: 306, alt: "Pipeline-level branch filtering" %>
 
-<section class="Docs__troubleshooting-note">
-  <h3>Pull Request Builds</h3>
-  <p>Builds created for pull requests will ignore any pipeline-level branch filters. If you want to limit the branches that can build pull requests, add an additional branch filter in your pipeline's source control settings.</p>
-  <p>This filter can be found under 'Build pull requests' if you have chosen the 'Trigger builds after pushing code' option.</p>
-</section>
+## Additional branch filtering for pull request builds
+
+Builds created for pull requests ignore any pipeline-level branch filters. If you want to limit the branches that can build pull requests, add an additional branch filter in your pipeline's source control settings.
+
+Find this filter under 'Build pull requests' if you have chosen the 'Trigger builds after pushing code' option.
+
+<%= image "pullrequest-level.png", width: 2524/2, height: 574/2, alt: "Pull request-level branch filtering" %>
 
 ## Step-level branch filtering
 
@@ -47,6 +49,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+The `branches` attribute cannot be used at the same time as the `if` attribute. See more in [Conditionals in steps](/docs/pipelines/conditionals#conditionals-in-steps).
 
 <section class="Docs__note">
   <p>Step-level branch filters will only affect the step that they are added to. Subsequent steps without branch filters will still be added to the pipeline.</p>

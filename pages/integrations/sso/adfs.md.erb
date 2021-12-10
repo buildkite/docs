@@ -1,14 +1,16 @@
 # Single Sign-On with ADFS
 
-Active Directory Federation Services (ADFS) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for both your ADFS server and Buildkite.
+You can use Active Directory Federation Services (ADFS) for your Buildkite organization. To complete this tutorial, you need admin privileges for both your ADFS server and Buildkite.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-## Step 1. Create a Buildkite SSO Provider
+{:toc}
 
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the ADFS provider from the available options:
+## Step 1. Create a Buildkite SSO provider
+
+Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the ADFS provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
@@ -16,12 +18,12 @@ On the following page, copy the ACS URL for use in Step 2.
 
 ## Step 2. Set up Buildkite in the ADFS management console
 
-The instructions below will guide you through using a series of wizards to:
+The instructions below guide you through using a series of wizards to:
 
-* Add a 'Relying Party Trust'
-* Add an 'Issuance Transform Rule', a type of 'Claim Rule'
-* Export the Token-signing Certificate
-* Update the Authentication Policy
++ Add a Relying Party Trust
++ Add an Issuance Transform Rule, a type of Claim Rule
++ Export the Token-signing Certificate
++ Update the Authentication Policy
 
 With these wizards, you'll set up your domain for SSO and retrieve the information the Buildkite team requires to complete the setup process.
 
@@ -32,104 +34,98 @@ With these wizards, you'll set up your domain for SSO and retrieve the informati
 <p>For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">Pagerduty SSO integration guide</a> is very similar to Buildkite. Follow the Pagerduty instructions, and substitute in the Buildkite values from the instructions below.</p>
 </div>
 
-### **Step 2.1 Add a relying party trust**
+### Step 2.1 Add a relying party rust
 
-From the `Actions` sidebar, click `Add relying party trust...` to start the wizard
+From the _Actions_ sidebar, click _Add relying party trust..._ to start the wizard
 
-1. <u>Welcome</u>: Select `Claims aware`.
-1. <u>Select data source</u>: Select `Enter data about the relying party manually`.
-1. <u>Specify display name</u>: Call your relying party `Buildkite`.
-1. <u>Choose profile</u>: Select `ADFS profile`.
-1. <u>Configure certificate</u>: Skip this step, as you don't need a token encryption certificate.
-1. <u>Configure URL</u>:
-	Select `Enable support for the SAML 2.0 WebSSO protocol`.
-	Enter the ACS URL from Buildkite as your `Relying party SAML 2.0 SSO service URL`.
-1. <u>Configure identifiers</u>:
-	Enter `https://<your IDP url>/adfs/services/trust` into the `Relying party trust identifier` field.
-	Click `Add` to add it to the `Relying party trust identifiers` list.
-1. <u>Choose Access Control Policy</u>:
-	Choose `Permit everyone`.
-	You can choose to select specific users, but that will involve further steps that aren't covered by this guide.
-1. <u>Ready to add trust</u>: Review your settings to make sure all the urls are correct.
-1. <u>Finish</u>:
-	Leave the `Configure claims issuance policy for this application` box checked.
-	Click `Close` to close the wizard and save your setup.
+1. _Welcome_: Select _Claims aware_.
+2. _Select data source_: Select _Enter data about the relying party manually_.
+3. _Specify display name_: Call your relying party `Buildkite`.
+4. _Choose profile_: Select _ADFS profile_.
+5. _Configure certificate_: Skip this step, as you don't need a token encryption certificate.
+6. _Configure URL_:
+	Select _Enable support for the SAML 2.0 WebSSO protocol_.
+	Enter the ACS URL from Buildkite as your _Relying party SAML 2.0 SSO service URL_.
+7. _Configure identifiers_:
+	Enter `https://<your IDP url>/adfs/services/trust` into the _Relying party trust identifier_ field.
+	Click _Add_ to add it to the _Relying party trust identifiers_ list.
+8. _Choose Access Control Policy_:
+	Choose _Permit everyone_.
+	You can choose to select specific users, but that involves further steps that aren't covered by this guide.
+9. _Ready to add trust_: Review your settings to make sure all the URLs are correct.
+10. _Finish_:
+	Leave the _Configure claims issuance policy for this application_ box checked.
+	Click _Close_ to close the wizard and save your setup.
 
-In the `Actions` sidebar, you should now have a subheading `Buildkite`.
+In the _Actions_ sidebar, you should now have a subheading _Buildkite_.
 
-### **Step 2.2 Add an issuance transform rule**
+### Step 2.2 Add an issuance transform rule
 
-From the `Buildkite` section of the `Actions` sidebar, click `Edit claim issuance policy...`
+From the _Buildkite_ section of the _Actions_ sidebar, click _Edit claim issuance policy..._
 
-Here we're going to add three rules. Add each rule using the `Add Rule` button on the Issuance transform rules tab:
+Here we're going to add three rules. Add each rule using the _Add Rule_ button on the _Issuance transform rules_ tab:
 
 Rule 1
 
-1. <u>Choose rule type</u>: `Send LDAP Attributes as claims`
-1. <u>Configure claim rule</u>:
-	- <u>Claim Rule Name</u>: Get Attributes
-	- <u>Attribute Store</u>: Active Directory
-	- <u>Mapping of LDAP Attributes to outgoing claim types</u>:
-		* <u>LDAP Attribute</u>: Email Addresses, Outgoing claim type: Email address
-		* <u>LDAP Attribute</u>: Display-Name, Outgoing claim type: Name
-1. Click `Finish` to add the rule
+1. _Choose rule type_: _Send LDAP Attributes as claims_
+2. _Configure claim rule_:
+	* _Claim Rule Name_: Get Attributes
+	* _Attribute Store_: Active Directory
+	* _Mapping of LDAP Attributes to outgoing claim types_:
+		- _LDAP Attribute_: Email Addresses, Outgoing claim type: Email address
+		- _LDAP Attribute_: Display-Name, Outgoing claim type: Name
+3. Click _Finish_ to add the rule
 
 Rule 2
 
-1. <u>Choose rule type</u>: `Transform an incoming claim`
-1. <u>Configure claim rule</u>:
-	- <u>Claim Rule Name</u>: Name ID Transform
-	- <u>Incoming Claim Type</u>: Email address
-	- <u>Outgoing Claim Type</u>: Name ID
-	- <u>Outgoing Name ID Format</u>: Email
-	- Select `Pass through all claim values`
-1. Click `Finish` to add the rule
+1. _Choose rule type_: _Transform an incoming claim_
+2. _Configure claim rule_:
+	* _Claim Rule Name_: Name ID Transform
+	* _Incoming Claim Type_: Email address
+	* _Outgoing Claim Type_: Name ID
+	* _Outgoing Name ID Format_: Email
+	* Select _Pass through all claim values_
+3. Click _Finish_ to add the rule
 
 Rule 3
 
-<ol>
-	<li><u>Choose rule type</u>: `Send claims using a custom rule`</li>
-	<li><u>Configure claim rule</u>:
-	<ul>
-		<li><u>Claim Rule Name</u>: 'Name' Attribute Name Transform</li>
-		<li><u>Custom Rule</u>:
-<pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
- => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
-</li>
-	</ul>
-	<li>Click `Finish` to add the rule</li>
-	<li>Click `OK` to save and exit the Claim Issuance Policy dialog</li>
-</ol>
+1. _Choose rule type_: _Send claims using a custom rule_
+2. _Configure claim rule_:
+	* _Claim Rule Name_: Attribute Name Transform
+	* _Custom Rule_:
+		<pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+		=> issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
+3. Click _Finish_ to add the rule.
+4. Click _OK_ to save and exit the _Claim Issuance Policy_ dialog.
 
-For more information on what other attributes Buildkite accepts, see the [SAML User Attributes](/docs/integrations/sso/custom-saml#saml-user-attributes) table in the Custom SAML Guide.
+For more information on what other attributes Buildkite accepts, see the [SAML user attributes](#saml-user-attributes) table.
 
-### **Step 2.3 Export the token signing certificate**
+### Step 2.3 Export the token signing certificate
 
-From the `Service` section of the `ADFS` console tree, select the `Certificates` subsection
+From the _Service_ section of the _ADFS_ console tree, select the _Certificates_ subsection.
 
-1.  Click on the certificate listed under the heading `Token-signing`
-2.  In the `CN=ADFS Signing` section of the `Actions` sidebar, click `View Certificate...`
-3.  In the `Certificate` dialog, select the `Details` tab
-4.  Click the `Copy to File...` button
-5.  Start the `Certificate Export Wizard`
-6.  Export File Format: select `Base-64 encoded X.509 (.CER)`
-7.  File to Export: name your file, and choose where you'd like to export the file
-8.  Completing the Certificate Export Wizard: check the settings are correct, and click `Finish`
-9.  Exit the `Certificate` dialog
+1.  Click on the certificate listed under the heading _Token-signing_.
+2.  In the _CN=ADFS Signing_ section of the _Actions_ sidebar, click _View Certificate..._.
+3.  In the _Certificate_ dialog, select the _Details_ tab.
+4.  Click the _Copy to File..._ button.
+5.  Start the _Certificate Export Wizard_.
+6.  _Export File Format_: select _Base-64 encoded X.509 (.CER)_.
+7.  _File to Export_: name your file, and choose where you'd like to export the file
+8.  Check the settings are correct, and click _Finish_.
 
-### **Step 2.4 Update the authentication policy**
+### Step 2.4 Update the authentication policy
 
-From the `Service` section of the `ADFS` console tree, select the `Authentication Methods` subsection
+From the _Service_ section of the _ADFS_ console tree, select the _Authentication Methods_ subsection.
 
-1. Under the `Primary Authentication Methods` header, click the `Edit` link
-2. In the `Intranet` section, ensure that the `Forms Authentication` box is checked
-3. Click `OK` to exit the dialog
+1. Under the _Primary Authentication Methods_ header, click the _Edit_ link.
+2. In the _Intranet_ section, ensure that the _Forms Authentication_ box is checked.
+3. Click _OK_ to exit the dialog.
 
-## Step 3. Update your Buildkite SSO Provider
+## Step 3. Update your Buildkite SSO provider
 
-On your Buildkite Organization Settings' Single Sign On page, select your ADFS provider from the list of Configured SSO Providers.
+On your Buildkite Organization Settings' _Single Sign On_ page, select your ADFS provider from the list of _Configured SSO Providers_.
 
-Click the 'Edit Settings' button, choose the Manual data option, and enter the IdP data you saved during the previous step:
+Click the _Edit Settings_ button, choose the _Manual data_ option, and enter the IdP data you saved during the previous step:
 
 <table>
     <tr>
@@ -152,12 +148,14 @@ Click the 'Edit Settings' button, choose the Manual data option, and enter the I
     </tr>
 </table>
 
-## Step 4. Perform a Test Login
+## Step 4. Perform a test login
 
-Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
-## Step 5. Enable the new SSO Provider
+## Step 5. Enable the new SSO provider
 
-Once you've performed a test login you can enable your provider using the `Enable` button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through ADFS before organization data can be accessed.
+Once you've performed a test login you can enable your provider using the _Enable_ button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through ADFS before organization data can be accessed.
 
 If you need to edit or update your ADFS provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+
+<%= render_markdown 'integrations/sso/saml_user_attributes' %>

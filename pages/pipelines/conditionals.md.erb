@@ -8,11 +8,13 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-Define conditionals in the _Pipeline Settings_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
+You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
-Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise).
+Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
+
+Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your _Pipeline Settings page_ in the Buildkite UI or via the REST API.
 
 <div class="Docs__note">
   <h3>Evaluating conditionals</h3>
