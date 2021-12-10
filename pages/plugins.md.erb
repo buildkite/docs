@@ -8,7 +8,7 @@ Add plugins to [command steps](/docs/pipelines/command-step) in your YAML pipeli
 
 ## What is a plugin?
 
-Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook changes a different part of how your jobs set up the environment, check out code, run commands, handle artifacts or clean up the environment. 
+Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook changes a different part of how your jobs set up the environment, check out code, run commands, handle artifacts or clean up the environment.
 
 Reference plugins in your pipeline configuration, and when the step containing the plugin runs, your agent will override the default behavior of with the hooks defined in the plugin [hooks](/docs/agent/v3/hooks).
 
