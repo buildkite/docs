@@ -1,22 +1,24 @@
-# Single Sign-On with Google Workspace (SAML)
+# Single sign-on with Google Workspace (SAML)
 
-As an alternative to [Google Workspace SSO using OpenID](/docs/integrations/sso/g-suite), Google Workspace can be used as an SSO provider for your Buildkite organization using SAML.
+As an alternative to [Google Workspace SSO using OpenID](/docs/integrations/sso/g-suite), you can use Google Workspace as an SSO provider for your Buildkite organization using SAML.
 
-To complete this tutorial, you will need admin privileges for both Google Workspace and Buildkite.
+To complete this tutorial, you need admin privileges for both Google Workspace and Buildkite.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
 
-After following these steps, your Google Workspace users will be able to sign in to Buildkite using their Google account.  
+After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.  
 
-## Step 1. Create a Buildkite SSO Provider
+{:toc}
 
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
+## Step 1. Create a Buildkite SSO provider
+
+Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML Provider:
+Choose the _Provide IdP Metadata Later_ option when configuring your Custom SAML provider.
 
 On the following page, copy the ACS URL for use in Step 2.
 
@@ -24,20 +26,20 @@ On the following page, copy the ACS URL for use in Step 2.
 
 Log into your [Google Admin Console](https://admin.google.com), and follow these instructions:
 
-1. In the 'Apps' area of the console, select the 'Web and mobile apps' submenu.
-1. Click the 'Add App' menu at the top of the table and choose 'Search for apps'.
-1. Search for 'Buildkite', and select 'Buildkite Web (SAML)'.
-1. Copy the SSO URL, Entity ID, and download the Certificate. You'll need these in Step 3.
-1. Enter the following Service Provider Details:
+1. In the _Apps_ area of the console, select the _Web and mobile apps_ submenu.
+2. Click the _Add App_ menu at the top of the table and choose _Search for apps_.
+3. Search for _Buildkite_, and select _Buildkite Web (SAML)_.
+4. Copy the SSO URL and Entity ID, and download the Certificate. You'll need these in Step 3.
+5. Enter the following service provider details:
     * ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
     * Entity ID: https://buildkite.com
-1. Attribute mapping can be added after the initial setup and testing. Click 'Finish' to complete the setup.
+6. You can add attribute mapping after the initial setup and testing. Click _Finish_ to complete the setup.
 
-## Step 3. Update your Buildkite SSO Provider
+## Step 3. Update your Buildkite SSO provider
 
-On your Buildkite Organization Settings' Single Sign On page, select your Custom SAML provider from the list of Configured SSO Providers.
+On your Buildkite Organization Settings' _Single Sign On_ page, select your Custom SAML provider from the list of _Configured SSO Providers_.
 
-Click the 'Edit Settings' button, choose the Manual data option, and enter the IdP data you saved in Step 2:
+Click the _Edit Settings_ button, choose the Manual data option, and enter the IdP data you saved in Step 2:
 
 <table>
     <tr>
@@ -55,27 +57,29 @@ Click the 'Edit Settings' button, choose the Manual data option, and enter the I
     <tr>
         <td>X.509 certificate</td>
         <td>
-            The public key certificate generated for you by Google Workspace that you downloaded during the previous step. You'll need the whole file, not just a link to the file.
+            The public key certificate generated for you by Google Workspace that you downloaded during the previous step. You need the whole file, not just a link to the file.
         </td>
     </tr>
 </table>
 
-Save your new settings, and you'll be returned to your provider page.
+Save your settings. Your provider page opens.
 
-## Step 3. Perform a Test Login
+## Step 3. Perform a test login
 
-Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
 <div class="Docs__troubleshooting-note">
   <p>According to Google, "Changes may take up to 24 hours to propagate to all user". Some changes may take at least several hours, so if the test login fails, it is worth waiting and trying again.</p>
 </div>
 
-## Step 4. Enable the new SSO Provider
+## Step 4. Enable the new SSO provider
 
-Once you've performed a test login, you can enable your provider using the `Enable` button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.  
+Once you've performed a test login, you can enable your provider using the _Enable_ button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.  
 
 The users will need to sign into Buildkite by clicking the Buildkite icon in the Google Apps menu. You can find this menu by clicking the 9-dot "waffle" icon.  
 
 <%= image "google-apps-sso.png", width: 724/2, height: 1124/2, alt: "Buildkite in Google Apps menu" %>
 
 If you need to edit or update your Google Workspace (SAML) provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
+
+<%= render_markdown 'integrations/sso/saml_user_attributes' %>
