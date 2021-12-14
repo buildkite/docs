@@ -1,17 +1,6 @@
-# Elastic CI Stack for AWS Overview
-
-The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
-[Buildkite Agent](/docs/agent/v3) cluster. Use it to parallelize large test
-suites across hundreds of nodes, run tests and deployments for Linux or Windows
-based services and apps, or run AWS ops tasks.
-
-{:toc}
-
-
-## Quickstart
+# Elastic CI Stack for AWS
 
 See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws) for a step-by-step guide, or jump straight in:
-
 
 <!-- vale off -->
 <!-- alex ignore master -->
@@ -34,6 +23,7 @@ aws cloudformation create-stack \
   --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
   --parameters "$(cat config.json)"
 ```
+{:toc}
 
 ## Network configuration
 
@@ -42,7 +32,7 @@ An Elastic CI Stack deployment contains an Auto Scaling group and a launch templ
 After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
-VPC in which your stack’s instances are booted can be customised using the `VpcId`,
+VPC in which your stack's instances are booted can be customised using the `VpcId`,
 and `Subnets` template parameters. If you choose to use a VPC with split
 public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
 turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
@@ -82,7 +72,7 @@ You're not required to create any special IAM roles or policies, though the depl
 
 ### Key creation
 
-It’s not required to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
+It's not required to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
 
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
@@ -331,7 +321,7 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack’s instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, create an S3 bucket with the script, and set the `BootstrapScriptUrl` parameter, for example `s3://my_bucket_name/my_bootstrap.sh`.
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, create an S3 bucket with the script, and set the `BootstrapScriptUrl` parameter, for example `s3://my_bucket_name/my_bootstrap.sh`.
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 
@@ -351,7 +341,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
 }
 ```
 
-After creating the policy, you must specify the policy’s ARN in the `ManagedPolicyARN` stack parameter.
+After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARN` stack parameter.
 
 ## Health monitoring
 
@@ -388,7 +378,7 @@ For large legacy applications the Docker build process might take a long time on
 An example of how to set this up:
 
 1. Create a Docker Hub repository for pushing images to
-1. Update the pipeline’s [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in your secrets bucket to perform a `docker login`
+1. Update the pipeline's [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in your secrets bucket to perform a `docker login`
 1. Create a builder stack with its own queue (for example, `elastic-builders`)
 
 Here is an example build pipeline based on a production Rails application:
