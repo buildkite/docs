@@ -1,13 +1,14 @@
 # Elastic CI Stack for EC2 Mac
 
-You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws).
-This template creates an Auto Scaling group, launch template, and host resource
-group for maintaining a pool of EC2 Mac instances that run the
-Buildkite agent. These agents can be used to run Buildkite Pipelines and build
+You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws). This template creates an Auto Scaling group, launch template, and host resource group for maintaining a pool of EC2 Mac instances that run the
+Buildkite agent. Using Buildkite agents, you can run pipelines and build
 Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
-As you must prepare and supply your own AMI for this template, macOS support has
-**not** been incorporated into the Elastic CI Stack for AWS.
+```<section class="Docs__troubleshooting-note">
+     <p>As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has
+	 <b>not</b> been incorporated into the Elastic CI Stack for AWS.</p>
+</section>
+```
 
 Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
@@ -33,19 +34,18 @@ for more details on AWS EC2 Mac instances.
 
 ## Step 1: Choose a VPC layout
 
-Before deploying this template you must choose a VPC subnet design, and which
-VPC security groups your instances will belong to.
+Before deploying this template you must [choose a VPC subnet design](/docs/agent/v3/aws/vpc), and which VPC security groups your instances will belong to.
 
 Depending on your threat model, you may find running instances in your default
 VPC's public subnets with a public IP address suitable. Otherwise, you may wish
 to explore options like separate public/private subnets with a NAT Gateway, and
-a bastion instance or VPN to access the private instances over SSH and VNC.
+a bastion instance or a VPN to access the private instances over SSH and VNC.
 See the [AWS VPC Design documentation](/docs/agent/v3/aws/vpc) for more
 details, and the [AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
-for a ready to use CloudFormation template.
+for a ready-made CloudFormation template.
 
 EC2 Mac Dedicated Hosts are not available in every Availability Zone in the
-supported regions. Provision a VPC subnet in all of your region's Availability
+supported regions. You need to provision a VPC subnet in all of your region's Availability
 Zones to maximise the size of your instance pool.
 
 You also need to configure or define the VPC security groups your instance
@@ -78,7 +78,7 @@ once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.
 
 You do not need to install the `buildkite-agent` in your template AMI, the
-`buildkite-agent` will be installed at boot time by the launch templat's
+`buildkite-agent` will be installed at boot time by the launch template's
 `UserData` script.
 
 ## Step 3: Associate your AMI with a Customer managed license in AWS License Manager
@@ -125,15 +125,15 @@ the *AWS Service Quotas Dashboard*.
 
 ### Deploy using the AWS Console
 
-Use the launch button below to create a CloudFormation stack from the latest
-version of our template:
+* Use the launch button below to create a CloudFormation stack from the latest
+version of the Buildkite template:
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite-mac&templateURL=https://s3.amazonaws.com/buildkite-serverless-apps-us-east-1/elastic-mac/template/latest.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
 
-Ensure the selected region in the top menu bar matches the region of your VPC
+* Ensure the selected region in the top menu bar matches the region of your VPC
 and AMI resources.
 
-Give your stack a unique name, and fill in the required parameters.
+* Give your stack a unique name, and fill in the required parameters.
 
 ### Deploy using the AWS CLI
 
@@ -178,7 +178,7 @@ $ aws cloudformation deploy --stack-name buildkite-mac --region YOUR_REGION --te
 See the [AWS CloudFormation Deploy CLI documentation](https://awscli.amazonaws.com/v2/documentation/api/latest/reference/cloudformation/deploy/index.html)
 for help using the AWS CLI.
 
-## Step 5: Starting your Buildkite Agents
+## Step 5: Starting your Buildkite agents
 
 Once you have successfully deployed the template, use the deployed stack's
 *Resources* tab to find the `AutoScaleGroup` and open the *Physical ID* link.
@@ -198,22 +198,22 @@ to match your *Desired capacity* to your workload, consider configuring
 
 ### My Auto Scaling group doesn't launch any instances
 
-If your Auto Scaling group does not launch any instances, open the EC2 Console
+* If your Auto Scaling group does not launch any instances, open the EC2 Console
 dashboard and *Auto Scaling Groups* from the side bar. Find your Auto Scaling
 group and open the *Activity* tab. The *Activity history* table will list the
 scaling actions that have occurred and any errors that resulted.
 
-There may be a shortage of `mac1.metal` instances in the region, or Availability
-Zones of your VPC subnets. This error is likely transient, wait for for your
+* There may be a shortage of `mac1.metal` instances in the region, or Availability
+Zones of your VPC subnets. This error is likely to be a temporary one, wait for your
 Auto Scaling group to attempt to scale out again and see if the error persists.
 
-Your launch template's AMI may not have been associated with a Customer
+( Your launch template's AMI may not have been associated with a Customer
 Managed License in AWS License Manager. Ensure you [associate your AMI](#step-3-associate-your-ami-with-a-customer-managed-license-in-aws-license-manager)
 and any new AMIs with a Customer managed license. Ensure the License
 configuration has a *License type* of `Cores`.
 
-### My instances don't start the buildkite-agent
+### My instances don't start the `buildkite-agent`
 
 Ensure your AMI has been [configured to auto-login as the `ec2-user`](#step-2-build-an-ami)
 in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
-Buildkite Agent launchd job configuration requires an `Aqua` session type.
+Buildkite Agent, the launched job configuration requires an `Aqua` session type.
