@@ -4,11 +4,10 @@ You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation templat
 Buildkite agent. Using Buildkite agents, you can run pipelines and build
 Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
-```<section class="Docs__troubleshooting-note">
-     <p>As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has
-	 <b>not</b> been incorporated into the Elastic CI Stack for AWS.</p>
-</section>
-```
+<div class="Docs__troubleshooting-note">
+<p>As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has
+<b>not</b> been incorporated into the Elastic CI Stack for AWS.</p>
+</div>
 
 Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
