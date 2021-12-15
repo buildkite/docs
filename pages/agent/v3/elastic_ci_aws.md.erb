@@ -15,7 +15,7 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 
 ## Before you start
 
-> Elastic Stack for AWS creates its own VPC (virtual private cloud) by default. It's recommended to set up a separate development AWS account and use role switching and consolidated billing. See the tutorial on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html) for more information.
+> Elastic Stack for AWS creates its own VPC (virtual private cloud) by default. It's recommended to set up a separate development AWS account and use role switching and consolidated billing. You can check out this external tutorial for more information on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html).
 
 See [Elastic CI Stack for AWS Parameters](/docs/agent/v3/elastic_ci_aws/parameters) for details on the template parameters.
 
@@ -77,7 +77,7 @@ You're not required to create any special IAM roles or policies, though the depl
 
 ### Key creation
 
-It's not required to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
+You don't need to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
 
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
