@@ -8,8 +8,7 @@ class QuickReferenceController < ApplicationController
     'pipelines/wait_step',
     'pipelines/block_step',
     'pipelines/input_step',
-    'pipelines/trigger_step',
-    'pipelines/managing-priorities'
+    'pipelines/trigger_step'
   ].freeze
 
   NOTIFICATION_PAGES = [
