@@ -1,4 +1,8 @@
 <% current_section = request.original_fullpath.split('/')[2] %>
+
+<input type="checkbox" id="navicon" />
+<label for="navicon"><span>Display menu</span></label>
+
 <nav class="Docs__nav">
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
@@ -272,7 +276,7 @@
         let v2section = document.querySelector(`.Docs__nav__section-container[data-docs-path='agent-v2']`);
         v2section.classList.add("hidden");
       }
-      
+
       let sectionHeaders = document.getElementsByClassName('Docs__nav__section-heading');
       for (let sectionHeader of sectionHeaders) {
         sectionHeader.onclick = function() {
@@ -294,6 +298,6 @@
         for (let expandedSectionContainer of expandedSectionContainers) {
           expandedSectionContainer.classList.remove('expanded');
         }
-      }      
+      }
   })();
 <% end %>
