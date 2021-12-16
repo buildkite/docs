@@ -76,7 +76,7 @@ cpu
 cron
 crontab
 Datadog
-deprioritise
+deprioritize
 deprovisioning
 deregistration
 deprovision
