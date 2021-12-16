@@ -145,6 +145,14 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>priority</code></td>
+    <td>
+      Adjust the <a href="/docs/pipelines/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br>
+      <em>Example:</em><br>
+      <code>- command: "will-run-first.sh"<br>&nbsp;&nbsp;priority: 1</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>retry</code></td>
     <td>
       The conditions for retrying this step.<br>
