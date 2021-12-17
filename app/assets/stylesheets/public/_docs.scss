@@ -19,6 +19,12 @@ $color-green: rgb(3, 165, 98);
 /* Navicon for small screens (hamburger menu) */
 #navicon {visibility: hidden;}
 
+label[for='navicon'] span { // hide alt text
+  left: -10rem;
+  position: absolute;
+  top: -10rem;
+}
+
 @media (max-width: $Docs__bp_stacked) {
 
   /* hamburger */
@@ -38,12 +44,6 @@ $color-green: rgb(3, 165, 98);
   label[for='navicon'] {
     right: 2rem;
     top: 2rem;
-
-    span { // hide alt text
-      left: -10rem;
-      position: absolute;
-      top: -10rem;
-    }
   }
 
   label[for='navicon']:before {
