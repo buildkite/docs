@@ -15,7 +15,7 @@ Harbormaster is installed. Configure a pipeline for that repository in Buildkite
 	<p>Admin access in both Phabricator and your Buildkite organization will be required.</p>
 </div>
 
-## Step 1: New Phabricator Build Step
+## Step 1: New Phabricator build step
 
 Create a new Build Plan in Harbormaster.
 
@@ -35,7 +35,7 @@ Click "Add Build Step" on the next screen. Then select "Build with Buildkite".
 
 Keep this screen open while you configure Buildkite.
 
-## Step 2: Configure Buildkite Notification Webhook
+## Step 2: Configure Buildkite notification webhook
 
 Create a [new API Access Token](https://buildkite.com/user/api-access-tokens/new) in your Buildkite Personal Settings.
 
@@ -49,7 +49,7 @@ From Phabricator's "Webhook Configuration", copy the "Webhook URL" (it should en
 
 <%= image "buildkite_notification_webhook_settings.png", width: 1646/2, height: 1552/2, alt: "Buildkite Notification Webhook settings" %>
 
-## Step 3: Complete Phabricator Build Step
+## Step 3: Complete Phabricator build step
 
 In Phabricator, click the "Add New Credential" button next to "API Token". Provide a name and use the Buildkite API Access Token that you created earlier for the "Token" field.
 
@@ -62,7 +62,7 @@ from Buildkite's Notification Webhook for "Webhook Token" in Phabricator.
 
 Finally, click "Create Build Step".
 
-## Step 4: Test with a Manual Build
+## Step 4: Test with a manual build
 
 Click "Run Plan Manually" on the next screen. Provide a revision ID from the repository inside Phabricator.
 

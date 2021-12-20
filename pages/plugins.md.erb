@@ -8,16 +8,18 @@ Add plugins to [command steps](/docs/pipelines/command-step) in your YAML pipeli
 
 ## What is a plugin?
 
-A plugin is a Git repository that overrides or extends a [command step](/docs/pipelines/command-step)’s behavior using one or more [hooks](/docs/agent/v3/hooks). To use a plugin, you reference it in your pipeline YAML configuration, and when that step is run your agent will clone and execute each of the plugin’s [hooks](/docs/agent/v3/hooks).
+Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook changes a different part of how your jobs set up the environment, check out code, run commands, handle artifacts or clean up the environment.
 
-Plugins can be open source and available for anyone to use, or private repositories available only to your organization and agents. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+Reference plugins in your pipeline configuration, and when the step containing the plugin runs, your agent will override the default behavior of with the hooks defined in the plugin [hooks](/docs/agent/v3/hooks).
 
-Some plugins allow configuration. This is usually defined in your `pipeline.yml` file, and is read by the agent before the plugin hooks are run. See each plugin's readme for detailed configuration and usage instructions.
+Plugins can be open source and available for anyone to use, or private and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+
+Some plugins allow configuration. This is usually defined in your `pipeline.yml` file and is read by the agent before the plugin hooks are run. See plugins' readme files for detailed configuration and usage instructions.
 
 ## Finding plugins
 
-In the [Buildkite Plugin Directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third party developers.
+In the [Buildkite Plugin Directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
 
 ## Creating a plugin
 
-See the [Writing Plugins](/docs/plugins/writing) documentation for step-by-step instructions on how to create a plugin. Plugins can be open source, and published to the [Plugin Directory](/docs/plugins/directory), or kept in private repositories that only your agents can access.
+See the [Writing Plugins](/docs/plugins/writing) documentation for step-by-step instructions on how to create a plugin.

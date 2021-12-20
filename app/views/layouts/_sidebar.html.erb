@@ -1,4 +1,8 @@
 <% current_section = request.original_fullpath.split('/')[2] %>
+
+<input type="checkbox" id="navicon" />
+<label for="navicon"><span>Display menu</span></label>
+
 <nav class="Docs__nav">
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
@@ -116,7 +120,7 @@
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
             <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
-            <%= sidebar_link_to "Skipping builds", 'pipelines/skipping' %>
+            <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
             <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
@@ -188,6 +192,7 @@
             <%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %>
             <%= sidebar_link_to "Google Workspace", 'integrations/sso/google-workspace' %>
             <%= sidebar_link_to "Google Workspace (SAML)", 'integrations/sso/google-workspace-saml' %>
+            <%= sidebar_link_to "GitHub", 'integrations/sso/github-sso' %>
             <%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %>
             <%= sidebar_link_to "Azure AD", 'integrations/sso/azure-ad' %>
             <%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %>
@@ -271,7 +276,7 @@
         let v2section = document.querySelector(`.Docs__nav__section-container[data-docs-path='agent-v2']`);
         v2section.classList.add("hidden");
       }
-      
+
       let sectionHeaders = document.getElementsByClassName('Docs__nav__section-heading');
       for (let sectionHeader of sectionHeaders) {
         sectionHeader.onclick = function() {
@@ -293,6 +298,6 @@
         for (let expandedSectionContainer of expandedSectionContainers) {
           expandedSectionContainer.classList.remove('expanded');
         }
-      }      
+      }
   })();
 <% end %>

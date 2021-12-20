@@ -15,25 +15,25 @@ Secrets are pipeline-specific. A secret can’t prove that it hasn’t been acqu
 
 IP filtering is currently only available for:
 
-* GitHub  
-* GitHub Enterprise Server  
+* GitHub
+* GitHub Enterprise Server
 * BitBucket Server
-* GitLab Community  
-* GitLab Enterprise  
+* GitLab Community
+* GitLab Enterprise
 
-To enable IP filtering for these repository providers:  
+To enable IP filtering for these repository providers:
 
 * Open your [organization's settings](https://buildkite.com/organizations/~/settings)
 * Navigate to the [Repository providers](https://buildkite.com/organizations/~/repository-providers) tab
 * Enter the allowed IP addresses
 
-For non-server BitBucket, IP filtering for webhooks is currently unavailable.  
+For non-server BitBucket, IP filtering for webhooks is currently unavailable.
 
 ## How do I access the webhook that triggered a build?
 There are two ways to do it:
 
-* To view the webhook that triggered the build, go to the build page and add "/webhook" at the end of its URL - for example `https://buildkite.com/rails/rails/builds/*****/webhook`  
-* To find the actual payload of a webhook that triggered a build, use the following GraphQL snippet:  
+* To view the webhook that triggered the build, go to the build page and add "/webhook" at the end of its URL - for example `https://buildkite.com/rails/rails/builds/*****/webhook`
+* To find the actual payload of a webhook that triggered a build, use the following GraphQL snippet:
 
 ```graphql
 query FindWebhookPayload {
