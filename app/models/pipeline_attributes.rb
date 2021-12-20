@@ -1,0 +1,1 @@
+PIPELINE_ATTRIBUTES = YAML.load_file('data/pipeline_attributes.yml').freeze 
