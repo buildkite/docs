@@ -147,9 +147,7 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 
 <%= render_markdown 'pipelines/job_states' %>
 
-Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled..
-
-Job exit status helps diagnose failed builds by providing more visibility into the outcome of each job as it allows to spot issues with agents and pipelines.
+Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled.
 
 <section class="Docs__troubleshooting-note">
   <p>Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.</p>
