@@ -25,8 +25,9 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 1. Select _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_ > _GitHub_.
     <%= image "repository-providers.png", width: 1168, height: 798, alt: "Screenshot of the Buildkite Repository Providers" %>
 1. Select _Connect to a new GitHub Account_. If you have never connected your Buildkite and GitHub accounts before, you will first need to select _Connect_ and authorize Buildkite.
-1. Select the GitHub organization you want to connect to your Buildkite organization.
 1. Choose which repositories Buildkite should have access to, then select _Install_.
+1. Select the GitHub organization you want to connect to your Buildkite organization.
+
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
@@ -46,7 +47,7 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your file-based Buildkite configuration.
+* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your [file-based Buildkite configuration](/docs/agent/v3/cli-pipeline#uploading-pipelines).
 * Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
 
     > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
