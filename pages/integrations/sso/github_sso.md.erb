@@ -19,13 +19,17 @@ In your Buildkite Organization Settings' _Repository Providers_ menu item, conne
 
 ## Step 3. Perform a test login
 
-Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.  
+Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
 ## Step 4. Enable the new SSO provider
 
 Once you've performed a test login you can enable your provider. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through GitHub before organization data can be accessed.
 
-If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/integrations/sso#disabling-and-removing-sso) first. For more information on disabling a provider, see the disabling SSO section of the SSO overview.  
+If you need to edit or update your GitHub provider settings at any time, you will need to [disable the SSO provider](/docs/integrations/sso#disabling-and-removing-sso) first. For more information on disabling a provider, see the disabling SSO section of the SSO overview.
+
+After you've enabled GitHub as the SSO provider for your Buildkite organization, new and expired users will need to log in via GitHub by visiting buildkite.com/sso/_yourcompanyname_. They will be asked to provide their email address, and a sign-in link will be emailed to them.
+
+Sending the sign-in link by email is an additional security and privacy measure as a user can be a member of several Buildkite organizations. If the names of such Buildkite organizations are telling enough – for example, `buildkite.com/sso/flyingcar` or `buildkite.com/sso/aliens`, disclosing a list of such organizations to somebody who only knows an email address could leak sensitive information.
 
 ## SAML user attributes
 
