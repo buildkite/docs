@@ -145,6 +145,11 @@ agent’s default shell. This has a few implications:
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
 
+<section class="Docs__troubleshooting-note">
+  <p class="Docs__note__heading">"Permission denied" error when trying to execute hooks</p>
+  <p>If your hooks don't execute and throw a <code>Permission denied</code> error, it means that they were copied to <code>/tmp</code> that is non-executable on that particular system. The directory the hooks are copied to before execution can be configured through <code>$TMPDIR</code> in the Buildkite agent's environment.</p>
+</section>
+
 To write job lifecycle hooks in another programming language, you need to
 execute them from within the shell script, and explicitly pass any Buildkite
 environment variables you need to the script when you call it.
