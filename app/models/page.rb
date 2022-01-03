@@ -101,7 +101,7 @@ class Page
   end
 
   def markdown_body
-    erb_renderer = ERB.new(contents)
+    erb_renderer = ERB.new(contents, nil, '-')
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 

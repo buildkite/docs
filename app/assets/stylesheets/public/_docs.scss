@@ -348,25 +348,47 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__attribute__table {
-  tr {
+  colgroup col:nth-child(1) {
+    width: 5rem;
+  }
+
+  td p:first-child { margin-top: 0; }
+  td p:last-child { margin-bottom: 0; }
+
+  .Docs__attribute__link {
+    color: #ccc;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  &:hover {
     .Docs__attribute__link {
-      color: #ccc;
-      opacity: 0;
-      transition: all 0.2s;
-    }
+      opacity: 1.0;
 
-    &:hover {
-      .Docs__attribute__link {
-        opacity: 1.0;
-
-        &:hover {
-          color: #aaa;
-        }
+      &:hover {
+        color: #aaa;
       }
     }
   }
-  td p:first-child { margin-top: 0; }
-  td p:last-child { margin-bottom: 0; }
+
+  .Docs__attribute__importance {
+    color: $color-brand-green;
+    font: 300 italic 11px $font-family;
+    margin: 5px 0;
+  }
+
+  .Docs__attribute__env-var {
+    font-size: 0.8em;
+
+    code {
+      white-space: break-spaces;
+    }
+  }
+
+  .Docs__attribute__default {
+    font-size: 0.8em;
+    margin-top: 2rem;
+  }
 }
 
 a.Docs__example-repo {
