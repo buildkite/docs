@@ -147,7 +147,7 @@ agent’s default shell. This has a few implications:
 
 <section class="Docs__troubleshooting-note">
   <p class="Docs__note__heading">"Permission denied" error when trying to execute hooks</p>
-  <p>If your hooks don't execute and throw a <code>Permission denied</code> error, it means that they were copied to <code>/tmp</code> that is non-executable on that particular system. The directory the hooks are copied to before execution can be configured through <code>$TMPDIR</code> in the Buildkite agent's environment.</p>
+  <p>If your hooks don't execute, and throw a <code>Permission denied</code> error, it might mean that they were copied to a temporary directory on the agent that isn't executable. Configure the directory that hooks are copied to before execution using the <code>$TMPDIR</code> environment variable on the Buildkite agent, or make sure the existing directory is marked as executable..</p>
 </section>
 
 To write job lifecycle hooks in another programming language, you need to
