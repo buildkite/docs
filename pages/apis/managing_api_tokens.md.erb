@@ -1,12 +1,14 @@
 # Managing API Access Tokens
 
-On the API Access Audit page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
+Buildkite API access tokens are issued to individuals not organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
+
+On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
 {:toc}
 
 ## Token scopes
 
-When you create a token, select the organizations it grants access to, and the scope of the access.
+When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
 <section class="Docs__note">
   <h3>Note for contributors to public and open-source projects</h3>
@@ -30,7 +32,7 @@ REST API scopes are very granular, you can select some or all of the following:
 * Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
 * Read User `read_user` - Permission to retrieve basic details of the user
 
-GraphQL tokens cannot be limited by scope.
+When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
 ## Auditing tokens
 
@@ -67,6 +69,10 @@ Removing access from a token will send a notification email to the token's owner
 The `access-token` REST API endpoint can be used to retrieve or revoke an API access token. See the [REST API Access Token](/docs/apis/rest-api/access-token) page for further information.
 
 ## FAQs
+
+### Can I view an existing token?
+
+No, you can change the scope and description of a token, or revoke it, but you can't view the actual token after creating it
 
 ### Can I re-add my organization to a token?
 
