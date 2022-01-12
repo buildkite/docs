@@ -1,33 +1,33 @@
 # Buildkite Agent Hooks
 
-Hooks extend or override the built-in behaviours of the Buildkite Agent and
+Hooks extend or override the built-in behaviours of the Buildkite agent and
 Bootstrap binaries.
 
 Hooks can be defined in three locations: agent-wide, your pipeline’s repository,
 or in [plugins](/docs/plugins) applied to steps. For example, you could define
-an agent wide `checkout` hook which speeds up a fresh `git clone` on a new build
+an agent-wide `checkout` hook which speeds up a fresh `git clone` on a new build
 machine, a repository `pre-command` hook which sets up repository-specific
 environment variables, or a plugin `environment` hook which fetches API keys
-from a secrets storage service.
+from a secrets’ storage service.
 
 There are two categories of hook:
 
 * Agent Lifecycle
 * Job Lifecycle
 
-Agent lifecycle hooks are **executed** by the Buildkite Agent as part of the
+Agent lifecycle hooks are **executed** by the Buildkite agent as part of the
 agent’s lifecycle. For example, the `pre-bootstrap` hook is executed before
 starting a job’s bootstrap process, and the `agent-shutdown` hook is executed
 before the agent process terminates.
 
-Job lifecycle hooks are **sourced** by the Buildkite Bootstrap in the different
+Job lifecycle hooks are **sourced** by the Buildkite bootstrap in the different
 job phases. They are run in a per-job shell environment, and any exported
 environment variables are carried to the job’s subsequent phases and hooks. For
 example, the `environment` hook can modify or export new environment variables
 for the job’s subsequent checkout and command phases.
 
-In August 2021 we changed how we refer to Agent Hooks to differentiate between
-the hooks feature for both the Agent and Bootstrap processes, and the agent
+In August 2021 we changed how we refer to agent hooks to differentiate between
+the hooks feature for both the agent and bootstrap processes, and the agent
 [`hooks-path` configuration](configuration#hooks-path) for the
 directory that agent level hooks are defined.
 
@@ -69,9 +69,9 @@ directory that agent level hooks are defined.
 ### Creating agent lifecycle hooks
 
 Agent lifecycle hooks can be written in the programming language of your choice
-and are executed by the Buildkite Agent. See the documentation for each agent
+and are executed by the Buildkite agent. See the documentation for each agent
 lifecycle hook for details on the interface between them and the Buildkite
-Agent.
+agent.
 
 These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory.
 
@@ -144,6 +144,11 @@ agent’s default shell. This has a few implications:
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
 * the shebang line of the hook script has no effect
+
+<section class="Docs__troubleshooting-note">
+  <p class="Docs__note__heading">"Permission denied" error when trying to execute hooks</p>
+  <p>If your hooks don't execute, and throw a <code>Permission denied</code> error, it might mean that they were copied to a temporary directory on the agent that isn't executable. Configure the directory that hooks are copied to before execution using the <code>$TMPDIR</code> environment variable on the Buildkite agent, or make sure the existing directory is marked as executable..</p>
+</section>
 
 To write job lifecycle hooks in another programming language, you need to
 execute them from within the shell script, and explicitly pass any Buildkite
