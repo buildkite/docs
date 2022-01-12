@@ -500,6 +500,14 @@ The number of minutes until Buildkite automatically cancels this job, if a timeo
 
 Example: `"15"` for 15 minutes, or `"false"` if no timeout is set.
 
+<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
+
+Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
+
+Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
+
+Example: `"datadog"`
+
 <h3 class="h3-caps">BUILDKITE_TRIGGERED_FROM_BUILD_ID</h3>
 
 The UUID of the build that triggered this build. The value cannot be modified.
@@ -541,14 +549,6 @@ Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 A colon separated list of non-private team names that the user who unblocked the build belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
-
-<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
-
-Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
-
-Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
-
-Example: `"datadog"`
 
 <h3 class="h3-caps">CI</h3>
 
