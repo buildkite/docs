@@ -208,6 +208,10 @@ CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but 
 
 <!-- vale on -->
 
+## Which user the agent runs as
+
+On both Linux and Windows, the Buildkite agent runs as user `buildkite-agent`.
+
 ## What type of builds does this support?
 
 This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principals](http://12factor.net):

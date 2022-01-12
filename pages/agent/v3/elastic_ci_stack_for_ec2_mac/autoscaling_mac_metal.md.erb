@@ -215,3 +215,7 @@ configuration has a *License type* of `Cores`.
 Ensure your AMI has been [configured to auto-login as the `ec2-user`](#step-2-build-an-ami)
 in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
 Buildkite Agent launchd job configuration requires an `Aqua` session type.
+
+### What user does the agent run as?
+
+The Buildkite agent runs as ec2-user.

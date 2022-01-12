@@ -86,6 +86,10 @@ nssm start buildkite-agent
 nssm status buildkite-agent
 ```
 
+## Which user the agent runs as
+
+On Windows, all commands run as the invoking user.
+
 ## Installing Buildkite on Windows Subsystem for Linux 2
 
 You can use Buildkite on Windows through WSL2. This gives you a way to work with Buildkite on Windows using a Bash shell. This can be useful, as many [plugins](https://buildkite.com/plugins) use Bash.
