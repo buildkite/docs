@@ -66,24 +66,10 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>branches</code></td>
-    <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"main stable/*"</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>env</code></td>
-    <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step or group.<br>
-      <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
@@ -105,16 +91,6 @@ _Optional attributes:_
     <td>
       Allows you to <a href="/docs/pipelines/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
       <em>Example:</em> <code>"github_check:"</code><br>
-    </td>
-  </tr>
-  <tr>
-    <td><code>skip</code></td>
-    <td>
-      Whether to skip this step or group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps or groups will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
-      <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
 </table>
