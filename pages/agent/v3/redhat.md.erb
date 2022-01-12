@@ -67,6 +67,10 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
 
+## Which user the agent runs as
+
+On RedHat, the Buildkite agent runs as user `buildkite-agent`.
+
 ## Running multiple agents
 
 You can run as many parallel agents on the one machine as you wish by duplicating the systemd service configuration file, for example:

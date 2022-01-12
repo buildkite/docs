@@ -16,7 +16,7 @@ Required fields are _Name_ and _Repository_.
 
 You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
 
-Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](https://buildkite.com/docs/apis/graphql-api) for details and examples.
+Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](/docs/apis/graphql-api) for details and examples.
 
 ## Adding steps
 
@@ -147,9 +147,15 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 
 <%= render_markdown partial: 'pipelines/job_states' %>
 
+Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled.
+
+<section class="Docs__troubleshooting-note">
+  <p>Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.</p>
+</section>
+
 ## Example pipeline
 
-Here’s a more complete example based on [the Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
+Here’s a more complete example based on [the Buildkite agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
 ```yaml
 steps:
@@ -316,7 +322,6 @@ steps:
       os: "macOS"
 ```
 {: codeblock-file="pipeline.yml"}
-
 
 ## Further documentation
 

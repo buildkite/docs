@@ -67,6 +67,10 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 <%= render_markdown partial: 'agent/v3/apt_configuration' %>
 
+## Which user the agent runs as
+
+On Debian, the Buildkite agent runs as user `buildkite-agent`.
+
 ## Running multiple agents
 
 You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
