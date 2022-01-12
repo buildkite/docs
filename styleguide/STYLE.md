@@ -112,7 +112,7 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | buildkite-agent           | When referring to the cli tool, visually should be presented in a code block                     |
 | Sign up/log in            | The action of signing up                                                                         |
 | Signup/login              | When referring to a page that enables signing up or to the signup process                        |
-| Time out/timeout          | Time out is a verb, timeout is a noun. |
+| Time out/timeout          | Time out is a verb, timeout is a noun |
 | API, SSO, SAML            | Always capitalized |
 | GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
 | Two-factor authentication | In a sentence two-factor authentication, in a title Two-Factor Authentication, in short form 2FA |
