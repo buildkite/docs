@@ -352,6 +352,15 @@ label[for='navicon'] span { // hide alt text
     width: 5rem;
   }
 
+  tr.importance th {
+    border-top: none;
+    font-weight: 700;
+  }
+
+  tr.optional th {
+    padding-top: 2rem;
+  }
+
   td p:first-child { margin-top: 0; }
   td p:last-child { margin-bottom: 0; }
 
@@ -373,7 +382,7 @@ label[for='navicon'] span { // hide alt text
 
   .Docs__attribute__importance {
     color: $color-brand-green;
-    font: 300 italic 11px $font-family;
+    font: 300 italic 13px $font-family;
     margin: 5px 0;
   }
 
@@ -387,7 +396,6 @@ label[for='navicon'] span { // hide alt text
 
   .Docs__attribute__default {
     font-size: 0.8em;
-    margin-top: 2rem;
   }
 }
 

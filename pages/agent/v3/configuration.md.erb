@@ -24,27 +24,52 @@ You can find the location of your configuration file in your platform’s instal
     <col>
     <col>
   </colgroup>
-  <thead>
-    <tr>
-      <th>Attribute</th>
-      <th>Description</th>
-    </tr>
-  </thead>
   <tbody>
+    <tr class="importance required"><th>Required</th></tr>
     <% AGENT_ATTRIBUTES['attributes'].each do |attr| -%>
-<tr id="<%= attr['name'] %>">
-      <th>
-        <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
-        <span class="Docs__attribute__importance"><%= attr['required'] ? "Required" : "Optional" -%></span>
-        <p class="Docs__attribute__env-var">
-          <code><%= attr['env_var'] %></code>
-        </p>
-        <p class="Docs__attribute__default"><strong>Default value: </strong><%= attr['default_value'] %></p>
-      </th>
-      <td>
-        <%= render_markdown(text: attr['desc']) -%>
-      </td>
-    </tr>
+      <% if attr['required'] %>
+        <tr id="<%= attr['name'] %>">
+          <th>
+            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <span class="Docs__attribute__importance"><%= attr['required'] ? "Required" : "Optional" -%></span>
+            <p class="Docs__attribute__env-var">
+              <strong>Environment variable: </strong>
+              <br/>
+              <code><%= attr['env_var'] %></code>
+            </p>
+            <p class="Docs__attribute__default">
+              <strong>Default value: </strong>
+              <%= attr['default_value'] %>
+            </p>
+          </th>
+          <td>
+            <%= render_markdown(text: attr['desc']) -%>
+          </td>
+        </tr>
+      <% end -%>
+    <% end -%>
+    <tr class="importance optional"><th>Optional</th></tr>
+    <% AGENT_ATTRIBUTES['attributes'].each do |attr| -%>
+      <% if !attr['required'] %>
+        <tr id="<%= attr['name'] %>">
+          <th>
+            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <span class="Docs__attribute__importance"><%= attr['required'] ? "<strong>Required</strong>" : "Optional" -%></span>
+            <p class="Docs__attribute__env-var">
+              <strong>Environment variable: </strong>
+              <br/>
+              <code><%= attr['env_var'] %></code>
+            </p>
+            <p class="Docs__attribute__default">
+              <strong>Default value: </strong>
+              <%= attr['default_value'] %>
+            </p>
+          </th>
+          <td>
+            <%= render_markdown(text: attr['desc']) -%>
+          </td>
+        </tr>
+      <% end -%>
     <% end -%>
   </tbody>
 </table>
