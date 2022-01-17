@@ -1,13 +1,16 @@
 require 'cgi'
 
 incode = false
+
+first_param = false
+
 ARGF.each_with_index do |line, line_num|
-    # Headings 
+    # Headings
     if /^(\w*):/ =~ line
         puts "## #{$1}"
     # Initial usage command
     elsif line_num == 2
-        puts "`#{line.strip}`"      
+        puts "`#{line.strip}`"
     # Code sections
     elsif /\s{3}\$/ =~ line
         # Break code lines that end in \
@@ -22,14 +25,21 @@ ARGF.each_with_index do |line, line_num|
     # Lists of parameters
     #    --config value                         Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
     elsif /\s{3}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
+        if(first_param==false)
+            puts "<table>"
+            first_param = true
+        end
         command = $1.rstrip
         desc    = $2
         # Wrap $BUILDKITE_* env vars in code
-        desc.gsub!(/(\$BUILDKITE[A-Z0-9_]*)/,"`\\1`")
+        desc.gsub!(/(\$BUILDKITE[A-Z0-9_]*)/,"<code>\\1</code>")
         # Wrap https://agent.buildkite.com/v3 in code
-        desc.gsub!('https://agent.buildkite.com/v3',"`https://agent.buildkite.com/v3`")
-        puts "* `#{command}` - #{desc}"
+        desc.gsub!('https://agent.buildkite.com/v3',"<code>https://agent.buildkite.com/v3</code>")
+        puts "<tr><td><code>#{command}</code></td><td><p>#{desc}</p></td>"
     else
+        if(first_param==true)
+            puts "</table>"
+        end
         puts CGI::escapeHTML(line.lstrip)
     end
 end
