@@ -14,7 +14,7 @@ attributes:
 - name: build-path
   env_var: BUILDKITE_BUILD_PATH
   default_value: "(depends on platform)"
-  required: false
+  required: true
   desc: |
       Path to where the builds will run from.
 - name: cancel-grace-period
