@@ -201,10 +201,10 @@ attributes:
       Do not load any plugins.
 - name: no-plugin-validation
   env_var: BUILDKITE_NO_PLUGIN_VALIDATION
-  default_value: "false"
+  default_value: "true"
   required: false
   desc: | 
-      Do not validate plugin configuration and requirements.
+      Do not validate plugin configuration and requirements. By default the option is enabled, so the validation is not performed.
 - name: no-pty
   env_var: BUILDKITE_NO_PTY
   default_value: "false"
