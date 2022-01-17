@@ -61,15 +61,15 @@ Or upload directly to Artifactory:
 ### Options
 
 <table>
-<tr><td><code>--job value</code></td><td><p>Which job should the artifacts be uploaded to [<code>$BUILDKITE_JOB_ID</code>]</p></td>
-<tr><td><code>--content-type value</code></td><td><p>A specific Content-Type to set for the artifacts (otherwise detected) [<code>$BUILDKITE_ARTIFACT_CONTENT_TYPE</code>]</p></td>
-<tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent [<code>$BUILDKITE_AGENT_ACCESS_TOKEN</code>]</p></td>
-<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>") [<code>$BUILDKITE_AGENT_ENDPOINT</code>]</p></td>
-<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API. [<code>$BUILDKITE_NO_HTTP2</code>]</p></td>
-<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log [<code>$BUILDKITE_AGENT_DEBUG_HTTP</code>]</p></td>
-<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging [<code>$BUILDKITE_AGENT_NO_COLOR</code>]</p></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode [<code>$BUILDKITE_AGENT_DEBUG</code>]</p></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent [<code>$BUILDKITE_AGENT_EXPERIMENT</code>]</p></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
-<tr><td><code>--follow-symlinks</code></td><td><p>Follow symbolic links while resolving globs [<code>$BUILDKITE_AGENT_ARTIFACT_SYMLINKS</code>]</p></td>
+<tr><td><code>--job value</code></td><td><p>Which job should the artifacts be uploaded to</p><br /><b>ENV:</b> <code>$BUILDKITE_JOB_ID</code></td>
+<tr><td><code>--content-type value</code></td><td><p>A specific Content-Type to set for the artifacts (otherwise detected)</p><br /><b>ENV:</b> <code>$BUILDKITE_ARTIFACT_CONTENT_TYPE</code></td>
+<tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
+<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
+<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
+<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
+<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
+<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
+<tr><td><code>--follow-symlinks</code></td><td><p>Follow symbolic links while resolving globs</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ARTIFACT_SYMLINKS</code></td>
 </table>

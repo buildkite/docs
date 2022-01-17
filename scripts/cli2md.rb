@@ -31,11 +31,16 @@ ARGF.each_with_index do |line, line_num|
         end
         command = $1.rstrip
         desc    = $2
-        # Wrap $BUILDKITE_* env vars in code
-        desc.gsub!(/(\$BUILDKITE[A-Z0-9_]*)/,"<code>\\1</code>")
+
+        # Extract $BUILDKITE_* env and remove from desc
+        /(\$BUILDKITE[A-Z0-9_]*)/ =~ desc
+        env_var = $1
+        desc.gsub!(/(\s\[\$BUILDKITE[A-Z0-9_]*\])/,"")
+
+
         # Wrap https://agent.buildkite.com/v3 in code
         desc.gsub!('https://agent.buildkite.com/v3',"<code>https://agent.buildkite.com/v3</code>")
-        puts "<tr><td><code>#{command}</code></td><td><p>#{desc}</p></td>"
+        puts "<tr><td><code>#{command}</code></td><td><p>#{desc}</p><br /><b>ENV:</b> <code>#{env_var}</code></td>"
     else
         if(first_param==true)
             puts "</table>"

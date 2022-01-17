@@ -32,60 +32,60 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 ## Options
 
 <table>
-<tr><td><code>--config value</code></td><td><p>Path to a configuration file [<code>$BUILDKITE_AGENT_CONFIG</code>]</p></td>
-<tr><td><code>--name value</code></td><td><p>The name of the agent [<code>$BUILDKITE_AGENT_NAME</code>]</p></td>
-<tr><td><code>--priority value</code></td><td><p>The priority of the agent (higher priorities are assigned work first) [<code>$BUILDKITE_AGENT_PRIORITY</code>]</p></td>
-<tr><td><code>--acquire-job value</code></td><td><p>Start this agent and only run the specified job, disconnecting after it's finished [<code>$BUILDKITE_AGENT_ACQUIRE_JOB</code>]</p></td>
-<tr><td><code>--disconnect-after-job</code></td><td><p>Disconnect the agent after running a job [<code>$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code>]</p></td>
-<tr><td><code>--disconnect-after-idle-timeout value</code></td><td><p>If no jobs have come in for the specified number of seconds, disconnect the agent (default: 0) [<code>$BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT</code>]</p></td>
-<tr><td><code>--cancel-grace-period value</code></td><td><p>The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts (default: 10) [<code>$BUILDKITE_CANCEL_GRACE_PERIOD</code>]</p></td>
-<tr><td><code>--shell value</code></td><td><p>The shell command used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c") [<code>$BUILDKITE_SHELL</code>]</p></td>
-<tr><td><code>--tags value</code></td><td><p>A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8") [<code>$BUILDKITE_AGENT_TAGS</code>]</p></td>
-<tr><td><code>--tags-from-host</code></td><td><p>Include tags from the host (hostname, machine-id, os) [<code>$BUILDKITE_AGENT_TAGS_FROM_HOST</code>]</p></td>
-<tr><td><code>--tags-from-ec2-meta-data value</code></td><td><p>Include the default set of host EC2 meta-data as tags (instance-id, instance-type, ami-id, and instance-life-cycle) [<code>$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA</code>]</p></td>
-<tr><td><code>--tags-from-ec2-meta-data-paths value</code></td><td><p>Include additional tags fetched from EC2 meta-data via tag & path suffix pairs, e.g "tag_name=path/to/value" [<code>$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA_PATHS</code>]</p></td>
-<tr><td><code>--tags-from-ec2-tags</code></td><td><p>Include the host's EC2 tags as tags [<code>$BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS</code>]</p></td>
-<tr><td><code>--tags-from-gcp-meta-data value</code></td><td><p>Include the default set of host Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [<code>$BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA</code>]</p></td>
-<tr><td><code>--tags-from-gcp-meta-data-paths value</code></td><td><p>Include additional tags fetched from Google Cloud instance meta-data via tag & path suffix pairs, e.g "tag_name=path/to/value" [<code>$BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA_PATHS</code>]</p></td>
-<tr><td><code>--tags-from-gcp-labels</code></td><td><p>Include the host's Google Cloud instance labels as tags [<code>$BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS</code>]</p></td>
-<tr><td><code>--wait-for-ec2-tags-timeout value</code></td><td><p>The amount of time to wait for tags from EC2 before proceeding (default: 10s) [<code>$BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code>]</p></td>
-<tr><td><code>--wait-for-ec2-meta-data-timeout value</code></td><td><p>The amount of time to wait for meta-data from EC2 before proceeding (default: 10s) [<code>$BUILDKITE_AGENT_WAIT_FOR_EC2_META_DATA_TIMEOUT</code>]</p></td>
-<tr><td><code>--wait-for-gcp-labels-timeout value</code></td><td><p>The amount of time to wait for labels from GCP before proceeding (default: 10s) [<code>$BUILDKITE_AGENT_WAIT_FOR_GCP_LABELS_TIMEOUT</code>]</p></td>
-<tr><td><code>--git-clone-flags value</code></td><td><p>Flags to pass to the "git clone" command (default: "-v") [<code>$BUILDKITE_GIT_CLONE_FLAGS</code>]</p></td>
-<tr><td><code>--git-clean-flags value</code></td><td><p>Flags to pass to "git clean" command (default: "-ffxdq") [<code>$BUILDKITE_GIT_CLEAN_FLAGS</code>]</p></td>
-<tr><td><code>--git-fetch-flags value</code></td><td><p>Flags to pass to "git fetch" command (default: "-v --prune") [<code>$BUILDKITE_GIT_FETCH_FLAGS</code>]</p></td>
-<tr><td><code>--git-clone-mirror-flags value</code></td><td><p>Flags to pass to the "git clone" command when used for mirroring (default: "-v") [<code>$BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code>]</p></td>
-<tr><td><code>--git-mirrors-path value</code></td><td><p>Path to where mirrors of git repositories are stored [<code>$BUILDKITE_GIT_MIRRORS_PATH</code>]</p></td>
-<tr><td><code>--git-mirrors-lock-timeout value</code></td><td><p>Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300) [<code>$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code>]</p></td>
-<tr><td><code>--bootstrap-script value</code></td><td><p>The command that is executed for bootstrapping a job, defaults to the bootstrap sub-command of this binary [<code>$BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code>]</p></td>
-<tr><td><code>--build-path value</code></td><td><p>Path to where the builds will run from [<code>$BUILDKITE_BUILD_PATH</code>]</p></td>
-<tr><td><code>--hooks-path value</code></td><td><p>Directory where the hook scripts are found [<code>$BUILDKITE_HOOKS_PATH</code>]</p></td>
-<tr><td><code>--plugins-path value</code></td><td><p>Directory where the plugins are saved to [<code>$BUILDKITE_PLUGINS_PATH</code>]</p></td>
-<tr><td><code>--timestamp-lines</code></td><td><p>Prepend timestamps on each line of output. [<code>$BUILDKITE_TIMESTAMP_LINES</code>]</p></td>
-<tr><td><code>--health-check-addr value</code></td><td><p>Start an HTTP server on this addr:port that returns whether the agent is healthy, disabled by default [<code>$BUILDKITE_AGENT_HEALTH_CHECK_ADDR</code>]</p></td>
-<tr><td><code>--no-pty</code></td><td><p>Do not run jobs within a pseudo terminal [<code>$BUILDKITE_NO_PTY</code>]</p></td>
-<tr><td><code>--no-ssh-keyscan</code></td><td><p>Don't automatically run ssh-keyscan before checkout [<code>$BUILDKITE_NO_SSH_KEYSCAN</code>]</p></td>
-<tr><td><code>--no-command-eval</code></td><td><p>Don't allow this agent to run arbitrary console commands, including plugins [<code>$BUILDKITE_NO_COMMAND_EVAL</code>]</p></td>
-<tr><td><code>--no-plugins</code></td><td><p>Don't allow this agent to load plugins [<code>$BUILDKITE_NO_PLUGINS</code>]</p></td>
-<tr><td><code>--no-plugin-validation</code></td><td><p>Don't validate plugin configuration and requirements [<code>$BUILDKITE_NO_PLUGIN_VALIDATION</code>]</p></td>
-<tr><td><code>--no-local-hooks</code></td><td><p>Don't allow local hooks to be run from checked out repositories [<code>$BUILDKITE_NO_LOCAL_HOOKS</code>]</p></td>
-<tr><td><code>--no-git-submodules</code></td><td><p>Don't automatically checkout git submodules [<code>$BUILDKITE_NO_GIT_SUBMODULES</code>, <code>$BUILDKITE_DISABLE_GIT_SUBMODULES</code>]</p></td>
-<tr><td><code>--metrics-datadog</code></td><td><p>Send metrics to DogStatsD for Datadog [<code>$BUILDKITE_METRICS_DATADOG</code>]</p></td>
-<tr><td><code>--metrics-datadog-host value</code></td><td><p>The dogstatsd instance to send metrics to via udp (default: "127.0.0.1:8125") [<code>$BUILDKITE_METRICS_DATADOG_HOST</code>]</p></td>
-<tr><td><code>--metrics-datadog-distributions</code></td><td><p>Use Datadog Distributions for Timing metrics [<code>$BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS</code>]</p></td>
-<tr><td><code>--log-format value</code></td><td><p>The format to use for the logger output (default: "text") [<code>$BUILDKITE_LOG_FORMAT</code>]</p></td>
-<tr><td><code>--spawn value</code></td><td><p>The number of agents to spawn in parallel (default: 1) [<code>$BUILDKITE_AGENT_SPAWN</code>]</p></td>
-<tr><td><code>--cancel-signal value</code></td><td><p>The signal to use for cancellation (default: "SIGTERM") [<code>$BUILDKITE_CANCEL_SIGNAL</code>]</p></td>
-<tr><td><code>--redacted-vars value</code></td><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_ACCESS_KEY", "*_SECRET_KEY") [<code>$BUILDKITE_REDACTED_VARS</code>]</p></td>
-<tr><td><code>--tracing-backend value</code></td><td><p>The name of the tracing backend to use. [<code>$BUILDKITE_TRACING_BACKEND</code>]</p></td>
-<tr><td><code>--token value</code></td><td><p>Your account agent token [<code>$BUILDKITE_AGENT_TOKEN</code>]</p></td>
-<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>") [<code>$BUILDKITE_AGENT_ENDPOINT</code>]</p></td>
-<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API. [<code>$BUILDKITE_NO_HTTP2</code>]</p></td>
-<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log [<code>$BUILDKITE_AGENT_DEBUG_HTTP</code>]</p></td>
-<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging [<code>$BUILDKITE_AGENT_NO_COLOR</code>]</p></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode [<code>$BUILDKITE_AGENT_DEBUG</code>]</p></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent [<code>$BUILDKITE_AGENT_EXPERIMENT</code>]</p></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
-<tr><td><code>--tags-from-ec2</code></td><td><p>Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id) [<code>$BUILDKITE_AGENT_TAGS_FROM_EC2</code>]</p></td>
-<tr><td><code>--tags-from-gcp</code></td><td><p>Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [<code>$BUILDKITE_AGENT_TAGS_FROM_GCP</code>]</p></td>
+<tr><td><code>--config value</code></td><td><p>Path to a configuration file</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_CONFIG</code></td>
+<tr><td><code>--name value</code></td><td><p>The name of the agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NAME</code></td>
+<tr><td><code>--priority value</code></td><td><p>The priority of the agent (higher priorities are assigned work first)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PRIORITY</code></td>
+<tr><td><code>--acquire-job value</code></td><td><p>Start this agent and only run the specified job, disconnecting after it's finished</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ACQUIRE_JOB</code></td>
+<tr><td><code>--disconnect-after-job</code></td><td><p>Disconnect the agent after running a job</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DISCONNECT_AFTER_JOB</code></td>
+<tr><td><code>--disconnect-after-idle-timeout value</code></td><td><p>If no jobs have come in for the specified number of seconds, disconnect the agent (default: 0)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT</code></td>
+<tr><td><code>--cancel-grace-period value</code></td><td><p>The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts (default: 10)</p><br /><b>ENV:</b> <code>$BUILDKITE_CANCEL_GRACE_PERIOD</code></td>
+<tr><td><code>--shell value</code></td><td><p>The shell command used to interpret build commands, e.g /bin/bash -e -c (default: "/bin/bash -e -c")</p><br /><b>ENV:</b> <code>$BUILDKITE_SHELL</code></td>
+<tr><td><code>--tags value</code></td><td><p>A comma-separated list of tags for the agent (e.g. "linux" or "mac,xcode=8")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS</code></td>
+<tr><td><code>--tags-from-host</code></td><td><p>Include tags from the host (hostname, machine-id, os)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_HOST</code></td>
+<tr><td><code>--tags-from-ec2-meta-data value</code></td><td><p>Include the default set of host EC2 meta-data as tags (instance-id, instance-type, ami-id, and instance-life-cycle)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA</code></td>
+<tr><td><code>--tags-from-ec2-meta-data-paths value</code></td><td><p>Include additional tags fetched from EC2 meta-data via tag & path suffix pairs, e.g "tag_name=path/to/value"</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_EC2_META_DATA_PATHS</code></td>
+<tr><td><code>--tags-from-ec2-tags</code></td><td><p>Include the host's EC2 tags as tags</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_EC2_TAGS</code></td>
+<tr><td><code>--tags-from-gcp-meta-data value</code></td><td><p>Include the default set of host Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA</code></td>
+<tr><td><code>--tags-from-gcp-meta-data-paths value</code></td><td><p>Include additional tags fetched from Google Cloud instance meta-data via tag & path suffix pairs, e.g "tag_name=path/to/value"</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_GCP_META_DATA_PATHS</code></td>
+<tr><td><code>--tags-from-gcp-labels</code></td><td><p>Include the host's Google Cloud instance labels as tags</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_GCP_LABELS</code></td>
+<tr><td><code>--wait-for-ec2-tags-timeout value</code></td><td><p>The amount of time to wait for tags from EC2 before proceeding (default: 10s)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT</code></td>
+<tr><td><code>--wait-for-ec2-meta-data-timeout value</code></td><td><p>The amount of time to wait for meta-data from EC2 before proceeding (default: 10s)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_WAIT_FOR_EC2_META_DATA_TIMEOUT</code></td>
+<tr><td><code>--wait-for-gcp-labels-timeout value</code></td><td><p>The amount of time to wait for labels from GCP before proceeding (default: 10s)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_WAIT_FOR_GCP_LABELS_TIMEOUT</code></td>
+<tr><td><code>--git-clone-flags value</code></td><td><p>Flags to pass to the "git clone" command (default: "-v")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLONE_FLAGS</code></td>
+<tr><td><code>--git-clean-flags value</code></td><td><p>Flags to pass to "git clean" command (default: "-ffxdq")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLEAN_FLAGS</code></td>
+<tr><td><code>--git-fetch-flags value</code></td><td><p>Flags to pass to "git fetch" command (default: "-v --prune")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_FETCH_FLAGS</code></td>
+<tr><td><code>--git-clone-mirror-flags value</code></td><td><p>Flags to pass to the "git clone" command when used for mirroring (default: "-v")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></td>
+<tr><td><code>--git-mirrors-path value</code></td><td><p>Path to where mirrors of git repositories are stored</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_MIRRORS_PATH</code></td>
+<tr><td><code>--git-mirrors-lock-timeout value</code></td><td><p>Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300)</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></td>
+<tr><td><code>--bootstrap-script value</code></td><td><p>The command that is executed for bootstrapping a job, defaults to the bootstrap sub-command of this binary</p><br /><b>ENV:</b> <code>$BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></td>
+<tr><td><code>--build-path value</code></td><td><p>Path to where the builds will run from</p><br /><b>ENV:</b> <code>$BUILDKITE_BUILD_PATH</code></td>
+<tr><td><code>--hooks-path value</code></td><td><p>Directory where the hook scripts are found</p><br /><b>ENV:</b> <code>$BUILDKITE_HOOKS_PATH</code></td>
+<tr><td><code>--plugins-path value</code></td><td><p>Directory where the plugins are saved to</p><br /><b>ENV:</b> <code>$BUILDKITE_PLUGINS_PATH</code></td>
+<tr><td><code>--timestamp-lines</code></td><td><p>Prepend timestamps on each line of output.</p><br /><b>ENV:</b> <code>$BUILDKITE_TIMESTAMP_LINES</code></td>
+<tr><td><code>--health-check-addr value</code></td><td><p>Start an HTTP server on this addr:port that returns whether the agent is healthy, disabled by default</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_HEALTH_CHECK_ADDR</code></td>
+<tr><td><code>--no-pty</code></td><td><p>Do not run jobs within a pseudo terminal</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_PTY</code></td>
+<tr><td><code>--no-ssh-keyscan</code></td><td><p>Don't automatically run ssh-keyscan before checkout</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_SSH_KEYSCAN</code></td>
+<tr><td><code>--no-command-eval</code></td><td><p>Don't allow this agent to run arbitrary console commands, including plugins</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_COMMAND_EVAL</code></td>
+<tr><td><code>--no-plugins</code></td><td><p>Don't allow this agent to load plugins</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_PLUGINS</code></td>
+<tr><td><code>--no-plugin-validation</code></td><td><p>Don't validate plugin configuration and requirements</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_PLUGIN_VALIDATION</code></td>
+<tr><td><code>--no-local-hooks</code></td><td><p>Don't allow local hooks to be run from checked out repositories</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_LOCAL_HOOKS</code></td>
+<tr><td><code>--no-git-submodules</code></td><td><p>Don't automatically checkout git submodules [$BUILDKITE_NO_GIT_SUBMODULES, $BUILDKITE_DISABLE_GIT_SUBMODULES]</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_GIT_SUBMODULES</code></td>
+<tr><td><code>--metrics-datadog</code></td><td><p>Send metrics to DogStatsD for Datadog</p><br /><b>ENV:</b> <code>$BUILDKITE_METRICS_DATADOG</code></td>
+<tr><td><code>--metrics-datadog-host value</code></td><td><p>The dogstatsd instance to send metrics to via udp (default: "127.0.0.1:8125")</p><br /><b>ENV:</b> <code>$BUILDKITE_METRICS_DATADOG_HOST</code></td>
+<tr><td><code>--metrics-datadog-distributions</code></td><td><p>Use Datadog Distributions for Timing metrics</p><br /><b>ENV:</b> <code>$BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS</code></td>
+<tr><td><code>--log-format value</code></td><td><p>The format to use for the logger output (default: "text")</p><br /><b>ENV:</b> <code>$BUILDKITE_LOG_FORMAT</code></td>
+<tr><td><code>--spawn value</code></td><td><p>The number of agents to spawn in parallel (default: 1)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_SPAWN</code></td>
+<tr><td><code>--cancel-signal value</code></td><td><p>The signal to use for cancellation (default: "SIGTERM")</p><br /><b>ENV:</b> <code>$BUILDKITE_CANCEL_SIGNAL</code></td>
+<tr><td><code>--redacted-vars value</code></td><td><p>Pattern of environment variable names containing sensitive values (default: "*_PASSWORD", "*_SECRET", "*_TOKEN", "*_ACCESS_KEY", "*_SECRET_KEY")</p><br /><b>ENV:</b> <code>$BUILDKITE_REDACTED_VARS</code></td>
+<tr><td><code>--tracing-backend value</code></td><td><p>The name of the tracing backend to use.</p><br /><b>ENV:</b> <code>$BUILDKITE_TRACING_BACKEND</code></td>
+<tr><td><code>--token value</code></td><td><p>Your account agent token</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TOKEN</code></td>
+<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
+<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
+<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
+<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
+<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
+<tr><td><code>--tags-from-ec2</code></td><td><p>Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_EC2</code></td>
+<tr><td><code>--tags-from-gcp</code></td><td><p>Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_GCP</code></td>
 </table>

@@ -41,46 +41,46 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 ## Options
 
 <table>
-<tr><td><code>--command value</code></td><td><p>The command to run [<code>$BUILDKITE_COMMAND</code>]</p></td>
-<tr><td><code>--job value</code></td><td><p>The ID of the job being run [<code>$BUILDKITE_JOB_ID</code>]</p></td>
-<tr><td><code>--repository value</code></td><td><p>The repository to clone and run the job from [<code>$BUILDKITE_REPO</code>]</p></td>
-<tr><td><code>--commit value</code></td><td><p>The commit to checkout in the repository [<code>$BUILDKITE_COMMIT</code>]</p></td>
-<tr><td><code>--branch value</code></td><td><p>The branch the commit is in [<code>$BUILDKITE_BRANCH</code>]</p></td>
-<tr><td><code>--tag value</code></td><td><p>The tag the commit [<code>$BUILDKITE_TAG</code>]</p></td>
-<tr><td><code>--refspec value</code></td><td><p>Optional refspec to override git fetch [<code>$BUILDKITE_REFSPEC</code>]</p></td>
-<tr><td><code>--plugins value</code></td><td><p>The plugins for the job [<code>$BUILDKITE_PLUGINS</code>]</p></td>
-<tr><td><code>--pullrequest value</code></td><td><p>The number/id of the pull request this commit belonged to [<code>$BUILDKITE_PULL_REQUEST</code>]</p></td>
-<tr><td><code>--agent value</code></td><td><p>The name of the agent running the job [<code>$BUILDKITE_AGENT_NAME</code>]</p></td>
-<tr><td><code>--queue value</code></td><td><p>The name of the queue the agent belongs to, if tagged [<code>$BUILDKITE_AGENT_META_DATA_QUEUE</code>]</p></td>
-<tr><td><code>--organization value</code></td><td><p>The slug of the organization that the job is a part of [<code>$BUILDKITE_ORGANIZATION_SLUG</code>]</p></td>
-<tr><td><code>--pipeline value</code></td><td><p>The slug of the pipeline that the job is a part of [<code>$BUILDKITE_PIPELINE_SLUG</code>]</p></td>
-<tr><td><code>--pipeline-provider value</code></td><td><p>The id of the SCM provider that the repository is hosted on [<code>$BUILDKITE_PIPELINE_PROVIDER</code>]</p></td>
-<tr><td><code>--artifact-upload-paths value</code></td><td><p>Paths to files to automatically upload at the end of a job [<code>$BUILDKITE_ARTIFACT_PATHS</code>]</p></td>
-<tr><td><code>--artifact-upload-destination value</code></td><td><p>A custom location to upload artifact paths to (i.e. s3://my-custom-bucket) [<code>$BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code>]</p></td>
-<tr><td><code>--clean-checkout</code></td><td><p>Whether or not the bootstrap should remove the existing repository before running the command [<code>$BUILDKITE_CLEAN_CHECKOUT</code>]</p></td>
-<tr><td><code>--git-clone-flags value</code></td><td><p>Flags to pass to "git clone" command (default: "-v") [<code>$BUILDKITE_GIT_CLONE_FLAGS</code>]</p></td>
-<tr><td><code>--git-clone-mirror-flags value</code></td><td><p>Flags to pass to "git clone" command when mirroring (default: "-v") [<code>$BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code>]</p></td>
-<tr><td><code>--git-clean-flags value</code></td><td><p>Flags to pass to "git clean" command (default: "-ffxdq") [<code>$BUILDKITE_GIT_CLEAN_FLAGS</code>]</p></td>
-<tr><td><code>--git-fetch-flags value</code></td><td><p>Flags to pass to "git fetch" command [<code>$BUILDKITE_GIT_FETCH_FLAGS</code>]</p></td>
-<tr><td><code>--git-mirrors-path value</code></td><td><p>Path to where mirrors of git repositories are stored [<code>$BUILDKITE_GIT_MIRRORS_PATH</code>]</p></td>
-<tr><td><code>--git-mirrors-lock-timeout value</code></td><td><p>Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300) [<code>$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code>]</p></td>
-<tr><td><code>--bin-path value</code></td><td><p>Directory where the buildkite-agent binary lives [<code>$BUILDKITE_BIN_PATH</code>]</p></td>
-<tr><td><code>--build-path value</code></td><td><p>Directory where builds will be created [<code>$BUILDKITE_BUILD_PATH</code>]</p></td>
-<tr><td><code>--hooks-path value</code></td><td><p>Directory where the hook scripts are found [<code>$BUILDKITE_HOOKS_PATH</code>]</p></td>
-<tr><td><code>--plugins-path value</code></td><td><p>Directory where the plugins are saved to [<code>$BUILDKITE_PLUGINS_PATH</code>]</p></td>
-<tr><td><code>--command-eval</code></td><td><p>Allow running of arbitrary commands [<code>$BUILDKITE_COMMAND_EVAL</code>]</p></td>
-<tr><td><code>--plugins-enabled</code></td><td><p>Allow plugins to be run [<code>$BUILDKITE_PLUGINS_ENABLED</code>]</p></td>
-<tr><td><code>--plugin-validation</code></td><td><p>Validate plugin configuration [<code>$BUILDKITE_PLUGIN_VALIDATION</code>]</p></td>
-<tr><td><code>--local-hooks-enabled</code></td><td><p>Allow local hooks to be run [<code>$BUILDKITE_LOCAL_HOOKS_ENABLED</code>]</p></td>
-<tr><td><code>--ssh-keyscan</code></td><td><p>Automatically run ssh-keyscan before checkout [<code>$BUILDKITE_SSH_KEYSCAN</code>]</p></td>
-<tr><td><code>--git-submodules</code></td><td><p>Enable git submodules [<code>$BUILDKITE_GIT_SUBMODULES</code>]</p></td>
-<tr><td><code>--pty</code></td><td><p>Run jobs within a pseudo terminal [<code>$BUILDKITE_PTY</code>]</p></td>
-<tr><td><code>--shell value</code></td><td><p>The shell to use to interpret build commands (default: "/bin/bash -e -c") [<code>$BUILDKITE_SHELL</code>]</p></td>
-<tr><td><code>--phases value</code></td><td><p>The specific phases to execute. The order they're defined is irrelevant. [<code>$BUILDKITE_BOOTSTRAP_PHASES</code>]</p></td>
-<tr><td><code>--cancel-signal value</code></td><td><p>The signal to use for cancellation (default: "SIGTERM") [<code>$BUILDKITE_CANCEL_SIGNAL</code>]</p></td>
-<tr><td><code>--redacted-vars value</code></td><td><p>Pattern of environment variable names containing sensitive values [<code>$BUILDKITE_REDACTED_VARS</code>]</p></td>
-<tr><td><code>--tracing-backend value</code></td><td><p>The name of the tracing backend to use. [<code>$BUILDKITE_TRACING_BACKEND</code>]</p></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode [<code>$BUILDKITE_AGENT_DEBUG</code>]</p></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent [<code>$BUILDKITE_AGENT_EXPERIMENT</code>]</p></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
+<tr><td><code>--command value</code></td><td><p>The command to run</p><br /><b>ENV:</b> <code>$BUILDKITE_COMMAND</code></td>
+<tr><td><code>--job value</code></td><td><p>The ID of the job being run</p><br /><b>ENV:</b> <code>$BUILDKITE_JOB_ID</code></td>
+<tr><td><code>--repository value</code></td><td><p>The repository to clone and run the job from</p><br /><b>ENV:</b> <code>$BUILDKITE_REPO</code></td>
+<tr><td><code>--commit value</code></td><td><p>The commit to checkout in the repository</p><br /><b>ENV:</b> <code>$BUILDKITE_COMMIT</code></td>
+<tr><td><code>--branch value</code></td><td><p>The branch the commit is in</p><br /><b>ENV:</b> <code>$BUILDKITE_BRANCH</code></td>
+<tr><td><code>--tag value</code></td><td><p>The tag the commit</p><br /><b>ENV:</b> <code>$BUILDKITE_TAG</code></td>
+<tr><td><code>--refspec value</code></td><td><p>Optional refspec to override git fetch</p><br /><b>ENV:</b> <code>$BUILDKITE_REFSPEC</code></td>
+<tr><td><code>--plugins value</code></td><td><p>The plugins for the job</p><br /><b>ENV:</b> <code>$BUILDKITE_PLUGINS</code></td>
+<tr><td><code>--pullrequest value</code></td><td><p>The number/id of the pull request this commit belonged to</p><br /><b>ENV:</b> <code>$BUILDKITE_PULL_REQUEST</code></td>
+<tr><td><code>--agent value</code></td><td><p>The name of the agent running the job</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NAME</code></td>
+<tr><td><code>--queue value</code></td><td><p>The name of the queue the agent belongs to, if tagged</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_META_DATA_QUEUE</code></td>
+<tr><td><code>--organization value</code></td><td><p>The slug of the organization that the job is a part of</p><br /><b>ENV:</b> <code>$BUILDKITE_ORGANIZATION_SLUG</code></td>
+<tr><td><code>--pipeline value</code></td><td><p>The slug of the pipeline that the job is a part of</p><br /><b>ENV:</b> <code>$BUILDKITE_PIPELINE_SLUG</code></td>
+<tr><td><code>--pipeline-provider value</code></td><td><p>The id of the SCM provider that the repository is hosted on</p><br /><b>ENV:</b> <code>$BUILDKITE_PIPELINE_PROVIDER</code></td>
+<tr><td><code>--artifact-upload-paths value</code></td><td><p>Paths to files to automatically upload at the end of a job</p><br /><b>ENV:</b> <code>$BUILDKITE_ARTIFACT_PATHS</code></td>
+<tr><td><code>--artifact-upload-destination value</code></td><td><p>A custom location to upload artifact paths to (i.e. s3://my-custom-bucket)</p><br /><b>ENV:</b> <code>$BUILDKITE_ARTIFACT_UPLOAD_DESTINATION</code></td>
+<tr><td><code>--clean-checkout</code></td><td><p>Whether or not the bootstrap should remove the existing repository before running the command</p><br /><b>ENV:</b> <code>$BUILDKITE_CLEAN_CHECKOUT</code></td>
+<tr><td><code>--git-clone-flags value</code></td><td><p>Flags to pass to "git clone" command (default: "-v")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLONE_FLAGS</code></td>
+<tr><td><code>--git-clone-mirror-flags value</code></td><td><p>Flags to pass to "git clone" command when mirroring (default: "-v")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLONE_MIRROR_FLAGS</code></td>
+<tr><td><code>--git-clean-flags value</code></td><td><p>Flags to pass to "git clean" command (default: "-ffxdq")</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_CLEAN_FLAGS</code></td>
+<tr><td><code>--git-fetch-flags value</code></td><td><p>Flags to pass to "git fetch" command</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_FETCH_FLAGS</code></td>
+<tr><td><code>--git-mirrors-path value</code></td><td><p>Path to where mirrors of git repositories are stored</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_MIRRORS_PATH</code></td>
+<tr><td><code>--git-mirrors-lock-timeout value</code></td><td><p>Seconds to lock a git mirror during clone, should exceed your longest checkout (default: 300)</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT</code></td>
+<tr><td><code>--bin-path value</code></td><td><p>Directory where the buildkite-agent binary lives</p><br /><b>ENV:</b> <code>$BUILDKITE_BIN_PATH</code></td>
+<tr><td><code>--build-path value</code></td><td><p>Directory where builds will be created</p><br /><b>ENV:</b> <code>$BUILDKITE_BUILD_PATH</code></td>
+<tr><td><code>--hooks-path value</code></td><td><p>Directory where the hook scripts are found</p><br /><b>ENV:</b> <code>$BUILDKITE_HOOKS_PATH</code></td>
+<tr><td><code>--plugins-path value</code></td><td><p>Directory where the plugins are saved to</p><br /><b>ENV:</b> <code>$BUILDKITE_PLUGINS_PATH</code></td>
+<tr><td><code>--command-eval</code></td><td><p>Allow running of arbitrary commands</p><br /><b>ENV:</b> <code>$BUILDKITE_COMMAND_EVAL</code></td>
+<tr><td><code>--plugins-enabled</code></td><td><p>Allow plugins to be run</p><br /><b>ENV:</b> <code>$BUILDKITE_PLUGINS_ENABLED</code></td>
+<tr><td><code>--plugin-validation</code></td><td><p>Validate plugin configuration</p><br /><b>ENV:</b> <code>$BUILDKITE_PLUGIN_VALIDATION</code></td>
+<tr><td><code>--local-hooks-enabled</code></td><td><p>Allow local hooks to be run</p><br /><b>ENV:</b> <code>$BUILDKITE_LOCAL_HOOKS_ENABLED</code></td>
+<tr><td><code>--ssh-keyscan</code></td><td><p>Automatically run ssh-keyscan before checkout</p><br /><b>ENV:</b> <code>$BUILDKITE_SSH_KEYSCAN</code></td>
+<tr><td><code>--git-submodules</code></td><td><p>Enable git submodules</p><br /><b>ENV:</b> <code>$BUILDKITE_GIT_SUBMODULES</code></td>
+<tr><td><code>--pty</code></td><td><p>Run jobs within a pseudo terminal</p><br /><b>ENV:</b> <code>$BUILDKITE_PTY</code></td>
+<tr><td><code>--shell value</code></td><td><p>The shell to use to interpret build commands (default: "/bin/bash -e -c")</p><br /><b>ENV:</b> <code>$BUILDKITE_SHELL</code></td>
+<tr><td><code>--phases value</code></td><td><p>The specific phases to execute. The order they're defined is irrelevant.</p><br /><b>ENV:</b> <code>$BUILDKITE_BOOTSTRAP_PHASES</code></td>
+<tr><td><code>--cancel-signal value</code></td><td><p>The signal to use for cancellation (default: "SIGTERM")</p><br /><b>ENV:</b> <code>$BUILDKITE_CANCEL_SIGNAL</code></td>
+<tr><td><code>--redacted-vars value</code></td><td><p>Pattern of environment variable names containing sensitive values</p><br /><b>ENV:</b> <code>$BUILDKITE_REDACTED_VARS</code></td>
+<tr><td><code>--tracing-backend value</code></td><td><p>The name of the tracing backend to use.</p><br /><b>ENV:</b> <code>$BUILDKITE_TRACING_BACKEND</code></td>
+<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
