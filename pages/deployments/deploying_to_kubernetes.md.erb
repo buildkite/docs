@@ -1,11 +1,11 @@
 # Deploying to Kubernetes
 
-<%= estimated_time "30 minutes" %>
+This tutorial demonstrates deploying to Kubernetes using Buildkite best
+practices.
 
 {:toc}
 
-This tutorial demonstrates deploying to Kubernetes using Buildkite best
-practices.  The tutorial uses one pipeline for tests and another for deploys.
+The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
 deployment][k8s_deployment] using `kubectl`. Then, you'll see how to link them
