@@ -82,6 +82,7 @@ attributes:
 - name: git-clone-mirror-flags
   env_var: BUILDKITE_GIT_CLONE_MIRROR_FLAGS
   default_value: "none"
+  experimental: true
   required: false
   desc: | 
       Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
@@ -91,12 +92,14 @@ attributes:
   env_var: BUILDKITE_GIT_FETCH_FLAGS
   default_value: "-v --prune"
   required: false
+  experimental: true
   desc: | 
       Flags to pass to the `git fetch` command. Before [running builds on git tags](https://buildkite.com/docs/integrations/github#running-builds-on-git-tags), make sure your agent is fetching git tags.
 - name: git-mirrors-lock-timeout
   env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
   default_value: "300"
   required: false
+  experimental: true
   desc: | 
       Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
       This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
@@ -104,6 +107,7 @@ attributes:
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
+  experimental: true
   desc: | 
       Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
       This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).  
