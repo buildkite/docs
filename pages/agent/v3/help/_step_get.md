@@ -47,4 +47,3 @@ output the data (currently only JSON is supported).
 <tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent [<code>$BUILDKITE_AGENT_EXPERIMENT</code>]</p></td>
 <tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
 </table>
-

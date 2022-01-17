@@ -52,39 +52,23 @@ The above will return a list of filenames separated by newline.
 <tr><td><code>--include-retried-jobs</code></td><td><p>Include artifacts from retried jobs in the search [<code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code>]</p></td>
 <tr><td><code>--format value</code></td><td><p>Output formatting of results. Defaults to "%j %p %c\n" (Job ID, path, created at time).</p></td>
 </table>
-
-</table>
 The following directives are available:
-</table>
 
-</table>
 %i    UUID of the artifact
-</table>
 
-</table>
 %p    Artifact path
-</table>
 
-</table>
 %c    Artifact creation time (an ISO 8601 / RFC-3339 formatted UTC timestamp)
-</table>
 
-</table>
 %j    UUID of the job that uploaded the artifact, helpful for subsequent artifact downloads
-</table>
 
-</table>
 %s    File size of the artifact in bytes
-</table>
 
-</table>
 %S    SHA1 checksum of the artifact
-</table>
 
-</table>
 %u    Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead
-</table>
 (default: &quot;%j %p %c\n&quot;)
+<table>
 <tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent [<code>$BUILDKITE_AGENT_ACCESS_TOKEN</code>]</p></td>
 <tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>") [<code>$BUILDKITE_AGENT_ENDPOINT</code>]</p></td>
 <tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API. [<code>$BUILDKITE_NO_HTTP2</code>]</p></td>
@@ -94,4 +78,3 @@ The following directives are available:
 <tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent [<code>$BUILDKITE_AGENT_EXPERIMENT</code>]</p></td>
 <tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
 </table>
-

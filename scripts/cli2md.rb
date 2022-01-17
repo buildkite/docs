@@ -39,6 +39,8 @@ ARGF.each_with_index do |line, line_num|
     else
         if(first_param==true)
             puts "</table>"
+            first_param = false
+            next
         end
         puts CGI::escapeHTML(line.lstrip)
     end

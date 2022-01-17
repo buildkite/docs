@@ -89,4 +89,3 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 <tr><td><code>--tags-from-ec2</code></td><td><p>Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id) [<code>$BUILDKITE_AGENT_TAGS_FROM_EC2</code>]</p></td>
 <tr><td><code>--tags-from-gcp</code></td><td><p>Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone) [<code>$BUILDKITE_AGENT_TAGS_FROM_GCP</code>]</p></td>
 </table>
-

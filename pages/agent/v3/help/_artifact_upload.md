@@ -73,4 +73,3 @@ Or upload directly to Artifactory:
 <tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block [<code>$BUILDKITE_AGENT_PROFILE</code>]</p></td>
 <tr><td><code>--follow-symlinks</code></td><td><p>Follow symbolic links while resolving globs [<code>$BUILDKITE_AGENT_ARTIFACT_SYMLINKS</code>]</p></td>
 </table>
-
