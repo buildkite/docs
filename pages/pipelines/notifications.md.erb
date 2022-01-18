@@ -253,6 +253,10 @@ notify:
 
 See [Supported Variables](/docs/pipelines/conditionals#supported-variables) for more conditional variables that can be used in the `if` attribute.
 
+Slack notifications happen at the following [event](/docs/apis/webhooks#events):
+
+* `build finished`
+
 An example to deliver slack notification when a step is soft-failed:
 
 ```yaml
@@ -276,11 +280,6 @@ steps:
       fi
 ```
 {: codeblock-file="pipeline.yml"}
-
-
-Slack notifications happen at the following [event](/docs/apis/webhooks#events):
-
-* `build finished`
 
 ## Webhooks
 
