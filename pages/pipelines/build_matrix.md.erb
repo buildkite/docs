@@ -2,6 +2,8 @@
 
 Build Matrices lets you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
+{:toc}
+
 For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
 
 ```yaml
@@ -26,6 +28,8 @@ steps:
       - "Windows"
 ```
 
+All jobs created by a build matrix are marked with the Matrix symbol in the Buildkite interface.
+
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add multiplies by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`), creates an 8 job build (2 * 2 * 2 = 8):
 
 ```yaml
@@ -45,7 +49,7 @@ steps:
         - "B"
 ```
 
-Use the `adjustments` key to change specific entries in the build matrix. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
+If you're using `matrix.setup` you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
 ```yaml
 steps:
@@ -74,3 +78,19 @@ steps:
           test: "B"
         skip: true
 ```
+
+To add an extra combination that isn't present in the `matrix.setup`, use the `adjustments` key and make sure you define all of the elements in the matrix. For example, to add a build for [Plan 9](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) (on `arm64`, and test suite `B`) to the previous example:
+
+```yaml
+    adjustments:
+      - with:
+          os: "Plan 9"
+          arch: "arm64"
+          test: "B"
+```
+
+This would result in 9 jobs, (2 * 2 * 2 + 1 = 9.).
+
+## Matrix limits
+
+Each build matrix has a limit of 10 dimensions, 10 elements in each dimension and a total of 10 adjustments.
