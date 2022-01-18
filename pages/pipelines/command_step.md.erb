@@ -354,13 +354,13 @@ steps:
   <tr>
     <td><code>setup</code></td>
     <td>
-      A list of elements, each containing an array of values. The job matrix is built by combining all values of each element with the other elements.
+      A list of dimensions, each containing an array of elements. The job matrix is built by combining all values of each dimension, with the other elements of each dimension.
     </td>
   </tr>
   <tr>
     <td><code>adjustments</code></td>
     <td>
-      A array of <code>with</code> keys, each containing a combination of array setup entries, and the attribute to modify for that combination.<br>
+      A array of <code>with</code> keys, each mapping an element to each dimension listed in the `array.setup`, as well as the attribute to modify for that combination.<br>
       Currently, only <code>soft_fail</code> and <code>skip</code> can be modified.
     </td>
   </tr>
