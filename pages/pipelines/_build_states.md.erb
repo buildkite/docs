@@ -1,2 +1,6 @@
 Build state can be one of `creating`, `scheduled`, `running`, `passed`, `failed`, `blocked`, `canceling`, `canceled`, `skipped`, `not_run`.
 You can query for `finished` builds to return builds in any of the following states: `passed`, `failed`, `blocked`, or `canceled`.
+
+<div class="Docs__note">
+<p>Currently, a triggered build in <code>blocked_state: failed</code> leaves the triggering step in the <code>running</code> state. This may change in the future.</p>
+</div>
