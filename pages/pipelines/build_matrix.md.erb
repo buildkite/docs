@@ -28,7 +28,7 @@ steps:
       - "Windows"
 ```
 
-All jobs created by a build matrix are marked with the Matrix symbol in the Buildkite interface.
+All jobs created by a build matrix are marked with the Matrix symbol (👾) in the Buildkite interface.
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add multiplies by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`), creates an 8 job build (2 * 2 * 2 = 8):
 
