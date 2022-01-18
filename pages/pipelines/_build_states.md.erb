@@ -2,5 +2,5 @@ Build state can be one of `creating`, `scheduled`, `running`, `passed`, `failed`
 You can query for `finished` builds to return builds in any of the following states: `passed`, `failed`, `blocked`, or `canceled`.
 
 <div class="Docs__note">
-<p>Currently, a triggered build in <code>blocked_state: failed</code> leaves the triggering step in the <code>running</code> state. This may change in the future.</p>
+<p>When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.</p>
 </div>
