@@ -382,8 +382,10 @@ label[for='navicon'] span { // hide alt text
 
   .Docs__attribute__importance {
     color: $color-brand-green;
-    font: 300 italic 13px $font-family;
     margin: 5px 0;
+    text-transform: uppercase;
+    font: 300 13px $font-family;
+    letter-spacing: 1px
   }
 
   .Docs__attribute__env-var {
