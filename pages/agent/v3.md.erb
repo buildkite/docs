@@ -6,7 +6,7 @@ The Buildkite agent is a small, reliable and cross-platform build runner that ma
 
 {:toc}
 
-## How it Works
+## How it works
 
 The agent works by polling Buildkite’s agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
 
@@ -49,6 +49,7 @@ To start an agent you’ll need your organization’s agent token from the Agent
 ## Configuration
 
 The agent has a standard configuration file format on all systems to set meta-data, priority, etc. See the [configuration documentation](/docs/agent/v3/configuration) for more details.
+
 
 ## Experimental features
 
@@ -122,11 +123,11 @@ After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This mak
   <p>To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
 </div>
 
-## Customising with Hooks
+## Customising with hooks
 
-The agent’s behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline’s code repository. Hooks can be used to set up [secrets](/docs/pipelines/secrets) as well as overriding default behavior. See the [hooks](/docs/agent/v3/hooks) documentation for full details.
+The agent's behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline's code repository. Hooks can be used to set up [secrets](/docs/pipelines/secrets) as well as overriding default behavior. See the [hooks](/docs/agent/v3/hooks) documentation for full details.
 
-## Signal Handling
+## Signal handling
 
 When a build job is canceled the agent will send the build job process a `SIGTERM` signal to allow it to gracefully exit.
 
@@ -137,7 +138,7 @@ The agent also accepts the following two signals directly:
 - `SIGTERM` - Instructs the agent to gracefully disconnect, after completing any job that it may be running.
 - `SIGQUIT` - Instructs the agent to forcefully disconnect, cancelling any job that it may be running.
 
-## Exit Codes
+## Exit codes
 
 The agent reports its activity to Buildkite using exit codes. The most common exit codes and their descriptions can be found in the table below.
 

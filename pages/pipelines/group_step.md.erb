@@ -11,17 +11,18 @@ A group step can be defined in your pipeline settings or your [pipeline.yml](/do
 Here is an example of using the group step:
 
 ```yml
-- group: "\:lock_with_ink_pen\: Security Audits"
-  key: "audits"
-  steps:
-    - label: "\:brakeman\: Brakeman"
-      command: ".buildkite/steps/brakeman"
-    - label: "\:bundleaudit\: Bundle Audit"
-      command: ".buildkite/steps/bundleaudit"
-    - label: "\:yarn\: Yarn Audit"
-      command: ".buildkite/steps/yarn"
-    - label: "\:yarn\: Outdated Check"
-      command: ".buildkite/steps/outdated"
+steps:
+  - group: "\:lock_with_ink_pen\: Security Audits"
+    key: "audits"
+    steps:
+      - label: "\:brakeman\: Brakeman"
+        command: ".buildkite/steps/brakeman"
+      - label: "\:bundleaudit\: Bundle Audit"
+        command: ".buildkite/steps/bundleaudit"
+      - label: "\:yarn\: Yarn Audit"
+        command: ".buildkite/steps/yarn"
+      - label: "\:yarn\: Outdated Check"
+        command: ".buildkite/steps/outdated"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -48,7 +49,7 @@ _Required attributes:_
   <tr>
     <td><code>steps</code></td>
     <td>
-    A list of steps in the group; at least 1 step is required. Allowed step types: `wait`, `trigger`, `command`.<br>
+    A list of steps in the group; at least 1 step is required. Allowed step types: <a href="/docs/pipelines/wait-step"><code>wait</code></a>, <a href="/docs/pipelines/trigger-step"><code>trigger</code></a>, <a href="/docs/pipelines/command-step"><code>command</code>/<code>commands</code></a>.<br>
       <em>Type:</em> <code>array</code>
     </td>
   </tr>
@@ -65,31 +66,10 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>branches</code></td>
-    <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"main stable/*"</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>env</code></td>
-    <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step or group.<br>
-      <em>Example:</em> <code>RAILS_ENV: "test"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>if</code></td>
-    <td>
-      A conditional to whether or not this step, block, or group should be included in the build. A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
-      <em>Example:</em> <code>build.message != "skip me"</code>
     </td>
   </tr>
   <tr>
@@ -113,21 +93,11 @@ _Optional attributes:_
       <em>Example:</em> <code>"github_check:"</code><br>
     </td>
   </tr>
-  <tr>
-    <td><code>skip</code></td>
-    <td>
-      Whether to skip this step or group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps or groups will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
-      <em>Example:</em> <code>"My reason"</code>
-    </td>
-  </tr>
 </table>
 
 ## Parallel groups
 
-If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:  
+If you put two or more group steps in a YAML config file consecutively, they will run in parallel. For example:
 
 ```yml
 # 1.sh and 3.sh will start at the same time.
@@ -185,9 +155,10 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+
 ## Group merging
 
-Different groups that have the same `group` name or `label` and are defined consecutively in the pipeline will be merged together in the Buildkite UI.
+If you upload a pipeline that has a `group` or `label` already present in your YAML configuration file, the groups will be merged together in the Buildkite UI.
 
 <section class="Docs__note">
   <h3>You can't define the same key twice</h3>
@@ -197,50 +168,49 @@ Different groups that have the same `group` name or `label` and are defined cons
 For example, you have a YAML file:
 
 ```yml
-- group: "Setup"
-  steps:
-    - command: "buildkite agent pipeline upload"
+steps:
+  - group: "Setup"
+    steps:
+      - commands:
+        - "buildkite-agent pipeline upload"
+        - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
 
 And this YAML file uploads a pipeline that has a group with the same name:
 
 ```yml
-- group: "Setup"
-  steps:
-    - command: "docker build"
-```
-{: codeblock-file="pipeline.yml"}
-
-These groups will be merged into one in the UI, and the `"docker build"` step will be added to the existing group.
-
-```yml
-- group: "Setup"
-  steps:
-    - command: "buildkite agent pipeline upload"
-- group: "Setup"
-  steps:
+steps:
+  - group: "Setup"
+    steps:
       - command: "docker build"
 ```
 {: codeblock-file="pipeline.yml"}
 
-Similarly, here consecutive groups have the same label:
+These groups will be merged into one in the UI, and the `docker build` step will be added to the existing group.
+
+Similarly, if you have a YAML file:
 
 ```yml
 steps:
-- group: ~
-  label: "linting"
-  steps:
-    - name: ":rubocop: RuboCop"
-      command: "echo .buildkite/steps/rubocop"
-    - name: ":eslint: ESlint"
-      command: "echo .buildkite/steps/eslint"
-- group: ~
-  label: "linting"
-  steps:
-    - label: ":flowtype: Flow"
-      command: "echo .buildkite/steps/flow"
+  - group: ~
+    label: "Setup"
+    steps:
+      - commands:
+        - "buildkite-agent pipeline upload"
+        - echo "start"
 ```
 {: codeblock-file="pipeline.yml"}
 
-The command `echo .buildkite/steps/flow` will be added to the existing group and the groups will be displayed as one in the UI.
+And this YAML file uploads a pipeline that has a group with the same label:
+
+```yml
+steps:
+  - group: ~
+    label: "Setup"
+    steps:
+      - command: echo "proceed"
+```
+{: codeblock-file="pipeline.yml"}
+
+These groups will be merged into one in the UI, and the `echo "proceed"` step will be added to the existing group.

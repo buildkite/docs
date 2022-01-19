@@ -46,13 +46,13 @@ sudo systemctl enable buildkite-agent && sudo systemctl start buildkite-agent
 sudo tail -f /var/log/messages
 ```
 
-## SSH Key Configuration
+## SSH key configuration
 
 <%= render_markdown 'agent/v3/ssh_key_with_buildkite_agent_user' %>
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
-## File Locations
+## File locations
 
 * Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
 * Agent Hooks: `/etc/buildkite-agent/hooks/`
@@ -66,6 +66,10 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## Configuration
 
 The configuration file is located at `/etc/buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+
+## Which user the agent runs as
+
+On RedHat, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 

@@ -174,7 +174,7 @@ environment variables.
 
 Environment Variable | Required | Default Value | Description
 --- | --- | --- | ---
-`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, for example, s3://your-bucker/path/prefix/
+`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, for example, s3://your-bucket/path/prefix/
 `BUILDKITE_S3_DEFAULT_REGION` | No | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service.
 `BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
 `BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.
@@ -245,7 +245,7 @@ belonging to an IAM user using one of the environment variable groups listed
 above. See the [Managing Pipeline Secrets](/docs/pipelines/secrets)
 documentation for how to securely set up these environment variables.
 
-### Access Control
+### Access control
 
 By default the agent will create objects with the [`public-read` ACL](https://docs.aws.amazon.com/AmazonS3/latest/userguide/acl-overview.html#canned-acl). This allows the artifact links in the
 Buildkite web interface to show the S3 object directly in the browser. You can

@@ -29,7 +29,7 @@ In this example, the `pipeline.yml` defines an input step with the key `release-
 ```yml
  - block: "Release"
     prompt: "Fill out the details for release"
-    fields: 
+    fields:
       - text: "Release Name"
         key: "release-name"
 ```
@@ -69,9 +69,10 @@ _Optional attributes:_
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      The state that the build is set to when the build is blocked by this block step. The default is <code>passed</code>, but you can also set it to <code>failed</code> or <code>running</code>.<br>
+      <p>The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.<br>
       <em>Default:</em> <code>passed</code><br>
-      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code>
+      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code></p>
+      <p>If you're using GitHub, you can also <a href="/docs/integrations/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipline basis.</p>
     </td>
   </tr>
   <tr>
@@ -417,3 +418,7 @@ The command step added in the above example will upload the trigger step and add
 <%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
+
+## Block steps interacting with wait steps
+
+<%= render_markdown 'pipelines/block_wait' %>

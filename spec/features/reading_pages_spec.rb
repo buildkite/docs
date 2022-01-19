@@ -4,7 +4,7 @@ RSpec.feature "reading pages" do
   describe "/docs/agent" do
     it "is viewable" do
       visit "/docs/agent"
-      expect(page).to have_content("How it Works")
+      expect(page).to have_content("How it works")
 
       visit "/docs/agent/ubuntu"
       expect(page).to have_content("apt repository")
