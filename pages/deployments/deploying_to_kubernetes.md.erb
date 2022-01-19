@@ -1,11 +1,11 @@
 # Deploying to Kubernetes
 
-<%= estimated_time "30 minutes" %>
+This tutorial demonstrates deploying to Kubernetes using Buildkite best
+practices.
 
 {:toc}
 
-This tutorial demonstrates deploying to Kubernetes using Buildkite best
-practices.  The tutorial uses one pipeline for tests and another for deploys.
+The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
 deployment][k8s_deployment] using `kubectl`. Then, you'll see how to link them
@@ -18,7 +18,7 @@ up.
 
 <%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
 
-## Create the Deploy Pipeline
+## Create the deploy pipeline
 
 This section covers creating a new Buildkite pipeline that loads steps from
 `.buildkite/pipeline.deploy.yml`. We'll use a [trigger
@@ -46,7 +46,7 @@ steps:
 Set `concurrency` and `concurrency_group` when updating mutable state. These
 settings ensures only one step runs at a time.
 
-## Writing the Deploy Script
+## Writing the deploy script
 
 The next step is writing a deploy script that generates a [Kubernetes deployment
 manifest][k8s_deployment] from the `DOCKER_IMAGE` environment variable.
@@ -134,7 +134,7 @@ kubectl wait --for condition=available --timeout=300s -f "${manifest}"
 You can test pipeline now that everything is in place. All you need is your
 Docker image.
 
-## Test the Pipeline
+## Test the pipeline
 
 Open the deployment pipeline and click "New Build". Click "Options" and set the
 `DOCKER_IMAGE` environment variable.
@@ -145,7 +145,7 @@ Assuming your agents have the required access, then success! :tada:
 
 <%= image "manual_deployment_success.png", width: 1440/2, height: 750/2, alt: "Manual Build Success" %>
 
-## Continuous Deployment
+## Continuous deployment
 
 We'll use a [trigger steps](https://buildkite.com/docs/pipelines/trigger-step)
 to connect the test and deploy pipelines. This effectively creates a continuous
@@ -195,7 +195,7 @@ cluster, then check the kubectl access section for setup advice.
 
 <%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
 
-## Next Steps
+## Next steps
 
 Congratulations! :tada: You've setup a continuous deployment pipeline to
 Kubernetes. Practically speaking there are some things to do next.
@@ -208,7 +208,7 @@ Kubernetes. Practically speaking there are some things to do next.
   Service](https://kubernetes.io/docs/concepts/services-networking/service/).
 - Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
-## Configuring kubectl Access
+## Configuring kubectl access
 
 Configuring `kubectl` access depends on your infrastructure. Here's an overview
 for common scenarios.

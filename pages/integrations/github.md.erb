@@ -8,7 +8,12 @@ To complete this integration, you need admin privileges for your GitHub reposito
 
 ## Connecting Buildkite and GitHub
 
-You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization, removing the reliance on individual user connections to report build statuses. See the [changelog announcement](https://buildkite.com/changelog/102-github-app-integration).
+You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
+
+<div class="Docs__note">
+<h3 class="Docs__note__heading">Benefits of using GitHub App</h3>
+<p>Using GitHub App removes the reliance on individual user connections to report build statuses. See the <a href="https://buildkite.com/changelog/102-github-app-integration">changelog announcement</a></p>
+</div>
 
 If you want to [connect using OAuth](#connect-your-buildkite-account-to-github-using-oauth) you can still do so from your _Personal Settings_.
 
@@ -68,7 +73,9 @@ When you connect your GitHub organization, Buildkite needs the following permiss
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.
 
- You can edit your pipeline configuration at any time in _Pipeline Settings_.
+You can edit your pipeline configuration at any time in _Pipeline Settings_.
+
+## Branch configuration and settings
 
 <%= render_markdown 'integrations/branch_config_settings' %>
 
@@ -145,7 +152,10 @@ For example, if you have a monorepo containing three applications, you could use
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
+## Using one repository in multiple pipelines and organizations
 
 <%= render_markdown 'integrations/one_repo_multi_org' %>
+
+## Build skipping
 
 <%= render_markdown 'integrations/build_skipping' %>

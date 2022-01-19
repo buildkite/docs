@@ -496,9 +496,17 @@ Example: `"v1.2.3"`
 
 <h3 class="h3-caps">BUILDKITE_TIMEOUT</h3>
 
-The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. The value cannot be modified.
+The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. Jobs that time out with an exit status of 0 are marked as "passed". The value cannot be modified.
 
-Example: `"15"` for 15 minutes, or `"false"` if no timeout is set
+Example: `"15"` for 15 minutes, or `"false"` if no timeout is set.
+
+<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
+
+Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
+
+Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
+
+Example: `"datadog"`
 
 <h3 class="h3-caps">BUILDKITE_TRIGGERED_FROM_BUILD_ID</h3>
 
@@ -541,14 +549,6 @@ Example: `"4735ba57-80d0-46e2-8fa0-b28223a86586"`
 A colon separated list of non-private team names that the user who unblocked the build belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
-
-<h3 class="h3-caps">BUILDKITE_TRACING_BACKEND</h3>
-
-Set to `"datadog"` to send metrics to the [Datadog APM](https://docs.datadoghq.com/tracing/) using `localhost:8126`, or `DD_AGENT_HOST:DD_AGENT_APM_PORT`.
-
-Defaults to empty string. Also available as a [buildkite agent configuration option.](/docs/agent/v3/configuration#configuration-settings)
-
-Example: `"datadog"`
 
 <h3 class="h3-caps">CI</h3>
 
@@ -711,7 +711,7 @@ There are two places in a pipeline.yml file that you can set environment variabl
   1. In the `env` attribute of command and trigger steps.
   2. At the top of the yaml file, before you define your pipeline's steps.
 
-Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step.
+Defining an environment variable at the top of your yaml file will set that variable on each of the command steps in the pipeline, and is equivalent to setting the `env` attribute on every step. This includes further pipeline uploads through `buildkite-agent pipeline upload`.
 
 <div class="Docs__note">
   <p>Top level pipeline environment variables will override what is set in the <code>env</code> attribute of an individual step.</p>

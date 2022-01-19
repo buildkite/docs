@@ -3,6 +3,8 @@
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.
 
+{:toc}
+
 Your VPC needs to provide routable access to the buildkite.com service
 so that `buildkite-agent` processes can connect, and retrieve the jobs assigned
 to them. The options are:
@@ -66,7 +68,7 @@ routable SSH, or adding a VPN gateway to your VPC.
 
 See the [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) documentation for more details.
 
-#### Bastion Instance
+#### Bastion instance
 
 The bastion or jump host pattern, involves deploying an instance to a public
 subnet with a publicly routable IP address and a security group that allows

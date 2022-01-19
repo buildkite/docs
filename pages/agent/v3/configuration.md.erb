@@ -15,7 +15,7 @@ debug=true
 ```
 {: codeblock-file="/buildkite/buildkite-agent.cfg"}
 
-You can find the location of your configuration file in your platform’s installation documentation, or you can set it using the `--config` command line argument.
+You can find the location of your configuration file in your platform’s installation documentation. You can also set it using the `--config` command line argument or via the `BUILDKITE_AGENT_CONFIG` environment variable.
 
 ## Configuration settings
 
@@ -28,6 +28,15 @@ _Required attributes:_
       <td>
         The agent registration token from your organization’s Agents page, used only to register new agents. To get your token, log in to Buildkite, navigate to <i>Agents</i>, then select <i>Reveal Agent Token</i>.
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_AGENT_TOKEN</code></p>
+      </td>
+    </tr>
+
+    <tr id="build-path">
+      <th><code>build-path</code></th>
+      <td>
+        Path to where the builds will run from.
+        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
+        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
       </td>
     </tr>
   </tbody>
@@ -43,15 +52,6 @@ _Optional attributes:_
         Command to invoke the bootstrap process.
         <p class="Docs__api-param-eg"><em>Default:</em> <code>"buildkite-agent bootstrap"</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p>
-      </td>
-    </tr>
-
-    <tr id="build-path">
-      <th><code>build-path</code></th>
-      <td>
-        Path to where the builds will run from.
-        <p class="Docs__api-param-eg"><em>Default:</em> (depends on platform)</p>
-        <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_BUILD_PATH</code></p>
       </td>
     </tr>
 
@@ -319,8 +319,8 @@ _Optional attributes:_
     <tr id="no-plugin-validation">
       <th><code>no-plugin-validation</code></th>
       <td>
-        Do not validate plugin configuration and requirements.
-        <p class="Docs__api-param-eg"><em>Default:</em> <code>false</code></p>
+        Do not validate plugin configuration and requirements. By default the option is enabled, so the validation is not performed.
+        <p class="Docs__api-param-eg"><em>Default:</em> <code>true</code></p>
         <p class="Docs__api-param-eg"><em>Environment variable:</em> <code>BUILDKITE_NO_PLUGIN_VALIDATION</code></p>
       </td>
     </tr>
@@ -462,7 +462,7 @@ _Optional attributes:_
       </td>
     </tr>
 
-    
+
     <tr id="wait-for-ec2-tags-timeout">
       <th><code>wait-for-ec2-tags-timeout</code></th>
       <td>

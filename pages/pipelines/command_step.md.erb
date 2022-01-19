@@ -145,6 +145,14 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>priority</code></td>
+    <td>
+      Adjust the <a href="/docs/pipelines/managing-priorities">priority</a> for a specific job, as a positive or negative integer.<br>
+      <em>Example:</em><br>
+      <code>- command: "will-run-first.sh"<br>&nbsp;&nbsp;priority: 1</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>retry</code></td>
     <td>
       The conditions for retrying this step.<br>
@@ -174,13 +182,13 @@ _Optional attributes:_
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically canceled and the build will fail. <br>
+      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed".<br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
 </table>
 
-## Retry Attributes
+## Retry attributes
 
 _At least one of the following attributes is required:_
 
@@ -222,7 +230,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 
-## Automatic Retry Attributes
+## Automatic retry attributes
 
 _Optional Attributes_
 
@@ -262,7 +270,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Manual Retry Attributes
+## Manual retry attributes
 
 _Optional Attributes_
 
@@ -310,7 +318,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Soft Fail Attributes
+## Soft fail attributes
 
 
 _Optional Attributes_

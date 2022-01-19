@@ -91,7 +91,7 @@ There is an excellent blog post on [running iOS agents in the cloud](https://www
 
 * You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
 
-## Preventing builds from accessing Amazon EC2 metadata  
+## Preventing builds from accessing Amazon EC2 metadata
 
 If you provision infrastructure like databases, Redis, Amazon SQS, etc using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
 
@@ -114,30 +114,30 @@ To divide the responsibilities and permissions of Buildkite agents and provide t
 
 To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a [pre-checkout hook](https://buildkite.com/docs/agent/v3/hooks) on the agent.
 
-### Restricting permissions by downgrading an instance profile role  
+### Restricting permissions by downgrading an instance profile role
 
 This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS.
 
 To restrict permissions of an instance, you can permanently downgrade an instance’s profile from a high-permission bootstrap role to a low-permission steady-state role. The high-permission role has a policy that allows replacing the instance profile with a low-permission role, but there is no such policy for a low-permission role.
 
-## Further tightening the security around EC2 permissions  
+## Further tightening the security around EC2 permissions
 
 For added security, you can expire agents after a job. For example, you can:
-  
-1. Create a new agent for a pending job  
-1. Transition the agent to a sandbox role  
-1. Terminate the agent instance when the agent completes the job  
+
+1. Create a new agent for a pending job
+1. Transition the agent to a sandbox role
+1. Terminate the agent instance when the agent completes the job
 
 Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance.
 
-A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.  
+A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.
 
 If you’re less concerned about the CI spend, new EC2 instance starting time, and other resources, you can specify a minimum stack size large enough to keep a pool of agents ready to go. This way, you can quickly replace any terminated agent instance with a clean instance.
-Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.  
+Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.
 
 For more information on AWS security practices regarding restricting access to the API in EKS, see [Amazon EKS security best practices](https://docs.aws.amazon.com/eks/latest/userguide/best-practices-security.html).
 
-### A note on recommended pool size  
+### A note on recommended pool size
 
 There is no exact recommended quantity of agents in a pool. An optimal pool size is the minimum number of available agents you would want to have ready to run jobs instantly.
 

@@ -30,7 +30,7 @@ If neither condition is true, the build will fail, and builds on subsequent pipe
 
 If your triggering pipelines are started by an API call or a webhook, it might not be clear whether the triggering user has access to the triggered pipeline, which will cause your build to fail. To prevent that from happening, make sure that all of your GitHub user accounts that are triggering builds are [connected to Buildkite accounts](/docs/integrations/github#connecting-buildkite-and-github).
 
-## Trigger Step Attributes
+## Trigger step attributes
 
 _Required attributes:_
 
@@ -38,11 +38,15 @@ _Required attributes:_
   <tr>
     <td><code>trigger</code></td>
     <td>
-      The slug of the pipeline to create a build. The pipeline slug must be lowercase.<br>
+      The slug of the pipeline to create a build. You can find it in the URL of your pipeline, and it corresponds to the name of the pipeline, converted to <a href="https://en.wikipedia.org/wiki/Letter_case#Kebab_case">kebab-case</a>.<br>
       <em>Example:</em> <code>"another-pipeline"</code>
     </td>
   </tr>
 </table>
+
+<div class="Docs__troubleshooting-note">
+<p>When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.</p>
+</div>
 
 _Optional attributes:_
 
@@ -160,7 +164,7 @@ _Optional_ `build` _attributes:_
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Environment Variables
+## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
 

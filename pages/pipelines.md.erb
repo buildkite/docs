@@ -73,3 +73,25 @@ The display settings can be found in the `Pipeline Settings` section. Adding a d
 Clicking through to a pipeline page shows the [build history](#pipelines-page-walkthrough-build-history) for that pipeline, your starred branches, and the ten most recently built branches for that pipeline.
 
 <%= image "pipelines-detail.png", width: 1157/2, height: 731/2, alt: "Screenshot of the pipelines settings page" %>
+
+### Build page
+
+Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or cancelling the build while it's in progress.
+
+On the build page, you can also view _All Builds_, _Edit Steps_ in the current build, open _Pipeline Settings_, or start a _New Build_.
+
+<%= image "inside-build-page.png", width: 2362/2, height: 1272/2, alt: "Inside the build page" %>
+
+You can expand the _All Builds_ menu to view _Recent_, _Running_, _Scheduled_, or _All Recent Builds_.
+
+<%= image "all-builds.png", width: 1850/2, height: 1256/2, alt: "Screenshot of the All Builds dropdown menu" %>
+
+Each job in a build has a footer that displays the job exit status, which provides more visibility into the outcome of each job. It helps you to diagnose failed builds by finding issues with agents and pipelines.
+
+Job exit status may include the exit signal reason, which indicates whether the Buildkite agent stopped or the job was cancelled.
+
+<%= image "exit-status.png", width: 1094/2, height: 582/2, alt: "Exit status of a job" %>
+
+<section class="Docs__troubleshooting-note">
+  <p>Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.</p>
+</section>
