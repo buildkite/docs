@@ -13,8 +13,9 @@ steps:
   - label: "Linux build"
     command: "echo '.buildkite/steps/build-binary.sh Linux'"
   - label: "Windows build"
-    command: "echo '.buildkite/steps/build-binary.sh Windows'"
+    command: "echo '.buildkite/steps/build-binary.ps1 Windows'"
 ```
+{: codeblock-file="pipeline.yml"}
 
 You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command step with each value provided in the `matrix` array.
 
@@ -27,8 +28,14 @@ steps:
       - "Linux"
       - "Windows"
 ```
+{: codeblock-file="pipeline.yml"}
 
-All jobs created by a build matrix are marked with the Matrix symbol (👾) in the Buildkite interface.
+
+All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
+
+<div class="Docs__note">
+<p class="Docs__note__heading">Matrix and Parallel steps</h3>
+<p>Matrix builds are not compatible with  <a href="/docs/tutorials/parallel-builds">parallel steps</a></p></div>
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add multiplies by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`), creates an 8 job build (2 * 2 * 2 = 8):
 
@@ -48,6 +55,8 @@ steps:
         - "A"
         - "B"
 ```
+{: codeblock-file="pipeline.yml"}
+
 
 If you're using `matrix.setup` you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
@@ -78,6 +87,10 @@ steps:
           test: "B"
         skip: true
 ```
+{: codeblock-file="pipeline.yml"}
+
+
+## Adding combinations to the build matrix
 
 To add an extra combination that isn't present in the `matrix.setup`, use the `adjustments` key and make sure you define all of the elements in the matrix. For example, to add a build for [Plan 9](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs) (on `arm64`, and test suite `B`) to the previous example:
 
@@ -88,8 +101,24 @@ To add an extra combination that isn't present in the `matrix.setup`, use the `a
           arch: "arm64"
           test: "B"
 ```
+{: codeblock-file="pipeline.yml"}
+
 
 This would result in 9 jobs, (2 * 2 * 2 + 1 = 9.).
+
+## Removing combinations from the build matrix
+
+It isn't currently possible to remove combinations uing the `adjustments` key, but you can skip a combination by setting `skip: true`:
+
+```yaml
+    adjustments:
+      - with:
+          os: "linux"
+          arch: "arm64"
+          test: "B"
+        skip: true
+```
+{: codeblock-file="pipeline.yml"}
 
 ## Matrix limits
 
