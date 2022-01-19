@@ -29,7 +29,7 @@ Once configured, all access to organization data requires signing into your SSO 
 
 <%= image "sso-enabled.png", width: 1580/2, height: 834/2, alt: "Screenshot of the SSO protecting access to data" %>
 
-## Disabling and Removing SSO
+## Disabling and removing SSO
 
 If you need to edit your SSO settings, temporarily stop logins using SSO, or want to delete your SSO provider, you'll first need to disable it.
 
@@ -40,7 +40,7 @@ There are two ways to disable a provider:
 
 If you have switched off all of your SSO providers, users will be required to log in using a username and password. If users don't have a password, and need access while SSO is switched off, they can perform a 'Forgotten Password' reset.  
 
-## Migrating from one SSO provider to another SSO provider    
+## Migrating from one SSO provider to another SSO provider
 
 If you are the administrator of an organization within Buildkite with an existing SSO provider set up, and you want to switch to a different SSO provider, these are the steps you need to take:  
 
@@ -51,7 +51,7 @@ If you are the administrator of an organization within Buildkite with an existin
   <p>If you are also changing the email provider, make sure that Buildkite users in your organization sign in to their existing accounts when performing single sign-on through the new provider to prevent your organization being billed twice for the same users.</p>
 </div>
 
-If you’d like to have some help with the migration, contact support@buildkite.com. 
+If you’d like to have some help with the migration, contact support@buildkite.com.
 
 ## Frequently asked questions
 
@@ -83,22 +83,22 @@ No, all of your builds, agents, and pipelines will continue to run as normal.
 No, enabling SSO will not affect how much you are billed. However, whenever a new user signs in to Buildkite using SSO, they will be added to your organization as if you had invited them.
 
 ### Can I sync my identity provider's groups with my Buildkite teams?
-Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).  
+Yes, if you are able to associate your provider's groups with your Buildkite team UUIDs, you can adjust the SAML assertion to send 'teams' as an additional [SAML User Attribute](/docs/integrations/sso/custom-saml#saml-user-attributes).
 
-### I want to rename my Buildkite organization. Will it affect my SSO provider(s)?  
-No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.  
+### I want to rename my Buildkite organization. Will it affect my SSO provider(s)?
+No, SSO providers are setup using a unique identifier and are unaffected when a Buildkite organization is renamed.
 
-### Can I merge two organizations that use different SSO providers?  
-In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.  
+### Can I merge two organizations that use different SSO providers?
+In short, yes, you can. However, merging Buildkite organizations that already have SSO providers might be a tricky scenario, and it's highly recommended that you contact support@buildkite.com for help or guidance before you attempt such migration.
 
-### Why am I being asked for my password in the "Authorization Required" screen when signing in using SSO?  
+### Why am I being asked for my password in the "Authorization Required" screen when signing in using SSO?
 Signing in to your Buildkite organization requires authentication and authorization with both Buildkite and your SSO provider. Authentication determines if you are who you claim to be. Authorization determines if you have the correct permissions within the Buildkite organization you're trying to access.
 
-Both authentication and authorization are necessary because SSO using one Buildkite organization shouldn't provide access to your other Buildkite organizations. Confirming your password is Buildkite's way to ensure that you are who you say you are. Once you've authenticated with Buildkite, it determines which organizations your account is authorized to access. 
+Both authentication and authorization are necessary because SSO using one Buildkite organization shouldn't provide access to your other Buildkite organizations. Confirming your password is Buildkite's way to ensure that you are who you say you are. Once you've authenticated with Buildkite, it determines which organizations your account is authorized to access.
 
-### I'm already a member of a Buildkite organization. Should I create a new Buildkite user account if I want to work within a different organization (pet project, open source work, etc.)?  
+### I'm already a member of a Buildkite organization. Should I create a new Buildkite user account if I want to work within a different organization (pet project, open source work, etc.)?
 <!--alex ignore easy-->
 
 Some people choose to have multiple user accounts, one per Buildkite organization. It's fine to do this, but it can be slightly inconvenient as such an approach does not provide easy tools for switching between accounts. You will need to use different browsers or log in and out quite often.  
 
-It's recommended to have a single Buildkite user account and join multiple organizations when required.  
+It's recommended to have a single Buildkite user account and join multiple organizations when required.

@@ -1,4 +1,8 @@
 <% current_section = request.original_fullpath.split('/')[2] %>
+
+<input type="checkbox" id="navicon" />
+<label for="navicon"><span>Display menu</span></label>
+
 <nav class="Docs__nav">
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
@@ -40,10 +44,12 @@
         </ul>
         <p class="Docs__nav__section-subheading">Elastic CI Stack for AWS</p>
         <ul class="Docs__nav__sub-nav">
-          <%= sidebar_link_to "Running Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
-          <%= sidebar_link_to "Template Parameters", 'agent/v3/elastic-ci-aws/parameters' %>
+          <%= sidebar_link_to "Overview", 'agent/v3/elastic-ci-aws/elastic-ci-stack-overview' %>
+          <%= sidebar_link_to "Elastic CI Stack", 'agent/v3/elastic-ci-aws' %>
+          <%= sidebar_link_to "Elastic CI Stack Template Parameters", 'agent/v3/elastic-ci-aws/parameters' %>
+          <%= sidebar_link_to "Elastic CI Stack for EC2 Mac", 'agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal' %>
           <%= sidebar_link_to "CloudFormation Service Role", 'agent/v3/elastic-ci-aws/cloudformation-service-role' %>
-          <%= sidebar_link_to "VPC Design", 'agent/v3/aws/vpc' %>
+          <%= sidebar_link_to "VPC Design for Elastic CI Stack", 'agent/v3/aws/vpc' %>
           <%= sidebar_link_to "Using AWS Secrets Manager", 'agent/v3/aws/secrets-manager' %>
         </ul>
         <p class="Docs__nav__section-subheading">Agent Installers</p>
@@ -116,7 +122,7 @@
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
             <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
-            <%= sidebar_link_to "Skipping builds", 'pipelines/skipping' %>
+            <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
             <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
@@ -132,10 +138,11 @@
             <%= sidebar_link_to "Block Step", 'pipelines/block-step' %>
             <%= sidebar_link_to "Input Step", 'pipelines/input-step' %>
             <%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %>
+            <%= sidebar_link_to "Group Step", 'pipelines/group-step' %>
           </ul>
           <p class="Docs__nav__section-subheading">Workflows</p>
           <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Prioritizing jobs", 'pipelines/managing-priorities' %>
+            <%= sidebar_link_to "Prioritizing Jobs", 'pipelines/managing-priorities' %>
             <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
             <%= sidebar_link_to "Build Matrix", 'pipelines/build-matrix' %>
             <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
@@ -188,6 +195,7 @@
             <%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %>
             <%= sidebar_link_to "Google Workspace", 'integrations/sso/google-workspace' %>
             <%= sidebar_link_to "Google Workspace (SAML)", 'integrations/sso/google-workspace-saml' %>
+            <%= sidebar_link_to "GitHub", 'integrations/sso/github-sso' %>
             <%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %>
             <%= sidebar_link_to "Azure AD", 'integrations/sso/azure-ad' %>
             <%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %>
@@ -271,7 +279,7 @@
         let v2section = document.querySelector(`.Docs__nav__section-container[data-docs-path='agent-v2']`);
         v2section.classList.add("hidden");
       }
-      
+
       let sectionHeaders = document.getElementsByClassName('Docs__nav__section-heading');
       for (let sectionHeader of sectionHeaders) {
         sectionHeader.onclick = function() {
@@ -293,6 +301,6 @@
         for (let expandedSectionContainer of expandedSectionContainers) {
           expandedSectionContainer.classList.remove('expanded');
         }
-      }      
+      }
   })();
 <% end %>

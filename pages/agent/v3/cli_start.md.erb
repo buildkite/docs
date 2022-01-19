@@ -82,28 +82,28 @@ You can configure your agent and your pipeline steps so that the steps run on th
   <p>Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).</p>
 </div>
 
-First, set the agent hostname tag.  
+First, set the agent hostname tag.
 
-You can do this when starting the agent. This uses the system hostname:  
+You can do this when starting the agent. This uses the system hostname:
 
 ```sh
 buildkite-agent start --tags "hostname=`hostname`"
 ```
 
-Or you can add it to the agent config file, along with any other tags:  
+Or you can add it to the agent config file, along with any other tags:
 
 ```txt
 tags="hostname=`hostname`"
 ```
 
-Then, make sure you are using `pipeline upload` to upload a `pipeline.yml`. In Buildkite's YAML steps editor: 
+Then, make sure you are using `pipeline upload` to upload a `pipeline.yml`. In Buildkite's YAML steps editor:
 
 ```yaml
 steps:
   - command: "buildkite-agent pipeline upload"
 ```
 
-Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:  
+Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:
 
 ```yamlsteps:
   - command: "I will stick!"

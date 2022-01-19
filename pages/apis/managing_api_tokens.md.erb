@@ -1,12 +1,14 @@
 # Managing API Access Tokens
 
-On the API Access Audit page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
+Buildkite API access tokens are issued to individuals not organizations. You can create and edit API access tokens in your [personal settings](https://buildkite.com/user/api-access-tokens).
+
+On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
 {:toc}
 
 ## Token scopes
 
-When you create a token, select the organizations it grants access to, and the scope of the access.  
+When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
 <section class="Docs__note">
   <h3>Note for contributors to public and open-source projects</h3>
@@ -30,7 +32,7 @@ REST API scopes are very granular, you can select some or all of the following:
 * Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
 * Read User `read_user` - Permission to retrieve basic details of the user
 
-GraphQL tokens cannot be limited by scope.
+When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
 ## Auditing tokens
 
@@ -68,6 +70,10 @@ The `access-token` REST API endpoint can be used to retrieve or revoke an API ac
 
 ## FAQs
 
+### Can I view an existing token?
+
+No, you can change the scope and description of a token, or revoke it, but you can't view the actual token after creating it
+
 ### Can I re-add my organization to a token?
 
 Yes, the token owner can re-add the organization to the token from their API Access Tokens settings page.
@@ -80,12 +86,12 @@ If you own the token, you can revoke your token from the [API Access Token page]
 
 ### What happens if I remove the access for a token that's currently in use?
 
-The token will lose access to the organization data. Any future API requests will no longer successfully authorize.  
+The token will lose access to the organization data. Any future API requests will no longer successfully authorize.
 
-## API Access Token lifecycle and security  
+## API Access Token lifecycle and security
 
 API Access Tokens are issued for users within a Buildkite organization. They are stored both in the Buildkite database (linked to the user ID) and with the user for which they're issued.
 
 API Access Tokens are associated with a specific user and can only be revoked by that user. Admins of a Buildkite organization can remove a user from an organization, which prevents the user from accessing any organization resources and pipelines, and prevents access using any API Access Token associated with that user.
 
-API Access Tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and new tokens are issued. 
+API Access Tokens have no built-in expiration date. The best practices regarding regular credential rotation recommended by [OWASP](https://cheatsheetseries.owasp.org/cheatsheets/Cryptographic_Storage_Cheat_Sheet.html#key-lifetimes-and-rotation) suggest rotating the tokens at least once a year. In case of a security compromise or breach, it is strongly recommended that the old tokens are [invalidated](/docs/apis/managing-api-tokens#removing-an-organization-from-a-token), and new tokens are issued.

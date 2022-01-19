@@ -25,19 +25,19 @@ the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 To run the agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
-* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat). 
+* For Amazon Linux 2 use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
-## Using the experimental Elastic Mac for AWS CloudFormation template
+## Using the experimental Elastic CI Stack for EC2 Mac CloudFormation template
 
-[Elastic Mac for AWS](https://github.com/buildkite/elastic-mac-for-aws) is an
+[Elastic CI Stack for EC2 Mac](https://github.com/buildkite/elastic-ci-stack-for-ec2-mac) is an
 experimental CloudFormation template for an autoscaling macOS Buildkite agent
 cluster.
 
-You can use an Elastic Mac deployment to build and test macOS, iOS, iPadOS,
-tvOS, and watchOS projects.
+You can use an Elastic CI Stack for EC2 Mac deployment to build and test macOS,
+iOS, iPadOS, tvOS, and watchOS projects.
 
-Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic_mac_aws/autoscaling_mac_metal) documentation for instructions on preparing and deploying this template.
+Read the [Auto Scaling EC2 Mac instances](/docs/agent/v3/elastic_ci_stack_for_ec2_mac/autoscaling_mac_metal) documentation for instructions on preparing and deploying this template.
 
 ## Installing the Agent on your own AWS EC2 Mac instances
 
@@ -54,9 +54,9 @@ Dedicated Host.
 1. Configure instance VPC subnets, security groups, and key pairs so that you
 can access the instance.
 1. Using an SSH or AWS SSM session:
-	* Set a password for the `ec2-user` using `sudo passwd ec2-user`
-	* Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	* Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
+	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`
 	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
@@ -73,7 +73,7 @@ desired agent tags.
 Your saved AMI can now be used to boot as many macOS instances as you require.
 
 To make this process repeatable, save your instance configuration in a
-[launch template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html). 
+[launch template](https://docs.aws.amazon.com/autoscaling/ec2/userguide/LaunchTemplates.html).
 To automate instance replacement, use an [Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/AutoScalingGroup.html)
 to boot instances and a [host resource group](https://docs.aws.amazon.com/license-manager/latest/userguide/host-resource-groups.html)
 to reserve Dedicated Hosts.
@@ -91,11 +91,11 @@ There is an excellent blog post on [running iOS agents in the cloud](https://www
 
 * You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
 
-## Preventing builds from accessing Amazon EC2 metadata  
+## Preventing builds from accessing Amazon EC2 metadata
 
 If you provision infrastructure like databases, Redis, Amazon SQS, etc using AWS permission sandboxes, you might want to restrict access to those roles in your builds.
 
-If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2. 
+If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite agents to generate and inject some sandboxed AWS credentials into the build secrets, such builds will have access to the EC2 metadata API. They will also be able to access the same permissions as your EC2.
 
 To avoid this, you need to prevent the builds from accessing your EC2 metadata or provide sandboxed AWS credentials for each build and restrict their permissions. There are two main ways to do it:
 
@@ -108,38 +108,39 @@ If you run all the build steps in Docker containers, take a look at [compartment
 
 This approach suggests the use of Elastic Stack. However, these instructions can also be followed using hooks or scripts.
 
-You can divide your Buildkite agents by responsibilities. For example — agents building for development environments or release, agents deploying for staging or production, etc. This will help reflect multiple AWS environments at your Buildkite organization. 
+You can divide your Buildkite agents by responsibilities. For example — agents building for development environments or release, agents deploying for staging or production, etc. This will help reflect multiple AWS environments at your Buildkite organization.
 
-To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin](https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.   
+To divide the responsibilities and permissions of Buildkite agents and provide the relevant teams with sandboxed IAM permissions for their own microservices, for each pipeline you will need to use a [third-party AWS AssumeRole Buildkite Plugin](https://github.com/cultureamp/aws-assume-role-buildkite-plugin/). This plugin also takes care of the injection of AWS credentials.
 
 To ensure that the agent in charge of a job, build, pipeline, etc., is allowed to run and will assume the role it has permission to, you can perform a [pre-checkout hook](https://buildkite.com/docs/agent/v3/hooks) on the agent.
 
-### Restricting permissions by downgrading an instance profile role  
+### Restricting permissions by downgrading an instance profile role
 
-This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS. 
+This approach is [suggested by Amazon](https://docs.aws.amazon.com/cli/latest/reference/ec2/replace-iam-instance-profile-association.html) and is helpful if you are not using Elastic CI Stack for AWS.
 
 To restrict permissions of an instance, you can permanently downgrade an instance’s profile from a high-permission bootstrap role to a low-permission steady-state role. The high-permission role has a policy that allows replacing the instance profile with a low-permission role, but there is no such policy for a low-permission role.
 
-## Further tightening the security around EC2 permissions  
+## Further tightening the security around EC2 permissions
 
-For added security, you can expire agents after a job. For example, you can:  
-1. Create a new agent for a pending job  
-2. Transition the agent to a sandbox role  
-3. Terminate the agent instance when the agent completes the job  
+For added security, you can expire agents after a job. For example, you can:
 
-Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance. 
+1. Create a new agent for a pending job
+1. Transition the agent to a sandbox role
+1. Terminate the agent instance when the agent completes the job
 
-A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.  
+Starting a new EC2 instance for every job results in a small trade-off of speed in favor of security. However, the Buildkite CI stack for AWS uses a Lambda to start new EC2 instances on demand, and it usually takes around one minute for a typical Linux instance.
 
-If you’re less concerned about the CI spend, new EC2 instance starting time, and other resources, you can specify a minimum stack size large enough to keep a pool of agents ready to go. This way, you can quickly replace any terminated agent instance with a clean instance. 
-Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.  
+A larger trade-off here is the need to keep discarding the cache on the machine — for example, pre-fetched and pre-built Docker images — and start anew every time.
+
+If you’re less concerned about the CI spend, new EC2 instance starting time, and other resources, you can specify a minimum stack size large enough to keep a pool of agents ready to go. This way, you can quickly replace any terminated agent instance with a clean instance.
+Buildkite uses this approach to secure open-source agent instances as they could be running untrusted code.
 
 For more information on AWS security practices regarding restricting access to the API in EKS, see [Amazon EKS security best practices](https://docs.aws.amazon.com/eks/latest/userguide/best-practices-security.html).
 
-### A note on recommended pool size  
+### A note on recommended pool size
 
-There is no exact recommended quantity of agents in a pool. An optimal pool size is the minimum number of available agents you would want to have ready to run jobs instantly. 
+There is no exact recommended quantity of agents in a pool. An optimal pool size is the minimum number of available agents you would want to have ready to run jobs instantly.
 
-You can start with one or two extra instances that are always available for running lightweight jobs (for example, pipeline uploads), and you can increase the number of agents per machine so that they can run in parallel. 
+You can start with one or two extra instances that are always available for running lightweight jobs (for example, pipeline uploads), and you can increase the number of agents per machine so that they can run in parallel.
 
 For organizations where at any given moment there are engineers working (for example, for shift-based 24/7 schedules or in globally distributed teams), having a large pool of build agents always available makes sense. Otherwise, idly running agents overnight might be a waste of resources.  

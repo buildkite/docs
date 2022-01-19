@@ -20,7 +20,7 @@ Then, start the agent:
 
 Alternatively you can follow the [manual installation instructions](installation).
 
-## SSH Key Configuration
+## SSH key configuration
 
 SSH keys should be copied to (or generated into) `~/.ssh/` for the user the agent is running as. For example, to generate a new private key which you can add to your source code host:
 
@@ -31,7 +31,7 @@ $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
 
 See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details.
 
-## File Locations
+## File locations
 
 * Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
 * Agent Hooks: `~/.buildkite-agent/hooks`
@@ -41,6 +41,10 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 ## Configuration
 
 The configuration file is located at `~/.buildkite-agent/buildkite-agent.cfg`. See the [configuration documentation](/docs/agent/v3/configuration) for an explanation of each configuration setting.
+
+## Which user the agent runs as
+
+When running an agent installed using the manual Linux installation method, all commands run as the invoking user.
 
 ## Upgrading
 

@@ -1,13 +1,27 @@
 # Elastic CI Stack for AWS Parameters
 
-The following tables list all the available template parameters. These can be
-used to customise a stack deployment for your needs.
+To create an Auto Scaling group and the launch template for the Elastic CI Stack deployment, you can either use the default YAML config file, or you can copy it, and substitute that YAML config file with your own configuration file when you create new instances.
 
-You must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
-or [`BuildkiteAgentToken`](#BuildkiteAgentToken), all other parameters are
-optional.
+The following tables list all the available parameters for the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/templates/aws-stack.yml) which creates an Auto Scaling group and the launch template for the Elastic CI Stack deployment.
+
+You can use these parameters to configure the EC2 instances to suit your needs.
+
+Note that you must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
+or [`BuildkiteAgentToken`](#BuildkiteAgentToken) to be able to use `aws-stack.yml` template, all other parameters are optional.
 
 {:toc}
+
+<!--
+  _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
+ |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
+ | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |   
+ | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |   
+ | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |   
+ |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|   
+
+The template below provides correct layouts for auto-generated configuration tables based on script/generate-elastic-ci-stack-for-aws-parameters.sh.
+Proceed with caution.
+-->
 
 <!-- vale off -->
 

@@ -1,4 +1,4 @@
-# Styleguide
+# Style Guide
 
 Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
@@ -16,7 +16,7 @@ This section covers everything related to the language and formatting used in Bu
 
 ### Dictionary
 We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter) and our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker.
+We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### English flavor
 Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
@@ -112,6 +112,7 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | buildkite-agent           | When referring to the cli tool, visually should be presented in a code block                     |
 | Sign up/log in            | The action of signing up                                                                         |
 | Signup/login              | When referring to a page that enables signing up or to the signup process                        |
+| Time out/timeout          | Time out is a verb, timeout is a noun |
 | API, SSO, SAML            | Always capitalized |
 | GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
 | Two-factor authentication | In a sentence two-factor authentication, in a title Two-Factor Authentication, in short form 2FA |
@@ -173,6 +174,10 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 `app/views/layouts/_sidebar.html.erb` with a description (for example, `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
 
+### Filenames and filename linting
+Use `snake_case` for `*.md.erb` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
+
 ### Escaping vale linting
 If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
@@ -185,6 +190,12 @@ This is some text that you do NOT want the linter to check
 ```
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
+### Markdown linting
+A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
+
+The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
+
+
 ### Links
 Use standard markdown links syntax for both internal and external links.
 
@@ -194,26 +205,38 @@ Internal links need to start with `/docs`, for example:
 Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
-### Anchor links  
-To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:  
+### Anchor links
+To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:
 `/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
-If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:  
-  
-`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment` 
+If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:
 
-Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.  
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
 
-### Content reuse
-Add snippets to the directory where they'll be used, prefaced with an underscore. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.
 
-So
+### Content reuse (snippets)
+You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
+
+Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+
+This way, this:
 
 `/integrations/_step_2_3_github_custom_status.md.erb`
 
-Becomes
+Needs to become this in a snippet render link:
 
-`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`  
+`<%= render_markdown 'integrations/step_2_3_github_custom_status' %>`
+
+Put the snippet render link where you need to add the content of the snippet.
+
+Do not use H2, H3-level headings in the first line of a snippet because this results in generation of incorrect anchor links for such headings. Instead, if you need to start a snippet with a heading, add the heading to the main document just before you add a snippet render link.
+
+If a snippet is stored within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
+
+So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
+
+<%= render_markdown 'apis/webhooks/agent_events_table' %>
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
@@ -231,7 +254,6 @@ Use the following example to add a 'note' in the documentation.
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
-```  
 Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
 #### Troubleshooting Note blocks
@@ -243,10 +265,10 @@ Use the following example to add a 'troubleshooting note' in the documentation.
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
 </section>
 ```
-Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.  
+Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
 
-#### Two-column tables   
-To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:  
+#### Two-column tables
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
 
 ```
 Column header 1   | Column header 2

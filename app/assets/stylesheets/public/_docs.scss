@@ -16,6 +16,67 @@ $color-green: rgb(3, 165, 98);
   @media (max-width: $Docs__bp_stacked) { font-size: 2rem; }
 }
 
+/* Navicon for small screens (hamburger menu) */
+#navicon {visibility: hidden;}
+
+label[for='navicon'] span { // hide alt text
+  left: -10rem;
+  position: absolute;
+  top: -10rem;
+}
+
+@media (max-width: $Docs__bp_stacked) {
+
+  /* hamburger */
+  label[for='navicon'],
+  label[for='navicon']:before,
+  label[for='navicon']:after {
+    background: #1f1f1f;
+    border-radius: 5px;
+    cursor: pointer;
+    height: 0.2rem;
+    position: absolute;
+    transition: 0.3s;
+    width: 0.9rem;
+    z-index: 10;
+  }
+
+  label[for='navicon'] {
+    right: 2rem;
+    top: 2rem;
+  }
+
+  label[for='navicon']:before {
+    content: "";
+    transform: translateY(-0.3rem);
+    transition: 0.5s;
+  }
+
+  label[for='navicon']:after {
+    content: "";
+    transform: translateY(0.3rem);
+    transition: 0.5s;
+  }
+
+  #navicon:checked + label[for='navicon'] {
+    /* displays menu */
+    & ~ .Docs__nav {
+      display: block;
+    }
+
+    /* close menu icon */
+    width: 0;
+
+    &:before {
+      transform: rotate(45deg) translateX(-0.5rem) translateY(0.5rem);
+    }
+
+    &:after {
+      transform: rotate(-45deg) translateX(-0.5rem) translateY(-0.5rem);
+    }
+  }
+}
+
 .Docs__nav {
   flex: 2;
   margin-top: 0.4em;
@@ -23,6 +84,7 @@ $color-green: rgb(3, 165, 98);
   position: relative;
 
   @media (max-width: $Docs__bp_stacked) {
+    display: none; // hides menu into navicon on small screens
     margin: 0 -20px 40px -20px;
     padding-right: 0;
   }
@@ -261,7 +323,38 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__toc {
   p { margin-bottom: .5em; }
-  ul { margin-top: .5em; }
+  .Docs__toc__list {
+    margin-top: .5em;
+
+    li {
+      color: $color-brand-green;
+      list-style-type: square;
+      margin-left: 1.2em;
+    }
+  }
+}
+
+@media (min-width: 1201px) { //TOC as side column on larger screens
+  .Docs__article {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    position: relative;
+  }
+
+  .Docs__toc {
+    font-size: 0.8em;
+    height: 95%;
+    padding-top: 3.7em;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .Docs__toc__sticky {
+      position: sticky;
+      top: 3rem;
+      width: 220px;
+    }
+  }
 }
 
 .Docs__note {

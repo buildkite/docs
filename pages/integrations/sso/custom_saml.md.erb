@@ -1,10 +1,10 @@
 # Single Sign-On with a SAML Provider
 
-Any identify provider that supports SAML 2.0 can be used to authorize access to your Buildkite organization. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
+You can use any identify provider that supports SAML 2.0 to authorize access to your Buildkite organization. If there isn't a Buildkite guide for your chosen provider, you can set up SAML using the instructions below.
 
 {:toc}
 
-There are two workflows for setting up a new SAML provider depending on your Idp's setup process: If you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.
+There are two workflows for setting up a new SAML provider, depending on your IdP's setup process: if you require an ACS URL from Buildkite to complete your IdP's setup, or if you can complete the setup without anything from Buildkite.
 
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
@@ -12,17 +12,15 @@ There are two workflows for setting up a new SAML provider depending on your Idp
 
 ## Set up with an ACS URL
 
-If your IdP requires information from Buildkite as part of the setup process, you can generate your unique Buildkite URLs first and enter the rest of your IdP information later.
+If your IdP requires information from Buildkite as part of the setup process, generate your unique Buildkite URLs first and enter the rest of your IdP information later.
 
 ### Get your ACS URL and configure your IdP
 
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
+Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the Custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Choose the 'Provide IdP Metadata Later' option when configuring your Custom SAML Provider:
-
-On the following screen you'll find the ACS URL in the Service Provider section:
+Choose the _Provide IdP Metadata Later_ option when configuring your Custom SAML Provider. On the following screen you'll find the ACS URL in the _Service Provider_ section:
 
 <%= image "service-provider-urls.png", width: 1768/2, height: 412/2, alt: "Screenshot of the Service Provider section in the Custom SAML SSO Provider details page" %>
 
@@ -30,9 +28,9 @@ If you IdP supports meta-data URL setup, you can find your unique Buildkite orga
 
 ### Update your Buildkite SAML provider
 
-In your Buildkite Single Sign-On menu, select your Custom SAML provider from the list of Configured SSO Providers.
+In your Buildkite _Single Sign On_ menu, select your custom SAML provider from the list of _Configured SSO Providers_.
 
-Click the 'Edit Settings' button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
+Click the _Edit Settings_ button, and choose an option for entering your IdP's information: a meta-data URL from your IdP, an XML file from your IdP, or by entering the data manually.
 
 Manual data entry requires the following three fields:
 
@@ -97,7 +95,7 @@ If your custom provider needs further information, please email [support@buildki
 
 ### Create a Buildkite SAML provider
 
-Click the Buildkite Organization Settings' Single Sign On menu item, then choose the Custom SAML provider from the available options:
+Click the Buildkite Organization Settings' _Single Sign On_ menu item, then choose the custom SAML provider from the available options:
 
 <%= image "sso-settings.png", width: 1716/2, height: 884/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
@@ -132,7 +130,7 @@ After completing your chosen option, [Perform a test login](#perform-a-test-logi
 
 ## Perform a test login
 
-Follow the instructions to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
+Follow the instructions on the provider page to perform a test login. Performing a test login will verify that SSO is working correctly before you activate it for your organization members.
 
 ## Enable the new SSO provider
 
@@ -140,61 +138,6 @@ Once you've performed a test login you can enable your provider. Activating SSO 
 
 If you need to edit or update your provider settings at any time, you will need to disable the provider first. For more information on disabling a provider, see the [disabling SSO](/docs/integrations/sso#disabling-and-removing-sso) section of the SSO overview.
 
-## SAML User Attributes
+## SAML user attributes
 
-Buildkite accepts a subset of the SAML attributes from identity providers. The accepted attributes are:
-
-<table>
-    <tr>
-        <th>
-            Attribute
-        </th>
-        <th>
-            Description
-        </th>
-    </tr>
-    <tr>
-        <td>
-            <code>admin</code>
-        </td>
-        <td>
-            A boolean value that describes whether the user should be provisioned with admin permissions<br>
-            <em>Example:</em> true
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <code>email</code>
-        </td>
-        <td>
-            A string of the user's email address<br>
-            <em>Example:</em> "person@company.com"
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <code>name</code>
-        </td>
-        <td>
-            A string of the user's full name<br>
-            <em>Example:</em> "Han Solo"
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <code>teams</code>
-        </td>
-        <td>
-            A comma separated list of team UUIDs. A team's UUID can be found on the Team Settings page in Buildkite.<br>
-            <em>Example:</em> <code>a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa,b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee</code>
-        </td>
-    </tr>
-</table>
-
-When using the `teams` attribute, you can also specify roles. The `maintainer` or `member` role can be appended to the team UUID.
-
-For example, the following code will specify the member role for the first team and the maintainer role for the second team:
-
-```
-teams="b5bbbbbb-3aaa-dd1d-aaa1-eee4eee6eeee/member, a1aaaa1a-b2bb-cccc-d4dd-aa2aaa6aaaaa/maintainer"
-```
+<%= render_markdown 'integrations/sso/saml_user_attributes' %>

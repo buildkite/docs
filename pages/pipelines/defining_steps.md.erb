@@ -16,7 +16,7 @@ Required fields are _Name_ and _Repository_.
 
 You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
 
-Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](https://buildkite.com/docs/apis/graphql-api) for details and examples.
+Both the REST API and GraphQL API can be used to create a pipeline programmatically. See the [Pipelines REST API](/docs/apis/rest-api/pipelines) and the [GraphQL API](/docs/apis/graphql-api) for details and examples.
 
 ## Adding steps
 
@@ -54,7 +54,7 @@ steps:
 
 To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipeline Settings page.
 
-Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right. 
+Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
 ### Pipeline.yml file
 
@@ -80,7 +80,7 @@ When you eventually run a build from this pipeline, this step will look for a di
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
-If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory. 
+If you're using any tools that ignore hidden directories, you can store your `pipeline.yml` file either in the top level of your repository, or in a non-hidden directory called `buildkite`. The upload command will search these places if it doesn't find a `.buildkite` directory.
 
 The following example YAML defines a pipeline with one command step that will echo 'Hello' into your build log:
 
@@ -137,9 +137,9 @@ can progress to `skipped`  | can progress to `canceling` or `canceled`
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
-- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
-- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
-- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+* Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+* This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+* Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
 <section class="Docs__note">
   <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
@@ -147,9 +147,15 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 
 <%= render_markdown 'pipelines/job_states' %>
 
+Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled.
+
+<section class="Docs__troubleshooting-note">
+  <p>Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.</p>
+</section>
+
 ## Example pipeline
 
-Here’s a more complete example based on [the Buildkite Agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
+Here’s a more complete example based on [the Buildkite agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
 ```yaml
 steps:
@@ -202,6 +208,7 @@ There are five different step types you can use in your Buildkite pipelines. Cli
 * [Block Step](/docs/pipelines/block-step)
 * [Input Step](/docs/pipelines/input-step)
 * [Trigger Step](/docs/pipelines/trigger-step)
+* [Group Step](/docs/pipelines/group-step)
 
 ## Customizing the pipeline upload path
 
@@ -259,7 +266,7 @@ When the build is running it will execute the script and pipe the output to the 
 
 In the below `pipeline.yml` example, when the build runs it will execute the `.buildkite/pipeline.sh` script, then the test steps from the script will be added to the build before the wait step and command step. After the test steps have run, the wait and command step will run.
 
-```bash
+```yml
 steps:
   - command: .buildkite/pipeline.sh | buildkite-agent pipeline upload
     label: "\:pipeline\: Upload"
@@ -268,6 +275,24 @@ steps:
     label: "Run other operations"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Dynamic pipeline templates
+
+If you need the ability to use pipelines from a central catalog, or enforce certain configuration rules, you can either use dynamic pipelines and the [`pipeline upload`](/docs/agent/v3/cli-pipeline#uploading-pipelines) command to make this happen or [write custom plugins](/docs/plugins/writing) and share them across your organization.
+
+To use dynamic pipelines and the pipeline upload command, you'd make a pipeline that looks something like this:
+
+```yml
+steps:
+  - command: enforce-rules.sh | buildkite-agent pipeline upload
+    label: "\:pipeline\: Upload"
+```
+
+Each team defines their steps in `team-steps.yml`. Your templating logic is in `enforce-rules.sh`, which can be written in any language that can pass YAML to the pipeline upload.
+
+In `enforce-rules.sh` you can add steps to the YAML, require certain versions of dependencies or plugins, or implement any other logic you can program. Depending on your use case, you might want to get `enforce-rules.sh` from an external catalog instead of committing it to the team repository.
+
+See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](https://hasura.io/blog/what-we-learnt-by-migrating-from-circleci-to-buildkite/#dynamic-pipelines) to replace their YAML configuration with Go and some shell scripts.
 
 ## Cloning a pipeline
 
@@ -297,7 +322,6 @@ steps:
       os: "macOS"
 ```
 {: codeblock-file="pipeline.yml"}
-
 
 ## Further documentation
 

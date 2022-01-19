@@ -6,7 +6,7 @@ To help you control concurrency, Buildkite provides two primitives: concurrency 
 
 {:toc}
 
-## Concurrency Limits
+## Concurrency limits
 
 Concurrency limits define the number of jobs that are allowed to run at any one time. These limits are set per-step and only apply to jobs that are based on that step.
 
@@ -19,7 +19,7 @@ You can add concurrency limits to steps either through Buildkite, or your `pipel
     <p>This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.</p>
 </section>
 
-## Concurrency Groups
+## Concurrency groups
 
 Concurrency groups are labels that group together Buildkite jobs when applying concurrency limits. When you add a group label to a step the label becomes available to all Pipelines in that organization. These group labels are checked at job runtime to determine which jobs are allowed to run in parallel. Although concurrency groups are created on individual steps, they represent concurrent access to shared resources and can be used by other pipelines.
 
@@ -38,16 +38,16 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 
 Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
 
-For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group. 
+For example, if you have two pipelines that each deploy to a different target but you give them both the `concurrency_group` label `deploy`, they will be part of the same concurrency group and will not be able to run at the same time, even though they're accessing separate deployment targets. Unique concurrency group names such as `our-payment-gateway/deployment`, `terraform/update-state`, or `my-mobile-app/app-store-release`, will ensure that each one is part of its own concurrency group.
 
 Concurrency groups guarantee that jobs will be run in the order that they were created in. Jobs inherit the creation time of their parent. Parents of jobs can be either a build or a pipeline upload job. As pipeline uploads add more jobs to the build after it has started, the jobs that they add will inherit the creation time of the pipeline upload rather than the build.
 
-## Concurrency and Parallelism
+## Concurrency and parallelism
 
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
 In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment: 
+In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 
 ```yaml
 steps:

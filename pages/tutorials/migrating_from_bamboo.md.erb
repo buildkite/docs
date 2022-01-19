@@ -4,7 +4,7 @@ Migrating continuous integration tools can be hard, so we've put together a guid
 
 {:toc}
 
-## Plans to Pipelines
+## Plans to pipelines
 
 <!--alex ignore easy-->
 
@@ -87,7 +87,7 @@ If you have many Pipelines to migrate or manage at once, you can use the [Update
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
-## Steps and Tasks
+## Steps and tasks
 
 `command` steps are Buildkite's version of the *Command Task* in Bamboo - they can run any commands you like on your build server, whether it's `rake test` or `make`. Buildkite doesn't have the concept of *Tasks* in general, it's up to you to write scripts that perform the same tasks that your Bamboo Jobs have.
 
@@ -114,16 +114,16 @@ If you'd like to learn more about how to write build scripts, read the [Writing 
 
 `trigger` steps can be used to trigger builds in other Pipelines. You can use these to create dependent Pipelines. See the [trigger-pipeline](https://github.com/buildkite/agent-tests/blob/master/tests/trigger-pipeline/.buildkite/pipeline.yml) example for more information.
 
-## Remote and Elastic Agents
+## Remote and Elastic agents
 
-The [Buildkite Agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install the Buildkite Agent onto any server to run your builds.
+The [Buildkite agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install the Buildkite Agent onto any server to run your builds.
 
 In Bamboo, you can target specific agents for your jobs using their *Capabilities*, in Buildkite you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
 Similar to *Elastic Bamboo*, Buildkite can also manage a fleet of Agents for you on AWS using our [Buildkite AWS Stack](https://github.com/buildkite/buildkite-aws-stack). Buildkite doesn’t limit the number agents you can run at any one time, so by using the Buildkite AWS Stack you can auto-scale your build infrastructure, going from 0 to 1000’s of agents within moments.
 
-## Authentication and Permissions
+## Authentication and permissions
 
 Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO Support guide](/docs/integrations/sso) for detailed information.
 
-For larger teams, it can be useful to control what users have access to which Pipelines. Organization admins can enable Teams from the Organization Settings. 
+For larger teams, it can be useful to control what users have access to which Pipelines. Organization admins can enable Teams from the Organization Settings.

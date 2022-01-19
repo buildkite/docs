@@ -1,6 +1,6 @@
 # Writing Build Scripts
 
-One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file. 
+One of the most common actions that Buildkite steps perform is running shell scripts. These scripts are checked in alongside your code and `pipeline.yml` file.
 
 The [Buildkite Agent](/docs/agent/v3) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
@@ -49,7 +49,7 @@ For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/
 
 <section class="Docs__troubleshooting-note">
   <h3>Unbound variable errors</h3>
-  <p>Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or you can surround the command causing the error with <code>set +u</code> and <code>set -u</code> to temporarily disable the option.</p>
+  <p>Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or run the tool causing the error wrapped in <code>set +u</code> and <code>set -u</code> to remove the option just for that command. For example: <code>set +u; rvm xxx; set -u</code>.</p>
 </section>
 
 ## Capturing exit status

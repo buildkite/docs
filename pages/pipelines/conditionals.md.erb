@@ -6,15 +6,22 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 {:toc}
 
-## Conditionals in Pipelines
+## Conditionals in pipelines
 
-Define conditionals in the _Pipeline Settings_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
+You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
-Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise) and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise).
+Pipeline-level build conditionals are evaluated before any other build trigger settings. If both a conditional and a branch filter are present, both filters must pass for a build to be created – first the pipeline-level limiting filter and then the conditional filter.
 
-## Conditionals in Steps
+Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your _Pipeline Settings page_ in the Buildkite UI or via the REST API.
+
+<div class="Docs__note">
+  <h3>Evaluating conditionals</h3>
+  <p>Conditional expressions are evaluated at pipeline upload, not at step runtime.</p>
+</div>
+
+## Conditionals in steps
 
 Use the `if` attribute in your step definition to conditionally run a step.
 
@@ -51,6 +58,28 @@ steps:
       	// Only run on feature branches
         build.message !~ /skip tests/ &&
           build.branch =~ /^feature\//
+```
+{: codeblock-file="pipeline.yml"}
+
+Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
+
+To run a step based on the result of another step, upload a new pipeline based on the `if` condition set up in the [command step](/docs/pipelines/command-step) like in the example below:
+
+```yml
+steps:
+  - label: "Validation check"
+    command: ./scripts/validation_tests.sh
+    key: "validation-check"
+  - label: "Run regression only if validation check is passed"
+    depends_on: "validation-check"
+    command: |
+      if [ $$(buildkite-agent step get "outcome" --step "validation-check") == "passed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload
+         steps:
+           - label: "Run Regression"
+             command: ./scripts/regression_tests.sh
+      YAML
+      fi
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -110,7 +139,7 @@ The below expressions are supported by the `if` attribute:
   <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
-## Conditional Notifications
+## Conditional notifications
 
 To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
 
@@ -237,7 +266,7 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em> <code> scheduled</code>, <code> running</code>, <code> passed</code>, <code> failed</code>, <code> blocked</code>, <code> canceling</code>, <code> canceled</code>, <code> skipped</code>, <code> not_run</code>, <code> finished</code></td>
+		<td>The state the current build is in<br><em>Available states:</em> <code> scheduled</code>, <code> running</code>, <code> passed</code>, <code> failed</code>, <code> blocked</code>, <code> canceling</code>, <code> canceled</code>, <code> skipped</code>, <code> not_run</code>, <code> fixed</code>, <code> finished</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
