@@ -1,12 +1,14 @@
-## Removing users during a security incident
+# Removing Users During a Security Incident
 
 If you believe that a user account has been compromised, the recommended response is to remove such a user from your Buildkite organization immediately. This will entirely remove their ability to impact your organization and protect you from any further actions that the user could take.
+
+{:toc}
 
 You can remove a user in your organization's _Settings_ in the Buildkite UI.
 
 <%= image "remove-user.png", width: 1572/2, height: 1302/2, alt: "A button to remove a user from an organization" %>
 
-### Security guarantees of removing a user
+## Security guarantees of removing a user
 
 When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available via the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user.
 
@@ -25,13 +27,13 @@ If you suspect or have already detected a security breach, and the affected user
 
 Note that resetting a password might not always be an option. If you have SSO enabled for your organization, the user in question may not even have a dedicated password for their Buildkite account.
 
-### Removing users from an organization with enabled SSO
+## Removing users from an organization with enabled SSO
 
 If you're using SSO, you also need to protect against the attackers regaining organization membership by logging in again with SSO. This _will not_ renew the revoked authorizations and _does not_ authorize any other sessions that might still be active for the user, as a new organization member will be created. However, if the attacker has access to a Buildkite session, they may also have access to a regular session with the permissions granted for your SSO session defaults. So it is important to disable or remove such a compromised user account from your SSO.
 
 If the attacker has control of the SSO, the scope of the security incident is beyond what could be remediated using Buildkite's tools only.
 
-#### Disabling and re-enabling SSO
+## Disabling and re-enabling SSO
 
 The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated via your SSO provider.
 
