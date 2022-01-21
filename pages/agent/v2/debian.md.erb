@@ -27,7 +27,7 @@ Next, ensure you have the `apt-transport-https` package installed for the HTTPS 
 sudo apt-get install -y apt-transport-https dirmngr
 ```
 
-Nownload the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
+Now download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
 wget -O- https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo tee /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
