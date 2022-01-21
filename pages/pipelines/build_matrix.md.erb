@@ -17,7 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command step with each value provided in the `matrix` array.
+You can use a build matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command step with each value provided in the `matrix` array. You can interpolate the matrix values into command steps (including step labels) and into environment variables.
 
 ```yaml
 steps:
@@ -31,11 +31,12 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 
+
 All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Matrix and Parallel steps</h3>
-<p>Matrix builds are not compatible with  <a href="/docs/tutorials/parallel-builds">parallel steps</a></p></div>
+<p>Matrix builds are not compatible with  <a href="/docs/tutorials/parallel-builds">parallel steps</a>. You can use both in the same build, as long as they are on separate steps.</p></div>
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add multiplies by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`), creates an 8 job build (2 * 2 * 2 = 8):
 
@@ -104,7 +105,7 @@ To add an extra combination that isn't present in the `matrix.setup`, use the `a
 {: codeblock-file="pipeline.yml"}
 
 
-This would result in 9 jobs, (2 * 2 * 2 + 1 = 9.).
+This results in 9 jobs, (2 * 2 * 2 + 1 = 9.).
 
 ## Removing combinations from the build matrix
 
