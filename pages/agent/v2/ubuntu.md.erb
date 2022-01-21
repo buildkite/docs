@@ -11,14 +11,19 @@ The Buildkite Agent can be installed on Ubuntu versions 14.04 and above using ou
 
 ## Installation
 
-First, add our signed apt repository:
+ownload the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
-echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
+wget -O- https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo tee /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
 
-Then install the agent:
+Then add the signed source to your apt sources list:
+
+```shell
+echo "deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
+```
+
+And install the Buildkite agent:
 
 ```shell
 sudo apt-get update && sudo apt-get install -y buildkite-agent
@@ -48,6 +53,16 @@ journalctl -f -u buildkite-agent
 
 # Older Ubuntu (upstart)
 tail -f /var/log/upstart/buildkite-agent.log
+```
+
+## Updating keys installed using apt-key
+
+If you've previously installed keys using `apt-key`, move the Buidkite agent key from `/etc/apt/trusted.gpg` or `/etc/apt/trusted.gpg.d/` to `/usr/share/keyrings/buildkite-agent-archive-keyring.gpg`, making sure that both that file and directory are only writable by `root`.
+
+Update your Buildkite agent entries in `/etc/apt/sources.list.d/buildkite-agent.list` to:
+
+```shell
+deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
 ```
 
 ## SSH key configuration
