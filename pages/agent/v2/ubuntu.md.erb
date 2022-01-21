@@ -57,7 +57,7 @@ tail -f /var/log/upstart/buildkite-agent.log
 
 ## Updating keys installed using apt-key
 
-If you've previously installed keys using `apt-key`, move the Buidkite agent key from `/etc/apt/trusted.gpg` or `/etc/apt/trusted.gpg.d/` to `/usr/share/keyrings/buildkite-agent-archive-keyring.gpg`, making sure that both that file and directory are only writable by `root`.
+If you've previously installed keys using `apt-key`, move the Buildkite agent key from `/etc/apt/trusted.gpg` or `/etc/apt/trusted.gpg.d/` to `/usr/share/keyrings/buildkite-agent-archive-keyring.gpg`, making sure that both that file and directory are only writable by `root`.
 
 Update your Buildkite agent entries in `/etc/apt/sources.list.d/buildkite-agent.list` to:
 
