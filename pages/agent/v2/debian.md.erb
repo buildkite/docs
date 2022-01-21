@@ -27,14 +27,19 @@ Next, ensure you have the `apt-transport-https` package installed for the HTTPS 
 sudo apt-get install -y apt-transport-https dirmngr
 ```
 
-Now you can add our signed apt repository:
+Now download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
-sudo apt-key adv --keyserver ipv4.pool.sks-keyservers.net --recv-keys 32A37959C2FA5C3C99EFBC32A79206696452D198
-echo "deb https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
+wget -O- https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo tee /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
 
-Then install the agent:
+Then add the signed source to your apt sources list:
+
+```shell
+echo "deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main" | sudo tee /etc/apt/sources.list.d/buildkite-agent.list
+```
+
+And install the Buildkite agent:
 
 ```shell
 sudo apt-get update && sudo apt-get install -y buildkite-agent
@@ -72,7 +77,17 @@ sudo tail -f /var/log/upstart/buildkite-agent.log
 sudo tail -f /var/log/buildkite-agent.log
 ```
 
-## SSH Key Configuration
+## Updating keys installed using apt-key
+
+If you've previously installed keys using `apt-key`, move the Buidkite agent key from `/etc/apt/trusted.gpg` or `/etc/apt/trusted.gpg.d/` to `/usr/share/keyrings/buildkite-agent-archive-keyring.gpg`, making sure that both that file and directory are only writable by `root`.
+
+Update your Buildkite agent entries in `/etc/apt/sources.list.d/buildkite-agent.list` to:
+
+```shell
+deb [signed-by=/usr/share/keyrings/buildkite-agent-archive-keyring.gpg] https://apt.buildkite.com/buildkite-agent stable main
+```
+
+## SSH key configuration
 
 <%= render_markdown 'agent/v2/ssh_key_with_buildkite_agent_user' %>
 
