@@ -6,7 +6,7 @@ Plugins can be used in pipeline [command steps](/docs/pipelines/command-step) to
 
 ## Adding a plugin to your pipeline
 
-To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step. 
+To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
 
 When multiple plugins are listed in the same step, then it will be run in the [order of the hooks](/docs/agent/v3/hooks#job-lifecycle-hooks), and within each hook it is run in the order it was initially listed in the step.
 
