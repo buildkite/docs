@@ -254,6 +254,48 @@ Each AWS Quick Start example has a corresponding GitHub repository with full exa
 }
 ```
 
+<h3 id="events-build-blocked">Build Blocked</h3>
+
+```json
+{
+    "version": "0",
+    "id": "...",
+    "detail-type": "Build Finished",
+    "source": "...",
+    "account": "...",
+    "time": "2022-01-30T04:32:06Z",
+    "region": "us-east-1",
+    "resources": [],
+    "detail": {
+        "version": 1,
+        "build": {
+            "uuid": "...",
+            "graphql_id": "...",
+            "number": 23,
+            "commit": "...",
+            "message": "Update index.html",
+            "branch": "master",
+            "state": "blocked",
+            "blocked_state": null,
+            "source": "ui",
+            "started_at": "2022-01-30 04:31:59 UTC",
+            "finished_at": "2022-01-30 04:32:06 UTC"
+        },
+        "pipeline": {
+            "uuid": "...",
+            "graphql_id": "...",
+            "slug": "webhook-test",
+            "repo": "git@github.com:nithyaasworld/add-contact-chip.git"
+        },
+        "organization": {
+            "uuid": "...",
+            "graphql_id": "...",
+            "slug": "nithya-bk"
+        }
+    }
+}
+```
+
 <h3 id="events-job-scheduled">Job Scheduled</h3>
 
 ```json
