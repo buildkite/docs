@@ -50,7 +50,8 @@ There are two options to be aware of for this initial setup:
 * You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
-    shell="<path-to-powershell-executable>"
+    #Provide the path to PowerShell executables
+    shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     ```
 
 <div class="Docs__note">
