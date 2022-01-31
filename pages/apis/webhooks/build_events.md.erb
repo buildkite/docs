@@ -39,9 +39,9 @@ Example request body:
   }
 }
 ```
-## To determine the blocked state of a build:
+## Finding out if a build is blocked
 
-To determine the blocked state of a build, look for ```blocked: true``` in the ```build.finished``` event
+To if a build is blocked, look for `blocked: true` in the `build.finished` event
 
 Example request body for blocked build:
 
@@ -63,6 +63,6 @@ Example request body for blocked build:
 }
 ```
 <div class="Docs__note">
-  <h3 class="Docs__note__heading">To determine blocked state in an eventbridge notification</h3>
-  <p>However, to determine the blocked state of a build in an eventbridge notification, look for <code>"state": "blocked". </code> <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">Here</a> is a sample request for eventbridge notification.</p>
+  <h3 class="Docs__note__heading">To determine if an Eventbridge notification is blocked</h3>
+  <p>However, to determine if an Eventbridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.</p>
 </div>
