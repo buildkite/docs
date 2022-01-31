@@ -39,3 +39,30 @@ Example request body:
   }
 }
 ```
+## Finding out if a build is blocked
+
+To if a build is blocked, look for `blocked: true` in the `build.finished` event
+
+Example request body for blocked build:
+
+```json
+{
+  "event": "build.finished",
+  "build": {
+    "...": "...",
+    "blocked": true,
+    "...": "..."
+  },
+  "pipeline": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "0adfbc27-5f72-4a91-bf61-5693da0dd9c5",
+    "name": "Some person"
+  }
+}
+```
+<div class="Docs__note">
+  <h3 class="Docs__note__heading">To determine if an Eventbridge notification is blocked</h3>
+  <p>However, to determine if an Eventbridge notification is blocked, look for <code>"state": "blocked". </code>, like in this <a href="/docs/integrations/amazon-eventbridge#events-build-blocked">sample Eventbridge request</a>.</p>
+</div>
