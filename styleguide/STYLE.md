@@ -236,7 +236,7 @@ If a snippet is stored within a sub-solder, you need to specify the names of bot
 
 So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
 
-<%= render_markdown 'apis/webhooks/agent_events_table' %>
+`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`  
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.

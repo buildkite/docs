@@ -48,7 +48,11 @@ steps:
           # Alpine 3.14 - EOS 01 May 2023
           # lts = Node 1415.1 - 2023-04-30
           image: "node:lts-alpine3.14"
-
+  - label: "Validate YAML"
+    command: npm run -y validate-yaml
+    plugins:
+      - docker#v3.7.0:
+          image: "node:lts-alpine3.14"
   - label: ":lint-roller: :markdown: Linting the Markdown"
     command: npm run -y mdlint
     plugins:
