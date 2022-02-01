@@ -30,15 +30,15 @@ If you leave context blank, it will use the default context.
 
 ## Options
 
-<table>
-<tr><td><code>--context value</code></td><td><p>The context of the annotation used to differentiate this annotation from others (default: "default")</p><br /><b>ENV:</b> <code>$BUILDKITE_ANNOTATION_CONTEXT</code></td>
-<tr><td><code>--job value</code></td><td><p>Which job is removing the annotation</p><br /><b>ENV:</b> <code>$BUILDKITE_JOB_ID</code></td>
-<tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
-<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
-<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
-<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
-<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
+<table class="Docs__attribute__table">
+<tr id="context"><th><code>--context value</code> <a class="Docs__attribute__link" href="#context">#</a></th><td><p>The context of the annotation used to differentiate this annotation from others (default: "default")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_ANNOTATION_CONTEXT</code></td>
+<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job is removing the annotation</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>

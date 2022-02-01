@@ -46,11 +46,11 @@ The above will return a list of filenames separated by newline.
 
 ### Options
 
-<table>
-<tr><td><code>--step value</code></td><td><p>Scope the search to a particular step by using either its name or job ID</p><br /><b>ENV:</b> <code></code></td>
-<tr><td><code>--build value</code></td><td><p>The build that the artifacts were uploaded to</p><br /><b>ENV:</b> <code>$BUILDKITE_BUILD_ID</code></td>
-<tr><td><code>--include-retried-jobs</code></td><td><p>Include artifacts from retried jobs in the search</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></td>
-<tr><td><code>--format value</code></td><td><p>Output formatting of results. Defaults to "%j %p %c\n" (Job ID, path, created at time).</p><br /><b>ENV:</b> <code></code></td>
+<table class="Docs__attribute__table">
+<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by using either its name or job ID</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
+<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifacts were uploaded to</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_BUILD_ID</code></td>
+<tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></td>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output formatting of results. Defaults to "%j %p %c\n" (Job ID, path, created at time).</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
 </table>
 The following directives are available:
 
@@ -68,13 +68,13 @@ The following directives are available:
 
 %u    Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead
 (default: &quot;%j %p %c\n&quot;)
-<table>
-<tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
-<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
-<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
-<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
-<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
+<table class="Docs__attribute__table">
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>

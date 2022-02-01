@@ -43,17 +43,17 @@ scripts that generate dynamic pipelines.
 
 ## Options
 
-<table>
-<tr><td><code>--replace</code></td><td><p>Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed.</p><br /><b>ENV:</b> <code>$BUILDKITE_PIPELINE_REPLACE</code></td>
-<tr><td><code>--job value</code></td><td><p>The job that is making the changes to its build</p><br /><b>ENV:</b> <code>$BUILDKITE_JOB_ID</code></td>
-<tr><td><code>--dry-run</code></td><td><p>Rather than uploading the pipeline, it will be echoed to stdout</p><br /><b>ENV:</b> <code>$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN</code></td>
-<tr><td><code>--no-interpolation</code></td><td><p>Skip variable interpolation the pipeline when uploaded</p><br /><b>ENV:</b> <code>$BUILDKITE_PIPELINE_NO_INTERPOLATION</code></td>
-<tr><td><code>--agent-access-token value</code></td><td><p>The access token used to identify the agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
-<tr><td><code>--endpoint value</code></td><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
-<tr><td><code>--no-http2</code></td><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><b>ENV:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
-<tr><td><code>--debug-http</code></td><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
-<tr><td><code>--no-color</code></td><td><p>Don't show colors in logging</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
-<tr><td><code>--debug</code></td><td><p>Enable debug mode</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
-<tr><td><code>--experiment value</code></td><td><p>Enable experimental features within the buildkite-agent</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
-<tr><td><code>--profile value</code></td><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><b>ENV:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
+<table class="Docs__attribute__table">
+<tr id="replace"><th><code>--replace </code> <a class="Docs__attribute__link" href="#replace">#</a></th><td><p>Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed.</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_PIPELINE_REPLACE</code></td>
+<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>The job that is making the changes to its build</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
+<tr id="dry-run"><th><code>--dry-run </code> <a class="Docs__attribute__link" href="#dry-run">#</a></th><td><p>Rather than uploading the pipeline, it will be echoed to stdout</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_PIPELINE_UPLOAD_DRY_RUN</code></td>
+<tr id="no-interpolation"><th><code>--no-interpolation </code> <a class="Docs__attribute__link" href="#no-interpolation">#</a></th><td><p>Skip variable interpolation the pipeline when uploaded</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_PIPELINE_NO_INTERPOLATION</code></td>
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_NO_HTTP2</code></td>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></td>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_NO_COLOR</code></td>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_DEBUG</code></td>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
