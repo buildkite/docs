@@ -1,0 +1,1 @@
+AGENT_ATTRIBUTES = YAML.load_file('data/agent_attributes.yaml').freeze

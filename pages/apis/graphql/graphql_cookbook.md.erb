@@ -256,6 +256,20 @@ query getRecentSignOn {
 }
 ```
 
+## Update the default SSO provider session duration
+
+You can control how long the session can go before the user must revalidate with your SSO. By default that's indefinite, but you can reduce it down to hours or days.
+
+```graphql
+mutation UpdateSessionDuration {
+  ssoProviderUpdate(input: { id: "ID", sessionDurationInHours: 2 }) {
+    ssoProvider {
+      sessionDurationInHours
+    }
+  }
+}
+```
+
 ## Search for an organization member by email address
 
 Get details of a single organization member by their email address.

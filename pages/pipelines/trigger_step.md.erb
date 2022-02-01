@@ -38,11 +38,15 @@ _Required attributes:_
   <tr>
     <td><code>trigger</code></td>
     <td>
-      The slug of the pipeline to create a build. You can find it in the URL of your pipeline, and it corresponds to the name of the pipeline, converted to [kebab-case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case).<br>
+      The slug of the pipeline to create a build. You can find it in the URL of your pipeline, and it corresponds to the name of the pipeline, converted to <a href="https://en.wikipedia.org/wiki/Letter_case#Kebab_case">kebab-case</a>.<br>
       <em>Example:</em> <code>"another-pipeline"</code>
     </td>
   </tr>
 </table>
+
+<div class="Docs__troubleshooting-note">
+<p>When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.</p>
+</div>
 
 _Optional attributes:_
 

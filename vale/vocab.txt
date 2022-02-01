@@ -65,6 +65,7 @@ boolean
 boomper
 buildkite
 buildscript
+ccnet
 chatbot
 chroot
 chroots

@@ -131,7 +131,7 @@ Running jobs in parallel has some limitations:
 
 ## Using wait steps in job groups
 
-You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:
+You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish. Note also that wait steps are counted in the group step total, so both `Group01` and `Group02` contain 3 steps.
 
 ```yml
 steps:
@@ -158,7 +158,7 @@ steps:
 
 ## Group merging
 
-If you upload a pipeline that has a `group` or `label` already present in your YAML configuration file, the groups will be merged together in the Buildkite UI.
+If you upload a pipeline that has a `group` or `label` that matches a `group` or `label` in the current pipeline, those groups will be merged together in the Buildkite UI.
 
 <section class="Docs__note">
   <h3>You can't define the same key twice</h3>

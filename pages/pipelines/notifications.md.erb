@@ -257,6 +257,30 @@ Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
 * `build finished`
 
+An example to deliver slack notification when a step is soft-failed:
+
+```yaml
+steps:
+  - command: exit -1
+    soft_fail: true
+    key: 'step1'
+  - wait: ~
+  - command: |
+      if [ $$(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
+         cat <<- YAML | buildkite-agent pipeline upload 
+         steps:
+           - label: "Notify slack about soft failed step"
+             command: echo "Notifying slack about the soft_failed step"
+             notify:
+               - slack:
+                   channels:
+                     - "#general"
+                   message: "Step1 has soft failed."
+        YAML
+      fi
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Webhooks
 
 Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` YAML block:
@@ -315,12 +339,12 @@ notify:
 
 ## Build states
 
-<%= render_markdown 'pipelines/build_states' %>
+<%= render_markdown partial: 'pipelines/build_states' %>
 
 See the full [build states diagram](/docs/pipelines/defining-steps#build-states) for more information on how builds transition between states.
 
 ## Job states
 
-<%= render_markdown 'pipelines/job_states' %>
+<%= render_markdown partial: 'pipelines/job_states' %>
 
 See the full [job states diagram](/docs/pipelines/defining-steps#job-states) for more information on how jobs transition between states.
