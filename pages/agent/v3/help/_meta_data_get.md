@@ -26,6 +26,7 @@ Get data from a builds key/value store.
 
 ### Options
 
+<!-- vale off -->
 <table class="Docs__attribute__table">
 <tr id="default"><th><code>--default value</code> <a class="Docs__attribute__link" href="#default">#</a></th><td><p>If the meta-data value doesn't exist return this instead</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job's build should the meta-data be retrieved from</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
@@ -38,3 +39,4 @@ Get data from a builds key/value store.
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+<!-- vale on -->

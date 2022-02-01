@@ -31,6 +31,7 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 
 ## Options
 
+<!-- vale off -->
 <table class="Docs__attribute__table">
 <tr id="config"><th><code>--config value</code> <a class="Docs__attribute__link" href="#config">#</a></th><td><p>Path to a configuration file</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_CONFIG</code></td>
 <tr id="name"><th><code>--name value</code> <a class="Docs__attribute__link" href="#name">#</a></th><td><p>The name of the agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_NAME</code></td>
@@ -89,3 +90,4 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 <tr id="tags-from-ec2"><th><code>--tags-from-ec2 </code> <a class="Docs__attribute__link" href="#tags-from-ec2">#</a></th><td><p>Include the host's EC2 meta-data as tags (instance-id, instance-type, and ami-id)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_EC2</code></td>
 <tr id="tags-from-gcp"><th><code>--tags-from-gcp </code> <a class="Docs__attribute__link" href="#tags-from-gcp">#</a></th><td><p>Include the host's Google Cloud instance meta-data as tags (instance-id, machine-type, preemptible, project-id, region, and zone)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_TAGS_FROM_GCP</code></td>
 </table>
+<!-- vale on -->

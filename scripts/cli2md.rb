@@ -26,7 +26,7 @@ ARGF.each_with_index do |line, line_num|
     #    --config value                         Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
     elsif /\s{3}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
         if(first_param==false)
-            puts "<table class=\"Docs__attribute__table\">"
+            puts "<!-- vale off -->\n<table class=\"Docs__attribute__table\">"
             first_param = true
         end
         command_and_value = $1.rstrip
@@ -45,7 +45,7 @@ ARGF.each_with_index do |line, line_num|
         puts "<tr id=\"#{command}\"><th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th><td><p>#{desc}</p><br /><strong>Environment variable</strong>:</b> <code>#{env_var}</code></td>"
     else
         if(first_param==true)
-            puts "</table>"
+            puts "</table>\n<!-- vale on -->\n"
             first_param = false
             next
         end

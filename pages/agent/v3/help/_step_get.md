@@ -34,6 +34,7 @@ output the data (currently only JSON is supported).
 
 ### Options
 
+<!-- vale off -->
 <table class="Docs__attribute__table">
 <tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>The step to get. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_STEP_ID</code></td>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_BUILD_ID</code></td>
@@ -47,3 +48,4 @@ output the data (currently only JSON is supported).
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+<!-- vale on -->

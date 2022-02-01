@@ -41,6 +41,7 @@ You can also use the step&#39;s job id (provided by the environment variable $BU
 
 ### Options
 
+<!-- vale off -->
 <table class="Docs__attribute__table">
 <tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by using either its name of job ID</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifacts were uploaded to</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_BUILD_ID</code></td>
@@ -54,3 +55,4 @@ You can also use the step&#39;s job id (provided by the environment variable $BU
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+<!-- vale on -->
