@@ -131,7 +131,7 @@ Running jobs in parallel has some limitations:
 
 ## Using wait steps in job groups
 
-You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:
+You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish. Note also that wait steps are counted in the group step total, so both `Group01` and `Group02` contain 3 steps.
 
 ```yml
 steps:
