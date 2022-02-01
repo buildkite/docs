@@ -47,12 +47,14 @@ The above will return a list of filenames separated by newline.
 ### Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by using either its name or job ID</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifacts were uploaded to</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_BUILD_ID</code></td>
 <tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></td>
 <tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output formatting of results. Defaults to "%j %p %c\n" (Job ID, path, created at time).</p><br /><strong>Environment variable</strong>:</b> <code></code></td>
 </table>
+
 <!-- vale on -->
 The following directives are available:
 
@@ -71,6 +73,7 @@ The following directives are available:
 %u    Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead
 (default: &quot;%j %p %c\n&quot;)
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></td>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ENDPOINT</code></td>
@@ -81,4 +84,5 @@ The following directives are available:
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+
 <!-- vale on -->

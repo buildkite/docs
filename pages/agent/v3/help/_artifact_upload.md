@@ -61,6 +61,7 @@ Or upload directly to Artifactory:
 ### Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job should the artifacts be uploaded to</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
 <tr id="content-type"><th><code>--content-type value</code> <a class="Docs__attribute__link" href="#content-type">#</a></th><td><p>A specific Content-Type to set for the artifacts (otherwise detected)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_ARTIFACT_CONTENT_TYPE</code></td>
@@ -74,4 +75,5 @@ Or upload directly to Artifactory:
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 <tr id="follow-symlinks"><th><code>--follow-symlinks </code> <a class="Docs__attribute__link" href="#follow-symlinks">#</a></th><td><p>Follow symbolic links while resolving globs</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_ARTIFACT_SYMLINKS</code></td>
 </table>
+
 <!-- vale on -->

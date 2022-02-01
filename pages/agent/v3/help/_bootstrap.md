@@ -41,6 +41,7 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 ## Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="command"><th><code>--command value</code> <a class="Docs__attribute__link" href="#command">#</a></th><td><p>The command to run</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_COMMAND</code></td>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>The ID of the job being run</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
@@ -85,4 +86,5 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+
 <!-- vale on -->

@@ -49,6 +49,7 @@ body entirely and providing a new style value.
 ## Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="context"><th><code>--context value</code> <a class="Docs__attribute__link" href="#context">#</a></th><td><p>The context of the annotation used to differentiate this annotation from others</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_ANNOTATION_CONTEXT</code></td>
 <tr id="style"><th><code>--style success</code> <a class="Docs__attribute__link" href="#style">#</a></th><td><p>The style of the annotation (success, `info`, `warning` or `error`)</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_ANNOTATION_STYLE</code></td>
@@ -63,4 +64,5 @@ body entirely and providing a new style value.
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+
 <!-- vale on -->

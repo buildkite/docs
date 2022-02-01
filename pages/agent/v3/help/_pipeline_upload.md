@@ -44,6 +44,7 @@ scripts that generate dynamic pipelines.
 ## Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="replace"><th><code>--replace </code> <a class="Docs__attribute__link" href="#replace">#</a></th><td><p>Replace the rest of the existing pipeline with the steps uploaded. Jobs that are already running are not removed.</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_PIPELINE_REPLACE</code></td>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>The job that is making the changes to its build</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
@@ -58,4 +59,5 @@ scripts that generate dynamic pipelines.
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+
 <!-- vale on -->

@@ -31,6 +31,7 @@ If you leave context blank, it will use the default context.
 ## Options
 
 <!-- vale off -->
+
 <table class="Docs__attribute__table">
 <tr id="context"><th><code>--context value</code> <a class="Docs__attribute__link" href="#context">#</a></th><td><p>The context of the annotation used to differentiate this annotation from others (default: "default")</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_ANNOTATION_CONTEXT</code></td>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job is removing the annotation</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_JOB_ID</code></td>
@@ -43,4 +44,5 @@ If you leave context blank, it will use the default context.
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_EXPERIMENT</code></td>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block</p><br /><strong>Environment variable</strong>:</b> <code>$BUILDKITE_AGENT_PROFILE</code></td>
 </table>
+
 <!-- vale on -->
