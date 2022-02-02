@@ -158,7 +158,11 @@ steps:
 
 ## Group merging
 
-If you upload a pipeline that has a `group` or `label` that matches a `group` or `label` in the current pipeline, those groups will be merged together in the Buildkite UI.
+If you upload a pipeline that has a `group` or `label` that matches a `group` or `label` in the pipeline that uploaded it, those groups will be merged together in the Buildkite UI.
+
+Group merging is only possible when a group in the uploaded pipeline matches the group step that uploaded this pipeline.
+
+Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
 
 <section class="Docs__note">
   <h3>You can't define the same key twice</h3>
