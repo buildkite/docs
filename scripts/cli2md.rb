@@ -42,7 +42,7 @@ ARGF.each_with_index do |line, line_num|
 
         # Wrap https://agent.buildkite.com/v3 in code
         desc.gsub!('https://agent.buildkite.com/v3',"<code>https://agent.buildkite.com/v3</code>")
-        puts "<tr id=\"#{command}\"><th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th><td><p>#{desc}</p><br /><strong>Environment variable</strong>:</b> <code>#{env_var}</code></td>"
+        puts "<tr id=\"#{command}\"><th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th><td><p>#{desc}<br /><strong>Environment variable</strong>: <code>#{env_var}</code></p></td></tr>"
     else
         if(first_param==true)
             puts "</table>\n\n<!-- vale on -->\n"
