@@ -36,7 +36,7 @@ steps:
   - label: "Find common spelling mistakes"
     commands:
       - pip install codespell
-      - ~/.local/bin/codespell -L iterm,iam,keyserver pages
+      - ~/.local/bin/codespell -L iterm,iam,keyserver pages,pullrequest
 
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint -y
