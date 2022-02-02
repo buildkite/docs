@@ -393,7 +393,6 @@ label[for='navicon'] span { // hide alt text
   }
 
   td p:first-child { margin-top: 0; }
-  td p:last-child { margin-bottom: 0; }
 
   .Docs__attribute__link {
     color: #ccc;
@@ -429,6 +428,10 @@ label[for='navicon'] span { // hide alt text
 
   .Docs__attribute__default {
     font-size: 0.8em;
+  }
+
+  .Docs__wip-note {
+    margin: 0;
   }
 }
 
