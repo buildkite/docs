@@ -19,6 +19,11 @@ The pipeline can be written as YAML or JSON, but YAML is more common for its rea
 * `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
 
 
+## Insertion order
+
+Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
+
+
 ## Environment variable substitution
 
 The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
@@ -43,10 +48,6 @@ If you want an environment variable to be evaluated at run-time (for example, us
   env:
     SERVER: "server-a"
 ```
-
-### Insertion order
-
-Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
 
 ### Escaping the `$` character
 

@@ -5,6 +5,7 @@
   },
   "devDependencies": {},
   "scripts": {
+    "validate-yaml": "npx --package ajv-cli ajv validate -s \"data/agent_attributes.schema.yaml\" -d \"data/agent_attributes.yaml\"",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/help/*\""
   }

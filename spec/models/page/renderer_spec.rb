@@ -37,11 +37,13 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <div class="Docs__toc">
-          <p>On this page:</p>
-          <ul>
-            <li><a href="#section-1">Section 1</a></li>
+          <div class="Docs__toc__sticky">
+            <p><strong>On this page:</strong></p>
+            <ul class="Docs__toc__list">
+              <li><a href="#section-1">Section 1</a></li>
         <li><a href="#section-2">Section 2</a></li>
-          </ul>
+            </ul>
+          </div>
         </div>
 
         <h2 id="section-1" class="Docs__heading">Section 1<a href="#section-1" aria-hidden="true" class="Docs__heading__anchor"></a>
@@ -82,10 +84,12 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <div class="Docs__toc">
-          <p>On this page:</p>
-          <ul>
-            <li><a href="#section">Section</a></li>
-          </ul>
+          <div class="Docs__toc__sticky">
+            <p><strong>On this page:</strong></p>
+            <ul class="Docs__toc__list">
+              <li><a href="#section">Section</a></li>
+            </ul>
+          </div>
         </div>
         
         <h2 id="section" class="Docs__heading">Section<a href="#section" aria-hidden="true" class="Docs__heading__anchor"></a>

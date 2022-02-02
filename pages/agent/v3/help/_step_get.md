@@ -21,8 +21,8 @@ script.
 Retrieve the value of an attribute in a step. If no attribute is passed, the
 entire step will be returned.
 
-In the event a complex object is returned (an object or an array),
-you'll need to supply the --format option to tell the agent how it should
+In the event a complex object is returned (i.e. an object or an array),
+you&#39;ll need to supply the --format option to tell the agent how it should
 output the data (currently only JSON is supported).
 
 ### Example
@@ -34,15 +34,20 @@ output the data (currently only JSON is supported).
 
 ### Options
 
-* `--step value` - The step to get. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY) [`$BUILDKITE_STEP_ID`]
-* `--build value` - The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY) [`$BUILDKITE_BUILD_ID`]
-* `--format value` - The format to output the attribute value in (currently only JSON is supported) [`$BUILDKITE_STEP_GET_FORMAT`]
-* `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
-* `--endpoint value` - The Agent API endpoint (default: "`https://agent.buildkite.com/v3`") [`$BUILDKITE_AGENT_ENDPOINT`]
-* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
-* `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
-* `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
-* `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]
-* `--experiment value` - Enable experimental features within the buildkite-agent [`$BUILDKITE_AGENT_EXPERIMENT`]
-* `--profile value` - Enable a profiling mode, either cpu, memory, mutex or block [`$BUILDKITE_AGENT_PROFILE`]
+<!-- vale off -->
 
+<table class="Docs__attribute__table">
+<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>The step to get. Can be either its ID (BUILDKITE_STEP_ID) or key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_ID</code></p></td></tr>
+<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build to look for the step in. Only required when targeting a step using its key (BUILDKITE_STEP_KEY)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>The format to output the attribute value in (currently only JSON is supported)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_STEP_GET_FORMAT</code></p></td></tr>
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+</table>
+
+<!-- vale on -->

@@ -323,7 +323,38 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__toc {
   p { margin-bottom: .5em; }
-  ul { margin-top: .5em; }
+  .Docs__toc__list {
+    margin-top: .5em;
+
+    li {
+      color: $color-brand-green;
+      list-style-type: square;
+      margin-left: 1.2em;
+    }
+  }
+}
+
+@media (min-width: 1201px) { //TOC as side column on larger screens
+  .Docs__article {
+    display: grid;
+    grid-template-columns: 1fr 250px;
+    position: relative;
+  }
+
+  .Docs__toc {
+    font-size: 0.8em;
+    height: 95%;
+    padding-top: 3.7em;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    .Docs__toc__sticky {
+      position: sticky;
+      top: 3rem;
+      width: 220px;
+    }
+  }
 }
 
 .Docs__note {
@@ -345,6 +376,60 @@ label[for='navicon'] span { // hide alt text
 .Docs__note--footer-typo {
   @extend .Docs__note;
   margin-top: 3rem;
+}
+
+.Docs__attribute__table {
+  colgroup col:nth-child(1) {
+    width: 5rem;
+  }
+
+  tr.importance th {
+    border-top: none;
+    font-weight: 700;
+  }
+
+  tr.optional th {
+    padding-top: 2rem;
+  }
+
+  td p:first-child { margin-top: 0; }
+  td p:last-child { margin-bottom: 0; }
+
+  .Docs__attribute__link {
+    color: #ccc;
+    opacity: 0;
+    transition: all 0.2s;
+  }
+
+  &:hover {
+    .Docs__attribute__link {
+      opacity: 1.0;
+
+      &:hover {
+        color: #aaa;
+      }
+    }
+  }
+
+  .Docs__attribute__importance {
+    color: $color-brand-green;
+    margin: 5px 0;
+    text-transform: uppercase;
+    font: 300 13px $font-family;
+    letter-spacing: 1px
+  }
+
+  .Docs__attribute__env-var {
+    font-size: 0.8em;
+
+    code {
+      white-space: break-spaces;
+    }
+  }
+
+  .Docs__attribute__default {
+    font-size: 0.8em;
+  }
 }
 
 a.Docs__example-repo {

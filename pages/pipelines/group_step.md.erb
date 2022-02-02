@@ -66,24 +66,10 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
-    <td><code>branches</code></td>
-    <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this step in their builds.<br>
-      <em>Example:</em> <code>"main stable/*"</code>
-    </td>
-  </tr>
-  <tr>
     <td><code>depends_on</code></td>
     <td>
       A list of step or group keys that this step depends on. This step or group will only run after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
       <em>Example:</em> <code>"test-suite"</code>
-    </td>
-  </tr>
-  <tr>
-    <td><code>env</code></td>
-    <td>
-      A map of <a href="/docs/pipelines/environment-variables">environment variables</a> for this step or group.<br>
-      <em>Example:</em> <code>RAILS_ENV: "test"</code>
     </td>
   </tr>
   <tr>
@@ -105,16 +91,6 @@ _Optional attributes:_
     <td>
       Allows you to <a href="/docs/pipelines/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
       <em>Example:</em> <code>"github_check:"</code><br>
-    </td>
-  </tr>
-  <tr>
-    <td><code>skip</code></td>
-    <td>
-      Whether to skip this step or group or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
-      Note: Skipped steps or groups will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
-      <em>Example:</em> <code>true</code><br>
-      <em>Example:</em> <code>false</code><br>
-      <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
 </table>
@@ -155,7 +131,7 @@ Running jobs in parallel has some limitations:
 
 ## Using wait steps in job groups
 
-You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish:
+You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps operate independently of other groups. For example, both groups will operate independently here, meaning `d.sh` won't wait on `a.sh` to finish. Note also that wait steps are counted in the group step total, so both `Group01` and `Group02` contain 3 steps.
 
 ```yml
 steps:
@@ -182,7 +158,7 @@ steps:
 
 ## Group merging
 
-If you upload a pipeline that has a `group` or `label` already present in your YAML configuration file, the groups will be merged together in the Buildkite UI.
+If you upload a pipeline that has a `group` or `label` that matches a `group` or `label` in the current pipeline, those groups will be merged together in the Buildkite UI.
 
 <section class="Docs__note">
   <h3>You can't define the same key twice</h3>

@@ -87,7 +87,7 @@ _Optional attributes:_
   <tr>
     <td><code>concurrency_group</code></td>
     <td>
-      A unique name for the concurrency group that you are creating with the <code>concurrency</code> attribute.<br>
+      A unique name for the concurrency group that you are creating. If you use this attribute, you must also define the <code>concurrency</code> attribute.<br>
       <em>Example:</em> <code>"my-app/deploy"</code>
     </td>
   </tr>
@@ -182,7 +182,7 @@ _Optional attributes:_
   <tr>
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The number of minutes a job created from this step is allowed to run. If the job does not finish within this limit, it will be automatically canceled and the build will fail. <br>
+      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed".<br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
