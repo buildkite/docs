@@ -119,7 +119,7 @@ Make sure to set the `-o pipefail` option in your buildscript as above, otherwis
 
 <%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
 
-## Encryption and security  
+## Encryption and security
 
 Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 
@@ -143,3 +143,74 @@ For example, if you have environment variable `MY_SECRET="topsecret"`and you run
 <h3 class="Docs__note__heading">Setting environment variables</h3>
 <p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
 </div>
+
+## Private build log archive storage
+
+By default, build logs are stored in encrypted form in Buildkite's Amazon S3 buckets, but you can also store the archived build logs in your private AWS S3 bucket.
+
+<div class="Docs__note">
+<p>This feature is only available to <a href="https://buildkite.com/pricing">Buildkite Enterprise</a> users.</p>
+</div>
+
+To set up a private build log archive storage:
+
+1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
+2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
+
+    Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
+
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:PutObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
+                "Condition": {
+                    "StringEquals": {
+                        "s3:x-amz-acl": "bucket-owner-full-control"
+                    }
+                }
+            },
+            {
+                "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:DeleteObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:\aws\:iam::032379705303:root"
+                },
+                "Action": "s3:ListBucket",
+                "Resource": "arn\:aws\:s3:::my-bucket",
+                "Condition": {
+                    "StringLike": {
+                        "s3:prefix": "my-prefix/*"
+                    }
+                }
+            }
+        ]
+    }
+    ```
+
+3. Reach out to [success@buildkite.com](mailto:success@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
