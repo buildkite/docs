@@ -155,7 +155,7 @@ By default, build logs are stored in encrypted form in Buildkite's Amazon S3 buc
 To set up a private build log archive storage:
 
 1. Create an Amazon S3 bucket in *us-east-1* location (the only region currently supported).
-1. Provide read and write access permission policy for the Buildkite's AWS account `032379705303`. Here's an example policy:
+1. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`. Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Configure your Amazon S3 bucket in a similar way:
 
 ```json
 {
@@ -211,4 +211,4 @@ To set up a private build log archive storage:
 }
 ```
 
-1. Reach out to [success@buildkite.com](mailto:success@buildkite.com) to complete the setup. You will need to provide the information about your S3 bucket.
+1. Reach out to [success@buildkite.com](mailto:success@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
