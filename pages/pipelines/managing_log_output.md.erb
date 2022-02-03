@@ -157,60 +157,60 @@ To set up a private build log archive storage:
 1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
 2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
 
-   Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
+    Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
 
-```json
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:PutObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
+                "Condition": {
+                    "StringEquals": {
+                        "s3:x-amz-acl": "bucket-owner-full-control"
+                    }
+                }
             },
-            "Action": "s3:PutObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
-            "Condition": {
-                "StringEquals": {
-                    "s3:x-amz-acl": "bucket-owner-full-control"
+            {
+                "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn\:aws\:iam::032379705303:root"
+                },
+                "Action": "s3:DeleteObject",
+                "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:\aws\:iam::032379705303:root"
+                },
+                "Action": "s3:ListBucket",
+                "Resource": "arn\:aws\:s3:::my-bucket",
+                "Condition": {
+                    "StringLike": {
+                        "s3:prefix": "my-prefix/*"
+                    }
                 }
             }
-        },
-        {
-            "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:GetObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-        },
-        {
-            "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:DeleteObject",
-            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
-        },
-        {
-            "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn:\aws\:iam::032379705303:root"
-            },
-            "Action": "s3:ListBucket",
-            "Resource": "arn\:aws\:s3:::my-bucket",
-            "Condition": {
-                "StringLike": {
-                    "s3:prefix": "my-prefix/*"
-                }
-            }
-        }
-    ]
-}
-```
+        ]
+    }
+    ```
 
 3. Reach out to [success@buildkite.com](mailto:success@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
