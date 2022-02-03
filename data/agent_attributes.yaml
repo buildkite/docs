@@ -188,7 +188,7 @@ attributes:
   desc: | 
       Disable HTTP2 when communicating with the Agent API.
 - name: no-local-hooks
-  env_var: BUILDKITE_AGENT_NO_LOCAL_HOOKS
+  env_var: BUILDKITE_NO_LOCAL_HOOKS
   default_value: "false"
   required: false
   desc: | 
