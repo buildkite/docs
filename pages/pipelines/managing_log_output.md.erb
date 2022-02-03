@@ -167,10 +167,10 @@ Here's an example policy that contains an Amazon S3 bucket configuration with Bu
             "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn\:aws:iam::032379705303:root"
+                "AWS": "arn\:aws\:iam::032379705303:root"
             },
             "Action": "s3:PutObject",
-            "Resource": "arn\:aws:s3:::my-bucket/my-prefix/*",
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"
@@ -181,28 +181,28 @@ Here's an example policy that contains an Amazon S3 bucket configuration with Bu
             "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn\:aws:iam::032379705303:root"
+                "AWS": "arn\:aws\:iam::032379705303:root"
             },
             "Action": "s3:GetObject",
-            "Resource": "arn\:aws:s3:::my-bucket/my-prefix/*"
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
         },
         {
             "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn\:aws:iam::032379705303:root"
+                "AWS": "arn\:aws\:iam::032379705303:root"
             },
             "Action": "s3:DeleteObject",
-            "Resource": "arn\:aws:s3:::my-bucket/my-prefix/*"
+            "Resource": "arn\:aws\:s3:::my-bucket/my-prefix/*"
         },
         {
             "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
             "Effect": "Allow",
             "Principal": {
-                "AWS": "arn:aws:iam::032379705303:root"
+                "AWS": "arn:\aws\:iam::032379705303:root"
             },
             "Action": "s3:ListBucket",
-            "Resource": "arn\:aws:s3:::my-bucket",
+            "Resource": "arn\:aws\:s3:::my-bucket",
             "Condition": {
                 "StringLike": {
                     "s3:prefix": "my-prefix/*"
