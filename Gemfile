@@ -3,10 +3,10 @@
 source "https://rubygems.org"
 
 # Choo choo 🚝 (only include the Rails gems we need)
-gem "actionpack"
-gem "actionview"
-gem "activesupport"
-gem "railties"
+gem "actionpack", "~> 6.0"
+gem "actionview", "~> 6.0"
+gem "activesupport", "~> 6.0"
+gem "railties", "~> 6.0"
 gem "sprockets-rails"
 
 # Use Puma as the app server
