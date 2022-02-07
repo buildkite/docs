@@ -35,7 +35,7 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 To connect your GitHub account:
 
-1. Open Buildkite’s _Personal Settings_.
+1. Open Buildkite's _Personal Settings_.
 1. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
 1. Select the GitHub _Connect_ button:
     <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
@@ -47,14 +47,12 @@ You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your [file-based Buildkite configuration](/docs/agent/v3/cli-pipeline#uploading-pipelines).
 * Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
 
     > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
 * Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
 ## Set up a new pipeline for a GitHub repository
-
 
 1. Select _Pipelines_ > _New Pipeline_ <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;border-radius:50%;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
 <rect x="10" y="4" width="2" height="14"></rect>
