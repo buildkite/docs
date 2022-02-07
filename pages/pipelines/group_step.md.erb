@@ -34,7 +34,7 @@ This is how it's displayed in the UI:
 
 Only the first 100 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page.
 
-You can [merge groups](#group-merging) by giving them the same `label` or name.
+When a pipeline uploads another pipeline that contains the same `group` or `label` as the pipeline that uploaded it, such groups will be [merged](#group-merging) in the Buildkite UI.
 
 ## Group step attributes
 
