@@ -1,6 +1,6 @@
 # GitHub
 
-Buildkite can connect to your GitHub repository and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
+Buildkite can connect to a GitHub repository in your GitHub account or GitHub organization and use the [Commit Status API](https://docs.github.com/en/rest/reference/repos#statuses) to update the status of commits in pull requests.
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
@@ -8,7 +8,7 @@ To complete this integration, you need admin privileges for your GitHub reposito
 
 ## Connecting Buildkite and GitHub
 
-You can now use our [GitHub App](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
+You can use the [Buildkite app for GitHub](#connect-your-buildkite-account-to-github-using-the-github-app) to connect a Buildkite organization to a GitHub organization.
 
 <div class="Docs__note">
 <h3 class="Docs__note__heading">Benefits of using GitHub App</h3>
@@ -30,30 +30,16 @@ Connecting Buildkite and GitHub using the GitHub App lets your GitHub organizati
 
 You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
 
-## Connect your Buildkite account to GitHub using OAuth
-
-To connect your GitHub account:
-
-1. Open Buildkite’s _Personal Settings_.
-1. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
-1. Select the GitHub _Connect_ button:
-    <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
-1. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page.
-
-You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
-
 ## Buildkite GitHub permissions
 
 When you connect your GitHub organization, Buildkite needs the following permissions:
 
-* Read access to files located at `.buildkite.yml`: this allows Buildkite to access your file-based Buildkite configuration.
 * Read access to metadata: this is a default permission for all GitHub apps. From the [GitHub documentation](https://docs.github.com/en/rest/reference/permissions-required-for-github-apps#metadata-permissions):
 
     > GitHub Apps have the Read-only metadata permission by default. The metadata permission provides access to a collection of read-only endpoints with metadata for various resources. These endpoints do not leak sensitive private repository information.
 * Read and write access to checks, commit statuses, deployments, pull requests, and repository hooks: this is needed for Buildkite to perform tasks such as running a build on pull requests and reporting that build status directly on the PR on GitHub.
 
 ## Set up a new pipeline for a GitHub repository
-
 
 1. Select _Pipelines_ > _New Pipeline_ <svg viewBox="0 0 22 22" width="22px" height="22px" style="fill: currentcolor; vertical-align: middle;border-radius:50%;"><title>New Pipeline</title><rect x="4" y="10" width="14" height="2"></rect>
 <rect x="10" y="4" width="2" height="14"></rect>
@@ -159,3 +145,15 @@ For example, if you have a monorepo containing three applications, you could use
 ## Build skipping
 
 <%= render_markdown partial: 'integrations/build_skipping' %>
+
+## Connect your Buildkite account to GitHub using OAuth
+
+To connect your GitHub account:
+
+1. Open your [Buildkite _Personal Settings_](https://buildkite.com/user/settings).
+1. Select _[Connected Apps](https://buildkite.com/user/connected-apps)_.
+1. Select the GitHub _Connect_ button:
+    <%= image "personal-settings.png", width: 1650/2, height: 642/2, alt: "Screenshot of the Buildkite Connected Apps screen" %>
+1. Select _Authorize buildkite_. GitHub redirects you back to your _Connected Apps_ page.
+
+You can now [set up a pipeline](#set-up-a-new-pipeline-for-a-github-repository).
