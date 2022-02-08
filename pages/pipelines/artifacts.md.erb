@@ -9,7 +9,7 @@ stored on Amazon S3.
 
 {:toc}
 
-## Uploading Artifacts in Build Steps
+## Uploading artifacts in build steps
 
 Upload artifacts in your build steps by defining file path patterns, either in `artifact_paths` attribute of your command step or in the “Automatic Artifact Uploading” field of the Buildkite UI.
 
@@ -27,7 +27,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Uploading Artifacts from Scripts
+## Uploading artifacts from scripts
 
 Upload artifacts from your build scripts with the `buildkite-agent artifact` command.
 The following example uploads `build.tar.gz` from the `pkg` directory to `pkg/build.tar.gz`:
@@ -39,7 +39,7 @@ buildkite-agent artifact upload pkg/build.tar.gz
 For full documentation of the `buildkite-agent artifact upload` command see the [buildkite-agent artifact upload](/docs/agent/v3/cli-artifact#uploading-artifacts) documentation.
 
 
-## Downloading Artifacts
+## Downloading artifacts
 
 You can download artifacts created by a build job, from inside a running build, using the `buildkite-agent artifact download` command. For example, to download all artifacts in the `logs` directory (including subdirectories, which will be recreated) to `local-logs/logs/`:
 
@@ -63,13 +63,13 @@ buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_F
 
 For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation.
 
-## Downloading Artifacts Outside a Running Build
+## Downloading artifacts outside of a running build
 
 The `buildkite-agent artifact download` command only works within the context of a running build.
 
 If you want to download an artifact from outside a build use our [Artifact Download API](/docs/agent/v3/cli-artifact#downloading-artifacts-outside-a-running-build).
 
-## Encryption and security  
+## Encryption and security
 
 Buildkite has zero access to your source code in the pipelines and only receives and stores the log output of the builds and build artifacts in encrypted form.
 

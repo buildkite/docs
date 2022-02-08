@@ -52,6 +52,10 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
+## Which user the agent runs as
+
+On Docker, the default user is `root`, unless you use `docker run --user`, or use a Kubernetes Pod security context to override the user
+
 ## Adding hooks
 
 You can add [custom agent hooks](/docs/agent/hooks) by mounting or copying them into the `/buildkite/hooks` directory, and ensuring they are executable.

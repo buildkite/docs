@@ -44,7 +44,7 @@ inline_link 'artifact://tmp/images/omg.gif'
 
 ## Images
 
-### Syntax for Inlining Images
+### Syntax for inlining images
 
 The syntax for inlining images uses ANSI escape code `1338`. A `url` is required, and you can optionally specify an `alt` attribute to describe what the image is.
 
@@ -68,7 +68,7 @@ When rendered in Buildkite (using our open-source [Terminal tool](http://buildki
 
 When you run the script locally you won't see any output because your terminal will ignore the escape code. If you pipe your build script to `more` you can see the raw escape codes.
 
-### Inlining Build Artifact Images
+### Inlining build artifact images
 
 You can inline artifact images by using the `artifact://` URL syntax. For example you can inline the following artifact:
 
@@ -84,12 +84,16 @@ Be careful to ensure the part of the URL after `artifact://` exactly matches the
 
 The image artifact does not have to be uploaded at the time it’s written to the build log. If the artifact has not been uploaded you'll see a loading placeholder, and as soon as it's ready the image will automatically appear.
 
-### Library Support
+<section class="Docs__note">
+  <p>If you are using private artifacts, your images need to be <a href="#images-base64-encoded-images">base64-encoded</a> so that Buildkite can access and inline them.</p>
+</section>
+
+### Base64-encoded images
+
+If you want to embed an image encoded in base64, you can use [iTerm’s image format](http://iterm2.com/images.html#/section/home), but be mindful of the [log output limits](/docs/pipelines/managing-log-output#log-output-limits). Unless you're embedding images for a specific reason, it's better to upload the image as a [build artifact](/docs/pipelines/artifacts#uploading-artifacts-in-build-steps) and reference it using the `artifact://` URL.
+
+### Library support
 
 * The [capybara-inline-screenshot](https://github.com/buildkite/capybara-inline-screenshot) Ruby gem will automatically inline screenshots of your integration test failures and also supports the iTerm image format for viewing failures directly in your terminal. When run under CI it automatically uses the `artifact://` URL format.
 <br>
 <%= image("ruby_gem.png", size: '806x387') %>
-
-### Base64 Encoded Images
-
-If you want to embed an image using base64 you can use [iTerm’s image format](http://iterm2.com/images.html#/section/home), though you’ll need to keep in mind the [log output limits](/docs/pipelines/managing-log-output#log-output-limits). Where possible we recommend not using this format, but instead uploading the image as a build artifact and referencing it using the `artifact://` URL.

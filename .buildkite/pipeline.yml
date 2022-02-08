@@ -30,7 +30,13 @@ steps:
     commands:
       - wget https://github.com/errata-ai/vale/releases/download/v2.12.1/vale_2.12.1_Linux_64-bit.tar.gz
       - tar --transform='s/vale/vale-bin/'  -xf 'vale_2.12.1_Linux_64-bit.tar.gz'
-      - ./vale-bin pages
+      - ./vale-bin --config .vale.ini pages
+      - ./vale-bin --config .vale.snippets.ini pages/**/_*
+
+  - label: "Find common spelling mistakes"
+    commands:
+      - pip install codespell
+      - ~/.local/bin/codespell -L iterm,iam,keyserver pages,pullrequest
 
   - label: ":lint-roller: Linting for insensitive words"
     command: npm run lint -y
@@ -42,7 +48,11 @@ steps:
           # Alpine 3.14 - EOS 01 May 2023
           # lts = Node 1415.1 - 2023-04-30
           image: "node:lts-alpine3.14"
-
+  - label: "Validate YAML"
+    command: npm run -y validate-yaml
+    plugins:
+      - docker#v3.7.0:
+          image: "node:lts-alpine3.14"
   - label: ":lint-roller: :markdown: Linting the Markdown"
     command: npm run -y mdlint
     plugins:

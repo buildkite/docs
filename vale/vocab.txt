@@ -49,6 +49,7 @@ Xcode
 Zapier
 addr
 api
+apis
 architecting
 argumentless
 artifactory
@@ -64,6 +65,7 @@ boolean
 boomper
 buildkite
 buildscript
+ccnet
 chatbot
 chroot
 chroots
@@ -75,7 +77,7 @@ cpu
 cron
 crontab
 Datadog
-deprioritise
+deprioritize
 deprovisioning
 deregistration
 deprovision
@@ -145,6 +147,7 @@ shasum
 Shellcheck
 Shipit
 sre
+sso
 statefully
 stdout
 subfolders

@@ -20,7 +20,7 @@ curl https://api.buildkite.com
 }
 ```
 
-## Query String Parameters
+## Query string parameters
 
 Some API endpoints accept query string parameters which are added to the end of the URL. For example, the [builds listing APIs](/docs/api/builds#list-all-builds) can be filtered by `state` using the following `curl` command:
 
@@ -28,7 +28,7 @@ Some API endpoints accept query string parameters which are added to the end of 
 curl "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds?state=passed"
 ```
 
-## Request Body Properties
+## Request body properties
 
 Some API requests accept JSON request bodies for specifying data. For example, the [build create API](/docs/api/builds#create-a-build) can be passed the required properties using the following `curl` command:
 
@@ -81,7 +81,7 @@ You can set the page using the following query string parameters:
 </tbody>
 </table>
 
-## CORS Headers
+## CORS headers
 
 API responses include the following [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) allowing you to use the API directly from the browser:
 

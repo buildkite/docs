@@ -50,7 +50,8 @@ There are two options to be aware of for this initial setup:
 * You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
     ```cfg
-    shell="<path-to-powershell-executable>"
+    #Provide the path to PowerShell executables
+    shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
     ```
 
 <div class="Docs__note">
@@ -66,7 +67,7 @@ Rerun the install script.
 While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below.
 
 <div class="Docs__note">
-<p>Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline.</p>
+<p>Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a>for more information.</p>
 </div>
 
 ## Running as a service
@@ -86,9 +87,15 @@ nssm start buildkite-agent
 nssm status buildkite-agent
 ```
 
+## Which user the agent runs as
+
+On Windows, all commands run as the invoking user.
+
 ## Installing Buildkite on Windows Subsystem for Linux 2
 
-You can use Buildkite on Windows through WSL2. This gives you a way to work with Buildkite on Windows using a Bash shell. This can be useful, as many [plugins](https://buildkite.com/plugins) use Bash.
+<!-- date -->
+
+You can use Buildkite on Windows through WSL2, but it has limitations. At present (12 January 2022), hooks and plugins both have issues. We recommend using CMD (default) or PowerShell 5.x instead.
 
 To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
 

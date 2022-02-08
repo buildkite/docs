@@ -29,7 +29,7 @@ curl "https://api.buildkite.com/v2/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -46,7 +46,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -163,7 +163,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -685,11 +685,11 @@ Each <em>build</em> is provided with the following timestamps:
 <tbody>
   <tr>
     <th><code>scheduled_at</code></th>
-    <td>The time the build was created</td>
+    <td>The time the build was created. All builds from a <code>pipeline upload</code> have a <code>scheduled_at</code> copied from the job that did the uploading</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
-    <td>The time the build was created</td>
+    <td>The time the build was created.  For uploaded pipelines it is when the <code>pipeline upload</code> was run.</td>
   </tr>
   <tr>
     <th><code>started_at</code></th>
