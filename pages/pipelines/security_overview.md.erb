@@ -1,0 +1,40 @@
+# Security Overview
+
+Customer security is paramount to Buildkite. By design, sensitive data, such as source code and secrets, remain within
+your own environment and are not seen by Buildkite.
+
+The hybrid-SaaS model used by Buildkite allows you to maintain tight control over build agents without compromising on scalability.
+
+Buildkite implements a number of measures and mechanisms, both on the control plane and agent, to ensure that customer data remains safe.
+
+{:toc}
+
+## Infrastructure
+
+All of Buildkite's services run in the cloud. Buildkite does not run its own routers, load balancers, DNS servers, or physical servers.
+
+## Data encryption
+
+All data transferred in and out of Buildkite is encrypted using hardened TLS. Buildkite is also protected by HTTP Strict Transport Security and is pre-loaded in major browsers. Additionally, data transferred to and from Buildkite's backend database is encrypted using TLS. Finally, all data is encrypted at rest.
+
+## User logins
+
+We protect against brute force attacks with rate-limiting technology. All sensitive data such as passwords and API tokens are filtered out of logs and exception trackers. User passwords are cryptographically hashed and salted before being stored in Buildkite's database.
+
+## Software dependencies
+
+Buildkite keeps up to date with software dependencies and has automated tools scanning for common security issues, including Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), and SQL Injection.
+
+## Code review process
+
+All pull requests are reviewed by senior engineers with security best practice training before being deployed to production systems. 2FA is enabled across GitHub and Buildkite organizations for added security.
+
+An extensive set of automated testing procedures is run for every code change.
+
+## Development and QA environments
+
+Development and QA environments are physically separated from Buildkite's production environment. No customer data is ever used in the development or QA environments. 
+
+## Penetration testing
+
+Buildkite performs regular penetration test audits with a contracted third party.
