@@ -1,6 +1,15 @@
 # Works with
 
-## RSpec
+Test Analytics works with Rspec, or you can import industry standard JUNIT data, or write your own integration with the Test Analytics API.
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Invite-only Beta feature</p>
+</div>
+
+## Integrating with RSpec
+
+[RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
+If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics` Gem to your code to integrate them into your Test Analytics dashboard.
 
 1. Create a new branch:
 
@@ -8,7 +17,7 @@
     git checkout -b install-buildkite-test-analytics
     ```
 
-2. Add rspec-buildkite-analytics to your `Gemfile` in the test group:
+2. Add `rspec-buildkite-analytics` to your `Gemfile` in the `:test` group:
 
     ```rb
     group :test do
@@ -22,12 +31,12 @@
     $ bundle
     ```
 
-3. Add the Test analytics code to your application in `spec/spec_helper.rb`:
+3. Add the Test analytics code to your application in `spec/spec_helper.rb`. For production code, use a more secure solution than committing your API key to a Git repository.
 
     ```rb
     require "rspec/buildkite/analytics"
 
-    RSpec::Buildkite::Analytics.configure(token: "9kNZ9cDMkpVNu7CiGPDch9rP")
+    RSpec::Buildkite::Analytics.configure(token: "sedfroe3ihj543s89fdhgjh456eliruy")
     ```
 
 4. Commit and push your changes:
@@ -40,14 +49,14 @@
 
 Once you’re done, in your Test analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
-## JUnit XML
-
-Upload your JUNIT XML data (with escaped quote marks `"`) to Test analytics:
+## Importing JUnit XML
 
 <!-- TODO: update URL -->
 
+Import your JUNIT XML data (with escaped quote marks `"`) to Test Analytics by replacing `sedfroe3ihj543s89fdhgjh456eliruy` with your own Test Analytics API token and running the following curl command:
+
 ```sh
-curl --request POST \
+TA_API_TOKEN="sedfroe3ihj543s89fdhgjh456eliruy" curl --request POST \
   --url http://analytics-api.buildkite.localhost/v1/runs/v1/runs \
   --header 'Authorization: Token token="$TA_API_TOKEN"' \
   --header 'Content-Type: application/json' \
@@ -58,7 +67,7 @@ curl --request POST \
 
 ```
 
-This will parse the XML and queue all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and counts for the number of `queued` and `skipped` test cases.
+This parses the XML and import all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
 
 ```json
 {
@@ -70,4 +79,4 @@ This will parse the XML and queue all valid test cases for ingestion and evaluat
 
 ## Integrate your suite?
 
-How does one do this?
+TODO

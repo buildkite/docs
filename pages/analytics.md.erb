@@ -1,27 +1,34 @@
 # Buildkite Test Analytics
 
+Where Buildkite Pipelines help you automate your build pipelines,
+Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
+
 - Ship code to production faster by optimizing test suites
-- Works with Buildkite, GitHub Actions, Jenkins, CircleCI
-- Identify, fix, and monitor test suite performance
-- Track, improve and monitor test suite reliability
+- Works with any continuous integration
+- Identify, fix, and monitor, test suite performance
+- Track, improve and monitor, test suite reliability
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Invite-only Beta feature</p>
+</div>
 
 {:toc}
 
-## What is a test suite
-
 <%= image "overview.jpg", width: 728, height: 299, alt: "Screenshot of test suite overview" %>
 
-## What is a monitor
+## Find flaky tests
 
-Configure monitors to track only the things you care about. Track [reliability](#reliability-monitor) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches get below your defined threshold.
+See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Even tests that pass on retry are marked as red/fail so you can find and fix them.
 
-## Reliability monitor
+## Monitor what matters
 
-_Reliability_ is defined as the percentage of passed test _runs_. It can be measured for individual tests, or for the whole test suite.
+Configure monitors to track only matters to you. Track reliability (percentage of passed test _runs_) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches fall below your defined threshold.
 
-## Runtime monitor
+<%= image "monitors.jpg", width: 728, height: 299, alt: "Screenshot of monitor settings" %>
 
-_Runtime_ is defined as the total duration of the tests from start to finish.
+## Cut down your runtime
+
+_Runtime_ is defined as the total duration of the tests from start to finish, tracking this helps you find our what is slowing down your test runs. Test Analytics splits your runtime into to `SQL`, `HTTP`, `sleep`, or `other`.
 
 ## Alerts
 
@@ -31,4 +38,4 @@ When you get an alert from one of your monitors, see
 - when it was first seen
 - how many times it has happened
 
-Mark it as resolved or, mute it, or leave it open.
+Mark it as resolved, mute it, or leave it open.
