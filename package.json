@@ -5,7 +5,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "validate-yaml": "npx --package ajv-cli ajv validate -s \"data/agent_attributes.schema.yaml\" -d \"data/agent_attributes.yaml\"",
+    "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/agent_attributes.schema.yaml\" -d \"data/agent_attributes.yaml\"",
+    "validate-environment-variables-yaml": "npx --package ajv-cli ajv validate -s \"data/environment_variables.schema.yaml\" -d \"data/environment_variables.yaml\"",
     "lint": "npx alex@10 -q --diff \"pages/**/*.erb\" \"pages/**/*.txt\"",
     "mdlint": "npx markdownlint-cli2@0.3 pages \"#pages/agent/v3/help/*\""
   }
