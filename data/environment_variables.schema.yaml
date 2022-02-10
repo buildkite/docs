@@ -12,6 +12,8 @@ properties:
           type: string
         desc:
           type: string
+        modifiable:
+          type: boolean
       required:
         - name
         - desc
