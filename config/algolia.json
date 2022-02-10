@@ -24,5 +24,15 @@
     ".Docs__toc",
     ".Docs__note--footer-typo",
     ".HomepageCategory"
-  ]
+  ],
+  "custom_settings": {
+    "synonyms": [
+      [
+        "config",
+        "config.yml",
+        "config.yaml"
+      ]
+
+    ]
+  }
 }
