@@ -64,7 +64,17 @@ The [style guide](/styleguide/STYLE.md) should provide you a general idea and an
 ## Search index
 
 The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
-To test changes to the indexing configuration (you'll need an API key) run `rake update_test_index`.
+
+To test changes to the indexing configuration:
+
+1. Make sure you have an API key in `.env` like:
+
+    ```env
+    APPLICATION_ID=APP_ID
+    API_KEY=YOUR_API_KEY
+    ```
+
+2. Run `bundle exec rake update_test_index`.
 
 ## License
 
