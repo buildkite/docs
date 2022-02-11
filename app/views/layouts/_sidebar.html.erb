@@ -120,7 +120,6 @@
             <%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %>
             <%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %>
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
-            <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
             <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
@@ -130,7 +129,6 @@
             <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
             <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
             <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
-            <%= sidebar_link_to "Incoming Webhooks", 'pipelines/incoming-webhooks' %>
           </ul>
           <p class="Docs__nav__section-subheading">Step Types</p>
           <ul class="Docs__nav__sub-nav">
@@ -147,7 +145,14 @@
             <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
             <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
             <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
-            <%= sidebar_link_to "Permissions with Teams", 'pipelines/permissions' %>
+
+          </ul>
+          <p class="Docs__nav__section-subheading">Security</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Security Overview", 'pipelines/security-overview' %>
+            <%= sidebar_link_to "Managing Secrets", 'pipelines/secrets' %>
+            <%= sidebar_link_to "Users and Teams", 'pipelines/permissions' %>
+            <%= sidebar_link_to "Webhooks Security", 'pipelines/incoming-webhooks' %>
             <%= sidebar_link_to "Audit Log", 'pipelines/audit-log' %>
           </ul>
         </div>
