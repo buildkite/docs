@@ -72,3 +72,7 @@ nssm.exe status buildkite-agent
 nssm.exe start buildkite-agent
 nssm.exe status buildkite-agent
 ```
+
+## Security considerations
+
+The agent will run scripts from the hooks directory, and will checkout and run scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
