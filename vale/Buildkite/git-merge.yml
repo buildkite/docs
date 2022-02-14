@@ -1,0 +1,5 @@
+extends: existence
+message: You might have an unresolved git merge
+level: error
+raw:
+  - '<<<<<<< HEAD'

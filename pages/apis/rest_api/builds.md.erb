@@ -29,7 +29,7 @@ curl "https://api.buildkite.com/v2/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -46,7 +46,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -163,7 +163,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -410,7 +410,8 @@ Required [request body properties](/docs/api#request-body-properties):
 
 <table>
 <tbody>
-  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code></td></tr>
+  <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code><br><em>Note:</em>Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
+</td></tr>
   <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"master"</code></td></tr>
 </tbody>
 </table>
@@ -676,7 +677,7 @@ Success response: `200 OK`
 
 There are several different timestamps relating to timing for builds and jobs. There are four main time values which are available on both build and job API calls.
 
-The timestamps are available via both the GraphQL and REST APIs. They differ slightly between the build and job objects.
+The timestamps are available using both the GraphQL and REST APIs. They differ slightly between the build and job objects.
 
 Each <em>build</em> is provided with the following timestamps:
 
@@ -684,11 +685,11 @@ Each <em>build</em> is provided with the following timestamps:
 <tbody>
   <tr>
     <th><code>scheduled_at</code></th>
-    <td>The time the build was created</td>
+    <td>The time the build was created. All builds from a <code>pipeline upload</code> have a <code>scheduled_at</code> copied from the job that did the uploading</td>
   </tr>
   <tr>
     <th><code>created_at</code></th>
-    <td>The time the build was created</td>
+    <td>The time the build was created.  For uploaded pipelines it is when the <code>pipeline upload</code> was run.</td>
   </tr>
   <tr>
     <th><code>started_at</code></th>

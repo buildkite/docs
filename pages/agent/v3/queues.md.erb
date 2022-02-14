@@ -14,19 +14,19 @@ If you don't configure a queue for your agent by setting an [agent tag](/docs/ag
 
 An agent’s queue is configured using an [agent tag](/docs/agent/v3/cli-start#setting-tags), which can be changed using the command line flag, an environment variable, or the config file.
 
-Agents can listen on a single queue or on multiple queues. You can add as many extra `queue` tags as are required. 
+Agents can listen on a single queue or on multiple queues. You can add as many extra `queue` tags as are required.
 
 In the below example using the `--tags` flag of the `buildkite-agent start` command, two queues are specified which will result in the agent listening on both the `building` and `testing` queues:
 
 ```
 buildkite-agent start --tags "queue=building,queue=testing"
-``` 
+```
 
 <%= image "agent-queues.png", width: 1182/2, height: 160/2, alt: "Screenshot of an agent's tags showing both building and testing queues" %>
 
 ## Targeting a queue
 
-Target specific queues using the `agents` attribute on your pipeline steps. 
+Target specific queues using the `agents` attribute on your pipeline steps.
 
 For example, the following build step matches only agents running on the `deploy` queue (and ignores the agents running the `default` queue):
 

@@ -118,7 +118,7 @@ steps:
 
 <%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>
 
-Until the block step is manually unblocked either in Buildkite or via an API call, the build will be paused and the "🚀" deployment step will not run.
+Until the block step is manually unblocked either in Buildkite or using an API call, the build will be paused and the "🚀" deployment step will not run.
 
 ## Deployment plugins
 
@@ -157,7 +157,7 @@ In more complex environments you can use external deployment/delivery systems su
 
 ## GitHub deployments
 
-You can set up your pipelines to create a build whenever there is a deployment created in GitHub. You can trigger these builds via a call to [GitHub’s Deployments REST API](https://developer.github.com/v3/guides/delivering-deployments/), or via the [GitHub Slack app](https://slack.github.com)’s `/github deploy my-org/my-repo` command.
+You can set up your pipelines to create a build whenever there is a deployment created in GitHub. You can trigger these builds using a call to [GitHub’s Deployments REST API](https://developer.github.com/v3/guides/delivering-deployments/), or using the [GitHub Slack app](https://slack.github.com)’s `/github deploy my-org/my-repo` command.
 
 To enable builds to be created from GitHub deployment events, create a pipeline and select 'Trigger builds on deployment' in your Buildkite pipeline's GitHub settings:
 

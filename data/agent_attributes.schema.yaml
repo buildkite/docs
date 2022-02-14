@@ -1,0 +1,26 @@
+---
+type: object
+properties:
+  attributes:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        env_var:
+          type: string
+        default_value:
+          type: string
+        required:
+          type: boolean
+        desc:
+          type: string
+      required:
+        - name
+        - env_var
+        - default_value
+        - required
+        - desc
+required:
+  - attributes
