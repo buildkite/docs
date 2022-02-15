@@ -165,6 +165,37 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
+### Using and escaping emoji (escaping)
+
+An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests".
+
+If you need to provide an example code snippet that contains emoji code and you don't won't the emoji to be rendered as emoji in the example snippet, you need to use emoji escaping by putting a `\` before `:` characters. To keep `":hammer: Tests"` looking as `":hammer: Tests"`, use: `"\:hammer\: Tests"`.
+
+Another example:
+
+```
+steps:
+  - group: "\:lock_with_ink_pen\: Security Audits"
+    key: "audits"
+    steps:
+      - label: "\:brakeman\: Brakeman"
+        command: ".buildkite/steps/brakeman"
+```
+Will be renered as:
+
+```yml
+steps:
+  - group: ":lock_with_ink_pen: Security Audits"
+    key: "audits"
+    steps:
+      - label: ":brakeman: Brakeman"
+        command: ".buildkite/steps/brakeman"
+```
+
+Here it is also necessary to use emoji escaping as the documentation website considers custom emojis and expressions surrounded by colons in code snippets to be images and will try to render them into png image links within the code snippets. For eample,`:aws:` will be rendered as: `"<img class="emoji" title="aws" src="https://buildkiteassets.com/emojis/img-buildkite-64/aws.png" draggable="false"/>`.
+
+Use escaping to prevent this.
+
 ## Working with the docs site
 Our docs website is a custom build. This section gives some guidance on working with the setup.
 
@@ -236,7 +267,7 @@ If a snippet is stored within a sub-solder, you need to specify the names of bot
 
 So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
 
-`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`  
+`<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`
 
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
