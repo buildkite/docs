@@ -174,7 +174,6 @@ If you need to provide an example code snippet that contains emoji code and you 
 Another example:
 
 ```
-```yml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
@@ -182,7 +181,7 @@ steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
 ```
-```
+
 Will be renered as:
 
 ```yml
