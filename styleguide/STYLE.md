@@ -165,7 +165,7 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
-### Using and escaping emoji (escaping)
+### Escaping emoji in code snippets
 
 An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests".
 
@@ -174,12 +174,14 @@ If you need to provide an example code snippet that contains emoji code and you 
 Another example:
 
 ```
+\`\`\`\yml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
     steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
+\`\`\`
 ```
 Will be renered as:
 
