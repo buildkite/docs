@@ -167,7 +167,7 @@ This probably goes without saying, but do not use code fragments in page heading
 
 ### Escaping emoji in code snippets
 
-An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests".
+An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests"`.
 
 If you need to provide an example code snippet that contains emoji code and you don't won't the emoji to be rendered as emoji in the example snippet, you need to use emoji escaping by putting a `\` before `:` characters. To keep `":hammer: Tests"` looking as `":hammer: Tests"`, use: `"\:hammer\: Tests"`.
 
