@@ -42,10 +42,20 @@ To connect your Bitbucket account:
 
 Buildkite prompts you to give permission for Buildkite to post status updates, then redirects back to your _Connected Apps_ page.
 
-<%= render_markdown 'integrations/branch_config_settings' %>
+## Branch configuration and settings
+
+<%= render_markdown partial: 'integrations/branch_config_settings' %>
 
 ## Mercurial support
 
-Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use Buildkite with a Bitbucket Mercurial repository, you need to add your own Mercurial checkout code using a custom [Buildkite Agent global checkout hook](/docs/agent/v3/hooks).
+Buildkite Agent’s default source control tool is Git, and doesn’t support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use
+Buildkite with a Bitbucket Mercurial repository, you must supply your own
+Mercurial checkout code using a [`checkout` hook](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
-<%= render_markdown 'integrations/one_repo_multi_org' %>
+## Using one repository in multiple pipelines and organizations
+
+<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
+
+## Build skipping
+
+<%= render_markdown partial: 'integrations/build_skipping' %>

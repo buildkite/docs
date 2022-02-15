@@ -9,7 +9,7 @@
 
 The buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
-## How it Works
+## How it works
 
 The agent works by polling Buildkite’s agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
 
@@ -44,7 +44,7 @@ Available commands are:
 Use "buildkite-agent <command> --help" for more information about a command.
 </code></pre></div>
 
-To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent via an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
+To start an agent you’ll need your organization’s agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent using an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
 
 ## Configuration
 
