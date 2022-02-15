@@ -181,7 +181,7 @@ steps:
     steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
-\```
+```
 ```
 Will be renered as:
 
