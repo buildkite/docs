@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/emoji",                    to: redirect("/docs/pipelines/emojis")
   get "/docs/guides/images-in-build-output",      to: redirect("/docs/pipelines/managing-log-output")
   get "/docs/pipelines/images-in-log-output",     to: redirect("/docs/pipelines/managing-log-output")
-  get "/docs/pipelines/links-and-images-in-log-output",  to redirect("/docs/pipelines/managing-log-output")
+  get "/docs/pipelines/links-and-images-in-log-output",  to: redirect("/docs/pipelines/managing-log-output")
   get "/docs/guides/managing-log-output",         to: redirect("/docs/pipelines/managing-log-output")
   get "/docs/guides/migrating-from-bamboo",       to: redirect("/docs/tutorials/migrating-from-bamboo")
   get "/docs/guides/parallelizing-builds",        to: redirect("/docs/tutorials/parallel-builds")
