@@ -152,7 +152,6 @@ RSpec.feature "reading pages" do
       /docs/guides/github-enterprise
       /docs/guides/github-repo-access
       /docs/guides/gitlab
-      /docs/guides/images-in-build-output
       /docs/guides/managing-log-output
       /docs/guides/migrating-from-bamboo
       /docs/guides/parallelizing-builds
