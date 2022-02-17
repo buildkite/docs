@@ -286,6 +286,7 @@ Use the following example to add a 'note' in the documentation.
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
+
 Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
 #### Troubleshooting Note blocks
