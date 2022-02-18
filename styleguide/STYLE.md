@@ -279,26 +279,62 @@ To generate a table of contents from all your \##\-level headings, use `{:toc}`.
 Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
 
 #### Note blocks
-Use the following example to add a 'note' in the documentation.
+It's recommended to use the markdown-style notes in the documentation.
+
+For info note style, use ℹ️:
+
+```
+> ℹ️ Line endings
+> When a triggered build fails, the step that triggered it will be stuck in the running state forever.
+```
+
+For warnings, use ⚠️:
+
+```
+> ⚠️ Line endings
+> When a triggered build fails, the step that triggered it will be stuck in the running state forever.
+```
+
+Currently, the following syntax is commonly used for adding note blocks to the documentation:
+
+Regular info ("green") note:
 
 ```
 <section class="Docs__note">
   <h3>Setting agent defaults</h3>
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
+```
+or
 
+```
+<div class="Docs__note">
+  <h3>Line endings</h3>
+  <p>A text field normalizes line endings to Unix format (<code>\n</code>).</p>
+</div>
+```
 Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
 
-#### Troubleshooting Note blocks
-Use the following example to add a 'troubleshooting note' in the documentation.
 
-```<section class="Docs__troubleshooting-note">
-  <p class="Docs__note__heading">Running each build in it’s own container</p>
-  <p>This page references the out-of-date Buildkite Agent v2.</p>
-  <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
+For troubleshooting note blocks ("orange" notes), use the following example syntax:
+
+```
+<section class="Docs__troubleshooting-note">
+  <p>When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.</p>
 </section>
 ```
-Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
+For troubleshooting note blocks ("orange" notes) with ⚠️ ("warnings"), use the following example syntax:
+
+```
+<div class="Docs__troubleshooting-note">
+  <h3>Fast transitions and webhooks</h3>
+    <p>Note that if a builds transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
+</div>
+```
+
+Note that these note and troubleshooting note blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
+
+It is also not recommended to use the heading level (`<h3 class="Docs__note__heading">Line endings</h3>`) in the warnings as it can introduce errors.
 
 #### Two-column tables
 To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
