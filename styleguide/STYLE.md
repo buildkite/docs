@@ -300,7 +300,7 @@ Use the following example to add a 'troubleshooting note' in the documentation.
 Note that 'troubleshooting note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
 
 #### Two-column tables
-To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/build-and-job-states#job-states) section, use the following syntax:
 
 ```
 Column header 1   | Column header 2
