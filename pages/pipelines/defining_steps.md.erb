@@ -114,7 +114,7 @@ When you run a pipeline, a build is created. The following diagram shows you how
 <%= image "build-states.svg", size: "900x615", alt: "Build state diagram" %>
 
 
-<%= render_markdown 'pipelines/build_states' %>
+<%= render_markdown partial: 'pipelines/build_states' %>
 
 ## Job states
 
@@ -145,7 +145,7 @@ Differentiating between `broken`, `skipped` and `canceled` states:
   <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
 </section>
 
-<%= render_markdown 'pipelines/job_states' %>
+<%= render_markdown partial: 'pipelines/job_states' %>
 
 Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled.
 
