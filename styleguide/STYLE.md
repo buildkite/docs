@@ -279,22 +279,6 @@ To generate a table of contents from all your \##\-level headings, use `{:toc}`.
 Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
 
 #### Note blocks
-It's recommended to use the markdown-style notes in the documentation.
-
-For info note style, use ℹ️:
-
-```
-> ℹ️ Line endings
-> When a triggered build fails, the step that triggered it will be stuck in the running state forever.
-```
-
-For warnings, use ⚠️:
-
-```
-> ⚠️ Line endings
-> When a triggered build fails, the step that triggered it will be stuck in the running state forever.
-```
-
 Currently, the following syntax is commonly used for adding note blocks to the documentation:
 
 Regular info ("green") note:
