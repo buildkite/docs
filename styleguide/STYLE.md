@@ -318,7 +318,7 @@ For troubleshooting note blocks ("orange" notes) with ⚠️ ("warnings"), use t
 
 Note that these note and troubleshooting note blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
 
-It is also not recommended to use the heading level (`<h3 class="Docs__note__heading">Line endings</h3>`) in the warnings as it can introduce errors.
+It is recommended to keep the headings in notes level-independent because a note within a H3-level section will require a H4-level heading and it's easy to forget about this, especially when moving a large section of documentation to a different page.
 
 #### Two-column tables
 To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
