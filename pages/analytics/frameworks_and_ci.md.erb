@@ -85,20 +85,39 @@ Once you’re done, in your Test analytics dashboard, you'll see analytics of te
 
 <strong>Note:</strong> Ingesting JUnit XML is a convenient option because most test frameworks are able to export information in this format automatically. However, JUnit reports are not able to provide detailed span information. Therefore, some features in Test Analytics will not display when using JUnit as a data source. If you want these features, we recommend having a look at our JSON API connection option.
 
-<!-- TODO: update URL -->
+#### Connection details
 
-Import your JUnit XML data (with escaped quote marks `"`) to Test Analytics by replacing `sedfroe3ihj543s89fdhgjh456eliruy` with your own Test Analytics API token and running the following curl command:
+Perform the following POST request along with your JSON encoded JUnit XML. The Buildkite env variables should be available within commands, plugins and hooks. "key" is the only required environment variable, but some features of Test Analytics may not be available if other environment variables are not sent.
+
+Remember to replace the API token with your own, and make sure to JSON-encode your JUnit xml (ie, escape characters as per the example below).
 
 ```sh
-TA_API_TOKEN="sedfroe3ihj543s89fdhgjh456eliruy" curl --request POST \
-  --url http://analytics-api.buildkite.localhost/v1/runs/v1/runs \
-  --header 'Authorization: Token token="$TA_API_TOKEN"' \
+curl --request POST \
+  --url https://analytics-api.buildkite.com/v1/uploads \
+  --header 'Authorization: Token token="hRRfSY3iRKjurjw65tMTs1h1";' \
   --header 'Content-Type: application/json' \
-  --data '{
-  "format": "junit",
-  "data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
-}'
+  --data @- << EOF
+    {
+      "format": "junit",
+      "run_env": {
+        "CI": "buildkite",
+        "key": "BUILDKITE_BUILD_ID",
+        "number": "BUILDKITE_BUILD_NUMBER",
+        "job_id": "BUILDKITE_JOB_ID",
+        "branch": "BUILDKITE_BRANCH",
+        "commit_sha": "BUILDKITE_COMMIT",
+        "message": "BUILDKITE_MESSAGE",
+        "url": "BUILDKITE_BUILD_URL"
+      },
+      "data": "JSON-encoded JUnit XML goes here"
+    }
+EOF
+```
 
+Example JSON-encoded JUnit XML:
+
+```json
+"data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
 ```
 
 This parses the XML and import all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
