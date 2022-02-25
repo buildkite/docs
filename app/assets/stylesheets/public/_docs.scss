@@ -410,6 +410,29 @@ label[for='navicon'] span { // hide alt text
     }
   }
 
+  small {
+    display: block;
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+
+  .comma-separated {
+    margin: 1em 0;
+
+    li {
+      display: inline;
+      margin: 0;
+
+      &:not(:last-child)::after {
+        content: ",";
+      }
+
+      &:first-child::after {
+        content: "";
+      }
+    }
+  }
+
   .Docs__attribute__importance {
     color: $color-brand-green;
     margin: 5px 0;

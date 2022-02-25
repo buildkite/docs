@@ -18,31 +18,33 @@ The following environment variables may be visible in your commands, plugins, an
     <col>
   </colgroup>
   <tbody>
-    <% ENVIRONMENT_VARIABLES['variables'].each do |env| -%>
-        <tr id="<%= env['name'] %>">
-          <th>
-            <code><%= env['name'] %> <a class="Docs__attribute__link" href="#<%= env['name'] %>">#</a></code>
-              <% if env['default_value'] %>
-               <br><br><strong>Default</strong>:  <code><%= env['default_value'] -%></code>
-              <% end %>
-              <% if env['values'] %>
-              <br><br><strong>Possible values</strong>:<br>
-              <ul>
-                 <% env['values'].each do |v| -%>
-                 <li><code><%= v -%></code></li>
-                <% end %>
-              </ul>
-              <% end %>
-          </th>
-          <td>
-            <%= render_markdown(text: env['desc']) -%>
-            <% if !env['modifiable'] %>
-            <br>
-            <small>This value cannot be changed</small>
-            <% end %>
-          </td>
-        </tr>
-      <% end -%>
+  <% ENVIRONMENT_VARIABLES['variables'].each do |env| -%>
+    <tr id="<%= env['name'] %>">
+      <th>
+        <code><%= env['name'] %> <a class="Docs__attribute__link" href="#<%= env['name'] %>">#</a></code>
+        <% if env['default_value'] %>
+          <p class="Docs__attribute__env-var">
+            <strong>Default</strong>:
+            <code><%= env['default_value'] -%></code>
+          </p>
+        <% end %>
+        <% if env['values'] %>
+        <ul class="comma-separated Docs__attribute__env-var">
+          <li><strong>Possible values:</strong></li>
+            <% env['values'].each do |v| -%>
+            <li><code><%= v -%></code></li>
+          <% end %>
+          </ul>
+        <% end %>
+        <% if !env['modifiable'] %>
+          <small>This value cannot be modified</small>
+        <% end %>
+      </th>
+      <td>
+        <%= render_markdown(text: env['desc']) -%>
+      </td>
+    </tr>
+  <% end -%>
   </tbody>
 </table>
 
