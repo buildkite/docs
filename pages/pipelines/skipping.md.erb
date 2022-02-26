@@ -33,6 +33,7 @@ You can also configure these options using the [REST API](/docs/apis/rest-api/pi
 ## Manually cancel jobs and skip to next step
 
 If your pipeline has multiple command steps, you can manually cancel a step, and Buildkite will proceed to the next step. This does not cause the build to fail.
+Note: Currently, if your pipeline has step dependencies with `allow_failure` enabled, the build will still fail if you cancel a step. 
 
 1. From your Buildkite dashboard, select your pipeline.
 2. Select the running build.
