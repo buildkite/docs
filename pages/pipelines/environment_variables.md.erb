@@ -19,9 +19,13 @@ The following environment variables may be visible in your commands, plugins, an
   </colgroup>
   <tbody>
   <% ENVIRONMENT_VARIABLES['variables'].each do |env| -%>
-    <tr id="<%= env['name'] %>">
+    <%
+      # anchors can't have *
+      anchor = env['name'].gsub(/\*/, "")
+    %>
+    <tr id="<%= anchor %>">
       <th>
-        <code><%= env['name'] %> <a class="Docs__attribute__link" href="#<%= env['name'] %>">#</a></code>
+        <code><%= env['name'] %> <a class="Docs__attribute__link" href="#<%= anchor %>">#</a></code>
         <% if env['default_value'] %>
           <p class="Docs__attribute__env-var">
             <strong>Default</strong>:
