@@ -342,9 +342,9 @@ label[for='navicon'] span { // hide alt text
   }
 
   .Docs__toc {
-    font-size: 0.8em;
+    font-size: 16px;
     height: 95%;
-    padding-top: 3.7em;
+    padding-top: 3em;
     position: absolute;
     right: 0;
     top: 0;
@@ -353,6 +353,11 @@ label[for='navicon'] span { // hide alt text
       position: sticky;
       top: 3rem;
       width: 220px;
+    }
+
+    a {
+      color: #666;
+      text-decoration: none;
     }
   }
 }
