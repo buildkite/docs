@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+# Fix Heroku?
+ruby "2.7.5"
+
 source "https://rubygems.org"
 
 # Choo choo 🚝 (only include the Rails gems we need)
