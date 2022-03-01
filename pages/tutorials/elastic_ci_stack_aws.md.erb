@@ -69,14 +69,15 @@ By default the stack uses a job queue of `default`, but you can specify any othe
 
 Review the parameters, see [Elastic CI Stack for AWS Parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
 
-Once you're ready, check both checkboxes:
+Once you're ready, check these three checkboxes:
 
+* I acknowledge that AWS CloudFormation might create IAM resources.
 * I acknowledge that AWS CloudFormation might create IAM resources with custom names.
 * I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
 Then click _Create stack_:
 
-<%= image "aws-create-stack.png", size: "#{1257/2}x#{455/2}", alt: "AWS Create Stack Button" %>
+<%= image "aws-create-stack.png", size: "#{2728/2}x#{1006/2}", alt: "AWS Create Stack Button" %>
 
 After creating the stack, Buildkite takes you to the [CloudFormation console](https://console.aws.amazon.com/cloudformation/home). Click the _Refresh_ icon in the top right hand corner of the screen until you see the stack status is `CREATE_COMPLETE`.
 
