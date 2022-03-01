@@ -1,7 +1,13 @@
 # frozen_string_literal: true
 
-# Fix Heroku?
-ruby "2.7.5"
+# Heroku likes the version here; we like only updating one place
+# ruby File.read("./.ruby-version").strip
+
+path = File.expand_path("../.ruby-version", __FILE__)
+version = File.read(path).strip
+puts version
+
+ruby version
 
 source "https://rubygems.org"
 
