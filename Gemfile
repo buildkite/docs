@@ -1,13 +1,6 @@
 # frozen_string_literal: true
 
-# Heroku likes the version here; we like only updating one place
-# ruby File.read("./.ruby-version").strip
-
-path = File.expand_path("../.ruby-version", __FILE__)
-version = File.read(path).strip
-puts version
-
-ruby version
+ruby IO.read(".ruby-version").rstrip
 
 source "https://rubygems.org"
 

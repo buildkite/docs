@@ -29,6 +29,7 @@ RUN echo "--- :package: Installing system deps" \
 WORKDIR /app
 
 # Install deps
+COPY ./.ruby-version ./
 COPY Gemfile Gemfile.lock ./
 RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
