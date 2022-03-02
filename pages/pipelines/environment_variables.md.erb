@@ -10,6 +10,11 @@ For best practices and recommendations about using secrets in your environment v
 ## Buildkite environment variables
 {: id="bk-env-vars"}
 
+<div class="Docs__troubleshooting-note">
+  <h3 class="Docs__heading" id="unverified">Unverified commits</h3>
+	<p>Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.</p>
+</div>
+
 The following environment variables may be visible in your commands, plugins, hooks.
 
 <h3 class="h3-caps">BUILDKITE</h3>
@@ -114,31 +119,31 @@ Example: `"/var/lib/buildkite-agent/builds/agent-1/pipeline-2"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR</h3>
 
-The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
+The name of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_AUTHOR_EMAIL</h3>
 
-The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
+The notification email of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface. The value cannot be modified.
 
 Example: `"cdanvers@kree-net.com"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR</h3>
 
-The name of the user who created the build. The value cannot be modified.
+The name of the user who created the build. May be **[unverified](#unverified)**. The value cannot be modified.
 
 Example: `"Carol Danvers"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR_EMAIL</h3>
 
-The notification email of the user who created the build. The value cannot be modified.
+The notification email of the user who created the build. May be **[unverified](#unverified)**. The value cannot be modified.
 
 Example: `"cdanvers@kree-net.com"`
 
 <h3 class="h3-caps">BUILDKITE_BUILD_CREATOR_TEAMS</h3>
 
-A colon separated list of non-private team names that the build creator belongs to. The value cannot be modified.
+A colon separated list of **[unverified](#unverified)** non-private team names that the build creator belongs to. The value cannot be modified.
 
 Example: `"everyone:platform"`
 
