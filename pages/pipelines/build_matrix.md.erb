@@ -35,7 +35,7 @@ All jobs created by a build matrix are marked with the _Matrix_ badge in the Bui
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Matrix and Parallel steps</h3>
-<p>Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a `matrix` and `parellism` in the same build, as long as they are on separate steps.</p></div>
+<p>Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a <code>matrix</code> and <code>parellism</code> in the same build, as long as they are on separate steps.</p></div>
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add is multiplied by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`) create an 8 job build (2 * 2 * 2 = 8):
 
