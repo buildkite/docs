@@ -9,34 +9,33 @@ For example, instead of writing three separate jobs for builds on **macOS**, **L
 ```yaml
 steps:
   - label: "macOS build"
-    command: "echo '.buildkite/steps/build-binary.sh macOS'"
-  - label: "Linux build"
-    command: "echo '.buildkite/steps/build-binary.sh Linux'"
+    command: "GOOS=darwin go build"
+      - label: "Linux build"
+    command: "GOOS=linux go build"
   - label: "Windows build"
-    command: "echo '.buildkite/steps/build-binary.ps1 Windows'"
+    command: "GOOS=windows go build"
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can use a Build Matrix, to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and [command step](/docs/pipelines/command-step) with each value provided in the `matrix` array. You can interpolate the matrix values into command steps (including step labels) and into [environment variables](/docs/pipelines/environment-variables).
+You can use a Build Matrix to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command attributes of a [command step](/docs/pipelines/command-step) with each value provided in the `matrix` array. You can interpolate the matrix values into command steps (including step labels) and into [environment variables](/docs/pipelines/environment-variables).
 
 ```yaml
 steps:
   - label: "{{matrix}} build"
-    command: "echo '.buildkite/steps/build-binary.sh {{matrix}}'"
+    command: "GOOS={{matrix}} go build"
     matrix:
-      - "macOS"
+      - "darwin"
       - "Linux"
       - "Windows"
 ```
 {: codeblock-file="pipeline.yml"}
 
 
-
 All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
 
 <div class="Docs__note">
 <p class="Docs__note__heading">Matrix and Parallel steps</h3>
-<p>Matrix builds are not compatible with  <a href="/docs/tutorials/parallel-builds">parallel steps</a>. You can use both in the same build, as long as they are on separate steps.</p></div>
+<p>Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a `matrix` and `parellism` in the same build, as long as they are on separate steps.</p></div>
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add is multiplied by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`) create an 8 job build (2 * 2 * 2 = 8):
 
@@ -109,7 +108,7 @@ This results in 9 jobs, (2 * 2 * 2 + 1 = 9).
 
 ## Removing combinations from the build matrix
 
-It isn't currently possible to remove combinations using the `adjustments` key, but you can skip a combination by setting `skip: true`:
+To remove a combination from the matrix, add it to the `adjustments` key and set `skip: true`:
 
 ```yaml
     adjustments:
