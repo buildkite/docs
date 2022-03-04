@@ -38,6 +38,16 @@ mutation {
 
 <!--alex ignore clearly-->
 
+The "organization-id" it's the GraphQL ID that you can find on your organization's settings or with the following query:
+
+```graphql
+query GetOrgID {
+  organization(slug: "organization-slug") {
+    id
+  }
+}
+```
+
 The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
 
 It is possible to create multiple agent tokens using the GraphQL API. These tokens will show up on the [Agents page](https://buildkite.com/organizations/-/agents) in the UI, but can only be managed (created or revoked) using the API.
