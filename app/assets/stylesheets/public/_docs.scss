@@ -456,6 +456,20 @@ label[for='navicon'] span { // hide alt text
   .Docs__wip-note {
     margin: 0;
   }
+
+  .Docs__attribute__example {
+    align-content: baseline;
+    display: grid;
+    gap: 0.4rem;
+    grid-template-columns: auto auto;
+    justify-content: left;
+
+    strong,
+    code {
+      font-size: 12px;
+      line-height: 1.3;
+    }
+  }
 }
 
 a.Docs__example-repo {

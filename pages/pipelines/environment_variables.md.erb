@@ -46,6 +46,13 @@ The following environment variables may be visible in your commands, plugins, an
       </th>
       <td>
         <%= render_markdown(text: env['desc']) -%>
+
+      <% if env['example'] %>
+        <p class="Docs__attribute__example">
+          <strong>Example: </strong>
+          <code><%= env['example'] -%></code>
+        </p>
+      <% end -%>
       </td>
     </tr>
   <% end -%>
