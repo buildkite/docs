@@ -37,7 +37,7 @@ All jobs created by a build matrix are marked with the _Matrix_ badge in the Bui
 <p class="Docs__note__heading">Matrix and Parallel steps</h3>
 <p>Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a <code>matrix</code> and <code>parellism</code> in the same build, as long as they are on separate steps.</p></div>
 
-For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array. Each dimension you add is multiplied by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`) create an 8 job build (2 * 2 * 2 = 8):
+For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array:
 
 ```yaml
 steps:
@@ -57,6 +57,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+Each dimension you add is multiplied by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`) create an eight job build (`2 * 2 * 2 = 8`):
+
+<%= image "matrix_build.jpg", width: 1155/2, height: 814/2, alt: "Screenshot of an eight job matrix" %>
 
 If you're using `matrix.setup`, you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
@@ -104,7 +107,7 @@ To add an extra combination that isn't present in the `matrix.setup`, use the `a
 {: codeblock-file="pipeline.yml"}
 
 
-This results in 9 jobs, (2 * 2 * 2 + 1 = 9).
+This results in nine jobs, (`2 * 2 * 2 + 1 = 9`).
 
 ## Removing combinations from the build matrix
 
@@ -123,3 +126,30 @@ To remove a combination from the matrix, add it to the `adjustments` key and set
 ## Matrix limits
 
 Each build matrix has a limit of 10 dimensions, 10 elements in each dimension and a total of 10 adjustments.
+
+## Grouping matrix elements
+
+When you're creating many jobs with a matrix, you might want to [group](/docs/pipelines/group-step) them together, for a tidier view.
+
+<%= image "grouped.jpg", width: 497/2, height: 331/2, alt: "Screenshot of an eight job matrix inside a group step" %>
+
+To do that, indent the matrix steps inside a [group step](/docs/pipelines/group-step):
+
+```yaml
+steps:
+  - group: "📦 Build"
+    steps:
+      - label: "💥 Matrix build with adjustments"
+        command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+        matrix:
+          setup:
+            arch:
+              - "amd64"
+              - "arm64"
+            os:
+              - "windows"
+              - "linux"
+            test:
+              - "A"
+              - "B"
+```
