@@ -10,7 +10,7 @@ For example, instead of writing three separate jobs for builds on **macOS**, **L
 steps:
   - label: "macOS build"
     command: "GOOS=darwin go build"
-      - label: "Linux build"
+  - label: "Linux build"
     command: "GOOS=linux go build"
   - label: "Windows build"
     command: "GOOS=windows go build"
