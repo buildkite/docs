@@ -1,0 +1,324 @@
+# Works with
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Test Analytics is an invite-only beta feature</p>
+</div>
+
+{:toc}
+
+## Supported test frameworks
+
+Test Analytics works via a direct integration with your test runner to provide in-depth information about your tests (including spans) in real time.
+
+If a fully integrated collector isn't available yet for your test framework, or if you'd like to adjust Test Analytics to suit your specific needs, you can <a href="#">build your own collector</a>, use our <a href="#">JUnit XML ingest</a> feature, or connect via our <a href="#">JSON API</a>.
+
+<table>
+<tbody>
+  <tr>
+		<th><strong>Fully integrated collectors</strong></th>
+		<th><strong>Other ingest options</strong></th>
+	</tr>
+	<tr>
+		<td><a href="#supported-test-frameworks-integrating-with-rspec">RSpec</a></td>
+		<td><a href="#supported-test-frameworks-importing-junit-xml">JUnit XML</a></td>
+	</tr>
+	<tr>
+		<td>Jest (coming soon)</td>
+		<td><a href="#supported-test-frameworks-importing-junit-xml">Test Analytics JSON API</a></td>
+	</tr>
+  <tr>
+		<td>Minitest (coming soon)</td>
+		<td></td>
+	</tr>
+  <tr>
+		<td><a href="#supported-test-frameworks-build-your-own-analytics-collector">Build your own anaytics collector</a></td>
+		<td></td>
+	</tr>
+</tbody>
+</table>
+
+
+### Integrating with RSpec
+
+[RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
+If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics` Gem to your code to integrate them into your Test Analytics dashboard.
+
+1. Create a new branch:
+
+    ```
+    git checkout -b install-buildkite-test-analytics
+    ```
+
+2. Add `rspec-buildkite-analytics` to your `Gemfile` in the `:test` group:
+
+    ```rb
+    group :test do
+      gem "rspec-buildkite-analytics"
+    end
+    ```
+
+3. Run `bundle` to install the gem and update your `Gemfile.lock`:
+
+    ```sh
+    $ bundle
+    ```
+
+3. Add the Test analytics code to your application in `spec/spec_helper.rb`. For production code, use a more secure solution than committing your API key to a Git repository.
+
+    ```rb
+    require "rspec/buildkite/analytics"
+
+    RSpec::Buildkite::Analytics.configure(token: "sedfroe3ihj543s89fdhgjh456eliruy")
+    ```
+
+4. Commit and push your changes:
+
+    ```sh
+    $ git add .
+    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git push
+    ```
+
+Once you’re done, in your Test analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+
+### Importing JUnit XML
+
+<strong>Note:</strong> Ingesting JUnit XML is a convenient option because most test frameworks are able to export information in this format automatically. However, JUnit reports are not able to provide detailed span information. Therefore, some features in Test Analytics will not display when using JUnit as a data source. If you want these features, we recommend having a look at our JSON API connection option.
+
+#### Connection details
+
+Perform the following POST request along with your JSON encoded JUnit XML. The Buildkite env variables should be available within commands, plugins and hooks. "key" is the only required environment variable, but some features of Test Analytics may not be available if other environment variables are not sent.
+
+Remember to replace the API token with your own, and make sure to JSON-encode your JUnit xml (ie, escape characters as per the example below).
+
+```sh
+curl --request POST \
+  --url https://analytics-api.buildkite.com/v1/uploads \
+  --header 'Authorization: Token token="hRRfSY3iRKjurjw65tMTs1h1";' \
+  --header 'Content-Type: application/json' \
+  --data @- << EOF
+    {
+      "format": "junit",
+      "run_env": {
+        "CI": "buildkite",
+        "key": "BUILDKITE_BUILD_ID",
+        "number": "BUILDKITE_BUILD_NUMBER",
+        "job_id": "BUILDKITE_JOB_ID",
+        "branch": "BUILDKITE_BRANCH",
+        "commit_sha": "BUILDKITE_COMMIT",
+        "message": "BUILDKITE_MESSAGE",
+        "url": "BUILDKITE_BUILD_URL"
+      },
+      "data": "JSON-encoded JUnit XML goes here"
+    }
+EOF
+```
+
+Example JSON-encoded JUnit XML:
+
+```json
+"data": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
+```
+
+This parses the XML and import all valid test cases for ingestion and evaluation. The response is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
+
+```json
+{
+  "id": "eac9b176-7869-464d-952e-7f87e2579128",
+  "queued": 3,
+  "skipped": 0
+}
+```
+
+### Connect via the Test Analytics JSON API
+
+The Test Analytics JSON API can be a very attractive option for those that want to combine outputs from many test frameworks, or use a test framework that doesn't have a supported collector yet.
+
+This API accepts all of the same information that our fully-integrated runners do, allowing you to displa, analyze, and explore more detailed information than otherwise available via the more limited data included in generic JUnit XML reports.
+
+POST to http://analytics-api.buildkite.localhost/v1/uploads with the following JSON payload:
+
+```json
+{
+"format": "json",
+"run_env": {
+"key": "banana-3"
+},
+"data": [
+          <put JSON format results here>
+       ]
+}
+```
+TODO the format results below are from our RSpec implementation, they need adjustment and explanations.
+
+<!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/upload.jsons -->
+
+<-- PR with more details: https://github.com/buildkite/buildkite/pull/7881 -->
+
+```json
+[
+  {
+    "id": "example-id-id-id-id-id",
+    "scope": "Analytics::Upload associations",
+    "name": "fails",
+    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:3]",
+    "location": "./spec/models/analytics/upload_spec.rb:24",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: expect(true).to eq false",
+    "failure_expanded": [
+      {
+        "expanded": ["  expected: false","       got: true","","  (compared using ==)","","  Diff:","  @@ -1 +1 @@","  -false","  +true"],
+        "backtrace": ["./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'","./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'","/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'","-e:1:in `\u003cmain\u003e'"]
+      }
+    ],
+    "history": {
+      "section": "top",
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "detail": {},
+      "children": [
+        {
+          "section": "sql",
+          "start_at":347611.734956,
+          "end_at":347611.735647,
+          "duration":0.0006910000229254365,
+          "detail": {
+            "query": "SET client_min_messages TO 'warning' /*line:/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'*/"
+          },
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "another-example-id-id-id-id-id",
+    "scope": "Analytics::Upload associations",
+    "name": "also fails",
+    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:4]",
+    "location": "./spec/models/analytics/upload_spec.rb:27",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: raise StandardError",
+    "failure_expanded": [
+      {
+        "expanded": ["StandardError:","  StandardError"],
+        "backtrace": ["./spec/models/analytics/upload_spec.rb:28:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'","./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'","/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'","-e:1:in `\u003cmain\u003e'"]
+      }
+    ],
+    "history": {
+      "section": "top",
+      "start_at": 347612.50397,
+      "end_at": 347612.787357,
+      "duration": 0.2833869999740273,
+      "detail": {},
+      "children": [
+        {
+          "section": "sql",
+          "start_at": 347612.53343899996,
+          "end_at": 347612.618446,
+          "duration": 0.08500700001604855,
+          "detail": {
+            "query":  "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";\nALTER TABLE \"agent_registration_tokens\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents\";\nALTER TABLE \"agents\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents_projects\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents_projects\";"
+          },
+          "children":[]
+        }
+      ]
+    }
+  },
+  {
+    "id":"yet-another-example-id-id-id-id-id",
+    "scope":"Analytics::Upload associations",
+    "name":"upload.executions",
+    "identifier":"./spec/models/analytics/upload_spec.rb[1:1:1]",
+    "location":"./spec/models/analytics/upload_spec.rb:12",
+    "file_name":"./spec/models/analytics/upload_spec.rb",
+    "result":"failed",
+    "failure_reason": "Got 2 failures and 1 other error from failure aggregation block",
+    "failure_expanded": [
+      {
+        "expanded": ["Failure/Error: expect(true).to eq false","","  expected: false","       got: true","","  (compared using ==)","","  Diff:","  @@ -1 +1 @@","  -false","  +true"],
+        "backtrace": ["./spec/models/analytics/upload_spec.rb:14:in `block (4 levels) in \u003ctop (required)\u003e'","./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'","./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'","/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'","-e:1:in `\u003cmain\u003e'"]},{"expanded":["Failure/Error: expect(upload.executions.count).to eq 1","","  expected: 1","       got: 2","","  (compared using ==)"],"backtrace":["./spec/models/analytics/upload_spec.rb:15:in `block (4 levels) in \u003ctop (required)\u003e'","./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'","./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'","/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'","-e:1:in `\u003cmain\u003e'"]
+      },
+      {
+        "expanded": ["Failure/Error: raise StandardError","","StandardError:","  StandardError"],
+        "backtrace": ["./spec/models/analytics/upload_spec.rb:16:in `block (4 levels) in \u003ctop (required)\u003e'","./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'","./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'","/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'","-e:1:in `\u003cmain\u003e'"]
+      }
+    ],
+    "history": {
+      "section":"top",
+      "start_at":347612.791024,
+      "end_at":347613.109785,
+      "duration":0.3187610000022687,
+      "detail":{},
+      "children":[
+        {
+          "section": "sql",
+          "start_at": 347612.819713,
+          "end_at": 347612.898322,
+          "duration": 0.07860900001833215,
+          "detail": {
+            "query": "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";"
+          },
+          "children":[]
+        }
+      ]
+    }
+  }
+]
+```
+
+
+### Build your own analytics collector
+
+If you're interested in building a fully integrated collector for specific runners, have a look at our example collector here: https://github.com/buildkite/rspec-buildkite-analytics. 
+
+TODO
+
+
+## Supported Continuous Integration (CI) platforms
+
+<table>
+<tbody>
+	<tr>
+		<td>Buildkite</td>
+	</tr>
+	<tr>
+		<td>GitHub Actions</td>
+	</tr>
+  <tr>
+		<td>CircleCI</td>
+	</tr>
+</tbody>
+</table>
+
+<!-- Related PR: https://github.com/buildkite/rspec-buildkite-analytics/pull/80 -->
+
+Test Analytics can provide quick links from Test Analytics to your builds, regardless of your CI platform.
+
+TODO: check with team on how to describe what benefits this provides. I think there are more than just the link to build.
+
+### Details
+
+If GITHUB_RUN_NUMBER is set then we will apply some sensible defaults for the run env based on those provided by GitHub Actions. If CIRCLE_BUILD_NUM is set we do the same for CircleCI. When the generic CI environment variable is set the run env "ci" is set to "generic".
+
+When a URL and NUMBER are provided a link to the build will show in the Test Analytics UI regardless of CI platform. This also applies when the CI env is not set but BUILDKITE_ANALYTICS_URL and BUILDKITE_ANALYTICS_NUMBER are set.
+
+BUILDKITE_ANANLYTICS_MESSAGE can be used within CI platforms that do not have an environment variable that is equivalent to BUILDKITE_MESSAGE.
+
+### Supported variables
+
+BUILDKITE_ANALYTICS_KEY - a unique key for the build that initiated the Test Analytics run.
+
+BUILDKITE_ANALYTICS_URL - a URL that links to the build
+
+BUILDKITE_ANALYTICS_BRANCH - the branch or ref that this run is for
+
+BUILDKITE_ANALYTICS_SHA - the commit sha for the head of the branch
+
+BUILDKITE_ANALYTICS_NUMBER - the build number of the build
+
+BUILDKITE_ANALYTICS_JOB_ID - the id of a job within the build
+
+BUILDKITE_ANANLYTICS_MESSAGE - the commit message for the head of the branch.
