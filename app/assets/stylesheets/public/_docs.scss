@@ -91,10 +91,7 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__search {
-  @media (max-width: $Docs__bp_stacked) {
-    zmargin: 0 auto;
-    zwidth: 94%;
-  }
+  position: relative;
 
   input {
     -moz-appearance: none;
@@ -125,6 +122,40 @@ label[for='navicon'] span { // hide alt text
     }
   }
 }
+
+.Search-container {
+  position: relative;
+
+  kbd {
+    background: #efefef;
+    border-radius: 0.2rem;
+    border: 1px solid #eee;
+    color: #aaa;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 4px 6px;
+    position: absolute;
+    right: 12px;
+    top: 7px;
+
+    @media (max-width: $Docs__bp_stacked) {
+      display: none;
+    }
+  }
+}
+
+
+.HomeHeader__search {
+  .Search-container {
+    display: inline;
+
+    kbd {
+      right: 10px;
+      top: 17px;
+    }
+  }
+}
+
 
 .Docs__nav__sections {
   @media (max-width: $Docs__bp_stacked) {
