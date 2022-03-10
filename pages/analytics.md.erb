@@ -1,16 +1,16 @@
 # Buildkite Test Analytics
 
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
+</div>
+
 Where Buildkite Pipelines help you automate your build pipelines,
 Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
 
 - Ship code to production faster by optimizing test suites
 - Works with any continuous integration
-- Identify, fix, and monitor, test suite performance
-- Track, improve and monitor, test suite reliability
-
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Invite-only Beta feature</p>
-</div>
+- Identify, fix, and monitor test suite performance
+- Track, improve, and monitor test suite reliability
 
 {:toc}
 
@@ -18,7 +18,7 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 ## Find flaky tests
 
-See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Even tests that pass on retry are marked as red/fail so you can find and fix them.
+See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
 
 ## Monitor what matters
 
@@ -29,6 +29,9 @@ Configure monitors to track only matters to you. Track reliability (percentage o
 ## Cut down your runtime
 
 _Runtime_ is defined as the total duration of the tests from start to finish, tracking this helps you find our what is slowing down your test runs. Test Analytics splits your runtime into to `SQL`, `HTTP`, `sleep`, or `other`.
+
+<%= image "spans.png", width: 1156, height: 278, alt: "Screenshot of test suite overview" %>
+
 
 ## Alerts
 
