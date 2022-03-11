@@ -36,8 +36,6 @@ mutation {
 }
 ```
 
-<!--alex ignore clearly-->
-
 You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
 
 ```graphql
@@ -47,6 +45,8 @@ query GetOrgID {
   }
 }
 ```
+
+<!--alex ignore clearly-->
 
 The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
 
