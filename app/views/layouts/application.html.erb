@@ -44,7 +44,7 @@
       <meta name="robots" content="noindex, nofollow">
     <% end %>
   </head>
-  <body>
+  <body <%= beta? ? 'class=beta' : ''-%>>
     <header class="SiteHeader">
       <div class="SiteHeader__inner PageContainer">
         <h1 class="SiteHeader__logo">
