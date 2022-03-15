@@ -40,20 +40,24 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Update the name of the step to use `%n`, like the example below. This will substitute a number in at runtime so that you can differentiate the different build jobs:
+Update the name of the step to include `%n`, this is a helper to display a number at runtime, see example below. This will help you differentiate between each parallel build job.
 
 ```yaml
 steps:
-  - command: "tests.sh"
-    label: "Test %n"
+  - command: "unit_tests.sh"
+    label: "Unit tests %n"
     parallelism: 5
 ```
 {: codeblock-file="pipeline.yml"}
 
+You can choose from the following parallel job number label helpers:
+* `%n` to display job count starting at `0`.
+* `%N` to display job count starting at `1`.
+* `%t` to display the total number of parallel jobs in the step.
+
 Now that the pipeline is configured, create a new build:
 
 <%= image 'build.png', size: '405x204', alt: 'The build' %>
-
 If you inspect the first job’s environment variables you’ll find:
 
 ```
