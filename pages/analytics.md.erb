@@ -20,11 +20,13 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
 
-## Cut down your runtime
+## Spot changes in test duration
 
-_Runtime_ is defined as the total duration of the tests from start to finish, tracking this helps you find our what is slowing down your test runs. Test Analytics splits your runtime into to `SQL`, `HTTP`, `sleep`, or `other`.
+Find performance degradations, even in parallelized builds. Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then dive deep into individual test execution span timelines to identify patterns.
 
-<%= image "spans.png", width: 1156, height: 278, alt: "Screenshot of test suite overview" %>
+<%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
+
+<%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
 
 ## Monitor what matters
 
