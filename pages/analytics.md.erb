@@ -20,18 +20,17 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
 
-## Monitor what matters
-
-Configure monitors to track only matters to you. Track reliability (percentage of passed test _runs_) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches fall below your defined threshold.
-
-<%= image "monitors.png", width: 851, height: 559, alt: "Screenshot of monitor settings showing the ability to alert on changes to test duration, reliability, and consecutive failures." %>
-
 ## Cut down your runtime
 
 _Runtime_ is defined as the total duration of the tests from start to finish, tracking this helps you find our what is slowing down your test runs. Test Analytics splits your runtime into to `SQL`, `HTTP`, `sleep`, or `other`.
 
 <%= image "spans.png", width: 1156, height: 278, alt: "Screenshot of test suite overview" %>
 
+## Monitor what matters
+
+Configure monitors to track only what matters to you. Track reliability (percentage of passed test executions) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches fall below your defined threshold. Track duration changes against your test suite median, or number of consecutive failures.
+
+<%= image "monitors.png", width: 851, height: 559, alt: "Screenshot of monitor settings showing the ability to alert on changes to test duration, reliability, and consecutive failures." %>
 
 ## Alerts
 
