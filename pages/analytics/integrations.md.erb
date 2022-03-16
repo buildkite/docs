@@ -6,12 +6,12 @@
 
 {:toc}
 
-Test Analytics integrates directly with your test runner to provide in-depth information about your tests (including spans) in real time. The beta release ships with [RSpec](#integrating-with-rspec), and you can also upload test results by importing [json](#importing-json) or [JUnit XML](#importing-junit-xml).
+Test Analytics integrates directly with your test runner to provide in-depth information about your tests (including spans) in real time. The beta release ships with [RSpec](#integrating-with-rspec), and you can also upload test results by importing [JSON](#importing-json) or [JUnit XML](#importing-junit-xml).
 
 ## Integrating with RSpec
 
 [RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
-If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics` Gem to your code to integrate your test results into your Test Analytics dashboard.
+If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
 
 1. Create a new branch:
 
@@ -33,7 +33,7 @@ If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics`
     $ bundle
     ```
 
-3. Add the Test analytics code to your application in `spec/spec_helper.rb`, and set the envionment variable [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the envionment variable [securely](/docs/pipelines/secrets) on your agent or agents.
 
     ```rb
     require "rspec/buildkite/analytics"
@@ -49,9 +49,9 @@ If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics`
     $ git push
     ```
 
-5. Make sure that the Test Analytics [environment variables](#integrating-with-rspec-environment-variables) are set so that the RSpec integration can use them in your Test Analyitics dashboard.
+5. Make sure that the Test Analytics [environment variables](#integrating-with-rspec-environment-variables) are set so that the RSpec integration can use them in your Test Analytics dashboard.
 
-Once you’re done, in your Test analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+Once you’re done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
 ### Environment variables
 
@@ -81,9 +81,9 @@ Test Analytics can provide quick links from Test Analytics to your builds, regar
 
 ## Importing JUnit XML
 
-Most test frameworks export JUnit XML, however JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, use the [json import](#importing-json) API instead.
+Most test frameworks export JUnit XML, however JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, use the [JSON import](#importing-json) API instead.
 
-To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as json in the request body:
+To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
 
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
 * if you're making it elsewhere, you'll need to set them yourself.
@@ -140,16 +140,16 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
 }
 ```
 
-## Importing json
+## Importing JSON
 
-The Test Analytics JSON API accepts all of the same information that the fully-integrated integrations do, allowing you to display, analyze, and explore more detailed information than the more limited data included in generic JUnit XML reports.
+The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the more limited data included in generic JUnit XML reports.
 
-To import json formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and json in the request body:
+To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body:
 
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
 * if you're making it elsewhere, you'll need to set them yourself.
 
-Test analytics uses the following  variables in the `run_env` attribute to populate test information. The only required  variable is `key`, but some features of Test Analytics aren't available if not all of the other  variables in the following example are set:
+Test Analytics uses the following  variables in the `run_env` attribute to populate test information. The only required  variable is `key`, but some features of Test Analytics aren't available if not all of the other  variables in the following example are set:
 
 * `CI`
 * `key` (**required**)
