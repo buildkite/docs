@@ -81,7 +81,9 @@ Test Analytics can provide quick links from Test Analytics to your builds, regar
 
 ## Importing JUnit XML
 
-Most test frameworks export JUnit XML, however JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, use the [JSON import](#importing-json) API instead.
+<div class="Docs__troubleshooting-note">
+  While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the <a href="#importing-json">JSON import</a> API instead.
+</div>
 
 To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
 
