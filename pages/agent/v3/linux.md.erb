@@ -39,7 +39,7 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 * SSH keys: `~/.ssh`
 
 <div class="Docs__note">
-<p>When an agent is started using `buildkite-agent start` command then agent logs will captured in stdout and are not persisted. When agent is started/managed through systemd then it captures stdout and makes it available in journalctl </p>
+<p>When an agent is started using `buildkite-agent start` command then agent logs will captured in stdout and are not persisted. When agent is started or managed through systemd then it captures stdout and will be available through command `journalctl -f -u buildkite-agent` </p>
 </div>
 
 ## Configuration
