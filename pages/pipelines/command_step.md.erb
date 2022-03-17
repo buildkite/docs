@@ -191,10 +191,10 @@ _Optional attributes:_
       <code>- exit_status: 1</code><br>
     </td>
   </tr>
-  <tr>
+  <tr id="timeout_in_minutes">
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed".<br>
+      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed". Note that command steps on the <a href="https://buildkite.com/pricing">Free plan</a> have a maximum job timeout of 240 minutes.<br>
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
