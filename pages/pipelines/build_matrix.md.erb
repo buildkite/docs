@@ -17,12 +17,14 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can use a Build Matrix to expand a single step into three steps by replacing the `{{matrix}}` variable in the label and command attributes of a [command step](/docs/pipelines/command-step) with each value provided in the `matrix` array. You can interpolate the matrix values into command steps (including step labels) and into [environment variables](/docs/pipelines/environment-variables).
+You can use a Build Matrix to expand a single step into three steps by interpolating the matrix values into [command step](/docs/pipelines/command-step) attributes such as [environment variables](/docs/pipelines/environment-variables), labels and commands. Interpolation of matrix values inside plugin attributes is not supported.
 
 ```yaml
 steps:
   - label: "{{matrix}} build"
     command: "GOOS={{matrix}} go build"
+    env:
+      os: "{{matrix}}"
     matrix:
       - "darwin"
       - "Linux"
