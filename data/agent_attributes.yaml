@@ -192,7 +192,7 @@ attributes:
   default_value: "false"
   required: false
   desc: | 
-      Do not execute any local hooks.
+      Do not execute any local hooks, including plugins (both local and hosted).
 - name: no-plugins
   env_var: BUILDKITE_NO_PLUGINS
   default_value: "false"
