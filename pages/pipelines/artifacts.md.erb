@@ -38,8 +38,7 @@ buildkite-agent artifact upload pkg/build.tar.gz
 
 For full documentation of the `buildkite-agent artifact upload` command see the [buildkite-agent artifact upload](/docs/agent/v3/cli-artifact#uploading-artifacts) documentation.
 
-
-## Downloading artifacts
+## Downloading artifacts inside a running build
 
 You can download artifacts created by a build job, from inside a running build, using the `buildkite-agent artifact download` command. For example, to download all artifacts in the `logs` directory (including subdirectories, which will be recreated) to `local-logs/logs/`:
 
@@ -47,19 +46,29 @@ You can download artifacts created by a build job, from inside a running build, 
 buildkite-agent artifact download logs/* local-logs/
 ```
 
-The `buildkite-agent artifact` command will find the most recent file uploaded with a matching folder, no matter which build step uploaded it. If you want to target an artifact from a particular build step use the `--step` argument.
+For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation.
 
-For example, to download a `build.zip` artifact you uploaded in the "build" pipeline step:
+### Downloading artifacts from a folder
+
+The `buildkite-agent artifact` command finds the most recent file uploaded to a specific folder, no matter which build step uploaded it.
+
+For example, to download a `build.zip` artifact you uploaded to `tmp/`:
+
+```bash
+buildkite-agent artifact download build.zip tmp/
+```
+
+### Downloading artifacts from a specific step
+
+To download an artifact from a particular build step, use the `--step` argument.
+
+For example, to download a `build.zip` artifact you uploaded to `tmp/` in the "build" pipeline step:
 
 ```bash
 buildkite-agent artifact download build.zip tmp/ --step build
 ```
 
-<div class="Docs__note">
-<h3 class="Docs__note__heading">Targeting a specific file</h3>
-<p>If using the same path, and want to target a specific file that was uploaded multiples times with the same filename within the build, you'll need to incorporate $BUILDKITE_JOB_ID on the filename to avoid ambiguity.</p>
-
-</div>
+### Downloading artifacts from triggered builds
 
 To download artifacts from [triggered builds](/docs/pipelines/trigger-step), pass the `$BUILDKITE_TRIGGERED_FROM_BUILD_ID` [environment variable](/docs/pipelines/environment-variables) to the download command:
 
@@ -67,7 +76,13 @@ To download artifacts from [triggered builds](/docs/pipelines/trigger-step), pas
 buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
 ```
 
-For full documentation of the `buildkite-agent artifact download` command see the [buildkite-agent artifact download](/docs/agent/v3/cli-artifact#downloading-artifacts) documentation.
+### Disambiguating filenames
+
+If you have multiple steps uploading the same filename, specify which you want to download using `$BUILDKITE_JOB_ID`:
+
+```bash
+buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_JOB_ID
+```
 
 ## Downloading artifacts outside of a running build
 
