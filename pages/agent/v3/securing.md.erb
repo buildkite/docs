@@ -60,7 +60,7 @@ If you still want to use plugins, you can check out a tool for [signing pipeline
 If you have enforced a security policy using agent hooks (for example, you force commands to
 run within a Docker container or a chroot environment), you should also disable
 local hooks so that your security measures cannot be evaded with local hooks.
-Disabling local hooks will also disable plugins, both local and hosted.
+Disabling local hooks also disables plugins from all sources.
 
 You can disable local hooks with the [`no-local-hooks`](/docs/agent/v3/configuration#no-local-hooks)
 setting.
