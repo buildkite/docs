@@ -55,7 +55,9 @@ Once you’re done, in your Test Analytics dashboard, you'll see analytics of te
 
 ### Environment variables
 
-Test Analytics uses the following environment variables to populate test information. The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if not all of the other environment variables are set:
+Test Analytics uses the following environment variables to populate test information. If you're using Buildkite to run your builds these variables are populated automatically.
+
+The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if not all of the other environment variables are set:
 
 * `BUILDKITE_ANALYTICS_KEY` - a unique key for the build that initiated the Test Analytics run
 * `BUILDKITE_ANALYTICS_URL` - a URL that links to the build
@@ -67,7 +69,7 @@ Test Analytics uses the following environment variables to populate test informa
 
 ### Supported continuous integration platforms
 
-Test Analytics works with
+The Test Analytics RSpec integration works with
 
 * Buildkite
 * GitHub Actions
@@ -75,9 +77,7 @@ Test Analytics works with
 
 <!-- Related PR: https://github.com/buildkite/rspec-buildkite-analytics/pull/80 -->
 
-Test Analytics can provide quick links from Test Analytics to your builds, regardless of your CI platform.
-
-<!-- TODO: check with team on how to describe what benefits this provides. I think there are more than just the link to build. -->
+Test Analytics provides quick links from Test Analytics to your builds, regardless of your CI platform.
 
 ## Importing JUnit XML
 
@@ -90,7 +90,7 @@ To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
 * if you're making it elsewhere, you'll need to set them yourself.
 
-Test Analytics uses the following variables in the `run_env` attribute to populate test information. The only required environment variable is `key`, but some features of Test Analytics aren't available if not all of the other variables in the following example are set:
+Test Analytics uses the following variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the other variables to work:
 
 * `CI`
 * `key` (**required**)
@@ -144,14 +144,14 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
 
 ## Importing JSON
 
-The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the more limited data included in generic JUnit XML reports.
+The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the generic JUnit XML reports.
 
 To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body:
 
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
 * if you're making it elsewhere, you'll need to set them yourself.
 
-Test Analytics uses the following  variables in the `run_env` attribute to populate test information. The only required  variable is `key`, but some features of Test Analytics aren't available if not all of the other  variables in the following example are set:
+Test Analytics uses the following variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the other variables to work:
 
 * `CI`
 * `key` (**required**)
