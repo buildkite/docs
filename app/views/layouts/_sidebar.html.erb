@@ -152,16 +152,6 @@
         </div>
       </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'analytics' %>" data-docs-path="analytics">
-        <p class="Docs__nav__section-heading">Test Analytics</p>
-        <div class="Docs__nav__section-content">
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'analytics' %>
-            <%= sidebar_link_to "Integrations", 'analytics/integrations' %>
-          </ul>
-        </div>
-      </div>
-
       <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'plugins' %>" data-docs-path="plugins">
         <p class="Docs__nav__section-heading">Plugins</p>
         <div class="Docs__nav__section-content">
@@ -220,6 +210,16 @@
             <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
             <%= sidebar_link_to "Slack", 'integrations/slack' %>
             </ul>
+        </div>
+      </div>
+
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'test-analytics' %>" data-docs-path="test-analytics">
+        <p class="Docs__nav__section-heading">Test Analytics</p>
+        <div class="Docs__nav__section-content">
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Overview", 'test-analytics' %>
+            <%= sidebar_link_to "Integrations", 'test-analytics/integrations' %>
+          </ul>
         </div>
       </div>
 
