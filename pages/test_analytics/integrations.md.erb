@@ -11,7 +11,7 @@ Test Analytics integrates directly with your test runner to provide in-depth inf
 ## Integrating with RSpec
 
 [RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
-If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
+If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
 
 1. Create a new branch:
 
@@ -33,7 +33,7 @@ If you're aleady using RSpec for your tests, add the `rspec-buildkite-analytics`
     $ bundle
     ```
 
-3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the envionment variable [securely](/docs/pipelines/secrets) on your agent or agents.
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the environment variable [securely](/docs/pipelines/secrets) on your agent or agents.
 
     ```rb
     require "rspec/buildkite/analytics"
@@ -55,7 +55,7 @@ Once you’re done, in your Test Analytics dashboard, you'll see analytics of te
 
 ### Environment variables
 
-Test Analytics uses the following environment variables to populate test information. If you're using Buildkite to run your builds these variables are populated automatically.
+Test Analytics uses the following environment variables to populate test information. If you're using Buildkite to run your builds, these variables are populated automatically, if you're using another CI tool you'll need to configure these environment variables yourself.
 
 The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if not all of the other environment variables are set:
 
@@ -81,9 +81,7 @@ Test Analytics provides quick links from Test Analytics to your builds, regardle
 
 ## Importing JUnit XML
 
-<div class="Docs__troubleshooting-note">
-  While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the <a href="#importing-json">JSON import</a> API instead.
-</div>
+While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](#importing-json) API instead.
 
 To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
 
@@ -101,7 +99,7 @@ Test Analytics uses the following variables in the `run_env` attribute to popula
 * `message`
 * `url`
 
-Remember to replace the API token with your own, and make sure to JSON-encode your JUnit xml as in the next two code blocks.
+Remember to replace the API token with your own, and make sure to JSON-encode your JUnit XML as in the next two code blocks.
 
 ```sh
 export TEST_ANALYTICS_TOKEN=hRRfSY3iRKwerfertg8796fgjurjw65tMTs1h1 curl --request POST \

@@ -173,6 +173,7 @@ untrusted
 url
 urls
 util
+waitlist
 walkthrough
 webtask
 xcode
