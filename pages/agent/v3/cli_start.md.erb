@@ -61,10 +61,15 @@ Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is n
   <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
 </section>
 
+When multiple tags are specified, it will be run on an agent that has all the specified tags.
 
 ## The queue tag
 
 The `queue` tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+
+## When queue and tags are used together
+
+When `queue` and `tags` are both specified in agent targeting rule, then it runs on an agent that has the matching queue and all the tags specified.
 
 ## Sourcing tags from Amazon Web Services
 
