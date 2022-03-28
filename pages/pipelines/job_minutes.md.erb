@@ -1,0 +1,28 @@
+# Job Minutes
+
+Each [Buildkite plan](https://buildkite.com/pricing) comes with an included amount of total job minutes which depends on your plan and the size of your team.
+
+Job minutes are calculated as the total number of minutes run by all command step jobs in a build. It is calculated per-second, starting from when the agent starts running the command step, until the step has completed.
+
+{:toc}
+
+You can find how many minutes a build took on the bottom of the [build page](/docs/pipelines#pipelines-page-walkthrough-build-page), and your organization [total build minutes](#usage-page) in Settings.
+
+<%= image "minutes.png", width: 718, height: 71, alt: "Total job minutes for a build" %>
+
+So a build that has ten command steps, each lasting a minute uses ten job minutes, and a build with one step that lasts twenty minutes, uses twenty job minutes. Whether jobs run sequentially or in parallel has no effect on the total.
+
+## Usage page
+
+The [Usage page](https://buildkite.com/organizations/~/settings/usage) shows your plan information, total job minutes, and job minutes used this month, as well as previous months.
+
+<%= image "usage.png", width: 554, height: 794, alt: "Job minute usage page" %>
+
+## Limits for free plans
+
+When the total job minutes limit is reached on a free plan, builds are paused until the next month. Builds remain active, but jobs are not assigned to agents until the next month.
+
+### Build timeouts
+
+Free plans have a [command step maximum timeout](/docs/pipelines/command-step#timeout_in_minutes) of 240 minutes.
+
