@@ -6,7 +6,7 @@ If your agent needs to clone your repositories using git and SSH, you'll need to
 
 ## Finding your SSH key directory
 
-When the Buildkite Agent runs any git operations, SSH will look for keys in `~/.ssh` under whichever user the agent runs as. Each platform’s [agent installation documentation](/docs/agent/v3/installation) specifies the exact location of this directory.
+When the Buildkite Agent runs any git operations, SSH will look for keys in .ssh folder inside the buildkite-agent installed location. For example, if the agent is installed on /home/ec2-user/.buildkite-agent/, it will look for keys in /home/ec2-user/.buildkite-agent/.ssh. Each platform’s [agent installation documentation](/docs/agent/v3/installation) specifies the exact location of this directory.
 
 ## Debugging SSH key issues
 
@@ -22,7 +22,8 @@ The following shows an example of creating a new “machine user” SSH key for 
 
 ```bash
 $ sudo su buildkite-agent # or whichever user your agent runs as
-$ mkdir -p ~/.ssh && cd ~/.ssh
+$ mkdir -p (echo ~/.buildkite-agent)/.ssh
+$ cd (echo ~/.buildkite-agent)/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "dev+build@myorg.com"
 Generating public/private rsa key pair.
 Enter file in which to save the key (/var/lib/buildkite-agent/.ssh/id_rsa):
