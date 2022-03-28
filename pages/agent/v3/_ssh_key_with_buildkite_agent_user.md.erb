@@ -2,7 +2,6 @@ SSH keys should be copied to (or generated into) `/var/lib/buildkite-agent/.ssh/
 
 ```bash
 $ sudo su buildkite-agent
-$ mkdir -p ~/.ssh && cd ~/.ssh
 $ mkdir -p (echo ~/.buildkite-agent)/.ssh #ssh-key should be present inside buildkite-agent installation location which is /var/lib/buildkite-agent/ in this case
 $ cd (echo ~/.buildkite-agent)/.ssh
 $ ssh-keygen -t rsa -b 4096 -C "build@myorg.com"
