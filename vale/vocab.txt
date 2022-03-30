@@ -136,6 +136,7 @@ readme
 readmes
 refspec
 repo
+RSpec
 routable
 rvm
 sandboxed
@@ -173,6 +174,7 @@ untrusted
 url
 urls
 util
+waitlist
 walkthrough
 webtask
 xcode
