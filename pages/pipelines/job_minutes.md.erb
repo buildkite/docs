@@ -1,26 +1,27 @@
 # Job Minutes
 
-Each [Buildkite plan](https://buildkite.com/pricing) comes with an included amount of total job minutes which depends on your plan and the size of your team.
+Each [Buildkite plan](https://buildkite.com/pricing) has job minute inclusions, which vary depending on the plan type and the number of users in your organization.
 
-Job minutes are calculated as the total number of minutes run by all command step jobs in a build. It is calculated per-second, starting from when the agent starts running the command step, until the step has completed.
+Job minutes are calculated as the total number of minutes run by all `command` jobs in a build. It is calculated per-second, starting from when the agent starts running the job, until the job has completed.
 
 {:toc}
 
-You can find how many minutes a build took on the bottom of the [build page](/docs/pipelines#pipelines-page-walkthrough-build-page), and your organization [total build minutes](#usage-page) in Settings.
+You can find the total job run time for a build on the bottom of the [build page](/docs/pipelines#pipelines-page-walkthrough-build-page), and your organization's [total usage](#usage-page) in Settings.
 
-<%= image "minutes.png", width: 718, height: 71, alt: "Total job minutes for a build" %>
+<%= image "minutes.png", width: 1530/2, height: 590/2, alt: "Total Job Run Time for a build" %>
 
-So a build that has ten command steps, each lasting a minute uses ten job minutes, and a build with one step that lasts twenty minutes, uses twenty job minutes. Whether jobs run sequentially or in parallel has no effect on the total.
+Parallelism does not effect how job minutes are calculated: a build that has ten one-minute jobs is handled identically to a build that runs a single one-minute job.
 
 ## Usage page
 
-The [Usage page](https://buildkite.com/organizations/~/settings/usage) shows your plan information, total job minutes, and job minutes used this month, as well as previous months.
+The [Usage page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows your plan information, any applicable inclusions or limits, and recent job minute usage.
 
 <%= image "usage.png", width: 554, height: 794, alt: "Job minute usage page" %>
 
-## Limits for free plans
+## Limits for the Free plan
 
-When the total job minutes limit is reached on a free plan, builds are paused until the next month. Builds remain active, but jobs are not assigned to agents until the next month.
+The Free plan has a limit of 10,000 job minutes per month. When this limit is reached, builds are not cancelled, but jobs will not be run. The limit is reset when your billing period rolls over, or your organization is upgraded to a different plan.
+
 
 ### Build timeouts
 
