@@ -55,7 +55,43 @@ Once you’re done, in your Test Analytics dashboard, you'll see analytics of te
 
 ### Environment variables
 
-Test Analytics uses the following environment variables to populate test information. If you're using Buildkite to run your builds, these variables are populated automatically, if you're using another CI tool you'll need to configure these environment variables yourself.
+Test Analytics uses environment variables to populate test information. If you're using Buildkite, CircleCI, or GitHub Actions to run your builds, you will need to ensure that some environment variables are available (ie, passed through your container, if relevant).
+
+If you're not using CI, you can still use Test Analytics. The only required environment variable is `BUILDKITE_ANALYTICS_KEY` (a unique key for the build that initiated the Test Analytics run).
+
+#### Buildkite
+
+* `BUILDKITE_BUILD_ID` - a unique key for the build that initiated the Test Analytics run
+* `BUILDKITE_BUILD_URL` - a URL that links to the build
+* `BUILDKITE_BRANCH` - the branch or ref that this run is for
+* `BUILDKITE_COMMIT` - the commit sha for the head of the branch
+* `BUILDKITE_BUILD_NUMBER` - the build number of the build
+* `BUILDKITE_JOB_ID` - the id of a job within the build
+* `BUILDKITE_MESSAGE` - the commit message for the head of the branch
+
+#### CircleCI
+
+* `CIRCLE_WORKFLOW_ID` and `CIRCLE_BUILD_NUM` - combined into a unique key for the build that initiated the Test Analytics run
+* `CIRCLE_BUILD_URL` - a URL that links to the build
+* `CIRCLE_BRANCH` - the branch or ref that this run is for
+* `CIRCLE_SHA1` - the commit sha for the head of the branch
+* `CIRCLE_BUILD_NUM` - the build number of the build
+
+If you wish to pass a human-readable commit message through as the run name, you'll need to set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
+
+#### GitHub Actions
+
+* `GITHUB_ACTION` and `GITHUB_RUN_NUMBER` and `GITHUB_RUN_ATTEMPT` - combined into a unique key for the build that initiated the Test Analytics run
+* `GITHUB_REPOSITORY` and `GITHUB_RUN_ID` - combined into a URL that links to the build
+* `GITHUB_REF` - the branch or ref that this run is for
+* `GITHUB_SHA` - the commit sha for the head of the branch
+* `GITHUB_RUN_NUMBER` - the build number of the build
+
+If you wish to pass a human-readable commit message through as the run name, you'll need to set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
+
+#### Other CI tools
+
+If you're using another CI tool, you'll need to configure these environment variables yourself.
 
 The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if not all of the other environment variables are set:
 
@@ -67,17 +103,6 @@ The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some fe
 * `BUILDKITE_ANALYTICS_JOB_ID` - the id of a job within the build
 * `BUILDKITE_ANALYTICS_MESSAGE` - the commit message for the head of the branch
 
-### Supported continuous integration platforms
-
-The Test Analytics RSpec integration works with
-
-* Buildkite
-* GitHub Actions
-* CircleCI
-
-<!-- Related PR: https://github.com/buildkite/rspec-buildkite-analytics/pull/80 -->
-
-Test Analytics provides quick links from Test Analytics to your builds, regardless of your CI platform.
 
 ## Importing JUnit XML
 
