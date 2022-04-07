@@ -32,7 +32,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
-    && bundle install --jobs $(nproc) --retry 3
+    && bundle install --jobs $(($(nproc) * 4)) --retry 3
 
 COPY package.json package-lock.json ./
 RUN echo "--- :npm: Installing npm deps" \
