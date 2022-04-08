@@ -136,17 +136,12 @@ class Page::Renderer
       next unless node.text.starts_with?('{: codeblock-file=')
 
       filename = node.content[/codeblock-file="(.*)"}/, 1]
+      figure = "<figure class='highlight-figure'><figcaption>#{filename}</figcaption></figure>"
 
-      figure = Nokogiri::XML::Node.new "figure", doc
-      figure["class"] = "highlight-figure"
-      caption = Nokogiri::XML::Node.new "figcaption", doc
-      caption.content = filename
-      figure.add_child(caption)
-      node.previous_element.add_previous_sibling(figure)
-      node.previous_element.parent = figure
+      node.previous_element.wrap(figure)
       node.remove
     end
-    
+
     doc
   end
 
