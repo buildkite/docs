@@ -573,6 +573,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
+    <th><code>tags</code></th>
+    <td><a href="/docs/pipelines#pipelines-page-walkthrough-pipeline-tags">Pipeline tags</a> to group a set of pipelines<p class="Docs__api-param-eg"><em>Example:</em> <code>["Elastic CI Stack", "Windows Agent"]</code><br><em>Default:</em> <code>null</code></p></td>
+  </tr>
+  <tr>
     <th><code>team_uuids</code></th>
     <td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
   </tr>
