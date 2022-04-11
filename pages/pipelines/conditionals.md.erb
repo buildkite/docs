@@ -218,7 +218,30 @@ The below variables are supported by the `if` attribute.
 	<tr>
 		<td><code>build.env()</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
+		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set.<br>
+		Following are the BUILDKITE_* variables that are supported by build.env() function:<br>
+		<code>BUILDKITE_BRANCH</code><br>
+		<code>BUILDKITE_TAG</code><br>
+		<code>BUILDKITE_MESSAGE</code><br>
+		<code>BUILDKITE_COMMIT</code><br>
+		<code>BUILDKITE_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_PIPELINE_NAME</code><br>
+		<code>BUILDKITE_PIPELINE_ID</code><br>
+		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_REPO</code><br>
+		<code>BUILDKITE_PULL_REQUEST</code><br>
+		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
+		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ID</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code><br>
+	    </td>
 	</tr>
 	<tr>
 		<td><code>build.id</code></td>
@@ -317,6 +340,32 @@ The below variables are supported by the `if` attribute.
 <h3>Using <code>build.env()</code> with custom environment variables</h3>
 <p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
 </div>
+
+## Variables supported by build.env()
+
+Below are the variables that are supported by build.env()
+
+BUILDKITE_BRANCH<
+BUILDKITE_TAG
+BUILDKITE_MESSAGE
+BUILDKITE_COMMIT
+BUILDKITE_PIPELINE_SLUG
+BUILDKITE_PIPELINE_NAME
+BUILDKITE_PIPELINE_ID
+BUILDKITE_ORGANIZATION_SLUG
+BUILDKITE_TRIGGERED_FROM_BUILD_ID
+BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER
+BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG
+BUILDKITE_REBUILT_FROM_BUILD_ID
+BUILDKITE_REBUILT_FROM_BUILD_NUMBER
+BUILDKITE_REPO
+BUILDKITE_PULL_REQUEST
+BUILDKITE_PULL_REQUEST_BASE_BRANCH
+BUILDKITE_PULL_REQUEST_REPO
+BUILDKITE_GITHUB_DEPLOYMENT_ID
+BUILDKITE_GITHUB_DEPLOYMENT_TASK
+BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT
+BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD
 
 ## Conditionals and the broken state
 
