@@ -224,7 +224,30 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.env()</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
+		<td>This function returns the value of the environment passed as the first argument if that variable is set, or <code>null</code> if the environment variable is not set.<br>
+		<code>build.env()</code> works with the following variables only:<br>
+		<code>BUILDKITE_BRANCH</code><br>
+		<code>BUILDKITE_TAG</code><br>
+		<code>BUILDKITE_MESSAGE</code><br>
+		<code>BUILDKITE_COMMIT</code><br>
+		<code>BUILDKITE_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_PIPELINE_NAME</code><br>
+		<code>BUILDKITE_PIPELINE_ID</code><br>
+		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_REPO</code><br>
+		<code>BUILDKITE_PULL_REQUEST</code><br>
+		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
+		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ID</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code><br>
+	  </td>
 	</tr>
 	<tr>
 		<td><code>build.id</code></td>
