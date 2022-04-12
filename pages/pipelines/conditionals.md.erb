@@ -225,7 +225,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 		<td><code>build.env()</code></td>
 		<td><code>String</code>, <code>null</code></td>
 		<td>This function returns the value of the environment passed as the first argument if that variable is set, or <code>null</code> if the environment variable is not set.<br>
-		<code>build.env()</code> works with the following variables only:<br>
+		<code>build.env()</code> works with variables you've defined, and the following <code>BUILDKITE_*</code> variables:<br>
 		<code>BUILDKITE_BRANCH</code><br>
 		<code>BUILDKITE_TAG</code><br>
 		<code>BUILDKITE_MESSAGE</code><br>
