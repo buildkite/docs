@@ -124,7 +124,7 @@ For step-level notifications to the `#general` channel of all configured workspa
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack: "#general"
@@ -143,7 +143,7 @@ For step-level notifications to to user `@someuser` in all configured workspaces
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack: "@someuser"
@@ -168,7 +168,7 @@ Step-level notifications for channels
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       # Notify channel
@@ -197,15 +197,15 @@ Step-level notifications
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack:
-        channels:
-          - "buildkite-community#sre"
-          - "buildkite-community#announcements"
-          - "buildkite-team#monitoring"
-          - "#general"
+          channels:
+            - "buildkite-community#sre"
+            - "buildkite-community#announcements"
+            - "buildkite-team#monitoring"
+            - "#general"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -230,15 +230,16 @@ Step-level notifications
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack:
-        channels:
-          - "buildkite-community#sre"
-        message: "SRE related information here..."
-          - "buildkite-community#announcements"
-        message: "General announcement for the team here..."
+          channels:
+            - "buildkite-community#sre"
+          message: "SRE related information here..."
+          channels:
+            - "buildkite-community#announcements"
+          message: "General announcement for the team here..."
 ```
 {: codeblock-file="pipeline.yml"}
 
