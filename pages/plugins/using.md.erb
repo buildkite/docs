@@ -148,7 +148,7 @@ steps:
           run: app
 ```
 
-## Testing plugin versions
+## Referencing plugins from a specific branch
 
 To test plugins you can reference the branch, for example:
 
@@ -156,8 +156,6 @@ To test plugins you can reference the branch, for example:
 steps:
   - command: echo 'Hello World'
     plugins:
-      - docker-compose#develop:
-          run: app
       - docker-compose#feature/add-new-feature:
           run: app
 ```
