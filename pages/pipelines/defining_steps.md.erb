@@ -22,7 +22,7 @@ Both the REST API and GraphQL API can be used to create a pipeline programmatica
 
 There are two ways to define steps in your pipeline: using the YAML step editor in Buildkite or with a `pipeline.yml` file. The web steps visual editor is still available if you haven't migrated to [YAML Steps](https://buildkite.com/changelog/99-introducing-the-yaml-steps-editor) but will be deprecated in the future.
 
-If you have not yet migrated to YAML Steps, you can do on your pipeline's settings page. See the [Migrating to YAML Steps guide](/docs/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
+If you have not yet migrated to YAML Steps, you can do so on your pipeline's settings page. See the [Migrating to YAML Steps guide](/docs/tutorials/pipeline-upgrade) for more information about the changes and the migration process.
 
 However you add steps to your pipeline, keep in mind that steps may run on different agents. It is good practice to install your dependencies in the same step that you run them.
 
@@ -147,7 +147,7 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 
 <%= render_markdown partial: 'pipelines/job_states' %>
 
-Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates which indicates whether the Buildkite agent stopped or the job was cancelled.
+Each job in a build also has a footer that displays exit status information. It may include exit signal reason, which indicates whether the Buildkite agent stopped or the job was cancelled.
 
 <section class="Docs__troubleshooting-note">
   <p>Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.</p>
