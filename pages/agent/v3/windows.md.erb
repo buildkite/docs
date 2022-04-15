@@ -4,6 +4,10 @@ The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. T
 
 {:toc}
 
+## Security considerations
+
+The agent runs scripts from the agent hooks directory, and checks-out and runs scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
+
 ## Automated install with PowerShell
 
 You'll need to run the automated installer within PowerShell with administrative privileges.

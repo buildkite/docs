@@ -4,6 +4,10 @@
 <label for="navicon"><span>Display menu</span></label>
 
 <nav class="Docs__nav">
+  <div class="Docs__nav__search">
+    <input id="search" placeholder="Search" />
+  </div>
+
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
       <p class="Docs__nav__section-heading">Tutorials</p>
@@ -120,16 +124,16 @@
             <%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %>
             <%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %>
             <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
-            <%= sidebar_link_to "Secrets", 'pipelines/secrets' %>
             <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
             <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
             <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
+            <%= sidebar_link_to "Public Pipelines", 'pipelines/public-pipelines' %>
             <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
             <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
             <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
             <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
+            <%= sidebar_link_to "Job Minutes", 'pipelines/job-minutes' %>
             <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
-            <%= sidebar_link_to "Incoming Webhooks", 'pipelines/incoming-webhooks' %>
           </ul>
           <p class="Docs__nav__section-subheading">Step Types</p>
           <ul class="Docs__nav__sub-nav">
@@ -144,9 +148,17 @@
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Prioritizing Jobs", 'pipelines/managing-priorities' %>
             <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
+            <%= sidebar_link_to "Build Matrix", 'pipelines/build-matrix' %>
             <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
             <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
-            <%= sidebar_link_to "Permissions with Teams", 'pipelines/permissions' %>
+
+          </ul>
+          <p class="Docs__nav__section-subheading">Security</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Security Overview", 'pipelines/security-overview' %>
+            <%= sidebar_link_to "Managing Secrets", 'pipelines/secrets' %>
+            <%= sidebar_link_to "Users and Teams", 'pipelines/permissions' %>
+            <%= sidebar_link_to "Webhooks Security", 'pipelines/incoming-webhooks' %>
             <%= sidebar_link_to "Audit Log", 'pipelines/audit-log' %>
           </ul>
         </div>
@@ -186,6 +198,7 @@
             <%= sidebar_link_to "GitLab", 'integrations/gitlab' %>
             <%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %>
             <%= sidebar_link_to "Bitbucket Server", 'integrations/bitbucket_server' %>
+            <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
           </ul>
           <p class="Docs__nav__section-subheading">SSO</p>
           <ul class="Docs__nav__sub-nav">
@@ -207,9 +220,18 @@
             <%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %>
             <%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %>
             <%= sidebar_link_to "PagerDuty", 'integrations/pagerduty' %>
-            <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
             <%= sidebar_link_to "Slack", 'integrations/slack' %>
             </ul>
+        </div>
+      </div>
+
+      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'test-analytics' %>" data-docs-path="test-analytics">
+        <p class="Docs__nav__section-heading">Test Analytics</p>
+        <div class="Docs__nav__section-content">
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Overview", 'test-analytics' %>
+            <%= sidebar_link_to "Integrations", 'test-analytics/integrations' %>
+          </ul>
         </div>
       </div>
 
