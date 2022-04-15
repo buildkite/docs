@@ -50,7 +50,7 @@ variables:
   desc: |
     The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
   modifiable: false
-  example: '"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue", "BUILDKITE_AGENT_META_DATA_QUEUE=some-queue"' #TODO
+  example: "`\"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue\"`", "`\"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue`\"`" #TODO
 - name: BUILDKITE_AGENT_NAME
   desc: |
     The name of the agent that ran the job.
@@ -300,7 +300,7 @@ variables:
   desc: |
     The value of the `plugins-path` [agent configuration option](/docs/agent/v3/configuration).
   modifable: false
-  example: "/etc/buildkite-agent/plugins/"
+  example: "`\"/etc/buildkite-agent/plugins/\"`"
 - name: BUILDKITE_PLUGIN_VALIDATION
   desc: |
     Whether to validate plugin configuration and requirements. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks, or in a `pipeline.yml` file. It can also be enabled using the `no-plugin-validation` [agent configuration option](/docs/agent/v3/configuration).
@@ -309,27 +309,27 @@ variables:
   desc: |
     The number of the pull request, if this branch is a pull request.
   modifiable: false
-  example: "'123' for pull request #123, or 'false' if not a pull request"
+  example: "`\"123\"` for pull request #123, or `\"false\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_BASE_BRANCH
   desc: |
     The base branch that the pull request is targeting.
   modifiable: false
-  example: "'main', or '' if not a pull request"
+  example: "`\"main\"`, or `\"\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_REPO
   desc: |
     The repository URL of the pull request.
   modifiable: false
-  example: "'git://github.com/acme-inc/my-project.git', or '' if not a pull request"
+  example: "`\"git://github.com/acme-inc/my-project.git\"`, or `\"\"` if not a pull request"
 - name: BUILDKITE_REBUILT_FROM_BUILD_ID
   desc: |
     The UUID of the original build this was rebuilt from.
   modifiable: false
-  example: "'4735ba57-80d0-46e2-8fa0-b28223a86586', or '' if not a rebuild"
+  example: "`\"4735ba57-80d0-46e2-8fa0-b28223a86586\"`, or `\"\"` if not a rebuild"
 - name: BUILDKITE_REBUILT_FROM_BUILD_NUMBER
   desc: |
     The UUID of the original build this was rebuilt from.
   modifiable: false
-  example: "'1514', or '' if not a rebuild"
+  example: "`\"1514\"`, or `\"\"` if not a rebuild"
 - name: BUILDKITE_REFSPEC
   desc: |
     A custom refspec for the buildkite-agent bootstrap script to use when checking out code. This variable can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
@@ -423,7 +423,7 @@ variables:
   desc: |
     The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. Jobs that time out with an exit status of 0 are marked as "passed".
   modifiable: false
-  example: "'15' for 15 minutes, or 'false' if no timeout is set"
+  example: "`\"15\"` for 15 minutes, or `\"false\"` if no timeout is set"
 - name: BUILDKITE_TRACING_BACKEND
   default_value: ""
   desc: |
@@ -436,17 +436,17 @@ variables:
   desc: |
     The UUID of the build that triggered this build.
   modifiable: false
-  example: "'5aa7c894-c8c0-435b-bc17-13923b90f163', or ''' if the build was not triggered from another build"
+  example: "`\"5aa7c894-c8c0-435b-bc17-13923b90f163\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER
   desc: |
     The number of the build that triggered this build.
   modifiable: false
-  example: "'1264', or '' if the build was not triggered from another build"
+  example: "`\"1264\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG
   desc: |
     The slug of the pipeline that was used to trigger this build.
   modifiable: false
-  example: "'build-and-test', or '' if the build was not triggered from another build"
+  example: "`\"build-and-test\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_UNBLOCKER
   desc: |
     The name of the user who unblocked the build.
