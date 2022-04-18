@@ -636,17 +636,28 @@ a.Docs__example-repo {
   }
 }
 
-.Docs__heading:hover {
+.Docs__heading {
   position: relative;
+
   .Docs__heading__anchor {
-    font-size: 0;
-    line-height: 0;
+    text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: black;
+    }
   }
-  .Docs__heading__anchor:before {
+
+  &:hover:before {
     content: '#';
     color: #666;
     font-size: 1rem;
     font-weight: normal;
     margin-left: .5rem;
+    position: absolute;
+    left: -25px;
+    top: 5px;
   }
 }
+
