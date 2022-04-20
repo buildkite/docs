@@ -19,15 +19,15 @@ All data transferred in and out of Buildkite is encrypted using hardened TLS. Bu
 
 ## User logins
 
-We protect against brute force attacks with rate-limiting technology. All sensitive data such as passwords and API tokens are filtered out of logs and exception trackers. User passwords are cryptographically hashed and salted before being stored in Buildkite's database.
+We protect against brute force attacks with rate-limiting technology. All sensitive data such as passwords and API tokens are filtered out of logs and exception trackers. User passwords are never stored in Buildkite's database - only their salted cryptographic hash.
 
 ## Software dependencies
 
 Buildkite keeps up to date with software dependencies and has automated tools scanning for common security issues, including Cross-Site Scripting (XSS), Cross-Site Request Forgery (CSRF), and SQL Injection.
 
-## Code review process
+## Code review and testing process
 
-All pull requests are reviewed by senior engineers with security best practice training before being deployed to production systems. 2FA is enabled across GitHub and Buildkite organizations for added security.
+All pull requests are reviewed by senior engineers with security best practice training before being deployed to production systems. [Two-factor authentication (2FA)](/docs/tutorials/2fa) is enabled across GitHub and Buildkite organizations for added security.
 
 An extensive set of automated testing procedures is run for every code change.
 
