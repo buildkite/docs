@@ -23,7 +23,7 @@ variables:
     - false
 - name: BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT
   desc: |
-    The value of the `disconnect-after-idle-timeout` [agent configuration option](/docs/agent/v3/configuration). 
+    The value of the `disconnect-after-idle-timeout` [agent configuration option](/docs/agent/v3/configuration).
   modifiable: false
   example: "10"
 - name: BUILDKITE_AGENT_ENDPOINT
@@ -50,7 +50,7 @@ variables:
   desc: |
     The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
   modifiable: false
-  example: "`\"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue\"`", "`\"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue`\"`" #TODO
+  example: "`\"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue\"`, `\"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue`\"`"
 - name: BUILDKITE_AGENT_NAME
   desc: |
     The name of the agent that ran the job.
