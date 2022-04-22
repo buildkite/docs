@@ -373,10 +373,10 @@ The following variables are set automatically when the RSpec integration is runn
 
 | Variable     | Description and source                                                                                          |
 |--------------|-----------------------------------------------------------------------------------------------------------------|
-| `key`        | Unique key for the build that initiated the Test Analytics run<br />`CIRCLE_WORKFLOW_ID` and `CIRCLE_BUILD_NUM` |
+| `key`        | a unique key for the build that initiated the Test Analytics run<br />`CIRCLE_WORKFLOW_ID` and `CIRCLE_BUILD_NUM` |
 | `url`        | a URL that links to the build <br /> `CIRCLE_BUILD_URL`                                                         |
 | `branch`     | the branch or ref that this run is for<br />`CIRCLE_BRANCH`                                                     |
-| `commit_sha` | the commit sha for the head of the branch<br />`CIRCLE_SHA1`                                                    |
+| `commit_sha` | the commit SHA for the head of the branch<br />`CIRCLE_SHA1`                                                    |
 | `number`     | the build number of the build<br />    `CIRCLE_BUILD_NUM`                                                       |
 
 To pass a human-readable commit message through to Test Analytics, set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
@@ -387,10 +387,10 @@ The following variables are set automatically when the RSpec integration is runn
 
 | Variable     | Description and source                                                                                                               |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------|
-| `key`        | Unique key for the build that initiated the Test Analytics run<br />`GITHUB_ACTION` and `GITHUB_RUN_NUMBER` and `GITHUB_RUN_ATTEMPT` |
+| `key`        | a unique key for the build that initiated the Test Analytics run<br />`GITHUB_ACTION` and `GITHUB_RUN_NUMBER` and `GITHUB_RUN_ATTEMPT` |
 | `url`        | a URL that links to the build <br /> `GITHUB_REPOSITORY` and `GITHUB_RUN_ID`                                                         |
 | `branch`     | the branch or ref that this run is for<br />`GITHUB_REF`                                                                             |
-| `commit_sha` | the commit sha for the head of the branch<br />`GITHUB_REF`                                                                          |
+| `commit_sha` | the commit SHA for the head of the branch<br />`GITHUB_REF`                                                                          |
 | `number`     | the build number of the build<br />    `GITHUB_RUN_NUMBER`                                                                           |
 
 To pass a human-readable commit message through to Test Analytics, set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
@@ -401,10 +401,10 @@ If you're using other CI providers, you need to configure these environment vari
 
 | Variable                       | Description and source                                         |
 |--------------------------------|----------------------------------------------------------------|
-| `BUILDKITE_ANALYTICS_KEY`      | Unique key for the build that initiated the Test Analytics run |
+| `BUILDKITE_ANALYTICS_KEY`      | a unique key for the build that initiated the Test Analytics run |
 | `BUILDKITE_ANALYTICS_URL`      | URL that links to the build                                    |
 | `BUILDKITE_ANALYTICS_BRANCH`   | the branch or ref that this run is for                         |
-| `BUILDKITE_ANALYTICS_SHA`      | the commit sha for the head of the branch                      |
+| `BUILDKITE_ANALYTICS_SHA`      | the commit SHA for the head of the branch                      |
 | `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build                                  |
 | `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build                               |
 | `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch                  |
@@ -418,10 +418,10 @@ The only required variable is `key`, but some features of Test Analytics aren't 
 
 | Variable     | Description                                                    |
 |--------------|----------------------------------------------------------------|
-| `key`        | Unique key for the build that initiated the Test Analytics run |
+| `key`        | a unique key for the build that initiated the Test Analytics run |
 | `url`        | URL that links to the build                                    |
 | `branch`     | the branch or ref that this run is for                         |
-| `commit_sha` | the commit sha for the head of the branch                      |
+| `commit_sha` | the commit SHA for the head of the branch                      |
 | `number`     | the build number of the build                                  |
 | `job_id`     | the id of a job within the build                               |
 | `message`    | the commit message for the head of the branch                  |
