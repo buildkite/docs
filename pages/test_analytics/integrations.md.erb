@@ -62,7 +62,7 @@ To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com
 Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
-* if you're making it elsewhere, you'll need to [set them yourself](#environment-variables-other-ci-providers-and-integrations)
+* if you're making the request elsewhere, you'll need to [set the environment variables yourself](#environment-variables-other-ci-providers-and-integrations)
 
 Remember to replace the API token with your own, and make sure to JSON-encode your JUnit XML as in the next two code blocks.
 
