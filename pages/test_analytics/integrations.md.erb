@@ -397,7 +397,7 @@ To pass a human-readable commit message through to Test Analytics, set the `BUIL
 
 ### RSpec on other CI providers
 
-If you're using other CI providers, you need to configure these environment variables yourself. The only required but has some nice gui variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if the other environment variables are not set:
+If you're using other CI providers, you need to configure these environment variables yourself. The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`), but some features of Test Analytics aren't available if the other environment variables are not set:
 
 | Variable                       | Description and source                                         |
 |--------------------------------|----------------------------------------------------------------|
