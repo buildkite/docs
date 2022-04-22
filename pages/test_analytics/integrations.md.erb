@@ -338,7 +338,7 @@ The JSON format is not yet documented, but the following example is what is prod
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. Whichever CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec integration or import API, including making sure that they are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec integration or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
 Not all of these variables are set or available for each CI provider, for more details on specific integrations and providers see:
 
