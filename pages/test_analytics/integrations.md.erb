@@ -49,35 +49,9 @@ If you're already using RSpec for your tests, add the `rspec-buildkite-analytics
     $ git push
     ```
 
-5. Make sure that the Test Analytics [environment variables](#integrating-with-rspec-environment-variables) are set so that the RSpec integration can use them in your Test Analytics dashboard.
+5. Make sure that the Test Analytics [environment variables](#environment-variables-rspec-on-buildkite) are set so that the RSpec integration can use them in your Test Analytics dashboard.
 
 Once you’re done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
-
-### Environment variables
-
-Test Analytics uses the following environment variables to populate test information. If you're using Buildkite to run your builds, these variables are populated automatically, if you're using another CI tool you'll need to configure these environment variables yourself.
-
-The only required environment variable is `BUILDKITE_ANALYTICS_KEY`, but some features of Test Analytics aren't available if not all of the other environment variables are set:
-
-* `BUILDKITE_ANALYTICS_KEY` - a unique key for the build that initiated the Test Analytics run
-* `BUILDKITE_ANALYTICS_URL` - a URL that links to the build
-* `BUILDKITE_ANALYTICS_BRANCH` - the branch or ref that this run is for
-* `BUILDKITE_ANALYTICS_SHA` - the commit sha for the head of the branch
-* `BUILDKITE_ANALYTICS_NUMBER` - the build number of the build
-* `BUILDKITE_ANALYTICS_JOB_ID` - the id of a job within the build
-* `BUILDKITE_ANALYTICS_MESSAGE` - the commit message for the head of the branch
-
-### Supported continuous integration platforms
-
-The Test Analytics RSpec integration works with
-
-* Buildkite
-* GitHub Actions
-* CircleCI
-
-<!-- Related PR: https://github.com/buildkite/rspec-buildkite-analytics/pull/80 -->
-
-Test Analytics provides quick links from Test Analytics to your builds, regardless of your CI platform.
 
 ## Importing JUnit XML
 
@@ -85,19 +59,10 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 
 To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
-* if you're making it elsewhere, you'll need to set them yourself.
+Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
-Test Analytics uses the following variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the other variables to work:
-
-* `CI`
-* `key` (**required**)
-* `number`
-* `job_id`
-* `branch`
-* `commit_sha`
-* `message`
-* `url`
+* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
+* if you're making the request elsewhere, [set the environment variables yourself](#environment-variables-other-ci-providers-and-integrations)
 
 Remember to replace the API token with your own, and make sure to JSON-encode your JUnit XML as in the next two code blocks.
 
@@ -144,21 +109,14 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
 
 The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the generic JUnit XML reports.
 
-To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body:
+To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) to set the metadata
-* if you're making it elsewhere, you'll need to set them yourself.
+Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
-Test Analytics uses the following variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the other variables to work:
+* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
+* if you're making the request elsewhere, [set the environment variables](#environment-variables-other-ci-providers-and-integrations) yourself
 
-* `CI`
-* `key` (**required**)
-* `number`
-* `job_id`
-* `branch`
-* `commit_sha`
-* `message`
-* `url`
+Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables](#environment-variables-other-ci-providers-and-integrations) to work.
 
 Remember to replace the API token with your own:
 
@@ -375,6 +333,97 @@ The JSON format is not yet documented, but the following example is what is prod
   }
 ]
 ```
+
+## Environment variables
+
+Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec integration or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+
+Not all of these variables are set or available for each CI provider, for more details on specific integrations and providers see:
+
+* [RSpec on Buildkite](#environment-variables-rspec-on-buildkite)
+* [RSpec on CircleCI](#environment-variables-rspec-on-circleci)
+* [RSpec on GitHub Actions](#environment-variables-rspec-on-github-actions)
+* [RSpec on other CI providers](#environment-variables-other-ci-providers-and-integrations)
+* [Other CI providers and integrations](#environment-variables-other-ci-providers-and-integrations)
+
+The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`).
+
+If you're not using CI, you can still use Test Analytics by running the [RSpec integration](#integrating-with-rspec), [JUnit import](#importing-junit-xml), or [JSON import](#importing-json), yourself to upload data to Test Analytics.
+
+### RSpec on Buildkite
+
+The following variables are set automatically when the RSpec integration is running on Buildkite:
+
+| Variable                       | Description and source                                                                   |
+|--------------------------------|------------------------------------------------------------------------------------------|
+| `BUILDKITE_ANALYTICS_KEY`      | a unique key for the build that initiated the Test Analytics run<br />`BUILDKITE_BUILD_ID` |
+| `BUILDKITE_ANALYTICS_URL`      | URL that links to the build <br /> `BUILDKITE_BUILD_URL`                                 |
+| `BUILDKITE_ANALYTICS_BRANCH`   | the branch or reference that this run is for<br />`BUILDKITE_BRANCH`                           |
+| `BUILDKITE_ANALYTICS_SHA`      | the commit sha for the head of the branch<br />`BUILDKITE_COMMIT`                        |
+| `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build<br />`BUILDKITE_BUILD_NUMBER`                              |
+| `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build<br />`BUILDKITE_JOB_ID`                                 |
+| `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch<br />`BUILDKITE_JOB_ID`                    |
+
+
+### RSpec on CircleCI
+
+The following variables are set automatically when the RSpec integration is running on CircleCI:
+
+| Variable     | Description and source                                                                                          |
+|--------------|-----------------------------------------------------------------------------------------------------------------|
+| `key`        | a unique key for the build that initiated the Test Analytics run<br />`CIRCLE_WORKFLOW_ID` and `CIRCLE_BUILD_NUM` |
+| `url`        | a URL that links to the build <br /> `CIRCLE_BUILD_URL`                                                         |
+| `branch`     | the branch or reference that this run is for<br />`CIRCLE_BRANCH`                                                     |
+| `commit_sha` | the commit SHA for the head of the branch<br />`CIRCLE_SHA1`                                                    |
+| `number`     | the build number of the build<br />    `CIRCLE_BUILD_NUM`                                                       |
+
+To pass a human-readable commit message through to Test Analytics, set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
+
+### RSpec on GitHub Actions
+
+The following variables are set automatically when the RSpec integration is running on GitHub Actions:
+
+| Variable     | Description and source                                                                                                               |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| `key`        | a unique key for the build that initiated the Test Analytics run<br />`GITHUB_ACTION` and `GITHUB_RUN_NUMBER` and `GITHUB_RUN_ATTEMPT` |
+| `url`        | a URL that links to the build <br /> `GITHUB_REPOSITORY` and `GITHUB_RUN_ID`                                                         |
+| `branch`     | the branch or reference that this run is for<br />`GITHUB_REF`                                                                             |
+| `commit_sha` | the commit SHA for the head of the branch<br />`GITHUB_REF`                                                                          |
+| `number`     | the build number of the build<br />    `GITHUB_RUN_NUMBER`                                                                           |
+
+To pass a human-readable commit message through to Test Analytics, set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
+
+### RSpec on other CI providers
+
+If you're using other CI providers, you need to configure these environment variables yourself. The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`), but some features of Test Analytics aren't available if the other environment variables are not set:
+
+| Variable                       | Description and source                                         |
+|--------------------------------|----------------------------------------------------------------|
+| `BUILDKITE_ANALYTICS_KEY`      | a unique key for the build that initiated the Test Analytics run |
+| `BUILDKITE_ANALYTICS_URL`      | URL that links to the build                                    |
+| `BUILDKITE_ANALYTICS_BRANCH`   | the branch or reference that this run is for                         |
+| `BUILDKITE_ANALYTICS_SHA`      | the commit SHA for the head of the branch                      |
+| `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build                                  |
+| `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build                               |
+| `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch                  |
+
+
+### Other CI providers and integrations
+
+If you're using other tools, such as the [JUnit](#importing-junit-xml) or [JSON](#importing-json) importers, you need to configure the variables in `run_env` yourself.
+
+The only required variable is `key`, but some features of Test Analytics aren't available if the other variables are not set:
+
+| Variable     | Description                                                    |
+|--------------|----------------------------------------------------------------|
+| `key`        | a unique key for the build that initiated the Test Analytics run |
+| `url`        | URL that links to the build                                    |
+| `branch`     | the branch or reference that this run is for                         |
+| `commit_sha` | the commit SHA for the head of the branch                      |
+| `number`     | the build number of the build                                  |
+| `job_id`     | the id of a job within the build                               |
+| `message`    | the commit message for the head of the branch                  |
+
 
 ## Build your own analytics collector
 
