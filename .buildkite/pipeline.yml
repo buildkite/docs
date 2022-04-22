@@ -53,7 +53,9 @@ steps:
               # lts = Node 1415.1 - 2023-04-30
               image: "node:lts-alpine3.14"
       - label: "Validate YAML"
-        command: npm run -y validate-yaml
+        command:
+          - npm run -y validate-agent-attributes-yaml
+          - npm run -y validate-environment-variables-yaml
         plugins:
           - docker#v3.7.0:
               image: "node:lts-alpine3.14"
@@ -68,3 +70,4 @@ steps:
         plugins:
           - docker#v3.7.0:
               image: "node:lts-alpine3.14"
+
