@@ -340,6 +340,11 @@ If the file is private, you also need to create an IAM policy to allow the insta
   "Statement": [
     {
       "Effect": "Allow",
+      "Principal": {
+        "AWS": [
+          "arn\:aws\:iam:123456789:role/Elastic-Stack-IAM-Role"
+        ]
+      },
       "Action": [
         "s3:GetObject"
       ],
@@ -349,6 +354,8 @@ If the file is private, you also need to create an IAM policy to allow the insta
   ]
 }
 ```
+
+If you did not specify an `InstanceRoleName` when you created the stack, CloudFormation will automatically create an `IAMRole` for your stack. You can get the IAM role name and ARN from the Resources tab on the Stack details page.
 
 After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARN` stack parameter.
 
