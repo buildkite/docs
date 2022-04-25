@@ -274,6 +274,21 @@ So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in
 We have a few custom scripts for adding useful elements that are missing in Markdown.
 To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
 
+#### Beta flags
+To mark a content page in the site as being in beta, add its relative path *after* `docs` to the `app/models/beta_pages.rb` file.
+
+For example:
+```
+[
+  'test-analytics',
+  'test-analytics/integrations'
+]
+```
+
+Any file listed there will automatically pick up the beta styling.
+
+Adding the class `beta-link` to any HTML link will display the beta flag on that link. This is intended for use in the sidebar navigation and homepage and will not work in Markdown.
+
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.
 Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
