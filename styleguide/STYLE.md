@@ -38,7 +38,7 @@ More info on writing about pronouns and in the [Microsoft Style Guide](https://d
 ### Talking about YAML
 
 * Attributes not parameters. For example, "Add the `notify` attribute".
-* When discussing nesting/indenting, first attributes (attributes not nested under any other are "top level".
+* When discussing nesting/indenting, first attributes (attributes not nested under any other) are "top level".
 
 ## Style and formatting
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
@@ -109,11 +109,11 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | Word                      | Usage                                                                                            |
 |---------------------------|--------------------------------------------------------------------------------------------------|
 | The Buildkite Agent/agent | When referring to the running process/piece of software as a whole                               |
-| buildkite-agent           | When referring to the cli tool, visually should be presented in a code block                     |
+| `buildkite-agent`         | When referring to the CLI tool, visually should be presented in a code block                     |
 | Sign up/log in            | The action of signing up                                                                         |
 | Signup/login              | When referring to a page that enables signing up or to the signup process                        |
-| Time out/timeout          | Time out is a verb, timeout is a noun |
-| API, SSO, SAML            | Always capitalized |
+| Time out/timeout          | Time out is a verb, timeout is a noun                                                            |
+| API, SSO, SAML            | Always capitalized                                                                               |
 | GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
 | Two-factor authentication | In a sentence two-factor authentication, in a title Two-Factor Authentication, in short form 2FA |
 | Single sign-on            | In a sentence single sign-on, in a title Single Sign-On, in short form SSO                       |
@@ -182,7 +182,7 @@ steps:
         command: ".buildkite/steps/brakeman"
 ```
 
-Will be renered as:
+Will be rendered as:
 
 ```yml
 steps:
@@ -273,6 +273,21 @@ So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in
 ### Custom elements
 We have a few custom scripts for adding useful elements that are missing in Markdown.
 To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
+
+#### Beta flags
+To mark a content page in the site as being in beta, add its relative path *after* `docs` to the `app/models/beta_pages.rb` file.
+
+For example:
+```
+[
+  'test-analytics',
+  'test-analytics/integrations'
+]
+```
+
+Any file listed there will automatically pick up the beta styling.
+
+Adding the class `beta-link` to any HTML link will display the beta flag on that link. This is intended for use in the sidebar navigation and homepage and will not work in Markdown.
 
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.

@@ -83,9 +83,9 @@ class Page::Renderer
     # Second, we make them all linkable and give them the right classes.
     headings.each do |node|
       node['class'] = 'Docs__heading'
-      node.add_child(<<~HTML)
-        <a href="##{node['id']}" aria-hidden="true" class="Docs__heading__anchor"></a>
-      HTML
+      link = "<a class='Docs__heading__anchor' href='##{node['id']}'></a>"
+
+      node.children.wrap(link)
     end
 
     doc

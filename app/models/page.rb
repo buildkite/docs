@@ -88,6 +88,10 @@ class Page
     @name = name
   end
 
+  def beta?
+    BetaPages.all.include? @name
+  end
+
   def exists?
     filename.present?
   end

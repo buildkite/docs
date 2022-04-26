@@ -21,4 +21,11 @@ class PagesController < ApplicationController
 
     # Otherwise, render the page (the default)
   end
+
+  private
+
+  def beta?
+    @page && @page.beta?
+  end
+  helper_method :beta?
 end

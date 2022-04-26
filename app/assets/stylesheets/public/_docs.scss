@@ -636,17 +636,67 @@ a.Docs__example-repo {
   }
 }
 
-.Docs__heading:hover {
+.Docs__heading {
   position: relative;
+
   .Docs__heading__anchor {
-    font-size: 0;
-    line-height: 0;
+    text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: black;
+    }
   }
-  .Docs__heading__anchor:before {
+
+  &:hover:before {
     content: '#';
     color: #666;
     font-size: 1rem;
     font-weight: normal;
     margin-left: .5rem;
+    position: absolute;
+    left: -25px;
+    top: 5px;
   }
+}
+
+@mixin beta-pill {
+  background: rgba(255, 165, 0, 0.2);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 165, 0, 0.2);
+  color: rgb(255, 165, 0);
+  content: 'Beta';
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.025rem;
+  line-height: 1;
+  padding: 3px 7px;
+  position: relative;
+  right: -8px;
+  text-transform: uppercase;
+  top: -3px;
+}
+
+body.beta {
+  .Docs__article h1,
+  .Docs__article .Docs__heading {
+    display: inline;
+    position: relative;
+
+    &:after {
+      @include beta-pill;
+    }
+  }
+
+  .Docs__article h1:after {
+    top: -5px;
+  }
+}
+
+.beta-link:after {
+  @include beta-pill;
+
+  font-size: 8px;
+  padding: 3px 5px;
 }
