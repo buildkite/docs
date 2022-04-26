@@ -30,7 +30,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The `block` step will also wait for previous steps to complete. Still, instead of automatically continuing, it will stop the build and require a user to manually "unblock" the pipeline by clicking the "Continue" button in the Buildkite UI, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. These are the equivalent of a *Manual Stage* in Bamboo.
+Instead of the `wait` step above, you could use a `block` step to stop the build **and** require a user to manually "unblock" the pipeline by clicking the "Continue" button in the Buildkite UI, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
 
 ```yaml
 steps:
