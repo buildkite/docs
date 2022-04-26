@@ -13,7 +13,7 @@ and Plans* in Bamboo are known as [pipelines](/docs/pipelines) in Buildkite (and
 
 Buildkite pipelines consist of [*steps*](/docs/pipelines/defining-steps). There are 6 types of pipeline steps: [`command`](/docs/pipelines/command-step), [`trigger`](/docs/pipelines/trigger-step), [`wait`](/docs/pipelines/wait-step), [`block`](/docs/pipelines/block-step), [`input`](/docs/pipelines/input-step), and [`group`](/docs/pipelines/group-step).
 
-The `command`, `trigger`, and `input` steps will run in parallel. The `wait` and `block` steps will cause a build to pause and wait for all previous steps to complete; the `group` steps group together various sub-steps, and display them as a single logical group. This way, your pipeline becomes a set of stages.
+`command`, `trigger`, and `input` steps run in parallel. `wait` and `block` steps cause a build to pause and wait for all previous steps to complete. `group` steps group together various steps, and display them as a single logical group. This way, your pipeline becomes a set of stages.
 
 For example, a test and deploy pipeline might consist of the following steps:
 
