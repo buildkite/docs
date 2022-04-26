@@ -1,6 +1,6 @@
 # Using Conditionals
 
-Using conditionals, you can run builds or steps only when specific conditions are met. Define boolean conditions using C-like expressions. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
+Using conditionals, you can run builds or steps only when specific conditions are met. Define [boolean conditions using C-like expressions](#variable-and-syntax-reference).
 
 You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
@@ -8,7 +8,9 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a branch is tagged `Approved`:
+<!--alex ignore master-->
+
+You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the master branch:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
@@ -83,9 +85,30 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Supported syntax
+## Conditional notifications
 
-The below expressions are supported by the `if` attribute:
+To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
+
+For example, the following email notification will only be triggered if the build passes:
+
+```yaml
+notify:
+  - email: "dev@acmeinc.com"
+    if: build.state == "passed"
+```
+{: codeblock-file="pipeline.yml"}
+
+## Conditionals and the broken state
+
+Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned `false`. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. A rough explanation is that jobs break because of something _inside_ the build and are skipped by something _outside_ the build.
+
+## Variable and syntax reference
+
+Evaluate expressions made up of [boolean operators](#variable-and-syntax-reference-operator-syntax) and [variables](#variable-and-syntax-reference-variables).
+
+### Operator Syntax
+
+The following expressions are supported by the `if` attribute.
 
  <table>
  	<tbody>
@@ -132,51 +155,41 @@ The below expressions are supported by the `if` attribute:
  	</tbody>
  </table>
 
-
-
 <div class="Docs__troubleshooting-note">
   <h3>Formatting regular expressions</h3>
   <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 </div>
 
-## Conditional notifications
+### Variables
 
-To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
+The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
 
-For example, the following email notification will only be triggered if the build passes:
-
-```yaml
-notify:
-  - email: "dev@acmeinc.com"
-    if: build.state == "passed"
-```
-{: codeblock-file="pipeline.yml"}
-
-## Supported variables
-
-The below variables are supported by the `if` attribute:
+<div class="Docs__troubleshooting-note">
+  <h3 class="Docs__heading" id="unverified">Unverified commits</h3>
+	<p>Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.</p>
+</div>
 
 <table>
 <tbody>
 	<tr>
 		<td><code>build.author.email</code></td>
 		<td><code>String</code></td>
-		<td>The email address of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> email address of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.id</code></td>
 		<td><code>String</code></td>
-		<td>The ID of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> ID of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.name</code></td>
 		<td><code>String</code></td>
-		<td>The name of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> name of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.teams</code></td>
 		<td><code>Array</code></td>
-		<td>An array of the team/s which the user who authored the build's commit is a member of</td>
+		<td>An <strong><a href="#unverified">unverified</a></strong> array of the team/s which the user who authored the build's commit is a member of</td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
@@ -191,27 +204,50 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.creator.email</code></td>
 		<td><code>String</code></td>
-		<td>The email of the user who created the build</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> email of the user who created the build. </td>
 	</tr>
 	<tr>
 		<td><code>build.creator.id</code></td>
 		<td><code>String</code></td>
-		<td>The ID of the user who created the build</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> ID of the user who created the build</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.name</code></td>
 		<td><code>String</code></td>
-		<td>The name of the user who created the build</td>
+		<td>The <strong><a href="#unverified">unverified</a></strong> name of the user who created the build</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.teams</code></td>
 		<td><code>Array</code></td>
-		<td>An array of the team/s which the user who created the build is a member of</td>
+		<td>An <strong><a href="#unverified">unverified</a></strong> array of the team/s which the user who created the build is a member of</td>
 	</tr>
 	<tr>
 		<td><code>build.env()</code></td>
 		<td><code>String</code>, <code>null</code></td>
-		<td>This function returns the value of the environment passed as the first argument, otherwise <code>null</code> if the environment variable has not been set</td>
+		<td>This function returns the value of the environment passed as the first argument if that variable is set, or <code>null</code> if the environment variable is not set.<br>
+		<code>build.env()</code> works with variables you've defined, and the following <code>BUILDKITE_*</code> variables:<br>
+		<code>BUILDKITE_BRANCH</code><br>
+		<code>BUILDKITE_TAG</code><br>
+		<code>BUILDKITE_MESSAGE</code><br>
+		<code>BUILDKITE_COMMIT</code><br>
+		<code>BUILDKITE_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_PIPELINE_NAME</code><br>
+		<code>BUILDKITE_PIPELINE_ID</code><br>
+		<code>BUILDKITE_ORGANIZATION_SLUG</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_ID</code><br>
+		<code>BUILDKITE_REBUILT_FROM_BUILD_NUMBER</code><br>
+		<code>BUILDKITE_REPO</code><br>
+		<code>BUILDKITE_PULL_REQUEST</code><br>
+		<code>BUILDKITE_PULL_REQUEST_BASE_BRANCH</code><br>
+		<code>BUILDKITE_PULL_REQUEST_REPO</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ID</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_TASK</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT</code><br>
+		<code>BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD</code><br>
+	  </td>
 	</tr>
 	<tr>
 		<td><code>build.id</code></td>
@@ -266,7 +302,7 @@ The below variables are supported by the `if` attribute:
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em> <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code>, <code>fixed</code>(only supported for <a href="/docs/pipelines/notifications#conditional-notifications">notification services</a> to indicate that a build on the same branch passed after failing), <code>finished</code></td>
+		<td>The state the current build is in<br><em>Available states:</em> <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>soft_failed</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code>, <code>finished</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>
@@ -310,10 +346,6 @@ The below variables are supported by the `if` attribute:
 <h3>Using <code>build.env()</code> with custom environment variables</h3>
 <p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
 </div>
-
-## Conditionals and the broken state
-
-Jobs become `broken` when their configuration prevents them from running. This might be because their [branch configuration](/docs/pipelines/branch-configuration) doesn't match the build's branch, or because a conditional returned false. This is distinct from `skipped` jobs, which might happen if a newer build is started and build skipping is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
 
 ## Example expressions
 
@@ -375,7 +407,7 @@ To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
 build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
 ```
 
-To run when the build creator is in the `deploy` team:
+To run when the **[unverified](#unverified)** build creator is in the `deploy` team:
 
 ```js
 build.creator.teams includes "deploy"

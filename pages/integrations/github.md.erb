@@ -55,6 +55,8 @@ When you connect your GitHub organization, Buildkite needs the following permiss
     1. Add a new webhook in GitHub.
     2. Paste in the provided webhook URL.
     3. Select which events trigger the webhook.
+
+    The repository webhook is required so that the Buildkite GitHub app does not need read access to your repository.
 5. If using the YAML steps editor, add at least one step to your pipeline, then select _Save and Build_. Refer to [Defining Steps - Adding steps](/docs/pipelines/defining_steps#adding-steps) for more information.
 
 If you need to set up the webhook again, you can find the instructions linked at the bottom of the pipeline GitHub settings page.

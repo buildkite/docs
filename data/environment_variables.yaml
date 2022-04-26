@@ -23,7 +23,7 @@ variables:
     - false
 - name: BUILDKITE_AGENT_DISCONNECT_AFTER_IDLE_TIMEOUT
   desc: |
-    The value of the `disconnect-after-idle-timeout` [agent configuration option](/docs/agent/v3/configuration). 
+    The value of the `disconnect-after-idle-timeout` [agent configuration option](/docs/agent/v3/configuration).
   modifiable: false
   example: "10"
 - name: BUILDKITE_AGENT_ENDPOINT
@@ -50,7 +50,7 @@ variables:
   desc: |
     The value of each [agent tag](/docs/agent/v3/cli-start#setting-tags). The tag name is appended to the end of the variable name. They can be set using the `--tags` flag on the `buildkite-agent start` command, or in the [agent configuration file](/docs/agent/v3/configuration). The [Queue tag](/docs/agent/v3/queues) is specifically used for isolating jobs and agents, and appears as the `BUILDKITE_AGENT_META_DATA_QUEUE` environment variable.
   modifiable: false
-  example: '"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue", "BUILDKITE_AGENT_META_DATA_QUEUE=some-queue"' #TODO
+  example: "\"BUILDKITE_AGENT_META_DATA_TAGNAME=tagvalue\", \"BUILDKITE_AGENT_META_DATA_QUEUE=some-queue\""
 - name: BUILDKITE_AGENT_NAME
   desc: |
     The name of the agent that ran the job.
@@ -65,7 +65,7 @@ variables:
   desc: |
     The artifact paths to upload after the job, if any have been specified. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
   modifable: true
-  example: "tmp/capybara/**/*;coverage/**/*"
+  example: "`tmp/capybara/**/*;coverage/**/*`"
 - name: BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
   desc: |
     The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
@@ -80,24 +80,24 @@ variables:
   desc: |
     The branch being built.
   modifiable: false
-  example: "master"
+  example: "main"
 - name: BUILDKITE_BUILD_CHECKOUT_PATH
   desc: |
     The path where the agent has checked out your code for this build. This variable is read by the bootstrap when the agent is started, and can only be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
   example: "/var/lib/buildkite-agent/builds/agent-1/pipeline-2"
 - name: BUILDKITE_BUILD_AUTHOR
   desc: |
-    The name of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
+    The name of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_AUTHOR_EMAIL
   desc: |
-    The notification email of the user who authored the commit being built. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
+    The notification email of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
   modifiable: false
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR
   desc: |
-    The name of the user who created the build.
+    The name of the user who created the build. May be **[unverified](#unverified)**.
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_CREATOR_EMAIL
@@ -107,7 +107,7 @@ variables:
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
   desc: |
-    A colon separated list of non-private team names that the build creator belongs to.
+    A colon separated list of **[unverified](#unverified)** non-private team names that the build creator belongs to.
   modifiable: false
   example: "everyone:platform"
 - name: BUILDKITE_BUILD_ID
@@ -132,7 +132,7 @@ variables:
   example: "https://buildkite.com/acme-inc/my-project/builds/1514"
 - name: BUILDKITE_CANCEL_GRACE_PERIOD
   desc: |
-    The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration).
+    The value of the `cancel-grace-period` [agent configuration option](/docs/agent/v3/configuration) in seconds.
   modifiable: false
   default_value: "10"
 - name: BUILDKITE_CANCEL_SIGNAL
@@ -234,7 +234,7 @@ variables:
   desc: |
     The label/name of the current job.
   modifiable: false
-  example: ":hammer: Specs"
+  example: "\":hammer: Specs\""
 - name: BUILDKITE_LAST_HOOK_EXIT_STATUS
   desc: |
     The exit code of the last hook that ran, used internally by the hooks.
@@ -309,27 +309,27 @@ variables:
   desc: |
     The number of the pull request, if this branch is a pull request.
   modifiable: false
-  example: "'123' for pull request #123, or 'false' if not a pull request"
+  example: "`\"123\"` for pull request #123, or `\"false\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_BASE_BRANCH
   desc: |
     The base branch that the pull request is targeting.
   modifiable: false
-  example: "'main', or '' if not a pull request"
+  example: "`\"main\"`, or `\"\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_REPO
   desc: |
     The repository URL of the pull request.
   modifiable: false
-  example: "'git://github.com/acme-inc/my-project.git', or '' if not a pull request"
+  example: "\"`git://github.com/acme-inc/my-project.git`\", or \"``\" if not a pull request"
 - name: BUILDKITE_REBUILT_FROM_BUILD_ID
   desc: |
     The UUID of the original build this was rebuilt from.
   modifiable: false
-  example: "'4735ba57-80d0-46e2-8fa0-b28223a86586', or '' if not a rebuild"
+  example: "`\"4735ba57-80d0-46e2-8fa0-b28223a86586\"`, or `\"\"` if not a rebuild"
 - name: BUILDKITE_REBUILT_FROM_BUILD_NUMBER
   desc: |
     The UUID of the original build this was rebuilt from.
   modifiable: false
-  example: "'1514', or '' if not a rebuild"
+  example: "`\"1514\"`, or `\"\"` if not a rebuild"
 - name: BUILDKITE_REFSPEC
   desc: |
     A custom refspec for the buildkite-agent bootstrap script to use when checking out code. This variable can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
@@ -386,7 +386,7 @@ variables:
   desc: |
     The value of the `shell` [agent configuration option](/docs/agent/v3/configuration).
   modifable: false
-  example: "/bin/bash -e -c"
+  example: "\"/bin/bash -e -c\""
 - name: BUILDKITE_SOURCE
   desc: |
     The source of the event that created the build.
@@ -423,7 +423,7 @@ variables:
   desc: |
     The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. Jobs that time out with an exit status of 0 are marked as "passed".
   modifiable: false
-  example: "'15' for 15 minutes, or 'false' if no timeout is set"
+  example: "`\"15\"` for 15 minutes, or `\"false\"` if no timeout is set"
 - name: BUILDKITE_TRACING_BACKEND
   default_value: ""
   desc: |
@@ -436,17 +436,17 @@ variables:
   desc: |
     The UUID of the build that triggered this build.
   modifiable: false
-  example: "'5aa7c894-c8c0-435b-bc17-13923b90f163', or ''' if the build was not triggered from another build"
+  example: "`\"5aa7c894-c8c0-435b-bc17-13923b90f163\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER
   desc: |
     The number of the build that triggered this build.
   modifiable: false
-  example: "'1264', or '' if the build was not triggered from another build"
+  example: "`\"1264\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG
   desc: |
     The slug of the pipeline that was used to trigger this build.
   modifiable: false
-  example: "'build-and-test', or '' if the build was not triggered from another build"
+  example: "`\"build-and-test\"`, or `\"\"` if the build was not triggered from another build"
 - name: BUILDKITE_UNBLOCKER
   desc: |
     The name of the user who unblocked the build.

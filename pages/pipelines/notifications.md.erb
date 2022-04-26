@@ -38,7 +38,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-See [Supported Variables](/docs/pipelines/conditionals#supported-variables) for more conditional variables that can be used in the `if` attribute.
+See [Supported Variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 <section class="Docs__troubleshooting-note">
   <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
@@ -104,7 +104,7 @@ You can set notifications:
 * On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
 * On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
-Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite Enterprise users can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
+Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/member-permissions) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
@@ -124,7 +124,7 @@ For step-level notifications to the `#general` channel of all configured workspa
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack: "#general"
@@ -143,7 +143,7 @@ For step-level notifications to to user `@someuser` in all configured workspaces
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack: "@someuser"
@@ -168,7 +168,7 @@ Step-level notifications for channels
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       # Notify channel
@@ -197,15 +197,15 @@ Step-level notifications
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack:
-        channels:
-          - "buildkite-community#sre"
-          - "buildkite-community#announcements"
-          - "buildkite-team#monitoring"
-          - "#general"
+          channels:
+            - "buildkite-community#sre"
+            - "buildkite-community#announcements"
+            - "buildkite-team#monitoring"
+            - "#general"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -230,15 +230,16 @@ Step-level notifications
 
 ```yaml
 steps:
-  label: "Example Test - pass"
+  - label: "Example Test - pass"
     command: echo "Hello!"
     notify:
       - slack:
-        channels:
-          - "buildkite-community#sre"
-        message: "SRE related information here..."
-          - "buildkite-community#announcements"
-        message: "General announcement for the team here..."
+          channels:
+            - "buildkite-community#sre"
+          message: "SRE related information here..."
+          channels:
+            - "buildkite-community#announcements"
+          message: "General announcement for the team here..."
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -251,7 +252,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-See [Supported Variables](/docs/pipelines/conditionals#supported-variables) for more conditional variables that can be used in the `if` attribute.
+See [Supported Variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
@@ -276,7 +277,7 @@ steps:
                    channels:
                      - "#general"
                    message: "Step1 has soft failed."
-        YAML
+      YAML
       fi
 ```
 {: codeblock-file="pipeline.yml"}

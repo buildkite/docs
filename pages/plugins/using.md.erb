@@ -148,6 +148,18 @@ steps:
           run: app
 ```
 
+## Referencing plugins from a specific branch
+
+To test plugins you can reference the branch, for example:
+
+```yml
+steps:
+  - command: echo 'Hello World'
+    plugins:
+      - docker-compose#feature/add-new-feature:
+          run: app
+```
+
 ## Disabling plugins
 
 To selectively allow and disallow plugins see [securing your Buildkite Agent](/docs/agent/v3/securing#allowing-a-list-of-plugins).
