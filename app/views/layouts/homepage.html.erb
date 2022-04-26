@@ -60,13 +60,17 @@
       <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
       <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
       <div class="HomeHeader__search">
-        <input id="search" class="homepage" placeholder="Search" />
+        <div class="Search-container">
+          <input id="search" class="homepage" placeholder="Search" />
+          <kbd title="Press / to search">/</kbd>
+        </div>
       </div>
     </header>
     <main id="main" role="main">
       <%= yield %>
     </main>
     <%= javascript_tag nonce: true do %>
+      /* This api key is intentionally public */
       docsearch({
         apiKey: '<%= algolia_api_key %>',
         indexName: '<%= algolia_index_name %>',

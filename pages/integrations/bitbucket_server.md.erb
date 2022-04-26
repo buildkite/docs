@@ -2,6 +2,8 @@
 
 Buildkite integrates with Bitbucket Server to provide automated builds based on your source control. You can run a build every time you push code to Bitbucket Server, using a webhook that you create in your Bitbucket Server.
 
+GitHub Enterprise Server is available to customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans.
+
 <div class="Docs__note">
 This guide shows you how to set up your Bitbucket Server builds with Buildkite. It was written using Bitbucket server version 7.11.1
 </div>
@@ -31,15 +33,15 @@ Buildkite includes built-in instructions on how to set up a Bitbucket Server web
 
 ## Branch configuration and settings
 
-<%= render_markdown 'integrations/branch_config_settings' %>
+<%= render_markdown partial: 'integrations/branch_config_settings' %>
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown 'integrations/one_repo_multi_org' %>
+<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
 
 ## Build skipping
 
-<%= render_markdown 'integrations/build_skipping' %>
+<%= render_markdown partial: 'integrations/build_skipping' %>
 
 
 

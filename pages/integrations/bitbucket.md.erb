@@ -44,7 +44,7 @@ Buildkite prompts you to give permission for Buildkite to post status updates, t
 
 ## Branch configuration and settings
 
-<%= render_markdown 'integrations/branch_config_settings' %>
+<%= render_markdown partial: 'integrations/branch_config_settings' %>
 
 ## Mercurial support
 
@@ -54,8 +54,8 @@ Mercurial checkout code using a [`checkout` hook](/docs/agent/v3/hooks#job-lifec
 
 ## Using one repository in multiple pipelines and organizations
 
-<%= render_markdown 'integrations/one_repo_multi_org' %>
+<%= render_markdown partial: 'integrations/one_repo_multi_org' %>
 
 ## Build skipping
 
-<%= render_markdown 'integrations/build_skipping' %>
+<%= render_markdown partial: 'integrations/build_skipping' %>

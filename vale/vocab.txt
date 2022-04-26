@@ -66,6 +66,7 @@ boolean
 boomper
 buildkite
 buildscript
+ccnet
 chatbot
 chroot
 chroots
@@ -136,6 +137,7 @@ readme
 readmes
 refspec
 repo
+RSpec
 routable
 rvm
 sandboxed
@@ -165,6 +167,7 @@ tooltip
 udp
 unarchive
 unarchived
+unblocker
 unbuildable
 unencrypted
 unmanaged
@@ -172,6 +175,7 @@ untrusted
 url
 urls
 util
+waitlist
 walkthrough
 webtask
 xcode

@@ -29,7 +29,7 @@ curl "https://api.buildkite.com/v2/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -46,7 +46,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/builds"
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -108,7 +108,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "scheduled_at": "2015-05-09T21:05:59.874Z",
         "runnable_at": "2015-05-09T21:06:59.874Z",
         "started_at": "2015-05-09T21:07:59.874Z",
-        "finished_at": "2015-05-09T21:08:59.874Z"
+        "finished_at": "2015-05-09T21:08:59.874Z",
+        "retried": false,
+	"retried_in_job_id": null,
+	"retries_count": null,
+	"retry_type": null
       }
     ],
     "created_at": "2015-05-09T21:05:59.874Z",
@@ -163,7 +167,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 Optional [query string parameters](/docs/api#query-string-parameters):
 
-<%= render_markdown 'apis/rest_api/builds_list_query_strings' %>
+<%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
 
@@ -235,7 +239,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:59.874Z",
       "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z"
+      "finished_at": "2015-05-09T21:08:59.874Z",
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_type": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -370,7 +378,11 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:59.874Z",
       "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z"
+      "finished_at": "2015-05-09T21:08:59.874Z",
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_type": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -515,7 +527,11 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:59.874Z",
       "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z"
+      "finished_at": "2015-05-09T21:08:59.874Z",
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_type": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -633,7 +649,11 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "scheduled_at": "2015-05-09T21:05:59.874Z",
       "runnable_at": "2015-05-09T21:06:59.874Z",
       "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z"
+      "finished_at": "2015-05-09T21:08:59.874Z",
+      "retried": false,
+      "retried_in_job_id": null,
+      "retries_count": null,
+      "retry_type": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",

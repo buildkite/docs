@@ -18,8 +18,13 @@ script.
 
 ### Description
 
-Prints to STDOUT the SHA-1 for the artifact provided. If your search query
-for artifacts matches multiple agents, and error will be raised.
+Prints the SHA-1 or SHA-256 hash for the single artifact specified by a
+search query.
+
+The hash is fetched from Buildkite&#39;s API, having been generated client-side
+by the agent during artifact upload.
+
+A search query that does not match exactly one artifact results in an error.
 
 Note: You need to ensure that your search query is surrounded by quotes if
 using a wild card as the built-in shell path globbing will provide files,
@@ -29,27 +34,38 @@ which will break the download.
 
     $ buildkite-agent artifact shasum "pkg/release.tar.gz" --build xxx
 
-This will search for all the files in the build with the path &quot;pkg/release.tar.gz&quot; and will
-print the SHA-1 checksum of each one to STDOUT.
+This will search for all files in the build with path &quot;pkg/release.tar.gz&quot;,
+and if exactly one match is found, the SHA-1 hash generated during upload
+is printed.
 
 If you would like to target artifacts from a specific build step, you can do
 so by using the --step argument.
 
     $ buildkite-agent artifact shasum "pkg/release.tar.gz" --step "release" --build xxx
 
-You can also use the step&#39;s job id (provided by the environment variable $BUILDKITE_JOB_ID)
+You can also use the step&#39;s job ID (provided by the environment variable $BUILDKITE_JOB_ID)
+
+The --sha256 argument requests SHA-256 instead of SHA-1; this is only
+available for artifacts uploaded since SHA-256 support was added to the
+agent.
 
 ### Options
 
-* `--step value` - Scope the search to a particular step by using either its name of job ID
-* `--build value` - The build that the artifacts were uploaded to [`$BUILDKITE_BUILD_ID`]
-* `--include-retried-jobs` - Include artifacts from retried jobs in the search [`$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS`]
-* `--agent-access-token value` - The access token used to identify the agent [`$BUILDKITE_AGENT_ACCESS_TOKEN`]
-* `--endpoint value` - The Agent API endpoint (default: "`https://agent.buildkite.com/v3`") [`$BUILDKITE_AGENT_ENDPOINT`]
-* `--no-http2` - Disable HTTP2 when communicating with the Agent API. [`$BUILDKITE_NO_HTTP2`]
-* `--debug-http` - Enable HTTP debug mode, which dumps all request and response bodies to the log [`$BUILDKITE_AGENT_DEBUG_HTTP`]
-* `--no-color` - Don't show colors in logging [`$BUILDKITE_AGENT_NO_COLOR`]
-* `--debug` - Enable debug mode [`$BUILDKITE_AGENT_DEBUG`]
-* `--experiment value` - Enable experimental features within the buildkite-agent [`$BUILDKITE_AGENT_EXPERIMENT`]
-* `--profile value` - Enable a profiling mode, either cpu, memory, mutex or block [`$BUILDKITE_AGENT_PROFILE`]
+<!-- vale off -->
 
+<table class="Docs__attribute__table">
+<tr id="sha256"><th><code>--sha256 </code> <a class="Docs__attribute__link" href="#sha256">#</a></th><td><p>Request SHA-256 instead of SHA-1, errors if SHA-256 not available<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by its name or job ID<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifact was uploaded to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
+<tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></p></td></tr>
+<tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
+<tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
+<tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
+<tr id="debug-http"><th><code>--debug-http </code> <a class="Docs__attribute__link" href="#debug-http">#</a></th><td><p>Enable HTTP debug mode, which dumps all request and response bodies to the log<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG_HTTP</code></p></td></tr>
+<tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
+<tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
+<tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
+<tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
+</table>
+
+<!-- vale on -->

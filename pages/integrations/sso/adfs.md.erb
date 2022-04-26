@@ -2,6 +2,8 @@
 
 You can use Active Directory Federation Services (ADFS) for your Buildkite organization. To complete this tutorial, you need admin privileges for both your ADFS server and Buildkite.
 
+ADFS SSO is available to customers on the Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
+
 <div class="Docs__note">
   <p>You can also set up SSO providers manually with GraphQL. See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO Setup with GraphQL Guide</a> for detailed instructions and code samples.</p>
 </div>
@@ -160,4 +162,4 @@ If you need to edit or update your ADFS provider settings at any time, you will 
 
 ## SAML user attributes
 
-<%= render_markdown 'integrations/sso/saml_user_attributes' %>
+<%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>

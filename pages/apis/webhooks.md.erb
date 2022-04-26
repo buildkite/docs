@@ -23,7 +23,7 @@ You can subscribe to one or more of the following events:
   <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
   <tr><th>job.finished</th><td>A job has finished</td></tr>
   <tr><th>job.activated</th><td>A block step job has been unblocked using the web or API</td></tr>
-  <%= render_markdown 'apis/webhooks/agent_events_table' %>
+  <%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
 </tbody>
 </table>
 

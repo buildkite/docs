@@ -4,7 +4,9 @@
   <%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %>,
   <%= link_to "Command steps", "/docs/pipelines/command-step" %>,
   <%= link_to "Environment variables", "/docs/pipelines/environment-variables" %>,
-  <%= link_to "Bazel", "/docs/tutorials/bazel" %>
+  <%= link_to "Bazel", "/docs/tutorials/bazel" %>,
+  <%= link_to "Job minutes", "/docs/pipelines/job-minutes" %>
+
 </div>
 <div class="Docs__page-container__inner PageContainer">
   <div class="grid-row">
@@ -110,6 +112,17 @@
         <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
         <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
         <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
+      </ul>
+    </div>
+    <div class="HomepageCategory">
+      <h2>
+        <%= image_tag("icons/test-analytics.svg", alt: "") %>
+        <a href="/docs/test-analytics">Test Analytics</a>
+      </h2>
+      <span>Find and fix flaky tests</span>
+      <ul>
+        <li><%= link_to "Overview", "/docs/test-analytics" %></li>
+        <li><%= link_to "Integrations", "/docs/test-analytics/integrations" %></li>
       </ul>
     </div>
   </div>
