@@ -482,29 +482,6 @@ label[for='navicon'] span { // hide alt text
     }
   }
 
-  small {
-    display: block;
-    font-size: 0.8em;
-    margin: 1em 0;
-  }
-
-  .comma-separated {
-    margin: 1em 0;
-
-    li {
-      display: inline;
-      margin: 0;
-
-      &:not(:last-child)::after {
-        content: ",";
-      }
-
-      &:first-child::after {
-        content: "";
-      }
-    }
-  }
-
   .Docs__attribute__importance {
     color: $color-brand-green;
     margin: 5px 0;
@@ -527,20 +504,6 @@ label[for='navicon'] span { // hide alt text
 
   .Docs__wip-note {
     margin: 0;
-  }
-
-  .Docs__attribute__example {
-    align-content: baseline;
-    display: grid;
-    gap: 0.4rem;
-    grid-template-columns: auto auto;
-    justify-content: left;
-
-    strong,
-    code {
-      font-size: 12px;
-      line-height: 1.3;
-    }
   }
 }
 
