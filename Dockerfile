@@ -48,7 +48,7 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
       && cp -r /app/public/docs/assets /app/public/assets; \
     fi
 
-EXPOSE 3000
+EXPOSE 80
 
 # Let puma serve the static files
 ENV RAILS_SERVE_STATIC_FILES=true
