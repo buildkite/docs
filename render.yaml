@@ -5,7 +5,7 @@
 # Schema documented at https://render.com/docs/yaml-spec
 #
 previewsEnabled: true
-previewsExpireAfterDays: 3
+previewsExpireAfterDays: 5
 services:
   - type: web # valid values: https://render.com/docs/yaml-spec#type
     name: buildkite-docs-review
