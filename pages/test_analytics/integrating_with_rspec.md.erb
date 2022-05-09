@@ -1,0 +1,58 @@
+# Integrating with RSpec
+
+<div class="Docs__wip-note">
+<p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
+</div>
+
+{:toc}
+
+The beta release ships with [RSpec](docs/test-analytics/integrating-with-rspec). You you can also upload test results by importing [JSON](docs/test-analytics/importing-json) or [JUnit XML](docs/test-analytics/importing-junit-xml).
+
+## How to integrate RSpec
+
+[RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
+If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
+
+1. Create a new branch:
+
+    ```
+    git checkout -b install-buildkite-test-analytics
+    ```
+
+2. Add `rspec-buildkite-analytics` to your `Gemfile` in the `:test` group:
+
+    ```rb
+    group :test do
+      gem "rspec-buildkite-analytics"
+    end
+    ```
+
+3. Run `bundle` to install the gem and update your `Gemfile.lock`:
+
+    ```sh
+    $ bundle
+    ```
+
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the environment variable [securely](/docs/pipelines/secrets) on your agent or agents.
+
+    ```rb
+    require "rspec/buildkite/analytics"
+
+    RSpec::Buildkite::Analytics.configure(ENV["TEST_ANALYTICS_TOKEN"])
+    ```
+
+4. Commit and push your changes:
+
+    ```sh
+    $ git add .
+    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git push
+    ```
+
+5. Make sure that the Test Analytics [environment variables](#environment-variables-rspec-on-buildkite) are set so that the RSpec integration can use them in your Test Analytics dashboard.
+
+Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+
+## Environment variables
+
+<%= render_markdown 'test-analytics/_env_variables_ta' %>

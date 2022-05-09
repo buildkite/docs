@@ -1,0 +1,242 @@
+# Importing JSON
+
+<div class="Docs__wip-note">
+<p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
+</div>
+
+{:toc}
+
+The beta release ships with [RSpec](docs/test-analytics/integrating-with-rspec). However, you you can also upload test results by importing JSON or [JUnit XML](docs/test-analytics/importing-junit-xml).
+
+## How to import JSON
+
+The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the generic JUnit XML reports.
+
+To import JSON formatted test result data, make a POST request to `https://nalytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
+
+Test Analytics uses the variables in the `run_env` attribute to populate test nformation:
+
+* if you're making the request in a Buildkite pipeline, you can use the Buildkite nvironment variables to set the metadata automatically, like in the following xample:
+* if you're making the request elsewhere, [set the environment variables]#environment-variables-other-ci-providers-and-integrations) yourself
+
+Test Analytics uses the variables in the `run_env` attribute to populate test nformation. The only *required* variable is `key`, but other Test Analytics features uch as linking back to the originating build, do require the [other variables]#environment-variables-other-ci-providers-and-integrations) to work.
+
+Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl ommand:
+
+```sh
+curl --request POST \
+  --url https://analytics-api.buildkite.com/v1/uploads \
+  --header 'Authorization: Token token="'$TEST_ANALYTICS_TOKEN'";' \
+  --header 'Content-Type: application/json' \
+  --data @- << EOF
+    {
+    "format": "json",
+    "run_env": {
+      "CI": "buildkite",
+      "key": "$BUILDKITE_BUILD_ID",
+      "number": "$BUILDKITE_BUILD_NUMBER",
+      "job_id": "$BUILDKITE_JOB_ID",
+      "branch": "$BUILDKITE_BRANCH",
+      "commit_sha": "$BUILDKITE_COMMIT",
+      "message": "$BUILDKITE_MESSAGE",
+      "url": "$BUILDKITE_BUILD_URL"
+    },
+    "data": [
+              <put JSON format results here>
+          ]
+    }
+```
+
+<!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/pload.jsons -->
+
+The JSON format is not yet documented, but the following example is what is produced y the [RSpec integration](#integrating-with-rspec):
+
+```json
+[
+  {
+    "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa9",
+    "scope": "Analytics::Upload associations",
+    "name": "fails",
+    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:3]",
+    "location": "./spec/models/analytics/upload_spec.rb:24",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: expect(true).to eq false",
+    "failure_expanded": [
+      {
+        "expanded": [
+          "  expected: false",
+          "       got: true",
+          "",
+          "  (compared using ==)",
+          "",
+          "  Diff:",
+          "  @@ -1 +1 @@",
+          "  -false","  +true"
+        ],
+        "backtrace": [
+          "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
+          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+          "-e:1:in `\u003cmain\u003e'"
+        ]
+      }
+    ],
+    "history": {
+      "section": "top",
+      "start_at": 347611.724809,
+      "end_at": 347612.451041,
+      "duration": 0.726232000044547,
+      "detail": {},
+      "children": [
+        {
+          "section": "sql",
+          "start_at": 347611.734956,
+          "end_at": 347611.735647,
+          "duration": 0.0006910000229254365,
+          "detail": {
+            "query": "SET client_min_messages TO 'warning' /*line:/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'*/"
+          },
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "3ec5600e-fe8e-46b6-91b2-0eb3a2652e30",
+    "scope": "Analytics::Upload associations",
+    "name": "also fails",
+    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:4]",
+    "location": "./spec/models/analytics/upload_spec.rb:27",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Failure/Error: raise StandardError",
+    "failure_expanded": [
+      {
+        "expanded": [
+          "StandardError:",
+          "  StandardError"
+        ],
+        "backtrace": [
+          "./spec/models/analytics/upload_spec.rb:28:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+          "-e:1:in `\u003cmain\u003e'"
+        ]
+      }
+    ],
+    "history": {
+      "section": "top",
+      "start_at": 347612.50397,
+      "end_at": 347612.787357,
+      "duration": 0.2833869999740273,
+      "detail": {},
+      "children": [
+        {
+          "section": "sql",
+          "start_at": 347612.53343899996,
+          "end_at": 347612.618446,
+          "duration": 0.08500700001604855,
+          "detail": {
+            "query":  "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";\nALTER TABLE \"agent_registration_tokens\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents\";\nALTER TABLE \"agents\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents_projects\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents_projects\";"
+          },
+          "children": []
+        }
+      ]
+    }
+  },
+  {
+    "id": "aac73c9d-f899-4e4e-a841-f33896a193e7",
+    "scope": "Analytics::Upload associations",
+    "name": "upload.executions",
+    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:1]",
+    "location": "./spec/models/analytics/upload_spec.rb:12",
+    "file_name": "./spec/models/analytics/upload_spec.rb",
+    "result": "failed",
+    "failure_reason": "Got 2 failures and 1 other error from failure aggregation block",
+    "failure_expanded": [
+      {
+        "expanded": [
+          "Failure/Error: expect(true).to eq false","","  expected: false",
+          "       got: true",
+          "",
+          "  (compared using ==)",
+          "",
+          "  Diff:",
+          "  @@ -1 +1 @@",
+          "  -false",
+          "  +true"
+        ],
+        "backtrace": [
+          "./spec/models/analytics/upload_spec.rb:14:in `block (4 levels) in \u003ctop (required)\u003e'",
+          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/log.rb:17:in `run'",
+          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+          "-e:1:in `\u003cmain\u003e'"
+        ]
+      },
+      {
+        "expanded": [
+          "Failure/Error: expect(upload.executions.count).to eq 1",
+          "",
+          "  expected: 1",
+          "       got: 2",
+          "",
+          "  (compared using ==)"
+        ],
+        "backtrace": [
+          "./spec/models/analytics/upload_spec.rb:15:in `block (4 levels) in \u003ctop (required)\u003e'",
+          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/log.rb:17:in `run'",
+          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+          "-e:1:in `\u003cmain\u003e'"]
+      },
+      {
+        "expanded": [
+          "Failure/Error: raise StandardError",
+          "",
+          "StandardError:",
+          "  StandardError"
+        ],
+        "backtrace": [
+          "./spec/models/analytics/upload_spec.rb:16:in `block (4 levels) in \u003ctop (required)\u003e'",
+          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/log.rb:17:in `run'",
+          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+          "-e:1:in `\u003cmain\u003e'"
+        ]
+      }
+    ],
+    "history": {
+      "section": "top",
+      "start_at": 347612.791024,
+      "end_at": 347613.109785,
+      "duration": 0.3187610000022687,
+      "detail": {},
+      "children": [
+        {
+          "section": "sql",
+          "start_at": 347612.819713,
+          "end_at": 347612.898322,
+          "duration": 0.07860900001833215,
+          "detail": {
+            "query": "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";"
+          },
+          "children": []
+        }
+      ]
+    }
+  }
+]
+```
+
+## Environment variables
+
+<%= render_markdown 'test-analytics/_env_variables_ta' %>
