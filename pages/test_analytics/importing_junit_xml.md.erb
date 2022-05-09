@@ -12,11 +12,11 @@ By default, the beta release ships with [RSpec](docs/test-analytics/integrating-
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](#importing-json) API instead.
 
-To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/ploads`, with metadata and JUnit XML test results encoded as JSON in the request ody:
+To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/ploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
 
-Test Analytics uses the variables in the `run_env` attribute to populate test nformation:
+Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite nvironment variables to set the metadata automatically, like in the following xample:
+* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
 * if you're making the request elsewhere, [set the environment variables yourself]#environment-variables-other-ci-providers-and-integrations)
 
 [Securely add the Test Analytics token environment variable](/docs/pipelines/ecrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two ode blocks.
@@ -50,7 +50,7 @@ Example JSON-encoded JUnit XML:
 "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" rrors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite isabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               ame=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 0:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/\r\n        </properties>\r\n        <testcase assertions=\"\" lassname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" ime=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        /testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" tatus=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/\r\n            <system-out/>\r\n            <system-err/>\r\n        </estcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" tatus=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" ype=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
 ```
 
-Test Analytics parses the XML and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly reated `id` (Run ID), and totals for the number of `queued` and `skipped` test ases contained in the uploaded data.
+Test Analytics parses the XML and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
 
 ```json
 {

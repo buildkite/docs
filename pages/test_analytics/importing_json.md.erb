@@ -14,14 +14,14 @@ The Test Analytics JSON API accepts all of the same information that test framew
 
 To import JSON formatted test result data, make a POST request to `https://nalytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
 
-Test Analytics uses the variables in the `run_env` attribute to populate test nformation:
+Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite nvironment variables to set the metadata automatically, like in the following xample:
+* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
 * if you're making the request elsewhere, [set the environment variables]#environment-variables-other-ci-providers-and-integrations) yourself
 
-Test Analytics uses the variables in the `run_env` attribute to populate test nformation. The only *required* variable is `key`, but other Test Analytics features uch as linking back to the originating build, do require the [other variables]#environment-variables-other-ci-providers-and-integrations) to work.
+Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables]#environment-variables-other-ci-providers-and-integrations) to work.
 
-Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl ommand:
+Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command:
 
 ```sh
 curl --request POST \
