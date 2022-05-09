@@ -8,7 +8,6 @@
 
 By default, the beta release ships with [RSpec](docs/test-analytics/integrating-with-rspec). However, you you can also upload test results by importing [JUnit XML](docs/test-analytics/importing-junit-xml) or [JSON](docs/test-analytics/importing-json).
 
-
 ## How to import JUnit XML
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](#importing-json) API instead.
@@ -20,7 +19,7 @@ Test Analytics uses the variables in the `run_env` attribute to populate test nf
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite nvironment variables to set the metadata automatically, like in the following xample:
 * if you're making the request elsewhere, [set the environment variables yourself]#environment-variables-other-ci-providers-and-integrations)
 
-[Securely add the Test Analytics token environment variable](/docs/pipelines/ecrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to he curl command, and make sure to JSON-encode your JUnit XML as in the next two ode blocks.
+[Securely add the Test Analytics token environment variable](/docs/pipelines/ecrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two ode blocks.
 
 ```sh
 curl --request POST \
