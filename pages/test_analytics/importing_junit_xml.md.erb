@@ -19,7 +19,7 @@ Test Analytics uses the variables in the `run_env` attribute to populate test in
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
 * if you're making the request elsewhere, [set the environment variables yourself]#environment-variables-other-ci-providers-and-integrations)
 
-[Securely add the Test Analytics token environment variable](/docs/pipelines/ecrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two ode blocks.
+[Securely add the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two ode blocks.
 
 ```sh
 curl --request POST \
