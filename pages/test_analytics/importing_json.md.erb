@@ -239,4 +239,23 @@ The JSON format is not yet documented, but the following example is what is prod
 
 ## Environment variables
 
-<%= render_markdown 'test-analytics/_env_variables_ta' %>
+Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the [RSpec integration](/docs/test-analytics/integrating-with-rspec) or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+
+If you're using such tools as the JSON importers or [JUnit](/docs/test-analytics/importing-junit-xml), you need to configure the variables in `run_env` yourself.
+
+The only required variable is `key`, but some features of Test Analytics aren't available if the other variables are not set:
+
+| Variable     | Description                                                    |
+|--------------|----------------------------------------------------------------|
+| `key`        | a unique key for the build that initiated the Test Analytics run |
+| `url`        | URL that links to the build                                    |
+| `branch`     | the branch or reference that this run is for                         |
+| `commit_sha` | the commit SHA for the head of the branch                      |
+| `number`     | the build number of the build                                  |
+| `job_id`     | the id of a job within the build                               |
+| `message`    | the commit message for the head of the branch                  |
+
+
+## Build your own analytics collector
+
+If you're interested in building a fully integrated collector for specific test runners, have a look at our [example collector](https://github.com/buildkite/rspec-buildkite-analytics) on GitHub.
