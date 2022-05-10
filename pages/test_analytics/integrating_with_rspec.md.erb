@@ -63,7 +63,7 @@ Not all of these variables are set or available for each CI provider, for more d
 * [RSpec on CircleCI](#environment-variables-rspec-on-circleci)
 * [RSpec on GitHub Actions](#environment-variables-rspec-on-github-actions)
 * [RSpec on other CI providers](#environment-variables-other-ci-providers-and-integrations)
-* [Other CI providers and integrations](#environment-variables-other-ci-providers-and-integrations)
+* For other CI providers and integrations see [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) and [Importing JSON](/docs/test-analytics/importing-json)
 
 The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`).
 
@@ -111,6 +111,20 @@ The following variables are set automatically when the RSpec integration is runn
 | `number`     | the build number of the build<br />    `GITHUB_RUN_NUMBER`                                                                           |
 
 To pass a human-readable commit message through to Test Analytics, set the `BUILDKITE_ANALYTICS_MESSAGE` variable.
+
+### RSpec on other CI providers
+
+If you're using other CI providers, you need to configure these environment variables yourself. The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`), but some features of Test Analytics aren't available if the other environment variables are not set:
+
+| Variable                       | Description and source                                         |
+|--------------------------------|----------------------------------------------------------------|
+| `BUILDKITE_ANALYTICS_KEY`      | a unique key for the build that initiated the Test Analytics run |
+| `BUILDKITE_ANALYTICS_URL`      | URL that links to the build                                    |
+| `BUILDKITE_ANALYTICS_BRANCH`   | the branch or reference that this run is for                         |
+| `BUILDKITE_ANALYTICS_SHA`      | the commit SHA for the head of the branch                      |
+| `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build                                  |
+| `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build                               |
+| `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch                  |
 
 ## Build your own analytics collector
 
