@@ -249,7 +249,7 @@ You can also see when a job has been retried and whether it was retried automati
 
 <%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
 
-Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
+You can configure jobs to retry automatically under certain conditions, or prevent retries on important steps like deployments:
 
 ```yml
   - label: "Tests"
