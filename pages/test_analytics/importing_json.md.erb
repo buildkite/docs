@@ -12,14 +12,14 @@ The beta release ships with [RSpec](/docs/test-analytics/integrating-with-rspec)
 
 The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the generic JUnit XML reports.
 
-To import JSON formatted test result data, make a POST request to `https://nalytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
+To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
 
 Test Analytics uses the variables in the `run_env` attribute to populate test information:
 
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
-* if you're making the request elsewhere, [set the environment variables]#environment-variables-other-ci-providers-and-integrations) yourself
+* if you're making the request elsewhere, [set the environment variables](#environment-variables) yourself
 
-Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables]#environment-variables-other-ci-providers-and-integrations) to work.
+Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables](#environment-variables-other-ci-providers-and-integrations) to work.
 
 Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command:
 
@@ -47,9 +47,10 @@ curl --request POST \
     }
 ```
 
-<!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/pload.jsons -->
+<!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/upload.jsons -->
 
-The JSON format is not yet documented, but the following example is what is produced y the [RSpec integration](#integrating-with-rspec):
+The JSON format is not yet documented, but the following example is what is produced by the [RSpec integration](/docs/test-analytics/integrating-with-rspec):
+
 
 ```json
 [
@@ -239,9 +240,9 @@ The JSON format is not yet documented, but the following example is what is prod
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the [RSpec integration](/docs/test-analytics/integrating-with-rspec) or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. In the most common case, [RSpec integration](/docs/test-analytics/integrating-with-rspec) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
-If you're using such tools as the JSON importers or [JUnit](/docs/test-analytics/importing-junit-xml), you need to configure the variables in `run_env` yourself.
+But if you're using such tools as the JSON importers or [JUnit](/docs/test-analytics/importing-junit-xml), you need to configure the variables in `run_env` yourself.
 
 The only required variable is `key`, but some features of Test Analytics aren't available if the other variables are not set:
 

@@ -10,7 +10,7 @@ The beta release ships with [RSpec](/docs/test-analytics/integrating-with-rspec)
 
 ## How to integrate RSpec
 
-[RSpec](https://rspec.info/) is a behaviour driven development library for Ruby.
+[RSpec](https://rspec.info/) is a behaviour-driven development library for Ruby.
 If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
 
 1. Create a new branch:
@@ -51,6 +51,7 @@ If you're already using RSpec for your tests, add the `rspec-buildkite-analytics
 
 5. Make sure that the Test Analytics [environment variables](#environment-variables-rspec-on-buildkite) are set so that the RSpec integration can use them in your Test Analytics dashboard.
 
+
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
 ## Environment variables
@@ -67,7 +68,7 @@ Not all of these variables are set or available for each CI provider, for more d
 
 The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`).
 
-If you're not using CI, you can still use Test Analytics by running the RSpec integration, [JUnit import](/docs/test-analytics/importing-junit-xml), or [JSON import](/docs/test-analytics/importing-json), yourself to upload data to Test Analytics.
+If you're not using CI, you can still use Test Analytics by running the RSpec integration, [JUnit import](/docs/test-analytics/importing-junit-xml), or [JSON import](/docs/test-analytics/importing-json) yourself to upload data to Test Analytics.
 
 ### RSpec on Buildkite
 
@@ -125,6 +126,7 @@ If you're using other CI providers, you need to configure these environment vari
 | `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build                                  |
 | `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build                               |
 | `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch                  |
+
 
 ## Build your own analytics collector
 
