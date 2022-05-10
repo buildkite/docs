@@ -241,15 +241,15 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable.
+If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an environment variable on the job.
 
 <%= image "retry-time-date.png", width: 2304/2, height: 698/2, alt: "You can view how and when a job was retried" %>
 
-You can also see when a job has been retried and whether it was retried automatically or by a user. The number of retries is available as an environment variable on the job.
+You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs will hidden - you can expand and view all the hiddne retried jobs.
 
 <%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
 
-You can configure jobs to retry automatically under certain conditions, or prevent retries on important steps like deployments:
+Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
 
 ```yml
   - label: "Tests"
