@@ -19,7 +19,7 @@ Test Analytics uses the variables in the `run_env` attribute to populate test in
 * if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
 * if you're making the request elsewhere, [set the environment variables](#environment-variables) yourself
 
-Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables](#environment-variables-other-ci-providers-and-integrations) to work.
+Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables](#environment-variables) to work.
 
 Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command:
 
