@@ -35,36 +35,11 @@ directory that agent level hooks are defined.
 
 ## Agent lifecycle hooks
 
-<table>
-  <thead>
-    <tr>
-        <th>Hook</th>
-        <th>Location Order</th>
-        <th>Description</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="white-space: nowrap"><code>pre-bootstrap</code></td>
-      <td style="white-space: nowrap">Agent</td>
-      <td>
-        <p>Executed before any job is started. Useful for <a href="/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook">adding strict checks</a> before jobs are permitted to run.</p>
-        <p>The proposed job command and environment is written to a file and
-        the path to this file provided in the <code>BUILDKITE_ENV_FILE</code>
-        environment variable. Use the contents of this file to determine whether
-        to permit the job to run on this agent.</p>
-        <p>If the <code>pre-bootstrap</code> hook terminates with an exit code
-        of <code>0</code>, the job is permitted to run. Any other exit code
-        results in the job being rejected, and job failure being reported to the
-        Buildkite API.</p>
-        </td></tr>
-    <tr>
-      <td style="white-space: nowrap"><code>agent-shutdown</code></td>
-      <td style="white-space: nowrap">Agent</td>
-      <td>Executed when the agent shuts down. Useful for performing cleanup
-      tasks for the entire agent, outside of the job lifecycle.</td></tr>
-  </tbody>
-</table>
+| Hook             | Location Order | Description |
+| ---------------- | -------------- | ----------- |
+| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
+| `agent-shutdown` | <span class="add-icon-agent">Agent</span> | Executed when the agent shuts down. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle. |
+{: class="table table--no-wrap"}
 
 ### Creating agent lifecycle hooks
 
@@ -80,8 +55,8 @@ These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agen
 The following is a complete list of available job hooks, and the order in which
 they are run as part of each job:
 
-| Hook            | Location Order            | Description |
-| --------------- | ------------------------- | ----------- |
+| Hook            | Location Order | Description |
+| --------------- | -------------- | ----------- |
 | `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span>                                                          | Runs before all other hooks. Useful for [exposing secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks). |
 | `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span>                                                          | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span><br /><span class="add-icon-agent">Agent</span>                                                          | Overrides the default git checkout behavior.<br>*Note:* As of Agent v3.15.0, if multiple checkout hooks are found, only the first will be run. |
