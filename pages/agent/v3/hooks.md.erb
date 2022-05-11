@@ -82,16 +82,16 @@ they are run as part of each job:
 
 | Hook            | Location Order            | Description |
 | --------------- | ------------------------- | ----------- |
-| `environment`   | Agent, Plugin             | Runs before all other hooks. Useful for [exposing secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks). |
-| `pre-checkout`  | Agent, Plugin             | Runs before checkout. |
-| `checkout`      | Plugin, Agent             | Overrides the default git checkout behavior.<br>*Note:* As of Agent v3.15.0, if multiple checkout hooks are found, only the first will be run. |
-| `post-checkout` | Agent, Repository, Plugin | Runs after checkout. |
-| `pre-command`   | Agent, Repository, Plugin | Runs before the build command |
-| `command`       | Agent, Repository, Plugin | Overrides the default command running behavior. If multiple command hooks are found, only the first will be run. |
-| `post-command`  | Agent, Repository, Plugin | Runs after the command. |
-| `pre-artifact`  | Agent, Repository, Plugin | Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job. |
-| `post-artifact` | Agent, Repository, Plugin | Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job. |
-| `pre-exit`      | Agent, Repository, Plugin | Runs before the job finishes. Useful for performing cleanup tasks. |
+| `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin</span>                                                          | Runs before all other hooks. Useful for [exposing secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks). |
+| `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin</span>                                                          | Runs before checkout. |
+| `checkout`      | <span class="add-icon-plugin">Plugin</span><br /><span class="add-icon-agent">Agent</span>                                                          | Overrides the default git checkout behavior.<br>*Note:* As of Agent v3.15.0, if multiple checkout hooks are found, only the first will be run. |
+| `post-checkout` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs after checkout. |
+| `pre-command`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs before the build command |
+| `command`       | <span class="add-icon-plugin">Plugin</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-agent">Agent</span> | Overrides the default command running behavior. If multiple command hooks are found, only the first will be run. |
+| `post-command`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs after the command. |
+| `pre-artifact`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs before artifacts are uploaded, if an artifact upload pattern was defined for the job. |
+| `post-artifact` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs after artifacts have been uploaded, if an artifact upload pattern was defined for the job. |
+| `pre-exit`      | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Plugin</span> | Runs before the job finishes. Useful for performing cleanup tasks. |
 {: class="table table--no-wrap"}
 
 ### Creating job lifecycle hooks
