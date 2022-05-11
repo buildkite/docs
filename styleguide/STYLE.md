@@ -349,6 +349,13 @@ Line 3, column 1  | Line 3, column 2
 
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
+#### Prepending icons
+You can prepend an icon to boost the visual emphasis for an inline text. To do this, simply wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
+
+At the time of writing there are only three icons available — agent, repository and plugin. To add more icons see `$icons` in `_add-icon.scss`, add a new name as the key and the inline SVG. Icon dimension must be 22px * 22px.
+
+Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
+
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
