@@ -117,6 +117,16 @@
     }
   }
 
+  table.table--no-wrap {
+    th,
+    td {
+      white-space: nowrap;
+      &:last-child {
+        white-space: initial;
+      }
+    }
+  }
+
   blockquote { padding-left: 1em; border-left: 5px solid #8E8E8E; }
 
   .no-margin-top { margin-top: 0; }
