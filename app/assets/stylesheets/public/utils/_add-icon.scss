@@ -1,13 +1,15 @@
 @mixin _add-icon {
-  align-items: center;
+  align-items: baseline;
   display: inline-flex;
 
   &::before {
+    align-self: center;
     background-position: 50% 50%;
     background-repeat: no-repeat;
     content: '';
     display: inline-flex;
     height: 22px;
+    margin-right: .25ch;
     width: 22px;
   }
 }
