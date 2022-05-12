@@ -1,4 +1,4 @@
-# Integrating with RSpec
+# RSpec Collector
 
 <div class="Docs__wip-note">
 <p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
@@ -6,12 +6,12 @@
 
 {:toc}
 
-The beta release ships with [RSpec](/docs/test-analytics/integrating-with-rspec). You you can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+The beta release of Test Analytics ships with RSpec collector. You you can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
 ## How to integrate RSpec
 
 [RSpec](https://rspec.info/) is a behaviour-driven development library for Ruby.
-If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to integrate your test results into your Test Analytics dashboard.
+If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to collect your test results into your Test Analytics dashboard.
 
 1. Create a new branch:
 
@@ -49,14 +49,14 @@ If you're already using RSpec for your tests, add the `rspec-buildkite-analytics
     $ git push
     ```
 
-5. Make sure that the Test Analytics [environment variables](#environment-variables-rspec-on-buildkite) are set so that the RSpec integration can use them in your Test Analytics dashboard.
+5. Make sure that the Test Analytics [environment variables](#environment-variables-rspec-on-buildkite) are set so that the RSpec collector can use them in your Test Analytics dashboard.
 
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec integration or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec collector or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
 Not all of these variables are set or available for each CI provider, for more details on specific integrations and providers see:
 
@@ -64,15 +64,15 @@ Not all of these variables are set or available for each CI provider, for more d
 * [RSpec on CircleCI](#environment-variables-rspec-on-circleci)
 * [RSpec on GitHub Actions](#environment-variables-rspec-on-github-actions)
 * [RSpec on other CI providers](#environment-variables-rspec-on-other-ci-providers)
-* For other CI providers and integrations see [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) and [Importing JSON](/docs/test-analytics/importing-json)
+* For other CI providers and collectors see [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) and [Importing JSON](/docs/test-analytics/importing-json)
 
 The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`).
 
-If you're not using CI, you can still use Test Analytics by running the RSpec integration, [JUnit import](/docs/test-analytics/importing-junit-xml), or [JSON import](/docs/test-analytics/importing-json) yourself to upload data to Test Analytics.
+If you're not using CI, you can still use Test Analytics by running the RSpec collector, [JUnit import](/docs/test-analytics/importing-junit-xml), or [JSON import](/docs/test-analytics/importing-json) yourself to upload data to Test Analytics.
 
 ### RSpec on Buildkite
 
-The following variables are set automatically when the RSpec integration is running on Buildkite:
+The following variables are set automatically when the RSpec collector is running on Buildkite:
 
 | Variable                       | Description and source                                                   |
 |--------------------------------|--------------------------------------------------------------------------|
@@ -87,7 +87,7 @@ The following variables are set automatically when the RSpec integration is runn
 
 ### RSpec on CircleCI
 
-The following variables are set automatically when the RSpec integration is running on CircleCI:
+The following variables are set automatically when the RSpec collector is running on CircleCI:
 
 | Variable     | Description and source                                                                                          |
 |--------------|-----------------------------------------------------------------------------------------------------------------|
@@ -101,7 +101,7 @@ To pass a human-readable commit message through to Test Analytics, set the `BUIL
 
 ### RSpec on GitHub Actions
 
-The following variables are set automatically when the RSpec integration is running on GitHub Actions:
+The following variables are set automatically when the RSpec collector is running on GitHub Actions:
 
 | Variable     | Description and source                                                                                                               |
 |--------------|--------------------------------------------------------------------------------------------------------------------------------------|
@@ -126,9 +126,3 @@ If you're using other CI providers, you need to configure these environment vari
 | `BUILDKITE_ANALYTICS_NUMBER`   | the build number of the build                                  |
 | `BUILDKITE_ANALYTICS_JOB_ID`   | the id of a job within the build                               |
 | `BUILDKITE_ANANLYTICS_MESSAGE` | the commit message for the head of the branch                  |
-
-
-## Build your own analytics collector
-
-If you're interested in building a fully integrated collector for specific test runners, have a look at our [example collector](https://github.com/buildkite/rspec-buildkite-analytics) on GitHub.
-

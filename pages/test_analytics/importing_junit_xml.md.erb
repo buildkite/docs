@@ -6,7 +6,7 @@
 
 {:toc}
 
-By default, the beta release ships with [RSpec](/docs/test-analytics/integrating-with-rspec). However, you you can also upload test results by importing [JUnit XML](/docs/test-analytics/importing-junit-xml) or [JSON](/docs/test-analytics/importing-json).
+By default, the beta release ships with [RSpec collector](/docs/test-analytics/rspec-collector). However, you you can also upload test results by importing [JUnit XML](/docs/test-analytics/importing-junit-xml) or [JSON](/docs/test-analytics/importing-json).
 
 ## How to import JUnit XML
 
@@ -62,7 +62,7 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. In the most common case, [RSpec integration](/docs/test-analytics/integrating-with-rspec) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
 But if you're using such tools as the JUnit or [JSON](/docs/test-analytics/importing-json) importers, you need to configure the variables in `run_env` yourself.
 
@@ -77,9 +77,3 @@ The only required variable is `key`, but some features of Test Analytics aren't 
 | `number`     | the build number of the build                                  |
 | `job_id`     | the id of a job within the build                               |
 | `message`    | the commit message for the head of the branch                  |
-
-## Build your own analytics collector
-
-If you're interested in building a fully integrated collector for specific test runners, have a look at our [example collector](https://github.com/buildkite/rspec-buildkite-analytics) on GitHub.
-
-
