@@ -6,7 +6,7 @@
 
 {:toc}
 
-By default, the beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors). However, you you can also upload test results by importing [JUnit XML](/docs/test-analytics/importing-junit-xml) or [JSON](/docs/test-analytics/importing-json).
+By default, the beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector). However, you you can also upload test results by importing [JUnit XML](/docs/test-analytics/importing-junit-xml) or [JSON](/docs/test-analytics/importing-json).
 
 ## How to import JUnit XML
 
@@ -62,7 +62,7 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
 But if you're using such tools as the JUnit or [JSON](/docs/test-analytics/importing-json) importers, you need to configure the variables in `run_env` yourself.
 

@@ -6,7 +6,7 @@
 
 {:toc}
 
-The beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors). However, you you can also upload test results by importing JSON or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+The beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector). However, you you can also upload test results by importing JSON or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
 ## How to import JSON
 
@@ -49,7 +49,7 @@ curl --request POST \
 
 <!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/upload.jsons -->
 
-The JSON format is not yet documented, but the following example is what is produced by the [RSpec collector](/docs/test-analytics/ruby-collectors):
+The JSON format is not yet documented, but the following example is what is produced by the [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector):
 
 
 ```json
@@ -240,7 +240,7 @@ The JSON format is not yet documented, but the following example is what is prod
 
 ## Environment variables
 
-Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
 But if you're using such tools as the JSON importers or [JUnit](/docs/test-analytics/importing-junit-xml), you need to configure the variables in `run_env` yourself.
 
