@@ -235,8 +235,10 @@
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'test-analytics' %>
-            <%= sidebar_link_to "Collectors", 'test-analytics/collectors' %>
-            <%= sidebar_link_to "RSpec Collector", 'test-analytics/rspec-collector' %>
+            <p class="Docs__nav__section-subheading">Collectors</p>
+            <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
+            <%= sidebar_link_to "Your Own Collectors", 'test-analytics/your_own_collectors' %>
             <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
             <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
           </ul>
