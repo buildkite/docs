@@ -135,8 +135,9 @@ hooks defined here will be run for every pipeline that uses the repository.
 * Plugin hooks - these are provided by any [plugins](/docs/plugins) you’ve
 included in your pipeline steps and can define job lifecycle hooks. Job
 lifecycle hooks defined by a plugin will only be run for the step that includes
-them. Plugin hooks can be *vendored* (if they are already present in the repository,
-and included with a relative path) or *non-vendored* (when they are included from a plugin on GitHub).
+them. Plugins can be *vendored* (if they are already present in the repository,
+and included using a relative path) or *non-vendored* (when they are included
+from GitHub), which affects the order they are run in.
 
 ### Agent hooks
 
