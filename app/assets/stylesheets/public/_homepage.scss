@@ -75,105 +75,111 @@
 }
 
 .HomepageCategory {
-    flex-basis: 33.3%;
+  flex-basis: 33.3%;
+  position: relative;
+  padding: 10px 50px 50px;
+  box-sizing: border-box;
+
+  h2 {
+    font-weight: bold;
+    font-size: 20px;
+    margin-bottom: 5px;
+    line-height: 130%;
+    display: flex;
+    align-items: center;
     position: relative;
-    padding: 10px 50px 50px;
-    box-sizing: border-box;
 
-    h2 {
-      font-weight: bold;
-      font-size: 20px;
-      margin-bottom: 5px;
-      line-height: 130%;
-      display: flex;
-      align-items: center;
-      position: relative;
+    img {
+      position: absolute;
+      top: 3px;
+      left: -30px;
+    }
 
-      img {
-        position: absolute;
-        top: 3px;
-        left: -30px;
+    a {
+      color: black;
+      text-decoration: none;
+    }
+
+    &:hover a {
+      text-decoration: underline;
+    }
+  }
+
+  span {
+    color: #707070;
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  ul {
+    font-family: $font-family;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 125%;
+    margin-top: 20px;
+
+    li {
+      margin: 10px 0;
+
+      ul {
+        margin-top: 0;
+        margin: 10px 0 20px 20px;
+        font-size: 14px;
       }
 
       a {
-        color: black;
+        color: #333;
         text-decoration: none;
-      }
 
-      &:hover a {
-        text-decoration: underline;
-      }
-    }
+        &:hover {
+          color: #555;
 
-    span {
-      color: #707070;
-      font-family: $font-family;
-      font-size: 16px;
-      font-weight: 500;
-    }
-
-    ul {
-      font-family: $font-family;
-      font-size: 16px;
-      font-weight: 500;
-      line-height: 125%;
-      margin-top: 20px;
-
-      li {
-        margin: 10px 0;
-
-        ul {
-          margin-top: 0;
-          margin: 10px 0 20px 20px;
-          font-size: 14px;
+          &::after {
+            transform: translateX(2px);
+          }
         }
 
-        a {
-          color: #333;
-          text-decoration: none;
+        &:active::after {
+          transform: none;
+        }
+
+        &::after {
+          content: " →";
+          opacity: 0.7;
+          transition: transform 0.1s;
+          position: absolute;
+        }
+
+        &.more-link {
+          font-weight: 700;
+          text-decoration: underline;
+          padding-top: 10px;
+          display: inline-block;
+          color: black;
 
           &:hover {
-            color: #555;
-
-            &::after {
-              transform: translateX(2px);
-            }
-          }
-
-          &:active::after {
-            transform: none;
+            color: #333;
           }
 
           &::after {
-            content: " →";
-            opacity: 0.7;
-            transition: transform 0.1s;
-            position: absolute;
-          }
-
-          &.more-link {
-            font-weight: 700;
-            text-decoration: underline;
-            padding-top: 10px;
-            display: inline-block;
-            color: black;
-
-            &:hover {
-              color: #333;
-            }
-
-            &::after {
-              content: "";
-            }
+            content: "";
           }
         }
       }
     }
+  }
 
-    .HomepageCategory__icon {
-      max-width: 150px;
-      margin-top: 30px;
+  .HomepageCategory__icon {
+    max-width: 150px;
+    margin-top: 30px;
+  }
+
+  .has-beta-pill {
+    &::after {
+      top: 0;
     }
+  }
 }
 
 
