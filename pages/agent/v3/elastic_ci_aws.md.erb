@@ -330,7 +330,7 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, create an S3 bucket with the script, and set the `BootstrapScriptUrl` parameter, for example `s3://my_bucket_name/my_bootstrap.sh`.
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, create an S3 bucket with the script, and set the `BootstrapScriptUrl` parameter, for example `s3://my_bucket_name/my_bootstrap.sh`.  Note that you can also provide a URL such as `https://www.example.com/config/bootstrap.sh`, or even a local filename `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customising the AMI and are able to include a bootstrap script that way).
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 
