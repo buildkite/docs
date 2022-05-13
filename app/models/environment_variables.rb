@@ -1,0 +1,1 @@
+ENVIRONMENT_VARIABLES = YAML.load_file('data/environment_variables.yaml').freeze
