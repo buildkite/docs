@@ -91,6 +91,7 @@ fff
 ffxdq
 gcloud
 gif
+githooks
 globbing
 golang
 Graviton
@@ -177,6 +178,7 @@ util
 waitlist
 walkthrough
 webtask
+worktree
 xcode
 xcodebuild
 xcpretty
