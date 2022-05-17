@@ -28,7 +28,8 @@ Git runs executables found in:
 - The `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
 - A directory set by the `core.hooksPath` configuration variable
 
-For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`. If it exists, it runs the file with arguments containing details about the push.
+For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`.
+If it exists, it runs the file with arguments containing details about the push.
 
 The post-recieve hook is a convenient place to trigger builds using the Buildkite REST API.
 
@@ -78,7 +79,8 @@ To use this as written, be sure to:
 - Set a valid `BUILDKITE_API_TOKEN`, `BUILDKITE_ORG_SLUG`, and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
 - Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
 
-You can also adapt this script for your application. For example, you can modify it to selectively trigger builds for certain branches, trigger multiple builds, save log output, or to respond to other Git events.
+You can also adapt this script for your application.
+For example, you can modify it to selectively trigger builds for certain branches, trigger multiple builds, save log output, or to respond to other Git events.
 
 ## Step 3: Test the hook
 
