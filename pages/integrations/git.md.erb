@@ -26,7 +26,7 @@ Git runs executables found in:
 
 - The `hooks` directory of a [bare repository](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository) (more common on servers)
 - The `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
-- A directory set by the `core.hooksPath` configuration variable
+- A directory set by the [`core.hooksPath`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath) configuration variable
 
 For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`.
 If it exists, it runs the file with arguments containing details about the push.
