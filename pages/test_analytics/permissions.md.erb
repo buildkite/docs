@@ -2,7 +2,7 @@
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
 
-For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](../pipelines/permissions).
+For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/pipelines/permissions).
 
 {:toc}
 
@@ -19,19 +19,18 @@ Users who are organization admins can:
 
 ### Team-level permissions
 
-Users who are team maintainers can:
+Users who are team maintainers can perform the following actions for those teams:
 
-* Add users to existing teams, of which they are the maintainer
-* Remove users from their teams
-* Set read, write, and edit permissions for users on suites in their team
+* Add users to teams
+* Remove users from teams
+* Set read, write, and edit permissions on suites
 
 All users in a team have the same level of access to the suites in their team. If you need to have more fine grained control over the suites in a team, you can create more teams with different permissions.
 
 There are two levels of permissions for teams. They are:
 
-<strong>Full Access</strong>. Team members can both view runs and edit suite settings.
-
-<strong>Read Only</strong>. Team members can view runs, but cannot edit suite settings.
+* **Full Access** members can view test runs and edit suite settings
+* **Read Only** members can view test runs, but cannot edit suite settings
 
 ## Member permissions
 
