@@ -1,4 +1,4 @@
-# Git server-side hooks
+# Git Server-Side Hooks
 
 You can trigger builds using Git hook scripts and the Buildkite REST API.
 
@@ -24,9 +24,9 @@ Git runs hooks — specially named executables — at certain Git lifecycle even
 
 Git runs executables found in:
 
-- the `hooks` directory of a [bare repository](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository) (more common on servers)
-- the `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
-- a directory set by the `core.hooksPath` configuration variable
+- The `hooks` directory of a [bare repository](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository) (more common on servers)
+- The `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
+- A directory set by the `core.hooksPath` configuration variable
 
 For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`. If it exists, it runs the file with arguments containing details about the push.
 
