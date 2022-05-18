@@ -6,38 +6,54 @@ To contribute, send a pull request! :heart:
 
 ## Development
 
-```bash
-git clone https://github.com/buildkite/docs.git
-cd docs
-git submodule update --init
-```
+### Before you start
 
-> **Note**: If you're having trouble with an installation on an M1 Mac, use [rbenv](https://github.com/rbenv/rbenv) instead of the Ruby version provided by macOS or Homebrew.
+For containerized development, you need Docker and Docker Compose.
+Most desktop installations of Docker include Docker Compose by default.
 
-If you have Ruby installed:
+For non-containerized development, you need:
 
-```bash
-# Navigate into the docs directory
-# Install the dependencies
-bundle
-# Run the specs
-bundle exec rspec
-# Start the app on http://localhost:3000/
-bin/rails server
-```
+- Ruby
 
-> **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
+  See [`.ruby-version`](.ruby-version) for the current required version
+  or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Ruby
 
-If you have Docker installed:
+- Node.js
 
-```bash
-# Start the app on http://localhost:3000/
-docker-compose up --build
-# To start it in production mode on http://localhost:3000/
-docker-compose -f docker-compose.production.yml up --build
-```
+  See [`.node-version`](.node-version) for the current required version
+  or use [`nodenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Node.js
 
-> **Note**: You need to use `sudo` if your username is not added to the `docker` group.
+### Run the development server
+
+1. Get the source. Run:
+
+   ```bash
+   git clone https://github.com/buildkite/docs.git
+   cd docs
+   git submodule update --init
+   ```
+
+2. Build and run the server.
+
+   For non-containerized development, run:
+
+   ```bash
+   # Install the dependencies
+   bundle
+   # Run the specs
+   bundle exec rspec
+   # Start the app on http://localhost:3000/
+   bin/rails server
+   ```
+
+   Or with Docker, run:
+
+   ```bash
+   # Start the app on http://localhost:3000/
+   docker-compose up --build
+   # To start it in production mode on http://localhost:3000/
+   docker-compose -f docker-compose.production.yml up --build
+   ```
 
 ## Updating buildkite-agent CLI Docs
 
