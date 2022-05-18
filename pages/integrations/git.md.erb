@@ -52,7 +52,6 @@ For example, in a bare repository, create a file named `hooks/post-receive` with
 ```bash
 #!/usr/bin/env bash
 
-BUILDKITE_API_TOKEN="secret1234token"
 BUILDKITE_ORG_SLUG="example-org"
 BUILDKITE_PIPELINE_SLUG="git-hook-demo"
 
@@ -78,7 +77,8 @@ done
 
 To use this script:
 
-- Set a valid `BUILDKITE_API_TOKEN`, `BUILDKITE_ORG_SLUG`, and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
+- Set the `BUILDKITE_API_TOKEN` environment variable.
+- Set a valid `BUILDKITE_ORG_SLUG` and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
 - Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
 
 You can also adapt this script for your application.
