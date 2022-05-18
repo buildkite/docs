@@ -1,8 +1,8 @@
 # Other Git Servers
 
-You can trigger builds using Git hook scripts and the Buildkite REST API.
+If your Git server isn't an integrated repository provider, then you can trigger builds using Git hook scripts and the Buildkite REST API.
 
-This page explains how to trigger builds when you push to a Git server.
+This guide explains how to trigger builds when you push to a Git server.
 For example, if you're using a proprietary Git server, then you can trigger builds on push with a post-recieve hook.
 This method can be adapted for other Git events or for running Buildkite builds from arbitrary scripts and services.
 
@@ -74,7 +74,7 @@ while read -r _oldrev newrev ref; do
 done
 ```
 
-To use this as written, be sure to:
+To use this script:
 
 - Set a valid `BUILDKITE_API_TOKEN`, `BUILDKITE_ORG_SLUG`, and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
 - Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
