@@ -10,6 +10,7 @@ To contribute, send a pull request! :heart:
 
 For containerized development, you need Docker and Docker Compose.
 Most desktop installations of Docker include Docker Compose by default.
+On some platforms, you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
 
 For non-containerized development, you need:
 
@@ -40,8 +41,6 @@ For non-containerized development, you need:
    ```bash
    # Install the dependencies
    bundle
-   # Run the specs
-   bundle exec rspec
    # Start the app on http://localhost:3000/
    bin/rails server
    ```
@@ -54,6 +53,8 @@ For non-containerized development, you need:
    # To start it in production mode on http://localhost:3000/
    docker-compose -f docker-compose.production.yml up --build
    ```
+
+   > **Note**: You need to use `sudo` if your username is not added to the `docker` group.
 
 ## Updating buildkite-agent CLI Docs
 
