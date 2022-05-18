@@ -46,8 +46,6 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    docker-compose -f docker-compose.production.yml up --build
    ```
 
-   > **Note**: You need to use `sudo` if your username is not added to the `docker` group.
-
 ## Updating buildkite-agent CLI Docs
 
 With the development dependencies installed you can update the CLI docs using
