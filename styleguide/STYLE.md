@@ -19,7 +19,7 @@ We use American English, so our first-call dictionary is [Merriam Webster](https
 We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### English flavor
-Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
+Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
 
 ### Commas
 Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
@@ -200,6 +200,36 @@ Use escaping to prevent this.
 ## Working with the docs site
 Our docs website is a custom build. This section gives some guidance on working with the setup.
 
+### Markdown
+
+The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
+Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
+Watch out for differences such as:
+
+- Inline HTML comments are escaped and will appear in the output, but block comments won't.
+
+  ```markdown
+  ## Hello world! <!-- this comment is visible to readers -->
+
+  <!-- This comment is hidden -->
+  ```
+
+- Four spaces are required for list continuation paragraphs.
+
+  **✅ Do this**
+  ```markdown
+  1. First paragraph of this list item.
+
+      A happy second paragraph, indented four spaces.
+  ```
+
+  **❌ Don't do this**
+  ```markdown
+  2. First paragraph of this list item.
+
+     A sad, broken second paragraph, indented three spaces.
+  ```
+
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
@@ -287,7 +317,7 @@ For example:
 
 Any file listed there will automatically pick up the beta styling.
 
-Adding the class `beta-link` to any HTML link will display the beta flag on that link. This is intended for use in the sidebar navigation and homepage and will not work in Markdown.
+Adding the class `has-beta-pill` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
 
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.
@@ -348,6 +378,13 @@ Line 3, column 1  | Line 3, column 2
 ```
 
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
+
+#### Prepending icons
+You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
+
+At the time of writing, there are only three icons available — agent, repository, and plugin. To add more icons see `$icons` in `_add-icon.scss`, add a new name as the key and the inline SVG. Icon dimension must be 22px * 22px.
+
+Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
