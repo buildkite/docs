@@ -12,17 +12,9 @@ For containerized development, you need Docker and Docker Compose.
 Most desktop installations of Docker include Docker Compose by default.
 On some platforms, you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
 
-For non-containerized development, you need:
-
-- Ruby
-
-  See [`.ruby-version`](.ruby-version) for the current required version
-  or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Ruby
-
-- Node.js
-
-  See [`.node-version`](.node-version) for the current required version
-  or use [`nodenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Node.js
+For non-containerized development, you need Ruby.
+See [`.ruby-version`](.ruby-version) for the current required version
+or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Ruby
 
 ### Run the development server
 
