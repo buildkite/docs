@@ -200,6 +200,36 @@ Use escaping to prevent this.
 ## Working with the docs site
 Our docs website is a custom build. This section gives some guidance on working with the setup.
 
+### Markdown
+
+The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
+Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
+Watch out for differences such as:
+
+- Inline HTML comments are escaped and will appear in the output, but block comments won't.
+
+  ```markdown
+  ## Hello world! <!-- this comment is visible to readers -->
+
+  <!-- This comment is hidden -->
+  ```
+
+- Four spaces are required for list continuation paragraphs.
+
+  **✅ Do this**
+  ```markdown
+  1. First paragraph of this list item.
+
+      A happy second paragraph, indented four spaces.
+  ```
+
+  **❌ Don't do this**
+  ```markdown
+  2. First paragraph of this list item.
+
+     A sad, broken second paragraph, indented three spaces.
+  ```
+
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
