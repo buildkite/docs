@@ -1,0 +1,2 @@
+*.md.erb linguist-detectable
+*.md.erb linguist-language=Markdown
