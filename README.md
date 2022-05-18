@@ -21,6 +21,7 @@ If you have Ruby installed:
 # Install the dependencies
 bundle
 # Run the specs
+# This can take three or more minutes to finish
 bundle exec rspec
 # Start the app on http://localhost:3000/
 bin/rails server
