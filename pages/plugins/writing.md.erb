@@ -215,6 +215,23 @@ Next, add a `README.md` file to introduce the plugin to the world:
 
 <%= render 'plugins/tutorial_readme' %>
 
+## Developing a plugin with a feature branch
+
+When developing your plugin, it might be useful to have a quick feedback loop between making a change in your plugin code, and seeing the effects in a Buildkite pipeline.  Let's say you're developing your feature on `my-org/plugin#dev-branch`.  By default, if a Buildkite agent sees that it needs the plugin `my-org/plugin#dev-branch`, and it already has a checkout matching that spec, it will *not* pull any Git changes.  There's a handy feature for when you're developing on a plugin branch and you *do* want to see changes reflected immediately: the configuration setting [`plugins-always-clone-fresh`](/docs/agent/v3/configuration#plugins-always-clone-fresh).
+
+The easiest way to try it out would be to have the following in another Buildkite pipeline where you're testing your plugin.  Configuring this feature using a per-step environment variable means that other plugins, which are unlikely to be changing in the meantime, won't get unnecessarily cloned on every step invocation.
+
+```yml
+steps:
+  - command: ls
+    env:
+      BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
+    plugins:
+      - a-github-user/file-counter#dev-branch:
+          pattern: '*.md'
+```
+{: codeblock-file="pipeline.yml"}
+
 ## Publish to the Buildkite Plugin Directory
 
 To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
