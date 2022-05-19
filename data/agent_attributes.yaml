@@ -223,6 +223,12 @@ attributes:
   required: false
   desc: | 
       Directory where the plugins are saved.
+- name: plugins-always-clone-fresh
+  env_var: BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH
+  default_value: "false"
+  required: false
+  desc: |
+      Force making a fresh clone of plugins every time.  By default, the Buildkite agent will compare a plugin's organisation, repository, and version tag to any plugin checkout it already has, and if they match, simply use that.  Especially during plugin development on a branch, it can be useful to set this option to `true`.
 - name: priority 
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"
