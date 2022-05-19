@@ -42,8 +42,6 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    ```bash
    # Start the app on http://localhost:3000/
    docker-compose up --build
-   # To start it in production mode on http://localhost:3000/
-   docker-compose -f docker-compose.production.yml up --build
    ```
 
 ## Updating buildkite-agent CLI Docs
