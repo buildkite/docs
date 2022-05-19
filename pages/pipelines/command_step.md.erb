@@ -412,16 +412,23 @@ steps:
 
 ## Fail fast
 
-As soon as any job (except jobs that you've marked as `soft_fail`) in your build fails , you can automatically cancel any jobs with the attribute `cancel_on_build_failing: true`.
+To automatically cancel remaining jobs as soon the first job fails (except jobs that you've marked as `soft_fail`):
 
-To do this, make sure that _CANCEL ASAP_ is checked in your _Pipeline Repository. <!-- TODO where exactly -->
+1. Make sure that _Publish failed state early_ is checked in your _Pipeline Repository_ settings
+2. Mark jobs that you want to cancel immediately with `cancel_on_build_failing: true`
 
+Next time a job in your build fails, those jobs will be automatically cancelled.
 
+<!--
+
+TODO:
 To set `cancel_on_build_failing: true` for all jobs in a Build:
- 
- <!-- TODO where exactly -->
+
+
+ -->
 
 ## Example
+
 
 ```yml
 steps:
