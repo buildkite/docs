@@ -77,7 +77,11 @@ done
 
 To use this script:
 
-- Set the `BUILDKITE_API_TOKEN` environment variable to an [API access token](/docs/apis/managing-api-tokens)
+- Set the `BUILDKITE_API_TOKEN` environment variable to an [API access token](/docs/apis/managing-api-tokens).
+
+    The token is a privileged secret.
+    A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
+
 - Set a valid `BUILDKITE_ORG_SLUG` and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
 - Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
 
