@@ -99,6 +99,21 @@
       </div>
       <div class="HomepageCategory">
         <h3 class="HomepageCategory__heading">
+          <a href="/docs/agent/v3">Running Buildkite agents</a>
+          <%= image_tag("icons/agents.svg", alt: "Icon: agents") %>
+        </h3>
+        <span>Configuring your Buildkite agents</span>
+        <ul>
+          <li><%= link_to "Configuring agents", "/docs/agent/v3/configuration" %></li>
+          <li><%= link_to "Configuring SSH keys", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
+          <li><%= link_to "Securing agents", "/docs/agent/v3/securing" %></li>
+          <li><%= link_to "Managing agent queues", "/docs/agent/v3/queues" %></li>
+          <li><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks" %></li>
+          <li><%= link_to "More about agents…", "/docs/agent/v3", class: "more-link" %></li>
+        </ul>
+      </div>
+      <div class="HomepageCategory">
+        <h3 class="HomepageCategory__heading">
           <a href="/docs/pipelines">Configuring pipelines</a>
           <%= image_tag("icons/pipeline.svg", alt: "Icon: pipeline") %>
         </h3>
@@ -139,21 +154,6 @@
           <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
           <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
           <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
-        </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/agent/v3">Running Buildkite agents</a>
-          <%= image_tag("icons/agents.svg", alt: "Icon: agents") %>
-        </h3>
-        <span>Configuring your Buildkite agents</span>
-        <ul>
-          <li><%= link_to "Configuring agents", "/docs/agent/v3/configuration" %></li>
-          <li><%= link_to "Configuring SSH keys", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
-          <li><%= link_to "Securing agents", "/docs/agent/v3/securing" %></li>
-          <li><%= link_to "Managing agent queues", "/docs/agent/v3/queues" %></li>
-          <li><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks" %></li>
-          <li><%= link_to "More about agents…", "/docs/agent/v3", class: "more-link" %></li>
         </ul>
       </div>
     </div>
