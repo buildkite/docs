@@ -1,0 +1,17 @@
+---
+extends: capitalization
+message: "'%s' should be in title case"
+style: 'AP'
+level: error
+scope: heading.h1
+match: $title
+exceptions:
+  - Docker
+  - Bazel
+  - Buildkite
+  - Elastic
+  - GitHub
+  - JUnit
+  - GraphQL
+
+
