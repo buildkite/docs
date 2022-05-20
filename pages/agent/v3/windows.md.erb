@@ -106,3 +106,7 @@ To install the agent on WSL2, follow the [generic Linux installation guide](/doc
 <div class="Docs__note">
 <p>Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.</p>
 </div>
+
+## Security considerations
+
+The agent will run scripts from the hooks directory, and will checkout and run scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
