@@ -54,7 +54,7 @@
   font-size: 16px;
   max-width: 500px;
   display: block;
-  margin: 0px auto 80px;
+  margin: 0px auto 40px;
   padding: 20px;
   align-self: flex-start;
   width: 100%;
@@ -74,13 +74,43 @@
     width: 100%;
 }
 
-.HomepageCategory {
-  flex-basis: 33.3%;
-  position: relative;
-  padding: 10px 50px 50px;
-  box-sizing: border-box;
+.HomepageSection {
+  border-top: 1px solid #ccc;
 
-  h2 {
+  &__heading {
+    font-size: 1.333rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    margin-top: 40px;
+    padding-bottom: 10px;
+  }
+}
+
+.HomepageCategory {
+  box-sizing: border-box;
+  flex-basis: 100%;
+  margin-bottom: 30px;
+  padding-left: 30px;
+  padding-right: 30px;
+  position: relative;
+  
+  @media (min-width: $Docs__bp_stacked) {
+    flex-basis: 50%;
+  }
+  
+  @media (min-width: 960px) {
+    flex-basis: 33.33%;
+  }
+
+  &--is-placeholder {
+    display: none;
+
+    @media (min-width: 960px) {
+      display: block;
+    }
+  }
+
+  &__heading {
     font-weight: bold;
     font-size: 20px;
     margin-bottom: 5px;
@@ -170,9 +200,9 @@
     }
   }
 
-  .HomepageCategory__icon {
-    max-width: 150px;
+  &__icon {
     margin-top: 30px;
+    max-width: 200px;
   }
 
   .has-beta-pill {
@@ -187,22 +217,4 @@
   max-width: 1044px;
   padding: 0 20px;
   margin: 150px auto 50px;
-}
-
-@media(max-width: 1080px) {
-  .HomepageCategory {
-    flex-basis: 33.33%;
-  }
-}
-
-@media(max-width: 940px) {
-  .HomepageCategory {
-    flex-basis: 50%;
-  }
-}
-
-@media(max-width: 600px) {
-  .HomepageCategory {
-    flex-basis: 100%;
-  }
 }
