@@ -126,7 +126,7 @@ After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This mak
 
 ### Flock file locks
 
-Changes the file lock implementation from github.com/nightlyone/lockfile to github.com/gofrs/flock to address an issue where file locks are never released by agents that don't shut down cleanly. The new file locks are implemented at the kernel level, and are aware of when their parent process dies.
+Changes the file lock implementation from `github.com/nightlyone/lockfile` to `github.com/gofrs/flock` to address an issue where file locks are never released by agents that don't shut down cleanly. The new file locks are implemented at the kernel level, and are aware of when their parent process dies.
 
 When the experiment is enabled, the agent will use different lock files from agents where the experiment is disabled, so the agents with this experiment enabled should not be run on the same host as the agents where the experiment is disabled.
 
