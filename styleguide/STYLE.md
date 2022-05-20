@@ -37,8 +37,9 @@ More info on writing about pronouns and in the [Microsoft Style Guide](https://d
 
 ### Talking about YAML
 
-* Attributes not parameters. For example, "Add the `notify` attribute".
-* When discussing nesting/indenting, first attributes (attributes not nested under any other) are "top level".
+YAML is looks more simple than it is.
+It takes some care and discipline to write about.
+See [Talking about YAML](./yaml.md) for complete guidance.
 
 ## Style and formatting
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.

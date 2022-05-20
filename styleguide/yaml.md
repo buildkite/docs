@@ -1,0 +1,57 @@
+# Talking about YAML
+
+**Where possible, refer to what the YAML represents, such as a command, step, or pipeline, rather than the source itself.**
+In other words, describe the abstract meaning or effect of the YAML to be presented, not the literal characters used to declare it.
+In this usage, never use code style text.
+
+✅ Here is an example pipeline configuration…<br>
+✅ Add this step to the pipeline…<br>
+❌ Add a `command` to `pipeline.yml`…
+
+**If you must refer to YAML source text, avoid using YAML specification terminology.**
+Never use *block*, *flow*, *sequence*, *scalar*, and so on because some of them (such as *block*) conflict with product terminology and others are inscrutable or tend toward wordiness (such as *flow style mapping key*).
+
+**Always use code formatting to refer to literal YAML source or its filename.**
+
+✅ The `referer` key is actually spelled like that due to…<br>
+❌ Modify pipeline.yml…
+
+**If you must refer to YAML structures directly, use the following terminology.**
+
+## Map
+
+Use *map* (noun) to refer only to a collection of key-value pairs (also known as associative arrays, dictionaries, or objects).
+Never use *map* to refer to a key or value of a collection.
+Never use other terms such as *block*, *section* or *property*.
+
+✅ A command is a map that configures…<br>
+❌ Add the `matrix` map to the…
+
+If you must describe a map within a map or other structure, qualify the relationship with *of* or use the term *nested map*.
+Do not use the terms *block*, *level*, or the prefix *sub*.
+
+✅ The `retry` attribute of a step is a map of maps…<br>
+❌ Add the `matrix` map to the…
+
+## Attribute
+
+Use *attribute* to refer only to a key-value pair as a whole, not the identifier or value alone.
+
+✅ The `skip` attribute determines…<br>
+❌ Add the `skip` attribute to the command step, then on a new line…
+
+## Key and value
+
+Use *key* to refer only to an attribute's identifier and *value* to refer only to the attribute's value.
+Remember to use code formatting for literal keys or values.
+
+✅ Add the `skip` key to the command step, then on a new line…<br>
+✅ Set the value to `true`, `false`, or a string…<br>
+❌ Add the skip key to the command step, then on a new line…
+
+## Array
+
+Use *array* to refer only to sequences (also known as lists) and never maps.
+
+✅ The step attribute consists of an array of step maps…<br>
+❌ The attribute contains a list of entries…
