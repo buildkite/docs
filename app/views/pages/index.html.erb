@@ -34,6 +34,8 @@
         <li><%= link_to "GitLab", "/docs/integrations/gitlab" %></li>
         <li><%= link_to "Bitbucket", "/docs/integrations/bitbucket" %></li>
         <li><%= link_to "Bitbucket Server", "/docs/integrations/bitbucket_server" %></li>
+        <li><%= link_to "Phabricator", "/docs/integrations/phabricator" %></li>
+        <li><%= link_to "Other Git Servers", "/docs/integrations/Git" %></li>
       </ul>
     </div>
     <div class="HomepageCategory" style="text-align: center; padding-top: 40px;">
@@ -115,14 +117,14 @@
       </ul>
     </div>
     <div class="HomepageCategory">
-      <h2>
+      <h2 class="has-beta-pill">
         <%= image_tag("icons/test-analytics.svg", alt: "") %>
-        <a class="beta-link" href="/docs/test-analytics">Test Analytics</a>
+        <a href="/docs/test-analytics">Test Analytics</a>
       </h2>
       <span>Find and fix flaky tests</span>
       <ul>
         <li><%= link_to "Overview", "/docs/test-analytics" %></li>
-        <li><%= link_to "Integrations", "/docs/test-analytics/integrations" %></li>
+        <li><%= link_to "Collectors", "/docs/test-analytics/ruby-collectors" %></li>
       </ul>
     </div>
   </div>
