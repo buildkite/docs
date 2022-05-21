@@ -228,7 +228,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Force making a fresh clone of plugins every time.  By default, the Buildkite agent will compare a plugin's organisation, repository, and version tag to any plugin checkout it already has, and if they match, simply use that.  Especially during plugin development on a branch, it can be useful to set this option to `true`.
+      Force checking out a fresh clone of plugins every build. By default, if the organisation, repository, and version tag of a plugin checkout match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially during plugin development.
 - name: priority 
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"
