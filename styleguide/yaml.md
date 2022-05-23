@@ -1,8 +1,10 @@
 # Talking about YAML
 
+This document is a part of the larger [style guide](./STYLE.md) and it covers the usage of YAML in the Buildkite documentation. Further expansion of this guide is highly welcomed.
+
 **Where possible, refer to what the YAML represents, such as a command, step, or pipeline, rather than the source itself.**
 In other words, describe the abstract meaning or effect of the YAML to be presented, not the literal characters used to declare it.
-In this usage, never use code style text.
+In this usage, never use code-style text.
 
 ✅ Here is an example pipeline configuration…<br>
 ✅ Add this step to the pipeline…<br>
@@ -22,7 +24,7 @@ Never use *block*, *flow*, *sequence*, *scalar*, and so on because some of them 
 
 Use *map* (noun) to refer only to a collection of key-value pairs (also known as associative arrays, dictionaries, or objects).
 Never use *map* to refer to a key or value of a collection.
-Never use other terms such as *block*, *section* or *property*.
+Never use other terms such as *block*, *section*, or *property*.
 
 ✅ A command is a map that configures…<br>
 ❌ Add the `matrix` map to the…

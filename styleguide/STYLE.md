@@ -37,7 +37,7 @@ More info on writing about pronouns and in the [Microsoft Style Guide](https://d
 
 ### Talking about YAML
 
-YAML is looks more simple than it is.
+YAML looks more simple than it is.
 It takes some care and discipline to write about.
 See [Talking about YAML](./yaml.md) for complete guidance.
 
