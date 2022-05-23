@@ -20,41 +20,56 @@ Test Analytics ships with the following collectors. You you can also upload test
 
 [RSpec](/docs/test-analytics/ruby-collectors#rspec-collector)
 
+----
+
 <%= tiles [
   {
     title: "Deep performance analysis",
     url: "/docs/test-analytics/features#spot-sneaky-slow-downs",
-    image: {
-      name: "icon-performance-analysis.svg",
-      height: 48,
-      width: 48
-    },
+    image_url: "icon-performance-analysis.svg",
     desc: "Automatic tracing across your test suite, deeply integrated with your programming language and test framework."
   },
   {
     title: "Find and fix flaky tests",
     url: "/docs/test-analytics/features#find-flaky-tests",
-    image: {
-      name: "icon-find-flaky-tests.svg",
-      height: 48,
-      width: 48
-    },
+    image_url: "icon-find-flaky-tests.svg",
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
   },
   {
     title: "Speed and reliability monitoring",
     url: "/docs/test-analytics/features#monitor-what-matters",
-    image: {
-      name: "icon-monitoring.svg",
-      height: 48,
-      width: 48
-    },
+    image_url: "icon-monitoring.svg",
     desc: "Configure speed and reliability monitors to identify problems as soon as they occur."
   }
 ] %>
 
-| How-to guides | Collectors |
-| --- | --- |
-| [Uploading JSON data](/docs/test-analytics/importing-json) | [RSpec](/docs/test-analytics/ruby-collectors#rspec-collector) |
-| [Uploading JUnit XML results](/docs/test-analytics/importing-junit-xml) | |
-| [Build your own collector](/docs/test-analytics/your-own-collectors) | |
+----
+
+<%= tiles [
+  {
+    title: "How-to guides",
+    links: [
+      {
+        text: "Uploading JSON data",
+        url: "/docs/test-analytics/importing-json"
+      },
+      {
+        text: "Uploading JUnit XML results",
+        url: "/docs/test-analytics/importing-junit-xml"
+      },
+      {
+        text: "Build your own collector",
+        url: "/docs/test-analytics/your-own-collectors"
+      }
+    ]
+  },
+  {
+    title: "Collectors",
+    links: [
+      {
+        text: "RSpec",
+        url: "/docs/test-analytics/ruby-collectors#rspec-collector"
+      }
+    ]
+  }
+] %>
