@@ -12,36 +12,21 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 - Identify, fix, and monitor test suite performance
 - Track, improve, and monitor test suite reliability
 
-{:toc}
-
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
-## Find flaky tests
+## Get started
 
-See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
+Test Analytics ships with the following collectors. You you can also upload test results by importing JSON or JUnit XML.
 
-## Spot sneaky slow-downs
+[RSpec](/docs/test-analytics/ruby-collectors#rspec-collector)
 
-Find performance degradations, even in parallelized builds. Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then dive deep into individual test execution span timelines to identify patterns.
+| [Deep performance analysis](/docs/test-analytics/features#spot-sneaky-slow-downs) | [Find and fix flaky tests](/docs/test-analytics/features#find-flaky-tests) | [Speed and reliability monitoring](/docs/test-analytics/features#monitor-what-matters) |
+| --- | --- | --- |
+| Automatic tracing across your test suite, deeply integrated with your programming language and test framework. | Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them. | Configure speed and reliability monitors to identify problems as soon as they occur. |
+| [Learn more](/docs/test-analytics/features#spot-sneaky-slow-downs) | [Learn more](/docs/test-analytics/features#find-flaky-tests) | [Learn more](/docs/test-analytics/features#monitor-what-matters) |
 
-<%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
-
-<%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
-
-## Monitor what matters
-
-Configure monitors to track only what matters to you. Track reliability (percentage of passed test executions) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches fall below your defined threshold. Track duration changes against your test suite median, or number of consecutive failures.
-
-The number of available monitors depends on your [Buildkite payment plan](https://buildkite.com/pricing). You can configure up to 5 monitors with the free plan and up to 20 with any of the paid plans.
-
-<%= image "monitors.png", width: 851, height: 559, alt: "Screenshot of monitor settings showing the ability to alert on changes to test duration, reliability, and consecutive failures." %>
-
-## Alerts
-
-When you get an alert from one of your monitors, see
-
-- when it was last seen
-- when it was first seen
-- how many times it has happened
-
-Mark it as resolved, mute it, or leave it open.
+| How-to guides | Collectors |
+| --- | --- |
+| [Uploading JSON data](/docs/test-analytics/importing-json) | [RSpec](/docs/test-analytics/ruby-collectors#rspec-collector) |
+| [Uploading JUnit XML results](/docs/test-analytics/importing-junit-xml) | |
+| [Build your own collector](/docs/test-analytics/your-own-collectors) | |
