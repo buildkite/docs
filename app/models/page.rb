@@ -44,6 +44,26 @@ class Page
     def paginated_resource_docs_url
       @url_helpers.docs_path + '/rest-api#pagination'
     end
+    
+    def tiles(items=[])
+      tiles_html = items.map { |item| tile(item) }.join('')
+      %{<section class="Tile">#{tiles_html}</section>}
+    end
+
+    def tile(args={})
+      title_html = args[:url] ? %{<a href="#{args[:url]}">#{args[:title]}</a>} : args[:title]
+      image_html = args[:image][:name] ? image(args[:image][:name], { height: args[:image][:height], width: args[:image][:width] }) : ''
+      desc_html = args[:desc]
+      learn_more_html = args[:url] ? %{<a href="#{args[:url]}">Learn more</a>} : ''
+      %{
+        <article class="TileItem">
+          #{image_html}
+          #{title_html}
+          #{desc_html}
+          #{learn_more_html}
+        </article>
+      }
+    end
 
     def url_helpers
       @url_helpers
