@@ -56,7 +56,7 @@ Once you're done, in your Test Analytics dashboard, you'll see analytics of test
 
 Test Analytics uses environment variables to populate test information. Regardless of the CI provider you use to run your builds, you need to make sure that environment variables are available to the RSpec collector or import API. You also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
 
-Not all of these variables are set or available for each CI provider, for more details on specific integrations and providers see:
+Not all of these variables are set or available for each CI provider. For more details on specific integrations and providers see:
 
 * [RSpec on Buildkite](#environment-variables-rspec-on-buildkite)
 * [RSpec on CircleCI](#environment-variables-rspec-on-circleci)
@@ -64,7 +64,7 @@ Not all of these variables are set or available for each CI provider, for more d
 * [RSpec on other CI providers](#environment-variables-rspec-on-other-ci-providers)
 * For other CI providers and collectors see [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) and [Importing JSON](/docs/test-analytics/importing-json)
 
-The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`).
+The only required environment variable is the unique key for the build that initiated the Test Analytics run (`BUILDKITE_ANALYTICS_KEY`), but some features of Test Analytics aren't available if the other environment variables are not set.
 
 If you're not using CI, you can still use Test Analytics by running the RSpec collector, [JUnit import](/docs/test-analytics/importing-junit-xml), or [JSON import](/docs/test-analytics/importing-json) yourself to upload data to Test Analytics.
 
