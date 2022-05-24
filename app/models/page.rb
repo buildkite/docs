@@ -61,6 +61,7 @@ class Page
             )
             .render()
         }.join('')
+
       %{<section class="Tiles">#{tiles_html}</section>}
     end
 
