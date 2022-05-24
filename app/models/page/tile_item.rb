@@ -16,9 +16,9 @@ class Page::TileItem
     image_html = @image_url && %{<img alt="Image #{@title}" class="TileItem__image" src="#{@image_url}" />}
     desc_html = @desc && %{<p class="TileItem__desc">#{@desc}</p>}
     links_html = @links && TileItemLinksList.new(@links).render
-    learn_more_html = @url && %{<a href="#{@url}">Learn more</a>}
+    learn_more_html = @url && %{<a href="#{@url}" class="TileItem__learn-more">Learn more</a>}
     %{
-      <article class="Tile__item">
+      <article class="TileItem">
         #{image_html}
         #{title_html}
         #{desc_html}
@@ -37,12 +37,14 @@ class Page::TileItem
     def render
       @links && @links.length() > 0 && 
       %{
-        <ul>
+        <ul class="TileItem__list">
           #{
             @links
               .map {
                 |link|
-                link[:text] && link[:url] && %{<li><a href="#{link[:url]}">#{link[:text]}</a></li>}
+                link[:text] && link[:url] && %{
+                  <li class="TileItem__list-item"><a href="#{link[:url]}" class="TileItem__list-item-link">#{link[:text]}</a></li>
+                }
               }
               .join('')
           }

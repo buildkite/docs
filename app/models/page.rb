@@ -59,7 +59,7 @@ class Page
             )
             .render()
         }.join('')
-      %{<section class="Tile">#{tiles_html}</section>}
+      %{<section class="Tiles">#{tiles_html}</section>}
     end
 
     def url_helpers
