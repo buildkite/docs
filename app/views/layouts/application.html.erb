@@ -67,7 +67,7 @@
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
           <%= render 'layouts/sidebar' %>
-          <div class="Docs__article">
+          <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
             <div class="column1">
               <%= yield %>
               <div class="Docs__note--footer-typo">
