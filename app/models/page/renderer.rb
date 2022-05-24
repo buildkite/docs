@@ -96,9 +96,12 @@ class Page::Renderer
 
     # Third, we generate and replace the actual toc.
     doc.search('./p').each do |node|
-      next unless node.text == '{:toc}'
+      toc = '{:toc}'
+      notoc = '{:notoc}'
 
-      if headings.empty?
+      next unless [toc, notoc].include? node.text
+
+      if headings.empty? or node.text == notoc
         node.replace('')
       else
         node.replace(<<~HTML.strip)
