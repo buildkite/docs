@@ -45,17 +45,19 @@ class Page
       @url_helpers.docs_path + '/rest-api#pagination'
     end
     
-    def tiles(items=[])
+    def tiles(tile_name)
+      file_path = File.join(Rails.root, 'data', 'tiles.yml')
+      items = YAML.load_file(file_path)[tile_name]
       tiles_html = 
         items.map {
           |item|
           Page::TileItem
             .new(
-              item[:title],
-              item[:url],
-              item[:image_url] && image_url(item[:image_url]),
-              item[:desc],
-              item[:links]
+              item['title'],
+              item['url'],
+              item['image_url'] && image_url(item['image_url']),
+              item['desc'],
+              item['links']
             )
             .render()
         }.join('')

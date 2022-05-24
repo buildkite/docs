@@ -1,0 +1,27 @@
+---
+test_analytics_features:
+  - title: "Deep performance analysis"
+    url: "/docs/test-analytics/features#spot-sneaky-slow-downs"
+    image_url: "icon-performance-analysis.svg"
+    desc: "Automatic tracing across your test suite, deeply integrated with your programming language and test framework."
+  - title: "Find and fix flaky tests"
+    url: "/docs/test-analytics/features#find-flaky-tests"
+    image_url: "icon-find-flaky-tests.svg"
+    desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
+  - title: "Speed and reliability monitoring"
+    url: "/docs/test-analytics/features#monitor-what-matters"
+    image_url: "icon-monitoring.svg"
+    desc: "Configure speed and reliability monitors to identify problems as soon as they occur."
+test_analytics_guides:
+  - title: "How-to guides"
+    links:
+      - text: "Uploading JSON data"
+        url: "/docs/test-analytics/importing-json"
+      - text: "Uploading JUnit XML results"
+        url: "/docs/test-analytics/importing-junit-xml"
+      - text: "Build your own collector"
+        url: "/docs/test-analytics/your-own-collectors"
+  - title: "Collectors"
+    links:
+      - text: "RSpec"
+        url: "/docs/test-analytics/ruby-collectors#rspec-collector"

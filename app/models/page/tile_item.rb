@@ -42,8 +42,8 @@ class Page::TileItem
             @links
               .map {
                 |link|
-                link[:text] && link[:url] && %{
-                  <li class="TileItem__list-item"><a href="#{link[:url]}" class="TileItem__list-item-link">#{link[:text]}</a></li>
+                link['text'] && link['url'] && %{
+                  <li class="TileItem__list-item"><a href="#{link['url']}" class="TileItem__list-item-link">#{link['text']}</a></li>
                 }
               }
               .join('')
