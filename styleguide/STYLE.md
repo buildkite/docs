@@ -386,6 +386,14 @@ At the time of writing, there are only three icons available — agent, reposito
 
 Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
 
+#### Tiles
+
+Tiles are grid layouts to better present the page in a landing page layout. This helps customers to get a quick overview and navigation wayfinding to their desired content.
+
+Tile content are managed in `data/tiles.yml`. You can add title, image, short description, URL, and links for each Tile item. See `data/tiles.schema.yml`.
+
+To add a Tile grid to a page, simply add `<%= tile "tile_name" >` to the markdown file and replace `tile_name` with the tile data you want in `tiles.yml`.
+
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 

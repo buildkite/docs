@@ -1,9 +1,10 @@
 ---
 title: Tiles schema
-description: |
-  A schema for uploading and managing Tiles content.
-  Tiles produce custom grid layout in markdown Docs pages
 type: object
+description: |
+  A schema for uploading and managing Tiles content. 
+  Tiles produce custom grid layout in markdown Docs pages. 
+  Give each Tile item a name for the template to reference.
 properties:
   type: array
   items:
