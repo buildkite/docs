@@ -65,10 +65,6 @@ class Page
       %{<section class="Tiles">#{tiles_html}</section>}
     end
 
-    def button(children, url, has_right_arrow)
-      %{#{Page::Button.new(children, url, has_right_arrow).render()}}
-    end
-
     def url_helpers
       @url_helpers
     end
