@@ -2,15 +2,15 @@
 test_analytics_features:
   - title: "Deep performance analysis"
     url: "/docs/test-analytics/features#spot-sneaky-slow-downs"
-    image_url: "icon-performance-analysis.svg"
+    image_url: "test_analytics/icon-performance-analysis.svg"
     desc: "Automatic tracing across your test suite, deeply integrated with your programming language and test framework."
   - title: "Find and fix flaky tests"
     url: "/docs/test-analytics/features#find-flaky-tests"
-    image_url: "icon-find-flaky-tests.svg"
+    image_url: "test_analytics/icon-find-flaky-tests.svg"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
   - title: "Speed and reliability monitoring"
     url: "/docs/test-analytics/features#monitor-what-matters"
-    image_url: "icon-monitoring.svg"
+    image_url: "test_analytics/icon-monitoring.svg"
     desc: "Configure speed and reliability monitors to identify problems as soon as they occur."
 test_analytics_guides:
   - title: "How-to guides"
