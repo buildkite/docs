@@ -6,8 +6,6 @@
 
 {:toc}
 
-By default, the beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector). However, you you can also upload test results by importing JUnit XML or [JSON](/docs/test-analytics/importing-json).
-
 ## How to import JUnit XML
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
@@ -59,6 +57,10 @@ Test Analytics parses the XML and imports all valid test cases for ingestion and
   "skipped": 0
 }
 ```
+
+Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
+
+Currently, the errors returned contain no information on individual records that failed the validation. This may make complicate the process of fixing and retrying the request.
 
 ## Environment variables
 
