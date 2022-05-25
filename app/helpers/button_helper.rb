@@ -1,17 +1,16 @@
 module ButtonHelper
 
   def button(children, url, has_right_arrow = false)
-    if children && url
-      inner_html = 
+    link_to(
       if has_right_arrow
-        content_tag(:span, children) +
-        content_tag(:span, "", class: "Button__right-arrow")
+        children.html_safe +
+        content_tag(:span, "", class: "Button__right-arrow", aria: { "hidden": true })
       else
-        children
-      end
-
-      link_to(inner_html, url, class: "Button")
-    end
+        children.html_safe
+      end,
+      url,
+      class: "Button"
+    )
   end
 
 end
