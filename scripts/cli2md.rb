@@ -42,6 +42,10 @@ ARGF.each_with_index do |line, line_num|
 
         # Wrap https://agent.buildkite.com/v3 in code
         desc.gsub!('https://agent.buildkite.com/v3',"<code>https://agent.buildkite.com/v3</code>")
+
+        # Replace all prime symbols with backticks. We use prime symbols instead of backticks in CLI helptext for... reasons.
+        # See: https://github.com/buildkite/agent/blob/main/clicommand/prime-signs.md
+        desc.tr!('′', '`')
         puts "<tr id=\"#{command}\"><th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th><td><p>#{desc}<br /><strong>Environment variable</strong>: <code>#{env_var}</code></p></td></tr>"
     else
         if(first_param==true)
