@@ -4,20 +4,42 @@
 <p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
 </div>
 
-{:toc}
+You can use the Test Analytics API to upload JUnit XML.
 
-## How to import JUnit XML
+{:toc}
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
 
-To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
+## How to import JUnit XML
 
-Test Analytics uses the variables in the `run_env` attribute to populate test information:
+To import JUNit XML, you can either:
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
-* if you're making the request elsewhere, [set the environment variables yourself](#environment-variables)
+- [Use the `collect.sh` convenience script](#import-using-collectsh) to read the test results, build a request, and upload to the REST API.
+- [Make a POST request to `https://analytics-api.buildkite.com/v1/uploads`](#import-junit-xml-using-the-api), with metadata and JUnit XML test results encoded as JSON in the request body.
 
-[Securely add the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two code blocks.
+## Import JUnit XML using `collect.sh`
+
+[`collect.sh`](https://github.com/buildkite/collector-junit/blob/HEAD/collect.sh) builds and submits a Test Analytics upload based on JUnit XML as standard input and continuous integration environment variables from Buildkite, CircleCI, and GitHub Actions.
+
+To use `collect.sh`, [securely export the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment and stream JUnit XML to the script's standard input.
+For example, this command downloads the `collect.sh` script and uses it to upload the contents of the file `junit.xml`:
+
+```bash
+cat "junit.xml" | \
+  bash -c "$(curl -sL https://raw.githubusercontent.com/buildkite/collector-junit/HEAD/collect.sh)"
+```
+
+## Import JUnit XML using the API
+
+To import JUnit XML with the API, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body.
+
+For example, to a `curl` command to upload:
+
+- [Securely export the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment.
+- Set environment variables for the `run_env` JSON object (see [Environment variables](#environment-variables) for details). This example uses the Buildkite pipeline environment variables.
+- Escape the JUnit XML to a JSON string.
+
+Then run `curl` like this, where `"JUnit XML goes here"` is the JSON-escaped string:
 
 ```sh
 curl --request POST \
@@ -37,18 +59,12 @@ curl --request POST \
         "message": "$BUILDKITE_MESSAGE",
         "url": "$BUILDKITE_BUILD_URL"
       },
-      "data": "JSON-encoded JUnit XML goes here"
+      "data": "JUnit XML goes here"
     }
 EOF
 ```
 
-Example JSON-encoded JUnit XML:
-
-```json
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
-```
-
-Test Analytics parses the XML and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
+By making the API request, Test Analytics parses the XML and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
 
 ```json
 {
