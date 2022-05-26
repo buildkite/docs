@@ -27,7 +27,6 @@ GitLab
 Gradle
 Hashicorp
 Inlining
-Javascript
 Memcache
 Minitest
 Namespace
