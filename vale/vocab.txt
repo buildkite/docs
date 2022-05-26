@@ -28,6 +28,7 @@ Gradle
 Hashicorp
 Inlining
 Javascript
+jq
 Memcache
 Minitest
 Namespace
