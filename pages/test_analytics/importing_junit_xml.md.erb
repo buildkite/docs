@@ -22,6 +22,13 @@ To import JUNit XML, you can either:
 [`collect.sh`](https://github.com/buildkite/collector-junit/blob/HEAD/collect.sh) uploads JUnit XML and continuous integration enviroment metadata to Buildkite.
 `collect.sh` accepts JUnit XML as standard input and detects continuous integration environment variables from Buildkite, CircleCI, and GitHub Actions.
 
+To run, `collect.sh` requires:
+
+- Bash
+- curl
+- [jq](https://stedolan.github.io/jq/)
+  (if `jq` is not installed, `collect.sh` downloads it automatically, but you can avoid the delay by installing jq ahead of time)
+
 To use `collect.sh`, [securely export the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment and stream JUnit XML to the script's standard input.
 For example, this command downloads the `collect.sh` script and uses it to upload the contents of the file `junit.xml`:
 
