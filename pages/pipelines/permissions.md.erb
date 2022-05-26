@@ -171,7 +171,7 @@ You can remove a user in your organization's _Settings_ in the Buildkite UI.
 
 ### Security guarantees of removing a user
 
-When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available via the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user.
+When you remove a user from your organization, the active session tokens belonging to this user cannot make calls to the product that will return (or make changes to) any of the data available using the web UI, API, etc. So removing a compromised or rogue user is as effective as killing all sessions by the user.
 
 Within Buildkite's access model, organizations don't own users, so they can't control users' sessions because users represent individuals who may be members of multiple organizations.
 
@@ -196,7 +196,7 @@ If the attacker has control of the SSO, the scope of the security incident is be
 
 ### Disabling and re-enabling SSO
 
-The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated via your SSO provider.
+The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated through your SSO provider.
 
 <section class="Docs__troubleshooting-note">
   <p>Before you proceed, make sure that you have at least one user with SSO as an optional log in requirement in your organization to make it possible for someone to log back in!</p>
