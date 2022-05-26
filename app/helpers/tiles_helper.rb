@@ -40,16 +40,20 @@ module TilesHelper
     end
 
     links_html = if links && !links.empty?
-      links.inject("".html_safe) do |prev_links, current_link|
-        if current_link["text"] && current_link["url"]
-          prev_links +
-          content_tag(
-            :li,
-            link_to(current_link["text"], current_link["url"], class: "TileItem__list-item-link"),
-            class: "TileItem__list-item"
-          )
-        end
-      end
+      content_tag(
+        :ul,
+        links.inject("".html_safe) do |prev_links, current_link|
+          if current_link["text"] && current_link["url"]
+            prev_links +
+            content_tag(
+              :li,
+              link_to(current_link["text"], current_link["url"], class: "TileItem__list-item-link"),
+              class: "TileItem__list-item"
+            )
+          end
+        end,
+        class: "TileItem__list"
+      )
     end
 
     learn_more_html = if url
