@@ -8,18 +8,19 @@ You can use the Test Analytics API to upload JUnit XML.
 
 {:toc}
 
-While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
+While most test frameworks can export JUnit XML, these reports do not provide detailed span information. Therefore, analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider [importing JSON](/docs/test-analytics/importing-json) instead.
 
 ## How to import JUnit XML
 
 To import JUNit XML, you can either:
 
-- [Use the `collect.sh` convenience script](#import-junit-xml-using-collect-dot-sh) to read the test results, build a request, and upload to the REST API.
+- [Use the `collect.sh` convenience script](#import-junit-xml-using-collect-dot-sh) to read test results, build a request, and upload to the REST API.
 - [Make a POST request to `https://analytics-api.buildkite.com/v1/uploads`](#import-junit-xml-using-the-api), with metadata and JUnit XML test results encoded as JSON in the request body.
 
 ## Import JUnit XML using `collect.sh`
 
-[`collect.sh`](https://github.com/buildkite/collector-junit/blob/HEAD/collect.sh) builds and submits a Test Analytics upload based on JUnit XML as standard input and continuous integration environment variables from Buildkite, CircleCI, and GitHub Actions.
+[`collect.sh`](https://github.com/buildkite/collector-junit/blob/HEAD/collect.sh) uploads JUnit XML and continuous integration enviroment metadata to Buildkite.
+`collect.sh` accepts JUnit XML as standard input and detects continuous integration environment variables from Buildkite, CircleCI, and GitHub Actions.
 
 To use `collect.sh`, [securely export the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment and stream JUnit XML to the script's standard input.
 For example, this command downloads the `collect.sh` script and uses it to upload the contents of the file `junit.xml`:
