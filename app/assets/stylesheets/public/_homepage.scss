@@ -7,6 +7,15 @@
   text-align: center;
   z-index: 5;
 
+  &__logo {
+    transition: opacity 300ms;
+    will-change: opacity;
+
+    &:hover {
+      opacity: .75;
+    }
+  }
+
   h1 {
     font-size: 32px;
     font-weight: bold;

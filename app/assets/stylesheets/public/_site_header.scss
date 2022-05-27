@@ -34,6 +34,15 @@ $SiteHeader__bp_wrap_search: 600px;
   margin-right: 3em;
 }
 
+.SiteHeader__logo-img {
+  transition: opacity 300ms;
+  will-change: opacity;
+
+  &:hover {
+    opacity: .75;
+  }
+}
+
 .SiteHeader__docslink {
   font-weight: bold;
   color: black;

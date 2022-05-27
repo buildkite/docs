@@ -51,6 +51,7 @@
           <%= link_to "https://buildkite.com/home", aria: { label: "Buildkite logo" }, class: "SiteHeader__mark", title: "Go to Buildkite homepage" do %>
             <svg
               aria-hidden="true"
+              class="SiteHeader__logo-img"
               focusable="false"
               width="<%= local_assigns.fetch(:width) { 42 } %>"
               height="<%= local_assigns.fetch(:height) { 28 } %>"
