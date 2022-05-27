@@ -8,7 +8,7 @@
   z-index: 5;
 
   &__logo {
-    transition: opacity 300ms;
+    transition: opacity $transition-speed;
     will-change: opacity;
 
     &:hover {
