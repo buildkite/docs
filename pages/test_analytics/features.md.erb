@@ -2,6 +2,20 @@
 
 {:toc}
 
+## Track trends across parallelized builds
+
+Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
+
+## Set suites that suit your needs
+
+In Test Analytics, a "test suite" is a collection of tests. A run is to a suite what a build is to a Pipeline.
+
+Many organizations set up one suite per test framework (ie, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
+
+Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
+
+To delete a suite, or regenerate its API token, go to suite settings.
+
 ## Find flaky (unreliable) tests
 
 See which tests are most disruptive to continuous deployments via reliability scores and trends on both your entire test suite and individual tests.
@@ -20,31 +34,31 @@ See which tests are most disruptive to continuous deployments via reliability sc
 
 ## Spot sneaky slow-downs
 
-Find performance degradations, even in parallelized builds. Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then dive deep into individual test execution span timelines to identify patterns.
+Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then diving deep into individual test execution span timelines to identify patterns.
 
-<%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
+For individual tests, see trend information on reliability, test execution count, failed test execution count, and test execution duration at p50 and p95, along with detailed information about span duration and total duration of that test execution over time.
+
+<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 7 days, including failed test execution count and test execution durations" %>
+
+<%= image "test-trend.png", width: 1167, height: 394, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test executions" %>
+
+Select any individual test execution to see more trend and deep-dive information, including comparisons against previous executions of this test.
+
+For example, in the example below, you can see that the test execution duration of 5.26 seconds is 2 seconds and 233 milliseconds more than the median of the previous 25 executions. In addition, the current value for this test execution of 5.26 seconds is in the 66th percentile within the distribution over the last 25 executions.
+
+<%= image "test-execution-stats.png", width: 1170, height: 578, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
+
+You can also annotate span information to help investigate problems, and see detailed log information inside Test Analytics for any failed test or run.
 
 <%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
-
-## Track trends across parallelized builds
-
-Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
-
-## Set suites that suit your needs
-
-In Test Analytics, a "test suite" is a collection of tests. A run is to a suite what a build is to a Pipeline.
-
-Many organizations set up one suite per test framework (ie, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
-
-Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
-
-To delete a suite, or regenerate its API token, go to suite settings.
 
 ## Compare across branches
 
 You can set one default branch per suite. This allows you to track trends and set monitors against your most important codebase, and compare it to results across all branches.
 
-This default is typically your `main` production branch, but can be any existing branch you choose. To change your default branch, go to suite settings.
+This default is typically your `main` production branch, but can be any existing branch you choose.
+
+To change your default branch, go to suite settings.
 
 <em><strong>Coming soon:</strong> the ability to select more branches via the user interface. If you'd like to see trends for more branches today, type any existing branch name into the branch query parameter in the Test Analytics URL.</em>
 
