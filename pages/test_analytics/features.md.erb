@@ -30,4 +30,11 @@ Find performance degradations, even in parallelized builds. Track down what's sl
 
 Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
 
+## Set up suites to suit your needs
+
+In Test Analytics, a "test suite" is a collection of tests. A run is to a suite what a build is to a Pipeline.
+
+Many organizations set up one suite per test framework (ie, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
+
+Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite.
 
