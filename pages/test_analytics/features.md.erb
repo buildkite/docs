@@ -4,13 +4,13 @@
 
 ## Track trends across parallelized builds
 
-Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
+Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analytics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
 
 ## Set suites that suit your needs
 
 In Test Analytics, a "test suite" is a collection of tests. A run is to a suite what a build is to a Pipeline.
 
-Many organizations set up one suite per test framework (ie, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
+Many organizations set up one suite per test framework (for example, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
 
 Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite. Pipelines and test suites do not need to have a one-to-one relationship.
 
@@ -20,7 +20,7 @@ To delete a suite, or regenerate its API token, go to suite settings.
 
 See which tests are most disruptive to continuous deployments via reliability scores and trends on both your entire test suite and individual tests.
 
-<strong>Reliablity</strong> is calculated as follows:
+<strong>Reliability</strong> is calculated as follows:
 
 - Test suite reliability = passed_runs / (passed_runs + failed_runs) * 100
 - Individual test reliability = passed_test_executions / (passed_test_executions + failed_test_executions) * 100
