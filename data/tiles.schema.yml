@@ -1,0 +1,52 @@
+---
+title: Tiles schema
+description: |
+  A schema for uploading and managing Tiles content.
+  Tiles produce custom grid layout in markdown Docs pages
+type: object
+properties:
+  type: array
+  items:
+    type: object
+    description: |
+      A Tile item
+    properties:
+      title:
+        type: string
+        description: |
+          The title of this Tile item
+      url:
+        type: string
+        description: |
+          [Optional] Link the title and render a 'learn more' link
+          at the bottom of the Tile item
+      image_url:
+        type: string
+        description: |
+          [Optional] Render an image at the top of the Tile item
+      desc:
+        type: string
+        description: |
+          [Optional] A short description about this Tile item
+      links:
+        type: array
+        description: |
+          [Optional] Render a list of links
+        items:
+          type: object
+          description: |
+            Text link
+          properties:
+            text:
+              type: string
+              description: |
+                Text in the link
+            url:
+              type: string
+              description: |
+                URL for where the link should go to
+            required:
+              - text
+              - url
+    required:
+      - title

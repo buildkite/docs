@@ -405,9 +405,13 @@ label[for='navicon'] span { // hide alt text
 
 @media (min-width: 1201px) { //TOC as side column on larger screens
   .Docs__article {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 250px;
-    position: relative;
+
+    &--is-landing-page {
+      display: block;
+    }
   }
 
   .Docs__toc {
