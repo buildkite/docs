@@ -2,7 +2,7 @@
 
 {:toc}
 
-## Find flaky tests
+## Find flaky (unreliable) tests
 
 See which tests are most disruptive to continuous deployments via reliability scores and trends on both your entire test suite and individual tests.
 
@@ -25,5 +25,9 @@ Find performance degradations, even in parallelized builds. Track down what's sl
 <%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
 
 <%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
+
+## Track trends across parallelized builds
+
+Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
 
 
