@@ -30,11 +30,21 @@ Find performance degradations, even in parallelized builds. Track down what's sl
 
 Test Analytics works even when your test runs are split across agents by de-duplicating against the Test Analyics API token and BUILD_ID environment variable. (If you suspect this isn't working properly, double-check that BUILD_ID is available to any containers running your builds.)
 
-## Set up suites to suit your needs
+## Set suites that suit your needs
 
 In Test Analytics, a "test suite" is a collection of tests. A run is to a suite what a build is to a Pipeline.
 
 Many organizations set up one suite per test framework (ie, one for RSpec, and another for Jest). Others use a common model, such as JUnit XML, to combine tests from multiple frameworks to set up custom "backend" and "frontend" suites.
 
 Each suite inside Test Analytics has a unique API token that you can use to route test information to the correct suite.
+
+To delete a suite, or regenerate its API token, go to suite settings.
+
+## Compare across branches
+
+You can set one default branch per suite. This allows you to track trends and set monitors against your most important codebase, and compare it to results across all branches.
+
+This default is typically your `main` production branch, but can be any existing branch you choose. To change your default branch, go to suite settings.
+
+<em><strong>Coming soon:</strong> the ability to select more branches via the user interface. If you'd like to see trends for more branches today, type any existing branch name into the branch query parameter in the Test Analytics URL.</em>
 
