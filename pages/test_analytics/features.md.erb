@@ -4,7 +4,19 @@
 
 ## Find flaky tests
 
-See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
+See which tests are most disruptive to continuous deployments via reliability scores and trends on both your entire test suite and individual tests.
+
+<strong>Reliablity</strong> is calculated as follows:
+
+- Test suite reliability = passed_runs / (passed_runs + failed_runs) * 100
+- Individual test reliability = passed_test_executions / (passed_test_executions + failed_test_executions) * 100
+
+(Other test execution results, such as `unknown` and `skipped`, are ignored in the test reliability calculation.)
+
+`❗Important:` In Test Analytics, a run is marked as red/failed as soon as a test execution fails (regardless of whether it passes on a retry) to help surface unreliable tests. You can have a situation where a build eventually passes on retry in a Pipeline, and the related run is marked as red/failed in Test Analytics.
+
+<em><strong>Coming soon:</strong> even more granularity into run states (such as in progress, finished, and information about retries), with web hooks so that you can pull that information into your preferred platform.</em>
+
 
 ## Spot sneaky slow-downs
 
@@ -13,3 +25,5 @@ Find performance degradations, even in parallelized builds. Track down what's sl
 <%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
 
 <%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
+
+
