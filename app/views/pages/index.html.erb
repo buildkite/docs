@@ -140,17 +140,29 @@
         <li><%= link_to "Custom deployments", "/docs/deployments" %></li>
         </ul>
       </div>
+    </div>
+  </section>
+  <section class="HomepageSection">
+    <h2 class="HomepageSection__heading">References</h2>
+    <div class="grid-row">
       <div class="HomepageCategory">
         <h3 class="HomepageCategory__heading">
-          <a href="/docs/apis">APIs and integrations</a>
-          <%= image_tag("icons/integration.svg", alt: "Icon: APIs") %>
+          <a href="/docs/apis">APIs</a>
+          <%= image_tag("icons/api.svg", alt: "Icon: APIs") %>
         </h3>
-        <span>Write your own customizations</span>
         <ul>
           <li><%= link_to "Buildkite REST API", "/docs/apis/rest-api" %></li>
           <li><%= link_to "Agent REST API", "/docs/apis/agent-api" %></li>
           <li><%= link_to "GraphQL API", "/docs/apis/graphql-api" %></li>
           <li><%= link_to "API tokens", "/docs/apis/managing-api-tokens" %></li>
+        </ul>
+      </div>
+      <div class="HomepageCategory">
+        <h3 class="HomepageCategory__heading">
+          <a href="/docs/apis">Integrations</a>
+          <%= image_tag("icons/integration.svg", alt: "Icon: APIs") %>
+        </h3>
+        <ul>
           <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
           <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
           <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
