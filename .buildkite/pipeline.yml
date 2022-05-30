@@ -31,11 +31,10 @@ steps:
     key: linting
     steps:
       - label: ":lint-roller: Linting text and markdown"
-        commands:
-          - wget https://github.com/errata-ai/vale/releases/download/v2.17.0/vale_2.17.0_Linux_64-bit.tar.gz
-          - tar --transform='s/vale/vale-bin/'  -xf 'vale_2.17.0_Linux_64-bit.tar.gz'
-          - ./vale-bin --config .vale.ini pages
-          - ./vale-bin --config .vale.snippets.ini pages/**/_*
+        plugins:
+          - docker-compose#v3.9.0:
+              run: vale
+              config: docker-compose-lint.yml
 
       - label: "Find common spelling mistakes"
         commands:
