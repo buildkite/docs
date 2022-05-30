@@ -1,0 +1,55 @@
+# CI Environments
+
+Buildkite Test Analytics collectors automatically detect common continuous integration (CI) environments.
+If available, test collectors gather information about your test runs, such as branch names and build IDs.
+Test collectors gather information from the following CI environments:
+
+- [Buildkite](#buildkite)
+- [CircleCI](#circleci)
+- [GitHub Actions](#github-actions)
+
+If you use a test collector in any other environment, the test run will be assigned a unique identifier and attributed to a "generic" CI system.
+Other information, such as branch names or commit hashes, will not be collected.
+
+If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
+
+{:toc}
+
+## Buildkite
+
+During Buildkite pipeline runs, test collectors upload information from the following environment variables:
+
+| Environment variable     | Description                                   |
+| ------------------------ | --------------------------------------------- |
+| `BUILDKITE_BRANCH`       | the branch or reference for this build        |
+| `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
+| `BUILDKITE_BUILD_NUMBER` | the build number                              |
+| `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
+| `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
+| `BUILDKITE_JOB_ID`       | the job UUID                                  |
+| `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
+
+## CircleCI
+
+During CircleCI workflow runs, test collectors upload information from the following environment variables:
+
+| Environment variable | Description                                |
+| -------------------- | ------------------------------------------ |
+| `CIRCLE_BRANCH`      | the branch or reference being built        |
+| `CIRCLE_BUILD_NUM`   | the number for the job                     |
+| `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
+| `CIRCLE_SHA1`        | the commit hash for the head of the branch |
+| `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
+
+## GitHub Actions
+
+During GitHub Actions workflow runs, test collectors upload information from the following environment variables:
+
+| Environment variable | Description                                             |
+| -------------------- | ------------------------------------------------------- |
+| `GITHUB_ACTION`      | the name of the action running or its step ID           |
+| `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
+| `GITHUB_REPOSITORY`  | the repository owner and repository name                |
+| `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
+| `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
+| `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
