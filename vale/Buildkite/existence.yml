@@ -7,3 +7,5 @@ swap:
   whitelist: allowlist
   blacklist: blocklist
   oAuth: OAuth
+  'github\.com': github.com
+  github: GitHub
