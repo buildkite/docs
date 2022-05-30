@@ -88,6 +88,10 @@ class Page
     @name = name
   end
 
+  def is_landing_page?
+    LandingPages.all.include? @name
+  end
+
   def beta?
     BetaPages.all.include? @name
   end

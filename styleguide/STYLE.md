@@ -323,6 +323,11 @@ Adding the class `has-beta-pill` to any element will append the beta pill. This 
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.
 Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
 
+To omit a table of contents, use `{:notoc}`.
+Typically `{:notoc}` is for pages where the text immediately following the \#-level heading is the body of the page or where there's only one \##\-level heading, which looks lonely in a table of contents.
+
+A page must have either `{:toc}` or `{:notoc}`.
+
 #### Note blocks
 Currently, the following syntax is commonly used for adding note blocks to the documentation:
 

@@ -27,7 +27,6 @@ GitLab
 Gradle
 Hashicorp
 Inlining
-Javascript
 Memcache
 Minitest
 Namespace
@@ -91,6 +90,7 @@ fff
 ffxdq
 gcloud
 gif
+githooks
 globbing
 golang
 Graviton
@@ -178,6 +178,7 @@ vendored
 waitlist
 walkthrough
 webtask
+worktree
 xcode
 xcodebuild
 xcpretty

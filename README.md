@@ -6,39 +6,48 @@ To contribute, send a pull request! :heart:
 
 ## Development
 
-```bash
-git clone https://github.com/buildkite/docs.git
-cd docs
-git submodule update --init
-```
+### Before you start
 
-> **Note**: If you're having trouble with an installation on an M1 Mac, use [rbenv](https://github.com/rbenv/rbenv) instead of the Ruby version provided by macOS or Homebrew.
+For containerized development, you need Docker and Docker Compose.
+Most desktop installations of Docker include Docker Compose by default.
+On some platforms, you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
 
-If you have Ruby installed:
+For non-containerized development, you need Ruby.
+See [`.ruby-version`](.ruby-version) for the current required version
+or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Ruby
 
-```bash
-# Navigate into the docs directory
-# Install the dependencies
-bundle
-# Run the specs
-# This can take three or more minutes to finish
-bundle exec rspec
-# Start the app on http://localhost:3000/
-bin/rails server
-```
+### Run the development server
 
-> **Note**: Check [.ruby-version](.ruby-version) for the current required version. You also need Node installed. The current LTS (long term support) version should be ok.
+1. Get the source. Run:
 
-If you have Docker installed:
+   ```bash
+   git clone https://github.com/buildkite/docs.git
+   cd docs
+   git submodule update --init
+   ```
 
-```bash
-# Start the app on http://localhost:3000/
-docker-compose up --build
-# To start it in production mode on http://localhost:3000/
-docker-compose -f docker-compose.production.yml up --build
-```
+2. Build and run the server.
 
-> **Note**: You need to use `sudo` if your username is not added to the `docker` group.
+   For non-containerized development, run:
+
+   ```bash
+   # Install the dependencies
+   bundle
+   # Start the app on http://localhost:3000/
+   bin/rails server
+   ```
+
+   Or with Docker, run:
+
+   ```bash
+   # Start the app on http://localhost:3000/
+   docker-compose up --build
+   ```
+
+Open `http://localhost:3000` to preview the docs site.
+After modifying a page, refresh to see your changes.
+
+**Note:** By default, search (through Algolia) does not work in development.
 
 ## Updating buildkite-agent CLI Docs
 

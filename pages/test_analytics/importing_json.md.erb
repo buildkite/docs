@@ -238,6 +238,20 @@ The JSON format is not yet documented, but the following example is what is prod
 ]
 ```
 
+Test Analytics parses the JSON and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
+
+```json
+{
+  "id": "eac9b176-7869-464d-952e-7f87e2579128",
+  "queued": 3,
+  "skipped": 0
+}
+```
+
+Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
+
+Currently, the errors returned contain no information on individual records that failed the validation. This may make complicate the process of fixing and retrying the request.
+
 ## Environment variables
 
 Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.

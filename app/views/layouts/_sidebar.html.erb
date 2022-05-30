@@ -45,6 +45,7 @@
           <%= sidebar_link_to "Prioritization", 'agent/v3/prioritization' %>
           <%= sidebar_link_to "Securing", 'agent/v3/securing' %>
           <%= sidebar_link_to "Tokens", 'agent/v3/tokens' %>
+          <%= sidebar_link_to "Tracing", 'agent/v3/tracing'%>
         </ul>
         <ul class="Docs__nav__sub-nav deprecated">
           <%= sidebar_link_to "Agent v2 (Deprecated)", 'agent/v2' %>
@@ -202,6 +203,7 @@
             <%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %>
             <%= sidebar_link_to "Bitbucket Server", 'integrations/bitbucket_server' %>
             <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
+            <%= sidebar_link_to "Other Git Servers", 'integrations/Git' %>
           </ul>
           <p class="Docs__nav__section-subheading">SSO</p>
           <ul class="Docs__nav__sub-nav">
@@ -235,6 +237,9 @@
         <div class="Docs__nav__section-content">
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'test-analytics' %>
+            <%= sidebar_link_to "Deep performance analysis", { path: 'test-analytics/features', anchor: "spot-sneaky-slow-downs" } %>
+            <%= sidebar_link_to "Find and fix flaky tests", { path: 'test-analytics/features', anchor: "find-flaky-tests" } %>
+            <%= sidebar_link_to "Speed & reliability monitoring", { path: 'test-analytics/features', anchor: "monitor-what-matters" } %>
             <%= sidebar_link_to "Ruby Collectors", 'test-analytics/ruby-collectors' %>
             <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
             <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
