@@ -4,12 +4,11 @@ Buildkite Test Analytics collectors automatically detect common continuous integ
 If available, test collectors gather information about your test runs, such as branch names and build IDs.
 Test collectors gather information from the following CI environments:
 
-- [Buildkite](#buildkite)
-- [CircleCI](#circleci)
-- [GitHub Actions](#github-actions)
+- Buildkite
+- CircleCI
+- GitHub Actions
 
-If you use a test collector in any other environment, the test run will be assigned a unique identifier and attributed to a "generic" CI system.
-Other information, such as branch names or commit hashes, will not be collected.
+If you use a test collector in any other environment, then you must set variables to report your CI details to Buildkite.
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
@@ -53,3 +52,35 @@ During GitHub Actions workflow runs, test collectors upload information from the
 | `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
 | `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
 | `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
+
+## Other CI providers
+
+If you're using other CI providers, then set environment variables for test collectors to use to gather information about your builds.
+If you don't set these environment variables, then Test Analytics lacks the details needed to produce useful reports.
+
+Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-analytics/importing-json) to learn how these keys are used to make API calls.
+
+<!-- what's the difference between key and number? did I get it right? -->
+<!-- sha: what if they're using hg? p4? -->
+<!-- are any optional? -->
+
+<table>
+  <thead>
+    <tr>
+      <th>Environment variable</th>
+      <th>Description</th>
+      <th>Examples</th>
+      <th>Corresponding <code>run_env</code> key</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
+      <tr>
+        <td><code><%= key['environment_variable'] %></code></td>
+        <td><%= render_markdown(text: key['description']) %></td>
+        <td><%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %></td>
+        <td><code><%= key['name'] %></code></td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>

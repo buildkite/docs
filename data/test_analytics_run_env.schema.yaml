@@ -1,0 +1,27 @@
+type: object
+properties:
+  keys:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        environment_variable:
+          type: string
+        required:
+          type: boolean
+        description:
+          type: string
+        examples:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - environment_variable
+        - required
+        - description
+        - examples
+required:
+  - keys
