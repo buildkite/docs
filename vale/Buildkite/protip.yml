@@ -1,0 +1,9 @@
+extends: existence
+message: "Do not use '%s', it can exclude folks and doesn't add useful detail."
+level: error
+code: false
+ignorecase: true
+tokens:
+  - 'protip'
+  - 'pro-tip'
+  - 'pro\stip'
