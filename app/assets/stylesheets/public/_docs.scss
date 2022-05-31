@@ -638,7 +638,7 @@ body.beta {
       position: relative;
   
       &:after {
-        @include beta-pill;
+        @include pill(beta);
       }
     }
     h1:after {
