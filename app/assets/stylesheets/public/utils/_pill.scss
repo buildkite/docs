@@ -13,37 +13,52 @@ $_pills: (
   )
 );
 
-@mixin pill($type, $size: medium) {
-  $_styles: map-get($_pills, $type);
-  background: map-get($_styles, background-color);
+@mixin pill {
   border-radius: 20px;
-  border: 1px solid map-get($_styles, background-color);
-  color: map-get($_styles, color);
-  content: map-get($_styles, content);
+  border-style: solid;
+  border-width: 1px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 0.025rem;
   line-height: 1;
-  position: relative;
-  right: -8px;
+  padding: 3px 7px;
   text-transform: uppercase;
-  top: -3px;
-  @if $size == small {
-    font-size: 8px;
-    padding: 3px 5px;
-  } @else {
-    font-size: 11px;
-    padding: 3px 7px;
-  }
+}
+
+@mixin pill-style($type) {
+  $_styles: map-get($_pills, $type);
+  background: map-get($_styles, background-color);
+  border-color: map-get($_styles, border-color);
+  color: map-get($_styles, color);
+  content: map-get($_styles, content);
+}
+
+@mixin pill-small {
+  font-size: 8px;
+  padding: 3px 5px;
+}
+
+.pill {
+  @include pill;
+}
+
+.pill--small {
+  @include pill-small;
 }
 
 @each $type, $styles in $_pills {
   .pill--#{$type} {
-    @include pill($type);
+    @include pill-style($type);
   }
 
   .has-pill-#{$type} {
     &::after {
-      @include pill($type, small);
+      @include pill;
+      @include pill-style($type);
+      @include pill-small;
+      position: relative;
+      left: 5px;
+      top: -3px;
     }
   }
 }

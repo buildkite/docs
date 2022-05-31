@@ -67,7 +67,7 @@ RSpec.describe TilesHelper do
             '<ul class="TileItem__list">' +
               '<li class="TileItem__list-item"><a class="Button Button--link" href="https://buildkite.com">Link 1<span class="Button__right-arrow" aria-hidden="true"></span></a></li>' +
               '<li class="TileItem__list-item"><a class="Button Button--link" href="https://buildkite.com/docs">Link 2<span class="Button__right-arrow" aria-hidden="true"></span></a></li>' +
-              '<li class="TileItem__list-item"><span class="Button Button--link">Link 3<span class="pill--coming-soon">Coming soon</span></span></li>' +
+              '<li class="TileItem__list-item"><span class="Button Button--link">Link 3<span class="pill pill--coming-soon pill--small">Coming soon</span></span></li>' +
             '</ul>' +
           '</article>'
         )

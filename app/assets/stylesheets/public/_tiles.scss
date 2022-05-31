@@ -50,6 +50,11 @@
   .TileItem__list-item {
     list-style: none;
     margin: 10px 0;
+
+    .pill {
+      position: relative;
+      top: 4px;
+    }
   }
 
   .TileItem__list-item-link {

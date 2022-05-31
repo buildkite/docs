@@ -638,11 +638,13 @@ body.beta {
       position: relative;
   
       &:after {
-        @include pill(beta);
+        @include pill;
+        @include pill-style(beta);
+        @include pill-small;
+        left: 5px;
+        position: relative;
+        top: -5px;
       }
-    }
-    h1:after {
-      top: -5px;
     }
   }
 }

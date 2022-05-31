@@ -14,7 +14,7 @@ module ApplicationHelper
       unless options[:is_coming_soon]
         link_to name, full_path, options
       else
-        name.html_safe + content_tag(:span, "Coming soon", class: "pill--coming-soon")
+        content_tag(:span, name, class: "has-pill-coming-soon")
       end
 
     content_tag(:li, inner_html, class: 'Docs__nav__sub-nav__item')

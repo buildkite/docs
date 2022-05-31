@@ -46,7 +46,7 @@ module TilesHelper
           if current_link["text"]
             inner_html =
               current_link["text"].html_safe +
-              (current_link["is_coming_soon"] && content_tag(:span, "Coming soon", class: "pill--coming-soon"))
+              (current_link["is_coming_soon"] && content_tag(:span, "Coming soon", class: "pill pill--coming-soon pill--small"))
 
             prev_links +
             content_tag(
