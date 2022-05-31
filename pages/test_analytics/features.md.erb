@@ -1,16 +1,10 @@
-# Test Analytics Features
+# Configuring test suites
 
-Optimize your test suites.
+In Test Analytics, a test _Suite_ is a collection of tests. A run is to a suite what a build is to a Pipeline.
 
 {:toc}
 
-## Track trends across parallelized builds
-
-Test Analytics works even when your test runs are split across different agents by de-duplicating against the Test Analytics API token and Build ID.
-
-## Set suites that suit your needs
-
-In Test Analytics, a test _Suite_ is a collection of tests. A run is to a suite what a build is to a Pipeline.
+## Suite best practices 
 
 Many organizations set up one suite per test framework, for example one suite for RSpec, and another suite for Jest. Others use a common standard, such as JUnit XML, to combine tests from multiple frameworks to set up custom backend and frontend suites.
 
@@ -18,24 +12,38 @@ Each suite inside Test Analytics has a unique API token that you can use to rout
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
-## Find flaky tests
+## Parallelized builds
 
-See which tests are most disruptive to continuous deployments using reliability scores, and compare trends in your entire test suite, and in individual tests.
+Test Analytics works even when your test runs are split across different agents by de-duplicating against the Test Analytics API token and Build ID.
+
+## Compare across branches
+
+When setting up a new test suite, you will be prompted to select a default branch. This allows you to track trends and set monitors against your most important codebase, and compare it to results across all branches.
+
+Organizations typically choose their main production branch as their default, although this is not required.
+
+To change your default branch, go to suite settings.
+
+Protip: Filter Test Analytics views by any branch by typing its name into the branch query parameter in the Test Analytics URL.
+
+## Tracking reliability
+
+Test Analytics calculates reliability of both your entire test suite and individual tests as a measure of flakiness over time.
 
 _Reliability_ is defined as percentage calculated by:
 
 - Test suite reliability = `passed_runs / (passed_runs + failed_runs) * 100`
 - Individual test reliability = `passed_test_executions / (passed_test_executions + failed_test_executions) * 100`
 
-Other test execution results such as `unknown` and `skipped` are ignored in the test reliability calculation. In Test Analytics, a run is marked as `failed` as soon as a test execution fails, regardless of whether it passes on a retry. This helps surface unreliable tests. You can have a situation where a build eventually passes on retry in a Pipeline, and the related run is marked as `failed` in Test Analytics.
+Other test execution results such as `unknown` and `skipped` are ignored in the test reliability calculation. 
 
-**Coming soon:** more granularity into run states such as `in progress` and `finished`, more information about retries, and web hooks for notifications.
+In Test Analytics, a run is marked as `failed` as soon as a test execution fails, regardless of whether it passes on a retry. This helps surface unreliable tests. You can have a situation where a build eventually passes on retry in a Pipeline, and the related run is marked as `failed` in Test Analytics.
 
-## Spot sneaky slow-downs
+## Trends and analysis
 
-Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then diving deep into individual test execution span timelines to identify patterns.
+Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
 
-For individual tests, see trend information on reliability, test execution count, failed test execution count, and test execution duration at p50 and p95, along with detailed information about span duration and total duration of that test execution over time.
+For individual tests, views include trend information on reliability, test execution count, failed test execution count, and test execution duration at p50 and p95, along with detailed information about span duration and total duration of that test execution over time.
 
 <%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 7 days, including failed test execution count and test execution durations" %>
 
@@ -50,14 +58,3 @@ For example, in the following screenshot, you can see that the test execution du
 You can also annotate span information to help investigate problems, and see detailed log information inside Test Analytics for any failed test or run.
 
 <%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
-
-## Compare across branches
-
-You can set one default branch per suite. This allows you to track trends and set monitors against your most important codebase, and compare it to results across all branches.
-
-This default is typically your main production branch, but can be any branch you choose.
-
-To change your default branch, go to suite settings.
-
-**Coming soon:** the ability to select more branches via the user interface. If you'd like to see trends for more branches today, type any existing branch name into the branch query parameter in the Test Analytics URL.
-
