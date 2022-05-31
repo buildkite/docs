@@ -1,19 +1,33 @@
 steps:
   - label: ":rspec: RSpec"
     depends_on: linting
-    command: bundle exec rspec
+    command: bundle exec rspec --profile
     artifact_paths: "log/rspec-*.xml"
     key: "rspec"
     env:
       RAILS_ENV: test
     plugins:
-      - docker-compose#v3.0.0:
+      - docker-compose#v3.9.0:
           run: app
           env:
             - BUILDKITE_JOB_ID
             - CI
             - RAILS_ENV
             - BUILDKITE_ANALYTICS_TOKEN
+
+  - label: ":spider: muffet"
+    command: http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always --verbose
+    env:
+      RAILS_ENV: test
+    plugins:
+      - docker-compose#v3.9.0:
+          run: muffet
+          shell: false
+          upload-container-logs: always
+          env:
+            - BUILDKITE_JOB_ID
+            - CI
+            - RAILS_ENV
 
   - label: ":junit: Test Summary"
     depends_on: "rspec"
