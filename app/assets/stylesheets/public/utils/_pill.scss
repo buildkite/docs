@@ -31,11 +31,11 @@ $_pills: (
 }
 
 @each $type, $styles in $_pills {
-  .#{$type}-pill {
+  .pill--#{$type} {
     @include pill($type);
   }
 
-  .has-#{$type}-pill {
+  .has-pill-#{$type} {
     &::after {
       @include pill($type, small);
     }
