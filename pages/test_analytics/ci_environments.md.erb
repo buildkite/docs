@@ -8,11 +8,33 @@ Test collectors gather information from the following CI environments:
 - CircleCI
 - GitHub Actions
 
-If you use a test collector in any other environment, then you must set variables to report your CI details to Buildkite.
+If you run test collectors inside containers or you're using another CI system, then you must set variables to report your CI details to Buildkite.
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
 {:toc}
+
+## Containers and test collectors
+
+If you're using containers within your CI system, then the environment variables used by test collectors may not be exposed to those containers by default.
+Make sure to export your CI environment's variables and your Buildkite API token to your containerized builds and tests.
+
+For example, by default Docker does not receive the host's environment variables.
+To pass them through to the Docker container, use the `--env` option:
+
+```
+  docker run \
+    --env TEST_ANALYTICS_TOKEN \
+    --env BUILDKITE_BUILD_NUMBER \
+    --env BUILDKITE_JOB_ID \
+    --env BUILDKITE_BRANCH \
+    --env BUILDKITE_COMMIT \
+    --env BUILDKITE_MESSAGE \
+    --env BUILDKITE_BUILD_URL \
+    bundle exec rspec
+```
+
+Review the following sections for the environment variables expected by test collectors.
 
 ## Buildkite
 
@@ -55,7 +77,7 @@ During GitHub Actions workflow runs, test collectors upload information from the
 
 ## Other CI providers
 
-If you're using other CI providers, then set environment variables for test collectors to use to gather information about your builds.
+If you're using other CI providers (or [containers](#containers-and-test-collectors)), then set environment variables for test collectors to use to gather information about your builds and tests.
 If you don't set these environment variables, then Test Analytics lacks the details needed to produce useful reports.
 
 Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-analytics/importing-json) to learn how these keys are used to make API calls.
