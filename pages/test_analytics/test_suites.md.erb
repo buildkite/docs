@@ -31,7 +31,7 @@ _Reliability_ is defined as percentage calculated by:
 - Test suite reliability = `passed_runs / (passed_runs + failed_runs) * 100`
 - Individual test reliability = `passed_test_executions / (passed_test_executions + failed_test_executions) * 100`
 
-Other test execution results such as `unknown` and `skipped` are ignored in the test reliability calculation. 
+Other test execution results such as `unknown` and `skipped` are ignored in the test reliability calculation.
 
 In Test Analytics, a run is marked as `failed` as soon as a test execution fails, regardless of whether it passes on a retry. This helps surface unreliable tests. You can have a situation where a build eventually passes on retry in a Pipeline, and the related run is marked as `failed` in Test Analytics.
 
