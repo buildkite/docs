@@ -29,7 +29,6 @@ To run, `buildkite-collector-junit` requires:
 - Bash
 - curl
 - [jq](https://stedolan.github.io/jq/)
-  (if `jq` is not installed, `collect.sh` downloads it automatically, but you can avoid the delay by installing jq ahead of time)
 
 To use `buildkite-collector-junit`, [securely export the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment and stream JUnit XML to the script's standard input.
 For example, this command downloads the `buildkite-collector-junit` script and uses it to upload the contents of the file `junit.xml`:
