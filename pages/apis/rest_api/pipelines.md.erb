@@ -333,6 +333,10 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>team_uuids</code></th>
     <td>An array of team UUIDs to add this pipeline to. You can find your team’s UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
   </tr>
+  <tr>
+  <th><code>visibility</code></th>
+  <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
+</tr>
 </tbody>
 </table>
 
@@ -727,7 +731,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>visibility</code></th>
-    <td>Whether the pipeline is visible to everyone, including users outside this organization. It is also possible to set the visibility of a pipeline on <code>create</code> or through <code>update</code>. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
+    <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
   </tr>
 </tbody>
 </table>
