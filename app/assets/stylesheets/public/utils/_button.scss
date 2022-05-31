@@ -1,19 +1,28 @@
 .Button {
-  background-color: white;
-  border: #ddd 1px solid;
+  align-items: flex-start;
+  border: transparent 1px solid;
   border-radius: 5px;
   color: #333;
   display: inline-flex;
   font-size: 0.8888rem;
   font-weight: 500;
-  gap: 10px;
   line-height: 1.4;
-  padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
+  
+  &--default {
+    background-color: white;
+    border-color: #ddd;
+    gap: 10px;
+    padding: 11px 15px;
+  
+    &:hover {
+      background-color: #f2f2f2;
+      color: #333 !important; // override possible nested content styling
+    }
+  }
 
-  &:hover {
-    background-color: #f2f2f2;
-    color: #333 !important; // override possible nested content styling
+  &--link {
+    gap: 3px;
   }
 
   &__right-arrow {
