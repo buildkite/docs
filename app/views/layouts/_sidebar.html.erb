@@ -243,6 +243,16 @@
           <p class="Docs__nav__section-subheading">Collectors</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Ruby Collectors", 'test-analytics/ruby-collectors' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">Features</p>
+          <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Features", 'test-analytics/test-suites' %>
+            <%= sidebar_link_to "Deep performance analysis", { path: 'test-analytics/features', anchor: "spot-sneaky-slow-downs" } %>
+            <%= sidebar_link_to "Find and fix flaky tests", { path: 'test-analytics/features', anchor: "find-flaky-tests" } %>
+            <%= sidebar_link_to "Speed & reliability monitoring", { path: 'test-analytics/features', anchor: "monitor-what-matters" } %>
+          </ul>
+          <p class="Docs__nav__section-subheading">How-to guides</p>
+          <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
             <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
             <%= sidebar_link_to "Writing Your Own Collectors", 'test-analytics/your_own_collectors' %>
@@ -250,6 +260,15 @@
           <p class="Docs__nav__section-subheading">Access Control</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Users and Teams", 'test-analytics/permissions' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">Collectors</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
+            <%= sidebar_link_to "JavaScript", 'test-analytics/javascript-collectors', is_coming_soon: true %>
+            <%= sidebar_link_to "JUnit", 'test-analytics/junit-collectors', is_coming_soon: true %>
+            <%= sidebar_link_to "Swift", 'test-analytics/swift-collectors', is_coming_soon: true %>
+            <%= sidebar_link_to "Python", 'test-analytics/python-collectors', is_coming_soon: true %>
+            <%= sidebar_link_to "Android", 'test-analytics/android-collectors', is_coming_soon: true %>
           </ul>
         </div>
       </div>

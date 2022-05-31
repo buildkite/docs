@@ -25,3 +25,13 @@ test_analytics_guides:
     links:
       - text: "RSpec"
         url: "/docs/test-analytics/ruby-collectors#rspec-collector"
+      - text: "MiniTest"
+        is_coming_soon: true
+      - text: "Jest"
+        is_coming_soon: true
+      - text: "JUnit"
+        is_coming_soon: true
+      - text: "Pytest"
+        is_coming_soon: true
+      - text: "Espresso"
+        is_coming_soon: true
