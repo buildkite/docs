@@ -9,3 +9,9 @@ services:
       - '.:/app'
     ports:
       - '3000:3000'
+
+  muffet:
+    depends_on:
+      - app
+    image: raviqqe/muffet
+
