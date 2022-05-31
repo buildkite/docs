@@ -34,7 +34,7 @@ steps:
         plugins:
           - docker-compose#v3.9.0:
               run: vale
-              config: docker-compose-lint.yml
+              config: ./vale/docker-compose.yml
 
       - label: "Find common spelling mistakes"
         commands:
