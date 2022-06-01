@@ -51,4 +51,4 @@ To learn more about passing through environment variables to `run_env`-prefixed 
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
-Currently, the errors returned contain no information on individual records that failed the validation. This may make complicate the process of fixing and retrying the request.
+Currently, the errors returned contain no information on individual records that failed the validation. This may complicate the process of fixing and retrying the request.
