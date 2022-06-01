@@ -272,7 +272,7 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__sub-nav__item {
-  margin-top: 5px;
+  margin-top: 10px;
   &:first-of-type { margin-top: 0; }
 }
 
@@ -638,11 +638,13 @@ body.beta {
       position: relative;
   
       &:after {
-        @include beta-pill;
+        @include pill;
+        @include pill-style(beta);
+        @include pill-small;
+        left: 5px;
+        position: relative;
+        top: -5px;
       }
-    }
-    h1:after {
-      top: -5px;
     }
   }
 }
