@@ -1,13 +1,13 @@
 # Ruby Collectors
 
-The beta release of Test Analytics ships with RSpec collector. You you can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+Test Analytics ships with the Ruby collectors listed on this page. You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
 {:toc}
 
 ## RSpec collector
 
 [RSpec](https://rspec.info/) is a behaviour-driven development library for Ruby.
-If you're already using RSpec for your tests, add the `rspec-buildkite-analytics` gem to your code to collect your test results into your Test Analytics dashboard.
+If you're already using RSpec for your tests, add the `buildkite-test_collector` gem to your code to collect your test results into your Test Analytics dashboard.
 
 Before you start, make sure RSpec runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
 
@@ -17,26 +17,26 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     git checkout -b install-buildkite-test-analytics
     ```
 
-2. Add `rspec-buildkite-analytics` to your `Gemfile` in the `:test` group:
+2. Add `buildkite-test_collector` to your `Gemfile` in the `:test` group:
 
     ```rb
     group :test do
-      gem "rspec-buildkite-analytics"
+      gem "buildkite-test_collector"
     end
     ```
 
 3. Run `bundle` to install the gem and update your `Gemfile.lock`:
 
     ```sh
-    $ bundle
+    bundle
     ```
 
 3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the environment variable [securely](/docs/pipelines/secrets) on your agent or agents.
 
     ```rb
-    require "rspec/buildkite/analytics"
+    require "buildkite/test_collector"
 
-    RSpec::Buildkite::Analytics.configure(ENV["TEST_ANALYTICS_TOKEN"])
+    Buildkite::Collector.configure(hook: :rspec)
     ```
 
 4. Commit and push your changes:
