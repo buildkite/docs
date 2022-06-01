@@ -86,23 +86,29 @@ Each environment variable corresponds to a `run_env` key in the payload `https:/
 <!-- sha: what if they're using hg? p4? -->
 <!-- are any optional? -->
 
-<table>
-  <thead>
-    <tr>
-      <th>Environment variable</th>
-      <th>Description</th>
-      <th>Examples</th>
-      <th>Corresponding <code>run_env</code> key</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
+<div class="responsive-table">
+  <table>
+    <thead>
       <tr>
-        <td><code><%= key['environment_variable'] %></code></td>
-        <td><%= render_markdown(text: key['description']) %></td>
-        <td><%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %></td>
-        <td><code><%= key['name'] %></code></td>
+        <th>Environment variable</th>
+        <th>Description</th>
+        <th>Examples</th>
+        <th style="white-space: nowrap;">Corresponding <code>run_env</code> key</th>
       </tr>
-    <% end -%>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
+        <tr>
+          <td><code><%= key['environment_variable'] %></code></td>
+          <td>
+            <div style="width: 20ch;">
+              <%= render_markdown(text: key['description']) %>
+            </div>
+          </td>
+          <td><%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %></td>
+          <td><code><%= key['name'] %></code></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
