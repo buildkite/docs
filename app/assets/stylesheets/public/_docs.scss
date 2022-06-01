@@ -272,7 +272,7 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__sub-nav__item {
-  margin-top: 5px;
+  margin-top: 10px;
   &:first-of-type { margin-top: 0; }
 }
 
@@ -333,7 +333,7 @@ label[for='navicon'] span { // hide alt text
   font-weight: bold;
   border-radius: 3px;
   text-decoration: none;
-  transition: background-color 300ms;
+  transition: background-color $transition-speed;
 
   @media (max-width: $Docs__bp_stacked) {
     margin-top: 10px;
@@ -405,9 +405,13 @@ label[for='navicon'] span { // hide alt text
 
 @media (min-width: 1201px) { //TOC as side column on larger screens
   .Docs__article {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 250px;
-    position: relative;
+
+    &--is-landing-page {
+      display: block;
+    }
   }
 
   .Docs__toc {
@@ -634,11 +638,13 @@ body.beta {
       position: relative;
   
       &:after {
-        @include beta-pill;
+        @include pill;
+        @include pill-style(beta);
+        @include pill-small;
+        left: 5px;
+        position: relative;
+        top: -5px;
       }
-    }
-    h1:after {
-      top: -5px;
     }
   }
 }

@@ -317,7 +317,7 @@ For example:
 
 Any file listed there will automatically pick up the beta styling.
 
-Adding the class `has-beta-pill` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
+Adding the class `has-pill-beta` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
 
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.

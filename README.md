@@ -44,6 +44,11 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    docker-compose up --build
    ```
 
+Open `http://localhost:3000` to preview the docs site.
+After modifying a page, refresh to see your changes.
+
+**Note:** By default, search (through Algolia) does not work in development.
+
 ## Updating buildkite-agent CLI Docs
 
 With the development dependencies installed you can update the CLI docs using

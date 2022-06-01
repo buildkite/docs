@@ -1,0 +1,80 @@
+.Tiles {
+  @media (min-width: 960px) {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 30px;
+  }
+}
+
+.TileItem {
+  font-size: 0.888888rem;
+
+  .TileItem__image {
+    border: 0;
+    display: block;
+    padding: 0;
+    margin-bottom: 10px;
+    width: auto;
+  }
+
+  .TileItem__title {
+    font-size: 1.111111rem;
+    font-weight: bold;
+    margin: 0 0 10px;
+
+    &-link {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .TileItem__desc {
+    font-size: 0.888888rem;
+    margin: 0 0 10px;
+  }
+
+  .TileItem__learn-more {
+    font-size: 0.888888rem;
+    font-weight: bold;
+  }
+
+  .TileItem__list {
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 500;
+    line-height: 125%;
+  }
+
+  .TileItem__list-item {
+    list-style: none;
+    margin: 10px 0;
+
+    .pill {
+      position: relative;
+      top: 4px;
+    }
+  }
+
+  .TileItem__list-item-link {
+    color: #333;
+    text-decoration: none;
+
+    &::after {
+      content: "→";
+      margin-left: 3px;
+      opacity: 0.7;
+      position: absolute;
+      transition: transform 0.1s;
+    }
+
+    &:hover {
+      color: #555;
+
+      &::after {
+        transform: translateX(2px);
+      }
+    }
+  }
+}

@@ -27,7 +27,6 @@ GitLab
 Gradle
 Hashicorp
 Inlining
-Javascript
 jq
 Memcache
 Minitest
@@ -134,6 +133,7 @@ prefill
 pty
 pullrequest
 pybuildkite
+pytest
 readme
 readmes
 refspec

@@ -30,16 +30,16 @@
         </ul>
       </div>
       <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading has-beta-pill">
+        <h3 class="HomepageCategory__heading has-pill-beta">
           <a href="/docs/test-analytics">Test Analytics</a>
           <%= image_tag("icons/test-analytics.svg", alt: "Icon: Test Analytics") %>
         </h3>
-        <span>Find and fix flaky tests</span>
+        <span>Identify, track, and fix problematic tests</span>
         <ul>
           <li><%= link_to "Overview", "/docs/test-analytics" %></li>
-          <li><%= link_to "Deep performance analysis", "/docs/test-analytics#spot-sneaky-slow-downs" %></li>
-          <li><%= link_to "Find and fix flaky tests", "/docs/test-analytics#find-flaky-tests" %></li>
-          <li><%= link_to "Speed and reliability monitoring", "/docs/test-analytics#monitor-what-matters" %></li>
+          <li><%= link_to "Deep performance analysis", "/docs/test-analytics/test-suites#trends-and-analysis" %></li>
+          <li><%= link_to "Find and fix flaky tests", "/docs/test-analytics/test-suites#tracking-reliability" %></li>
+          <li><%= link_to "Speed and reliability monitoring", "/docs/test-analytics/monitors" %></li>
           <li><%= link_to "Set up Ruby collectors", "/docs/test-analytics/ruby-collectors" %></li>
           <li><%= link_to "Controlling user permissions", "/docs/test-analytics/permissions" %></li>
           <li><%= link_to "More about Test Analytics…", "/docs/test-analytics", class: "more-link Link--on-white" %></li>
@@ -140,17 +140,29 @@
         <li><%= link_to "Custom deployments", "/docs/deployments" %></li>
         </ul>
       </div>
+    </div>
+  </section>
+  <section class="HomepageSection">
+    <h2 class="HomepageSection__heading">References</h2>
+    <div class="grid-row">
       <div class="HomepageCategory">
         <h3 class="HomepageCategory__heading">
-          <a href="/docs/apis">APIs and integrations</a>
-          <%= image_tag("icons/integration.svg", alt: "Icon: APIs") %>
+          <a href="/docs/apis">APIs</a>
+          <%= image_tag("icons/api.svg", alt: "Icon: APIs") %>
         </h3>
-        <span>Write your own customizations</span>
         <ul>
           <li><%= link_to "Buildkite REST API", "/docs/apis/rest-api" %></li>
           <li><%= link_to "Agent REST API", "/docs/apis/agent-api" %></li>
           <li><%= link_to "GraphQL API", "/docs/apis/graphql-api" %></li>
           <li><%= link_to "API tokens", "/docs/apis/managing-api-tokens" %></li>
+        </ul>
+      </div>
+      <div class="HomepageCategory">
+        <h3 class="HomepageCategory__heading">
+          <a href="/docs/apis">Integrations</a>
+          <%= image_tag("icons/integration.svg", alt: "Icon: APIs") %>
+        </h3>
+        <ul>
           <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
           <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
           <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
