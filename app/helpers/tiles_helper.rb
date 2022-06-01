@@ -43,11 +43,19 @@ module TilesHelper
       content_tag(
         :ul,
         links.inject("".html_safe) do |prev_links, current_link|
-          if current_link["text"] && current_link["url"]
+          if current_link["text"]
+            inner_html =
+              current_link["text"].html_safe +
+              (current_link["is_coming_soon"] && content_tag(:span, "Coming soon", class: "pill pill--coming-soon pill--small"))
+
             prev_links +
             content_tag(
               :li,
-              link_to(current_link["text"], current_link["url"], class: "TileItem__list-item-link"),
+              button(
+                inner_html,
+                current_link["url"],
+                { type: "link", has_right_arrow: !!current_link["url"] }
+              ),
               class: "TileItem__list-item"
             )
           end

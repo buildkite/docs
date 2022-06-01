@@ -132,6 +132,7 @@ prefill
 pty
 pullrequest
 pybuildkite
+pytest
 readme
 readmes
 refspec

@@ -232,20 +232,27 @@
 
       <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'test-analytics' %>" data-docs-path="test-analytics">
         <p class="Docs__nav__section-heading">
-          <span class="has-beta-pill">Test Analytics</span>
+          <span class="has-pill-beta">Test Analytics</span>
         </p>
         <div class="Docs__nav__section-content">
+          <p class="Docs__nav__section-subheading">Getting started</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Overview", 'test-analytics' %>
-            <%= sidebar_link_to "Deep performance analysis", { path: 'test-analytics/features', anchor: "spot-sneaky-slow-downs" } %>
-            <%= sidebar_link_to "Find and fix flaky tests", { path: 'test-analytics/features', anchor: "find-flaky-tests" } %>
-            <%= sidebar_link_to "Speed & reliability monitoring", { path: 'test-analytics/features', anchor: "monitor-what-matters" } %>
-            <%= sidebar_link_to "CI Environments", 'test-analytics/ci-environments' %>
-            <%= sidebar_link_to "Ruby Collectors", 'test-analytics/ruby-collectors' %>
+            <%= sidebar_link_to "Configuring test suites", 'test-analytics/test-suites' %>
+            <%= sidebar_link_to "Monitoring", 'test-analytics/monitors' %>
+            <%= sidebar_link_to "Access control", 'test-analytics/permissions' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">How-to guides</p>
+          <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
             <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
             <%= sidebar_link_to "Writing Your Own Collectors", 'test-analytics/your_own_collectors' %>
-            <%= sidebar_link_to "Users and Teams", 'test-analytics/permissions' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">Collectors</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "CI Environments", 'test-analytics/ci-environments' %>
+            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
+            <%= sidebar_link_to "Other languages", 'test-analytics/other-collectors' %>
           </ul>
         </div>
       </div>
