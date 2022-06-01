@@ -47,6 +47,51 @@ If you're already using RSpec for your tests, add the `rspec-buildkite-analytics
 
 5. Make sure that the Test Analytics [environment variables](#environment-variables) are set so that the RSpec collector can use them in your Test Analytics dashboard.
 
+Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
+
+## Minitest collector
+
+[Minitest](https://github.com/minitest/minitest) provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking.
+
+If you're already using Minitest for your tests, add the `buildkite-collector` gem to your code to collect your test results into your Test Analytics dashboard.
+
+1. Create a new branch:
+
+    ```
+    git checkout -b install-buildkite-collector
+    ```
+
+2. Add `buildkite-collector` to your `Gemfile` in the `:test` group:
+
+    ```rb
+    group :test do
+      gem "buildkite-collector"
+    end
+    ```
+
+3. Run `bundle` to install the gem and update your `Gemfile.lock`:
+
+    ```sh
+    $ bundle
+    ```
+
+3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the environment variable [securely](/docs/pipelines/secrets) on your agent or agents.
+
+    ```rb
+    require "buildkite/collector"
+
+    Buildkite::Collector.configure(ENV["TEST_ANALYTICS_TOKEN"])
+    ```
+
+4. Commit and push your changes:
+
+    ```sh
+    $ git add .
+    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git push
+    ```
+
+5. Make sure that the Test Analytics [environment variables](#environment-variables) are set, and passed through to the container if your builds are running in containers, so that the collector can use them in your Test Analytics dashboard.
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 
