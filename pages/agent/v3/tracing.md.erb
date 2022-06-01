@@ -16,9 +16,9 @@ Once this is done, the agent will start sending tracing information to Datadog. 
 
 <div class="Docs__wip-note">
   <p class="Docs__wip-heading">Experimental feature</p>
-  <p>OpenTelemetry Tracing is an experimental feature, meaning that the implementation or API might change at any point, with no compatibility guarantees. We'll do our best to make things work, but please use this feature at your own risk.</p>
+  <p>OpenTelemetry Tracing is an experimental feature. Support for OpenTelemetry is here to stay, but the API and the shape of spans and traces may change while experimental.</p>
 </div>
 
-To use OpenTelemetry Tracing, you'll need to enable the `opentelemetry-tracing` experiment, as well as specifying `--tracing-backend opentelemetry`.
+To use OpenTelemetry Tracing, you'll need to [enable the `opentelemetry-tracing` experiment](https://buildkite.com/docs/agent/v3#experimental-features-opentelemetry-tracing), as well as specifying [tracking-backend](https://buildkite.com/docs/agent/v3/configuration#tracing-backend), for example `--tracing-backend opentelemetry`.
 
 The Buildkite agent's OpenTelemetry implementation uses the OTLP gRPC exporter to export trace information. This means that there must be a collector capable of ingesting OTLP gRPC traces accessible by the Buildkite agent. By default, the Buildkite agent will export trace information to `https://localhost:4317`. This can be overridden by passing in an environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` containing the endpoint for the collector.
