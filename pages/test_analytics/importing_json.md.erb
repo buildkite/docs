@@ -116,7 +116,7 @@ history;true;history object;See [History objects];
 | `file_name`          | string                                                      | the file where the test originates                                                                              | `./tests/Manager/isEnrolled.js`        |
 | `result`             | strings `"passed"`, `"failed"`, `"skipped"`, or `"unknown"` | the outcome of the test                                                                                         | `failed`                               |
 | `failure_reason`     | string                                                      | if applicable, a short summary of why the test failed                                                           | `Expected Boolean, got Object`         |
-| `history` (required) | history object                                              | Read [History objects](#history-objects)                                                                                                                 |
+| `history` (required) | history object                                              | Read [History objects](#json-test-results-data-reference-history-objects)                                                                                                                 |
 
 **Example:**
 
@@ -155,7 +155,7 @@ children;;array of span objects;See [Span objects](#tk)
 | `start_at`            | number                | A monotonically increasing number |
 | `end_at`              | number                | A monotonically increasing number |
 | `duration` (required) | number                | How long the test took to run     |
-| `children`            | array of span objects | Read [Span objects](#span-objects)|
+| `children`            | array of span objects | Read [Span objects](#json-test-results-data-reference-span-objects)|
 
 **Example:**
 
