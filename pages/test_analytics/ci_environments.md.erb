@@ -87,27 +87,28 @@ If you don't set these environment variables, then Test Analytics lacks the deta
 
 Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-analytics/importing-json) to learn how these keys are used to make API calls.
 
-<div class="responsive-table">
+<div>
   <table>
     <thead>
       <tr>
+        <th>Field name</th>
         <th>Environment variable</th>
         <th>Description</th>
-        <th>Examples</th>
-        <th style="white-space: nowrap;">Corresponding <code>run_env</code> key</th>
       </tr>
     </thead>
     <tbody>
       <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
         <tr>
+          <td><code><%= key['name'] %></code></td>
           <td><code><%= key['environment_variable'] %></code></td>
           <td>
-            <div style="width: 20ch;">
+            <div>
               <%= render_markdown(text: key['description']) %>
             </div>
+            <div>Examples:
+            <%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %>
+            </div>
           </td>
-          <td><%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %></td>
-          <td><code><%= key['name'] %></code></td>
         </tr>
       <% end -%>
     </tbody>
