@@ -12,7 +12,7 @@ You can also upload test results by importing [JSON](/docs/test-analytics/import
 Before you start, make sure XCTest runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
 
 1. [Create a test suite](https://buildkite.com/docs/test-analytics), and copy the API token that it gives you.
- 
+
     To use the Buildkite Test Collector with a Swift Package Manager project, add this repository to the `Package.swift` manifest and add `BuildkiteTestCollector` to any test target requiring analytics:
 
     ```swift
@@ -27,10 +27,10 @@ Before you start, make sure XCTest runs with access to [CI environment variables
     			name: "MyProjectTests",
     			dependencies: ["MyProject", "BuildkiteTestCollector"]
     		)
-      ]
+        ]
     )
     ```
-    
+
 1. Set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from earlier.
 
 1. Push your changes to a branch, and open a pull request. After a test run has been triggered, results will start appearing in your analytics dashboard.
