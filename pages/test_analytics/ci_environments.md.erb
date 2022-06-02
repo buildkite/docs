@@ -62,7 +62,7 @@ During CircleCI workflow runs, test collectors upload information from the follo
 | `run_env[commit_sha]` | `CIRCLE_SHA1`        | the commit hash for the head of the branch |
 | See note below        | `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
 
-For CircleCI runs, `run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"`
+For CircleCI runs, `run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"`.
 
 ## GitHub Actions
 
