@@ -1,0 +1,110 @@
+# CI Environments
+
+Buildkite Test Analytics collectors automatically detect common continuous integration (CI) environments.
+If available, test collectors gather information about your test runs, such as branch names and build IDs.
+Test collectors gather information from the following CI environments:
+
+- Buildkite
+- CircleCI
+- GitHub Actions
+
+If you run test collectors inside containers or you're using another CI system, then you must set variables to report your CI details to Buildkite.
+
+If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
+
+{:toc}
+
+## Containers and test collectors
+
+If you're using containers within your CI system, then the environment variables used by test collectors may not be exposed to those containers by default.
+Make sure to export your CI environment's variables and your Buildkite API token to your containerized builds and tests.
+
+For example, by default Docker does not receive the host's environment variables.
+To pass them through to the Docker container, use the `--env` option:
+
+```
+  docker run \
+    --env BUILDKITE_ANALYTICS_TOKEN \
+    --env BUILDKITE_BUILD_NUMBER \
+    --env BUILDKITE_JOB_ID \
+    --env BUILDKITE_BRANCH \
+    --env BUILDKITE_COMMIT \
+    --env BUILDKITE_MESSAGE \
+    --env BUILDKITE_BUILD_URL \
+    bundle exec rspec
+```
+
+Review the following sections for the environment variables expected by test collectors.
+
+## Buildkite
+
+During Buildkite pipeline runs, test collectors upload information from the following environment variables:
+
+| Environment variable     | Description                                   |
+| ------------------------ | --------------------------------------------- |
+| `BUILDKITE_BRANCH`       | the branch or reference for this build        |
+| `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
+| `BUILDKITE_BUILD_NUMBER` | the build number                              |
+| `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
+| `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
+| `BUILDKITE_JOB_ID`       | the job UUID                                  |
+| `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
+
+## CircleCI
+
+During CircleCI workflow runs, test collectors upload information from the following environment variables:
+
+| Environment variable | Description                                |
+| -------------------- | ------------------------------------------ |
+| `CIRCLE_BRANCH`      | the branch or reference being built        |
+| `CIRCLE_BUILD_NUM`   | the number for the job                     |
+| `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
+| `CIRCLE_SHA1`        | the commit hash for the head of the branch |
+| `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
+
+## GitHub Actions
+
+During GitHub Actions workflow runs, test collectors upload information from the following environment variables:
+
+| Environment variable | Description                                             |
+| -------------------- | ------------------------------------------------------- |
+| `GITHUB_ACTION`      | the name of the action running or its step ID           |
+| `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
+| `GITHUB_REPOSITORY`  | the repository owner and repository name                |
+| `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
+| `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
+| `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
+
+## Other CI providers
+
+If you're using other CI providers (or [containers](#containers-and-test-collectors)), then set environment variables for test collectors to use to gather information about your builds and tests.
+If you don't set these environment variables, then Test Analytics lacks the details needed to produce useful reports.
+
+Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-analytics/importing-json) to learn how these keys are used to make API calls.
+
+<div class="responsive-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Environment variable</th>
+        <th>Description</th>
+        <th>Examples</th>
+        <th style="white-space: nowrap;">Corresponding <code>run_env</code> key</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
+        <tr>
+          <td><code><%= key['environment_variable'] %></code></td>
+          <td>
+            <div style="width: 20ch;">
+              <%= render_markdown(text: key['description']) %>
+            </div>
+          </td>
+          <td><%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %></td>
+          <td><code><%= key['name'] %></code></td>
+        </tr>
+      <% end -%>
+    </tbody>
+  </table>
+</div>
