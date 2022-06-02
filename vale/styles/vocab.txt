@@ -93,6 +93,7 @@ gif
 githooks
 globbing
 golang
+gotestsum
 Graviton
 gz
 heroku
