@@ -36,7 +36,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     ```rb
     require "rspec/buildkite/analytics"
 
-    RSpec::Buildkite::Analytics.configure(ENV["TEST_ANALYTICS_TOKEN"])
+    RSpec::Buildkite::Analytics.configure(ENV["BUILDKITE_ANALYTICS_TOKEN"])
     ```
 
 4. Commit and push your changes:
