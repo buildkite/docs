@@ -21,6 +21,8 @@ test_analytics_guides:
         url: "/docs/test-analytics/js-collectors"
       - text: "Swift"
         url: "/docs/test-analytics/swift-collectors"
+      - text: "Python"
+        url: "/docs/test-analytics/python-collectors"
       - text: "Golang"
         url: "/docs/test-analytics/golang-collectors"
       - text: "Elixir"
