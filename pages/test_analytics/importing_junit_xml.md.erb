@@ -45,7 +45,7 @@ For example, to import the contents of a `junit.xml` file in a Buildkite pipelin
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, read [CI Environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
@@ -89,7 +89,7 @@ For example, to import the contents of a `junit.xml` file in a CircleCI pipeline
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, read [CI Environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
@@ -134,7 +134,7 @@ For example, to import the contents of a `junit.xml` file in a GitHub Actions pi
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, read [CI Environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
