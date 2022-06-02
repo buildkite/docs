@@ -6,8 +6,7 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 
 ## How to import JUnit XML in Buildkite
 
-To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
-
+To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a Buildkite pipeline:
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
@@ -39,22 +38,8 @@ Currently, the errors returned contain no information on individual records that
 
 ## How to import JUnit XML in CircleCI
 
-To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
-
-
-| Field name            | Value                                                             |
-|-----------------------|-------------------------------------------------------------------|
-| `data`                | JUnit XML                                                         |
-| `format`              | `junit`                                                           |
-| `run_env[CI]`         | The name of your CI environment                                   |
-| `run_env[key]`        | A unique key for the build that initiated the CI run              |
-| `run_env[url]`        | A URL that links to the build in your CI system                   |
-| `run_env[branch]`     | A version control branch or reference for this run                |
-| `run_env[commit_sha]` | A unique identifier for the version control revision for this run |
-| `run_env[number]`     | A counter for this build                                          |
-| `run_env[message]`    | The commit message or other description of the build              |
-
-For example, to import the contents of a `junit.xml` file in a CircleCI pipeline run:
+To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
+For example, to import the contents of a `junit.xml` file in a CircleCI pipeline:
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
@@ -83,22 +68,8 @@ Currently, the errors returned contain no information on individual records that
 
 ## How to import JUnit XML in GitHub Actions
 
-To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
-
-
-| Field name            | Value                                                             |
-|-----------------------|-------------------------------------------------------------------|
-| `data`                | JUnit XML                                                         |
-| `format`              | `junit`                                                           |
-| `run_env[CI]`         | The name of your CI environment                                   |
-| `run_env[key]`        | A unique key for the build that initiated the CI run              |
-| `run_env[url]`        | A URL that links to the build in your CI system                   |
-| `run_env[branch]`     | A version control branch or reference for this run                |
-| `run_env[commit_sha]` | A unique identifier for the version control revision for this run |
-| `run_env[number]`     | A counter for this build                                          |
-| `run_env[message]`    | The commit message or other description of the build              |
-
-For example, to import the contents of a `junit.xml` file in a GitHub Actions pipeline run:
+To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
+For example, to import the contents of a `junit.xml` file in a GitHub Actions pipeline:
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 

@@ -38,19 +38,7 @@ To learn more about passing through environment variables to `run_env`-prefixed 
 
 To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
 
-| Field name            | Value                                                             |
-|-----------------------|-------------------------------------------------------------------|
-| `data`                | [JSON-formatted test results](#json-test-results-data-reference)  |
-| `format`              | `json`                                                            |
-| `run_env[CI]`         | The name of your CI environment                                   |
-| `run_env[key]`        | A unique key for the build that initiated the CI run              |
-| `run_env[url]`        | A URL that links to the build in your CI system                   |
-| `run_env[branch]`     | A version control branch or reference for this run                |
-| `run_env[commit_sha]` | A unique identifier for the version control revision for this run |
-| `run_env[number]`     | A counter for this build                                          |
-| `run_env[message]`    | The commit message or other description of the build              |
-
-For example, to import the contents of a `test-results.json` file in a CircleCI pipeline run:
+For example, to import the contents of a `test-results.json` file in a CircleCI pipeline:
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
@@ -71,23 +59,11 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#circlci).
 
 ## How to import JSON in GitHub Actions
 
 To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
-
-| Field name            | Value                                                             |
-|-----------------------|-------------------------------------------------------------------|
-| `data`                | [JSON-formatted test results](#json-test-results-data-reference)  |
-| `format`              | `json`                                                            |
-| `run_env[CI]`         | The name of your CI environment                                   |
-| `run_env[key]`        | A unique key for the build that initiated the CI run              |
-| `run_env[url]`        | A URL that links to the build in your CI system                   |
-| `run_env[branch]`     | A version control branch or reference for this run                |
-| `run_env[commit_sha]` | A unique identifier for the version control revision for this run |
-| `run_env[number]`     | A counter for this build                                          |
-| `run_env[message]`    | The commit message or other description of the build              |
 
 For example, to import the contents of a `test-results.json` file in a GitHub Actions pipeline run:
 
@@ -110,7 +86,7 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#github-actions).
 
 ## JSON test results data reference
 

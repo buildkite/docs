@@ -52,28 +52,33 @@ During Buildkite pipeline runs, test collectors upload information from the foll
 
 ## CircleCI
 
-During CircleCI workflow runs, test collectors upload information from the following environment variables:
+During CircleCI workflow runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Environment variable | Description                                |
-|----------------------|--------------------------------------------|
-| `CIRCLE_BRANCH`      | the branch or reference being built        |
-| `CIRCLE_BUILD_NUM`   | the number for the job                     |
-| `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
-| `CIRCLE_SHA1`        | the commit hash for the head of the branch |
-| `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
+| Field name            | Environment variable | Description                                |
+|-----------------------|----------------------|--------------------------------------------|
+| `run_env[branch]`     | `CIRCLE_BRANCH`      | the branch or reference being built        |
+| See note below        | `CIRCLE_BUILD_NUM`   | the number for the job                     |
+| `run_env[url]`        | `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
+| `run_env[commit_sha]` | `CIRCLE_SHA1`        | the commit hash for the head of the branch |
+| See note below        | `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
+
+For CircleCI runs, `run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"`
 
 ## GitHub Actions
 
-During GitHub Actions workflow runs, test collectors upload information from the following environment variables:
+During GitHub Actions workflow runs,test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Environment variable | Description                                             |
-|----------------------|---------------------------------------------------------|
-| `GITHUB_ACTION`      | the name of the action running or its step ID           |
-| `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
-| `GITHUB_REPOSITORY`  | the repository owner and repository name                |
-| `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
-| `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
-| `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
+| Field name            | Environment variable | Description                                             |
+|-----------------------|----------------------|---------------------------------------------------------|
+| See note below        | `GITHUB_ACTION`      | the name of the action running or its step ID           |
+| `run_env[branch]`     | `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
+| `run_env[url]`        | `GITHUB_REPOSITORY`  | the repository owner and repository name                |
+| See note below        | `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
+| `run_env[commit_sha]` | `GITHUB_SHA`         | the commit hash for the head of the branch              |
+| See note below        | `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
+| `run_env[number]`     | `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
+
+For GitHub Action runs, `run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" `
 
 ## Other CI providers
 
