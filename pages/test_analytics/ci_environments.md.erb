@@ -99,7 +99,7 @@ Each environment variable corresponds to a `run_env` key in the payload `https:/
     <tbody>
       <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
         <tr>
-          <td><code><%= key['name'] %></code></td>
+          <td><code>run_env[<%= key['name'] %>]</code></td>
           <td><code><%= key['environment_variable'] %></code></td>
           <td>
             <div>
