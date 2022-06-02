@@ -82,7 +82,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     ```rb
     require "buildkite/test_collector"
 
-    Buildkite::Collector.configure(hook: :minitest)
+    Buildkite::TestCollector.configure(hook: :minitest)
     ```
 
 4. Commit and push your changes:
