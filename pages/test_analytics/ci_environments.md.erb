@@ -38,24 +38,24 @@ Review the following sections for the environment variables expected by test col
 
 ## Buildkite
 
-During Buildkite pipeline runs, test collectors upload information from the following environment variables:
+During Buildkite pipeline runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Environment variable     | Description                                   |
-| ------------------------ | --------------------------------------------- |
-| `BUILDKITE_BRANCH`       | the branch or reference for this build        |
-| `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
-| `BUILDKITE_BUILD_NUMBER` | the build number                              |
-| `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
-| `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
-| `BUILDKITE_JOB_ID`       | the job UUID                                  |
-| `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
+| Field name         | Environment variable     | Description                                   |
+|--------------------|--------------------------|-----------------------------------------------|
+| `run_env[branch]`  | `BUILDKITE_BRANCH`       | the branch or reference for this build        |
+| `run_env[key]`     | `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
+| `run_env[number]`  | `BUILDKITE_BUILD_NUMBER` | the build number                              |
+| `run_env[url]`     | `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
+| `run_env[commit]`  | `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
+| `run_env[job_id]`  | `BUILDKITE_JOB_ID`       | the job UUID                                  |
+| `run_env[message]` | `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
 
 ## CircleCI
 
 During CircleCI workflow runs, test collectors upload information from the following environment variables:
 
 | Environment variable | Description                                |
-| -------------------- | ------------------------------------------ |
+|----------------------|--------------------------------------------|
 | `CIRCLE_BRANCH`      | the branch or reference being built        |
 | `CIRCLE_BUILD_NUM`   | the number for the job                     |
 | `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
@@ -67,7 +67,7 @@ During CircleCI workflow runs, test collectors upload information from the follo
 During GitHub Actions workflow runs, test collectors upload information from the following environment variables:
 
 | Environment variable | Description                                             |
-| -------------------- | ------------------------------------------------------- |
+|----------------------|---------------------------------------------------------|
 | `GITHUB_ACTION`      | the name of the action running or its step ID           |
 | `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
 | `GITHUB_REPOSITORY`  | the repository owner and repository name                |
