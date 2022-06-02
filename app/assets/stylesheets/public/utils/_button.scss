@@ -3,12 +3,18 @@
   border: transparent 1px solid;
   border-radius: 5px;
   color: #333;
-  display: inline-flex;
+  display: flex;
   font-size: 0.8888rem;
   font-weight: 500;
   line-height: 1.4;
+  margin-bottom: 10px;
+  margin-right: 5px;
   text-decoration: none !important; // button labels should never have underlines
   
+  @media (min-width: 480px) {
+    display: inline-flex;
+  }
+
   &--default {
     background-color: white;
     border-color: #ddd;
