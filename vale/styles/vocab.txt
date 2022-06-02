@@ -28,7 +28,7 @@ Gradle
 Hashicorp
 Inlining
 Memcache
-Minitest
+minitest
 Namespace
 Namespaced
 Namespaces
