@@ -241,18 +241,22 @@
             <%= sidebar_link_to "Configuring test suites", 'test-analytics/test-suites' %>
             <%= sidebar_link_to "Monitoring", 'test-analytics/monitors' %>
             <%= sidebar_link_to "Access control", 'test-analytics/permissions' %>
+            <%= sidebar_link_to "CI environment variables", 'test-analytics/ci-environments' %>
           </ul>
-          <p class="Docs__nav__section-subheading">How-to guides</p>
+          <p class="Docs__nav__section-subheading">Langauges</p>
+          <ul class="Docs__nav__sub-nav">
+            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
+            <%= sidebar_link_to "JavaScript", 'test-analytics/js-collectors' %>
+            <%= sidebar_link_to "Swift", 'test-analytics/swift-collectors' %>
+            <%= sidebar_link_to "Elixir", 'test-analytics/elixir-collectors' %>
+            <%= sidebar_link_to "Rust", 'test-analytics/rust-collectors' %>
+            <%= sidebar_link_to "Other languages", 'test-analytics/other-collectors' %>
+          </ul>
+          <p class="Docs__nav__section-subheading">References</p>
           <ul class="Docs__nav__sub-nav">
             <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
             <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
             <%= sidebar_link_to "Writing Your Own Collectors", 'test-analytics/your_own_collectors' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Collectors</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "CI Environments", 'test-analytics/ci-environments' %>
-            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
-            <%= sidebar_link_to "Other languages", 'test-analytics/other-collectors' %>
           </ul>
         </div>
       </div>

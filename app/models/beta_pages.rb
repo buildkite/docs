@@ -7,7 +7,7 @@ class BetaPages
       'test-analytics/ruby-collectors',
       'test-analytics/importing-junit-xml',
       'test-analytics/importing-json',
-      'test-analytics/ruby-collectors',
+      'test-analytics/swift-collectors',
       'test-analytics/your-own-collectors',
       'test-analytics/permissions',
     ]

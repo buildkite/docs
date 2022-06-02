@@ -7,73 +7,49 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 ## How to import JUnit XML
 
 
+To import JUnit XML, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body.
 
-To import JUnit XML, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JUnit XML test results encoded as JSON in the request body:
+To upload JUnit XML, the request body must contain the following fields:
 
-Test Analytics uses the variables in the `run_env` attribute to populate test information:
+| Field name | Value |
+| --- | --- |
+| `data` | JUnit XML |
+| `format` | `junit` |
+| `run_env[CI]` | The name of your CI environment |
+| `run_env[key]` | A unique key for the build that initiated the CI run |
+| `run_env[url]` | A URL that links to the build in your CI system |
+| `run_env[branch]` | A version control branch or reference for this run |
+| `run_env[commit_sha]` | A unique identifier for the version control revision for this run |
+| `run_env[number]` | A counter for this build |
+| `run_env[job_id]` | An identifier for a job within a build |
+| `run_env[message]` | The commit message or other description of the build |
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
-* if you're making the request elsewhere, [set the environment variables yourself](#environment-variables)
+For example, to import the contents of a `junit.xml` file in a Buildkite pipeline run:
 
-[Securely add the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command, and make sure to JSON-encode your JUnit XML as in the next two code blocks.
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
-```sh
-curl --request POST \
-  --url https://analytics-api.buildkite.com/v1/uploads \
-  --header 'Authorization: Token token="'$TEST_ANALYTICS_TOKEN'";' \
-  --header 'Content-Type: application/json' \
-  --data @- << EOF
-    {
-      "format": "junit",
-      "run_env": {
-        "CI": "buildkite",
-        "key": "$BUILDKITE_BUILD_ID",
-        "number": "$BUILDKITE_BUILD_NUMBER",
-        "job_id": "$BUILDKITE_JOB_ID",
-        "branch": "$BUILDKITE_BRANCH",
-        "commit_sha": "$BUILDKITE_COMMIT",
-        "message": "$BUILDKITE_MESSAGE",
-        "url": "$BUILDKITE_BUILD_URL"
-      },
-      "data": "JSON-encoded JUnit XML goes here"
-    }
-EOF
-```
+2. Run the following `curl` command:
 
-Example JSON-encoded JUnit XML:
+    ```sh
+    curl \
+      -X POST \
+      --fail-with-body \
+      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -F "data=@junit.xml" \
+      -F "format=junit" \
+      -F "run_env[CI]=buildkite" \
+      -F "run_env[key]=$BUILDKITE_BUILD_ID" \
+      -F "run_env[url]=$BUILDKITE_BUILD_URL" \
+      -F "run_env[branch]=$BUILDKITE_BRANCH" \
+      -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
+      -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
+      -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
+      -F "run_env[message]=$BUILDKITE_MESSAGE" \
+      https://analytics-api.buildkite.com/v1/uploads
+    ```
 
-```json
-"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<testsuites disabled=\"\" errors=\"\" failures=\"\" name=\"\" tests=\"\" time=\"\">\r\n    <testsuite disabled=\"\" errors=\"\" failures=\"\" hostname=\"\" id=\"\"\r\n               name=\"\" package=\"\" skipped=\"\" tests=\"\" time=\"\" timestamp=\"2021-11-23 10:47\">\r\n        <properties>\r\n            <property name=\"\" value=\"\"/>\r\n        </properties>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"lol\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"rofl\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <skipped/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <testcase assertions=\"\" classname=\"Banana\" name=\"hue\" status=\"\" file=\"banana.rb\" time=\"1000\">\r\n            <error message=\"\" type=\"\"/>\r\n            <failure message=\"\" type=\"\"/>\r\n            <system-out/>\r\n            <system-err/>\r\n        </testcase>\r\n        <system-out/>\r\n        <system-err/>\r\n    </testsuite>\r\n</testsuites>"
-```
-
-Test Analytics parses the XML and imports all valid test cases for ingestion and valuation. The response to a successful request is `202 Accepted` with the newly created `id` (Run ID), and totals for the number of `queued` and `skipped` test cases contained in the uploaded data.
-
-```json
-{
-  "id": "eac9b176-7869-464d-952e-7f87e2579128",
-  "queued": 3,
-  "skipped": 0
-}
-```
+To learn more about passing through environment variables to `run_env`-prefixed fields, read [CI Environments](/docs/test-analytics/ci-environments).
 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
-Currently, the errors returned contain no information on individual records that failed the validation. This may make complicate the process of fixing and retrying the request.
-
-## Environment variables
-
-Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
-
-But if you're using such tools as the JUnit or [JSON](/docs/test-analytics/importing-json) importers, you need to configure the variables in `run_env` yourself.
-
-The only required variable is `key`, but some features of Test Analytics aren't available if the other variables are not set:
-
-| Variable     | Description                                                    |
-|--------------|----------------------------------------------------------------|
-| `key`        | a unique key for the build that initiated the Test Analytics run |
-| `url`        | URL that links to the build                                    |
-| `branch`     | the branch or reference that this run is for                         |
-| `commit_sha` | the commit SHA for the head of the branch                      |
-| `number`     | the build number of the build                                  |
-| `job_id`     | the id of a job within the build                               |
-| `message`    | the commit message for the head of the branch                  |
+Currently, the errors returned contain no information on individual records that failed the validation. This may complicate the process of fixing and retrying the request.
