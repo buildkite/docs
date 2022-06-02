@@ -26,7 +26,7 @@ To upload JSON, the request body must contain the following fields:
 
 For example, to import the contents of a `test-results.json` file in a Buildkite pipeline run:
 
-1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`TEST_ANALYTICS_TOKEN`).
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
 
 2. Run the following `curl` command:
 
@@ -34,7 +34,7 @@ For example, to import the contents of a `test-results.json` file in a Buildkite
     curl \
       -X POST \
       --fail-with-body \
-      -H "Authorization: Token token=\"$TEST_ANALYTICS_TOKEN\"" \
+      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
       -F "data=@test-results.json" \
       -F "format=json" \
       -F "run_env[CI]=buildkite" \
