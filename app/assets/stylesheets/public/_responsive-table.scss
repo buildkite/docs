@@ -1,23 +1,97 @@
 .responsive-table {
-  overflow: auto;
-  max-width: 620px;
-  margin-top: 1em;
-  margin-bottom: 1em;
-  background-image: -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #ffffff), color-stop(100%, rgba(255, 255, 255, 0))), -webkit-gradient(linear, 0% 50%, 100% 50%, color-stop(0%, #c3c3c5), color-stop(100%, rgba(195, 195, 197, 0))), -webkit-gradient(linear, 100% 50%, 0% 50%, color-stop(0%, #c3c3c5), color-stop(100%, rgba(195, 195, 197, 0)));
-  background-image: -webkit-linear-gradient(left, #ffffff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(right, #ffffff, rgba(255, 255, 255, 0)), -webkit-linear-gradient(left, #c3c3c5, rgba(195, 195, 197, 0)), -webkit-linear-gradient(right, #c3c3c5, rgba(195, 195, 197, 0));
-  background-image: -moz-linear-gradient(left, #ffffff, rgba(255, 255, 255, 0)), -moz-linear-gradient(right, #ffffff, rgba(255, 255, 255, 0)), -moz-linear-gradient(left, #c3c3c5, rgba(195, 195, 197, 0)), -moz-linear-gradient(right, #c3c3c5, rgba(195, 195, 197, 0));
-  background-image: -o-linear-gradient(left, #ffffff, rgba(255, 255, 255, 0)), -o-linear-gradient(right, #ffffff, rgba(255, 255, 255, 0)), -o-linear-gradient(left, #c3c3c5, rgba(195, 195, 197, 0)), -o-linear-gradient(right, #c3c3c5, rgba(195, 195, 197, 0));
-  background-image: linear-gradient(left, #ffffff, rgba(255, 255, 255, 0)), linear-gradient(right, #ffffff, rgba(255, 255, 255, 0)), linear-gradient(left, #c3c3c5, rgba(195, 195, 197, 0)), linear-gradient(right, #c3c3c5, rgba(195, 195, 197, 0));
-  background-position: 0 0, 100% 0, 0 0, 100% 0;
-  background-repeat: no-repeat;
-  background-color: white;
-  background-size: 80px 100%, 80px 100%, 15px 100%, 15px 100%;
-  background-attachment: local, local, scroll, scroll;
-  background-attachment: local, local, scroll, scroll;
+  display: block;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
 
-  > table,
-  .Docs_article & > table {
-    margin-bottom: 0;
-    margin-top: 0;
+  @media (min-width: 960px) {
+    display: initial;
+  }
+
+  thead {
+    @media (max-width: 959px) {
+      border-width: 0;
+      clip: rect(0, 0, 0, 0);
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      white-space: nowrap;
+      width: 1px;
+    }
+  }
+
+  tbody {
+    display: block;
+
+    @media (min-width: 960px) {
+      display: table-row-group;
+    }
+
+    tr {
+      display: grid;
+      grid-template-columns: 1fr;
+      padding-bottom: 15px;
+      padding-top: 15px;
+  
+      @media (min-width: 600px) and (max-width: 959px) {
+        gap: 10px;
+        grid-template-columns: minmax(auto, 20ch) 1fr;
+        padding-bottom: 1rem;
+        padding-top: 1rem;
+      }
+  
+      @media (min-width: 960px) {
+        display: table-row;
+      }
+  
+      &:not(:first-child) {
+        border-top: 0;
+      }
+    }
+  }
+
+  th {
+    padding: 0;
+
+    @media (min-width: 960px) {
+      padding: .5rem;
+    }
+  }
+
+  td {
+    padding: 0 0 .5rem;
+
+    @media (min-width: 960px) {
+      padding: .5rem;
+    }
+
+    &:first-child {
+      padding-top: .5rem
+    }
+
+    p {
+      margin-bottom: 10px;
+
+      @media (min-width: 960px) {
+        margin-bottom: 15px;
+      }
+    }
+  }
+
+  tfoot {
+    display: block;
+
+    @media (min-width: 960px) {
+      display: initial;
+    }
+  }
+
+  .responsive-table__faux-th {
+    font-weight: 600;
+    
+    @media (min-width: 960px) {
+      display: none;
+    }
   }
 }
