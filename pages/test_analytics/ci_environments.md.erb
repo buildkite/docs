@@ -64,7 +64,11 @@ During CircleCI workflow runs, test collectors upload information from the follo
 | See note below        | `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
 {: class="responsive-table"}
 
-For CircleCI runs, `run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"`.
+For CircleCI runs:
+
+```
+run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"
+```
 
 ## GitHub Actions
 
@@ -81,7 +85,11 @@ During GitHub Actions workflow runs,test collectors upload information from the 
 | `run_env[number]`     | `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
 {: class="responsive-table"}
 
-For GitHub Action runs, `run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`.
+For GitHub Action runs:
+
+```
+run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`
+```
 
 ## Other CI providers
 
