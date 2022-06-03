@@ -54,3 +54,13 @@ For example, in the following screenshot, you can see that the test execution du
 You can also annotate span information to help investigate problems, and see detailed log information inside Test Analytics for any failed test or run.
 
 <%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
+
+## FAQs
+
+### I have a long test-suite with > 5000. When I tried to push this to the analytics, I received the following error "5694 results is greater than the maximum of 5000"?
+
+This limit is in place to help avoid request timeouts. You'll need to split the data over multiple requests as it's not possible to increase the limit. 
+
+It's also worth noting that If you send the same run_env => key to both you'll be combined into a single run on our end.
+
+
