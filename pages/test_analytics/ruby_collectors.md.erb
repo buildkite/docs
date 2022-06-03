@@ -36,7 +36,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     ```rb
     require "buildkite/test_collector"
 
-    Buildkite::Collector.configure(hook: :rspec)
+    Buildkite::TestCollector.configure(hook: :rspec)
     ```
 
 4. Commit and push your changes:
