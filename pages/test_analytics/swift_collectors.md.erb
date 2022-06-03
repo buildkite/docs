@@ -17,17 +17,20 @@ Before you start, make sure XCTest runs with access to [CI environment variables
 
     ```swift
     let package = Package(
-    	name: "MyProject",
-    	dependencies: [
-    		.package(url: "https://github.com/buildkite/test-collector-swift")
-    	],
-    	targets: [
-    		.target(name: "MyProject"),
-    		.testTarget(
-    			name: "MyProjectTests",
-    			dependencies: ["MyProject", "BuildkiteTestCollector"]
-    		)
-        ]
+      name: "MyProject",
+      dependencies: [
+        .package(url: "https://github.com/buildkite/test-collector-swift", from: "0.1.0")
+      ],
+      targets: [
+        .target(name: "MyProject"),
+        .testTarget(
+          name: "MyProjectTests",
+          dependencies: [
+            "MyProject",
+            .product(name: "BuildkiteTestCollector", package: "test-collector-swift")
+          ]
+        )
+      ]
     )
     ```
 
