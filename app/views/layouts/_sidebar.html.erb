@@ -344,7 +344,7 @@
       };
 
       // don't auto-expand nav on small screens
-      if (window.matchMedia && window.matchMedia('(max-width: 600px)').matches) {
+      if (window.matchMedia && window.matchMedia('(max-width: 767px)').matches) {
         let expandedSectionContainers = document.querySelectorAll('.Docs__nav__section-container.expanded');
         for (let expandedSectionContainer of expandedSectionContainers) {
           expandedSectionContainer.classList.remove('expanded');
