@@ -34,7 +34,7 @@
       padding-bottom: 15px;
       padding-top: 15px;
   
-      @media (min-width: 600px) and (max-width: 959px) {
+      @media (min-width: $max-w-prose) and (max-width: 959px) {
         gap: 10px;
         grid-template-columns: minmax(auto, 20ch) 1fr;
         padding-bottom: 1rem;

@@ -1,5 +1,3 @@
-$LoginSignup__bp_stacked: 767px;
-
 .LoginSignup {
   max-width: 28rem;
   margin-left: auto;
@@ -18,14 +16,14 @@ $LoginSignup__bp_stacked: 767px;
 
 .LoginSignup__container {
   display: flex;
-  @media (max-width: $LoginSignup__bp_stacked) { display: block; }
+  @media (max-width: ($screen-sm - 1)) { display: block; }
 }
 
 .LoginSignup__illo {
   flex: 2;
   margin-right: 60px;
   box-sizing: border-box;
-  @media (max-width: $LoginSignup__bp_stacked) { display: none; }
+  @media (max-width: ($screen-sm - 1)) { display: none; }
   img { width: 100%; margin-top: 20px; }
 }
 .LoginSignup__form {
