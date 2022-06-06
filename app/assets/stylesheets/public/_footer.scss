@@ -7,8 +7,14 @@
 
   @media (min-width: $screen-sm) {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     gap: 30px;
+  }
+
+  .HomepageFooter & {
+    @media (min-width: $screen-sm) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 
   &__heading {
@@ -27,11 +33,14 @@
     color: #111;
   }
 
-  &__heading {
-    color: #111;
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 15px;
-    margin-top: 15px;
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
   }
+
+  li {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
 }
