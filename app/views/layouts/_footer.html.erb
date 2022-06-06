@@ -7,8 +7,13 @@
   <div>
     <div class="footer__heading">Get help</div>
     <ul>
-      <li>Join the <a href="https://chat.buildkite.community/">community Slack channel</a></li>
-      <li><a href="mailto:support@buildkite.com">Email support</a></li>
+      <% unless "test-analytics".in? request.path %>
+        <li>Join the <a href="https://chat.buildkite.community/">community Slack channel</a></li>
+        <li><a href="mailto:support@buildkite.com">Email support</a></li>
+      <% else %>
+        <li>Join the #test-analytics <a href="https://chat.buildkite.community/">community Slack channel</a></li>
+        <li><a href="mailto:support+analytics@buildkite.com">Email support</a></li>
+      <% end %>
     </ul>
   </div>
 </footer>
