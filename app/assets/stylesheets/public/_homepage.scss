@@ -103,7 +103,7 @@
   padding-right: 30px;
   position: relative;
   
-  @media (min-width: $Docs__bp_stacked) {
+  @media (min-width: $screen-sm) {
     flex-basis: 50%;
   }
   

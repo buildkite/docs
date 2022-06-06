@@ -49,6 +49,7 @@ During Buildkite pipeline runs, test collectors upload information from the foll
 | `run_env[commit]`  | `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
 | `run_env[job_id]`  | `BUILDKITE_JOB_ID`       | the job UUID                                  |
 | `run_env[message]` | `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
+{: class="responsive-table"}
 
 ## CircleCI
 
@@ -61,8 +62,13 @@ During CircleCI workflow runs, test collectors upload information from the follo
 | `run_env[url]`        | `CIRCLE_BUILD_URL`   | the URL for the job on CircleCI            |
 | `run_env[commit_sha]` | `CIRCLE_SHA1`        | the commit hash for the head of the branch |
 | See note below        | `CIRCLE_WORKFLOW_ID` | the unique identifier for the workflow run |
+{: class="responsive-table"}
 
-For CircleCI runs, `run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"`.
+For CircleCI runs:
+
+```
+run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM"
+```
 
 ## GitHub Actions
 
@@ -77,8 +83,13 @@ During GitHub Actions workflow runs,test collectors upload information from the 
 | `run_env[commit_sha]` | `GITHUB_SHA`         | the commit hash for the head of the branch              |
 | See note below        | `GITHUB_RUN_ID`      | the unique number for the workflow run                  |
 | `run_env[number]`     | `GITHUB_RUN_NUMBER`  | the cumulative number of runs for the workflow          |
+{: class="responsive-table"}
 
-For GitHub Action runs, `run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`.
+For GitHub Action runs:
+
+```
+run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`
+```
 
 ## Other CI providers
 
@@ -87,30 +98,25 @@ If you don't set these environment variables, then Test Analytics lacks the deta
 
 Each environment variable corresponds to a `run_env` key in the payload `https://analytics-api.buildkite.com/v1/uploads`. Read [Importing JSON](/docs/test-analytics/importing-json) to learn how these keys are used to make API calls.
 
-<div>
-  <table>
-    <thead>
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Field name</th>
+      <th>Environment variable</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
       <tr>
-        <th>Field name</th>
-        <th>Environment variable</th>
-        <th>Description</th>
+        <td><code>run_env[<%= key['name'] %>]</code></td>
+        <td><code><%= key['environment_variable'] %></code></td>
+        <td>
+          <%= render_markdown(text: key['description']) %>
+          Examples:
+          <%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %>
+        </td>
       </tr>
-    </thead>
-    <tbody>
-      <% TEST_ANALYTICS_RUN_ENV['keys'].each do |key| -%>
-        <tr>
-          <td><code>run_env[<%= key['name'] %>]</code></td>
-          <td><code><%= key['environment_variable'] %></code></td>
-          <td>
-            <div>
-              <%= render_markdown(text: key['description']) %>
-            </div>
-            <div>Examples:
-            <%= key['examples'].map{|example| "<code>#{example}</code>"}.join(', ') %>
-            </div>
-          </td>
-        </tr>
-      <% end -%>
-    </tbody>
-  </table>
-</div>
+    <% end -%>
+  </tbody>
+</table>
