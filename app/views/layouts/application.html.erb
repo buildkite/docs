@@ -71,9 +71,7 @@
           <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
             <div class="column1">
               <%= yield %>
-              <div class="Docs__note--footer-typo">
-                <p>Spotted a typo? Something missing? Please <a href="https://github.com/buildkite/docs/issues">open an issue</a> or <a href="<%= open_source_url %>">contribute an update</a>.</p>
-              </div>
+              <%= render "layouts/footer" %>
             </div>
             <div class="column2"></div>
           </div>
