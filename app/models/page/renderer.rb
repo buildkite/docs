@@ -20,6 +20,7 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+    doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
 
@@ -173,4 +174,21 @@ class Page::Renderer
     
     doc
   end
+
+  def init_responsive_tables(doc)
+    doc.css('table.responsive-table').each do |table|
+      thead_ths = table.css('thead th')
+
+      table.search('./tbody/tr').each do |tr|
+        tr.search('./td').each_with_index do |td, i|
+          faux_th = "<th aria-hidden class=\"responsive-table__faux-th\">#{thead_ths[i].children}</th>"
+          
+          td.add_previous_sibling(faux_th)
+        end
+      end
+    end
+
+    doc
+  end
+
 end
