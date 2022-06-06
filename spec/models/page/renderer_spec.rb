@@ -184,4 +184,97 @@ RSpec.describe Page::Renderer do
 
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
+
+  describe "Responsive table" do
+    it "prepends faux th to each table cell" do
+      md = <<~MD
+        | Name   | Price    |
+        | ------ | -------- |
+        | Apple  | $4.00/kg |
+        | Orange | $5.00/kg |
+        {: class="responsive-table"}
+      MD
+
+      html_in_md = <<~HTML
+        <table class="responsive-table">
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Apple</td>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <td>Orange</td>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      html = <<~HTML
+        <table class="responsive-table">
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <th aria-hidden class="responsive-table__faux-th">Name</th>
+        <td>Apple</td>
+        <th aria-hidden class="responsive-table__faux-th">Price</th>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <th aria-hidden class="responsive-table__faux-th">Name</th>
+        <td>Orange</td>
+        <th aria-hidden class="responsive-table__faux-th">Price</th>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      expect(Page::Renderer.render(html_in_md).strip).to eql(html.strip)
+    end
+
+    it "does't affect tables without the .responsive-table CSS class" do
+      md = <<~MD
+        | Name   | Price    |
+        | ------ | -------- |
+        | Apple  | $4.00/kg |
+        | Orange | $5.00/kg |
+      MD
+
+      html = <<~HTML
+        <table>
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Apple</td>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <td>Orange</td>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
+  end
 end
