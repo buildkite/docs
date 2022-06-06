@@ -3,7 +3,6 @@
   color: #4f4f4f;
   margin-bottom: 60px;
   margin-top: 60px;
-  padding-top: 30px;
 
   @media (min-width: $screen-sm) {
     display: grid;
@@ -12,7 +11,7 @@
   }
 
   .HomepageFooter & {
-    @media (min-width: $screen-sm) {
+    @media (min-width: $screen-md) {
       grid-template-columns: 1fr 1fr 1fr;
     }
   }
@@ -21,7 +20,7 @@
     color: #111;
     font-weight: 600;
     margin-bottom: 15px;
-    margin-top: 15px;
+    margin-top: 45px;
   }
 
   p {
