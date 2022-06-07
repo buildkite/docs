@@ -1,17 +1,42 @@
 <footer class="footer">
-  <div>
+  <section>
     <div class="footer__heading">Questions or feedback</div>
-    <p>Spotted a typo? Something is missing in the docs?</p>
-    <p>Please <a href="https://github.com/buildkite/docs/issues">open an issue</a> or <a href="<%= open_source_url %>">contribute an update</a>.</p>
-  </div>
-  <div>
+    <p>Spotted a typo? Something missing in docs?</p>
+    <ul class="footer__list">
+      <li class="footer__list-item">
+        <a class="footer__list-item-link" href="https://github.com/buildkite/docs/issues">
+          <img alt="Icon: issue" class="footer__list-item-icon" src="<%= image_url('icons/issue.svg') %>" />
+          Open an issue
+        </a>
+      </li>
+      <li class="footer__list-item">
+        <a class="footer__list-item-link" href="<%= open_source_url %>">
+          <img alt="Icon: pull request" class="footer__list-item-icon" src="<%= image_url('icons/pull-request.svg') %>" />
+          Contribute an update
+        </a>
+      </li>
+    <ul>
+  </section>
+  <section>
     <div class="footer__heading">Reach out</div>
-      <% unless "test-analytics".in? request.path %>
-        <p>We'd love to know what you think!</p>
-        <p>Join the <a href="https://chat.buildkite.community/">community Slack channel</a> or <a href="mailto:support@buildkite.com">email support</a></p>
-      <% else %>
-        <p>We'd love to know what you think!</p>
-        <p>Join the #test-analytics <a href="https://chat.buildkite.community/">community Slack channel</a>or <a href="mailto:support@buildkite.com">email support</a></p>
-      <% end %>
-  </div>
+    <p>We'd love to know what you think!</p>
+    <ul class="footer__list">
+      <li class="footer__list-item">
+        <a class="footer__list-item-link" href="https://chat.buildkite.community/">
+          <img alt="Icon: Slack" class="footer__list-item-icon" src="<%= image_url('icons/slack.svg') %>" />
+          <% unless "test-analytics".in? request.path %>
+            Join the community Slack channel
+          <% else %>
+            Join the #test-analytics community Slack channel
+          <% end %>
+        </a>
+      </li>
+      <li class="footer__list-item">
+        <a class="footer__list-item-link" href="mailto:support@buildkite.com">
+          <img alt="Icon: paper dart" class="footer__list-item-icon" src="<%= image_url('icons/email.svg') %>" />
+          Email support
+        </a>
+      </li>
+    </ul>
+  </section>
 </footer>
