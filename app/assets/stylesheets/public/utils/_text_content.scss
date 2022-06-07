@@ -148,6 +148,14 @@
   .no-margin-top { margin-top: 0; }
   .no-margin-bottom { margin-top: 0; }
 
+  img,
+  svg {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+  }
+
   /* Some styles from Bass that our Markdown render outputs */
   .rounded { border-radius: 3px; }
   .dark-gray { color: #767676; }

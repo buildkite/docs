@@ -1,0 +1,58 @@
+.footer {
+  background-color: #f1efff;
+  border-radius: 5px;
+  color: #4f4f4f;
+  font-size: .8889rem;
+  line-height: 1.4;
+  margin-bottom: 60px;
+  margin-top: 60px;
+  padding: 20px;
+
+  @media (min-width: $screen-sm) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  .HomepageFooter & {
+    padding: 30px;
+
+    @media (min-width: $screen-md) {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+
+  &__heading {
+    color: #111;
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  &__list {
+    margin-bottom: 1.5rem;
+    margin-top: .75rem;
+  }
+
+  &__list-item {
+    margin-bottom: .5rem;
+    margin-top: .5rem;
+  }
+
+  &__list-item-link {
+    color: #111;
+    display: grid;
+    gap: 7px;
+    grid-template-columns: auto 1fr;
+    text-decoration: none;
+
+    &:hover {
+      filter: invert(25%) sepia(82%) saturate(2120%) hue-rotate(142deg) brightness(94%) contrast(98%);
+      text-decoration: underline;
+    }
+  }
+
+  &__list-item-icon {
+    margin-top: 3px;
+    width: 16px;
+  }
+}
