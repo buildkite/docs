@@ -23,64 +23,39 @@ $color-green: rgb(3, 165, 98);
 #navicon {
   position: absolute;
   visibility: hidden;
+
+  &:checked ~ .Docs__nav {
+    display: block;
+  }
 }
 
-label[for='navicon'] span { // hide alt text
-  left: -10rem;
+label[for='navicon'] {
+  background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
+  border: #ddd 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 40px;
   position: absolute;
-  top: -10rem;
-}
+  right: 30px;
+  top: 15px;
+  width: 40px;
 
-@media (max-width: ($screen-md - 1)) {
+  &:hover {
+    background-color: #f2f2f2;
+  }
 
-  /* hamburger */
-  label[for='navicon'],
-  label[for='navicon']:before,
-  label[for='navicon']:after {
-    background: #1f1f1f;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 0.2rem;
+  #navicon:checked + & {
+    background-image: asset-url('icons/remove.svg');
+  }
+
+  span { // hide alt text
+    left: -10rem;
     position: absolute;
-    transition: 0.3s;
-    width: 0.9rem;
-    z-index: 10;
+    top: -10rem;
   }
-
-  label[for='navicon'] {
-    right: 2rem;
-    top: 2rem;
-  }
-
-  label[for='navicon']:before {
-    content: "";
-    transform: translateY(-0.3rem);
-    transition: 0.5s;
-  }
-
-  label[for='navicon']:after {
-    content: "";
-    transform: translateY(0.3rem);
-    transition: 0.5s;
-  }
-
-  #navicon:checked + label[for='navicon'] {
-    /* displays menu */
-    & ~ .Docs__nav {
-      display: block;
-    }
-
-    /* close menu icon */
-    width: 0;
-
-    &:before {
-      transform: rotate(45deg) translateX(-0.5rem) translateY(0.5rem);
-    }
-
-    &:after {
-      transform: rotate(-45deg) translateX(-0.5rem) translateY(-0.5rem);
-    }
-  }
+  
 }
 
 .Docs__nav {
