@@ -28,6 +28,7 @@ $SiteHeaderLogoHeight: 36px;
   align-items: center;
   display: flex;
   flex: 0 0 auto;
+  font-weight: bold;
   line-height: $SiteHeaderLogoHeight;
   margin-right: 30p;
 }
@@ -43,8 +44,14 @@ $SiteHeaderLogoHeight: 36px;
 
 .SiteHeader__links {
   align-items: right;
-  display: inline-flex;
+  display: none;
+  font-size: 16px;
   margin-left: auto;
+
+  @media (min-width: $screen-sm) {
+    display: inline-flex;
+    gap: 30px;
+  }
 
   .Button {
     margin-bottom: 0;
@@ -52,8 +59,7 @@ $SiteHeaderLogoHeight: 36px;
 }
 
 .SiteHeader__docslink {
-  font-weight: bold;
-  color: black;
+  color: #111;
   text-decoration: none;
   transition: color $transition-speed;
   will-change: color;

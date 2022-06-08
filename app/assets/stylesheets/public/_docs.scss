@@ -626,6 +626,32 @@ a.Docs__example-repo {
   }
 }
 
+// TODO: refactor sidebar and move into its own Sass partial
+.Sidebar {
+  &__site-links {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    @media (min-width: $screen-md) {
+      display: none;
+    }
+  }
+
+  &__site-link {
+    color: #111;
+    display: inline-block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 body.beta {
   .Docs__article {
     h1,
