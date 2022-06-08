@@ -152,17 +152,6 @@ label[for='navicon'] {
 }
 
 .Docs__nav__section-container {
-  margin-left: -30px;
-  margin-right: -30px;
-
-  &.current {
-    border-left: $color-highlight-green 4px solid;
-
-    .Docs__nav__section-heading {
-      padding-left: 26px;
-    }
-  }
-
   &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
     opacity: 1;
   }
@@ -171,8 +160,6 @@ label[for='navicon'] {
     align-items: flex-start;
     cursor: pointer;
     display: flex;
-    padding-left: 30px;
-    padding-right: 30px;
     user-select: none;
 
     &:hover {
@@ -196,8 +183,6 @@ label[for='navicon'] {
 
   .Docs__nav__section-content { 
     display: none;
-    padding-left: 30px;
-    padding-right: 30px;
   }
   
   &.expanded {
