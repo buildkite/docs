@@ -155,8 +155,9 @@ label[for='navicon'] {
   }
 
   .Docs__nav__section-heading { 
+    align-items: flex-start;
     cursor: pointer;
-    position: relative;
+    display: flex;
     user-select: none;
 
     @media (hover: hover) {
@@ -168,24 +169,27 @@ label[for='navicon'] {
     }
 
     &::after {
-      color: $color-green;
-      content: '+';
+      background: transparent asset-url('icons/arrow-down.svg') 50% 50% no-repeat;
+      background-size: cover;
+      content: '';
       display: block;
-      font-size: 16px;
-      height: 15px;
-      line-height: 1.8;
-      position: absolute;
-      right: 15px;
-      top: 3px;
-      width: 5px;
+      height: 16px;
+      margin-left: auto;
+      width: 16px;
+
+      :hover > & {
+        filter: $filter-brand-green;
+      }
     }
   }
-  &.current .Docs__nav__section-heading { color: $color-green; }
+  &.current .Docs__nav__section-heading {
+    color: $color-green;
+  }
 
   .Docs__nav__section-content { display: none; }
   &.expanded {
     .Docs__nav__section-heading::after {
-      content: '–';
+      transform: rotate(-180deg);
     }
     img { transform: rotate(-180deg); }
     .Docs__nav__section-content { display: block; }
