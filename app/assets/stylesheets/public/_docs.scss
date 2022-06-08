@@ -6,9 +6,12 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__page-container__inner {
-  display: flex;
-  margin-top: 75px;
-  @media (max-width: ($screen-md - 1)) { display: block; margin-top: 0; }
+  margin-top: 30px;
+
+  @media (min-width: $screen-md) {
+    display: flex;
+    margin-top: 75px;
+  }
 }
 
 .Docs__header {
@@ -80,15 +83,15 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav {
-  flex: 2;
-  margin-top: 0.4em;
-  padding-right: 20px;
+  flex: 3;
+  display: none;
+  margin-bottom: 40px;
   position: relative;
-
-  @media (max-width: ($screen-md - 1)) {
-    display: none; // hides menu into navicon on small screens
-    margin: 0 -20px 40px -20px;
-    padding-right: 0;
+  
+  @media (min-width: $screen-md) {
+    display: block;
+    max-width: 250px;
+    padding-right: 40px;
   }
 }
 
@@ -125,14 +128,7 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Search-container {
-  padding-left: 20px;
-  padding-right: 20px;
   position: relative;
-
-  @media (min-width: $screen-md) {
-    padding-left: 0;
-    padding-right: 0;
-  }
 
   kbd {
     background: #efefef;
@@ -219,8 +215,7 @@ label[for='navicon'] span { // hide alt text
   font-size: 14px;
   font-style: normal;
   font-weight: bold;
-  margin: 0 20px 0 0;
-  padding: 12px 0 12px 20px;
+  padding: 12px 0;
 
   @media (min-width: $screen-md) {
     margin-right: 0;
@@ -339,7 +334,6 @@ label[for='navicon'] span { // hide alt text
 
   @media (max-width: ($screen-md - 1)) {
     margin-top: 10px;
-    margin-left: 20px;
   }
 
   &:hover, &:focus, &:active {
