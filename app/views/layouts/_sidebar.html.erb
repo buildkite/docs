@@ -119,198 +119,192 @@
       </div>
     </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'pipelines' %>" data-docs-path="pipelines">
-        <p class="Docs__nav__section-heading">Pipelines</p>
-        <div class="Docs__nav__section-content">
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'pipelines' %>
-            <%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %>
-            <%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %>
-            <%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %>
-            <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
-            <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
-            <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
-            <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
-            <%= sidebar_link_to "Public Pipelines", 'pipelines/public-pipelines' %>
-            <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
-            <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
-            <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
-            <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
-            <%= sidebar_link_to "Job Minutes", 'pipelines/job-minutes' %>
-            <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Step Types</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Command Step", 'pipelines/command-step' %>
-            <%= sidebar_link_to "Wait Step", 'pipelines/wait-step' %>
-            <%= sidebar_link_to "Block Step", 'pipelines/block-step' %>
-            <%= sidebar_link_to "Input Step", 'pipelines/input-step' %>
-            <%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %>
-            <%= sidebar_link_to "Group Step", 'pipelines/group-step' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Workflows</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Prioritizing Jobs", 'pipelines/managing-priorities' %>
-            <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
-            <%= sidebar_link_to "Build Matrix", 'pipelines/build-matrix' %>
-            <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
-            <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'pipelines' %>" data-docs-path="pipelines">
+      <p class="Docs__nav__section-heading">Pipelines</p>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'pipelines' %>
+          <%= sidebar_link_to "Defining Steps", 'pipelines/defining-steps' %>
+          <%= sidebar_link_to "Writing Build Scripts", 'pipelines/writing-build-scripts' %>
+          <%= sidebar_link_to "Using Conditionals", 'pipelines/conditionals' %>
+          <%= sidebar_link_to "Step Dependencies", 'pipelines/dependencies' %>
+          <%= sidebar_link_to "Environment Variables", 'pipelines/environment-variables' %>
+          <%= sidebar_link_to "Skipping Builds", 'pipelines/skipping' %>
+          <%= sidebar_link_to "Using Build Artifacts", 'pipelines/artifacts' %>
+          <%= sidebar_link_to "Public Pipelines", 'pipelines/public-pipelines' %>
+          <%= sidebar_link_to "Using Build Meta-data", 'pipelines/build-meta-data' %>
+          <%= sidebar_link_to "Managing Log Output", 'pipelines/managing-log-output' %>
+          <%= sidebar_link_to "Links & Images in Log Output", 'pipelines/links-and-images-in-log-output' %>
+          <%= sidebar_link_to "Notifications", 'pipelines/notifications' %>
+          <%= sidebar_link_to "Job Minutes", 'pipelines/job-minutes' %>
+          <%= sidebar_link_to "Example Pipelines", 'pipelines/example-pipelines' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Step Types</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Command Step", 'pipelines/command-step' %>
+          <%= sidebar_link_to "Wait Step", 'pipelines/wait-step' %>
+          <%= sidebar_link_to "Block Step", 'pipelines/block-step' %>
+          <%= sidebar_link_to "Input Step", 'pipelines/input-step' %>
+          <%= sidebar_link_to "Trigger Step", 'pipelines/trigger-step' %>
+          <%= sidebar_link_to "Group Step", 'pipelines/group-step' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Workflows</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Prioritizing Jobs", 'pipelines/managing-priorities' %>
+          <%= sidebar_link_to "Controlling Concurrency", 'pipelines/controlling-concurrency' %>
+          <%= sidebar_link_to "Build Matrix", 'pipelines/build-matrix' %>
+          <%= sidebar_link_to "Branch Configuration", 'pipelines/branch-configuration' %>
+          <%= sidebar_link_to "Scheduled Builds", 'pipelines/scheduled-builds' %>
 
-          </ul>
-          <p class="Docs__nav__section-subheading">Security</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Security Overview", 'pipelines/security-overview' %>
-            <%= sidebar_link_to "Managing Secrets", 'pipelines/secrets' %>
-            <%= sidebar_link_to "Users and Teams", 'pipelines/permissions' %>
-            <%= sidebar_link_to "Webhooks Security", 'pipelines/incoming-webhooks' %>
-            <%= sidebar_link_to "Audit Log", 'pipelines/audit-log' %>
-          </ul>
-        </div>
+        </ul>
+        <p class="Docs__nav__section-subheading">Security</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Security Overview", 'pipelines/security-overview' %>
+          <%= sidebar_link_to "Managing Secrets", 'pipelines/secrets' %>
+          <%= sidebar_link_to "Users and Teams", 'pipelines/permissions' %>
+          <%= sidebar_link_to "Webhooks Security", 'pipelines/incoming-webhooks' %>
+          <%= sidebar_link_to "Audit Log", 'pipelines/audit-log' %>
+        </ul>
       </div>
+    </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'plugins' %>" data-docs-path="plugins">
-        <p class="Docs__nav__section-heading">Plugins</p>
-        <div class="Docs__nav__section-content">
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'plugins' %>
-            <%= sidebar_link_to "Using Plugins", 'plugins/using' %>
-            <%= sidebar_link_to "Plugins Directory", 'plugins/directory' %>
-            <%= sidebar_link_to "Plugin Tools", 'plugins/tools' %>
-            <%= sidebar_link_to "Writing Plugins", 'plugins/writing' %>
-          </ul>
-        </div>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'plugins' %>" data-docs-path="plugins">
+      <p class="Docs__nav__section-heading">Plugins</p>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'plugins' %>
+          <%= sidebar_link_to "Using Plugins", 'plugins/using' %>
+          <%= sidebar_link_to "Plugins Directory", 'plugins/directory' %>
+          <%= sidebar_link_to "Plugin Tools", 'plugins/tools' %>
+          <%= sidebar_link_to "Writing Plugins", 'plugins/writing' %>
+        </ul>
       </div>
+    </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'deployments' %>" data-docs-path="deployments">
-        <p class="Docs__nav__section-heading">Deployments</p>
-        <div class="Docs__nav__section-content">
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'deployments' %>
-            <%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %>
-            <%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %>
-          </ul>
-        </div>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'deployments' %>" data-docs-path="deployments">
+      <p class="Docs__nav__section-heading">Deployments</p>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'deployments' %>
+          <%= sidebar_link_to "Deploying to Heroku", 'deployments/deploying-to-heroku' %>
+          <%= sidebar_link_to "Deploying to Kubernetes", 'deployments/deploying-to-kubernetes' %>
+        </ul>
       </div>
+    </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'integrations' %>" data-docs-path="integrations">
-        <p class="Docs__nav__section-heading">Integrations</p>
-        <div class="Docs__nav__section-content">
-          <p class="Docs__nav__section-subheading">Source control</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "GitHub", 'integrations/github' %>
-            <%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %>
-            <%= sidebar_link_to "GitLab", 'integrations/gitlab' %>
-            <%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %>
-            <%= sidebar_link_to "Bitbucket Server", 'integrations/bitbucket_server' %>
-            <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
-            <%= sidebar_link_to "Other Git Servers", 'integrations/Git' %>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'integrations' %>" data-docs-path="integrations">
+      <p class="Docs__nav__section-heading">Integrations</p>
+      <div class="Docs__nav__section-content">
+        <p class="Docs__nav__section-subheading">Source control</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "GitHub", 'integrations/github' %>
+          <%= sidebar_link_to "GitHub Enterprise", 'integrations/github-enterprise' %>
+          <%= sidebar_link_to "GitLab", 'integrations/gitlab' %>
+          <%= sidebar_link_to "Bitbucket", 'integrations/bitbucket' %>
+          <%= sidebar_link_to "Bitbucket Server", 'integrations/bitbucket_server' %>
+          <%= sidebar_link_to "Phabricator", 'integrations/phabricator' %>
+          <%= sidebar_link_to "Other Git Servers", 'integrations/Git' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">SSO</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'integrations/sso' %>
+          <%= sidebar_link_to "Okta", 'integrations/sso/okta' %>
+          <%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %>
+          <%= sidebar_link_to "Google Workspace", 'integrations/sso/google-workspace' %>
+          <%= sidebar_link_to "Google Workspace (SAML)", 'integrations/sso/google-workspace-saml' %>
+          <%= sidebar_link_to "GitHub", 'integrations/sso/github-sso' %>
+          <%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %>
+          <%= sidebar_link_to "Azure AD", 'integrations/sso/azure-ad' %>
+          <%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %>
+          <%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Other integrations</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %>
+          <%= sidebar_link_to "Artifactory", 'integrations/artifactory' %>
+          <%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %>
+          <%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %>
+          <%= sidebar_link_to "PagerDuty", 'integrations/pagerduty' %>
+          <%= sidebar_link_to "Slack", 'integrations/slack' %>
           </ul>
-          <p class="Docs__nav__section-subheading">SSO</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'integrations/sso' %>
-            <%= sidebar_link_to "Okta", 'integrations/sso/okta' %>
-            <%= sidebar_link_to "ADFS", 'integrations/sso/adfs' %>
-            <%= sidebar_link_to "Google Workspace", 'integrations/sso/google-workspace' %>
-            <%= sidebar_link_to "Google Workspace (SAML)", 'integrations/sso/google-workspace-saml' %>
-            <%= sidebar_link_to "GitHub", 'integrations/sso/github-sso' %>
-            <%= sidebar_link_to "OneLogin", 'integrations/sso/onelogin' %>
-            <%= sidebar_link_to "Azure AD", 'integrations/sso/azure-ad' %>
-            <%= sidebar_link_to "Custom SAML", 'integrations/sso/custom-saml' %>
-            <%= sidebar_link_to "Setup with GraphQL", 'integrations/sso/sso-setup-with-graphql' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Other integrations</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Amazon EventBridge", 'integrations/amazon-eventbridge' %>
-            <%= sidebar_link_to "Artifactory", 'integrations/artifactory' %>
-            <%= sidebar_link_to "Build Status Badges", 'integrations/build-status-badges' %>
-            <%= sidebar_link_to "CCMenu & CCTray", 'integrations/cc-menu' %>
-            <%= sidebar_link_to "PagerDuty", 'integrations/pagerduty' %>
-            <%= sidebar_link_to "Slack", 'integrations/slack' %>
-            </ul>
-        </div>
       </div>
+    </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'test-analytics' %>" data-docs-path="test-analytics">
-        <p class="Docs__nav__section-heading">Test Analytics
-        </p>
-        <div class="Docs__nav__section-content">
-          <p class="Docs__nav__section-subheading">Getting started</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'test-analytics' %>
-            <%= sidebar_link_to "Configuring test suites", 'test-analytics/test-suites' %>
-            <%= sidebar_link_to "Monitoring", 'test-analytics/monitors' %>
-            <%= sidebar_link_to "Access control", 'test-analytics/permissions' %>
-            <%= sidebar_link_to "CI environment variables", 'test-analytics/ci-environments' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Languages</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
-            <%= sidebar_link_to "JavaScript", 'test-analytics/js-collectors' %>
-            <%= sidebar_link_to "Swift", 'test-analytics/swift-collectors' %>
-            <%= sidebar_link_to "Python", 'test-analytics/python-collectors' %>
-            <%= sidebar_link_to "Golang", 'test-analytics/golang-collectors' %>
-            <%= sidebar_link_to "Elixir", 'test-analytics/elixir-collectors' %>
-            <%= sidebar_link_to "Rust", 'test-analytics/rust-collectors' %>
-            <%= sidebar_link_to "Other languages", 'test-analytics/other-collectors' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">References</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
-            <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
-            <%= sidebar_link_to "Writing Your Own Collectors", 'test-analytics/your_own_collectors' %>
-          </ul>
-        </div>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'test-analytics' %>" data-docs-path="test-analytics">
+      <p class="Docs__nav__section-heading">Test Analytics
+      </p>
+      <div class="Docs__nav__section-content">
+        <p class="Docs__nav__section-subheading">Getting started</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'test-analytics' %>
+          <%= sidebar_link_to "Configuring test suites", 'test-analytics/test-suites' %>
+          <%= sidebar_link_to "Monitoring", 'test-analytics/monitors' %>
+          <%= sidebar_link_to "Access control", 'test-analytics/permissions' %>
+          <%= sidebar_link_to "CI environment variables", 'test-analytics/ci-environments' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Languages</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
+          <%= sidebar_link_to "JavaScript", 'test-analytics/js-collectors' %>
+          <%= sidebar_link_to "Swift", 'test-analytics/swift-collectors' %>
+          <%= sidebar_link_to "Python", 'test-analytics/python-collectors' %>
+          <%= sidebar_link_to "Golang", 'test-analytics/golang-collectors' %>
+          <%= sidebar_link_to "Elixir", 'test-analytics/elixir-collectors' %>
+          <%= sidebar_link_to "Rust", 'test-analytics/rust-collectors' %>
+          <%= sidebar_link_to "Other languages", 'test-analytics/other-collectors' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">References</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Importing JUnit XML", 'test-analytics/importing-junit-xml' %>
+          <%= sidebar_link_to "Importing JSON", 'test-analytics/importing-json' %>
+          <%= sidebar_link_to "Writing Your Own Collectors", 'test-analytics/your_own_collectors' %>
+        </ul>
       </div>
+    </div>
 
-      <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'apis' %>" data-docs-path="apis">
-        <p class="Docs__nav__section-heading">APIs</p>
-        <div class="Docs__nav__section-content">
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Webhooks</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'apis/webhooks' %>
-            <%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %>
-            <%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %>
-            <%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %>
-            <%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %>
-            <%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Buildkite REST API</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'apis/rest-api' %>
-            <%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %>
-            <%= sidebar_link_to "Organizations", 'apis/rest-api/organizations' %>
-            <%= sidebar_link_to "Pipelines", 'apis/rest-api/pipelines' %>
-            <%= sidebar_link_to "Builds", 'apis/rest-api/builds' %>
-            <%= sidebar_link_to "Jobs", 'apis/rest-api/jobs' %>
-            <%= sidebar_link_to "Agents", 'apis/rest-api/agents' %>
-            <%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %>
-            <%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %>
-            <%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %>
-            <%= sidebar_link_to "User", 'apis/rest-api/user' %>
-            <%= sidebar_link_to "Meta", 'apis/rest-api/meta' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">Agent REST API</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'apis/agent-api' %>
-            <%= sidebar_link_to "Metrics", 'apis/agent-api/metrics' %>
-          </ul>
-          <p class="Docs__nav__section-subheading">GraphQL API</p>
-          <ul class="Docs__nav__sub-nav">
-            <%= sidebar_link_to "Overview", 'apis/graphql-api' %>
-            <%= sidebar_link_to "Console and CLI tutorial", 'apis/graphql/graphql-tutorial' %>
-            <%= sidebar_link_to "Cookbook", 'apis/graphql/graphql-cookbook' %>
-          </ul>
-        </div>
+    <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'apis' %>" data-docs-path="apis">
+      <p class="Docs__nav__section-heading">APIs</p>
+      <div class="Docs__nav__section-content">
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Managing API Tokens", 'apis/managing-api-tokens' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Webhooks</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'apis/webhooks' %>
+          <%= sidebar_link_to "Agent Events", 'apis/webhooks/agent-events' %>
+          <%= sidebar_link_to "Build Events", 'apis/webhooks/build-events' %>
+          <%= sidebar_link_to "Job Events", 'apis/webhooks/job-events' %>
+          <%= sidebar_link_to "Ping Events", 'apis/webhooks/ping-events' %>
+          <%= sidebar_link_to "Integrations", 'apis/webhooks/integrations' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Buildkite REST API</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'apis/rest-api' %>
+          <%= sidebar_link_to "Access Token", 'apis/rest-api/access-token' %>
+          <%= sidebar_link_to "Organizations", 'apis/rest-api/organizations' %>
+          <%= sidebar_link_to "Pipelines", 'apis/rest-api/pipelines' %>
+          <%= sidebar_link_to "Builds", 'apis/rest-api/builds' %>
+          <%= sidebar_link_to "Jobs", 'apis/rest-api/jobs' %>
+          <%= sidebar_link_to "Agents", 'apis/rest-api/agents' %>
+          <%= sidebar_link_to "Artifacts", 'apis/rest-api/artifacts' %>
+          <%= sidebar_link_to "Annotations", 'apis/rest-api/annotations' %>
+          <%= sidebar_link_to "Emojis", 'apis/rest-api/emojis' %>
+          <%= sidebar_link_to "User", 'apis/rest-api/user' %>
+          <%= sidebar_link_to "Meta", 'apis/rest-api/meta' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">Agent REST API</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'apis/agent-api' %>
+          <%= sidebar_link_to "Metrics", 'apis/agent-api/metrics' %>
+        </ul>
+        <p class="Docs__nav__section-subheading">GraphQL API</p>
+        <ul class="Docs__nav__sub-nav">
+          <%= sidebar_link_to "Overview", 'apis/graphql-api' %>
+          <%= sidebar_link_to "Console and CLI tutorial", 'apis/graphql/graphql-tutorial' %>
+          <%= sidebar_link_to "Cookbook", 'apis/graphql/graphql-cookbook' %>
+        </ul>
       </div>
-
-      <% if probably_authenticated? %>
-        <%= link_to "Dashboard", dashboard_path, class: "Docs__nav__homebutton" %>
-      <% else %>
-        <%= link_to "Home", root_path, class: "Docs__nav__homebutton" %>
-      <% end %>
+    </div>
   </div>
 </nav>
 

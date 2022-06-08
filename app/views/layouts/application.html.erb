@@ -61,6 +61,13 @@
         </div>
         <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
         <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
+        <div class="SiteHeader__links">
+          <% if probably_authenticated? %>
+            <%= link_to "Dashboard", dashboard_path, class: "Button Button--primary Button--small" %>
+          <% else %>
+            <%= link_to "Get started", "#{root_path}signup", class: "Button Button--primary Button--small" %>
+          <% end %>
+        </div>
       </div>
     </header>
     <main id="main" role="main">

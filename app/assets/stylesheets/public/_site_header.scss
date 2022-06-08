@@ -3,6 +3,7 @@ $SiteHeaderLogoHeight: 36px;
 .SiteHeader {
   background-color: #fff;
   box-sizing: border-box;
+  padding-right: 50px;
   padding-top: 15px;
   line-height: $SiteHeaderLogoHeight;
   z-index: 5;
@@ -10,6 +11,7 @@ $SiteHeaderLogoHeight: 36px;
   @media (min-width: $screen-md) {
     border-bottom: #ddd 1px solid;
     height: $header-height;
+    padding-right: 0;
     position: fixed;
     top: 0;
     left: 0;
@@ -18,11 +20,8 @@ $SiteHeaderLogoHeight: 36px;
 }
 
 .SiteHeader__inner {
+  align-items: center;
   display: flex;
-
-  @media (max-width: ($screen-md - 1)) {
-    flex-direction: column;
-  }
 }
 
 .SiteHeader__logo {
@@ -39,6 +38,16 @@ $SiteHeaderLogoHeight: 36px;
 
   &:hover {
     opacity: .75;
+  }
+}
+
+.SiteHeader__links {
+  align-items: right;
+  display: inline-flex;
+  margin-left: auto;
+
+  .Button {
+    margin-bottom: 0;
   }
 }
 
