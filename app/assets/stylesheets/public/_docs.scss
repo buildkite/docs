@@ -16,7 +16,10 @@ $color-green: rgb(3, 165, 98);
 }
 
 /* Navicon for small screens (hamburger menu) */
-#navicon {visibility: hidden;}
+#navicon {
+  position: absolute;
+  visibility: hidden;
+}
 
 label[for='navicon'] span { // hide alt text
   left: -10rem;
@@ -105,7 +108,7 @@ label[for='navicon'] span { // hide alt text
     font-family: inherit;
     font-size: 16px;
     outline: none;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 15px 0;
     padding: 8px 10px;
     transition: border-color 0.2s;
     width: 98%;
@@ -186,12 +189,12 @@ label[for='navicon'] span { // hide alt text
       color: $color-green;
       content: '+';
       display: block;
-      font-size: 24px;
+      font-size: 16px;
       height: 15px;
       line-height: 1.8;
       position: absolute;
       right: 15px;
-      top: 0;
+      top: 3px;
       width: 5px;
     }
   }
@@ -212,14 +215,13 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__section-heading {
-  border-bottom: 1px solid #e5e5e5;
   color: black;
-  font-family: inherit;
-  font-size: 1.334rem;
+  font-family: $font-family;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 700;
+  font-weight: bold;
   margin: 0;
-  padding: 10px 0 10px 0;
+  padding: 12px 0;
 
   @media (max-width: ($screen-sm - 1)) {
     padding-left: 20px;
@@ -234,10 +236,9 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__nav__section-subheading {
   color: #02854F;
-  font-size: 0.778rem;
-  font-weight: 600;
-  line-height: 1.26;
-  margin: 12px 0 9px 9px;
+  font-size: 13px;
+  letter-spacing: .5px;
+  margin: 10px 0 15px 9px;
   text-transform: uppercase;
 
   @media (max-width: ($screen-sm - 1)) {
@@ -246,11 +247,11 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__sub-nav {
-  color: #666;
-  font-size: 0.89rem;
+  color: #4f4f4f;
+  font-size: 14px;
   line-height: 1.2;
   list-style: none;
-  margin: 9px 0 12px 19px;
+  margin: 15px 0 20px 19px;
   padding: 0;
 
   &.deprecated {
@@ -271,8 +272,12 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__sub-nav__item {
-  margin-top: 10px;
-  &:first-of-type { margin-top: 0; }
+  font-size: 14px;
+  margin-top: 12px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
 .Docs__nav__sub-nav__item--sub {
