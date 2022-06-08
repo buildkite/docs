@@ -1,8 +1,9 @@
 $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
-  padding-top: 20px;
-  @media (max-width: ($screen-md - 1)) { padding: 0; }
+  @media (min-width: $screen-md) { 
+    padding-top: $header-height + 30px; 
+  }
 }
 
 .Docs__page-container__inner {
@@ -10,7 +11,7 @@ $color-green: rgb(3, 165, 98);
 
   @media (min-width: $screen-md) {
     display: flex;
-    margin-top: 75px;
+    margin-top: 0;
   }
 }
 
@@ -83,15 +84,26 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav {
-  flex: 3;
+  background-color: #fff;
+  border-bottom: #ddd 1px solid;
+  box-sizing: border-box;
   display: none;
-  margin-bottom: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
   position: relative;
   
   @media (min-width: $screen-md) {
+    border-right: #ddd 1px solid;
     display: block;
-    max-width: 250px;
-    padding-right: 40px;
+    width: $sidebar-width;
+    height: calc(#{"100% - #{$header-height}"});
+    margin-bottom: 0;
+    overflow-y: scroll;
+    padding-right: 30px;
+    padding-top: 30px;
+    position: fixed;
+    top: $header-height;
+    z-index: 10;
   }
 }
 
@@ -343,11 +355,13 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__article {
   flex: 7;
-  padding-left: 20px;
   font-weight: 400;
   padding-bottom: 50px;
-  margin-top: -5px;
-  @media (max-width: ($screen-md - 1)) { padding-left: 0; }
+
+  @media (min-width: $screen-md) {
+    margin-left: $sidebar-width + 30px;
+  }
+
   h1, h2, h3, h4, h5 {
     font-weight: bold;
     font-family: inherit;
@@ -397,11 +411,12 @@ label[for='navicon'] span { // hide alt text
   }
 }
 
-@media (min-width: 1201px) { //TOC as side column on larger screens
+@media (min-width: $screen-lg) { //TOC as side column on larger screens
   .Docs__article {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 250px;
+    gap: 30px;
+    grid-template-columns: 1fr $sidebar-width;
 
     &--is-landing-page {
       display: block;
@@ -411,15 +426,14 @@ label[for='navicon'] span { // hide alt text
   .Docs__toc {
     font-size: 16px;
     height: 95%;
-    padding-top: 3em;
     position: absolute;
     right: 0;
     top: 0;
 
     .Docs__toc__sticky {
       position: sticky;
-      top: 3rem;
-      width: 220px;
+      top: $header-height + 30px;
+      width: $sidebar-width;
     }
 
     a {
