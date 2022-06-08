@@ -32,7 +32,8 @@
         </a>
       </li>
       <li class="footer__list-item">
-        <a class="footer__list-item-link" href="mailto:support@buildkite.com">
+        <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
+        <a class="footer__list-item-link" href="mailto:<%= support_email %>">
           <img alt="Icon: paper dart" class="footer__list-item-icon" src="<%= image_url('icons/email.svg') %>" />
           Email support
         </a>
