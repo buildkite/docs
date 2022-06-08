@@ -10,7 +10,7 @@ $SiteHeaderLogoHeight: 36px;
   line-height: $SiteHeaderLogoHeight;
   z-index: 5;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     position: relative;
     padding-bottom: 0;
   }
@@ -19,7 +19,7 @@ $SiteHeaderLogoHeight: 36px;
 .SiteHeader__inner {
   display: flex;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     flex-direction: column;
   }
 }

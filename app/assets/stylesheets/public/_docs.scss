@@ -2,17 +2,17 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
   padding-top: 20px;
-  @media (max-width: ($screen-sm - 1)) { padding: 0; }
+  @media (max-width: ($screen-md - 1)) { padding: 0; }
 }
 
 .Docs__page-container__inner {
   display: flex;
   margin-top: 75px;
-  @media (max-width: ($screen-sm - 1)) { display: block; margin-top: 0; }
+  @media (max-width: ($screen-md - 1)) { display: block; margin-top: 0; }
 }
 
 .Docs__header {
-  @media (max-width: ($screen-sm - 1)) { font-size: 2rem; }
+  @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
 /* Navicon for small screens (hamburger menu) */
@@ -27,7 +27,7 @@ label[for='navicon'] span { // hide alt text
   top: -10rem;
 }
 
-@media (max-width: ($screen-sm - 1)) {
+@media (max-width: ($screen-md - 1)) {
 
   /* hamburger */
   label[for='navicon'],
@@ -85,7 +85,7 @@ label[for='navicon'] span { // hide alt text
   padding-right: 20px;
   position: relative;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     display: none; // hides menu into navicon on small screens
     margin: 0 -20px 40px -20px;
     padding-right: 0;
@@ -111,22 +111,28 @@ label[for='navicon'] span { // hide alt text
     margin: 0 0 15px 0;
     padding: 8px 10px;
     transition: border-color 0.2s;
-    width: 98%;
+    width: 100%;
     &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
     &::-webkit-input-placeholder { color: rgba(#555, .35); }
     &:-moz-placeholder { color: rgba(#555, .35); }
     &::-moz-placeholder { color: rgba(#555, .35); }
     &:-ms-input-placeholder { color: rgba(#555, .35); }
 
-    @media (max-width: ($screen-sm - 1)) {
-      margin: 0 auto;
-      width: 90%;
+    @media (max-width: ($screen-md - 1)) {
+
     }
   }
 }
 
 .Search-container {
+  padding-left: 20px;
+  padding-right: 20px;
   position: relative;
+
+  @media (min-width: $screen-md) {
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   kbd {
     background: #efefef;
@@ -140,7 +146,7 @@ label[for='navicon'] span { // hide alt text
     right: 12px;
     top: 7px;
 
-    @media (max-width: ($screen-sm - 1)) {
+    @media (max-width: ($screen-md - 1)) {
       display: none;
     }
   }
@@ -155,13 +161,6 @@ label[for='navicon'] span { // hide alt text
       right: 10px;
       top: 17px;
     }
-  }
-}
-
-
-.Docs__nav__sections {
-  @media (max-width: ($screen-sm - 1)) {
-    margin-top: 30px;
   }
 }
 
@@ -220,11 +219,12 @@ label[for='navicon'] span { // hide alt text
   font-size: 14px;
   font-style: normal;
   font-weight: bold;
-  margin: 0;
-  padding: 12px 0;
+  margin: 0 20px 0 0;
+  padding: 12px 0 12px 20px;
 
-  @media (max-width: ($screen-sm - 1)) {
-    padding-left: 20px;
+  @media (min-width: $screen-md) {
+    margin-right: 0;
+    padding-left: 0;
   }
 
   &:first-of-type { margin-top: 0; }
@@ -241,7 +241,7 @@ label[for='navicon'] span { // hide alt text
   margin: 10px 0 15px 9px;
   text-transform: uppercase;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     padding-left: 20px;
   }
 }
@@ -261,9 +261,7 @@ label[for='navicon'] span { // hide alt text
     }
   }
 
-  @media (max-width: ($screen-sm - 1)) {
-    font-size: 1rem;
-    line-height: 1.2;
+  @media (max-width: ($screen-md - 1)) {
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
@@ -298,7 +296,7 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__nav__version-selector {
   margin-bottom: 10px;
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     margin-left: 20px;
   }
 }
@@ -312,7 +310,7 @@ label[for='navicon'] span { // hide alt text
   font-weight: bold;
   color: #14CC80;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     display: block;
     padding-left: 20px;
     padding-top: 15px;
@@ -339,7 +337,7 @@ label[for='navicon'] span { // hide alt text
   text-decoration: none;
   transition: background-color $transition-speed;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     margin-top: 10px;
     margin-left: 20px;
   }
@@ -355,7 +353,7 @@ label[for='navicon'] span { // hide alt text
   font-weight: 400;
   padding-bottom: 50px;
   margin-top: -5px;
-  @media (max-width: ($screen-sm - 1)) { padding-left: 0; }
+  @media (max-width: ($screen-md - 1)) { padding-left: 0; }
   h1, h2, h3, h4, h5 {
     font-weight: bold;
     font-family: inherit;
