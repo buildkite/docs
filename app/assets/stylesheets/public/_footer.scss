@@ -46,7 +46,7 @@
     text-decoration: none;
 
     &:hover {
-      filter: invert(25%) sepia(82%) saturate(2120%) hue-rotate(142deg) brightness(94%) contrast(98%);
+      filter: $filter-brand-green;
       text-decoration: underline;
     }
   }

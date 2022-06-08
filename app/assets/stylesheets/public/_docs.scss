@@ -1,91 +1,88 @@
 $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
-  padding-top: 20px;
-  @media (max-width: ($screen-sm - 1)) { padding: 0; }
+  @media (min-width: $screen-md) { 
+    padding-top: $header-height + 30px; 
+  }
 }
 
 .Docs__page-container__inner {
-  display: flex;
-  margin-top: 75px;
-  @media (max-width: ($screen-sm - 1)) { display: block; margin-top: 0; }
+  margin-top: 30px;
+
+  @media (min-width: $screen-md) {
+    display: flex;
+    margin-top: 0;
+  }
 }
 
 .Docs__header {
-  @media (max-width: ($screen-sm - 1)) { font-size: 2rem; }
+  @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
 /* Navicon for small screens (hamburger menu) */
-#navicon {visibility: hidden;}
-
-label[for='navicon'] span { // hide alt text
-  left: -10rem;
+#navicon {
   position: absolute;
-  top: -10rem;
+  visibility: hidden;
+
+  &:checked ~ .Docs__nav {
+    display: block;
+  }
 }
 
-@media (max-width: ($screen-sm - 1)) {
+label[for='navicon'] {
+  background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
+  border: #ddd 1px solid;
+  border-radius: 5px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: block;
+  height: 40px;
+  margin: 0;
+  position: absolute;
+  right: 30px;
+  top: 15px;
+  width: 40px;
 
-  /* hamburger */
-  label[for='navicon'],
-  label[for='navicon']:before,
-  label[for='navicon']:after {
-    background: #1f1f1f;
-    border-radius: 5px;
-    cursor: pointer;
-    height: 0.2rem;
+  &:hover {
+    background-color: #f2f2f2;
+  }
+
+  #navicon:checked + & {
+    background-image: asset-url('icons/remove.svg');
+  }
+
+  span { // hide alt text
+    left: -10rem;
     position: absolute;
-    transition: 0.3s;
-    width: 0.9rem;
-    z-index: 10;
+    top: -10rem;
   }
-
-  label[for='navicon'] {
-    right: 2rem;
-    top: 2rem;
-  }
-
-  label[for='navicon']:before {
-    content: "";
-    transform: translateY(-0.3rem);
-    transition: 0.5s;
-  }
-
-  label[for='navicon']:after {
-    content: "";
-    transform: translateY(0.3rem);
-    transition: 0.5s;
-  }
-
-  #navicon:checked + label[for='navicon'] {
-    /* displays menu */
-    & ~ .Docs__nav {
-      display: block;
-    }
-
-    /* close menu icon */
-    width: 0;
-
-    &:before {
-      transform: rotate(45deg) translateX(-0.5rem) translateY(0.5rem);
-    }
-
-    &:after {
-      transform: rotate(-45deg) translateX(-0.5rem) translateY(-0.5rem);
-    }
-  }
+  
 }
 
 .Docs__nav {
-  flex: 2;
-  margin-top: 0.4em;
-  padding-right: 20px;
+  background-color: #fff;
+  border-bottom: #ddd 1px solid;
+  box-sizing: border-box;
+  display: none;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
   position: relative;
-
-  @media (max-width: ($screen-sm - 1)) {
-    display: none; // hides menu into navicon on small screens
-    margin: 0 -20px 40px -20px;
-    padding-right: 0;
+  
+  @media (min-width: $screen-md) {
+    border-right: #ddd 1px solid;
+    display: block;
+    width: $sidebar-width;
+    height: calc(#{"100% - #{$header-height}"});
+    margin-bottom: 0;
+    margin-left: -30px;
+    overflow-y: scroll;
+    overscroll-behavior: contain;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 30px;
+    position: fixed;
+    top: $header-height;
+    z-index: 10;
   }
 }
 
@@ -105,19 +102,18 @@ label[for='navicon'] span { // hide alt text
     font-family: inherit;
     font-size: 16px;
     outline: none;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 15px 0;
     padding: 8px 10px;
     transition: border-color 0.2s;
-    width: 98%;
+    width: 100%;
     &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
     &::-webkit-input-placeholder { color: rgba(#555, .35); }
     &:-moz-placeholder { color: rgba(#555, .35); }
     &::-moz-placeholder { color: rgba(#555, .35); }
     &:-ms-input-placeholder { color: rgba(#555, .35); }
 
-    @media (max-width: ($screen-sm - 1)) {
-      margin: 0 auto;
-      width: 90%;
+    @media (max-width: ($screen-md - 1)) {
+
     }
   }
 }
@@ -137,7 +133,7 @@ label[for='navicon'] span { // hide alt text
     right: 12px;
     top: 7px;
 
-    @media (max-width: ($screen-sm - 1)) {
+    @media (max-width: ($screen-md - 1)) {
       display: none;
     }
   }
@@ -155,53 +151,45 @@ label[for='navicon'] span { // hide alt text
   }
 }
 
-
-.Docs__nav__sections {
-  @media (max-width: ($screen-sm - 1)) {
-    margin-top: 30px;
-  }
-}
-
 .Docs__nav__section-container {
-  width: 100%;
-
   &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
     opacity: 1;
   }
 
   .Docs__nav__section-heading { 
+    align-items: flex-start;
     cursor: pointer;
-    position: relative;
+    display: flex;
     user-select: none;
 
-    @media (hover: hover) {
-      &:hover {
-        color: $color-green;
-        transition: transform 0.1s;
-        &::after { opacity: 1; }
-      }
+    &:hover {
+      filter: $filter-brand-green;
+      transition: transform $transition-speed;
     }
 
     &::after {
-      color: $color-green;
-      content: '+';
+      background: transparent asset-url('icons/arrow-down.svg') 50% 50% no-repeat;
+      background-size: cover;
+      content: '';
       display: block;
-      font-size: 24px;
-      height: 15px;
-      line-height: 1.8;
-      position: absolute;
-      right: 15px;
-      top: 0;
-      width: 5px;
+      height: 12px;
+      margin-left: auto;
+      width: 12px;
     }
   }
-  &.current .Docs__nav__section-heading { color: $color-green; }
+  &.current .Docs__nav__section-heading {
+    filter: $filter-brand-green;
+  }
 
-  .Docs__nav__section-content { display: none; }
+  .Docs__nav__section-content { 
+    display: none;
+  }
+  
   &.expanded {
     .Docs__nav__section-heading::after {
-      content: '–';
+      transform: rotate(-180deg);
     }
+
     img { transform: rotate(-180deg); }
     .Docs__nav__section-content { display: block; }
   }
@@ -212,17 +200,16 @@ label[for='navicon'] span { // hide alt text
 }
 
 .Docs__nav__section-heading {
-  border-bottom: 1px solid #e5e5e5;
   color: black;
-  font-family: inherit;
-  font-size: 1.334rem;
+  font-family: $font-family;
+  font-size: 14px;
   font-style: normal;
-  font-weight: 700;
-  margin: 0;
-  padding: 10px 0 10px 0;
+  font-weight: bold;
+  padding: 12px 0;
 
-  @media (max-width: ($screen-sm - 1)) {
-    padding-left: 20px;
+  @media (min-width: $screen-md) {
+    margin-right: 0;
+    padding-left: 0;
   }
 
   &:first-of-type { margin-top: 0; }
@@ -234,24 +221,26 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__nav__section-subheading {
   color: #02854F;
-  font-size: 0.778rem;
-  font-weight: 600;
-  line-height: 1.26;
-  margin: 12px 0 9px 9px;
+  font-size: 13px;
+  letter-spacing: .5px;
+  margin: 15px 0 10px 10px;
   text-transform: uppercase;
-
-  @media (max-width: ($screen-sm - 1)) {
-    padding-left: 20px;
-  }
 }
 
 .Docs__nav__sub-nav {
-  color: #666;
-  font-size: 0.89rem;
+  color: #4f4f4f;
+  font-size: 14px;
   line-height: 1.2;
   list-style: none;
-  margin: 9px 0 12px 19px;
-  padding: 0;
+  padding: 10px 0 20px 10px;
+
+  .current & {
+    padding-left: 6px;
+  }
+
+  .Docs__nav__section-subheading + & {
+    margin-left: 20px;
+  }
 
   &.deprecated {
     .Docs__nav__sub-nav__item::before {
@@ -259,20 +248,15 @@ label[for='navicon'] span { // hide alt text
       margin-right: 5px;
     }
   }
-
-  @media (max-width: ($screen-sm - 1)) {
-    font-size: 1rem;
-    line-height: 1.2;
-    padding-bottom: 20px;
-    padding-left: 20px;
-    padding-right: 20px;
-    margin-bottom: -1px;
-  }
 }
 
 .Docs__nav__sub-nav__item {
-  margin-top: 10px;
-  &:first-of-type { margin-top: 0; }
+  font-size: 14px;
+  margin-top: 12px;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
 }
 
 .Docs__nav__sub-nav__item--sub {
@@ -293,7 +277,7 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__nav__version-selector {
   margin-bottom: 10px;
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     margin-left: 20px;
   }
 }
@@ -307,7 +291,7 @@ label[for='navicon'] span { // hide alt text
   font-weight: bold;
   color: #14CC80;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     display: block;
     padding-left: 20px;
     padding-top: 15px;
@@ -334,9 +318,8 @@ label[for='navicon'] span { // hide alt text
   text-decoration: none;
   transition: background-color $transition-speed;
 
-  @media (max-width: ($screen-sm - 1)) {
+  @media (max-width: ($screen-md - 1)) {
     margin-top: 10px;
-    margin-left: 20px;
   }
 
   &:hover, &:focus, &:active {
@@ -346,11 +329,13 @@ label[for='navicon'] span { // hide alt text
 
 .Docs__article {
   flex: 7;
-  padding-left: 20px;
   font-weight: 400;
   padding-bottom: 50px;
-  margin-top: -5px;
-  @media (max-width: ($screen-sm - 1)) { padding-left: 0; }
+
+  @media (min-width: $screen-md) {
+    margin-left: $sidebar-width + 30px;
+  }
+
   h1, h2, h3, h4, h5 {
     font-weight: bold;
     font-family: inherit;
@@ -400,11 +385,12 @@ label[for='navicon'] span { // hide alt text
   }
 }
 
-@media (min-width: 1201px) { //TOC as side column on larger screens
+@media (min-width: $screen-lg) { //TOC as side column on larger screens
   .Docs__article {
     position: relative;
     display: grid;
-    grid-template-columns: 1fr 250px;
+    gap: 30px;
+    grid-template-columns: 1fr $sidebar-width;
 
     &--is-landing-page {
       display: block;
@@ -414,15 +400,14 @@ label[for='navicon'] span { // hide alt text
   .Docs__toc {
     font-size: 16px;
     height: 95%;
-    padding-top: 3em;
     position: absolute;
     right: 0;
     top: 0;
 
     .Docs__toc__sticky {
       position: sticky;
-      top: 3rem;
-      width: 220px;
+      top: $header-height + 30px;
+      width: $sidebar-width;
     }
 
     a {
@@ -624,6 +609,32 @@ a.Docs__example-repo {
     position: absolute;
     left: -25px;
     top: 5px;
+  }
+}
+
+// TODO: refactor sidebar and move into its own Sass partial
+.Sidebar {
+  &__site-links {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    gap: 10px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+
+    @media (min-width: $screen-md) {
+      display: none;
+    }
+  }
+
+  &__site-link {
+    color: #111;
+    display: inline-block;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 

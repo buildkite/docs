@@ -1,36 +1,36 @@
 $SiteHeaderLogoHeight: 36px;
 
 .SiteHeader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  background-color: #fff;
+  box-sizing: border-box;
+  padding-right: 50px;
+  padding-top: 15px;
   line-height: $SiteHeaderLogoHeight;
   z-index: 5;
-
-  @media (max-width: ($screen-sm - 1)) {
-    position: relative;
-    padding-bottom: 0;
+  
+  @media (min-width: $screen-md) {
+    border-bottom: #ddd 1px solid;
+    height: $header-height;
+    padding-right: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 }
 
 .SiteHeader__inner {
+  align-items: center;
   display: flex;
-
-  @media (max-width: ($screen-sm - 1)) {
-    flex-direction: column;
-  }
 }
 
 .SiteHeader__logo {
   align-items: center;
   display: flex;
   flex: 0 0 auto;
+  font-weight: bold;
   line-height: $SiteHeaderLogoHeight;
-  margin-bottom: .5em;
-  margin-right: 3em;
+  margin-right: 30p;
 }
 
 .SiteHeader__logo-img {
@@ -42,9 +42,24 @@ $SiteHeaderLogoHeight: 36px;
   }
 }
 
+.SiteHeader__links {
+  align-items: right;
+  display: none;
+  font-size: 16px;
+  margin-left: auto;
+
+  @media (min-width: $screen-sm) {
+    display: inline-flex;
+    gap: 30px;
+  }
+
+  .Button {
+    margin-bottom: 0;
+  }
+}
+
 .SiteHeader__docslink {
-  font-weight: bold;
-  color: black;
+  color: #111;
   text-decoration: none;
   transition: color $transition-speed;
   will-change: color;

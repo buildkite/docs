@@ -8,6 +8,7 @@
 
 .TileItem {
   font-size: 0.888888rem;
+  margin-bottom: 30px;
 
   .TileItem__image {
     border: 0;
@@ -20,7 +21,7 @@
   .TileItem__title {
     font-size: 1.111111rem;
     font-weight: bold;
-    margin: 0 0 10px;
+    margin: 0 0 15px;
 
     &-link {
       text-decoration: none;
@@ -49,7 +50,7 @@
 
   .TileItem__list-item {
     list-style: none;
-    margin: 10px 0;
+    margin: 15px 0;
 
     .pill {
       position: relative;
