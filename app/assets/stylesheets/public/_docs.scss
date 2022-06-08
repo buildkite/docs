@@ -76,6 +76,7 @@ label[for='navicon'] {
     margin-bottom: 0;
     margin-left: -30px;
     overflow-y: scroll;
+    overscroll-behavior: contain;
     padding-left: 30px;
     padding-right: 30px;
     padding-top: 30px;
