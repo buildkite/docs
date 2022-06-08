@@ -135,7 +135,7 @@ Key;required;Type;Description;example
 id;true;UUIDv4 string;a unique identifier for this test result;1b70486f-ca5f-4e6d-beb8-6347b2e49278
 scope;;string;a group or topic for the test;Student.isEnrolled()
 name;;string;a name or description for the test;Manager.isEnrolled() returns_boolean
-identifier;;string;a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test;Manager.isEnrolled#returns_boolean
+identifier;true;string;a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test;Manager.isEnrolled#returns_boolean
 location;;string;the file and line number where the test originates, separated by a colon (:);./tests/Manager/isEnrolled.js:32
 file_name;;string;the file where the test originates;./tests/Manager/isEnrolled.js
 result;;string "passed", "failed", "skipped", or "unknown";the outcome of the test;"failed"
@@ -144,17 +144,17 @@ history;true;history object;See [History objects];
 -->
 %>
 
-| Key                  | Type                                                        | Description                                                                                                     | Example                                |
-|----------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| `id` (required)      | UUIDv4 string                                               | a unique identifier for this test result                                                                        | `1b70486f-ca5f-4e6d-beb8-6347b2e49278` |
-| `scope`              | string                                                      | a group or topic for the test                                                                                   | `Student.isEnrolled()`                 |
-| `name`               | string                                                      | a name or description for the test                                                                              | `Manager.isEnrolled() returns_boolean` |
-| `identifier`         | string                                                      | a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test | `Manager.isEnrolled#returns_boolean`   |
-| `location`           | string                                                      | the file and line number where the test originates, separated by a colon (`:`)                                  | `./tests/Manager/isEnrolled.js:32`     |
-| `file_name`          | string                                                      | the file where the test originates                                                                              | `./tests/Manager/isEnrolled.js`        |
-| `result`             | strings `"passed"`, `"failed"`, `"skipped"`, or `"unknown"` | the outcome of the test                                                                                         | `failed`                               |
-| `failure_reason`     | string                                                      | if applicable, a short summary of why the test failed                                                           | `Expected Boolean, got Object`         |
-| `history` (required) | history object                                              | Read [History objects](#json-test-results-data-reference-history-objects)                                       |                                        |
+| Key                             | Type                                                        | Description                                                                                                     | Example                                |
+|---------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------|
+| `id` (required)                 | UUIDv4 string                                               | a unique identifier for this test result                                                                        | `1b70486f-ca5f-4e6d-beb8-6347b2e49278` |
+| `scope`                         | string                                                      | a group or topic for the test                                                                                   | `Student.isEnrolled()`                 |
+| `name`                          | string                                                      | a name or description for the test                                                                              | `Manager.isEnrolled() returns_boolean` |
+| `identifier` (required)         | string                                                      | a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test | `Manager.isEnrolled#returns_boolean`   |
+| `location`                      | string                                                      | the file and line number where the test originates, separated by a colon (`:`)                                  | `./tests/Manager/isEnrolled.js:32`     |
+| `file_name`                     | string                                                      | the file where the test originates                                                                              | `./tests/Manager/isEnrolled.js`        |
+| `result`                        | strings `"passed"`, `"failed"`, `"skipped"`, or `"unknown"` | the outcome of the test                                                                                         | `failed`                               |
+| `failure_reason`                | string                                                      | if applicable, a short summary of why the test failed                                                           | `Expected Boolean, got Object`         |
+| `history` (required)            | history object                                              | Read [History objects](#json-test-results-data-reference-history-objects)                                       |                                        |
 
 **Example:**
 
