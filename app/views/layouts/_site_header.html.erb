@@ -13,6 +13,12 @@
       <%= link_to "Buildkite Docs", home_page_path, class: "SiteHeader__docslink", title: "Return to Docs index page" %>
     </div>
     <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
+    <div class="Search">
+      <div class="Search-container">
+        <input id="search" class="Search__input" placeholder="Search" />
+        <kbd class="Search__kbd" title="Press / to search">/</kbd>
+      </div>
+    </div>
     <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
     <div class="SiteHeader__links">
       <%= link_to "https://buildkite.com/home", title: "Go to Buildkite homepage", class: "SiteHeader__docslink" do %>
