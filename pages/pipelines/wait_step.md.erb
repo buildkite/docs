@@ -46,6 +46,16 @@ _Optional attributes:_
   </tr>
 </table>
 
+## Conditional wait
+
+You can use a conditional to only wait when certain conditions are met:
+
+```yml
+steps:
+  - wait: ~
+    if: build.branch == "develop" || build.branch == "main"
+```
+
 ## Continuing on failure
 
 You can also configure the wait step to continue even if the previous steps failed. If steps failed, the build will be marked as failed only after any steps after the `wait` with `continue_on_failure: true` have completed.
