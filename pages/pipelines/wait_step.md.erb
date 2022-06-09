@@ -53,7 +53,7 @@ You can use a conditional to only wait when certain conditions are met:
 ```yml
 steps:
   - wait: ~
-    if: build.branch == "develop" || build.branch == "master"
+    if: build.branch == "develop" || build.branch == "main"
 ```
 
 ## Continuing on failure
