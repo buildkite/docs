@@ -18,7 +18,7 @@ script.
 
 ## Description
 
-The bootstrap command executes a buildkite job locally.
+The bootstrap command executes a Buildkite job locally.
 
 Generally the bootstrap command is run as a sub-process of the buildkite-agent to execute
 a given job sent from buildkite.com, but you can also invoke the bootstrap manually.

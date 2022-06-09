@@ -1,5 +1,6 @@
 Allowlist
 Artifactory
+Artifactory's
 Atlassian
 Authy
 Autoscaling
@@ -10,6 +11,7 @@ Bitium
 Boomper
 Buildbox
 Buildkite
+Buildkite's
 CI
 CloudWatch
 Crontab
@@ -22,7 +24,6 @@ Explainshell
 Firewalled
 Flexbox
 Fugit
-GitHub
 GitLab
 Gradle
 Hashicorp
@@ -36,6 +37,7 @@ Noreply
 Okta
 Pagerduty
 Phabricator
+Phabricator's
 Postgres
 Powershell
 Readme
@@ -62,7 +64,6 @@ autoscaling
 aws
 boolean
 boomper
-buildkite
 buildscript
 ccnet
 chatbot
@@ -179,8 +180,10 @@ util
 vendored
 waitlist
 walkthrough
+webhook's
 webtask
 worktree
+workspace's
 xcode
 xcodebuild
 xcpretty
