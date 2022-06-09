@@ -63,7 +63,7 @@ PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
 
 We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
 
-To run most of these checks, run `./scripts/vale.sh`.
+You can run most of these checks with `./scripts/vale.sh`.
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
 
