@@ -5,7 +5,7 @@ $SiteHeaderLogoHeight: 36px;
   box-sizing: border-box;
   padding-top: 15px;
   line-height: $SiteHeaderLogoHeight;
-  z-index: 5;
+  z-index: 20;
   
   @media (min-width: $screen-md) {
     border-bottom: #ddd 1px solid;
