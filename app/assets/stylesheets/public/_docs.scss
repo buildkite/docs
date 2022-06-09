@@ -86,38 +86,6 @@ label[for='navicon'] {
   }
 }
 
-.Docs__nav__search {
-  position: relative;
-
-  input {
-    -moz-appearance: none;
-    -webkit-appearance: none;
-    background-color: #fff;
-    border-radius: .2em;
-    border: 1px solid #ccc;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
-    box-sizing: border-box;
-    color: #555;
-    display: block;
-    font-family: inherit;
-    font-size: 16px;
-    outline: none;
-    margin: 0 0 15px 0;
-    padding: 8px 10px;
-    transition: border-color 0.2s;
-    width: 100%;
-    &:focus { background-color: rgba(white, .1); border-color: #14CC80; }
-    &::-webkit-input-placeholder { color: rgba(#555, .35); }
-    &:-moz-placeholder { color: rgba(#555, .35); }
-    &::-moz-placeholder { color: rgba(#555, .35); }
-    &:-ms-input-placeholder { color: rgba(#555, .35); }
-
-    @media (max-width: ($screen-md - 1)) {
-
-    }
-  }
-}
-
 .Search-container {
   position: relative;
 

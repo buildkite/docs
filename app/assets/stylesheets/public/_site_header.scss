@@ -3,10 +3,9 @@ $SiteHeaderLogoHeight: 36px;
 .SiteHeader {
   background-color: #fff;
   box-sizing: border-box;
-  padding-right: 50px;
   padding-top: 15px;
   line-height: $SiteHeaderLogoHeight;
-  z-index: 5;
+  z-index: 20;
   
   @media (min-width: $screen-md) {
     border-bottom: #ddd 1px solid;
@@ -20,8 +19,15 @@ $SiteHeaderLogoHeight: 36px;
 }
 
 .SiteHeader__inner {
-  align-items: center;
   display: flex;
+  flex-direction: column;
+  gap: 15px;
+
+  @media (min-width: $screen-sm) {
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+  }
 }
 
 .SiteHeader__logo {
@@ -48,7 +54,7 @@ $SiteHeaderLogoHeight: 36px;
   font-size: 16px;
   margin-left: auto;
 
-  @media (min-width: $screen-sm) {
+  @media (min-width: $screen-md) {
     display: inline-flex;
     gap: 30px;
   }
