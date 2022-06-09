@@ -40,7 +40,9 @@ $SiteHeaderLogoHeight: 36px;
 }
 
 .SiteHeader__logo-img {
+  display: block;
   transition: opacity $transition-speed;
+  width: 28px;
   will-change: opacity;
 
   &:hover {

@@ -49,4 +49,17 @@ module ApplicationHelper
   def render_attribute_content(attribute)
     render(partial: "quick_reference/#{attribute}", formats: [:md]).to_json.html_safe
   end
+
+  def logo_image_url
+    image = 'logo.svg'
+
+    # Pride month is June in The United States,
+    # and this is generally acknowledged around the world
+    # even if jurisdictions have their own dates.
+    if DateTime.now.month == 6
+      image = 'logo-pride.svg'
+    end
+
+    image_url(image)
+  end
 end
