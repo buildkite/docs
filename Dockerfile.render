@@ -8,7 +8,7 @@ FROM ghcr.io/renderinc/heroku-app-builder:heroku-18 AS builder
 
 # For running the app, we use a clean base image and also one without Ubuntu development packages
 # https://devcenter.heroku.com/articles/heroku-20-stack#heroku-20-docker-image
-FROM ghcr.io/renderinc/heroku-app-runner:heroku-18 AS runner
+FROM ghcr.io/renderinc/heroku-app-runner:heroku-20 AS runner
 
 # Copy build artifacts to runtime image
 COPY --from=builder --chown=1000:1000 /render /render/
