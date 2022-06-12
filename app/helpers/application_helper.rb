@@ -20,6 +20,16 @@ module ApplicationHelper
     content_tag(:li, inner_html, class: 'Docs__nav__sub-nav__item')
   end
 
+  def nav_path(path)
+    if path =~ URI::regexp
+      path
+    elsif path =~ URI::MailTo::EMAIL_REGEXP
+      "mailto:#{path}"
+    else
+      docs_page_path(path)
+    end
+  end
+
   def open_source_url
     # This dirty hack grabs the filename for the current ERB file being rendered
     view_path = @page.instance_variable_get(:@filename)

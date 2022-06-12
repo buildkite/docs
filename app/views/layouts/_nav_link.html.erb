@@ -1,0 +1,9 @@
+<% icon_image = icon ? image_tag("icons/#{icon}") : '' %>
+<% if path %>
+  <a
+    href="<%= nav_path(path) %>"
+    <%= new_window && 'target=_blank' %>
+  ><%= icon_image %><%= name %></a>
+<% else %>
+  <button><%= icon_image %><%= name %></button> 
+<% end %>  

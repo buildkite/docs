@@ -1,0 +1,25 @@
+<% nav_level = nav_level + 1 %>
+<ul class="Nav__section Nav__section--level<%= nav_level %>">
+  <% children.each do |child| %>
+    <%
+      name = child['name']
+      path = child['path']
+      icon = child['icon'] 
+      new_window = child['new_window']
+    %>
+    <li class="Nav__item Nav__item--level<%= nav_level %>">
+      <%= 
+        render 'layouts/nav_link',
+        name: name,
+        path: path,
+        icon: icon, 
+        new_window: new_window,
+        nav_level: nav_level
+      %>
+
+      <% if child['children'] %>
+        <%= render 'layouts/nav_children', children: child['children'], nav_level: nav_level %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

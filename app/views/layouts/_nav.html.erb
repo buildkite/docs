@@ -1,0 +1,14 @@
+<%
+  current_path = request.original_fullpath
+  nav_level = 0
+%>
+
+<% if nav_data && !nav_data.empty? %>
+  <nav class="Nav">
+    <div class="Nav__container PageContainer">
+      <% nav_data.each_with_index do |children, i| %>
+        <%= render 'layouts/nav_children', children: children, nav_level: nav_level %>
+      <% end %>
+    </div>
+  </nav>
+<% end %>
