@@ -4,6 +4,7 @@
 %>
 
 <% if nav_data && !nav_data.empty? %>
+  <% nav_level = 0 %>
   <nav class="Nav">
     <div class="Nav__container PageContainer">
       <% nav_data.each_with_index do |children, i| %>
