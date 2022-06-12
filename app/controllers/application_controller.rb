@@ -7,6 +7,16 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def fetch_nav_data
+    file_path = File.join(Rails.root, 'data', 'nav.yml')
+    YAML.load_file(file_path) || []
+  end
+
+  def nav_data
+    Nav.new(fetch_nav_data).nav_tree
+  end
+  helper_method :nav_data
+
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super
