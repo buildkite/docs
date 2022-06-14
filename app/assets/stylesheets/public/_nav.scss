@@ -1,11 +1,58 @@
 .Nav {
   border-top: #ddd 1px solid;
-  padding-bottom: 10px;
-  padding-top: 10px;
+
+  &__toggle-checkbox {
+    position: absolute;
+    visibility: hidden;
+
+    &:checked ~ .Nav__container {
+      display: block;
+      
+      @media (min-width: $screen-md) {
+        display: flex;
+      }
+    }
+  }
+
+  &__toggle-label {
+    background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
+    border: #ddd 1px solid;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    display: block;
+    height: 40px;
+    margin: 0;
+    position: absolute;
+    right: 30px;
+    top: 10px;
+    width: 40px;
+
+    @media (min-width: $screen-md) {
+      display: none;
+    }
+
+    &:hover {
+      background-color: #f2f2f2;
+    }
+
+    .Nav__toggle-checkbox:checked + & {
+      background-image: asset-url('icons/remove.svg');
+    }
+
+    span {
+      left: -10rem;
+      position: absolute;
+      top: -10rem;
+    }
+  }
 
   &__container {
+    display: none;
     margin-left: -15px;
     margin-right: -15px;
+    padding-bottom: 10px;
+    padding-top: 10px;
 
     @media (min-width: $screen-md) {
       align-items: center;
@@ -43,29 +90,39 @@
   }
 
   &__section {
-    &--level0 {
+    display: none;
+
+    &--level1 {
+      display: block;
+
       @media (min-width: $screen-md) {
         display: flex;
       }
 
-      &.Nav__section--first {
+      &.Nav__section:first-child {
         @media (min-width: $screen-md) {
           margin-left: -15px;
           margin-right: auto;
         }
 
-        .Nav__link--level0 {
+        .Nav__link--level1 {
           font-weight: bold;
         }
       }
     }
 
-    &--level1 {
+    &--level2 {
       @media (min-width: $screen-md) {
-        display: none;
+        border-right: #ddd 1px solid;
+        display: block;
+        height: calc(100% - #{$header-height});
+        left: 0;
+        overflow-y: scroll;
+        padding: 30px 15px;
+        position: fixed;
+        top: $header-height;
+        width: $sidebar-width;
       }
     }
   }
-
-
 }

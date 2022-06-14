@@ -7,12 +7,12 @@ $SiteHeaderLogoHeight: 36px;
   -webkit-backdrop-filter: blur(2px);
   backdrop-filter: blur(2px);
   background-color: rgba(255, 255, 255, .85);
+  border-bottom: #ddd 1px solid;
   box-sizing: border-box;
   line-height: $SiteHeaderLogoHeight;
   z-index: 20;
   
   @media (min-width: $screen-md) {
-    border-bottom: #ddd 1px solid;
     min-height: $header-height;
     padding-right: 0;
     position: fixed;

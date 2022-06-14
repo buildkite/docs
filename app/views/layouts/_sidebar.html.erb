@@ -1,9 +1,6 @@
 <% current_section = request.original_fullpath.split('/')[2] %>
 
-<input type="checkbox" id="navicon" />
-<label class="Button Button--default" for="navicon"><span>Display menu</span></label>
-
-<nav class="Docs__nav">
+<nav class="Docs__nav" style="display: none;">
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
       <p class="Docs__nav__section-heading">Tutorials</p>

@@ -19,46 +19,6 @@ $color-green: rgb(3, 165, 98);
   @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
-/* Navicon for small screens (hamburger menu) */
-#navicon {
-  position: absolute;
-  visibility: hidden;
-
-  &:checked ~ .Docs__nav {
-    display: block;
-  }
-}
-
-label[for='navicon'] {
-  background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
-  border: #ddd 1px solid;
-  border-radius: 5px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: block;
-  height: 40px;
-  margin: 0;
-  position: absolute;
-  right: 30px;
-  top: 10px;
-  width: 40px;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
-
-  #navicon:checked + & {
-    background-image: asset-url('icons/remove.svg');
-  }
-
-  span { // hide alt text
-    left: -10rem;
-    position: absolute;
-    top: -10rem;
-  }
-  
-}
-
 .Docs__nav {
   background-color: #fff;
   border-bottom: #ddd 1px solid;
