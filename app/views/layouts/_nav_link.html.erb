@@ -9,5 +9,11 @@
     <%= new_window && 'target=_blank' %>
   ><%= icon_image %><%= name %></a>
 <% else %>
-  <button class="Nav__link Nav__link--level<%= nav_level %>"><%= icon_image %><%= name %></button> 
-<% end %>  
+  <button 
+    class="
+      Nav__link
+      Nav__link--level<%= nav_level %>
+      Nav__toggle"
+    data-toggle-nav-level="<%= nav_level %>"
+  ><%= icon_image %><%= name %></button> 
+<% end %>
