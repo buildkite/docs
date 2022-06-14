@@ -10,7 +10,7 @@
     <label class="Nav__toggle-label Button Button--default" for="navicon"><span>Display menu</span></label>
     <div class="Nav__container PageContainer">
       <% nav_data.each_with_index do |children, i| %>
-        <%= render 'layouts/nav_children', children: children, nav_level: nav_level %>
+        <%= render 'layouts/nav_children', children: children, nav_level: nav_level, current_path: current_path %>
       <% end %>
     </div>
   </nav>

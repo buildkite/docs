@@ -1,7 +1,10 @@
 <% icon_image = icon ? image_tag("icons/#{icon}") : '' %>
 <% if path %>
   <a
-    class="Nav__link Nav__link--level<%= nav_level %>"
+    class="
+      Nav__link
+      Nav__link--level<%= nav_level %>
+      <%= 'Nav__link--current' if current_path == nav_path(path) %>"
     href="<%= nav_path(path) %>"
     <%= new_window && 'target=_blank' %>
   ><%= icon_image %><%= name %></a>

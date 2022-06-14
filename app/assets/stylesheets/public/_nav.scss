@@ -87,10 +87,20 @@
     &:hover {
       background-color: #f2f2f2;
     }
+
+    &--current {
+      background-color: #f2f2f2;
+      cursor:default;
+      font-weight: bold;
+    }
   }
 
   &__section {
     display: none;
+
+    &--current {
+      display: block;
+    }
 
     &--level1 {
       display: block;
@@ -114,7 +124,6 @@
     &--level2 {
       @media (min-width: $screen-md) {
         border-right: #ddd 1px solid;
-        display: block;
         height: calc(100% - #{$header-height});
         left: 0;
         overflow-y: scroll;

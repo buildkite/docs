@@ -8,11 +8,12 @@
         path: child['path'],
         icon: child['icon'] ,
         new_window: child['new_window'],
-        nav_level: nav_level
+        nav_level: nav_level,
+        current_path: current_path
       %>
 
       <% if child['children'] %>
-        <%= render 'layouts/nav_children', children: child['children'], nav_level: nav_level %>
+        <%= render 'layouts/nav_children', children: child['children'], nav_level: nav_level, current_path: current_path %>
       <% end %>
     </li>
   <% end %>
