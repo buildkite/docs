@@ -185,6 +185,7 @@
 
   &__section {
     display: none;
+    flex-direction: column;
     gap: 2px;
     padding-bottom: 5px;
     padding-top: 5px;
@@ -237,6 +238,60 @@
         position: fixed;
         top: $header-height;
         width: $sidebar-width;
+      }
+    }
+  }
+
+  &__item--has-dropdown {
+    position: relative;
+  }
+
+  &__dropdown-toggle {
+    @media (min-width: $screen-md) {
+      &::after {
+        border-top: 6px solid #8e8e8e;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        content: '';
+        right: 0;
+        height: 0;
+        width: 0;
+      }
+    }
+  }
+
+  &__dropdown {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $screen-md) {
+      background: #fff;
+      border: #ddd 1px solid;
+      border-radius: 5px;
+      display: none;
+      padding: 5px;
+      position: absolute;
+      left: 0;
+      width: 200px;
+    }
+
+    .Nav__item--has-dropdown & {
+      @media (min-width: $screen-md) {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    .Nav__item--has-dropdown:hover > & {
+      display: flex;
+    }
+
+    .Nav__link {
+      font-weight: 400;
+
+      @media (min-width: $screen-md) {
+        padding-left: 15px;
+        padding-right: 15px;
       }
     }
   }

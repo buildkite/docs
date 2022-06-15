@@ -13,7 +13,7 @@
     class="
       Nav__link
       Nav__link--level<%= nav_level %>
-      Nav__toggle"
+      <%= is_dropdown ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
     data-toggle-nav-level="<%= nav_level %>"
   ><%= icon_image %><%= name %></button> 
 <% end %>

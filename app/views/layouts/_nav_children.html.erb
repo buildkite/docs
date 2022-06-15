@@ -1,19 +1,30 @@
 <% nav_level = nav_level + 1 %>
-<ul class="Nav__section Nav__section--level<%= nav_level %>">
+<ul class="<%= is_dropdown ? 'Nav__dropdown' : "Nav__section Nav__section--level#{nav_level}" %>">
   <% children.each do |child| %>
-    <li class="Nav__item Nav__item--level<%= nav_level %>">
-      <%= 
+    <li class="
+      Nav__item
+      Nav__item--level<%= nav_level %>
+      <%= 'Nav__item--has-dropdown' if child['is_dropdown'] %>"
+    >
+      <%=
         render 'layouts/nav_link',
         name: child['name'],
         path: child['path'],
         icon: child['icon'] ,
         new_window: child['new_window'],
+        is_dropdown: child['is_dropdown'],
         nav_level: nav_level,
         current_path: current_path
       %>
 
       <% if child['children'] && nav_level < 5 %>
-        <%= render 'layouts/nav_children', children: child['children'], nav_level: nav_level, current_path: current_path %>
+        <%=
+          render 'layouts/nav_children',
+          children: child['children'],
+          is_dropdown: child['is_dropdown'],
+          nav_level: nav_level,
+          current_path: current_path 
+        %>
       <% end %>
     </li>
   <% end %>

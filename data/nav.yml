@@ -408,6 +408,7 @@
     path: 'https://buildkite.com/home'
     new_window: true
   - name: 'Help'
+    is_dropdown: true
     children:
       - name: 'Email support'
         path: 'support@buildkite.com'
