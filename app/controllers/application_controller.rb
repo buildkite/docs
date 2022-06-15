@@ -7,23 +7,18 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def fetch_nav_data
-    file_path = File.join(Rails.root, 'data', 'nav.yml')
+  def fetch_local_data(name)
+    file_path = File.join(Rails.root, 'data', "#{name}.yml")
     YAML.load_file(file_path) || []
   end
 
   def nav_data
-    Nav.new(fetch_nav_data).nav_tree
+    Nav.new(fetch_local_data('nav')).nav_tree
   end
   helper_method :nav_data
 
-  def fetch_notificaton_data
-    file_path = File.join(Rails.root, 'data', 'notification.yml')
-    YAML.load_file(file_path) || []
-  end
-
   def notification_data
-    Notification.new(fetch_notificaton_data).message || []
+    Notification.new(fetch_local_data('notification')).message || []
   end
   helper_method :notification_data
 
