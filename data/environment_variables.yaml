@@ -107,7 +107,7 @@ variables:
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
   desc: |
-    A colon separated list of **[unverified](#unverified)** non-private team names that the build creator belongs to.
+    A colon separated list of **[unverified](#unverified)** non-private team slugs that the build creator belongs to.
   modifiable: false
   example: "everyone:platform"
 - name: BUILDKITE_BUILD_ID
@@ -464,7 +464,7 @@ variables:
   example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
 - name: BUILDKITE_UNBLOCKER_TEAMS
   desc: |
-    A colon separated list of non-private team names that the user who unblocked the build belongs to.
+    A colon separated list of non-private team slugs that the user who unblocked the build belongs to.
   modifiable: false
   example: "everyone:platform"
 - name: CI
