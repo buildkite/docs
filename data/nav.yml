@@ -49,7 +49,7 @@
           - name: 'Tracing'
             path: 'agent/v3/tracing'
           - name: 'Agent v2'
-            deprecated: true
+            pill: 'deprecated'
             children:
               - name: 'Overview'
                 path: 'agent/v2'
@@ -364,6 +364,7 @@
   - name: 'Test Analytics'
     path: 'test-analytics'
     icon: 'test-analytics'
+    pill: 'new'
     theme: 'purple'
     children:
       - name: 'Overview'
@@ -386,6 +387,7 @@
             path: 'test-analytics/javascript-collectors'
           - name: 'Swift'
             path: 'test-analytics/swift-collectors'
+            pill: 'beta'
           - name: 'Python'
             path: 'test-analytics/python-collectors'
           - name: 'Golang'

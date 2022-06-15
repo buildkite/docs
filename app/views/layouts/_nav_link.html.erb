@@ -7,7 +7,13 @@
       <%= 'Nav__link--current' if current_path == nav_path(path) %>"
     href="<%= nav_path(path) %>"
     <%= new_window && 'target=_blank' %>
-  ><%= icon_image %><%= name %></a>
+  >
+    <%= icon_image %>
+    <%= name %>
+    <% if pill %>
+      <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
+    <% end %>
+  </a>
 <% else %>
   <button 
     class="
@@ -15,5 +21,11 @@
       Nav__link--level<%= nav_level %>
       <%= is_dropdown ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
     data-toggle-nav-level="<%= nav_level %>"
-  ><%= icon_image %><%= name %></button> 
+  >
+    <%= icon_image %>
+    <%= name %>
+    <% if pill %>
+      <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
+    <% end %>
+  </button> 
 <% end %>
