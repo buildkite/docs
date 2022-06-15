@@ -1,5 +1,10 @@
 .Nav {
+  background-color: #f2f2f2;
   border-top: #ddd 1px solid;
+
+  @media (min-width: $screen-md) {
+    background-color: transparent;
+  }
 
   &__toggle-checkbox {
     position: absolute;
@@ -59,6 +64,102 @@
     }
   }
 
+  &__section {
+    display: none;
+    flex-direction: column;
+    gap: 2px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+
+    @media (min-width: $screen-md) {
+      flex-direction: row;
+    }
+
+    &--show {
+      display: flex;
+      flex-direction: column;
+
+      &.Nav__section--level1 {
+        @media (min-width: $screen-md) {
+          flex-direction: row;
+        }
+      }
+    }
+
+    &--level1 {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      padding-bottom: 0;
+      padding-top: 0;
+
+      @media (min-width: $screen-md) {
+        flex-direction: row;
+        gap: 0;
+      }
+
+      &.Nav__section:first-child {
+        @media (min-width: $screen-md) {
+          margin-left: -15px;
+          margin-right: auto;
+        }
+
+        .Nav__link--level1 {
+          font-weight: 600;
+        }
+      }
+
+      &::before {
+        background-color: #ddd;
+        content: '';
+        height: 1px;
+        margin: 15px 25px 0;
+
+        @media (min-width: $screen-md) {
+          content: none;
+        }
+      }
+
+      &:first-child::before {
+        content: none;
+      }
+    }
+
+    &--level2 {
+      @media (min-width: $screen-md) {
+        border-right: #ddd 1px solid;
+        height: calc(100% - #{$header-height});
+        left: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        padding: 30px 5px;
+        position: fixed;
+        top: $header-height;
+        width: $sidebar-width;
+      }
+    }
+  }
+
+  &__item {
+    &--level1 {
+      &::after {
+        background-color: #ddd;
+        content: '';
+        display: block;
+        height: 1px;
+        margin: 15px 25px 0;
+
+        @media (min-width: $screen-md) {
+          content: none;
+        }
+      }
+
+      &:last-child::after {
+        content: none;
+      }
+    }
+  }
+
   &__link {
     align-items: center;
     background-color: transparent;
@@ -83,16 +184,34 @@
     }
 
     &:hover {
-      background-color: #f2f2f2;
+      background-color: #fff;
+
+      @media (min-width: $screen-md) {
+        background-color: #f2f2f2;
+      }
     }
 
     &--current {
-      background-color: #f2f2f2;
+      background-color: #fff;
+
+      @media (min-width: $screen-md) {
+        background-color: #f2f2f2;
+      }
     }
 
     &--level1 {
+      font-size: 18px;
+
+      @media (min-width: $screen-md) {
+        font-size: 14px;
+      }
+
       &.Nav__link--parent {
-        background-color: #f2f2f2;
+        background-color: #fff;
+
+        @media (min-width: $screen-md) {
+          background-color: #f2f2f2;
+        }
       }
     }
 
@@ -179,65 +298,6 @@
         @media (min-width: $screen-md) {
           left: 50px;
         }
-      }
-    }
-  }
-
-  &__section {
-    display: none;
-    flex-direction: column;
-    gap: 2px;
-    padding-bottom: 5px;
-    padding-top: 5px;
-
-    @media (min-width: $screen-md) {
-      flex-direction: row;
-    }
-
-    &--show {
-      display: flex;
-      flex-direction: column;
-
-      &.Nav__section--level1 {
-        @media (min-width: $screen-md) {
-          flex-direction: row;
-        }
-      }
-    }
-
-    &--level1 {
-      display: flex;
-      flex-direction: column;
-      padding-bottom: 0;
-      padding-top: 0;
-
-      @media (min-width: $screen-md) {
-        flex-direction: row;
-      }
-
-      &.Nav__section:first-child {
-        @media (min-width: $screen-md) {
-          margin-left: -15px;
-          margin-right: auto;
-        }
-
-        .Nav__link--level1 {
-          font-weight: 600;
-        }
-      }
-    }
-
-    &--level2 {
-      @media (min-width: $screen-md) {
-        border-right: #ddd 1px solid;
-        height: calc(100% - #{$header-height});
-        left: 0;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        padding: 30px 5px;
-        position: fixed;
-        top: $header-height;
-        width: $sidebar-width;
       }
     }
   }
