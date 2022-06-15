@@ -12,7 +12,7 @@
         current_path: current_path
       %>
 
-      <% if child['children'] %>
+      <% if child['children'] && nav_level < 5 %>
         <%= render 'layouts/nav_children', children: child['children'], nav_level: nav_level, current_path: current_path %>
       <% end %>
     </li>

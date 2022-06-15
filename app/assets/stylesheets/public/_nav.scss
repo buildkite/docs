@@ -114,10 +114,18 @@
     }
 
     &--level4 {
-      padding-left: 67px;
+      padding-left: 82px;
 
       @media (min-width: $screen-md) {
         padding-left: 60px;
+      }
+    }
+
+    &--level5 {
+      padding-left: 97px;
+
+      @media (min-width: $screen-md) {
+        padding-left: 75px;
       }
     }
   }
@@ -160,6 +168,16 @@
 
         @media (min-width: $screen-md) {
           left: 30px;
+        }
+      }
+    }
+
+    &.Nav__link--level4 {
+      &::before {
+        left: 70px;
+
+        @media (min-width: $screen-md) {
+          left: 50px;
         }
       }
     }
