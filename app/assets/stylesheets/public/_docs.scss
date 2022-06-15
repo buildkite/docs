@@ -376,7 +376,7 @@ label[for='navicon'] {
 
     .Docs__toc__sticky {
       background: #fefefe;
-      box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 10%);
+      box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.3%);
       padding: 1px 5px 8px 15px;
       position: sticky;
       top: $header-height + 30px;
