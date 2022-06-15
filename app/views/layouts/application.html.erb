@@ -51,6 +51,7 @@
         <div class="Docs__page-container__inner PageContainer">
           <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
             <div class="column1">
+              <%= render "layouts/notification" %>
               <div class="TextContent">
                 <%= yield %>
               </div>

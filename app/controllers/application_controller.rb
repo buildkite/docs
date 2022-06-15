@@ -17,6 +17,16 @@ class ApplicationController < ActionController::Base
   end
   helper_method :nav_data
 
+  def fetch_notificaton_data
+    file_path = File.join(Rails.root, 'data', 'notification.yml')
+    YAML.load_file(file_path) || []
+  end
+
+  def notification_data
+    Notification.new(fetch_notificaton_data).message || []
+  end
+  helper_method :notification_data
+
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super
