@@ -333,6 +333,14 @@ a.Docs__example-repo {
   }
 }
 
+html {
+  scroll-padding-top: 15px;
+
+  @media (min-width: $screen-md) {
+    scroll-padding-top: $header-height + 15px;
+  }
+}
+
 body.beta {
   .Docs__article {
     h1,
