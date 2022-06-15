@@ -18,6 +18,7 @@
 
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
+  policy.child_src   "https://cdn.emojicom.io/"
   policy.font_src    :self, 'https://www2.buildkiteassets.com/'
   policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', ENV.fetch('BADGE_DOMAIN', 'https://badge.buildkite.com')
   policy.object_src  :none
@@ -25,7 +26,7 @@ Rails.application.config.content_security_policy do |policy|
   policy.style_src   :self, :unsafe_inline
 
   # allow AJAX queries against our search vendor
-  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com", "https://www.google-analytics.com/"
+  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com", "https://www.google-analytics.com/", " https://emojicom.io/"
 
   # Specify URI for violation reports
   policy.report_uri "/_csp-violation-reports"

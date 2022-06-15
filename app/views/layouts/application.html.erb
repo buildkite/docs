@@ -63,6 +63,7 @@
       </div>
 
     </main>
+
     <%= javascript_tag nonce: true do %>
       /* This api key is intentionally public */
       docsearch({
@@ -72,5 +73,11 @@
         inputSelector: '#search'
       });
     <% end %>
+
+    <%= javascript_tag nonce: true do %>
+      window.emojicom_widget = { campaign: '8N28RGdZ9DrL5WuI60WS' };
+    <% end %>
+    <%= javascript_include_tag "https://cdn.emojicom.io/embed/widget.js", nonce: true, async: true %>
+
   </body>
 </html>
