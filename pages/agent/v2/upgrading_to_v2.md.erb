@@ -5,11 +5,11 @@
   <p>For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/upgrading">see the latest version of this document</a>.
 </section>
 
-The Buildkite Agent has changed a lot in v2 but upgrade process is straight forward. We'll cover what’s changed and how to upgrade to new agents.
+The Buildkite Agent has changed a lot in v2 but upgrade process is straight forward. We'll cover what's changed and how to upgrade to new agents.
 
 {:toc}
 
-## What’s changed
+## What's changed
 
 * The default install location has changed from `~/.buildbox` to `~/.buildkite-agent` (although each installer may install in different locations).
 * Agents can be configured with [a config file](configuration).
@@ -43,7 +43,7 @@ We recommend upgrading one pipeline at a time to the new agents. This is because
 
 To update the agent on a build machine we recommend stopping the agent, removing all the files, and following the [install instructions for your platform](installation).
 
-Once you have the new agent running, update your pipeline’s build pipeline steps to target the new agent, and trigger a build.
+Once you have the new agent running, update your pipeline's build pipeline steps to target the new agent, and trigger a build.
 
 ## Upgrading a pre-1.0 agent
 

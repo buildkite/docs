@@ -1,6 +1,6 @@
 # Parallel Builds
 
-Running a build's jobs in parallel is a way to decrease your build’s total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
+Running a build's jobs in parallel is a way to decrease your build's total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
 
 {:toc}
 
@@ -58,7 +58,7 @@ You can choose from the following parallel job index label helpers:
 Now that the pipeline is configured, create a new build:
 
 <%= image 'build.png', size: '405x204', alt: 'The build' %>
-If you inspect the first job’s environment variables you'll find:
+If you inspect the first job's environment variables you'll find:
 
 ```
 BUILDKITE_PARALLEL_JOB=0
@@ -69,7 +69,7 @@ The `BUILDKITE_PARALLEL_JOB` environment variable stores the index of each paral
 
 The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable stores the total number of jobs created from this step for this build.
 
-You can use these two environment variables to divide your application’s tests between the different jobs.
+You can use these two environment variables to divide your application's tests between the different jobs.
 
 ## Libraries
 
@@ -89,16 +89,16 @@ The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `
 
 You can safely run multiple build jobs on a single machine, as the agent runs each build in its own checkout directory. You'll still need to ensure your application supports running in parallel on the same machine, and doesn't try to write to any shared resources at the same time (such as modifying the same database at the same time).
 
-One convenient way of achieving build job isolation is to use the agent’s built in [Docker Compose support](docker-containerized-builds) which will run each job inside a set of completely isolated Docker containers.
+One convenient way of achieving build job isolation is to use the agent's built in [Docker Compose support](docker-containerized-builds) which will run each job inside a set of completely isolated Docker containers.
 
 ## Auto-scaling your build agents
 
 In addition to the [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) (which has built-in support for auto-scaling) we provide a number of APIs and tools you can use to auto-scale your own build agents:
 
-* [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization’s scheduled jobs count, agents count, and details about each agent.
-* [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you’re able to fetch each pipeline’s job count, and information about each agent.
+* [GraphQL API](/docs/apis/graphql-api) allows you to efficiently fetch your organization's scheduled jobs count, agents count, and details about each agent.
+* [Pipelines REST API](/docs/apis/rest-api/pipelines) and [Agents API](/docs/apis/rest-api/agents) you’re able to fetch each pipeline's job count, and information about each agent.
 * [Agent priorities](/docs/agent/v3/prioritization) allow you to define which agents are assigned work first, such as high performance ephemeral agents.
 * [Agent queues](/docs/agent/v3/queues) allow you to divide your agent pools into separate groups for scaling and performance purposes.
-* [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization’s Buildkite metrics and report them to AWS CloudWatch and StatsD.
+* [buildkite-agent-metrics](https://github.com/buildkite/buildkite-agent-metrics) tool allow you to collect your organization's Buildkite metrics and report them to AWS CloudWatch and StatsD.
 
 Using these tools you can automate your build infrastructure, scale your agents based on demand, and massively reduce build times using job parallelism.

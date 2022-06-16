@@ -33,7 +33,7 @@ When writing Bash shell scripts there are a number of options you can set to hel
   </tbody>
 </table>
 
-Bash’s built-in `set` command can be used to enable and disable options. For example, `set -u` enables the `u` option, and `set +u` disables the `u` option. You can also set multiple options at once, for example `set -ue` enables both the `u` and `e` options.
+Bash's built-in `set` command can be used to enable and disable options. For example, `set -u` enables the `u` option, and `set +u` disables the `u` option. You can also set multiple options at once, for example `set -ue` enables both the `u` and `e` options.
 
 The following example enables the most commonly used options for build scripts:
 
@@ -98,7 +98,7 @@ Using this technique gives you control over the exit code of your script, and th
 
 The first step in debugging your build script is to view the environment variables from the Buildkite web interface:
 
-<%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job’s environment tab' %>
+<%= image "viewing-job-environment-variables.png", width: 1044/2, height: 542/2, alt: 'Screenshot of viewing a job's environment tab' %>
 
 There may be additional environment variables available in your build job that
 don’t appear in this list, such as ones set by your
@@ -131,7 +131,7 @@ env | grep -i -E 'git|node'
 some_command
 ```
 
-Enabling Bash’s debug mode using `set -x` can also help to debug your build scripts. This debug output can be very noisy, so it’s best enable this before the command you want to debug, and then to disable it straight after. For example:
+Enabling Bash's debug mode using `set -x` can also help to debug your build scripts. This debug output can be very noisy, so it's best enable this before the command you want to debug, and then to disable it straight after. For example:
 
 ```bash
 #!/bin/bash
