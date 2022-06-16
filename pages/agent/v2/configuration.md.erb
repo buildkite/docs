@@ -18,7 +18,7 @@ The agent token from your organization’s Agents page<br>
 _Environment variable:_ `BUILDKITE_AGENT_TOKEN`
 
 `name`<br>The name of the agent<br>
-_Default:_ `"%hostname-%n"`<br>
+_Default:_ `"%hostname-%spawn"`<br>
 _Environment variable:_ `BUILDKITE_AGENT_NAME`
 
 `priority`<br>
@@ -105,7 +105,7 @@ _Environment variable:_ `BUILDKITE_TIMESTAMP_LINES`
 
 ```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
-name="my-app-%n"
+name="my-app-%spawn"
 meta-data="ci=true,docker=true"
 git-clean-flags="-fdqx"
 debug=true
