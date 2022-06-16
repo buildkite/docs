@@ -1,7 +1,7 @@
 ---
 - - name: 'Pipelines'
     path: 'tutorials/getting-started'
-    icon: 'pipeline'
+    icon: 'pipeline.svg'
     theme: 'green'
     children: 
       - name: 'Tutorials'
@@ -363,7 +363,7 @@
                 path: 'apis/graphql/graphql-cookbook'
   - name: 'Test Analytics'
     path: 'test-analytics'
-    icon: 'test-analytics'
+    icon: 'test-analytics.svg'
     pill: 'new'
     theme: 'purple'
     children:
