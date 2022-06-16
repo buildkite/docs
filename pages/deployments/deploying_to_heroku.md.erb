@@ -58,11 +58,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-What's happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we’ve tested.
+What's happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn’t have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we've tested.
 
 ## Running a build
 
-Once you’ve saved the pipeline settings the final step is to push a commit to the `master` branch and watch it automatically deploy to Heroku:
+Once you've saved the pipeline settings the final step is to push a commit to the `master` branch and watch it automatically deploy to Heroku:
 
 <%= image "deploy-success.png", size: '726x691', alt: 'Buildkite Heroku deploy success' %>
 
