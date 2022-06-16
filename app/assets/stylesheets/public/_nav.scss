@@ -128,7 +128,7 @@
     &--level2 {
       @media (min-width: $screen-md) {
         border-right: #ddd 1px solid;
-        height: calc(100% - #{$header-height});
+        height: calc(100vh - #{$header-height});
         left: 0;
         overflow-y: auto;
         overscroll-behavior: contain;
