@@ -1,5 +1,5 @@
 ---
-- - name: 'Pipeline'
+- - name: 'Pipelines'
     path: 'tutorials/getting-started'
     icon: 'pipeline'
     theme: 'green'
