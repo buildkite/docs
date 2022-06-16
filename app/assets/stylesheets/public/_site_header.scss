@@ -1,16 +1,17 @@
 $SiteHeaderLogoHeight: 36px;
 
 .SiteHeader {
-  -moz-backdrop-filter: blur(2px);
-  -ms-backdrop-filter: blur(2px);
-  -o-backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
-  backdrop-filter: blur(2px);
-  background-color: rgba(255, 255, 255, .85);
+  background-color: #fff;
   border-bottom: #ddd 1px solid;
   box-sizing: border-box;
   line-height: $SiteHeaderLogoHeight;
   z-index: 20;
+
+  @supports (backdrop-filter: blur(2px)) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, .85);
+  }
   
   @media (min-width: $screen-md) {
     min-height: $header-height;
