@@ -30,14 +30,14 @@ You should see version numbers for both the `heroku-toolbelt` and `heroku-cli` p
 
 The next step is to login using the CLI and your Heroku credentials. We recommend creating a new user in Heroku that you only use for this purpose (a “machine user”). To create a machine user in Heroku, sign up to Heroku as a new user and then add that user as a collaborator to your existing Heroku application.
 
-If you’re ready to login with the Heroku user credentials, make sure you’re running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
+If you're ready to login with the Heroku user credentials, make sure you're running as your buildkite-agent user (which for most packages is “buildkite-agent”) and then run the heroku login command:
 
 ```bash
 $ sudo su buildkite-agent
 $ heroku login
 ```
 
-You’re now ready to run `heroku` commands in your Buildkite pipelines! :tada:
+You're now ready to run `heroku` commands in your Buildkite pipelines! :tada:
 
 ## Setting up your build pipeline
 
@@ -58,7 +58,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-What's happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn't have an old value from previous builds. The `git push` specifies the exact commit, to make sure we’re pushing the same commit we've tested.
+What's happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn't have an old value from previous builds. The `git push` specifies the exact commit, to make sure we're pushing the same commit we've tested.
 
 ## Running a build
 
