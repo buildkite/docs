@@ -64,6 +64,13 @@ fields:
        If applicable, a short summary of why the test failed
   examples:
       - Expected Boolean, got Object
+- name: failure_expanded
+  required: false
+  type: array of hashes
+  desc: |
+       A more detailed explanation of why the test failed
+  examples: 
+
 - name: history
   required: true
   type: history object
