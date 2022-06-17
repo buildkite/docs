@@ -3,21 +3,14 @@ module ApplicationHelper
     "/dashboard"
   end
 
-  def sidebar_link_to(name, path, options = {})
-    full_path = docs_page_path(path)
-
-    options[:class] = [options[:class]].flatten.compact
-    options[:class] << 'Docs__nav__sub-nav__item__link Link--on-white Link--no-underline'
-    options[:class] << "active" if current_page?(full_path)
-
-    inner_html =
-      unless options[:is_coming_soon]
-        link_to name, full_path, options
-      else
-        content_tag(:span, name, class: "has-pill-coming-soon")
-      end
-
-    content_tag(:li, inner_html, class: 'Docs__nav__sub-nav__item')
+  def nav_path(path)
+    if path =~ URI::regexp
+      path
+    elsif path =~ URI::MailTo::EMAIL_REGEXP
+      "mailto:#{path}"
+    else
+      docs_page_path(path)
+    end
   end
 
   def open_source_url

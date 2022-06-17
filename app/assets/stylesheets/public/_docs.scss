@@ -19,73 +19,6 @@ $color-green: rgb(3, 165, 98);
   @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
-/* Navicon for small screens (hamburger menu) */
-#navicon {
-  position: absolute;
-  visibility: hidden;
-
-  &:checked ~ .Docs__nav {
-    display: block;
-  }
-}
-
-label[for='navicon'] {
-  background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
-  border: #ddd 1px solid;
-  border-radius: 5px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: block;
-  height: 40px;
-  margin: 0;
-  position: absolute;
-  right: 30px;
-  top: 15px;
-  width: 40px;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
-
-  #navicon:checked + & {
-    background-image: asset-url('icons/remove.svg');
-  }
-
-  span { // hide alt text
-    left: -10rem;
-    position: absolute;
-    top: -10rem;
-  }
-  
-}
-
-.Docs__nav {
-  background-color: #fff;
-  border-bottom: #ddd 1px solid;
-  box-sizing: border-box;
-  display: none;
-  margin-bottom: 30px;
-  padding-bottom: 30px;
-  position: relative;
-  
-  @media (min-width: $screen-md) {
-    border-right: #ddd 1px solid;
-    display: block;
-    width: $sidebar-width;
-    height: calc(#{"100% - #{$header-height}"});
-    margin-bottom: 0;
-    margin-left: -30px;
-    overflow-y: scroll;
-    overscroll-behavior: contain;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    position: fixed;
-    top: $header-height;
-    z-index: 10;
-  }
-}
-
 .Search-container {
   position: relative;
 
@@ -116,182 +49,6 @@ label[for='navicon'] {
       right: 10px;
       top: 17px;
     }
-  }
-}
-
-.Docs__nav__section-container {
-  &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
-    opacity: 1;
-  }
-
-  .Docs__nav__section-heading { 
-    align-items: flex-start;
-    cursor: pointer;
-    display: flex;
-    user-select: none;
-
-    &:hover {
-      filter: $filter-brand-green;
-      transition: transform $transition-speed;
-    }
-
-    &::after {
-      background: transparent asset-url('icons/arrow-down.svg') 50% 50% no-repeat;
-      background-size: cover;
-      content: '';
-      display: block;
-      height: 12px;
-      margin-left: auto;
-      width: 12px;
-    }
-  }
-  &.current .Docs__nav__section-heading {
-    filter: $filter-brand-green;
-  }
-
-  .Docs__nav__section-content { 
-    display: none;
-  }
-  
-  &.expanded {
-    .Docs__nav__section-heading::after {
-      transform: rotate(-180deg);
-    }
-
-    img { transform: rotate(-180deg); }
-    .Docs__nav__section-content { display: block; }
-  }
-
-  &.hidden {
-    display: none;
-  }
-}
-
-.Docs__nav__section-heading {
-  color: black;
-  font-family: $font-family;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: bold;
-  padding: 12px 0;
-
-  @media (min-width: $screen-md) {
-    margin-right: 0;
-    padding-left: 0;
-  }
-
-  &:first-of-type { margin-top: 0; }
-}
-
-.Docs__nav__section-heading + .Docs__nav__section-subheading {
-  margin-top: 15px;
-}
-
-.Docs__nav__section-subheading {
-  color: #02854F;
-  font-size: 13px;
-  letter-spacing: .5px;
-  margin: 15px 0 10px 10px;
-  text-transform: uppercase;
-}
-
-.Docs__nav__sub-nav {
-  color: #4f4f4f;
-  font-size: 14px;
-  line-height: 1.2;
-  list-style: none;
-  padding: 10px 0 20px 10px;
-
-  .current & {
-    padding-left: 6px;
-  }
-
-  .Docs__nav__section-subheading + & {
-    margin-left: 20px;
-  }
-
-  &.deprecated {
-    .Docs__nav__sub-nav__item::before {
-      content: "→";
-      margin-right: 5px;
-    }
-  }
-}
-
-.Docs__nav__sub-nav__item {
-  font-size: 14px;
-  margin-top: 12px;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-}
-
-.Docs__nav__sub-nav__item--sub {
-  @extend .Docs__nav__sub-nav__item;
-  padding-left: 1em;
-}
-
-.Docs__nav__sub-nav__item__link {
-  color: #666;
-  font-weight: 400;
-  &.active {
-    font-weight: 600;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.Docs__nav__version-selector {
-  margin-bottom: 10px;
-  @media (max-width: ($screen-md - 1)) {
-    margin-left: 20px;
-  }
-}
-
-.Docs__nav__section-heading--link {
-  padding: 0;
-}
-
-.Docs__nav__section-heading-link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #14CC80;
-
-  @media (max-width: ($screen-md - 1)) {
-    display: block;
-    padding-left: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-decoration: none;
-  }
-
-  &:hover, &:active, &:focus {
-    text-decoration: underline;
-  }
-}
-
-.Docs__nav__homebutton {
-  display: inline-block;
-  background-color: #333;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-top: 40px;
-  font-weight: bold;
-  border-radius: 3px;
-  text-decoration: none;
-  transition: background-color $transition-speed;
-
-  @media (max-width: ($screen-md - 1)) {
-    margin-top: 10px;
-  }
-
-  &:hover, &:focus, &:active {
-    background-color: black;
   }
 }
 
@@ -328,10 +85,6 @@ label[for='navicon'] {
   .image, img { max-width: 100%; }
   .responsive-image-container { margin: .5rem 0 2rem 0; }
   li .responsive-image-container { margin: .5rem 0 0 0; }
-}
-
-.Docs__nav__section-heading--link + .Docs__nav__section-heading--link {
-  a { border-top: none; }
 }
 
 .Docs__article .Docs__api-param-eg {
@@ -622,29 +375,11 @@ a.Docs__example-repo {
   }
 }
 
-// TODO: refactor sidebar and move into its own Sass partial
-.Sidebar {
-  &__site-links {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+html {
+  scroll-padding-top: 15px;
 
-    @media (min-width: $screen-md) {
-      display: none;
-    }
-  }
-
-  &__site-link {
-    color: #111;
-    display: inline-block;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  @media (min-width: $screen-md) {
+    scroll-padding-top: $header-height + 15px;
   }
 }
 
