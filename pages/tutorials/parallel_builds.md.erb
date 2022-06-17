@@ -40,19 +40,20 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Update the name of the step to include `%spawn`, like the example below. This will include a number at runtime so that you can differentiate between the parallel build jobs.
+Update the name of the step to include `%n`, like the example below. This will include a number at runtime so that you can differentiate between the parallel build jobs.
 
 ```yaml
 steps:
   - command: "tests.sh"
-    label: "Test %spawn"
+    label: "Test %n"
     parallelism: 5
 ```
 {: codeblock-file="pipeline.yml"}
 
 You can choose from the following parallel job index label helpers:
 
-* `%spawn` to display job count starting at `0`.
+* `%n` to display job count starting at `0`.
+* `%N` to display job count starting at `1`.
 * `%t` to display the total number of parallel jobs in the step.
 
 Now that the pipeline is configured, create a new build:
