@@ -1,6 +1,6 @@
 # Setting up Single Sign-On with GraphQL
 
-Buildkite’s Single Sign-On (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql-api). This tutorial covers how to set up SSO manually using GraphQL.
+Buildkite's Single Sign-On (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql-api). This tutorial covers how to set up SSO manually using GraphQL.
 
 <section class="Docs__note">
   <p>For details on every available option available in the GraphQL APIs, please use the documentation sidebar built into the <a href="/docs/graphql-api#getting-started">GraphQL Explorer</a>.</p>
@@ -8,7 +8,7 @@ Buildkite’s Single Sign-On (SSO) can be set up by emailing support, or you can
 
 {:toc}
 
-## Finding your organization’s GraphQL ID
+## Finding your organization's GraphQL ID
 
 For every type of SSO provider, you need your Buildkite organization's [GraphQL ID](/docs/apis/graphql-api#graphql-ids). You can find your organization's GraphQL ID using the following GraphQL query:
 
@@ -113,7 +113,7 @@ You need the provider's `id` from the output of this mutation in steps three and
 
 ### Step 2
 
-The next step is to log into your SSO provider’s system and set up Buildkite using the details from the GraphQL response above.
+The next step is to log into your SSO provider's system and set up Buildkite using the details from the GraphQL response above.
 
 If the SSO provider supports a metadata URL, you can use the `url` property of the `metadata` object. If your SSO provider does not support metadata URL, use the `ssoURL` property for the ACS URL or SSO URL, and the `issuer` property for the Issuer or Entity ID.
 
@@ -175,7 +175,7 @@ If your SSO provider requests additional info, use the `ssoURL` property for the
 
 ### Step 4
 
-You can now perform a test login from your SSO provider’s web interface, or using the `url` returned from the update mutation.
+You can now perform a test login from your SSO provider's web interface, or using the `url` returned from the update mutation.
 
 Once you complete the test login, you can do the final step: enabling the provider using the `ssoProviderEnable` mutation. Running this mutation will require all your users to authorize using your SSO provider before they can access your organization on Buildkite.
 
