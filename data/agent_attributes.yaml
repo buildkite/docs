@@ -157,6 +157,7 @@ attributes:
 
       - `%hostname` (the agent machine's hostname)
       - `%spawn` (a unique number for each agent started using `--spawn`; added in [v3.27.0](https://github.com/buildkite/agent/releases/tag/v3.27.0)).
+      - `%random` (some random alphanumeric characters).
       - `%pid` (the agent process id).
 
       Note that if you're using `--spawn` to run multiple agents in a single process, we recommend using `%spawn` in your agent name, or to ensure that each agent running on a host with the same `build-path` has a unique name.
