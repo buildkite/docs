@@ -106,16 +106,18 @@ class Page::Renderer
         node.replace('')
       else
         node.replace(<<~HTML.strip)
-          <div class="Docs__toc">
-            <div class="Docs__toc__sticky">
-              <p><strong>On this page:</strong></p>
-              <ul class="Docs__toc__list">
-                #{headings.map {|heading|
-                  %{<li><a href="##{heading['id']}">#{heading.text.strip}</a></li>}
-                }.join("")}
-              </ul>
-            </div>
-          </div>
+          <nav class="Toc">
+            <p><strong>On this page:</strong></p>
+            <ul class="Toc__list">
+              #{headings.map {|heading|
+                %{
+                  <li class="Toc__list-item">
+                    <a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a>
+                  </li>
+                }
+              }.join("")}
+            </ul>
+          </nav>
         HTML
       end
     end
