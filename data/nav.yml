@@ -305,6 +305,8 @@
                 path: 'integrations/slack'
       - name: 'APIs'
         children:
+          - name: 'Overview'
+            path: 'apis'
           - name: 'Managing API Tokens'
             path: 'apis/managing-api-tokens'
           - name: 'Webhooks'
