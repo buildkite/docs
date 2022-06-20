@@ -433,7 +433,7 @@ This also works if you apply the CSS class to pure html tables, for example:
 
 This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
 
-On small screens, responsive tables are styled as stacked lists and table headings are duplicated against the respective table cells of data. On medium screens and up, these duplicated _faux_ table headings are hidden and the tables look as per usual.
+On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
 
 #### Prepending icons
 You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
