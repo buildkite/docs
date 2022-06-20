@@ -181,11 +181,13 @@ class Page::Renderer
     doc.css('table.responsive-table').each do |table|
       thead_ths = table.css('thead th')
 
-      table.search('./tbody/tr').each do |tr|
-        tr.search('./td').each_with_index do |td, i|
-          faux_th = "<th aria-hidden class=\"responsive-table__faux-th\">#{thead_ths[i].children}</th>"
-          
-          td.add_previous_sibling(faux_th)
+      unless thead_ths.empty?
+        table.search('./tbody/tr').each do |tr|
+          tr.search('./td').each_with_index do |td, i|
+            faux_th = "<th aria-hidden class=\"responsive-table__faux-th\">#{thead_ths[i].children}</th>"
+            
+            td.add_previous_sibling(faux_th)
+          end
         end
       end
     end

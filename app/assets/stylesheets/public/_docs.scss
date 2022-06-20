@@ -128,8 +128,19 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__attribute__table {
-  colgroup col:nth-child(1) {
-    width: 5rem;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    word-wrap: break-word;
+
+    code {
+      white-space: normal;
+    }
+  }
+
+  td {
+    word-wrap: break-word;
   }
 
   tr.importance th {
@@ -192,10 +203,6 @@ $color-green: rgb(3, 165, 98);
 
   .Docs__attribute__env-var {
     font-size: 0.8em;
-
-    code {
-      white-space: break-spaces;
-    }
   }
 
   .Docs__attribute__default {
