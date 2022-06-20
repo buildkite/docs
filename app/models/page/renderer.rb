@@ -105,17 +105,17 @@ class Page::Renderer
       if headings.empty? or node.text == notoc
         node.replace('')
       else
+        html_list_items = headings.map {|heading|
+          <<~HTML.strip
+            <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
+          HTML
+        }.join("").strip
+        
         node.replace(<<~HTML.strip)
           <nav class="Toc">
             <p><strong>On this page:</strong></p>
             <ul class="Toc__list">
-              #{headings.map {|heading|
-                %{
-                  <li class="Toc__list-item">
-                    <a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a>
-                  </li>
-                }
-              }.join("")}
+              #{html_list_items}
             </ul>
           </nav>
         HTML
