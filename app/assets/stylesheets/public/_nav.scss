@@ -128,6 +128,7 @@
     &--level2 {
       @media (min-width: $screen-md) {
         border-right: #ddd 1px solid;
+        box-sizing: border-box;
         height: calc(100vh - #{$header-height});
         left: 0;
         overflow-y: auto;
