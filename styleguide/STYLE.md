@@ -431,7 +431,7 @@ This also works if you apply the CSS class to pure html tables, for example:
 </table>
 ```
 
-This is useful to improve readability on small screens. Complex tables or tables with very long variable names, for example, can be difficult to read or break the page layout.
+This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
 
 On small screens, responsive tables are styled as stacked lists and table headings are duplicated against the respective table cells of data. On medium screens and up, these duplicated _faux_ table headings are hidden and the tables look as per usual.
 
