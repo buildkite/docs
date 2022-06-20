@@ -127,6 +127,7 @@
 
     &--level2 {
       @media (min-width: $screen-md) {
+        background-color: #fff;
         border-right: #ddd 1px solid;
         height: calc(100vh - #{$header-height});
         left: 0;
@@ -172,6 +173,7 @@
     font-size: 14px;
     gap: 5px;
     line-height: 24px;
+    margin: 0;
     padding: 5px 25px;
     text-decoration: none;
     transition: background-color $transition-speed, color $transition-speed;
