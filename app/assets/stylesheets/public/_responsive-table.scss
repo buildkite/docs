@@ -4,7 +4,9 @@
   margin-top: 1rem;
 
   @media (min-width: 960px) {
-    display: initial;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
   }
 
   thead {
@@ -53,6 +55,7 @@
 
   th {
     padding: 0;
+    word-wrap: break-word;
 
     @media (min-width: 960px) {
       padding: .5rem;
@@ -61,6 +64,7 @@
 
   td {
     padding: 0 0 .5rem;
+    word-wrap: break-word;
 
     @media (min-width: 960px) {
       padding: .5rem;
@@ -85,6 +89,10 @@
     @media (min-width: 960px) {
       display: initial;
     }
+  }
+
+  code {
+    white-space: normal !important; // override nested .TextContent styling
   }
 
   .responsive-table__faux-th {
