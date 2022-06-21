@@ -7,13 +7,24 @@ You can upload JSON-formatted test results (described in this page) or [JUnit XM
 
 ## How to import JSON in Buildkite
 
-It's possible to import JSON in Buildkite with or without the help of a plugin.
+It's possible to import JSON (or [JUnit](/docs/test-analytics/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Analytics with or without the help of a plugin.
 
 ### Using a plugin
 
-To import [JSON-formatted test results](#json-test-results-data-reference) in Buildkite with the help of a plugin, use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
+To import [JSON-formatted test results](#json-test-results-data-reference) to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
 
-[example]
+```yml
+steps:
+  - label: "🔨 Test"
+    command: "make test"
+    plugins:
+      - test-collector#v1.0.0:
+          files: "test-data-*.json"
+          format: "json"
+```
+{: codeblock-file="pipeline.yml"}
+
+See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
