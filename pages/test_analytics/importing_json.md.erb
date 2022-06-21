@@ -7,6 +7,22 @@ You can upload JSON-formatted test results (described in this page) or [JUnit XM
 
 ## How to import JSON in Buildkite
 
+It's possible to import JSON in Buildkite with or without the help of a plugin.
+
+### Using a plugin
+
+To import [JSON-formatted test results](#json-test-results-data-reference) in Buildkite with the help of a plugin, use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
+
+[example]
+
+Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
+
+An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
+
+### Not using a plugin
+
+If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
+
 To import [JSON-formatted test results](#json-test-results-data-reference) in Buildkite, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 
 For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
