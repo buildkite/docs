@@ -577,8 +577,11 @@ Optional [request body properties](/docs/api#request-body-properties):
     <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
-    <th><code>team_uuids</code></th>
-    <td>An array of team UUIDs to add this pipeline to. You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams.<p class="Docs__api-param-eg"><em>Example:</em> <code>["14e9501c-69fe-4cda-ae07-daea9ca3afd3"]</code></p></td>
+    <th><code>teams</code></th>
+    <td>An array of team UUIDs to add this pipeline to. Allows you to very access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.<p class="Docs__api-param-eg"><em>Example:</em><code>teams: {
+      "14e9501c-69fe-4cda-ae07-daea9ca3afd3": "read_only",
+      "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
+    }</code></p></td>
   </tr>
 </tbody>
 </table>
