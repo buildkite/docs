@@ -293,7 +293,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Optional [request body properties](/docs/api#request-body-properties):
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -331,11 +331,15 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.<p class="Docs__api-param-eg"><em>Example:</em>
-      <pre><code>teams: {
+    <td>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.<p class="Docs__api-param-eg"><em>Example:</em></p>
+      <%= render_markdown text: %{
+```javascript
+teams: {
   "14e9501c-69fe-4cda-ae07-daea9ca3afd3": "read_only"
   "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
-}</code></pre></p></td>
+}
+```} %>
+    </td>
   </tr>
   <tr>
   <th><code>visibility</code></th>
@@ -540,7 +544,7 @@ Required [request body properties](/docs/api#request-body-properties):
 
 Optional [request body properties](/docs/api#request-body-properties):
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -582,11 +586,15 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>teams</code></th>
-    <td>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.<p class="Docs__api-param-eg"><em>Example:</em>
-      <pre><code>teams: {
+    <td>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.<p><em>Example:</em></p>
+      <%= render_markdown text: %{
+```javascript
+teams: {
   "14e9501c-69fe-4cda-ae07-daea9ca3afd3": "read_only",
   "5b6c4a01-8e4f-49a3-bf88-be0d47ef9c0a": "manage_build_and_read"
-}</code></pre></p></td>
+}
+```} %>
+    </td>
   </tr>
 </tbody>
 </table>
