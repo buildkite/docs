@@ -5,7 +5,6 @@
 
   @media (min-width: 960px) {
     display: table;
-    table-layout: fixed;
     width: 100%;
   }
 
@@ -55,7 +54,7 @@
 
   th {
     padding: 0;
-    word-wrap: break-word;
+    overflow-wrap: anywhere;
 
     @media (min-width: 960px) {
       padding: .5rem;
@@ -64,14 +63,14 @@
 
   td {
     padding: 0 0 .5rem;
-    word-wrap: break-word;
+    overflow-wrap: anywhere;
 
     @media (min-width: 960px) {
       padding: .5rem;
     }
 
     &:first-child {
-      padding-top: .5rem
+      padding-top: .5rem;
     }
 
     p {
@@ -89,10 +88,6 @@
     @media (min-width: 960px) {
       display: initial;
     }
-  }
-
-  code {
-    white-space: normal !important; // override nested .TextContent styling
   }
 
   .responsive-table__faux-th {
