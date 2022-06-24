@@ -272,7 +272,7 @@ The response contains information about your new pipeline:
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>name</code></th>
@@ -380,7 +380,7 @@ Success response: `201 Created`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
 </tbody>
@@ -549,7 +549,7 @@ The resulting pipeline:
 
 Required [request body properties](/docs/api#request-body-properties):
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>name</code></th>
@@ -658,7 +658,7 @@ Success response: `201 Created`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
 </tbody>
@@ -746,7 +746,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
 
 Optional [request body properties](/docs/api#request-body-properties):
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
@@ -811,7 +811,7 @@ Success response: `200 OK`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation Failed", "errors": [ ... ] }</code></td></tr>
 </tbody>
@@ -896,7 +896,7 @@ Success response: `200 OK`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Pipeline could not be archived." }</code></td></tr>
@@ -978,7 +978,7 @@ Success response: `200 OK`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Pipeline could not be unarchived." }</code></td></tr>
@@ -1009,7 +1009,7 @@ Success response: `201 CREATED`
 
 Error responses:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr><th><code>403 Forbidden</code></th><td><code>{ "message": "Forbidden" }</code></td></tr>
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Auto-creating webhooks is not supported for your repository." }</code></td></tr>
@@ -1023,7 +1023,7 @@ The [Create a YAML pipeline](#create-a-yaml-pipeline) and [Update Pipeline](#upd
 
 Properties available for all providers:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>filter_enabled</code></th>
@@ -1045,7 +1045,7 @@ Bitbucket Cloud, Bitbucket Server, GitHub, and GitHub Enterprise all have option
 
 Properties available for Bitbucket Server:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>build_pull_requests</code></th>
@@ -1064,7 +1064,7 @@ Properties available for Bitbucket Server:
 
 Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 
-<table>
+<table class="responsive-table">
 <tbody>
   <tr>
     <th><code>build_pull_requests</code></th>
@@ -1115,7 +1115,7 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
 
 Additional properties available for GitHub:
 
-<table>
+<table class="responsive-table">
   <tbody>
     <tr>
       <th><code>trigger_mode</code></th>
