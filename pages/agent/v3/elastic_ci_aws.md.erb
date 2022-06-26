@@ -364,6 +364,40 @@ You can assess and monitor health and proper function of the Elastic CI Stack us
 
 ## Troubleshooting
 
+### General Troubleshooting Tips
+
+The Elastic CI Stack, as a cloud service, can fail in a variety of interesting ways - too many to provide specific troubleshooting advice here! Luckily, the Elastic CI Stack provides a variety of ways to debug exactly what's going on in failure cases.
+
+#### CloudWatch Logs
+While running, the Elastic CI Stack sends a variety of logs to various CloudWatch log streams:
+* Buildkite Agent logs get sent to the `buildkite/buildkite-agent/{instance_id}` log stream. If there are problems within the agent itself, the agent logs should help diagnose.
+* Output from an Elastic CI Stack instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the elastic stack
+
+Additionally, on Linux instances only:
+* Docker Daemon logs get sent to the `/buildkite/docker-daemon/{instance_id}` log stream. If docker is having a bad day on your machine, look here.
+* Output from the cloud init process, up until the startup script is initialised, is sent to `/buildkite/cloud-init/output/{instance_id}`. Logs from this group can be useful for inspecting what environment variables were sent to the startup script
+
+On Windows instances only:
+* Logs from the UserData execution process (roughly analogous to the `/buildkite/cloud-init/output` group above) are sent to the `/buildkite/EC2Launch/UserdataExecution/{instance_id}` log stream.
+
+There are a couple of other log groups that the elastic stack sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](witter.com/).
+
+#### Shelling into Elastic Stack instances
+
+Sometimes, looking at the logs isn't quite enough to figure out what's going on in your instances. In these cases, it can be useful to go to the scene of the crime, and tool around in the problematic instance to see what's going on. The Elastic CI Stack provides two distinct ways to do this:
+
+##### Through SSH (if enabled)
+
+If your Elastic CI Stack has been configured to allow SSH access through use of the `AuthorizedUsersUrl` parameter, you can run `ssh <some instance id>` in your terminal, and end up on the instance.
+
+##### Through SSM (recommended)
+
+Even if SSH access is disabled, you can still use AWS SSM to remotely access the instance. To do this, find the instance ID, and then run `aws ssm start-session --target <instance id>`. This will start an SSM session with the instance, and will feel a lot like being SSH'd into the instance.
+
+## Specific troubleshooting tips
+
+Below are a couple of situations that come up fairly regularly, with some tips on how to resolve them.
+
 ### Auto Scaling group fails to boot instances
 
 Resource shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics.
