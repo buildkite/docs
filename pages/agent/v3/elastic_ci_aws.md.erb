@@ -362,6 +362,38 @@ You can assess and monitor health and proper function of the Elastic CI Stack us
 
 * **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
 
+## Optimizing for slow Docker builds
+
+For large legacy applications the Docker build process might take a long time on new instances. For these cases it's recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
+
+An example of how to set this up:
+
+1. Create a Docker Hub repository for pushing images to
+1. Update the pipeline's [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in your secrets bucket to perform a `docker login`
+1. Create a builder stack with its own queue (for example, `elastic-builders`)
+
+Here is an example build pipeline based on a production Rails application:
+
+```yaml
+steps:
+  - name: "\:docker\: :package:"
+    plugins:
+      docker-compose:
+        build: app
+        image-repository: my-docker-org/my-repo
+    agents:
+      queue: elastic-builders
+  - wait
+  - name: ":hammer:"
+    command: ".buildkite/steps/tests"
+    plugins:
+      docker-compose:
+        run: app
+    agents:
+      queue: elastic
+    parallelism: 75
+```
+
 ## Troubleshooting
 
 The Elastic CI Stack can be hard to troubleshoot, but here are some ways to debug exactly what's going on, and some solutions for specific situations.
@@ -406,38 +438,6 @@ See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting i
 Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them.
 
 An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
-
-### Optimizing for slow Docker builds
-
-For large legacy applications the Docker build process might take a long time on new instances. For these cases it's recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
-
-An example of how to set this up:
-
-1. Create a Docker Hub repository for pushing images to
-1. Update the pipeline's [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in your secrets bucket to perform a `docker login`
-1. Create a builder stack with its own queue (for example, `elastic-builders`)
-
-Here is an example build pipeline based on a production Rails application:
-
-```yaml
-steps:
-  - name: "\:docker\: :package:"
-    plugins:
-      docker-compose:
-        build: app
-        image-repository: my-docker-org/my-repo
-    agents:
-      queue: elastic-builders
-  - wait
-  - name: ":hammer:"
-    command: ".buildkite/steps/tests"
-    plugins:
-      docker-compose:
-        run: app
-    agents:
-      queue: elastic
-    parallelism: 75
-```
 
 ## Further references
 
