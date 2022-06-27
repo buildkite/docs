@@ -160,7 +160,7 @@ Return a list of artifacts that match a query.
 
 ## Parallelized steps
 
-Currently, buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
+Currently, Buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
 
 If you are trying to collate artifacts from parallelized steps, it is best to upload these files with a unique path or name and omit the `--step` flag.
 
