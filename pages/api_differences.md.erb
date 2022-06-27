@@ -1,0 +1,25 @@
+# API Differences Between REST and GraphQL
+
+Buildkite supports the use of bith REST and GraphQL. Unfortunately, at the moment there exist certain disparities in the API between the two. There are certiain actions that can be done via the REST API, but not via GraphQL, and vice versa.
+
+While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capaboilities.
+
+The development approach taken by Buildkite is to design the GraphQL API first, and then write a thin REST layer over the top that reaches out to a pre-defined GraphQL query.
+
+If you are only deciding which approach to take, you could consider GraphQL as your default answer to "how do I query a possibly-complicatedly-constrained subset of data?", and that REST should be most helpful in a scenario of creating and modifying records.
+
+
+## REST-only
+
+* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines.
+* The REST API can retrieve and list annotations on a build, but not create them
+
+## GraphQL-only
+
+* Removing users from an organiation
+* Archiving pipelines
+* [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql)
+* Graphql can both retrieve, list, and create annotations on a build
+* [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (REST can only revoke user API tokens).
+* Creating and managing pipeline schedules
+* Managing teams
