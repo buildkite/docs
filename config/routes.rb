@@ -68,7 +68,7 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/cloud-identity",    to: redirect("/docs/integrations/sso/g-cloud-identity")
   get "/docs/integrations/sso/g-cloud-identity",  to: redirect("/docs/integrations/sso/google-workspace-saml")
   get "/docs/agent/v3/osx",                       to: redirect("/docs/agent/v3/macos")
-
+  get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-analytics/javascript-collectors")
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302

@@ -8,7 +8,7 @@ You can find your pipeline's status badge on the **Pipeline Settings** page.
 
 ## Scoping to a branch
 
-By default the build status badge will show the last build’s status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `master` branch you would add: `?branch=master` to the URL.
+By default the build status badge will show the last build's status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `master` branch you would add: `?branch=master` to the URL.
 
 ## Scoping to a step
 
@@ -18,6 +18,7 @@ If you want to create a badge that represents a single step in the last build, y
 
 You can set the style of the badge by passing in a `style` parameter:
 
+<!-- vale off -->
 <table class="status-badges__examples">
   <tbody>
     <tr>
@@ -37,6 +38,7 @@ You can set the style of the badge by passing in a `style` parameter:
     <% end %>
   </tbody>
 </table>
+<!-- vale on -->
 
 The `square` style can also be referred to as `flat-square` to match any [shields.io badges](http://shields.io) you may use.
 
@@ -73,6 +75,7 @@ The format is `passing-bg-color,failing-bg-color,unknown-bg-color[,label-bg-colo
 
 For example:
 
+<!-- vale off -->
 <table class="status-badges__examples">
   <tbody>
     <%
@@ -93,6 +96,7 @@ For example:
     <% end %>
   </tbody>
 </table>
+<!-- vale on -->
 
 ## Sample badge URLs
 

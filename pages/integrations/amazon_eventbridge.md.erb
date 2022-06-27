@@ -6,7 +6,7 @@ The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification servi
 
 ## Events
 
-Once you’ve configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:
+Once you've configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:
 
 <table>
 <thead>
@@ -32,11 +32,11 @@ See [build states](/docs/pipelines/defining-steps#build-states) and [job states]
 
 ## Configuring
 
-In your Buildkite [Organization’s Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
+In your Buildkite [Organization's Notification Settings](https://buildkite.com/organizations/-/services), add an Amazon EventBridge notification service:
 
 <%= image "buildkite-add-eventbridge.png", width: 1458/2, height: 208/2, alt: "Screenshot of Add Buildkite Amazon EventBridge Button" %>
 
-Once you’ve entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
+Once you've entered your AWS region and AWS Account ID, a Partner Event Source will be created in your AWS account matching the "Partner Event Source Name" shown on the settings page:
 
 <%= image "buildkite-amazon-eventbridge-settings.png", width: 1458/2, height: 1254/2, alt: "Screenshot of Buildkite Amazon EventBridge Notification Settings" %>
 
@@ -46,7 +46,7 @@ You can then start consuming the events in your AWS account. The links to "Partn
 
 When creating your EventBridge rule you can specify an "Event Pattern" filter to limit which events will be processed. You can use this to respond only to certain events based on the type, or any attribute from within the event payload.
 
-For example, to only process [Build Finished](#events-build-finished) events you’d configure your rule with the following event pattern:
+For example, to only process [Build Finished](#events-build-finished) events you'd configure your rule with the following event pattern:
 
 <%= image "cloudwatch-event-pattern.png", width: 1636/2, height: 786/2, alt: "Screenshot of configuring an EventBridge Event Pattern filter" %>
 

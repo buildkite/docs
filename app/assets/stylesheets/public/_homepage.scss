@@ -50,12 +50,10 @@
   max-width: 500px;
 }
 
-.HomeHeader__mark {
-  > svg {
-    width: 96px;
-    height: auto;
-    margin-top: .55em;
-  }
+.HomeHeader__logo {
+  width: 96px;
+  height: auto;
+  margin-top: .55em;
 }
 
 .HomeSuggestions {
@@ -221,11 +219,4 @@
       top: 0;
     }
   }
-}
-
-
-.FooterContainer {
-  max-width: 1044px;
-  padding: 0 20px;
-  margin: 150px auto 50px;
 }

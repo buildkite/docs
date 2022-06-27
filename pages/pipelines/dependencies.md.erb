@@ -51,7 +51,7 @@ steps:
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
 <div class="Docs__troubleshooting-note">
-  <h3>depends_on and block/wait</h3>
+  <h3><code>depends_on</code> and <code>block</code>/<code>wait</code></h3>
   <p>Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.</p>
 </div>
 

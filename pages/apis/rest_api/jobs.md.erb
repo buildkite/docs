@@ -57,7 +57,7 @@ Error responses:
 
 ## Unblock a job
 
-Unblocks a build’s "Block pipeline" job. The job’s `unblockable` property indicates whether it is able to be unblocked, and the `unblock_url` property points to this endpoint.
+Unblocks a build's "Block pipeline" job. The job's `unblockable` property indicates whether it is able to be unblocked, and the `unblock_url` property points to this endpoint.
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
@@ -97,7 +97,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>unblocker</code></th><td>The user id of the person activating the job.<br><em>Default value: the user making the API request</em>.</td></tr>
   <tr><th>
-    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/block-step#block-step-attributes">block step’s fields</a>.<br>
+    <code>fields</code></th><td>The values for the <a href="/docs/pipelines/block-step#block-step-attributes">block step's fields</a>.<br>
     <p class="Docs__api-param-eg"><em>Example:</em> <code>{"release-name": "Flying Dolpin"}</code></p>
   </td></tr>
 </tbody>
@@ -116,7 +116,7 @@ Error responses:
 </tbody>
 </table>
 
-## Get a job’s log output
+## Get a job's log output
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
@@ -139,12 +139,12 @@ Alternative formats (using `Accept` header or file extension):
 
 <table>
 <tbody>
-  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job’s raw log content</td></tr>
-  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job’s log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td></tr>
+  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job's raw log content</td></tr>
+  <tr><th><code>text/html</code></th><th><code>.html</code></th><td>The job's log content as rendered by <a href="http://buildkite.github.io/terminal-to-html/">Terminal</a></td></tr>
 </tbody>
 </table>
 
-## Delete a job’s log output
+## Delete a job's log output
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/log"
@@ -199,7 +199,7 @@ Alternative formats (using `Accept` header or file extension):
 <!-- vale off -->
 <table>
 <tbody>
-  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job’s environment in a <code>KEY=VALUE</code> format suitable for parsing by tools such as <a href="https://github.com/bkeepers/dotenv">dotenv</a></td></tr>
+  <tr><th><code>text/plain</code></th><th><code>.txt</code></th><td>The job's environment in a <code>KEY=VALUE</code> format suitable for parsing by tools such as <a href="https://github.com/bkeepers/dotenv">dotenv</a></td></tr>
 </tbody>
 </table>
 <!-- vale on -->

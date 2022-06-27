@@ -114,7 +114,7 @@
   }
 
   th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
-  th code { white-space: nowrap; font-weight: normal; }
+  th code { font-weight: normal; }
   table.two-column {
     td {
       border: none;
@@ -147,6 +147,14 @@
 
   .no-margin-top { margin-top: 0; }
   .no-margin-bottom { margin-top: 0; }
+
+  img,
+  svg {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+  }
 
   /* Some styles from Bass that our Markdown render outputs */
   .rounded { border-radius: 3px; }

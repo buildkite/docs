@@ -18,7 +18,7 @@ test_analytics_guides:
       - text: "Ruby"
         url: "/docs/test-analytics/ruby-collectors"
       - text: "JavaScript"
-        url: "/docs/test-analytics/js-collectors"
+        url: "/docs/test-analytics/javascript-collectors"
       - text: "Swift"
         url: "/docs/test-analytics/swift-collectors"
       - text: "Python"

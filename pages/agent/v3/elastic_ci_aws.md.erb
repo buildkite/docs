@@ -129,7 +129,7 @@ Per-Instance Bootstrap Script | ✅ | ✅
 SSM Access | ✅ | ✅
 Instance Storage (NVMe) | ✅ |
 SSH Access | ✅ |
-Periodic authorized_keys Refresh | ✅ |
+Periodic `authorized_keys` Refresh | ✅ |
 Periodic Instance Health Check | ✅ |
 Git LFS | ✅ |
 Additional sudo Permissions | ✅ |
@@ -187,7 +187,7 @@ The following types of sensitive data are present in Elastic CI Stack:
 
 * **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic Stack CI deployment template does not support configuring EBS encryption.
 
-CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but these logs don’t contain sensitive information.
+CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but these logs don't contain sensitive information.
 
 ## What's on each machine?
 
@@ -287,7 +287,7 @@ Branch releases can only be deployed to `us-east-1`.
 
 ## Updating your stack
 
-To update your stack to the latest version, use CloudFormation’s stack update
+To update your stack to the latest version, use CloudFormation's stack update
 tools with one of the URLs from the
 [Elastic Stack CI releases](#elastic-stack-ci-releases) section.
 
@@ -302,7 +302,7 @@ update, use the AWS Console to temporarily pause auto scaling.
 
 Open the CloudFormation console and select your stack instance. Using the
 Resources tab, find the `AutoscalingFunction`. Use the Lambda console to find
-the function’s Triggers and Disable the trigger rule. Next, find the stack’s
+the function's Triggers and Disable the trigger rule. Next, find the stack's
 `AgentAutoScaleGroup` and set the `DesiredCount` to `0`. Once the remaining
 instances have terminated, deploy the updated stack and undo the manual
 changes to resume instance auto scaling.
@@ -313,7 +313,7 @@ Metrics are calculated every minute from the Buildkite API using a Lambda functi
 
 <%= image "cloudwatch-metrics.png", alt: 'CloudWatch metrics' %>
 
-You can view the stack’s metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
+You can view the stack's metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
 
 ## Reading instance and agent logs
 
@@ -382,7 +382,7 @@ An instance with a full disk can be causing jobs to fail. If such instance is no
 
 ## Optimizing for slow Docker builds
 
-For large legacy applications the Docker build process might take a long time on new instances. For these cases it’s recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
+For large legacy applications the Docker build process might take a long time on new instances. For these cases it's recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
 
 An example of how to set this up:
 

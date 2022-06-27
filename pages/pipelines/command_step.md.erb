@@ -78,6 +78,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>cancel_on_build_failing</code></td>
+    <td>
+      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/defining-steps#build-states">failing</a>.<br>
+      <em>Default:</em> <code>"false"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>concurrency</code></td>
     <td>
       The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
@@ -360,7 +367,6 @@ steps:
 
 ## Soft fail attributes
 
-
 _Optional Attributes_
 
 <table>
@@ -384,7 +390,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Matrix Attributes
+
+## Matrix attributes
 
 <table>
   <tr>
@@ -431,7 +438,25 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Examples
+## Fail fast
+
+To automatically cancel remaining jobs as soon the first job fails (except jobs that you've marked as `soft_fail`):
+
+1. Make sure that _Publish failed state early_ is checked in your _Pipeline Repository_ settings
+2. Mark jobs that you want to cancel immediately with `cancel_on_build_failing: true`
+
+Next time a job in your build fails, those jobs will be automatically cancelled.
+
+<!--
+
+TODO:
+To set `cancel_on_build_failing: true` for all jobs in a Build:
+
+
+ -->
+
+## Example
+
 
 ```yml
 steps:

@@ -19,7 +19,7 @@ API requests that affect a single build accept the more human readable build num
 
 ## List all builds
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user’s organizations and pipelines.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of all builds across all the user's organizations and pipelines.
 If using token-based authentication the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
@@ -37,7 +37,7 @@ Success response: `200 OK`
 
 ## List builds for an organization
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization’s builds across all of an organization’s pipelines.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's builds across all of an organization's pipelines.
 Builds are listed in the order they were created (newest first).
 
 ```bash
@@ -54,7 +54,7 @@ Success response: `200 OK`
 
 ## List builds for a pipeline
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline’s builds.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a pipeline's builds.
 Builds are listed in the order they were created (newest first).
 
 ```bash
@@ -285,7 +285,7 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 <tbody>
   <tr>
     <th><code>include_retried_jobs</code></th>
-    <td>Include all retried job executions in each build’s jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
+    <td>Include all retried job executions in each build's jobs list. Without this parameter, you'll see only the most recently run job for each step.<p class="Docs__api-param-eg">
       <em>Example:</em> <code>?include_retried_jobs=true</code></p>
     </td>
   </tr>
@@ -435,7 +435,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>author</code></th><td>A hash with a <code>"name"</code> and <code>"email"</code> key to show who created this build.<br><em>Default value: the user making the API request</em>.</td></tr>
   <tr><th><code>clean_checkout</code></th><td>Force the agent to remove any existing build directory and perform a fresh checkout.<br><em>Default value:</em> <code>false</code>.</td></tr>
   <tr><th><code>env</code></th><td>Environment variables to be made available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
-  <tr><th><code>ignore_pipeline_branch_filters</code></th><td>Run the build regardless of the pipeline’s branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
+  <tr><th><code>ignore_pipeline_branch_filters</code></th><td>Run the build regardless of the pipeline's branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
   <tr><th><code>message</code></th><td>Message for the build.<br><em>Example:</em> <code>"Testing all the things \:rocket\:"</code></td></tr>
   <tr><th><code>meta_data</code></th><td>A hash of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
   <tr><th><code>pull_request_base_branch</code></th><td>For a pull request build, the base branch of the pull request.<br><em>Example:</em> <code>"master"</code></td></tr>

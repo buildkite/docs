@@ -1,0 +1,30 @@
+fields:
+- name: section
+  required: true
+  type: string
+  enumerated_values:
+      - http
+      - sql
+      - sleep
+      - annotation
+  desc: |
+      A section category for this span
+  examples:
+- name: start_at
+  required: false
+  type: number
+  desc: |
+      A monotonically increasing number
+  examples:
+- name: end_at
+  required: false
+  type: number
+  desc: |
+      A monotonically increasing number
+  examples:
+- name: duration
+  required: true
+  type: number
+  desc: |
+      How long the span took to run
+  examples:
