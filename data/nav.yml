@@ -373,7 +373,7 @@
     children:
       - name: 'Overview'
         path: 'test-analytics'
-      - name: 'Gettings started'
+      - name: 'Getting started'
         children:
           - name: 'Configuring test suites'
             path: 'test-analytics/test-suites'
