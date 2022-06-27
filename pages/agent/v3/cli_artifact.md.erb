@@ -158,6 +158,16 @@ Return a list of artifacts that match a query.
 <%= render 'agent/v3/help/artifact_search' %>
 
 
+## Parallelized steps
+
+Currently, Buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
+
+If you are trying to collate artifacts from parallelized steps, it is best to upload these files with a unique path or name and omit the `--step` flag.
+
+```bash
+buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUILDKITE_BUILD_ID
+```
+
 ## Fetching the SHA of an artifact
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
