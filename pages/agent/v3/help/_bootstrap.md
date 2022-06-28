@@ -18,7 +18,7 @@ script.
 
 ## Description
 
-The bootstrap command executes a buildkite job locally.
+The bootstrap command executes a Buildkite job locally.
 
 Generally the bootstrap command is run as a sub-process of the buildkite-agent to execute
 a given job sent from buildkite.com, but you can also invoke the bootstrap manually.
@@ -74,6 +74,7 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 <tr id="command-eval"><th><code>--command-eval </code> <a class="Docs__attribute__link" href="#command-eval">#</a></th><td><p>Allow running of arbitrary commands<br /><strong>Environment variable</strong>: <code>$BUILDKITE_COMMAND_EVAL</code></p></td></tr>
 <tr id="plugins-enabled"><th><code>--plugins-enabled </code> <a class="Docs__attribute__link" href="#plugins-enabled">#</a></th><td><p>Allow plugins to be run<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGINS_ENABLED</code></p></td></tr>
 <tr id="plugin-validation"><th><code>--plugin-validation </code> <a class="Docs__attribute__link" href="#plugin-validation">#</a></th><td><p>Validate plugin configuration<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGIN_VALIDATION</code></p></td></tr>
+<tr id="plugins-always-clone-fresh"><th><code>--plugins-always-clone-fresh </code> <a class="Docs__attribute__link" href="#plugins-always-clone-fresh">#</a></th><td><p>Always make a new clone of plugin source, even if already present<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH</code></p></td></tr>
 <tr id="local-hooks-enabled"><th><code>--local-hooks-enabled </code> <a class="Docs__attribute__link" href="#local-hooks-enabled">#</a></th><td><p>Allow local hooks to be run<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCAL_HOOKS_ENABLED</code></p></td></tr>
 <tr id="ssh-keyscan"><th><code>--ssh-keyscan </code> <a class="Docs__attribute__link" href="#ssh-keyscan">#</a></th><td><p>Automatically run ssh-keyscan before checkout<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SSH_KEYSCAN</code></p></td></tr>
 <tr id="git-submodules"><th><code>--git-submodules </code> <a class="Docs__attribute__link" href="#git-submodules">#</a></th><td><p>Enable git submodules<br /><strong>Environment variable</strong>: <code>$BUILDKITE_GIT_SUBMODULES</code></p></td></tr>
@@ -84,7 +85,7 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 <tr id="redacted-vars"><th><code>--redacted-vars value</code> <a class="Docs__attribute__link" href="#redacted-vars">#</a></th><td><p>Pattern of environment variable names containing sensitive values<br /><strong>Environment variable</strong>: <code>$BUILDKITE_REDACTED_VARS</code></p></td></tr>
 <tr id="tracing-backend"><th><code>--tracing-backend value</code> <a class="Docs__attribute__link" href="#tracing-backend">#</a></th><td><p>The name of the tracing backend to use.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TRACING_BACKEND</code></p></td></tr>
 <tr id="debug"><th><code>--debug </code> <a class="Docs__attribute__link" href="#debug">#</a></th><td><p>Enable debug mode. Synonym for `--log-level debug`. Takes precedence over `--log-level`<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_DEBUG</code></p></td></tr>
-<tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
+<tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
 </table>
