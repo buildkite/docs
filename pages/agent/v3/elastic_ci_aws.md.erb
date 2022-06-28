@@ -396,7 +396,7 @@ steps:
 
 ## Troubleshooting
 
-The Elastic CI Stack can be hard to troubleshoot, but here are some ways to debug exactly what's going on, and some solutions for specific situations.
+Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the Elastic CI Stack, and some solutions for specific situations.
 
 ### Using CloudWatch Logs
 
@@ -421,7 +421,7 @@ There are a couple of other log groups that the Elastic CI Stack sends logs to, 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
 * If your Elastic CI Stack has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
-* If your Elastic CI Stack has **not** been configured to allow SSH access, you can still use AWS SSM to remotely access the instance. To do this, find the instance ID, and then run `aws ssm start-session --target <instance id>`
+* If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`
 
 ### Auto Scaling group fails to boot instances
 
