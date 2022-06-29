@@ -9,12 +9,17 @@
   gap: 10px;
   justify-content: center;
   line-height: 24px;
-  margin: 0 5px 10px 0;
+  margin-bottom: 10px;
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
   
-  @media (min-width: 480px) {
+  @media (min-width: $screen-xs) {
     display: inline-flex;
+    margin-right: 5px;
+  }
+
+  &:last-child {
+    margin-right: 0;
   }
 
   &--primary {
