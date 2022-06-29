@@ -1,8 +1,8 @@
 # API Differences Between REST and GraphQL
 
-Buildkite supports the use of bith REST and GraphQL. Unfortunately, at the moment there exist certain disparities in the API between the two. There are certiain actions that can be done via the REST API, but not via GraphQL, and vice versa.
+Buildkite supports the use of both REST and GraphQL. Unfortunately, at the moment there exist certain disparities in the API between the two. There are certain actions that can be done via the REST API, but not via GraphQL, and vice versa.
 
-While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capaboilities.
+While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capabilities.
 
 The development approach taken by Buildkite is to design the GraphQL API first, and then write a thin REST layer over the top that reaches out to a pre-defined GraphQL query.
 
@@ -17,12 +17,12 @@ If you are only deciding which approach to take, you could consider GraphQL as y
 
 ## GraphQL-only
 
-* Removing users from an organiation
+* Removing users from an organization
 * [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql)
-* Graphql can both retrieve, list, and create annotations on a build
+* GraphQL can both retrieve, list, and create annotations on a build
 * [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (REST can only revoke user API tokens).
 * Creating and managing pipeline schedules
 * Managing teams
 * Listing audit log events is only supported in GraphQL.
-* provider_settings - missing! (and requested often)
+* `provider_settings` - missing! (and requested often)
 * filtering results from pipeline listings - [list pipelines](https://buildkite.com/docs/apis/rest-api/pipelines#list-pipelines) is only supported by GraphQL.
