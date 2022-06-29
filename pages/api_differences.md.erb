@@ -8,18 +8,21 @@ The development approach taken by Buildkite is to design the GraphQL API first, 
 
 If you are only deciding which approach to take, you could consider GraphQL as your default answer to "how do I query a possibly-complicatedly-constrained subset of data?", and that REST should be most helpful in a scenario of creating and modifying records.
 
-
 ## REST-only
 
-* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines.
+* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines. (branch configuration `branch_configuration` could have been fixed)
 * The REST API can retrieve and list annotations on a build, but not create them
+* [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allows configuring how the pipeline is triggered based on source code provider events; available on pipeline create (available for all the pipeline inputs).
+* job logs
 
 ## GraphQL-only
 
 * Removing users from an organiation
-* Archiving pipelines
 * [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql)
 * Graphql can both retrieve, list, and create annotations on a build
 * [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (REST can only revoke user API tokens).
 * Creating and managing pipeline schedules
 * Managing teams
+* Listing audit log events is only supported in GraphQL.
+* provider_settings - missing! (and requested often)
+* filtering results from pipeline listings - [list pipelines](https://buildkite.com/docs/apis/rest-api/pipelines#list-pipelines) is only supported by GraphQL.
