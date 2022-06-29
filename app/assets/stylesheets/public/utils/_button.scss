@@ -7,7 +7,8 @@
   font-size: 0.8888rem;
   font-weight: 500;
   gap: 10px;
-  line-height: 1.4;
+  justify-content: center;
+  line-height: 24px;
   margin: 0 5px 10px 0;
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
@@ -34,13 +35,24 @@
   }
 
   &--link {
-    gap: 3px;
+    gap: 4px;
     margin: 0;
     padding: 0;
   }
 
   &--small {
     padding: 7px 15px;
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+
+    &--16x16 {
+      height: 16px;
+      margin-top: 4px;
+      width: 16px;
+    }
   }
 
   &__right-arrow {

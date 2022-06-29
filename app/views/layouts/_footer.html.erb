@@ -1,58 +1,37 @@
-<hr />
-<footer class="footer">
-  <section class="footer__section">
-    <div class="footer__item">
-      <div class="footer__heading">How helpful was this page?</div>
-      <div id="emojicom-widget-inline"></div>
-    </div>
-    <div class="footer__item">
-      <div class="footer__heading">Questions or feedback</div>
-      <p>Spotted a typo? Something missing in docs?</p>
-      <ul class="footer__list">
-        <li class="footer__list-item">
-          <a class="footer__list-item-link" href="https://github.com/buildkite/docs/issues">
-            <img alt="Icon: issue" class="footer__list-item-icon" src="<%= image_url('icons/issue.svg') %>" />
-            Open an issue
-          </a>
-        </li>
-        <li class="footer__list-item">
-          <a class="footer__list-item-link" href="<%= open_source_url %>">
-            <img alt="Icon: pull request" class="footer__list-item-icon" src="<%= image_url('icons/pull-request.svg') %>" />
-            Contribute an update
-          </a>
-        </li>
-      <ul>
-    </div>
-  </section>
+<footer class="Footer">
   <hr />
-  <section class="footer__section">
-    <div class="footer__links">
-      <div class="footer__heading">Need more help?</div>
-      <ul class="footer__list">
-        <li class="footer__list-item">
-          <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
-          <a class="footer__list-item-link" href="mailto:<%= support_email %>">
-            <img alt="Icon: paper dart" class="footer__list-item-icon" src="<%= image_url('icons/email.svg') %>" />
-            Email support
-          </a>
-        </li>
-        <li class="footer__list-item">
-          <a class="footer__list-item-link" href="https://chat.buildkite.community/">
-            <img alt="Icon: Slack" class="footer__list-item-icon" src="<%= image_url('icons/slack.svg') %>" />
-            <% unless "test-analytics".in? request.path %>
-              Ask our Slack community
-            <% else %>
-              Ask our #test-analytics community Slack channel
-            <% end %>
-          </a>
-        </li>
-        <li class="footer__list-item">
-          <a class="footer__list-item-link" href="https://forum.buildkite.community/">
-            <img alt="Icon: Discourse" class="footer__list-item-icon" src="<%= image_url('icons/slack.svg') %>" />
-            Post on our forum
-          </a>
-        </li>
-      </ul>
-    </div>
-  </section>
+  <div class="Footer__heading">How helpful was this page?</div>
+  <div id="emojicom-widget-inline"></div>
+  <p>If you have questions or feedback</p>
+  <div class="Footer__links">
+    <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
+      <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/issue.svg') %>" />
+      Open an issue
+    </a>
+    <a class="Button Button--default" href="<%= open_source_url %>">
+      <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/pull-request.svg') %>" />
+      Contribute an update
+    </a>
+  </div>
+  <hr />
+  <div class="Footer__heading">Need more help?</div>
+  <div class="Footer__links Footer__links--has-gaps">
+    <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
+    <a class="Button Button--link" href="mailto:<%= support_email %>">
+      <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/email.svg') %>" />
+      Email support
+    </a>
+    <a class="Button Button--link" href="https://chat.buildkite.community/">
+      <img alt="Icon: Slack" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/slack.svg') %>" />
+      <% unless "test-analytics".in? request.path %>
+        Ask our Slack community
+      <% else %>
+        Ask our #test-analytics community Slack channel
+      <% end %>
+    </a>
+    <a class="Button Button--link" href="https://forum.buildkite.community/">
+      <img alt="Icon: Discourse" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/discourse.svg') %>" />
+      Post on our forum
+    </a>
+  </div>
 </footer>

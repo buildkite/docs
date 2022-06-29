@@ -1,58 +1,34 @@
-.footer {
-  background-color: #f1efff;
-  border-radius: 5px;
-  color: #4f4f4f;
+.Footer {
+  color: #767676;
   font-size: .8889rem;
   line-height: 1.4;
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   margin-top: 60px;
-  padding: 20px;
-
-  @media (min-width: $screen-sm) {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-  }
-
-  .HomepageFooter & {
-    padding: 30px;
-
-    @media (min-width: $screen-md) {
-      grid-template-columns: 1fr 1fr 1fr;
-    }
-  }
+  text-align: center;
 
   &__heading {
-    color: #111;
-    font-size: 1rem;
+    color: #333;
+    font-size: .8889rem;
     font-weight: 600;
+    margin-bottom: 5px;
   }
 
-  &__list {
-    margin-bottom: 1.5rem;
-    margin-top: .75rem;
-  }
+  &__links {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 15px;
 
-  &__list-item {
-    margin-bottom: .5rem;
-    margin-top: .5rem;
-  }
-
-  &__list-item-link {
-    color: #111;
-    display: grid;
-    gap: 7px;
-    grid-template-columns: auto 1fr;
-    text-decoration: none;
-
-    &:hover {
-      filter: $filter-brand-green;
-      text-decoration: underline;
+    @media (min-width: $screen-sm) {
+      flex-direction: row;
     }
-  }
 
-  &__list-item-icon {
-    margin-top: 3px;
-    width: 16px;
+    &--has-gaps {
+      gap: 15px;
+
+      @media (min-width: $screen-sm) {
+        gap: 30px;
+      }
+    }
   }
 }
