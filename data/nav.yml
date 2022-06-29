@@ -13,7 +13,7 @@
           - name: 'Docker-Based Builds'
             path: 'tutorials/docker-containerized-builds'
           - name: 'Parallelizing Builds'
-            path: 'tutorials//parallel-builds'
+            path: 'tutorials/parallel-builds'
           - name: 'Migrating from Bamboo'
             path: 'tutorials/migrating-from-bamboo'
           - name: 'Using Bazel on Buildkite'
@@ -253,6 +253,8 @@
         children:
           - name: 'Source control'
             children:
+              - name: 'Overview'
+                path: 'integrations/source-control'
               - name: 'GitHub'
                 path: 'integrations/github'
               - name: 'GitHub Enterprise'
@@ -262,11 +264,11 @@
               - name: 'Bitbucket'
                 path: 'integrations/bitbucket'
               - name: 'Bitbucket Server'
-                path: 'integrations/bitbucket_server'
+                path: 'integrations/bitbucket-server'
               - name: 'Phabricator'
                 path: 'integrations/phabricator'
               - name: 'Other Git Servers'
-                path: 'integrations/Git'
+                path: 'integrations/git'
           - name: 'SSO'
             children:
               - name: 'Overview'
@@ -305,6 +307,8 @@
                 path: 'integrations/slack'
       - name: 'APIs'
         children:
+          - name: 'Overview'
+            path: 'apis'
           - name: 'Managing API Tokens'
             path: 'apis/managing-api-tokens'
           - name: 'Webhooks'
@@ -369,7 +373,7 @@
     children:
       - name: 'Overview'
         path: 'test-analytics'
-      - name: 'Gettings started'
+      - name: 'Getting started'
         children:
           - name: 'Configuring test suites'
             path: 'test-analytics/test-suites'

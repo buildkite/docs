@@ -28,7 +28,7 @@ Job lifecycle hooks are **sourced** by the Buildkite bootstrap in the different
 job phases. They are run in a per-job shell environment, and any exported
 environment variables are carried to the job's subsequent phases and hooks. For
 example, the `environment` hook can modify or export new environment variables
-for the job's subsequent checkout and command phases.
+for the job's subsequent checkout and command phases. Shell options set by individual hooks, such as set `-e -o pipefail`, are not carried over to other phases or hooks.
 
 In August 2021 we changed how we refer to agent hooks to differentiate between
 the hooks feature for both the agent and bootstrap processes, and the agent

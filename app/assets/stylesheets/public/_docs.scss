@@ -91,21 +91,6 @@ $color-green: rgb(3, 165, 98);
   margin: .25em 0 0 0;
 }
 
-.Docs__toc {
-  line-height: 1.3;
-
-  p { margin-bottom: .5em; }
-  .Docs__toc__list {
-    margin-top: .5em;
-
-    li {
-      color: $color-brand-green;
-      list-style-type: square;
-      margin-left: 1.2em;
-    }
-  }
-}
-
 @media (min-width: $screen-lg) { //TOC as side column on larger screens
   .Docs__article {
     display: grid;
@@ -117,28 +102,6 @@ $color-green: rgb(3, 165, 98);
 
     &--is-landing-page {
       display: block;
-    }
-  }
-
-  .Docs__toc {
-    font-size: 16px;
-    height: 95%;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    .Docs__toc__sticky {
-      background: #fefefe;
-      box-shadow: 2px 2px 5px 3px rgba(0, 0, 0, 0.3%);
-      padding: 1px 5px 8px 15px;
-      position: sticky;
-      top: $header-height + 30px;
-      width: $sidebar-width;
-    }
-
-    a {
-      color: #666;
-      text-decoration: none;
     }
   }
 }
@@ -165,8 +128,19 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__attribute__table {
-  colgroup col:nth-child(1) {
-    width: 5rem;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    word-wrap: break-word;
+
+    code {
+      white-space: normal;
+    }
+  }
+
+  td {
+    word-wrap: break-word;
   }
 
   tr.importance th {
@@ -229,10 +203,6 @@ $color-green: rgb(3, 165, 98);
 
   .Docs__attribute__env-var {
     font-size: 0.8em;
-
-    code {
-      white-space: break-spaces;
-    }
   }
 
   .Docs__attribute__default {

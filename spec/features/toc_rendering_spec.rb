@@ -5,13 +5,13 @@ RSpec.feature "toc rendering" do
     it "has a TOC" do
       visit "/docs/tutorials/getting-started"
       
-      expect(page).to have_css(".Docs__toc")
+      expect(page).to have_css(".Toc")
     end
   end
   
   describe "/docs/agent/v3/installation" do
     it "does not have a TOC" do
-      expect(page).to have_no_css(".Docs__toc")
+      expect(page).to have_no_css(".Toc")
     end
   end
 end

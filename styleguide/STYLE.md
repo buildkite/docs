@@ -396,6 +396,45 @@ Line 3, column 1  | Line 3, column 2
 
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
+#### Responsive tables
+Append `{: class="responsive-table"}` to any table to render it with responsive behaviour. Use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="responsive-table"}
+```
+
+This also works if you apply the CSS class to pure html tables, for example:
+
+```html
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Column header 1</th>
+      <th>Column header 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Line 1, column 1</td>
+      <td>Line 1, column 2</td>
+    </tr>
+    <tr>
+      <td>Line 2, column 1</td>
+      <td>Line 2, column 2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
+
+On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
+
 #### Prepending icons
 You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
 
