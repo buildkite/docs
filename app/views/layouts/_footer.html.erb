@@ -1,7 +1,9 @@
 <footer class="Footer">
   <hr />
   <div class="Footer__heading">How helpful was this page?</div>
-  <div id="emojicom-widget-inline"></div>
+  <% if embed_emojicom %>
+    <div id="emojicom-widget-inline"></div>
+  <% end %>
   <p>If you have questions or feedback</p>
   <div class="Footer__links">
     <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
@@ -35,3 +37,11 @@
     </a>
   </div>
 </footer>
+
+<% if embed_emojicom %>
+  <% emojicom_campaign_id = Rails.env.production? ? '7O7Rc8JaykqXiCmaqe1C' : 'YeriBgQjRQmOU3br2W1g' %>
+  <!-- Start emojicom.io widget -->
+  <script>window.emojicom_widget = { campaign: "<%= emojicom_campaign_id %>" };</script>
+  <script src="https://cdn.emojicom.io/embed/widget.js" async></script>
+  <!-- End emojicom.io widget -->
+<% end %>
