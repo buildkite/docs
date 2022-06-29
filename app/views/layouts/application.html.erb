@@ -73,9 +73,6 @@
       });
     <% end %>
     <%= javascript_include_tag "nav", nonce: true %>
-    <!-- Start emojicom.io widget -->
-    <script>window.emojicom_widget = { campaign: "YeriBgQjRQmOU3br2W1g" };</script>
-    <script src="https://cdn.emojicom.io/embed/widget.js" async></script>
-    <!-- End emojicom.io widget -->
+    <%= render 'layouts/emojicom' %>
   </body>
 </html>
