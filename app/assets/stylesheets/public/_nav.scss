@@ -136,7 +136,7 @@
         overscroll-behavior: contain;
         padding: 30px 5px;
         position: fixed;
-        top: $header-height;
+        top: $header-height + 1px;
         width: $sidebar-width;
       }
     }
