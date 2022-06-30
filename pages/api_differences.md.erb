@@ -2,6 +2,8 @@
 
 Buildkite supports the use of both REST and GraphQL. Unfortunately, at the moment there exist certain disparities in the API between the two. There are certain actions that can be done via the REST API, but not via GraphQL, and vice versa.
 
+{:toc}
+
 While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capabilities.
 
 The development approach taken by Buildkite is to design the GraphQL API first, and then write a thin REST layer over the top that reaches out to a pre-defined GraphQL query.
