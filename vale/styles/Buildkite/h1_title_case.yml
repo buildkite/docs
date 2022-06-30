@@ -5,6 +5,6 @@ scope: heading.h1
 match: $title
 style: Chicago
 exceptions:
-  - macOS
-  - Sign-On
-  - v2
+  - macOS  # always lowercase m
+  - Sign-On  # capitalized "on" for symmetry with "SSO" initialism
+  - v2  # version identifier, appears in some agent page titles
