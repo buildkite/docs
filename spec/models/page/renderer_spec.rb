@@ -35,15 +35,13 @@ RSpec.describe Page::Renderer do
         MD
 
       html = <<~HTML
-        <div class="Docs__toc">
-          <div class="Docs__toc__sticky">
-            <p><strong>On this page:</strong></p>
-            <ul class="Docs__toc__list">
-              <li><a href="#section-1">Section 1</a></li>
-        <li><a href="#section-2">Section 2</a></li>
-            </ul>
-          </div>
-        </div>
+        <nav class="Toc">
+          <p><strong>On this page:</strong></p>
+          <ul class="Toc__list">
+            <li class="Toc__list-item"><a class="Toc__link" href="#section-1">Section 1</a></li>
+        <li class="Toc__list-item"><a class="Toc__link" href="#section-2">Section 2</a></li>
+          </ul>
+        </nav>
 
         <h2 id="section-1" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-1">Section 1</a></h2>
 
@@ -76,14 +74,12 @@ RSpec.describe Page::Renderer do
       MD
 
       html = <<~HTML
-        <div class="Docs__toc">
-          <div class="Docs__toc__sticky">
-            <p><strong>On this page:</strong></p>
-            <ul class="Docs__toc__list">
-              <li><a href="#section">Section</a></li>
-            </ul>
-          </div>
-        </div>
+        <nav class="Toc">
+          <p><strong>On this page:</strong></p>
+          <ul class="Toc__list">
+            <li class="Toc__list-item"><a class="Toc__link" href="#section">Section</a></li>
+          </ul>
+        </nav>
         
         <h2 id="section" class="Docs__heading"><a class="Docs__heading__anchor" href="#section">Section</a></h2>
         
@@ -183,5 +179,98 @@ RSpec.describe Page::Renderer do
     HTML
 
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
+
+  describe "Responsive table" do
+    it "prepends faux th to each table cell" do
+      md = <<~MD
+        | Name   | Price    |
+        | ------ | -------- |
+        | Apple  | $4.00/kg |
+        | Orange | $5.00/kg |
+        {: class="responsive-table"}
+      MD
+
+      html_in_md = <<~HTML
+        <table class="responsive-table">
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Apple</td>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <td>Orange</td>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      html = <<~HTML
+        <table class="responsive-table">
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <th aria-hidden class="responsive-table__faux-th">Name</th>
+        <td>Apple</td>
+        <th aria-hidden class="responsive-table__faux-th">Price</th>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <th aria-hidden class="responsive-table__faux-th">Name</th>
+        <td>Orange</td>
+        <th aria-hidden class="responsive-table__faux-th">Price</th>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      expect(Page::Renderer.render(html_in_md).strip).to eql(html.strip)
+    end
+
+    it "does't affect tables without the .responsive-table CSS class" do
+      md = <<~MD
+        | Name   | Price    |
+        | ------ | -------- |
+        | Apple  | $4.00/kg |
+        | Orange | $5.00/kg |
+      MD
+
+      html = <<~HTML
+        <table>
+        <thead>
+        <tr>
+        <th>Name</th>
+        <th>Price</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+        <td>Apple</td>
+        <td>$4.00/kg</td>
+        </tr>
+        <tr>
+        <td>Orange</td>
+        <td>$5.00/kg</td>
+        </tr>
+        </tbody>
+        </table>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
   end
 end

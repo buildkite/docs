@@ -1,39 +1,88 @@
 $SiteHeaderLogoHeight: 36px;
-$SiteHeader__bp_wrap_search: 600px;
 
 .SiteHeader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  background-color: #fff;
+  border-bottom: #ddd 1px solid;
+  box-sizing: border-box;
   line-height: $SiteHeaderLogoHeight;
-  z-index: 5;
+  z-index: 20;
 
-  @media (max-width: $SiteHeader__bp_wrap_search) {
-    position: relative;
-    padding-bottom: 0;
+  @supports (backdrop-filter: blur(2px)) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba(255, 255, 255, .85);
+  }
+  
+  @media (min-width: $screen-md) {
+    min-height: $header-height;
+    padding-right: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
   }
 }
 
 .SiteHeader__inner {
   display: flex;
-  @media (max-width: $SiteHeader__bp_wrap_search) {
-    flex-direction: column;
+  flex-direction: column;
+  gap: 15px;
+  padding-bottom: 15px;
+  padding-top: 10px;
+
+  @media (min-width: $screen-sm) {
+    align-items: center;
+    flex-direction: row;
+    gap: 30px;
+    padding-bottom: 10px;
+  }
+}
+
+.SiteHeader__logo {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  font-weight: bold;
+  line-height: $SiteHeaderLogoHeight;
+  margin-right: 30p;
+}
+
+.SiteHeader__logo-img {
+  display: block;
+  transition: opacity $transition-speed;
+  width: 28px;
+  will-change: opacity;
+
+  &:hover {
+    opacity: .75;
+  }
+}
+
+.SiteHeader__links {
+  align-items: right;
+  display: none;
+  font-size: 16px;
+  margin-left: auto;
+
+  @media (min-width: $screen-md) {
+    display: inline-flex;
+    gap: 10px;
+  }
+
+  .Button {
+    margin: 0;
   }
 }
 
 .SiteHeader__docslink {
-  font-weight: bold;
-  color: black;
+  color: #111;
   text-decoration: none;
-  display: flex;
-  align-items: center;
-  transition: color 300ms;
+  transition: color $transition-speed;
   will-change: color;
 
-  &:hover, &:focus, &:active {
+  &:hover,
+  &:focus,
+  &:active {
     color: #14CC80;
   }
 }
@@ -47,14 +96,7 @@ $SiteHeader__bp_wrap_search: 600px;
   }
 }
 
-.SiteHeader__logo, .SiteHeader__tagline {
-  margin: 0;
-}
 
-.SiteHeader__logo {
-  flex: 0 0 auto;
-  line-height: $SiteHeaderLogoHeight;
-  display: inline-block;
-  margin-right: 3em;
-  margin-bottom: .5em;
+.SiteHeader__tagline {
+  margin: 0;
 }

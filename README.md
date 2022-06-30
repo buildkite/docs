@@ -44,6 +44,11 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    docker-compose up --build
    ```
 
+Open `http://localhost:3000` to preview the docs site.
+After modifying a page, refresh to see your changes.
+
+**Note:** By default, search (through Algolia) does not work in development.
+
 ## Updating buildkite-agent CLI Docs
 
 With the development dependencies installed you can update the CLI docs using
@@ -57,6 +62,8 @@ PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
 ## Linting
 
 We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
+
+You can run most of these checks with `./scripts/vale.sh`.
 
 If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
 

@@ -20,6 +20,7 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+    doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
 
@@ -96,22 +97,27 @@ class Page::Renderer
 
     # Third, we generate and replace the actual toc.
     doc.search('./p').each do |node|
-      next unless node.text == '{:toc}'
+      toc = '{:toc}'
+      notoc = '{:notoc}'
 
-      if headings.empty?
+      next unless [toc, notoc].include? node.text
+
+      if headings.empty? or node.text == notoc
         node.replace('')
       else
+        html_list_items = headings.map {|heading|
+          <<~HTML.strip
+            <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
+          HTML
+        }.join("").strip
+        
         node.replace(<<~HTML.strip)
-          <div class="Docs__toc">
-            <div class="Docs__toc__sticky">
-              <p><strong>On this page:</strong></p>
-              <ul class="Docs__toc__list">
-                #{headings.map {|heading|
-                  %{<li><a href="##{heading['id']}">#{heading.text.strip}</a></li>}
-                }.join("")}
-              </ul>
-            </div>
-          </div>
+          <nav class="Toc">
+            <p><strong>On this page:</strong></p>
+            <ul class="Toc__list">
+              #{html_list_items}
+            </ul>
+          </nav>
         HTML
       end
     end
@@ -170,4 +176,23 @@ class Page::Renderer
     
     doc
   end
+
+  def init_responsive_tables(doc)
+    doc.css('table.responsive-table').each do |table|
+      thead_ths = table.css('thead th')
+
+      unless thead_ths.empty?
+        table.search('./tbody/tr').each do |tr|
+          tr.search('./td').each_with_index do |td, i|
+            faux_th = "<th aria-hidden class=\"responsive-table__faux-th\">#{thead_ths[i].children}</th>"
+            
+            td.add_previous_sibling(faux_th)
+          end
+        end
+      end
+    end
+
+    doc
+  end
+
 end

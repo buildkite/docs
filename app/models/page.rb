@@ -88,6 +88,10 @@ class Page
     @name = name
   end
 
+  def is_landing_page?
+    LandingPages.all.include? @name
+  end
+
   def beta?
     BetaPages.all.include? @name
   end
@@ -156,7 +160,7 @@ class Page
   end
 
   def agentize_title(title)
-    if basename =~ /^agent\/v(.+?)\/?/
+    if basename =~ /^agent\/v(.+?)\/?/ and basename.exclude?('elastic_ci')
       "#{title} v#{$1}"
     else
       title

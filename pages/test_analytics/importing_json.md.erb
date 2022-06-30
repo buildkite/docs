@@ -1,257 +1,313 @@
 # Importing JSON
 
-<div class="Docs__wip-note">
-<p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
-</div>
-
 {:toc}
 
-The beta release ships with [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector). However, you you can also upload test results by importing JSON or [JUnit XML](/docs/test-analytics/importing-junit-xml).
+If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-analytics/your-own-collectors).
+You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-## How to import JSON
+## How to import JSON in Buildkite
 
-The Test Analytics JSON API accepts all of the same information that test framework integrations do, allowing you to display, analyze, and explore more detailed information than the generic JUnit XML reports.
+It's possible to import JSON (or [JUnit](/docs/test-analytics/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Analytics with or without the help of a plugin.
 
-To import JSON formatted test result data, make a POST request to `https://analytics-api.buildkite.com/v1/uploads`, with metadata and JSON in the request body.
+### Using a plugin
 
-Test Analytics uses the variables in the `run_env` attribute to populate test information:
+To import [JSON-formatted test results](#json-test-results-data-reference) to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
 
-* if you're making the request in a Buildkite pipeline, you can use the Buildkite environment variables to set the metadata automatically, like in the following example:
-* if you're making the request elsewhere, [set the environment variables](#environment-variables) yourself
-
-Test Analytics uses the variables in the `run_env` attribute to populate test information. The only *required* variable is `key`, but other Test Analytics features such as linking back to the originating build, do require the [other variables](#environment-variables) to work.
-
-Securely [add the Test Analytics token environment variable](/docs/pipelines/secrets) `TEST_ANALYTICS_TOKEN`) to your environment, so that it's available to the curl command:
-
-```sh
-curl --request POST \
-  --url https://analytics-api.buildkite.com/v1/uploads \
-  --header 'Authorization: Token token="'$TEST_ANALYTICS_TOKEN'";' \
-  --header 'Content-Type: application/json' \
-  --data @- << EOF
-    {
-    "format": "json",
-    "run_env": {
-      "CI": "buildkite",
-      "key": "$BUILDKITE_BUILD_ID",
-      "number": "$BUILDKITE_BUILD_NUMBER",
-      "job_id": "$BUILDKITE_JOB_ID",
-      "branch": "$BUILDKITE_BRANCH",
-      "commit_sha": "$BUILDKITE_COMMIT",
-      "message": "$BUILDKITE_MESSAGE",
-      "url": "$BUILDKITE_BUILD_URL"
-    },
-    "data": [
-              <put JSON format results here>
-          ]
-    }
+```yml
+steps:
+  - label: "🔨 Test"
+    command: "make test"
+    plugins:
+      - test-collector#v1.0.0:
+          files: "test-data-*.json"
+          format: "json"
 ```
+{: codeblock-file="pipeline.yml"}
 
-<!-- From https://github.com/buildkite/buildkite/blob/main/spec/fixtures/analytics/upload.jsons -->
+See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
 
-The JSON format is not yet documented, but the following example is what is produced by the [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector):
+Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
+An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
 
-```json
+### Without a plugin
+
+If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
+
+To import [JSON-formatted test results](#json-test-results-data-reference) in Buildkite, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
+
+For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
+
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+
+2. Run the following `curl` command:
+
+    ```sh
+    curl \
+      -X POST \
+      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -F "data=@test-results.json" \
+      -F "format=json" \
+      -F "run_env[CI]=buildkite" \
+      -F "run_env[key]=$BUILDKITE_BUILD_ID" \
+      -F "run_env[url]=$BUILDKITE_BUILD_URL" \
+      -F "run_env[branch]=$BUILDKITE_BRANCH" \
+      -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
+      -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
+      -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
+      -F "run_env[message]=$BUILDKITE_MESSAGE" \
+      https://analytics-api.buildkite.com/v1/uploads
+    ```
+
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#buildkite).
+
+## How to import JSON in CircleCI
+
+To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
+
+For example, to import the contents of a `test-results.json` file in a CircleCI pipeline:
+
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+
+2. Run the following `curl` command:
+
+    ```sh
+    curl \
+    -X POST \
+    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+    -F "data=@test-results.json" \
+    -F "format=json" \
+    -F "run_env[CI]=circleci" \
+    -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
+    -F "run_env[number]=$CIRCLE_BUILD_NUM" \
+    -F "run_env[branch]=$CIRCLE_BRANCH" \
+    -F "run_env[commit_sha]=$CIRCLE_SHA1" \
+    -F "run_env[url]=$CIRCLE_BUILD_URL" \
+    https://analytics-api.buildkite.com/v1/uploads
+    ```
+
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#circleci).
+
+## How to import JSON in GitHub Actions
+
+To import [JSON-formatted test results](#json-test-results-data-reference), make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data` body, including as many of the following fields as possible in the request body:
+
+For example, to import the contents of a `test-results.json` file in a GitHub Actions pipeline run:
+
+1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).
+
+2. Run the following `curl` command:
+
+    ```sh
+    curl \
+    -X POST \
+    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+    -F "data=@test-results.json" \
+    -F "format=json" \
+    -F "run_env[CI]=github_actions" \
+    -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
+    -F "run_env[number]=$GITHUB_RUN_NUMBER" \
+    -F "run_env[branch]=$GITHUB_REF" \
+    -F "run_env[commit_sha]=$GITHUB_SHA" \
+    -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+    https://analytics-api.buildkite.com/v1/uploads
+    ```
+
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#github-actions).
+
+## JSON test results data reference
+
+JSON test results data is made up of an array of one or more _test result_ objects.
+A test result object contains an overall result and metadata.
+It also contains a _history_ object, which is a summary of the duration of the test run.
+Within the history object, detailed _span_ objects record the highest resolution details of the test run.
+
+Schematically, the JSON test results data is like this:
+
+<!-- markdownlint-capture -->
+<!-- markdownlint-disable MD007 -->
+
+* A test result array of:
+   - [Test result](#json-test-results-data-reference-test-result-objects)
+      * [History](#json-test-results-data-reference-history-objects)
+         - [Spans](#json-test-results-data-reference-span-objects)
+
+<!-- markdownlint-restore -->
+
+Or in a simplified code view:
+
+```js
 [
   {
-    "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa9",
-    "scope": "Analytics::Upload associations",
-    "name": "fails",
-    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:3]",
-    "location": "./spec/models/analytics/upload_spec.rb:24",
-    "file_name": "./spec/models/analytics/upload_spec.rb",
-    "result": "failed",
-    "failure_reason": "Failure/Error: expect(true).to eq false",
-    "failure_expanded": [
-      {
-        "expanded": [
-          "  expected: false",
-          "       got: true",
-          "",
-          "  (compared using ==)",
-          "",
-          "  Diff:",
-          "  @@ -1 +1 @@",
-          "  -false","  +true"
-        ],
-        "backtrace": [
-          "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
-          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-          "-e:1:in `\u003cmain\u003e'"
-        ]
-      }
-    ],
+    /* Test result object */
     "history": {
-      "section": "top",
-      "start_at": 347611.724809,
-      "end_at": 347612.451041,
-      "duration": 0.726232000044547,
-      "detail": {},
+      /* history object */
       "children": [
-        {
-          "section": "sql",
-          "start_at": 347611.734956,
-          "end_at": 347611.735647,
-          "duration": 0.0006910000229254365,
-          "detail": {
-            "query": "SET client_min_messages TO 'warning' /*line:/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'*/"
-          },
-          "children": []
-        }
+        /* span objects */
       ]
     }
   },
-  {
-    "id": "3ec5600e-fe8e-46b6-91b2-0eb3a2652e30",
-    "scope": "Analytics::Upload associations",
-    "name": "also fails",
-    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:4]",
-    "location": "./spec/models/analytics/upload_spec.rb:27",
-    "file_name": "./spec/models/analytics/upload_spec.rb",
-    "result": "failed",
-    "failure_reason": "Failure/Error: raise StandardError",
-    "failure_expanded": [
-      {
-        "expanded": [
-          "StandardError:",
-          "  StandardError"
-        ],
-        "backtrace": [
-          "./spec/models/analytics/upload_spec.rb:28:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'","./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-          "-e:1:in `\u003cmain\u003e'"
-        ]
-      }
-    ],
-    "history": {
-      "section": "top",
-      "start_at": 347612.50397,
-      "end_at": 347612.787357,
-      "duration": 0.2833869999740273,
-      "detail": {},
-      "children": [
-        {
-          "section": "sql",
-          "start_at": 347612.53343899996,
-          "end_at": 347612.618446,
-          "duration": 0.08500700001604855,
-          "detail": {
-            "query":  "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";\nALTER TABLE \"agent_registration_tokens\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents\";\nALTER TABLE \"agents\" ENABLE TRIGGER ALL;\nALTER TABLE \"agents_projects\" DISABLE TRIGGER ALL;\nDELETE FROM \"agents_projects\";"
-          },
-          "children": []
-        }
-      ]
-    }
-  },
-  {
-    "id": "aac73c9d-f899-4e4e-a841-f33896a193e7",
-    "scope": "Analytics::Upload associations",
-    "name": "upload.executions",
-    "identifier": "./spec/models/analytics/upload_spec.rb[1:1:1]",
-    "location": "./spec/models/analytics/upload_spec.rb:12",
-    "file_name": "./spec/models/analytics/upload_spec.rb",
-    "result": "failed",
-    "failure_reason": "Got 2 failures and 1 other error from failure aggregation block",
-    "failure_expanded": [
-      {
-        "expanded": [
-          "Failure/Error: expect(true).to eq false","","  expected: false",
-          "       got: true",
-          "",
-          "  (compared using ==)",
-          "",
-          "  Diff:",
-          "  @@ -1 +1 @@",
-          "  -false",
-          "  +true"
-        ],
-        "backtrace": [
-          "./spec/models/analytics/upload_spec.rb:14:in `block (4 levels) in \u003ctop (required)\u003e'",
-          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/log.rb:17:in `run'",
-          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-          "-e:1:in `\u003cmain\u003e'"
-        ]
-      },
-      {
-        "expanded": [
-          "Failure/Error: expect(upload.executions.count).to eq 1",
-          "",
-          "  expected: 1",
-          "       got: 2",
-          "",
-          "  (compared using ==)"
-        ],
-        "backtrace": [
-          "./spec/models/analytics/upload_spec.rb:15:in `block (4 levels) in \u003ctop (required)\u003e'",
-          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/log.rb:17:in `run'",
-          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-          "-e:1:in `\u003cmain\u003e'"]
-      },
-      {
-        "expanded": [
-          "Failure/Error: raise StandardError",
-          "",
-          "StandardError:",
-          "  StandardError"
-        ],
-        "backtrace": [
-          "./spec/models/analytics/upload_spec.rb:16:in `block (4 levels) in \u003ctop (required)\u003e'",
-          "./spec/models/analytics/upload_spec.rb:13:in `block (3 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/log.rb:17:in `run'",
-          "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
-          "/Users/roselu/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-          "-e:1:in `\u003cmain\u003e'"
-        ]
-      }
-    ],
-    "history": {
-      "section": "top",
-      "start_at": 347612.791024,
-      "end_at": 347613.109785,
-      "duration": 0.3187610000022687,
-      "detail": {},
-      "children": [
-        {
-          "section": "sql",
-          "start_at": 347612.819713,
-          "end_at": 347612.898322,
-          "duration": 0.07860900001833215,
-          "detail": {
-            "query": "ALTER TABLE \"agent_connection_counts\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_connection_counts\";\nALTER TABLE \"agent_connection_counts\" ENABLE TRIGGER ALL;\nALTER TABLE \"agent_registration_tokens\" DISABLE TRIGGER ALL;\nDELETE FROM \"agent_registration_tokens\";"
-          },
-          "children": []
-        }
-      ]
-    }
-  }
+  { /* Test result object */ },
 ]
 ```
 
-## Environment variables
+### Test result objects
 
-Test Analytics uses environment variables to populate test information. In the most common case, [RSpec collector](/docs/test-analytics/ruby-collectors#rspec-collector) is used and, regardless of the CI provider you use to run your builds, you'd need to make sure that environment variables are available to RSpec or import API. You'd also need to make sure that the environment variables are passed through to a container if your builds are running in containers.
+A test result represents a single test run.
 
-But if you're using such tools as the JSON importers or [JUnit](/docs/test-analytics/importing-junit-xml), you need to configure the variables in `run_env` yourself.
+<%
+def render_enumerated_values(values)
+  if values.nil? or values.length == 1
+    return ''
+  end
 
-The only required variable is `key`, but some features of Test Analytics aren't available if the other variables are not set:
+  if values.length == 1
+    return "(<code>#{values[0]}</code>)"
+  end
 
-| Variable     | Description                                                    |
-|--------------|----------------------------------------------------------------|
-| `key`        | a unique key for the build that initiated the Test Analytics run |
-| `url`        | URL that links to the build                                    |
-| `branch`     | the branch or reference that this run is for                         |
-| `commit_sha` | the commit SHA for the head of the branch                      |
-| `number`     | the build number of the build                                  |
-| `job_id`     | the id of a job within the build                               |
-| `message`    | the commit message for the head of the branch                  |
+  if values.length == 2
+    return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
+  end
+
+  return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
+end
+%>
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['test_result']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+        <td>
+          <%= field['examples'].map{|example| "<code>#{render_markdown(text: example)}</code>"}.join(', ') unless field['examples'].nil? %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+{
+  "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa9",
+  "scope": "Analytics::Upload associations",
+  "name": "fails",
+  "identifier": "./spec/models/analytics/upload_spec.rb[1:1:3]",
+  "location": "./spec/models/analytics/upload_spec.rb:24",
+  "file_name": "./spec/models/analytics/upload_spec.rb",
+  "result": "failed",
+  "failure_reason": "Failure/Error: expect(true).to eq false",
+  "failure_expanded": [
+  {
+      "expanded": [
+      "  expected: false",
+      "       got: true",
+      "",
+      "  (compared using ==)",
+      "",
+      "  Diff:",
+      "  @@ -1 +1 @@",
+      "  -false","  +true"
+      ],
+      "backtrace": [
+      "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
+      "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+      "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+      "/Users/abc/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+      "-e:1:in `\u003cmain\u003e'"
+      ]
+  }
+  ],
+  "history": {
+    /* history object */
+  }
+}
+```
+
+### History objects
+
+A history object represents the overall duration of the test run and contains detailed span data, more finely recording the test run.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['history']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+{
+  "start_at": 347611.724809,
+  "end_at": 347612.451041,
+  "duration": 0.726232000044547,
+  "children": [
+    /* span objects */
+  ]
+}
+```
+
+### Span objects
+
+Span objects represent the finest duration resolution of a test run.
+It represents, for example, the duration of an individual database query within a test.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['span']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+**Example:**
+
+```js
+{
+  "section": "sql",
+  "start_at": 347611.734956,
+  "end_at": 347611.735647,
+  "duration": 0.0006910000229254365
+}
+```

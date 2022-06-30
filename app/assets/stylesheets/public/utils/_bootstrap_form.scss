@@ -58,8 +58,8 @@
     text-decoration: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    -webkit-transition: background-color 300ms;
-    transition: background-color 300ms;
+    -webkit-transition: background-color $transition-speed;
+    transition: background-color $transition-speed;
 
     &:hover {
       background-color: #00BB64;

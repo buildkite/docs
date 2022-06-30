@@ -1,0 +1,24 @@
+# Tracing in the Buildkite Agent
+
+Distributed tracing tools like [Datadog APM](https://www.datadoghq.com/product/apm/) or [OpenTelemetry](https://opentelemetry.io/) tracing allow you to gain more insight into the the performance of your CI runs - what's fast, what's slow, what could be optimized, and more importantly, how these things are changing over time.
+
+The Buildkite agent currently supports the two tracing backends listed above, Datadog APM (using OpenTracing) and OpenTelemetry. This doc will guide you through setting up tracing using either of these backends.
+
+{:toc}
+
+## Using Datadog APM
+
+To use the Datadog APM integration, start the Buildkite agent with the `--tracing-backend datadog` option. This will enable Datadog APM tracing, and send the traces to a Datadog agent at `localhost:8126` by default. If your Datadog agent is located at another host, the Buildkite agent will respect the `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT` environment variables defined by [`dd-trace-go`](https://docs.datadoghq.com/tracing/setup_overview/setup/go/?tab=containers). Note that there will need to be a Datadog agent present at the above address to ingest these traces.
+
+Once this is done, the agent will start sending tracing information to Datadog. You can observe traces as they come in in the APM > Traces screen in your Datadog instance.
+
+## Using OpenTelemetry Tracing
+
+<div class="Docs__wip-note">
+  <p class="Docs__wip-heading">Experimental feature</p>
+  <p>OpenTelemetry Tracing is an experimental feature. Support for OpenTelemetry is here to stay, but the API and the shape of spans and traces may change while experimental.</p>
+</div>
+
+To use OpenTelemetry Tracing, you'll need to [enable the `opentelemetry-tracing` experiment](/docs/agent/v3#experimental-features-opentelemetry-tracing), as well as specifying [tracking-backend](/docs/agent/v3/configuration#tracing-backend), for example `--tracing-backend opentelemetry`.
+
+The Buildkite agent's OpenTelemetry implementation uses the OTLP gRPC exporter to export trace information. This means that there must be a collector capable of ingesting OTLP gRPC traces accessible by the Buildkite agent. By default, the Buildkite agent will export trace information to `https://localhost:4317`. This can be overridden by passing in an environment variable `OTEL_EXPORTER_OTLP_ENDPOINT` containing the endpoint for the collector.

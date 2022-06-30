@@ -1,0 +1,23 @@
+<%
+  current_path = request.original_fullpath
+  nav_level = 0
+%>
+
+<% if nav_data && !nav_data.empty? %>
+  <% nav_level = 0 %>
+  <nav class="Nav">
+    <input class="Nav__toggle-checkbox" type="checkbox" id="navicon" />
+    <label class="Nav__toggle-label Button Button--default" for="navicon"><span>Display menu</span></label>
+    <div class="Nav__container">
+      <% nav_data.each_with_index do |children, i| %>
+        <%=
+          render 'layouts/nav_children',
+          children: children,
+          is_dropdown: false,
+          nav_level: nav_level,
+          current_path: current_path
+        %>
+      <% end %>
+    </div>
+  </nav>
+<% end %>

@@ -1,0 +1,78 @@
+.Button {
+  align-items: flex-start;
+  border: transparent 1px solid;
+  border-radius: 5px;
+  color: #333;
+  display: flex;
+  font-size: 0.8888rem;
+  font-weight: 500;
+  gap: 10px;
+  justify-content: center;
+  line-height: 24px;
+  margin-bottom: 10px;
+  padding: 11px 15px;
+  text-decoration: none !important; // button labels should never have underlines
+  
+  @media (min-width: $screen-xs) {
+    display: inline-flex;
+    margin-right: 5px;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &--primary {
+    background-color: $color-brand-green;
+    border-color: $color-brand-green;
+    color: #fff;
+    font-weight: bold;
+  }
+
+  &--default {
+    background-color: white;
+    border-color: #ddd;
+  
+    &:hover {
+      background-color: #f2f2f2;
+      color: #333 !important; // override possible nested content styling
+    }
+  }
+
+  &--link {
+    gap: 4px;
+    margin: 0;
+    padding: 0;
+  }
+
+  &--small {
+    padding: 7px 15px;
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+
+    &--16x16 {
+      height: 16px;
+      margin-top: 4px;
+      width: 16px;
+    }
+  }
+
+  &__right-arrow {
+    width: 12px;
+
+    &::after {
+      content: " →";
+      font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+      opacity: 0.7;
+      position: absolute;
+      transition: transform 0.1s;
+
+      :hover > & {
+        transform: translateX(2px);
+      }
+    }
+  }
+}
