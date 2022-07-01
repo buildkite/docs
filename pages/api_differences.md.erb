@@ -1,30 +1,30 @@
 # API Differences Between REST and GraphQL
 
-Buildkite supports the use of both REST and GraphQL. Unfortunately, at the moment there exist certain disparities in the API between the two. There are certain actions that can be done via the REST API, but not via GraphQL, and vice versa.
+Buildkite supports the use of both REST and GraphQLm, but there are certain disparities in the API between the two. There are certain actions that can be done via the REST API, but not via GraphQL, and vice versa.
 
 {:toc}
 
-While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capabilities.
+The development approach taken by Buildkite is to design the GraphQL API first, and then write a thin REST layer over the top that reaches out to a pre-defined GraphQL query. While you can achieve your goals using both GraphQL and REST despite the disparity, it's the queries where they tend to have different capabilities.
 
-The development approach taken by Buildkite is to design the GraphQL API first, and then write a thin REST layer over the top that reaches out to a pre-defined GraphQL query.
+If you are only deciding which approach to take, you could consider GraphQL as your default answer to "how do I query a possibly-complicatedly-constrained subset of data?", and REST should be most helpful in a scenario of creating and modifying records.
 
-If you are only deciding which approach to take, you could consider GraphQL as your default answer to "how do I query a possibly-complicatedly-constrained subset of data?", and that REST should be most helpful in a scenario of creating and modifying records.
+On this page we've collected the known limitation where some API features are only available with either REST or GraphQL.
 
-## REST-only
+## Exclusive REST-only features
 
-* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines. (branch configuration `branch_configuration` could have been fixed)
-* The REST API can retrieve and list annotations on a build, but not create them
+* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines.
+* REST API can [retrieve and list annotations](/docs/apis/rest-api/annotations) on a build, but not create them (however, you can create the annotations using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-pipeline) from within a job).
 * [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allows configuring how the pipeline is triggered based on source code provider events; available on pipeline create (available for all the pipeline inputs).
-* job logs
+* REST API supporta [job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
 
-## GraphQL-only
+## Exclusive GraphQL-only features
 
-* Removing users from an organization
-* [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql)
-* GraphQL can both retrieve, list, and create annotations on a build
-* [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (REST can only revoke user API tokens).
-* Creating and managing pipeline schedules
-* Managing teams
-* Listing audit log events is only supported in GraphQL.
-* `provider_settings` - missing! (and requested often)
-* filtering results from pipeline listings - [list pipelines](https://buildkite.com/docs/apis/rest-api/pipelines#list-pipelines) is only supported by GraphQL.
+* Removing users from an organization.
+* [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql).
+* Retrieving, listing, and creating annotations on a build.
+* [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
+* Creating and managing pipeline schedules.
+* Managing teams.
+* Listing audit log events.
+* Filtering results from pipeline listings.
+* [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` are _not_ available in GraphQL.
