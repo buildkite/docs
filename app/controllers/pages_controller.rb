@@ -41,4 +41,12 @@ class PagesController < ApplicationController
   end
   helper_method :is_landing_page?
 
+  def tracking_env
+    if Rails.env.production? && (request.host == 'buildkite.com')
+      'production'
+    else
+      'development'
+    end
+  end
+  helper_method :tracking_env
 end
