@@ -8,7 +8,7 @@ The recommended architecture for creating a shared agent pool capable of running
 
 This approach to handling privilege isolation in Buildkite can be described using the following diagram:
 
-[Architectural oveview diagram]
+[Architectural overview diagram]
 
 ## Pipeline to IAM role mapping
 
@@ -37,7 +37,7 @@ Once merged, it's then becomes possible to retry their failing scripts or create
 ## Agent setup with privilege isolation
 
 The pool of available Buildkite agents can use the standard approach of having a
-base AMI, autoscaling group, Buildkite agent metrics poller, and persistent Buildkite agent that starts on instance boot.
+base AMI, autoscaling group, Buildkite agent metrics poller, and persistent Buildkite agent that starts on instance boot.v
 
 By default, jobs run without elevated permissions and are secured using Docker with Sysbox as the container runtime. Aside from the standard dependencies, the base AMI would have:
 

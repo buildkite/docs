@@ -163,6 +163,8 @@ subnet's
 substrings
 sudo
 svg
+sysbox
+Sysbox
 systemd
 templated
 timeframe
