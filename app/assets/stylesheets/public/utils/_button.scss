@@ -75,4 +75,10 @@
       }
     }
   }
+
+  &--primary {
+    .Button__right-arrow {
+      color: #fff;
+    }
+  }
 }
