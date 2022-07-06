@@ -3,7 +3,7 @@
 Buildkite can store and retrieve output artifacts from builds.
 In this guide, you'll learn what artifacts are, what they're used for, and how to upload and download them.
 
-An artifact is a file with metadata uploaded by Buildkite to a storage service during a build.
+An artifact is a file with metadata uploaded by a Buildkite agent to a storage service during a build.
 Artifacts include file contents and metadata, such as its original file path, an integrity verification hash, and details of the build that uploaded it.
 
 You can use artifacts to:
@@ -142,6 +142,8 @@ buildkite-agent artifact download "*.jpg" images/ --build $BUILDKITE_TRIGGERED_F
 If you want to download an artifact from outside the context of a running build or without the use of the Buildkite agent, then use the [artifacts REST API](/docs/apis/rest-api/artifacts) to list and download artifacts.
 
 ## Storage providers, encryption, and retention
+
+Buildkite agents upload artifacts directly to artifact storage, where they're encrypted by the storage platform.
 
 If you're using Buildkite-managed artifact storage, then your artifacts are stored in Amazon S3.
 At rest, artifacts are AES-256 encrypted with keys managed by AWS Key Management Service.
