@@ -54,7 +54,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  hr { border: none; border-bottom: 1px solid #ddd; }
   a {
     @extend .Link--on-white;
   }
@@ -114,7 +113,7 @@
   }
 
   th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
-  th code { white-space: nowrap; font-weight: normal; }
+  th code { font-weight: normal; }
   table.two-column {
     td {
       border: none;

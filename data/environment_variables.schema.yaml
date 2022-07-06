@@ -1,0 +1,21 @@
+---
+type: object
+properties:
+  variables:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        default_value:
+          type: string
+        desc:
+          type: string
+        modifiable:
+          type: boolean
+      required:
+        - name
+        - desc
+required:
+  - variables

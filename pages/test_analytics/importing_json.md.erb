@@ -7,6 +7,33 @@ You can upload JSON-formatted test results (described in this page) or [JUnit XM
 
 ## How to import JSON in Buildkite
 
+It's possible to import JSON (or [JUnit](/docs/test-analytics/importing-junit-xml#how-to-import-junit-xml-in-buildkite) files) to Buildkite Test Analytics with or without the help of a plugin.
+
+### Using a plugin
+
+To import [JSON-formatted test results](#json-test-results-data-reference) to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
+
+```yml
+steps:
+  - label: "🔨 Test"
+    command: "make test"
+    plugins:
+      - test-collector#v1.0.0:
+          files: "test-data-*.json"
+          format: "json"
+```
+{: codeblock-file="pipeline.yml"}
+
+See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
+
+Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
+
+An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
+
+### Without a plugin
+
+If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
+
 To import [JSON-formatted test results](#json-test-results-data-reference) in Buildkite, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 
 For example, to import the contents of a [JSON-formatted test results](#json-test-results-data-reference) (`test-results.json`):
@@ -128,33 +155,48 @@ Or in a simplified code view:
 
 A test result represents a single test run.
 
+<%
+def render_enumerated_values(values)
+  if values.nil? or values.length == 1
+    return ''
+  end
 
-<%#
-<!--
-Key;required;Type;Description;example
-id;true;UUIDv4 string;a unique identifier for this test result;1b70486f-ca5f-4e6d-beb8-6347b2e49278
-scope;;string;a group or topic for the test;Student.isEnrolled()
-name;;string;a name or description for the test;Manager.isEnrolled() returns_boolean
-identifier;true;string;a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test;Manager.isEnrolled#returns_boolean
-location;;string;the file and line number where the test originates, separated by a colon (:);./tests/Manager/isEnrolled.js:32
-file_name;;string;the file where the test originates;./tests/Manager/isEnrolled.js
-result;;string "passed", "failed", "skipped", or "unknown";the outcome of the test;"failed"
-failure_reason;;string;if applicable, a short summary of why the test failed;Expected Boolean, got Object
-history;true;history object;See [History objects];
--->
+  if values.length == 1
+    return "(<code>#{values[0]}</code>)"
+  end
+
+  if values.length == 2
+    return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
+  end
+
+  return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
+end
 %>
 
-| Key                             | Type                                                        | Description                                                                                                     | Example                                |
-|---------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|----------------------------------------|
-| `id` (required)                 | UUIDv4 string                                               | a unique identifier for this test result                                                                        | `1b70486f-ca5f-4e6d-beb8-6347b2e49278` |
-| `scope`                         | string                                                      | a group or topic for the test                                                                                   | `Student.isEnrolled()`                 |
-| `name`                          | string                                                      | a name or description for the test                                                                              | `Manager.isEnrolled() returns_boolean` |
-| `identifier` (required)         | string                                                      | a unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test | `Manager.isEnrolled#returns_boolean`   |
-| `location`                      | string                                                      | the file and line number where the test originates, separated by a colon (`:`)                                  | `./tests/Manager/isEnrolled.js:32`     |
-| `file_name`                     | string                                                      | the file where the test originates                                                                              | `./tests/Manager/isEnrolled.js`        |
-| `result`                        | strings `"passed"`, `"failed"`, `"skipped"`, or `"unknown"` | the outcome of the test                                                                                         | `failed`                               |
-| `failure_reason`                | string                                                      | if applicable, a short summary of why the test failed                                                           | `Expected Boolean, got Object`         |
-| `history` (required)            | history object                                              | Read [History objects](#json-test-results-data-reference-history-objects)                                       |                                        |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Examples</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['test_result']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+        <td>
+          <%= field['examples'].map{|example| "<code>#{render_markdown(text: example)}</code>"}.join(', ') unless field['examples'].nil? %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
 
 **Example:**
 
@@ -168,6 +210,27 @@ history;true;history object;See [History objects];
   "file_name": "./spec/models/analytics/upload_spec.rb",
   "result": "failed",
   "failure_reason": "Failure/Error: expect(true).to eq false",
+  "failure_expanded": [
+  {
+      "expanded": [
+      "  expected: false",
+      "       got: true",
+      "",
+      "  (compared using ==)",
+      "",
+      "  Diff:",
+      "  @@ -1 +1 @@",
+      "  -false","  +true"
+      ],
+      "backtrace": [
+      "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
+      "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
+      "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+      "/Users/abc/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
+      "-e:1:in `\u003cmain\u003e'"
+      ]
+  }
+  ],
   "history": {
     /* history object */
   }
@@ -178,22 +241,26 @@ history;true;history object;See [History objects];
 
 A history object represents the overall duration of the test run and contains detailed span data, more finely recording the test run.
 
-<%#
-<!--
-Key;Required;Type;Description;Example
-start_at;;number;TK
-end_at;;number;TK
-duration;true;number;how long the test took to run;7.07654
-children;;array of span objects;See [Span objects](#tk)
--->
-%>
-
-| Key                   | Type                  | Description                                                         |
-|-----------------------|-----------------------|---------------------------------------------------------------------|
-| `start_at`            | number                | A monotonically increasing number                                   |
-| `end_at`              | number                | A monotonically increasing number                                   |
-| `duration` (required) | number                | How long the test took to run                                       |
-| `children`            | array of span objects | Read [Span objects](#json-test-results-data-reference-span-objects) |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['history']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
 
 **Example:**
 
@@ -213,22 +280,26 @@ children;;array of span objects;See [Span objects](#tk)
 Span objects represent the finest duration resolution of a test run.
 It represents, for example, the duration of an individual database query within a test.
 
-<%#
-<!--
-Key;required;Type;Description;example
-section;true;string "http", "sql", "sleep", or "annotation"
-start_at;;number
-end_at;;number
-duration;;number;how long the test took to run
--->
-%>
-
-| Key                | Type                                                   | Description                       |
-|--------------------|--------------------------------------------------------|-----------------------------------|
-| `section` (required) | string `"http"`, `"sql"`, `"sleep"`, or `"annotation"` | A section category for this span  |
-| `start_at`           | number                                                 | A monotonically increasing number |
-| `end_at`             | number                                                 | A monotonically increasing number |
-| `duration`           | number                                                 | How long the span took to run     |
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['span']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
 
 **Example:**
 

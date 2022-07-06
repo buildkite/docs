@@ -83,7 +83,7 @@ steps:
   - wait
 
   # Use the app image built above to run concurrent tests
-  - label: "\:docker\: Test %n"
+  - label: "\:docker\: Test %spawn"
     command: test.sh
     parallelism: 25
     plugins:

@@ -50,12 +50,10 @@
   max-width: 500px;
 }
 
-.HomeHeader__mark {
-  > svg {
-    width: 96px;
-    height: auto;
-    margin-top: .55em;
-  }
+.HomeHeader__logo {
+  width: 96px;
+  height: auto;
+  margin-top: .55em;
 }
 
 .HomeSuggestions {

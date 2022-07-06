@@ -35,15 +35,13 @@ RSpec.describe Page::Renderer do
         MD
 
       html = <<~HTML
-        <div class="Docs__toc">
-          <div class="Docs__toc__sticky">
-            <p><strong>On this page:</strong></p>
-            <ul class="Docs__toc__list">
-              <li><a href="#section-1">Section 1</a></li>
-        <li><a href="#section-2">Section 2</a></li>
-            </ul>
-          </div>
-        </div>
+        <nav class="Toc">
+          <p><strong>On this page:</strong></p>
+          <ul class="Toc__list">
+            <li class="Toc__list-item"><a class="Toc__link" href="#section-1">Section 1</a></li>
+        <li class="Toc__list-item"><a class="Toc__link" href="#section-2">Section 2</a></li>
+          </ul>
+        </nav>
 
         <h2 id="section-1" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-1">Section 1</a></h2>
 
@@ -76,14 +74,12 @@ RSpec.describe Page::Renderer do
       MD
 
       html = <<~HTML
-        <div class="Docs__toc">
-          <div class="Docs__toc__sticky">
-            <p><strong>On this page:</strong></p>
-            <ul class="Docs__toc__list">
-              <li><a href="#section">Section</a></li>
-            </ul>
-          </div>
-        </div>
+        <nav class="Toc">
+          <p><strong>On this page:</strong></p>
+          <ul class="Toc__list">
+            <li class="Toc__list-item"><a class="Toc__link" href="#section">Section</a></li>
+          </ul>
+        </nav>
         
         <h2 id="section" class="Docs__heading"><a class="Docs__heading__anchor" href="#section">Section</a></h2>
         

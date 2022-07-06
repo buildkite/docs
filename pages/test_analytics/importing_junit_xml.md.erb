@@ -6,7 +6,34 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 
 ## How to import JUnit XML in Buildkite
 
-To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
+It's possible to import XML-formatted JUnit (or [JSON](/docs/test-analytics/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Analytics with or without the help of a plugin.
+
+### Using a plugin
+
+To import XML-formatted JUnit test results to Test Analytics using [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin) from a build step:
+
+```yml
+steps:
+  - label: "🔨 Test"
+    command: "make test"
+    plugins:
+      - test-collector#v1.0.0:
+          files: "test/junit-*.xml"
+          format: "junit"
+```
+{: codeblock-file="pipeline.yml"}
+
+See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
+
+Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
+
+An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
+
+### Not using a plugin
+
+If for some reason you cannot or do not want to use the [Test Collector plugin](https://github.com/buildkite-plugins/test-collector-buildkite-plugin), or if you are looking to implement your own integration, another approach is possible.
+
+To import XML-formatted JUnit test results to Test Analytics, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
 For example, to import the contents of a `junit.xml` file in a Buildkite pipeline:
 
 1. Securely [set the Test Analytics token environment variable](/docs/pipelines/secrets) (`BUILDKITE_ANALYTICS_TOKEN`).

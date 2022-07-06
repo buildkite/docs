@@ -49,19 +49,18 @@
     <main id="main" role="main">
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
-          <%= render 'layouts/sidebar' %>
           <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
             <div class="column1">
+              <%= render "layouts/notification" %>
               <div class="TextContent">
                 <%= yield %>
               </div>
-              <%= render "layouts/footer" %>
+              <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
             </div>
             <div class="column2"></div>
           </div>
         </div>
       </div>
-
     </main>
     <%= javascript_tag nonce: true do %>
       /* This api key is intentionally public */
@@ -72,5 +71,6 @@
         inputSelector: '#search'
       });
     <% end %>
+    <%= javascript_include_tag "nav", nonce: true %>
   </body>
 </html>

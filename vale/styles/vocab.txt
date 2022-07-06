@@ -18,6 +18,7 @@ Crontab
 Datadog
 Deprovisioning
 Distro
+Docker's
 Dockerfile
 Eventbridge
 Explainshell
@@ -38,6 +39,7 @@ Okta
 Pagerduty
 Phabricator
 Phabricator's
+Pipenv
 Postgres
 Powershell
 Readme
@@ -157,6 +159,7 @@ subfolders
 submenu
 subnet
 subnets
+subnet's
 substrings
 sudo
 svg

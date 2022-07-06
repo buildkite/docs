@@ -3,12 +3,75 @@
   margin-bottom: 1rem;
   margin-top: 1rem;
 
-  @media (min-width: 960px) {
-    display: initial;
+  @media (min-width: $screen-md) {
+    display: table;
+    width: 100%;
+  }
+
+  th {
+    overflow-wrap: anywhere;
+    padding: 0;
+
+    @media (min-width: $screen-md) {
+      padding: 15px;
+    }
+
+    &:first-child {
+      @media (min-width: $screen-md) {
+        padding-left: 0;
+      }
+    }
+
+    &:last-child {
+      @media (min-width: $screen-md) {
+        padding-right: 0;
+      }
+    }
+  }
+
+  td {
+    overflow-wrap: anywhere;
+    margin-bottom: 15px;
+    padding: 0;
+
+    @media (min-width: $screen-sm) {
+      margin-bottom: 0;
+    }
+
+    @media (min-width: $screen-md) {
+      padding: 15px;
+    }
+
+    &:first-child {
+      @media (min-width: $screen-md) {
+        padding-left: 0;
+      }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+
+      @media (min-width: $screen-md) {
+        padding-right: 0;
+      }
+    }
+
+    p {
+      margin-bottom: 15px;
+      margin-top: 15px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   thead {
-    @media (max-width: 959px) {
+    @media (max-width: ($screen-md - 1)) {
       border-width: 0;
       clip: rect(0, 0, 0, 0);
       height: 1px;
@@ -19,12 +82,18 @@
       white-space: nowrap;
       width: 1px;
     }
+
+    th {
+      @media (min-width: $screen-md) {
+        white-space: nowrap;
+      }
+    }
   }
 
   tbody {
     display: block;
 
-    @media (min-width: 960px) {
+    @media (min-width: $screen-md) {
       display: table-row-group;
     }
 
@@ -34,14 +103,14 @@
       padding-bottom: 15px;
       padding-top: 15px;
   
-      @media (min-width: $max-w-prose) and (max-width: 959px) {
-        gap: 10px;
-        grid-template-columns: minmax(auto, 20ch) 1fr;
+      @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
+        gap: 15px 30px;
+        grid-template-columns: 20ch 1fr;
         padding-bottom: 1rem;
         padding-top: 1rem;
       }
   
-      @media (min-width: 960px) {
+      @media (min-width: $screen-md) {
         display: table-row;
       }
   
@@ -49,32 +118,12 @@
         border-top: 0;
       }
     }
-  }
 
-  th {
-    padding: 0;
-
-    @media (min-width: 960px) {
-      padding: .5rem;
-    }
-  }
-
-  td {
-    padding: 0 0 .5rem;
-
-    @media (min-width: 960px) {
-      padding: .5rem;
-    }
-
-    &:first-child {
-      padding-top: .5rem
-    }
-
-    p {
-      margin-bottom: 10px;
-
-      @media (min-width: 960px) {
-        margin-bottom: 15px;
+    th {
+      &:first-child {
+        @media (min-width: $screen-md) {
+          width: 33.33%;
+        }
       }
     }
   }
@@ -82,7 +131,7 @@
   tfoot {
     display: block;
 
-    @media (min-width: 960px) {
+    @media (min-width: $screen-md) {
       display: initial;
     }
   }
@@ -90,8 +139,17 @@
   .responsive-table__faux-th {
     font-weight: 600;
     
-    @media (min-width: 960px) {
+    @media (min-width: $screen-md) {
       display: none;
+    }
+
+    &:first-child {
+      + th,
+      + td {
+        @media (min-width: $screen-md) {
+          padding-left: 0;
+        }
+      }
     }
   }
 }

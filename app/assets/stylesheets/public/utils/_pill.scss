@@ -10,6 +10,18 @@ $_pills: (
     border-color: #f2f2f2,
     color: #4f4f4f,
     content: "Coming soon"
+  ),
+  deprecated: (
+    background-color: rgba(0, 0, 0, .05),
+    border-color: rgba(0, 0, 0, .05),
+    color: #4f4f4f,
+    content: "Deprecated"
+  ),
+  new: (
+    background-color: rgba(20, 204, 128, .1),
+    border-color: rgba(20, 204, 128, .1),
+    color: #418173,
+    content: "New"
   )
 );
 

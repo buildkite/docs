@@ -19,73 +19,6 @@ $color-green: rgb(3, 165, 98);
   @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
-/* Navicon for small screens (hamburger menu) */
-#navicon {
-  position: absolute;
-  visibility: hidden;
-
-  &:checked ~ .Docs__nav {
-    display: block;
-  }
-}
-
-label[for='navicon'] {
-  background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
-  border: #ddd 1px solid;
-  border-radius: 5px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: block;
-  height: 40px;
-  margin: 0;
-  position: absolute;
-  right: 30px;
-  top: 15px;
-  width: 40px;
-
-  &:hover {
-    background-color: #f2f2f2;
-  }
-
-  #navicon:checked + & {
-    background-image: asset-url('icons/remove.svg');
-  }
-
-  span { // hide alt text
-    left: -10rem;
-    position: absolute;
-    top: -10rem;
-  }
-  
-}
-
-.Docs__nav {
-  background-color: #fff;
-  border-bottom: #ddd 1px solid;
-  box-sizing: border-box;
-  display: none;
-  margin-bottom: 30px;
-  padding-bottom: 30px;
-  position: relative;
-  
-  @media (min-width: $screen-md) {
-    border-right: #ddd 1px solid;
-    display: block;
-    width: $sidebar-width;
-    height: calc(#{"100% - #{$header-height}"});
-    margin-bottom: 0;
-    margin-left: -30px;
-    overflow-y: scroll;
-    overscroll-behavior: contain;
-    padding-left: 30px;
-    padding-right: 30px;
-    padding-top: 30px;
-    position: fixed;
-    top: $header-height;
-    z-index: 10;
-  }
-}
-
 .Search-container {
   position: relative;
 
@@ -119,186 +52,9 @@ label[for='navicon'] {
   }
 }
 
-.Docs__nav__section-container {
-  &.Docs__nav__section-container.expanded .Docs__nav__section-heading::after {
-    opacity: 1;
-  }
-
-  .Docs__nav__section-heading { 
-    align-items: flex-start;
-    cursor: pointer;
-    display: flex;
-    user-select: none;
-
-    &:hover {
-      filter: $filter-brand-green;
-      transition: transform $transition-speed;
-    }
-
-    &::after {
-      background: transparent asset-url('icons/arrow-down.svg') 50% 50% no-repeat;
-      background-size: cover;
-      content: '';
-      display: block;
-      height: 12px;
-      margin-left: auto;
-      width: 12px;
-    }
-  }
-  &.current .Docs__nav__section-heading {
-    filter: $filter-brand-green;
-  }
-
-  .Docs__nav__section-content { 
-    display: none;
-  }
-  
-  &.expanded {
-    .Docs__nav__section-heading::after {
-      transform: rotate(-180deg);
-    }
-
-    img { transform: rotate(-180deg); }
-    .Docs__nav__section-content { display: block; }
-  }
-
-  &.hidden {
-    display: none;
-  }
-}
-
-.Docs__nav__section-heading {
-  color: black;
-  font-family: $font-family;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: bold;
-  padding: 12px 0;
-
-  @media (min-width: $screen-md) {
-    margin-right: 0;
-    padding-left: 0;
-  }
-
-  &:first-of-type { margin-top: 0; }
-}
-
-.Docs__nav__section-heading + .Docs__nav__section-subheading {
-  margin-top: 15px;
-}
-
-.Docs__nav__section-subheading {
-  color: #02854F;
-  font-size: 13px;
-  letter-spacing: .5px;
-  margin: 15px 0 10px 10px;
-  text-transform: uppercase;
-}
-
-.Docs__nav__sub-nav {
-  color: #4f4f4f;
-  font-size: 14px;
-  line-height: 1.2;
-  list-style: none;
-  padding: 10px 0 20px 10px;
-
-  .current & {
-    padding-left: 6px;
-  }
-
-  .Docs__nav__section-subheading + & {
-    margin-left: 20px;
-  }
-
-  &.deprecated {
-    .Docs__nav__sub-nav__item::before {
-      content: "→";
-      margin-right: 5px;
-    }
-  }
-}
-
-.Docs__nav__sub-nav__item {
-  font-size: 14px;
-  margin-top: 12px;
-
-  &:first-of-type {
-    margin-top: 0;
-  }
-}
-
-.Docs__nav__sub-nav__item--sub {
-  @extend .Docs__nav__sub-nav__item;
-  padding-left: 1em;
-}
-
-.Docs__nav__sub-nav__item__link {
-  color: #666;
-  font-weight: 400;
-  &.active {
-    font-weight: 600;
-    &:hover {
-      text-decoration: none;
-    }
-  }
-}
-
-.Docs__nav__version-selector {
-  margin-bottom: 10px;
-  @media (max-width: ($screen-md - 1)) {
-    margin-left: 20px;
-  }
-}
-
-.Docs__nav__section-heading--link {
-  padding: 0;
-}
-
-.Docs__nav__section-heading-link {
-  text-decoration: none;
-  font-weight: bold;
-  color: #14CC80;
-
-  @media (max-width: ($screen-md - 1)) {
-    display: block;
-    padding-left: 20px;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    text-decoration: none;
-  }
-
-  &:hover, &:active, &:focus {
-    text-decoration: underline;
-  }
-}
-
-.Docs__nav__homebutton {
-  display: inline-block;
-  background-color: #333;
-  color: white;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-top: 40px;
-  font-weight: bold;
-  border-radius: 3px;
-  text-decoration: none;
-  transition: background-color $transition-speed;
-
-  @media (max-width: ($screen-md - 1)) {
-    margin-top: 10px;
-  }
-
-  &:hover, &:focus, &:active {
-    background-color: black;
-  }
-}
-
 .Docs__article {
   flex: 7;
   font-weight: 400;
-  padding-bottom: 50px;
 
   @media (min-width: $screen-md) {
     margin-left: $sidebar-width + 30px;
@@ -320,8 +76,6 @@ label[for='navicon'] {
   h5 { font-size: .9rem; font-weight: 600; }
   img.no-decoration, .responsive-image-container.no-decoration { padding: 0; border: none; margin: 0; }
   img.emoji { padding: 0; border: none; }
-  p { max-width: 40em; }
-  hr { margin: 2.5em 0; }
   hr + h2 { margin-top: 0; }
   th { font-weight:600; }
   thead th { font-weight: 600; }
@@ -330,31 +84,14 @@ label[for='navicon'] {
   li .responsive-image-container { margin: .5rem 0 0 0; }
 }
 
-.Docs__nav__section-heading--link + .Docs__nav__section-heading--link {
-  a { border-top: none; }
-}
-
 .Docs__article .Docs__api-param-eg {
   margin: .25em 0 0 0;
 }
 
-.Docs__toc {
-  line-height: 1.3;
-
-  p { margin-bottom: .5em; }
-  .Docs__toc__list {
-    margin-top: .5em;
-
-    li {
-      color: $color-brand-green;
-      list-style-type: square;
-      margin-left: 1.2em;
-    }
-  }
-}
-
 @media (min-width: $screen-lg) { //TOC as side column on larger screens
   .Docs__article {
+    display: grid;
+    grid-template-columns: minmax(10px, 1fr) 250px;
     position: relative;
     display: grid;
     gap: 30px;
@@ -362,25 +99,6 @@ label[for='navicon'] {
 
     &--is-landing-page {
       display: block;
-    }
-  }
-
-  .Docs__toc {
-    font-size: 16px;
-    height: 95%;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    .Docs__toc__sticky {
-      position: sticky;
-      top: $header-height + 30px;
-      width: $sidebar-width;
-    }
-
-    a {
-      color: #666;
-      text-decoration: none;
     }
   }
 }
@@ -407,8 +125,19 @@ label[for='navicon'] {
 }
 
 .Docs__attribute__table {
-  colgroup col:nth-child(1) {
-    width: 5rem;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    word-wrap: break-word;
+
+    code {
+      white-space: normal;
+    }
+  }
+
+  td {
+    word-wrap: break-word;
   }
 
   tr.importance th {
@@ -438,6 +167,29 @@ label[for='navicon'] {
     }
   }
 
+  small {
+    display: block;
+    font-size: 0.8em;
+    margin: 1em 0;
+  }
+
+  .comma-separated {
+    margin: 1em 0;
+
+    li {
+      display: inline;
+      margin: 0;
+
+      &:not(:last-child)::after {
+        content: ",";
+      }
+
+      &:first-child::after {
+        content: "";
+      }
+    }
+  }
+
   .Docs__attribute__importance {
     color: $color-brand-green;
     margin: 5px 0;
@@ -448,10 +200,6 @@ label[for='navicon'] {
 
   .Docs__attribute__env-var {
     font-size: 0.8em;
-
-    code {
-      white-space: break-spaces;
-    }
   }
 
   .Docs__attribute__default {
@@ -460,6 +208,20 @@ label[for='navicon'] {
 
   .Docs__wip-note {
     margin: 0;
+  }
+
+  .Docs__attribute__example {
+    align-content: baseline;
+    display: grid;
+    gap: 0.4rem;
+    grid-template-columns: auto auto;
+    justify-content: left;
+
+    strong,
+    code {
+      font-size: 12px;
+      line-height: 1.3;
+    }
   }
 }
 
@@ -580,29 +342,11 @@ a.Docs__example-repo {
   }
 }
 
-// TODO: refactor sidebar and move into its own Sass partial
-.Sidebar {
-  &__site-links {
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    gap: 10px;
-    margin-bottom: 20px;
-    margin-top: 20px;
+html {
+  scroll-padding-top: 15px;
 
-    @media (min-width: $screen-md) {
-      display: none;
-    }
-  }
-
-  &__site-link {
-    color: #111;
-    display: inline-block;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
+  @media (min-width: $screen-md) {
+    scroll-padding-top: $header-height + 15px;
   }
 }
 
@@ -612,7 +356,7 @@ body.beta {
     .Docs__heading {
       display: inline;
       position: relative;
-  
+
       &:after {
         @include pill;
         @include pill-style(beta);

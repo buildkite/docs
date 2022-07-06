@@ -1,9 +1,6 @@
 <% current_section = request.original_fullpath.split('/')[2] %>
 
-<input type="checkbox" id="navicon" />
-<label class="Button Button--default" for="navicon"><span>Display menu</span></label>
-
-<nav class="Docs__nav">
+<nav class="Docs__nav" style="display: none;">
   <div class="Docs__nav__sections">
     <div class="Docs__nav__section-container <%= "current expanded" if current_section == 'tutorials' %>" data-docs-path="tutorials">
       <p class="Docs__nav__section-heading">Tutorials</p>
@@ -238,7 +235,7 @@
         <p class="Docs__nav__section-subheading">Languages</p>
         <ul class="Docs__nav__sub-nav">
           <%= sidebar_link_to "Ruby", 'test-analytics/ruby-collectors' %>
-          <%= sidebar_link_to "JavaScript", 'test-analytics/js-collectors' %>
+          <%= sidebar_link_to "JavaScript", 'test-analytics/javascript-collectors' %>
           <%= sidebar_link_to "Swift", 'test-analytics/swift-collectors' %>
           <%= sidebar_link_to "Python", 'test-analytics/python-collectors' %>
           <%= sidebar_link_to "Golang", 'test-analytics/golang-collectors' %>
