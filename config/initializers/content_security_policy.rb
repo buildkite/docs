@@ -21,11 +21,32 @@ Rails.application.config.content_security_policy do |policy|
   policy.font_src    :self, 'https://www2.buildkiteassets.com/'
   policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', ENV.fetch('BADGE_DOMAIN', 'https://badge.buildkite.com')
   policy.object_src  :none
-  policy.script_src  :self, "https://www.googletagmanager.com/"
   policy.style_src   :self, :unsafe_inline
 
-  # allow AJAX queries against our search vendor
-  policy.connect_src "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net", "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com", "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com", "https://www.google-analytics.com/"
+  policy.script_src(
+    :self,
+    'https://www.googletagmanager.com/',
+
+    # Allow Segment's Analytics.js 2.0 
+    # https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
+    "https://cdn.segment.com/analytics.js/v1/q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm/analytics.min.js", # production
+    "https://cdn.segment.com/analytics.js/v1/EuoLh8Z8RQR0GXhCWz3H0ddTSIV4ysJv/analytics.min.js", # development
+    "https://cdn.segment.com/analytics-next/bundles/",
+    "https://cdn.segment.com/next-integrations/integrations/"
+  )
+
+  policy.connect_src(
+    # allow AJAX queries against our search vendor
+    "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net",
+    "https://#{ENV['ALGOLIA_APP_ID']}-1.algolianet.com",
+    "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com",
+    "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
+
+    # Allow Segment's Analytics.js 2.0 
+    # https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
+    "https://cdn.segment.com/v1/projects/q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm/settings", # production
+    "https://cdn.segment.com/v1/projects/EuoLh8Z8RQR0GXhCWz3H0ddTSIV4ysJv/settings"  # development
+  )
 
   # Specify URI for violation reports
   policy.report_uri "/_csp-violation-reports"
