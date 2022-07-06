@@ -317,7 +317,7 @@ variables:
   example: "`\"main\"`, or `\"\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_DRAFT
   desc: |
-    This environment variable only gets added for a build with a pull request when that pull request is a draft.
+    Set to `true` when the pull request is a draft. 
   modifiable: false
   example: "true"
 - name: BUILDKITE_PULL_REQUEST_REPO
