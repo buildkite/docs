@@ -105,7 +105,7 @@ For more example steps and detailed configuration options, see the example `pipe
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
-<div class="Docs__note">
+<div class="Docs__troubleshooting-note">
   <h3>Explicit dependencies in uploaded steps </h3>
   <p>A pipeline upload step will force any uploaded steps to become explicit <a href="/docs/pipelines/dependencies">dependencies</a> of the steps that depend on that pipeline upload step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
 </div>
