@@ -317,7 +317,7 @@ variables:
   example: "`\"main\"`, or `\"\"` if not a pull request"
 - name: BUILDKITE_PULL_REQUEST_DRAFT
   desc: |
-    Set to `true` when the pull request is a draft. 
+    Set to `true` when the pull request is a draft. This variable is only available if a build contains a draft pull request.
   modifiable: false
   example: "true"
 - name: BUILDKITE_PULL_REQUEST_REPO
