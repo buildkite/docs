@@ -374,7 +374,7 @@
       - name: 'Overview'
         path: 'test-analytics'
       - name: 'Getting started'
-        pre_expand_children: true
+        start_expanded: true
         children:
           - name: 'Configuring test suites'
             path: 'test-analytics/test-suites'
@@ -385,7 +385,7 @@
           - name: 'CI environment variables'
             path: 'test-analytics/ci-environments'
       - name: 'Languages'
-        pre_expand_children: true
+        start_expanded: true
         children:
           - name: 'Ruby'
             path: 'test-analytics/ruby-collectors'
@@ -405,7 +405,7 @@
           - name: 'Other languages'
             path: 'test-analytics/other-collectors'
       - name: 'References'
-        pre_expand_children: true
+        start_expanded: true
         children:
           - name: 'Importing JUnit XML'
             path: 'test-analytics/importing-junit-xml'
