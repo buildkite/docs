@@ -95,7 +95,9 @@ For complete usage instructions, read the [`buildkite-agent artifact download`](
 
 ### Example: download one artifact
 
-The following example downloads a `pkg/build.tar.gz` artifact to the `archives` directory:
+The agent's `download` command can fetch another job's artifact and save it to a destination path.
+
+The following example downloads an artifact from a previous job — a file named `build.tar.gz` that was in the job's `pkg` directory — to the destination `archives` directory in the working directory of the current job:
 
 ```shell
 buildkite-agent artifact download pkg/build.tar.gz archives
