@@ -44,11 +44,12 @@ There are several methods you can use to upload and download artifacts, summariz
   </tbody>
 </table>
 
+You can upload artifacts [using a pipeline step](#use-a-command-step-to-upload-artifacts) or by [running the `buildkite-agent artifact upload` command](#use-the-buildkite-agent-to-upload-artifacts).
+When you upload an artifact, Buildkite records the file's contents, the complete path the file was uploaded from, and details of the build step it originated from, so you can retrieve artifacts by name, path, or build.
+
+You can download artifacts by [running the `buildkite-agent artifact download` command](#use-the-buildkite-agent-to-download-artifacts) or by [making a request to the artifacts REST API](#use-the-buildkite-rest-api-to-download-an-artifact).
+
 {:toc}
-
-## Uploading artifacts
-
-You can upload artifacts using a pipeline step or by running the `buildkite-agent artifact upload` command.
 
 ## Use a command step to upload artifacts
 <!-- TODO: (remove comment, after consideration) To make the TOC useful, these are flattened, when they probably ought to be nested. It's not ideal. -->
@@ -83,12 +84,6 @@ buildkite-agent artifact upload pkg/build.tar.gz
 
 The `buildkite-agent artifact upload` command supports several options and environment variables.
 For complete usage instructions, read the [`buildkite-agent artifact upload`](/docs/agent/v3/cli-artifact#uploading-artifacts) documentation.
-
-## Downloading artifacts
-
-When you upload an artifact, Buildkite records the file's contents, the complete path the file was uploaded from, and details of the build step it originated from, so you can retrieve artifacts by name, path, or build.
-
-You can download artifacts by running the `buildkite-agent artifact download` command during a build or by making a request to the artifacts REST API.
 
 ## Use the Buildkite agent to download artifacts
 
