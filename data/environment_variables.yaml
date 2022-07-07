@@ -78,7 +78,7 @@ variables:
   example: "/usr/local/bin"
 - name: BUILDKITE_BRANCH
   desc: |
-    The branch being built. The value of `BUILDKITE_COMMIT` might not exist on the branch specified here for manual builds where these values are input from a user.
+    The branch being built. Note that for manually triggered builds, this branch is not guaranteed to contain the commit specified by `BUILDKITE_COMMIT`.
   modifiable: false
   example: "main"
 - name: BUILDKITE_BUILD_CHECKOUT_PATH
