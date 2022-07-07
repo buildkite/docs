@@ -24,7 +24,7 @@
           <li class="HomepageCategory__list-item"><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds", class: 'HomepageCategory__list-item-link' %></li>
           <li class="HomepageCategory__list-item"><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-        <%= button 'Get started', '/docs/tutorials/getting-started', type: 'primary', has_right_arrow: true %>
+        <%= button 'Set up Pipelines', '/docs/tutorials/getting-started', type: 'primary', has_right_arrow: true %>
       </article>
       <article class="HomepageCategory">
         <%= link_to "/docs/test-analytics", class: "HomepageCategory__header" do %>
@@ -50,7 +50,7 @@
       <article class="HomepageCategory">
         <%= link_to "/docs/integrations/source-control", class: "HomepageCategory__header" do %>
           <h3 class="HomepageCategory__heading">Source control</h3>
-          <p class="HomepageCategory__subtext">Trigger builds from wherever your code is stored</p>
+          <p class="HomepageCategory__subtext">Trigger builds from your code repo</p>
           <div class="HomepageCategory__icon" aria-hidden>
             <%= image_tag "icons/repository.svg", alt: "Icon: repository", class: "HomepageCategory__icon-img" %>
           </div>
@@ -134,7 +134,7 @@
       <article class="HomepageCategory">
         <%= link_to "/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview", class: "HomepageCategory__header" do %>
           <h3 class="HomepageCategory__heading">Elastic CI Stack</h3>
-          <p class="HomepageCategory__subtext">Get started with Buildkite Elastic CI Stack for:</p>
+          <p class="HomepageCategory__subtext">Set up your Buildkite Elastic CI Stack</p>
           <div class="HomepageCategory__icon" aria-hidden>
             <%= image_tag "icons/elastic.svg", alt: "Icon: Elastic CI Stack", class: "HomepageCategory__icon-img" %>
           </div>
@@ -142,6 +142,7 @@
         <ul class="HomepageCategory__list">
           <li class="HomepageCategory__list-item"><%= link_to "AWS Linux and Windows", "/docs/agent/v3/elastic-ci-aws", class: 'HomepageCategory__list-item-link' %></li>
           <li class="HomepageCategory__list-item"><%= link_to "AWS EC2 for Mac", "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Customize instances with bootstrap script", "/docs/agent/v3/elastic-ci-aws#customizing-instances-with-a-bootstrap-script", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
       </article>
     </div>
@@ -174,6 +175,7 @@
           <li class="HomepageCategory__list-item"><%= link_to "Slack and other notifications", "/docs/integrations/slack", class: 'HomepageCategory__list-item-link' %></li>
           <li class="HomepageCategory__list-item"><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso", class: 'HomepageCategory__list-item-link' %></li>
           <li class="HomepageCategory__list-item"><%= link_to "Buildkite plugins", "/docs/plugins", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Test collectors", "/docs/test-analytics#get-started", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
       </div>
     </article>
