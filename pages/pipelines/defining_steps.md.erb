@@ -107,7 +107,7 @@ If your pipeline has more than one step and you have multiple agents available t
 
 <div class="Docs__troubleshooting-note">
   <h3>Explicit dependencies in uploaded steps </h3>
-  <p>If a step <a href="/docs/pipelines/dependencies">depends</a> on an upload step, then all steps uploaded become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
+  <p>If a step <a href="/docs/pipelines/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
 </div>
 
 When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.

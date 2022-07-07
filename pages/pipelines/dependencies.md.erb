@@ -77,7 +77,7 @@ steps:
 
 <div class="Docs__troubleshooting-note">
   <h3>Explicit dependencies in uploaded steps </h3>
-  <p>If a step depends on an upload step, then all steps uploaded become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
+  <p>If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
 </div>
 
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
