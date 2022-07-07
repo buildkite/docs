@@ -1,5 +1,7 @@
 <% nav_level = nav_level + 1 %>
-<ul class="<%= is_dropdown ? 'Nav__dropdown' : "Nav__section Nav__section--level#{nav_level}" %>">
+<ul class="
+  <%= is_dropdown ? 'Nav__dropdown' : "Nav__section Nav__section--level#{nav_level}" %>
+  <%= pre_expand_children ? 'Nav__section--show' : '' %>">
   <% children.each do |child| %>
     <li class="
       Nav__item
@@ -14,6 +16,7 @@
         pill: child['pill'],
         new_window: child['new_window'],
         is_dropdown: child['is_dropdown'],
+        pre_expand_children: child['pre_expand_children'],
         nav_level: nav_level,
         current_path: current_path
       %>
@@ -23,6 +26,7 @@
           render 'layouts/nav_children',
           children: child['children'],
           is_dropdown: child['is_dropdown'],
+          pre_expand_children: child['pre_expand_children'],
           nav_level: nav_level,
           current_path: current_path 
         %>
