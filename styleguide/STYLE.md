@@ -436,11 +436,16 @@ This is useful for improving readability on small screens. Otherwise, complex ta
 On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
 
 #### Prepending icons
-You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
+You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`.
 
 At the time of writing, there are only three icons available — agent, repository, and plugin. To add more icons see `$icons` in `_add-icon.scss`, add a new name as the key and the inline SVG. Icon dimension must be 22px * 22px.
 
 Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
+
+### Updating vendor\emojis
+From time to time, you will start seeing an update to `vendor\emojis` submodule as a default initial commit in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
+
+**Do not commit the `vendor\emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
