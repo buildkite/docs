@@ -72,6 +72,11 @@ The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable stores the total number 
 
 You can use these two environment variables to divide your application's tests between the different jobs.
 
+<div class="Docs__troubleshooting-note">
+  <h3>Running same and different steps in parallel</h3>
+  <p>By default, all steps will run once their dependencies are met. That means that multiple steps can run in parallel simultaneously, regardless of whether they are the same or different steps. If running multiple steps in parallel is not desirable, the default behavior can be changed by adding an explicit dependency to force a particular order.</p>
+</div>
+
 ## Libraries
 
 The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
