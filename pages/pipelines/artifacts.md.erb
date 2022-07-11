@@ -153,3 +153,26 @@ Alternatively, you can use a self-managed storage provider. Read these guides fo
 If you manage your own artifact storage, then you are responsible for encryption and retention planning.
 
 To track the actions of users with access to your artifacts, use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit).
+
+## Troubleshooting: `Multiple artifacts were found for query` error
+
+### Message
+
+```
+Failed to download artifacts: GET https://agent.buildkite.com/v3/builds/776402f5-90a8-458f-9a2c-57e67c50a888/artifacts/search?query=ambiguous-file-name.txt&state=finished: 400 Multiple artifacts were found for query: `ambiguous-file-name.txt`. Try scoping by the job ID or name.
+```
+
+### What went wrong
+
+The Buildkite agent tried to download a specific file by name, but failed to find a unique match.
+The file name or file path did not unambiguously identify an artifact in the current build.
+For example, two or more previous steps uploaded a file with the same name.
+
+### How to fix the error
+
+Specify the step or build that uploaded the artifact.
+Use the `--step` or `--build` options to narrow the search for artifacts.
+For an example, read [download an artifact from a specific step](#download-artifacts-with-the-buildkite-agent-example-download-an-artifact-from-a-specific-step).
+
+Alternatively, download the most recent matching file by using a glob pattern.
+For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
