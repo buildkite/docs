@@ -175,7 +175,7 @@
             path: 'pipelines/environment-variables'
           - name: 'Skipping Builds'
             path: 'pipelines/skipping'
-          - name: 'Using Build Artifacts'
+          - name: 'Build Artifacts'
             path: 'pipelines/artifacts'
           - name: 'Public Pipelines'
             path: 'pipelines/public-pipelines'
