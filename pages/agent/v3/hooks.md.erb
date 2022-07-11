@@ -104,6 +104,7 @@ a plugin can define.
 The Buildkite agent executes agent lifecycle hooks.
 These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory.
 Agent lifecycle hooks can be executables written in any programming language.
+On Unix-like systems (such as Linux and macOS), hooks must be files that are executable by the user the agent is running as.
 
 Use agent lifecycle hooks to prepare for or clean up after all jobs that may run.
 For example, use `pre-bootstrap` to block unwanted jobs from running or use `agent-shutdown` to tear down a service after all jobs are finished.
