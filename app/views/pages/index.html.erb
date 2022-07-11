@@ -1,177 +1,184 @@
-<div class="PageContainer">
+<div class="PageContainer HomepageContainer">
   <div class="HomeSuggestions">
   <strong>Popular:</strong>
-    <%= link_to "Getting started", "/docs/tutorials/getting-started" %>,
+    <%= link_to "Getting started", "/docs/pipelines" %>,
     <%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %>,
     <%= link_to "Command steps", "/docs/pipelines/command-step" %>,
     <%= link_to "Environment variables", "/docs/pipelines/environment-variables" %>,
     <%= link_to "Bazel", "/docs/tutorials/bazel" %>,
     <%= link_to "Job minutes", "/docs/pipelines/job-minutes" %>
-
   </div>
   <section class="HomepageSection">
     <h2 class="HomepageSection__heading">Products</h2>
     <div class="grid-row">
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/tutorials/getting-started">Pipelines</a>
-          <%= image_tag("icons/pipelines.svg", alt: "Icon: Buildkite Pipelines") %>
-        </h3>
-        <span>Set up your Buildkite pipeline</span>
-        <ul>
-          <li><%= link_to "Getting started", "/docs/tutorials/getting-started" %></li>
-          <li><%= link_to "Install Agents", "/docs/agent/v3" %></li>
-          <li><%= link_to "Running pipelines", "/docs/pipelines" %></li>
-          <li><%= link_to "Add plugins", "/docs/plugins" %></li>
-          <li><%= link_to "Set up deployments", "/docs/deployments" %></li>
-          <li><%= link_to "Integrations", "/docs/integrations/github" %></li>
-          <li><%= link_to "APIs", "/docs/apis" %></li>
-          <li><%= link_to "More about Pipelines…", "/docs/pipelines", class: "more-link Link--on-white" %></li>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/tutorials/getting-started", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Pipelines</h3>
+          <p class="HomepageCategory__subtext">Set up your Buildkite pipeline</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/pipelines.svg", alt: "Icon: Buildkite Pipelines", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Getting started guide", "/docs/tutorials/getting-started", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/test-analytics">Test Analytics</a>
-          <%= image_tag("icons/test-analytics.svg", alt: "Icon: Test Analytics") %>
-        </h3>
-        <span>Identify, track, and fix problematic tests</span>
-        <ul>
-          <li><%= link_to "Overview", "/docs/test-analytics" %></li>
-          <li><%= link_to "Deep performance analysis", "/docs/test-analytics/test-suites#trends-and-analysis" %></li>
-          <li><%= link_to "Find and fix flaky tests", "/docs/test-analytics/test-suites#tracking-reliability" %></li>
-          <li><%= link_to "Speed and reliability monitoring", "/docs/test-analytics/monitors" %></li>
-          <li><%= link_to "Set up collectors", "/docs/test-analytics#get-started" %></li>
-          <li><%= link_to "Controlling user permissions", "/docs/test-analytics/permissions" %></li>
-          <li><%= link_to "More about Test Analytics…", "/docs/test-analytics", class: "more-link Link--on-white" %></li>
+        <%= button 'Set up pipelines', '/docs/tutorials/getting-started', type: 'primary', has_right_arrow: true %>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/test-analytics", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Test Analytics</h3>
+          <p class="HomepageCategory__subtext">Identify, track, and fix problematic tests</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/test-analytics.svg", alt: "Icon: Test Analytics", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Find and fix flaky tests", "/docs/test-analytics/test-suites#tracking-reliability", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Speed and reliability monitoring", "/docs/test-analytics/monitors", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Controlling user permissions", "/docs/test-analytics/permissions", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Set up collectors", "/docs/test-analytics#get-started", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory HomepageCategory--is-placeholder" aria-hidden>
-        <%= image_tag("home/docs-rocket.jpg", class: "HomepageCategory__icon", alt: "") %>
-      </div>
+        <%= button 'Configure test suites', '/docs/test-analytics/test-suites', type: 'primary', has_right_arrow: true %>
+      </article>
     </div>
   </section>
   <section class="HomepageSection">
     <h2 class="HomepageSection__heading">How-to guides</h2>
     <div class="grid-row">
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <%= image_tag("icons/rocketship.svg", alt: "Icon: Getting started, represented by a rocketship icon") %>
-          <a href="/docs/tutorials/getting-started">Getting started</a>
-        </h3>
-        <span>For when you're new to Buildkite</span>
-        <ul>
-          <li><%= link_to "Getting started guide", "/docs/tutorials/getting-started" %></li>
-          <li><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds" %></li>
-          <li><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws" %></li>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/integrations/source-control", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Source control</h3>
+          <p class="HomepageCategory__subtext">Trigger builds from your repository</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/repository.svg", alt: "Icon: repository", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "GitHub", "/docs/integrations/github", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "GitHub Enterprise", "/docs/integrations/github-enterprise", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "GitLab", "/docs/integrations/gitlab", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Bitbucket", "/docs/integrations/bitbucket", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Bitbucket Server", "/docs/integrations/bitbucket_server", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Phabricator", "/docs/integrations/phabricator", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Other Git Servers", "/docs/integrations/Git", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/integrations/source-control">Source control</a>
-          <%= image_tag("icons/repository.svg", alt: "Icon: repository") %>
-        </h3>
-        <span>Trigger builds from wherever your code is stored</span>
-        <ul>
-          <li><%= link_to "GitHub", "/docs/integrations/github" %></li>
-          <li><%= link_to "GitHub Enterprise", "/docs/integrations/github-enterprise" %></li>
-          <li><%= link_to "GitLab", "/docs/integrations/gitlab" %></li>
-          <li><%= link_to "Bitbucket", "/docs/integrations/bitbucket" %></li>
-          <li><%= link_to "Bitbucket Server", "/docs/integrations/bitbucket_server" %></li>
-          <li><%= link_to "Phabricator", "/docs/integrations/phabricator" %></li>
-          <li><%= link_to "Other Git Servers", "/docs/integrations/Git" %></li>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/agent/v3#installation", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Installing Buildkite agents</h3>
+          <p class="HomepageCategory__subtext">Install agents on your infrastructure</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/agents_install.svg", alt: "Icon: install", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "macOS", "/docs/agent/v3/macos", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Windows", "/docs/agent/v3/windows", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "AWS", "/docs/agent/v3/aws", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Google Cloud", "/docs/agent/v3/gcloud", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Agent tokens", "/docs/agent/v3/tokens", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/agent/v3#installation">Installing Buildkite agents</a>
-          <%= image_tag("icons/agents_install.svg", alt: "Icon: install") %>
-        </h3>
-        <span>Install agents on your infrastructure</span>
-        <ul>
-          <li><%= link_to "Ubuntu", "/docs/agent/v3/ubuntu" %></li>
-          <li><%= link_to "macOS", "/docs/agent/v3/macos" %></li>
-          <li><%= link_to "Windows", "/docs/agent/v3/windows" %></li>
-          <li><%= link_to "AWS", "/docs/agent/v3/aws" %></li>
-          <li><%= link_to "Google Cloud", "/docs/agent/v3/gcloud" %></li>
-          <li><%= link_to "Agent tokens", "/docs/agent/v3/tokens" %></li>
-          <li><%= link_to "More installation options…", "/docs/agent/v3/installation", class: "more-link Link--on-white" %></li>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/agent/v3", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Running Buildkite agents</h3>
+          <p class="HomepageCategory__subtext">Configuring your Buildkite agents</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/agents.svg", alt: "Icon: agents", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Configuring agents", "/docs/agent/v3/configuration", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Configuring SSH keys", "/docs/agent/v3/docker#authenticating-private-git-repositories", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Securing agents", "/docs/agent/v3/securing", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Managing agent queues", "/docs/agent/v3/queues", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/agent/v3">Running Buildkite agents</a>
-          <%= image_tag("icons/agents.svg", alt: "Icon: agents") %>
-        </h3>
-        <span>Configuring your Buildkite agents</span>
-        <ul>
-          <li><%= link_to "Configuring agents", "/docs/agent/v3/configuration" %></li>
-          <li><%= link_to "Configuring SSH keys", "/docs/agent/v3/docker#authenticating-private-git-repositories" %></li>
-          <li><%= link_to "Securing agents", "/docs/agent/v3/securing" %></li>
-          <li><%= link_to "Managing agent queues", "/docs/agent/v3/queues" %></li>
-          <li><%= link_to "Extending agents with hooks", "/docs/agent/v3/hooks" %></li>
-          <li><%= link_to "More about agents…", "/docs/agent/v3", class: "more-link" %></li>
+      </article>
+    </div>
+    <div class="grid-row">
+      <article class="HomepageCategory">
+        <%= link_to "/docs/pipelines", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Configuring pipelines</h3>
+          <p class="HomepageCategory__subtext">Common tasks and workflows</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/pipeline.svg", alt: "Icon: pipeline", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Defining build steps", "/docs/pipelines/defining-steps", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Managing build secrets", "/docs/pipelines/secrets", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Publishing build artifacts", "/docs/pipelines/artifacts", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Prioritizing jobs", "/docs/pipelines/managing-priorities", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Example pipelines", "/docs/pipelines/example-pipelines", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/pipelines">Configuring pipelines</a>
-          <%= image_tag("icons/pipeline.svg", alt: "Icon: pipeline") %>
-        </h3>
-        <span>Common tasks and workflows</span>
-        <ul>
-          <li><%= link_to "Defining build steps", "/docs/pipelines/defining-steps" %></li>
-          <li><%= link_to "Managing build secrets", "/docs/pipelines/secrets" %></li>
-          <li><%= link_to "Publishing build artifacts", "/docs/pipelines/artifacts" %></li>
-          <li><%= link_to "Prioritizing jobs", "/docs/pipelines/managing-priorities" %></li>
-          <li><%= link_to "Running parallel builds", "/docs/tutorials/parallel-builds" %></li>
-          <li><%= link_to "Example pipelines", "/docs/pipelines/example-pipelines" %></li>
-          <li><%= link_to "More about pipelines…", "/docs/pipelines", class: "more-link Link--on-white" %></li>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/deployments", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Deployments</h3>
+          <p class="HomepageCategory__subtext">Publish to other systems</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/deploy.svg", alt: "Icon: deployments", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+        <li class="HomepageCategory__list-item"><%= link_to "Heroku", "/docs/deployments/deploying-to-heroku", class: 'HomepageCategory__list-item-link' %></li>
+        <li class="HomepageCategory__list-item"><%= link_to "Kubernetes", "/docs/deployments/deploying-to-kubernetes", class: 'HomepageCategory__list-item-link' %></li>
+        <li class="HomepageCategory__list-item"><%= link_to "Custom deployments", "/docs/deployments", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/deployments">Deployments</a>
-          <%= image_tag("icons/deploy.svg", alt: "Icon: deployments") %>
-        </h3>
-        <span>Publish to other systems</span>
-        <ul>
-        <li><%= link_to "Heroku", "/docs/deployments/deploying-to-heroku" %></li>
-        <li><%= link_to "Kubernetes", "/docs/deployments/deploying-to-kubernetes" %></li>
-        <li><%= link_to "Custom deployments", "/docs/deployments" %></li>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview", class: "HomepageCategory__header" do %>
+          <h3 class="HomepageCategory__heading">Elastic CI Stack</h3>
+          <p class="HomepageCategory__subtext">Set up Buildkite Elastic CI Stack</p>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/elastic.svg", alt: "Icon: Elastic CI Stack", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "AWS Linux and Windows", "/docs/agent/v3/elastic-ci-aws", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "AWS EC2 for Mac", "/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Customizing instances", "/docs/agent/v3/elastic-ci-aws#customizing-instances-with-a-bootstrap-script", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
-      </div>
+      </article>
     </div>
   </section>
   <section class="HomepageSection">
     <h2 class="HomepageSection__heading">References</h2>
     <div class="grid-row">
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/apis">APIs</a>
-          <%= image_tag("icons/api.svg", alt: "Icon: APIs") %>
-        </h3>
-        <ul>
-          <li><%= link_to "Buildkite REST API", "/docs/apis/rest-api" %></li>
-          <li><%= link_to "Agent REST API", "/docs/apis/agent-api" %></li>
-          <li><%= link_to "GraphQL API", "/docs/apis/graphql-api" %></li>
-          <li><%= link_to "API tokens", "/docs/apis/managing-api-tokens" %></li>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/apis", class: "HomepageCategory__header HomepageCategory__header--no-subtext" do %>
+          <h3 class="HomepageCategory__heading">APIs</h3>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/api.svg", alt: "Icon: APIs", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Buildkite REST API", "/docs/apis/rest-api", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Agent REST API", "/docs/apis/agent-api", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "GraphQL API", "/docs/apis/graphql-api", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "API tokens", "/docs/apis/managing-api-tokens", class: 'HomepageCategory__list-item-link' %></li>
+        </ul>
+      </article>
+      <article class="HomepageCategory">
+        <%= link_to "/docs/integrations", class: "HomepageCategory__header HomepageCategory__header--no-subtext" do %>
+          <h3 class="HomepageCategory__heading">Integrations</h3>
+          <div class="HomepageCategory__icon" aria-hidden>
+            <%= image_tag "icons/integration.svg", alt: "Icon: APIs", class: "HomepageCategory__icon-img" %>
+          </div>
+        <% end %>
+        <ul class="HomepageCategory__list">
+          <li class="HomepageCategory__list-item"><%= link_to "Slack and other notifications", "/docs/integrations/slack", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Buildkite plugins", "/docs/plugins", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Test collectors", "/docs/test-analytics#get-started", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
       </div>
-      <div class="HomepageCategory">
-        <h3 class="HomepageCategory__heading">
-          <a href="/docs/integrations">Integrations</a>
-          <%= image_tag("icons/integration.svg", alt: "Icon: APIs") %>
-        </h3>
-        <ul>
-          <li><%= link_to "Slack and other notifications", "/docs/integrations/slack" %></li>
-          <li><%= link_to "Single Sign-On (SSO)", "/docs/integrations/sso" %></li>
-          <li><%= link_to "Buildkite plugins", "/docs/plugins" %></li>
-        </ul>
-      </div>
-      <div class="HomepageCategory HomepageCategory--is-placeholder" aria-hidden>
-        <%= image_tag("home/docs-get-started.png", class: "HomepageCategory__icon", alt: "Illustration: caricature of an engineer about to launch another engineer piloting a spacecraft") %>
-      </div>
-    </div>
+    </article>
   </section>
   <%= render "layouts/footer", :embed_emojicom => false %>
 </div>
