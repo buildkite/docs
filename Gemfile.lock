@@ -45,6 +45,10 @@ GEM
     concurrent-ruby (1.1.10)
     crass (1.0.6)
     diff-lcs (1.4.4)
+    dotenv (2.7.6)
+    dotenv-rails (2.7.6)
+      dotenv (= 2.7.6)
+      railties (>= 3.2)
     erubi (1.10.0)
     escape_utils (1.2.1)
     execjs (2.8.1)
@@ -166,6 +170,7 @@ DEPENDENCIES
   byebug
   capybara
   commonmarker
+  dotenv-rails
   escape_utils
   foreman
   listen

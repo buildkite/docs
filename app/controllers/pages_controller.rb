@@ -36,8 +36,15 @@ class PagesController < ApplicationController
   end
   helper_method :beta?
 
-  def is_landing_page?
-    @page && @page.is_landing_page?
+  def render_emojicom?
+    @render_emojicom ||= @page.present? && !@page.is_landing_page?
   end
-  helper_method :is_landing_page?
+  helper_method :render_emojicom?
+
+  def landing_page_class
+    unless render_emojicom?
+      'Docs__article--is-landing-page'
+    end
+  end
+  helper_method :landing_page_class
 end

@@ -1,7 +1,7 @@
 <footer class="Footer">
   <hr />
   <div class="Footer__heading">How helpful was this page?</div>
-  <% unless is_landing_page? %>
+  <% if render_emojicom? %>
     <div id="emojicom-widget-inline"></div>
   <% end %>
   <p>If you have questions or feedback</p>
@@ -36,5 +36,4 @@
       Post on our forum
     </a>
   </div>
-  <p><%= Rails.env %></p>
 </footer>

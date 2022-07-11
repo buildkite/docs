@@ -22,19 +22,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :notification_data
 
-  def tracking_ids
-    data = fetch_local_data('tracking_ids')
-    tracking_env =
-      if Rails.env.production? && request.host == 'buildkite.com'
-        'production'
-      else
-        'development'
-      end
-    
-    data[tracking_env]
-  end
-  helper_method :tracking_ids
-
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super

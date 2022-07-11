@@ -23,7 +23,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-# Ignore algolia api key
-/.env
+# ignore local env variables file
+/.env.local
 
 /vendor/bundle

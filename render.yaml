@@ -17,9 +17,9 @@ services:
       - key: LANG # Imported from Heroku app
         value: en_US.UTF-8
       - key: RACK_ENV # Imported from Heroku app
-        value: staging
+        value: production
       - key: RAILS_ENV # Imported from Heroku app
-        value: staging
+        value: production
       - key: RAILS_LOG_TO_STDOUT # Imported from Heroku app
         value: enabled
       - key: RAILS_SERVE_STATIC_FILES # Imported from Heroku app
