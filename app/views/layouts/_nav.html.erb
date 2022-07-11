@@ -12,6 +12,7 @@
       <% nav_data.each_with_index do |children, i| %>
         <%=
           render 'layouts/nav_children',
+          start_expanded: false,
           children: children,
           is_dropdown: false,
           nav_level: nav_level,

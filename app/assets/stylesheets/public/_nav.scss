@@ -186,7 +186,7 @@
       width: auto;
     }
 
-    &:hover {
+    &:not(.Nav__link--pre-expand-children):hover {
       background-color: #fff;
 
       @media (min-width: $screen-md) {
