@@ -447,7 +447,7 @@ From time to time, you will start seeing an update to `vendor\emojis` submodule 
 
 **Do not commit the `vendor\emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
 
-If you do accidentally commit the `vendor\emojis` update, use `git reset --hard HEAD~1` to undo your last commit.
+If you do accidentally commit the `vendor\emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change and commit again.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
