@@ -1,0 +1,12 @@
+extends: capitalization
+message: "'%s' H2+ should be in sentence case"
+level: error
+scope:
+  # - heading.h2
+  # - heading.h3
+  - heading.h4
+  - heading.h5
+  - heading.h6
+match: $sentence
+exceptions:
+  - AWS Systems Manager Session Manager
