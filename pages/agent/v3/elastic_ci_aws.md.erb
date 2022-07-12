@@ -58,7 +58,7 @@ Anyone with commit access to your codebase (including third-party pull-requests 
 
 Keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
 
-### Limiting CloudFormation Permissions
+### Limiting CloudFormation permissions
 
 By default, CloudFormation will operate using the permissions granted to the
 identity, AWS IAM User or Role, used to create or update a stack.
@@ -106,7 +106,7 @@ The Buildkite Elastic CI Stack supports:
 * Docker and Docker Compose
 * Per-pipeline S3 secret storage (with SSE encryption support)
 * Docker Registry push/pull
-* CloudWatch logs for system and Buildkite agent events
+* CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
 * Support for stable, beta or edge Buildkite Agent releases
 * Multiple stacks in the same AWS Account

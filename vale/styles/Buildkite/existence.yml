@@ -1,3 +1,9 @@
+# This style suggests alternatives where the case on the left and right side of the swap may not matter.
+
+# Use this style to:
+# - Suggest alternatives where the case doesn't matter on either side of the swap (e.g., whitelist → allowlist, Whitelist → Allowlist)
+# - Explain case-sensitive spelling hints when a word has one and only one valid case (e.g., oauth → OAuth)
+
 extends: substitution
 message: Consider using '%s' instead of '%s'
 level: error
@@ -6,4 +12,4 @@ ignorecase: True
 swap:
   whitelist: allowlist
   blacklist: blocklist
-  oAuth: OAuth
+  oauth: OAuth
