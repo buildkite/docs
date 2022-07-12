@@ -31,6 +31,8 @@ sudo systemctl enable --now buildkite-agent@5
 
 ## Parallel Jobs
 
+`parallelism` is an attribute on a single [command step](/docs/pipelines/command-step) which causes it to be split into many jobs. Those jobs will be the same except for having a parallel index and count. They share the same dependencies and agent tags.
+
 To run the same step in parallel over all 5 of the agents, we can set the `parallelism` field for a single build step:
 
 ```yaml
@@ -74,7 +76,7 @@ You can use these two environment variables to divide your application's tests b
 
 <div class="Docs__troubleshooting-note">
   <h3>Running same and different steps in parallel</h3>
-  <p>By default, all steps will run once their dependencies are met. That means that multiple steps can run in parallel simultaneously, regardless of whether they are the same or different steps. If running multiple steps in parallel is not desirable, the default behavior can be changed by adding an explicit dependency to force a particular order.</p>
+  <p>By default, all steps will run once their dependencies are met. That means that multiple steps can run in parallel simultaneously, regardless of whether they are the same or different steps. Different steps can have different dependencies and agent tags. They can also have parellism, or not, or differing levels of paralelism. If running multiple steps in parallel is not desirable, the default behavior can be changed by adding an explicit dependency to force a particular order.</p>
 </div>
 
 ## Libraries
