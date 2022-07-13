@@ -1,0 +1,26 @@
+extends: capitalization
+message: "'%s' should be in sentence case"
+level: error
+scope:
+  # - heading.h2
+  - heading.h3
+  - heading.h4
+  - heading.h5
+  - heading.h6
+match: $sentence
+exceptions:
+  - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$'  # Exceptions for /pages/integrations/amazon_eventbridge.md.erb
+  - '^(Step|Method) \d: [A-Z]\w+'  # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - Auto Scaling
+  - AWS Console
+  - AWS Systems Manager Session Manager
+  - Buildkite
+  - GitHub App
+  - IdP  # TODO: unabbreviate this in headings
+  - OpenTelemetry
+  - Elastic Stack
+  - CloudFormation
+  - CloudWatch Logs
+  - Debian
+  - Docker Compose
+  - Bitbucket Server
