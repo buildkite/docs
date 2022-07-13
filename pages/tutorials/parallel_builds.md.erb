@@ -12,28 +12,39 @@ A single command step can also be broken up into many [parallel jobs](#parallel-
 
 ## Running multiple agents
 
-<section class="Docs__note">
-    <p>There are two techniques for scaling your build agents: horizontally across multiple machines, or vertically on a single machine. For the sake of simplicity, the following example shows vertically scaling your agents on a single machine. For details on horizontal scaling, which allows for running hundreds or thousands of build agents, see the <a href="#auto-scaling-your-build-agents">auto-scaling your build agents</a> section.</p>
-</section>
+There are two techniques for scaling your build agents: horizontally across multiple machines, or vertically on a single machine. You can even run many agents per machine across many machines.
 
-The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/installation) section. For this example we'll use a [Ubuntu-based build agent](/docs/agent/v3/ubuntu) to start 5 instances of the Buildkite agent:
+### Multiple agents on one machine
+
+The steps for running multiple agents are slightly different for each platform. Automated installers and detailed instructions can be found in the [installation](/docs/agent/v3/installation) section. But the simplest example is to use the [`spawn` option](/docs/agent/v3/cli-start#spawn) when starting the agent:
 
 ```bash
 # After running the standard install instructions...
 
-# Stop and disable the default buildkite-agent service
-sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
-
-# Create a systemd template
-sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
-
-# Start five agents using the systemd template we created above
-sudo systemctl enable --now buildkite-agent@1
-sudo systemctl enable --now buildkite-agent@2
-sudo systemctl enable --now buildkite-agent@3
-sudo systemctl enable --now buildkite-agent@4
-sudo systemctl enable --now buildkite-agent@5
+# Start five agents
+buildkite-agent start --spawn 5
 ```
+
+This will start a single process, but can run up to 5 different jobs at the same time.
+
+The start command can also be run multiple times with different configurations, for example to change the [queue](/docs/agent/v3/queues):
+
+```bash
+buildkite-agent start --tags queue=test
+
+# In another window, or tab
+buildkite-agent start --tags queue=deploy
+```
+
+### Multiple agents on many machines
+
+The secret to really fast builds is running as many build agents as you can. The best way to do that is to have lots of machines running build agents. Those machines can be anything you like, whether it's your laptop, a few spare computers in your office, or a fleet of thousands of cloud compute instances.
+
+The Buildkite Agent runs on many platforms, and should run on any hardware and any cloud compute provider. It is built to be flexible, and can be composed in any way that suits the platform, infrastructure, or workload. The [installation instructions](/docs/agent/v3/installation) demonstrate how to run the agent across various platforms.
+
+For example, you could start several [Google Cloud Compute instances](/docs/agent/v3/gcloud#running-the-agent-on-google-compute-engine), then install and start build agents. These instructions can be automated using infrastructure as code tools like [Terraform](https://www.terraform.io), and then [add auto-scaling rules](#auto-scaling-your-build-agents) so you always have enough capacity.
+
+The [Elastic CI Stack for AWS](/docs/quickstart/elastic-ci-stack-aws) provides a pre-built CloudFormation Stack for AWS that runs multiple auto-scaling agents.
 
 ## Parallel Jobs
 
@@ -80,12 +91,7 @@ The `BUILDKITE_PARALLEL_JOB_COUNT` environment variable stores the total number 
 
 You can use these two environment variables to divide your application's tests between the different jobs.
 
-<div class="Docs__troubleshooting-note">
-  <h3>Running same and different steps in parallel</h3>
-  <p>By default, all steps will run once their dependencies are met. That means that multiple steps can run in parallel simultaneously, regardless of whether they are the same or different steps. Different steps can have different dependencies and agent tags. They can also have parallelism, or not, or differing levels of parallelism. If running multiple steps in parallel is not desirable, the default behavior can be changed by adding an explicit dependency to force a particular order.</p>
-</div>
-
-## Libraries
+### Libraries
 
 The following libraries have built-in support the `BUILDKITE_PARALLEL_JOB` and `BUILDKITE_PARALLEL_JOB_COUNT` environment variables:
 
