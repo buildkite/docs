@@ -32,6 +32,7 @@ WORKDIR /app
 COPY Gemfile Gemfile.lock .ruby-version ./
 RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
+    && bundle config set force_ruby_platform true \
     && bundle install --jobs $(nproc) --retry 3
 
 COPY package.json package-lock.json ./
@@ -52,5 +53,6 @@ EXPOSE 3000
 
 # Let puma serve the static files
 ENV RAILS_SERVE_STATIC_FILES=true
+ENV TEST_ENV_VAR=production
 
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
