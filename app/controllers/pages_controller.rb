@@ -5,6 +5,10 @@ class PagesController < ApplicationController
     render layout: "homepage"
   end
 
+  def graphql_index
+    render layout: "graphql"
+  end
+
   def show
     @page = Page.new(view_context, params[:path])
 

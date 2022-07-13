@@ -128,6 +128,9 @@ Rails.application.routes.draw do
   # Homepage
   get "/docs" => "pages#index", as: :home_page
 
+  # GraphQL API reference page
+  get "/docs/apis/graphql" => "pages#graphql_index", as: :graph_ql_index_page
+
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page
 
