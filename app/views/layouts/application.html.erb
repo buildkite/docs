@@ -43,8 +43,6 @@
     <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
       <meta name="robots" content="noindex, nofollow">
     <% end %>
-
-    <meta name="testing" content="<%= ENV['TEST_ENV_VAR'] %>" />
   </head>
   <body <%= beta? ? 'class=beta' : ''-%>>
     <%= render "layouts/site_header" %>
