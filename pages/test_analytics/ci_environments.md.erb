@@ -78,7 +78,7 @@ During GitHub Actions workflow runs,test collectors upload information from the 
 | Field name            | Environment variable | Description                                             |
 |-----------------------|----------------------|---------------------------------------------------------|
 | See note below        | `GITHUB_ACTION`      | the name of the action running or its step ID           |
-| `run_env[branch]`     | `GITHUB_REF`         | the ref (branch or tag) that triggered the workflow run |
+| `run_env[branch]`     | `GITHUB_REF_NAME`    | the ref (branch or tag) that triggered the workflow run |
 | `run_env[url]`        | `GITHUB_REPOSITORY`  | the repository owner and repository name                |
 | See note below        | `GITHUB_RUN_ATTEMPT` | the numbered attempt of the workflow run                |
 | `run_env[commit_sha]` | `GITHUB_SHA`         | the commit hash for the head of the branch              |
