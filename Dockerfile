@@ -53,6 +53,5 @@ EXPOSE 3000
 
 # Let puma serve the static files
 ENV RAILS_SERVE_STATIC_FILES=true
-ENV TEST_ENV_VAR=production
 
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
