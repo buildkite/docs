@@ -45,7 +45,7 @@
     <% end %>
   </head>
   <body <%= beta? ? 'class=beta' : ''-%>>
-    <%= render "layouts/site_header" %>
+    <%= render "layouts/site_header", use_nav: "nav_graphql" %>
     <main id="main" role="main">
       <div class="PageContainer" style="padding-top: 150px;">
         <%= render "layouts/notification" %>

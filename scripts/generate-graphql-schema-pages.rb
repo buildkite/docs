@@ -1,4 +1,5 @@
 require 'json'
+require 'yaml'
 
 scripts_dir = File.dirname(__FILE__)
 schemas_dir = "#{scripts_dir}/../pages/apis/graphql/schemas"
@@ -7,6 +8,7 @@ data_hash = JSON.parse(schema_json)
 all_types = data_hash["data"]["__schema"]["types"]
 
 type_sets = {
+  "query_types" => nil,
   "object_types" => [],
   "scalar_types" => [],
   "interface_types" => [],
@@ -19,6 +21,9 @@ all_types.each do |type|
   key = "#{type["kind"].downcase}_types"
   type_sets[key].push type
 end
+
+query_types = type_sets["object_types"].find { |object_type| object_type["name"] == "Query" }
+type_sets["query_types"] = query_types && query_types["fields"]
 
 def render_of_type(of_type)
   if of_type["ofType"]
@@ -189,3 +194,86 @@ type_sets.each_value do |set|
     end
   end
 end
+
+nav_data = YAML.load_file("#{scripts_dir}/../data/nav.yml")
+nav_data[0].map { |nav_item| nav_item.delete('children') }
+
+def convert_to_nav_items(type_set)
+  nav_items = []
+  
+  type_set.each do |set|
+    nav_items.push({
+      "name" => set["name"],
+      "path" => "apis/graphql/schemas/#{set['name'].downcase}"
+    })
+  end
+
+  nav_items
+end
+
+nav_data[0][2]["children"] = [
+  {
+    "name" => "All APIs",
+    "path" => "apis",
+    "icon" => "arrow-left.svg"
+  },
+  {
+    "name" => "Overview",
+    "path" => "apis/graphql-api"
+  },
+  {
+    "name" => "Console and CLI tutorial",
+    "path" => "apis/graphql/graphql-tutorial"
+  },
+  {
+    "name" => "Cookbook",
+    "path" => "apis/graphql/graphql-cookbook"
+  },
+  {
+    "name" => "Queries",
+    "children" => convert_to_nav_items(type_sets["query_types"])
+  },
+  {
+    "name" => "Objects",
+    "children" => convert_to_nav_items(type_sets["object_types"])
+  },
+  {
+    "name" => "Scalars",
+    "children" => convert_to_nav_items(type_sets["scalar_types"])
+  },
+  {
+    "name" => "Interfaces",
+    "children" => convert_to_nav_items(type_sets["interface_types"])
+  },
+  {
+    "name" => "ENUMs",
+    "children" => convert_to_nav_items(type_sets["enum_types"])
+  },
+  {
+    "name" => "Input objects",
+    "children" => convert_to_nav_items(type_sets["input_object_types"])
+  },
+  {
+    "name" => "Unions",
+    "children" => convert_to_nav_items(type_sets["union_types"])
+  }
+]
+
+File.write("#{scripts_dir}/../data/nav_graphql.yml", nav_data.to_yaml)
+
+# Convert type_sets hash to nav YML
+
+# [x] get nav YAML
+# [x] only get the top level navs
+# [x] generate nav_graphql.yml, populate
+  # guideline pages
+  # query pages
+  # objects
+  # scalar
+  # interface_types
+  # enum_types
+  # input_object_types
+  # union_types
+# [ ] graphql layout uses nav_graphql.yml
+# [ ] refactor
+# [ ] stylingz!

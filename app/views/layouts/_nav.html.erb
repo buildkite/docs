@@ -1,6 +1,8 @@
 <%
   current_path = request.original_fullpath
   nav_level = 0
+  use_nav = use_nav || "nav"
+  nav_data = get_nav_data(use_nav)
 %>
 
 <% if nav_data && !nav_data.empty? %>
