@@ -1,4 +1,4 @@
-<% icon_image = icon ? image_tag("icons/#{icon}") : '' %>
+<% icon_image = icon ? image_tag("icons/#{icon}", class: "Nav__icon") : '' %>
 <% css_classes_nav_link = "Nav__link Nav__link--level#{nav_level}" %>
 
 <% if path %>
@@ -13,6 +13,8 @@
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
     <% end %>
   </a>
+<% elsif is_divider %>
+  <hr class="Nav__divider" />
 <% elsif start_expanded %>
   <span class="<%= css_classes_nav_link %> Nav__link--pre-expand-children">
     <%= icon_image %>

@@ -25,14 +25,17 @@ end
 query_types = type_sets["object_types"].find { |object_type| object_type["name"] == "Query" }
 type_sets["query_types"] = query_types && query_types["fields"]
 
-def render_of_type(of_type)
+def render_of_type(of_type, size = "medium")
   if of_type["ofType"]
     render_of_type(of_type["ofType"])
   else
     if of_type["name"]
-      "<a href=\"/docs/apis/graphql/schemas/#{of_type["name"].downcase}\" title=\"#{of_type["kind"]} #{of_type["name"]}\">"\
-      "  #{of_type["name"]}"\
-      "</a>"
+      <<~HTML
+        <a
+          href="/docs/apis/graphql/schemas/#{of_type['name'].downcase}"
+          class="pill pill--#{of_type['kind'].downcase} pill--normal-case pill--#{size}"
+          title="Go to #{of_type['kind']} #{of_type['name']}"><code>#{of_type["name"]}</code></a>
+      HTML
     else
       of_type["kind"]
     end
@@ -42,8 +45,12 @@ end
 def render_fields(fields)
   if fields.is_a?(Array) && !fields.empty?
     <<~HTML
-      <h2>Fields</h2>
       <table class="responsive-table">
+        <thead>
+          <th>
+            <h2>Fields</h2>
+          </th>
+        </thead>
         <tbody>
           #{
             fields.map {
@@ -51,12 +58,12 @@ def render_fields(fields)
               <<~HTML
                 <tr>
                   <td>
-                    <h3>
+                    <h3 class="is-small has-pills">
                       <code>#{field["name"]}</code>
                       #{render_of_type(field["type"])}
-                      #{field["isDeprecated"] ? '<span class="pill pill--deprecated">Deprecated</span>' : ""}
+                      #{field["isDeprecated"] ? '<span class="pill pill--deprecated"><code>deprecated</code></span>' : ""}
                     </h3>
-                    #{field["deprecationReason"] && "<p>Deprecated: #{field["deprecationReason"]}</p>"}
+                    #{field["deprecationReason"] && "<p><em>Deprecated: #{field["deprecationReason"]}</em></p>"}
                     #{field["description"] && "<p>#{field["description"]}</p>"}
                     #{render_field_args(field["args"])}
                   </td>
@@ -73,21 +80,31 @@ end
 def render_field_args(args)
   if args.is_a?(Array) && !args.empty?
     <<~HTML
-      <h3>Arguments</h3>
-      #{
-        args.map {
-          |arg|
-          <<~HTML
-            <h4>
-              <code>#{arg["name"]}</code>
-              #{render_of_type(arg["type"])}
-              #{!arg["defaultValue"] && "<span>Required</span>"}
-            </h4>
-            #{arg["description"] && "<p>#{arg["description"]}</p>"}
-            #{arg["defaultValue"] && "<p>Default value: #{arg["defaultValue"]}</p>"}
-          HTML
-        }.join('')
-      }
+      <details>
+        <summary>Arguments</summary>
+        <table class="responsive-table">
+          <tbody>
+            #{
+              args.map {
+                |arg|
+                <<~HTML
+                  <tr>
+                    <td>
+                      <h4 class="is-small has-pills no-margin">
+                        <code>#{arg["name"]}</code>
+                        #{render_of_type(arg["type"])}
+                        #{!arg["defaultValue"] && '<span class="pill pill--required pill--normal-case"><code>required</code></span>'}
+                      </h4>
+                      #{arg["description"] && "<p class=\"no-margin\">#{arg["description"]}</p>"}
+                      #{arg["defaultValue"] && "<p class=\"no-margin\">Default value: <code>#{arg["defaultValue"]}</code></p>"}
+                    </td>
+                  </tr>
+                HTML
+              }.join('')
+            }
+          </tbody>
+        </table>
+      </details>
     HTML
   end
 end
@@ -96,7 +113,7 @@ def render_possible_types(possible_types)
   if possible_types.is_a?(Array) && !possible_types.empty?
     <<~HTML
       <h2>Possible types</h2>
-      #{possible_types.map { |possible_type| render_of_type(possible_type) }.join(', ')}
+      #{possible_types.map { |possible_type| render_of_type(possible_type, "large") }.join('')}
     HTML
   end
 end
@@ -109,13 +126,13 @@ def render_input_fields(input_fields)
         input_fields.map {
           |input_field|
           <<~HTML
-            <h4>
+            <h3>
               <code>#{input_field["name"]}</code>
               #{render_of_type(input_field["type"])}
               #{!input_field["defaultValue"] && "<span>Required</span>"}
-            </h4>
+            </h3>
             #{input_field["description"] && "<p>#{input_field["description"]}</p>"}
-            #{input_field["defaultValue"] && "<p>Default value: #{input_field["defaultValue"]}</p>"}
+            #{input_field["defaultValue"] && "<p>Default value: <code>#{input_field["defaultValue"]}</code></p>"}
           HTML
         }.join('')
       }
@@ -130,7 +147,7 @@ def render_interfaces(interfaces)
       #{
         interfaces.map {
           |interface|
-          render_of_type(interface)
+          render_of_type(interface, "large")
         }.join('')
       }
     HTML
@@ -147,13 +164,21 @@ def render_enum_values(enum_values)
           <<~HTML
             <h3>
               #{enum_value["name"]}
-              #{enum_value["isDeprecated"] && "<span class=\"pill pill--deprecated\">Deprecated</span>"}
+              #{enum_value["isDeprecated"] && "<span class=\"pill pill--deprecated\">deprecated</span>"}
             </h3>
             #{enum_value["description"] && "<p>#{enum_value["description"]}</p>"}
             #{enum_value["deprecationReason"] && "<p>Deprecated: #{enum_value["deprecationReason"]}</p>"}
           HTML
         }.join("")
       }
+    HTML
+  end
+end
+
+def render_pill(name, size = "medium")
+  if name
+    <<~HTML
+      <span class="pill pill--#{name.downcase} pill--normal-case pill--#{size}"><code>#{name}</code></span>
     HTML
   end
 end
@@ -171,14 +196,14 @@ type_sets.each_value do |set|
       File.write(
         "#{schemas_dir}/#{name.downcase}.md.erb",
         <<~HTML
-          <h1>
+          <h1 class="has-pills">
             <code>#{name}</code>
-            <small>#{type["kind"]}</small>
+            #{render_pill(type["kind"], "large")}
           </h1>
           
           #{type["description"]}
           
-          {:toc}
+          {:notoc}
 
           #{fields}
           
@@ -218,16 +243,24 @@ nav_data[0][2]["children"] = [
     "icon" => "arrow-left.svg"
   },
   {
-    "name" => "Overview",
-    "path" => "apis/graphql-api"
+    "is_divider" => true
   },
   {
-    "name" => "Console and CLI tutorial",
-    "path" => "apis/graphql/graphql-tutorial"
-  },
-  {
-    "name" => "Cookbook",
-    "path" => "apis/graphql/graphql-cookbook"
+    "name" => "GraphQL API",
+    "children" => [
+      {
+        "name" => "Overview",
+        "path" => "apis/graphql-api"
+      },
+      {
+        "name" => "Console and CLI tutorial",
+        "path" => "apis/graphql/graphql-tutorial"
+      },
+      {
+        "name" => "Cookbook",
+        "path" => "apis/graphql/graphql-cookbook"
+      }
+    ]
   },
   {
     "name" => "Queries",

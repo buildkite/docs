@@ -13,12 +13,15 @@
     - name: All APIs
       path: apis
       icon: arrow-left.svg
-    - name: Overview
-      path: apis/graphql-api
-    - name: Console and CLI tutorial
-      path: apis/graphql/graphql-tutorial
-    - name: Cookbook
-      path: apis/graphql/graphql-cookbook
+    - is_divider: true
+    - name: GraphQL API
+      children:
+      - name: Overview
+        path: apis/graphql-api
+      - name: Console and CLI tutorial
+        path: apis/graphql/graphql-tutorial
+      - name: Cookbook
+        path: apis/graphql/graphql-cookbook
     - name: Queries
       children:
       - name: agent

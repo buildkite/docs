@@ -1,3 +1,9 @@
+@mixin make-nav-icon-purple {
+  .Nav__icon {
+    filter: invert(24%) sepia(92%) saturate(7443%) hue-rotate(258deg) brightness(81%) contrast(109%);
+  }
+}
+
 .Nav {
   background-color: #f2f2f2;
   border-top: #ddd 1px solid;
@@ -179,6 +185,7 @@
     text-decoration: none;
     transition: background-color $transition-speed, color $transition-speed;
     width: 100%;
+    word-break: break-all;
 
     @media (min-width: $screen-md) {
       padding-left: 15px;
@@ -186,20 +193,23 @@
       width: auto;
     }
 
-    &:not(.Nav__link--pre-expand-children):hover {
-      background-color: #fff;
-
-      @media (min-width: $screen-md) {
-        background-color: #f2f2f2;
-      }
+    &[href]:hover {
+      @include make-nav-icon-purple;
+      color: #4B19D5;
     }
 
     &--current {
+      @include make-nav-icon-purple;
       background-color: #fff;
+      color: #4B19D5;
 
       @media (min-width: $screen-md) {
-        background-color: #f2f2f2;
+        background-color: #F1EFFF;
       }
+    }
+
+    &--parent {
+      color: #4B19D5;
     }
 
     &--level1 {
@@ -210,10 +220,11 @@
       }
 
       &.Nav__link--parent {
+        @include make-nav-icon-purple;
         background-color: #fff;
 
         @media (min-width: $screen-md) {
-          background-color: #f2f2f2;
+          background-color: #F1EFFF;
         }
       }
     }
@@ -278,6 +289,14 @@
       transform: rotate(90deg);
     }
 
+    &--parent {
+      color: #4B19D5;
+
+      &::before {
+        border-left: 6px solid #4B19D5;
+      }
+    }
+
     &.Nav__link--level1 {
       &::before {
         content: none;
@@ -307,6 +326,11 @@
 
   &__pill {
     margin-left: auto;
+  }
+
+  &__divider {
+    margin-bottom: 15px;
+    margin-top: 15px;
   }
 
   // Dropdown styling starts

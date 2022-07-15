@@ -113,7 +113,7 @@ class Page::Renderer
         
         node.replace(<<~HTML.strip)
           <nav class="Toc">
-            <p><strong>On this page:</strong></p>
+            <p class="Toc__title"><strong>On this page:</strong></p>
             <ul class="Toc__list">
               #{html_list_items}
             </ul>
