@@ -45,11 +45,11 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
    - If you're using self-signed certificates, make sure the _Verify TLS Certificate_ checkbox is not checked.
 4. Select _Save GitHub Enterprise Settings_ to save your settings. After saving, the _Secret_ field appears blank. Buildkite has saved it, and will not display it.
 
-<%= image "buildkite-github-enterprise-settings.png", width:2598/2, height:1650/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
+<%= image "buildkite-github-enterprise-settings.png", width:1942/2, height:1260/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
 
 You can optionally supply a TLS certificate pair to be used by Buildkite as a client certificate when contacting your GitHub Enterprise endpoints.
 
-<%= image "tls-client-certificate.png", width:1726/2, height:787/2, alt:"Screenshot of the TLS client settings section of the GitHub Enterprise settings in Buildkite" %>
+<%= image "tls-client-certificate.png", width:1900/2, height:1184/2, alt:"Screenshot of the TLS client settings section of the GitHub Enterprise settings in Buildkite" %>
 
 ## Step 3: Connect your GitHub Enterprise account to Buildkite
 
@@ -58,7 +58,7 @@ For Buildkite to mark commits and pull requests as pass or fail, you need to aut
 1. In your Buildkite _Personal Settings_, select <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps</a>. Here you'll see your GitHub Enterprise Server along with any other connected apps.
 2. Select _Connect_ next to _GitHub Enterprise_:
 
-  <%= image "buildkite-connected-apps-settings.png", width:1960/2, height:622/2, alt:"Screenshot of the Connected Apps page in Buildkite Personal Settings with the GitHub Enterprise App" %>
+  <%= image "buildkite-connected-apps-settings.png", width:2324/2, height:636/2, alt:"Screenshot of the Connected Apps page in Buildkite Personal Settings with the GitHub Enterprise App" %>
 
 3. Buildkite redirects you back to your GitHub Enterprise Server, where it asks you to authorize your new Buildkite OAuth app to use your GitHub Enterprise account. Select _Authorize_ to complete your setup:
 
