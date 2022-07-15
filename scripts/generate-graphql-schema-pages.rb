@@ -169,7 +169,7 @@ type_sets.each_value do |set|
 
     if name && name.length() > 0
       File.write(
-        "#{schemas_dir}/#{name}.md.erb",
+        "#{schemas_dir}/#{name.downcase}.md.erb",
         <<~HTML
           <h1>
             <code>#{name}</code>
@@ -275,6 +275,7 @@ File.write("#{scripts_dir}/../data/nav_graphql.yml", nav_data.to_yaml)
   # input_object_types
   # union_types
 # [x] graphql layout uses nav_graphql.yml
-# [ ] refactor
+# [ ] refactor all the things
 # [ ] stylingz!
 # [ ] pipeline configuration
+# [ ] update notification message
