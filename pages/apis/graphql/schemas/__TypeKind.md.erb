@@ -1,3 +1,68 @@
-# __TypeKind
+<h1>
+  <code>__TypeKind</code>
+  <small>ENUM</small>
+</h1>
 
 An enum describing what kind of type a given `__Type` is.
+
+{:toc}
+
+
+
+
+
+
+
+
+
+<h2>ENUM Values</h2>
+<h3>
+  SCALAR
+  false
+</h3>
+<p>Indicates this type is a scalar.</p>
+
+<h3>
+  OBJECT
+  false
+</h3>
+<p>Indicates this type is an object. `fields` and `interfaces` are valid fields.</p>
+
+<h3>
+  INTERFACE
+  false
+</h3>
+<p>Indicates this type is an interface. `fields` and `possibleTypes` are valid fields.</p>
+
+<h3>
+  UNION
+  false
+</h3>
+<p>Indicates this type is a union. `possibleTypes` is a valid field.</p>
+
+<h3>
+  ENUM
+  false
+</h3>
+<p>Indicates this type is an enum. `enumValues` is a valid field.</p>
+
+<h3>
+  INPUT_OBJECT
+  false
+</h3>
+<p>Indicates this type is an input object. `inputFields` is a valid field.</p>
+
+<h3>
+  LIST
+  false
+</h3>
+<p>Indicates this type is a list. `ofType` is a valid field.</p>
+
+<h3>
+  NON_NULL
+  false
+</h3>
+<p>Indicates this type is a non-null. `ofType` is a valid field.</p>
+
+
+

@@ -1,3 +1,960 @@
-# Organization
+<h1>
+  <code>Organization</code>
+  <small>OBJECT</small>
+</h1>
 
 An organization
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>agentTokens</code>
+      <a href="/docs/apis/graphql/schemas/agenttokenconnection" title="OBJECT AgentTokenConnection">  AgentTokenConnection</a>
+      
+    </h3>
+    
+    <p>Returns agent access tokens for an Organization. By default returns all tokens, whether revoked or non-revoked.</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>revoked</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Filter tokens by whether they are revoked or not</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>agents</code>
+      <a href="/docs/apis/graphql/schemas/agentconnection" title="OBJECT AgentConnection">  AgentConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search agents for the given query terms case insensitively across name and meta data</p>
+
+<h4>
+  <code>metaData</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Filter agents to those only having the matching meta data</p>
+
+<h4>
+  <code>cluster</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>Filter agents by membership of a given cluster</p>
+
+<h4>
+  <code>clusterQueue</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>Filter agents to those within a given cluster queue</p>
+
+<h4>
+  <code>isRunningJob</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Filter agents by whether they are running a job or not</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>auditEvents</code>
+      <a href="/docs/apis/graphql/schemas/organizationauditeventconnection" title="OBJECT OrganizationAuditEventConnection">  OrganizationAuditEventConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>occurredAtFrom</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+<p>Filter events which occurred from the given date and time</p>
+
+<h4>
+  <code>occurredAtTo</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+<p>Filter events which occurred until the given date and time</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/auditeventtype" title="ENUM AuditEventType">  AuditEventType</a>
+  <span>Required</span>
+</h4>
+<p>Filter the events by type</p>
+
+<h4>
+  <code>actorType</code>
+  <a href="/docs/apis/graphql/schemas/auditactortype" title="ENUM AuditActorType">  AuditActorType</a>
+  <span>Required</span>
+</h4>
+<p>Filter the events by the type of actor who initiated them</p>
+
+<h4>
+  <code>actor</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>Filter the events by the IDs of the actors who initiated them</p>
+
+<h4>
+  <code>subjectType</code>
+  <a href="/docs/apis/graphql/schemas/auditsubjecttype" title="ENUM AuditSubjectType">  AuditSubjectType</a>
+  <span>Required</span>
+</h4>
+<p>Filter the events by the type of subject they relate to</p>
+
+<h4>
+  <code>subject</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>Filter the events by the IDs of the subject they relate to</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/organizationauditeventorders" title="ENUM OrganizationAuditEventOrders">  OrganizationAuditEventOrders</a>
+  false
+</h4>
+<p>Order the events</p>
+<p>Default value: RECENTLY_OCCURRED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>cluster</code>
+      <a href="/docs/apis/graphql/schemas/cluster" title="OBJECT Cluster">  Cluster</a>
+      
+    </h3>
+    
+    <p>Return cluster in the Organization by UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>id</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>clusters</code>
+      <a href="/docs/apis/graphql/schemas/clusterconnection" title="OBJECT ClusterConnection">  ClusterConnection</a>
+      
+    </h3>
+    
+    <p>Returns clusters for an Organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/clusterorder" title="ENUM ClusterOrder">  ClusterOrder</a>
+  false
+</h4>
+<p>Order the clusters</p>
+<p>Default value: NAME</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>iconUrl</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The URL to an icon representing this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>invitations</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitationconnection" title="OBJECT OrganizationInvitationConnection">  OrganizationInvitationConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/organizationinvitationstates" title="ENUM OrganizationInvitationStates">  OrganizationInvitationStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/organizationinvitationorders" title="ENUM OrganizationInvitationOrders">  OrganizationInvitationOrders</a>
+  false
+</h4>
+<p>Order the invitations</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>isTeamsEnabled</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether teams is enabled for this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>jobs</code>
+      <a href="/docs/apis/graphql/schemas/jobconnection" title="OBJECT JobConnection">  JobConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/jobtypes" title="ENUM JobTypes">  JobTypes</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>priority</code>
+  <a href="/docs/apis/graphql/schemas/jobprioritysearch" title="INPUT_OBJECT JobPrioritySearch">  JobPrioritySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>agentQueryRules</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>concurrency</code>
+  <a href="/docs/apis/graphql/schemas/jobconcurrencysearch" title="INPUT_OBJECT JobConcurrencySearch">  JobConcurrencySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>passed</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Whether or not the command job passed. Passing `false` will return all failed jobs (including "soft failed" jobs)</p>
+
+<h4>
+  <code>step</code>
+  <a href="/docs/apis/graphql/schemas/jobstepsearch" title="INPUT_OBJECT JobStepSearch">  JobStepSearch</a>
+  <span>Required</span>
+</h4>
+<p>Filtering jobs based on related step information</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/joborder" title="ENUM JobOrder">  JobOrder</a>
+  false
+</h4>
+<p>Order the jobs</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>members</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberconnection" title="OBJECT OrganizationMemberConnection">  OrganizationMemberConnection</a>
+      
+    </h3>
+    
+    <p>Returns users within the organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search members named like the given query case insensitively</p>
+
+<h4>
+  <code>email</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>The primary email of the team member</p>
+
+<h4>
+  <code>team</code>
+  <a href="/docs/apis/graphql/schemas/teamselector" title="SCALAR TeamSelector">  TeamSelector</a>
+  <span>Required</span>
+</h4>
+<p>Filter the members by team</p>
+
+<h4>
+  <code>role</code>
+  <a href="/docs/apis/graphql/schemas/organizationmemberrole" title="ENUM OrganizationMemberRole">  OrganizationMemberRole</a>
+  <span>Required</span>
+</h4>
+<p>Search members by their role</p>
+
+<h4>
+  <code>security</code>
+  <a href="/docs/apis/graphql/schemas/organizationmembersecurityinput" title="INPUT_OBJECT OrganizationMemberSecurityInput">  OrganizationMemberSecurityInput</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>sso</code>
+  <a href="/docs/apis/graphql/schemas/organizationmemberssoinput" title="INPUT_OBJECT OrganizationMemberSSOInput">  OrganizationMemberSSOInput</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/organizationmemberorder" title="ENUM OrganizationMemberOrder">  OrganizationMemberOrder</a>
+  false
+</h4>
+<p>Order the members</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The name of the organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/organizationpermissions" title="OBJECT OrganizationPermissions">  OrganizationPermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipelines</code>
+      <a href="/docs/apis/graphql/schemas/pipelineconnection" title="OBJECT PipelineConnection">  PipelineConnection</a>
+      
+    </h3>
+    
+    <p>Return all the pipelines the current user has access to for this organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search pipelines named like the given query case insensitively</p>
+
+<h4>
+  <code>repository</code>
+  <a href="/docs/apis/graphql/schemas/pipelinerepositoryinput" title="INPUT_OBJECT PipelineRepositoryInput">  PipelineRepositoryInput</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>archived</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Filter pipelines based on whether or not they've been archived. If not provided, all pipelines are returned regardless of archived state.</p>
+
+<h4>
+  <code>team</code>
+  <a href="/docs/apis/graphql/schemas/teamselector" title="SCALAR TeamSelector">  TeamSelector</a>
+  <span>Required</span>
+</h4>
+<p>Filter the pipelines by team</p>
+
+<h4>
+  <code>favorite</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Only return favorited pipelines</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/pipelineorders" title="ENUM PipelineOrders">  PipelineOrders</a>
+  false
+</h4>
+<p>Order the pipelines</p>
+<p>Default value: RECENTLY_CREATED</p>
+<h4>
+  <code>tags</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Filter pipelines with those that have paticular tags</p>
+
+<h4>
+  <code>createdAtFrom</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>createdAtTo</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>public</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether this organization is visible to everyone, including people outside it</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>slug</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The slug used to represent the organization in URLs</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sso</code>
+      <a href="/docs/apis/graphql/schemas/organizationsso" title="OBJECT OrganizationSSO">  OrganizationSSO</a>
+      
+    </h3>
+    
+    <p>The single sign-on configuration of this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>ssoProviders</code>
+      <a href="/docs/apis/graphql/schemas/ssoproviderconnection" title="OBJECT SSOProviderConnection">  SSOProviderConnection</a>
+      
+    </h3>
+    
+    <p>Single sign on providers created for an organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>suites</code>
+      <a href="/docs/apis/graphql/schemas/suiteconnection" title="OBJECT SuiteConnection">  SuiteConnection</a>
+      
+    </h3>
+    
+    <p>Return all the suite the current user has access to for this organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search suites named like the given query case insensitively</p>
+
+<h4>
+  <code>team</code>
+  <a href="/docs/apis/graphql/schemas/teamselector" title="SCALAR TeamSelector">  TeamSelector</a>
+  <span>Required</span>
+</h4>
+<p>Filter the suites by team</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/suiteorders" title="ENUM SuiteOrders">  SuiteOrders</a>
+  false
+</h4>
+<p>Order the suites</p>
+<p>Default value: RECENTLY_CREATED</p>
+<h4>
+  <code>createdAtFrom</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>createdAtTo</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>teams</code>
+      <a href="/docs/apis/graphql/schemas/teamconnection" title="OBJECT TeamConnection">  TeamConnection</a>
+      
+    </h3>
+    
+    <p>Returns teams within the organization that the viewer can see</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search teams</p>
+
+<h4>
+  <code>pipeline</code>
+  <a href="/docs/apis/graphql/schemas/pipelineselector" title="SCALAR PipelineSelector">  PipelineSelector</a>
+  <span>Required</span>
+</h4>
+<p>Filter teams by pipeline</p>
+
+<h4>
+  <code>user</code>
+  <a href="/docs/apis/graphql/schemas/userselector" title="SCALAR UserSelector">  UserSelector</a>
+  <span>Required</span>
+</h4>
+<p>Filter teams by user membership</p>
+
+<h4>
+  <code>privacy</code>
+  <a href="/docs/apis/graphql/schemas/teamprivacy" title="ENUM TeamPrivacy">  TeamPrivacy</a>
+  <span>Required</span>
+</h4>
+<p>Search teams by their privacy</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teamorder" title="ENUM TeamOrder">  TeamOrder</a>
+  false
+</h4>
+<p>Order the teams</p>
+<p>Default value: NAME</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The public UUID for this organization</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

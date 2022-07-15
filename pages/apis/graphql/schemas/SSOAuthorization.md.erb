@@ -1,3 +1,144 @@
-# SSOAuthorization
+<h1>
+  <code>SSOAuthorization</code>
+  <small>OBJECT</small>
+</h1>
+
+
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Authorization was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>expiredAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Authorization was expired</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>identity</code>
+      <a href="/docs/apis/graphql/schemas/ssoauthorizationidentity" title="OBJECT SSOAuthorizationIdentity">  SSOAuthorizationIdentity</a>
+      
+    </h3>
+    
+    <p>Details around the identity provided by the SSO provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>revokedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Authorization was manually revoked</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>ssoProvider</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovider" title="INTERFACE SSOProvider">  SSOProvider</a>
+      
+    </h3>
+    
+    <p>The SSO provider associated with this authorization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/ssoauthorizationstate" title="ENUM SSOAuthorizationState">  SSOAuthorizationState</a>
+      
+    </h3>
+    
+    <p>The current state of the SSO Authorization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>user</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user associated with this authorization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>userSessionDestroyedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Authorization was destroyed because the user logged out</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The public UUID for this SSO authorization</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
 
 

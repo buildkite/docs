@@ -73,16 +73,16 @@ end
 def render_field_args(args)
   if args.is_a?(Array) && !args.empty?
     <<~HTML
-      <h4>Arguments</h4>
+      <h3>Arguments</h3>
       #{
         args.map {
           |arg|
           <<~HTML
-            <h5>
+            <h4>
               <code>#{arg["name"]}</code>
               #{render_of_type(arg["type"])}
               #{!arg["defaultValue"] && "<span>Required</span>"}
-            </h5>
+            </h4>
             #{arg["description"] && "<p>#{arg["description"]}</p>"}
             #{arg["defaultValue"] && "<p>Default value: #{arg["defaultValue"]}</p>"}
           HTML
@@ -95,7 +95,7 @@ end
 def render_possible_types(possible_types)
   if possible_types.is_a?(Array) && !possible_types.empty?
     <<~HTML
-      <h3>Possible types</h3>
+      <h2>Possible types</h2>
       #{possible_types.map { |possible_type| render_of_type(possible_type) }.join(', ')}
     HTML
   end
@@ -104,7 +104,7 @@ end
 def render_input_fields(input_fields)
   if input_fields.is_a?(Array) && !input_fields.empty?
     <<~HTML
-      <h3>Input fields</h3>
+      <h2>Input fields</h2>
       #{
         input_fields.map {
           |input_field|
@@ -126,7 +126,7 @@ end
 def render_interfaces(interfaces)
   if interfaces.is_a?(Array) && !interfaces.empty?
     <<~HTML
-      <h3>Interfaces</h3>
+      <h2>Interfaces</h2>
       #{
         interfaces.map {
           |interface|
@@ -178,7 +178,7 @@ type_sets.each_value do |set|
           
           #{type["description"]}
           
-          {:notoc}
+          {:toc}
 
           #{fields}
           
@@ -274,6 +274,7 @@ File.write("#{scripts_dir}/../data/nav_graphql.yml", nav_data.to_yaml)
   # enum_types
   # input_object_types
   # union_types
-# [ ] graphql layout uses nav_graphql.yml
+# [x] graphql layout uses nav_graphql.yml
 # [ ] refactor
 # [ ] stylingz!
+# [ ] pipeline configuration

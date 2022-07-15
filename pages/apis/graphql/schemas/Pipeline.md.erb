@@ -1,3 +1,673 @@
-# Pipeline
+<h1>
+  <code>Pipeline</code>
+  <small>OBJECT</small>
+</h1>
 
 A pipeline
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>allowRebuilds</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether existing builds can be rebuilt as new builds.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>archived</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether this pipeline has been archived</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>archivedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the pipeline was archived</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>archivedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that archived this pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>branchConfiguration</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>A branch filter pattern to limit which pushed branches trigger builds on this pipeline.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>builds</code>
+      <a href="/docs/apis/graphql/schemas/buildconnection" title="OBJECT BuildConnection">  BuildConnection</a>
+      
+    </h3>
+    
+    <p>Returns the builds for this pipeline</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/buildstates" title="ENUM BuildStates">  BuildStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>branch</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Use `%default` to search by the Pipelines default branch</p>
+
+<h4>
+  <code>commit</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>metaData</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>createdAtFrom</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>createdAtTo</code>
+  <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>cancelIntermediateBuilds</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>When a new build is created on a branch, any previous builds that are running on the same branch will be automatically cancelled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>cancelIntermediateBuildsBranchFilter</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>Limit which branches build cancelling applies to, for example `!main` will ensure that the main branch won't have it's builds automatically cancelled.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>cluster</code>
+      <a href="/docs/apis/graphql/schemas/cluster" title="OBJECT Cluster">  Cluster</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>commitShortLength</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The shortest length to which any git commit ID may be truncated while guaranteeing referring to a unique commit</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the pipeline was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user who created the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>defaultBranch</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The default branch for this pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>description</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The short description of the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>favorite</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Returns true if the viewer has favorited this pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>jobs</code>
+      <a href="/docs/apis/graphql/schemas/jobconnection" title="OBJECT JobConnection">  JobConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/jobtypes" title="ENUM JobTypes">  JobTypes</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>priority</code>
+  <a href="/docs/apis/graphql/schemas/jobprioritysearch" title="INPUT_OBJECT JobPrioritySearch">  JobPrioritySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>agentQueryRules</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>concurrency</code>
+  <a href="/docs/apis/graphql/schemas/jobconcurrencysearch" title="INPUT_OBJECT JobConcurrencySearch">  JobConcurrencySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>passed</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Whether or not the command job passed. Passing `false` will return all failed jobs (including "soft failed" jobs)</p>
+
+<h4>
+  <code>step</code>
+  <a href="/docs/apis/graphql/schemas/jobstepsearch" title="INPUT_OBJECT JobStepSearch">  JobStepSearch</a>
+  <span>Required</span>
+</h4>
+<p>Filtering jobs based on related step information</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/joborder" title="ENUM JobOrder">  JobOrder</a>
+  false
+</h4>
+<p>Order the jobs</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>metrics</code>
+      <a href="/docs/apis/graphql/schemas/pipelinemetricconnection" title="OBJECT PipelineMetricConnection">  PipelineMetricConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The name of the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>nextBuildNumber</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The next build number in the sequence</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/pipelinepermissions" title="OBJECT PipelinePermissions">  PipelinePermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>public</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use `visibility`</p>
+    <p>Whether this pipeline is visible to everyone, including people outside this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>repository</code>
+      <a href="/docs/apis/graphql/schemas/repository" title="OBJECT Repository">  Repository</a>
+      
+    </h3>
+    
+    <p>The repository for this pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>schedules</code>
+      <a href="/docs/apis/graphql/schemas/pipelinescheduleconnection" title="OBJECT PipelineScheduleConnection">  PipelineScheduleConnection</a>
+      
+    </h3>
+    
+    <p>Schedules for this pipeline</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>skipIntermediateBuilds</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>When a new build is created on a branch, any previous builds that haven't yet started on the same branch will be automatically marked as skipped.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>skipIntermediateBuildsBranchFilter</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>Limit which branches build skipping applies to, for example `!main` will ensure that the main branch won't have it's builds automatically skipped.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>slug</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The slug of the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>steps</code>
+      <a href="/docs/apis/graphql/schemas/pipelinesteps" title="OBJECT PipelineSteps">  PipelineSteps</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>tags</code>
+      <a href="/docs/apis/graphql/schemas/pipelinetag" title="OBJECT PipelineTag">  PipelineTag</a>
+      
+    </h3>
+    
+    <p>Tags that have been given to this pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>teams</code>
+      <a href="/docs/apis/graphql/schemas/teampipelineconnection" title="OBJECT TeamPipelineConnection">  TeamPipelineConnection</a>
+      
+    </h3>
+    
+    <p>Teams associated with this pipeline</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search for teams associated that this pipeline is assigned to</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teampipelineorder" title="ENUM TeamPipelineOrder">  TeamPipelineOrder</a>
+  false
+</h4>
+<p>Order the pipelines returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>url</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The URL for the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID of the pipeline</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>visibility</code>
+      <a href="/docs/apis/graphql/schemas/pipelinevisibility" title="ENUM PipelineVisibility">  PipelineVisibility</a>
+      
+    </h3>
+    
+    <p>Whether this pipeline is visible to everyone, including people outside this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>webhookURL</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The URL to use in your repository settings for commit webhooks</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

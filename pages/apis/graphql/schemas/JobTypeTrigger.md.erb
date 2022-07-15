@@ -1,3 +1,110 @@
-# JobTypeTrigger
+<h1>
+  <code>JobTypeTrigger</code>
+  <small>OBJECT</small>
+</h1>
 
 A type of job that triggers another build on a pipeline
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>build</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>The build that this job is a part of</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>label</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The label of this trigger step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+      
+    </h3>
+    
+    <p>The state of the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>step</code>
+      <a href="/docs/apis/graphql/schemas/steptrigger" title="OBJECT StepTrigger">  StepTrigger</a>
+      
+    </h3>
+    
+    <p>The step that defined this job. Some older jobs in the system may not have an associated step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>triggered</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>The build that this job triggered</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for this job</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

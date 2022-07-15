@@ -1,3 +1,146 @@
-# JobStates
+<h1>
+  <code>JobStates</code>
+  <small>ENUM</small>
+</h1>
 
 All the possible states a job can be in
+
+{:toc}
+
+
+
+
+
+
+
+
+
+<h2>ENUM Values</h2>
+<h3>
+  PENDING
+  false
+</h3>
+<p>The job has just been created and doesn't have a state yet</p>
+
+<h3>
+  WAITING
+  false
+</h3>
+<p>The job is waiting on a `wait` step to finish</p>
+
+<h3>
+  WAITING_FAILED
+  false
+</h3>
+<p>The job was in a `WAITING` state when the build failed</p>
+
+<h3>
+  BLOCKED
+  false
+</h3>
+<p>The job is waiting on a `block` step to finish</p>
+
+<h3>
+  BLOCKED_FAILED
+  false
+</h3>
+<p>The job was in a `BLOCKED` state when the build failed</p>
+
+<h3>
+  UNBLOCKED
+  false
+</h3>
+<p>This `block` job has been manually unblocked</p>
+
+<h3>
+  UNBLOCKED_FAILED
+  false
+</h3>
+<p>This `block` job was in an `UNBLOCKED` state when the build failed</p>
+
+<h3>
+  LIMITING
+  false
+</h3>
+<p>The job is waiting on a concurrency group check before becoming either `LIMITED` or `SCHEDULED`</p>
+
+<h3>
+  LIMITED
+  false
+</h3>
+<p>The job is waiting for jobs with the same concurrency group to finish</p>
+
+<h3>
+  SCHEDULED
+  false
+</h3>
+<p>The job is scheduled and waiting for an agent</p>
+
+<h3>
+  ASSIGNED
+  false
+</h3>
+<p>The job has been assigned to an agent, and it's waiting for it to accept</p>
+
+<h3>
+  ACCEPTED
+  false
+</h3>
+<p>The job was accepted by the agent, and now it's waiting to start running</p>
+
+<h3>
+  RUNNING
+  false
+</h3>
+<p>The job is runing</p>
+
+<h3>
+  FINISHED
+  false
+</h3>
+<p>The job has finished</p>
+
+<h3>
+  CANCELING
+  false
+</h3>
+<p>The job is currently canceling</p>
+
+<h3>
+  CANCELED
+  false
+</h3>
+<p>The job was canceled</p>
+
+<h3>
+  TIMING_OUT
+  false
+</h3>
+<p>The job is timing out for taking too long</p>
+
+<h3>
+  TIMED_OUT
+  false
+</h3>
+<p>The job timed out</p>
+
+<h3>
+  SKIPPED
+  false
+</h3>
+<p>The job was skipped</p>
+
+<h3>
+  BROKEN
+  false
+</h3>
+<p>The jobs configuration means that it can't be run</p>
+
+<h3>
+  EXPIRED
+  false
+</h3>
+<p>The job expired before it was started on an agent</p>
+
+
+

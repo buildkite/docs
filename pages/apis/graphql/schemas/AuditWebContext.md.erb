@@ -1,3 +1,96 @@
-# AuditWebContext
+<h1>
+  <code>AuditWebContext</code>
+  <small>OBJECT</small>
+</h1>
 
 Context for an audit event created during a web request
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>requestIpAddress</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The remote IP which made the request</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>requestUserAgent</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The client supplied user agent which made the request</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sessionCreatedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>When the session started, if available</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sessionEscalatedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>When the session was escalated, if available and escalated</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sessionUser</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The session's authenticated user, if available</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sessionUserUuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The session's authenticated user's uuid</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

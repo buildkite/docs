@@ -1,3 +1,159 @@
-# User
+<h1>
+  <code>User</code>
+  <small>OBJECT</small>
+</h1>
 
 A user
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>avatar</code>
+      <a href="/docs/apis/graphql/schemas/avatar" title="OBJECT Avatar">  Avatar</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>bot</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>If this user account is an official bot managed by Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>builds</code>
+      <a href="/docs/apis/graphql/schemas/buildconnection" title="OBJECT BuildConnection">  BuildConnection</a>
+      
+    </h3>
+    
+    <p>Returns builds that this user has created.</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/buildstates" title="ENUM BuildStates">  BuildStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>branch</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>metaData</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>email</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The primary email for the user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>hasPassword</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Does the user have a password set</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The name of the user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The public UUID of the user</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

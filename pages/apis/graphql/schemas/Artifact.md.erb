@@ -1,3 +1,146 @@
-# Artifact
+<h1>
+  <code>Artifact</code>
+  <small>OBJECT</small>
+</h1>
 
 A file uploaded from the agent whilst running a job
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>downloadURL</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The download URL for the artifact. Unless you've used your own artifact storage, the URL will be valid for only 10 minutes.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>expiresAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the artifact will, or did, expire</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/jobtypecommand" title="OBJECT JobTypeCommand">  JobTypeCommand</a>
+      
+    </h3>
+    
+    <p>The job that uploaded this artifact</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>mimeType</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The mime type of the file provided by the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>path</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The path of the uploaded artifact</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sha1sum</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>A SHA1SUM of the file</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>size</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The size of the file in bytes that was uploaded</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The upload state of the artifact</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for this artifact</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

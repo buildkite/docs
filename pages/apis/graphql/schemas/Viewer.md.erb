@@ -1,3 +1,387 @@
-# Viewer
+<h1>
+  <code>Viewer</code>
+  <small>OBJECT</small>
+</h1>
 
 Represents the current user session
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>authorizations</code>
+      <a href="/docs/apis/graphql/schemas/authorizationconnection" title="OBJECT AuthorizationConnection">  AuthorizationConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/authorizationtype" title="ENUM AuthorizationType">  AuthorizationType</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>builds</code>
+      <a href="/docs/apis/graphql/schemas/buildconnection" title="OBJECT BuildConnection">  BuildConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/buildstates" title="ENUM BuildStates">  BuildStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>branch</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>metaData</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>changelogs</code>
+      <a href="/docs/apis/graphql/schemas/changelogconnection" title="OBJECT ChangelogConnection">  ChangelogConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>read</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>emails</code>
+      <a href="/docs/apis/graphql/schemas/emailconnection" title="OBJECT EmailConnection">  EmailConnection</a>
+      
+    </h3>
+    
+    <p>Emails associated with the current user</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>verified</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The ID of the current user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>jobs</code>
+      <a href="/docs/apis/graphql/schemas/jobconnection" title="OBJECT JobConnection">  JobConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/jobtypes" title="ENUM JobTypes">  JobTypes</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>priority</code>
+  <a href="/docs/apis/graphql/schemas/jobprioritysearch" title="INPUT_OBJECT JobPrioritySearch">  JobPrioritySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>agentQueryRules</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/joborder" title="ENUM JobOrder">  JobOrder</a>
+  false
+</h4>
+<p>Order the jobs</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>notice</code>
+      <a href="/docs/apis/graphql/schemas/notice" title="OBJECT Notice">  Notice</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>namespace</code>
+  <a href="/docs/apis/graphql/schemas/noticenamespaces" title="ENUM NoticeNamespaces">  NoticeNamespaces</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>scope</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organizations</code>
+      <a href="/docs/apis/graphql/schemas/organizationconnection" title="OBJECT OrganizationConnection">  OrganizationConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/viewerpermissions" title="OBJECT ViewerPermissions">  ViewerPermissions</a>
+      
+    </h3>
+    
+    <p>The current user's permissions</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>totp</code>
+      <a href="/docs/apis/graphql/schemas/totp" title="OBJECT TOTP">  TOTP</a>
+      
+    </h3>
+    
+    <p>The user's active TOTP configuration, if any.
+
+This field is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
+</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>id</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>user</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The current user</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

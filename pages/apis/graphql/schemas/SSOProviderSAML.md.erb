@@ -1,3 +1,302 @@
-# SSOProviderSAML
+<h1>
+  <code>SSOProviderSAML</code>
+  <small>OBJECT</small>
+</h1>
 
 Single sign-on provided via SAML
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Provider was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that created this SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>digestMethod</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovidersamlxmlsecurity" title="ENUM SSOProviderSAMLXMLSecurity">  SSOProviderSAMLXMLSecurity</a>
+      
+    </h3>
+    
+    <p>The algorithim used to calculate the digest value during a SAML exchange</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>disabledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Provider was disabled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>disabledBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that disabled this SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>disabledReason</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The reason this SSO Provider was disabled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>emailDomain</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>An email domain whose addresses should be offered this SSO Provider during login.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>emailDomainVerificationAddress</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>emailDomainVerifiedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>enabledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this SSO Provider was enabled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>enabledBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that enabled this SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>identityProvider</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovidersamlidptype" title="OBJECT SSOProviderSAMLIdPType">  SSOProviderSAMLIdPType</a>
+      
+    </h3>
+    
+    <p>Information about the IdP</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>note</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>An extra message that can be added the Authorization screen of an SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>serviceProvider</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovidersamlsptype" title="OBJECT SSOProviderSAMLSPType">  SSOProviderSAMLSPType</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sessionDurationInHours</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>How long a session should last before requring re-authorization. A `null` value indicates an infinite session.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>signatureMethod</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovidersamlrsaxmlsecurity" title="ENUM SSOProviderSAMLRSAXMLSecurity">  SSOProviderSAMLRSAXMLSecurity</a>
+      
+    </h3>
+    
+    <p>The algorithim used to calculate the signature value during a SAML exchange</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/ssoproviderstates" title="ENUM SSOProviderStates">  SSOProviderStates</a>
+      
+    </h3>
+    
+    <p>The current state of the SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>testAuthorizationRequired</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether the SSO Provider requires a test authorization. If true, the provider can not yet be activated.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>type</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovidertypes" title="ENUM SSOProviderTypes">  SSOProviderTypes</a>
+      
+    </h3>
+    
+    <p>The type of SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>url</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The authorization URL for this SSO Provider</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The UUID for this SSO Provider</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a><a href="/docs/apis/graphql/schemas/ssoprovider" title="INTERFACE SSOProvider">  SSOProvider</a>
+
+
+
+
+

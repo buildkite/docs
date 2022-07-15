@@ -1,3 +1,74 @@
-# BuildSourceWebhook
+<h1>
+  <code>BuildSourceWebhook</code>
+  <small>OBJECT</small>
+</h1>
 
 A build was triggered via a Webhook
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>headers</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>Provider specific headers sent along with the webhook. This will return null if the webhook has been purged by Buildkite.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>payload</code>
+      <a href="/docs/apis/graphql/schemas/json" title="SCALAR JSON">  JSON</a>
+      
+    </h3>
+    
+    <p>The body of the webhook. Buildkite only webhook data for a short period of time, so if this returns null - then the webhook data has been purged by Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for this webhook. This will return null if the webhook has been purged by Buildkite</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/buildsource" title="INTERFACE BuildSource">  BuildSource</a>
+
+
+
+
+

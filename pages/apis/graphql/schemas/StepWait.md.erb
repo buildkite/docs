@@ -1,3 +1,104 @@
-# StepWait
+<h1>
+  <code>StepWait</code>
+  <small>OBJECT</small>
+</h1>
 
 A wait step waits for all previous steps to have successfully completed before allowing following jobs to continue
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>conditional</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The conditional evaluated for this step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>dependencies</code>
+      <a href="/docs/apis/graphql/schemas/dependencyconnection" title="OBJECT DependencyConnection">  DependencyConnection</a>
+      
+    </h3>
+    
+    <p>Dependencies of this job</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>key</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The user-defined key for this step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for this step</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/step" title="INTERFACE Step">  Step</a>
+
+
+
+
+

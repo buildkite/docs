@@ -1,3 +1,312 @@
-# OrganizationMember
+<h1>
+  <code>OrganizationMember</code>
+  <small>OBJECT</small>
+</h1>
 
 A member of an organization
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>complimentary</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether or not organizations are required to pay for this user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this user was added to the organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that added invited this user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberpermissions" title="OBJECT OrganizationMemberPermissions">  OrganizationMemberPermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipelines</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberpipelineconnection" title="OBJECT OrganizationMemberPipelineConnection">  OrganizationMemberPipelineConnection</a>
+      
+    </h3>
+    
+    <p>Pipelines the user has access to within the organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search within the pipelines the user has access to</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/pipelineorders" title="ENUM PipelineOrders">  PipelineOrders</a>
+  false
+</h4>
+<p>Order the pipelines returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>role</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberrole" title="ENUM OrganizationMemberRole">  OrganizationMemberRole</a>
+      
+    </h3>
+    
+    <p>The users role within the organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>security</code>
+      <a href="/docs/apis/graphql/schemas/organizationmembersecurity" title="OBJECT OrganizationMemberSecurity">  OrganizationMemberSecurity</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sso</code>
+      <a href="/docs/apis/graphql/schemas/organizationmembersso" title="OBJECT OrganizationMemberSSO">  OrganizationMemberSSO</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>suites</code>
+      <a href="/docs/apis/graphql/schemas/organizationmembersuiteconnection" title="OBJECT OrganizationMemberSuiteConnection">  OrganizationMemberSuiteConnection</a>
+      
+    </h3>
+    
+    <p>Suites the user has access to within the organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/suiteorders" title="ENUM SuiteOrders">  SuiteOrders</a>
+  false
+</h4>
+<p>Order the suites returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>teams</code>
+      <a href="/docs/apis/graphql/schemas/teammemberconnection" title="OBJECT TeamMemberConnection">  TeamMemberConnection</a>
+      
+    </h3>
+    
+    <p>Teams that this user is a part of within the organization</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teammemberorder" title="ENUM TeamMemberOrder">  TeamMemberOrder</a>
+  false
+</h4>
+<p>Order the members returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>user</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The public UUID for this organization member</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

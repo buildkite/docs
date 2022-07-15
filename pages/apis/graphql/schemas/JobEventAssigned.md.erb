@@ -1,3 +1,110 @@
-# JobEventAssigned
+<h1>
+  <code>JobEventAssigned</code>
+  <small>OBJECT</small>
+</h1>
 
 An event created when the dispatcher assigns the job to an agent
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>actor</code>
+      <a href="/docs/apis/graphql/schemas/jobeventactor" title="OBJECT JobEventActor">  JobEventActor</a>
+      
+    </h3>
+    
+    <p>The actor that caused this event to occur</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>assignedAgent</code>
+      <a href="/docs/apis/graphql/schemas/agent" title="OBJECT Agent">  Agent</a>
+      
+    </h3>
+    
+    <p>The agent the job was assigned to</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/jobtypecommand" title="OBJECT JobTypeCommand">  JobTypeCommand</a>
+      
+    </h3>
+    
+    <p>The job that this event belongs to</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>timestamp</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the event occurred</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>type</code>
+      <a href="/docs/apis/graphql/schemas/jobeventtype" title="ENUM JobEventType">  JobEventType</a>
+      
+    </h3>
+    
+    <p>The type of event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for this job event</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a><a href="/docs/apis/graphql/schemas/jobevent" title="INTERFACE JobEvent">  JobEvent</a>
+
+
+
+
+

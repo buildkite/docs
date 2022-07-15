@@ -1,3 +1,508 @@
-# Agent
+<h1>
+  <code>Agent</code>
+  <small>OBJECT</small>
+</h1>
 
 An agent
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>clusterQueue</code>
+      <a href="/docs/apis/graphql/schemas/clusterqueue" title="OBJECT ClusterQueue">  ClusterQueue</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>connectedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the agent connected to Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>connectionState</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The connection state of the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The date the agent was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>disconnectedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the agent disconnected from Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>heartbeatAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The last time the agent performend a `heartbeat` operation to the Agent API</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>hostname</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The hostname of the machine running the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>ipAddress</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The IP address that the agent has connected from</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>isDeprecated</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>If this version of agent has been deprecated by Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>isRunningJob</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Returns whether or not this agent is running a job. If isRunningJob true, but the `job` field is empty, the current user doesn't have access to view the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/job" title="UNION Job">  Job</a>
+      
+    </h3>
+    
+    <p>The currently running job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>jobs</code>
+      <a href="/docs/apis/graphql/schemas/jobconnection" title="OBJECT JobConnection">  JobConnection</a>
+      
+    </h3>
+    
+    <p>Jobs that have been assigned to this agent</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/jobtypes" title="ENUM JobTypes">  JobTypes</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>priority</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>agentQueryRules</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>concurrency</code>
+  <a href="/docs/apis/graphql/schemas/jobconcurrencysearch" title="INPUT_OBJECT JobConcurrencySearch">  JobConcurrencySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>passed</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Whether or not the command job passed. Passing `false` will return all failed jobs (including "soft failed" jobs)</p>
+
+<h4>
+  <code>step</code>
+  <a href="/docs/apis/graphql/schemas/jobstepsearch" title="INPUT_OBJECT JobStepSearch">  JobStepSearch</a>
+  <span>Required</span>
+</h4>
+<p>Filtering jobs based on related step information</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/joborder" title="ENUM JobOrder">  JobOrder</a>
+  false
+</h4>
+<p>Order the jobs</p>
+<p>Default value: RECENTLY_ASSIGNED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>lostAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The date the agent was lost from Buildkite if it didn't cleanly disconnect</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>metaData</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The meta data this agent was stared with</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The name of the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>operatingSystem</code>
+      <a href="/docs/apis/graphql/schemas/operatingsystem" title="OBJECT OperatingSystem">  OperatingSystem</a>
+      
+    </h3>
+    
+    <p>The operating system the agent is running on</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/agentpermissions" title="OBJECT AgentPermissions">  AgentPermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The process identifier (PID) of the agent process on the machine</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pingedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: DEPRECATED: please use heartbeatAt</p>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>priority</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The priority setting for the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>public</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether this agent is visible to everyone, including people outside this organization</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stopForcedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time this agent was forced to stop</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stopForcedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that forced this agent to stop</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stoppedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use either `stoppedGracefullyAt` or `stopForcedAt`</p>
+    <p>The time the agent was first asked to stop</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stoppedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use either `stoppedGracefullyBy` or `stopForcedBy`</p>
+    <p>The user that initially stopped this agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stoppedGracefullyAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time the agent was gracefully stopped by a user</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>stoppedGracefullyBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that gracefully stopped this agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>userAgent</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The User-Agent of the program that is making Agent API requests to Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The public UUID for the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>version</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The version of the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>versionHasKnownIssues</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether this agent's version has known issues and should be upgraded</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

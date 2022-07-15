@@ -1,3 +1,134 @@
-# JobEventFinished
+<h1>
+  <code>JobEventFinished</code>
+  <small>OBJECT</small>
+</h1>
 
 An event created when the job is finished
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>actor</code>
+      <a href="/docs/apis/graphql/schemas/jobeventactor" title="OBJECT JobEventActor">  JobEventActor</a>
+      
+    </h3>
+    
+    <p>The actor that caused this event to occur</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>exitStatus</code>
+      <a href="/docs/apis/graphql/schemas/jsint" title="SCALAR JSInt">  JSInt</a>
+      
+    </h3>
+    
+    <p>The exit status returned by the command on the agent. A value of `-1` indicates either that the agent was lost or the process was killed. If the process was killed, the `signal` field will be non-null.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/jobtypecommand" title="OBJECT JobTypeCommand">  JobTypeCommand</a>
+      
+    </h3>
+    
+    <p>The job that this event belongs to</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>signal</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The termination signal which killed the command, if the command was killed</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>signalReason</code>
+      <a href="/docs/apis/graphql/schemas/jobeventsignalreason" title="ENUM JobEventSignalReason">  JobEventSignalReason</a>
+      
+    </h3>
+    
+    <p>If the termination signal was sent by the agent, the reason the agent took that action. If this field is null, and the `signal` field is not null, the command was killed by another process or by the operating system.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>timestamp</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the event occurred</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>type</code>
+      <a href="/docs/apis/graphql/schemas/jobeventtype" title="ENUM JobEventType">  JobEventType</a>
+      
+    </h3>
+    
+    <p>The type of event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for this job event</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a><a href="/docs/apis/graphql/schemas/jobevent" title="INTERFACE JobEvent">  JobEvent</a>
+
+
+
+
+

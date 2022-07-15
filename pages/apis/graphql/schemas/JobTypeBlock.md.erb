@@ -1,3 +1,134 @@
-# JobTypeBlock
+<h1>
+  <code>JobTypeBlock</code>
+  <small>OBJECT</small>
+</h1>
 
 A type of job that requires a user to unblock it before proceeding in a build pipeline
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>build</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>The build that this job is a part of</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>isUnblockable</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether or not this job can be unblocked yet (may be waiting on another job to finish)</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>label</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The label of this block step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+      
+    </h3>
+    
+    <p>The state of the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>step</code>
+      <a href="/docs/apis/graphql/schemas/stepinput" title="OBJECT StepInput">  StepInput</a>
+      
+    </h3>
+    
+    <p>The step that defined this job. Some older jobs in the system may not have an associated step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>unblockedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>unblockedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that unblocked this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for this job</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

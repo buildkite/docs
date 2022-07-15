@@ -1,3 +1,492 @@
-# JobTypeCommand
+<h1>
+  <code>JobTypeCommand</code>
+  <small>OBJECT</small>
+</h1>
 
 A type of job that runs a command on an agent
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>agent</code>
+      <a href="/docs/apis/graphql/schemas/agent" title="OBJECT Agent">  Agent</a>
+      
+    </h3>
+    
+    <p>The agent that is running the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>agentQueryRules</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The ruleset used to find an agent to run this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>artifacts</code>
+      <a href="/docs/apis/graphql/schemas/artifactconnection" title="OBJECT ArtifactConnection">  ArtifactConnection</a>
+      
+    </h3>
+    
+    <p>Artifacts uploaded to this job</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>automaticArtifactUploadPaths</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>A glob of files to automatically upload after the job finishes</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>build</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>The build that this job is a part of</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>canceledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job was cancelled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>cluster</code>
+      <a href="/docs/apis/graphql/schemas/cluster" title="OBJECT Cluster">  Cluster</a>
+      
+    </h3>
+    
+    <p>The cluster of this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>clusterQueue</code>
+      <a href="/docs/apis/graphql/schemas/clusterqueue" title="OBJECT ClusterQueue">  ClusterQueue</a>
+      
+    </h3>
+    
+    <p>The cluster queue of this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>command</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The command the job will run</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>concurrency</code>
+      <a href="/docs/apis/graphql/schemas/jobconcurrency" title="OBJECT JobConcurrency">  JobConcurrency</a>
+      
+    </h3>
+    
+    <p>Concurrency information related to a job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>env</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>Environment variables for this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>events</code>
+      <a href="/docs/apis/graphql/schemas/jobeventconnection" title="OBJECT JobEventConnection">  JobEventConnection</a>
+      
+    </h3>
+    
+    <p>Job events</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>exitStatus</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The exit status returned by the command on the agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>expiredAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job was expired</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>finishedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job finished</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>label</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The label of the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>matrix</code>
+      <a href="/docs/apis/graphql/schemas/json" title="SCALAR JSON">  JSON</a>
+      
+    </h3>
+    
+    <p>The matrix configuration values for this particular job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>parallelGroupIndex</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The index of this job within the parallel job group it is a part of. Null if this job is not part of a parallel job group.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>parallelGroupTotal</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The total number of jobs in the parallel job group this job is a part of. Null if this job is not part of a parallel job group.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>passed</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>If the job has finished and passed</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipeline</code>
+      <a href="/docs/apis/graphql/schemas/pipeline" title="OBJECT Pipeline">  Pipeline</a>
+      
+    </h3>
+    
+    <p>The pipeline that this job is a part of</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>priority</code>
+      <a href="/docs/apis/graphql/schemas/jobpriority" title="OBJECT JobPriority">  JobPriority</a>
+      
+    </h3>
+    
+    <p>The priority of this job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>retryRules</code>
+      <a href="/docs/apis/graphql/schemas/jobretryrules" title="OBJECT JobRetryRules">  JobRetryRules</a>
+      
+    </h3>
+    
+    <p>Job retry rules</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>runnableAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job became available to be run by an agent</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>scheduledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job became scheduled for running</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>signal</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The termination signal which killed the command, if the command was killed</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>signalReason</code>
+      <a href="/docs/apis/graphql/schemas/jobeventsignalreason" title="ENUM JobEventSignalReason">  JobEventSignalReason</a>
+      
+    </h3>
+    
+    <p>If the termination signal was sent by the agent, the reason the agent took that action. If this field is null, and the `signal` field is not null, the command was killed by another process or by the operating system.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>softFailed</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>If the job soft failed</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>startedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the job started running</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+      
+    </h3>
+    
+    <p>The state of the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>step</code>
+      <a href="/docs/apis/graphql/schemas/stepcommand" title="OBJECT StepCommand">  StepCommand</a>
+      
+    </h3>
+    
+    <p>The step that defined this job. Some older jobs in the system may not have an associated step</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>url</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The URL for the job</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for this job</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

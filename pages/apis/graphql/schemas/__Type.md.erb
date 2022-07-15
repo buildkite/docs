@@ -1,5 +1,152 @@
-# __Type
+<h1>
+  <code>__Type</code>
+  <small>OBJECT</small>
+</h1>
 
 The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
 
 Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>description</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>enumValues</code>
+      <a href="/docs/apis/graphql/schemas/__enumvalue" title="OBJECT __EnumValue">  __EnumValue</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>includeDeprecated</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  false
+</h4>
+
+<p>Default value: false</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>fields</code>
+      <a href="/docs/apis/graphql/schemas/__field" title="OBJECT __Field">  __Field</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>includeDeprecated</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  false
+</h4>
+
+<p>Default value: false</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>inputFields</code>
+      <a href="/docs/apis/graphql/schemas/__inputvalue" title="OBJECT __InputValue">  __InputValue</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>interfaces</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>kind</code>
+      <a href="/docs/apis/graphql/schemas/__typekind" title="ENUM __TypeKind">  __TypeKind</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>ofType</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>possibleTypes</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

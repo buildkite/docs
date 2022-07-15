@@ -1,3 +1,470 @@
-# Build
+<h1>
+  <code>Build</code>
+  <small>OBJECT</small>
+</h1>
 
 A build from a pipeline
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>annotations</code>
+      <a href="/docs/apis/graphql/schemas/annotationconnection" title="OBJECT AnnotationConnection">  AnnotationConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>blockedState</code>
+      <a href="/docs/apis/graphql/schemas/buildblockedstates" title="ENUM BuildBlockedStates">  BuildBlockedStates</a>
+      
+    </h3>
+    
+    <p>The current blocked state of the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>branch</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The branch for the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>canceledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the build was cancelled</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>canceledBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user who canceled this build. If the build was canceled, and this value is null, then it was canceled automatically by Buildkite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>commit</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The fully-qualified commit for the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the build was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/buildcreator" title="UNION BuildCreator">  BuildCreator</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>env</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>Custom environment variables passed to this build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>finishedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the build finished</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>jobs</code>
+      <a href="/docs/apis/graphql/schemas/jobconnection" title="OBJECT JobConnection">  JobConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>type</code>
+  <a href="/docs/apis/graphql/schemas/jobtypes" title="ENUM JobTypes">  JobTypes</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>priority</code>
+  <a href="/docs/apis/graphql/schemas/jobprioritysearch" title="INPUT_OBJECT JobPrioritySearch">  JobPrioritySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>agentQueryRules</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>concurrency</code>
+  <a href="/docs/apis/graphql/schemas/jobconcurrencysearch" title="INPUT_OBJECT JobConcurrencySearch">  JobConcurrencySearch</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>passed</code>
+  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+  <span>Required</span>
+</h4>
+<p>Whether or not the command job passed. Passing `false` will return all failed jobs (including "soft failed" jobs)</p>
+
+<h4>
+  <code>step</code>
+  <a href="/docs/apis/graphql/schemas/jobstepsearch" title="INPUT_OBJECT JobStepSearch">  JobStepSearch</a>
+  <span>Required</span>
+</h4>
+<p>Filtering jobs based on related step information</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/joborder" title="ENUM JobOrder">  JobOrder</a>
+  false
+</h4>
+<p>Order the jobs</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>message</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The message for the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>metaData</code>
+      <a href="/docs/apis/graphql/schemas/buildmetadataconnection" title="OBJECT BuildMetaDataConnection">  BuildMetaDataConnection</a>
+      
+    </h3>
+    
+    
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>number</code>
+      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      
+    </h3>
+    
+    <p>The number of the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipeline</code>
+      <a href="/docs/apis/graphql/schemas/pipeline" title="OBJECT Pipeline">  Pipeline</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pullRequest</code>
+      <a href="/docs/apis/graphql/schemas/pullrequest" title="OBJECT PullRequest">  PullRequest</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>rebuiltFrom</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>The build that this build was rebuilt from</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>scheduledAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the build became scheduled for running</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>source</code>
+      <a href="/docs/apis/graphql/schemas/buildsource" title="INTERFACE BuildSource">  BuildSource</a>
+      
+    </h3>
+    
+    <p>Where the build was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>startedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the build started running</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/buildstates" title="ENUM BuildStates">  BuildStates</a>
+      
+    </h3>
+    
+    <p>The current state of the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>triggeredFrom</code>
+      <a href="/docs/apis/graphql/schemas/jobtypetrigger" title="OBJECT JobTypeTrigger">  JobTypeTrigger</a>
+      
+    </h3>
+    
+    <p>The job that this build was triggered from</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>url</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The URL for the build</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID for the build</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

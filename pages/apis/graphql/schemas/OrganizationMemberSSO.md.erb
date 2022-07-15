@@ -1,3 +1,85 @@
-# OrganizationMemberSSO
+<h1>
+  <code>OrganizationMemberSSO</code>
+  <small>OBJECT</small>
+</h1>
 
 Information about the SSO setup for this organization member
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>authorizations</code>
+      <a href="/docs/apis/graphql/schemas/ssoauthorizationconnection" title="OBJECT SSOAuthorizationConnection">  SSOAuthorizationConnection</a>
+      
+    </h3>
+    
+    <p>SSO authorizations provided by your organization that have been created for this user</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come after the specified cursor.</p>
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the last _n_ elements from the list.</p>
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Returns the elements in the list that come before the specified cursor.</p>
+
+<h4>
+  <code>state</code>
+  <a href="/docs/apis/graphql/schemas/ssoauthorizationstate" title="ENUM SSOAuthorizationState">  SSOAuthorizationState</a>
+  <span>Required</span>
+</h4>
+<p>Filter authorizations by state</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>mode</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberssomodeenum" title="ENUM OrganizationMemberSSOModeEnum">  OrganizationMemberSSOModeEnum</a>
+      
+    </h3>
+    
+    <p>The SSO mode of the organization member</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

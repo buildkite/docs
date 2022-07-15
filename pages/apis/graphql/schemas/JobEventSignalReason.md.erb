@@ -1,3 +1,44 @@
-# JobEventSignalReason
+<h1>
+  <code>JobEventSignalReason</code>
+  <small>ENUM</small>
+</h1>
 
 The reason why a signal was sent to the job's process, or why the process did not start
+
+{:toc}
+
+
+
+
+
+
+
+
+
+<h2>ENUM Values</h2>
+<h3>
+  AGENT_STOP
+  false
+</h3>
+<p>The agent sent the signal to the process because the agent was stopped</p>
+
+<h3>
+  CANCEL
+  false
+</h3>
+<p>The agent sent the signal to the process because the job was canceled</p>
+
+<h3>
+  PROCESS_RUN_ERROR
+  false
+</h3>
+<p>The agent was unable to start the job process, often due to memory or resource constraints. Note that in this case, no signal was sent to the process, it simply never started.</p>
+
+<h3>
+  AGENT_REFUSED
+  false
+</h3>
+<p>The agent pre-bootstrap hook refused the job. Note that in this case, no signal was sent to the process, the bootstrap was not run at all.</p>
+
+
+

@@ -47,10 +47,19 @@
   <body <%= beta? ? 'class=beta' : ''-%>>
     <%= render "layouts/site_header", use_nav: "nav_graphql" %>
     <main id="main" role="main">
-      <div class="PageContainer" style="padding-top: 150px;">
-        <%= render "layouts/notification" %>
-        <%= yield %>
-        <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
+      <div class="Docs__page-container StandardWhiteContentPage">
+        <div class="Docs__page-container__inner PageContainer">
+          <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
+            <div class="column1">
+              <%= render "layouts/notification" %>
+              <div class="TextContent">
+                <%= yield %>
+              </div>
+              <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
+            </div>
+            <div class="column2"></div>
+          </div>
+        </div>
       </div>
     </main>
     <%= javascript_tag nonce: true do %>

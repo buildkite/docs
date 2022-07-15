@@ -1,3 +1,98 @@
-# JobEvent
+<h1>
+  <code>JobEvent</code>
+  <small>INTERFACE</small>
+</h1>
+
+
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>actor</code>
+      <a href="/docs/apis/graphql/schemas/jobeventactor" title="OBJECT JobEventActor">  JobEventActor</a>
+      
+    </h3>
+    
+    <p>The actor that caused this event to occur</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/jobtypecommand" title="OBJECT JobTypeCommand">  JobTypeCommand</a>
+      
+    </h3>
+    
+    <p>The job that this event belongs to</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>timestamp</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the event occurred</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>type</code>
+      <a href="/docs/apis/graphql/schemas/jobeventtype" title="ENUM JobEventType">  JobEventType</a>
+      
+    </h3>
+    
+    <p>The type of event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for this job event</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+<h2>Possible types</h2>
+<a href="/docs/apis/graphql/schemas/jobeventassigned" title="OBJECT JobEventAssigned">  JobEventAssigned</a>, <a href="/docs/apis/graphql/schemas/jobeventbuildstepuploadcreated" title="OBJECT JobEventBuildStepUploadCreated">  JobEventBuildStepUploadCreated</a>, <a href="/docs/apis/graphql/schemas/jobeventcanceled" title="OBJECT JobEventCanceled">  JobEventCanceled</a>, <a href="/docs/apis/graphql/schemas/jobeventfinished" title="OBJECT JobEventFinished">  JobEventFinished</a>, <a href="/docs/apis/graphql/schemas/jobeventgeneric" title="OBJECT JobEventGeneric">  JobEventGeneric</a>, <a href="/docs/apis/graphql/schemas/jobeventretried" title="OBJECT JobEventRetried">  JobEventRetried</a>, <a href="/docs/apis/graphql/schemas/jobeventtimedout" title="OBJECT JobEventTimedOut">  JobEventTimedOut</a>
+
 
 

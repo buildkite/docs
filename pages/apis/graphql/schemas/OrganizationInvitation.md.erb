@@ -1,3 +1,239 @@
-# OrganizationInvitation
+<h1>
+  <code>OrganizationInvitation</code>
+  <small>OBJECT</small>
+</h1>
 
 A pending invitation to a user to join this organization
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>acceptedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the invitation was accepted</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>acceptedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that accepted this invite</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the invitation was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that added invited this email address</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>email</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The email address of this invitation</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>expiredAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when the invitation was automatically expired</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitationpermissions" title="OBJECT OrganizationInvitationPermissions">  OrganizationInvitationPermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>revokedAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this invitation was revoked</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>revokedBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that revoked this invitation</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>role</code>
+      <a href="/docs/apis/graphql/schemas/organizationmemberrole" title="ENUM OrganizationMemberRole">  OrganizationMemberRole</a>
+      
+    </h3>
+    
+    <p>The role the user will have in the organization once they've accepted the invitation</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>slug</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The slug of the invitation that can be used to find an invitation in the query root</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>sso</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitationssotype" title="OBJECT OrganizationInvitationSSOType">  OrganizationInvitationSSOType</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>state</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitationstates" title="ENUM OrganizationInvitationStates">  OrganizationInvitationStates</a>
+      
+    </h3>
+    
+    <p>The current state of the invitation</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>teams</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitationteamassignmentconnection" title="OBJECT OrganizationInvitationTeamAssignmentConnection">  OrganizationInvitationTeamAssignmentConnection</a>
+      
+    </h3>
+    
+    <p>Teams that have been assigned to this invitation</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+<p>Returns the first _n_ elements from the list.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The UUID of the invitation</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

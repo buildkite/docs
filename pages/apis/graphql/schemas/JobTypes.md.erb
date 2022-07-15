@@ -1,3 +1,44 @@
-# JobTypes
+<h1>
+  <code>JobTypes</code>
+  <small>ENUM</small>
+</h1>
 
 All the possible types of jobs that can exist
+
+{:toc}
+
+
+
+
+
+
+
+
+
+<h2>ENUM Values</h2>
+<h3>
+  COMMAND
+  false
+</h3>
+<p>A job that runs a command on an agent</p>
+
+<h3>
+  WAIT
+  false
+</h3>
+<p>A job that waits for all previous jobs to finish</p>
+
+<h3>
+  BLOCK
+  false
+</h3>
+<p>A job that blocks a pipeline from progressing until it's manually unblocked</p>
+
+<h3>
+  TRIGGER
+  false
+</h3>
+<p>A job that triggers another build on a pipeline</p>
+
+
+

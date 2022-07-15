@@ -1,3 +1,84 @@
-# __Schema
+<h1>
+  <code>__Schema</code>
+  <small>OBJECT</small>
+</h1>
 
 A GraphQL Schema defines the capabilities of a GraphQL server. It exposes all available types and directives on the server, as well as the entry points for query, mutation, and subscription operations.
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>directives</code>
+      <a href="/docs/apis/graphql/schemas/__directive" title="OBJECT __Directive">  __Directive</a>
+      
+    </h3>
+    
+    <p>A list of all directives supported by this server.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>mutationType</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    <p>If this server supports mutation, the type that mutation operations will be rooted at.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>queryType</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    <p>The type that query operations will be rooted at.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>subscriptionType</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    <p>If this server support subscription, the type that subscription operations will be rooted at.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>types</code>
+      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      
+    </h3>
+    
+    <p>A list of all types supported by this server.</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

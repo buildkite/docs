@@ -1,5 +1,110 @@
-# __Directive
+<h1>
+  <code>__Directive</code>
+  <small>OBJECT</small>
+</h1>
 
 A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.
 
 In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>args</code>
+      <a href="/docs/apis/graphql/schemas/__inputvalue" title="OBJECT __InputValue">  __InputValue</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>description</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>locations</code>
+      <a href="/docs/apis/graphql/schemas/__directivelocation" title="ENUM __DirectiveLocation">  __DirectiveLocation</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>onField</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use `locations`.</p>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>onFragment</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use `locations`.</p>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>onOperation</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: Use `locations`.</p>
+    
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+

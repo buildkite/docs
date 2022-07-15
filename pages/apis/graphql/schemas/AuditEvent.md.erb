@@ -1,3 +1,122 @@
-# AuditEvent
+<h1>
+  <code>AuditEvent</code>
+  <small>OBJECT</small>
+</h1>
 
 Audit record of an event which occurred in the system
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>actor</code>
+      <a href="/docs/apis/graphql/schemas/auditactor" title="OBJECT AuditActor">  AuditActor</a>
+      
+    </h3>
+    
+    <p>The actor who caused this event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>context</code>
+      <a href="/docs/apis/graphql/schemas/auditcontext" title="UNION AuditContext">  AuditContext</a>
+      
+    </h3>
+    
+    <p>The context in which this event occurred</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>data</code>
+      <a href="/docs/apis/graphql/schemas/json" title="SCALAR JSON">  JSON</a>
+      
+    </h3>
+    
+    <p>The changed data in the event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>occurredAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time at which this event occurred</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>subject</code>
+      <a href="/docs/apis/graphql/schemas/auditsubject" title="OBJECT AuditSubject">  AuditSubject</a>
+      
+    </h3>
+    
+    <p>The subject of this event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>type</code>
+      <a href="/docs/apis/graphql/schemas/auditeventtype" title="ENUM AuditEventType">  AuditEventType</a>
+      
+    </h3>
+    
+    <p>The type of event</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for the event</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

@@ -1,3 +1,362 @@
-# Team
+<h1>
+  <code>Team</code>
+  <small>OBJECT</small>
+</h1>
 
 An organization team
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>createdAt</code>
+      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      
+    </h3>
+    
+    <p>The time when this team was created</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>createdBy</code>
+      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      
+    </h3>
+    
+    <p>The user that created this team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>defaultMemberRole</code>
+      <a href="/docs/apis/graphql/schemas/teammemberrole" title="ENUM TeamMemberRole">  TeamMemberRole</a>
+      
+    </h3>
+    
+    <p>New organization members will be granted this role on this team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>description</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>A description of the team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>id</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>isDefaultTeam</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Add new organization members to this team by default</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>members</code>
+      <a href="/docs/apis/graphql/schemas/teammemberconnection" title="OBJECT TeamMemberConnection">  TeamMemberConnection</a>
+      
+    </h3>
+    
+    <p>Users that are part of this team</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search team members named like the given query case insensitively</p>
+
+<h4>
+  <code>role</code>
+  <a href="/docs/apis/graphql/schemas/teammemberrole" title="ENUM TeamMemberRole">  TeamMemberRole</a>
+  <span>Required</span>
+</h4>
+<p>Search team members by their role</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teammemberorder" title="ENUM TeamMemberOrder">  TeamMemberOrder</a>
+  false
+</h4>
+<p>Order the members returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>membersCanCreatePipelines</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      
+    </h3>
+    
+    <p>Whether or not team members can create new pipelines in this team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>membersCanDeletePipelines</code>
+      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <span class="pill pill--deprecated">Deprecated</span>
+    </h3>
+    <p>Deprecated: This property has been removed without replacement</p>
+    <p>Whether or not team members can delete pipelines in this team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>name</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The name of the team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    <p>The organization that this team is a part of</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>permissions</code>
+      <a href="/docs/apis/graphql/schemas/teampermissions" title="OBJECT TeamPermissions">  TeamPermissions</a>
+      
+    </h3>
+    
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipelines</code>
+      <a href="/docs/apis/graphql/schemas/teampipelineconnection" title="OBJECT TeamPipelineConnection">  TeamPipelineConnection</a>
+      
+    </h3>
+    
+    <p>Pipelines associated with this team</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>search</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>Search pipelines named like the given query case insensitively</p>
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teampipelineorder" title="ENUM TeamPipelineOrder">  TeamPipelineOrder</a>
+  false
+</h4>
+<p>Order the pipelines returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>privacy</code>
+      <a href="/docs/apis/graphql/schemas/teamprivacy" title="ENUM TeamPrivacy">  TeamPrivacy</a>
+      
+    </h3>
+    
+    <p>The privacy setting for this team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>slug</code>
+      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      
+    </h3>
+    
+    <p>The slug of the team</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>suites</code>
+      <a href="/docs/apis/graphql/schemas/teamsuiteconnection" title="OBJECT TeamSuiteConnection">  TeamSuiteConnection</a>
+      
+    </h3>
+    
+    <p>Suites associated with this team</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>first</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>after</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>last</code>
+  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>before</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+
+
+<h4>
+  <code>order</code>
+  <a href="/docs/apis/graphql/schemas/teamsuiteorder" title="ENUM TeamSuiteOrder">  TeamSuiteOrder</a>
+  false
+</h4>
+<p>Order the suites returned</p>
+<p>Default value: RECENTLY_CREATED</p>
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>uuid</code>
+      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      
+    </h3>
+    
+    <p>The public UUID for this team</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+<h2>Interfaces</h2>
+<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+
+
+
+
+

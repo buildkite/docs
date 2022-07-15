@@ -1,3 +1,407 @@
-# Query
+<h1>
+  <code>Query</code>
+  <small>OBJECT</small>
+</h1>
 
 The query root for this schema
+
+{:toc}
+
+<h2>Fields</h2>
+<table class="responsive-table">
+  <tbody>
+    <tr>
+  <td>
+    <h3>
+      <code>agent</code>
+      <a href="/docs/apis/graphql/schemas/agent" title="OBJECT Agent">  Agent</a>
+      
+    </h3>
+    
+    <p>Find an agent by its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the agent, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>agentToken</code>
+      <a href="/docs/apis/graphql/schemas/agenttoken" title="OBJECT AgentToken">  AgentToken</a>
+      
+    </h3>
+    
+    <p>Find an agent token by its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the agent token, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>apiAccessTokenCode</code>
+      <a href="/docs/apis/graphql/schemas/apiaccesstokencode" title="OBJECT APIAccessTokenCode">  APIAccessTokenCode</a>
+      
+    </h3>
+    
+    <p>Find a API Acccess Token code</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>code</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The code provided by the Auth API</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>artifact</code>
+      <a href="/docs/apis/graphql/schemas/artifact" title="OBJECT Artifact">  Artifact</a>
+      
+    </h3>
+    
+    <p>Find an artifact by its UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>auditEvent</code>
+      <a href="/docs/apis/graphql/schemas/auditevent" title="OBJECT AuditEvent">  AuditEvent</a>
+      
+    </h3>
+    
+    <p>Find an audit event via its uuid</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the audit event i.e. `0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>build</code>
+      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      
+    </h3>
+    
+    <p>Find a build by its slug or UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The number of the build, prefixed with its organization and pipeline. i.e. `acme-inc/my-pipeline/123`</p>
+
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID of the build</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>graphQLSnippet</code>
+      <a href="/docs/apis/graphql/schemas/graphqlsnippet" title="OBJECT GraphQLSnippet">  GraphQLSnippet</a>
+      
+    </h3>
+    
+    <p>Find a GraphQL snippet</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for this GraphQL snippet</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>job</code>
+      <a href="/docs/apis/graphql/schemas/job" title="UNION Job">  Job</a>
+      
+    </h3>
+    
+    <p>Find a build job by its UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>node</code>
+      <a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+      
+    </h3>
+    
+    <p>Fetches an object given its ID.</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>id</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>ID of the object.</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>notificationService</code>
+      <a href="/docs/apis/graphql/schemas/notificationservice" title="INTERFACE NotificationService">  NotificationService</a>
+      
+    </h3>
+    
+    <p>Find a notification service via its UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the notification service i.e. `0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organization</code>
+      <a href="/docs/apis/graphql/schemas/organization" title="OBJECT Organization">  Organization</a>
+      
+    </h3>
+    
+    <p>Find an organization by its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The organizations slug</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organizationInvitation</code>
+      <a href="/docs/apis/graphql/schemas/organizationinvitation" title="OBJECT OrganizationInvitation">  OrganizationInvitation</a>
+      
+    </h3>
+    
+    <p>Find an organization invitation via its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the invitation, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>organizationMember</code>
+      <a href="/docs/apis/graphql/schemas/organizationmember" title="OBJECT OrganizationMember">  OrganizationMember</a>
+      
+    </h3>
+    
+    <p>Find an organization membership via its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the membership, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipeline</code>
+      <a href="/docs/apis/graphql/schemas/pipeline" title="OBJECT Pipeline">  Pipeline</a>
+      
+    </h3>
+    
+    <p>Find a pipeline by its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The slug of the pipeline, prefixed with its organization. i.e. `acme-inc/my-pipeline`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>pipelineSchedule</code>
+      <a href="/docs/apis/graphql/schemas/pipelineschedule" title="OBJECT PipelineSchedule">  PipelineSchedule</a>
+      
+    </h3>
+    
+    <p>Find a pipeline schedule by its slug</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID for the pipeline schedule, prefixed by its organization and pipeline's slug i.e. `acme-inc/my-pipeline/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>ssoProvider</code>
+      <a href="/docs/apis/graphql/schemas/ssoprovider" title="INTERFACE SSOProvider">  SSOProvider</a>
+      
+    </h3>
+    
+    <p>Find an sso provider either using it's slug, or UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The slug for the sso provider, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+
+<h4>
+  <code>uuid</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The UUID of the sso provider</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>team</code>
+      <a href="/docs/apis/graphql/schemas/team" title="OBJECT Team">  Team</a>
+      
+    </h3>
+    
+    <p>Find a team by its UUID</p>
+    <h3>Arguments</h3>
+<h4>
+  <code>slug</code>
+  <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+  <span>Required</span>
+</h4>
+<p>The slug of the team, prefixed with its organization. i.e. `acme-inc/awesome-team`</p>
+
+
+
+  </td>
+</tr>
+<tr>
+  <td>
+    <h3>
+      <code>viewer</code>
+      <a href="/docs/apis/graphql/schemas/viewer" title="OBJECT Viewer">  Viewer</a>
+      
+    </h3>
+    
+    <p>Context of the current user using the GraphQL API</p>
+    
+  </td>
+</tr>
+
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
