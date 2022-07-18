@@ -20,3 +20,4 @@ swap:
   (?i:CloudWatch) logs: CloudWatch Logs
   (?i:Google Cloud Functions): Google Cloud Functions
   (?i:GraphQL): GraphQL
+  (?i:IronWorker): IronWorker
