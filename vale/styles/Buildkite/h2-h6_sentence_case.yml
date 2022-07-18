@@ -22,5 +22,6 @@ exceptions:
   - Docker Compose
   - Elastic Stack
   - GitHub App
+  - GraphQL
   - IdP  # TODO: unabbreviate this in headings
   - OpenTelemetry
