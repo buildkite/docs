@@ -17,11 +17,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue.
-
-<!-- date -->
-
-Prioritization can only be set on jobs, and only applies to command jobs, including plugin commands. Setting a default command job priority across a whole build is coming at the start of 2022.
+Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority one applies to command jobs, including plugin commands.
 
 ## Job dispatch precedence
 
