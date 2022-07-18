@@ -14,13 +14,13 @@ exceptions:
   - Auto Scaling
   - AWS Console
   - AWS Systems Manager Session Manager
+  - Bitbucket Server
   - Buildkite
-  - GitHub App
-  - IdP  # TODO: unabbreviate this in headings
-  - OpenTelemetry
-  - Elastic Stack
   - CloudFormation
   - CloudWatch Logs
   - Debian
   - Docker Compose
-  - Bitbucket Server
+  - Elastic Stack
+  - GitHub App
+  - IdP  # TODO: unabbreviate this in headings
+  - OpenTelemetry
