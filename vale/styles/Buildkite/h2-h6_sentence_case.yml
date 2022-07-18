@@ -27,5 +27,6 @@ exceptions:
   - Google Cloud Functions
   - GraphQL
   - IdP  # TODO: unabbreviate this in headings
+  - IDs
   - IronWorker
   - OpenTelemetry
