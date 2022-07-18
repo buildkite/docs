@@ -1,20 +1,29 @@
-<h1>
+<h1 class="has-pills">
   <code>User</code>
-  <small>OBJECT</small>
+  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+
 </h1>
 
 A user
 
-{:toc}
+{:notoc}
 
-<h2>Fields</h2>
-<table class="responsive-table">
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>Fields</h2>
+    </th>
+  </thead>
   <tbody>
     <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>avatar</code>
-      <a href="/docs/apis/graphql/schemas/avatar" title="OBJECT Avatar">  Avatar</a>
+      <a
+  href="/docs/apis/graphql/schemas/avatar"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Avatar"><code>Avatar</code></a>
+
       
     </h3>
     
@@ -24,9 +33,13 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>bot</code>
-      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
+
       
     </h3>
     
@@ -36,58 +49,112 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>builds</code>
-      <a href="/docs/apis/graphql/schemas/buildconnection" title="OBJECT BuildConnection">  BuildConnection</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildconnection"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildConnection"><code>BuildConnection</code></a>
+
       
     </h3>
     
     <p>Returns builds that this user has created.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>first</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>first</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>last</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>last</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>state</code>
+      <a
+  href="/docs/apis/graphql/schemas/buildstates"
+  class="pill pill--enum pill--normal-case pill--medium"
+  title="Go to ENUM BuildStates"><code>BuildStates</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>branch</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
-<h4>
-  <code>state</code>
-  <a href="/docs/apis/graphql/schemas/buildstates" title="ENUM BuildStates">  BuildStates</a>
-  <span>Required</span>
-</h4>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>metaData</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-<h4>
-  <code>branch</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-
-
-<h4>
-  <code>metaData</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-
-
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>email</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -97,9 +164,13 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>hasPassword</code>
-      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
+
       
     </h3>
     
@@ -109,9 +180,13 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>id</code>
-      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      <a
+  href="/docs/apis/graphql/schemas/id"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR ID"><code>ID</code></a>
+
       
     </h3>
     
@@ -121,9 +196,13 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>name</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -133,9 +212,13 @@ A user
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>uuid</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -151,7 +234,11 @@ A user
 
 
 <h2>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+<a
+  href="/docs/apis/graphql/schemas/node"
+  class="pill pill--interface pill--normal-case pill--large"
+  title="Go to INTERFACE Node"><code>Node</code></a>
+
 
 
 

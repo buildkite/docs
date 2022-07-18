@@ -1,22 +1,31 @@
-<h1>
+<h1 class="has-pills">
   <code>__Type</code>
-  <small>OBJECT</small>
+  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+
 </h1>
 
 The fundamental unit of any GraphQL Schema is the type. There are many kinds of types in GraphQL as represented by the `__TypeKind` enum.
 
 Depending on the kind of a type, certain fields describe information about that type. Scalar types provide no information beyond a name and description, while Enum types provide their values. Object and Interface types provide the fields they describe. Abstract types, Union and Interface, provide the Object types possible at runtime. List and NonNull types compose other types.
 
-{:toc}
+{:notoc}
 
-<h2>Fields</h2>
-<table class="responsive-table">
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>Fields</h2>
+    </th>
+  </thead>
   <tbody>
     <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>description</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -26,51 +35,91 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>enumValues</code>
-      <a href="/docs/apis/graphql/schemas/__enumvalue" title="OBJECT __EnumValue">  __EnumValue</a>
+      <a
+  href="/docs/apis/graphql/schemas/__enumvalue"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __EnumValue"><code>__EnumValue</code></a>
+
       
     </h3>
     
     
-    <h3>Arguments</h3>
-<h4>
-  <code>includeDeprecated</code>
-  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
-  false
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>includeDeprecated</code>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
 
-<p>Default value: false</p>
+      false
+    </h4>
+    
+    <p class="no-margin">Default value: <code>false</code></p>
+  </td>
+</tr>
 
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>fields</code>
-      <a href="/docs/apis/graphql/schemas/__field" title="OBJECT __Field">  __Field</a>
+      <a
+  href="/docs/apis/graphql/schemas/__field"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __Field"><code>__Field</code></a>
+
       
     </h3>
     
     
-    <h3>Arguments</h3>
-<h4>
-  <code>includeDeprecated</code>
-  <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
-  false
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>includeDeprecated</code>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
 
-<p>Default value: false</p>
+      false
+    </h4>
+    
+    <p class="no-margin">Default value: <code>false</code></p>
+  </td>
+</tr>
 
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>inputFields</code>
-      <a href="/docs/apis/graphql/schemas/__inputvalue" title="OBJECT __InputValue">  __InputValue</a>
+      <a
+  href="/docs/apis/graphql/schemas/__inputvalue"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __InputValue"><code>__InputValue</code></a>
+
       
     </h3>
     
@@ -80,9 +129,13 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>interfaces</code>
-      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      <a
+  href="/docs/apis/graphql/schemas/__type"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __Type"><code>__Type</code></a>
+
       
     </h3>
     
@@ -92,9 +145,13 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>kind</code>
-      <a href="/docs/apis/graphql/schemas/__typekind" title="ENUM __TypeKind">  __TypeKind</a>
+      <a
+  href="/docs/apis/graphql/schemas/__typekind"
+  class="pill pill--enum pill--normal-case pill--medium"
+  title="Go to ENUM __TypeKind"><code>__TypeKind</code></a>
+
       
     </h3>
     
@@ -104,9 +161,13 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>name</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -116,9 +177,13 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ofType</code>
-      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      <a
+  href="/docs/apis/graphql/schemas/__type"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __Type"><code>__Type</code></a>
+
       
     </h3>
     
@@ -128,9 +193,13 @@ Depending on the kind of a type, certain fields describe information about that 
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>possibleTypes</code>
-      <a href="/docs/apis/graphql/schemas/__type" title="OBJECT __Type">  __Type</a>
+      <a
+  href="/docs/apis/graphql/schemas/__type"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT __Type"><code>__Type</code></a>
+
       
     </h3>
     

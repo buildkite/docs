@@ -1,20 +1,29 @@
-<h1>
+<h1 class="has-pills">
   <code>PipelineSchedule</code>
-  <small>OBJECT</small>
+  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+
 </h1>
 
 A schedule of when a build should automatically triggered for a Pipeline
 
-{:toc}
+{:notoc}
 
-<h2>Fields</h2>
-<table class="responsive-table">
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>Fields</h2>
+    </th>
+  </thead>
   <tbody>
     <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>branch</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -24,51 +33,97 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>builds</code>
-      <a href="/docs/apis/graphql/schemas/buildconnection" title="OBJECT BuildConnection">  BuildConnection</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildconnection"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildConnection"><code>BuildConnection</code></a>
+
       
     </h3>
     
     <p>Returns the builds created by this schedule</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>first</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
-<p>Returns the first _n_ elements from the list.</p>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>first</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>after</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-<p>Returns the elements in the list that come after the specified cursor.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the first _n_ elements from the list.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>after</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
-<h4>
-  <code>last</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
-<p>Returns the last _n_ elements from the list.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the elements in the list that come after the specified cursor.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>last</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>before</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-<p>Returns the elements in the list that come before the specified cursor.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the last _n_ elements from the list.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>before</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the elements in the list that come before the specified cursor.</p>
+    
+  </td>
+</tr>
 
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>commit</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -78,9 +133,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>createdAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -90,9 +149,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>createdBy</code>
-      <a href="/docs/apis/graphql/schemas/user" title="OBJECT User">  User</a>
+      <a
+  href="/docs/apis/graphql/schemas/user"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT User"><code>User</code></a>
+
       
     </h3>
     
@@ -102,9 +165,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>cronline</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -114,9 +181,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>enabled</code>
-      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
+
       
     </h3>
     
@@ -126,9 +197,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>env</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -138,9 +213,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>failedAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -150,9 +229,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>failedMessage</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -162,9 +245,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>id</code>
-      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      <a
+  href="/docs/apis/graphql/schemas/id"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR ID"><code>ID</code></a>
+
       
     </h3>
     
@@ -174,9 +261,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>label</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -186,9 +277,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>message</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -198,9 +293,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>nextBuildAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -210,9 +309,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>permissions</code>
-      <a href="/docs/apis/graphql/schemas/pipelineschedulepermissions" title="OBJECT PipelineSchedulePermissions">  PipelineSchedulePermissions</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineschedulepermissions"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineSchedulePermissions"><code>PipelineSchedulePermissions</code></a>
+
       
     </h3>
     
@@ -222,9 +325,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipeline</code>
-      <a href="/docs/apis/graphql/schemas/pipeline" title="OBJECT Pipeline">  Pipeline</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipeline"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
+
       
     </h3>
     
@@ -234,9 +341,13 @@ A schedule of when a build should automatically triggered for a Pipeline
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>uuid</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -252,7 +363,11 @@ A schedule of when a build should automatically triggered for a Pipeline
 
 
 <h2>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+<a
+  href="/docs/apis/graphql/schemas/node"
+  class="pill pill--interface pill--normal-case pill--large"
+  title="Go to INTERFACE Node"><code>Node</code></a>
+
 
 
 

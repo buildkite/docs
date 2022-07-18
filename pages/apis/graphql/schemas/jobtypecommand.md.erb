@@ -1,20 +1,29 @@
-<h1>
+<h1 class="has-pills">
   <code>JobTypeCommand</code>
-  <small>OBJECT</small>
+  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+
 </h1>
 
 A type of job that runs a command on an agent
 
-{:toc}
+{:notoc}
 
-<h2>Fields</h2>
-<table class="responsive-table">
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>Fields</h2>
+    </th>
+  </thead>
   <tbody>
     <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>agent</code>
-      <a href="/docs/apis/graphql/schemas/agent" title="OBJECT Agent">  Agent</a>
+      <a
+  href="/docs/apis/graphql/schemas/agent"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Agent"><code>Agent</code></a>
+
       
     </h3>
     
@@ -24,9 +33,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>agentQueryRules</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -36,37 +49,67 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>artifacts</code>
-      <a href="/docs/apis/graphql/schemas/artifactconnection" title="OBJECT ArtifactConnection">  ArtifactConnection</a>
+      <a
+  href="/docs/apis/graphql/schemas/artifactconnection"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT ArtifactConnection"><code>ArtifactConnection</code></a>
+
       
     </h3>
     
     <p>Artifacts uploaded to this job</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>first</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>first</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>last</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>last</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>automaticArtifactUploadPaths</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -76,9 +119,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>build</code>
-      <a href="/docs/apis/graphql/schemas/build" title="OBJECT Build">  Build</a>
+      <a
+  href="/docs/apis/graphql/schemas/build"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Build"><code>Build</code></a>
+
       
     </h3>
     
@@ -88,9 +135,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>canceledAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -100,9 +151,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>cluster</code>
-      <a href="/docs/apis/graphql/schemas/cluster" title="OBJECT Cluster">  Cluster</a>
+      <a
+  href="/docs/apis/graphql/schemas/cluster"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Cluster"><code>Cluster</code></a>
+
       
     </h3>
     
@@ -112,9 +167,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>clusterQueue</code>
-      <a href="/docs/apis/graphql/schemas/clusterqueue" title="OBJECT ClusterQueue">  ClusterQueue</a>
+      <a
+  href="/docs/apis/graphql/schemas/clusterqueue"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT ClusterQueue"><code>ClusterQueue</code></a>
+
       
     </h3>
     
@@ -124,9 +183,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>command</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -136,9 +199,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>concurrency</code>
-      <a href="/docs/apis/graphql/schemas/jobconcurrency" title="OBJECT JobConcurrency">  JobConcurrency</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobconcurrency"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobConcurrency"><code>JobConcurrency</code></a>
+
       
     </h3>
     
@@ -148,9 +215,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>createdAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -160,9 +231,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>env</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -172,51 +247,97 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>events</code>
-      <a href="/docs/apis/graphql/schemas/jobeventconnection" title="OBJECT JobEventConnection">  JobEventConnection</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobeventconnection"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobEventConnection"><code>JobEventConnection</code></a>
+
       
     </h3>
     
     <p>Job events</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>first</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
-<p>Returns the first _n_ elements from the list.</p>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>first</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>after</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-<p>Returns the elements in the list that come after the specified cursor.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the first _n_ elements from the list.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>after</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
-<h4>
-  <code>last</code>
-  <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
-  <span>Required</span>
-</h4>
-<p>Returns the last _n_ elements from the list.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the elements in the list that come after the specified cursor.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>last</code>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
 
-<h4>
-  <code>before</code>
-  <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
-  <span>Required</span>
-</h4>
-<p>Returns the elements in the list that come before the specified cursor.</p>
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the last _n_ elements from the list.</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>before</code>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    <p class="no-margin">Returns the elements in the list that come before the specified cursor.</p>
+    
+  </td>
+</tr>
 
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>exitStatus</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -226,9 +347,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>expiredAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -238,9 +363,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>finishedAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -250,9 +379,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>id</code>
-      <a href="/docs/apis/graphql/schemas/id" title="SCALAR ID">  ID</a>
+      <a
+  href="/docs/apis/graphql/schemas/id"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR ID"><code>ID</code></a>
+
       
     </h3>
     
@@ -262,9 +395,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>label</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -274,9 +411,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>matrix</code>
-      <a href="/docs/apis/graphql/schemas/json" title="SCALAR JSON">  JSON</a>
+      <a
+  href="/docs/apis/graphql/schemas/json"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR JSON"><code>JSON</code></a>
+
       
     </h3>
     
@@ -286,9 +427,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>parallelGroupIndex</code>
-      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
+
       
     </h3>
     
@@ -298,9 +443,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>parallelGroupTotal</code>
-      <a href="/docs/apis/graphql/schemas/int" title="SCALAR Int">  Int</a>
+      <a
+  href="/docs/apis/graphql/schemas/int"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Int"><code>Int</code></a>
+
       
     </h3>
     
@@ -310,9 +459,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>passed</code>
-      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
+
       
     </h3>
     
@@ -322,9 +475,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipeline</code>
-      <a href="/docs/apis/graphql/schemas/pipeline" title="OBJECT Pipeline">  Pipeline</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipeline"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
+
       
     </h3>
     
@@ -334,9 +491,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>priority</code>
-      <a href="/docs/apis/graphql/schemas/jobpriority" title="OBJECT JobPriority">  JobPriority</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobpriority"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobPriority"><code>JobPriority</code></a>
+
       
     </h3>
     
@@ -346,9 +507,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>retryRules</code>
-      <a href="/docs/apis/graphql/schemas/jobretryrules" title="OBJECT JobRetryRules">  JobRetryRules</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobretryrules"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobRetryRules"><code>JobRetryRules</code></a>
+
       
     </h3>
     
@@ -358,9 +523,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>runnableAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -370,9 +539,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>scheduledAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -382,9 +555,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>signal</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -394,9 +571,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>signalReason</code>
-      <a href="/docs/apis/graphql/schemas/jobeventsignalreason" title="ENUM JobEventSignalReason">  JobEventSignalReason</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobeventsignalreason"
+  class="pill pill--enum pill--normal-case pill--medium"
+  title="Go to ENUM JobEventSignalReason"><code>JobEventSignalReason</code></a>
+
       
     </h3>
     
@@ -406,9 +587,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>softFailed</code>
-      <a href="/docs/apis/graphql/schemas/boolean" title="SCALAR Boolean">  Boolean</a>
+      <a
+  href="/docs/apis/graphql/schemas/boolean"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR Boolean"><code>Boolean</code></a>
+
       
     </h3>
     
@@ -418,9 +603,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>startedAt</code>
-      <a href="/docs/apis/graphql/schemas/datetime" title="SCALAR DateTime">  DateTime</a>
+      <a
+  href="/docs/apis/graphql/schemas/datetime"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR DateTime"><code>DateTime</code></a>
+
       
     </h3>
     
@@ -430,9 +619,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>state</code>
-      <a href="/docs/apis/graphql/schemas/jobstates" title="ENUM JobStates">  JobStates</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobstates"
+  class="pill pill--enum pill--normal-case pill--medium"
+  title="Go to ENUM JobStates"><code>JobStates</code></a>
+
       
     </h3>
     
@@ -442,9 +635,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>step</code>
-      <a href="/docs/apis/graphql/schemas/stepcommand" title="OBJECT StepCommand">  StepCommand</a>
+      <a
+  href="/docs/apis/graphql/schemas/stepcommand"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT StepCommand"><code>StepCommand</code></a>
+
       
     </h3>
     
@@ -454,9 +651,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>url</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -466,9 +667,13 @@ A type of job that runs a command on an agent
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>uuid</code>
-      <a href="/docs/apis/graphql/schemas/string" title="SCALAR String">  String</a>
+      <a
+  href="/docs/apis/graphql/schemas/string"
+  class="pill pill--scalar pill--normal-case pill--medium"
+  title="Go to SCALAR String"><code>String</code></a>
+
       
     </h3>
     
@@ -484,7 +689,11 @@ A type of job that runs a command on an agent
 
 
 <h2>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/node" title="INTERFACE Node">  Node</a>
+<a
+  href="/docs/apis/graphql/schemas/node"
+  class="pill pill--interface pill--normal-case pill--large"
+  title="Go to INTERFACE Node"><code>Node</code></a>
+
 
 
 

@@ -1,545 +1,1004 @@
-<h1>
+<h1 class="has-pills">
   <code>Mutation</code>
-  <small>OBJECT</small>
+  <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
+
 </h1>
 
 The root for mutations in this schema
 
-{:toc}
+{:notoc}
 
-<h2>Fields</h2>
-<table class="responsive-table">
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>Fields</h2>
+    </th>
+  </thead>
   <tbody>
     <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>agentStop</code>
-      <a href="/docs/apis/graphql/schemas/agentstoppayload" title="OBJECT AgentStopPayload">  AgentStopPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/agentstoppayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT AgentStopPayload"><code>AgentStopPayload</code></a>
+
       
     </h3>
     
     <p>Instruct an agent to stop accepting new build jobs and shut itself down.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/agentstopinput" title="INPUT_OBJECT AgentStopInput">  AgentStopInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/agentstopinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT AgentStopInput"><code>AgentStopInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>agentTokenCreate</code>
-      <a href="/docs/apis/graphql/schemas/agenttokencreatepayload" title="OBJECT AgentTokenCreatePayload">  AgentTokenCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/agenttokencreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT AgentTokenCreatePayload"><code>AgentTokenCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a new agent registration token.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/agenttokencreateinput" title="INPUT_OBJECT AgentTokenCreateInput">  AgentTokenCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/agenttokencreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT AgentTokenCreateInput"><code>AgentTokenCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>agentTokenRevoke</code>
-      <a href="/docs/apis/graphql/schemas/agenttokenrevokepayload" title="OBJECT AgentTokenRevokePayload">  AgentTokenRevokePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/agenttokenrevokepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT AgentTokenRevokePayload"><code>AgentTokenRevokePayload</code></a>
+
       
     </h3>
     
     <p>Revoke an agent registration token.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/agenttokenrevokeinput" title="INPUT_OBJECT AgentTokenRevokeInput">  AgentTokenRevokeInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/agenttokenrevokeinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT AgentTokenRevokeInput"><code>AgentTokenRevokeInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>apiAccessTokenCodeAuthorize</code>
-      <a href="/docs/apis/graphql/schemas/apiaccesstokencodeauthorizemutationpayload" title="OBJECT APIAccessTokenCodeAuthorizeMutationPayload">  APIAccessTokenCodeAuthorizeMutationPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/apiaccesstokencodeauthorizemutationpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT APIAccessTokenCodeAuthorizeMutationPayload"><code>APIAccessTokenCodeAuthorizeMutationPayload</code></a>
+
       
     </h3>
     
     <p>Authorize an API Access Token Code generated by an API Application. Please note this mutation is private and cannot be executed externally.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/apiaccesstokencodeauthorizemutationinput" title="INPUT_OBJECT APIAccessTokenCodeAuthorizeMutationInput">  APIAccessTokenCodeAuthorizeMutationInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/apiaccesstokencodeauthorizemutationinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT APIAccessTokenCodeAuthorizeMutationInput"><code>APIAccessTokenCodeAuthorizeMutationInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>buildAnnotate</code>
-      <a href="/docs/apis/graphql/schemas/buildannotatepayload" title="OBJECT BuildAnnotatePayload">  BuildAnnotatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildannotatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildAnnotatePayload"><code>BuildAnnotatePayload</code></a>
+
       
     </h3>
     
     <p>Annotate a build with information to appear on the build page.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/buildannotateinput" title="INPUT_OBJECT BuildAnnotateInput">  BuildAnnotateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/buildannotateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT BuildAnnotateInput"><code>BuildAnnotateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>buildCancel</code>
-      <a href="/docs/apis/graphql/schemas/buildcancelpayload" title="OBJECT BuildCancelPayload">  BuildCancelPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildcancelpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildCancelPayload"><code>BuildCancelPayload</code></a>
+
       
     </h3>
     
     <p>Cancel a build.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/buildcancelinput" title="INPUT_OBJECT BuildCancelInput">  BuildCancelInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/buildcancelinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT BuildCancelInput"><code>BuildCancelInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>buildCreate</code>
-      <a href="/docs/apis/graphql/schemas/buildcreatepayload" title="OBJECT BuildCreatePayload">  BuildCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildCreatePayload"><code>BuildCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a build.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/buildcreateinput" title="INPUT_OBJECT BuildCreateInput">  BuildCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/buildcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT BuildCreateInput"><code>BuildCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>buildRebuild</code>
-      <a href="/docs/apis/graphql/schemas/buildrebuildpayload" title="OBJECT BuildRebuildPayload">  BuildRebuildPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/buildrebuildpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT BuildRebuildPayload"><code>BuildRebuildPayload</code></a>
+
       
     </h3>
     
     <p>Rebuild a build.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/buildrebuildinput" title="INPUT_OBJECT BuildRebuildInput">  BuildRebuildInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/buildrebuildinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT BuildRebuildInput"><code>BuildRebuildInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>emailCreate</code>
-      <a href="/docs/apis/graphql/schemas/emailcreatepayload" title="OBJECT EmailCreatePayload">  EmailCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/emailcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT EmailCreatePayload"><code>EmailCreatePayload</code></a>
+
       
     </h3>
     
     <p>Add a new email address for the current user</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/emailcreateinput" title="INPUT_OBJECT EmailCreateInput">  EmailCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/emailcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT EmailCreateInput"><code>EmailCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>emailResendVerification</code>
-      <a href="/docs/apis/graphql/schemas/emailresendverificationpayload" title="OBJECT EmailResendVerificationPayload">  EmailResendVerificationPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/emailresendverificationpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT EmailResendVerificationPayload"><code>EmailResendVerificationPayload</code></a>
+
       
     </h3>
     
     <p>Resend a verification email.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/emailresendverificationinput" title="INPUT_OBJECT EmailResendVerificationInput">  EmailResendVerificationInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/emailresendverificationinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT EmailResendVerificationInput"><code>EmailResendVerificationInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>graphQLSnippetCreate</code>
-      <a href="/docs/apis/graphql/schemas/graphqlsnippetcreatepayload" title="OBJECT GraphQLSnippetCreatePayload">  GraphQLSnippetCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/graphqlsnippetcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT GraphQLSnippetCreatePayload"><code>GraphQLSnippetCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a GraphQL snippet.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/graphqlsnippetcreateinput" title="INPUT_OBJECT GraphQLSnippetCreateInput">  GraphQLSnippetCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/graphqlsnippetcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT GraphQLSnippetCreateInput"><code>GraphQLSnippetCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>jobTypeBlockUnblock</code>
-      <a href="/docs/apis/graphql/schemas/jobtypeblockunblockpayload" title="OBJECT JobTypeBlockUnblockPayload">  JobTypeBlockUnblockPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypeblockunblockpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobTypeBlockUnblockPayload"><code>JobTypeBlockUnblockPayload</code></a>
+
       
     </h3>
     
     <p>Unblocks a build's "Block pipeline" job.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/jobtypeblockunblockinput" title="INPUT_OBJECT JobTypeBlockUnblockInput">  JobTypeBlockUnblockInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypeblockunblockinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT JobTypeBlockUnblockInput"><code>JobTypeBlockUnblockInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>jobTypeCommandCancel</code>
-      <a href="/docs/apis/graphql/schemas/jobtypecommandcancelpayload" title="OBJECT JobTypeCommandCancelPayload">  JobTypeCommandCancelPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypecommandcancelpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobTypeCommandCancelPayload"><code>JobTypeCommandCancelPayload</code></a>
+
       
     </h3>
     
     <p>Cancel a job.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/jobtypecommandcancelinput" title="INPUT_OBJECT JobTypeCommandCancelInput">  JobTypeCommandCancelInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypecommandcancelinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT JobTypeCommandCancelInput"><code>JobTypeCommandCancelInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>jobTypeCommandRetry</code>
-      <a href="/docs/apis/graphql/schemas/jobtypecommandretrypayload" title="OBJECT JobTypeCommandRetryPayload">  JobTypeCommandRetryPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypecommandretrypayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT JobTypeCommandRetryPayload"><code>JobTypeCommandRetryPayload</code></a>
+
       
     </h3>
     
     <p>Retry a job.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/jobtypecommandretryinput" title="INPUT_OBJECT JobTypeCommandRetryInput">  JobTypeCommandRetryInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/jobtypecommandretryinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT JobTypeCommandRetryInput"><code>JobTypeCommandRetryInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>noticeDismiss</code>
-      <a href="/docs/apis/graphql/schemas/noticedismisspayload" title="OBJECT NoticeDismissPayload">  NoticeDismissPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/noticedismisspayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT NoticeDismissPayload"><code>NoticeDismissPayload</code></a>
+
       
     </h3>
     
     <p>Dismisses a notice from the Buildkite UI. This mutation is idempotent so if you dismiss the same notice multiple times, it will return the original `dismissedAt` time</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/noticedismissinput" title="INPUT_OBJECT NoticeDismissInput">  NoticeDismissInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/noticedismissinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT NoticeDismissInput"><code>NoticeDismissInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>organizationInvitationCreate</code>
-      <a href="/docs/apis/graphql/schemas/organizationinvitationcreatepayload" title="OBJECT OrganizationInvitationCreatePayload">  OrganizationInvitationCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT OrganizationInvitationCreatePayload"><code>OrganizationInvitationCreatePayload</code></a>
+
       
     </h3>
     
     <p>Send email invitations to this organization.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/organizationinvitationcreateinput" title="INPUT_OBJECT OrganizationInvitationCreateInput">  OrganizationInvitationCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT OrganizationInvitationCreateInput"><code>OrganizationInvitationCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>organizationInvitationResend</code>
-      <a href="/docs/apis/graphql/schemas/organizationinvitationresendpayload" title="OBJECT OrganizationInvitationResendPayload">  OrganizationInvitationResendPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationresendpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT OrganizationInvitationResendPayload"><code>OrganizationInvitationResendPayload</code></a>
+
       
     </h3>
     
     <p>Resend an organization invitation email.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/organizationinvitationresendinput" title="INPUT_OBJECT OrganizationInvitationResendInput">  OrganizationInvitationResendInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationresendinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT OrganizationInvitationResendInput"><code>OrganizationInvitationResendInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>organizationInvitationRevoke</code>
-      <a href="/docs/apis/graphql/schemas/organizationinvitationrevokepayload" title="OBJECT OrganizationInvitationRevokePayload">  OrganizationInvitationRevokePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationrevokepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT OrganizationInvitationRevokePayload"><code>OrganizationInvitationRevokePayload</code></a>
+
       
     </h3>
     
     <p>Revoke an invitation to an organization so that it can no longer be accepted.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/organizationinvitationrevokeinput" title="INPUT_OBJECT OrganizationInvitationRevokeInput">  OrganizationInvitationRevokeInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/organizationinvitationrevokeinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT OrganizationInvitationRevokeInput"><code>OrganizationInvitationRevokeInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>organizationMemberDelete</code>
-      <a href="/docs/apis/graphql/schemas/organizationmemberdeletepayload" title="OBJECT OrganizationMemberDeletePayload">  OrganizationMemberDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/organizationmemberdeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT OrganizationMemberDeletePayload"><code>OrganizationMemberDeletePayload</code></a>
+
       
     </h3>
     
     <p>Remove a user from an organization.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/organizationmemberdeleteinput" title="INPUT_OBJECT OrganizationMemberDeleteInput">  OrganizationMemberDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/organizationmemberdeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT OrganizationMemberDeleteInput"><code>OrganizationMemberDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>organizationMemberUpdate</code>
-      <a href="/docs/apis/graphql/schemas/organizationmemberupdatepayload" title="OBJECT OrganizationMemberUpdatePayload">  OrganizationMemberUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/organizationmemberupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT OrganizationMemberUpdatePayload"><code>OrganizationMemberUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Change a user's role within an organization.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/organizationmemberupdateinput" title="INPUT_OBJECT OrganizationMemberUpdateInput">  OrganizationMemberUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/organizationmemberupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT OrganizationMemberUpdateInput"><code>OrganizationMemberUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineArchive</code>
-      <a href="/docs/apis/graphql/schemas/pipelinearchivepayload" title="OBJECT PipelineArchivePayload">  PipelineArchivePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinearchivepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineArchivePayload"><code>PipelineArchivePayload</code></a>
+
       
     </h3>
     
     <p>Archive a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinearchiveinput" title="INPUT_OBJECT PipelineArchiveInput">  PipelineArchiveInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinearchiveinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineArchiveInput"><code>PipelineArchiveInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineCreate</code>
-      <a href="/docs/apis/graphql/schemas/pipelinecreatepayload" title="OBJECT PipelineCreatePayload">  PipelineCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinecreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineCreatePayload"><code>PipelineCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinecreateinput" title="INPUT_OBJECT PipelineCreateInput">  PipelineCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinecreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineCreateInput"><code>PipelineCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineCreateWebhook</code>
-      <a href="/docs/apis/graphql/schemas/pipelinecreatewebhookpayload" title="OBJECT PipelineCreateWebhookPayload">  PipelineCreateWebhookPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinecreatewebhookpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineCreateWebhookPayload"><code>PipelineCreateWebhookPayload</code></a>
+
       
     </h3>
     
     <p>Create SCM webhooks for a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinecreatewebhookinput" title="INPUT_OBJECT PipelineCreateWebhookInput">  PipelineCreateWebhookInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinecreatewebhookinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineCreateWebhookInput"><code>PipelineCreateWebhookInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineDelete</code>
-      <a href="/docs/apis/graphql/schemas/pipelinedeletepayload" title="OBJECT PipelineDeletePayload">  PipelineDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinedeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineDeletePayload"><code>PipelineDeletePayload</code></a>
+
       
     </h3>
     
     <p>Delete a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinedeleteinput" title="INPUT_OBJECT PipelineDeleteInput">  PipelineDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinedeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineDeleteInput"><code>PipelineDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineFavorite</code>
-      <a href="/docs/apis/graphql/schemas/pipelinefavoritepayload" title="OBJECT PipelineFavoritePayload">  PipelineFavoritePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinefavoritepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineFavoritePayload"><code>PipelineFavoritePayload</code></a>
+
       
     </h3>
     
     <p>Favorite a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinefavoriteinput" title="INPUT_OBJECT PipelineFavoriteInput">  PipelineFavoriteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinefavoriteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineFavoriteInput"><code>PipelineFavoriteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineRotateWebhookURL</code>
-      <a href="/docs/apis/graphql/schemas/pipelinerotatewebhookurlpayload" title="OBJECT PipelineRotateWebhookURLPayload">  PipelineRotateWebhookURLPayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinerotatewebhookurlpayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineRotateWebhookURLPayload"><code>PipelineRotateWebhookURLPayload</code></a>
+
       
     </h3>
     
@@ -547,485 +1006,899 @@ The root for mutations in this schema
 
 Note that the old webhook URL will stop working immediately and so must be updated quickly to avoid interruption.
 </p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinerotatewebhookurlinput" title="INPUT_OBJECT PipelineRotateWebhookURLInput">  PipelineRotateWebhookURLInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinerotatewebhookurlinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineRotateWebhookURLInput"><code>PipelineRotateWebhookURLInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineScheduleCreate</code>
-      <a href="/docs/apis/graphql/schemas/pipelineschedulecreatepayload" title="OBJECT PipelineScheduleCreatePayload">  PipelineScheduleCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineschedulecreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineScheduleCreatePayload"><code>PipelineScheduleCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a scheduled build on pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelineschedulecreateinput" title="INPUT_OBJECT PipelineScheduleCreateInput">  PipelineScheduleCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineschedulecreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineScheduleCreateInput"><code>PipelineScheduleCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineScheduleDelete</code>
-      <a href="/docs/apis/graphql/schemas/pipelinescheduledeletepayload" title="OBJECT PipelineScheduleDeletePayload">  PipelineScheduleDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinescheduledeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineScheduleDeletePayload"><code>PipelineScheduleDeletePayload</code></a>
+
       
     </h3>
     
     <p>Delete a scheduled build on pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinescheduledeleteinput" title="INPUT_OBJECT PipelineScheduleDeleteInput">  PipelineScheduleDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinescheduledeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineScheduleDeleteInput"><code>PipelineScheduleDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineScheduleUpdate</code>
-      <a href="/docs/apis/graphql/schemas/pipelinescheduleupdatepayload" title="OBJECT PipelineScheduleUpdatePayload">  PipelineScheduleUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinescheduleupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineScheduleUpdatePayload"><code>PipelineScheduleUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Update a scheduled build on pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelinescheduleupdateinput" title="INPUT_OBJECT PipelineScheduleUpdateInput">  PipelineScheduleUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelinescheduleupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineScheduleUpdateInput"><code>PipelineScheduleUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineUnarchive</code>
-      <a href="/docs/apis/graphql/schemas/pipelineunarchivepayload" title="OBJECT PipelineUnarchivePayload">  PipelineUnarchivePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineunarchivepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineUnarchivePayload"><code>PipelineUnarchivePayload</code></a>
+
       
     </h3>
     
     <p>Unarchive a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelineunarchiveinput" title="INPUT_OBJECT PipelineUnarchiveInput">  PipelineUnarchiveInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineunarchiveinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineUnarchiveInput"><code>PipelineUnarchiveInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>pipelineUpdate</code>
-      <a href="/docs/apis/graphql/schemas/pipelineupdatepayload" title="OBJECT PipelineUpdatePayload">  PipelineUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT PipelineUpdatePayload"><code>PipelineUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Change the settings for a pipeline.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/pipelineupdateinput" title="INPUT_OBJECT PipelineUpdateInput">  PipelineUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/pipelineupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT PipelineUpdateInput"><code>PipelineUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ssoProviderCreate</code>
-      <a href="/docs/apis/graphql/schemas/ssoprovidercreatepayload" title="OBJECT SSOProviderCreatePayload">  SSOProviderCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/ssoprovidercreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT SSOProviderCreatePayload"><code>SSOProviderCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a SSO provider.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/ssoprovidercreateinput" title="INPUT_OBJECT SSOProviderCreateInput">  SSOProviderCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/ssoprovidercreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT SSOProviderCreateInput"><code>SSOProviderCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ssoProviderDelete</code>
-      <a href="/docs/apis/graphql/schemas/ssoproviderdeletepayload" title="OBJECT SSOProviderDeletePayload">  SSOProviderDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderdeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT SSOProviderDeletePayload"><code>SSOProviderDeletePayload</code></a>
+
       
     </h3>
     
     <p>Delete a SSO provider.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/ssoproviderdeleteinput" title="INPUT_OBJECT SSOProviderDeleteInput">  SSOProviderDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderdeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT SSOProviderDeleteInput"><code>SSOProviderDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ssoProviderDisable</code>
-      <a href="/docs/apis/graphql/schemas/ssoproviderdisablepayload" title="OBJECT SSOProviderDisablePayload">  SSOProviderDisablePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderdisablepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT SSOProviderDisablePayload"><code>SSOProviderDisablePayload</code></a>
+
       
     </h3>
     
     <p>Disable a SSO provider.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/ssoproviderdisableinput" title="INPUT_OBJECT SSOProviderDisableInput">  SSOProviderDisableInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderdisableinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT SSOProviderDisableInput"><code>SSOProviderDisableInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ssoProviderEnable</code>
-      <a href="/docs/apis/graphql/schemas/ssoproviderenablepayload" title="OBJECT SSOProviderEnablePayload">  SSOProviderEnablePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderenablepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT SSOProviderEnablePayload"><code>SSOProviderEnablePayload</code></a>
+
       
     </h3>
     
     <p>Enable a SSO provider.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/ssoproviderenableinput" title="INPUT_OBJECT SSOProviderEnableInput">  SSOProviderEnableInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderenableinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT SSOProviderEnableInput"><code>SSOProviderEnableInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>ssoProviderUpdate</code>
-      <a href="/docs/apis/graphql/schemas/ssoproviderupdatepayload" title="OBJECT SSOProviderUpdatePayload">  SSOProviderUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT SSOProviderUpdatePayload"><code>SSOProviderUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Change the settings for a SSO provider.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/ssoproviderupdateinput" title="INPUT_OBJECT SSOProviderUpdateInput">  SSOProviderUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/ssoproviderupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT SSOProviderUpdateInput"><code>SSOProviderUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamCreate</code>
-      <a href="/docs/apis/graphql/schemas/teamcreatepayload" title="OBJECT TeamCreatePayload">  TeamCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamCreatePayload"><code>TeamCreatePayload</code></a>
+
       
     </h3>
     
     <p>Create a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamcreateinput" title="INPUT_OBJECT TeamCreateInput">  TeamCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamCreateInput"><code>TeamCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamDelete</code>
-      <a href="/docs/apis/graphql/schemas/teamdeletepayload" title="OBJECT TeamDeletePayload">  TeamDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamdeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamDeletePayload"><code>TeamDeletePayload</code></a>
+
       
     </h3>
     
     <p>Delete a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamdeleteinput" title="INPUT_OBJECT TeamDeleteInput">  TeamDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamdeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamDeleteInput"><code>TeamDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamMemberCreate</code>
-      <a href="/docs/apis/graphql/schemas/teammembercreatepayload" title="OBJECT TeamMemberCreatePayload">  TeamMemberCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teammembercreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamMemberCreatePayload"><code>TeamMemberCreatePayload</code></a>
+
       
     </h3>
     
     <p>Add a user to a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teammembercreateinput" title="INPUT_OBJECT TeamMemberCreateInput">  TeamMemberCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teammembercreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamMemberCreateInput"><code>TeamMemberCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamMemberDelete</code>
-      <a href="/docs/apis/graphql/schemas/teammemberdeletepayload" title="OBJECT TeamMemberDeletePayload">  TeamMemberDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teammemberdeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamMemberDeletePayload"><code>TeamMemberDeletePayload</code></a>
+
       
     </h3>
     
     <p>Remove a user from a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teammemberdeleteinput" title="INPUT_OBJECT TeamMemberDeleteInput">  TeamMemberDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teammemberdeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamMemberDeleteInput"><code>TeamMemberDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamMemberUpdate</code>
-      <a href="/docs/apis/graphql/schemas/teammemberupdatepayload" title="OBJECT TeamMemberUpdatePayload">  TeamMemberUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teammemberupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamMemberUpdatePayload"><code>TeamMemberUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Update a user's role in a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teammemberupdateinput" title="INPUT_OBJECT TeamMemberUpdateInput">  TeamMemberUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teammemberupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamMemberUpdateInput"><code>TeamMemberUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamPipelineCreate</code>
-      <a href="/docs/apis/graphql/schemas/teampipelinecreatepayload" title="OBJECT TeamPipelineCreatePayload">  TeamPipelineCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelinecreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamPipelineCreatePayload"><code>TeamPipelineCreatePayload</code></a>
+
       
     </h3>
     
     <p>Add a pipeline to a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teampipelinecreateinput" title="INPUT_OBJECT TeamPipelineCreateInput">  TeamPipelineCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelinecreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamPipelineCreateInput"><code>TeamPipelineCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamPipelineDelete</code>
-      <a href="/docs/apis/graphql/schemas/teampipelinedeletepayload" title="OBJECT TeamPipelineDeletePayload">  TeamPipelineDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelinedeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamPipelineDeletePayload"><code>TeamPipelineDeletePayload</code></a>
+
       
     </h3>
     
     <p>Remove a pipeline from a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teampipelinedeleteinput" title="INPUT_OBJECT TeamPipelineDeleteInput">  TeamPipelineDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelinedeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamPipelineDeleteInput"><code>TeamPipelineDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamPipelineUpdate</code>
-      <a href="/docs/apis/graphql/schemas/teampipelineupdatepayload" title="OBJECT TeamPipelineUpdatePayload">  TeamPipelineUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelineupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamPipelineUpdatePayload"><code>TeamPipelineUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Update a pipeline's access level within a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teampipelineupdateinput" title="INPUT_OBJECT TeamPipelineUpdateInput">  TeamPipelineUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teampipelineupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamPipelineUpdateInput"><code>TeamPipelineUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamSuiteCreate</code>
-      <a href="/docs/apis/graphql/schemas/teamsuitecreatepayload" title="OBJECT TeamSuiteCreatePayload">  TeamSuiteCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuitecreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamSuiteCreatePayload"><code>TeamSuiteCreatePayload</code></a>
+
       
     </h3>
     
     <p>Add a suite to a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamsuitecreateinput" title="INPUT_OBJECT TeamSuiteCreateInput">  TeamSuiteCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuitecreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamSuiteCreateInput"><code>TeamSuiteCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamSuiteDelete</code>
-      <a href="/docs/apis/graphql/schemas/teamsuitedeletepayload" title="OBJECT TeamSuiteDeletePayload">  TeamSuiteDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuitedeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamSuiteDeletePayload"><code>TeamSuiteDeletePayload</code></a>
+
       
     </h3>
     
     <p>Remove a suite from a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamsuitedeleteinput" title="INPUT_OBJECT TeamSuiteDeleteInput">  TeamSuiteDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuitedeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamSuiteDeleteInput"><code>TeamSuiteDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamSuiteUpdate</code>
-      <a href="/docs/apis/graphql/schemas/teamsuiteupdatepayload" title="OBJECT TeamSuiteUpdatePayload">  TeamSuiteUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuiteupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamSuiteUpdatePayload"><code>TeamSuiteUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Update a suite's access level within a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamsuiteupdateinput" title="INPUT_OBJECT TeamSuiteUpdateInput">  TeamSuiteUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamsuiteupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamSuiteUpdateInput"><code>TeamSuiteUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>teamUpdate</code>
-      <a href="/docs/apis/graphql/schemas/teamupdatepayload" title="OBJECT TeamUpdatePayload">  TeamUpdatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/teamupdatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TeamUpdatePayload"><code>TeamUpdatePayload</code></a>
+
       
     </h3>
     
     <p>Change the settings for a team.</p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/teamupdateinput" title="INPUT_OBJECT TeamUpdateInput">  TeamUpdateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/teamupdateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TeamUpdateInput"><code>TeamUpdateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>totpActivate</code>
-      <a href="/docs/apis/graphql/schemas/totpactivatepayload" title="OBJECT TOTPActivatePayload">  TOTPActivatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/totpactivatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TOTPActivatePayload"><code>TOTPActivatePayload</code></a>
+
       
     </h3>
     
@@ -1036,23 +1909,41 @@ Any previous TOTP configuration or Recovery Codes will no longer be usable.
 
 This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 </p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/totpactivateinput" title="INPUT_OBJECT TOTPActivateInput">  TOTPActivateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/totpactivateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TOTPActivateInput"><code>TOTPActivateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>totpCreate</code>
-      <a href="/docs/apis/graphql/schemas/totpcreatepayload" title="OBJECT TOTPCreatePayload">  TOTPCreatePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/totpcreatepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TOTPCreatePayload"><code>TOTPCreatePayload</code></a>
+
       
     </h3>
     
@@ -1063,23 +1954,41 @@ Neither TOTP configuration nor Recovery Codes will be usable until they have bee
 
 This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 </p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/totpcreateinput" title="INPUT_OBJECT TOTPCreateInput">  TOTPCreateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/totpcreateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TOTPCreateInput"><code>TOTPCreateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>totpDelete</code>
-      <a href="/docs/apis/graphql/schemas/totpdeletepayload" title="OBJECT TOTPDeletePayload">  TOTPDeletePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/totpdeletepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TOTPDeletePayload"><code>TOTPDeletePayload</code></a>
+
       
     </h3>
     
@@ -1090,23 +1999,41 @@ Any Recovery Codes associated with the TOTP configuration will also no longer be
 
 This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 </p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/totpdeleteinput" title="INPUT_OBJECT TOTPDeleteInput">  TOTPDeleteInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/totpdeleteinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TOTPDeleteInput"><code>TOTPDeleteInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
 <tr>
   <td>
-    <h3>
+    <h3 class="is-small has-pills">
       <code>totpRecoveryCodesRegenerate</code>
-      <a href="/docs/apis/graphql/schemas/totprecoverycodesregeneratepayload" title="OBJECT TOTPRecoveryCodesRegeneratePayload">  TOTPRecoveryCodesRegeneratePayload</a>
+      <a
+  href="/docs/apis/graphql/schemas/totprecoverycodesregeneratepayload"
+  class="pill pill--object pill--normal-case pill--medium"
+  title="Go to OBJECT TOTPRecoveryCodesRegeneratePayload"><code>TOTPRecoveryCodesRegeneratePayload</code></a>
+
       
     </h3>
     
@@ -1116,15 +2043,29 @@ The new Recovery Codes will immediately replace any existing recovery codes.
 
 This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 </p>
-    <h3>Arguments</h3>
-<h4>
-  <code>input</code>
-  <a href="/docs/apis/graphql/schemas/totprecoverycodesregenerateinput" title="INPUT_OBJECT TOTPRecoveryCodesRegenerateInput">  TOTPRecoveryCodesRegenerateInput</a>
-  <span>Required</span>
-</h4>
+    <details>
+  <summary>Arguments</summary>
+  <table class="responsive-table">
+    <tbody>
+      <tr>
+  <td>
+    <h4 class="is-small has-pills no-margin">
+      <code>input</code>
+      <a
+  href="/docs/apis/graphql/schemas/totprecoverycodesregenerateinput"
+  class="pill pill--input_object pill--normal-case pill--medium"
+  title="Go to INPUT_OBJECT TOTPRecoveryCodesRegenerateInput"><code>TOTPRecoveryCodesRegenerateInput</code></a>
 
+      <span class="pill pill--required pill--normal-case"><code>required</code></span>
+    </h4>
+    
+    
+  </td>
+</tr>
 
-
+    </tbody>
+  </table>
+</details>
 
   </td>
 </tr>
