@@ -1,36 +1,42 @@
 <% nav_level = nav_level + 1 %>
 <ul class="
-  <%= is_dropdown ? 'Nav__dropdown' : "Nav__section Nav__section--level#{nav_level}" %>
+  <%= type == 'dropdown' ? 'Nav__dropdown' : "Nav__section Nav__section--level#{nav_level}" %>
   <%= start_expanded ? 'Nav__section--show' : '' %>">
   <% children.each do |child| %>
-    <li class="
-      Nav__item
-      Nav__item--level<%= nav_level %>
-      <%= 'Nav__item--has-dropdown' if child['is_dropdown'] %>"
-    >
-      <%=
-        render 'layouts/nav_link',
-        name: child['name'],
-        path: child['path'],
-        icon: child['icon'],
-        pill: child['pill'],
-        new_window: child['new_window'],
-        is_dropdown: child['is_dropdown'],
-        is_divider: child['is_divider'],
-        start_expanded: child['start_expanded'],
-        nav_level: nav_level,
-        current_path: current_path
-      %>
-
-      <% if child['children'] && nav_level < 5 %>
+    <% if child["type"] == "divider" %>
+      <li class="Nav__item">
+        <hr class="Nav__divider" />
+      </li>
+    <% else %>
+      <li class="
+        Nav__item
+        Nav__item--level<%= nav_level %>
+        <%= 'Nav__item--has-dropdown' if child['type'] == 'dropdown' %>"
+      >
         <%=
-          render 'layouts/nav_children',
-          children: child['children'],
+          render 'layouts/nav_link',
+          name: child['name'],
+          path: child['path'],
+          current_path: current_path,
+          nav_level: nav_level,
+          new_window: child['new_window'],
+          pill: child['pill'],
           is_dropdown: child['is_dropdown'],
           start_expanded: child['start_expanded'],
-          nav_level: nav_level,
-          current_path: current_path 
+          type: child['type']
         %>
+
+        <% if child['children'] && nav_level < 5 %>
+          <%=
+            render 'layouts/nav_children',
+            children: child['children'],
+            current_path: current_path ,
+            is_dropdown: child['is_dropdown'],
+            nav_level: nav_level,
+            start_expanded: child['start_expanded'],
+            type: child['type']
+          %>
+        <% end %>
       <% end %>
     </li>
   <% end %>

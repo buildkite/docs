@@ -1,9 +1,10 @@
 <h1 class="has-pills">
-  <code>PipelineOrders</code>
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+  PipelineOrders
+  <span class="pill pill--enum pill--normal-case pill--large">
+  <code>ENUM</code>
+</span>
 
 </h1>
-
 The diferent orders you can sort pipelines by
 
 {:notoc}
@@ -16,30 +17,54 @@ The diferent orders you can sort pipelines by
 
 
 
-<h2>ENUM Values</h2>
-<h3>
-  NAME
-  false
-</h3>
-<p>Order by name alphabetically</p>
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>ENUM Values</h2>
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+  <td>
+    <p>
+      <strong><code>NAME</code></strong>
+      
+    </p>
+    <p>Order by name alphabetically</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>NAME_WITH_FAVORITES_FIRST</code></strong>
+      
+    </p>
+    <p>Order by favorites first alphabetically, then the rest of the pipelines alphabetically</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>RECENTLY_CREATED</code></strong>
+      
+    </p>
+    <p>Order by the most recently created pipelines first</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>RELEVANCE</code></strong>
+      
+    </p>
+    <p>Order by relevance when searching for pipelines</p>
+    
+  </td>
+</tr>
 
-<h3>
-  NAME_WITH_FAVORITES_FIRST
-  false
-</h3>
-<p>Order by favorites first alphabetically, then the rest of the pipelines alphabetically</p>
-
-<h3>
-  RECENTLY_CREATED
-  false
-</h3>
-<p>Order by the most recently created pipelines first</p>
-
-<h3>
-  RELEVANCE
-  false
-</h3>
-<p>Order by relevance when searching for pipelines</p>
-
-
+  </tbody>
+</table>
 

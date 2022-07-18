@@ -1,9 +1,10 @@
 <h1 class="has-pills">
-  <code>SSOProviderStates</code>
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+  SSOProviderStates
+  <span class="pill pill--enum pill--normal-case pill--large">
+  <code>ENUM</code>
+</span>
 
 </h1>
-
 All the possible states an SSO Provider can be in
 
 {:notoc}
@@ -16,24 +17,44 @@ All the possible states an SSO Provider can be in
 
 
 
-<h2>ENUM Values</h2>
-<h3>
-  CREATED
-  false
-</h3>
-<p>The SSO Provider has been created, but has not been enabled for use yet</p>
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>ENUM Values</h2>
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+  <td>
+    <p>
+      <strong><code>CREATED</code></strong>
+      
+    </p>
+    <p>The SSO Provider has been created, but has not been enabled for use yet</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>ENABLED</code></strong>
+      
+    </p>
+    <p>The SSO Provider has been setup correctly and can be used by users</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>DISABLED</code></strong>
+      
+    </p>
+    <p>The SSO Provider has been disabled and can't be used directly</p>
+    
+  </td>
+</tr>
 
-<h3>
-  ENABLED
-  false
-</h3>
-<p>The SSO Provider has been setup correctly and can be used by users</p>
-
-<h3>
-  DISABLED
-  false
-</h3>
-<p>The SSO Provider has been disabled and can't be used directly</p>
-
-
+  </tbody>
+</table>
 

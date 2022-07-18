@@ -190,22 +190,21 @@ module RenderHelpers
 
     <<~HTML
       <h1 class="has-pills">
-        <code>#{name}</code>
+        #{name}
         #{render_pill(schema_type_data["kind"], "large")}
       </h1>
-      
       #{schema_type_data["description"]}
-      
+
       {:notoc}
 
       #{fields}
-      
-      #{input_fields}
-      
-      #{interfaces}
-      
-      #{possible_types}
 
+      #{input_fields}
+
+      #{interfaces}
+
+      #{possible_types}
+      
       #{enum_values}
     HTML
   end

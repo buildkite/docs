@@ -1,9 +1,10 @@
 <h1 class="has-pills">
-  <code>SSOAuthorizationState</code>
-  <span class="pill pill--enum pill--normal-case pill--large"><code>ENUM</code></span>
+  SSOAuthorizationState
+  <span class="pill pill--enum pill--normal-case pill--large">
+  <code>ENUM</code>
+</span>
 
 </h1>
-
 All the possible states an SSO Authorization
 
 {:notoc}
@@ -16,30 +17,54 @@ All the possible states an SSO Authorization
 
 
 
-<h2>ENUM Values</h2>
-<h3>
-  VERIFIED
-  false
-</h3>
-<p>The authorization has been verified and is in use</p>
+<table class="responsive-table responsive-table--single-column-rows">
+  <thead>
+    <th>
+      <h2>ENUM Values</h2>
+    </th>
+  </thead>
+  <tbody>
+    <tr>
+  <td>
+    <p>
+      <strong><code>VERIFIED</code></strong>
+      
+    </p>
+    <p>The authorization has been verified and is in use</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>VERIFIED_USER_SESSION_DESTROYED</code></strong>
+      
+    </p>
+    <p>The authorization was verified but has since been destroyed as the user logged out of that session</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>VERIFIED_REVOKED</code></strong>
+      
+    </p>
+    <p>The authorization was verified but has since been manually revoked</p>
+    
+  </td>
+</tr>
+<tr>
+  <td>
+    <p>
+      <strong><code>VERIFIED_EXPIRED</code></strong>
+      
+    </p>
+    <p>The authorization was verified but has since expired</p>
+    
+  </td>
+</tr>
 
-<h3>
-  VERIFIED_USER_SESSION_DESTROYED
-  false
-</h3>
-<p>The authorization was verified but has since been destroyed as the user logged out of that session</p>
-
-<h3>
-  VERIFIED_REVOKED
-  false
-</h3>
-<p>The authorization was verified but has since been manually revoked</p>
-
-<h3>
-  VERIFIED_EXPIRED
-  false
-</h3>
-<p>The authorization was verified but has since expired</p>
-
-
+  </tbody>
+</table>
 
