@@ -178,7 +178,7 @@ class Page::Renderer
   end
 
   def init_responsive_tables(doc)
-    doc.css('table.responsive-table').each do |table|
+    doc.css('table.responsive-table:not(.responsive-table--single-column-rows)').each do |table|
       thead_ths = table.css('thead th')
 
       unless thead_ths.empty?
