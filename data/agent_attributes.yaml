@@ -223,7 +223,13 @@ attributes:
   required: false
   desc: |
       Directory where the plugins are saved.
-- name: priority
+- name: plugins-always-clone-fresh
+  env_var: BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH
+  default_value: "false"
+  required: false
+  desc: |
+      Force checking out a fresh clone of plugins every build. By default, if the organisation, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development.
+- name: priority 
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"
   required: false
