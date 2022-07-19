@@ -10,6 +10,7 @@ level: error
 ignorecase: True
 # swap maps tokens in form of bad: good
 swap:
-  whitelist: allowlist
   blacklist: blocklist
   oauth: OAuth
+  plugin directory: plugins directory
+  whitelist: allowlist

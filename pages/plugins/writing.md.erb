@@ -29,7 +29,7 @@ git init
 
 ## Step 2: Add a plugin.yml
 
-Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite Plugin Directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
+Next, create `plugin.yml` to describe how the plugin appears in the [Buildkite plugins directory](/docs/plugins/directory), what it requires, and what configuration options it accepts.
 
 ```yaml
 name: File Counter
@@ -90,7 +90,7 @@ Configuration properties are available to the hook script as environment variabl
 
 ## Step 3: Validate the plugin.yml
 
-The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugin directory.
+The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugins directory.
 
 You can run the plugin linter with the following Docker command:
 
@@ -232,9 +232,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Publish to the Buildkite Plugin Directory
+## Publish to the Buildkite plugins directory
 
-To add your plugin to the [Buildkite Plugin Directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [Plugin Directory documentation](/docs/plugins/directory).
+To add your plugin to the [Buildkite plugins directory](https://buildkite.com/plugins), publish your repository to a public GitHub repository and add the `buildkite-plugin` [repository topic tag](https://github.com/topics/buildkite-plugin). For full instructions, see the [plugins directory documentation](/docs/plugins/directory).
 
 ## Designing plugins: single-command plugins versus library plugins
 
