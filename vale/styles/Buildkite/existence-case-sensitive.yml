@@ -5,8 +5,7 @@
 
 # For most single words, try using the Buildkite.spelling ignore list first.
 
-# On the left side of the swap, use the case-insensitive modifier group `(?i:)` to capture any case.
-# Or use a regular string to capture a specific, frequent case error (e.g., Bell Hooks → bell hooks).
+
 
 extends: substitution
 message: Consider using '%s' instead of '%s'
@@ -14,8 +13,12 @@ level: error
 ignorecase: false
 # swap maps tokens in form of bad: good
 swap:
-  (?i:AWS Lambda): AWS Lambda
+  # On the left side of the swap, use the case-insensitive modifier group `(?i:)` to capture any case.
+  # Example: `(?i:Spongebob Meme): SpOnGeBoB MeMe`
+  # Or use a regular string to capture a specific, frequent case error
+  # Example: `Bell Hooks: bell hooks`
   (?<!-)(?i:BitBucket): Bitbucket  # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
+  (?i:AWS Lambda): AWS Lambda
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CloudWatch) logs: CloudWatch Logs
   (?i:Google Cloud Functions): Google Cloud Functions
