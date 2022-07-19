@@ -14,7 +14,7 @@ level: error
 ignorecase: false
 # swap maps tokens in form of bad: good
 swap:
-  (?:AWS Lambda): AWS Lambda
+  (?i:AWS Lambda): AWS Lambda
   (?<!-)(?i:BitBucket): Bitbucket  # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CloudWatch) logs: CloudWatch Logs
