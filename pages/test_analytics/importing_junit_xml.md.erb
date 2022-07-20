@@ -63,6 +63,8 @@ Note that when a payload is processed, Buildkite validates and queues each test 
 
 Currently, the errors returned contain no information on individual records that failed the validation. This may complicate the process of fixing and retrying the request.
 
+A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
+
 ## How to import JUnit XML in CircleCI
 
 To import XML-formatted JUnit test results, make a `POST` request to `https://analytics-api.buildkite.com/v1/uploads` with a `multipart/form-data`.
@@ -92,6 +94,8 @@ To learn more about passing through environment variables to `run_env`-prefixed 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
 Currently, the errors returned contain no information on individual records that failed the validation. This may complicate the process of fixing and retrying the request.
+
+A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
 ## How to import JUnit XML in GitHub Actions
 
@@ -123,3 +127,5 @@ To learn more about passing through environment variables to `run_env`-prefixed 
 Note that when a payload is processed, Buildkite validates and queues each test execution result in a loop. For that reason, it is possible for some to be queued and others to be skipped. Even when some or all test executions get skipped, REST API will respond with a `202 Accepted` because the upload and the run were created in the database, but the skipped test execution results were not ingested.
 
 Currently, the errors returned contain no information on individual records that failed the validation. This may complicate the process of fixing and retrying the request.
+
+A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
