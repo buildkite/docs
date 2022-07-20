@@ -15597,8 +15597,10 @@
             },
             {
               "name": "teamEnabledChange",
-              "description": "Whether the user can toggle teams on/off for the organzation",
-              "args": [],
+              "description": "Whether the user can toggle teams on/off for the organization",
+              "args": [
+
+              ],
               "type": {
                 "kind": "OBJECT",
                 "name": "Permission",
@@ -18697,8 +18699,10 @@
             },
             {
               "name": "digestMethod",
-              "description": "The algorithim used to calculate the digest value during a SAML exchange",
-              "args": [],
+              "description": "The algorithm used to calculate the digest value during a SAML exchange",
+              "args": [
+
+              ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -18889,8 +18893,10 @@
             },
             {
               "name": "signatureMethod",
-              "description": "The algorithim used to calculate the signature value during a SAML exchange",
-              "args": [],
+              "description": "The algorithm used to calculate the signature value during a SAML exchange",
+              "args": [
+
+              ],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -19051,8 +19057,10 @@
             },
             {
               "name": "ssoURL",
-              "description": "The Idp SSO URL for this SSO Provider",
-              "args": [],
+              "description": "The IdP SSO URL for this SSO Provider",
+              "args": [
+
+              ],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19143,8 +19151,10 @@
             },
             {
               "name": "ssoURL",
-              "description": "The Idp SSO URL for this SSO Provider",
-              "args": [],
+              "description": "The IdP SSO URL for this SSO Provider",
+              "args": [
+
+              ],
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
@@ -19162,7 +19172,7 @@
         {
           "kind": "ENUM",
           "name": "SSOProviderSAMLXMLSecurity",
-          "description": "XML security algorithims used in the SAML exchange",
+          "description": "XML security algorithms used in the SAML exchange",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -19197,7 +19207,7 @@
         {
           "kind": "ENUM",
           "name": "SSOProviderSAMLRSAXMLSecurity",
-          "description": "XML RSA security algorithims used in the SAML exchange",
+          "description": "XML RSA security algorithms used in the SAML exchange",
           "fields": null,
           "inputFields": null,
           "interfaces": null,
@@ -29630,7 +29640,7 @@
         {
           "kind": "OBJECT",
           "name": "RepositoryProviderGitlabCommunity",
-          "description": "A pipeline's repository is being provided by Gitlab Community Edition",
+          "description": "A pipeline's repository is being provided by GitLab Community Edition",
           "fields": [
             {
               "name": "name",
@@ -29687,7 +29697,7 @@
         {
           "kind": "OBJECT",
           "name": "RepositoryProviderGitlabEnterprise",
-          "description": "A pipeline's repository is being provided by Gitlab Enterprise Edition",
+          "description": "A pipeline's repository is being provided by GitLab Enterprise Edition",
           "fields": [
             {
               "name": "name",
@@ -29744,7 +29754,7 @@
         {
           "kind": "OBJECT",
           "name": "RepositoryProviderGitlab",
-          "description": "A pipeline's repository is being provided by Gitlab",
+          "description": "A pipeline's repository is being provided by GitLab",
           "fields": [
             {
               "name": "name",

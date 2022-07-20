@@ -90,19 +90,16 @@ RSpec.describe NavData do
         [
           {
             "name" => "Pipelines",
-            "path" => "tutorials/getting-started",
-            "icon" => "pipeline.svg"
+            "path" => "tutorials/getting-started"
           },
           { 
             "name" => "Test Analytics",
             "path" => "test-analytics",
-            "icon" => "test-analytics.svg",
             "pill" => "new"
           },
           {
             "name" => "APIs",
-            "path" => "apis/graphql-api",
-            "icon" => "api.svg"
+            "path" => "apis/graphql-api"
           }
         ]
       ]
@@ -111,141 +108,140 @@ RSpec.describe NavData do
         [
           {
             "name" => "Pipelines",
-            "path" => "tutorials/getting-started",
-            "icon" => "pipeline.svg"
+            "path" => "tutorials/getting-started"
           },
           {
-            "name" => "Test Analytics", "path" => "test-analytics", "icon" => "test-analytics.svg", "pill" => "new"
+            "name" => "Test Analytics",
+            "path" => "test-analytics",
+            "pill" => "new"
           },
           {
             "name" => "APIs",
             "path" => "apis/graphql-api",
-            "icon" => "api.svg",
             "children" => [
               {
                 "name" => "All APIs",
                 "path" => "apis",
-                "icon" => "arrow-left.svg"
+                "type" => "back"
               },
               {
-                "is_divider" => true
+                "type" => "divider"
               },
               {
                 "name" => "GraphQL API",
+                "path" => "apis/graphql-api"
+              },
+              {
+                "name" => "Console and CLI tutorial",
+                "path" => "apis/graphql/graphql-tutorial"
+              },
+              {
+                "name" => "Schema Browser",
+                "start_expanded" => true,
                 "children" => [
                   {
-                    "name" => "Overview",
-                    "path" => "apis/graphql-api"
+                    "name" => "Queries",
+                    "children" => [
+                      {
+                        "name" => "schema1",
+                        "path" => "apis/graphql/schemas/schema1"
+                      },
+                      {
+                        "name" => "schema2",
+                        "path" => "apis/graphql/schemas/schema2"
+                      }
+                    ]
                   },
                   {
-                    "name" => "Console and CLI tutorial",
-                    "path" => "apis/graphql/graphql-tutorial"
+                    "name" => "Mutations",
+                    "children" => [
+                      {
+                        "name" => "schema1b",
+                        "path" => "apis/graphql/schemas/schema1b"
+                      },
+                      {
+                        "name" => "schema2b",
+                        "path" => "apis/graphql/schemas/schema2b"
+                      }
+                    ]
                   },
                   {
-                    "name" => "Cookbook",
-                    "path" => "apis/graphql/graphql-cookbook"
+                    "name" => "Objects",
+                    "children" => [
+                      {"name" => "schema3", "path" => "apis/graphql/schemas/schema3"},
+                      {"name" => "schema4", "path" => "apis/graphql/schemas/schema4"}
+                    ]
+                  },
+                  {
+                    "name" => "Scalars",
+                    "children" => [
+                      {
+                        "name" => "schema5",
+                        "path" => "apis/graphql/schemas/schema5"
+                      },
+                      {
+                        "name" => "schema6",
+                        "path" => "apis/graphql/schemas/schema6"
+                      }
+                    ]
+                  },
+                  {
+                    "name" => "Interfaces",
+                    "children" => [
+                      {
+                        "name" => "schema7",
+                        "path" => "apis/graphql/schemas/schema7"
+                      },
+                      {
+                        "name" => "schema8",
+                        "path" => "apis/graphql/schemas/schema8"
+                      }
+                    ]
+                  },
+                  {
+                    "name" => "ENUMs",
+                    "children" => [
+                      {
+                        "name" => "schema10",
+                        "path" => "apis/graphql/schemas/schema10"
+                      },
+                      {
+                        "name" => "schema9",
+                        "path" => "apis/graphql/schemas/schema9"
+                      }
+                    ]
+                  },
+                  {
+                    "name" => "Input objects",
+                    "children" => [
+                      {
+                        "name" => "schema11",
+                        "path" => "apis/graphql/schemas/schema11"
+                      },
+                      {
+                        "name" => "schema12",
+                        "path" => "apis/graphql/schemas/schema12"
+                      }
+                    ]
+                  },
+                  {
+                    "name" => "Unions",
+                    "children" => [
+                      {
+                        "name" => "schema13",
+                        "path" => "apis/graphql/schemas/schema13"
+                      },
+                      {
+                        "name" => "schema14",
+                        "path" => "apis/graphql/schemas/schema14"
+                      }
+                    ]
                   }
                 ]
               },
               {
-                "name" => "Queries",
-                "children" => [
-                  {
-                    "name" => "schema1",
-                    "path" => "apis/graphql/schemas/schema1"
-                  },
-                  {
-                    "name" => "schema2",
-                    "path" => "apis/graphql/schemas/schema2"
-                  }
-                ]
-              },
-              {
-                "name" => "Mutations",
-                "children" => [
-                  {
-                    "name" => "schema1b",
-                    "path" => "apis/graphql/schemas/schema1b"
-                  },
-                  {
-                    "name" => "schema2b",
-                    "path" => "apis/graphql/schemas/schema2b"
-                  }
-                ]
-              },
-              {
-                "name" => "Objects",
-                "children" => [
-                  {
-                    "name" => "schema3",
-                    "path" => "apis/graphql/schemas/schema3"
-                  },
-                  {
-                    "name" => "schema4",
-                    "path" => "apis/graphql/schemas/schema4"
-                  }
-                ]
-              },
-              {
-                "name" => "Scalars",
-                "children" => [
-                  {
-                    "name" => "schema5",
-                    "path" => "apis/graphql/schemas/schema5"
-                  }, {
-                    "name" => "schema6",
-                    "path" => "apis/graphql/schemas/schema6"
-                  }
-                ]
-              },
-              {
-                "name" => "Interfaces",
-                "children" => [{
-                  "name" => "schema7",
-                  "path" => "apis/graphql/schemas/schema7"
-                }, {
-                  "name" => "schema8",
-                  "path" => "apis/graphql/schemas/schema8"
-                }]
-              },
-              {
-                "name" => "ENUMs",
-                "children" => [
-                  {
-                    "name" => "schema10",
-                    "path" => "apis/graphql/schemas/schema10"
-                  },
-                  {
-                    "name" => "schema9",
-                    "path" => "apis/graphql/schemas/schema9"
-                  }
-                ]
-              },
-              {
-                "name" => "Input objects",
-                "children" => [
-                  {
-                    "name" => "schema11",
-                    "path" => "apis/graphql/schemas/schema11"
-                  },
-                  {
-                    "name" => "schema12",
-                    "path" => "apis/graphql/schemas/schema12"
-                  }
-                ]
-              },
-              {
-                "name" => "Unions",
-                "children" => [
-                  {
-                    "name" => "schema13",
-                    "path" => "apis/graphql/schemas/schema13"
-                  },
-                  {
-                    "name" => "schema14",
-                    "path" => "apis/graphql/schemas/schema14"
-                  }
-                ]
+                "name" => "Cookbook",
+                "path" => "apis/graphql/graphql-cookbook"
               }
             ]
           }

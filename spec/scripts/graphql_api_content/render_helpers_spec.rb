@@ -2,6 +2,16 @@ require_relative '../../../scripts/graphql_api_content/render_helpers'
 include RenderHelpers
 
 RSpec.describe RenderHelpers do
+  describe "#render_html" do
+    it "converts markdown to html" do
+      markdown = "This _is a **sentence**_."
+      html = render_html(markdown)
+      expect(html).to eq(
+        "<p>This <em>is a <strong>sentence</strong></em>.</p>\n"
+      )
+    end
+  end
+
   describe "#render_of_type" do
     context "when of_type is not nested" do
       it "renders a link" do
@@ -131,53 +141,48 @@ RSpec.describe RenderHelpers do
                   <td>
                     <h3 class="is-small has-pills"><code>agent</code><a href="/docs/apis/graphql/schemas/agent" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Agent"><code>Agent</code></a></h3>
                     <p>Find an agent by its slug</p>
-                    <details>
-                      <summary>Arguments</summary>
-                      <table class="responsive-table responsive-table--single-column-rows">
-                        <tbody>
+                    <div>
+                      <details>
+                        <summary>Arguments</summary>
+                        <table class="responsive-table responsive-table--single-column-rows">
+                          <tbody>
                             <tr>
                               <td>
-                                <h4 class="is-small has-pills no-margin"><code>slug</code>
-                                  <a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
-                                    <code>ID</code>
-                                  </a>
-                                </h4>
-                                <p class="no-margin">The UUID for the agent, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
+                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
+                                <p>The UUID for the agent, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
                                 <p class="no-margin">Default value: <code>Default</code></p>
                               </td>
                             </tr>
-                        </tbody>
-                      </table>
-                    </details>
+                          </tbody>
+                        </table>
+                      </details>
+                    </div>
                   </td>
                 </tr>
                 <tr>
                   <td>
                     <h3 class="is-small has-pills"><code>agentToken</code><a href="/docs/apis/graphql/schemas/agenttoken" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT AgentToken"><code>AgentToken</code></a><span class="pill pill--deprecated"><code>deprecated</code></span></h3>
                     <p><em>Deprecated: Deprecated because of reasons</em></p>
-                    <details>
-                      <summary>Arguments</summary>
-                      <table class="responsive-table responsive-table--single-column-rows">
-                        <tbody>
-                          <tr>
-                            <td>
-                              <h4 class="is-small has-pills no-margin">
-                                <code>slug</code>
-                                <a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
-                                  <code>ID</code>
-                                </a>
-                              </h4>
-                              <p class="no-margin">The UUID for the agent token, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p>
-                              <p class="no-margin">Default value: <code>test default</code></p>
-                            </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </details>
+                    <div>
+                      <details>
+                        <summary>Arguments</summary>
+                        <table class="responsive-table responsive-table--single-column-rows">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h4>
+                                <p>The UUID for the agent token, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
+                                <p class="no-margin">Default value: <code>test default</code></p>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </details>
+                    </div>
                   </td>
                 </tr>
               </tbody>
-          </table>
+            </table>
           HTML
         )
       end
@@ -229,27 +234,27 @@ RSpec.describe RenderHelpers do
 
           expect(args_string).to eq(
             <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-              <details>
-                <summary>Arguments</summary>
-                <table class="responsive-table responsive-table--single-column-rows">
-                  <tbody>
-                    <tr>
-                      <td>
-                        <h4 class="is-small has-pills no-margin">
-                          <code>slug</code>
-                          <a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p class="no-margin">The slug for the sso provider, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`</p></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>uuid</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID">
-                            <code>ID</code>
-                          </a>
-                          <span class="pill pill--required pill--normal-case">
-                            <code>required</code>
-                          </span>
-                        </h4>
-                        <p class="no-margin">The UUID of the sso provider</p>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </details>
+              <div>
+                <details>
+                  <summary>Arguments</summary>
+                  <table class="responsive-table responsive-table--single-column-rows">
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h4 class="is-small has-pills no-margin"><code>slug</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
+                          <p>The slug for the sso provider, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <h4 class="is-small has-pills no-margin"><code>uuid</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
+                          <p>The UUID of the sso provider</p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </details>
+              </div>
             HTML
           )
         end
@@ -610,8 +615,9 @@ RSpec.describe RenderHelpers do
 
       expect(page_string).to eq(
         <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-          <h1 class="has-pills"><code>JobTypeTrigger</code><span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
-          A type of job that triggers another build on a pipeline{:notoc}
+          <h1 class="has-pills">JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+          <p>A type of job that triggers another build on a pipeline</p>
+          {:notoc}
           <table class="responsive-table responsive-table--single-column-rows">
             <thead>
               <th>
@@ -621,40 +627,62 @@ RSpec.describe RenderHelpers do
             <tbody>
               <tr>
                 <td>
-                    <h3 class="is-small has-pills"><code>build</code><a href="/docs/apis/graphql/schemas/build" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Build"><code>Build</code></a></h3>
-                    <p>The build that this job is a part of</p>
+                  <h3 class="is-small has-pills"><code>build</code><a href="/docs/apis/graphql/schemas/build" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Build"><code>Build</code></a></h3>
+                  <p>The build that this job is a part of</p>
                 </td>
               </tr>
               <tr>
                 <td>
-                    <h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3>
+                  <h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3>
+                  <div>
                     <details>
                       <summary>Arguments</summary>
                       <table class="responsive-table responsive-table--single-column-rows">
-                          <tbody>
-                            <tr>
-                                <td>
-                                  <h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
-                                  <p class="no-margin">Returns the first _n_ elements from the list.</p>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                  <h4 class="is-small has-pills no-margin"><code>after</code><a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
-                                  <p class="no-margin">Returns the elements in the list that come after the specified cursor.</p>
-                                </td>
-                            </tr>
-                          </tbody>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
+                              <p>Returns the first <em>n</em> elements from the list.</p>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <h4 class="is-small has-pills no-margin"><code>after</code><a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4>
+                              <p>Returns the elements in the list that come after the specified cursor.</p>
+                            </td>
+                          </tr>
+                        </tbody>
                       </table>
                     </details>
+                  </div>
                 </td>
               </tr>
             </tbody>
           </table>
           <h2>Interfaces</h2>
           <a href="/docs/apis/graphql/schemas/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a>
+
         HTML
       )
+    end
+
+    context "when it's a page vale.sh should ignore" do
+      it "adds vale off/on comments" do
+        schema_type_data = {
+          "kind" => "OBJECT",
+          "name" => "__DirectiveLocation"
+        }
+        page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+        expect(page_string).to eq(
+          <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
+            <!-- vale off -->
+            <h1 class="has-pills">__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+            {:notoc}
+            <!-- vale on -->
+
+          HTML
+        )
+      end
     end
   end
 end

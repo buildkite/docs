@@ -1,11 +1,7 @@
-<h1 class="has-pills">
-  OrganizationMemberSSO
-  <span class="pill pill--object pill--normal-case pill--large">
-  <code>OBJECT</code>
-</span>
+<h1 class="has-pills">OrganizationMemberSSO<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
 
-</h1>
-Information about the SSO setup for this organization member
+<p>Information about the SSO setup for this organization member</p>
+
 
 {:notoc}
 
@@ -16,109 +12,6 @@ Information about the SSO setup for this organization member
     </th>
   </thead>
   <tbody>
-    <tr>
-  <td>
-    <h3 class="is-small has-pills">
-      <code>authorizations</code>
-      <a href="/docs/apis/graphql/schemas/ssoauthorizationconnection" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT SSOAuthorizationConnection"><code>SSOAuthorizationConnection</code></a>
-
-      
-    </h3>
-    
-    <p>SSO authorizations provided by your organization that have been created for this user</p>
-    <details>
-  <summary>Arguments</summary>
-  <table class="responsive-table responsive-table--single-column-rows">
-    <tbody>
-      <tr>
-  <td>
-    <h4 class="is-small has-pills no-margin">
-      <code>first</code>
-      <a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a>
-
-      <span class="pill pill--required pill--normal-case"><code>required</code></span>
-    </h4>
-    <p class="no-margin">Returns the first _n_ elements from the list.</p>
-    
-  </td>
-</tr>
-<tr>
-  <td>
-    <h4 class="is-small has-pills no-margin">
-      <code>after</code>
-      <a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a>
-
-      <span class="pill pill--required pill--normal-case"><code>required</code></span>
-    </h4>
-    <p class="no-margin">Returns the elements in the list that come after the specified cursor.</p>
-    
-  </td>
-</tr>
-<tr>
-  <td>
-    <h4 class="is-small has-pills no-margin">
-      <code>last</code>
-      <a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a>
-
-      <span class="pill pill--required pill--normal-case"><code>required</code></span>
-    </h4>
-    <p class="no-margin">Returns the last _n_ elements from the list.</p>
-    
-  </td>
-</tr>
-<tr>
-  <td>
-    <h4 class="is-small has-pills no-margin">
-      <code>before</code>
-      <a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a>
-
-      <span class="pill pill--required pill--normal-case"><code>required</code></span>
-    </h4>
-    <p class="no-margin">Returns the elements in the list that come before the specified cursor.</p>
-    
-  </td>
-</tr>
-<tr>
-  <td>
-    <h4 class="is-small has-pills no-margin">
-      <code>state</code>
-      <a href="/docs/apis/graphql/schemas/ssoauthorizationstate" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM SSOAuthorizationState"><code>SSOAuthorizationState</code></a>
-
-      <span class="pill pill--required pill--normal-case"><code>required</code></span>
-    </h4>
-    <p class="no-margin">Filter authorizations by state</p>
-    
-  </td>
-</tr>
-
-    </tbody>
-  </table>
-</details>
-
-  </td>
-</tr>
-<tr>
-  <td>
-    <h3 class="is-small has-pills">
-      <code>mode</code>
-      <a href="/docs/apis/graphql/schemas/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum</code></a>
-
-      
-    </h3>
-    
-    <p>The SSO mode of the organization member</p>
-    
-  </td>
-</tr>
-
+    <tr><td><h3 class="is-small has-pills"><code>authorizations</code><a href="/docs/apis/graphql/schemas/ssoauthorizationconnection" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT SSOAuthorizationConnection"><code>SSOAuthorizationConnection</code></a></h3><p>SSO authorizations provided by your organization that have been created for this user</p><div><details><summary>Arguments</summary><table class="responsive-table responsive-table--single-column-rows"><tbody><tr><td><h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p>Returns the first <em>n</em> elements from the list.</p></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>after</code><a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p>Returns the elements in the list that come after the specified cursor.</p></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>last</code><a href="/docs/apis/graphql/schemas/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p>Returns the last <em>n</em> elements from the list.</p></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>before</code><a href="/docs/apis/graphql/schemas/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p>Returns the elements in the list that come before the specified cursor.</p></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>state</code><a href="/docs/apis/graphql/schemas/ssoauthorizationstate" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM SSOAuthorizationState"><code>SSOAuthorizationState</code></a><span class="pill pill--required pill--normal-case"><code>required</code></span></h4><p>Filter authorizations by state</p></td></tr></tbody></table></details></div></td></tr><tr><td><h3 class="is-small has-pills"><code>mode</code><a href="/docs/apis/graphql/schemas/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum</code></a></h3><p>The SSO mode of the organization member</p></td></tr>
   </tbody>
 </table>
-
-
-
-
-
-
-
-
-

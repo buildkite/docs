@@ -1,4 +1,5 @@
 allow:
+  - actor-actress
   - actors-actresses
   - hooks
   - hook
