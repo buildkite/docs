@@ -139,15 +139,6 @@ When the experiment is enabled, the agent will use different lock files from age
   <p>To use flock file locks, set <code>experiment="flock-file-locks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
 </div>
 
-### OpenTelemetry tracing
-
-Enables the use of the `opentelemetry` tracing backend. OpenTelemetry tracing provides you with more insight into what's going on inside your CI run - what's taking the most time, what's breaking, and where things could be optimized.
-
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use OpenTelemetry tracing, set <code>experiment="opentelemetry-tracing"</code> and <code>tracing-backend="opentelemetry"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
-
 ## Customising with hooks
 
 The agent's behavior can be customized using hooks, which are shell scripts that exist on your build machines or in each pipeline's code repository. Hooks can be used to set up [secrets](/docs/pipelines/secrets) as well as overriding default behavior. See the [hooks](/docs/agent/v3/hooks) documentation for full details.
