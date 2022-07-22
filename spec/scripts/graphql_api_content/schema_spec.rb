@@ -67,7 +67,6 @@ RSpec.describe Schema do
       type_sets = schema.type_sets
       expect(type_sets.keys.sort).to eq([
         "query_types",
-        "mutation_types",
         "object_types",
         "scalar_types",
         "interface_types",

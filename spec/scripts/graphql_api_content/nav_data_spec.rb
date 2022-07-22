@@ -11,14 +11,6 @@ RSpec.describe NavData do
         "name" => "schema2"
       }
     ],
-    "mutation_types" => [
-      {
-        "name" => "schema1b"
-      },
-      {
-        "name" => "schema2b"
-      }
-    ],
     "object_types" => [
       {
         "name" => "schema3"
@@ -149,19 +141,6 @@ RSpec.describe NavData do
                       {
                         "name" => "schema2",
                         "path" => "apis/graphql/schemas/schema2"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Mutations",
-                    "children" => [
-                      {
-                        "name" => "schema1b",
-                        "path" => "apis/graphql/schemas/schema1b"
-                      },
-                      {
-                        "name" => "schema2b",
-                        "path" => "apis/graphql/schemas/schema2b"
                       }
                     ]
                   },

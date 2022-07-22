@@ -7,7 +7,6 @@ class Schema
     @all_schema_types = schema_hash["data"]["__schema"]["types"]
     @type_sets_default = {
       "query_types" => [],
-      "mutation_types" => [],
       "object_types" => [],
       "scalar_types" => [],
       "interface_types" => [],
@@ -20,7 +19,6 @@ class Schema
   def type_sets
     type_sets = @type_sets_default
     query_object_type = nil
-    mutation_object_type = nil
 
     @all_schema_types.each do |type|
       key = "#{type["kind"].downcase}_types"
@@ -28,9 +26,7 @@ class Schema
     end
 
     query_object_type = type_sets["object_types"].find { |object_type| object_type["name"] == "Query" }
-    mutation_object_type = type_sets["object_types"].find { |object_type| object_type["name"] == "Mutation" }
     type_sets["query_types"] = query_object_type && query_object_type["fields"]
-    type_sets["mutation_types"] = mutation_object_type && query_object_type["fields"]
 
     type_sets
   end

@@ -41,10 +41,6 @@ module NavData
             "children" => convert_to_nav_items(type_sets["query_types"])
           },
           {
-            "name" => "Mutations",
-            "children" => convert_to_nav_items(type_sets["mutation_types"])
-          },
-          {
             "name" => "Objects",
             "children" => convert_to_nav_items(type_sets["object_types"])
           },
