@@ -454,12 +454,13 @@ This information was aggregated by going over the existing screenshots in the do
 
 ### Taking and processing screenshots
 * **Format:** PNG
-* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, for example, `width: 2280/2, height: 998/2`).
+* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen using Safari. Images should be exported at double (`@2x`) the original screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
+* **No feature flag:** please remember to turn off all experimental features when taking screenshots
 * **Border:** no border
 * **Drop shadow:** no
 * **Cursor:** include when relevant
-* **Area highlight selection:** rectangular, no shadow, color either red `#FC2A1C` or blue `#96C3F1` (currently undecided)
+* **Area highlight selection:** subtract overlay
 * **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
 * **User info:** blur out everything except for the name
 * **Dummy data:** use Acme Inc as dummy company title
