@@ -212,7 +212,7 @@ To set environment variables on the build created by the trigger step, use the `
 While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to achieve a similar effect.
 
 
-An example of how to use conditionals might look like this:
+An example using conditionals might look like this:
 
 * Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
 * Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
