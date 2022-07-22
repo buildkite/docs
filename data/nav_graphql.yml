@@ -56,44 +56,6 @@
           path: apis/graphql/schemas/team
         - name: viewer
           path: apis/graphql/schemas/viewer
-      - name: Mutations
-        children:
-        - name: agent
-          path: apis/graphql/schemas/agent
-        - name: agentToken
-          path: apis/graphql/schemas/agenttoken
-        - name: apiAccessTokenCode
-          path: apis/graphql/schemas/apiaccesstokencode
-        - name: artifact
-          path: apis/graphql/schemas/artifact
-        - name: auditEvent
-          path: apis/graphql/schemas/auditevent
-        - name: build
-          path: apis/graphql/schemas/build
-        - name: graphQLSnippet
-          path: apis/graphql/schemas/graphqlsnippet
-        - name: job
-          path: apis/graphql/schemas/job
-        - name: node
-          path: apis/graphql/schemas/node
-        - name: notificationService
-          path: apis/graphql/schemas/notificationservice
-        - name: organization
-          path: apis/graphql/schemas/organization
-        - name: organizationInvitation
-          path: apis/graphql/schemas/organizationinvitation
-        - name: organizationMember
-          path: apis/graphql/schemas/organizationmember
-        - name: pipeline
-          path: apis/graphql/schemas/pipeline
-        - name: pipelineSchedule
-          path: apis/graphql/schemas/pipelineschedule
-        - name: ssoProvider
-          path: apis/graphql/schemas/ssoprovider
-        - name: team
-          path: apis/graphql/schemas/team
-        - name: viewer
-          path: apis/graphql/schemas/viewer
       - name: Objects
         children:
         - name: APIAccessToken
@@ -587,17 +549,17 @@
         - name: ViewerPermissions
           path: apis/graphql/schemas/viewerpermissions
         - name: __Directive
-          path: apis/graphql/schemas/__directive
+          path: apis/graphql/schemas/--directive
         - name: __EnumValue
-          path: apis/graphql/schemas/__enumvalue
+          path: apis/graphql/schemas/--enumvalue
         - name: __Field
-          path: apis/graphql/schemas/__field
+          path: apis/graphql/schemas/--field
         - name: __InputValue
-          path: apis/graphql/schemas/__inputvalue
+          path: apis/graphql/schemas/--inputvalue
         - name: __Schema
-          path: apis/graphql/schemas/__schema
+          path: apis/graphql/schemas/--schema
         - name: __Type
-          path: apis/graphql/schemas/__type
+          path: apis/graphql/schemas/--type
       - name: Scalars
         children:
         - name: Boolean
@@ -723,9 +685,9 @@
         - name: TeamSuiteOrder
           path: apis/graphql/schemas/teamsuiteorder
         - name: __DirectiveLocation
-          path: apis/graphql/schemas/__directivelocation
+          path: apis/graphql/schemas/--directivelocation
         - name: __TypeKind
-          path: apis/graphql/schemas/__typekind
+          path: apis/graphql/schemas/--typekind
       - name: Input objects
         children:
         - name: APIAccessTokenCodeAuthorizeMutationInput

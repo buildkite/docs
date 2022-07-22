@@ -5,7 +5,7 @@ module NavData
     type_set.each do |schema_type_data|
       nav_items.push({
         "name" => schema_type_data["name"],
-        "path" => "apis/graphql/schemas/#{schema_type_data['name'].downcase}"
+        "path" => "apis/graphql/schemas/#{schema_type_data['name'].downcase.gsub('_', '-')}"
       })
     end
   
