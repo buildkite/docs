@@ -20,6 +20,7 @@ exceptions:
   - CloudFormation
   - CloudWatch Logs
   - Debian
+  - Docker
   - Docker Compose
   - Elastic Stack
   - FAQs

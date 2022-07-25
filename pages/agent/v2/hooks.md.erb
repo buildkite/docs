@@ -19,7 +19,7 @@ Every agent installer comes with a hooks directory which can be used to override
 
 There are two types of hooks: global hooks which exist on the agent's machine and are the same for every pipeline, and pipeline level hooks which exist in each repository in the `.buildkite/hooks` directory.
 
-## Available Hooks
+## Available hooks
 
 Hooks are called in the following order:
 
@@ -68,7 +68,7 @@ Each agent installer comes with a hooks directory containing a sample set of hoo
 
 To get started with global hooks copy the relevant example script and remove the `.sample` file extension.
 
-## Pipeline Hooks
+## Pipeline hooks
 
 Pipeline hooks allow you to execute pipeline-specific scripts. Pipeline hooks live alongside your pipeline's source code under the directory `.buildkite/hooks`.
 
