@@ -20,7 +20,7 @@ Before you start, make sure XCTest runs with access to [CI environment variables
    In your test scheme or test plan, go to the _Environment Variables_ section and add the following key-value pair:
 
     * key: `BUILDKITE_ANALYTICS_TOKEN`
-    * value: the API token from the previous step
+    * value: `$(BUILDKITE_ANALYTICS_TOKEN)`
 
 1. In the `Package.swift` file, add `https://github.com/buildkite/test-collector-swift` to the dependencies and add `BuildkiteTestCollector` to any test target requiring analytics:
 
