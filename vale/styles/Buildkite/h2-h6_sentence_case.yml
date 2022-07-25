@@ -30,6 +30,8 @@ exceptions:
   - Google Cloud
   - Google Cloud Functions
   - Google Cloud Storage
+  - Google Compute Engine
+  - Google Kubernetes Engine
   - GraphQL
   - IdP  # TODO: unabbreviate this in headings
   - IDs
