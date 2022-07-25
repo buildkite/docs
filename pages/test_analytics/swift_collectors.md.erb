@@ -12,15 +12,15 @@ You can also upload test results by importing [JSON](/docs/test-analytics/import
 
 Before you start, make sure XCTest runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
 
-1. [Create a test suite](https://buildkite.com/docs/test-analytics), and copy the API token that it gives you.
+1. [Create a test suite](https://buildkite.com/docs/test-analytics), and copy the _Buildkite Test Analytics API token_ you see
 
-    To use the Buildkite Test Collector with a Swift Package Manager project, add this repository to the `Package.swift` manifest and add `BuildkiteTestCollector` to any test target requiring analytics:
+1. Add the `test-collector-swift` repository to the `Package.swift` manifest, and add `BuildkiteTestCollector` to any test target requiring analytics:
 
     ```swift
     let package = Package(
       name: "MyProject",
       dependencies: [
-        .package(url: "https://github.com/buildkite/test-collector-swift", from: "0.1.0")
+        .package(url: "https://github.com/buildkite/test-collector-swift", from: "0.3.0")
       ],
       targets: [
         .target(name: "MyProject"),
@@ -35,9 +35,12 @@ Before you start, make sure XCTest runs with access to [CI environment variables
     )
     ```
 
-1. Set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from earlier.
+1. [Securely](/docs/pipelines/secrets) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from earlier. If you're testing an Xcode project, remember that Xcode doesn't automatically pass environment variables to the test runner, so you need to add them manually. In your test scheme or test plan, go to the _environment variables_ section and add the following key-value pair:
 
-1. Push your changes to a branch, and open a pull request. After a test run has been triggered, results will start appearing in your analytics dashboard.
+    * key: `BUILDKITE_ANALYTICS_TOKEN`
+    * value: `$(BUILDKITE_ANALYTICS_TOKEN)`
+
+1. Push your changes to a branch, and open a pull request. After a test run has been triggered, results will start appearing in your analytics dashboard
 
     ```bash
     git checkout -b add-buildkite-test-analytics
