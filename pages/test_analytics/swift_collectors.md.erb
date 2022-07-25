@@ -35,7 +35,7 @@ Before you start, make sure XCTest runs with access to [CI environment variables
     )
     ```
 
-1. [Securely](/docs/pipelines/secrets) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from earlier. If you're testing an Xcode project, rememeber that Xcode doesn't automatically pass environment variables to the test runner, so you need to add them manually. In your test scheme or test plan, go to the _environment variables_ section and add the following key-value pair:
+1. [Securely](/docs/pipelines/secrets) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from earlier. If you're testing an Xcode project, remember that Xcode doesn't automatically pass environment variables to the test runner, so you need to add them manually. In your test scheme or test plan, go to the _environment variables_ section and add the following key-value pair:
 
     * key: `BUILDKITE_ANALYTICS_TOKEN`
     * value: `$(BUILDKITE_ANALYTICS_TOKEN)`
