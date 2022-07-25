@@ -22,6 +22,7 @@ exceptions:
   - Debian
   - Docker
   - Docker Compose
+  - Elastic CI Stack  # TODO: decide whether this should be "Elastic CI Stack" or "Elastic Stack"
   - Elastic Stack
   - FAQs
   - GitHub
