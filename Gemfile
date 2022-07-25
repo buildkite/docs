@@ -67,3 +67,5 @@ group :test do
   # Browser testing stuff
   gem "capybara"
 end
+
+gem "dotenv", "~> 2.7"

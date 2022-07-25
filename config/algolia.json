@@ -18,12 +18,13 @@
     "lvl4": ".Docs__article h4, .Docs__article th",
     "lvl5": ".Docs__article h5, .Docs__article td:first-child",
     "lvl6": ".Docs__article h6",
-    "text": ".Docs__article p, .Docs__article li, .Docs__article td"
+    "text": ".Docs__article .TextContent p, .Docs__article .TextContent li, .Docs__article .TextContent td"
   },
   "selectors_exclude": [
-    ".Docs__toc",
     ".Docs__note--footer-typo",
-    ".HomepageCategory"
+    ".HomepageCategory",
+    ".Notification",
+    ".Toc"
   ],
   "custom_settings": {
     "synonyms": [
@@ -33,7 +34,7 @@
         "config.yml",
         "config.yaml"
       ]
-
     ]
-  }
+  },
+  "nb_hits": 5823
 }

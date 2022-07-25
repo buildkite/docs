@@ -88,6 +88,9 @@ To test changes to the indexing configuration:
 
 2. Run `bundle exec rake update_test_index`.
 
+_This will not work on the Apple Silicon chips as Algolia has deprecated the
+scraper and have not developed an ARM version._
+
 ## License
 
 See [LICENSE.md](LICENSE.md) (MIT)
