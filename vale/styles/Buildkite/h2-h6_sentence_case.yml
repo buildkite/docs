@@ -29,4 +29,6 @@ exceptions:
   - IdP  # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
+  - M1
+  - macOS
   - OpenTelemetry
