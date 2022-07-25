@@ -8,21 +8,30 @@ If you are only deciding which approach to take, you could consider GraphQL as y
 
 On this page we've collected the known limitation where some API features are only available with either REST or GraphQL.
 
-## Exclusive REST-only features
+## Exclusive REST features
 
-* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting `branch_configuration` and `github provider configuration` on pipelines.
+* Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting [`branch_configuration` and `github provider configuration`](/docs/pipelines/branch-configuration#step-level-branch-filtering) on pipelines.
 * REST API can [retrieve and list annotations](/docs/apis/rest-api/annotations) on a build, but not create them (however, you can create the annotations using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-pipeline) from within a job).
 * [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allows configuring how the pipeline is triggered based on source code provider events; available on pipeline create (available for all the pipeline inputs).
 * REST API supports [job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
 
-## Exclusive GraphQL-only features
+## Exclusive GraphQL features
 
-* Removing users from an organization.
+* [Removing users from an organization](/docs/apis/graphql/graphql-cookbook#delete-an-organization-member).
 * [Setting up SSO](/docs/integrations/sso/sso-setup-with-graphql).
-* Retrieving, listing, and creating annotations on a build.
+* [Retrieving, listing, and creating annotations on a build](/docs/apis/rest-api/annotations#Notification).
+* Getting all the pipeline metrics from the dashboard from the API.
 * [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
 * Creating and managing pipeline schedules.
-* Managing teams.
+* Managing teams ([add](/docs/apis/graphql/graphql-cookbook#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#remove-a-team-member)a team member]).
 * Listing audit log events.
 * Filtering results from pipeline listings.
 * [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` are _not_ available in GraphQL.
+* [Getting a list of agent token IDs](/docs/apis/graphql/graphql-cookbook#get-a-list-of-agent-token-ids).
+* [Geting the last build's creation date within every pipeline](/docs/apis/graphql/graphql-cookbook#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
+* [Counting the number of builds on a branch](/docs/apis/graphql/graphql-cookbook#count-the-number-of-builds-on-a-branch)
+* [Increasing the next build number](/docs/apis/graphql/graphql-cookbook#increase-the-next-build-number)
+
+
+
+
