@@ -27,7 +27,9 @@ exceptions:
   - FAQs
   - GitHub
   - GitHub App
+  - Google Cloud
   - Google Cloud Functions
+  - Google Cloud Storage
   - GraphQL
   - IdP  # TODO: unabbreviate this in headings
   - IDs
