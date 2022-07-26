@@ -12,8 +12,11 @@ On this page we've collected the known limitation where some API features are on
 
 * Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting [`branch_configuration` and `github provider configuration`](/docs/pipelines/branch-configuration#step-level-branch-filtering) on pipelines.
 * REST API can [retrieve and list annotations](/docs/apis/rest-api/annotations) on a build, but not create them (however, you can create the annotations using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-pipeline) from within a job).
-* [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allows configuring how the pipeline is triggered based on source code provider events; available on pipeline create (available for all the pipeline inputs).
+* [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allow configuring how the pipeline is triggered based on the source code provider's events; available on pipeline for all the pipeline inputs on `pipeline create`.
 * REST API supports [job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
+* [Getting a list of IPs from which Buildkite sends webhooks](https://buildkite.com/docs/apis/rest-api/meta#get-meta-information).
+* [Retrying data for jobs](/docs/apis/rest-api/jobs#retry-a-job).
+* [Getting a build by ID](/docs/apis/rest-api/builds#get-a-build).
 
 ## Exclusive GraphQL features
 
@@ -23,17 +26,21 @@ On this page we've collected the known limitation where some API features are on
 * [Getting all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/graphql-cookbook#get-pipeline-metrics).
 * [Creating and revoking](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
 * Creating and managing pipeline schedules.
-* Managing teams ([add](/docs/apis/graphql/graphql-cookbook#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#remove-a-team-member)a team member], [removing pipeline edit access from existing teams](/docs/apis/graphql/graphql-cookbook#set-teams-pipeline-edit-access-to-read-only-or-build-and-read) ).
-* Listing audit log events.
-* Filtering results from pipeline listings.
-* [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` are _not_ available in GraphQL.
+* Managing teams ([add](/docs/apis/graphql/graphql-cookbook#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#remove-a-team-member)a team member], [removing pipeline edit access from existing teams](/docs/apis/graphql/graphql-cookbook#set-teams-pipeline-edit-access-to-read-only-or-build-and-read).
 * [Getting a list of agent token IDs](/docs/apis/graphql/graphql-cookbook#get-a-list-of-agent-token-ids).
 * [Geting the last build's creation date within every pipeline](/docs/apis/graphql/graphql-cookbook#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
-* [Counting the number of builds on a branch](/docs/apis/graphql/graphql-cookbook#count-the-number-of-builds-on-a-branch)
-* [Increasing the next build number](/docs/apis/graphql/graphql-cookbook#increase-the-next-build-number)
-* [Getting all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#get-all-jobs-in-a-given-queue-for-a-given-timeframe)
-* [Creating a user into a specific team and permissions set](/docs/apis/graphql/graphql-cookbook#create-a-user-add-them-to-a-team-and-set-user-permissions)
-* [Getting all environment variables set on a build](/docs/apis/graphql/graphql-cookbook#get-all-environment-variables-set-on-a-build)
+* [Counting the number of builds on a branch](/docs/apis/graphql/graphql-cookbook#count-the-number-of-builds-on-a-branch).
+* [Getting the creation date of the most recent build in every pipeline](/docs/apis/graphql/graphql-cookbook#get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
+* [Increasing the next build number](/docs/apis/graphql/graphql-cookbook#increase-the-next-build-number).
+* [Getting all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#get-all-jobs-in-a-given-queue-for-a-given-timeframe).
+* [Creating a user into a specific team and permissions set](/docs/apis/graphql/graphql-cookbook#create-a-user-add-them-to-a-team-and-set-user-permissions).
+* [Getting all environment variables set on a build](/docs/apis/graphql/graphql-cookbook#get-all-environment-variables-set-on-a-build).
+* Listing audit log events.
+* Filtering results from pipeline listings.
 
+## Known missing API features
 
+These are know requested features that are currently missing from both REST and GraphQL APIs. We are working on bringing them to the list of available API features:
+* Creation of notifications settings
+* Displaying secondary email
 
