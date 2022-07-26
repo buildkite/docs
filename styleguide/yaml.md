@@ -26,25 +26,27 @@ Block, quoted, and unquoted strings are OK.
 
 ✅
 ```yaml
-meal: 
-  type: sandwich 
-  size: small
-  vegan: false
+steps:
+  - label: Tests
+    command:
+      - npm install
+      - npm test
 ```
 
 ✅
 ```yaml
-meal: 
-  type: "sandwich"
-  size: "small"
-  description: |
-    Cheese between two slices of toast.
-  vegan: false
+steps:
+  - label: "Tests"
+    command: >
+      npm run test-runner --
+      --with=several
+      --arguments
+      --split-across-lines-for-readability
 ```
 
 ❌
 ```yaml
-{ meal: { type: "sandwich", size: "small", vegan: FALSE } }
+{ steps: [ label: "Tests", command: "npm test" ]}
 ```
 
 ## Terms
