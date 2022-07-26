@@ -21,8 +21,9 @@ swap:
   (?i:AWS Lambda): AWS Lambda
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CloudWatch) logs: CloudWatch Logs
-  (?i:Elastic CI Stack): Elastic CI Stack  # TODO: decide whether this should be "Elastic CI Stack" or "Elastic Stack"
-  (?i:Elastic Stack): Elastic Stack
+  (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
+  (?i:Elastic Stack CI): Elastic CI Stack for AWS
+  (?i:Elastic Stack): Elastic CI Stack for AWS
   (?i:Google Cloud Functions): Google Cloud Functions
   (?i:Google Cloud Storage): Google Cloud Storage
   (?i:Google Cloud): Google Cloud

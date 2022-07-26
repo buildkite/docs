@@ -15,7 +15,7 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 
 ## Before you start
 
-> Elastic Stack for AWS creates its own VPC (virtual private cloud) by default. Best practice is to set up a separate development AWS account and use role switching and consolidated billing. You can check out this external tutorial for more information on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html).
+> Elastic CI Stack for AWS creates its own VPC (virtual private cloud) by default. Best practice is to set up a separate development AWS account and use role switching and consolidated billing. You can check out this external tutorial for more information on how to ["Delegate Access Across AWS Accounts"](http://docs.aws.amazon.com/IAM/latest/UserGuide/tutorial_cross-account-with-roles.html).
 
 See [Elastic CI Stack for AWS Parameters](/docs/agent/v3/elastic_ci_aws/parameters) for details on the template parameters.
 
@@ -32,9 +32,9 @@ aws cloudformation create-stack \
 
 ## Network configuration
 
-An Elastic CI Stack deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets.
+An Elastic CI Stack for AWS deployment contains an Auto Scaling group and a launch template. Together they boot instances in the default templated public subnet, or if you have configured them, into a set of VPC subnets.
 
-After booting, the Elastic CI Stack instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
+After booting, the Elastic CI Stack for AWS instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
 VPC in which your stack's instances are booted can be customised using the `VpcId`,
@@ -77,7 +77,7 @@ You're not required to create any special IAM roles or policies, though the depl
 
 ### Key creation
 
-You don't need to create keys for the default deployment of Elastic CI Stack, but you can additionally create:
+You don't need to create keys for the default deployment of Elastic CI Stack for AWS, but you can additionally create:
 
 * KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
 * KMS key for S3 SSE protection of secrets and artifacts
@@ -95,7 +95,7 @@ This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
 ## Features
 
-The Buildkite Elastic CI Stack supports:
+The Buildkite Elastic CI Stack for AWS supports:
 
 * All AWS regions (except China and US GovCloud)
 * Linux and Windows operating systems
@@ -175,17 +175,17 @@ rm myenv
 Currently (as of June 2021), you must use the default KMS key for S3. Follow <a href="https://github.com/buildkite/elastic-ci-stack-for-aws/issues/235" target="_blank">issue #235</a> for progress on using specific KMS keys.
 </div>
 
-If you want to store your secrets unencrypted, you can disable encryption entirely by setting `BUILDKITE_USE_KMS=false` in your Elastic CI Stack configuration.
+If you want to store your secrets unencrypted, you can disable encryption entirely by setting `BUILDKITE_USE_KMS=false` in your Elastic CI Stack for AWS configuration.
 
 ## Sensitive data
 
-The following types of sensitive data are present in Elastic CI Stack:
+The following types of sensitive data are present in Elastic CI Stack for AWS:
 
 * **Buildkite agent token credential** (`BuildkiteAgentToken`) retrieved from your Buildkite account. When provided to the deployment template, it is stored in plaintext in AWS SSM Parameter Store (there is no support for creating an encrypted SSM Parameter from CloudFormation). If you need to store it in encrypted form, you can create your own SSM Parameter and provide the `BuildkiteAgentTokenParameterStorePath` value along with `BuildkiteAgentTokenParameterStoreKMSKey` for decrypting it.
 
 * **Secrets and artifacts** stored in S3. You can use server-side encryption (SSE) to control access to these objects.
 
-* **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic Stack CI deployment template does not support configuring EBS encryption.
+* **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic CI Stack for AWS deployment template does not support configuring EBS encryption.
 
 CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but these logs don't contain sensitive information.
 
@@ -233,7 +233,7 @@ If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, th
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
-Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastic Stack per queue.
+Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. This means that usually you need one Elastic CI Stack for AWS per queue.
 
 ## Terminating the instance after the job is complete
 
@@ -259,7 +259,7 @@ If you want to log in to an ECR server on another AWS account, you can set `AWS_
 
 The AWS ECR options are powered by an embedded version of the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), so if you require options that aren't listed here, you can disable the embedded version as above and call the plugin directly. See [its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for more examples (requires Agent v3.x).
 
-## Elastic Stack CI releases
+## Elastic CI Stack for AWS releases
 
 It is recommended to run the latest stable release of the CloudFormation
 template, available from `https://s3.amazonaws.com/buildkite-aws-stack/aws-stack.yml`,
@@ -289,7 +289,7 @@ Branch releases can only be deployed to `us-east-1`.
 
 To update your stack to the latest version, use CloudFormation's stack update
 tools with one of the URLs from the
-[Elastic Stack CI releases](#elastic-stack-ci-releases) section.
+[Elastic CI Stack for AWS releases](#elastic-ci-stack-for-aws-releases) section.
 
 To preview changes to your stack before executing them, use a
 [CloudFormation Change Set](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/using-cfn-updating-stacks-changesets.html).
@@ -358,11 +358,11 @@ After creating the policy, you must specify the policy's ARN in the `ManagedPoli
 
 ## Health monitoring
 
-You can assess and monitor health and proper function of the Elastic CI Stack using a combination of the following tools:
+You can assess and monitor health and proper function of the Elastic CI Stack for AWS using a combination of the following tools:
 
 * **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
 
-* **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
+* **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
 * **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
 
@@ -402,14 +402,14 @@ steps:
 
 <!-- alex ignore easy -->
 
-Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the Elastic CI Stack, and some solutions for specific situations.
+Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the Elastic CI Stack for AWS, and some solutions for specific situations.
 
 ### Using CloudWatch Logs
 
-Elastic CI Stack sends logs to various CloudWatch log streams:
+Elastic CI Stack for AWS sends logs to various CloudWatch log streams:
 
 * Buildkite Agent logs get sent to the `buildkite/buildkite-agent/{instance_id}` log stream. If there are problems within the agent itself, the agent logs should help diagnose.
-* Output from an Elastic CI Stack instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack
+* Output from an Elastic CI Stack for AWS instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack for AWS.
 
 Additionally, on Linux instances only:
 
@@ -420,13 +420,13 @@ On Windows instances only:
 
 * Logs from the UserData execution process (similar to the `/buildkite/cloud-init/output` group above) are sent to the `/buildkite/EC2Launch/UserdataExecution/{instance_id}` log stream.
 
-There are a couple of other log groups that the Elastic CI Stack sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
+There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
-### Accessing  Elastic Stack instances directly
+### Accessing  Elastic CI Stack for AWS instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
-* If your Elastic CI Stack has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
+* If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
 * If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`
 
 ### Auto Scaling group fails to boot instances
@@ -447,11 +447,11 @@ An instance with a full disk can be causing jobs to fail. If such instance is no
 
 ## Further references
 
-To gain a better understanding of how Elastic CI Stack works and how to use it most effectively and securely, check out the following resources:
+To gain a better understanding of how Elastic CI Stack for AWS works and how to use it most effectively and securely, check out the following resources:
 
 * [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic-ci-stack-aws)
 * [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
-* [GitHub repo for Elastic CI Stack](https://github.com/buildkite/elastic-ci-stack-for-aws)
+* [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
 * [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/parameters)
 * [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager)
 * [VPC Design](/docs/agent/v3/aws/vpc)
