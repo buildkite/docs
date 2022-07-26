@@ -1,9 +1,5 @@
 # Buildkite Test Analytics
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Test Analytics is an invite-only beta feature. Join the <a href="https://buildkite.com/test-analytics">waitlist</a>.</p>
-</div>
-
 Where Buildkite Pipelines help you automate your build pipelines,
 Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
 
@@ -12,36 +8,32 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 - Identify, fix, and monitor test suite performance
 - Track, improve, and monitor test suite reliability
 
-{:toc}
+{:notoc}
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
-## Find flaky tests
+## Get started
 
-See which tests are most disruptive to continuous deployments, with automatic flaky test identification and analysis over time. Tests that pass on retry are marked as red/fail so you can find and fix them.
+<!-- vale off -->
 
-## Spot sneaky slow-downs
+<%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
+<%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
+<%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors" %>
+<%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
+<%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>
+<%= button ":golang: Golang", "/docs/test-analytics/golang-collectors" %>
+<%= button ":junit: JUnit", "/docs/test-analytics/importing-junit-xml" %>
+<%= button ":elixir: Elixir", "/docs/test-analytics/elixir-collectors" %>
+<%= button ":rust: Rust", "/docs/test-analytics/rust-collectors" %>
 
-Find performance degradations, even in parallelized builds. Track down what's slowing down your test runs and individual test executions by viewing trends over time, and then dive deep into individual test execution span timelines to identify patterns.
+<!-- vale on -->
 
-<%= image "test-trend.png", width: 1175, height: 474, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test execution" %>
+You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-<%= image "span-timeline.png", width: 1125, height: 451, alt: "Screenshot of span timeline with user-defined annotation" %>
+----
 
-## Monitor what matters
+<%= tiles "test_analytics_features" %>
 
-Configure monitors to track only what matters to you. Track reliability (percentage of passed test executions) over a specific number of days, or a specific number of test suite runs, and get alerts when a specific branch or or all branches fall below your defined threshold. Track duration changes against your test suite median, or number of consecutive failures.
+----
 
-The number of available monitors depends on your [Buildkite payment plan](https://buildkite.com/pricing). You can configure up to 5 monitors with the free plan and up to 20 with any of the paid plans.
-
-<%= image "monitors.png", width: 851, height: 559, alt: "Screenshot of monitor settings showing the ability to alert on changes to test duration, reliability, and consecutive failures." %>
-
-## Alerts
-
-When you get an alert from one of your monitors, see
-
-- when it was last seen
-- when it was first seen
-- how many times it has happened
-
-Mark it as resolved, mute it, or leave it open.
+<%= tiles "test_analytics_guides" %>

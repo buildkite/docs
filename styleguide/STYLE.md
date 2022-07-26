@@ -234,8 +234,20 @@ Watch out for differences such as:
 ### Adding and naming new documentation pages
 To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
-`app/views/layouts/_sidebar.html.erb` with a description (for example, `"G Cloud Identity", 'integrations/sso/g-cloud-identity'` ).
-> **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `application.html.erb` file.
+`data/nav.yml` with the following data in the sitetree:
+
+| Key           | Description | Data type |
+| ------------- | ----------- | --------- |
+| `name`        | Menu name | String, required |
+| `path`        | Enter a relative URL path for internal pages. You can also prepend with `https` for external pages, or `mailto:` for email links. If Path is empty then this will be rendered as a toggle. | String, optional |
+| `icon`        | Prepend with an icon | String, optional |
+| `theme`       | WIP: doesn't work yet. Apply a theme. You can use `green` or `purple` | String, optional |
+| `children`    | Children menu items | Array of objects, optional |
+| `pill`        | Append a pill. Currently you can use `beta`, `coming-soon`, `deprecated` or `new` | String, optional |
+| `new_window`  | Make this link open up a new window | Bool, optional |
+| `is_dropdown` | Make the children menu a dropdown menu on medium screens | Bool, optional |
+
+> **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
 
 ### Filenames and filename linting
 Use `snake_case` for `*.md.erb` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
@@ -318,11 +330,16 @@ For example:
 
 Any file listed there will automatically pick up the beta styling.
 
-Adding the class `has-beta-pill` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
+Adding the class `has-pill-beta` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
 
 #### Table of contents
 To generate a table of contents from all your \##\-level headings, use `{:toc}`.
 Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
+
+To omit a table of contents, use `{:notoc}`.
+Typically `{:notoc}` is for pages where the text immediately following the \#-level heading is the body of the page or where there's only one \##\-level heading, which looks lonely in a table of contents.
+
+A page must have either `{:toc}` or `{:notoc}`.
 
 #### Note blocks
 Currently, the following syntax is commonly used for adding note blocks to the documentation:
@@ -380,24 +397,71 @@ Line 3, column 1  | Line 3, column 2
 
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
+#### Responsive tables
+Append `{: class="responsive-table"}` to any table to render it with responsive behaviour. Use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="responsive-table"}
+```
+
+This also works if you apply the CSS class to pure html tables, for example:
+
+```html
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Column header 1</th>
+      <th>Column header 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Line 1, column 1</td>
+      <td>Line 1, column 2</td>
+    </tr>
+    <tr>
+      <td>Line 2, column 1</td>
+      <td>Line 2, column 2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
+
+On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
+
 #### Prepending icons
-You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`. 
+You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`.
 
 At the time of writing, there are only three icons available — agent, repository, and plugin. To add more icons see `$icons` in `_add-icon.scss`, add a new name as the key and the inline SVG. Icon dimension must be 22px * 22px.
 
 Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
+
+### Updating vendor\emojis
+From time to time, you will start seeing an update to `vendor\emojis` submodule as a default initial file change in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
+
+**Do not commit the `vendor\emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
+
+If you do accidentally commit the `vendor\emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change, and commit again.
 
 ## Screenshots
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
 ### Taking and processing screenshots
 * **Format:** PNG
-* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen. (add division by 2 when publishing if the image is very large, for example, `width: 2280/2, height: 998/2`).
+* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
+* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen using Safari. Images should be exported at double (`@2x`) the original screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
+* **No feature flag:** please remember to turn off all experimental features when taking screenshots
 * **Border:** no border
 * **Drop shadow:** no
 * **Cursor:** include when relevant
-* **Area highlight selection:** rectangular, no shadow, color either red `#FC2A1C` or blue `#96C3F1` (currently undecided)
+* **Area highlight selection:** subtract overlay
 * **Blur:** use to obscure sensitive info like passwords or real email addresses; even, non-pixelated
 * **User info:** blur out everything except for the name
 * **Dummy data:** use Acme Inc as dummy company title

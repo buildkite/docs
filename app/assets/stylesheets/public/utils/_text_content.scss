@@ -54,7 +54,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  hr { border: none; border-bottom: 1px solid #ddd; }
   a {
     @extend .Link--on-white;
   }
@@ -95,11 +94,26 @@
     word-wrap: break-word;
   }
   table, tbody, tr, th, td { color: currentColor; }
-  th, td { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
+  tr { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
   th code, td code { border: none; }
-  th, td { padding: .5rem; }
+  
+  th,
+  td {
+    padding: .5rem;
+
+    p {
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
   th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
-  th code { white-space: nowrap; font-weight: normal; }
+  th code { font-weight: normal; }
   table.two-column {
     td {
       border: none;
@@ -132,6 +146,14 @@
 
   .no-margin-top { margin-top: 0; }
   .no-margin-bottom { margin-top: 0; }
+
+  img,
+  svg {
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-sizing: border-box;
+    padding: 5px;
+  }
 
   /* Some styles from Bass that our Markdown render outputs */
   .rounded { border-radius: 3px; }

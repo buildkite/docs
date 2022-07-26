@@ -1,0 +1,33 @@
+---
+type: object
+properties:
+  fields:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        required:
+          type: boolean
+        type:
+          type: string
+        enumerated_values:
+          type: array
+          items:
+            type: string
+        desc:
+          type: string
+        examples:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - required
+        - type
+        - enumerated_values
+        - desc
+        - examples
+required:
+  - fields

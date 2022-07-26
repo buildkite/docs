@@ -3,16 +3,14 @@ module ApplicationHelper
     "/dashboard"
   end
 
-  def sidebar_link_to(name, path, options = {})
-    full_path = docs_page_path(path)
-
-    options[:class] = [options[:class]].flatten.compact
-    options[:class] << 'Docs__nav__sub-nav__item__link Link--on-white Link--no-underline'
-    options[:class] << "active" if current_page?(full_path)
-
-    link = link_to name, full_path, options
-
-    content_tag(:li, link, class: 'Docs__nav__sub-nav__item')
+  def nav_path(path)
+    if path =~ URI::regexp
+      path
+    elsif path =~ URI::MailTo::EMAIL_REGEXP
+      "mailto:#{path}"
+    else
+      docs_page_path(path)
+    end
   end
 
   def open_source_url
@@ -26,7 +24,7 @@ module ApplicationHelper
                   # URL so it points to the /pages version.
                   sub('/app/views/pages', '/pages')
 
-    "https://github.com/buildkite/docs/tree/main#{view_file}"
+    "https://github.com/buildkite/docs/edit/main#{view_file}"
   end
 
   def algolia_api_key
@@ -43,5 +41,18 @@ module ApplicationHelper
 
   def render_attribute_content(attribute)
     render(partial: "quick_reference/#{attribute}", formats: [:md]).to_json.html_safe
+  end
+
+  def logo_image_url
+    image = 'logo.svg'
+
+    # Pride month is June in The United States,
+    # and this is generally acknowledged around the world
+    # even if jurisdictions have their own dates.
+    if DateTime.now.month == 6
+      image = 'logo-pride.svg'
+    end
+
+    image_url(image)
   end
 end

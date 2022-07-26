@@ -24,13 +24,13 @@ parameters for whether to create public and private subnets. Once deployed,
 these subnets can then be provided as parameters to the agent orchestration
 templates such as the [Elastic CI Stack for AWS](/docs/agent/v3/elastic_ci_aws).
 
-Use your organisation’s threat model to guide the selection of a solution that
+Use your organisation's threat model to guide the selection of a solution that
 balances operational complexity against acceptable risk for your workload.
 
 ## Public subnets only
 
 The most basic VPC subnet design involves using only public subnets whose route
-table’s default route points to an internet gateway. Under this design your EC2
+table's default route points to an internet gateway. Under this design your EC2
 instances or ECS tasks are provided with a public IPv4 address in order to
 access the internet directly. You can use
 [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)
@@ -43,8 +43,8 @@ place your instances in a private subnet. A private subnet provides the greatest
 level of control when seeking to restrict the inbound and outbound network
 connections of your agent instances.
 
-A private subnet’s route table does not grant direct routable access to or from
-the internet. Instead, a private subnet’s default route is pointed to a
+A private subnet's route table does not grant direct routable access to or from
+the internet. Instead, a private subnet's default route is pointed to a
 [NAT instance](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_NAT_Instance.html)
 or a [NAT gateway](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat-gateway.html).
 A NAT device lives in the public subnet, and rewrites the private source IP
@@ -96,7 +96,7 @@ using [Client VPN authorization](https://docs.aws.amazon.com/vpn/latest/clientvp
 A VPN can also be combined with bastion instances to provide additional defence
 in depth, if appropriate or required for your use case.
 
-### S3 VPC Endpoint
+### S3 VPC endpoint
 
 A [gateway VPC endpoint](https://docs.aws.amazon.com/vpc/latest/privatelink/vpce-gateway.html)
 can be used to route traffic directly to regional AWS services. Gateway VPC
@@ -104,7 +104,7 @@ endpoints can also be used to [control access to services](https://docs.aws.amaz
 your VPC resources are allowed to access.
 
 The AWS VPC Quick Start creates and configures a gateway VPC endpoint for AWS
-S3. The private subnet route tables are configured forward the endpoint’s
+S3. The private subnet route tables are configured forward the endpoint's
 IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
 from the private subnets will routed directly over the VPC endpoint, and bypass
 the NAT gateway. By default, the VPC endpoint has a permissive “Full Access”

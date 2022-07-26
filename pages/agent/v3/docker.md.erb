@@ -25,7 +25,7 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 
 <section class="Docs__troubleshooting-note">
   <h3>Caveats for builds that need Docker access.</h3>
-  <p>If your build jobs require Docker access, and you’re passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
+  <p>If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
 </section>
 
 ## Version tagging
@@ -92,17 +92,17 @@ Permissions on the host are set based on the user running the Docker daemon, whi
 
 To ensure correct file permissions, you can:
 
-* Change the way permissions are set on the files created by your Docker container: modify your container’s `USER` or modify your build commands.
+* Change the way permissions are set on the files created by your Docker container: modify your container's `USER` or modify your build commands.
 
 * Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
 
-* Run a script before or after builds that resets permissions. You can do this either using Docker (because it runs as root) or using `sudo`. See the Buildkite Elastic Stack for AWS’s [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
+* Run a script before or after builds that resets permissions. You can do this either using Docker (because it runs as root) or using `sudo`. See the Buildkite Elastic Stack for AWS's [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
 
 ## Allowing builds to use Docker
 
 To use Docker and volume mounting from build scripts, you need to ensure that the builds directory, and the `buildkite-agent` binary path, are mounted in from the host machine, and that their paths on the host and in the agent container are the same.
 
-For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent’s container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
+For example, when a script runs the command `docker run --volume "$PWD:/code" ...` the `$PWD` environment variable will resolve to the path in your agent's container (for example, `/var/lib/buildkite/builds/my-org/my-pipeline`). The Docker daemon, which exists on the host machine, will attempt to mount `/var/lib/buildkite/builds/my-org/my-pipeline` from the host filesystem, not the agent container filesystem. If that directory does not exist on the host, Docker will mount an empty directory to `/code` without showing any error.
 
 The following example shows how to configure the agent container with the correct host volumes mounts, and `BUILDKITE_BUILD_PATH` configuration:
 
@@ -125,7 +125,7 @@ docker run \
 
 ## Exposing build secrets into the container
 
-There are many approaches to exposing secrets to Docker containers. In addition, many Docker platforms have their own methods for exposing secrets. If you’re running your own Docker containers, we recommend using a read-only [host volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
+There are many approaches to exposing secrets to Docker containers. In addition, many Docker platforms have their own methods for exposing secrets. If you're running your own Docker containers, we recommend using a read-only [host volume](https://docs.docker.com/engine/tutorials/dockervolumes/#mount-a-host-directory-as-a-data-volume).
 
 The following example mounts a directory containing secrets on the host machine (`$HOME/buildkite-secrets`) into the container as a read-only data volume at `/buildkite-secrets`:
 

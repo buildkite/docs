@@ -88,6 +88,10 @@ class Page
     @name = name
   end
 
+  def is_landing_page?
+    LandingPages.all.include? @name
+  end
+
   def beta?
     BetaPages.all.include? @name
   end
@@ -118,10 +122,6 @@ class Page
 
   def extracted_data
     Page::DataExtractor.extract(markdown_body)
-  end
-
-  def open_source_url
-    "https://github.com/buildkite/docs/tree/main/pages/#{basename}.md.erb"
   end
 
   def canonical_url
@@ -156,7 +156,7 @@ class Page
   end
 
   def agentize_title(title)
-    if basename =~ /^agent\/v(.+?)\/?/
+    if basename =~ /^agent\/v(.+?)\/?/ and basename.exclude?('elastic_ci')
       "#{title} v#{$1}"
     else
       title

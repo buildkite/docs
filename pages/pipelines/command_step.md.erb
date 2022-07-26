@@ -78,6 +78,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>cancel_on_build_failing</code></td>
+    <td>
+      Setting this attribute to <code>true</code> cancels the job as soon as the build is marked as <a href="/docs/pipelines/defining-steps#build-states">failing</a>.<br>
+      <em>Default:</em> <code>"false"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>concurrency</code></td>
     <td>
       The <a href="/docs/pipelines/controlling-concurrency#concurrency-limits">maximum number of jobs</a> created from this step that are allowed to run at the same time. If you use this attribute, you must also define a label for it with the <code>concurrency_group</code> attribute.<br>
@@ -249,6 +256,10 @@ You can also see when a job has been retried and whether it was retried automati
 
 <%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
 
+In the Buildkite UI, there is a [Job Retries Report section](https://buildkite.com/organizations/~/reports/job-retries) where you can view a graphic report on jobs retried manually or automatically within the last 30 days. This can help you understand flakiness and instability across all of your pipelines.
+
+<%= image "job-retries-report.png", width: 2792/2, height: 1400/2, alt: "Information on manual and automatic job retries over the last 24 hours to 30 days " %>
+
 Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
 
 ```yml
@@ -293,7 +304,7 @@ _Optional Attributes_
 </table>
 
 <div class="Docs__note">
-<h3 class="Docs__note__heading">-1 Exit Status</h3>
+<h3 class="Docs__note__heading">-1 exit status</h3>
 <p>A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on <a href="/docs/agent/v3#exit-codes">Exit Codes</a> for information on other exit codes.</p>
 </div>
 
@@ -360,7 +371,6 @@ steps:
 
 ## Soft fail attributes
 
-
 _Optional Attributes_
 
 <table>
@@ -384,7 +394,8 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Matrix Attributes
+
+## Matrix attributes
 
 <table>
   <tr>
@@ -431,7 +442,25 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-## Examples
+## Fail fast
+
+To automatically cancel remaining jobs as soon the first job fails (except jobs that you've marked as `soft_fail`):
+
+1. Make sure that _Publish failed state early_ is checked in your _Pipeline Repository_ settings
+2. Mark jobs that you want to cancel immediately with `cancel_on_build_failing: true`
+
+Next time a job in your build fails, those jobs will be automatically cancelled.
+
+<!--
+
+TODO:
+To set `cancel_on_build_failing: true` for all jobs in a Build:
+
+
+ -->
+
+## Example
+
 
 ```yml
 steps:

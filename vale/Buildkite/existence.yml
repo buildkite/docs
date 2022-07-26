@@ -1,9 +1,0 @@
-extends: substitution
-message: Consider using '%s' instead of '%s'
-level: error
-ignorecase: True
-# swap maps tokens in form of bad: good
-swap:
-  whitelist: allowlist
-  blacklist: blocklist
-  oAuth: OAuth

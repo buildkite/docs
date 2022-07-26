@@ -1,0 +1,10 @@
+services:
+  vale:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./styles:/styles
+      - ..:/docs
+    working_dir: "/docs"
+    entrypoint: ["/bin/sh", "-c", "scripts/vale.sh"]

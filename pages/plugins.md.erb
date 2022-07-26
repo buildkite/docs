@@ -12,13 +12,17 @@ Plugins are small self-contained pieces of extra functionality that help you cus
 
 Reference plugins in your pipeline configuration, and when the step containing the plugin runs, your agent will override the default behavior of with the hooks defined in the plugin [hooks](/docs/agent/v3/hooks).
 
-Plugins can be open source and available for anyone to use, or private and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+
+Plugins can be also be *vendored* (if they are already present in the repository,
+and included using a relative path) or *non-vendored* (when they are included
+from elsewhere), which affects the [order](/docs/agent/v3/hooks#job-lifecycle-hooks) they are run in.
 
 Some plugins allow configuration. This is usually defined in your `pipeline.yml` file and is read by the agent before the plugin hooks are run. See plugins' readme files for detailed configuration and usage instructions.
 
 ## Finding plugins
 
-In the [Buildkite Plugin Directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
+In the [Buildkite plugins directory](/docs/plugins/directory) you can find all the plugins maintained by Buildkite, as well as plugins from third-party developers.
 
 ## Creating a plugin
 

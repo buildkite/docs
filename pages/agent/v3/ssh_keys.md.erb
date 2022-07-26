@@ -6,7 +6,7 @@ If your agent needs to clone your repositories using git and SSH, you'll need to
 
 ## Finding your SSH key directory
 
-When the Buildkite Agent runs any git operations, SSH will look for keys in `~/.ssh` under whichever user the agent runs as. Each platform’s [agent installation documentation](/docs/agent/v3/installation) specifies the exact location of this directory.
+When the Buildkite agent runs any git operations, it will look for SSH keys in `~/.ssh` under the user the agent is running as. Each platform's [agent installation documentation](/docs/agent/v3/installation) specifies which user the agent runs as and in which directory the SSH keys are. For example, on Debian the agent runs as `buildkite-agent` and the SSH keys are in `/var/lib/buildkite-agent/.ssh/` but on macOS the agent runs as the user who started the `lauchd` service, and the SSH keys are in that user's `.ssh` directory.
 
 ## Debugging SSH key issues
 
@@ -50,7 +50,7 @@ $ cat id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDELESv1QGfoZ2hECJr.......Yho9hDPoNefDbcdZM4NdKWTVmyNGQo6YTzw== dev+build@myorg.com
 ```
 
-You'd then add this key to the user’s settings on [GitHub](/docs/agent/v3/github-ssh-keys), Bitbucket, GitLab, etc.
+You'd then add this key to the user's settings on [GitHub](/docs/agent/v3/github-ssh-keys), Bitbucket, GitLab, etc.
 
 ## Creating multiple SSH keys
 
@@ -133,7 +133,7 @@ Identity added: /var/lib/buildkite-agent/.ssh/id_rsa-pipeline-2
 ```
 
 The following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
-will direct your build’s git operations to use the `ssh-agent` socket:
+will direct your build's git operations to use the `ssh-agent` socket:
 
 ```bash
 #!/bin/bash

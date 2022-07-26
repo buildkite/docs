@@ -1,6 +1,6 @@
-# Using Build Meta-data
+# Using Build Meta-Data
 
-In this guide we’ll walk through using the Buildkite Agent’s [meta-data command](/docs/agent/v3/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
+In this guide, we'll walk through using the Buildkite agent's [meta-data command](/docs/agent/v3/cli-meta-data) to store and retrieve data between different steps in a build pipeline.
 
 Meta-data is intended to store data 1 kilobyte or less in size, to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version. For anything over 1 kb use an [artifact](/docs/pipelines/artifacts) instead.
 
@@ -37,7 +37,7 @@ Assuming that the "release-version" key was set with the value from the Setting 
 <p>The `get` command has a `default` flag. You can use this to return a value in the case that the key has not been set.</p>
 </div>
 
-## Using Meta-data on the Dashboard
+## Using meta-data on the Dashboard
 
 Meta-data is not widely exposed in the Buildkite Dashboard, but it can be added to most builds URLs to filter down the list of builds shown to only those with certain meta-data.
 
@@ -45,18 +45,16 @@ To list builds in a pipeline which have a "release-version" of "1.1" you could u
 
 https://buildkite.com/my-organization/my-pipeline/builds?meta_data[release-version]=1.1
 
-## Using Meta-data in the REST API
+## Using meta-data in the REST API
 
-You can use meta-data to identify builds when searching for builds in the REST API:
+You can use meta-data to identify builds when searching for builds in the REST API: https://buildkite.com/docs/apis/rest-api/builds
 
 <!-- vale off -->
 
-https://buildkite.com/docs/apis/rest-api/builds
-
-For more information see the [Buildkite REST Builds API documentation](https://buildkite.com/docs/apis/rest-api/builds).
+For more information, see the [Buildkite REST Builds API documentation](https://buildkite.com/docs/apis/rest-api/builds).
 
 <!-- vale on -->
 
 ## Further documentation
 
-See the [Buildkite Agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite’s meta-data support.
+See the [Buildkite agent build meta-data documentation](/docs/agent/v3/cli-meta-data) for a full list of options and details of Buildkite's meta-data support.

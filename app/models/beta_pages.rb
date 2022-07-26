@@ -1,8 +1,8 @@
 class BetaPages
   def self.all
     [
-      'test-analytics',
-      'test-analytics/integrations'
+      'test-analytics/rust-collectors',
+      'test-analytics/swift-collectors',
     ]
   end
 end

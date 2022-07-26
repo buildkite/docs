@@ -6,7 +6,7 @@ The Buildkite Agent is supported on macOS 10.12 or newer using Homebrew or our i
 
 ## Installation
 
-If you have <a href="http://brew.sh/">Homebrew</a> installed you can use our <a href="https://github.com/buildkite/homebrew-buildkite">buildkite formula repository</a> to install the agent:
+If you have <a href="http://brew.sh/">Homebrew</a> installed you can use our <a href="https://github.com/buildkite/homebrew-buildkite">Buildkite formula repository</a> to install the agent:
 
 ```shell
 brew tap buildkite/buildkite && brew install buildkite-agent
@@ -22,7 +22,7 @@ If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) in
 
 ## SSH key configuration
 
-SSH keys should be copied to (or generated into) the `.ssh` directory in the users’s home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
+SSH keys should be copied to (or generated into) the `.ssh` directory in the users' home directory (for example, `/Users/alice/.ssh`). For example, to generate a new private key which you can add to your source code host:
 
 ```bash
 $ mkdir -p ~/.ssh && cd ~/.ssh
@@ -33,14 +33,27 @@ See the [Agent SSH Keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-Homebrew install file locations:
+File locations depend on your installation method and Mac hardware.
+
+### Homebrew installation
+
+To see the paths to the agent's configuration, hooks, builds, and logs on your system, run `brew info buildkite-agent`.
+
+The typical paths for [Mac computers with Apple silicon](https://support.apple.com/en-gb/HT211814) (such as M1 chips) are:
+
+* Configuration: `/opt/homebrew/etc/buildkite-agent/buildkite-agent.cfg`
+* Agent Hooks: `/opt/homebrew//buildkite-agent/hooks`
+* Builds: `/opt/homebrew/buildkite-agent/builds`
+* Log: `/usr/local/var/log/buildkite-agent.log`
+
+The typical paths for Mac computers with Intel processors are:
 
 * Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
 * Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
 * Builds: `/usr/local/var/buildkite-agent/builds`
 * Log: `/usr/local/var/log/buildkite-agent.log`
 
-Linux installer script file locations:
+### Linux installer script on macOS
 
 * Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
 * Agent Hooks: `~/.buildkite-agent/hooks`
@@ -52,7 +65,7 @@ See the [configuration documentation](/docs/agent/v3/configuration) for an expla
 
 ## Which user the agent runs as
 
-On macOS, the Buildkite agent runs as the user who started the launched service.
+On macOS, the Buildkite agent runs as the user who started the `launchd` service.
 
 ## Starting on login
 

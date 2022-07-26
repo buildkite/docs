@@ -139,7 +139,7 @@ Docker image.
 Open the deployment pipeline and click "New Build". Click "Options" and set the
 `DOCKER_IMAGE` environment variable.
 
-<%= image "manual_deployment.png", width: 1440/2, height: 780/2, alt: "New Manual Build" %>
+<%= image "manual_deployment.png", width: 1382/2, height: 1542/2, alt: "New Manual Build" %>
 
 Assuming your agents have the required access, then success! :tada:
 
@@ -202,7 +202,7 @@ Kubernetes. Practically speaking there are some things to do next.
 
 - Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
   trigger to enforce manual deploys.
-- Use [Github's Deployment API](https://buildkite.com/blog/github-deployments)
+- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments)
   to trigger deployments from external tooling (for example, ChatOps)
 - Expose the application to the internet with [Kubernetes
   Service](https://kubernetes.io/docs/concepts/services-networking/service/).

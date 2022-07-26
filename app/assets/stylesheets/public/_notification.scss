@@ -1,0 +1,55 @@
+.Notification {
+  background-color: #f2f2f2;
+  border: #ddd 1px solid;
+  border-radius: 5px;
+  display: none;
+  font-family: $font-family;
+  font-size: 14px;
+  line-height: 1.4;
+  margin-bottom: 30px;
+  padding: 20px 45px 20px 20px;
+  position: relative;
+  transition: opacity $transition-speed;
+
+  &--show {
+    display: block;
+  }
+
+  &--info {
+    background-color: #eff9ff;
+    border-color: #95cdf5;
+  }
+
+  &--success {
+    background-color: #d0f5e6;
+    border-color: #00d215;
+  }
+
+  &--warning {
+    background-color: #fff2d3;
+    border-color: #fdba12;
+  }
+
+  &--danger {
+    background-color: #ffedf9;
+    border-color: #f83f23;
+  }
+
+  &__title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+
+  &__dismiss {
+    background: transparent asset-url('icons/remove.svg') 50% 50% no-repeat;
+    border: 0;
+    cursor: pointer;;
+    height: 24px;
+    margin-left: auto;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 24px;
+  }
+}

@@ -56,7 +56,7 @@ To add steps using the YAML editor, click the 'Edit Pipeline' button on the Pipe
 
 Starting your YAML with the `steps` object, you can add as many steps as you require of each different type. Quick reference documentation and examples for each step type can be found in the sidebar on the right.
 
-### Pipeline.yml file
+### `pipeline.yml` file
 
 Before getting started with a `pipeline.yml` file, you'll need to tell Buildkite where it will be able to find your steps.
 
@@ -104,6 +104,11 @@ For more example steps and detailed configuration options, see the example `pipe
 * [trigger steps](/docs/pipelines/trigger-step)
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
+
+<div class="Docs__troubleshooting-note">
+  <h3>Explicit dependencies in uploaded steps </h3>
+  <p>If a step <a href="/docs/pipelines/dependencies">depends</a> on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.</p>
+</div>
 
 When a step is run by an agent, it will be run with a clean checkout of the pipeline's repository. If your commands or scripts rely on the output from previous steps, you will need to either combine them into a single script or use [artifacts](/docs/pipelines/artifacts) to pass data between steps. This enables any step to be picked up by any agent and run steps in parallel to speed up your build.
 
@@ -155,7 +160,7 @@ Each job in a build also has a footer that displays exit status information. It 
 
 ## Example pipeline
 
-Here’s a more complete example based on [the Buildkite agent’s build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
+Here's a more complete example based on [the Buildkite agent's build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
 ```yaml
 steps:
@@ -220,13 +225,13 @@ steps:
     command: buildkite-agent pipeline upload .buildkite/deploy.yml
 ```
 
-A common use for custom file paths is when separating test and deployment steps into two separate pipelines. Both `pipeline.yml` files are stored in the same repo and both Buildkite pipelines use the same repo URL. For example, your test pipeline’s upload command could be:
+A common use for custom file paths is when separating test and deployment steps into two separate pipelines. Both `pipeline.yml` files are stored in the same repo and both Buildkite pipelines use the same repo URL. For example, your test pipeline's upload command could be:
 
 ```
 buildkite-agent pipeline upload .buildkite/pipeline.yml
 ```
 
-And your deployment pipeline’s upload command could be:
+And your deployment pipeline's upload command could be:
 
 ```
 buildkite-agent pipeline upload .buildkite/pipeline.deploy.yml

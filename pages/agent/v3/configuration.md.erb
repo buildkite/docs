@@ -8,14 +8,14 @@ Every agent installer comes with a configuration file. You can also customize ma
 
 ```sh
 token="24db61df8338027652b24aadf82dd483b016eef98fcd332815"
-name="my-app-%n"
+name="my-app-%spawn"
 tags="ci=true,docker=true"
 git-clean-flags="-ffdqx"
 debug=true
 ```
 {: codeblock-file="/buildkite/buildkite-agent.cfg"}
 
-You can find the location of your configuration file in your platform’s installation documentation. You can also set it using the `--config` command line argument or via the `BUILDKITE_AGENT_CONFIG` environment variable.
+You can find the location of your configuration file in your platform's installation documentation. You can also set it using the `--config` command line argument or the `BUILDKITE_AGENT_CONFIG` environment variable.
 
 ## Configuration settings
 <!-- vale off -->

@@ -1,0 +1,10 @@
+extends: capitalization
+message: "'%s' should be in title case"
+level: error
+scope: heading.h1
+match: $title
+style: Chicago
+exceptions:
+  - macOS  # always lowercase m
+  - Sign-On  # capitalized "on" for symmetry with "SSO" initialism
+  - v2  # version identifier, appears in some agent page titles
