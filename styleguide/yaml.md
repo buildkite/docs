@@ -56,6 +56,13 @@ If you cannot avoiding referring to YAML source directly, use the following term
 ### Map
 
 Use *map* (noun) to refer only to a collection of key-value pairs (also known as associative arrays, dictionaries, or objects).
+The following YAML shows a map consisting of keys (`label`, `command`) and values (`Tests`, `npm test`):
+
+```yaml
+label: Tests
+command: npm test
+```
+
 Never use *map* to refer to a key or value of a collection.
 Never use other terms such as *block*, *section*, or *property*.
 
@@ -71,14 +78,28 @@ Do not use the terms *block*, *level*, or the prefix *sub*.
 ### Attribute
 
 Use *attribute* to refer only to a key-value pair as a whole, not the identifier or value alone.
+The following YAML shows three attributes: `steps` and its value (an array), `label` and its value (a string), and `command` its value (an array):
 
-✅ The `skip` attribute determines…<br>
-❌ Add the `skip` attribute to the command step, then on a new line…
+```yaml
+steps:
+  - label: Tests
+    command:
+      - npm install
+      - npm test
+```
+
+✅ The `steps` attribute determines…<br>
+❌ Add the `steps` attribute to the command step, then on a new line…
 
 ### Key and value
 
 Use *key* to refer only to an attribute's identifier and *value* to refer only to the attribute's value.
 Remember to use code formatting for literal keys or values.
+The following YAML shows one key (`label`) and one value (`Tests`):
+
+```yaml
+label: Tests
+```
 
 ✅ Add the `skip` key to the command step, then on a new line…<br>
 ✅ Set the value to `true`, `false`, or a string…<br>
@@ -87,6 +108,12 @@ Remember to use code formatting for literal keys or values.
 ### Array
 
 Use *array* to refer only to sequences (also known as lists) and never maps.
+The following YAML shows a sequence of strings:
+
+```yaml
+- "npm install"
+- "npm test"
+```
 
 ✅ The step attribute consists of an array of step maps…<br>
 ❌ The attribute contains a list of entries…
