@@ -11,7 +11,7 @@ On this page we've collected the known limitation where some API features are on
 ## Exclusive REST features
 
 * Buildkite's terraform provider uses GraphQL where it can, but it falls back to using REST for setting [`branch_configuration` and `github provider configuration`](/docs/pipelines/branch-configuration#step-level-branch-filtering) on pipelines.
-* REST API can [retrieve and list annotations](/docs/apis/rest-api/annotations) on a build, but not create them (however, you can create the annotations using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-pipeline) from within a job).
+*  [Retrieve and list annotations](/docs/apis/rest-api/annotations) on a build, but not create them (however, you can create the annotations using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-pipeline) from within a job).
 * [Provider setting properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allow configuring how the pipeline is triggered based on the source code provider's events; available on pipeline for all the pipeline inputs on `pipeline create`.
 * REST API supports [job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output).
 * [Getting a list of IPs from which Buildkite sends webhooks](https://buildkite.com/docs/apis/rest-api/meta#get-meta-information).
