@@ -2,6 +2,8 @@
 
 This document is a part of the larger [style guide](./STYLE.md) and it covers the usage of YAML in the Buildkite documentation. Further expansion of this guide is highly welcomed.
 
+## General YAML guidelines
+
 **Where possible, refer to what the YAML represents, such as a command, step, or pipeline, rather than the source itself.**
 In other words, describe the abstract meaning or effect of the YAML to be presented, not the literal characters used to declare it.
 In this usage, never use code-style text.
@@ -18,9 +20,38 @@ Never use *block*, *flow*, *sequence*, *scalar*, and so on because some of them 
 ✅ The `referer` key is actually spelled like that due to…<br>
 ❌ Modify pipeline.yml…
 
-**If you must refer to YAML structures directly, use the following terminology.**
+**Always use block-style maps and arrays.**
+Never use inline maps and arrays.
+Block, quoted, and unquoted strings are OK.
 
-## Map
+✅
+```yaml
+meal: 
+  type: sandwich 
+  size: small
+  vegan: false
+```
+
+✅
+```yaml
+meal: 
+  type: "sandwich"
+  size: "small"
+  description: |
+    Cheese between two slices of toast.
+  vegan: false
+```
+
+❌
+```yaml
+{ meal: { type: "sandwich", size: "small", vegan: FALSE } }
+```
+
+## Terms
+
+If you cannot avoiding referring to YAML source directly, use the following terminology.
+
+### Map
 
 Use *map* (noun) to refer only to a collection of key-value pairs (also known as associative arrays, dictionaries, or objects).
 Never use *map* to refer to a key or value of a collection.
@@ -35,14 +66,14 @@ Do not use the terms *block*, *level*, or the prefix *sub*.
 ✅ The `retry` attribute of a step is a map of maps…<br>
 ❌ Add the `matrix` map to the…
 
-## Attribute
+### Attribute
 
 Use *attribute* to refer only to a key-value pair as a whole, not the identifier or value alone.
 
 ✅ The `skip` attribute determines…<br>
 ❌ Add the `skip` attribute to the command step, then on a new line…
 
-## Key and value
+### Key and value
 
 Use *key* to refer only to an attribute's identifier and *value* to refer only to the attribute's value.
 Remember to use code formatting for literal keys or values.
@@ -51,7 +82,7 @@ Remember to use code formatting for literal keys or values.
 ✅ Set the value to `true`, `false`, or a string…<br>
 ❌ Add the skip key to the command step, then on a new line…
 
-## Array
+### Array
 
 Use *array* to refer only to sequences (also known as lists) and never maps.
 
