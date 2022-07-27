@@ -1,6 +1,6 @@
 # Running Buildkite Agent on Google Cloud Platform
 
-The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Container Engine using Kubernetes.
+The Buildkite Agent can be run on [Google Cloud Platform](https://cloud.google.com). For fine control over long–lived agents, you might like to run the agent using individual VM instances on Google Compute Engine. Or run Docker–based builds using a scalable cluster of agents on the Google Kubernetes Engine using Kubernetes.
 
 {:toc}
 
@@ -249,7 +249,7 @@ You can upload the [artifacts](/docs/builds/artifacts) created by your builds to
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="gs://my-bucket/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 ```
 
-Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Container Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
+Make sure the agent has permission to create new objects. If the agent is running on Google Compute Engine or Google Kubernetes Engine you can grant Storage Write permission to the instance or cluster, or restrict access more specifically using [a service account](https://cloud.google.com/compute/docs/access/service-accounts).
 
 You can also set the application credentials with the environment variable `BUILDKITE_GS_APPLICATION_CREDENTIALS`. From Agent v3.15.2 and above you can also use raw JSON with the `BUILDKITE_GS_APPLICATION_CREDENTIALS_JSON` variable. See the [Managing Pipeline Secrets](/docs/pipelines/secrets) documentation for how to securely set up environment variables.
 

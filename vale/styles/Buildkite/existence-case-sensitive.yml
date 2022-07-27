@@ -21,6 +21,14 @@ swap:
   (?i:AWS Lambda): AWS Lambda
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CloudWatch) logs: CloudWatch Logs
+  (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
+  (?i:Elastic Stack CI): Elastic CI Stack for AWS
+  (?i:Elastic Stack): Elastic CI Stack for AWS
   (?i:Google Cloud Functions): Google Cloud Functions
+  (?i:Google Cloud Storage): Google Cloud Storage
+  (?i:Google Cloud): Google Cloud
+  (?i:Google Compute Engine): Google Compute Engine
+  (?i:Google Container Engine): Google Kubernetes Engine  # Google renamed Container to Kubernetes in 2017. See https://cloud.google.com/blog/products/gcp/introducing-certified-kubernetes-and-google-kubernetes-engine
+  (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker

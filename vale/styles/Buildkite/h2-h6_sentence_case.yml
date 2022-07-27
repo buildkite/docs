@@ -20,12 +20,17 @@ exceptions:
   - CloudFormation
   - CloudWatch Logs
   - Debian
+  - Docker
   - Docker Compose
-  - Elastic Stack
+  - Elastic CI Stack
   - FAQs
   - GitHub
   - GitHub App
+  - Google Cloud
   - Google Cloud Functions
+  - Google Cloud Storage
+  - Google Compute Engine
+  - Google Kubernetes Engine
   - GraphQL
   - IdP  # TODO: unabbreviate this in headings
   - IDs
