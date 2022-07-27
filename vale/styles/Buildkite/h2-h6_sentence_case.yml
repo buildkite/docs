@@ -27,6 +27,8 @@ exceptions:
   - Debian
   - Docker
   - Docker Compose
+  - Docker Hub
+  - Docker Registry
   - Elastic CI Stack
   - FAQs
   - GitHub
