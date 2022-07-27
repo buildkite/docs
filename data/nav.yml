@@ -311,7 +311,7 @@
             path: 'apis'
           - name: 'Managing API Tokens'
             path: 'apis/managing-api-tokens'
-          - name: 'API differences'
+          - name: 'API Differences'
             path: 'apis/api-differences'
           - name: 'Webhooks'
             children:
