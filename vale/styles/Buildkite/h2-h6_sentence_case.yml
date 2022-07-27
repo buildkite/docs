@@ -38,3 +38,4 @@ exceptions:
   - M1
   - macOS
   - OpenTelemetry
+  - PowerShell

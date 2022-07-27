@@ -32,3 +32,4 @@ swap:
   (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
+  (?i:PowerShell): PowerShell
