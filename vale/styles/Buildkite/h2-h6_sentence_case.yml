@@ -12,6 +12,7 @@ exceptions:
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$'  # Exceptions for /pages/integrations/amazon_eventbridge.md.erb
   - '^(Step|Method) \d: [A-Z]\w+'  # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
   - Amazon Web Services
+  - Artifactory
   - Auto Scaling
   - AWS Console
   - AWS Lambda

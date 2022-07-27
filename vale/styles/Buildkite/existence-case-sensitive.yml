@@ -19,6 +19,7 @@ swap:
   # Example: `Bell Hooks: bell hooks`
   (?<!-)(?i:BitBucket): Bitbucket  # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
   (?i:Amazon Web Services): Amazon Web Services
+  (?i:Artifactory): Artifactory
   (?i:AWS Lambda): AWS Lambda
   (?i:AWS License Manager): AWS License Manager
   (?i:Bitbucket Server): Bitbucket Server
