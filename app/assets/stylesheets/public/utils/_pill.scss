@@ -1,4 +1,58 @@
 $_pills: (
+  agents: (
+    background-color: #EFF9FF,
+    border-color: #EFF9FF,
+    color: #333333,
+    content: "Agents"
+  ),
+  access-token: (
+    background-color: #FFEDF9,
+    border-color: #FFEDF9,
+    color: #333333,
+    content: "Access token"
+  ),
+  builds: (
+    background-color: #fff8e7,
+    border-color: #fff8e7,
+    color: #333333,
+    content: "Builds"
+  ),
+  jobs: (
+    background-color: #f1efff,
+    border-color: #f1efff,
+    color: #333333,
+    content: "Jobs"
+  ),
+  meta: (
+    background-color: #eeeeee,
+    border-color: #eeeeee,
+    color: #333333,
+    content: "Meta"
+  ),
+  notification-services: (
+    background-color: #F1EFFF,
+    border-color: #F1EFFF,
+    color: #333333,
+    content: "Notification services"
+  ),
+  organizations: (
+    background-color: #FFEDF9,
+    border-color: #FFEDF9,
+    color: #333333,
+    content: "Organizations"
+  ),
+  pipelines: (
+    background-color: #ddfffa,
+    border-color: #ddfffa,
+    color: #333333,
+    content: "Pipelines"
+  ),
+  users: (
+    background-color: #fdf5f5,
+    border-color: #fdf5f5,
+    color: #333333,
+    content: "Users"
+  ),
   beta: (
     background-color: rgba(255, 165, 0, .2),
     border-color: rgba(255, 165, 0, .2),
@@ -26,7 +80,7 @@ $_pills: (
 );
 
 @mixin pill {
-  border-radius: 20px;
+  border-radius: 4px;
   border-style: solid;
   border-width: 1px;
   font-size: 11px;
