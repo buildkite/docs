@@ -223,6 +223,12 @@ attributes:
   required: false
   desc: |
       Directory where the plugins are saved.
+- name: plugins-always-clone-fresh
+  env_var: BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH
+  default_value: "false"
+  required: false
+  desc: |
+      Force checking out a fresh clone of plugins every build. By default, if the organisation, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development.
 - name: priority
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"
@@ -296,7 +302,7 @@ attributes:
   required: false
   desc: |
       Set to `datadog` to enable the Datadog API tracing for builds using the default APM address `localhost:8126`, or Datadog variables like `DD_AGENT_HOST` and `DD_AGENT_TRACE_PORT`.
-      Set to `opentelemetry` to enable OpenTelemetry tracing, sending OTLP gRPC traces to `https://localhost:4317`, or override with the environment variable `OTEL_EXPORTER_OTLP_ENDPOINT`. Note that the `opentelemetry-tracing` experiment must be active to use the OpenTelemetry tracing backend.
+      Set to `opentelemetry` to enable OpenTelemetry tracing, sending OTLP gRPC traces to `https://localhost:4317`, or override with the environment variable `OTEL_EXPORTER_OTLP_ENDPOINT`.
       Accepts empty string (`""`), `"datadog"`, or `opentelemetry`.
 - name: wait-for-ec2-tags-timeout
   env_var: BUILDKITE_AGENT_WAIT_FOR_EC2_TAGS_TIMEOUT

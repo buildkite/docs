@@ -124,10 +124,6 @@ class Page
     Page::DataExtractor.extract(markdown_body)
   end
 
-  def open_source_url
-    "https://github.com/buildkite/docs/tree/main/pages/#{basename}.md.erb"
-  end
-
   def canonical_url
     basename.tr('_', '-')
   end

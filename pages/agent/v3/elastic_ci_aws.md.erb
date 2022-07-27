@@ -58,7 +58,7 @@ Anyone with commit access to your codebase (including third-party pull-requests 
 
 Keep in mind the EC2 HTTP metadata server is available from within builds, which means builds act with the same IAM permissions as the instance.
 
-### Limiting CloudFormation Permissions
+### Limiting CloudFormation permissions
 
 By default, CloudFormation will operate using the permissions granted to the
 identity, AWS IAM User or Role, used to create or update a stack.
@@ -106,7 +106,7 @@ The Buildkite Elastic CI Stack supports:
 * Docker and Docker Compose
 * Per-pipeline S3 secret storage (with SSE encryption support)
 * Docker Registry push/pull
-* CloudWatch logs for system and Buildkite agent events
+* CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
 * Support for stable, beta or edge Buildkite Agent releases
 * Multiple stacks in the same AWS Account
@@ -330,7 +330,11 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, create an S3 bucket with the script, and set the `BootstrapScriptUrl` parameter, for example `s3://my_bucket_name/my_bootstrap.sh`.
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script,  set the `BootstrapScriptUrl` parameter to one of the following:
+
+* An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
+* A URL such as `https://www.example.com/config/bootstrap.sh`
+* A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customising the AMI and are able to include a bootstrap script that way).
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 

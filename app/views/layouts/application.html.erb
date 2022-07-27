@@ -55,13 +55,12 @@
               <div class="TextContent">
                 <%= yield %>
               </div>
-              <%= render "layouts/footer" %>
+              <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
             </div>
             <div class="column2"></div>
           </div>
         </div>
       </div>
-
     </main>
     <%= javascript_tag nonce: true do %>
       /* This api key is intentionally public */

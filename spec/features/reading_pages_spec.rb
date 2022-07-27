@@ -28,7 +28,7 @@ RSpec.feature "reading pages" do
 
     it "links to the GitHub source files" do
       visit "/docs/tutorials/getting-started"
-      expect(page).to have_css("a[href='https://github.com/buildkite/docs/tree/main/pages/tutorials/getting_started.md.erb']", text: 'Contribute an update')
+      expect(page).to have_css("a[href='https://github.com/buildkite/docs/edit/main/pages/tutorials/getting_started.md.erb']", text: 'Contribute an update')
     end
   end
 

@@ -136,7 +136,7 @@
         overscroll-behavior: contain;
         padding: 30px 5px;
         position: fixed;
-        top: $header-height;
+        top: $header-height + 1px;
         width: $sidebar-width;
       }
     }
@@ -186,7 +186,7 @@
       width: auto;
     }
 
-    &:hover {
+    &:not(.Nav__link--pre-expand-children):hover {
       background-color: #fff;
 
       @media (min-width: $screen-md) {

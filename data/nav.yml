@@ -175,7 +175,7 @@
             path: 'pipelines/environment-variables'
           - name: 'Skipping Builds'
             path: 'pipelines/skipping'
-          - name: 'Using Build Artifacts'
+          - name: 'Build Artifacts'
             path: 'pipelines/artifacts'
           - name: 'Public Pipelines'
             path: 'pipelines/public-pipelines'
@@ -376,6 +376,7 @@
       - name: 'Overview'
         path: 'test-analytics'
       - name: 'Getting started'
+        start_expanded: true
         children:
           - name: 'Configuring test suites'
             path: 'test-analytics/test-suites'
@@ -386,6 +387,7 @@
           - name: 'CI environment variables'
             path: 'test-analytics/ci-environments'
       - name: 'Languages'
+        start_expanded: true
         children:
           - name: 'Ruby'
             path: 'test-analytics/ruby-collectors'
@@ -405,6 +407,7 @@
           - name: 'Other languages'
             path: 'test-analytics/other-collectors'
       - name: 'References'
+        start_expanded: true
         children:
           - name: 'Importing JUnit XML'
             path: 'test-analytics/importing-junit-xml'

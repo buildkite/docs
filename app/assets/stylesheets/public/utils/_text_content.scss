@@ -54,7 +54,6 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
-  hr { border: none; border-bottom: 1px solid #ddd; }
   a {
     @extend .Link--on-white;
   }

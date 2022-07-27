@@ -106,7 +106,7 @@ Jobs become `broken` when their configuration prevents them from running. This m
 
 Evaluate expressions made up of [boolean operators](#variable-and-syntax-reference-operator-syntax) and [variables](#variable-and-syntax-reference-variables).
 
-### Operator Syntax
+### Operator syntax
 
 The following expressions are supported by the `if` attribute.
 
@@ -165,7 +165,7 @@ The following expressions are supported by the `if` attribute.
 The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
 
 <div class="Docs__troubleshooting-note">
-  <h3 class="Docs__heading" id="unverified">Unverified commits</h3>
+  <h3 id="unverified">Unverified commits</h3>
 	<p>Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.</p>
 </div>
 
@@ -302,7 +302,7 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.state</code></td>
 		<td><code>String</code></td>
-		<td>The state the current build is in<br><em>Available states:</em> <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>soft_failed</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code>, <code>finished</code></td>
+		<td>The state the current build is in<br><em>Available states:</em>, <code>started</code>, <code>scheduled</code>, <code>running</code>, <code>passed</code>, <code>failed</code>, <code>soft_failed</code>, <code>blocked</code>, <code>canceling</code>, <code>canceled</code>, <code>skipped</code>, <code>not_run</code></td>
 	</tr>
 	<tr>
 		<td><code>build.tag</code></td>

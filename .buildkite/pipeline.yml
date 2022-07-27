@@ -36,11 +36,6 @@ steps:
               run: vale
               config: ./vale/docker-compose.yml
 
-      - label: "Find common spelling mistakes"
-        commands:
-          - pip install codespell
-          - ~/.local/bin/codespell -L iterm,iam,keyserver,pullrequest pages
-
       - label: ":lint-roller: Linting for insensitive words"
         command: npm run lint -y
         plugins:

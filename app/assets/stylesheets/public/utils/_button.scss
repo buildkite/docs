@@ -7,13 +7,19 @@
   font-size: 0.8888rem;
   font-weight: 500;
   gap: 10px;
-  line-height: 1.4;
-  margin: 0 5px 10px 0;
+  justify-content: center;
+  line-height: 24px;
+  margin-bottom: 10px;
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
   
-  @media (min-width: 480px) {
+  @media (min-width: $screen-xs) {
     display: inline-flex;
+    margin-right: 5px;
+  }
+
+  &:last-child {
+    margin-right: 0;
   }
 
   &--primary {
@@ -34,13 +40,24 @@
   }
 
   &--link {
-    gap: 3px;
+    gap: 4px;
     margin: 0;
     padding: 0;
   }
 
   &--small {
     padding: 7px 15px;
+  }
+
+  &__icon {
+    height: 24px;
+    width: 24px;
+
+    &--16x16 {
+      height: 16px;
+      margin-top: 4px;
+      width: 16px;
+    }
   }
 
   &__right-arrow {
@@ -56,6 +73,12 @@
       :hover > & {
         transform: translateX(2px);
       }
+    }
+  }
+
+  &--primary {
+    .Button__right-arrow {
+      color: #fff;
     }
   }
 }

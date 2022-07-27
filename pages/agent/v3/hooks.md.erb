@@ -101,12 +101,17 @@ a plugin can define.
 
 ### Creating agent lifecycle hooks
 
-Agent lifecycle hooks can be written in the programming language of your choice
-and are executed by the Buildkite agent. See the documentation for each agent
-lifecycle hook for details on the interface between them and the Buildkite
-agent.
-
+The Buildkite agent executes agent lifecycle hooks.
 These hooks can only be defined in the [agent `hooks-path`](#hook-locations-agent-hooks) directory.
+Agent lifecycle hooks can be executables written in any programming language.
+On Unix-like systems (such as Linux and macOS), hooks must be files that are executable by the user the agent is running as.
+
+Use agent lifecycle hooks to prepare for or clean up after all jobs that may run.
+For example, use `pre-bootstrap` to block unwanted jobs from running or use `agent-shutdown` to tear down a service after all jobs are finished.
+If your hook uses details about any individual job to run, prefer [job lifecycle hooks](#job-lifecycle-hooks) for those tasks instead.
+
+The agent exports few environment variables to agent lifecycle hooks.
+Read the [agent lifecycle hooks table](#agent-lifecycle-hooks) for details on the interface between the agent and each hook type.
 
 ## Job lifecycle hooks
 
@@ -115,7 +120,7 @@ they are run as part of each job:
 
 | Hook            | Location Order | Description |
 | --------------- | -------------- | ----------- |
-| `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span>                                                          | Runs before all other hooks. Useful for [exposing secret keys](/docs/pipelines/secrets#storing-secrets-in-environment-hooks). |
+| `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span>                                                          | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/secrets#exporting-secrets-with-environment-hooks). |
 | `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span>                                                          | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span><br /><span class="add-icon-agent">Agent</span>                                                          | Overrides the default git checkout behavior.<br>*Note:* As of Agent v3.15.0, if multiple checkout hooks are found, only the first will be run. |
 | `post-checkout` | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-repository">Repository</span><br /><span class="add-icon-plugin">Non-vendored plugin</span><br /><span class="add-icon-plugin">Vendored plugin</span> | Runs after checkout. |
@@ -129,12 +134,15 @@ they are run as part of each job:
 
 ### Creating job lifecycle hooks
 
-Job lifecycle hooks run for every job an agent accepts. They are shell
-scripts you can use to run commands and export environment variables. These
-hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+Job lifecycle hooks are sourced for every job an agent accepts.
+Use job lifecycle hooks to prepare for jobs, override default behavior, or clean up after jobs that have finished.
+For example, use the `environment` hook to set a job's environment variables or the `pre-exit` hook to delete temporary files and remove containers.
+If your hook is related to the startup or shutdown of the agent, consider [agent lifecycle hooks](#job-lifecycle-hooks) for those tasks instead.
 
-Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the
-agent's default shell. This has a few implications:
+Job lifecycle hooks have access to all the standard [Buildkite environment variables](/docs/pipelines/environment-variables).
+
+Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the agent's default shell.
+This has a few implications:
 
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
