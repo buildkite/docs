@@ -15,3 +15,8 @@ services:
       - app
     image: raviqqe/muffet
 
+  curl:
+    depends_on:
+      - app
+    image: curlimages/curl:latest
+

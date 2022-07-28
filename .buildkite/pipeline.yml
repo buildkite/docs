@@ -18,7 +18,7 @@ steps:
   - label: ":spider: muffet"
     command: http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always --verbose
     env:
-      RAILS_ENV: test
+      RAILS_ENV: development
     plugins:
       - docker-compose#v3.9.0:
           run: muffet
