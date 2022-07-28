@@ -53,6 +53,12 @@ attributes:
   required: false
   desc: |
       The number of idle seconds to wait before shutting down. When setting this option alongside `spawn`, all agents started by `spawn` must be idle before the timeout counter will begin. After the timeout, the spawned agents will all disconnect.
+- name: enable-job-log-tmpfile
+  env_var: BUILDKITE_ENABLE_JOB_LOG_TMPFILE
+  default_value: "false"
+  required: false
+  desc: |
+      Enables the writing of job logs into a temporary file which can be accessed via the `BUILDKITE_JOB_LOG_TMPFILE` environment variable. Must be using Agent v3.36.0 or above.
 - name: endpoint
   env_var: BUILDKITE_AGENT_ENDPOINT
   default_value: "https://agent.buildkite.com/v3"
