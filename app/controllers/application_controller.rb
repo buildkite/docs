@@ -22,6 +22,11 @@ class ApplicationController < ActionController::Base
   end
   helper_method :notification_data
 
+  def api_parity_data
+    fetch_local_data('api_parity')
+  end
+  helper_method :api_parity_data
+
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super

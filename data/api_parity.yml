@@ -1,0 +1,59 @@
+---
+feature_parity:
+  access_token:
+    rest:
+      - "[Display the information about the access token currently in use](/docs/apis/rest-api/access-token#get-the-current-token)"
+      - "[Revoke the current access token](/docs/apis/rest-api/access-token#revoke-the-current-token)"
+    style: pink-light
+  agents:
+    graphql: 
+      - "[Get a list of agent token IDs](/docs/apis/graphql/graphql-cookbook#get-a-list-of-agent-token-ids) (agent tokens are currently only available via GraphQL)"
+    style: blue-light
+  builds:
+    graphql:
+      - "[Get all environment variables set on a build](/docs/apis/graphql/graphql-cookbook#get-all-environment-variables-set-on-a-build)"
+      - "[Increase the next build number](/docs/apis/graphql/graphql-cookbook#increase-the-next-build-number)"
+      - "[Create annotations on a build](/docs/apis/rest-api/annotations)"
+    style: orange-light
+  jobs:
+    rest:
+      - "[Get an output of job logs](/docs/apis/rest-api/jobs#get-a-jobs-log-output)"
+      - "[Retry data for jobs](/docs/apis/rest-api/jobs#retry-a-job)"
+    graphql:
+      - "[Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#get-all-jobs-in-a-given-queue-for-a-given-timeframe)"
+      - "List job events"
+    style: purple-light
+  meta:
+    rest:
+      - "[Get a list of IPs from which Buildkite sends webhooks](/docs/apis/rest-api/meta#get-meta-information)"
+    style: gray-light
+  organizations:
+    graphql:
+      - "[Remove users from an organization](/docs/apis/graphql/graphql-cookbook#delete-an-organization-member)"
+      - "Manage teams - [add](/docs/apis/graphql/graphql-cookbook#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#remove-a-team-member) a team member. Most of the team management features are only available for GraphQL. The REST API can only list teams and can create pipelines in teams"
+      - "[Set up SSO](/docs/integrations/sso/sso-setup-with-graphql)"
+      - "[Remove pipeline edit access from existing teams](/docs/apis/graphql/graphql-cookbook#set-teams-pipeline-edit-access-to-read-only-or-build-and-read)"
+    style: aqua-light
+  pipelines:
+    rest:
+      - "[Set provider properties](/docs/apis/rest-api/pipelines#provider-settings-properties) `provider_settings` allow configuring how the pipeline is triggered based on the source code provider's events; available on pipeline for all the pipeline inputs on pipeline create"
+    graphql:
+      - "[Get all the pipeline metrics from the dashboard from the API](/docs/apis/graphql/graphql-cookbook#get-pipeline-metrics)"
+      - "[Get the last build's creation date within every pipeline](/docs/apis/graphql/graphql-cookbook#get-the-creation-date-of-the-most-recent-build-in-every-pipeline)"
+      - "[Count the number of builds on a branch](/docs/apis/graphql/graphql-cookbook#count-the-number-of-builds-on-a-branch)"
+      - "[Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/graphql-cookbook#get-the-creation-date-of-the-most-recent-build-in-every-pipeline)"
+      - "Filter results from pipeline listings"
+      - "Create and manage pipeline schedules"
+    style: aqua-light
+  users:
+    graphql:
+      - "[Create and revoke](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens)"
+      - "[Create a user into a specific team and permissions set](/docs/apis/graphql/graphql-cookbook#create-a-user-add-them-to-a-team-and-set-user-permissions)"
+    style: red-light
+missing_features:
+  notification_services: 
+    description: There is no API for managing notification services
+    style: purple-light
+  users: 
+    description: display secondary user emails
+    style: red-light

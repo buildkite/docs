@@ -1,0 +1,7 @@
+@mixin blur-background($background-color: white) {
+  @supports (backdrop-filter: blur(2px)) {
+    -webkit-backdrop-filter: blur(2px);
+    backdrop-filter: blur(2px);
+    background-color: rgba($background-color, .85);
+  }
+}
