@@ -26,7 +26,6 @@ swap:
   (?i:CloudWatch) logs: CloudWatch Logs
   (?i:CloudWatch): CloudWatch
   (?i:Datadog): Datadog
-  (?i:Docker Registry): Docker Registry
   (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
   (?i:Elastic Stack CI): Elastic CI Stack for AWS
   (?i:Elastic Stack): Elastic CI Stack for AWS

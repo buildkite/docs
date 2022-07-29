@@ -105,7 +105,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Configurable auto-scaling based on build activity
 * Docker and Docker Compose
 * Per-pipeline S3 secret storage (with SSE encryption support)
-* Docker Registry push/pull
+* Docker registry push/pull
 * CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
 * Support for stable, beta or edge Buildkite Agent releases
@@ -241,7 +241,7 @@ You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance
 
 It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
 
-## Docker Registry support
+## Docker registry support
 
 If you want to push or pull from registries such as [Docker Hub](https://hub.docker.com/) or [Quay](https://quay.io/) you can use the `environment` hook in your secrets bucket to export the following environment variables:
 
