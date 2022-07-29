@@ -4,6 +4,8 @@
 
 The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
+You (or your organization) need one or more running agents to run builds, but once you've installed the agent and got it running, you don't need to interact with it directly. Whether you're starting builds automatically with every commit, manually, or using the API, Buildkite handles everything from telling the agent what build, where to get it from, and what to run; as well as reporting the outcome back to Buildkite.com.
+
 {:toc}
 
 ## How it works
