@@ -18,9 +18,14 @@ swap:
   # Or use a regular string to capture a specific, frequent case error
   # Example: `Bell Hooks: bell hooks`
   (?<!-)(?i:BitBucket): Bitbucket  # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
+  (?i:Amazon Web Services): Amazon Web Services
+  (?i:Artifactory): Artifactory
   (?i:AWS Lambda): AWS Lambda
+  (?i:AWS License Manager): AWS License Manager
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CloudWatch) logs: CloudWatch Logs
+  (?i:CloudWatch): CloudWatch
+  (?i:Datadog): Datadog
   (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
   (?i:Elastic Stack CI): Elastic CI Stack for AWS
   (?i:Elastic Stack): Elastic CI Stack for AWS
@@ -32,3 +37,7 @@ swap:
   (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
+  (?i:Mac): Mac
+  (?i:Markdown): Markdown
+  (?i:PowerShell): PowerShell
+  (?i:Windows Subsystem for Linux 2): Windows Subsystem for Linux 2

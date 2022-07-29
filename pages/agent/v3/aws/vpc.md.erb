@@ -36,7 +36,7 @@ access the internet directly. You can use
 [security groups](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_SecurityGroups.html)
 to limit traffic and block inbound network connections to your instances.
 
-## Private/public subnets
+## Using private subnets for added security
 
 For an added layer of defence against unwanted inbound connectivity, you can
 place your instances in a private subnet. A private subnet provides the greatest
@@ -108,5 +108,5 @@ S3. The private subnet route tables are configured forward the endpoint's
 IP-prefix list to the endpoint, instead of the NAT gateway. In-region S3 access
 from the private subnets will routed directly over the VPC endpoint, and bypass
 the NAT gateway. By default, the VPC endpoint has a permissive “Full Access”
-policy. Should you wish to customise this, or the security group that the
+policy. Should you wish to customize this, or the security group that the
 endpoint belongs to, create a fork of the CloudFormation template.

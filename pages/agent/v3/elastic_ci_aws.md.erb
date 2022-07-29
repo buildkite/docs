@@ -37,7 +37,7 @@ An Elastic CI Stack for AWS deployment contains an Auto Scaling group and a laun
 After booting, the Elastic CI Stack for AWS instances require network access to [buildkite.com](https://buildkite.com/buildkite). This access can be provided by booting them in a VPC subnet with a routing table that has Internet connectivity, either directly using an Internet Gateway or indirectly using a NAT Instance or NAT Gateway.
 
 By default, the template creates a public subnet VPC for your EC2 instances. The
-VPC in which your stack's instances are booted can be customised using the `VpcId`,
+VPC in which your stack's instances are booted can be customized using the `VpcId`,
 and `Subnets` template parameters. If you choose to use a VPC with split
 public/private subnets, the `AssociatePublicIpAddress` parameter can be used to
 turn off public IP association for your instances. See the [VPC](/docs/agent/v3/aws/vpc)
@@ -47,7 +47,7 @@ documentation for guidance on choosing a VPC layout suitable for your use case.
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.
 
-The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customise this, the best practice is to create your own VPC and provide values for the [Network Configuration](/docs/agent/v3/elastic-ci-aws/parameters#network-configuration) template section:
+The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customize this, the best practice is to create your own VPC and provide values for the [Network Configuration](/docs/agent/v3/elastic-ci-aws/parameters#network-configuration) template section:
 
 * `VpcId`
 * `Subnets`
@@ -105,7 +105,7 @@ The Buildkite Elastic CI Stack for AWS supports:
 * Configurable auto-scaling based on build activity
 * Docker and Docker Compose
 * Per-pipeline S3 secret storage (with SSE encryption support)
-* Docker Registry push/pull
+* Docker registry push/pull
 * CloudWatch Logs for system and Buildkite agent events
 * CloudWatch metrics from the Buildkite API
 * Support for stable, beta or edge Buildkite Agent releases
@@ -241,7 +241,7 @@ You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance
 
 It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
 
-## Docker Registry support
+## Docker registry support
 
 If you want to push or pull from registries such as [Docker Hub](https://hub.docker.com/) or [Quay](https://quay.io/) you can use the `environment` hook in your secrets bucket to export the following environment variables:
 
@@ -334,7 +334,7 @@ You can customize your stack's instances by using the `BootstrapScriptUrl` stack
 
 * An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
 * A URL such as `https://www.example.com/config/bootstrap.sh`
-* A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customising the AMI and are able to include a bootstrap script that way).
+* A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 

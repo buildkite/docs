@@ -11,17 +11,23 @@ match: $sentence
 exceptions:
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$'  # Exceptions for /pages/integrations/amazon_eventbridge.md.erb
   - '^(Step|Method) \d: [A-Z]\w+'  # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - Amazon Web Services
+  - Artifactory
   - Auto Scaling
   - AWS Console
   - AWS Lambda
+  - AWS License Manager
   - AWS Systems Manager Session Manager
   - Bitbucket Server
   - Buildkite
   - CloudFormation
+  - CloudWatch
   - CloudWatch Logs
+  - Datadog
   - Debian
   - Docker
   - Docker Compose
+  - Docker Hub
   - Elastic CI Stack
   - FAQs
   - GitHub
@@ -36,5 +42,10 @@ exceptions:
   - IDs
   - IronWorker
   - M1
+  - Mac
   - macOS
+  - Markdown
   - OpenTelemetry
+  - PowerShell
+  - Windows
+  - Windows Subsystem for Linux 2

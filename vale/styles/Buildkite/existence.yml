@@ -11,6 +11,8 @@ ignorecase: True
 # swap maps tokens in form of bad: good
 swap:
   blacklist: blocklist
+  customise: customize
+  customising: customizing
   oauth: OAuth
   plugin directory: plugins directory
   whitelist: allowlist
