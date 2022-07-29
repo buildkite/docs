@@ -58,7 +58,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Enables the writing of job logs into a temporary file which can be accessed via the `BUILDKITE_JOB_LOG_TMPFILE` environment variable. Must be using Agent v3.36.0 or above.
+      Enables the writing of job logs into a temporary file which can be accessed via the `BUILDKITE_JOB_LOG_TMPFILE` environment variable. Introduced in [v3.36](https://github.com/buildkite/agent/releases/tag/v3.36.0).
 - name: endpoint
   env_var: BUILDKITE_AGENT_ENDPOINT
   default_value: "https://agent.buildkite.com/v3"
