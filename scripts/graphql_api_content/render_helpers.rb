@@ -30,7 +30,7 @@ module RenderHelpers
         <table class="responsive-table responsive-table--single-column-rows">
           <thead>
             <th>
-              <h2>Fields</h2>
+              <h2 data-algolia-exclude>Fields</h2>
             </th>
           </thead>
           <tbody>
@@ -96,7 +96,7 @@ module RenderHelpers
   def render_possible_types(possible_types)
     if possible_types.is_a?(Array) && !possible_types.empty?
       <<~HTML
-        <h2>Possible Types</h2>
+        <h2 data-algolia-exclude>Possible Types</h2>
         #{possible_types.map { |possible_type| render_of_type(possible_type, "large") }.join('')}
       HTML
     end
@@ -108,7 +108,7 @@ module RenderHelpers
         <table class="responsive-table responsive-table--single-column-rows">
           <thead>
             <th>
-              <h2>Input Fields</h2>
+              <h2 data-algolia-exclude>Input Fields</h2>
             </th>
           </thead>
           <tbody>
@@ -139,7 +139,7 @@ module RenderHelpers
   def render_interfaces(interfaces)
     if interfaces.is_a?(Array) && !interfaces.empty?
       <<~HTML
-        <h2>Interfaces</h2>
+        <h2 data-algolia-exclude>Interfaces</h2>
         #{
           interfaces.map {
             |interface|
@@ -156,7 +156,7 @@ module RenderHelpers
         <table class="responsive-table responsive-table--single-column-rows">
           <thead>
             <th>
-              <h2>ENUM Values</h2>
+              <h2 data-algolia-exclude>ENUM Values</h2>
             </th>
           </thead>
           <tbody>
@@ -204,7 +204,7 @@ module RenderHelpers
 
     page_content = <<~HTML.strip
       #{valeOff ? "<!-- vale off -->" : nil}
-      <h1 class="has-pills">#{name}#{render_pill(schema_type_data["kind"], "large")}</h1>
+      <h1 class="has-pills" data-algolia-exclude>#{name}#{render_pill(schema_type_data["kind"], "large")}</h1>
 
       #{render_html(schema_type_data["description"])}
 

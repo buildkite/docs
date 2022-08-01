@@ -133,7 +133,7 @@ RSpec.describe RenderHelpers do
             <table class="responsive-table responsive-table--single-column-rows">
               <thead>
                 <th>
-                  <h2>Fields</h2>
+                  <h2 data-algolia-exclude>Fields</h2>
                 </th>
               </thead>
               <tbody>
@@ -298,7 +298,7 @@ RSpec.describe RenderHelpers do
 
         expect(possible_types_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-            <h2>Possible Types</h2>
+            <h2 data-algolia-exclude>Possible Types</h2>
             <a href="/docs/apis/graphql/schemas/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">
               <code>APIAccessToken</code>
             </a>
@@ -360,7 +360,7 @@ RSpec.describe RenderHelpers do
             <table class="responsive-table responsive-table--single-column-rows">
               <thead>
                 <th>
-                  <h2>Input Fields</h2>
+                  <h2 data-algolia-exclude>Input Fields</h2>
                 </th>
               </thead>
               <tbody>
@@ -431,7 +431,7 @@ RSpec.describe RenderHelpers do
 
         expect(interfaces_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-            <h2>Interfaces</h2>
+            <h2 data-algolia-exclude>Interfaces</h2>
             <a href="/docs/apis/graphql/schemas/authorization" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Authorization">
               <code>Authorization</code>
             </a>
@@ -485,7 +485,7 @@ RSpec.describe RenderHelpers do
             <table class="responsive-table responsive-table--single-column-rows">
               <thead>
                 <th>
-                  <h2>ENUM Values</h2>
+                  <h2 data-algolia-exclude>ENUM Values</h2>
                 </th>
               </thead>
               <tbody>
@@ -615,13 +615,13 @@ RSpec.describe RenderHelpers do
 
       expect(page_string).to eq(
         <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-          <h1 class="has-pills">JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+          <h1 class="has-pills" data-algolia-exclude>JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
           <p>A type of job that triggers another build on a pipeline</p>
           {:notoc}
           <table class="responsive-table responsive-table--single-column-rows">
             <thead>
               <th>
-                <h2>Fields</h2>
+                <h2 data-algolia-exclude>Fields</h2>
               </th>
             </thead>
             <tbody>
@@ -659,7 +659,7 @@ RSpec.describe RenderHelpers do
               </tr>
             </tbody>
           </table>
-          <h2>Interfaces</h2>
+          <h2 data-algolia-exclude>Interfaces</h2>
           <a href="/docs/apis/graphql/schemas/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a>
 
         HTML
@@ -676,7 +676,7 @@ RSpec.describe RenderHelpers do
         expect(page_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
             <!-- vale off -->
-            <h1 class="has-pills">__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+            <h1 class="has-pills" data-algolia-exclude>__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
             {:notoc}
             <!-- vale on -->
 
