@@ -1,13 +1,11 @@
 (function () {
   const NotificationNode = document.getElementById('Notification');
-  const lastUpdated = NotificationNode.dataset.lastUpdated;
-  const dismissNotificationFrom = localStorage.getItem('dismissNotificationFrom');
   
   initNotification();
   bindDismiss();
 
   function initNotification () {
-    const isDismissed = !!dismissNotificationFrom && dismissNotificationFrom === lastUpdated;
+    const isDismissed = localStorage.getItem('isNotificationDismissed');
 
     if (!isDismissed) {
       NotificationNode.classList.add('Notification--show');
@@ -20,7 +18,7 @@
       setTimeout(() => {
         NotificationNode.remove();
       }, 300);
-      localStorage.setItem('dismissNotificationFrom', lastUpdated);
+      localStorage.setItem('isNotificationDismissed', true);
     }
   }
 })();

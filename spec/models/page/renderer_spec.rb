@@ -36,7 +36,7 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
+          <p><strong>On this page:</strong></p>
           <ul class="Toc__list">
             <li class="Toc__list-item"><a class="Toc__link" href="#section-1">Section 1</a></li>
         <li class="Toc__list-item"><a class="Toc__link" href="#section-2">Section 2</a></li>
@@ -75,7 +75,7 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
+          <p><strong>On this page:</strong></p>
           <ul class="Toc__list">
             <li class="Toc__list-item"><a class="Toc__link" href="#section">Section</a></li>
           </ul>

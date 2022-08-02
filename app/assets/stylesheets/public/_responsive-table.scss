@@ -128,16 +128,6 @@
     }
   }
 
-  &--single-column-rows {
-    tbody {
-      tr {
-        @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
-          grid-template-columns: 1fr;
-        }
-      }
-    }
-  }
-
   tfoot {
     display: block;
 

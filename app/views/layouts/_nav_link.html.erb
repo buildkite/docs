@@ -1,10 +1,5 @@
-<%
-  css_classes_nav_link = "
-    Nav__link
-    Nav__link--level#{nav_level}
-    #{"Nav__link--type-#{type}" if type}
-  "
-%>
+<% icon_image = icon ? image_tag("icons/#{icon}") : '' %>
+<% css_classes_nav_link = "Nav__link Nav__link--level#{nav_level}" %>
 
 <% if path %>
   <a
@@ -12,6 +7,7 @@
     href="<%= nav_path(path) %>"
     <%= new_window && 'target=_blank' %>
   >
+    <%= icon_image %>
     <%= name %>
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
@@ -19,6 +15,7 @@
   </a>
 <% elsif start_expanded %>
   <span class="<%= css_classes_nav_link %> Nav__link--pre-expand-children">
+    <%= icon_image %>
     <%= name %>
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
@@ -26,9 +23,10 @@
   </span>
 <% else %>
   <button 
-    class="<%= css_classes_nav_link %> <%= type == "dropdown" ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
+    class="<%= css_classes_nav_link %> <%= is_dropdown ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
     data-toggle-nav-level="<%= nav_level %>"
   >
+    <%= icon_image %>
     <%= name %>
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>

@@ -1,15 +1,8 @@
 class PagesController < ApplicationController
   append_view_path "pages"
-  layout :layout_by_path
 
-  def layout_by_path
-    if request.path == "/docs"
-      "homepage"
-    elsif request.path.starts_with? "/docs/apis/graphql"
-      "graphql"
-    else
-      "application"
-    end
+  def index
+    render layout: "homepage"
   end
 
   def show
