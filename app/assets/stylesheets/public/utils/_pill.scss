@@ -72,10 +72,52 @@ $_pills: (
     content: "Deprecated"
   ),
   new: (
-    background-color: rgba(20, 204, 128, .1),
-    border-color: rgba(20, 204, 128, .1),
-    color: #418173,
+    background-color: #00BB64,
+    border-color: #00BB64,
+    color: #FFFFFF,
     content: "New"
+  ),
+  required: (
+    background-color: #FDF5F5,
+    border-color: #FDF5F5,
+    color: #DB260A,
+    content: "Required"
+  ),
+  object: (
+    background-color: #EFF9FF,
+    border-color: #EFF9FF,
+    color: #0A568D,
+    content: "Object"
+  ),
+  scalar: (
+    background-color: #FFEDF9,
+    border-color: #FFEDF9,
+    color: #85144B,
+    content: "Scalar"
+  ),
+  interface: (
+    background-color: #EEEEEE,
+    border-color: #EEEEEE,
+    color: #444444,
+    content: "Interface"
+  ),
+  enum: (
+    background-color: #FAFDFA,
+    border-color: #FAFDFA,
+    color: #0E7868,
+    content: "ENUM"
+  ),
+  input_object: (
+    background-color: #F1EFFF,
+    border-color: #F1EFFF,
+    color: #4B19D5,
+    content: "Input object"
+  ),
+  union: (
+    background-color: #FFF8E7,
+    border-color: #FFF8E7,
+    color: #FF851B,
+    content: "Union"
   )
 );
 
@@ -92,16 +134,34 @@ $_pills: (
 }
 
 @mixin pill-style($type) {
-  $_styles: map-get($_pills, $type);
-  background: map-get($_styles, background-color);
-  border-color: map-get($_styles, border-color);
-  color: map-get($_styles, color);
-  content: map-get($_styles, content);
+  & {
+    $_styles: map-get($_pills, $type);
+    background: map-get($_styles, background-color);
+    border-color: map-get($_styles, border-color);
+    color: map-get($_styles, color);
+    content: map-get($_styles, content);
+    
+    &[href] {
+      color: map-get($_styles, color);
+      text-decoration: underline;
+      text-decoration-color: rgba(map-get($_styles, color), .25);
+
+      &:hover {
+        border-color: map-get($_styles, color);
+        color: map-get($_styles, color);
+        text-decoration-color: map-get($_styles, color);
+      }
+    }
+  }
 }
 
 @mixin pill-small {
   font-size: 8px;
   padding: 3px 5px;
+}
+
+@mixin pill-large {
+  font-size: 14px;
 }
 
 .pill {
@@ -110,6 +170,14 @@ $_pills: (
 
 .pill--small {
   @include pill-small;
+}
+
+.pill--large {
+  @include pill-large;
+}
+
+.pill--normal-case {
+  text-transform: none;
 }
 
 @each $type, $styles in $_pills {
@@ -127,4 +195,10 @@ $_pills: (
       top: -3px;
     }
   }
+}
+
+.has-pills {
+  align-items: center;
+  display: inline-flex;
+  gap: 5px;
 }

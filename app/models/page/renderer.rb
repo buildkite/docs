@@ -113,7 +113,7 @@ class Page::Renderer
         
         node.replace(<<~HTML.strip)
           <nav class="Toc">
-            <p><strong>On this page:</strong></p>
+            <p class="Toc__title"><strong>On this page:</strong></p>
             <ul class="Toc__list">
               #{html_list_items}
             </ul>
@@ -178,7 +178,7 @@ class Page::Renderer
   end
 
   def init_responsive_tables(doc)
-    doc.css('table.responsive-table').each do |table|
+    doc.css('table.responsive-table:not(.responsive-table--single-column-rows)').each do |table|
       thead_ths = table.css('thead th')
 
       unless thead_ths.empty?
