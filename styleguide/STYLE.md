@@ -245,7 +245,7 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 | `children`    | Children menu items | Array of objects, optional |
 | `pill`        | Append a pill. Currently you can use `beta`, `coming-soon`, `deprecated` or `new` | String, optional |
 | `new_window`  | Make this link open up a new window | Bool, optional |
-| `is_dropdown` | Make the children menu a dropdown menu on medium screens | Bool, optional |
+| `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
 
