@@ -7,14 +7,26 @@
 %>
 
 <% if path %>
+  <%
+    title = "Go to #{name}"
+    if type == "link"
+      title = "Link to #{name}"
+    end
+  %>
   <a
     class="<%= css_classes_nav_link %> <%= 'Nav__link--current' if current_path == nav_path(path) %>"
     href="<%= nav_path(path) %>"
+    title="<%= title %>"
     <%= new_window && 'target=_blank' %>
   >
     <%= name %>
+    
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
+    <% end %>
+
+    <% if type == "link" %>
+      <%= image_tag "icons/external_link", alt: "Icon: shortcut link", height: "16", width: "16" %>
     <% end %>
   </a>
 <% elsif start_expanded %>
