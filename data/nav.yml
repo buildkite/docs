@@ -422,6 +422,8 @@
           path: 'apis/rest-api'
         - name: 'Managing API Tokens'
           path: 'apis/managing-api-tokens'
+        - name: 'API Differences'
+          path: 'apis/api-differences'
         - name: 'Pipelines REST API'
           children:
             - name: 'Access Token'
