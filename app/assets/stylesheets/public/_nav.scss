@@ -215,14 +215,26 @@
       }
     }
 
-    &--type-back {
-      &::before {
-        background: transparent asset-url("icons/chevron-left.svg") 50% 50% no-repeat;
+    &--type {
+      &-back {
+        &::before {
+          background: transparent asset-url("icons/chevron-left.svg") 50% 50% no-repeat;
+        }
+
+        &:hover {
+          &:before {
+            transform: translateX(-2px);
+          }
+        }
       }
 
-      &:hover {
-        &:before {
-          transform: translateX(-2px);
+      &-link {
+        &:after {
+          content: "";
+          background: transparent asset-url("icons/external_link.svg") 50% 50% no-repeat;
+          background-size: cover;
+          height: 16px;
+          width: 16px;
         }
       }
     }
