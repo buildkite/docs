@@ -1,3 +1,5 @@
+<% use_nav = use_nav || "nav" %>
+
 <header class="SiteHeader">
   <div class="SiteHeader__inner PageContainer">
     <div class="SiteHeader__logo">
@@ -23,5 +25,5 @@
       <% end %>
     </div>
   </div>
-  <%= render 'layouts/nav' %>
+  <%= render 'layouts/nav', use_nav: use_nav %>
 </header>

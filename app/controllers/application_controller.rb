@@ -12,10 +12,10 @@ class ApplicationController < ActionController::Base
     YAML.load_file(file_path) || []
   end
 
-  def nav_data
-    Nav.new(fetch_local_data('nav')).nav_tree
+  def get_nav_data(name = 'nav')
+    Nav.new(fetch_local_data(name)).nav_tree
   end
-  helper_method :nav_data
+  helper_method :get_nav_data
 
   def notification_data
     Notification.new(fetch_local_data('notification')).message || []

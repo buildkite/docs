@@ -1,6 +1,8 @@
 <%
   current_path = request.original_fullpath
   nav_level = 0
+  use_nav = use_nav || "nav"
+  nav_data = get_nav_data(use_nav)
 %>
 
 <% if nav_data && !nav_data.empty? %>
@@ -12,11 +14,11 @@
       <% nav_data.each_with_index do |children, i| %>
         <%=
           render 'layouts/nav_children',
-          start_expanded: false,
           children: children,
-          is_dropdown: false,
+          current_path: current_path,
           nav_level: nav_level,
-          current_path: current_path
+          start_expanded: false,
+          type: nil
         %>
       <% end %>
     </div>
