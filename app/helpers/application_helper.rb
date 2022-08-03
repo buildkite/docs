@@ -55,4 +55,15 @@ module ApplicationHelper
 
     image_url(image)
   end
+
+  def top_level_nav_item_name(path)
+    name = path.split("/")[0]
+
+    if name === "apis"
+      "APIs"
+    else
+      name = name.gsub("-", " ")
+      name.titleize
+    end
+  end
 end
