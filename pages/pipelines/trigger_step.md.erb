@@ -206,3 +206,34 @@ To set environment variables on the build created by the trigger step, use the `
       RELEASE_STREAM: "${RELEASE_STREAM:-stable}"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Triggering specific steps in a pipeline
+
+While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to achieve a similar effect.
+
+
+An example using conditionals might look like this:
+
+* Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
+* Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
+* Custom [environment variables](#environment-variables) passed to the triggered build
+
+In the target pipeline, to run the command step only if the build was triggered by a specific pipeline, you might use something like this:
+
+```yml
+steps:
+    - command: ./scripts/tests.sh
+      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
+
+```
+{: codeblock-file="pipeline.yml"}
+
+If you also want the command step to run when the build was not triggered by the specific pipeline, you might need to do the opposite, and set conditions on the steps that you don't want to run when the build is triggered:
+
+```yml
+steps:
+    - command: ./scripts/tests.sh
+      if: build.source != 'trigger_job'
+
+```
+{: codeblock-file="pipeline.yml"}
