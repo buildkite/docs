@@ -1,6 +1,8 @@
-+# How to Trigger a Buildkite Pipeline Using GitHub Actions
+# How to Trigger a Buildkite Pipeline Using GitHub Actions
 
 [GitHub Actions](https://github.com/features/actions) feature helps automate GitHub-based workflows. You can use a [Buildkte GitHub Action](https://github.com/actions) for triggering a build on a Buildkite pipeline.
+
+{:toc}
 
 The Buildkite GitHub Action allows you to:
 
@@ -24,12 +26,12 @@ The Buildkite GitHub Action allows you to:
   uses: buildkite/trigger-pipeline-action@v1.2.0
 ```
 
-[screenshot]
-2630 x 1692
+<%= image "trigger-buildkite-pipeline.png", width: 2630/2, height: 1692/2, alt: "Trigger Buildkite Pipeline GitHub Action on GitHub" %>
 
 ## Creating and configuring the workflow for Buildkite GitHub Actions
 
 1. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets.
+
 2. Configure your GitHub Actions workflow with the details of the pipeline to be triggered, and the settings for the build.
 
 For example, the following workflow creates a new Buildkite build on every commit (change my-org to the slug of your org):
@@ -53,7 +55,6 @@ action "Build" {
 ```
 
 ## Configuting the workflow
-
 
 Use the following configuration options:
 
@@ -82,18 +83,13 @@ Use the following configuration options:
 
 ## Testing for development
 
-https://github.com/nektos/act
-
-To run the test workflow, you use act which will run it just as it does on GitHub:
+To run the test workflow locally, you can use [act](https://github.com/nektos/act, which will run it just as it does on GitHub:
 
 ```
 act
 ```
 
-Run your GitHub Actions locally! Why would you want to do this? Two reasons:
-3rd party
-
 ## Releasing
 Create a new GitHub release. The version numbers in the readme will be automatically updated.
 
-See [Trigger-pipeline-action](https://github.com/buildkite/trigger-pipeline-action) for more details, code. or if you would like to contribute or raise an issue for the Buildkite GitHub Action.
+See [Trigger-pipeline-action](https://github.com/buildkite/trigger-pipeline-action) for more details, code, or if you would like to contribute or raise an issue for the Buildkite GitHub Action.
