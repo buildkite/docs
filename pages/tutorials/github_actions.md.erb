@@ -12,6 +12,7 @@ The Buildkite GitHub Action allows you to:
 <div class="Docs__note">
 <h3 class="Docs__note__heading">Prerequisites</h3>
 <p>This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).</p>
+</div>
 
 ## Installing the Buildkite GitHub Action
 
@@ -58,28 +59,13 @@ action "Build" {
 
 Use the following configuration options:
 
-```yml
--
-   Env var: PIPELINE
-   Description: The pipline to create a build on, in the format <code><org-slug>/<pipeline-slug></code>
-   Default:
--
-   Env var: COMMIT
-   Description: The commit SHA of the build. Optional.
-   Default: <code>$GITHUB_SHA</code>
--
-   Env var: BRANCH
-   Description: The branch of the build. Optional.
-   Default: <code>$GITHUB_REF</code>
--
-   Env var: MESSAGE
-   Description: The message for the build. Optional.
-   Default: n
--
-   Env var: BUILD_ENV_VARS
-   Description: Additional environment variables to set on the build, in JSON format. for instance, <code>{"FOO": "bar"}</code>. Optional.
-   Default:
-```
+|Env var|Description|Default|
+|-|-|-|
+|PIPELINE|The pipline to create a build on, in the format `<org-slug>/<pipeline-slug>`||
+|COMMIT|The commit SHA of the build. Optional.|`$GITHUB_SHA`|
+|BRANCH|The branch of the build. Optional.|`$GITHUB_REF`|
+|MESSAGE|The message for the build. Optional.||
+|BUILD_ENV_VARS|Additional environment variables to set on the build, in JSON format. e.g. `{"FOO": "bar"}`. Optional. ||
 
 ## Testing for development
 
