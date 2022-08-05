@@ -12,7 +12,7 @@
     <h2 class="HomepageSection__heading">Products</h2>
     <div class="grid-row">
       <article class="HomepageCategory">
-        <%= link_to "/docs/tutorials/getting-started", class: "HomepageCategory__header" do %>
+        <%= link_to "/docs/pipelines", class: "HomepageCategory__header" do %>
           <h3 class="HomepageCategory__heading">Pipelines</h3>
           <p class="HomepageCategory__subtext">Set up your Buildkite pipeline</p>
           <div class="HomepageCategory__icon" aria-hidden>
@@ -21,7 +21,7 @@
         <% end %>
         <ul class="HomepageCategory__list">
           <li class="HomepageCategory__list-item"><%= link_to "Getting started guide", "/docs/tutorials/getting-started", class: 'HomepageCategory__list-item-link' %></li>
-          <li class="HomepageCategory__list-item"><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds", class: 'HomepageCategory__list-item-link' %></li>
+          <li class="HomepageCategory__list-item"><%= link_to "Running builds in Docker containers", "/docs/tutorials/docker-containerized-builds", class: 'HomepageCategory__list-item-link' %></li>
           <li class="HomepageCategory__list-item"><%= link_to "Autoscaling builds on Elastic CI stack for AWS", "/docs/tutorials/elastic-ci-stack-aws", class: 'HomepageCategory__list-item-link' %></li>
         </ul>
         <%= button 'Set up pipelines', '/docs/tutorials/getting-started', type: 'primary', has_right_arrow: true %>
