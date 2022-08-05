@@ -3,7 +3,7 @@
     path: 'tutorials/getting-started'
     icon: 'pipeline.svg'
     theme: 'green'
-    children: 
+    children:
       - name: 'Tutorials'
         children:
           - name: 'Getting Started'
@@ -223,6 +223,8 @@
                 path: 'pipelines/security-overview'
               - name: 'Managing Secrets'
                 path: 'pipelines/secrets'
+              - name: 'Privilege Isolation'
+                path: 'pipelines/privilege-isolation'
               - name: 'Users and Teams'
                 path: 'pipelines/permissions'
               - name: 'Webhooks Security'
