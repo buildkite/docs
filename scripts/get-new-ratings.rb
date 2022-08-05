@@ -4,6 +4,11 @@ ratings_file = "#{Dir.home}/Downloads/ratings-export.csv"
 output_file = __dir__+'/linear.csv'
 processed_ratings_file = __dir__+'/emojicom-processed-ratings.txt'
 
+if not File.exist?(ratings_file)
+  puts "Download the ratings from https://emojicom.io before running this script"
+  exit
+end
+
 # Ratings file format:
 # id,date,device,country_code,rating,comment,email,url,client_ref
 
@@ -33,6 +38,10 @@ CSV.foreach(ratings_file, force_quotes: true, headers: true, liberal_parsing: tr
   end
 end
 
+File.delete(ratings_file)
+
+puts <<EOF
+
 # Run the linear cli import with the following options
 #
 # - API key
@@ -46,4 +55,5 @@ end
 
 # Commit the processed entries to avoid adding them again next time!
 
-# Feedback tickets are visible https://linear.app/buildkite/view/0fe32d51-f7bb-445c-8bf2-dd8fd0cb281d
+# Feedback tickets are visible in https://linear.app/buildkite/view/0fe32d51-f7bb-445c-8bf2-dd8fd0cb281d
+EOF
