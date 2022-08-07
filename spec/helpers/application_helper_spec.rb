@@ -18,4 +18,34 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe "#top_level_nav_item_name" do
+    it "returns the top level nav item name correctly" do
+      path = "integrations/sso/google-workspace-saml"
+
+      expect(top_level_nav_item_name(path)).to eq("Integrations")
+    end
+
+    context "when the top level nav item is APIs" do
+      it "returns APIs with the correct casing" do
+        path = "apis/rest-api/access-token"
+      
+        expect(top_level_nav_item_name(path)).to eq("APIs")
+      end
+    end
+
+    context "when the path contains dashes" do
+      it "replaces dashes with spaces" do
+        path = "test-analytics/importing-junit-xml"
+
+        expect(top_level_nav_item_name(path)).to eq("Test Analytics")
+      end
+
+      it "titleizes" do
+        path = "test-analytics/importing-junit-xml"
+
+        expect(top_level_nav_item_name(path)).to eq("Test Analytics")
+      end
+    end
+  end
 end

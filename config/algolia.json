@@ -21,6 +21,7 @@
     "text": ".Docs__article p, .Docs__article li, .Docs__article td"
   },
   "selectors_exclude": [
+    "[data-algolia-exclude]",
     ".Docs__toc",
     ".Docs__note--footer-typo",
     ".HomepageCategory"

@@ -20,6 +20,7 @@ Deprovisioning
 Distro
 Docker's
 Dockerfile
+Enum
 Eventbridge
 Explainshell
 Firewalled
@@ -43,6 +44,7 @@ Pipenv
 Postgres
 Powershell
 Readme
+RSpec
 Shardy
 Shellcheck
 Shipit
@@ -67,6 +69,7 @@ aws
 boolean
 boomper
 buildscript
+cancelation
 ccnet
 chatbot
 chroot
@@ -86,9 +89,11 @@ deprovision
 distro
 Dockerfile
 dogstatsd
+enum
 env
 eval
 eventbridge
+favorited
 fff
 ffxdq
 gcloud
@@ -139,10 +144,11 @@ pybuildkite
 pytest
 readme
 readmes
+refetch
 refspec
 repo
-RSpec
 routable
+ruleset
 rvm
 sandboxed
 sed
@@ -180,6 +186,7 @@ untrusted
 url
 urls
 util
+uuid
 vendored
 waitlist
 walkthrough

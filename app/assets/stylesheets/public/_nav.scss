@@ -1,5 +1,8 @@
+@mixin _make-nav-icon-purple {
+  filter: invert(24%) sepia(92%) saturate(7443%) hue-rotate(258deg) brightness(81%) contrast(109%);
+}
+
 .Nav {
-  background-color: #f2f2f2;
   border-top: #ddd 1px solid;
 
   @media (min-width: $screen-md) {
@@ -51,7 +54,7 @@
   &__container {
     display: none;
     flex-direction: column;
-    padding: 10px 5px;
+    padding: 4px 5px;
     
     @media (min-width: $screen-md) {
       align-items: center;
@@ -89,7 +92,6 @@
     &--level1 {
       display: flex;
       flex-direction: column;
-      gap: 15px;
       padding-bottom: 0;
       padding-top: 0;
 
@@ -108,27 +110,14 @@
           font-weight: 600;
         }
       }
-
-      &::before {
-        background-color: #ddd;
-        content: '';
-        height: 1px;
-        margin: 15px 25px 0;
-
-        @media (min-width: $screen-md) {
-          content: none;
-        }
-      }
-
-      &:first-child::before {
-        content: none;
-      }
     }
 
     &--level2 {
       @media (min-width: $screen-md) {
         background-color: #fff;
-        border-right: #ddd 1px solid;
+        border-color: #ddd;
+        border-style: solid;
+        border-width: 1px 1px 0 0;
         box-sizing: border-box;
         height: calc(100vh - #{$header-height});
         left: 0;
@@ -142,43 +131,25 @@
     }
   }
 
-  &__item {
-    &--level1 {
-      &::after {
-        background-color: #ddd;
-        content: '';
-        display: block;
-        height: 1px;
-        margin: 15px 25px 0;
-
-        @media (min-width: $screen-md) {
-          content: none;
-        }
-      }
-
-      &:last-child::after {
-        content: none;
-      }
-    }
-  }
-
   &__link {
     align-items: center;
     background-color: transparent;
     border: none;
     border-radius: 5px;
     box-sizing: border-box;
-    color: #4f4f4f;
+    color: #111111;
     display: flex;
     font-family: $font-family;
     font-size: 14px;
     gap: 5px;
     line-height: 24px;
     margin: 0;
-    padding: 5px 25px;
+    padding: 8px 15px;
+    position: relative;
     text-decoration: none;
     transition: background-color $transition-speed, color $transition-speed;
     width: 100%;
+    word-break: break-all;
 
     @media (min-width: $screen-md) {
       padding-left: 15px;
@@ -186,68 +157,134 @@
       width: auto;
     }
 
-    &:not(.Nav__link--pre-expand-children):hover {
-      background-color: #fff;
-
-      @media (min-width: $screen-md) {
-        background-color: #f2f2f2;
+    &:hover {
+      &:not(span) {
+        color: #4B19D5;
+  
+        &::before {
+          @include _make-nav-icon-purple;
+        }
       }
     }
 
     &--current {
-      background-color: #fff;
+      background-color: #F1EFFF;
+      color: #4B19D5;
+    }
 
-      @media (min-width: $screen-md) {
-        background-color: #f2f2f2;
+    &--parent {
+      color: #4B19D5;
+    }
+
+    &::before {
+      content: '';
+      left: 10px;
+      height: 8px;
+      position: absolute;
+      transition: transform $transition-speed;
+      width: 8px;
+    }
+
+    &--level2 {
+      &::before {
+        left: 32px;
+
+        @media (min-width: $screen-md) {
+          left: 12px;
+        }
+      }
+    }
+
+    &--level3 {
+      &::before {
+        left: 42px;
+
+        @media (min-width: $screen-md) {
+          left: 22px;
+        }
+      }
+    }
+
+    &--level4 {
+      &::before {
+        left: 52px;
+
+        @media (min-width: $screen-md) {
+          left: 32px;
+        }
+      }
+    }
+
+    &--type {
+      &-back {
+        &::before {
+          background: transparent asset-url("icons/chevron-left.svg") 50% 50% no-repeat;
+        }
+
+        &:hover {
+          &:before {
+            transform: translateX(-2px);
+          }
+        }
+      }
+
+      &-link {
+        &:after {
+          content: "";
+          background: transparent asset-url("icons/external_link.svg") 50% 50% no-repeat;
+          background-size: cover;
+          height: 16px;
+          width: 16px;
+        }
       }
     }
 
     &--level1 {
       font-size: 16px;
+      padding-left: 26px;
+      padding-right: 26px;
 
       @media (min-width: $screen-md) {
         font-size: 14px;
+        padding-left: 15px;
+        padding-right: 15px;
       }
 
       &.Nav__link--parent {
-        background-color: #fff;
-
-        @media (min-width: $screen-md) {
-          background-color: #f2f2f2;
-        }
+        background-color: #F1EFFF;
       }
     }
 
     &--level2 {
       font-weight: 600;
-      padding-left: 52px;
+      padding-left: 50px;
 
       @media (min-width: $screen-md) {
-        padding-left: 30px;
+        padding-left: 25px;
       }
     }
 
     &--level3 {
-      padding-left: 67px;
+      padding-left: 60px;
+
+      @media (min-width: $screen-md) {
+        padding-left: 35px;
+      }
+    }
+
+    &--level4 {
+      padding-left: 70px;
 
       @media (min-width: $screen-md) {
         padding-left: 45px;
       }
     }
 
-    &--level4 {
-      padding-left: 82px;
-
-      @media (min-width: $screen-md) {
-        padding-left: 60px;
-      }
-    }
-
     &--level5 {
-      padding-left: 97px;
+      padding-left: 80px;
 
       @media (min-width: $screen-md) {
-        padding-left: 75px;
+        padding-left: 55px;
       }
     }
   }
@@ -255,58 +292,37 @@
   &__toggle {
     cursor: pointer;
     font-weight: 600;
-    position: relative;
     width: 100%;
 
     &::before {
-      border-bottom: 4px solid transparent;
-      border-left: 6px solid #8e8e8e;
-      border-top: 4px solid transparent;
-      content: '';
-      left: 35px;
-      height: 0;
-      position: absolute;
-      transition: transform $transition-speed;
-      width: 0;
-
-      @media (min-width: $screen-md) {
-        left: 15px;
-      }
+      background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+      transform: rotate(-90deg);
     }
 
     &--on::before {
-      transform: rotate(90deg);
+      transform: rotate(0deg);
     }
 
-    &.Nav__link--level1 {
+    &--parent {
+      color: #4B19D5;
+
       &::before {
-        content: none;
+        @include _make-nav-icon-purple;
       }
-    }
 
-    &.Nav__link--level3 {
-      &::before {
-        left: 50px;
-
-        @media (min-width: $screen-md) {
-          left: 30px;
-        }
-      }
-    }
-
-    &.Nav__link--level4 {
-      &::before {
-        left: 70px;
-
-        @media (min-width: $screen-md) {
-          left: 50px;
-        }
+      &--on::before {
+        transform: rotate(0deg);
       }
     }
   }
 
   &__pill {
     margin-left: auto;
+  }
+
+  &__divider {
+    margin-bottom: 8px;
+    margin-top: 8px;
   }
 
   // Dropdown styling starts
@@ -317,13 +333,18 @@
   &__dropdown-toggle {
     @media (min-width: $screen-md) {
       &::after {
-        border-top: 6px solid #8e8e8e;
-        border-left: 4px solid transparent;
-        border-right: 4px solid transparent;
-        content: '';
-        right: 0;
-        height: 0;
-        width: 0;
+        background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+        content: "";
+        height: 8px;
+        width: 8px;
+      }
+    }
+
+    &:hover {
+      @media (min-width: $screen-md) {
+        &::after {
+          @include _make-nav-icon-purple;
+        }
       }
     }
   }

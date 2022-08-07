@@ -9,7 +9,7 @@ Table of contents:
 * [Code and filenames](#Code-and-filenames)
 * [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
-
+* [GraphQL API schema](#graphql-api-schema)
 
 ## Language
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
@@ -245,7 +245,7 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 | `children`    | Children menu items | Array of objects, optional |
 | `pill`        | Append a pill. Currently you can use `beta`, `coming-soon`, `deprecated` or `new` | String, optional |
 | `new_window`  | Make this link open up a new window | Bool, optional |
-| `is_dropdown` | Make the children menu a dropdown menu on medium screens | Bool, optional |
+| `type` | Special nav link types. With `dropdown` the children nav items will be rendered as hover dropdown menus on laptop/desktop screen devices. `link` is a shortcut link that takes the user from one section to another (for example, you may link to SSO under the Integrations section from Pipeline's sidebar). It also renders an 'external link' icon as an affordance. Lastly, `divider` makes a divider line in the nav to help with visual delineation. | String, `dropdown|link|divider`, optional |
 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
 
@@ -476,3 +476,14 @@ Steps for adding add an image to a documentation page:
 3. Compose relevant alt text for the image file using Title case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
+
+## GraphQL API schemas
+
+There are over 300 GraphQL API schema pages and they are manually generated with a shell script.
+When there are changes to the API, we can update them with these steps:
+
+1. Starting from the [`buildkite/buildkite`](https://github.com/buildkite/buildkite) repo, pull the latest changes into the `main` branch
+2. Build the schema by running `rails api:graph:export`. The latest schema can be found in `frontend/app/graph/schema.json`
+3. Go back to [`buildkite/docs`](https://github.com/buildkite/docs) and replace `data/graphql_data_schema.json`'s content with the latest schema
+4. Run the script `./scripts/generate-graphql-api-content.sh`. This will generate and update all the schema pages under `pages/apis/graphql/schemas/`
+5. Stage and commit these changes

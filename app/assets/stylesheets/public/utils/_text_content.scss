@@ -1,7 +1,7 @@
 .TextContent {
   line-height: 1.4;
 
-  h2, h3, h4, blockquote, pre, p, table { margin: 1em 0; }
+  h2, h3, h4, blockquote, pre, p, table { margin: 1rem 0; }
   h2 { font-size: #{(24/18)}rem; margin-top: 1.5em; }
   li { margin: 0.5em 0 0.5em 1.8em; }
   ol > li {
@@ -101,6 +101,12 @@
   td {
     padding: .5rem;
 
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
     p {
       &:first-child {
         margin-top: 0;
@@ -153,6 +159,46 @@
     border-radius: 5px;
     box-sizing: border-box;
     padding: 5px;
+  }
+
+  details {
+    background-color: #f8f8f8;
+    display: inline-block;
+    padding: 10px 15px;
+
+    &[open] {
+      display: block;
+    }
+
+    summary {
+      cursor: pointer;
+
+      + table {
+        margin-top: 0;
+
+        tbody {
+          tr:first-child {
+            border-top: 0;
+          }
+        }
+      }
+
+      ~ table {
+        &:last-child {
+          margin-bottom: 0;
+        }
+
+        tbody {
+          tr:last-child {
+            border-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .is-small {
+    font-size: .8888rem;
   }
 
   /* Some styles from Bass that our Markdown render outputs */
