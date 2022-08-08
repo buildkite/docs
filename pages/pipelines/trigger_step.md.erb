@@ -6,7 +6,7 @@ You can use trigger steps to separate your test and deploy pipelines, or to crea
 
 {:toc}
 
-A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
+A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
 ```yml
 steps:
@@ -34,7 +34,7 @@ If your triggering pipelines are started by an API call or a webhook, it might n
 
 _Required attributes:_
 
-<table data-attributes data-attributes-required>
+<table data-attributes data-attributes-required id="trigger">
   <tr>
     <td><code>trigger</code></td>
     <td>
