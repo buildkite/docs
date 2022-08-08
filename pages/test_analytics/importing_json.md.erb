@@ -189,7 +189,7 @@ end
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON['test_result']['fields'].each do |field| -%>
+    <% TEST_ANALYTICS_JSON_FIELDS_TEST_RESULT['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -256,7 +256,7 @@ A history object represents the overall duration of the test run and contains de
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON['history']['fields'].each do |field| -%>
+    <% TEST_ANALYTICS_JSON_FIELDS_HISTORY['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
@@ -295,7 +295,7 @@ It represents, for example, the duration of an individual database query within 
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON['span']['fields'].each do |field| -%>
+    <% TEST_ANALYTICS_JSON_FIELDS_SPAN['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
