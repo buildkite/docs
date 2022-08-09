@@ -1,8 +1,9 @@
 .Tiles {
-  @media (min-width: 960px) {
+  @media (min-width: $screen-lg) {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-column-gap: 30px;
+    gap: 30px;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
   }
 }
 
@@ -22,14 +23,6 @@
     font-size: 1.111111rem;
     font-weight: bold;
     margin: 0 0 15px;
-
-    &-link {
-      text-decoration: none;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
   }
 
   .TileItem__desc {
@@ -46,6 +39,7 @@
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
     font-weight: 500;
     line-height: 125%;
+    padding: 0; // override `.TextContent ul`
   }
 
   .TileItem__list-item {

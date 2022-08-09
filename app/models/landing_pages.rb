@@ -1,5 +1,8 @@
 class LandingPages
   def self.all
-    [ 'test-analytics' ]
+    [
+      "test-analytics",
+      "integrations"
+    ]
   end
 end
