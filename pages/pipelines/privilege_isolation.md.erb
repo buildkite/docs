@@ -1,6 +1,7 @@
 # Privilege Isolation in Buildkite
 
 The recommended architecture for creating a shared agent pool capable of running Buildkite jobs with elevated IAM privileges consists of two main components:
+
 1. Pipeline to IAM role mapping
 2. Agent able to run a job isolated to that role
 
@@ -77,11 +78,11 @@ jobs for that pipeline on the agent to have a warm git checkout)
 
 You can use either:
 
-    * Your own Docker image, with the `buildkite-agent` installed so you can execute
+* Your own Docker image, with the `buildkite-agent` installed so you can execute
 `buildkite-agent bootstrap`. You can also add your own
 custom agent hooks or standard dependencies/tools.
 
-    * The standard [buildkite/agent](https://hub.docker.com/r/buildkite/agent/) Docker image. This uses `buildkite-agent` as the default `ENTRYPOINT`, so you can `docker run buildkite/agent bootstrap`.
+* The standard [buildkite/agent](https://hub.docker.com/r/buildkite/agent/) Docker image. This uses `buildkite-agent` as the default `ENTRYPOINT`, so you can `docker run buildkite/agent bootstrap`.
 
 *The `buildkite-agent bootstrap` inside the container will then handle all standard behaviour, checking
 out the commit into the build dir, plugins, etc. but executing under the assumed IAM role.
