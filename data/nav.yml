@@ -255,7 +255,7 @@
             path: 'integrations/git'
       - type: 'divider'
       - name: 'Integrations'
-        path: 'integrations/sso'
+        path: 'integrations'
         type: 'link'
       - name: 'Plugins'
         path: 'plugins'
@@ -369,8 +369,10 @@
           - name: 'Integrations'
             path: 'apis/webhooks/integrations'
   - name: 'Integrations'
-    path: 'integrations/sso'
+    path: 'integrations'
     children:
+      - name: 'Overview'
+        path: 'integrations'
       - name: 'SSO'
         children:
           - name: 'Overview'
