@@ -455,8 +455,8 @@ This information was aggregated by going over the existing screenshots in the do
 
 ### Taking and processing screenshots
 * **Format:** PNG
-* **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
-* **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen using Safari. Images should be exported at double (`@2x`) the original screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
+* **Ratio:** arbitrary, Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
+* **Size:** the largest possible resolution that makes sense
 * **No feature flag:** please remember to turn off all experimental features when taking screenshots
 * **Border:** no border
 * **Drop shadow:** no
@@ -468,14 +468,11 @@ This information was aggregated by going over the existing screenshots in the do
 * **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
 
 ### Adding screenshots or other images
-> Before you proceed, make sure that both the width and the height of the image are an even number of pixels!
-
 Steps for adding add an image to a documentation page:
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page)
 2. Put the file into the corresponding `images` folder (a folder with the same name as the page you are adding this image to; create such folder if it doesn't exist yet)
 3. Compose relevant alt text for the image file using Title case
-4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
-For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
+4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", alt: "Screenshot of Important Feature" %>`
 
 ## GraphQL API schemas
 
