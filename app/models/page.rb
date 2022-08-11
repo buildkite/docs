@@ -24,16 +24,7 @@ class Page
         args[:height] = height
       end
 
-      if args.include?(:width) && args.include?(:height)
-        args[:max_width] = args[:width]
-
-        responsive_image_tag(image_url(name),
-                             args[:width],
-                             args[:height],
-                             args.except(:width, :height))
-      else
-        @view_helpers.image_tag(image_url(name), args)
-      end
+      content_tag :div, @view_helpers.image_tag(image_url(name), args)
     end
 
     def image_url(name)
@@ -69,17 +60,6 @@ class Page
                end
 
       Page::Renderer.render(text).html_safe
-    end
-
-    def responsive_image_tag(image, width, height, image_tag_options={}, &block)
-      max_width = image_tag_options.delete(:max_width)
-      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]]
-
-      if max_width
-        content_tag :div, container, style: "max-width: #{max_width}px", class: image_tag_options[:class]
-      else
-        container
-      end
     end
   end
 

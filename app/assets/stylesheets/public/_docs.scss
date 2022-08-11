@@ -74,14 +74,12 @@ $color-green: rgb(3, 165, 98);
   h3 + p { margin-top: 0; }
   h4 { font-size: 1rem; font-weight: 600; }
   h5 { font-size: .9rem; font-weight: 600; }
-  img.no-decoration, .responsive-image-container.no-decoration { padding: 0; border: none; margin: 0; }
+  img.no-decoration { padding: 0; border: none; margin: 0; }
   img.emoji { padding: 0; border: none; }
   hr + h2 { margin-top: 0; }
   th { font-weight:600; }
   thead th { font-weight: 600; }
   .image, img { max-width: 100%; }
-  .responsive-image-container { margin: .5rem 0 2rem 0; }
-  li .responsive-image-container { margin: .5rem 0 0 0; }
 }
 
 .Docs__article .Docs__api-param-eg {
