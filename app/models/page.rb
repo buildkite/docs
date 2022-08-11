@@ -24,7 +24,7 @@ class Page
         args[:height] = height
       end
 
-      content_tag :div, @view_helpers.image_tag(image_url(name), args)
+      content_tag :div, @view_helpers.image_tag(image_url(name), args), :class => "image-container"
     end
 
     def image_url(name)
