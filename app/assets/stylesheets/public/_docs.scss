@@ -79,7 +79,10 @@ $color-green: rgb(3, 165, 98);
   hr + h2 { margin-top: 0; }
   th { font-weight:600; }
   thead th { font-weight: 600; }
-  .image, img { max-width: 100%; }
+  .image, img {
+    height: auto;
+    max-width: 100%;
+  }
   .image-container {
     margin-bottom: 1rem;
     margin-top: 1rem;
