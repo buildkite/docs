@@ -133,10 +133,10 @@ Schematically, the JSON test results data is like this:
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD007 -->
 
-* A test result array of:
-   - [Test result](#json-test-results-data-reference-test-result-objects)
-      * [History](#json-test-results-data-reference-history-objects)
-         - [Spans](#json-test-results-data-reference-span-objects)
+- [Test results](#json-test-results-data-reference-test-result-objects)
+   + [History](#json-test-results-data-reference-history-objects)
+       - [Spans](#json-test-results-data-reference-span-objects)
+         + [Detail](#json-test-results-data-reference-detail-objects)
 
 <!-- markdownlint-restore -->
 
@@ -315,5 +315,56 @@ It represents, for example, the duration of an individual database query within 
   "start_at": 347611.734956,
   "end_at": 347611.735647,
   "duration": 0.0006910000229254365
+  "detail": {
+    ...
+  }
 }
 ```
+
+### Detail objects
+
+Detail objects contains additional information about the span.
+
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% TEST_ANALYTICS_JSON['detail']['fields'].each do |field| -%>
+      <tr>
+        <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
+        <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
+        <td>
+          <%= render_markdown(text: field['desc']) %>
+        </td>
+      </tr>
+    <% end -%>
+  </tbody>
+</table>
+
+**HTTP Example:**
+
+```js
+{
+  "detail": {
+    method: "POST",
+    url: "https://example.com",
+    lib: "curl
+  }
+}
+```
+
+**SQL Example:**
+
+```js
+{
+  "detail": {
+    query: "SELECT * FROM ..."
+  }
+}
+```
+
