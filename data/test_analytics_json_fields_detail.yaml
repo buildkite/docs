@@ -13,23 +13,23 @@ fields:
     - OPTIONS
     - TRACE
   desc: |
-      A HTTP request method (required if parent span has a 'section' of 'http')
+      A HTTP request method (required if parent span has a `section` of `http`)
   examples:
 - name: url
   required: false
   type: string
   desc: |
-      The URL requested (required if parent span has a 'section' of 'http')
+      The URL requested (required if parent span has a `section` of `http`)
   examples:
 - name: lib
   required: false
   type: string
   desc: |
-     The library used to make the HTTP request (required if parent span has a 'section' of 'http')
+     The library used to make the HTTP request (required if parent span has a `section` of `http`)
   examples:
 - name: query
   required: false
   type: string
   desc: |
-     The SQL query (required if parent span has a 'section' of 'sql')
+     The SQL query (required if parent span has a `section` of `sql`)
   examples:
