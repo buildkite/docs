@@ -1,6 +1,9 @@
 (function () {
+  const maxWidth = 1536
+
   initCurrentNavs();
   bindToggles();
+  initSidebarsPos();
 
   function initCurrentNavs () {
     const currentNode = Array.from(document.getElementsByClassName('Nav__link--current')).pop();
@@ -63,5 +66,24 @@
         });
       }
     });
+  }
+
+  function initSidebarsPos () {
+    const leftMenuNode = document.querySelector('.Nav__section--level2.Nav__section--show');
+    const tocNode = document.querySelector('.Toc');
+
+    if (leftMenuNode || tocNode) {
+      setSidebarsPos();
+      addEventListener('resize', (event) => setSidebarsPos());
+    }
+
+    function setSidebarsPos () {
+      const pos = window.innerWidth > maxWidth
+        ? Math.floor((window.innerWidth - maxWidth) / 2)
+        : 0
+
+      if (leftMenuNode) leftMenuNode.style.left = `${pos}px`;
+      if (tocNode) tocNode.style.right = `${pos}px`;
+    }
   }
 })();
