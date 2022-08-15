@@ -55,7 +55,9 @@
       <%= link_to "https://buildkite.com/home", title: "Go to Buildkite homepage" do %>
         <img alt="Buildkite logo" class="HomeHeader__logo" src="<%= logo_image_url %>" />
       <% end %>
-      <h1>Buildkite Docs</h1>
+      <h1>
+        <img alt="Buildkite Docs" class="HomeHeader__wordmark" src="<%= image_url "brand-wordmark-on-white.svg" %>">
+      </h1>
       <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
       <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
       <div class="HomeHeader__search">
