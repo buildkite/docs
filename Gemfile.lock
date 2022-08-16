@@ -28,6 +28,9 @@ GEM
     bugsnag (6.21.0)
       concurrent-ruby (~> 1.0)
     builder (3.2.4)
+    buildkite-test_collector (1.1.3)
+      activesupport (>= 5.2, < 8)
+      websocket (~> 1.2)
     byebug (11.1.3)
     capybara (3.35.3)
       addressable
@@ -146,6 +149,7 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    websocket (1.2.9)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.5.4)
@@ -158,6 +162,7 @@ DEPENDENCIES
   actionview (~> 6.0)
   activesupport (~> 6.0)
   bugsnag
+  buildkite-test_collector
   byebug
   capybara
   commonmarker

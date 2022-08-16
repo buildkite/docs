@@ -45,4 +45,8 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered using:
   # config.filter_gems_from_backtrace("gem name")
+
+  require "buildkite/test_collector"
+
+  Buildkite::TestCollector.configure(hook: :rspec)
 end
