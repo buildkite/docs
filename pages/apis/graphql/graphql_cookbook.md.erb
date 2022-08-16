@@ -186,7 +186,7 @@ query PipelineBuildCountForBranchQuery {
     builds(branch:"branch-name") {
       count
     }
-  }  
+  }
 }
 ```
 
@@ -198,7 +198,7 @@ query PipelineBuildCountForBranchQuery {
     builds(branch:"branch-name", createdAtTo:"DateTime") {
       count
     }
-  }  
+  }
 }
 ```
 
@@ -210,6 +210,30 @@ List the first 100 members in the organization.
 query getOrgMembers{
   organization(slug: "organization-slug") {
     members(first: 100) {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Search for organization members
+
+Look up organization members using their email address.
+
+```
+Search
+query getOrgMember{
+  organization(slug: "buildkite") {
+    members(first: 1, search: "jason@buildkite.com") {
       edges {
         node {
           role
