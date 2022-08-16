@@ -183,6 +183,28 @@ query getConcurrency {
   }
 }
 ```
+## Get the last job of an agent
+
+To get the last job of an agent or `null`.
+
+```
+query AgentJobs {
+  agent(slug: "organization-slug/build-UUID") {
+    jobs(first: 10) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            state
+            build {
+              state
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
 
 ## Get pipeline metrics
 
