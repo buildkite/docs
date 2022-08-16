@@ -28,3 +28,9 @@ fields:
   desc: |
       How long the span took to run
   examples:
+- name: detail
+  required : false
+  desc: |
+      A detail object containing further details on the span. Required when `section` is `http`, or `sql`.
+      Read [Detail objects](/docs/test-analytics/importing-json#json-test-results-data-reference-detail-objects)
+  examples:
