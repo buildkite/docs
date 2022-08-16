@@ -149,6 +149,27 @@ query PipelineRecentBuildLastJobQueue {
 }
 ```
 
+## Get all jobs in a particular concurrency group
+
+To see which jobs are waiting for a concurrency group in case the secret URL fails, you can use the following query.
+
+```
+query getConcurrency {
+  organization(slug: "{org}") {
+    jobs(first:100,concurrency:{"name"}, type:[COMMAND], state:[LIMITED]) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            url
+            createdAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get pipeline metrics
 
 The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
