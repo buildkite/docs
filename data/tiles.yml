@@ -43,6 +43,10 @@ test_analytics_guides:
         url: "/docs/test-analytics/ci-environments"
   - ""
 integrations:
+  - title: "Source control"
+    desc: "Looking for source control integrations?"
+    url: /docs/integrations/source-control
+
   - title: "SSO"
     desc: "You can use a Single Sign-On (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers."
     url: "/docs/integrations/sso"
