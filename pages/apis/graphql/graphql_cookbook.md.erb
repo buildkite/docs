@@ -28,6 +28,20 @@ query GetEnvVarsBuild {
 }
 ```
 
+## Get build info by ID
+
+Get all tbe available info from a build while only having its UUID.
+
+```
+query GetBuilds {
+  build(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
+    id
+    number
+    url
+  }
+}
+```
+
 ## Get a list of recently created pipelines
 
 Get a list of the 500 most recently created pipelines.
