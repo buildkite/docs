@@ -3,32 +3,62 @@
 
   h2, h3, h4, blockquote, pre, p, table { margin: 1rem 0; }
   h2 { font-size: #{(24/18)}rem; margin-top: 1.5em; }
-  li { margin: 0.5em 0 0.5em 1.8em; }
-  ol > li {
-    list-style: decimal;
 
-    ol > li {
+  li {
+    margin-bottom: .5em;
+    margin-top: .5em;
+  }
+
+  ol {
+    list-style: decimal;
+    padding-left: 30px;
+
+    ol {
       list-style: lower-alpha;
 
-      ol > li {
+      ol {
         list-style: lower-roman;
-        margin-left: 2em;
+
+        ol {
+          list-style: decimal;
+      
+          ol {
+            list-style: lower-alpha;
+      
+            ol {
+              list-style: lower-roman;
+            }
+          }
+        }
       }
     }
   }
 
-  ul li {
+  ul {
     list-style: disc;
-    margin-left: 1em;
+    padding-left: 30px;
 
-    ul > li {
+    ul {
       list-style: circle;
 
-      ul > li {
+      ul {
         list-style: square;
+
+        ul {
+          list-style: disc;
+      
+          ul {
+            list-style: circle;
+      
+            ul {
+              list-style: square;
+            }
+          }
+        }
       }
     }
   }
+
   li ul,
   li p { margin-bottom: 0.5em; }
 
