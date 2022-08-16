@@ -1276,3 +1276,40 @@ mutation UpdateTeamPipelineReadonly {
   }
 }
 ```
+
+## Update multiple environment variables for a schedule
+
+This updates a schedules environment variables by using the new-line value "\n" as a delimiter.
+
+First, find the schedule's ID:
+
+```graphql
+query GetSchedules {
+  pipeline(slug: "organization/pipeline") {
+    schedules(first: 500) {
+      edges {
+        node {
+          id
+          label
+        }
+      }
+    }
+  }
+}
+```
+
+Then, use the ID to delete the user:
+
+```graphql
+mutation UpdateSchedule {
+  pipelineScheduleUpdate(input:{
+    id: "schedule-id"
+    env: "FOO=bar\nBAR=foo"
+  }) {
+    pipelineSchedule {
+      id
+      env
+    }
+  }
+}
+```
