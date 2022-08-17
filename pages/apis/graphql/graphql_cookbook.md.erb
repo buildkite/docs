@@ -28,6 +28,20 @@ query GetEnvVarsBuild {
 }
 ```
 
+## Get build info by ID
+
+Get all the available info from a build while only having its UUID.
+
+```
+query GetBuilds {
+  build(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
+    id
+    number
+    url
+  }
+}
+```
+
 ## Get a list of recently created pipelines
 
 Get a list of the 500 most recently created pipelines.
@@ -149,6 +163,49 @@ query PipelineRecentBuildLastJobQueue {
 }
 ```
 
+## Get all jobs in a particular concurrency group
+
+To see which jobs are waiting for a concurrency group in case the secret URL fails, you can use the following query.
+
+```
+query getConcurrency {
+  organization(slug: "{org}") {
+    jobs(first:100,concurrency:{"name"}, type:[COMMAND], state:[LIMITED]) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            url
+            createdAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+## Get the last job of an agent
+
+To get the last job of an agent or `null`. You will need to know the UUID of the agent.
+
+```
+query AgentJobs {
+  agent(slug: "organization-slug/agent-UUID") {
+    jobs(first: 10) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            state
+            build {
+              state
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Get pipeline metrics
 
 The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
@@ -186,7 +243,7 @@ query PipelineBuildCountForBranchQuery {
     builds(branch:"branch-name") {
       count
     }
-  }  
+  }
 }
 ```
 
@@ -198,7 +255,7 @@ query PipelineBuildCountForBranchQuery {
     builds(branch:"branch-name", createdAtTo:"DateTime") {
       count
     }
-  }  
+  }
 }
 ```
 
@@ -210,6 +267,30 @@ List the first 100 members in the organization.
 query getOrgMembers{
   organization(slug: "organization-slug") {
     members(first: 100) {
+      edges {
+        node {
+          role
+          user {
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+## Search for organization members
+
+Look up organization members using their email address.
+
+```
+Search
+query getOrgMember{
+  organization(slug: "buildkite") {
+    members(first: 1, search: "jason@buildkite.com") {
       edges {
         node {
           role
