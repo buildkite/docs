@@ -185,11 +185,11 @@ query getConcurrency {
 ```
 ## Get the last job of an agent
 
-To get the last job of an agent or `null`.
+To get the last job of an agent or `null`. You will need to know the UUID of the agent.
 
 ```
 query AgentJobs {
-  agent(slug: "organization-slug/build-UUID") {
+  agent(slug: "organization-slug/agent-UUID") {
     jobs(first: 10) {
       edges {
         node {
