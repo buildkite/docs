@@ -46,7 +46,9 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered using:
   # config.filter_gems_from_backtrace("gem name")
 
-  require "buildkite/test_collector"
-
-  Buildkite::TestCollector.configure(hook: :rspec)
 end
+
+# Find and fix flaky tests
+
+require "buildkite/test_collector"
+Buildkite::TestCollector.configure(hook: :rspec)
