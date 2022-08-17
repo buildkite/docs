@@ -13,6 +13,7 @@ steps:
             - BUILDKITE_JOB_ID
             - CI
             - RAILS_ENV
+            - BUILDKITE_ANALYTICS_TOKEN
 
   - label: ":junit: Test Summary"
     depends_on: "rspec"
