@@ -1,7 +1,7 @@
 ---
 - - name: 'Pipelines'
     path: 'tutorials/getting-started'
-    children: 
+    children:
       - name: 'Tutorials'
         children:
           - name: 'Getting Started'
@@ -20,6 +20,27 @@
             path: 'tutorials/pipeline-upgrade'
           - name: 'Two-factor authentication (2FA)'
             path: 'tutorials/2fa'
+        # If you're adding a source control provider you probably want to update
+        # /docs/pages/integrations/source_control.md.erb
+        # as well
+      - name: 'Source control'
+        children:
+          - name: 'Overview'
+            path: 'integrations/source-control'
+          - name: 'GitHub'
+            path: 'integrations/github'
+          - name: 'GitHub Enterprise'
+            path: 'integrations/github-enterprise'
+          - name: 'GitLab'
+            path: 'integrations/gitlab'
+          - name: 'Bitbucket'
+            path: 'integrations/bitbucket'
+          - name: 'Bitbucket Server'
+            path: 'integrations/bitbucket-server'
+          - name: 'Phabricator'
+            path: 'integrations/phabricator'
+          - name: 'Other Git Servers'
+            path: 'integrations/git'
       - name: 'Agent'
         children:
           - name: 'Overview'
@@ -235,27 +256,9 @@
             path: 'deployments/deploying-to-heroku'
           - name: 'Deploying to Kubernetes'
             path: 'deployments/deploying-to-kubernetes'
-      - name: 'Source control'
-        children:
-          - name: 'Overview'
-            path: 'integrations/source-control'
-          - name: 'GitHub'
-            path: 'integrations/github'
-          - name: 'GitHub Enterprise'
-            path: 'integrations/github-enterprise'
-          - name: 'GitLab'
-            path: 'integrations/gitlab'
-          - name: 'Bitbucket'
-            path: 'integrations/bitbucket'
-          - name: 'Bitbucket Server'
-            path: 'integrations/bitbucket-server'
-          - name: 'Phabricator'
-            path: 'integrations/phabricator'
-          - name: 'Other Git Servers'
-            path: 'integrations/git'
       - type: 'divider'
       - name: 'Integrations'
-        path: 'integrations/sso'
+        path: 'integrations'
         type: 'link'
       - name: 'Plugins'
         path: 'plugins'
@@ -369,8 +372,10 @@
           - name: 'Integrations'
             path: 'apis/webhooks/integrations'
   - name: 'Integrations'
-    path: 'integrations/sso'
+    path: 'integrations'
     children:
+      - name: 'Overview'
+        path: 'integrations'
       - name: 'SSO'
         children:
           - name: 'Overview'
