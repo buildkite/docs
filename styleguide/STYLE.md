@@ -9,6 +9,7 @@ Table of contents:
 * [Code and filenames](#Code-and-filenames)
 * [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
+* [Tiles](#Tiles)
 * [GraphQL API schema](#graphql-api-schema)
 
 ## Language
@@ -476,6 +477,35 @@ Steps for adding add an image to a documentation page:
 3. Compose relevant alt text for the image file using Title case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
+
+## Tiles
+
+We use the tiles helper to format content into a grid layout on landing pages.
+This design makes it easy for customers to see an overview of content or navigation.
+
+To create tiles use the helper method `<%= tiles items %>` in the markdown page. `items` is an array of object.
+
+`items` is an array of [Tile Item](#Tile-Item) hashes. Here's the schema:
+
+### Tile Item
+
+| Key               | Description                                    | Type              |
+| ----------------- | ---------------------------------------------- | ----------------- |
+| `title`           | Item heading                                   | `string` optional |
+| `url`             | Where this item links to                       | `string` optional |
+| `image_url`       | Location of the image placed above the `title` | `string` optional |
+| `desc`            | Short description beneath the title            | `string` optional |
+| [`links`](#links) | List of text links                             | `array`  optional |
+
+### `links`
+
+| Key    | Description                            | Type              |
+| ------ | -------------------------------------- | ----------------- |
+| `text` | The text in the text link              | `string` optional |
+| `url`  | Enter URL of where this should link to | `string` optional |
+
+Please note: although both `text` and `url` are optional, the link won't render if either of them are not available.
+Being optional prevents the method erroring out.
 
 ## GraphQL API schemas
 
