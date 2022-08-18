@@ -18,6 +18,10 @@ Agent access token only works as long as the agent that created it is running, a
 
 Access tokens are exposed within the job environment.
 
+## Exchanging tokens
+
+Agent registration token (adefault token) can be exchanged for an agent session token without any additional checks. To do it, the agent needs to call the `https://agent.buildkite.com/v3/register` endpoint with its registration token in the authorization header. The API response to this query is a regular agent access token that is next ingested and used by the agent.
+
 ## Using and storing tokens
 
 The token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided using the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`.
@@ -106,6 +110,12 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 ## Scope of access
 
 Agent tokens are specific to each Buildkite organization, and can be used to register an agent with any [queue](/docs/agent/v3/queues). Agent tokens can not be shared between organizations.
+
+Agent tokens define the access permissions (`read` and/or `write`) for actions to be performed on all jobs and pipelines. This is necessary as Buildkite agents can run for extended periods of time. An agent might get launched to service one pipeline and then pick up work for another one after. This means that the access tokens for agents need the access to all pipelines and jobs.
+
+## Log security considerations
+
+Agent access token can allow writing to the stdout of a job as job log streaming happens on the `https://agent.buildkite.com/v3/jobs/chunks` agent API endpoint authenticated by the agent access token. If a bad actor gains access to your agent access token, they would be able to falsify new logs, but they wouldn’t be able to remove any existing logs as the endpoint is append-only.
 
 ## Session tokens
 
