@@ -6,10 +6,10 @@ RSpec.describe TilesHelper do
     context "has url" do
       it "links the title and appends a learn more link" do
         tile_item_html = tile({
-          "title" => "Title",
-          "url" => "https://buildkite.com",
-          "image_url" => "/placeholder.jpg",
-          "desc" => "Placeholder TileItem"
+          title: "Title",
+          url: "https://buildkite.com",
+          image_url: "/placeholder.jpg",
+          desc: "Placeholder TileItem"
         })
         
         expect(tile_item_html).to eq(
@@ -26,9 +26,9 @@ RSpec.describe TilesHelper do
     context "doesn't have url" do
       it "doesn't link the heading nor render learn more link" do
         tile_item_html = tile({
-          "title" => "Title",
-          "image_url" => "/placeholder.jpg",
-          "desc" => "Placeholder TileItem"
+          title: "Title",
+          image_url: "/placeholder.jpg",
+          desc: "Placeholder TileItem"
         })
 
         expect(tile_item_html).to eq(
@@ -44,19 +44,19 @@ RSpec.describe TilesHelper do
     context "has links" do
       it "renders an array of links" do
         tile_item_html = tile({
-          "title" => "Title",
-          "links" => [
+          title: "Title",
+          links: [
             {
-              "text" => "Link 1",
-              "url" => "https://buildkite.com"
+              text: "Link 1",
+              url: "https://buildkite.com"
             },
             {
-              "text" => "Link 2",
-              "url" => "https://buildkite.com/docs"
+              text: "Link 2",
+              url: "https://buildkite.com/docs"
             },
             {
-              "text" => "Link 3",
-              "is_coming_soon" => true
+              text: "Link 3",
+              is_coming_soon: true
             }
           ]
         })

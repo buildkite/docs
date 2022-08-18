@@ -1,9 +1,6 @@
 module TilesHelper
 
-  def tiles(name)
-    file_path = File.join(Rails.root, 'data', 'tiles.yml')
-    items = YAML.load_file(file_path)[name] || []
-
+  def tiles(items = [])
     if !items.empty?
       tiles_html = items.inject("".html_safe) do |prev_items, current_item|
         prev_items + tile(current_item)
@@ -13,11 +10,11 @@ module TilesHelper
   end
 
   def tile(item)
-    title = item["title"]
-    url = item["url"]
-    image_url = item["image_url"]
-    desc = item["desc"]
-    links = item["links"]
+    title = item[:title]
+    url = item[:url]
+    image_url = item[:image_url]
+    desc = item[:desc]
+    links = item[:links]
 
     title_html = if title
       content_tag(
@@ -43,18 +40,18 @@ module TilesHelper
       content_tag(
         :ul,
         links.inject("".html_safe) do |prev_links, current_link|
-          if current_link["text"]
+          if current_link[:text]
             inner_html =
-              current_link["text"].html_safe +
-              (current_link["is_coming_soon"] && content_tag(:span, "Coming soon", class: "pill pill--coming-soon pill--small"))
+              current_link[:text].html_safe +
+              (current_link[:is_coming_soon] && content_tag(:span, "Coming soon", class: "pill pill--coming-soon pill--small"))
 
             prev_links +
             content_tag(
               :li,
               button(
                 inner_html,
-                current_link["url"],
-                { type: "link", has_right_arrow: !!current_link["url"] }
+                current_link[:url],
+                { type: "link", has_right_arrow: !!current_link[:url] }
               ),
               class: "TileItem__list-item"
             )
