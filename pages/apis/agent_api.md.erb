@@ -1,7 +1,8 @@
 # Agent REST API Overview
 
-The Agent REST API is used for agent registration, agent deregistration, job starting and job finishing, and agent metrics.
-As of August 2021 the only documented end-point is `/metrics`. Reach out to [support@buildkite.com](mailto:support@buildkite.com?subject=Agent%20API) if you're interested in knowing more about the other endpoints.
+The Agent REST API is used for agent registration, agent deregistration, starting jobs on agents, finishing jobs on agents, and agent metrics.
+
+The only publicly available end-point is `/metrics`. The [Buildkite metrics agent](https://github.com/buildkite/buildkite-agent-metrics) uses the data returned by the metrics end-point for agent autoscaling.
 
 The current version of the Agent API is v3.
 
