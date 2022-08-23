@@ -1,12 +1,12 @@
 # Agent Tokens
 
-The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
+The Buildkite agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
 
 {:toc}
 
 ## The default token
 
-When you create a new organization in Buildkite, a default agent token (agent registration token) is created. This token is used to start an agent, and it can be used for testing and development.  They cannot be used with the artifacts or meta-data. It's recommended to [create new, specific tokens](#creating-tokens) for each new environment.
+When you create a new organization in Buildkite, a default agent token (agent registration token) is created to start an agent. This token but cannot be used with the artifacts or meta-data. While it can be used for testing and development, it's recommended to [create new, specific tokens](#creating-tokens) for each new environment.
 
 Agent registration tokens are not exposed within the job environment.
 
@@ -14,7 +14,7 @@ Agent registration tokens are not exposed within the job environment.
 
 Agent access tokens (agent session tokens) are created when an agent is registered with Buildkite, and are unique for every registered agent.
 
-Agent access token only works as long as the agent that created it is running, and is used by all agent operations once the agent is [started](/docs/agent/v3/cli-start).
+Agent access token only works as long as the agent that created it is running, and it is used by all agent operations once the agent is [started](/docs/agent/v3/cli-start).
 
 Access tokens are exposed within the job environment.
 
