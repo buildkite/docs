@@ -1,0 +1,88 @@
+# Privilege Isolation in Buildkite
+
+The recommended architecture for creating a shared agent pool capable of running Buildkite jobs with elevated IAM privileges consists of two main components:
+
+1. Pipeline to IAM role mapping
+2. Agent able to run a job isolated to that role
+
+{:toc}
+
+This approach to handling privilege isolation in Buildkite can be described using the following diagram:
+
+[Architectural overview diagram]
+
+## Pipeline to IAM role mapping
+
+Pipeline to IAM role mapping can be stored anywhere where it's suitable. We recommend using a repository in your
+[GitHub Enterprise](/docs/integrations/github-enterprise) instance with strict permissions and pull request settings (for example, when a merge requires at least two approvals). This allows allows engineers to learn by example, ensure permission changes are reviewed and audited, and fits well with an infrastructure-as-code
+approach.
+
+Example role-mapping syntax:
+
+```
+$ ls configs/*
+configs/example-pipeline-1-slug.yml
+configs/example-pipeline-2-slug.yml
+$ cat configs/example-pipeline-1-slug.yml
+role: "arn:aws:iam::123456789012:role/example-pipeline-1-role"
+```
+
+### Adding a new role for a given pipeline
+
+For pipeline authors to escalate their pipeline’s permissions above the default
+CI permissions, it would be necessary to open a pull request on this repository associating the
+assumed IAM role with the pipeline.
+
+Once merged, it's then becomes possible to retry their failing scripts or create a new build.
+
+## Agent setup with privilege isolation
+
+The pool of available Buildkite agents can use the standard approach of having a
+base AMI, autoscaling group, Buildkite agent metrics poller, and persistent Buildkite agent that starts on instance boot.v
+
+By default, jobs run without elevated permissions and are secured using Docker with Sysbox as the container runtime. Aside from the standard dependencies, the base AMI would have:
+
+* [Sysbox](https://github.com/nestybox/sysbox)
+* Custom agent bootstrap
+* iptables rules disabling AWS IMDS access from the docker0 network interface
+
+### Sysbox
+
+Sysbox is an open-source `runc` compatible container runtime that allows the use of Docker and Docker Compose within it, without needing to run insider Docker-in-Docker configurations. The sysbox team is available for Enterprise support, security reviews, custom development, etc.
+
+The custom agent bootstrap is a wrapper around the standard agent bootstrap, that
+runs each job within a Docker container using sysbox.
+
+It's tested to work with RHEL, but does require a relatively recent Linux kernel.
+
+### Custom agent bootstrap
+
+When the Buildkite agent accepts a job it spawns a subprocess called the bootstrap
+passing the required information as environment variables.
+
+By default, the Buildkite agent is configured to run buildkite-agent bootstrap as the bootstrap,
+but it can be configured to call another executable, and is often wrapped or replaced for different environments.
+To implement per-pipeline IAM roles it's recommended to create a custom bootstrap
+(usually a shell script), and configure the agent to use it.
+
+To configure your Buildkite agent to use the custom agent bootstrap:
+
+* Read the pipeline slug from `the BUILDKITE_PIPELINE_SLUG` env
+* Refresh the main branch checkout of the Pipelines to IAM role mapping repository
+* Download a pipeline slug-specific SSH key or default SSH key (from secrets manager or similar, based
+on path conventions), to mount into the container
+* `mkdir -p` a pipeline slug specific build directory to mount into the container (this allows subsequent
+jobs for that pipeline on the agent to have a warm git checkout)
+* Create temporary role credentials using `aws sts assume-role`
+* Run the job in a sysbox system container, passing in mounts, and all required environment variables.
+
+You can use either:
+
+* Your own Docker image, with the `buildkite-agent` installed so you can execute
+`buildkite-agent bootstrap`. You can also add your own
+custom agent hooks or standard dependencies/tools.
+
+* The standard [buildkite/agent](https://hub.docker.com/r/buildkite/agent/) Docker image. This uses `buildkite-agent` as the default `ENTRYPOINT`, so you can `docker run buildkite/agent bootstrap`.
+
+*The `buildkite-agent bootstrap` inside the container will then handle all standard behaviour, checking
+out the commit into the build dir, plugins, etc. but executing under the assumed IAM role.
