@@ -3,6 +3,13 @@
 class Page::Renderer
   require "rouge/plugins/redcarpet"
 
+  CALLOUT_TYPE = {
+    '📘': 'info',
+    '👍': 'okay',
+    '🚧': 'troubleshooting',
+    '🛠': 'wip'
+  }.freeze
+
   def self.render(text, options = {})
     new.render(text, options)
   end
@@ -20,6 +27,7 @@ class Page::Renderer
     doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
+    doc = add_callout(doc)
     doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
@@ -146,6 +154,35 @@ class Page::Renderer
 
       node.previous_element.wrap(figure)
       node.remove
+    end
+
+    doc
+  end
+
+  def add_callout(doc)
+    doc.search('./blockquote').each do |node|
+      callout = node.children.compact_blank.join.chr.to_sym
+
+      next unless CALLOUT_TYPE.key? callout
+
+      class_name = CALLOUT_TYPE[callout]
+      lines = node
+              .children
+              .inner_html
+              .split("\n")
+              .reject(&:empty?)
+
+      title = lines.first
+      paras = lines[1..].map { |e| "<p>#{e}</p>" }.join
+
+      callout_template = <<~HTML
+        <section class='Docs__note Docs__#{class_name}-note'>
+          <p class='note-title' id='#{title.to_url}'>#{title}</p>
+          #{paras}
+        </section>
+      HTML
+
+      node.replace(callout_template)
     end
 
     doc
