@@ -21,7 +21,6 @@ type_sets.each_value do |set|
     if name && name.length() > 0
       Dir.mkdir("#{schemas_dir}/#{schema_type_data["kind"].to_s.downcase}") unless File.exists?("#{schemas_dir}/#{schema_type_data["kind"].to_s.downcase}")
       File.write("#{schemas_dir}/#{schema_type_data["kind"].to_s.downcase}/#{name.downcase}.md.erb", render_page(schema_type_data))
-      #puts "#{schema_type_data["kind"]}"
     end
   end
 end

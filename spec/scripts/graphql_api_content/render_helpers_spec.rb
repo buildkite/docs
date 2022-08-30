@@ -354,7 +354,6 @@ RSpec.describe RenderHelpers do
         ]
 
         input_fields_string = render_input_fields(input_fields).gsub(/^[\s\t]*|[\s\t]*\n/, '')
-        puts input_fields_string
 
         expect(input_fields_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
