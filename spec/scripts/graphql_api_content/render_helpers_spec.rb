@@ -59,74 +59,74 @@ RSpec.describe RenderHelpers do
     end
   end
 
-  describe "#render_fields" do
+  describe "#render_table" do
     context "when there are no valid values in the fields" do
       context "when it's not an array" do
         it "doesn't render anything" do
-          fields = nil
-          expect(render_fields(fields)).to eq(nil)
+          expect(render_table({ "fields" => nil })).to eq(nil)
         end
       end
 
       context "when it's empty" do
         it "doesn't render anything" do
-          fields = []
-          expect(render_fields(fields)).to eq(nil)
+          expect(render_table({ "fields" => [] })).to eq(nil)
         end
       end
     end
 
     context "when there are valid values in the fields" do
       it "renders all the fields correctly" do
-        fields = [
-          {
-            "name" => "agent",
-            "description" => "Find an agent by its slug",
-            "args" => [
-              {
-                "name" => "slug",
-                "description" => "The UUID for the agent, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`",
-                "type" => {
-                  "kind" => "SCALAR",
-                  "name" => "ID",
-                  "ofType" => nil
-                },
-                "defaultValue" => "Default"
-              }
-            ],
-            "type" => {
-              "kind" => "OBJECT",
-              "name" => "Agent",
-              "ofType" => nil
+        schema_type_data = {
+          "fields" => [
+            {
+              "name" => "agent",
+              "description" => "Find an agent by its slug",
+              "args" => [
+                {
+                  "name" => "slug",
+                  "description" => "The UUID for the agent, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`",
+                  "type" => {
+                    "kind" => "SCALAR",
+                    "name" => "ID",
+                    "ofType" => nil
+                  },
+                  "defaultValue" => "Default"
+                }
+              ],
+              "type" => {
+                "kind" => "OBJECT",
+                "name" => "Agent",
+                "ofType" => nil
+              },
+              "isDeprecated" => false,
+              "deprecationReason" => nil
             },
-            "isDeprecated" => false,
-            "deprecationReason" => nil
-          },
-          {
-            "name" => "agentToken",
-            "description" => nil,
-            "args" => [
-              {
-                "name" => "slug",
-                "description" => "The UUID for the agent token, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`",
-                "type" => {
-                  "kind" => "SCALAR",
-                  "name" => "ID",
-                  "ofType" => nil
-                },
-                "defaultValue" => "test default"
-              }
-            ],
-            "type" => {
-              "kind" => "OBJECT",
-              "name" => "AgentToken",
-              "ofType" => nil
-            },
-            "isDeprecated" => true,
-            "deprecationReason" => "Deprecated because of reasons"
-          }
-        ]
-        fields_string = render_fields(fields).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+            {
+              "name" => "agentToken",
+              "description" => nil,
+              "args" => [
+                {
+                  "name" => "slug",
+                  "description" => "The UUID for the agent token, prefixed by its organization's slug i.e. `acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb`",
+                  "type" => {
+                    "kind" => "SCALAR",
+                    "name" => "ID",
+                    "ofType" => nil
+                  },
+                  "defaultValue" => "test default"
+                }
+              ],
+              "type" => {
+                "kind" => "OBJECT",
+                "name" => "AgentToken",
+                "ofType" => nil
+              },
+              "isDeprecated" => true,
+              "deprecationReason" => "Deprecated because of reasons"
+            }
+          ]
+        }
+        fields_string = render_table(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
 
         expect(fields_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')

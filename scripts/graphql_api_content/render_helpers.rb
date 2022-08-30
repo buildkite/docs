@@ -25,38 +25,41 @@ module RenderHelpers
     end
   end
   
-  def render_fields(fields)
-    if fields.is_a?(Array) && !fields.empty?
-      <<~HTML
-        <table class="responsive-table responsive-table--single-column-rows">
-          <thead>
-            <th>
-              <h2 data-algolia-exclude>Fields</h2>
-            </th>
-          </thead>
-          <tbody>
-            #{
-              fields.map {
-                |field|
-                <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-                  <tr>
-                    <td>
-                      <h3 class="is-small has-pills">
-                        <code>#{field["name"]}</code>
-                        #{render_of_type(field["type"])}
-                        #{field["isDeprecated"] ? '<span class="pill pill--deprecated"><code>deprecated</code></span>' : ""}
-                      </h3>
-                      #{field["deprecationReason"] ? "<p><em>Deprecated: #{field["deprecationReason"]}</em></p>" : nil}
-                      #{field["description"] ? "#{render_html(field["description"])}" : nil}
-                      #{render_field_args(field["args"])}
-                    </td>
-                  </tr>
-                HTML
-              }.join('')
-            }
-          </tbody>
-        </table>
-      HTML
+  def render_table(schema_type_data)
+    if table_data = schema_type_data["fields"] || schema_type_data["args"] || nil
+      table_heading = schema_type_data["fields"] ? "Fields" : "Arguments"
+      if table_data.is_a?(Array) && !table_data.empty?
+        <<~HTML
+          <table class="responsive-table responsive-table--single-column-rows">
+            <thead>
+              <th>
+                <h2 data-algolia-exclude>#{table_heading}</h2>
+              </th>
+            </thead>
+            <tbody>
+              #{
+                table_data.map {
+                  |row_data|
+                  <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
+                    <tr>
+                      <td>
+                        <h3 class="is-small has-pills">
+                          <code>#{row_data["name"]}</code>
+                          #{render_of_type(row_data["type"])}
+                          #{row_data["isDeprecated"] ? '<span class="pill pill--deprecated"><code>deprecated</code></span>' : ""}
+                        </h3>
+                        #{row_data["deprecationReason"] ? "<p><em>Deprecated: #{row_data["deprecationReason"]}</em></p>" : nil}
+                        #{row_data["description"] ? "#{render_html(row_data["description"])}" : nil}
+                        #{render_field_args(row_data["args"])}
+                      </td>
+                    </tr>
+                  HTML
+                }.join('')
+              }
+            </tbody>
+          </table>
+        HTML
+      end
     end
   end
   
@@ -200,7 +203,7 @@ module RenderHelpers
 
   def render_page(schema_type_data)
     name = schema_type_data["name"]
-    fields = render_fields(schema_type_data["fields"])
+    table = render_table(schema_type_data)
     input_fields = render_input_fields(schema_type_data["inputFields"])
     possible_types = render_possible_types(schema_type_data["possibleTypes"])
     interfaces = render_interfaces(schema_type_data["interfaces"])
@@ -231,7 +234,7 @@ module RenderHelpers
 
       {:notoc}
 
-      #{fields}
+      #{table}
 
       #{input_fields}
 
