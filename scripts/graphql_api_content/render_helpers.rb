@@ -14,12 +14,13 @@ module RenderHelpers
     if of_type["ofType"]
       render_of_type(of_type["ofType"])
     else
-      if of_type["name"]
+      kind = of_type["kind"] || ""
+      if name = of_type["name"]
         <<~HTML
-          <a href="/docs/apis/graphql/schemas/#{of_type['name'].downcase}" class="pill pill--#{of_type['kind'].downcase} pill--normal-case pill--#{size}" title="Go to #{of_type['kind']} #{of_type['name']}"><code>#{of_type["name"]}</code></a>
+          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{name}</code></a>
         HTML
       else
-        of_type["kind"]
+        kind
       end
     end
   end
@@ -183,13 +184,17 @@ module RenderHelpers
     end
   end
   
-  def render_pill(name, size = "medium")
-    if name
+  def render_pill(schema_type_data, size = "medium")
+    if kind = schema_type_data["kind"]
       <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-        <span class="pill pill--#{name.downcase} pill--normal-case pill--#{size.downcase}">
-          <code>#{name}</code>
+        <span class="pill pill--#{kind.downcase} pill--normal-case pill--#{size.downcase}">
+          <code>#{kind}</code>
         </span>
       HTML
+    elsif type = schema_type_data["type"]
+      render_of_type(type, "large")
+    else
+      ""
     end
   end
 
@@ -217,7 +222,10 @@ module RenderHelpers
         and run the generation script `./scripts/generate-graphql-api-content.sh`.
       -->
       #{valeOff ? "<!-- vale off -->" : nil}
-      <h1 class="has-pills" data-algolia-exclude>#{name}#{render_pill(schema_type_data["kind"], "large")}</h1>
+      <h1 class="has-pills" data-algolia-exclude>
+        #{name}
+        #{render_pill(schema_type_data, "large")}
+      </h1>
 
       #{render_html(schema_type_data["description"])}
 
