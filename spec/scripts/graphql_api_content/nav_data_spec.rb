@@ -11,6 +11,14 @@ RSpec.describe NavData do
         "name" => "schema2"
       }
     ],
+    "mutation_types" => [
+      {
+        "name" => "mutationSchema1"
+      },
+      {
+        "name" => "mutationSchema2"
+      }
+    ],
     "object_types" => [
       {
         "name" => "schema3"
@@ -66,11 +74,11 @@ RSpec.describe NavData do
       expect(convert_to_nav_items(type_sets["object_types"])).to eq([
         {
           "name" => "schema3",
-          "path" => "apis/graphql/schemas/schema3"
+          "path" => "apis/graphql/schemas//schema3"
         },
         {
           "name" => "schema4",
-          "path" => "apis/graphql/schemas/schema4"
+          "path" => "apis/graphql/schemas//schema4"
         }
       ])
     end
@@ -136,19 +144,32 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema1",
-                        "path" => "apis/graphql/schemas/schema1"
+                        "path" => "apis/graphql/schemas//schema1"
                       },
                       {
                         "name" => "schema2",
-                        "path" => "apis/graphql/schemas/schema2"
+                        "path" => "apis/graphql/schemas//schema2"
+                      }
+                    ]
+                  },
+                  {
+                    "name" => "Mutations",
+                    "children" => [
+                      {
+                        "name" => "mutationSchema1",
+                        "path" => "apis/graphql/schemas//mutationschema1"
+                      },
+                      {
+                        "name" => "mutationSchema2",
+                        "path" => "apis/graphql/schemas//mutationschema2"
                       }
                     ]
                   },
                   {
                     "name" => "Objects",
                     "children" => [
-                      {"name" => "schema3", "path" => "apis/graphql/schemas/schema3"},
-                      {"name" => "schema4", "path" => "apis/graphql/schemas/schema4"}
+                      {"name" => "schema3", "path" => "apis/graphql/schemas//schema3"},
+                      {"name" => "schema4", "path" => "apis/graphql/schemas//schema4"}
                     ]
                   },
                   {
@@ -156,11 +177,11 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema5",
-                        "path" => "apis/graphql/schemas/schema5"
+                        "path" => "apis/graphql/schemas//schema5"
                       },
                       {
                         "name" => "schema6",
-                        "path" => "apis/graphql/schemas/schema6"
+                        "path" => "apis/graphql/schemas//schema6"
                       }
                     ]
                   },
@@ -169,11 +190,11 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema7",
-                        "path" => "apis/graphql/schemas/schema7"
+                        "path" => "apis/graphql/schemas//schema7"
                       },
                       {
                         "name" => "schema8",
-                        "path" => "apis/graphql/schemas/schema8"
+                        "path" => "apis/graphql/schemas//schema8"
                       }
                     ]
                   },
@@ -182,11 +203,11 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema10",
-                        "path" => "apis/graphql/schemas/schema10"
+                        "path" => "apis/graphql/schemas//schema10"
                       },
                       {
                         "name" => "schema9",
-                        "path" => "apis/graphql/schemas/schema9"
+                        "path" => "apis/graphql/schemas//schema9"
                       }
                     ]
                   },
@@ -195,11 +216,11 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema11",
-                        "path" => "apis/graphql/schemas/schema11"
+                        "path" => "apis/graphql/schemas//schema11"
                       },
                       {
                         "name" => "schema12",
-                        "path" => "apis/graphql/schemas/schema12"
+                        "path" => "apis/graphql/schemas//schema12"
                       }
                     ]
                   },
@@ -208,11 +229,11 @@ RSpec.describe NavData do
                     "children" => [
                       {
                         "name" => "schema13",
-                        "path" => "apis/graphql/schemas/schema13"
+                        "path" => "apis/graphql/schemas//schema13"
                       },
                       {
                         "name" => "schema14",
-                        "path" => "apis/graphql/schemas/schema14"
+                        "path" => "apis/graphql/schemas//schema14"
                       }
                     ]
                   }
