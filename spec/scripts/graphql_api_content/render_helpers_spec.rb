@@ -624,7 +624,9 @@ RSpec.describe RenderHelpers do
             replace the content in data/graphql_data_schema.json
             and run the generation script `./scripts/generate-graphql-api-content.sh`.
           -->
+          <!-- vale off -->
           <h1 class="has-pills" data-algolia-exclude>JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+          <!-- vale on -->
           <p>A type of job that triggers another build on a pipeline</p>
           {:notoc}
           <table class="responsive-table responsive-table--single-column-rows">
@@ -699,6 +701,8 @@ RSpec.describe RenderHelpers do
             -->
             <!-- vale off -->
             <h1 class="has-pills" data-algolia-exclude>__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
+            <!-- vale on -->
+            <!-- vale off -->
             {:notoc}
             <!-- vale on -->
 

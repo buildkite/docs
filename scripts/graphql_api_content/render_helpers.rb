@@ -224,11 +224,13 @@ module RenderHelpers
         replace the content in data/graphql_data_schema.json
         and run the generation script `./scripts/generate-graphql-api-content.sh`.
       -->
-      #{valeOff ? "<!-- vale off -->" : nil}
+      <!-- vale off -->
       <h1 class="has-pills" data-algolia-exclude>
         #{name}
         #{render_pill(schema_type_data, "large")}
       </h1>
+      <!-- vale on -->
+      #{valeOff ? "<!-- vale off -->" : nil}
 
       #{render_html(schema_type_data["description"])}
 
