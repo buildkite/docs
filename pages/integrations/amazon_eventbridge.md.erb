@@ -152,6 +152,8 @@ Each AWS Quick Start example has a corresponding GitHub repository with full exa
 
 ## Example Event Payloads
 
+AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from our [APIs](/docs/apis) using the data in the event.
+
 <h3 id="events-build-created">Build Created</h3>
 
 ```json
