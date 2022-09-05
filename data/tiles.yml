@@ -9,9 +9,8 @@ test_analytics_features:
     image_url: "test_analytics/icon-find-flaky-tests.svg"
     desc: "Quickly identify which tests are the most disruptive for your team, and get a head-start on fixing them."
   - title: "Speed and reliability monitoring"
-    url: "/docs/test-analytics/monitors"
     image_url: "test_analytics/icon-monitoring.svg"
-    desc: "Configure speed and reliability monitors to identify problems as soon as they occur."
+    desc: "The option to configure speed and reliability monitors is temporarily unavailable."
 test_analytics_guides:
   - title: "Languages"
     links:
