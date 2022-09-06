@@ -94,7 +94,10 @@ $color-green: rgb(3, 165, 98);
     grid-template-columns: minmax(10px, 1fr) 250px;
     position: relative;
     gap: 30px;
-    grid-template-columns: 1fr $sidebar-width;
+
+    //overflow: scroll;
+    //min-width: 0px;
+
 
     &--is-landing-page {
       display: block;
