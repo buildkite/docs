@@ -60,6 +60,21 @@ $color-green: rgb(3, 165, 98);
     margin-left: $sidebar-width + 30px;
   }
 
+  @media (min-width: $screen-lg) { //TOC as side column on larger screens
+    display: grid;
+    grid-template-columns: minmax(10px, 1fr) 250px;
+    position: relative;
+    gap: 30px;
+
+    //overflow: scroll;
+    //min-width: 0px;
+
+
+    &--is-landing-page {
+      display: block;
+    }
+  }
+
   h1, h2, h3, h4, h5 {
     font-weight: bold;
     font-family: inherit;
@@ -86,23 +101,6 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__article .Docs__api-param-eg {
   margin: .25em 0 0 0;
-}
-
-@media (min-width: $screen-lg) { //TOC as side column on larger screens
-  .Docs__article {
-    display: grid;
-    grid-template-columns: minmax(10px, 1fr) 250px;
-    position: relative;
-    gap: 30px;
-
-    //overflow: scroll;
-    //min-width: 0px;
-
-
-    &--is-landing-page {
-      display: block;
-    }
-  }
 }
 
 .Docs__note {
