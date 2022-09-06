@@ -55,6 +55,7 @@ $color-green: rgb(3, 165, 98);
 .Docs__article {
   flex: 7;
   font-weight: 400;
+  overflow: hidden;
 
   @media (min-width: $screen-md) {
     margin-left: $sidebar-width + 30px;
