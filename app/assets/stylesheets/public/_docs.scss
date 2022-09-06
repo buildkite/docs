@@ -61,12 +61,12 @@ $color-green: rgb(3, 165, 98);
     margin-left: $sidebar-width + 30px;
   }
 
-  @media (min-width: $screen-lg) { //TOC as side column on larger screens
+  @media (min-width: $screen-lg) { // TOC as side column on larger screens
     display: grid;
     grid-template-columns: minmax(10px, 1fr) 250px;
     position: relative;
     gap: 30px;
-    
+
     &--is-landing-page {
       display: block;
     }
@@ -94,6 +94,22 @@ $color-green: rgb(3, 165, 98);
   .image, img { max-width: 100%; }
   .responsive-image-container { margin: .5rem 0 2rem 0; }
   li .responsive-image-container { margin: .5rem 0 0 0; }
+
+  table.fixed-width {
+    // In general, the width of our tables within articles depends on the size of their content. This works great except
+    // when we have text such as a HTTP response snippet that includes a long unbroken string. When that happens, the
+    // table overflows outside of its bounding box and doesn't wrap or scroll nicely, causing text cropping. Use this
+    // "fixed-width" class for a table that won't overflow it's bounding box horizontally and forces text wrapping.
+
+    table-layout: fixed;
+    width: 100%;
+    th {
+      width: 25%;
+    }
+    tr {
+      width: 75%;
+    }
+  }
 }
 
 .Docs__article .Docs__api-param-eg {
