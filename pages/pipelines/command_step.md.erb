@@ -209,11 +209,15 @@ _Optional attributes:_
 
 ### Build timeouts
 
-To prevent jobs from consuming too many job minutes or running forever, you can specify default and maximum timeouts from your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings), or on a pipeline's Builds settings page.
+Timeouts for jobs can be specified as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid having to set them manually every time.
+
+To prevent jobs from consuming too many job minutes or running forever, you can specify default as well as maximum timeouts from your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings), or on a pipeline's Builds settings page.
 
 <%= image "default-timeout.png", width: 1724/2, height: 736/2, alt: "Set default and maximum timeout period for your jobs" %>
 
-Default timeouts apply in order of specificity — step's, pipeline's, and finally the organization's. Maximum timeout will be applied to any command step without a timeout or with a timeout greater than the maximum timeout.
+Defaults apply in order of specificity — the step's timeout will be used if supplied, otherwise it defaults to the pipeline's default if supplied, or finally to the organization. Maximum timeout will be applied to any command step without a timeout or with a timeout greater than the maximum timeout.
+
+Maximums are always enforced, when supplied — the smallest value will be used.
 
 ## Retry attributes
 
