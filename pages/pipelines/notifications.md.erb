@@ -32,6 +32,9 @@ To only trigger notifications under certain conditions, add the `if` attribute.
 For example, the following email notification will only be triggered if the build passes:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - email: "dev@acmeinc.com"
     if: build.state == "passed"
@@ -46,6 +49,7 @@ See [Supported Variables](/docs/pipelines/conditionals#variable-and-syntax-refer
 
 ## Email
 
+
 Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
 
 ```yaml
@@ -54,19 +58,20 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
+You can only send email notifications on entire pipeline events, specifically upon [`build finished`](/docs/apis/webhooks#events).
+
 The `email` attribute accepts a single email address as a string. To send notifications to more than one address, add each address as a separate email notification attribute:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - email: "dev@acmeinc.com"
   - email: "sre@acmeinc.com"
   - email: "qa@acmeinc.com"
 ```
 {: codeblock-file="pipeline.yml"}
-
-Email notifications happen at the following [event](/docs/apis/webhooks#events):
-
-* `build finished`
 
 ## Basecamp Campfire message
 
@@ -82,6 +87,9 @@ To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in
 1. Add a Basecamp notification to your pipeline using the `basecamp_campfire` attribute of the `notify` YAML block and the URL copied from your Basecamp chatbot:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
 ```
@@ -115,6 +123,9 @@ Once a Slack channel has been configured in your organization, add a Slack notif
 For example, to deliver build-level notifications to the `#general` channel of all configured workspaces:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - slack: "#general"
 ```
@@ -156,6 +167,9 @@ To send a notification to one particular workspace and channel or workspace and 
 Build-level notifications for channels
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   # Notify channel
   - slack: "buildkite-community#general"
@@ -287,6 +301,9 @@ steps:
 Send a notification to a webhook URL from your pipeline using the `webhook` attribute of the `notify` YAML block:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
 ```
@@ -295,6 +312,9 @@ notify:
 The `webhook` attribute accepts a single webhook URL as a string. To send notifications to more than one endpoint, add each URL as a separate webhook attribute:
 
 ```yaml
+steps:
+  - command: "tests.sh"
+
 notify:
   - webhook: "https://webhook.site/82n740x6-168b-5aca-9067-3b410g78c23a"
   - webhook: "https://webhook.site/32raf257-81b6-9067-5aca-78s09m6102b4"
