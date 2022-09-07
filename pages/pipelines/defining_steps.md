@@ -33,6 +33,11 @@ If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defa
 * `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 
+<div class="Docs__note">
+  <p>Because environment variables can be set in many different places, it is recommended to familiarize yourself
+  with <a href="/docs/pipelines/environment_variables#environment-variable-precedence">environment variable precedence</a> to ensure your values don't get overwritten at runtime.</p>
+</div>
+
 For example, to set steps `blah.sh` and `blahblah.sh` to use the `something` queue and the step `yada.sh` to use the `other` queue:
 
 ```yml
