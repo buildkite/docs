@@ -215,7 +215,8 @@ To prevent jobs from consuming too many job minutes or running forever, you can 
 
 <%= image "default-timeout.png", width: 1724/2, height: 736/2, alt: "Set default and maximum timeout period for your jobs" %>
 
-Default timeouts are _applied_ in order from most  to least specific — so an organization default takes precedence over a pipeline timeout, which in turn takes precedence over a step level timeout. 
+Default timeouts are _applied_ in order from most to least specific — so an organization default takes precedence over a pipeline timeout, which in turn takes precedence over a step level timeout.
+
 Maximum timeouts are applied to any command step without a timeout or with a timeout greater than the maximum timeout.
 
 Maximums are always enforced, when supplied — the smallest value will be used.
