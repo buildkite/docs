@@ -201,11 +201,25 @@ _Optional attributes:_
   <tr id="timeout_in_minutes">
     <td><code>timeout_in_minutes</code></td>
     <td>
-      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed". Note that command steps on the Buildkite <a href="https://buildkite.com/pricing">Free plan</a> have a maximum job timeout of 240 minutes.<br>
+      The maximum number of minutes a job created from this step is allowed to run. If the job exceeds this time limit, or if it finishes with a non-zero exit status, the job is automatically canceled and the build fails. Jobs that time out with an exit status of 0 are marked as "passed".<br> Note that command steps on the Buildkite <a href="https://buildkite.com/pricing">Free plan</a> have a maximum job timeout of 240 minutes.<br> You can also set <a href="/docs/pipelines/command-step#command-step-attributes-build-timeouts">default and maximum timeouts</a> in the Buildkite UI.
       <em>Example:</em> <code>60</code>
     </td>
   </tr>
 </table>
+
+### Build timeouts
+
+Timeouts for jobs can be specified as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid having to set them manually every time.
+
+To prevent jobs from consuming too many job minutes or running forever, you can specify default as well as maximum timeouts from your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings), or on a pipeline's Builds settings page.
+
+<%= image "default-timeout.png", width: 1724/2, height: 736/2, alt: "Set default and maximum timeout period for your jobs" %>
+
+Specific timeouts take precedence over more general ones — a step level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization default.
+
+Maximum timeouts are applied to any command step without a timeout or with a timeout greater than the maximum timeout.
+
+Maximums are always enforced, when supplied — the smallest value will be used.
 
 ## Retry attributes
 
