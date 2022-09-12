@@ -18,5 +18,6 @@ services:
   curl:
     depends_on:
       - app
+      - muffet
     image: curlimages/curl:latest
 
