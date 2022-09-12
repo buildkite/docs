@@ -26,15 +26,11 @@ Proceed with caution.
 <!-- vale off -->
 
 <%
-require 'yaml'
-file = File.join(File.dirname(__FILE__), 'data', 'aws-stack.yml')
-template = YAML.load(File.read(file))
-
-metadata = template['Metadata']
+metadata = AWS_STACK['Metadata']
 interface = metadata['AWS::CloudFormation::Interface']
 parameter_groups = interface['ParameterGroups']
 
-parameters = template['Parameters']
+parameters = AWS_STACK['Parameters']
 %>
 
 <% parameter_groups.each do |group| %>

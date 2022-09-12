@@ -1,5 +1,5 @@
 class DataVariables
-  DIR_PATH = [Rails.root, "/data"].join.freeze
+  DIR_PATH = [Rails.root, "/data/content"].join.freeze
 
   def self.entries(files = Dir.entries(DIR_PATH))
     files

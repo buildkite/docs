@@ -28,10 +28,10 @@ RSpec.describe DataVariables do
   end
 
   context ".set" do
-    it "sets env variables for all the data/*.yml files" do
+    it "sets env variables for all the data/content/*.yml files" do
       data_variables = described_class.set
 
-      expect(NOTIFICATION).to be_present
+      expect(AWS_STACK).to be_present
     end
   end
 end

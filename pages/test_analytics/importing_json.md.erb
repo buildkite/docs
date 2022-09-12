@@ -334,7 +334,7 @@ Detail objects contains additional information about the span.
     </tr>
   </thead>
   <tbody>
-    <% TEST_ANALYTICS_JSON['detail']['fields'].each do |field| -%>
+    <% TEST_ANALYTICS_JSON_FIELDS_DETAIL['fields'].each do |field| -%>
       <tr>
         <td><code><%= field['name'] %></code> <%= '(required)' if field['required'] %></td>
         <td><%= field['type'] %> <%= render_enumerated_values(field['enumerated_values']) %></td>
