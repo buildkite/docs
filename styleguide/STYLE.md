@@ -397,6 +397,18 @@ Line 3, column 1  | Line 3, column 2
 
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
+#### Fixed-width tables
+To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks#http-headers) section, use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="fixed-width"}
+```
+
 #### Responsive tables
 Append `{: class="responsive-table"}` to any table to render it with responsive behaviour. Use the following syntax:
 
