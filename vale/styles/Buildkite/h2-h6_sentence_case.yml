@@ -46,6 +46,7 @@ exceptions:
   - macOS
   - Markdown
   - OpenTelemetry
+  - PagerDuty
   - PowerShell
   - Windows
   - Windows Subsystem for Linux 2

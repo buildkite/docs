@@ -1,6 +1,6 @@
 # PagerDuty
 
-The [PagerDuty](http://pagerduty.com/) integration in Buildkite can send [Change Events](https://support.pagerduty.com/docs/change-events) to PagerDuty when your builds finish.
+The [PagerDuty](http://pagerduty.com/) integration in Buildkite can send [change events](https://support.pagerduty.com/docs/change-events) to PagerDuty when your builds finish.
 
 <%= image "overview.png", width: 2202/2, height: 638/2, alt: "Screenshot of the recent events in PagerDuty" %>
 
@@ -14,7 +14,7 @@ In [PagerDuty](http://pagerduty.com/), go to the "Service Directory":
 
 <%= image "menu.png", width: 854/2, height: 324/2, alt: "Screenshot of the Service Directory link in the menu" %>
 
-Then choose the service you'd like Buildkite to send Change Events to:
+Then choose the service you'd like Buildkite to send change events to:
 
 <%= image "service-item.png", width: 2842/2, height: 412/2, alt: "Screenshot of the chosen service in the Service Directory" %>
 
@@ -28,11 +28,11 @@ For "Integration Type", choose "Buildkite".
 
 Once you've filled out this form, select "Add Integration".
 
-Copy the "Integration Key" from your Integrations list and  use it in [Sending Change Events from your pipeline](#sending-change-events-from-your-pipeline).
+Copy the "Integration Key" from your Integrations list and  use it in [Sending change events from your pipeline](#sending-change-events-from-your-pipeline).
 
 <%= image "integration-with-key.png", width: 2262/2, height: 822/2, alt: "Screenshot of the Buildkite integration in PagerDuty" %>
 
-## Sending Change Events from your pipeline
+## Sending change events from your pipeline
 
 By default, after you've added an Integration API Key, Buildkite will send PagerDuty a Change Event every build regardless of whether the build passed or failed.
 
@@ -53,7 +53,7 @@ notify:
 
 <%= image "change-event.png", width: 2304/2, height: 1096/2, alt: "Screenshot of a Change Event inside PagerDuty sent from Buildkite" %>
 
-To send Change Events only when the build passes, add a [condition](/docs/pipelines/conditionals) to your build configuration:
+To send change events only when the build passes, add a [condition](/docs/pipelines/conditionals) to your build configuration:
 
 ```yaml
 notify:
@@ -63,4 +63,4 @@ notify:
 
 ## Support
 
-For those of you coming from [pagerduty.com](https://pagerduty.com) looking for assistance on this integration please reach out to us at [support@buildkite.com](mailto:support@buildkite.com?subject=PagerDuty%20Change%20Events%20Integration).
+For those of you coming from [the PagerDuty website](https://pagerduty.com) looking for assistance on this integration please reach out to us at [support@buildkite.com](mailto:support@buildkite.com?subject=PagerDuty%20Change%20Events%20Integration).
