@@ -1,6 +1,14 @@
 # Build Matrix
 
-Build Matrices lets you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
+Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
+
+The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
+
+* [environment variables](/docs/pipelines/environment-variables)
+* [labels](/docs/pipelines/command-step#label)
+* [commands](/docs/pipelines/command-step#command-step-attributes)
+
+You can't use matrix values in other attributes, including step keys and plugin attributes.
 
 {:toc}
 
@@ -17,7 +25,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can use a Build Matrix to expand a single step into three steps by interpolating the matrix values into [command step](/docs/pipelines/command-step) attributes such as [environment variables](/docs/pipelines/environment-variables), labels and commands. Interpolation of matrix values inside plugin attributes is not supported.
+Use a build matrix to expand a single step template into three steps by interpolating the matrix values into the following build configuration:
 
 ```yaml
 steps:
