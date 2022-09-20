@@ -41,6 +41,11 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 
+<div class="Docs__troubleshooting-note">
+<h3>Errors caused by unused matrices </h3>
+<p>If a build matrix is defined but not used in the pipeline via <code>{{matrix}}</code> notation, the agent will experience errors uploading your pipeline. If you experience your agent <code>pings</code> failing, it may be due to an unused matrix.</p>
+</div>
+
 All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
 
 <div class="Docs__note">
