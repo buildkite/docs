@@ -218,3 +218,12 @@ VMs
 VPC's
 VPCs
 XCTest
+
+# GraphQL code words
+# TODO: format these as code instead of making exceptions
+heartbeatAt
+TOTPActivate
+TOTPActivate
+TOTPCreate
+TOTPCreate
+TOTPDelete
