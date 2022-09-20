@@ -23,6 +23,8 @@ swap:
   (?i:AWS Lambda): AWS Lambda
   (?i:AWS License Manager): AWS License Manager
   (?i:Bitbucket Server): Bitbucket Server
+  (?i:CCMenu): CCMenu
+  (?i:CCTray): CCTray
   (?i:CloudWatch) logs: CloudWatch Logs
   (?i:CloudWatch): CloudWatch
   (?i:Datadog): Datadog
@@ -38,7 +40,10 @@ swap:
   (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
+  (?i:iTerm): iTerm
   (?i:Mac): Mac
   (?i:Markdown): Markdown
+  (?i:NVMe): NVMe
   (?i:PowerShell): PowerShell
   (?i:Windows Subsystem for Linux 2): Windows Subsystem for Linux 2
+  (?i:XCTest): XCTest
