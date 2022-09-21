@@ -1,0 +1,61 @@
+.Docs__note {
+  border-left: 3px solid #14CC80;
+  padding-left: 1rem;
+  font-size: #{(16/18)}rem;
+  color: #666;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+
+  p { margin: 0; }
+
+  .Docs__note__heading {
+    color: #14CC80;
+    font-weight: 400;
+    font-size: 1rem;
+  }
+
+  p + p { margin-top: .5rem; }
+}
+
+.Docs__note--footer-typo {
+  @extend .Docs__note;
+
+  margin-top: 3rem;
+}
+
+.Docs__wip-note {
+  @extend .Docs__note;
+
+  border-left-color: orange;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  .Docs__wip-heading {
+    font: inherit;
+    color: inherit;
+    font-weight: bold;
+    color: orange;
+
+    &:before {
+      content: '🛠 ';
+    }
+  }
+}
+
+.Docs__troubleshooting-note {
+  @extend .Docs__note;
+  border-left-color: orange;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  h1, h3 {
+    font: inherit;
+    color: inherit;
+    font-weight: bold;
+    color: orange;
+
+    &:before {
+      content: '⚠️';
+    }
+  }
+}
