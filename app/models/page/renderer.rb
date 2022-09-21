@@ -110,7 +110,7 @@ class Page::Renderer
             <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
           HTML
         }.join("").strip
-        
+
         node.replace(<<~HTML.strip)
           <nav class="Toc">
             <p class="Toc__title"><strong>On this page:</strong></p>
@@ -121,14 +121,14 @@ class Page::Renderer
         HTML
       end
     end
-    
+
     doc
   end
 
   def fix_curl_highlighting(doc)
     doc.search('.//code').each do |node|
       next unless node.text.starts_with?('curl ')
-    
+
       node.replace(node.to_html.gsub(/\{.*?\}/mi) {|uri_template|
         %(<span class="o">) + uri_template + %(</span>)
       })
@@ -160,10 +160,10 @@ class Page::Renderer
       node.previous_element['id'] = id
       node.remove
     end
-    
+
     doc
   end
-  
+
   def add_custom_classes(doc)
     doc.search('./p').each do |node|
       next unless node.text.starts_with?('{: class=')
@@ -173,7 +173,7 @@ class Page::Renderer
       node.previous_element['class'] = css_class
       node.remove
     end
-    
+
     doc
   end
 
@@ -185,7 +185,7 @@ class Page::Renderer
         table.search('./tbody/tr').each do |tr|
           tr.search('./td').each_with_index do |td, i|
             faux_th = "<th aria-hidden class=\"responsive-table__faux-th\">#{thead_ths[i].children}</th>"
-            
+
             td.add_previous_sibling(faux_th)
           end
         end
@@ -194,5 +194,4 @@ class Page::Renderer
 
     doc
   end
-
 end
