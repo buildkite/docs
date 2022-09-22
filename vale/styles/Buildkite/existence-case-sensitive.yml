@@ -44,6 +44,7 @@ swap:
   (?i:Mac): Mac
   (?i:Markdown): Markdown
   (?i:NVMe): NVMe
+  (?i:PagerDuty): PagerDuty
   (?i:PowerShell): PowerShell
   (?i:Windows Subsystem for Linux 2): Windows Subsystem for Linux 2
   (?i:XCTest): XCTest
