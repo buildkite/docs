@@ -97,10 +97,10 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 5. Customize the User mappings:
     1. Expand _Mappings_, then click _Provision Azure Active Directory Users_.
     2. Keep the following four mappings, and delete any others:
-        - _userPrincipalName_ to _userName_
-        - _Switch([IsSoftDeleted], , "False", "True", "True", "False")_ to _active_
-        - _givenName_ to _name.givenName_
-        - _surname_ to _name.familyName_
+        - `userPrincipalName` to `userName`
+        - `Switch([IsSoftDeleted], , "False", "True", "True", "False")` to `active`
+        - `givenName` to `name.givenName`
+        - `surname` to `name.familyName`
 6. Toggle _Provisioning Status_ to _On_ and save.
 7. Return to the _Provisioning_ menu of your Azure AD enterprise app and view the _Current cycle status_ section:
     * If provisioning is working, this will say _Initial cycle completed_.
