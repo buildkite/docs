@@ -101,9 +101,9 @@ The below example in Ruby verifies the signature and timestamp using the OpenSSL
 require 'openssl'
 
 class BuildkiteWebhook
-  def self.valid?(payload, header, secret)
+  def self.valid?(webhook_request_body, header, secret)
     timestamp, signature = get_timestamp_and_signatures(header)
-    expected = OpenSSL::HMAC.hexdigest("sha256", secret, "#{timestamp}.#{payload}")
+    expected = OpenSSL::HMAC.hexdigest("sha256", secret, "#{timestamp}.#{webhook_request_body}")
     Rack::Utils.secure_compare(expected, signature)
   end
 
