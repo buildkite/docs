@@ -17,12 +17,6 @@
   p + p { margin-top: .5rem; }
 }
 
-.Docs__note--footer-typo {
-  @extend .Docs__note;
-
-  margin-top: 3rem;
-}
-
 .Docs__wip-note {
   @extend .Docs__note;
 
