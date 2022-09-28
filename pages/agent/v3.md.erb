@@ -94,10 +94,8 @@ See [redacted-vars](/docs/pipelines/managing-log-output#redacted-environment-var
 
 Maintain a single bare git mirror for each repository on a host that is shared amongst multiple agents and pipelines. Checkouts reference the git mirror using `git clone --reference`, as do submodules.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 See the following agent configuration options for more information:
 
@@ -109,19 +107,15 @@ See the following agent configuration options for more information:
 
 Outputs inline ANSI timestamps for each line of log output which enables toggle-able timestamps in the Buildkite UI.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="ansi-timestamps"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="ansi-timestamps"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ### Normalised upload paths
 
 Artifacts uploaded by `buildkite-agent artifact upload` will be uploaded using URI/Unix-style paths, even on Windows. This makes sure that artifacts uploaded from Windows agents are stored in a URI-compatible URL.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 Artifact names displayed in Buildkite's web UI, as well as in the API, are changed by this.
 
@@ -131,10 +125,8 @@ For example, when using this experimental feature `buildkite-agent artifact uplo
 
 After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This makes `BUILDKITE_COMMIT` useful for builds triggered against non-commit-hash refs such as `HEAD`.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ### Flock file locks
 
@@ -142,10 +134,8 @@ Changes the file lock implementation from `github.com/nightlyone/lockfile` to `g
 
 When the experiment is enabled, the agent will use different lock files from agents where the experiment is disabled, so the agents with this experiment enabled should not be run on the same host as the agents where the experiment is disabled.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use flock file locks, set <code>experiment="flock-file-locks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use flock file locks, set <code>experiment="flock-file-locks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ## Customizing with hooks
 

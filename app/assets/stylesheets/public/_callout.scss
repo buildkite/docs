@@ -17,23 +17,8 @@
   p + p { margin-top: .5rem; }
 }
 
-.Docs__wip-note {
-  @extend .Docs__note;
-
-  border-left-color: orange;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
-
-  .Docs__wip-heading {
-    font: inherit;
-    color: inherit;
-    font-weight: bold;
-    color: orange;
-
-    &:before {
-      content: '🛠 ';
-    }
-  }
+.Docs__attribute__table .Docs__note {
+  margin: 0;
 }
 
 .Docs__troubleshooting-note {
@@ -51,5 +36,20 @@
     &:before {
       content: '⚠️';
     }
+  }
+}
+
+.Docs__wip-note {
+  @extend .Docs__note;
+
+  border-left-color: orange;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+
+  .note-title {
+    font: inherit;
+    color: inherit;
+    font-weight: bold;
+    color: orange;
   }
 }
