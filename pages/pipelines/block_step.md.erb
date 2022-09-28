@@ -339,9 +339,8 @@ You can access the stored meta-data after the block step has passed. Use the `bu
 buildkite-agent meta-data get "release-name"
 ```
 
-<div class="Docs__troubleshooting-note">
-  <p>Meta-data cannot be interpolated directly from the <code>pipeline.yml</code> at runtime. The meta-data store can only be accessed from within a command step.</p>
-</div>
+>🚧
+> Meta-data cannot be interpolated directly from the <code>pipeline.yml</code> at runtime. The meta-data store can only be accessed from within a command step.
 
 In the below example, the script uses the `buildkite-agent` meta-data command to retrieve the meta-data and print it to the log:
 

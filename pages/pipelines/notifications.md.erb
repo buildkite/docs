@@ -43,9 +43,8 @@ notify:
 
 See [Supported Variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
-<section class="Docs__troubleshooting-note">
-  <p>To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
-</section>
+>🚧
+> To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
 
 ## Email
 
@@ -77,9 +76,8 @@ notify:
 
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
 
-<section class="Docs__troubleshooting-note">
-  <p>Campfire messages can only be sent using Basecamp 3.</p>
-</section>
+>🚧
+> Campfire messages can only be sent using Basecamp 3.</p>
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
 1. Set up your chatbot with a name and an optional URL. If you'd like to include an image, you can find the Buildkite logo in our [Brand Assets](https://buildkite.com/brand-assets).
@@ -116,9 +114,8 @@ Before adding a `notify` attribute to your `pipeline.yml`, ensure an organizatio
 
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
-<section class="Docs__troubleshooting-note">
-  <p>When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
-</section>
+>🚧
+> When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
 
 For example, to deliver build-level notifications to the `#general` channel of all configured workspaces:
 

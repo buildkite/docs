@@ -12,10 +12,8 @@ For best practices and recommendations about using secrets in your environment v
 
 The following environment variables may be visible in your commands, plugins, and hooks.
 
-<div class="Docs__troubleshooting-note">
-  <h3 id="unverified">Unverified commits</h3>
-	<p>Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.</p>
-</div>
+>🚧 Unverified commits
+> Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 <table class="Docs__attribute__table">
   <colgroup>
@@ -117,10 +115,8 @@ You can define environment variables in your jobs in a few ways, depending on th
 * [Build pipeline configuration](/docs/pipelines/command-step) — for values that are *not secret*.
 * An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
-<section class="Docs__troubleshooting-note">
-  <h3>Secrets in environment variables</h3>
-  <p>Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.</p>
-</section>
+>🚧 Secrets in environment variables
+> Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.
 
 ## Variable interpolation
 
@@ -258,10 +254,8 @@ The bootstrap runs any hooks that have been defined by your
 Variables that are set in these hooks will be merged into the runtime
 environment, and will override any previous values that are set.
 
-<div class="Docs__troubleshooting-note">
-  <h3>Take care with environment variables in hooks</h3>
-  <p>Variables that are defined in hooks can override anything that exists in the environment.</p>
-</div>
+>🚧 Take care with environment variables in hooks
+> Variables that are defined in hooks can override anything that exists in the environment.
 
 This is the environment your command runs in 🎉
 

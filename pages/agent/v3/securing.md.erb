@@ -40,10 +40,8 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 * Command line flag: `--no-command-eval`
 * Configuration setting: `no-command-eval=true`
 
-<div class="Docs__troubleshooting-note">
-  <h3>Custom hooks</h3>
-  <p>If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.</p>
-</div>
+>🚧 Custom hooks
+> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
 
 ## Disabling plugins
 
@@ -67,12 +65,8 @@ setting.
 
 If local hooks are disabled and one is in the checkout, the job will fail.
 
-<div class="Docs__troubleshooting-note">
-  <h3>Building untrusted commits</h3>
-  <p>If you build untrusted commits, be careful to contain the build scripts
-  and anything else that may be influenced by the repository contents within
-  chroots, containers, VMs, etc as is appropriate for your needs.</p>
-</div>
+>🚧 Building untrusted commits
+>If you build untrusted commits, be careful to contain the build scripts and anything else that may be influenced by the repository contents within chroots, containers, VMs, etc as is appropriate for your needs.
 
 ## Strict checks using a `pre-bootstrap` hook
 

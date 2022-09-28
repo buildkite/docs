@@ -155,41 +155,37 @@ The following expressions are supported by the `if` attribute.
  	</tbody>
  </table>
 
-<div class="Docs__troubleshooting-note">
-  <h3>Formatting regular expressions</h3>
-  <p>When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
-</div>
+>🚧 Formatting regular expressions
+> When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 
 ### Variables
 
 The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
 
-<div class="Docs__troubleshooting-note">
-  <h3 id="unverified">Unverified commits</h3>
-	<p>Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.</p>
-</div>
+>🚧 Unverified commits
+> Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 <table>
 <tbody>
 	<tr>
 		<td><code>build.author.email</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> email address of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> email address of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.id</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> ID of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> ID of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.name</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> name of the user who authored the build's commit</td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> name of the user who authored the build's commit</td>
 	</tr>
 	<tr>
 		<td><code>build.author.teams</code></td>
 		<td><code>Array</code></td>
-		<td>An <strong><a href="#unverified">unverified</a></strong> array of the team/s which the user who authored the build's commit is a member of</td>
+		<td>An <strong><a href="#unverified-commits">unverified</a></strong> array of the team/s which the user who authored the build's commit is a member of</td>
 	</tr>
 	<tr>
 		<td><code>build.branch</code></td>
@@ -204,22 +200,22 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.creator.email</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> email of the user who created the build. </td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> email of the user who created the build. </td>
 	</tr>
 	<tr>
 		<td><code>build.creator.id</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> ID of the user who created the build</td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> ID of the user who created the build</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.name</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified">unverified</a></strong> name of the user who created the build</td>
+		<td>The <strong><a href="#unverified-commits">unverified</a></strong> name of the user who created the build</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.teams</code></td>
 		<td><code>Array</code></td>
-		<td>An <strong><a href="#unverified">unverified</a></strong> array of the team/s which the user who created the build is a member of</td>
+		<td>An <strong><a href="#unverified-commits">unverified</a></strong> array of the team/s which the user who created the build is a member of</td>
 	</tr>
 	<tr>
 		<td><code>build.env()</code></td>
@@ -342,10 +338,9 @@ The following variables are supported by the `if` attribute. Note that you canno
 </tbody>
 </table>
 
-<div class="Docs__troubleshooting-note">
-<h3>Using <code>build.env()</code> with custom environment variables</h3>
-<p>To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.</p>
-</div>
+>🚧 Using <code>build.env()</code> with custom environment variables
+> To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
+
 
 ## Example expressions
 
@@ -407,7 +402,7 @@ To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
 build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
 ```
 
-To run when the **[unverified](#unverified)** build creator is in the `deploy` team:
+To run when the **[unverified](#unverified-commits)** build creator is in the `deploy` team:
 
 ```js
 build.creator.teams includes "deploy"

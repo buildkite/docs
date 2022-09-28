@@ -23,10 +23,8 @@ A much larger Ubuntu-based image is also available:
 docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
 ```
 
-<section class="Docs__troubleshooting-note">
-  <h3>Caveats for builds that need Docker access.</h3>
-  <p>If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
-</section>
+>🚧 Caveats for builds that need Docker access.
+> If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
 
 ## Version tagging
 
@@ -118,10 +116,8 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
-<section class="Docs__troubleshooting-note">
-  <h3>Security considerations</h3>
-  <p>Providing builds with a Docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is <code>root</code>, which means builds have full root system access. This can be mitigated somewhat with <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>, but caution should still be exercised.</p>
-</section>
+>🚧 Security considerations
+> Providing builds with a Docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is <code>root</code>, which means builds have full root system access. This can be mitigated somewhat with <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>, but caution should still be exercised.
 
 ## Exposing build secrets into the container
 

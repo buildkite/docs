@@ -27,15 +27,11 @@
   margin-top: 2rem;
   margin-bottom: 2rem;
 
-  h1, h3 {
+  .note-title {
     font: inherit;
     color: inherit;
     font-weight: bold;
     color: orange;
-
-    &:before {
-      content: '⚠️';
-    }
   }
 }
 
