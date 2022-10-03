@@ -5,7 +5,6 @@ class Page::Renderer
 
   CALLOUT_TYPE = {
     '📘': 'info',
-    '👍': 'okay',
     '🚧': 'troubleshooting',
     '🛠': 'wip'
   }.freeze

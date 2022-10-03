@@ -70,13 +70,10 @@ steps:
 
 When you eventually run a build from this pipeline, this step will look for a directory called `.buildkite` containing a file named `pipeline.yml`. Any steps it finds inside that file will be uploaded to Buildkite and will appear during the build.
 
-<div class="Docs__note">
-
-<p>When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
-<ul>
- <li>Use the YAML steps editor alone</li>
- <li>Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.</li></ul>  </p>
-</div>
+>📘
+> When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
+- Use the YAML steps editor alone
+- Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
@@ -144,9 +141,8 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 * This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
 * Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
-<section class="Docs__note">
-  <p>The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.</p>
-</section>
+>📘
+> The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.
 
 <%= render_markdown partial: 'pipelines/job_states' %>
 

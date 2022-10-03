@@ -139,18 +139,15 @@ The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and 
 
 For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
 
-<div class="Docs__note">
-<h3 class="Docs__note__heading">Setting environment variables</h3>
-<p>Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.</p>
-</div>
+>📘 Setting environment variables
+> Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
 
 ## Private build log archive storage
 
 By default, build logs are stored in encrypted form in Buildkite's Amazon S3 buckets, but you can also store the archived build logs in your private AWS S3 bucket.
 
-<div class="Docs__note">
-<p>This feature is only available to customers on the Buildkite <a href="https://buildkite.com/pricing">Enterprise</a> plan.</p>
-</div>
+>📘
+> This feature is only available to customers on the Buildkite <a href="https://buildkite.com/pricing">Enterprise</a> plan.
 
 To set up a private build log archive storage:
 
