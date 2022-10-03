@@ -48,3 +48,4 @@ swap:
   (?i:PowerShell): PowerShell
   (?i:Windows Subsystem for Linux 2): Windows Subsystem for Linux 2
   (?i:XCTest): XCTest
+  (?i:minitest): minitest
