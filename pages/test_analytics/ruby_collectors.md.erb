@@ -53,6 +53,17 @@ Once you're done, in your Test Analytics dashboard, you'll see analytics of test
 
 If you don't see branch names, build numbers, or commit hashes in the Test Analytics UI, then see [CI Environments](/docs/test-analytics/ci-environments) to learn more about exporting your environment to the collector.
 
+### Troubleshooting `allow_any_instance_of` errors
+
+If you're using RSpec and seeing errors related to `allow_any_instance_of`, which look like this:
+
+```ruby
+Failure/Error: allow_any_instance_of(Object).to receive(:sleep)
+       Using `any_instance` to stub a method (sleep) that has been defined on a prepended module (Buildkite::TestCollector::Object::CustomObjectSleep) is not supported.
+```
+
+you can fix them by being more specific in your stubbing, which is [better practice](https://relishapp.com/rspec/rspec-mocks/v/3-11/docs/working-with-legacy-code/any-instance), by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
+
 ## minitest collector
 
 [minitest](https://github.com/minitest/minitest) provides a complete suite of testing facilities supporting TDD, BDD, mocking, and benchmarking.
@@ -113,13 +124,15 @@ This would appear like so:
 
 This is particularly useful for tests that generate a lot of span data such as system/feature tests. You can find all _annotations_ under _Span Timeline_ at the bottom of every test execution page.
 
-## Troubleshooting `allow_any_instance_of` errors
+## Tagging duplicate test executions with a prefix/suffix
 
-If you're using RSpec and seeing errors related to `allow_any_instance_of`, which look like this:
+For builds that execute the same test multiple times it's possible to tag each test execution with a prefix/suffix describing the test environment. This is useful when running a test suite against multiple versions of Ruby or Rails. The prefix/suffix is set using these environment variables:
 
-```ruby
-Failure/Error: allow_any_instance_of(Object).to receive(:sleep)
-       Using `any_instance` to stub a method (sleep) that has been defined on a prepended module (Buildkite::TestCollector::Object::CustomObjectSleep) is not supported.
+```
+BUILDKITE_ANALYTICS_EXECUTION_NAME_PREFIX
+BUILDKITE_ANALYTICS_EXECUTION_NAME_SUFFIX
 ```
 
-you can fix them by being more specific in your stubbing, which is [better practice](https://relishapp.com/rspec/rspec-mocks/v/3-11/docs/working-with-legacy-code/any-instance), by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
+When viewing a _test_ every _execution_ is displayed including it's corresponding prefix/suffix. For example:
+
+<%= image "execution-prefix-suffix.png", width: 2086/2, height: 294/2, alt: "Screenshot of test executions including a prefix and suffix." %>
