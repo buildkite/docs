@@ -104,14 +104,14 @@ If you don't see branch names, build numbers, or commit hashes in the Test Analy
 This gem allows adding custom annotations to the span data sent to Buildkite using the [`.annotate`](https://github.com/buildkite/test-collector-ruby/blob/d9fe11341e4aa470e766febee38124b644572360/lib/buildkite/test_collector.rb#L64) method. For example:
 
 ```ruby
-Buildkite::TestCollector.annotate("Rendered OTP Screen")
+Buildkite::TestCollector.annotate("Visiting login")
 ```
 
 This would appear like so:
 
-<%= image "annotation-span.png", width: 512, height: 359, alt: "Screenshot of the span timeline including the 'Rendered OTP Screen' annotation." %>
+<%= image "annotation-span.png", width: 2048/2, height: 880/2, alt: "Screenshot of the span timeline including the 'Rendered OTP Screen' annotation." %>
 
-This is particularly useful for tests that generate a lot of span data such as system/feature tests.
+This is particularly useful for tests that generate a lot of span data such as system/feature tests. You can find all _annotations_ under _Span Timeline_ at the bottom of every test execution page.
 
 ## Troubleshooting `allow_any_instance_of` errors
 
