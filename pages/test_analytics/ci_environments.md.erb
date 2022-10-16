@@ -41,15 +41,15 @@ Review the following sections for the environment variables expected by test col
 
 During Buildkite pipeline runs, test collectors upload information from the following environment variables, and test importers use the following field names:
 
-| Field name         | Environment variable     | Description                                   |
-|--------------------|--------------------------|-----------------------------------------------|
-| `run_env[branch]`  | `BUILDKITE_BRANCH`       | the branch or reference for this build        |
-| `run_env[key]`     | `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
-| `run_env[number]`  | `BUILDKITE_BUILD_NUMBER` | the build number                              |
-| `run_env[url]`     | `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
-| `run_env[commit]`  | `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
-| `run_env[job_id]`  | `BUILDKITE_JOB_ID`       | the job UUID                                  |
-| `run_env[message]` | `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
+| Field name             | Environment variable     | Description                                   |
+|------------------------|--------------------------|-----------------------------------------------|
+| `run_env[branch]`      | `BUILDKITE_BRANCH`       | the branch or reference for this build        |
+| `run_env[key]`         | `BUILDKITE_BUILD_ID`     | the UUID for the build                        |
+| `run_env[number]`      | `BUILDKITE_BUILD_NUMBER` | the build number                              |
+| `run_env[url]`         | `BUILDKITE_BUILD_URL`    | the URL for the build on Buildkite            |
+| `run_env[commit_sha]`  | `BUILDKITE_COMMIT`       | the commit hash for the head of the branch    |
+| `run_env[job_id]`      | `BUILDKITE_JOB_ID`       | the job UUID                                  |
+| `run_env[message]`     | `BUILDKITE_MESSAGE`      | the commit message for the head of the branch |
 {: class="responsive-table"}
 
 ## CircleCI
