@@ -129,6 +129,7 @@ namespaces
 negator
 npm
 nssm
+parsable
 phabricator
 php
 plaintext
