@@ -1,51 +1,80 @@
-.Docs__note {
-  border-left: 3px solid #14CC80;
-  padding-left: 1rem;
-  font-size: #{(16/18)}rem;
+@mixin callout($callout_color) {
+  border-left: 3px solid $callout_color;
   color: #666;
-  margin-top: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: #{(16/18)}rem;
+  margin: 1.5rem 0 2rem 0;
+  padding: 0 0 0 1rem;
+
+  .callout__title {
+    color: $callout_color;
+    font-size: 1rem;
+    font-weight: 700;
+
+    position: relative;
+
+    .callout__anchor {
+      text-decoration: none;
+
+      &:link,
+      &:visited,
+      &:hover,
+      &:active,
+      &:focus {
+        color: $callout_color;
+      }
+
+      &:hover:before {
+        color: #666;
+        content: '#';
+        font-size: 1rem;
+        font-weight: normal;
+        left: -23px;
+        margin-left: .5rem;
+        position: absolute;
+      }
+    }
+  }
 
   p { margin: 0; }
 
-  .Docs__note__heading {
-    color: #14CC80;
-    font-weight: 400;
-    font-size: 1rem;
-  }
-
-  p + p { margin-top: .5rem; }
+  p + p { margin: 0.5rem 0 0 0; }
 }
 
-.Docs__attribute__table .Docs__note {
+.callout {
+  @include callout(#4b19d5);
+}
+
+.callout--troubleshooting {
+  @include callout(#ffba11);
+}
+
+.callout--wip {
+  @include callout(#ffba11);
+}
+
+.Docs__attribute__table .callout {
   margin: 0;
 }
 
-.Docs__troubleshooting-note {
-  @extend .Docs__note;
-  border-left-color: orange;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+<<<<<<< HEAD
+.callout--troubleshooting {
+  @extend .callout;
 
-  .note-title {
-    font: inherit;
-    color: inherit;
-    font-weight: bold;
-    color: orange;
+  border-color: #FFBA11;
+
+  .callout__title {
+    color: #FFBA11;
   }
 }
 
-.Docs__wip-note {
-  @extend .Docs__note;
+.callout--wip {
+  @extend .callout;
 
-  border-left-color: orange;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  border-color: #FFBA11;
 
-  .note-title {
-    font: inherit;
-    color: inherit;
-    font-weight: bold;
-    color: orange;
+  .callout__title {
+    color: #FFBA11;
   }
 }
+=======
+>>>>>>> e30f3c1a (fixup! Refactor `.Docs__notes` into `.callout` elements)

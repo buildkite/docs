@@ -341,47 +341,46 @@ Typically `{:notoc}` is for pages where the text immediately following the \#-le
 
 A page must have either `{:toc}` or `{:notoc}`.
 
-#### Note blocks
-Currently, the following syntax is commonly used for adding note blocks to the documentation:
+#### Callouts
+Currently, the standard Markdown blockquote syntax is combined with particular
+emoji to create callouts for particular sections of text:
 
-Regular info ("green") note:
+Regular info callout ("purple"):
 
 ```
-<section class="Docs__note">
-  <h3>Setting agent defaults</h3>
-  <p>Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.</p>
+>📘 A Callout Title
+> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becames a new paragraph inside the callout.
+```
+This will be rendered as the following HTML in the site:
+```
+<section class="callout callout--info">
+  <p class="callout__title" id="a-callout-title"📘 A Callout Title</p>
+  <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
+  <p>Every line break after the first becames a new paragraph inside the callout.</p>
 </section>
 ```
-or
+
+Note that block-level Markdown elements like lists won't be converted into HTML.
+Callout headings avoid clashing with other content heading by simply being styled paragraphs. However, they do have IDs for easy fragment references.
+
+For troubleshooting callouts ("orange"), use the 🚧 emoji:
 
 ```
-<div class="Docs__note">
-  <h3>Line endings</h3>
-  <p>A text field normalizes line endings to Unix format (<code>\n</code>).</p>
-</div>
-```
-Note that 'note' blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'note' blocks.
-
-
-For troubleshooting note blocks ("orange" notes), use the following example syntax:
-
-```
-<section class="Docs__troubleshooting-note">
-  <p>When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.</p>
-</section>
-```
-For troubleshooting note blocks ("orange" notes) with ⚠️ ("warnings"), use the following example syntax:
-
-```
-<div class="Docs__troubleshooting-note">
-  <h3>Fast transitions and webhooks</h3>
-    <p>Note that if a builds transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.</p>
-</div>
+>🚧 A Troubleshooting Callout
+> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becames a new paragraph inside the callout.
 ```
 
-Note that these note and troubleshooting note blocks are written in HTML so markdown syntax will not work. Use HTML syntax for links and formatting within 'troubleshooting note' blocks.
+For WIP or Experimental callouts ("orange"), use the 🛠 emoji:
 
-It is recommended to keep the headings in notes level-independent because a note within a H3-level section will require a H4-level heading and it's easy to forget about this, especially when moving a large section of documentation to a different page.
+```
+>🛠 This marks it as WIP
+> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becames a new paragraph inside the callout.
+```
+
+Any other emoji will render blockquotes as normal.
 
 #### Two-column tables
 To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
