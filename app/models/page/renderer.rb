@@ -3,12 +3,6 @@
 class Page::Renderer
   require "rouge/plugins/redcarpet"
 
-  CALLOUT_TYPE = {
-    '📘': 'info',
-    '🚧': 'troubleshooting',
-    '🛠': 'wip'
-  }.freeze
-
   def self.render(text, options = {})
     new.render(text, options)
   end
@@ -162,28 +156,9 @@ class Page::Renderer
     doc.search('./blockquote').each do |node|
       callout = node.children.compact_blank.join.chr.to_sym
 
-      next unless CALLOUT_TYPE.key? callout
+      next unless Page::Renderers::Callout::CALLOUT_TYPE.key? callout
 
-      class_name = CALLOUT_TYPE[callout]
-      lines = node
-              .children
-              .inner_html
-              .split("\n")
-              .reject(&:empty?)
-
-      title = lines.first
-      paras = lines[1..].map { |e| "<p>#{e}</p>" }.join
-
-      callout_template = <<~HTML
-        <section class='callout callout--#{class_name}' id='#{title.to_url}'>
-          <p class='callout__title'>
-            <a class='callout__anchor' href='##{title.to_url}'>#{title}</a>
-          </p>
-          #{paras}
-        </section>
-      HTML
-
-      node.replace(callout_template)
+      Page::Renderers::Callout.new(node, callout).process
     end
 
     doc
