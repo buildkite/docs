@@ -40,12 +40,28 @@ class Page::Renderers::Callout
 
   def template
     @template = <<~HTML
-      <section class='callout callout--#{class_name}' id='#{title.to_url}'>
+      <section class='callout callout--#{class_name}'>
         <p class='callout__title'>
-          <a class='callout__anchor' href='##{title.to_url}'>#{title}</a>
+          #{formatted_title}
         </p>
         #{paragraphs}
       </section>
     HTML
+  end
+
+  def url
+    title.to_url
+  end
+
+  def formatted_title
+    if url.present?
+      anchor
+    else
+      title
+    end
+  end
+
+  def anchor
+    "<a class='callout__anchor' href='##{url}' id='#{url}'>#{title}</a>"
   end
 end
