@@ -175,8 +175,10 @@ class Page::Renderer
       paras = lines[1..].map { |e| "<p>#{e}</p>" }.join
 
       callout_template = <<~HTML
-        <section class='callout callout--#{class_name}'>
-          <p class='callout__title' id='#{title.to_url}'>#{title}</p>
+        <section class='callout callout--#{class_name}' id='#{title.to_url}'>
+          <p class='callout__title'>
+            <a class='callout__anchor' href='##{title.to_url}'>#{title}</a>
+          </p>
           #{paras}
         </section>
       HTML

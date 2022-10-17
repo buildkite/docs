@@ -176,8 +176,10 @@ RSpec.describe Page::Renderer do
     MD
 
     html = <<~HTML
-      <section class="callout callout--troubleshooting">
-        <p class="callout__title" id="troubleshooting-launchctl-fails-with-error">🚧 Troubleshooting: <code>launchctl</code> fails with "error"</p>
+      <section class="callout callout--troubleshooting" id="troubleshooting-launchctl-fails-with-error">
+        <p class="callout__title">
+          <a class="callout__anchor" href="#troubleshooting-launchctl-fails-with-error">🚧 Troubleshooting: <code>launchctl</code> fails with "error"</a>
+        </p>
         <p>Ensure <strong>strong emphasis</strong> works</p>
       <p>Second paragraph has <em>emphasis</em></p>
       </section>

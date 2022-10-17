@@ -55,26 +55,3 @@
 .Docs__attribute__table .callout {
   margin: 0;
 }
-
-<<<<<<< HEAD
-.callout--troubleshooting {
-  @extend .callout;
-
-  border-color: #FFBA11;
-
-  .callout__title {
-    color: #FFBA11;
-  }
-}
-
-.callout--wip {
-  @extend .callout;
-
-  border-color: #FFBA11;
-
-  .callout__title {
-    color: #FFBA11;
-  }
-}
-=======
->>>>>>> e30f3c1a (fixup! Refactor `.Docs__notes` into `.callout` elements)
