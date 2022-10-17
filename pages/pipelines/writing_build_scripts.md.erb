@@ -48,7 +48,7 @@ run_tests
 For a full list of options, see the [Bash Reference Manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
 >🚧 Unbound variable errors
-> Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or run the tool causing the error wrapped in <code>set +u</code> and <code>set -u</code> to remove the option just for that command. For example: <code>set +u; rvm xxx; set -u</code>.
+> Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or run the tool causing the error wrapped in <code>set +u</code> and <code>set -u</code> to remove the option for only that command. For example: <code>set +u; rvm xxx; set -u</code>.
 
 ## Capturing exit status
 

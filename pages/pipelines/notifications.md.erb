@@ -115,7 +115,7 @@ Before adding a `notify` attribute to your `pipeline.yml`, ensure an organizatio
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
 >🚧
-> When using just a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
+> When using only a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
 
 For example, to deliver build-level notifications to the `#general` channel of all configured workspaces:
 
