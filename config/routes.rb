@@ -112,6 +112,7 @@ Rails.application.routes.draw do
   get "/docs/agent/cli-meta-data",       to: redirect("/docs/agent/v3/cli-meta-data",              status: 301)
   get "/docs/agent/cli-artifact",        to: redirect("/docs/agent/v3/cli-artifact",               status: 301)
   get "/docs/agent/cli-pipeline",        to: redirect("/docs/agent/v3/cli-pipeline",               status: 301)
+  get "/docs/agent/cli-env",             to: redirect("/docs/agent/v3/cli-env",                    status: 301)
   get "/docs/agent/agent-meta-data",     to: redirect("/docs/agent/v3/cli-start#setting-metadata", status: 301)
   get "/docs/agent/artifacts",           to: redirect("/docs/agent/v3/cli-artifact",               status: 301)
   get "/docs/agent/build-artifacts",     to: redirect("/docs/agent/v3/cli-artifact",               status: 301)
