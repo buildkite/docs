@@ -5,7 +5,6 @@ services:
       context: .
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
-        RENDER_PR_APP: test
     volumes:
       - '.:/app'
     ports:

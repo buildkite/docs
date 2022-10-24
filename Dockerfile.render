@@ -18,6 +18,9 @@ COPY --from=builder --chown=1000:1000 /app /app/
 USER 1000:1000
 WORKDIR /app
 
+# test ENV VARs for Render and Production
+ENV RENDER_PR_APP=true
+
 # Source all /app/.profile.d/*.sh files before process start.
 # These are created by buildpacks.
 # https://devcenter.heroku.com/articles/buildpack-api#profile-d-scripts
