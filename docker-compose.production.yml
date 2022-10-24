@@ -6,6 +6,7 @@ services:
       args:
         RAILS_ENV: production
         RENDER_PR_APP: false
+        SEGMENT_ENV: production
     ports:
       - '3000:3000'
     environment:
