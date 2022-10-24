@@ -40,6 +40,7 @@
 
     <meta name="testing-render-env-var" content="<%= ENV['RENDER_PR_APP'] %>" />
     <meta name="testing-docker-compose-env-var" content="<%= ENV['SEGMENT_ENV'] %>" />
+    <meta name="testing-rails-env-var" content="<%= ENV['RAILS_ENV'] %>" />
 
     <%= render 'layouts/analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
