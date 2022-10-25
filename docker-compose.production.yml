@@ -9,5 +9,3 @@ services:
       - '3000:3000'
     environment:
       - "SECRET_KEY_BASE=xxx"
-      - "RENDER_PR_APP=false"
-      - "SEGMENT_ENV=production"
