@@ -4,10 +4,8 @@ You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation templat
 Buildkite agent. Using Buildkite agents, you can run pipelines and build
 Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
-<div class="Docs__troubleshooting-note">
-<p>As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has
-<b>not</b> been incorporated into the Elastic CI Stack for AWS.</p>
-</div>
+>🚧
+> As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has <b>not</b> been incorporated into the Elastic CI Stack for AWS.
 
 Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
@@ -28,10 +26,8 @@ You must also choose an AWS Region with EC2 Mac instances available. See
 [Amazon EC2 Dedicated Hosts Pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
 for details on which regions have EC2 Mac Dedicated Hosts.
 
-<div class="Docs__troubleshooting-note">
-<h3 class="Docs__note__heading">Minimum allocation</h3>
-<p>Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.</p>
-</div>
+>🚧 Minimum allocation
+>Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
 
 See also the [Amazon EC2 Mac instances User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
 for more details on AWS EC2 Mac instances.

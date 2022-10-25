@@ -67,9 +67,7 @@ You can find the location of your configuration file in your platform's installa
           </th>
           <td>
             <% if attr['experimental'] %>
-              <div class="Docs__wip-note">
-                <p class="Docs__wip-heading">Experimental feature</p>
-              </div>
+              <%= render_markdown(text: ">🛠 Experimental feature") -%>
             <% end -%>
 
             <%= render_markdown(text: attr['desc']) -%>

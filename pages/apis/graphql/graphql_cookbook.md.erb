@@ -511,9 +511,9 @@ query getOrgTeams {
 
 Then, add a team member. You can get the `user-id` using the example in [Search for an organization member by email address](#search-for-an-organization-member-by-email-address).
 
-<section class="Docs__note">
-<code>clientMutationId</code> is null when the mutation is successful.
-</section>
+>📘
+> <code>clientMutationId</code> is null when the mutation is successful.
+
 
 ```graphql
 mutation addTeamMember{
@@ -658,15 +658,12 @@ mutation createPipeline {
 }
 ```
 
-<div class="Docs__note">
-<p>When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.</p>
-<p> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:</p>
-<p>
-<code>
+>📘
+When setting pipeline steps using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
+> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your pipeline steps to tell Buildkite where to find it. This means you only need the following:
+> <code>
 steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
 </code>
-</p>
-</div>
 
 ## Revoke an agent token
 
@@ -744,9 +741,8 @@ query TeamMembersQuery {
 
 Then delete a team member. Check that you have the team member ID and not the user ID:
 
-<section class="Docs__note">
-<code>clientMutationId</code> is null when the mutation is successful.
-</section>
+>📘
+> <code>clientMutationId</code> is null when the mutation is successful.
 
 ```graphql
 mutation deleteTeamMember {

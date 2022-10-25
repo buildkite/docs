@@ -177,15 +177,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
     }'
 ```
 
-<div class="Docs__note">
-<p>When setting pipeline configuration using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.</p>
-<p> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your configuration to tell Buildkite where to find it. This means you only need the following:</p>
-<p>
+>📘
+> When setting pipeline configuration using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
+> To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your configuration to tell Buildkite where to find it. This means you only need the following:
+>
 <code>
 "configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""
 </code>
-</p>
-</div>
+
 
 The response contains information about your new pipeline:
 
@@ -680,9 +679,9 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   }'
 ```
 
-<div class="Docs__troubleshooting-note">
-  <p>Patch requests can only update attributes already present in the pipeline YAML.</p>
-</div>
+>🚧
+> Patch requests can only update attributes already present in the pipeline YAML.
+
 
 ```json
 {
@@ -818,9 +817,8 @@ Error responses:
 </tbody>
 </table>
 
-<div class="Docs__troubleshooting-note">
-  <p>To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.</p>
-</div>
+>🚧
+> To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.
 
 ## Archive a pipeline
 
