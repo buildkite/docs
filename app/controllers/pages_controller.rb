@@ -2,16 +2,6 @@ class PagesController < ApplicationController
   append_view_path "pages"
   layout :layout_by_path
 
-  def layout_by_path
-    if request.path == "/docs"
-      "homepage"
-    elsif request.path.starts_with? "/docs/apis/graphql"
-      "graphql"
-    else
-      "application"
-    end
-  end
-
   def show
     @page = Page.new(view_context, params[:path])
 
@@ -41,4 +31,13 @@ class PagesController < ApplicationController
   end
   helper_method :is_landing_page?
 
+  def layout_by_path
+    if request.path == "/docs"
+      "homepage"
+    elsif request.path.starts_with? "/docs/apis/graphql"
+      "graphql"
+    else
+      "application"
+    end
+  end
 end
