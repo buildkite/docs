@@ -88,7 +88,7 @@ class Page
     @name = name
   end
 
-  def is_landing_page?
+  def landing_page?
     LandingPages.all.include? @name
   end
 
