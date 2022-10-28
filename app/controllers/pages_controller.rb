@@ -31,11 +31,12 @@ class PagesController < ApplicationController
   def landing_page?
     @page && @page.landing_page?
   end
-  helper_method :landing_page?
 
   def layout_by_path
     if request.path.starts_with? "/docs/apis/graphql"
       "graphql"
+    elsif landing_page?
+      "landing_page"
     else
       "application"
     end
