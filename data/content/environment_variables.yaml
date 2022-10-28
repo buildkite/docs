@@ -290,6 +290,11 @@ variables:
     The pipeline slug on Buildkite as used in URLs.
   modifiable: false
   example: "my-project"
+- name: BUILDKITE_PIPELINE_TEAMS
+  desc: |
+    A colon separated list of the pipeline's non-private team slugs.
+  modifiable: false
+  example: "deploy:ops:production"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.
