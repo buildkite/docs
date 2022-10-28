@@ -6,7 +6,10 @@
   <body <%= beta? ? 'class=beta' : ''-%>>
     <%= render "home_header" %>
     <main id="main" role="main">
-      <%= yield %>
+      <div class="PageContainer">
+        <%= yield %>
+        <%= render "footer", :embed_emojicom => false %>
+      </div>
     </main>
     <%= render "algolia" %>
   </body>
