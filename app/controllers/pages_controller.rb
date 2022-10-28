@@ -28,10 +28,10 @@ class PagesController < ApplicationController
   end
   helper_method :beta?
 
-  def is_landing_page?
-    @page && @page.is_landing_page?
+  def landing_page?
+    @page && @page.landing_page?
   end
-  helper_method :is_landing_page?
+  helper_method :landing_page?
 
   def layout_by_path
     if request.path.starts_with? "/docs/apis/graphql"
