@@ -13,7 +13,7 @@
     <div class="Nav__container PageContainer">
       <% nav_data.each_with_index do |children, i| %>
         <%=
-          render 'layouts/nav_children',
+          render 'nav_children',
           children: children,
           current_path: current_path,
           nav_level: nav_level,
