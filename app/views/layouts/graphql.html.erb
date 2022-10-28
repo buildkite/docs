@@ -1,27 +1,27 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <%= render "layouts/head" %>
+    <%= render "head" %>
   </head>
   <body <%= beta? ? 'class=beta' : ''-%>>
-    <%= render "layouts/site_header", use_nav: "nav_graphql" %>
+    <%= render "site_header", use_nav: "nav_graphql" %>
     <main id="main" role="main">
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
           <div class="Docs__article<%= is_landing_page? ? ' Docs__article--is-landing-page' : '' %>">
             <div class="column1">
-              <%= render "layouts/notification" %>
+              <%= render "notification" %>
               <div class="TextContent">
                 <%= yield %>
               </div>
-              <%= render "layouts/footer", :embed_emojicom => !is_landing_page? %>
+              <%= render "footer", :embed_emojicom => !is_landing_page? %>
             </div>
             <div class="column2"></div>
           </div>
         </div>
       </div>
     </main>
-    <%= render "layouts/algolia" %>
+    <%= render "algolia" %>
     <%= javascript_include_tag "nav", nonce: true %>
   </body>
 </html>

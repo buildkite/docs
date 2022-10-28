@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang='en'>
   <head>
-    <%= render "layouts/head" %>
+    <%= render "head" %>
   </head>
   <body <%= beta? ? 'class=beta' : ''-%>>
     <header class="HomeHeader PageContainer">
@@ -23,6 +23,6 @@
     <main id="main" role="main">
       <%= yield %>
     </main>
-    <%= render "layouts/algolia" %>
+    <%= render "algolia" %>
   </body>
 </html>
