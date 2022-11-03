@@ -21,6 +21,8 @@ test_analytics_guides:
         url: "/docs/test-analytics/javascript-collectors"
       - text: "Swift"
         url: "/docs/test-analytics/swift-collectors"
+      - text: "Android"
+        url: "/docs/test-analytics/android-collectors"
       - text: "Python"
         url: "/docs/test-analytics/python-collectors"
       - text: "Golang"
