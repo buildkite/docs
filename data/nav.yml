@@ -294,6 +294,8 @@
             path: 'test-analytics/javascript-collectors'
           - name: 'Swift'
             path: 'test-analytics/swift-collectors'
+          - name: 'Android'
+            path: 'test-analytics/android-collectors'
             pill: 'beta'
           - name: 'Python'
             path: 'test-analytics/python-collectors'
