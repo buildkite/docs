@@ -54,7 +54,6 @@ EXPOSE 3000
 # Let puma serve the static files
 ENV RAILS_SERVE_STATIC_FILES=true
 
-# Set Render PR App switch
-ENV RENDER_PR_APP=false
+ENV SGEMENT_TRACKING_ID=q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm
 
 CMD ["bundle", "exec", "puma", "-C", "./config/puma.rb"]
