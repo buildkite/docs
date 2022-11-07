@@ -25,14 +25,8 @@ Rails.application.config.content_security_policy do |policy|
 
   policy.script_src(
     :self,
-    'https://www.googletagmanager.com/',
-
-    # Allow Segment's Analytics.js 2.0 
-    # https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
-    "https://cdn.segment.com/analytics.js/v1/q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm/analytics.min.js", # production
-    "https://cdn.segment.com/analytics.js/v1/EuoLh8Z8RQR0GXhCWz3H0ddTSIV4ysJv/analytics.min.js", # development
-    "https://cdn.segment.com/analytics-next/bundles/",
-    "https://cdn.segment.com/next-integrations/integrations/"
+    "https://www.googletagmanager.com/",
+    "https://cdn.segment.com/"
   )
 
   policy.connect_src(
@@ -42,10 +36,8 @@ Rails.application.config.content_security_policy do |policy|
     "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com",
     "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
 
-    # Allow Segment's Analytics.js 2.0 
-    # https://segment.com/docs/connections/sources/catalog/libraries/website/javascript/upgrade-to-ajs2/#using-a-strict-content-security-policy-on-the-page
-    "https://cdn.segment.com/v1/projects/q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm/settings", # production
-    "https://cdn.segment.com/v1/projects/EuoLh8Z8RQR0GXhCWz3H0ddTSIV4ysJv/settings"  # development
+    "https://cdn.segment.com/",
+    "https://api.segment.io/"
   )
 
   # Specify URI for violation reports
