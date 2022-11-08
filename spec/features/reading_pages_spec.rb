@@ -137,6 +137,17 @@ RSpec.feature "reading pages" do
       /docs/builds
       /docs/builds/parallelizing-builds
       /docs/graphql-api
+      /docs/graphql
+      /docs/apis/graphql
+      /docs/apis/graphql/schemas
+      /docs/apis/graphql/schemas/query
+      /docs/apis/graphql/schemas/mutation
+      /docs/apis/graphql/schemas/object
+      /docs/apis/graphql/schemas/scalar
+      /docs/apis/graphql/schemas/interface
+      /docs/apis/graphql/schemas/enum
+      /docs/apis/graphql/schemas/input-object
+      /docs/apis/graphql/schemas/union        
       /docs/guides/artifacts
       /docs/guides/branch-configuration
       /docs/guides/build-meta-data

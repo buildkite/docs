@@ -55,16 +55,8 @@ Let's start with manifest file. This sample file creates a Deployment with
 three replicas (horizontal scale in Kubernetes lingo) each listening port
 `3000`. Change the `containerPort` to fit your application.
 
-<section class="Docs__note">
-  <p>
-    The <a
-    href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">official
-    deployment documentation</a> covers much more than what fits in this
-    tutorial. Refer back to these docs for information on setting CPU and
-    memory, controlling networking, deployment update strategies, and how to
-    expose your application to the internet.
-  </p>
-</section>
+>📘
+> The <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">official deployment documentation</a> covers much more than what fits in this tutorial. Refer back to these docs for information on setting CPU and memory, controlling networking, deployment update strategies, and how to expose your application to the internet.
 
 Let's call this file `k8s/deployment.yml`.
 

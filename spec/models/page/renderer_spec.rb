@@ -168,6 +168,46 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
+  it 'supports custom Callouts' do
+    md = <<~MD
+      > 🚧 Troubleshooting: `launchctl` fails with "error"
+      > Ensure **strong emphasis** works
+      > Second paragraph has _emphasis_
+    MD
+
+    html = <<~HTML
+      <section class="callout callout--troubleshooting">
+        <p class="callout__title">
+          <a class="callout__anchor" href="#troubleshooting-launchctl-fails-with-error" id="troubleshooting-launchctl-fails-with-error">🚧 Troubleshooting: <code>launchctl</code> fails with "error"</a>
+        </p>
+        <p>Ensure <strong>strong emphasis</strong> works</p>
+      <p>Second paragraph has <em>emphasis</em></p>
+      </section>
+    HTML
+
+    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
+
+  it 'supports custom Callouts without a title' do
+    md = <<~MD
+      > 🚧
+      > Ensure **strong emphasis** works
+      > Second paragraph has _emphasis_
+    MD
+
+    html = <<~HTML
+      <section class="callout callout--troubleshooting">
+        <p class="callout__title">
+          🚧
+        </p>
+        <p>Ensure <strong>strong emphasis</strong> works</p>
+      <p>Second paragraph has <em>emphasis</em></p>
+      </section>
+    HTML
+
+    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+  end
+
   it "supports {: id=\"some-id\"} for manually specifying an id of the previous bit of content" do
     md = <<~MD
       ## This is a section

@@ -23,7 +23,6 @@
   "selectors_exclude": [
     "[data-algolia-exclude]",
     ".Docs__toc",
-    ".Docs__note--footer-typo",
     ".HomepageCategory"
   ],
   "custom_settings": {

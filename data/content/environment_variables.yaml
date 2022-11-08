@@ -87,17 +87,17 @@ variables:
   example: "/var/lib/buildkite-agent/builds/agent-1/pipeline-2"
 - name: BUILDKITE_BUILD_AUTHOR
   desc: |
-    The name of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
+    The name of the user who authored the commit being built. May be **[unverified](#unverified-commits)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_AUTHOR_EMAIL
   desc: |
-    The notification email of the user who authored the commit being built. May be **[unverified](#unverified)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
+    The notification email of the user who authored the commit being built. May be **[unverified](#unverified-commits)**. This value can be blank in some situations, including builds manually triggered using API or Buildkite web interface.
   modifiable: false
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR
   desc: |
-    The name of the user who created the build. May be **[unverified](#unverified)**.
+    The name of the user who created the build. May be **[unverified](#unverified-commits)**.
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_CREATOR_EMAIL
@@ -107,7 +107,7 @@ variables:
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
   desc: |
-    A colon separated list of **[unverified](#unverified)** non-private team slugs that the build creator belongs to.
+    A colon separated list of **[unverified](#unverified-commits)** non-private team slugs that the build creator belongs to.
   modifiable: false
   example: "everyone:platform"
 - name: BUILDKITE_BUILD_ID
@@ -290,6 +290,11 @@ variables:
     The pipeline slug on Buildkite as used in URLs.
   modifiable: false
   example: "my-project"
+- name: BUILDKITE_PIPELINE_TEAMS
+  desc: |
+    A colon separated list of the pipeline's non-private team slugs.
+  modifiable: false
+  example: "deploy:ops:production"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.

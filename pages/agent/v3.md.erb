@@ -46,10 +46,11 @@ Available commands are:
   <a href="/docs/agent/v3/cli-start">start</a>      Starts a Buildkite agent
   <a href="/docs/agent/v3/cli-annotate">annotate</a>   Annotate the build page within the Buildkite UI with text from within a Buildkite job
   <a href="/docs/agent/v3/cli-artifact">artifact</a>   Upload/download artifacts from Buildkite jobs
+  <a href="/docs/agent/v3/cli-env">env</a>        Prints out the environment of the current process as a JSON object
   <a href="/docs/agent/v3/cli-meta-data">meta-data</a>  Get/set data from Buildkite jobs
   <a href="/docs/agent/v3/cli-pipeline">pipeline</a>   Make changes to the pipeline of the currently running build
   <a href="/docs/agent/v3/cli-bootstrap">bootstrap</a>  Run a Buildkite job locally
-  <a href="/docs/agent/v3/cli-step">step</a>  Retrieve and update the attributes of steps
+  <a href="/docs/agent/v3/cli-step">step</a>       Retrieve and update the attributes of steps
   help       Shows a list of commands or help for one command
 
 Use "buildkite-agent [command] --help" for more information about a command.
@@ -79,9 +80,8 @@ experiment="experiment1,experiment2"
 
 If an experiment doesn't exist, no error will be raised.
 
-<div class="Docs__troubleshooting-note">
-Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!
-</div>
+>🚧
+> Please note that there is every chance we will remove or change these experiments, so using them should be at your own risk and without the expectation that they will work in future!
 
 ### Redacted variables
 
@@ -93,10 +93,8 @@ See [redacted-vars](/docs/pipelines/managing-log-output#redacted-environment-var
 
 Maintain a single bare git mirror for each repository on a host that is shared amongst multiple agents and pipelines. Checkouts reference the git mirror using `git clone --reference`, as do submodules.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="git-mirrors"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 See the following agent configuration options for more information:
 
@@ -108,19 +106,15 @@ See the following agent configuration options for more information:
 
 Outputs inline ANSI timestamps for each line of log output which enables toggle-able timestamps in the Buildkite UI.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="ansi-timestamps"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="ansi-timestamps"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ### Normalised upload paths
 
 Artifacts uploaded by `buildkite-agent artifact upload` will be uploaded using URI/Unix-style paths, even on Windows. This makes sure that artifacts uploaded from Windows agents are stored in a URI-compatible URL.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="normalised-upload-paths"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 Artifact names displayed in Buildkite's web UI, as well as in the API, are changed by this.
 
@@ -130,10 +124,8 @@ For example, when using this experimental feature `buildkite-agent artifact uplo
 
 After repository checkout, resolve `BUILDKITE_COMMIT` to a commit hash. This makes `BUILDKITE_COMMIT` useful for builds triggered against non-commit-hash refs such as `HEAD`.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use it, set <code>experiment="resolve-commit-after-checkout"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ### Flock file locks
 
@@ -141,10 +133,8 @@ Changes the file lock implementation from `github.com/nightlyone/lockfile` to `g
 
 When the experiment is enabled, the agent will use different lock files from agents where the experiment is disabled, so the agents with this experiment enabled should not be run on the same host as the agents where the experiment is disabled.
 
-<div class="Docs__wip-note">
-  <p class="Docs__wip-heading">Experimental feature</p>
-  <p>To use flock file locks, set <code>experiment="flock-file-locks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.</p>
-</div>
+>🛠 Experimental feature
+> To use flock file locks, set <code>experiment="flock-file-locks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
 
 ## Customizing with hooks
 
@@ -188,10 +178,8 @@ The agent reports its activity to Buildkite using exit codes. The most common ex
   </tr>
 </table>
 
-<div class="Docs__note">
-<h3 class="Docs__note__heading">Jobs terminated by signals</h3>
-<p>When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.</p>
-</div>
+>📘 Jobs terminated by signals
+> When a job is terminated by a signal, the exit code will be set to 128 + the signal number. For more information about how shells manage commands terminated by signals, see the Wiki page on <a href="https://en.wikipedia.org/wiki/Exit_status#Shell_and_scripts">Exit Signals</a>.
 
 Exit codes for common signals:
 

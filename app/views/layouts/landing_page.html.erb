@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <%= render "head" %>
+  </head>
+  <body <%= beta? ? 'class=beta' : ''-%>>
+    <%= render "site_header" %>
+    <main id="main" role="main">
+      <div class="Docs__page-container StandardWhiteContentPage">
+        <div class="Docs__page-container__inner PageContainer">
+          <div class="Docs__article Docs__article--is-landing-page">
+            <div class="column1">
+              <%= render "notification" %>
+              <div class="TextContent">
+                <%= yield %>
+              </div>
+              <%= render "footer", :embed_emojicom => false %>
+            </div>
+            <div class="column2"></div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <%= render "algolia" %>
+    <%= javascript_include_tag "nav", nonce: true %>
+  </body>
+</html>

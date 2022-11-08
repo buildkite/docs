@@ -23,12 +23,15 @@ swap:
   (?i:AWS Lambda): AWS Lambda
   (?i:AWS License Manager): AWS License Manager
   (?i:Bitbucket Server): Bitbucket Server
+  (?i:CCMenu): CCMenu
+  (?i:CCTray): CCTray
   (?i:CloudWatch) logs: CloudWatch Logs
   (?i:CloudWatch): CloudWatch
   (?i:Datadog): Datadog
   (?i:Elastic CI Stack(?! for AWS)): Elastic CI Stack for AWS
   (?i:Elastic Stack CI): Elastic CI Stack for AWS
   (?i:Elastic Stack): Elastic CI Stack for AWS
+  (?i:G Suite): G Suite
   (?i:Google Cloud Functions): Google Cloud Functions
   (?i:Google Cloud Storage): Google Cloud Storage
   (?i:Google Cloud): Google Cloud
@@ -37,7 +40,12 @@ swap:
   (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
+  (?i:iTerm): iTerm
   (?i:Mac): Mac
   (?i:Markdown): Markdown
+  (?i:NVMe): NVMe
+  (?i:PagerDuty): PagerDuty
   (?i:PowerShell): PowerShell
   (?i:Windows Subsystem for Linux 2): Windows Subsystem for Linux 2
+  (?i:XCTest): XCTest
+  (?i:minitest): minitest
