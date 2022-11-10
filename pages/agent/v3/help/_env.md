@@ -17,8 +17,9 @@ script.
 `buildkite-agent env [options]`
 
 ## Description
-Prints out the environment of the current process as a JSON object, easily parsable by other programs. Used when
-executing hooks to discover changes that hooks make to the environment.
+Prints out the environment of the current process as a JSON object, easily
+parsable by other programs. Used when executing hooks to discover changes
+that hooks make to the environment.
 
 ## Example
     $ buildkite-agent env
