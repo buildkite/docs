@@ -75,6 +75,7 @@ chatbot
 chroot
 chroots
 ci
+classpath
 cli
 composable
 config

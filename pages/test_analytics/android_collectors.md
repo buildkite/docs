@@ -62,7 +62,7 @@ Before you start, make sure your tests run with access to [CI environment variab
     }    
     ```
 
-    Sync gradle, and rebuild the project to ensure the `BuildConfig` is generated.
+    Sync Gradle, and rebuild the project to ensure the `BuildConfig` is generated.
 
     Create the following class in your `androidTest` directory,
     i.e. `src/androidTest/java/com/myapp/MyTestCollector.kt`
