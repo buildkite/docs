@@ -301,6 +301,7 @@
             path: 'test-analytics/golang-collectors'
           - name: '.NET'
             path: 'test-analytics/dotnet-collectors'
+            pill: 'beta'
           - name: 'Elixir'
             path: 'test-analytics/elixir-collectors'
           - name: 'Rust'
