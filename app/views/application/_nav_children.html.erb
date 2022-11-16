@@ -14,7 +14,7 @@
         <%= 'Nav__item--has-dropdown' if child['type'] == 'dropdown' %>"
       >
         <%=
-          render 'layouts/nav_link',
+          render 'nav_link',
           name: child['name'],
           path: child['path'],
           current_path: current_path,
@@ -28,7 +28,7 @@
 
         <% if child['children'] && nav_level < 5 %>
           <%=
-            render 'layouts/nav_children',
+            render 'nav_children',
             children: child['children'],
             current_path: current_path ,
             is_dropdown: child['is_dropdown'],

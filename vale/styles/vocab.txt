@@ -220,6 +220,7 @@ VMs
 VPC's
 VPCs
 XCTest
+xUnit
 
 # GraphQL code words
 # TODO: format these as code instead of making exceptions
