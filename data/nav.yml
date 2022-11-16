@@ -198,6 +198,8 @@
             path: 'pipelines/skipping'
           - name: 'Build Artifacts'
             path: 'pipelines/artifacts'
+          - name: 'Build Retention'
+            path: 'pipelines/build-retention'
           - name: 'Public Pipelines'
             path: 'pipelines/public-pipelines'
           - name: 'Using Build Meta-data'
