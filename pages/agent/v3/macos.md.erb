@@ -44,7 +44,7 @@ The typical paths for [Mac computers with Apple silicon](https://support.apple.c
 * Configuration: `/opt/homebrew/etc/buildkite-agent/buildkite-agent.cfg`
 * Agent Hooks: `/opt/homebrew//buildkite-agent/hooks`
 * Builds: `/opt/homebrew/buildkite-agent/builds`
-* Log: `/usr/local/var/log/buildkite-agent.log`
+* Log: `/opt/homebrew/var/log/buildkite-agent.log`
 
 The typical paths for Mac computers with Intel processors are:
 
@@ -94,7 +94,7 @@ launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist
 tail -f ~/.buildkite-agent/log/buildkite-agent.log
 ```
 
->🚧 Troubleshooting: <code>launchctl</code> fails with "Could not find domain for"
+> 🚧 Troubleshooting: <code>launchctl</code> fails with "Could not find domain for"
 > Ensure that you have a user logged in to the macOS host, then re-run:<br><code>launchctl load ~/Library/LaunchAgents/com.buildkite.buildkite-agent.plist</code>
 
 ## Running multiple agents
