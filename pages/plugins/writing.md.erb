@@ -19,13 +19,16 @@ steps:
 
 ## Step 1: Create a new git repository
 
-Every Buildkite plugin is a Git repository, ending in `-buildkite-plugin`. This suffix is required: Buildkite automatically adds `-buildkite-plugin` to the plugin name specified in the `pipeline.yml`. Let's create a new Git repository following these naming conventions:
+The most common kind of Buildkite plugin is a Git repository, with a descriptive name ending in `-buildkite-plugin`. This suffix is required: Buildkite automatically adds `-buildkite-plugin` to the plugin name specified in the `pipeline.yml`. Let's create a new Git repository following these naming conventions:
 
 ```shell
 mkdir file-counter-buildkite-plugin
 cd file-counter-buildkite-plugin
 git init
 ```
+
+> 🚧 The `buildkite-plugin` suffix
+> Not including `-buildkite-plugin` as the end of your plugin's repository is possible but may cause you unexpected issues. It will also prevent other members of the community from easily finding and using the plugin.
 
 ## Step 2: Add a plugin.yml
 
@@ -46,10 +49,10 @@ configuration:
 
 The `configuration` property defines the validation rules for the plugin configuration using the [JSON Schema](https://json-schema.org) format. The plugin in this tutorial has a single `pattern` property, of type `string`.
 
-Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is the GitHub repository slug, not the name defined in `plugin.yml`. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
+Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is not the name defined in `plugin.yml` but an uppercase version of the plugin's ID. In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
->🚧 Plugin properties and git
-> Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> using a full URL and <code>.git</code> extension, you need to use a slightly different syntax to get access to the configuration properties. For example, to get the value of <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> use  <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
+>🚧 Variables and non-standard git plugins
+> Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> with a full URL ending in <code>.git</code> and that plugin's name does not end with `buildkite-plugin`, variable names will include `_GIT` as if it were part of the plugin name. For example, the value of the configuration <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> will be available as <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
 
 ### Valid plugin.yml properties
 
@@ -94,7 +97,20 @@ You can run the plugin linter with the following Docker command:
 docker run -it --rm -v "$PWD:/plugin:ro" buildkite/plugin-linter --id a-github-user/file-counter
 ```
 
-To make it easier to run this command, add it to the `docker-compose.yml` file:
+### Plugin linter plugin
+
+If your plugin has a Buildkite pipeline, you can add a step to lint it using the corresponding plugin:
+
+```yml
+  - label: ":shell: Lint"
+    plugins:
+      plugin-linter#v3.0.0:
+        id: a-gihub-user/file-counter
+```
+{: codeblock-file=".buildkite/pipeline.yml"}
+
+### Docker compose
+You can also make it easier to run this command during development by adding the following to a `docker-compose.yml` file:
 
 ```yml
 services:
@@ -238,3 +254,20 @@ When writing plugins, there are two patterns you can choose from:
 
 * A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
 * A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
+
+## Vendored plugins
+
+If your plugin has functionality that makes sense on several of your pipelines or repositories, and maybe even for others in the community, creating a special repository as mentioned in these instructions is the way to go. But there is also the possiblity to have a whole plugin as part of a folder inside a bigger repository, this is what is called a _vendored plugin_.
+
+You can use a vendorded plugin as normal referencing it in your pipeline using a relative path:
+
+```yml
+steps:
+  - command: ls
+    plugins:
+      - ./relative/path/to/plugin:
+          pattern: '*.md'
+```
+{: codeblock-file="pipeline.yml"}
+
+Make sure to review [the documentation about job lifecycle hooks](docs/agent/v3/hooks#job-lifecycle-hooks) to understand when vendored plugins are run. Not only they are normally run after non-vendored plugins, but also some hooks are not available.
