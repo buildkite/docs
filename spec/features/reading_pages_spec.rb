@@ -46,69 +46,6 @@ RSpec.feature "reading pages" do
     end
   end
 
-  describe "clicking links" do
-    class Check < Struct.new(:path, :source_link, :fragment, keyword_init: true)
-    end
-
-    it "doesn't lead to 404s" do
-      checks = [Check.new(path: "/docs")]
-      checks_completed = []
-      errors = []
-
-      while check = checks.shift do
-        # Uncomment this out to see each request happen
-        puts "Visiting #{check.path}#{check.fragment && "##{check.fragment}"}"
-        visit check.path
-
-        # Pages either need to return okay, or show the login page. Everything
-        # else we consider busted, which helps to detect accidental URLs that
-        # don't match the Rails router for example.
-        if !page.status_code.in?([200, 403])
-          errors << { error: "Page returned #{page.status_code}", page: check.path, source_link: check.source_link }
-        end
-
-        if check.fragment
-          if all("##{check.fragment}").empty?
-            errors << { error: 'Section not found', page: check.path, section: "##{check.fragment}", source_link: check.source_link }
-          end
-        end
-
-        checks_completed << check
-
-        # For docs pages, we follow all the links
-        if check.path =~ /\A\/docs/
-          all('a').each do |a|
-            next unless href = a[:href]
-
-            uri = URI.parse(href)
-
-            # Don't follow links to other servers
-            next if uri.host && uri.host != 'buildkite.localhost'
-
-            # Ignore emails
-            next if uri.is_a?(URI::MailTo)
-
-            # Ignore the hidden links that make our headings clickable
-            next if a[:class] == 'Docs__heading__anchor'
-
-            # We have to resolve paths relative to the current page, so that both
-            # '/docs/tutorials/getting-started' and 'getting-started' (from
-            # '/docs/tutorials/other') work okay, similarly to in the browser.
-            # Luckily, URI.join does exactly that.
-            resolved_path = URI.join('http://buildkite.localhost', check.path, uri.path).path
-
-            next if checks_completed.any? {|check| check.path == resolved_path && check.fragment == uri.fragment }
-            next if checks.any?           {|check| check.path == resolved_path && check.fragment == uri.fragment }
-
-            checks << Check.new(path: resolved_path, fragment: uri.fragment, source_link: { text: a.text, href: check.path })
-          end
-        end
-      end
-
-      expect(errors).to eql([])
-    end
-  end
-
   describe "valid, but non-canonical versions of URLs" do
     it "permanently redirect to the canonical version" do
       visit "/docs/tutorials/gettingStarted"
@@ -147,7 +84,7 @@ RSpec.feature "reading pages" do
       /docs/apis/graphql/schemas/interface
       /docs/apis/graphql/schemas/enum
       /docs/apis/graphql/schemas/input-object
-      /docs/apis/graphql/schemas/union        
+      /docs/apis/graphql/schemas/union
       /docs/guides/artifacts
       /docs/guides/branch-configuration
       /docs/guides/build-meta-data
