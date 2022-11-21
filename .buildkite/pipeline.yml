@@ -16,7 +16,18 @@ steps:
             - BUILDKITE_ANALYTICS_TOKEN
 
   - label: ":spider: muffet"
-    command: http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always --verbose
+    # We need to wait until rails has started before running muffet as otherwise it will error out
+    # and the test will appear to have failed without having run. The time to wait is hard to
+    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
+    # loop was chosen after some non-systematic observations. So it does not guarantee that the
+    # server will be ready. But it seems to work well in practice.
+    command: >-
+      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
+        do echo 💎🛤️🦥 Rails is still starting;
+        sleep 0.5;
+      done &&
+      echo 💎🛤️🚆 Rails has started running &&
+      /muffet http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always
     env:
       RAILS_ENV: test
     plugins:
