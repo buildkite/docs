@@ -30,6 +30,8 @@ GitLab
 Gradle
 Hashicorp
 Inlining
+JWT
+JWTs
 Memcache
 minitest
 Namespace
