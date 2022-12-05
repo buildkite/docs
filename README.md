@@ -52,11 +52,11 @@ After modifying a page, refresh to see your changes.
 ## Updating buildkite-agent CLI Docs
 
 With the development dependencies installed you can update the CLI docs using
-`script/update-agent-help.sh`:
+`scripts/update-agent-help.sh`:
 
 ```bash
 # Set a custom PATH to select a locally built buildkite-agent
-PATH="$HOME/Projects/buildkite/agent:$PATH" ./script/update-agent-help.sh
+PATH="$HOME/Projects/buildkite/agent:$PATH" ./scripts/update-agent-help.sh
 ```
 
 ## Linting
