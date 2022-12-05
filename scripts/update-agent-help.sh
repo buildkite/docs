@@ -14,6 +14,7 @@ commands=(
   "meta-data get"
   "meta-data keys"
   "meta-data set"
+  "oidc request-token"
   "pipeline upload"
   "start"
   "step get"
