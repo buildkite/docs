@@ -46,7 +46,15 @@ ARGF.each_with_index do |line, line_num|
         # Replace all prime symbols with backticks. We use prime symbols instead of backticks in CLI helptext for... reasons.
         # See: https://github.com/buildkite/agent/blob/main/clicommand/prime-signs.md
         desc.tr!('′', '`')
-        puts "<tr id=\"#{command}\"><th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th><td><p>#{desc}<br /><strong>Environment variable</strong>: <code>#{env_var}</code></p></td></tr>"
+        print "<tr id=\"#{command}\">"
+        print "<th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th>"
+        print "<td><p>#{desc}"
+        unless env_var.nil? || env_var.empty?
+            print "<br /><strong>Environment variable</strong>: <code>#{env_var}</code>"
+        end
+        print "</p></td>"
+        print "</tr>"
+        puts
     else
         if(first_param==true)
             puts "</table>\n\n<!-- vale on -->\n"

@@ -54,8 +54,8 @@ agent.
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="sha256"><th><code>--sha256 </code> <a class="Docs__attribute__link" href="#sha256">#</a></th><td><p>Request SHA-256 instead of SHA-1, errors if SHA-256 not available<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
-<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by its name or job ID<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="sha256"><th><code>--sha256 </code> <a class="Docs__attribute__link" href="#sha256">#</a></th><td><p>Request SHA-256 instead of SHA-1, errors if SHA-256 not available</p></td></tr>
+<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by its name or job ID</p></td></tr>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifact was uploaded to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
 <tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
