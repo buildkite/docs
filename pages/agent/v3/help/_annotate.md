@@ -30,7 +30,7 @@ Annotations are written in CommonMark-compliant Markdown, with &quot;GitHub
 Flavored Markdown&quot; extensions.
 
 The annotation body can be supplied as a command line argument, or by piping
-content into the command.
+content into the command. The maximum size of each annotation body is 1MiB.
 
 You can update an existing annotation&#39;s body by running the annotate command
 again and provide the same context as the one you want to update. Or if you
