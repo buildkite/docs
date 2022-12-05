@@ -3,9 +3,13 @@
 The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
 
 
-## The default token
+## Finding and creating tokens
 
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended to [create new, specific tokens](#creating-tokens) for each new environment.
+When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended to create new, specific tokens for each new environment.
+
+Tokens can be found and managed on your [Agent Tokens page](https://buildkite.com/organizations/-/agent-tokens).
+
+Tokens can also be created using [the GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokencreate).
 
 ## Using and storing tokens
 
@@ -13,84 +17,11 @@ The token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start#star
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Creating tokens
-
-New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
-
-For example:
-
-```graphql
-mutation {
-  agentTokenCreate(input: {
-    organizationID: "organization-id",
-    description: "A description"
-  }) {
-    agentTokenEdge {
-      node {
-        id
-        token
-      }
-    }
-  }
-}
-```
-
-You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
-
-```graphql
-query GetOrgID {
-  organization(slug: "organization-slug") {
-    id
-  }
-}
-```
-
-<!--alex ignore clearly-->
-
-The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
-
-It is possible to create multiple agent tokens using the GraphQL API. These tokens will show up on the [Agents page](https://buildkite.com/organizations/-/agents) in the UI, but can only be managed (created or revoked) using the API.
-
 ## Revoking tokens
 
-Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation.
+Tokens can be revoked from your [Agent Tokens page](https://buildkite.com/organizations/-/agent-tokens). Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
-You need to pass your agent token as the ID in the mutation. You can get the token from your Buildkite dashboard, in _Agents_ > _Reveal Agent Token_, or you can retrieve a list of agent token IDs using this query:
-
-```graphql
-query GetAgentTokenID {
-  organization(slug: "organization-slug") {
-    agentTokens(first:50) {
-      edges {
-        node {
-          id
-          uuid
-          description
-        }
-      }
-    }
-  }
-}
-```
-
-Then, using the token ID, revoke the agent token:
-
-```graphql
-mutation {
-  agentTokenRevoke(input: {
-    id: "token-id",
-    reason: "A reason"
-  }) {
-    agentToken {
-      description
-      revokedAt
-      revokedReason
-    }
-  }
-}
-```
-
-Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
+Tokens can also be revoked using [the GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokenrevoke).
 
 ## Scope of access
 
