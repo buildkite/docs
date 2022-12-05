@@ -29,7 +29,7 @@ Get data from a builds key/value store.
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="default"><th><code>--default value</code> <a class="Docs__attribute__link" href="#default">#</a></th><td><p>If the meta-data value doesn't exist return this instead<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="default"><th><code>--default value</code> <a class="Docs__attribute__link" href="#default">#</a></th><td><p>If the meta-data value doesn't exist return this instead</p></td></tr>
 <tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job's build should the meta-data be retrieved from<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>

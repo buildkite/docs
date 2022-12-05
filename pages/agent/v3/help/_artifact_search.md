@@ -49,10 +49,10 @@ The above will return a list of filenames separated by newline.
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by using either its name or job ID<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="step"><th><code>--step value</code> <a class="Docs__attribute__link" href="#step">#</a></th><td><p>Scope the search to a particular step by using either its name or job ID</p></td></tr>
 <tr id="build"><th><code>--build value</code> <a class="Docs__attribute__link" href="#build">#</a></th><td><p>The build that the artifacts were uploaded to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_ID</code></p></td></tr>
 <tr id="include-retried-jobs"><th><code>--include-retried-jobs </code> <a class="Docs__attribute__link" href="#include-retried-jobs">#</a></th><td><p>Include artifacts from retried jobs in the search<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_INCLUDE_RETRIED_JOBS</code></p></td></tr>
-<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output formatting of results. See below for listing of available format specifiers. (default: "%j %p %c\n")<br /><strong>Environment variable</strong>: <code></code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output formatting of results. See below for listing of available format specifiers. (default: "%j %p %c\n")</p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
