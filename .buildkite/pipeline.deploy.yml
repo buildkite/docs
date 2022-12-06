@@ -36,3 +36,10 @@ steps:
     agents:
       queue: deploy
     command: scripts/deploy-ecs
+
+  - wait
+
+  # Refresh the search index after a deployment
+  - label: "🔎🪄"
+    trigger: docs-algolia-crawler
+    async: true
