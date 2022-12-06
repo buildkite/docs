@@ -1,0 +1,14 @@
+agent:
+  - pages/agent/**/*
+test-analytics:
+  - pages/test_analytics/**/*
+pipelines:
+  - pages/pipelines/**/*
+plugins:
+  - pages/plugins/**/*
+integrations:
+  - pages/integrations/**/*
+apis:
+  - pages/apis/**/*
+tutorials:
+  - pages/tutorials/**/*
