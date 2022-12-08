@@ -25,8 +25,8 @@ Rails.application.config.content_security_policy do |policy|
 
   policy.script_src(
     :self,
-    "https://www.googletagmanager.com/",
-    "https://cdn.segment.com/"
+    'https://www.googletagmanager.com/',
+    'https://cdn.segment.com/'
   )
 
   policy.connect_src(
@@ -36,12 +36,12 @@ Rails.application.config.content_security_policy do |policy|
     "https://#{ENV['ALGOLIA_APP_ID']}-2.algolianet.com",
     "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
 
-    "https://cdn.segment.com/",
-    "https://api.segment.io/"
+    'https://cdn.segment.com/',
+    'https://api.segment.io/'
   )
 
   # Specify URI for violation reports
-  policy.report_uri "/_csp-violation-reports"
+  policy.report_uri '/_csp-violation-reports'
 end
 
 # We use nonce for inline scripts
