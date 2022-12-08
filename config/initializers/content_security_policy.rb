@@ -26,7 +26,8 @@ Rails.application.config.content_security_policy do |policy|
   policy.script_src(
     :self,
     'https://www.googletagmanager.com/',
-    'https://cdn.segment.com/'
+    'https://cdn.segment.com/',
+    'https://cdn.emojicom.io/'
   )
 
   policy.connect_src(
@@ -37,7 +38,12 @@ Rails.application.config.content_security_policy do |policy|
     "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
 
     'https://cdn.segment.com/',
-    'https://api.segment.io/'
+    'https://api.segment.io/',
+    'https://emojicom.io/'
+  )
+
+  policy.frame_src(
+    'https://cdn.emojicom.io/'
   )
 
   # Specify URI for violation reports
