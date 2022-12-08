@@ -18,15 +18,16 @@
 
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
-  policy.font_src    :self, 'https://www2.buildkiteassets.com/'
-  policy.img_src     :self, 'https://buildkiteassets.com/', 'https://buildkite.com/', ENV.fetch('BADGE_DOMAIN', 'https://badge.buildkite.com')
+  policy.font_src    :self, "https://www2.buildkiteassets.com/"
+  policy.img_src     :self, "https://buildkiteassets.com/", "https://buildkite.com/", ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com")
   policy.object_src  :none
   policy.style_src   :self, :unsafe_inline
 
   policy.script_src(
     :self,
     "https://www.googletagmanager.com/",
-    "https://cdn.segment.com/"
+    "https://cdn.segment.com/",
+    "https://cdn.emojicom.io/"
   )
 
   policy.connect_src(
@@ -37,7 +38,12 @@ Rails.application.config.content_security_policy do |policy|
     "https://#{ENV['ALGOLIA_APP_ID']}-3.algolianet.com",
 
     "https://cdn.segment.com/",
-    "https://api.segment.io/"
+    "https://api.segment.io/",
+    "https://emojicom.io/"
+  )
+
+  policy.frame_src(
+    "https://cdn.emojicom.io/"
   )
 
   # Specify URI for violation reports
