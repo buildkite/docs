@@ -17,11 +17,6 @@ class ApplicationController < ActionController::Base
   end
   helper_method :get_nav_data
 
-  def notification_data
-    Notification.new(fetch_local_data('notification')).message || []
-  end
-  helper_method :notification_data
-
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super
