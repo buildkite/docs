@@ -295,6 +295,10 @@ variables:
     A colon separated list of the pipeline's non-private team slugs.
   modifiable: false
   example: "deploy:ops:production"
+- name: BUILDKITE_PLUGIN_CONFIGURATION
+  desc: |
+    JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the BUILDKITE_PLUGINS environment variable).
+  example: "{\"array-key\":[{\"subkey\":[1,2,\"llamas\"]}]}"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.
