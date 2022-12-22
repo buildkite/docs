@@ -299,6 +299,10 @@ variables:
   desc: |
     JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the `BUILDKITE_PLUGINS` environment variable).
   example: "{\"array-key\":[{\"subkey\":[1,2,\"llamas\"]}]}"
+- name: BUILDKITE_PLUGIN_NAME
+  desc: |
+    The "env key-compatible" version of the current plugin name. Used for constructing the `BUILDKITE_PLUGIN_<name>_<param>` variables.
+  example: "DOCKER_COMPOSE"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.
