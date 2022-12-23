@@ -74,6 +74,13 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>if</code></td>
+    <td>
+      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
+      <em>Example:</em> <code>build.message != "skip me"</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>key</code></td>
     <td>
     A unique string to identify the step, block, or group. Alias: `identifier` or `id`.<br>
@@ -92,6 +99,16 @@ _Optional attributes:_
     <td>
       Allows you to <a href="/docs/pipelines/notifications">trigger</a> build notifications to different services. You can also choose to conditionally send notifications based on pipeline events.<br>
       <em>Example:</em> <code>"github_commit_status:"</code><br>
+    </td>
+  </tr>
+  <tr>
+    <td><code>skip</code></td>
+    <td>
+      Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
+      Note: Skipped steps will be hidden in the pipeline view by default, but can be made visible by toggling the 'Skipped jobs' icon.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em> <code>false</code><br>
+      <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
 </table>

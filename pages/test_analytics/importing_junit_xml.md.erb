@@ -4,6 +4,15 @@ While most test frameworks have a built-in JUnit XML export feature, these JUnit
 
 {:toc}
 
+## Mandatory JUnit XML attributes
+
+The following attributes are mandatory for the `<testcase>` element:
+
+* `classname`: full class name for the class the test method is in.
+* `name`: name of the test method.
+
+To learn more about the JUnit XML file format, see [JUnit XML reporting file format](https://llg.cubic.org/docs/junit/) from Linux Lighting Group.
+
 ## How to import JUnit XML in Buildkite
 
 It's possible to import XML-formatted JUnit (or [JSON](/docs/test-analytics/importing-json#how-to-import-json-in-buildkite)) test results to Buildkite Test Analytics with or without the help of a plugin.

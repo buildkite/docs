@@ -12,59 +12,30 @@ script.
 
 -->
 
-### Usage
+## Usage
 
-`buildkite-agent artifact upload [options] <pattern> [destination]`
+`buildkite-agent oidc request-token [options...]`
 
-### Description
+## Description
+Requests and prints an OIDC token from Buildkite that claims the Job ID
+(amongst other things) and the specified audience. If no audience is
+specified, the endpoint&#39;s default audience will be claimed.
 
-Uploads files to a job as artifacts.
+## Example
+    $ buildkite-agent oidc request-token --audience sts.amazonaws.com
 
-You need to ensure that the paths are surrounded by quotes otherwise the
-built-in shell path globbing will provide the files, which is currently not
-supported.
+Requests and prints an OIDC token from Buildkite that claims the Job ID
+(amongst other things) and the audience &quot;sts.amazonaws.com&quot;.
 
-You can specify an alternate destination on Amazon S3, Google Cloud Storage
-or Artifactory as per the examples below. This may be specified in the
-&#39;destination&#39; argument, or in the &#39;BUILDKITE_ARTIFACT_UPLOAD_DESTINATION&#39;
-environment variable.  Otherwise, artifacts are uploaded to a
-Buildkite-managed Amazon S3 bucket, where they’re retained for six months.
 
-### Example
-
-    $ buildkite-agent artifact upload "log/**/*.log"
-
-You can also upload directly to Amazon S3 if you&#39;d like to host your own artifacts:
-
-    $ export BUILDKITE_S3_ACCESS_KEY_ID=xxx
-    $ export BUILDKITE_S3_SECRET_ACCESS_KEY=yyy
-    $ export BUILDKITE_S3_DEFAULT_REGION=eu-central-1 # default is us-east-1
-    $ export BUILDKITE_S3_ACL=private # default is public-read
-    $ buildkite-agent artifact upload "log/**/*.log" s3://name-of-your-s3-bucket/$BUILDKITE_JOB_ID
-
-You can use Amazon IAM assumed roles by specifying the session token:
-
-    $ export BUILDKITE_S3_SESSION_TOKEN=zzz
-
-Or upload directly to Google Cloud Storage:
-
-    $ export BUILDKITE_GS_ACL=private
-    $ buildkite-agent artifact upload "log/**/*.log" gs://name-of-your-gs-bucket/$BUILDKITE_JOB_ID
-
-Or upload directly to Artifactory:
-
-    $ export BUILDKITE_ARTIFACTORY_URL=http://my-artifactory-instance.com/artifactory
-    $ export BUILDKITE_ARTIFACTORY_USER=carol-danvers
-    $ export BUILDKITE_ARTIFACTORY_PASSWORD=xxx
-    $ buildkite-agent artifact upload "log/**/*.log" rt://name-of-your-artifactory-repo/$BUILDKITE_JOB_ID
-
-### Options
+## Options
 
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Which job should the artifacts be uploaded to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
-<tr id="content-type"><th><code>--content-type value</code> <a class="Docs__attribute__link" href="#content-type">#</a></th><td><p>A specific Content-Type to set for the artifacts (otherwise detected)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_ARTIFACT_CONTENT_TYPE</code></p></td></tr>
+<tr id="audience"><th><code>--audience value</code> <a class="Docs__attribute__link" href="#audience">#</a></th><td><p>The audience that will consume the OIDC token. The API will choose a default audience if it is omitted.</p></td></tr>
+<tr id="lifetime"><th><code>--lifetime value</code> <a class="Docs__attribute__link" href="#lifetime">#</a></th><td><p>The time (in seconds) the OIDC token will be valid for before expiry. Must be a non-negative integer. If the flag is omitted or set to 0, the API will choose a default finite lifetime. (default: 0)</p></td></tr>
+<tr id="job"><th><code>--job value</code> <a class="Docs__attribute__link" href="#job">#</a></th><td><p>Buildkite Job Id to claim in the OIDC token<br /><strong>Environment variable</strong>: <code>$BUILDKITE_JOB_ID</code></p></td></tr>
 <tr id="agent-access-token"><th><code>--agent-access-token value</code> <a class="Docs__attribute__link" href="#agent-access-token">#</a></th><td><p>The access token used to identify the agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ACCESS_TOKEN</code></p></td></tr>
 <tr id="endpoint"><th><code>--endpoint value</code> <a class="Docs__attribute__link" href="#endpoint">#</a></th><td><p>The Agent API endpoint (default: "<code>https://agent.buildkite.com/v3</code>")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENDPOINT</code></p></td></tr>
 <tr id="no-http2"><th><code>--no-http2 </code> <a class="Docs__attribute__link" href="#no-http2">#</a></th><td><p>Disable HTTP2 when communicating with the Agent API.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_NO_HTTP2</code></p></td></tr>
@@ -74,7 +45,6 @@ Or upload directly to Artifactory:
 <tr id="log-level"><th><code>--log-level value</code> <a class="Docs__attribute__link" href="#log-level">#</a></th><td><p>Set the log level for the agent, making logging more or less verbose. Defaults to notice. Allowed values are: debug, info, error, warn, fatal (default: "notice")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_LOG_LEVEL</code></p></td></tr>
 <tr id="experiment"><th><code>--experiment value</code> <a class="Docs__attribute__link" href="#experiment">#</a></th><td><p>Enable experimental features within the buildkite-agent<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_EXPERIMENT</code></p></td></tr>
 <tr id="profile"><th><code>--profile value</code> <a class="Docs__attribute__link" href="#profile">#</a></th><td><p>Enable a profiling mode, either cpu, memory, mutex or block<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_PROFILE</code></p></td></tr>
-<tr id="follow-symlinks"><th><code>--follow-symlinks </code> <a class="Docs__attribute__link" href="#follow-symlinks">#</a></th><td><p>Follow symbolic links while resolving globs<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ARTIFACT_SYMLINKS</code></p></td></tr>
 </table>
 
 <!-- vale on -->
