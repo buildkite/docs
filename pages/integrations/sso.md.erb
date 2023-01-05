@@ -56,21 +56,21 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 
 ## SSO Session Duration
 
-You can configure the SSO Session Duration to timeout after a predetermined time.
+You can configure the SSO Session Duration to timeout after a predetermined time. When the specified duration elapses, the user will be signed out of the session.
 
-When the specified duration elapses, the user will be signed out of the session.
+To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-default-sso-provider-session-duration) or complete
+the following steps via the settings interface.
 
-To set the Session Duration you first need to select the SSO Provider you would
-like to configure.
+First select the SSO Provider you would like to configure.
 
 <%= image "session_duration/select_provider.png", width: 1201/2, height: 786/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-Then click "Update Session Duration" from the Session Duration section of the
+Then click *Update Session Duration* from the *Session Duration* section of the
 SSO Provider settings page.
 
 <%= image "session_duration/update_session_duration.png", width: 1201/2, height: 1043/2, alt: "Screenshot of the Buildkite SSO Settings Page" %>
 
-You can configure the session duration to any timeout between 6 hours and 8760 hours (1 year).
+You can configure the session duration to any timeout between 6 hours and 8,760 hours (1 year).
 
 <%= image "session_duration/configure_session_duration.png", width: 623, height: 315, alt: "Screenshot of the Buildkite SSO Session Duration Configuration" %>
 
