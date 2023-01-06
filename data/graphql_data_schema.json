@@ -19934,7 +19934,7 @@
             },
             {
               "name": "name",
-              "description": "The graphql_name of the pipeline.",
+              "description": "The `graphql_name` of the pipeline.",
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -22121,7 +22121,7 @@
             },
             {
               "name": "name",
-              "description": "The graphql_name of the pipeline.",
+              "description": "The `graphql_name` of the pipeline.",
               "type": {
                 "kind": "SCALAR",
                 "name": "String",
