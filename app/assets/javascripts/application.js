@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded', () => {
+window.addEventListener("DOMContentLoaded", () => {
   document.onkeydown = (e) => {
     const event = window.event || e;
 
@@ -8,5 +8,13 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById("search").focus();
         break;
     }
-  }
+  };
+
+  // todo: use data attributes
+  document.querySelectorAll("[data-copy-to-clipboard-btn]").forEach((el) => {
+    el.addEventListener("click", (e) => {
+      copyText = el.previousElementSibling.textContent;
+      navigator.clipboard.writeText(copyText);
+    });
+  });
 });
