@@ -67,7 +67,7 @@
 .highlight {
   position: relative;
 
-  &:hover {
+  &:focus, &:hover {
     .highlight__button {
       visibility: visible;
     }
