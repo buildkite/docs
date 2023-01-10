@@ -1,4 +1,6 @@
-window.addEventListener('DOMContentLoaded', () => {
+//= require copyToClipboardButton
+
+window.addEventListener("DOMContentLoaded", () => {
   document.onkeydown = (e) => {
     const event = window.event || e;
 
@@ -8,5 +10,10 @@ window.addEventListener('DOMContentLoaded', () => {
         document.getElementById("search").focus();
         break;
     }
-  }
+  };
+
+  document.querySelectorAll("pre.highlight").forEach((code) => {
+    code.setAttribute("tabindex", 0);
+    createCopyToClipboardButton(code);
+  });
 });
