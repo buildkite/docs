@@ -1,3 +1,5 @@
+//= require copyToClipboardButton
+
 window.addEventListener("DOMContentLoaded", () => {
   document.onkeydown = (e) => {
     const event = window.event || e;
@@ -10,11 +12,8 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // todo: use data attributes
-  document.querySelectorAll("[data-copy-to-clipboard-btn]").forEach((el) => {
-    el.addEventListener("click", (e) => {
-      copyText = el.previousElementSibling.textContent;
-      navigator.clipboard.writeText(copyText);
-    });
+  document.querySelectorAll("pre.highlight").forEach((code) => {
+    code.setAttribute("tabindex", 0);
+    createCopyToClipboardButton(code);
   });
 });

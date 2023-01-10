@@ -66,30 +66,4 @@
 
 .highlight {
   position: relative;
-
-  &:focus, &:hover {
-    .highlight__button {
-      visibility: visible;
-    }
-  }
-}
-
-.highlight__button {
-  visibility: hidden;
-  position: absolute;
-  right: .8em;
-  top: 1em;
-  padding: 5px;
-  cursor: pointer;
-
-  > svg {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    border: 0;
-  }
-
-  &:hover {
-    visibility: visible;
-  }
 }
