@@ -56,6 +56,7 @@ group :development do
   gem "web-console"
   gem "listen"
   gem "pry"
+  gem 'graphql-client'
 end
 
 group :test do
