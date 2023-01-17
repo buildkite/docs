@@ -14,8 +14,7 @@ You can also create and manage schedules using the [Buildkite GraphQL API](/docs
 
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
 
->🚧 Interval granularity
-> Buildkite doesn't support intervals less than 10 minutes.
+Buildkite doesn't support intervals less than 10 minutes.
 
 ### Predefined intervals
 
@@ -91,6 +90,3 @@ For more information on how modulo works, see the official documentation of [Fug
   <tr><th><code>0 16 L * *</code></th><td>The last day of the month at 4pm UTC</td></tr>
   <tr><th><code>0 0 * * 2%2+1</code></th><td>The start of every odd Tuesday</td></tr>
 </table>
-
->🚧 Every X minutes use
-> <code>*/N * * * *</code> only supports factors of 60, so intervals of 10, 20, 30 minutes will work as expected. However, due to limitations of Cron, schedules cannot, for example, be ran every 45 minutes using <code>*/45 * * * *</code>. This will result in a build being run on the hour, for example 12:00, and 45 minutes past, 12:45.
