@@ -292,7 +292,7 @@ attributes:
       Include the host's Google Cloud instance labels as tags.
 - name: tags-from-host
   env_var: BUILDKITE_AGENTS_TAGS_FROM_HOST
-  default_value: "fals"
+  default_value: "false"
   required: false
   desc: |
       Include the host's meta-data as tags (hostname, machine-id, and OS).
