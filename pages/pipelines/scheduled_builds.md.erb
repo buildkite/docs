@@ -91,3 +91,7 @@ For more information on how modulo works, see the official documentation of [Fug
   <tr><th><code>0 16 L * *</code></th><td>The last day of the month at 4pm UTC</td></tr>
   <tr><th><code>0 0 * * 2%2+1</code></th><td>The start of every odd Tuesday</td></tr>
 </table>
+
+>🚧 Caveats with modulo
+> Only factors of 60 can be used in modulo, for example 10, 20 and 30. Using values that are not factors of 60 will result in builds running on the hour and at N past the hour. For example, the following will result in a build being run at 12:00 **and** 12:45, then 13:00 **and** 13:45, and so on.
+> <code>*/45 * * * *</code>
