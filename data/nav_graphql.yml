@@ -226,6 +226,8 @@
           path: apis/graphql/schemas/object/authorizationedge
         - name: AuthorizationGitHub
           path: apis/graphql/schemas/object/authorizationgithub
+        - name: AuthorizationGitHubApp
+          path: apis/graphql/schemas/object/authorizationgithubapp
         - name: AuthorizationGitHubEnterprise
           path: apis/graphql/schemas/object/authorizationgithubenterprise
         - name: AuthorizationGoogle
@@ -428,12 +430,6 @@
           path: apis/graphql/schemas/object/organizationmembersso
         - name: OrganizationMemberSecurity
           path: apis/graphql/schemas/object/organizationmembersecurity
-        - name: OrganizationMemberSuite
-          path: apis/graphql/schemas/object/organizationmembersuite
-        - name: OrganizationMemberSuiteConnection
-          path: apis/graphql/schemas/object/organizationmembersuiteconnection
-        - name: OrganizationMemberSuiteEdge
-          path: apis/graphql/schemas/object/organizationmembersuiteedge
         - name: OrganizationMemberUpdatePayload
           path: apis/graphql/schemas/object/organizationmemberupdatepayload
         - name: OrganizationPermissions
@@ -526,6 +522,8 @@
           path: apis/graphql/schemas/object/repositoryproviderunknown
         - name: SCMPipelineSettings
           path: apis/graphql/schemas/object/scmpipelinesettings
+        - name: SCMRepositoryHost
+          path: apis/graphql/schemas/object/scmrepositoryhost
         - name: SCMService
           path: apis/graphql/schemas/object/scmservice
         - name: SSOAuthorization
@@ -578,8 +576,6 @@
           path: apis/graphql/schemas/object/suiteconnection
         - name: SuiteEdge
           path: apis/graphql/schemas/object/suiteedge
-        - name: SuiteMonitor
-          path: apis/graphql/schemas/object/suitemonitor
         - name: TOTP
           path: apis/graphql/schemas/object/totp
         - name: TOTPActivatePayload
