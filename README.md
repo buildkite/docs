@@ -21,7 +21,7 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
 1. Get the source. Run:
 
    ```bash
-   git clone https://github.com/buildkite/docs.git
+   git clone git@github.com:buildkite/docs.git
    cd docs
    git submodule update --init
    ```
