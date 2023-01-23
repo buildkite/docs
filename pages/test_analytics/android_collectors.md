@@ -1,4 +1,4 @@
-# Android Collectors
+# Android collectors
 
 To use Test Analytics with your Android projects use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
 

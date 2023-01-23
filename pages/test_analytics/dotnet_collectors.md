@@ -1,4 +1,4 @@
-# .NET Collector
+# .NET collector
 
 To use Test Analytics with your .NET projects use the :github: [`test-collector-dotnet`](https://github.com/buildkite/test-collector-dotnet) package with xUnit.
 

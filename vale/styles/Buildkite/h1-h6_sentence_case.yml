@@ -19,8 +19,10 @@ exceptions:
   - AWS Lambda
   - AWS License Manager
   - AWS Systems Manager Session Manager
+  - Bazel
   - Bitbucket Server
   - Buildkite
+  - Buildkite Agent
   - CloudFormation
   - CloudWatch
   - CloudWatch Logs
@@ -29,6 +31,7 @@ exceptions:
   - Docker
   - Docker Compose
   - Docker Hub
+  - Elastic
   - Elastic CI Stack
   - FAQs
   - GitHub
@@ -39,9 +42,11 @@ exceptions:
   - Google Compute Engine
   - Google Kubernetes Engine
   - GraphQL
+  - Heroku
   - IdP  # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
+  - Kubernetes
   - M1
   - Mac
   - macOS
