@@ -298,7 +298,7 @@ RSpec.describe RenderHelpers do
 
         expect(possible_types_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
-            <h2 data-algolia-exclude>Possible Types</h2>
+            <h2 data-algolia-exclude>Possible types</h2>
             <a href="/docs/apis/graphql/schemas/object/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">
               <code>APIAccessToken</code>
             </a>

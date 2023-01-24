@@ -15,7 +15,7 @@
       path: apis/graphql-api
     - name: Console and CLI tutorial
       path: apis/graphql/graphql-tutorial
-    - name: Schema Browser
+    - name: Schema browser
       start_expanded: true
       children:
       - name: Queries

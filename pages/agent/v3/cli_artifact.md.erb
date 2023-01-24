@@ -4,7 +4,7 @@ The Buildkite Agent's `artifact` command provides support for uploading and
 downloading of build artifacts, allowing you to share binary data between build
 steps no matter the machine or network.
 
-See the [Using Build Artifacts](/docs/builds/artifacts) guide for a step-by-step
+See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
 
 {:toc}
@@ -24,7 +24,7 @@ For documentation on configuring a custom storage location, see:
 
 You can also configure the agent to automatically upload artifacts after your
 step's command has completed based on a file pattern (see the
-[Using Build Artifacts guide](/docs/builds/artifacts) for details).
+[Using build artifacts guide](/docs/builds/artifacts) for details).
 
 
 <%= render 'agent/v3/help/artifact_upload' %>
@@ -253,7 +253,7 @@ If your agents are running outside of AWS, or you're unable to use an instance
 profile, you can export
 [long lived credentials](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html)
 belonging to an IAM user using one of the environment variable groups listed
-above. See the [Managing Pipeline Secrets](/docs/pipelines/secrets)
+above. See the [Managing pipeline secrets](/docs/pipelines/secrets)
 documentation for how to securely set up these environment variables.
 
 ### Access control
@@ -283,10 +283,10 @@ export BUILDKITE_S3_ACCESS_URL="https://buildkite-artifacts.example.com/"
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 your private Google Cloud Storage bucket. For instructions for how to set this
-up, see our [Google Cloud Installation Guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
+up, see our [Google Cloud installation guide](/docs/agent/v3/gcloud#uploading-artifacts-to-google-cloud-storage).
 
 ## Using your Artifactory instance
 
 You can configure the `buildkite-agent artifact` command to store artifacts in
 Artifactory. For instructions for how to set this up, see our
-[Artifactory Guide](/docs/integrations/artifactory).
+[Artifactory guide](/docs/integrations/artifactory).

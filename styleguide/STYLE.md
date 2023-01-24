@@ -1,4 +1,4 @@
-# Style Guide
+# Style guide
 
 Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
@@ -47,24 +47,19 @@ This section covers the matters that go beyond language and provides guidelines 
 ### Consistency
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
-### Title capitalization
-Use Title case in H1 page headings `# Heading`:
-*"The Quick Brown Fox Jumps Over the Lazy Dog."*
-Also known as headline style and capital case. All words capitalized, except for certain subsets defined by rules that are not universally standardized, often minor words such as "the" (as above), "of", or "and". The standardization is only at the level of house styles and individual style manuals. (See Headings and publication titles.) A simplified variant is start case, where all words, including articles, prepositions, and conjunctions, start with a capital letter.
+### Heading capitalization
 
-Use Sentence case in section headings (`## Heading`,`### Heading`, `#### Heading`, etc.):
+Use Sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
+
 *"The quick brown fox jumps over the lazy dog."*
-The standard case used in English prose. Generally equivalent to the baseline universal standard of formal English orthography mentioned above; that is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
-When in doubt, consult [Title.sh](https://title.sh/) for proper capitalization according to the The Chicago Manual of Style.
-
-More info [on Wikipedia](https://en.wikipedia.org/wiki/Capitalization#By_name_of_style).
+The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
 ### Capital letters in proper names
 Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
 
 ### Capital letters in UX elements
-Use title capitalization for names of tabs and buttons in the Buildkite interface - for example, 'Personal Settings', 'Repository Providers', 'Save Organization Settings'.
+Match the capitalization used in the Buildkite interface.
 
 ### Lists (bullet lists and numbered steps)
 Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
@@ -116,8 +111,8 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | Time out/timeout          | Time out is a verb, timeout is a noun                                                            |
 | API, SSO, SAML            | Always capitalized                                                                               |
 | GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
-| Two-factor authentication | In a sentence two-factor authentication, in a title Two-Factor Authentication, in short form 2FA |
-| Single sign-on            | In a sentence single sign-on, in a title Single Sign-On, in short form SSO                       |
+| Two-factor authentication | In short form 2FA |
+| Single sign-on            | In short form SSO                       |
 
 ### Common trip-ups
 Linters cannot do all of the work for you, so please pay attention to the following cases:
@@ -348,14 +343,14 @@ emoji to create callouts for particular sections of text:
 Regular info callout ("purple"):
 
 ```
->📘 A Callout Title
+>📘 A callout title
 > Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becames a new paragraph inside the callout.
 ```
 This will be rendered as the following HTML in the site:
 ```
 <section class="callout callout--info">
-  <p class="callout__title" id="a-callout-title"📘 A Callout Title</p>
+  <p class="callout__title" id="a-callout-title"📘 A callout title</p>
   <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
   <p>Every line break after the first becames a new paragraph inside the callout.</p>
 </section>
@@ -484,7 +479,7 @@ This information was aggregated by going over the existing screenshots in the do
 Steps for adding add an image to a documentation page:
 1. Name the image file (lowercase, separate words using hyphens; add a number to the filename, for example, 'installation-1' if you are adding several images to the same page)
 2. Put the file into the corresponding `images` folder (a folder with the same name as the page you are adding this image to; create such folder if it doesn't exist yet)
-3. Compose relevant alt text for the image file using Title case
+3. Compose relevant alt text for the image file using sentence case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
 

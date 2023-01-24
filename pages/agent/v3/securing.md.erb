@@ -1,4 +1,4 @@
-# Securing Your Buildkite Agent
+# Securing your Buildkite Agent
 
 In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
 
@@ -6,7 +6,7 @@ In cases where a Buildkite Agent is being deployed into a sensitive environment 
 
 ## Securely storing secrets
 
-For best practices and recommendations about secret storage in the Agent, see the [Managing Secrets](/docs/pipelines/secrets) guide.
+For best practices and recommendations about secret storage in the Agent, see the [Managing secrets](/docs/pipelines/secrets) guide.
 
 ## Disabling automatic ssh-keyscan
 
@@ -41,7 +41,7 @@ Command line evaluation can be disabled by setting [`no-command-eval`](/docs/age
 * Configuration setting: `no-command-eval=true`
 
 >🚧 Custom hooks
-> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a List of Plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
+> If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a list of plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
 
 ## Disabling plugins
 

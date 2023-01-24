@@ -59,7 +59,7 @@ For example, to import the contents of a [JSON-formatted test results](#json-tes
       https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#buildkite).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#buildkite).
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -88,7 +88,7 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#circleci).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#circleci).
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 
@@ -117,7 +117,7 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
     https://analytics-api.buildkite.com/v1/uploads
     ```
 
-To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI Environments](/docs/test-analytics/ci-environments#github-actions).
+To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#github-actions).
 
 A single file can have a maximum of 5000 test results, and if that limit is exceeded then the upload request will fail. To upload more than 5000 test results for a single run upload multiple smaller files with the same `run_env[key]`.
 

@@ -9,7 +9,7 @@ Phabricator and Buildkite integrate using webhooks. Phabricator triggers builds 
 ## Before you start
 
 Check that your repository is activated in your Phabricator instance and
-Harbormaster is installed. Configure a pipeline for that repository in Buildkite. You'll also need to create a Buildkite API Access Token.
+Harbormaster is installed. Configure a pipeline for that repository in Buildkite. You'll also need to create a Buildkite API access token.
 
 >📘
 > Admin access in both Phabricator and your Buildkite organization will be required.
@@ -36,11 +36,11 @@ Keep this screen open while you configure Buildkite.
 
 ## Step 2: Configure Buildkite notification webhook
 
-Create a [new API Access Token](https://buildkite.com/user/api-access-tokens/new) in your Buildkite Personal Settings.
+Create a [new API access token](https://buildkite.com/user/api-access-tokens/new) in your Buildkite Personal Settings.
 
 Provide a description, then select your organization. Select the `read_builds` and `write_builds` scopes. Create the token, then copy the token from the subsequent screen.
 
-<%= image "buildkite_new_api_access_token.png", width: 2352/2, height: 1592/2, alt: "Creating a new Buildkite API Access Token" %>
+<%= image "buildkite_new_api_access_token.png", width: 2352/2, height: 1592/2, alt: "Creating a new Buildkite API access token" %>
 
 Next, add a "Webhook Notification" in your Buildkite organization's Notification Services.
 
@@ -50,7 +50,7 @@ From Phabricator's "Webhook Configuration", copy the "Webhook URL" (it should en
 
 ## Step 3: Complete Phabricator build step
 
-In Phabricator, click the "Add New Credential" button next to "API Token". Provide a name and use the Buildkite API Access Token that you created earlier for the "Token" field.
+In Phabricator, click the "Add New Credential" button next to "API Token". Provide a name and use the Buildkite API access token that you created earlier for the "Token" field.
 
 <%= image "phabricator_new_credential.png", width: 1764/2, height: 1174/2, alt: "Creating a new Credential in Phabricator" %>
 

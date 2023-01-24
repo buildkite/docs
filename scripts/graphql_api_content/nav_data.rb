@@ -35,7 +35,7 @@ module NavData
         "path" => "apis/graphql/graphql-tutorial"
       },
       {
-        "name" => "Schema Browser",
+        "name" => "Schema browser",
         "start_expanded" => true,
         "children" => [
           {

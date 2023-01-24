@@ -48,7 +48,7 @@ test_analytics_guides:
   - ""
 integrations:
   - title: "SSO"
-    desc: "You can use a Single Sign-On (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers."
+    desc: "You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers."
     url: "/docs/integrations/sso"
     links:
       - text: "Okta"
