@@ -22,14 +22,14 @@ You should have familiarity with:
 * macOS GUI
 
 You must also choose an AWS Region with EC2 Mac instances available. See
-[Amazon EC2 Mac Instances](https://aws.amazon.com/ec2/instance-types/mac/) and
-[Amazon EC2 Dedicated Hosts Pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
+[Amazon EC2 Mac instances](https://aws.amazon.com/ec2/instance-types/mac/) and
+[Amazon EC2 Dedicated Hosts pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
 for details on which regions have EC2 Mac Dedicated Hosts.
 
 >🚧 Minimum allocation
 >Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
 
-See also the [Amazon EC2 Mac instances User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
+See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
 for more details on AWS EC2 Mac instances.
 
 ## Step 1: Choose a VPC layout
@@ -41,7 +41,7 @@ VPC's public subnets with a public IP address suitable. Otherwise, you may wish
 to explore options like separate public/private subnets with a NAT Gateway, and
 a bastion instance or a VPN to access the private instances over SSH and VNC.
 See the [AWS VPC Design documentation](/docs/agent/v3/aws/vpc) for more
-details, and the [AWS VPC Quick Start](https://aws.amazon.com/quickstart/architecture/vpc/)
+details, and the [AWS VPC quick start](https://aws.amazon.com/quickstart/architecture/vpc/)
 for a ready-made CloudFormation template.
 
 EC2 Mac Dedicated Hosts are not available in every Availability Zone in the
@@ -67,7 +67,7 @@ can access the instance.
 1. Using an SSH or AWS SSM session:
 	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
 	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS User Guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
 	1. Sign in as the `ec2-user`
 	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
@@ -105,7 +105,7 @@ required parameters:
 * `Subnets` from your VPC set up
 * `SecurityGroupIds` from your VPC set up
 * `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-* `BuildkiteAgentToken` an Agent Token for your [Buildkite Organization](http://buildkite.com/organizations/-/agents)
+* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
 * `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:

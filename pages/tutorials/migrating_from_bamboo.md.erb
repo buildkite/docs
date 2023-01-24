@@ -83,7 +83,7 @@ steps:
 
 Once your build pipelines are set up, you can update step labels to something more fun than plain text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis)).
 
-If you have many pipelines to migrate or manage at once, you can use the [Update Pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
+If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
@@ -110,7 +110,7 @@ rake cucumber
 ```
 {: codeblock-file="build.sh"}
 
-If you'd like to learn more about how to write build scripts, read the [Writing Build Scripts](/docs/builds/writing-build-scripts) guide.
+If you'd like to learn more about how to write build scripts, read the [Writing build scripts](/docs/builds/writing-build-scripts) guide.
 
 To trigger builds in other pipelines, you can use `trigger` steps. This way, you can create dependent pipelines. See the [trigger steps docs](/docs/pipelines/trigger-step) for more information.
 
@@ -124,6 +124,6 @@ Like *Elastic Bamboo*, Buildkite can also manage a fleet of agents for you on AW
 
 ## Authentication and permissions
 
-Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO Support guide](/docs/integrations/sso) for detailed information.
+Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO support guide](/docs/integrations/sso) for detailed information.
 
 For larger teams, it can be useful to control what users have access to which pipelines. Organization admins can enable Teams in the Buildkite Organization Settings.
