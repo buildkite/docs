@@ -12,47 +12,102 @@ match: $sentence
 exceptions:
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$'  # Exceptions for /pages/integrations/amazon_eventbridge.md.erb
   - '^(Step|Method) \d: [A-Z]\w+'  # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
+  - ADFS
+  - AWS Elastic Container Registry
+  - Amazon
+  - Amazon EventBridge
   - Amazon Web Services
+  - API(s)
   - Artifactory
   - Auto Scaling
   - AWS Console
   - AWS Lambda
   - AWS License Manager
+  - AWS Secrets Manager
   - AWS Systems Manager Session Manager
+  - Azure AD
+  - Azure Active Directory
+  - Bash
   - Bazel
+  - Bamboo
+  - Basecamp Campfire
+  - Bitbucket
   - Bitbucket Server
   - Buildkite
   - Buildkite Agent
+  - Buildkite Agents
+  - BuildNotify
+  - BuildReactor
+  - CCMenu
+  - CCTray
+  - CentOS
+  - CircleCI
   - CloudFormation
   - CloudWatch
   - CloudWatch Logs
   - Datadog
   - Debian
+  - Developer Plan
   - Docker
   - Docker Compose
   - Docker Hub
   - Elastic
   - Elastic CI Stack
+  - ExUnit
   - FAQs
+  - FreeBSD
+  - G Suite
+  - Git
   - GitHub
+  - GitHub Actions
   - GitHub App
+  - GitHub Enterprise Server
+  - GitLab
+  - GitLab Community
+  - GitLab Enterprise
+  - Golang
+  - Google Chrome
   - Google Cloud
   - Google Cloud Functions
+  - Google Cloud Identity
+  - Google Cloud Platform
   - Google Cloud Storage
   - Google Compute Engine
+  - Google Container Registry
   - Google Kubernetes Engine
+  - Google Workspace
   - GraphQL
   - Heroku
   - IdP  # TODO: unabbreviate this in headings
   - IDs
   - IronWorker
+  - JavaScript
+  - JUnit
   - Kubernetes
+  - Linux
   - M1
   - Mac
   - macOS
   - Markdown
+  - minitest
+  - Okta
+  - OneLogin
   - OpenTelemetry
+  - OS X
   - PagerDuty
+  - Phabricator
   - PowerShell
+  - pytest
+  - Red Hat
+  - Red Hat Enterprise Linux
+  - RSpec
+  - SAML
+  - Slack
+  - Test Analytics
+  - Ubuntu
+  - URL(s)
   - Windows
   - Windows Subsystem for Linux 2
+  - Xcode
+  - XCTest
+  - XML

@@ -75,7 +75,7 @@ You can then use [CloudWatch Logs Insights](https://docs.aws.amazon.com/AmazonCl
 
 <%= image "cloudwatch-insights.png", width: 2280/2, height: 998/2, alt: "Screenshot of CloudWatch Logs Insights" %>
 
-## Lambda example: Track agent wait times using CloudWatch Metrics
+## Lambda example: Track agent wait times using CloudWatch metrics
 
 You can use the following [AWS Lambda](https://docs.aws.amazon.com/lambda/latest/dg/welcome.html) and <a href="#events-job-started">Job Started</a> event to publish a [CloudWatch metric](https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/working_with_metrics.html) which tracks how long jobs are waiting for agents to become available:
 
@@ -117,7 +117,7 @@ exports.handler = (event, context, callback) => {
 };
 ```
 
-## Official AWS Quick Start Examples
+## Official AWS quick start examples
 
 AWS have published three example implementations of using Buildkite with Amazon Eventbridge:
 
@@ -150,7 +150,7 @@ AWS have published three example implementations of using Buildkite with Amazon 
 
 Each AWS Quick Start example has a corresponding GitHub repository with full example code.
 
-## Example Event Payloads
+## Example event payloads
 
 AWS EventBridge has strict limits on the size of the payload as documented in [Amazon EventBridge quotas](https://docs.aws.amazon.com/eventbridge/latest/userguide/eb-quota.html). As such, the information included in payloads is restricted to basic information about the event. If you need more information, you can query from the Buildkite [APIs](/docs/apis) using the data in the event.
 
