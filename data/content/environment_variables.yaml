@@ -297,7 +297,7 @@ variables:
   example: "deploy:ops:production"
 - name: BUILDKITE_PLUGIN_CONFIGURATION
   desc: |
-    JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the `BUILDKITE_PLUGINS` environment variable).
+    A JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the `BUILDKITE_PLUGINS` environment variable).
   example: "{\"array-key\":[{\"subkey\":[1,2,\"llamas\"]}]}"
 - name: BUILDKITE_PLUGIN_NAME
   desc: |
