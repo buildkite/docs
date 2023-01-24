@@ -165,6 +165,8 @@ sre
 sso
 statefully
 stdout
+subcommand
+subcommands
 subfolders
 submenu
 subnet

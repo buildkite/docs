@@ -12,27 +12,25 @@ script.
 
 -->
 
-## Usage
+### Usage
 
-`buildkite-agent env [options]`
+`buildkite-agent env dump [options]`
 
-## Description
+### Description
 Prints out the environment of the current process as a JSON object, easily
 parsable by other programs. Used when executing hooks to discover changes
 that hooks make to the environment.
 
-## Example
-    $ buildkite-agent env
+### Example
 
-Prints the environment passed into the process
+     $ buildkite-agent env dump --format json-pretty
 
-
-## Options
+### Options
 
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="pretty"><th><code>--pretty </code> <a class="Docs__attribute__link" href="#pretty">#</a></th><td><p>Pretty print the JSON output<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_PRETTY</code></p></td></tr>
+<tr id="format"><th><code>--format value</code> <a class="Docs__attribute__link" href="#format">#</a></th><td><p>Output format; json or json-pretty (default: "json")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_ENV_DUMP_FORMAT</code></p></td></tr>
 </table>
 
 <!-- vale on -->
