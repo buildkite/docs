@@ -130,7 +130,7 @@
                 path: 'agent/v3/elastic-ci-aws/elastic-ci-stack-overview'
               - name: 'Elastic CI Stack for AWS'
                 path: 'agent/v3/elastic-ci-aws'
-              - name: 'Elastic CI Stack for AWS Template Parameters'
+              - name: 'Elastic CI Stack for AWS template parameters'
                 path: 'agent/v3/elastic-ci-aws/parameters'
               - name: 'Elastic CI Stack for AWS for EC2 Mac'
                 path: 'agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal'
@@ -408,7 +408,7 @@
             path: 'integrations/sso/azure-ad'
           - name: 'Custom SAML'
             path: 'integrations/sso/custom-saml'
-          - name: 'Setup with GraphQL'
+          - name: 'Set up with GraphQL'
             path: 'integrations/sso/sso-setup-with-graphql'
       - name: 'Plugins'
         children:
