@@ -100,7 +100,7 @@ module RenderHelpers
   def render_possible_types(possible_types)
     if possible_types.is_a?(Array) && !possible_types.empty?
       <<~HTML
-        <h2 data-algolia-exclude>Possible Types</h2>
+        <h2 data-algolia-exclude>Possible types</h2>
         #{possible_types.map { |possible_type| render_of_type(possible_type, "large") }.join('')}
       HTML
     end
