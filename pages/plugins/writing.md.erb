@@ -19,7 +19,7 @@ steps:
 
 ## Step 1: Create a new git repository
 
-The most common kind of Buildkite plugin is a Git repository, with a descriptive name ending in `-buildkite-plugin`. This suffix is required: Buildkite automatically adds `-buildkite-plugin` to the plugin name specified in the `pipeline.yml`. Let's create a new Git repository following these naming conventions:
+The most common kind of Buildkite plugin is a Git repository, with a descriptive name ending in `-buildkite-plugin`. This suffix is required to allow using the `user/plugin-name` syntax in pipelines. Let's create a new Git repository following these naming conventions:
 
 ```shell
 mkdir file-counter-buildkite-plugin
@@ -27,8 +27,8 @@ cd file-counter-buildkite-plugin
 git init
 ```
 
-> 🚧 The `buildkite-plugin` suffix
-> Not including `-buildkite-plugin` as the end of your plugin's repository is possible but may cause you unexpected issues. It will also prevent other members of the community from easily finding and using the plugin.
+> 🚧 The `-buildkite-plugin` suffix
+> Not including the `-buildkite-plugin` suffix in the repository name not only will prevent you from using the `user/plugin-name` syntax in the pipeline (you will need to reference the plugin with a full URL instead) but also makes it **more difficult for community members to find and use the plugin**. And even when you know it will be used through a full URL, only in your organization, or it is a vendored plugin the suffix should help identify the purpose of its contents to anyone looking at it. 
 
 ## Step 2: Add a plugin.yml
 
