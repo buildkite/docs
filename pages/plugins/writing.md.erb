@@ -257,9 +257,7 @@ When writing plugins, there are two patterns you can choose from:
 
 ## Vendored plugins
 
-If your plugin has functionality that makes sense on several of your pipelines or repositories, and maybe even for others in the community, creating a special repository as mentioned in these instructions is the way to go. But there is also the possiblity to have a whole plugin as part of a folder inside a bigger repository, this is what is called a _vendored plugin_.
-
-You can use a vendorded plugin as normal referencing it in your pipeline using a relative path:
+If you don't plan to share the plugin outside of one repository, you can use a _vendored plugin_. Vendored plugins sit alongside the rest of the repository code, and you include them with a relative path:
 
 ```yml
 steps:
