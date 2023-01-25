@@ -268,4 +268,4 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Make sure to review [the documentation about job lifecycle hooks](docs/agent/v3/hooks#job-lifecycle-hooks) to understand when vendored plugins are run. Not only they are normally run after non-vendored plugins, but also some hooks are not available.
+Vendored plugins run after non-vendored plugins and don't have access to all the same hooks. See [the documentation about job lifecycle hooks](docs/agent/v3/hooks#job-lifecycle-hooks) to learn more.
