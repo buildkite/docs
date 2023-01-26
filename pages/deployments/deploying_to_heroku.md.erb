@@ -54,7 +54,7 @@ steps:
     branches: "master"
     command:
       - "heroku git:remote --app my-app"
-      - "git push heroku "$$BUILDKITE_COMMIT":master"
+      - "git push heroku \"$$BUILDKITE_COMMIT\":master"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -75,7 +75,7 @@ steps:
   - label: "\:heroku\: Deploy"
     commands:
       - "heroku git:remote --app my-app"
-      - "git push heroku "$$BUILDKITE_COMMIT":master"
+      - "git push heroku \"$$BUILDKITE_COMMIT\":master"
 
   - wait
 
