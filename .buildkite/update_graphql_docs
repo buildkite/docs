@@ -20,7 +20,8 @@ git config --global user.name $BUILDKITE_BUILD_AUTHOR
 echo "+++ Commit and push changes"
 git checkout -b graphql-schema-update-$SCHEMA_HASH
 git add .
-git commit -m "Update GraphQL docs"
+git commit -m "Update GraphQL docs" --allow-empty # fixme: this is temporary, until we have a schema change
+# git commit -m "Update GraphQL docs"
 git push -u origin graphql-schema-update-$SCHEMA_HASH
 
 # echo "+++ Create pull request"
