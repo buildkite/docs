@@ -14,6 +14,9 @@ echo "+++ Generate GraphQL docs"
 
 SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
 
+git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
+git config --global user.name $BUILDKITE_BUILD_AUTHOR
+
 echo "+++ Commit and push changes"
 git checkout -b graphql-schema-update-$SCHEMA_HASH
 git add .

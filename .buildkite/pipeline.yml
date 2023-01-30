@@ -9,4 +9,6 @@ steps:
           run: app
           env:
             - BUILDKITE_JOB_ID
+            - BUILDKITE_AUTHOR_EMAIL
+            - BUILDKITE_AUTHOR
             - GH_TOKEN
