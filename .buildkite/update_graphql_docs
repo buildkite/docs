@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euo pipefail
+
+# echo "+++ Download GraphQL schema"
+# buildkite-agent artifact download "schema.json" "docs/data/graphql_data_schema.json" --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
+
+if [[ -z "$(git status --porcelain)" ]]; then
+  echo "No changes to commit"
+  exit 0
+fi
+
+echo "+++ Generate GraphQL docs"
+./scripts/generate-graphql-api-content.sh
+
+schema_hash=$(git rev-parse --short :data/graphql_data_schema.json)
+
+echo "+++ Commit and push changes"
+git switch -c graphql-schema-update-$(schema_hash)
+git add .
+git commit -m "Update GraphQL docs"
+git push -u origin graphql-schema-update-$(schema_hash)
+
+# echo "+++ Create pull request"
+# gh pr create --title "Update GraphQL schema" --body "This PR updates the GraphQL schema to the latest version." --base master --head graphql-schema-update-$(date +%Y-%m-%d)
+
