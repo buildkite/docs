@@ -1,92 +1,12 @@
 steps:
-  - label: ":rspec: RSpec"
-    depends_on: linting
-    command: bundle exec rspec
-    artifact_paths: "log/rspec-*.xml"
-    key: "rspec"
-    env:
-      RAILS_ENV: test
+  - label: Update GraphQL docs
+    command: ./update_graphql_docs
     plugins:
+      - aws-ssm#v1.0.0:
+          parameters:
+            GH_TOKEN: /pipelines/buildkite/buildkite/buildkite_docs_github_token
       - docker-compose#v3.9.0:
           run: app
           env:
             - BUILDKITE_JOB_ID
-            - CI
-            - RAILS_ENV
-            - BUILDKITE_ANALYTICS_TOKEN
-
-  - label: ":spider: muffet"
-    # We need to wait until rails has started before running muffet as otherwise it will error out
-    # and the test will appear to have failed without having run. The time to wait is hard to
-    # predict, and furthermore, some paths take longer to be be ready than others. The path in this
-    # loop was chosen after some non-systematic observations. So it does not guarantee that the
-    # server will be ready. But it seems to work well in practice.
-    command: >-
-      while ! wget --spider -Sq http://app:3000/docs/agent/v3/hooks;
-        do echo 💎🛤️🦥 Rails is still starting;
-        sleep 0.5;
-      done &&
-      echo 💎🛤️🚆 Rails has started running &&
-      /muffet http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always
-    env:
-      RAILS_ENV: test
-    plugins:
-      - docker-compose#v3.9.0:
-          run: muffet
-          shell: false
-          upload-container-logs: always
-          env:
-            - BUILDKITE_JOB_ID
-            - CI
-            - RAILS_ENV
-
-  - label: ":junit: Test Summary"
-    depends_on: "rspec"
-    allow_dependency_failure: true
-    plugins:
-      - bugcrowd/test-summary#v1.11.0:
-          inputs:
-            - label: ":rspec: RSpec"
-              artifact_path: "log/rspec*"
-              type: junit
-          formatter:
-            type: details
-          context: test-summary
-
-  - group: "Lint all the things"
-    key: linting
-    steps:
-      - label: ":lint-roller: Linting text and markdown"
-        plugins:
-          - docker-compose#v3.9.0:
-              run: vale
-              config: ./vale/docker-compose.yml
-
-      - label: ":lint-roller: Linting for insensitive words"
-        command: npm run lint -y
-        plugins:
-          # Using the plain Node image, instead of the custom doc Dockerfile
-          # version, is way faster because we don't have to wait for Ruby gems to
-          # install.
-          - docker#v3.7.0:
-              # Alpine 3.14 - EOS 01 May 2023
-              # lts = Node 1415.1 - 2023-04-30
-              image: "node:lts-alpine3.14"
-      - label: "Validate YAML"
-        command:
-          - npm run -y validate-agent-attributes-yaml
-          - npm run -y validate-environment-variables-yaml
-        plugins:
-          - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
-      - label: ":lint-roller: :markdown: Linting the Markdown"
-        command: npm run -y mdlint
-        plugins:
-          - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
-
-      - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint
-        plugins:
-          - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+            - GH_TOKEN
