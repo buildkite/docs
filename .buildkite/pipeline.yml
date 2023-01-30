@@ -1,6 +1,6 @@
 steps:
   - label: Update GraphQL docs
-    command: ./update_graphql_docs
+    command: ./.buildkite/update_graphql_docs
     plugins:
       - aws-ssm#v1.0.0:
           parameters:
