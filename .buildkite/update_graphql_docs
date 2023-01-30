@@ -4,10 +4,10 @@ set -euo pipefail
 # echo "+++ Download GraphQL schema"
 # buildkite-agent artifact download "schema.json" "docs/data/graphql_data_schema.json" --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
 
-if [[ -z "$(git status --porcelain)" ]]; then
-  echo "No changes to commit"
-  exit 0
-fi
+# if [[ -z "$(git status --porcelain)" ]]; then
+#   echo "No changes to commit"
+#   exit 0
+# fi
 
 echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
