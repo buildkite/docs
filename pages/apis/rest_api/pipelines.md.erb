@@ -353,7 +353,13 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>teams</code></th>
     <td>
-      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are <code>read_only</code>, <code>build_and_read</code>, and <code>manage_build_and_read</code> You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the settings page for a team. This property is only available (and is then required) if your organization has enabled Teams. Replaces deprecated <code>team_uuids</code> parameter.</p>
+      <p>An array of team UUIDs to add this pipeline to. Allows you to specify the access level for the pipeline in a team. The available access level options are:
+      <ul>
+        <li><code>read_only</code></li>
+        <li><code>build_and_read</code></li>
+        <li><code>manage_build_and_read</code></li>
+      </ul>
+      You can find your team's UUID either using the <a href="/docs/apis/graphql-api">GraphQL API</a>, or on the Settings page for a team. This property is only available if your organization has enabled Teams. Once your organization enables Teams, only administrators can create pipelines without providing team UUIDs. Replaces deprecated <code>team_uuids</code> parameter.</p>
       <p><em>Example:</em></p>
       <%= render_markdown text: %{
 ```javascript
