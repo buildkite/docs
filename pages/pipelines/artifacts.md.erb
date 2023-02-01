@@ -3,6 +3,8 @@
 Buildkite can store and retrieve build outputs as _artifacts_.
 In this guide, you'll learn what artifacts are, what they're used for, and how to upload and download them.
 
+{:toc}
+
 An artifact is a file's contents and metadata, such as its original file path, an integrity verification hash, and details of the build that uploaded it.
 Buildkite agents upload artifacts to a storage service during a build.
 
@@ -48,8 +50,6 @@ You can upload artifacts [using a pipeline step](#upload-artifacts-with-a-comman
 When you upload an artifact, Buildkite saves the file's contents, the complete path the file was uploaded from, and details of the build step it originated from, so you can retrieve artifacts by name, path, or build.
 
 You can download artifacts by [running the `buildkite-agent artifact download` command](#download-artifacts-with-the-buildkite-agent) or by [making a request to the artifacts REST API](#download-artifacts-with-the-buildkite-rest-api).
-
-{:toc}
 
 ## Upload artifacts with a command step
 
