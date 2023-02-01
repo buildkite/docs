@@ -358,28 +358,28 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 
 1. Move your trigger step from your `pipeline.yml` file into a script. The below example script is stored in a file named `.buildkite/trigger-deploy.sh`:
 
-```bash
-#!/bin/bash
+    ```bash
+    #!/bin/bash
+    
+    set -euo pipefail
+    
+    # Set up a variable to hold the meta-data from your block step
+    RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
+    
+    # Create a pipeline with your trigger step
+    PIPELINE="steps:
+      - trigger: \"deploy-pipeline\"
+        label: \"Trigger deploy\"
+        build:
+          meta_data:
+            release-name: $RELEASE_NAME
+    "
+   
+    # Upload the new pipeline and add it to the current build
+    echo "$PIPELINE" | buildkite-agent pipeline upload
+    ```
 
-set -euo pipefail
-
-# Set up a variable to hold the meta-data from your block step
-RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
-
-# Create a pipeline with your trigger step
-PIPELINE="steps:
-  - trigger: \"deploy-pipeline\"
-    label: \"Trigger deploy\"
-    build:
-      meta_data:
-        release-name: $RELEASE_NAME
-"
-
-# Upload the new pipeline and add it to the current build
-echo "$PIPELINE" | buildkite-agent pipeline upload
-```
-
-2. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
+1. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
 
 #### Before
 

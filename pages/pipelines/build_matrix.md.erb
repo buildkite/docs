@@ -2,6 +2,8 @@
 
 Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
+{:toc}
+
 The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
 
 * [environment variables](/docs/pipelines/environment-variables)
@@ -9,8 +11,6 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 * [commands](/docs/pipelines/command-step#command-step-attributes)
 
 You can't use matrix values in other attributes, including step keys and plugin attributes.
-
-{:toc}
 
 For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
 
