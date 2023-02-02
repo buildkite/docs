@@ -135,7 +135,7 @@ To further tighten the security in a Buildkite organization, you can use the [AP
 
 The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
 
-The default environment variable name patterns are `*_PASSWORD`, `*_SECRET` and `*_TOKEN`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
+The default environment variable name patterns are `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`. You can replace the default patterns by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**.
 
 For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
 
