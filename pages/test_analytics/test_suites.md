@@ -23,6 +23,18 @@ Organizations typically choose their main production branch as their default, al
 
 To change your default branch, go to suite settings. You can also filter Test Analytics views by any branch by typing its name into the branch query parameter in the Test Analytics URL.
 
+## Tracking down flaky tests
+
+Test Analytics tracks down flaky tests by identifying tests with differing test results across your test suite.
+
+When the same test is run multiple times on the same commit SHA, but has both passed and failed results, it is surfaced as a flaky test. Flaky tests are detected regardless of whether they are run multiple times within a single run, or in multiple different runs.
+
+Some test suites have an option to automatically retry failed tests in the hope they will pass. We recommend using this option. Flaky tests can also be detected using manual retries; however, manual retries are typically not run as often and may not provide enough data to detect flaky tests.
+
+An alternative method is to schedule automatic jobs that run your test suite on the default branch. The builds typically run out of hours and exercise the test suite multiple times against the same commit SHA. In this method individual test retries are not required. By running a large number of builds it’s also possible to detect flaky tests that fail infrequently. Note, this approach can be combined with individual test retries.
+
+Right now, flaky test detection only happens once per day. We've found that the overall list of flakes doesn't change frequently, and this is fast enough to provide useful information.
+
 ## Tracking reliability
 
 Test Analytics calculates reliability of both your entire test suite and individual tests as a measure of flakiness over time.
