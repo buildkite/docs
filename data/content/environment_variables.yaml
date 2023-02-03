@@ -302,7 +302,7 @@ variables:
 - name: BUILDKITE_PLUGIN_NAME
   desc: |
     The "env key-compatible" version of the current plugin name. Used for constructing the `BUILDKITE_PLUGIN_<name>_<param>` variables.
-  example: "DOCKER_COMPOSE"
+  example: "DOCKER"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.
