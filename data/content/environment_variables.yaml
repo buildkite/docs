@@ -298,7 +298,7 @@ variables:
 - name: BUILDKITE_PLUGIN_CONFIGURATION
   desc: |
     A JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the `BUILDKITE_PLUGINS` environment variable).
-  example: "{\"array-key\":[{\"subkey\":[1,2,\"llamas\"]}]}"
+  example: "{\"image\":\"node:lts-alpine3.14\"}"
 - name: BUILDKITE_PLUGIN_NAME
   desc: |
     The "env key-compatible" version of the current plugin name. Used for constructing the `BUILDKITE_PLUGIN_<name>_<param>` variables.
