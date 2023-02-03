@@ -301,7 +301,7 @@ variables:
   example: "{\"image\":\"node:lts-alpine3.14\"}"
 - name: BUILDKITE_PLUGIN_NAME
   desc: |
-    The "env key-compatible" version of the current plugin name. Used for constructing the `BUILDKITE_PLUGIN_<name>_<param>` variables.
+    The current plugin's name, with all letters in uppercase and any spaces replaced with underscores.
   example: "DOCKER"
 - name: BUILDKITE_PLUGINS
   desc: |
