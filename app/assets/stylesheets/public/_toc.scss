@@ -1,11 +1,11 @@
 .Toc {
   box-sizing: border-box;
+  font-family: $font-family;
+  font-size: 13px;
 
   @media (min-width: $screen-lg) {
     background-color: #fff;
     border-left: #ddd 1px solid;
-    font-family: $font-family;
-    font-size: 14px;
     height: calc(100vh - #{$header-height});
     line-height: 1.5;
     overscroll-behavior: contain;
@@ -18,27 +18,38 @@
   }
 
   .Toc__title {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     margin-top: 5px;
   }
 
-  &__list {
+  .Toc__list {
     margin-top: 10px;
+    padding-left: 0;
   }
 
-  &__list-item {
-    color: $color-brand-green;
-    list-style-type: square;
+  .Toc__list-item {
+    list-style-type: none;
+    margin-bottom: 2px;
+    margin-top: 2px;
+  }
+
+  .Toc__link {
+    border-radius: 5px;
+    display: block;
+    padding: 6px 16px;
     
-    @media (min-width: $screen-lg) {
-      margin: 12px 0 12px 15px !important; // override nested .TextContent list styles
+    &:hover {
+      color: #4B19D5;
     }
-  }
 
-  &__link {
     @media (min-width: $screen-lg) {
-      color: #4f4f4f !important; // override nested .TextContent list styles
+      color: #4f4f4f;
       text-decoration: none;
+    }
+
+    &--current {
+      background-color: #F1EFFF;
+      color: #4B19D5;
     }
   }
 }
