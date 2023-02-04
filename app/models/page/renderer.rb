@@ -114,8 +114,10 @@ class Page::Renderer
 
         node.replace(<<~HTML.strip)
           <nav class="Toc">
-            <p class="Toc__title"><strong>On this page:</strong></p>
-            <ul class="Toc__list">
+            <button class="Toc__toggle">
+              <h2 class="Toc__title">On this page</h2>
+            </button>
+            <ul class="Toc__list Toc__list--is-collapsed">
               #{html_list_items}
             </ul>
           </nav>
