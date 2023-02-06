@@ -12,8 +12,10 @@ set -euo pipefail
 echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
 
+echo "+++ Check for changes"
 SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
 
+echo "+++ Configure git"
 git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
 git config --global user.name $BUILDKITE_BUILD_AUTHOR
 
