@@ -2,9 +2,6 @@ steps:
   - label: Update GraphQL docs
     command: ./.buildkite/update_graphql_docs
     plugins:
-      - aws-ssm#v1.0.0:
-          parameters:
-            GH_TOKEN: /pipelines/buildkite/buildkite/buildkite_docs_github_token
       - docker-compose#v3.9.0:
           run: app
           env:
