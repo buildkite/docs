@@ -1,6 +1,6 @@
 steps:
   - label: Update GraphQL docs
-    command: ./.buildkite/update_graphql_docs
+    command: .buildkite/update_graphql_docs
     plugins:
       - docker-compose#v3.9.0:
           run: app
