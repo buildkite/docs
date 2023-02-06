@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -euo pipefail
+
 scripts_dir="$(dirname "${BASH_SOURCE[0]}")"
 
 echo "Removing existing GraphQL docs..."
