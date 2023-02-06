@@ -12,5 +12,3 @@ steps:
             - BUILDKITE_BUILD_AUTHOR_EMAIL
             - BUILDKITE_BUILD_AUTHOR
             - GH_TOKEN
-    agents:
-      queue: agent-runners-linux-amd64
