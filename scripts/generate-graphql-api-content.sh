@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -euo pipefail
+set -v
 
 scripts_dir="$(dirname "${BASH_SOURCE[0]}")"
 
