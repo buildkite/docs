@@ -9,10 +9,6 @@ set -euo pipefail
 #   exit 0
 # fi
 
-
-cd $(dirname $0)/..
-
-
 echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
 
