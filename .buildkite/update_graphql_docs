@@ -15,6 +15,9 @@ echo "+++ Generate GraphQL docs"
 echo "+++ Check for changes"
 SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
 
+echo "+++ Authenticate with GitHub"
+echo $GH_TOKEN | gh auth login --with-token
+
 echo "+++ Configure git"
 git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
 git config --global user.name $BUILDKITE_BUILD_AUTHOR
@@ -26,7 +29,6 @@ git commit -m "Update GraphQL docs" --allow-empty # fixme: this is temporary, un
 # git commit -m "Update GraphQL docs"
 
 echo "+++ Push changes"
-echo $GH_TOKEN | gh auth login --with-token
 git push -u origin graphql-schema-update-$SCHEMA_HASH
 
 # echo "+++ Create pull request"
