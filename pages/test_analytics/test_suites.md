@@ -25,6 +25,8 @@ To change your default branch, go to suite settings. You can also filter Test An
 
 ## Detecting flaky tests
 
+Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment. They cause frustration, decrease confidence in testing, and waste time while you investigate whether the failure is due to a genuine bug.
+
 Test Analytics tracks down flaky tests by identifying tests with differing test results across your test suite.
 
 When the same test is run multiple times on the same commit SHA, but has both passed and failed results, it is surfaced as a flaky test. Flaky tests are detected regardless of whether they are run multiple times within a single run, or in multiple different runs.
