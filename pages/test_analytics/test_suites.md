@@ -27,15 +27,13 @@ To change your default branch, go to suite settings. You can also filter Test An
 
 Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment. They cause frustration, decrease confidence in testing, and waste time while you investigate whether the failure is due to a genuine bug.
 
-Test Analytics tracks down flaky tests by identifying tests with differing test results across your test suite.
+Test Analytics detects flaky tests by surfacing when the same test is run multiple times on the same commit SHA with different results. The tests might run multiple times within a single build or across different builds. Either way, they are detected as flaky if they report both passed and failed results.
 
-When the same test is run multiple times on the same commit SHA, but has both passed and failed results, it is surfaced as a flaky test. Flaky tests are detected regardless of whether they are run multiple times within a single run, or in multiple different runs.
-
-Some test suites have an option to automatically retry failed tests in the hope they will pass. We recommend using this option. Flaky tests can also be detected using manual retries; however, manual retries are typically not run as often and may not provide enough data to detect flaky tests.
+If your test suite supports it, we recommend enabling the option to retry failed tests automatically. Automatic retries are typically run more often and provide more data to detect flaky tests. If you can't use automatic retries, Test Analytics also detects flaky tests from manual retries.
 
 An alternative method is to schedule automatic jobs that run your test suite on the default branch. The builds typically run out of hours and exercise the test suite multiple times against the same commit SHA. In this method individual test retries are not required. By running a large number of builds it’s also possible to detect flaky tests that fail infrequently. Note, this approach can be combined with individual test retries.
 
-Right now, flaky test detection only happens once per day. We've found that the overall list of flakes doesn't change frequently, and this is fast enough to provide useful information.
+Test Analytics reviews the test results to detect flaky tests once per day. The list of flaky tests doesn't change often, so we've found this to be frequent enough to provide helpful information.
 
 ## Tracking reliability
 
