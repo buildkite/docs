@@ -23,7 +23,7 @@ Organizations typically choose their main production branch as their default, al
 
 To change your default branch, go to suite settings. You can also filter Test Analytics views by any branch by typing its name into the branch query parameter in the Test Analytics URL.
 
-## Tracking down flaky tests
+## Detecting flaky tests
 
 Test Analytics tracks down flaky tests by identifying tests with differing test results across your test suite.
 
