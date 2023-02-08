@@ -36,8 +36,10 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
-          <ul class="Toc__list">
+          <button class="Toc__toggle">
+            <h2 class="Toc__title">On this page</h2>
+          </button>
+          <ul class="Toc__list Toc__list--is-collapsed">
             <li class="Toc__list-item"><a class="Toc__link" href="#section-1">Section 1</a></li>
         <li class="Toc__list-item"><a class="Toc__link" href="#section-2">Section 2</a></li>
           </ul>
@@ -75,8 +77,10 @@ RSpec.describe Page::Renderer do
 
       html = <<~HTML
         <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
-          <ul class="Toc__list">
+          <button class="Toc__toggle">
+            <h2 class="Toc__title">On this page</h2>
+          </button>
+          <ul class="Toc__list Toc__list--is-collapsed">
             <li class="Toc__list-item"><a class="Toc__link" href="#section">Section</a></li>
           </ul>
         </nav>
