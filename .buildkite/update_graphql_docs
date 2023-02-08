@@ -13,20 +13,21 @@ echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
 
 echo "+++ Check for changes"
-SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
+# SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
+BRANCH=graphql-schema-update-$(date +%s)
 
 echo "+++ Configure git"
 # git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
 # git config --global user.name $BUILDKITE_BUILD_AUTHOR
 
 echo "--- Commit and push changes"
-git checkout -b graphql-schema-update-$SCHEMA_HASH
+git checkout -b $BRANCH
 git add .
 git commit -m "Update GraphQL docs" --allow-empty # fixme: this is temporary, until we have a schema change
 # git commit -m "Update GraphQL docs"
 
 echo "+++ Push changes"
-git push -u origin graphql-schema-update-$SCHEMA_HASH
+git push -u origin $BRANCH
 
 # echo "+++ Create pull request"
 # gh pr create --title "Update GraphQL schema" --body "This PR updates the GraphQL schema to the latest version." --base master --head graphql-schema-update-$(date +%Y-%m-%d)
