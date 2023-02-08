@@ -1,7 +1,7 @@
 .Toc {
-  background-color: #f8f8f8;
+  background-color: $gray-100;
   box-sizing: border-box;
-  border: 1px solid #ddd;
+  border: 1px solid $gray-500;
   border-radius: 5px;
   font-size: 13px;
   
@@ -91,18 +91,18 @@
 
   .Toc__link {
     border-radius: 5px;
-    color: #4f4f4f;
+    color: $charcoal-500;
     display: block;
     padding: 6px 16px;
     text-decoration: none;
     
     &:hover {
-      color: #4B19D5;
+      color: $purple-600;
     }
 
     &--current {
-      background-color: #F1EFFF;
-      color: #4B19D5;
+      background-color: $purple-100;
+      color: $purple-600;
     }
   }
 }

@@ -33,11 +33,11 @@
   }
 
   &[aria-checked="true"] {
-    border-color: $color-lime;
+    border-color: $button-primary;
     background: $button-default-background-color;
 
     svg > path {
-      stroke: $color-lime;
+      stroke: $button-primary;
     }
   }
 }
