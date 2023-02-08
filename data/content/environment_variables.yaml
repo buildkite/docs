@@ -295,6 +295,14 @@ variables:
     A colon separated list of the pipeline's non-private team slugs.
   modifiable: false
   example: "deploy:ops:production"
+- name: BUILDKITE_PLUGIN_CONFIGURATION
+  desc: |
+    A JSON string holding the current plugin's configuration (as opposed to all the plugin configurations in the `BUILDKITE_PLUGINS` environment variable).
+  example: "{\"image\":\"node:lts-alpine3.14\"}"
+- name: BUILDKITE_PLUGIN_NAME
+  desc: |
+    The current plugin's name, with all letters in uppercase and any spaces replaced with underscores.
+  example: "DOCKER"
 - name: BUILDKITE_PLUGINS
   desc: |
     A JSON object containing a list plugins used in the step, and their configuration.
