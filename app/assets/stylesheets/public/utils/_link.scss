@@ -6,13 +6,13 @@
 .Link--no-underline {
   @extend .Link;
   text-decoration: none;
-  &:hover, &:active, &:focus { color: $color-brand-green; }
+  &:hover, &:active, &:focus { color: $text-link; }
 }
 
 .Link--on-white {
   @extend .Link;
   color: rgba(black, $text-on-dark-subdued-opacity);
-  &:hover, &:active, &:focus { color: $color-brand-green; }
+  &:hover, &:active, &:focus { color: $text-link; }
 }
 
 .Link--faded-on-white {

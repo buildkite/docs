@@ -182,7 +182,7 @@ $color-green: rgb(3, 165, 98);
   }
 
   .Docs__attribute__importance {
-    color: $color-brand-green;
+    color: $brand;
     margin: 5px 0;
     text-transform: uppercase;
     font: 300 13px $font-family;
@@ -220,11 +220,11 @@ a.Docs__example-repo {
   text-decoration: none;
 
   &:hover, &:active, &:focus {
-    border-color: $color-brand-green;
+    border-color: $brand;
     color: black;
 
     .repo {
-      color: $color-brand-green;
+      color: $brand;
     }
   }
 

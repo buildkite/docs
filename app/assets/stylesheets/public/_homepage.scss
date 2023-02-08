@@ -216,7 +216,7 @@
   }
 
   &__header:hover &__icon {
-    background-color: $color-brand-green;
+    background-color: $brand;
 
     .HomepageCategory__icon-img {
       filter: brightness(0) invert(1);
