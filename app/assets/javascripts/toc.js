@@ -19,8 +19,12 @@
     const setCurrentLink = (hash) => {
       const currentNode = [ ...tocLinkNodes ].find((link) => link.hash === hash);
       
-      tocLinkNodes.forEach((link) => link.classList.remove(currentClassName));
+      tocLinkNodes.forEach((link) => {
+        link.classList.remove(currentClassName);
+        link.removeAttribute('aria-current');
+      });
       currentNode?.classList.add(currentClassName);
+      currentNode?.setAttribute('aria-current', '');
     };
 
     tocLinkNodes.forEach((link) => {
