@@ -31,7 +31,7 @@ Test Analytics detects flaky tests by surfacing when the same test is run multip
 
 If your test suite supports it, we recommend enabling the option to retry failed tests automatically. Automatic retries are typically run more often and provide more data to detect flaky tests. If you can't use automatic retries, Test Analytics also detects flaky tests from manual retries.
 
-An alternative method is to schedule automatic jobs that run your test suite on the default branch. The builds typically run out of hours and exercise the test suite multiple times against the same commit SHA. In this method individual test retries are not required. By running a large number of builds it’s also possible to detect flaky tests that fail infrequently. Note, this approach can be combined with individual test retries.
+Alternatively, you can create scheduled builds to run your test suite on the default branch. You can schedule them outside your typical development time to run the test suite multiple times against the same commit SHA. You can still enable test retries in this setup, but they're less important. The more builds you run, the more likely you'll detect flaky tests that fail infrequently. 
 
 Test Analytics reviews the test results to detect flaky tests once per day. The list of flaky tests doesn't change often, so we've found this to be frequent enough to provide helpful information.
 
