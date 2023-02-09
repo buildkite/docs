@@ -2,7 +2,7 @@ steps:
   - label: Update GraphQL docs
     command: .buildkite/update_graphql_docs
     plugins:
-      - docker-compose#v3.9.0:
+      - docker-compose#v4.9.0:
           run: ruby
           mount-ssh-agent: true
           env:
