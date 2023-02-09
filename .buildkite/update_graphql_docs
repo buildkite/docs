@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
+
+
+
 # TODO: move to env
 EMAIL="chris.c+docbot@buildkite.com"
 NAME="buildkite-docs-bot"
@@ -8,6 +11,8 @@ NAME="buildkite-docs-bot"
 echo "+++ Configure git"
 git config --global user.email $EMAIL
 git config --global user.name $NAME
+
+cat ~/.ssh/known_hosts
 
 # echo "+++ Download GraphQL schema"
 # buildkite-agent artifact download "schema.json" "docs/data/graphql_data_schema.json" --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
