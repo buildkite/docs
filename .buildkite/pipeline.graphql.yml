@@ -4,6 +4,7 @@ steps:
     plugins:
       - docker-compose#v3.9.0:
           run: ruby
+          mount-ssh-agent: true
           env:
             - BUILDKITE_JOB_ID
             - BUILDKITE_BUILD_AUTHOR_EMAIL
