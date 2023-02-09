@@ -2,8 +2,11 @@
 set -euo pipefail
 
 echo "+++ Configure git"
-git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
-git config --global user.name $BUILDKITE_BUILD_AUTHOR
+echo $(git config --get user.name)
+git config --global user.email "chris@meow.org"
+git config --global user.name "chris"
+
+exit 1
 
 # echo "+++ Download GraphQL schema"
 # buildkite-agent artifact download "schema.json" "docs/data/graphql_data_schema.json" --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
