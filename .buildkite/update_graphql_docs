@@ -16,7 +16,12 @@ echo "+++ Check for changes"
 # SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
 BRANCH=graphql-schema-update-$(date +%s)
 
+
+
 echo "+++ Configure git"
+
+cat .git/config
+
 git config user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
 git config user.name $BUILDKITE_BUILD_AUTHOR
 
