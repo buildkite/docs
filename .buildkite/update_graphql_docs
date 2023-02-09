@@ -17,8 +17,8 @@ echo "+++ Check for changes"
 BRANCH=graphql-schema-update-$(date +%s)
 
 echo "+++ Configure git"
-# git config --global user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
-# git config --global user.name $BUILDKITE_BUILD_AUTHOR
+git config user.email $BUILDKITE_BUILD_AUTHOR_EMAIL
+git config user.name $BUILDKITE_BUILD_AUTHOR
 
 echo "--- Commit and push changes"
 git checkout -b $BRANCH
