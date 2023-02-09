@@ -19,7 +19,7 @@ services:
       - -c
 
   ruby:
-    image: ruby:2.7.5-slim-buster
+    image: ruby:2.7.5-buster
     working_dir: /app
     volumes:
       - '.:/app'
