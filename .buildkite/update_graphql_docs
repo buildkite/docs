@@ -1,16 +1,9 @@
 #!/bin/bash
 set -euo pipefail
 
-
-
-
-# TODO: move to env
-EMAIL="chris.c+docbot@buildkite.com"
-NAME="buildkite-docs-bot"
-
 echo "+++ Configure git"
-git config user.email $EMAIL
-git config user.name $NAME
+git config user.email $GIT_EMAIL
+git config user.name $GIT_NAME
 
 # echo "+++ Download GraphQL schema"
 # buildkite-agent artifact download "schema.json" "docs/data/graphql_data_schema.json" --build $BUILDKITE_TRIGGERED_FROM_BUILD_ID
@@ -21,10 +14,10 @@ git config user.name $NAME
 # fi
 
 echo "+++ Generate GraphQL docs"
-# ./scripts/generate-graphql-api-content.sh
+./scripts/generate-graphql-api-content.sh
 
 echo "+++ Check for changes"
-# SCHEMA_HASH=$(git rev-parse --short :data/graphql_data_schema.json)
+# BRANCH=buildkite-docs-bot/graphql/$(git rev-parse --short :data/graphql_data_schema.json)
 BRANCH=graphql-schema-update-$(date +%s)
 
 echo "--- Commit and push changes"
@@ -36,6 +29,8 @@ git commit -m "Update GraphQL docs" --allow-empty # fixme: this is temporary, un
 echo "+++ Push changes"
 git push -u origin $BRANCH
 
-# echo "+++ Create pull request"
-# gh pr create --title "Update GraphQL schema" --body "This PR updates the GraphQL schema to the latest version." --base master --head graphql-schema-update-$(date +%Y-%m-%d)
+echo "+++ Create pull request"
+gh pr create \
+  --title "Update GraphQL schema" \
+  --body "This is automated PR for generating docs based on the latest GraphQL schema."
 
