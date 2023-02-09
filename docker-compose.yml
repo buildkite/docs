@@ -17,3 +17,9 @@ services:
     entrypoint:
       - ash
       - -c
+
+  git:
+    image: alpine/git
+    working_dir: /app
+    volumes:
+      - '.:/app'
