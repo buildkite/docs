@@ -3,7 +3,7 @@ steps:
     command: .buildkite/update_graphql_docs
     plugins:
       - docker-compose#v3.9.0:
-          run: git
+          run: ruby
           env:
             - BUILDKITE_JOB_ID
             - BUILDKITE_BUILD_AUTHOR_EMAIL

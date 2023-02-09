@@ -18,8 +18,8 @@ services:
       - ash
       - -c
 
-  git:
-    image: alpine/git
+  ruby:
+    image: ruby:2.7.5-slim-buster
     working_dir: /app
     volumes:
       - '.:/app'
