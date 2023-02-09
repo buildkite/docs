@@ -3,10 +3,9 @@ steps:
     command: .buildkite/update_graphql_docs
     plugins:
       - docker-compose#v4.9.0:
-          run: ruby
+          run: app
           mount-ssh-agent: true
           env:
-            - BUILDKITE_JOB_ID
-            - BUILDKITE_BUILD_AUTHOR_EMAIL
-            - BUILDKITE_BUILD_AUTHOR
+            - GIT_NAME
+            - GIT_EMAIL
             - GH_TOKEN
