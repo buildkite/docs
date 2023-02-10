@@ -34,7 +34,7 @@
 
   &[aria-checked="true"] {
     border-color: $color-lime;
-    background: transparent;
+    background: $button-default-background-color;
 
     svg > path {
       stroke: $color-lime;

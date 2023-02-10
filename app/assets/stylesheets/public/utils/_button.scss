@@ -1,3 +1,5 @@
+$button-default-background-color: white;
+
 .Button {
   align-items: flex-start;
   border: transparent 1px solid;
@@ -12,7 +14,7 @@
   margin-bottom: 10px;
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
-  
+
   @media (min-width: $screen-xs) {
     display: inline-flex;
     margin-right: 5px;
@@ -30,9 +32,9 @@
   }
 
   &--default {
-    background-color: white;
+    background-color: $button-default-background-color;
     border-color: #ddd;
-  
+
     &:hover {
       background-color: #f2f2f2;
       color: #333 !important; // override possible nested content styling
