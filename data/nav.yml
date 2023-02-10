@@ -264,7 +264,6 @@
             path: 'deployments/deploying-to-kubernetes'
   - name: 'Test Analytics'
     path: 'test-analytics'
-    pill: 'new'
     children:
       - name: 'Overview'
         path: 'test-analytics'
