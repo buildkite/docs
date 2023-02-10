@@ -35,7 +35,7 @@
 
       .algolia-docsearch-suggestion--subcategory-inline {
         display: inline-block;
-        color: #a4a7ae;
+        color: $gray-700;
         font-size: 15px;
       }
 
@@ -46,7 +46,7 @@
     }
 
     .algolia-docsearch-suggestion--highlight {
-      color: #14CC80;
+      color: map-get($color-aliases, 'brand');
       background: rgba(20, 204, 128, .1);
       padding: 0;
       padding-bottom: 2px;
@@ -54,7 +54,7 @@
     }
 
     .algolia-docsearch-suggestion--category-header {
-      color: #14CC80;
+      color: map-get($color-aliases, 'brand');
       font-weight: bold;
       margin-top: 0;
 

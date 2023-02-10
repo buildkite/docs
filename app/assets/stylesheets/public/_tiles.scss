@@ -53,7 +53,7 @@
   }
 
   .TileItem__list-item-link {
-    color: #333;
+    color: map-get($color-aliases, 'text-base');
     text-decoration: none;
 
     &::after {
@@ -65,7 +65,7 @@
     }
 
     &:hover {
-      color: #555;
+      color: map-get($color-aliases, 'text-lightest');
 
       &::after {
         transform: translateX(2px);

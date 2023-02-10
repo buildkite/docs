@@ -1,5 +1,5 @@
 .status-badges__examples {
-  color: #333;
+  color: map-get($color-aliases, 'text-base');
   th, td {
     padding: 5px 1px;
   }
@@ -15,7 +15,7 @@
     vertical-align: middle;
   }
   code .muted {
-    color: #888;
+    color: $gray-900;
   }
   @media (max-width: 768px) {
     tr, th {

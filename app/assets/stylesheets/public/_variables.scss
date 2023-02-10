@@ -1,5 +1,5 @@
 // global colors
-$base-0: #FFF;
+$base-0: #ffffff;
 $base-1000: #000;
 $aqua-100: #DDFFFA;
 $aqua-500: #6AF0DB;
@@ -59,19 +59,23 @@ $slate-800: #202632;
 $slate-900: #151921;
 
 // color aliases
-$text-base: $charcoal-700;
-$text-lightest: $charcoal-300;
-$text-link: $olive-700;
-$text-display: $slate-900;
-$text-body: $charcoal-400;
-$button-primary: $lime-500;
-$border: $gray-500;
-$panel-background: $gray-100;
-$icon: $charcoal-700;
-$state-success: $green-500;
-$state-fail: $red-500;
-$state-warning: $orange-500;
-$brand: $lime-500;
+$color-aliases: (
+  'text-base': $charcoal-700,
+  'text-lightest': $charcoal-400,
+  'text-link': $olive-700,
+  'text-display': $slate-900,
+  'text-body': $charcoal-400,
+  'button-primary': $lime-500,
+  'border': $gray-500,
+  'panel-background': $gray-100,
+  'icon': $charcoal-700,
+  'state-success': $green-500,
+  'state-fail': $red-500,
+  'state-warning': $orange-500,
+  'brand': $lime-500,
+  'selected': $purple-600,
+  'selected-bg': $purple-100
+);
 
 // font
 $font-size-base: 16px;
@@ -86,8 +90,8 @@ $screen-sm: 768px;
 $screen-md: 960px;
 $screen-lg: 1280px;
 $screen-xl: 1536px;
+$border-rounded: 5px;
 $transition-speed: 300ms;
-$brand: $lime-500;
 $filter-brand-green: invert(58%) sepia(82%) saturate(466%) hue-rotate(103deg) brightness(95%) contrast(86%);
 $header-height: 64px;
 $sidebar-width: 275px;

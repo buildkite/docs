@@ -6,13 +6,13 @@
 .Link--no-underline {
   @extend .Link;
   text-decoration: none;
-  &:hover, &:active, &:focus { color: $text-link; }
+  &:hover, &:active, &:focus { color: map-get($color-aliases, 'text-link'); }
 }
 
 .Link--on-white {
   @extend .Link;
   color: rgba(black, $text-on-dark-subdued-opacity);
-  &:hover, &:active, &:focus { color: $text-link; }
+  &:hover, &:active, &:focus { color: map-get($color-aliases, 'text-link'); }
 }
 
 .Link--faded-on-white {
@@ -22,8 +22,8 @@
 
 .Link--on-dark {
   @extend .Link;
-  color: rgba(white, $text-on-dark-subdued-opacity);
-  &:hover, &:active, &:focus { color: white; }
+  color: rgba($base-0, $text-on-dark-subdued-opacity);
+  &:hover, &:active, &:focus { color: $base-0; }
 }
 
 .Link--green-on-dark {
@@ -40,14 +40,14 @@
 
 .Link--faded-on-dark {
   @extend .Link--on-dark;
-  color: rgba(white, $text-on-dark-very-subdued-opacity);
+  color: rgba($base-0, $text-on-dark-very-subdued-opacity);
 }
 
 .Link--bold-on-dark {
   @extend .Link--no-underline;
   @extend .Link--on-dark;
   font-weight: 700;
-  color: white;
+  color: $base-0;
 }
 
 .Link--bold-automatic {
@@ -76,18 +76,18 @@
 
 .Link--solid-on-dark {
   @extend .Link--outline;
-  background-color: rgba(white, .93);
-  color: #14CC80;
+  background-color: rgba($base-0, .93);
+  color: map-get($color-aliases, 'brand');
   border: none;
   font-weight: 400;
 
-  &:hover, &:active, &:focus { background-color: white; }
+  &:hover, &:active, &:focus { background-color: $base-0; }
 }
 
 .Link--on-dark.Link--outline {
   @extend .Link;
-  border-color: rgba(white, .4);
-  &:hover, &:active, &:focus { border-color: rgba(white, .6); }
+  border-color: rgba($base-0, .4);
+  &:hover, &:active, &:focus { border-color: rgba($base-0, .6); }
 }
 
 .Link--inline-block {

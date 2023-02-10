@@ -1,6 +1,6 @@
 @mixin callout($callout_color) {
   border-left: 3px solid $callout_color;
-  color: #666;
+  color: map-get($color-aliases, 'text-lightest');
   font-size: #{(16/18)}rem;
   margin: 1.5rem 0 2rem 0;
   padding: 0 0 0 1rem;
@@ -24,7 +24,7 @@
       }
 
       &:hover:before {
-        color: #666;
+        color: map-get($color-aliases, 'text-lightest');
         content: '#';
         font-size: 1rem;
         font-weight: normal;

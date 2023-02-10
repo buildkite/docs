@@ -33,11 +33,11 @@
   }
 
   &[aria-checked="true"] {
-    border-color: $button-primary;
+    border-color: map-get($color-aliases, 'button-primary');
     background: $button-default-background-color;
 
     svg > path {
-      stroke: $button-primary;
+      stroke: map-get($color-aliases, 'button-primary');
     }
   }
 }

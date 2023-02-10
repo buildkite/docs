@@ -1,9 +1,9 @@
 @mixin _link-with-arrow {
-  color: #333;
+  color: map-get($color-aliases, 'text-base');
   text-decoration: none;
 
   &:hover {
-    color: #555;
+    color: map-get($color-aliases, 'text-lightest');
   }
 
   &:active::after {
@@ -57,17 +57,17 @@
     max-width: 500px;
     width: 100%;
     font-family: $font-family-base;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    color: #333;
+    background-color: $base-0;
+    border: 1px solid map-get($color-aliases, 'border');
+    color: map-get($color-aliases, 'text-base');
     outline: none;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
     transition: border-color 0.2s;
     -webkit-appearance: none;
     -moz-appearance: none;
-    &:focus { border-color: #14CC80; }
-    &::placeholder { color: #707070; transition: all 0.2s; }
-    &:focus::placeholder { color: #333; }
+    &:focus { border-color: map-get($color-aliases, 'brand'); }
+    &::placeholder { color: $charcoal-300; transition: all 0.2s; }
+    &:focus::placeholder { color: map-get($color-aliases, 'text-base'); }
   }
 }
 
@@ -86,7 +86,7 @@
 }
 
 .HomeSuggestions {
-  background-color: #f2f2f2;
+  background-color: map-get($color-aliases, 'panel-background');
   font-size: 16px;
   max-width: 500px;
   display: block;
@@ -116,7 +116,7 @@
 
 .HomepageSection {
   &__heading {
-    color: #767676;
+    color: map-get($color-aliases, 'text-lightest');
     font-size: .888rem;
     font-weight: 600;
     letter-spacing: 1px;
@@ -128,7 +128,7 @@
 }
 
 .HomepageCategory {
-  border: #ddd 1px solid;
+  border: map-get($color-aliases, 'border') 1px solid;
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -152,8 +152,8 @@
   }
 
   &__header {
-    border-bottom: #ddd 1px solid;
-    color: #333;
+    border-bottom: map-get($color-aliases, 'border') 1px solid;
+    color: map-get($color-aliases, 'text-base');
     display: grid;
     grid-template-areas:
       "heading icon"
@@ -191,7 +191,7 @@
   }
 
   &__subtext {
-    color: #767676;
+    color: map-get($color-aliases, 'text-lightest');
     font-size: .888rem;
     font-weight: 500;
     grid-area: subtext;
@@ -199,7 +199,7 @@
 
   &__icon {
     align-items: center;
-    background-color: #f2f2f2;
+    background-color: map-get($color-aliases, 'panel-background');
     border-radius: 50%;
     display: flex;
     grid-area: icon;
@@ -216,7 +216,7 @@
   }
 
   &__header:hover &__icon {
-    background-color: $brand;
+    background-color: map-get($color-aliases, 'brand');
 
     .HomepageCategory__icon-img {
       filter: brightness(0) invert(1);

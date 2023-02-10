@@ -1,5 +1,5 @@
 .Footer {
-  color: #767676;
+  color: map-get($color-aliases, 'text-lightest');
   font-size: .8889rem;
   line-height: 1.4;
   margin-bottom: 30px;
@@ -7,7 +7,7 @@
   text-align: center;
 
   &__heading {
-    color: #333;
+    color: map-get($color-aliases, 'text-base');
     font-size: .8889rem;
     font-weight: 600;
     margin-bottom: 5px;
