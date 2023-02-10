@@ -1,8 +1,66 @@
-.TextContent {
-  line-height: 1.4;
+@mixin margin($margin: 1) {
+  margin-bottom: #{$margin}rem;
+  margin-top: #{$margin}rem;
 
-  h2, h3, h4, blockquote, pre, p, table { margin: 1rem 0; }
-  h2 { font-size: #{(24/18)}rem; margin-top: 1.5em; }
+  &:first-child {
+    margin-top: 0;
+  }
+}
+
+@mixin body {
+  font-size: 1.1875rem;
+  line-height: 1.618;
+  @include margin;
+}
+
+@mixin heading($size-multiplier, $margin: 1) {
+  clear: both;
+  color: $text-display;
+  font-family: $font-family-display;
+  font-size: #{$size-multiplier}rem;
+  font-style: normal;
+  font-weight: bold;
+  line-height: 1.35;
+
+  @include margin($margin);
+}
+
+.TextContent {
+  @include body;
+  
+  h1 {
+    @include heading(3);
+  }
+
+  h2 {
+    @include heading(2);
+  }
+
+  h3 {
+    @include heading(1.5)
+  }
+
+  h4 {
+    @include heading(1.1875)
+  }
+
+  h5 {
+    @include heading(1)
+  }
+
+  h6 {
+    @include heading(.875)
+  }
+
+  p {
+    @include body;
+  }
+
+  blockquote,
+  pre,
+  table { 
+    margin: 1rem 0; 
+  }
 
   li {
     margin-bottom: .5em;
@@ -58,9 +116,6 @@
       }
     }
   }
-
-  li ul,
-  li p { margin-bottom: 0.5em; }
 
   .two-column-list {
     display: grid;

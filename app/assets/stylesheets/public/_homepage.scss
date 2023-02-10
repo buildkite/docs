@@ -56,7 +56,7 @@
     font-size: 16px;
     max-width: 500px;
     width: 100%;
-    font-family: $font-family;
+    font-family: $font-family-base;
     background-color: #fff;
     border: 1px solid #ccc;
     color: #333;
@@ -159,7 +159,7 @@
       "heading icon"
       "subtext icon";
     grid-template-columns: 1fr auto;
-    font-family: $font-family;
+    font-family: $font-family-base;
     gap: 5px;
     line-height: 1.4;
     padding-bottom: 20px;
@@ -224,7 +224,7 @@
   }
 
   &__list {
-    font-family: $font-family;
+    font-family: $font-family-base;
     font-size: 16px;
     font-weight: 500;
     line-height: 125%;
