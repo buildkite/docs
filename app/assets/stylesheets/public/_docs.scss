@@ -23,10 +23,10 @@ $color-green: rgb(3, 165, 98);
   position: relative;
 
   kbd {
-    background: #efefef;
+    background: $gray-300;
     border-radius: 0.2rem;
-    border: 1px solid #eee;
-    color: #aaa;
+    border: 1px solid $gray-300;
+    color: $gray-700;
     font-size: 14px;
     font-weight: 700;
     padding: 4px 6px;
@@ -129,7 +129,7 @@ $color-green: rgb(3, 165, 98);
   td p:first-child { margin-top: 0; }
 
   .Docs__attribute__link {
-    color: #ccc;
+    color: $gray-600;
     opacity: 0;
     transition: all 0.2s;
   }
@@ -139,7 +139,7 @@ $color-green: rgb(3, 165, 98);
       opacity: 1.0;
 
       &:hover {
-        color: #aaa;
+        color: $gray-700;
       }
     }
   }
@@ -168,7 +168,7 @@ $color-green: rgb(3, 165, 98);
   }
 
   .Docs__attribute__importance {
-    color: $brand;
+    color: map-get($color-aliases, 'brand');
     margin: 5px 0;
     text-transform: uppercase;
     font: 300 13px $font-family-base;
@@ -206,11 +206,11 @@ a.Docs__example-repo {
   text-decoration: none;
 
   &:hover, &:active, &:focus {
-    border-color: $brand;
+    border-color: map-get($color-aliases, 'brand');
     color: black;
 
     .repo {
-      color: $brand;
+      color: map-get($color-aliases, 'brand');
     }
   }
 
@@ -233,7 +233,7 @@ a.Docs__example-repo {
   }
 
   .repo {
-    color: #666;
+    color: map-get($color-aliases, 'text-lightest');
     display: block;
     font-size: #{(14/18)}rem;
     font-weight: normal;
@@ -243,7 +243,7 @@ a.Docs__example-repo {
 }
 
 .Docs__time-estimate {
-  color: #14CC80;
+  color: map-get($color-aliases, 'brand');
   font-size: 0.85em;
   letter-spacing: 0.02em;
   &:before {
@@ -266,18 +266,18 @@ a.Docs__example-repo {
 
   .Docs__heading__anchor {
     text-decoration: none;
-    color: $text-display;
+    color: map-get($color-aliases, 'text-display');
 
     &:hover,
     &:active,
     &:focus {
-      color: $text-display;
+      color: map-get($color-aliases, 'text-display');
     }
   }
 
   &:hover:before {
     content: '#';
-    color: #666;
+    color: map-get($color-aliases, 'text-lightest');
     font-size: 1rem;
     font-weight: normal;
     margin-left: .5rem;

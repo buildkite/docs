@@ -1,7 +1,7 @@
 $SiteHeaderLogoHeight: 36px;
 
 .SiteHeader {
-  background-color: #fff;
+  background-color: $base-0;
   box-sizing: border-box;
   line-height: $SiteHeaderLogoHeight;
   z-index: 20;
@@ -74,7 +74,7 @@ $SiteHeaderLogoHeight: 36px;
 }
 
 .SiteHeader__docslink {
-  color: #111;
+  color: $charcoal-900;
   text-decoration: none;
   transition: color $transition-speed;
   will-change: color;
@@ -82,7 +82,7 @@ $SiteHeaderLogoHeight: 36px;
   &:hover,
   &:focus,
   &:active {
-    color: #14CC80;
+    color: map-get($color-aliases, 'brand');
   }
 }
 

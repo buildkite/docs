@@ -1,5 +1,5 @@
 @mixin divider {
-  border-color: #ddd;
+  border-color: map-get($color-aliases, 'border');
   border-style: solid;
   border-width: 1px 0 0 0;
   margin-bottom: 30px;

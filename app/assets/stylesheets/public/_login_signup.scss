@@ -84,14 +84,14 @@
 }
 
 .LoginSignup__user__info__email {
-  color: #666666;
+  color: map-get($color-aliases, 'text-lightest');
 }
 
 .LoginSignup__sso {
-  border-left: 3px solid #14CC80;
+  border-left: 3px solid map-get($color-aliases, 'brand');
   padding-left: 1rem;
   font-size: #{(16/18)}rem;
-  color: #666;
+  color: map-get($color-aliases, 'text-lightest');
   margin-top: 1.5rem;
   margin-bottom: 2rem;
   line-height: 1.2rem;
@@ -101,7 +101,7 @@
 }
 
 .LoginSignup__identity {
-  border: 1px solid #ddd;
+  border: 1px solid map-get($color-aliases, 'text-lightest');
   border-radius: 3px;
   padding: 0.6rem;
   margin-bottom: 1rem;
@@ -119,7 +119,7 @@
 }
 
 .LoginSignup__identity__email {
-  color: #666666;
+  color: map-get($color-aliases, 'text-lightest');
 }
 
 .LoginSignup__identity__avatar {

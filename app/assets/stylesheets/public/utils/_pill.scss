@@ -1,56 +1,56 @@
 $_pills: (
   agents: (
-    background-color: #EFF9FF,
-    border-color: #EFF9FF,
-    color: #333333,
+    background-color: $blue-100,
+    border-color: $blue-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Agents"
   ),
   access-token: (
-    background-color: #FFEDF9,
-    border-color: #FFEDF9,
-    color: #333333,
+    background-color: $pink-100,
+    border-color: $pink-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Access token"
   ),
   builds: (
-    background-color: #fff8e7,
-    border-color: #fff8e7,
-    color: #333333,
+    background-color: $orange-100,
+    border-color: $orange-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Builds"
   ),
   jobs: (
-    background-color: #f1efff,
-    border-color: #f1efff,
-    color: #333333,
+    background-color: $purple-100,
+    border-color: $purple-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Jobs"
   ),
   meta: (
-    background-color: #eeeeee,
-    border-color: #eeeeee,
-    color: #333333,
+    background-color: $gray-300,
+    border-color: $gray-300,
+    color: map-get($color-aliases, 'text-base'),
     content: "Meta"
   ),
   notification-services: (
-    background-color: #F1EFFF,
-    border-color: #F1EFFF,
-    color: #333333,
+    background-color: $purple-100,
+    border-color: $purple-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Notification services"
   ),
   organizations: (
-    background-color: #FFEDF9,
-    border-color: #FFEDF9,
-    color: #333333,
+    background-color: $pink-100,
+    border-color: $pink-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Organizations"
   ),
   pipelines: (
-    background-color: #ddfffa,
-    border-color: #ddfffa,
-    color: #333333,
+    background-color: $aqua-100,
+    border-color: $aqua-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Pipelines"
   ),
   users: (
-    background-color: #fdf5f5,
-    border-color: #fdf5f5,
-    color: #333333,
+    background-color: $red-100,
+    border-color: $red-100,
+    color: map-get($color-aliases, 'text-base'),
     content: "Users"
   ),
   beta: (
@@ -60,63 +60,63 @@ $_pills: (
     content: "Beta"
   ),
   coming-soon: (
-    background-color: #f2f2f2,
-    border-color: #f2f2f2,
-    color: #4f4f4f,
+    background-color: $gray-200,
+    border-color: $gray-200,
+    color: $charcoal-500,
     content: "Coming soon"
   ),
   deprecated: (
-    background-color: rgba(0, 0, 0, .05),
-    border-color: rgba(0, 0, 0, .05),
-    color: #4f4f4f,
+    background-color: $gray-200,
+    border-color: $gray-200,
+    color: $charcoal-500,
     content: "Deprecated"
   ),
   new: (
-    background-color: #00BB64,
-    border-color: #00BB64,
-    color: #FFFFFF,
+    background-color: $olive-700,
+    border-color: $olive-700,
+    color: $base-0,
     content: "New"
   ),
   required: (
-    background-color: #FDF5F5,
-    border-color: #FDF5F5,
-    color: #DB260A,
+    background-color: $red-100,
+    border-color: $red-100,
+    color: $red-700,
     content: "Required"
   ),
   object: (
-    background-color: #EFF9FF,
-    border-color: #EFF9FF,
-    color: #0A568D,
+    background-color: $blue-100,
+    border-color: $blue-100,
+    color: $blue-700,
     content: "Object"
   ),
   scalar: (
-    background-color: #FFEDF9,
-    border-color: #FFEDF9,
-    color: #85144B,
+    background-color: $pink-100,
+    border-color: $pink-100,
+    color: $pink-800,
     content: "Scalar"
   ),
   interface: (
-    background-color: #EEEEEE,
-    border-color: #EEEEEE,
-    color: #444444,
+    background-color: $gray-300,
+    border-color: $gray-300,
+    color: $charcoal-600,
     content: "Interface"
   ),
   enum: (
-    background-color: #FAFDFA,
-    border-color: #FAFDFA,
-    color: #0E7868,
+    background-color: $green-100,
+    border-color: $green-100,
+    color: $olive-800,
     content: "ENUM"
   ),
   input_object: (
-    background-color: #F1EFFF,
-    border-color: #F1EFFF,
-    color: #4B19D5,
+    background-color: $purple-100,
+    border-color: $purple-100,
+    color: $purple-600,
     content: "Input object"
   ),
   union: (
-    background-color: #FFF8E7,
-    border-color: #FFF8E7,
-    color: #FF851B,
+    background-color: $orange-100,
+    border-color: $orange-100,
+    color: $orange-700,
     content: "Union"
   )
 );

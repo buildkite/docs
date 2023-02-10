@@ -11,7 +11,12 @@ html {
   font-family: $font-family-base;
   font-size: $font-size-base;
   font-weight: normal;
+<<<<<<< HEAD
   line-height: 1.5;
+=======
+  background: $base-0;
+  color: map-get($color-aliases, 'text-base');
+>>>>>>> 39f901dd (♻️ Replace all hex colors with Sass variables)
 }
 
 .system-font {

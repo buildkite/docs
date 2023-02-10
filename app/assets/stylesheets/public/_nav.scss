@@ -18,7 +18,7 @@
 
   &__toggle-label {
     background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
-    border: #ddd 1px solid;
+    border: map-get($color-aliases, 'border') 1px solid;
     border-radius: 5px;
     box-sizing: border-box;
     cursor: pointer;
@@ -35,7 +35,7 @@
     }
 
     &:hover {
-      background-color: #f2f2f2;
+      background-color: map-get($color-aliases, 'panel-background');
     }
 
     .Nav__toggle-checkbox:checked + & {
@@ -114,8 +114,8 @@
 
     &--level2 {
       @media (min-width: $screen-md) {
-        background-color: #fff;
-        border-color: #ddd;
+        background-color: $base-0;
+        border-color: map-get($color-aliases, 'border');
         box-sizing: border-box;
         height: calc(100vh - #{$header-height});
         left: 0;
@@ -135,7 +135,7 @@
     border: none;
     border-radius: 5px;
     box-sizing: border-box;
-    color: #111111;
+    color: $charcoal-900;
     display: flex;
     font-family: $font-family-system;
     font-size: 14px;
@@ -157,7 +157,7 @@
 
     &:hover {
       &:not(span) {
-        color: #4B19D5;
+        color: map-get($color-aliases, 'selected');
   
         &::before {
           @include _make-nav-icon-purple;
@@ -166,12 +166,12 @@
     }
 
     &--current {
-      background-color: #F1EFFF;
-      color: #4B19D5;
+      background-color: map-get($color-aliases, 'selected-bg');
+      color: map-get($color-aliases, 'selected');
     }
 
     &--parent {
-      color: #4B19D5;
+      color: map-get($color-aliases, 'selected');
     }
 
     &::before {
@@ -249,7 +249,7 @@
       }
 
       &.Nav__link--parent {
-        background-color: #F1EFFF;
+        background-color: map-get($color-aliases, 'selected-bg');
       }
     }
 
@@ -302,7 +302,7 @@
     }
 
     &--parent {
-      color: #4B19D5;
+      color: map-get($color-aliases, 'selected');
 
       &::before {
         @include _make-nav-icon-purple;
@@ -352,8 +352,8 @@
     flex-direction: column;
 
     @media (min-width: $screen-md) {
-      background: #fff;
-      border: #ddd 1px solid;
+      background: $base-0;
+      border: map-get($color-aliases, 'border') 1px solid;
       border-radius: 5px;
       box-shadow: 2px 2px 5px rgba(0, 0, 0, .05);
       display: none;

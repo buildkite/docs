@@ -4,7 +4,7 @@ $button-default-background-color: white;
   align-items: flex-start;
   border: transparent 1px solid;
   border-radius: 5px;
-  color: #333;
+  color: map-get($color-aliases, 'text-base');
   display: flex;
   font-size: 0.8888rem;
   font-weight: 500;
@@ -25,19 +25,19 @@ $button-default-background-color: white;
   }
 
   &--primary {
-    background-color: $button-primary;
-    border-color: $button-primary;
-    color: #fff;
+    background-color: map-get($color-aliases, 'button-primary');
+    border-color: map-get($color-aliases, 'button-primary');
+    color: $base-0;
     font-weight: bold;
   }
 
   &--default {
-    background-color: $button-default-background-color;
-    border-color: #ddd;
+    background-color: $base-0;
+    border-color: map-get($color-aliases, 'border');
 
     &:hover {
-      background-color: #f2f2f2;
-      color: #333 !important; // override possible nested content styling
+      background-color: map-get($color-aliases, 'panel-background');
+      color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
     }
   }
 
@@ -80,7 +80,7 @@ $button-default-background-color: white;
 
   &--primary {
     .Button__right-arrow {
-      color: #fff;
+      color: $base-0;
     }
   }
 }
