@@ -3,7 +3,7 @@
   @extend .Button--default;
 
   transition: opacity .05s linear;
-  font-family: BK-Circular, $font-family;
+  font-family: $font-family-display;
   font-size: 14px;
   font-weight: 400;
 

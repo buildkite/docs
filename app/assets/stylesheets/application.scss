@@ -6,15 +6,16 @@
 @import "emoji";
 
 html {
-  font-family: BK-Circular, $font-family;
-  font-size: 18px;
-  font-weight: 400;
-  background: white;
-  color: #1F1F1F;
+  background: $base-0;
+  color: map-get($color-aliases, 'text-base');
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: normal;
+  line-height: 1.5;
 }
 
 .system-font {
-  font-family: $font-family;
+  font-family: $font-family-system;
 }
 
 body {

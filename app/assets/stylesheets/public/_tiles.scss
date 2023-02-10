@@ -36,7 +36,7 @@
   }
 
   .TileItem__list {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+    font-family: $font-family-system;
     font-weight: 500;
     line-height: 125%;
     padding: 0; // override `.TextContent ul`

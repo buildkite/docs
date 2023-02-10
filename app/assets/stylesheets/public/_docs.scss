@@ -71,20 +71,6 @@ $color-green: rgb(3, 165, 98);
     }
   }
 
-  h1, h2, h3, h4, h5 {
-    font-weight: bold;
-    font-family: inherit;
-    font-style: normal;
-    color: black;
-    clear: both;
-  }
-  h1 { font-size: 2rem; margin-bottom: .5em; }
-  h3 { font-size: 1.25rem; margin-top: 2em; }
-  h3 { font-size: 1.1rem; margin-top: 2em; margin-bottom: .5em; font-weight: 700; font-style: normal; color: inherit; }
-  h3.h3-caps { font-size: 1rem; }
-  h3 + p { margin-top: 0; }
-  h4 { font-size: 1rem; font-weight: 600; }
-  h5 { font-size: .9rem; font-weight: 600; }
   img.no-decoration, .responsive-image-container.no-decoration { padding: 0; border: none; margin: 0; }
   img.emoji { padding: 0; border: none; }
   hr + h2 { margin-top: 0; }
@@ -185,7 +171,7 @@ $color-green: rgb(3, 165, 98);
     color: $brand;
     margin: 5px 0;
     text-transform: uppercase;
-    font: 300 13px $font-family;
+    font: 300 13px $font-family-base;
     letter-spacing: 1px
   }
 
