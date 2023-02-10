@@ -4,11 +4,10 @@ test-analytics:
   - pages/test_analytics/**/*
 pipelines:
   - pages/pipelines/**/*
+  - pages/tutorials/**/*
 plugins:
   - pages/plugins/**/*
 integrations:
   - pages/integrations/**/*
 apis:
   - pages/apis/**/*
-tutorials:
-  - pages/tutorials/**/*
