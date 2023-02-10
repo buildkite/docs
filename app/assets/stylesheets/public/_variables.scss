@@ -62,6 +62,7 @@ $slate-900: #151921;
 $text-base: $charcoal-700;
 $text-lightest: $charcoal-300;
 $text-link: $lime-500;
+$text-display: $slate-900;
 $button-primary: $lime-500;
 $border: $gray-500;
 $panel-background: $gray-100;
@@ -71,8 +72,13 @@ $state-fail: $red-500;
 $state-warning: $orange-500;
 $brand: $lime-500;
 
+// font
+$font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
+$font-family-display: 'Aeonik', $font-family-system;
+$font-family-body: 'Maison Neue', $font-family-system;
+$font-family-base: $font-family-system;
+
 // settings
-$font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
 $screen-xs: 480px;
 $screen-sm: 768px;
 $screen-md: 960px;
