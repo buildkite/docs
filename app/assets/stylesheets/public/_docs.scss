@@ -266,11 +266,12 @@ a.Docs__example-repo {
 
   .Docs__heading__anchor {
     text-decoration: none;
+    color: $text-display;
 
     &:hover,
     &:active,
     &:focus {
-      color: black;
+      color: $text-display;
     }
   }
 

@@ -8,6 +8,7 @@
 }
 
 @mixin body {
+  color: $text-body;
   font-size: 1.1875rem;
   line-height: 1.618;
   @include margin;
@@ -140,7 +141,7 @@
   }
 
   a {
-    @extend .Link--on-white;
+    color: $text-link;
   }
   code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
   pre code {
