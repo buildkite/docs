@@ -274,7 +274,6 @@
         type: 'link'
   - name: 'Test Analytics'
     path: 'test-analytics'
-    pill: 'new'
     children:
       - name: 'Overview'
         path: 'test-analytics'
@@ -434,14 +433,3 @@
         path: 'integrations/pagerduty'
       - name: 'Slack'
         path: 'integrations/slack'
-- - name: 'buildkite.com'
-    path: 'https://buildkite.com/home'
-    new_window: true
-  - name: 'Help'
-    type: 'dropdown'
-    children:
-      - name: 'Email support'
-        path: 'support@buildkite.com'
-      - name: 'Forum'
-        path: 'https://forum.buildkite.community/'
-        new_window: true

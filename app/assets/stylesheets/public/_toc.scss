@@ -8,7 +8,7 @@
   @media (min-width: $screen-lg) {
     background-color: transparent;
     border-radius: initial;
-    border-width: 0 0 0 1px;
+    border: 0;
     font-family: $font-family-system;
     height: calc(100vh - #{$header-height});
     line-height: 1.5;
@@ -35,6 +35,7 @@
     
     @media (min-width: $screen-lg) {
       cursor: text;
+      display: none;
       padding: 0;
     }
 
@@ -70,7 +71,8 @@
     padding-left: 16px;
 
     @media (min-width: $screen-lg) {
-      margin-top: 12px;
+      margin-bottom: 0;
+      margin-top: 0;
       padding-left: 0;
     }
 
