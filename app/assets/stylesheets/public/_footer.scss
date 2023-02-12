@@ -24,10 +24,10 @@
     }
 
     &--has-gaps {
-      gap: 15px;
+      gap: $gutter / 2;
 
       @media (min-width: $screen-sm) {
-        gap: 30px;
+        gap: $gutter;
       }
     }
   }

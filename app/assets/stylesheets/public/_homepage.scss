@@ -106,7 +106,7 @@
 .grid-row {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: $gutter;
   margin-bottom: 30px;
   
   @media (min-width: $screen-md) {

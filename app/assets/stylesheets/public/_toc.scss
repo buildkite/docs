@@ -10,14 +10,14 @@
     border-radius: initial;
     border: 0;
     font-family: $font-family-system;
-    height: calc(100vh - #{$header-height});
+    height: calc(100vh - #{map-get($header-height, 'one-row')});
     line-height: 1.5;
     overscroll-behavior: contain;
     overflow-y: auto;
-    padding: 44px 30px;
+    padding: 44px ($gutter / 2);
     position: fixed;
     right: 0;
-    top: $header-height;
+    top: map-get($header-height, 'one-row');
     width: $sidebar-width;
   }
 

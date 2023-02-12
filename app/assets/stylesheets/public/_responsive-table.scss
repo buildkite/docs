@@ -104,7 +104,7 @@
       padding-top: 15px;
   
       @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
-        gap: 15px 30px;
+        gap: ($gutter / 2) $gutter;
         grid-template-columns: 20ch 1fr;
         padding-bottom: 1rem;
         padding-top: 1rem;
