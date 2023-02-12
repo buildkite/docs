@@ -2,14 +2,25 @@
   width: 100%;
 
   .ds-dropdown-menu {
-    min-width: 650px;
-    max-width: 750px;
-    line-height: 1em;
+    min-width: auto;
+    max-width: 100%;
+    width: 100%;
 
-    @media only screen and (max-width: 768px) {
-      min-width: auto;
-      max-width: 100%;
-      width: 100%;
+    @media (min-width: $screen-sm) {
+      min-width: 650px;
+      max-width: 750px;
+      line-height: 1em;
+    }
+
+    @media (min-width: $screen-md) {
+      // position Algolia results to the right
+      // because search's position has changed from medium screen and up
+      right: 0 !important;
+      left: auto !important;
+
+      &::before {
+        right: 15px;
+      }
     }
 
     .ds-suggestion.ds-cursor .algolia-docsearch-suggestion {
