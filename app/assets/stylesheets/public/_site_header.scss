@@ -1,75 +1,91 @@
-$SiteHeaderLogoHeight: 36px;
-
 .SiteHeader {
   background-color: $base-0;
   box-sizing: border-box;
-  line-height: $SiteHeaderLogoHeight;
   z-index: 20;
 
   @supports (backdrop-filter: blur(2px)) {
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
-    background-color: rgba(255, 255, 255, .85);
+    background-color: rgba($base-0, .85);
   }
   
   @media (min-width: $screen-md) {
-    min-height: $header-height;
+    min-height: map-get($header-height, 'two-rows');
     padding-right: 0;
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
   }
+
+  @media (min-width: $screen-lg) {
+    min-height: map-get($header-height, 'one-row');
+  }
 }
 
 .SiteHeader__inner {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 8px;
   padding-bottom: 15px;
   padding-top: 10px;
 
   @media (min-width: $screen-sm) {
     align-items: center;
     flex-direction: row;
-    gap: 30px;
+    flex-wrap: wrap;
     padding-bottom: 10px;
   }
 }
 
-.SiteHeader__logo {
-  align-items: center;
-  display: flex;
-  flex: 0 0 auto;
-  font-weight: bold;
-  line-height: $SiteHeaderLogoHeight;
-  margin-right: 30p;
+@media (min-width: $screen-sm) {
+  .SiteHeader__nav {
+    flex-basis: 100%;
+  }
 }
 
-.SiteHeader__logo-img {
-  display: block;
-  transition: opacity $transition-speed;
-  width: 28px;
-  will-change: opacity;
+@media (min-width: $screen-md) {
+  .SiteHeader__nav {
+    border-top: 1px solid $gray-300;
+    order: 4;
+    padding-top: 8px;
+  }
 
-  &:hover {
-    opacity: .75;
+  .SiteHeader__search {
+    margin-left: auto;
+  }
+
+  .SiteHeader__global-links {
+    order: 3;
+  }
+}
+
+@media (min-width: $screen-lg) {
+  .SiteHeader__nav {
+    border-top: 0;
+    flex-basis: content;
+    margin-left: $gutter;
+    order: 2;
+    padding-top: 0;
+  }
+
+  .SiteHeader__search {
+    order: 3;
+  }
+
+  .SiteHeader__global-links {
+    order: 4;
   }
 }
 
 .SiteHeader__links {
-  align-items: right;
-  display: none;
-  font-size: 16px;
-  margin-left: auto;
+  border-top: 1px solid map-get($color-aliases, 'border');
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 
-  @media (min-width: $screen-md) {
-    display: inline-flex;
-    gap: 10px;
-  }
-
-  .Button {
-    margin: 0;
+  @media (min-width: $screen-sm) {
+    flex-direction: row;
   }
 }
 
@@ -84,21 +100,4 @@ $SiteHeaderLogoHeight: 36px;
   &:active {
     color: map-get($color-aliases, 'brand');
   }
-}
-
-.SiteHeader__mark {
-  margin-right: .5em;
-  svg {
-    width: 28px;
-    height: auto;
-    margin-top: .55em;
-  }
-}
-
-.SiteHeader__wordmark {
-  height: 14px;
-}
-
-.SiteHeader__tagline {
-  margin: 0;
 }

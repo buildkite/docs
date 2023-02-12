@@ -3,67 +3,7 @@
 }
 
 .Nav {
-  @media (min-width: $screen-md) {
-    background-color: transparent;
-  }
-
-  &__toggle-checkbox {
-    position: absolute;
-    visibility: hidden;
-
-    &:checked ~ .Nav__container {
-      display: flex;
-    }
-  }
-
-  &__toggle-label {
-    background: transparent asset-url('icons/menu.svg') 50% 50% no-repeat;
-    border: map-get($color-aliases, 'border') 1px solid;
-    border-radius: 5px;
-    box-sizing: border-box;
-    cursor: pointer;
-    display: block;
-    height: 40px;
-    margin: 0;
-    position: absolute;
-    right: 30px;
-    top: 10px;
-    width: 40px;
-
-    @media (min-width: $screen-md) {
-      display: none;
-    }
-
-    &:hover {
-      background-color: map-get($color-aliases, 'panel-background');
-    }
-
-    .Nav__toggle-checkbox:checked + & {
-      background-image: asset-url('icons/remove.svg');
-    }
-
-    span {
-      left: -10rem;
-      position: absolute;
-      top: -10rem;
-    }
-  }
-
-  &__container {
-    display: none;
-    flex-direction: column;
-    padding: 4px 5px;
-    
-    @media (min-width: $screen-md) {
-      align-items: center;
-      display: flex;
-      flex-direction: row;
-      margin-left: 0;
-      margin-right: 0;
-      padding-left: 30px;
-      padding-right: 30px;
-    }
-  }
+  width: 100%;
 
   &__section {
     display: none;
@@ -71,6 +11,7 @@
     gap: 2px;
     padding-bottom: 5px;
     padding-top: 5px;
+    width: 100%;
 
     @media (min-width: $screen-md) {
       flex-direction: row;
@@ -90,25 +31,14 @@
     &--level1 {
       display: flex;
       flex-direction: column;
+      font-family: $font-family-display;
+      font-size: 1rem;
       padding-bottom: 0;
       padding-top: 0;
 
       @media (min-width: $screen-md) {
         flex-direction: row;
         gap: 5px;
-      }
-
-      &.Nav__section:first-child {
-        @media (min-width: $screen-md) {
-          margin-left: -15px;
-          margin-right: auto;
-        }
-
-        .Nav__link--level1 {
-          font-family: $font-family-display;
-          font-size: 1rem;
-          font-weight: bold;
-        }
       }
     }
 
@@ -117,14 +47,19 @@
         background-color: $base-0;
         border-color: map-get($color-aliases, 'border');
         box-sizing: border-box;
-        height: calc(100vh - #{$header-height});
+        height: calc(100vh - #{map-get($header-height, 'two-rows')});
         left: 0;
         overflow-y: auto;
         overscroll-behavior: contain;
         padding: 30px 5px;
         position: fixed;
-        top: $header-height + 1px;
+        top: map-get($header-height, 'two-rows');
         width: $sidebar-width;
+      }
+
+      @media (min-width: $screen-lg) {
+        height: calc(100vh - #{map-get($header-height, 'one-row')});
+        top: map-get($header-height, 'one-row');
       }
     }
   }
@@ -150,8 +85,8 @@
     word-break: break-all;
 
     @media (min-width: $screen-md) {
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: $gutter / 2;
+      padding-right: $gutter / 2;
       width: auto;
     }
 
@@ -181,6 +116,10 @@
       position: absolute;
       transition: transform $transition-speed;
       width: 8px;
+    }
+
+    &--level1 {
+      font-weight: bold;
     }
 
     &--level2 {
@@ -244,8 +183,8 @@
 
       @media (min-width: $screen-md) {
         font-size: 14px;
-        padding-left: 15px;
-        padding-right: 15px;
+        padding-left: $gutter / 2;
+        padding-right: $gutter / 2;
       }
 
       &.Nav__link--parent {

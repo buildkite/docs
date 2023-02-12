@@ -1,0 +1,32 @@
+.Brand {
+  align-items: center;
+  display: flex;
+  flex: 0 0 auto;
+  font-weight: bold;
+  line-height: 36px;
+}
+
+.Brand__img {
+  display: block;
+  transition: opacity $transition-speed;
+  width: 28px;
+  will-change: opacity;
+
+  &:hover {
+    opacity: .75;
+  }
+}
+
+.Brand__mark {
+  margin-right: .5em;
+
+  svg {
+    width: 28px;
+    height: auto;
+    margin-top: .55em;
+  }
+}
+
+.Brand__wordmark {
+  height: 14px;
+}

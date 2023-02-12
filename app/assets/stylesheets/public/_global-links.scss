@@ -1,0 +1,13 @@
+.GlobalLinks {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+  @media(min-width: $screen-sm) {
+    flex-direction: row;
+  }
+}
+
+.GlobalLinks__call-to-action {
+  margin-left: $gutter / 2;
+}
