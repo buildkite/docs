@@ -142,7 +142,14 @@
 
   a {
     color: map-get($color-aliases, 'text-link');
+    transition: color $transition-speed;
+    will-change: color;
+
+    &:hover {
+      color: map-get($color-aliases, 'text-link-hover');
+    }
   }
+
   code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
   pre code {
     font-size: #{(16/18)}em;

@@ -16,17 +16,19 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 <!-- vale off -->
 
-<%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
-<%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
-<%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors" %>
-<%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
-<%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
-<%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>
-<%= button ":golang: Golang", "/docs/test-analytics/golang-collectors" %>
-<%= button ":junit: JUnit", "/docs/test-analytics/importing-junit-xml" %>
-<%= button ":dotnet: .NET", "/docs/test-analytics/dotnet-collectors" %>
-<%= button ":elixir: Elixir", "/docs/test-analytics/elixir-collectors" %>
-<%= button ":rust: Rust", "/docs/test-analytics/rust-collectors" %>
+<div class="ButtonGroup">
+  <%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
+  <%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
+  <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors" %>
+  <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
+  <%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
+  <%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>
+  <%= button ":golang: Golang", "/docs/test-analytics/golang-collectors" %>
+  <%= button ":junit: JUnit", "/docs/test-analytics/importing-junit-xml" %>
+  <%= button ":dotnet: .NET", "/docs/test-analytics/dotnet-collectors" %>
+  <%= button ":elixir: Elixir", "/docs/test-analytics/elixir-collectors" %>
+  <%= button ":rust: Rust", "/docs/test-analytics/rust-collectors" %>
+</div>
 
 <!-- vale on -->
 

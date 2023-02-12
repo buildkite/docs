@@ -1,7 +1,7 @@
 .Tiles {
   @media (min-width: $screen-lg) {
     display: grid;
-    gap: 30px;
+    gap: $gutter;
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
   }
