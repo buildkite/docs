@@ -1,13 +1,30 @@
 .Search {
   line-height: 1;
   position: relative;
+
+  .algolia-autocomplete {
+    @media (min-width: $screen-sm) {
+      max-width: map-get($max-w, 'search');
+    }
+  }
 }
 
 .Search__container {
   margin-left: auto;
   margin-right: auto;
-  max-width: 500px;
   position: relative;
+
+  @media (min-width: $screen-sm) {
+    max-width: map-get($max-w, 'search');
+  }
+}
+
+.Search__icon {
+  left: 12px;
+  margin-top: -12px;
+  position: absolute;
+  top: 50%;
+  z-index: 10;
 }
 
 .Search__kbd {
@@ -45,7 +62,7 @@
   font-size: 1rem;
   line-height: 24px;
   outline: none;
-  padding: 7px 15px;
+  padding: 7px 15px 7px 42px;
   transition: background-color $transition-speed, border-color $transition-speed;
   width: 100%;
 
@@ -57,6 +74,16 @@
     background-color: $base-0;
     border-color: map-get($color-aliases, 'brand');
     border-width: 2px;
-    padding: 6px 14px;
+    padding: 6px 14px 6px 41px;
+  }
+
+  &--large {
+    padding-bottom: 15px;
+    padding-top: 15px;
+
+    &:focus {
+      padding-bottom: 14px;
+      padding-top: 14px;
+    }
   }
 }
