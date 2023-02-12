@@ -2,12 +2,16 @@ $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
   @media (min-width: $screen-md) { 
-    padding-top: $header-height + 30px; 
+    padding-top: map-get($header-height, 'two-rows') + 30px; 
+  }
+
+  @media (min-width: $screen-lg) { 
+    padding-top: map-get($header-height, 'one-row') + 30px; 
   }
 }
 
 .Docs__page-container__inner {
-  margin-top: 30px;
+  margin-top: 15px;
 
   @media (min-width: $screen-md) {
     display: flex;
@@ -18,28 +22,6 @@ $color-green: rgb(3, 165, 98);
 .Docs__header {
   @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
-
-.Search-container {
-  position: relative;
-
-  kbd {
-    background: $gray-300;
-    border-radius: 0.2rem;
-    border: 1px solid $gray-300;
-    color: $gray-700;
-    font-size: 14px;
-    font-weight: 700;
-    padding: 4px 6px;
-    position: absolute;
-    right: 12px;
-    top: 7px;
-
-    @media (max-width: ($screen-md - 1)) {
-      display: none;
-    }
-  }
-}
-
 
 .HomeHeader__search {
   .Search-container {
@@ -64,7 +46,7 @@ $color-green: rgb(3, 165, 98);
     display: grid;
     grid-template-columns: minmax(10px, 1fr) 250px;
     position: relative;
-    gap: 30px;
+    gap: $gutter;
 
     &--is-landing-page {
       display: block;
@@ -265,25 +247,25 @@ a.Docs__example-repo {
   position: relative;
 
   .Docs__heading__anchor {
-    text-decoration: none;
     color: map-get($color-aliases, 'text-display');
+    text-decoration: none;
 
     &:hover,
     &:active,
     &:focus {
       color: map-get($color-aliases, 'text-display');
     }
-  }
 
-  &:hover:before {
-    content: '#';
-    color: map-get($color-aliases, 'text-lightest');
-    font-size: 1rem;
-    font-weight: normal;
-    margin-left: .5rem;
-    position: absolute;
-    left: -25px;
-    top: 5px;
+    &:hover {
+      &:before {
+        content: '#';
+        color: map-get($color-aliases, 'border');
+        font-size: 2rem;
+        font-weight: normal;
+        position: absolute;
+        left: -1.5rem;
+      }
+    }
   }
 }
 
@@ -291,7 +273,11 @@ html {
   scroll-padding-top: 15px;
 
   @media (min-width: $screen-md) {
-    scroll-padding-top: $header-height + 15px;
+    scroll-padding-top: map-get($header-height, 'two-rows') + 15px;
+  }
+
+  @media (min-width: $screen-md) {
+    scroll-padding-top: map-get($header-height, 'one-row') + 15px;
   }
 }
 

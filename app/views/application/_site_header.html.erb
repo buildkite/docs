@@ -3,30 +3,17 @@
 <header class="SiteHeader">
   <div class="PageContainer">
     <div class="SiteHeader__inner">
-      <div class="SiteHeader__logo">
-        <%= link_to "https://buildkite.com/home", class: "SiteHeader__mark", title: "Go to Buildkite homepage" do %>
-          <img alt="Buildkite logo" class="SiteHeader__logo-img" src="<%= logo_image_url %>" />
-        <% end %>
-        <%= link_to home_page_path, class: "SiteHeader__docslink", title: "Return to Docs index page" do %>
-          <img alt="Buildkite Docs" class="SiteHeader__wordmark" src="<%= image_url "brand-wordmark-on-white.svg" %>" />
-        <% end %>
+      <%= render 'brand' %>
+      <div class="SiteHeader__search">
+        <%= render 'search' %>
       </div>
-      <p class="OffScreen SiteHeader__tagline">Lightning fast testing and delivery for all your software projects.</p>
-      <%= render 'nav', use_nav: use_nav %>
-      <p class="OffScreen SiteHeader__skip-nav"><a href="#main">Skip to main content</a></p>
-      <div class="SiteHeader__links">
-        <div class="Search">
-          <div class="Search-container">
-            <input id="search" class="Search__input" placeholder="Search" />
-            <kbd class="Search__kbd" title="Press / to search">/</kbd>
-          </div>
-        </div>
-        <% if probably_authenticated? %>
-          <%= link_to "Dashboard", dashboard_path, class: "Button Button--primary Button--small" %>
-        <% else %>
-          <%= link_to "Login", "https://buildkite.com/login", class: "Button Button--link Button--small" %>
-          <%= link_to "Sign up for free", "https://buildkite.com/signup", class: "Button Button--primary Button--small" %>
-        <% end %>
+      <a class="sr-only" href="#main">Skip to main content</a>
+      <%= render 'menu_toggle' %>
+      <div class="SiteHeader__nav">
+        <%= render "nav", use_nav: use_nav %>
+      </div>
+      <div class="SiteHeader__global-links">
+        <%= render 'global_links' %>
       </div>
     </div>
   </div>
