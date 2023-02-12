@@ -1,7 +1,7 @@
 $button-default-background-color: white;
 
 .Button {
-  align-items: flex-start;
+  align-items: center;
   border: transparent 1px solid;
   border-radius: 5px;
   color: map-get($color-aliases, 'text-base');
@@ -11,13 +11,13 @@ $button-default-background-color: white;
   gap: 10px;
   justify-content: center;
   line-height: 24px;
-  margin-bottom: 10px;
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
 
-  @media (min-width: $screen-xs) {
-    display: inline-flex;
-    margin-right: 5px;
+  .TextContent & {
+    @media (min-width: $screen-xs) {
+      display: inline-flex;
+    }
   }
 
   &:last-child {
@@ -34,10 +34,10 @@ $button-default-background-color: white;
   &--default {
     background-color: $base-0;
     border-color: map-get($color-aliases, 'border');
+    color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
 
     &:hover {
       background-color: map-get($color-aliases, 'panel-background');
-      color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
     }
   }
 
@@ -49,6 +49,15 @@ $button-default-background-color: white;
 
   &--small {
     padding: 7px 15px;
+  }
+
+  &--dropdown {
+    &::after {
+      background: transparent asset-url('icons/angle-down.svg') 50% 50% no-repeat;
+      content: "";
+      height: 8px;
+      width: 8px;
+    }
   }
 
   &__icon {
@@ -66,15 +75,8 @@ $button-default-background-color: white;
     width: 12px;
 
     &::after {
-      content: " →";
+      content: "→";
       font-family: $font-family-base;
-      opacity: 0.7;
-      position: absolute;
-      transition: transform 0.1s;
-
-      :hover > & {
-        transform: translateX(2px);
-      }
     }
   }
 
