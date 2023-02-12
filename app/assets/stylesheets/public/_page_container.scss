@@ -2,7 +2,7 @@
   box-sizing: border-box;
   margin-left: auto;
   margin-right: auto;
-  max-width: $screen-xl;
+  max-width: map-get($max-w, 'container');
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
 }

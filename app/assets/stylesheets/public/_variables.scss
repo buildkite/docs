@@ -94,6 +94,11 @@ $screen-xl: 1536px;
 
 // settings
 $gutter: 32px;
+$max-w: (
+  'outer-container': 1600px,
+  'container': 1440px,
+  'prose': 720px,
+);
 $border-rounded: 5px;
 $transition-speed: 300ms;
 $filter-brand-green: invert(58%) sepia(82%) saturate(466%) hue-rotate(103deg) brightness(95%) contrast(86%);
@@ -101,7 +106,7 @@ $header-height: (
   'one-row': 64px,
   'two-rows': 113px
 );
-$sidebar-width: 275px;
+$sidebar-width: 270px;
 $text-on-dark-subdued-opacity: .8;
 $text-on-dark-very-subdued-opacity: .7;
 

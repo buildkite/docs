@@ -39,17 +39,20 @@ $color-green: rgb(3, 165, 98);
   font-weight: 400;
 
   @media (min-width: $screen-md) {
-    margin-left: $sidebar-width + 30px;
+    margin-left: $sidebar-width + ($gutter / 2);
   }
 
-  @media (min-width: $screen-lg) { // TOC as side column on larger screens
-    display: grid;
-    grid-template-columns: minmax(10px, 1fr) 250px;
-    position: relative;
-    gap: $gutter;
+  @media (min-width: $screen-lg) {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: map-get($max-w, 'prose');
+  }
 
-    &--is-landing-page {
-      display: block;
+  &--is-landing-page {
+    max-width: none;
+
+    @media (min-width: $screen-md) {
+      margin-left: $sidebar-width + ($gutter / 2);
     }
   }
 
