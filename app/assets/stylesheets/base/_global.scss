@@ -1,0 +1,18 @@
+html {
+  background: $base-0;
+  color: map-get($color-aliases, 'text-base');
+  font-family: $font-family-base;
+  font-size: $font-size-base;
+  font-weight: normal;
+  line-height: 1.5;
+}
+
+.system-font {
+  font-family: $font-family-system;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
