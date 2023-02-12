@@ -1,30 +1,5 @@
-@import "public/reset";
-@import "public/variables";
-@import "public/utils/*";
-@import "public/*";
-@import "pygments";
-@import "emoji";
-
-html {
-  background: $base-0;
-  color: map-get($color-aliases, 'text-base');
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  font-weight: normal;
-<<<<<<< HEAD
-  line-height: 1.5;
-=======
-  background: $base-0;
-  color: map-get($color-aliases, 'text-base');
->>>>>>> 39f901dd (♻️ Replace all hex colors with Sass variables)
-}
-
-.system-font {
-  font-family: $font-family-system;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+@import "vendors/index";
+@import "base/index";
+@import "components/index";
+@import "pages/index";
+@import "utilities/index";
