@@ -23,17 +23,6 @@ $color-green: rgb(3, 165, 98);
   @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
 }
 
-.HomeHeader__search {
-  .Search-container {
-    display: inline;
-
-    kbd {
-      right: 10px;
-      top: 17px;
-    }
-  }
-}
-
 .Docs__article {
   flex: 7;
   font-weight: 400;
