@@ -1,959 +1,948 @@
 ---
-- - name: Pipelines
-    path: tutorials/getting-started
-  - name: Test Analytics
-    path: test-analytics
-    pill: new
-  - name: APIs
+- name: Pipelines
+  path: tutorials/getting-started
+- name: Test Analytics
+  path: test-analytics
+  pill: new
+- name: APIs
+  path: apis
+  children:
+  - name: All APIs
     path: apis
+    type: back
+  - type: divider
+  - name: GraphQL API
+    path: apis/graphql-api
+  - name: Console and CLI tutorial
+    path: apis/graphql/graphql-tutorial
+  - name: Schema browser
+    start_expanded: true
     children:
-    - name: All APIs
-      path: apis
-      type: back
-    - type: divider
-    - name: GraphQL API
-      path: apis/graphql-api
-    - name: Console and CLI tutorial
-      path: apis/graphql/graphql-tutorial
-    - name: Schema browser
-      start_expanded: true
+    - name: Queries
       children:
-      - name: Queries
-        children:
-        - name: agent
-          path: apis/graphql/schemas/query/agent
-        - name: agentToken
-          path: apis/graphql/schemas/query/agenttoken
-        - name: apiAccessTokenCode
-          path: apis/graphql/schemas/query/apiaccesstokencode
-        - name: artifact
-          path: apis/graphql/schemas/query/artifact
-        - name: auditEvent
-          path: apis/graphql/schemas/query/auditevent
-        - name: build
-          path: apis/graphql/schemas/query/build
-        - name: graphQLSnippet
-          path: apis/graphql/schemas/query/graphqlsnippet
-        - name: job
-          path: apis/graphql/schemas/query/job
-        - name: node
-          path: apis/graphql/schemas/query/node
-        - name: notificationService
-          path: apis/graphql/schemas/query/notificationservice
-        - name: organization
-          path: apis/graphql/schemas/query/organization
-        - name: organizationInvitation
-          path: apis/graphql/schemas/query/organizationinvitation
-        - name: organizationMember
-          path: apis/graphql/schemas/query/organizationmember
-        - name: pipeline
-          path: apis/graphql/schemas/query/pipeline
-        - name: pipelineSchedule
-          path: apis/graphql/schemas/query/pipelineschedule
-        - name: ssoProvider
-          path: apis/graphql/schemas/query/ssoprovider
-        - name: team
-          path: apis/graphql/schemas/query/team
-        - name: viewer
-          path: apis/graphql/schemas/query/viewer
-      - name: Mutations
-        children:
-        - name: agentStop
-          path: apis/graphql/schemas/mutation/agentstop
-        - name: agentTokenCreate
-          path: apis/graphql/schemas/mutation/agenttokencreate
-        - name: agentTokenRevoke
-          path: apis/graphql/schemas/mutation/agenttokenrevoke
-        - name: apiAccessTokenCodeAuthorize
-          path: apis/graphql/schemas/mutation/apiaccesstokencodeauthorize
-        - name: buildAnnotate
-          path: apis/graphql/schemas/mutation/buildannotate
-        - name: buildCancel
-          path: apis/graphql/schemas/mutation/buildcancel
-        - name: buildCreate
-          path: apis/graphql/schemas/mutation/buildcreate
-        - name: buildRebuild
-          path: apis/graphql/schemas/mutation/buildrebuild
-        - name: emailCreate
-          path: apis/graphql/schemas/mutation/emailcreate
-        - name: emailResendVerification
-          path: apis/graphql/schemas/mutation/emailresendverification
-        - name: graphQLSnippetCreate
-          path: apis/graphql/schemas/mutation/graphqlsnippetcreate
-        - name: jobTypeBlockUnblock
-          path: apis/graphql/schemas/mutation/jobtypeblockunblock
-        - name: jobTypeCommandCancel
-          path: apis/graphql/schemas/mutation/jobtypecommandcancel
-        - name: jobTypeCommandRetry
-          path: apis/graphql/schemas/mutation/jobtypecommandretry
-        - name: noticeDismiss
-          path: apis/graphql/schemas/mutation/noticedismiss
-        - name: organizationInvitationCreate
-          path: apis/graphql/schemas/mutation/organizationinvitationcreate
-        - name: organizationInvitationResend
-          path: apis/graphql/schemas/mutation/organizationinvitationresend
-        - name: organizationInvitationRevoke
-          path: apis/graphql/schemas/mutation/organizationinvitationrevoke
-        - name: organizationMemberDelete
-          path: apis/graphql/schemas/mutation/organizationmemberdelete
-        - name: organizationMemberUpdate
-          path: apis/graphql/schemas/mutation/organizationmemberupdate
-        - name: pipelineArchive
-          path: apis/graphql/schemas/mutation/pipelinearchive
-        - name: pipelineCreate
-          path: apis/graphql/schemas/mutation/pipelinecreate
-        - name: pipelineCreateWebhook
-          path: apis/graphql/schemas/mutation/pipelinecreatewebhook
-        - name: pipelineDelete
-          path: apis/graphql/schemas/mutation/pipelinedelete
-        - name: pipelineFavorite
-          path: apis/graphql/schemas/mutation/pipelinefavorite
-        - name: pipelineRotateWebhookURL
-          path: apis/graphql/schemas/mutation/pipelinerotatewebhookurl
-        - name: pipelineScheduleCreate
-          path: apis/graphql/schemas/mutation/pipelineschedulecreate
-        - name: pipelineScheduleDelete
-          path: apis/graphql/schemas/mutation/pipelinescheduledelete
-        - name: pipelineScheduleUpdate
-          path: apis/graphql/schemas/mutation/pipelinescheduleupdate
-        - name: pipelineUnarchive
-          path: apis/graphql/schemas/mutation/pipelineunarchive
-        - name: pipelineUpdate
-          path: apis/graphql/schemas/mutation/pipelineupdate
-        - name: ssoProviderCreate
-          path: apis/graphql/schemas/mutation/ssoprovidercreate
-        - name: ssoProviderDelete
-          path: apis/graphql/schemas/mutation/ssoproviderdelete
-        - name: ssoProviderDisable
-          path: apis/graphql/schemas/mutation/ssoproviderdisable
-        - name: ssoProviderEnable
-          path: apis/graphql/schemas/mutation/ssoproviderenable
-        - name: ssoProviderUpdate
-          path: apis/graphql/schemas/mutation/ssoproviderupdate
-        - name: teamCreate
-          path: apis/graphql/schemas/mutation/teamcreate
-        - name: teamDelete
-          path: apis/graphql/schemas/mutation/teamdelete
-        - name: teamMemberCreate
-          path: apis/graphql/schemas/mutation/teammembercreate
-        - name: teamMemberDelete
-          path: apis/graphql/schemas/mutation/teammemberdelete
-        - name: teamMemberUpdate
-          path: apis/graphql/schemas/mutation/teammemberupdate
-        - name: teamPipelineCreate
-          path: apis/graphql/schemas/mutation/teampipelinecreate
-        - name: teamPipelineDelete
-          path: apis/graphql/schemas/mutation/teampipelinedelete
-        - name: teamPipelineUpdate
-          path: apis/graphql/schemas/mutation/teampipelineupdate
-        - name: teamSuiteCreate
-          path: apis/graphql/schemas/mutation/teamsuitecreate
-        - name: teamSuiteDelete
-          path: apis/graphql/schemas/mutation/teamsuitedelete
-        - name: teamSuiteUpdate
-          path: apis/graphql/schemas/mutation/teamsuiteupdate
-        - name: teamUpdate
-          path: apis/graphql/schemas/mutation/teamupdate
-        - name: totpActivate
-          path: apis/graphql/schemas/mutation/totpactivate
-        - name: totpCreate
-          path: apis/graphql/schemas/mutation/totpcreate
-        - name: totpDelete
-          path: apis/graphql/schemas/mutation/totpdelete
-        - name: totpRecoveryCodesRegenerate
-          path: apis/graphql/schemas/mutation/totprecoverycodesregenerate
-      - name: Objects
-        children:
-        - name: APIAccessToken
-          path: apis/graphql/schemas/object/apiaccesstoken
-        - name: APIAccessTokenCode
-          path: apis/graphql/schemas/object/apiaccesstokencode
-        - name: APIAccessTokenCodeAuthorizeMutationPayload
-          path: apis/graphql/schemas/object/apiaccesstokencodeauthorizemutationpayload
-        - name: APIApplication
-          path: apis/graphql/schemas/object/apiapplication
-        - name: Agent
-          path: apis/graphql/schemas/object/agent
-        - name: AgentConnection
-          path: apis/graphql/schemas/object/agentconnection
-        - name: AgentEdge
-          path: apis/graphql/schemas/object/agentedge
-        - name: AgentPermissions
-          path: apis/graphql/schemas/object/agentpermissions
-        - name: AgentStopPayload
-          path: apis/graphql/schemas/object/agentstoppayload
-        - name: AgentToken
-          path: apis/graphql/schemas/object/agenttoken
-        - name: AgentTokenConnection
-          path: apis/graphql/schemas/object/agenttokenconnection
-        - name: AgentTokenCreatePayload
-          path: apis/graphql/schemas/object/agenttokencreatepayload
-        - name: AgentTokenEdge
-          path: apis/graphql/schemas/object/agenttokenedge
-        - name: AgentTokenPermissions
-          path: apis/graphql/schemas/object/agenttokenpermissions
-        - name: AgentTokenRevokePayload
-          path: apis/graphql/schemas/object/agenttokenrevokepayload
-        - name: Annotation
-          path: apis/graphql/schemas/object/annotation
-        - name: AnnotationBody
-          path: apis/graphql/schemas/object/annotationbody
-        - name: AnnotationConnection
-          path: apis/graphql/schemas/object/annotationconnection
-        - name: AnnotationEdge
-          path: apis/graphql/schemas/object/annotationedge
-        - name: Artifact
-          path: apis/graphql/schemas/object/artifact
-        - name: ArtifactConnection
-          path: apis/graphql/schemas/object/artifactconnection
-        - name: ArtifactEdge
-          path: apis/graphql/schemas/object/artifactedge
-        - name: AuditAPIContext
-          path: apis/graphql/schemas/object/auditapicontext
-        - name: AuditActor
-          path: apis/graphql/schemas/object/auditactor
-        - name: AuditEvent
-          path: apis/graphql/schemas/object/auditevent
-        - name: AuditSubject
-          path: apis/graphql/schemas/object/auditsubject
-        - name: AuditWebContext
-          path: apis/graphql/schemas/object/auditwebcontext
-        - name: AuthorizationBitbucket
-          path: apis/graphql/schemas/object/authorizationbitbucket
-        - name: AuthorizationConnection
-          path: apis/graphql/schemas/object/authorizationconnection
-        - name: AuthorizationEdge
-          path: apis/graphql/schemas/object/authorizationedge
-        - name: AuthorizationGitHub
-          path: apis/graphql/schemas/object/authorizationgithub
-        - name: AuthorizationGitHubApp
-          path: apis/graphql/schemas/object/authorizationgithubapp
-        - name: AuthorizationGitHubEnterprise
-          path: apis/graphql/schemas/object/authorizationgithubenterprise
-        - name: AuthorizationGoogle
-          path: apis/graphql/schemas/object/authorizationgoogle
-        - name: AuthorizationSAML
-          path: apis/graphql/schemas/object/authorizationsaml
-        - name: Avatar
-          path: apis/graphql/schemas/object/avatar
-        - name: Build
-          path: apis/graphql/schemas/object/build
-        - name: BuildAnnotatePayload
-          path: apis/graphql/schemas/object/buildannotatepayload
-        - name: BuildCancelPayload
-          path: apis/graphql/schemas/object/buildcancelpayload
-        - name: BuildConnection
-          path: apis/graphql/schemas/object/buildconnection
-        - name: BuildCreatePayload
-          path: apis/graphql/schemas/object/buildcreatepayload
-        - name: BuildEdge
-          path: apis/graphql/schemas/object/buildedge
-        - name: BuildMetaData
-          path: apis/graphql/schemas/object/buildmetadata
-        - name: BuildMetaDataConnection
-          path: apis/graphql/schemas/object/buildmetadataconnection
-        - name: BuildMetaDataEdge
-          path: apis/graphql/schemas/object/buildmetadataedge
-        - name: BuildRebuildPayload
-          path: apis/graphql/schemas/object/buildrebuildpayload
-        - name: BuildSourceAPI
-          path: apis/graphql/schemas/object/buildsourceapi
-        - name: BuildSourceFrontend
-          path: apis/graphql/schemas/object/buildsourcefrontend
-        - name: BuildSourceSchedule
-          path: apis/graphql/schemas/object/buildsourceschedule
-        - name: BuildSourceTriggerJob
-          path: apis/graphql/schemas/object/buildsourcetriggerjob
-        - name: BuildSourceWebhook
-          path: apis/graphql/schemas/object/buildsourcewebhook
-        - name: BuildStepUpload
-          path: apis/graphql/schemas/object/buildstepupload
-        - name: BuildStepUploadDefinition
-          path: apis/graphql/schemas/object/buildstepuploaddefinition
-        - name: Changelog
-          path: apis/graphql/schemas/object/changelog
-        - name: ChangelogAuthor
-          path: apis/graphql/schemas/object/changelogauthor
-        - name: ChangelogConnection
-          path: apis/graphql/schemas/object/changelogconnection
-        - name: ChangelogEdge
-          path: apis/graphql/schemas/object/changelogedge
-        - name: Cluster
-          path: apis/graphql/schemas/object/cluster
-        - name: ClusterAgentTokenConnection
-          path: apis/graphql/schemas/object/clusteragenttokenconnection
-        - name: ClusterAgentTokenEdge
-          path: apis/graphql/schemas/object/clusteragenttokenedge
-        - name: ClusterConnection
-          path: apis/graphql/schemas/object/clusterconnection
-        - name: ClusterEdge
-          path: apis/graphql/schemas/object/clusteredge
-        - name: ClusterPermission
-          path: apis/graphql/schemas/object/clusterpermission
-        - name: ClusterQueue
-          path: apis/graphql/schemas/object/clusterqueue
-        - name: ClusterQueueConnection
-          path: apis/graphql/schemas/object/clusterqueueconnection
-        - name: ClusterQueueEdge
-          path: apis/graphql/schemas/object/clusterqueueedge
-        - name: ClusterToken
-          path: apis/graphql/schemas/object/clustertoken
-        - name: Dependency
-          path: apis/graphql/schemas/object/dependency
-        - name: DependencyConnection
-          path: apis/graphql/schemas/object/dependencyconnection
-        - name: DependencyEdge
-          path: apis/graphql/schemas/object/dependencyedge
-        - name: Dispatch
-          path: apis/graphql/schemas/object/dispatch
-        - name: Email
-          path: apis/graphql/schemas/object/email
-        - name: EmailConnection
-          path: apis/graphql/schemas/object/emailconnection
-        - name: EmailCreatePayload
-          path: apis/graphql/schemas/object/emailcreatepayload
-        - name: EmailEdge
-          path: apis/graphql/schemas/object/emailedge
-        - name: EmailResendVerificationPayload
-          path: apis/graphql/schemas/object/emailresendverificationpayload
-        - name: GraphQLSnippet
-          path: apis/graphql/schemas/object/graphqlsnippet
-        - name: GraphQLSnippetCreatePayload
-          path: apis/graphql/schemas/object/graphqlsnippetcreatepayload
-        - name: JobConcurrency
-          path: apis/graphql/schemas/object/jobconcurrency
-        - name: JobConnection
-          path: apis/graphql/schemas/object/jobconnection
-        - name: JobEdge
-          path: apis/graphql/schemas/object/jobedge
-        - name: JobEventActor
-          path: apis/graphql/schemas/object/jobeventactor
-        - name: JobEventAssigned
-          path: apis/graphql/schemas/object/jobeventassigned
-        - name: JobEventBuildStepUploadCreated
-          path: apis/graphql/schemas/object/jobeventbuildstepuploadcreated
-        - name: JobEventCanceled
-          path: apis/graphql/schemas/object/jobeventcanceled
-        - name: JobEventConnection
-          path: apis/graphql/schemas/object/jobeventconnection
-        - name: JobEventEdge
-          path: apis/graphql/schemas/object/jobeventedge
-        - name: JobEventFinished
-          path: apis/graphql/schemas/object/jobeventfinished
-        - name: JobEventGeneric
-          path: apis/graphql/schemas/object/jobeventgeneric
-        - name: JobEventRetried
-          path: apis/graphql/schemas/object/jobeventretried
-        - name: JobEventTimedOut
-          path: apis/graphql/schemas/object/jobeventtimedout
-        - name: JobPriority
-          path: apis/graphql/schemas/object/jobpriority
-        - name: JobRetryRuleAutomatic
-          path: apis/graphql/schemas/object/jobretryruleautomatic
-        - name: JobRetryRules
-          path: apis/graphql/schemas/object/jobretryrules
-        - name: JobTypeBlock
-          path: apis/graphql/schemas/object/jobtypeblock
-        - name: JobTypeBlockUnblockPayload
-          path: apis/graphql/schemas/object/jobtypeblockunblockpayload
-        - name: JobTypeCommand
-          path: apis/graphql/schemas/object/jobtypecommand
-        - name: JobTypeCommandCancelPayload
-          path: apis/graphql/schemas/object/jobtypecommandcancelpayload
-        - name: JobTypeCommandRetryPayload
-          path: apis/graphql/schemas/object/jobtypecommandretrypayload
-        - name: JobTypeTrigger
-          path: apis/graphql/schemas/object/jobtypetrigger
-        - name: JobTypeWait
-          path: apis/graphql/schemas/object/jobtypewait
-        - name: Mutation
-          path: apis/graphql/schemas/object/mutation
-        - name: Notice
-          path: apis/graphql/schemas/object/notice
-        - name: NoticeDismissPayload
-          path: apis/graphql/schemas/object/noticedismisspayload
-        - name: NotificationServiceSlack
-          path: apis/graphql/schemas/object/notificationserviceslack
-        - name: NotificationServiceWebhook
-          path: apis/graphql/schemas/object/notificationservicewebhook
-        - name: OperatingSystem
-          path: apis/graphql/schemas/object/operatingsystem
-        - name: Organization
-          path: apis/graphql/schemas/object/organization
-        - name: OrganizationAuditEventConnection
-          path: apis/graphql/schemas/object/organizationauditeventconnection
-        - name: OrganizationAuditEventEdge
-          path: apis/graphql/schemas/object/organizationauditeventedge
-        - name: OrganizationConnection
-          path: apis/graphql/schemas/object/organizationconnection
-        - name: OrganizationEdge
-          path: apis/graphql/schemas/object/organizationedge
-        - name: OrganizationInvitation
-          path: apis/graphql/schemas/object/organizationinvitation
-        - name: OrganizationInvitationConnection
-          path: apis/graphql/schemas/object/organizationinvitationconnection
-        - name: OrganizationInvitationCreatePayload
-          path: apis/graphql/schemas/object/organizationinvitationcreatepayload
-        - name: OrganizationInvitationEdge
-          path: apis/graphql/schemas/object/organizationinvitationedge
-        - name: OrganizationInvitationPermissions
-          path: apis/graphql/schemas/object/organizationinvitationpermissions
-        - name: OrganizationInvitationResendPayload
-          path: apis/graphql/schemas/object/organizationinvitationresendpayload
-        - name: OrganizationInvitationRevokePayload
-          path: apis/graphql/schemas/object/organizationinvitationrevokepayload
-        - name: OrganizationInvitationSSOType
-          path: apis/graphql/schemas/object/organizationinvitationssotype
-        - name: OrganizationInvitationTeamAssignment
-          path: apis/graphql/schemas/object/organizationinvitationteamassignment
-        - name: OrganizationInvitationTeamAssignmentConnection
-          path: apis/graphql/schemas/object/organizationinvitationteamassignmentconnection
-        - name: OrganizationInvitationTeamAssignmentEdge
-          path: apis/graphql/schemas/object/organizationinvitationteamassignmentedge
-        - name: OrganizationMember
-          path: apis/graphql/schemas/object/organizationmember
-        - name: OrganizationMemberConnection
-          path: apis/graphql/schemas/object/organizationmemberconnection
-        - name: OrganizationMemberDeletePayload
-          path: apis/graphql/schemas/object/organizationmemberdeletepayload
-        - name: OrganizationMemberEdge
-          path: apis/graphql/schemas/object/organizationmemberedge
-        - name: OrganizationMemberPermissions
-          path: apis/graphql/schemas/object/organizationmemberpermissions
-        - name: OrganizationMemberPipeline
-          path: apis/graphql/schemas/object/organizationmemberpipeline
-        - name: OrganizationMemberPipelineConnection
-          path: apis/graphql/schemas/object/organizationmemberpipelineconnection
-        - name: OrganizationMemberPipelineEdge
-          path: apis/graphql/schemas/object/organizationmemberpipelineedge
-        - name: OrganizationMemberSSO
-          path: apis/graphql/schemas/object/organizationmembersso
-        - name: OrganizationMemberSecurity
-          path: apis/graphql/schemas/object/organizationmembersecurity
-        - name: OrganizationMemberUpdatePayload
-          path: apis/graphql/schemas/object/organizationmemberupdatepayload
-        - name: OrganizationPermissions
-          path: apis/graphql/schemas/object/organizationpermissions
-        - name: OrganizationSSO
-          path: apis/graphql/schemas/object/organizationsso
-        - name: OrganizationSSOProvider
-          path: apis/graphql/schemas/object/organizationssoprovider
-        - name: PageInfo
-          path: apis/graphql/schemas/object/pageinfo
-        - name: Permission
-          path: apis/graphql/schemas/object/permission
-        - name: Pipeline
-          path: apis/graphql/schemas/object/pipeline
-        - name: PipelineArchivePayload
-          path: apis/graphql/schemas/object/pipelinearchivepayload
-        - name: PipelineConnection
-          path: apis/graphql/schemas/object/pipelineconnection
-        - name: PipelineCreatePayload
-          path: apis/graphql/schemas/object/pipelinecreatepayload
-        - name: PipelineCreateWebhookPayload
-          path: apis/graphql/schemas/object/pipelinecreatewebhookpayload
-        - name: PipelineDeletePayload
-          path: apis/graphql/schemas/object/pipelinedeletepayload
-        - name: PipelineEdge
-          path: apis/graphql/schemas/object/pipelineedge
-        - name: PipelineFavoritePayload
-          path: apis/graphql/schemas/object/pipelinefavoritepayload
-        - name: PipelineMetric
-          path: apis/graphql/schemas/object/pipelinemetric
-        - name: PipelineMetricConnection
-          path: apis/graphql/schemas/object/pipelinemetricconnection
-        - name: PipelineMetricEdge
-          path: apis/graphql/schemas/object/pipelinemetricedge
-        - name: PipelinePermissions
-          path: apis/graphql/schemas/object/pipelinepermissions
-        - name: PipelineRotateWebhookURLPayload
-          path: apis/graphql/schemas/object/pipelinerotatewebhookurlpayload
-        - name: PipelineSchedule
-          path: apis/graphql/schemas/object/pipelineschedule
-        - name: PipelineScheduleConnection
-          path: apis/graphql/schemas/object/pipelinescheduleconnection
-        - name: PipelineScheduleCreatePayload
-          path: apis/graphql/schemas/object/pipelineschedulecreatepayload
-        - name: PipelineScheduleDeletePayload
-          path: apis/graphql/schemas/object/pipelinescheduledeletepayload
-        - name: PipelineScheduleEdge
-          path: apis/graphql/schemas/object/pipelinescheduleedge
-        - name: PipelineSchedulePermissions
-          path: apis/graphql/schemas/object/pipelineschedulepermissions
-        - name: PipelineScheduleUpdatePayload
-          path: apis/graphql/schemas/object/pipelinescheduleupdatepayload
-        - name: PipelineSteps
-          path: apis/graphql/schemas/object/pipelinesteps
-        - name: PipelineTag
-          path: apis/graphql/schemas/object/pipelinetag
-        - name: PipelineUnarchivePayload
-          path: apis/graphql/schemas/object/pipelineunarchivepayload
-        - name: PipelineUpdatePayload
-          path: apis/graphql/schemas/object/pipelineupdatepayload
-        - name: PullRequest
-          path: apis/graphql/schemas/object/pullrequest
-        - name: Query
-          path: apis/graphql/schemas/object/query
-        - name: RecoveryCode
-          path: apis/graphql/schemas/object/recoverycode
-        - name: RecoveryCodeBatch
-          path: apis/graphql/schemas/object/recoverycodebatch
-        - name: Repository
-          path: apis/graphql/schemas/object/repository
-        - name: RepositoryProviderBeanstalk
-          path: apis/graphql/schemas/object/repositoryproviderbeanstalk
-        - name: RepositoryProviderBitbucket
-          path: apis/graphql/schemas/object/repositoryproviderbitbucket
-        - name: RepositoryProviderBitbucketServer
-          path: apis/graphql/schemas/object/repositoryproviderbitbucketserver
-        - name: RepositoryProviderCodebase
-          path: apis/graphql/schemas/object/repositoryprovidercodebase
-        - name: RepositoryProviderGithub
-          path: apis/graphql/schemas/object/repositoryprovidergithub
-        - name: RepositoryProviderGithubEnterprise
-          path: apis/graphql/schemas/object/repositoryprovidergithubenterprise
-        - name: RepositoryProviderGitlab
-          path: apis/graphql/schemas/object/repositoryprovidergitlab
-        - name: RepositoryProviderGitlabCommunity
-          path: apis/graphql/schemas/object/repositoryprovidergitlabcommunity
-        - name: RepositoryProviderGitlabEnterprise
-          path: apis/graphql/schemas/object/repositoryprovidergitlabenterprise
-        - name: RepositoryProviderUnknown
-          path: apis/graphql/schemas/object/repositoryproviderunknown
-        - name: SCMPipelineSettings
-          path: apis/graphql/schemas/object/scmpipelinesettings
-        - name: SCMRepositoryHost
-          path: apis/graphql/schemas/object/scmrepositoryhost
-        - name: SCMService
-          path: apis/graphql/schemas/object/scmservice
-        - name: SSOAuthorization
-          path: apis/graphql/schemas/object/ssoauthorization
-        - name: SSOAuthorizationConnection
-          path: apis/graphql/schemas/object/ssoauthorizationconnection
-        - name: SSOAuthorizationEdge
-          path: apis/graphql/schemas/object/ssoauthorizationedge
-        - name: SSOAuthorizationIdentity
-          path: apis/graphql/schemas/object/ssoauthorizationidentity
-        - name: SSOProviderConnection
-          path: apis/graphql/schemas/object/ssoproviderconnection
-        - name: SSOProviderCreatePayload
-          path: apis/graphql/schemas/object/ssoprovidercreatepayload
-        - name: SSOProviderDeletePayload
-          path: apis/graphql/schemas/object/ssoproviderdeletepayload
-        - name: SSOProviderDisablePayload
-          path: apis/graphql/schemas/object/ssoproviderdisablepayload
-        - name: SSOProviderEdge
-          path: apis/graphql/schemas/object/ssoprovideredge
-        - name: SSOProviderEnablePayload
-          path: apis/graphql/schemas/object/ssoproviderenablepayload
-        - name: SSOProviderGitHubApp
-          path: apis/graphql/schemas/object/ssoprovidergithubapp
-        - name: SSOProviderGoogleGSuite
-          path: apis/graphql/schemas/object/ssoprovidergooglegsuite
-        - name: SSOProviderSAML
-          path: apis/graphql/schemas/object/ssoprovidersaml
-        - name: SSOProviderSAMLIdPType
-          path: apis/graphql/schemas/object/ssoprovidersamlidptype
-        - name: SSOProviderSAMLMetadataType
-          path: apis/graphql/schemas/object/ssoprovidersamlmetadatatype
-        - name: SSOProviderSAMLSPType
-          path: apis/graphql/schemas/object/ssoprovidersamlsptype
-        - name: SSOProviderUpdatePayload
-          path: apis/graphql/schemas/object/ssoproviderupdatepayload
-        - name: StepCommand
-          path: apis/graphql/schemas/object/stepcommand
-        - name: StepInput
-          path: apis/graphql/schemas/object/stepinput
-        - name: StepTrigger
-          path: apis/graphql/schemas/object/steptrigger
-        - name: StepWait
-          path: apis/graphql/schemas/object/stepwait
-        - name: Subscription
-          path: apis/graphql/schemas/object/subscription
-        - name: Suite
-          path: apis/graphql/schemas/object/suite
-        - name: SuiteConnection
-          path: apis/graphql/schemas/object/suiteconnection
-        - name: SuiteEdge
-          path: apis/graphql/schemas/object/suiteedge
-        - name: TOTP
-          path: apis/graphql/schemas/object/totp
-        - name: TOTPActivatePayload
-          path: apis/graphql/schemas/object/totpactivatepayload
-        - name: TOTPCreatePayload
-          path: apis/graphql/schemas/object/totpcreatepayload
-        - name: TOTPDeletePayload
-          path: apis/graphql/schemas/object/totpdeletepayload
-        - name: TOTPRecoveryCodesRegeneratePayload
-          path: apis/graphql/schemas/object/totprecoverycodesregeneratepayload
-        - name: Team
-          path: apis/graphql/schemas/object/team
-        - name: TeamConnection
-          path: apis/graphql/schemas/object/teamconnection
-        - name: TeamCreatePayload
-          path: apis/graphql/schemas/object/teamcreatepayload
-        - name: TeamDeletePayload
-          path: apis/graphql/schemas/object/teamdeletepayload
-        - name: TeamEdge
-          path: apis/graphql/schemas/object/teamedge
-        - name: TeamMember
-          path: apis/graphql/schemas/object/teammember
-        - name: TeamMemberConnection
-          path: apis/graphql/schemas/object/teammemberconnection
-        - name: TeamMemberCreatePayload
-          path: apis/graphql/schemas/object/teammembercreatepayload
-        - name: TeamMemberDeletePayload
-          path: apis/graphql/schemas/object/teammemberdeletepayload
-        - name: TeamMemberEdge
-          path: apis/graphql/schemas/object/teammemberedge
-        - name: TeamMemberPermissions
-          path: apis/graphql/schemas/object/teammemberpermissions
-        - name: TeamMemberUpdatePayload
-          path: apis/graphql/schemas/object/teammemberupdatepayload
-        - name: TeamPermissions
-          path: apis/graphql/schemas/object/teampermissions
-        - name: TeamPipeline
-          path: apis/graphql/schemas/object/teampipeline
-        - name: TeamPipelineConnection
-          path: apis/graphql/schemas/object/teampipelineconnection
-        - name: TeamPipelineCreatePayload
-          path: apis/graphql/schemas/object/teampipelinecreatepayload
-        - name: TeamPipelineDeletePayload
-          path: apis/graphql/schemas/object/teampipelinedeletepayload
-        - name: TeamPipelineEdge
-          path: apis/graphql/schemas/object/teampipelineedge
-        - name: TeamPipelinePermissions
-          path: apis/graphql/schemas/object/teampipelinepermissions
-        - name: TeamPipelineUpdatePayload
-          path: apis/graphql/schemas/object/teampipelineupdatepayload
-        - name: TeamSuite
-          path: apis/graphql/schemas/object/teamsuite
-        - name: TeamSuiteConnection
-          path: apis/graphql/schemas/object/teamsuiteconnection
-        - name: TeamSuiteCreatePayload
-          path: apis/graphql/schemas/object/teamsuitecreatepayload
-        - name: TeamSuiteDeletePayload
-          path: apis/graphql/schemas/object/teamsuitedeletepayload
-        - name: TeamSuiteEdge
-          path: apis/graphql/schemas/object/teamsuiteedge
-        - name: TeamSuitePermissions
-          path: apis/graphql/schemas/object/teamsuitepermissions
-        - name: TeamSuiteUpdatePayload
-          path: apis/graphql/schemas/object/teamsuiteupdatepayload
-        - name: TeamUpdatePayload
-          path: apis/graphql/schemas/object/teamupdatepayload
-        - name: UnregisteredUser
-          path: apis/graphql/schemas/object/unregistereduser
-        - name: User
-          path: apis/graphql/schemas/object/user
-        - name: Viewer
-          path: apis/graphql/schemas/object/viewer
-        - name: ViewerPermissions
-          path: apis/graphql/schemas/object/viewerpermissions
-        - name: __Directive
-          path: apis/graphql/schemas/object/--directive
-        - name: __EnumValue
-          path: apis/graphql/schemas/object/--enumvalue
-        - name: __Field
-          path: apis/graphql/schemas/object/--field
-        - name: __InputValue
-          path: apis/graphql/schemas/object/--inputvalue
-        - name: __Schema
-          path: apis/graphql/schemas/object/--schema
-        - name: __Type
-          path: apis/graphql/schemas/object/--type
-      - name: Scalars
-        children:
-        - name: Boolean
-          path: apis/graphql/schemas/scalar/boolean
-        - name: DateTime
-          path: apis/graphql/schemas/scalar/datetime
-        - name: ID
-          path: apis/graphql/schemas/scalar/id
-        - name: Int
-          path: apis/graphql/schemas/scalar/int
-        - name: JSInt
-          path: apis/graphql/schemas/scalar/jsint
-        - name: JSON
-          path: apis/graphql/schemas/scalar/json
-        - name: PipelineSelector
-          path: apis/graphql/schemas/scalar/pipelineselector
-        - name: String
-          path: apis/graphql/schemas/scalar/string
-        - name: TeamSelector
-          path: apis/graphql/schemas/scalar/teamselector
-        - name: UserSelector
-          path: apis/graphql/schemas/scalar/userselector
-        - name: XML
-          path: apis/graphql/schemas/scalar/xml
-        - name: YAML
-          path: apis/graphql/schemas/scalar/yaml
-      - name: Interfaces
-        children:
-        - name: Authorization
-          path: apis/graphql/schemas/interface/authorization
-        - name: BuildSource
-          path: apis/graphql/schemas/interface/buildsource
-        - name: Connection
-          path: apis/graphql/schemas/interface/connection
-        - name: JobEvent
-          path: apis/graphql/schemas/interface/jobevent
-        - name: Node
-          path: apis/graphql/schemas/interface/node
-        - name: NotificationService
-          path: apis/graphql/schemas/interface/notificationservice
-        - name: RepositoryProvider
-          path: apis/graphql/schemas/interface/repositoryprovider
-        - name: SSOProvider
-          path: apis/graphql/schemas/interface/ssoprovider
-        - name: Step
-          path: apis/graphql/schemas/interface/step
-      - name: ENUMs
-        children:
-        - name: AnnotationStyle
-          path: apis/graphql/schemas/enum/annotationstyle
-        - name: AuditActorType
-          path: apis/graphql/schemas/enum/auditactortype
-        - name: AuditEventType
-          path: apis/graphql/schemas/enum/auditeventtype
-        - name: AuditSubjectType
-          path: apis/graphql/schemas/enum/auditsubjecttype
-        - name: AuthorizationType
-          path: apis/graphql/schemas/enum/authorizationtype
-        - name: BuildBlockedStates
-          path: apis/graphql/schemas/enum/buildblockedstates
-        - name: BuildStates
-          path: apis/graphql/schemas/enum/buildstates
-        - name: ClusterOrder
-          path: apis/graphql/schemas/enum/clusterorder
-        - name: ClusterQueueOrder
-          path: apis/graphql/schemas/enum/clusterqueueorder
-        - name: JobEventActorType
-          path: apis/graphql/schemas/enum/jobeventactortype
-        - name: JobEventSignalReason
-          path: apis/graphql/schemas/enum/jobeventsignalreason
-        - name: JobEventType
-          path: apis/graphql/schemas/enum/jobeventtype
-        - name: JobOrder
-          path: apis/graphql/schemas/enum/joborder
-        - name: JobStates
-          path: apis/graphql/schemas/enum/jobstates
-        - name: JobTypes
-          path: apis/graphql/schemas/enum/jobtypes
-        - name: NoticeNamespaces
-          path: apis/graphql/schemas/enum/noticenamespaces
-        - name: OrganizationAuditEventOrders
-          path: apis/graphql/schemas/enum/organizationauditeventorders
-        - name: OrganizationInvitationOrders
-          path: apis/graphql/schemas/enum/organizationinvitationorders
-        - name: OrganizationInvitationStates
-          path: apis/graphql/schemas/enum/organizationinvitationstates
-        - name: OrganizationMemberOrder
-          path: apis/graphql/schemas/enum/organizationmemberorder
-        - name: OrganizationMemberRole
-          path: apis/graphql/schemas/enum/organizationmemberrole
-        - name: OrganizationMemberSSOModeEnum
-          path: apis/graphql/schemas/enum/organizationmemberssomodeenum
-        - name: PipelineAccessLevels
-          path: apis/graphql/schemas/enum/pipelineaccesslevels
-        - name: PipelineOrders
-          path: apis/graphql/schemas/enum/pipelineorders
-        - name: PipelineVisibility
-          path: apis/graphql/schemas/enum/pipelinevisibility
-        - name: SSOAuthorizationState
-          path: apis/graphql/schemas/enum/ssoauthorizationstate
-        - name: SSOProviderSAMLRSAXMLSecurity
-          path: apis/graphql/schemas/enum/ssoprovidersamlrsaxmlsecurity
-        - name: SSOProviderSAMLXMLSecurity
-          path: apis/graphql/schemas/enum/ssoprovidersamlxmlsecurity
-        - name: SSOProviderStates
-          path: apis/graphql/schemas/enum/ssoproviderstates
-        - name: SSOProviderTypes
-          path: apis/graphql/schemas/enum/ssoprovidertypes
-        - name: SuiteAccessLevels
-          path: apis/graphql/schemas/enum/suiteaccesslevels
-        - name: SuiteOrders
-          path: apis/graphql/schemas/enum/suiteorders
-        - name: TeamMemberOrder
-          path: apis/graphql/schemas/enum/teammemberorder
-        - name: TeamMemberRole
-          path: apis/graphql/schemas/enum/teammemberrole
-        - name: TeamOrder
-          path: apis/graphql/schemas/enum/teamorder
-        - name: TeamPipelineOrder
-          path: apis/graphql/schemas/enum/teampipelineorder
-        - name: TeamPrivacy
-          path: apis/graphql/schemas/enum/teamprivacy
-        - name: TeamSuiteOrder
-          path: apis/graphql/schemas/enum/teamsuiteorder
-        - name: __DirectiveLocation
-          path: apis/graphql/schemas/enum/--directivelocation
-        - name: __TypeKind
-          path: apis/graphql/schemas/enum/--typekind
-      - name: Input objects
-        children:
-        - name: APIAccessTokenCodeAuthorizeMutationInput
-          path: apis/graphql/schemas/input-object/apiaccesstokencodeauthorizemutationinput
-        - name: AgentStopInput
-          path: apis/graphql/schemas/input-object/agentstopinput
-        - name: AgentTokenCreateInput
-          path: apis/graphql/schemas/input-object/agenttokencreateinput
-        - name: AgentTokenRevokeInput
-          path: apis/graphql/schemas/input-object/agenttokenrevokeinput
-        - name: BuildAnnotateInput
-          path: apis/graphql/schemas/input-object/buildannotateinput
-        - name: BuildAuthorInput
-          path: apis/graphql/schemas/input-object/buildauthorinput
-        - name: BuildCancelInput
-          path: apis/graphql/schemas/input-object/buildcancelinput
-        - name: BuildCreateInput
-          path: apis/graphql/schemas/input-object/buildcreateinput
-        - name: BuildMetaDataInput
-          path: apis/graphql/schemas/input-object/buildmetadatainput
-        - name: BuildRebuildInput
-          path: apis/graphql/schemas/input-object/buildrebuildinput
-        - name: EmailCreateInput
-          path: apis/graphql/schemas/input-object/emailcreateinput
-        - name: EmailResendVerificationInput
-          path: apis/graphql/schemas/input-object/emailresendverificationinput
-        - name: GraphQLSnippetCreateInput
-          path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
-        - name: JobConcurrencySearch
-          path: apis/graphql/schemas/input-object/jobconcurrencysearch
-        - name: JobPrioritySearch
-          path: apis/graphql/schemas/input-object/jobprioritysearch
-        - name: JobStepSearch
-          path: apis/graphql/schemas/input-object/jobstepsearch
-        - name: JobTypeBlockUnblockInput
-          path: apis/graphql/schemas/input-object/jobtypeblockunblockinput
-        - name: JobTypeCommandCancelInput
-          path: apis/graphql/schemas/input-object/jobtypecommandcancelinput
-        - name: JobTypeCommandRetryInput
-          path: apis/graphql/schemas/input-object/jobtypecommandretryinput
-        - name: NoticeDismissInput
-          path: apis/graphql/schemas/input-object/noticedismissinput
-        - name: OrganizationInvitationCreateInput
-          path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
-        - name: OrganizationInvitationResendInput
-          path: apis/graphql/schemas/input-object/organizationinvitationresendinput
-        - name: OrganizationInvitationRevokeInput
-          path: apis/graphql/schemas/input-object/organizationinvitationrevokeinput
-        - name: OrganizationInvitationSSOInput
-          path: apis/graphql/schemas/input-object/organizationinvitationssoinput
-        - name: OrganizationInvitationTeamAssignmentInput
-          path: apis/graphql/schemas/input-object/organizationinvitationteamassignmentinput
-        - name: OrganizationMemberDeleteInput
-          path: apis/graphql/schemas/input-object/organizationmemberdeleteinput
-        - name: OrganizationMemberSSOInput
-          path: apis/graphql/schemas/input-object/organizationmemberssoinput
-        - name: OrganizationMemberSecurityInput
-          path: apis/graphql/schemas/input-object/organizationmembersecurityinput
-        - name: OrganizationMemberUpdateInput
-          path: apis/graphql/schemas/input-object/organizationmemberupdateinput
-        - name: PipelineArchiveInput
-          path: apis/graphql/schemas/input-object/pipelinearchiveinput
-        - name: PipelineCreateInput
-          path: apis/graphql/schemas/input-object/pipelinecreateinput
-        - name: PipelineCreateWebhookInput
-          path: apis/graphql/schemas/input-object/pipelinecreatewebhookinput
-        - name: PipelineDeleteInput
-          path: apis/graphql/schemas/input-object/pipelinedeleteinput
-        - name: PipelineFavoriteInput
-          path: apis/graphql/schemas/input-object/pipelinefavoriteinput
-        - name: PipelineRepositoryInput
-          path: apis/graphql/schemas/input-object/pipelinerepositoryinput
-        - name: PipelineRotateWebhookURLInput
-          path: apis/graphql/schemas/input-object/pipelinerotatewebhookurlinput
-        - name: PipelineScheduleCreateInput
-          path: apis/graphql/schemas/input-object/pipelineschedulecreateinput
-        - name: PipelineScheduleDeleteInput
-          path: apis/graphql/schemas/input-object/pipelinescheduledeleteinput
-        - name: PipelineScheduleUpdateInput
-          path: apis/graphql/schemas/input-object/pipelinescheduleupdateinput
-        - name: PipelineStepsInput
-          path: apis/graphql/schemas/input-object/pipelinestepsinput
-        - name: PipelineTagInput
-          path: apis/graphql/schemas/input-object/pipelinetaginput
-        - name: PipelineTeamAssignmentInput
-          path: apis/graphql/schemas/input-object/pipelineteamassignmentinput
-        - name: PipelineUnarchiveInput
-          path: apis/graphql/schemas/input-object/pipelineunarchiveinput
-        - name: PipelineUpdateInput
-          path: apis/graphql/schemas/input-object/pipelineupdateinput
-        - name: SSOProviderCreateInput
-          path: apis/graphql/schemas/input-object/ssoprovidercreateinput
-        - name: SSOProviderDeleteInput
-          path: apis/graphql/schemas/input-object/ssoproviderdeleteinput
-        - name: SSOProviderDisableInput
-          path: apis/graphql/schemas/input-object/ssoproviderdisableinput
-        - name: SSOProviderEnableInput
-          path: apis/graphql/schemas/input-object/ssoproviderenableinput
-        - name: SSOProviderSAMLIdP
-          path: apis/graphql/schemas/input-object/ssoprovidersamlidp
-        - name: SSOProviderSAMLIdPMetadata
-          path: apis/graphql/schemas/input-object/ssoprovidersamlidpmetadata
-        - name: SSOProviderUpdateInput
-          path: apis/graphql/schemas/input-object/ssoproviderupdateinput
-        - name: TOTPActivateInput
-          path: apis/graphql/schemas/input-object/totpactivateinput
-        - name: TOTPCreateInput
-          path: apis/graphql/schemas/input-object/totpcreateinput
-        - name: TOTPDeleteInput
-          path: apis/graphql/schemas/input-object/totpdeleteinput
-        - name: TOTPRecoveryCodesRegenerateInput
-          path: apis/graphql/schemas/input-object/totprecoverycodesregenerateinput
-        - name: TeamCreateInput
-          path: apis/graphql/schemas/input-object/teamcreateinput
-        - name: TeamDeleteInput
-          path: apis/graphql/schemas/input-object/teamdeleteinput
-        - name: TeamMemberCreateInput
-          path: apis/graphql/schemas/input-object/teammembercreateinput
-        - name: TeamMemberDeleteInput
-          path: apis/graphql/schemas/input-object/teammemberdeleteinput
-        - name: TeamMemberUpdateInput
-          path: apis/graphql/schemas/input-object/teammemberupdateinput
-        - name: TeamPipelineCreateInput
-          path: apis/graphql/schemas/input-object/teampipelinecreateinput
-        - name: TeamPipelineDeleteInput
-          path: apis/graphql/schemas/input-object/teampipelinedeleteinput
-        - name: TeamPipelineUpdateInput
-          path: apis/graphql/schemas/input-object/teampipelineupdateinput
-        - name: TeamSuiteCreateInput
-          path: apis/graphql/schemas/input-object/teamsuitecreateinput
-        - name: TeamSuiteDeleteInput
-          path: apis/graphql/schemas/input-object/teamsuitedeleteinput
-        - name: TeamSuiteUpdateInput
-          path: apis/graphql/schemas/input-object/teamsuiteupdateinput
-        - name: TeamUpdateInput
-          path: apis/graphql/schemas/input-object/teamupdateinput
-      - name: Unions
-        children:
-        - name: AuditActorNode
-          path: apis/graphql/schemas/union/auditactornode
-        - name: AuditContext
-          path: apis/graphql/schemas/union/auditcontext
-        - name: AuditSubjectNode
-          path: apis/graphql/schemas/union/auditsubjectnode
-        - name: BuildCreator
-          path: apis/graphql/schemas/union/buildcreator
-        - name: ClusterPermissionActor
-          path: apis/graphql/schemas/union/clusterpermissionactor
-        - name: Job
-          path: apis/graphql/schemas/union/job
-        - name: JobEventActorNodeUnion
-          path: apis/graphql/schemas/union/jobeventactornodeunion
-    - name: Cookbook
-      path: apis/graphql/graphql-cookbook
-  - name: Integrations
-    path: integrations
-- - name: buildkite.com
-    path: https://buildkite.com/home
-    new_window: true
-  - name: Help
-    type: dropdown
-    children:
-    - name: Email support
-      path: support@buildkite.com
-    - name: Forum
-      path: https://forum.buildkite.community/
-      new_window: true
+      - name: agent
+        path: apis/graphql/schemas/query/agent
+      - name: agentToken
+        path: apis/graphql/schemas/query/agenttoken
+      - name: apiAccessTokenCode
+        path: apis/graphql/schemas/query/apiaccesstokencode
+      - name: artifact
+        path: apis/graphql/schemas/query/artifact
+      - name: auditEvent
+        path: apis/graphql/schemas/query/auditevent
+      - name: build
+        path: apis/graphql/schemas/query/build
+      - name: graphQLSnippet
+        path: apis/graphql/schemas/query/graphqlsnippet
+      - name: job
+        path: apis/graphql/schemas/query/job
+      - name: node
+        path: apis/graphql/schemas/query/node
+      - name: notificationService
+        path: apis/graphql/schemas/query/notificationservice
+      - name: organization
+        path: apis/graphql/schemas/query/organization
+      - name: organizationInvitation
+        path: apis/graphql/schemas/query/organizationinvitation
+      - name: organizationMember
+        path: apis/graphql/schemas/query/organizationmember
+      - name: pipeline
+        path: apis/graphql/schemas/query/pipeline
+      - name: pipelineSchedule
+        path: apis/graphql/schemas/query/pipelineschedule
+      - name: ssoProvider
+        path: apis/graphql/schemas/query/ssoprovider
+      - name: team
+        path: apis/graphql/schemas/query/team
+      - name: viewer
+        path: apis/graphql/schemas/query/viewer
+    - name: Mutations
+      children:
+      - name: agentStop
+        path: apis/graphql/schemas/mutation/agentstop
+      - name: agentTokenCreate
+        path: apis/graphql/schemas/mutation/agenttokencreate
+      - name: agentTokenRevoke
+        path: apis/graphql/schemas/mutation/agenttokenrevoke
+      - name: apiAccessTokenCodeAuthorize
+        path: apis/graphql/schemas/mutation/apiaccesstokencodeauthorize
+      - name: buildAnnotate
+        path: apis/graphql/schemas/mutation/buildannotate
+      - name: buildCancel
+        path: apis/graphql/schemas/mutation/buildcancel
+      - name: buildCreate
+        path: apis/graphql/schemas/mutation/buildcreate
+      - name: buildRebuild
+        path: apis/graphql/schemas/mutation/buildrebuild
+      - name: emailCreate
+        path: apis/graphql/schemas/mutation/emailcreate
+      - name: emailResendVerification
+        path: apis/graphql/schemas/mutation/emailresendverification
+      - name: graphQLSnippetCreate
+        path: apis/graphql/schemas/mutation/graphqlsnippetcreate
+      - name: jobTypeBlockUnblock
+        path: apis/graphql/schemas/mutation/jobtypeblockunblock
+      - name: jobTypeCommandCancel
+        path: apis/graphql/schemas/mutation/jobtypecommandcancel
+      - name: jobTypeCommandRetry
+        path: apis/graphql/schemas/mutation/jobtypecommandretry
+      - name: noticeDismiss
+        path: apis/graphql/schemas/mutation/noticedismiss
+      - name: organizationInvitationCreate
+        path: apis/graphql/schemas/mutation/organizationinvitationcreate
+      - name: organizationInvitationResend
+        path: apis/graphql/schemas/mutation/organizationinvitationresend
+      - name: organizationInvitationRevoke
+        path: apis/graphql/schemas/mutation/organizationinvitationrevoke
+      - name: organizationMemberDelete
+        path: apis/graphql/schemas/mutation/organizationmemberdelete
+      - name: organizationMemberUpdate
+        path: apis/graphql/schemas/mutation/organizationmemberupdate
+      - name: pipelineArchive
+        path: apis/graphql/schemas/mutation/pipelinearchive
+      - name: pipelineCreate
+        path: apis/graphql/schemas/mutation/pipelinecreate
+      - name: pipelineCreateWebhook
+        path: apis/graphql/schemas/mutation/pipelinecreatewebhook
+      - name: pipelineDelete
+        path: apis/graphql/schemas/mutation/pipelinedelete
+      - name: pipelineFavorite
+        path: apis/graphql/schemas/mutation/pipelinefavorite
+      - name: pipelineRotateWebhookURL
+        path: apis/graphql/schemas/mutation/pipelinerotatewebhookurl
+      - name: pipelineScheduleCreate
+        path: apis/graphql/schemas/mutation/pipelineschedulecreate
+      - name: pipelineScheduleDelete
+        path: apis/graphql/schemas/mutation/pipelinescheduledelete
+      - name: pipelineScheduleUpdate
+        path: apis/graphql/schemas/mutation/pipelinescheduleupdate
+      - name: pipelineUnarchive
+        path: apis/graphql/schemas/mutation/pipelineunarchive
+      - name: pipelineUpdate
+        path: apis/graphql/schemas/mutation/pipelineupdate
+      - name: ssoProviderCreate
+        path: apis/graphql/schemas/mutation/ssoprovidercreate
+      - name: ssoProviderDelete
+        path: apis/graphql/schemas/mutation/ssoproviderdelete
+      - name: ssoProviderDisable
+        path: apis/graphql/schemas/mutation/ssoproviderdisable
+      - name: ssoProviderEnable
+        path: apis/graphql/schemas/mutation/ssoproviderenable
+      - name: ssoProviderUpdate
+        path: apis/graphql/schemas/mutation/ssoproviderupdate
+      - name: teamCreate
+        path: apis/graphql/schemas/mutation/teamcreate
+      - name: teamDelete
+        path: apis/graphql/schemas/mutation/teamdelete
+      - name: teamMemberCreate
+        path: apis/graphql/schemas/mutation/teammembercreate
+      - name: teamMemberDelete
+        path: apis/graphql/schemas/mutation/teammemberdelete
+      - name: teamMemberUpdate
+        path: apis/graphql/schemas/mutation/teammemberupdate
+      - name: teamPipelineCreate
+        path: apis/graphql/schemas/mutation/teampipelinecreate
+      - name: teamPipelineDelete
+        path: apis/graphql/schemas/mutation/teampipelinedelete
+      - name: teamPipelineUpdate
+        path: apis/graphql/schemas/mutation/teampipelineupdate
+      - name: teamSuiteCreate
+        path: apis/graphql/schemas/mutation/teamsuitecreate
+      - name: teamSuiteDelete
+        path: apis/graphql/schemas/mutation/teamsuitedelete
+      - name: teamSuiteUpdate
+        path: apis/graphql/schemas/mutation/teamsuiteupdate
+      - name: teamUpdate
+        path: apis/graphql/schemas/mutation/teamupdate
+      - name: totpActivate
+        path: apis/graphql/schemas/mutation/totpactivate
+      - name: totpCreate
+        path: apis/graphql/schemas/mutation/totpcreate
+      - name: totpDelete
+        path: apis/graphql/schemas/mutation/totpdelete
+      - name: totpRecoveryCodesRegenerate
+        path: apis/graphql/schemas/mutation/totprecoverycodesregenerate
+    - name: Objects
+      children:
+      - name: APIAccessToken
+        path: apis/graphql/schemas/object/apiaccesstoken
+      - name: APIAccessTokenCode
+        path: apis/graphql/schemas/object/apiaccesstokencode
+      - name: APIAccessTokenCodeAuthorizeMutationPayload
+        path: apis/graphql/schemas/object/apiaccesstokencodeauthorizemutationpayload
+      - name: APIApplication
+        path: apis/graphql/schemas/object/apiapplication
+      - name: Agent
+        path: apis/graphql/schemas/object/agent
+      - name: AgentConnection
+        path: apis/graphql/schemas/object/agentconnection
+      - name: AgentEdge
+        path: apis/graphql/schemas/object/agentedge
+      - name: AgentPermissions
+        path: apis/graphql/schemas/object/agentpermissions
+      - name: AgentStopPayload
+        path: apis/graphql/schemas/object/agentstoppayload
+      - name: AgentToken
+        path: apis/graphql/schemas/object/agenttoken
+      - name: AgentTokenConnection
+        path: apis/graphql/schemas/object/agenttokenconnection
+      - name: AgentTokenCreatePayload
+        path: apis/graphql/schemas/object/agenttokencreatepayload
+      - name: AgentTokenEdge
+        path: apis/graphql/schemas/object/agenttokenedge
+      - name: AgentTokenPermissions
+        path: apis/graphql/schemas/object/agenttokenpermissions
+      - name: AgentTokenRevokePayload
+        path: apis/graphql/schemas/object/agenttokenrevokepayload
+      - name: Annotation
+        path: apis/graphql/schemas/object/annotation
+      - name: AnnotationBody
+        path: apis/graphql/schemas/object/annotationbody
+      - name: AnnotationConnection
+        path: apis/graphql/schemas/object/annotationconnection
+      - name: AnnotationEdge
+        path: apis/graphql/schemas/object/annotationedge
+      - name: Artifact
+        path: apis/graphql/schemas/object/artifact
+      - name: ArtifactConnection
+        path: apis/graphql/schemas/object/artifactconnection
+      - name: ArtifactEdge
+        path: apis/graphql/schemas/object/artifactedge
+      - name: AuditAPIContext
+        path: apis/graphql/schemas/object/auditapicontext
+      - name: AuditActor
+        path: apis/graphql/schemas/object/auditactor
+      - name: AuditEvent
+        path: apis/graphql/schemas/object/auditevent
+      - name: AuditSubject
+        path: apis/graphql/schemas/object/auditsubject
+      - name: AuditWebContext
+        path: apis/graphql/schemas/object/auditwebcontext
+      - name: AuthorizationBitbucket
+        path: apis/graphql/schemas/object/authorizationbitbucket
+      - name: AuthorizationConnection
+        path: apis/graphql/schemas/object/authorizationconnection
+      - name: AuthorizationEdge
+        path: apis/graphql/schemas/object/authorizationedge
+      - name: AuthorizationGitHub
+        path: apis/graphql/schemas/object/authorizationgithub
+      - name: AuthorizationGitHubApp
+        path: apis/graphql/schemas/object/authorizationgithubapp
+      - name: AuthorizationGitHubEnterprise
+        path: apis/graphql/schemas/object/authorizationgithubenterprise
+      - name: AuthorizationGoogle
+        path: apis/graphql/schemas/object/authorizationgoogle
+      - name: AuthorizationSAML
+        path: apis/graphql/schemas/object/authorizationsaml
+      - name: Avatar
+        path: apis/graphql/schemas/object/avatar
+      - name: Build
+        path: apis/graphql/schemas/object/build
+      - name: BuildAnnotatePayload
+        path: apis/graphql/schemas/object/buildannotatepayload
+      - name: BuildCancelPayload
+        path: apis/graphql/schemas/object/buildcancelpayload
+      - name: BuildConnection
+        path: apis/graphql/schemas/object/buildconnection
+      - name: BuildCreatePayload
+        path: apis/graphql/schemas/object/buildcreatepayload
+      - name: BuildEdge
+        path: apis/graphql/schemas/object/buildedge
+      - name: BuildMetaData
+        path: apis/graphql/schemas/object/buildmetadata
+      - name: BuildMetaDataConnection
+        path: apis/graphql/schemas/object/buildmetadataconnection
+      - name: BuildMetaDataEdge
+        path: apis/graphql/schemas/object/buildmetadataedge
+      - name: BuildRebuildPayload
+        path: apis/graphql/schemas/object/buildrebuildpayload
+      - name: BuildSourceAPI
+        path: apis/graphql/schemas/object/buildsourceapi
+      - name: BuildSourceFrontend
+        path: apis/graphql/schemas/object/buildsourcefrontend
+      - name: BuildSourceSchedule
+        path: apis/graphql/schemas/object/buildsourceschedule
+      - name: BuildSourceTriggerJob
+        path: apis/graphql/schemas/object/buildsourcetriggerjob
+      - name: BuildSourceWebhook
+        path: apis/graphql/schemas/object/buildsourcewebhook
+      - name: BuildStepUpload
+        path: apis/graphql/schemas/object/buildstepupload
+      - name: BuildStepUploadDefinition
+        path: apis/graphql/schemas/object/buildstepuploaddefinition
+      - name: Changelog
+        path: apis/graphql/schemas/object/changelog
+      - name: ChangelogAuthor
+        path: apis/graphql/schemas/object/changelogauthor
+      - name: ChangelogConnection
+        path: apis/graphql/schemas/object/changelogconnection
+      - name: ChangelogEdge
+        path: apis/graphql/schemas/object/changelogedge
+      - name: Cluster
+        path: apis/graphql/schemas/object/cluster
+      - name: ClusterAgentTokenConnection
+        path: apis/graphql/schemas/object/clusteragenttokenconnection
+      - name: ClusterAgentTokenEdge
+        path: apis/graphql/schemas/object/clusteragenttokenedge
+      - name: ClusterConnection
+        path: apis/graphql/schemas/object/clusterconnection
+      - name: ClusterEdge
+        path: apis/graphql/schemas/object/clusteredge
+      - name: ClusterPermission
+        path: apis/graphql/schemas/object/clusterpermission
+      - name: ClusterQueue
+        path: apis/graphql/schemas/object/clusterqueue
+      - name: ClusterQueueConnection
+        path: apis/graphql/schemas/object/clusterqueueconnection
+      - name: ClusterQueueEdge
+        path: apis/graphql/schemas/object/clusterqueueedge
+      - name: ClusterToken
+        path: apis/graphql/schemas/object/clustertoken
+      - name: Dependency
+        path: apis/graphql/schemas/object/dependency
+      - name: DependencyConnection
+        path: apis/graphql/schemas/object/dependencyconnection
+      - name: DependencyEdge
+        path: apis/graphql/schemas/object/dependencyedge
+      - name: Dispatch
+        path: apis/graphql/schemas/object/dispatch
+      - name: Email
+        path: apis/graphql/schemas/object/email
+      - name: EmailConnection
+        path: apis/graphql/schemas/object/emailconnection
+      - name: EmailCreatePayload
+        path: apis/graphql/schemas/object/emailcreatepayload
+      - name: EmailEdge
+        path: apis/graphql/schemas/object/emailedge
+      - name: EmailResendVerificationPayload
+        path: apis/graphql/schemas/object/emailresendverificationpayload
+      - name: GraphQLSnippet
+        path: apis/graphql/schemas/object/graphqlsnippet
+      - name: GraphQLSnippetCreatePayload
+        path: apis/graphql/schemas/object/graphqlsnippetcreatepayload
+      - name: JobConcurrency
+        path: apis/graphql/schemas/object/jobconcurrency
+      - name: JobConnection
+        path: apis/graphql/schemas/object/jobconnection
+      - name: JobEdge
+        path: apis/graphql/schemas/object/jobedge
+      - name: JobEventActor
+        path: apis/graphql/schemas/object/jobeventactor
+      - name: JobEventAssigned
+        path: apis/graphql/schemas/object/jobeventassigned
+      - name: JobEventBuildStepUploadCreated
+        path: apis/graphql/schemas/object/jobeventbuildstepuploadcreated
+      - name: JobEventCanceled
+        path: apis/graphql/schemas/object/jobeventcanceled
+      - name: JobEventConnection
+        path: apis/graphql/schemas/object/jobeventconnection
+      - name: JobEventEdge
+        path: apis/graphql/schemas/object/jobeventedge
+      - name: JobEventFinished
+        path: apis/graphql/schemas/object/jobeventfinished
+      - name: JobEventGeneric
+        path: apis/graphql/schemas/object/jobeventgeneric
+      - name: JobEventRetried
+        path: apis/graphql/schemas/object/jobeventretried
+      - name: JobEventTimedOut
+        path: apis/graphql/schemas/object/jobeventtimedout
+      - name: JobPriority
+        path: apis/graphql/schemas/object/jobpriority
+      - name: JobRetryRuleAutomatic
+        path: apis/graphql/schemas/object/jobretryruleautomatic
+      - name: JobRetryRules
+        path: apis/graphql/schemas/object/jobretryrules
+      - name: JobTypeBlock
+        path: apis/graphql/schemas/object/jobtypeblock
+      - name: JobTypeBlockUnblockPayload
+        path: apis/graphql/schemas/object/jobtypeblockunblockpayload
+      - name: JobTypeCommand
+        path: apis/graphql/schemas/object/jobtypecommand
+      - name: JobTypeCommandCancelPayload
+        path: apis/graphql/schemas/object/jobtypecommandcancelpayload
+      - name: JobTypeCommandRetryPayload
+        path: apis/graphql/schemas/object/jobtypecommandretrypayload
+      - name: JobTypeTrigger
+        path: apis/graphql/schemas/object/jobtypetrigger
+      - name: JobTypeWait
+        path: apis/graphql/schemas/object/jobtypewait
+      - name: Mutation
+        path: apis/graphql/schemas/object/mutation
+      - name: Notice
+        path: apis/graphql/schemas/object/notice
+      - name: NoticeDismissPayload
+        path: apis/graphql/schemas/object/noticedismisspayload
+      - name: NotificationServiceSlack
+        path: apis/graphql/schemas/object/notificationserviceslack
+      - name: NotificationServiceWebhook
+        path: apis/graphql/schemas/object/notificationservicewebhook
+      - name: OperatingSystem
+        path: apis/graphql/schemas/object/operatingsystem
+      - name: Organization
+        path: apis/graphql/schemas/object/organization
+      - name: OrganizationAuditEventConnection
+        path: apis/graphql/schemas/object/organizationauditeventconnection
+      - name: OrganizationAuditEventEdge
+        path: apis/graphql/schemas/object/organizationauditeventedge
+      - name: OrganizationConnection
+        path: apis/graphql/schemas/object/organizationconnection
+      - name: OrganizationEdge
+        path: apis/graphql/schemas/object/organizationedge
+      - name: OrganizationInvitation
+        path: apis/graphql/schemas/object/organizationinvitation
+      - name: OrganizationInvitationConnection
+        path: apis/graphql/schemas/object/organizationinvitationconnection
+      - name: OrganizationInvitationCreatePayload
+        path: apis/graphql/schemas/object/organizationinvitationcreatepayload
+      - name: OrganizationInvitationEdge
+        path: apis/graphql/schemas/object/organizationinvitationedge
+      - name: OrganizationInvitationPermissions
+        path: apis/graphql/schemas/object/organizationinvitationpermissions
+      - name: OrganizationInvitationResendPayload
+        path: apis/graphql/schemas/object/organizationinvitationresendpayload
+      - name: OrganizationInvitationRevokePayload
+        path: apis/graphql/schemas/object/organizationinvitationrevokepayload
+      - name: OrganizationInvitationSSOType
+        path: apis/graphql/schemas/object/organizationinvitationssotype
+      - name: OrganizationInvitationTeamAssignment
+        path: apis/graphql/schemas/object/organizationinvitationteamassignment
+      - name: OrganizationInvitationTeamAssignmentConnection
+        path: apis/graphql/schemas/object/organizationinvitationteamassignmentconnection
+      - name: OrganizationInvitationTeamAssignmentEdge
+        path: apis/graphql/schemas/object/organizationinvitationteamassignmentedge
+      - name: OrganizationMember
+        path: apis/graphql/schemas/object/organizationmember
+      - name: OrganizationMemberConnection
+        path: apis/graphql/schemas/object/organizationmemberconnection
+      - name: OrganizationMemberDeletePayload
+        path: apis/graphql/schemas/object/organizationmemberdeletepayload
+      - name: OrganizationMemberEdge
+        path: apis/graphql/schemas/object/organizationmemberedge
+      - name: OrganizationMemberPermissions
+        path: apis/graphql/schemas/object/organizationmemberpermissions
+      - name: OrganizationMemberPipeline
+        path: apis/graphql/schemas/object/organizationmemberpipeline
+      - name: OrganizationMemberPipelineConnection
+        path: apis/graphql/schemas/object/organizationmemberpipelineconnection
+      - name: OrganizationMemberPipelineEdge
+        path: apis/graphql/schemas/object/organizationmemberpipelineedge
+      - name: OrganizationMemberSSO
+        path: apis/graphql/schemas/object/organizationmembersso
+      - name: OrganizationMemberSecurity
+        path: apis/graphql/schemas/object/organizationmembersecurity
+      - name: OrganizationMemberUpdatePayload
+        path: apis/graphql/schemas/object/organizationmemberupdatepayload
+      - name: OrganizationPermissions
+        path: apis/graphql/schemas/object/organizationpermissions
+      - name: OrganizationSSO
+        path: apis/graphql/schemas/object/organizationsso
+      - name: OrganizationSSOProvider
+        path: apis/graphql/schemas/object/organizationssoprovider
+      - name: PageInfo
+        path: apis/graphql/schemas/object/pageinfo
+      - name: Permission
+        path: apis/graphql/schemas/object/permission
+      - name: Pipeline
+        path: apis/graphql/schemas/object/pipeline
+      - name: PipelineArchivePayload
+        path: apis/graphql/schemas/object/pipelinearchivepayload
+      - name: PipelineConnection
+        path: apis/graphql/schemas/object/pipelineconnection
+      - name: PipelineCreatePayload
+        path: apis/graphql/schemas/object/pipelinecreatepayload
+      - name: PipelineCreateWebhookPayload
+        path: apis/graphql/schemas/object/pipelinecreatewebhookpayload
+      - name: PipelineDeletePayload
+        path: apis/graphql/schemas/object/pipelinedeletepayload
+      - name: PipelineEdge
+        path: apis/graphql/schemas/object/pipelineedge
+      - name: PipelineFavoritePayload
+        path: apis/graphql/schemas/object/pipelinefavoritepayload
+      - name: PipelineMetric
+        path: apis/graphql/schemas/object/pipelinemetric
+      - name: PipelineMetricConnection
+        path: apis/graphql/schemas/object/pipelinemetricconnection
+      - name: PipelineMetricEdge
+        path: apis/graphql/schemas/object/pipelinemetricedge
+      - name: PipelinePermissions
+        path: apis/graphql/schemas/object/pipelinepermissions
+      - name: PipelineRotateWebhookURLPayload
+        path: apis/graphql/schemas/object/pipelinerotatewebhookurlpayload
+      - name: PipelineSchedule
+        path: apis/graphql/schemas/object/pipelineschedule
+      - name: PipelineScheduleConnection
+        path: apis/graphql/schemas/object/pipelinescheduleconnection
+      - name: PipelineScheduleCreatePayload
+        path: apis/graphql/schemas/object/pipelineschedulecreatepayload
+      - name: PipelineScheduleDeletePayload
+        path: apis/graphql/schemas/object/pipelinescheduledeletepayload
+      - name: PipelineScheduleEdge
+        path: apis/graphql/schemas/object/pipelinescheduleedge
+      - name: PipelineSchedulePermissions
+        path: apis/graphql/schemas/object/pipelineschedulepermissions
+      - name: PipelineScheduleUpdatePayload
+        path: apis/graphql/schemas/object/pipelinescheduleupdatepayload
+      - name: PipelineSteps
+        path: apis/graphql/schemas/object/pipelinesteps
+      - name: PipelineTag
+        path: apis/graphql/schemas/object/pipelinetag
+      - name: PipelineUnarchivePayload
+        path: apis/graphql/schemas/object/pipelineunarchivepayload
+      - name: PipelineUpdatePayload
+        path: apis/graphql/schemas/object/pipelineupdatepayload
+      - name: PullRequest
+        path: apis/graphql/schemas/object/pullrequest
+      - name: Query
+        path: apis/graphql/schemas/object/query
+      - name: RecoveryCode
+        path: apis/graphql/schemas/object/recoverycode
+      - name: RecoveryCodeBatch
+        path: apis/graphql/schemas/object/recoverycodebatch
+      - name: Repository
+        path: apis/graphql/schemas/object/repository
+      - name: RepositoryProviderBeanstalk
+        path: apis/graphql/schemas/object/repositoryproviderbeanstalk
+      - name: RepositoryProviderBitbucket
+        path: apis/graphql/schemas/object/repositoryproviderbitbucket
+      - name: RepositoryProviderBitbucketServer
+        path: apis/graphql/schemas/object/repositoryproviderbitbucketserver
+      - name: RepositoryProviderCodebase
+        path: apis/graphql/schemas/object/repositoryprovidercodebase
+      - name: RepositoryProviderGithub
+        path: apis/graphql/schemas/object/repositoryprovidergithub
+      - name: RepositoryProviderGithubEnterprise
+        path: apis/graphql/schemas/object/repositoryprovidergithubenterprise
+      - name: RepositoryProviderGitlab
+        path: apis/graphql/schemas/object/repositoryprovidergitlab
+      - name: RepositoryProviderGitlabCommunity
+        path: apis/graphql/schemas/object/repositoryprovidergitlabcommunity
+      - name: RepositoryProviderGitlabEnterprise
+        path: apis/graphql/schemas/object/repositoryprovidergitlabenterprise
+      - name: RepositoryProviderUnknown
+        path: apis/graphql/schemas/object/repositoryproviderunknown
+      - name: SCMPipelineSettings
+        path: apis/graphql/schemas/object/scmpipelinesettings
+      - name: SCMRepositoryHost
+        path: apis/graphql/schemas/object/scmrepositoryhost
+      - name: SCMService
+        path: apis/graphql/schemas/object/scmservice
+      - name: SSOAuthorization
+        path: apis/graphql/schemas/object/ssoauthorization
+      - name: SSOAuthorizationConnection
+        path: apis/graphql/schemas/object/ssoauthorizationconnection
+      - name: SSOAuthorizationEdge
+        path: apis/graphql/schemas/object/ssoauthorizationedge
+      - name: SSOAuthorizationIdentity
+        path: apis/graphql/schemas/object/ssoauthorizationidentity
+      - name: SSOProviderConnection
+        path: apis/graphql/schemas/object/ssoproviderconnection
+      - name: SSOProviderCreatePayload
+        path: apis/graphql/schemas/object/ssoprovidercreatepayload
+      - name: SSOProviderDeletePayload
+        path: apis/graphql/schemas/object/ssoproviderdeletepayload
+      - name: SSOProviderDisablePayload
+        path: apis/graphql/schemas/object/ssoproviderdisablepayload
+      - name: SSOProviderEdge
+        path: apis/graphql/schemas/object/ssoprovideredge
+      - name: SSOProviderEnablePayload
+        path: apis/graphql/schemas/object/ssoproviderenablepayload
+      - name: SSOProviderGitHubApp
+        path: apis/graphql/schemas/object/ssoprovidergithubapp
+      - name: SSOProviderGoogleGSuite
+        path: apis/graphql/schemas/object/ssoprovidergooglegsuite
+      - name: SSOProviderSAML
+        path: apis/graphql/schemas/object/ssoprovidersaml
+      - name: SSOProviderSAMLIdPType
+        path: apis/graphql/schemas/object/ssoprovidersamlidptype
+      - name: SSOProviderSAMLMetadataType
+        path: apis/graphql/schemas/object/ssoprovidersamlmetadatatype
+      - name: SSOProviderSAMLSPType
+        path: apis/graphql/schemas/object/ssoprovidersamlsptype
+      - name: SSOProviderUpdatePayload
+        path: apis/graphql/schemas/object/ssoproviderupdatepayload
+      - name: StepCommand
+        path: apis/graphql/schemas/object/stepcommand
+      - name: StepInput
+        path: apis/graphql/schemas/object/stepinput
+      - name: StepTrigger
+        path: apis/graphql/schemas/object/steptrigger
+      - name: StepWait
+        path: apis/graphql/schemas/object/stepwait
+      - name: Subscription
+        path: apis/graphql/schemas/object/subscription
+      - name: Suite
+        path: apis/graphql/schemas/object/suite
+      - name: SuiteConnection
+        path: apis/graphql/schemas/object/suiteconnection
+      - name: SuiteEdge
+        path: apis/graphql/schemas/object/suiteedge
+      - name: TOTP
+        path: apis/graphql/schemas/object/totp
+      - name: TOTPActivatePayload
+        path: apis/graphql/schemas/object/totpactivatepayload
+      - name: TOTPCreatePayload
+        path: apis/graphql/schemas/object/totpcreatepayload
+      - name: TOTPDeletePayload
+        path: apis/graphql/schemas/object/totpdeletepayload
+      - name: TOTPRecoveryCodesRegeneratePayload
+        path: apis/graphql/schemas/object/totprecoverycodesregeneratepayload
+      - name: Team
+        path: apis/graphql/schemas/object/team
+      - name: TeamConnection
+        path: apis/graphql/schemas/object/teamconnection
+      - name: TeamCreatePayload
+        path: apis/graphql/schemas/object/teamcreatepayload
+      - name: TeamDeletePayload
+        path: apis/graphql/schemas/object/teamdeletepayload
+      - name: TeamEdge
+        path: apis/graphql/schemas/object/teamedge
+      - name: TeamMember
+        path: apis/graphql/schemas/object/teammember
+      - name: TeamMemberConnection
+        path: apis/graphql/schemas/object/teammemberconnection
+      - name: TeamMemberCreatePayload
+        path: apis/graphql/schemas/object/teammembercreatepayload
+      - name: TeamMemberDeletePayload
+        path: apis/graphql/schemas/object/teammemberdeletepayload
+      - name: TeamMemberEdge
+        path: apis/graphql/schemas/object/teammemberedge
+      - name: TeamMemberPermissions
+        path: apis/graphql/schemas/object/teammemberpermissions
+      - name: TeamMemberUpdatePayload
+        path: apis/graphql/schemas/object/teammemberupdatepayload
+      - name: TeamPermissions
+        path: apis/graphql/schemas/object/teampermissions
+      - name: TeamPipeline
+        path: apis/graphql/schemas/object/teampipeline
+      - name: TeamPipelineConnection
+        path: apis/graphql/schemas/object/teampipelineconnection
+      - name: TeamPipelineCreatePayload
+        path: apis/graphql/schemas/object/teampipelinecreatepayload
+      - name: TeamPipelineDeletePayload
+        path: apis/graphql/schemas/object/teampipelinedeletepayload
+      - name: TeamPipelineEdge
+        path: apis/graphql/schemas/object/teampipelineedge
+      - name: TeamPipelinePermissions
+        path: apis/graphql/schemas/object/teampipelinepermissions
+      - name: TeamPipelineUpdatePayload
+        path: apis/graphql/schemas/object/teampipelineupdatepayload
+      - name: TeamSuite
+        path: apis/graphql/schemas/object/teamsuite
+      - name: TeamSuiteConnection
+        path: apis/graphql/schemas/object/teamsuiteconnection
+      - name: TeamSuiteCreatePayload
+        path: apis/graphql/schemas/object/teamsuitecreatepayload
+      - name: TeamSuiteDeletePayload
+        path: apis/graphql/schemas/object/teamsuitedeletepayload
+      - name: TeamSuiteEdge
+        path: apis/graphql/schemas/object/teamsuiteedge
+      - name: TeamSuitePermissions
+        path: apis/graphql/schemas/object/teamsuitepermissions
+      - name: TeamSuiteUpdatePayload
+        path: apis/graphql/schemas/object/teamsuiteupdatepayload
+      - name: TeamUpdatePayload
+        path: apis/graphql/schemas/object/teamupdatepayload
+      - name: UnregisteredUser
+        path: apis/graphql/schemas/object/unregistereduser
+      - name: User
+        path: apis/graphql/schemas/object/user
+      - name: Viewer
+        path: apis/graphql/schemas/object/viewer
+      - name: ViewerPermissions
+        path: apis/graphql/schemas/object/viewerpermissions
+      - name: __Directive
+        path: apis/graphql/schemas/object/--directive
+      - name: __EnumValue
+        path: apis/graphql/schemas/object/--enumvalue
+      - name: __Field
+        path: apis/graphql/schemas/object/--field
+      - name: __InputValue
+        path: apis/graphql/schemas/object/--inputvalue
+      - name: __Schema
+        path: apis/graphql/schemas/object/--schema
+      - name: __Type
+        path: apis/graphql/schemas/object/--type
+    - name: Scalars
+      children:
+      - name: Boolean
+        path: apis/graphql/schemas/scalar/boolean
+      - name: DateTime
+        path: apis/graphql/schemas/scalar/datetime
+      - name: ID
+        path: apis/graphql/schemas/scalar/id
+      - name: Int
+        path: apis/graphql/schemas/scalar/int
+      - name: JSInt
+        path: apis/graphql/schemas/scalar/jsint
+      - name: JSON
+        path: apis/graphql/schemas/scalar/json
+      - name: PipelineSelector
+        path: apis/graphql/schemas/scalar/pipelineselector
+      - name: String
+        path: apis/graphql/schemas/scalar/string
+      - name: TeamSelector
+        path: apis/graphql/schemas/scalar/teamselector
+      - name: UserSelector
+        path: apis/graphql/schemas/scalar/userselector
+      - name: XML
+        path: apis/graphql/schemas/scalar/xml
+      - name: YAML
+        path: apis/graphql/schemas/scalar/yaml
+    - name: Interfaces
+      children:
+      - name: Authorization
+        path: apis/graphql/schemas/interface/authorization
+      - name: BuildSource
+        path: apis/graphql/schemas/interface/buildsource
+      - name: Connection
+        path: apis/graphql/schemas/interface/connection
+      - name: JobEvent
+        path: apis/graphql/schemas/interface/jobevent
+      - name: Node
+        path: apis/graphql/schemas/interface/node
+      - name: NotificationService
+        path: apis/graphql/schemas/interface/notificationservice
+      - name: RepositoryProvider
+        path: apis/graphql/schemas/interface/repositoryprovider
+      - name: SSOProvider
+        path: apis/graphql/schemas/interface/ssoprovider
+      - name: Step
+        path: apis/graphql/schemas/interface/step
+    - name: ENUMs
+      children:
+      - name: AnnotationStyle
+        path: apis/graphql/schemas/enum/annotationstyle
+      - name: AuditActorType
+        path: apis/graphql/schemas/enum/auditactortype
+      - name: AuditEventType
+        path: apis/graphql/schemas/enum/auditeventtype
+      - name: AuditSubjectType
+        path: apis/graphql/schemas/enum/auditsubjecttype
+      - name: AuthorizationType
+        path: apis/graphql/schemas/enum/authorizationtype
+      - name: BuildBlockedStates
+        path: apis/graphql/schemas/enum/buildblockedstates
+      - name: BuildStates
+        path: apis/graphql/schemas/enum/buildstates
+      - name: ClusterOrder
+        path: apis/graphql/schemas/enum/clusterorder
+      - name: ClusterQueueOrder
+        path: apis/graphql/schemas/enum/clusterqueueorder
+      - name: JobEventActorType
+        path: apis/graphql/schemas/enum/jobeventactortype
+      - name: JobEventSignalReason
+        path: apis/graphql/schemas/enum/jobeventsignalreason
+      - name: JobEventType
+        path: apis/graphql/schemas/enum/jobeventtype
+      - name: JobOrder
+        path: apis/graphql/schemas/enum/joborder
+      - name: JobStates
+        path: apis/graphql/schemas/enum/jobstates
+      - name: JobTypes
+        path: apis/graphql/schemas/enum/jobtypes
+      - name: NoticeNamespaces
+        path: apis/graphql/schemas/enum/noticenamespaces
+      - name: OrganizationAuditEventOrders
+        path: apis/graphql/schemas/enum/organizationauditeventorders
+      - name: OrganizationInvitationOrders
+        path: apis/graphql/schemas/enum/organizationinvitationorders
+      - name: OrganizationInvitationStates
+        path: apis/graphql/schemas/enum/organizationinvitationstates
+      - name: OrganizationMemberOrder
+        path: apis/graphql/schemas/enum/organizationmemberorder
+      - name: OrganizationMemberRole
+        path: apis/graphql/schemas/enum/organizationmemberrole
+      - name: OrganizationMemberSSOModeEnum
+        path: apis/graphql/schemas/enum/organizationmemberssomodeenum
+      - name: PipelineAccessLevels
+        path: apis/graphql/schemas/enum/pipelineaccesslevels
+      - name: PipelineOrders
+        path: apis/graphql/schemas/enum/pipelineorders
+      - name: PipelineVisibility
+        path: apis/graphql/schemas/enum/pipelinevisibility
+      - name: SSOAuthorizationState
+        path: apis/graphql/schemas/enum/ssoauthorizationstate
+      - name: SSOProviderSAMLRSAXMLSecurity
+        path: apis/graphql/schemas/enum/ssoprovidersamlrsaxmlsecurity
+      - name: SSOProviderSAMLXMLSecurity
+        path: apis/graphql/schemas/enum/ssoprovidersamlxmlsecurity
+      - name: SSOProviderStates
+        path: apis/graphql/schemas/enum/ssoproviderstates
+      - name: SSOProviderTypes
+        path: apis/graphql/schemas/enum/ssoprovidertypes
+      - name: SuiteAccessLevels
+        path: apis/graphql/schemas/enum/suiteaccesslevels
+      - name: SuiteOrders
+        path: apis/graphql/schemas/enum/suiteorders
+      - name: TeamMemberOrder
+        path: apis/graphql/schemas/enum/teammemberorder
+      - name: TeamMemberRole
+        path: apis/graphql/schemas/enum/teammemberrole
+      - name: TeamOrder
+        path: apis/graphql/schemas/enum/teamorder
+      - name: TeamPipelineOrder
+        path: apis/graphql/schemas/enum/teampipelineorder
+      - name: TeamPrivacy
+        path: apis/graphql/schemas/enum/teamprivacy
+      - name: TeamSuiteOrder
+        path: apis/graphql/schemas/enum/teamsuiteorder
+      - name: __DirectiveLocation
+        path: apis/graphql/schemas/enum/--directivelocation
+      - name: __TypeKind
+        path: apis/graphql/schemas/enum/--typekind
+    - name: Input objects
+      children:
+      - name: APIAccessTokenCodeAuthorizeMutationInput
+        path: apis/graphql/schemas/input-object/apiaccesstokencodeauthorizemutationinput
+      - name: AgentStopInput
+        path: apis/graphql/schemas/input-object/agentstopinput
+      - name: AgentTokenCreateInput
+        path: apis/graphql/schemas/input-object/agenttokencreateinput
+      - name: AgentTokenRevokeInput
+        path: apis/graphql/schemas/input-object/agenttokenrevokeinput
+      - name: BuildAnnotateInput
+        path: apis/graphql/schemas/input-object/buildannotateinput
+      - name: BuildAuthorInput
+        path: apis/graphql/schemas/input-object/buildauthorinput
+      - name: BuildCancelInput
+        path: apis/graphql/schemas/input-object/buildcancelinput
+      - name: BuildCreateInput
+        path: apis/graphql/schemas/input-object/buildcreateinput
+      - name: BuildMetaDataInput
+        path: apis/graphql/schemas/input-object/buildmetadatainput
+      - name: BuildRebuildInput
+        path: apis/graphql/schemas/input-object/buildrebuildinput
+      - name: EmailCreateInput
+        path: apis/graphql/schemas/input-object/emailcreateinput
+      - name: EmailResendVerificationInput
+        path: apis/graphql/schemas/input-object/emailresendverificationinput
+      - name: GraphQLSnippetCreateInput
+        path: apis/graphql/schemas/input-object/graphqlsnippetcreateinput
+      - name: JobConcurrencySearch
+        path: apis/graphql/schemas/input-object/jobconcurrencysearch
+      - name: JobPrioritySearch
+        path: apis/graphql/schemas/input-object/jobprioritysearch
+      - name: JobStepSearch
+        path: apis/graphql/schemas/input-object/jobstepsearch
+      - name: JobTypeBlockUnblockInput
+        path: apis/graphql/schemas/input-object/jobtypeblockunblockinput
+      - name: JobTypeCommandCancelInput
+        path: apis/graphql/schemas/input-object/jobtypecommandcancelinput
+      - name: JobTypeCommandRetryInput
+        path: apis/graphql/schemas/input-object/jobtypecommandretryinput
+      - name: NoticeDismissInput
+        path: apis/graphql/schemas/input-object/noticedismissinput
+      - name: OrganizationInvitationCreateInput
+        path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
+      - name: OrganizationInvitationResendInput
+        path: apis/graphql/schemas/input-object/organizationinvitationresendinput
+      - name: OrganizationInvitationRevokeInput
+        path: apis/graphql/schemas/input-object/organizationinvitationrevokeinput
+      - name: OrganizationInvitationSSOInput
+        path: apis/graphql/schemas/input-object/organizationinvitationssoinput
+      - name: OrganizationInvitationTeamAssignmentInput
+        path: apis/graphql/schemas/input-object/organizationinvitationteamassignmentinput
+      - name: OrganizationMemberDeleteInput
+        path: apis/graphql/schemas/input-object/organizationmemberdeleteinput
+      - name: OrganizationMemberSSOInput
+        path: apis/graphql/schemas/input-object/organizationmemberssoinput
+      - name: OrganizationMemberSecurityInput
+        path: apis/graphql/schemas/input-object/organizationmembersecurityinput
+      - name: OrganizationMemberUpdateInput
+        path: apis/graphql/schemas/input-object/organizationmemberupdateinput
+      - name: PipelineArchiveInput
+        path: apis/graphql/schemas/input-object/pipelinearchiveinput
+      - name: PipelineCreateInput
+        path: apis/graphql/schemas/input-object/pipelinecreateinput
+      - name: PipelineCreateWebhookInput
+        path: apis/graphql/schemas/input-object/pipelinecreatewebhookinput
+      - name: PipelineDeleteInput
+        path: apis/graphql/schemas/input-object/pipelinedeleteinput
+      - name: PipelineFavoriteInput
+        path: apis/graphql/schemas/input-object/pipelinefavoriteinput
+      - name: PipelineRepositoryInput
+        path: apis/graphql/schemas/input-object/pipelinerepositoryinput
+      - name: PipelineRotateWebhookURLInput
+        path: apis/graphql/schemas/input-object/pipelinerotatewebhookurlinput
+      - name: PipelineScheduleCreateInput
+        path: apis/graphql/schemas/input-object/pipelineschedulecreateinput
+      - name: PipelineScheduleDeleteInput
+        path: apis/graphql/schemas/input-object/pipelinescheduledeleteinput
+      - name: PipelineScheduleUpdateInput
+        path: apis/graphql/schemas/input-object/pipelinescheduleupdateinput
+      - name: PipelineStepsInput
+        path: apis/graphql/schemas/input-object/pipelinestepsinput
+      - name: PipelineTagInput
+        path: apis/graphql/schemas/input-object/pipelinetaginput
+      - name: PipelineTeamAssignmentInput
+        path: apis/graphql/schemas/input-object/pipelineteamassignmentinput
+      - name: PipelineUnarchiveInput
+        path: apis/graphql/schemas/input-object/pipelineunarchiveinput
+      - name: PipelineUpdateInput
+        path: apis/graphql/schemas/input-object/pipelineupdateinput
+      - name: SSOProviderCreateInput
+        path: apis/graphql/schemas/input-object/ssoprovidercreateinput
+      - name: SSOProviderDeleteInput
+        path: apis/graphql/schemas/input-object/ssoproviderdeleteinput
+      - name: SSOProviderDisableInput
+        path: apis/graphql/schemas/input-object/ssoproviderdisableinput
+      - name: SSOProviderEnableInput
+        path: apis/graphql/schemas/input-object/ssoproviderenableinput
+      - name: SSOProviderSAMLIdP
+        path: apis/graphql/schemas/input-object/ssoprovidersamlidp
+      - name: SSOProviderSAMLIdPMetadata
+        path: apis/graphql/schemas/input-object/ssoprovidersamlidpmetadata
+      - name: SSOProviderUpdateInput
+        path: apis/graphql/schemas/input-object/ssoproviderupdateinput
+      - name: TOTPActivateInput
+        path: apis/graphql/schemas/input-object/totpactivateinput
+      - name: TOTPCreateInput
+        path: apis/graphql/schemas/input-object/totpcreateinput
+      - name: TOTPDeleteInput
+        path: apis/graphql/schemas/input-object/totpdeleteinput
+      - name: TOTPRecoveryCodesRegenerateInput
+        path: apis/graphql/schemas/input-object/totprecoverycodesregenerateinput
+      - name: TeamCreateInput
+        path: apis/graphql/schemas/input-object/teamcreateinput
+      - name: TeamDeleteInput
+        path: apis/graphql/schemas/input-object/teamdeleteinput
+      - name: TeamMemberCreateInput
+        path: apis/graphql/schemas/input-object/teammembercreateinput
+      - name: TeamMemberDeleteInput
+        path: apis/graphql/schemas/input-object/teammemberdeleteinput
+      - name: TeamMemberUpdateInput
+        path: apis/graphql/schemas/input-object/teammemberupdateinput
+      - name: TeamPipelineCreateInput
+        path: apis/graphql/schemas/input-object/teampipelinecreateinput
+      - name: TeamPipelineDeleteInput
+        path: apis/graphql/schemas/input-object/teampipelinedeleteinput
+      - name: TeamPipelineUpdateInput
+        path: apis/graphql/schemas/input-object/teampipelineupdateinput
+      - name: TeamSuiteCreateInput
+        path: apis/graphql/schemas/input-object/teamsuitecreateinput
+      - name: TeamSuiteDeleteInput
+        path: apis/graphql/schemas/input-object/teamsuitedeleteinput
+      - name: TeamSuiteUpdateInput
+        path: apis/graphql/schemas/input-object/teamsuiteupdateinput
+      - name: TeamUpdateInput
+        path: apis/graphql/schemas/input-object/teamupdateinput
+    - name: Unions
+      children:
+      - name: AuditActorNode
+        path: apis/graphql/schemas/union/auditactornode
+      - name: AuditContext
+        path: apis/graphql/schemas/union/auditcontext
+      - name: AuditSubjectNode
+        path: apis/graphql/schemas/union/auditsubjectnode
+      - name: BuildCreator
+        path: apis/graphql/schemas/union/buildcreator
+      - name: ClusterPermissionActor
+        path: apis/graphql/schemas/union/clusterpermissionactor
+      - name: Job
+        path: apis/graphql/schemas/union/job
+      - name: JobEventActorNodeUnion
+        path: apis/graphql/schemas/union/jobeventactornodeunion
+  - name: Cookbook
+    path: apis/graphql/graphql-cookbook
+- name: Integrations
+  path: integrations
