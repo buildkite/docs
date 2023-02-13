@@ -41,6 +41,21 @@ $button-default-background-color: white;
     }
   }
 
+  &--special {
+    background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 175%);
+    background-color: map-get($color-aliases, 'button-primary');
+    border-color: transparent;
+    box-shadow: $box-shadow-depth-100;
+    color: $base-0;
+    font-weight: bold;
+    transition: box-shadow $transition-speed;
+
+    &:hover {
+      background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 140%);;
+      box-shadow: $box-shadow-depth-500;
+    }
+  }
+
   &--link {
     gap: 4px;
     margin: 0;
