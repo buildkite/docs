@@ -9,5 +9,9 @@ plugins:
   - pages/plugins/**/*
 integrations:
   - pages/integrations/**/*
-apis:
+api:
   - pages/apis/**/*
+graphql:
+  - pages/apis/graphql/**/*
+rest:
+  - pages/apis/rest_api/**/*
