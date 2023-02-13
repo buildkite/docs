@@ -1,9 +1,9 @@
-require "graphql/client"
-require "graphql/client/http"
-
 namespace :graphql do
   desc "Fetch current Buildkite GraphQL schema"
   task :fetch_schema do
+    require "graphql/client"
+    require "graphql/client/http"
+
     if ENV["API_ACCESS_TOKEN"].blank?
       raise "API_ACCESS_TOKEN is required"
     end
