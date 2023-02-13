@@ -1,46 +1,56 @@
 # Pipelines glossary
 
-...
+The following terms describe key concepts to help you use Pipelines.
 
 {:toc}
 
-
-
 ## Agent
 
-## Artifacts
+An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You need at least one agent to run builds.
 
-## Build meta data
+## Artifact
 
-
-## Conditionals
-
-
+An artifact is a file or metadata generated during a build. You can keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service. Common uses include storing assets like logs and reports, or passing files between steps.
 
 ## Build
 
-## Job queue? Queueus?
+A build is a single run of a pipeline. You can trigger a build in various ways, including through the UI, API, as the result of a webhook, or on a schedule.
+
+## Dynamic pipeline
+
+Dynamic pipelines define their steps at runtime using scripts, giving you the flexibility to only run the steps relevant to particular code changes and workflows. 
+
+Dynamic pipelines are helpful when you have a complex build process that requires different steps to execute based on runtime conditions, such as the branch, the environment, or the results of previous steps.
 
 ## Hook
 
-## Logs
+A hook is a method of customizing the behavior of Buildkite through lifecycle events. They let you run scripts at different points of the agent or job lifecycle. Using hooks, you can extend the functionality of Buildkite and automate tasks specific to your workflow and requirements.
 
 ## Job
 
-## Notifications
+A job is the execution of a command step run during a build. They run the commands, scripts, or plugins defined in the step.
 
+## Job queue
 
-## Parallelism
-
-## Prioritization
+The job queue is a queue of jobs waiting to run on an agent. You can configure queues for particular groups of agents, isolating a set of jobs and agents. Common use cases for queues include separating deployment agents and pools of agents for specific pipelines or teams.
 
 ## Plugin
 
+Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. They modify command steps using hooks to perform actions like checking code quality, deploying to cloud services, or sending notifications.
+
+Plugins can be open source and available for anyone to use or private for just your organization.
+
 ## Pipeline
 
-
-## Secrets
+A pipeline is a container for modeling and defining workflows. They contain a series of steps to achieve goals like building, testing, and deploying software.
 
 ## Step
 
-## Step dependency
+A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
+
+- **Command step:** Runs one or more shell commands on one or more agents.
+- **Block step:** Pauses a build until unblocked.
+- **Wait step:** Pauses a build from progressing until all previous jobs have completed.
+- **Input step:** Pauses a build while collecting information from a user.
+- **Trigger step:** Creates a build on another pipeline.
+- **Group step:** Displays a group of sub-steps as one parent step.
