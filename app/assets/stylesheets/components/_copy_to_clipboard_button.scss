@@ -34,7 +34,7 @@
 
   &[aria-checked="true"] {
     border-color: map-get($color-aliases, 'button-primary');
-    background: $button-default-background-color;
+    background: $base-0;
 
     svg > path {
       stroke: map-get($color-aliases, 'button-primary');
