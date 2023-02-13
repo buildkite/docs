@@ -28,3 +28,6 @@ gh pr create \
   --title "Update GraphQL docs" \
   --body "This is an automated PR based on the current GraphQL schema" \
   | buildkite-agent annotate --style "success"
+
+# Auto-merge PR once checks have passed
+gh merge --auto
