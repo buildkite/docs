@@ -23,81 +23,80 @@ $button-default-background-color: white;
   &:last-child {
     margin-right: 0;
   }
+}
 
-  &--primary {
-    background-color: map-get($color-aliases, 'button-primary');
-    border-color: map-get($color-aliases, 'button-primary');
+.Button--primary {
+  background-color: map-get($color-aliases, 'button-primary');
+  border-color: map-get($color-aliases, 'button-primary');
+  color: $base-0;
+  font-weight: bold;
+}
+
+.Button--default {
+  background-color: $base-0;
+  border-color: map-get($color-aliases, 'border');
+  color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
+
+  &:hover {
+    background-color: map-get($color-aliases, 'panel-background');
+  }
+}
+
+.Button--special {
+  background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 175%);
+  background-color: map-get($color-aliases, 'button-primary');
+  border-color: transparent;
+  box-shadow: $box-shadow-depth-100;
+  color: $base-0;
+  font-weight: bold;
+  transition: box-shadow $transition-speed;
+
+  &:hover {
+    background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 140%);;
+    box-shadow: $box-shadow-depth-500;
+  }
+}
+
+.Button--link {
+  gap: 4px;
+  margin: 0;
+  padding: 0;
+}
+
+.Button--small {
+  padding: 7px 15px;
+}
+
+.Button--dropdown {
+  &::after {
+    background: transparent asset-url('icons/angle-down.svg') 50% 50% no-repeat;
+    content: "";
+    height: 8px;
+    width: 8px;
+  }
+}
+
+.Button__icon {
+  height: 24px;
+  width: 24px;
+
+  &--16x16 {
+    height: 16px;
+    width: 16px;
+  }
+}
+
+.Button__right-arrow {
+  width: 12px;
+
+  &::after {
+    content: "→";
+    font-family: $font-family-base;
+  }
+}
+
+.Button--primary {
+  .Button__right-arrow {
     color: $base-0;
-    font-weight: bold;
-  }
-
-  &--default {
-    background-color: $base-0;
-    border-color: map-get($color-aliases, 'border');
-    color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
-
-    &:hover {
-      background-color: map-get($color-aliases, 'panel-background');
-    }
-  }
-
-  &--special {
-    background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 175%);
-    background-color: map-get($color-aliases, 'button-primary');
-    border-color: transparent;
-    box-shadow: $box-shadow-depth-100;
-    color: $base-0;
-    font-weight: bold;
-    transition: box-shadow $transition-speed;
-
-    &:hover {
-      background: linear-gradient(90deg, map-get($color-aliases, 'button-primary') 10%, map-get($color-aliases, 'brand') 140%);;
-      box-shadow: $box-shadow-depth-500;
-    }
-  }
-
-  &--link {
-    gap: 4px;
-    margin: 0;
-    padding: 0;
-  }
-
-  &--small {
-    padding: 7px 15px;
-  }
-
-  &--dropdown {
-    &::after {
-      background: transparent asset-url('icons/angle-down.svg') 50% 50% no-repeat;
-      content: "";
-      height: 8px;
-      width: 8px;
-    }
-  }
-
-  &__icon {
-    height: 24px;
-    width: 24px;
-
-    &--16x16 {
-      height: 16px;
-      margin-top: 4px;
-      width: 16px;
-    }
-  }
-
-  &__right-arrow {
-    width: 12px;
-
-    &::after {
-      content: "→";
-      font-family: $font-family-base;
-    }
-  }
-
-  &--primary {
-    .Button__right-arrow {
-      color: $base-0;
-    }
   }
 }
