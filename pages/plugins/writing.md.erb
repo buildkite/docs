@@ -27,8 +27,13 @@ cd file-counter-buildkite-plugin
 git init
 ```
 
-> 🚧 The `-buildkite-plugin` suffix
-> Not including the `-buildkite-plugin` suffix in the repository name not only will prevent you from using the `user/plugin-name` syntax in the pipeline (you will need to reference the plugin with a full URL instead) but also makes it **more difficult for community members to find and use the plugin**. And even when you know it will be used through a full URL, only in your organization, or it is a vendored plugin the suffix should help identify the purpose of its contents to anyone looking at it. 
+> 📘 The `-buildkite-plugin` suffix
+> We recommend using the `-buildkite-plugin` suffix in the repository name because:
+> <ul>
+>   <li>You can reference the plugin in pipelines using the `user/plugin-name` syntax rather than the full URL.</li>
+>   <li>It makes it easier for community members to find and use the plugin if you make it public.</li>
+>   <li>It communicates the purpose of the code.</li>
+> </ul>
 
 ## Step 2: Add a plugin.yml
 
@@ -51,7 +56,7 @@ The `configuration` property defines the validation rules for the plugin configu
 
 Configuration properties are available to the hook script as environment variables with the naming pattern `BUILDKITE_PLUGIN_<PLUGIN_NAME>_<CONFIGURATION_PROPERTY>` where `<PLUGIN_NAME>` is not the name defined in `plugin.yml` but the repository or folder name compatible with Bash environment variables (in uppercase and only letters, numbers and underscores). In this case, the configured value of `pattern` will be available as `BUILDKITE_PLUGIN_FILE_COUNTER_PATTERN`.
 
->🚧 Accessing properties on plugins referenced with Git URLs
+> 📘 Accessing properties on plugins referenced with Git URLs
 > Note that if you <a href="/docs/plugins/using#plugin-sources">reference a plugin</a> with a full URL ending in <code>.git</code> and that plugin's name does not end with `-buildkite-plugin`, variable names will include `_GIT` as part of the plugin name. For example, the value of the configuration <code>pattern</code> in <code>https://github.com/my-org/my-plugin.git#v1.0.0</code> will be available as <code>BUILDKITE_PLUGIN_MY_PLUGIN_GIT_PATTERN</code>.
 
 ### Valid plugin.yml properties
@@ -87,9 +92,11 @@ Configuration properties are available to the hook script as environment variabl
   </tbody>
 </table>
 
-## Step 3: Validate the plugin.yml
+## Step 3: Validate the plugin
 
-The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) helps ensure your plugin is up-to-date, and has all the required files to be listed in the plugins directory.
+The [Buildkite Plugin Linter](https://github.com/buildkite-plugins/buildkite-plugin-linter) is an app that helps ensure your plugin is up-to-date and has all the files required to list it in the plugins directory. The app is available as a Docker image you can run on the command line, with a dedicated plugin, or with Docker Compose. We recommend you start by running the linter on the command line, and then include the dedicated plugin in the pipeline for your plugin.
+
+### Run on the command line
 
 You can run the plugin linter with the following Docker command:
 
@@ -97,7 +104,7 @@ You can run the plugin linter with the following Docker command:
 docker run -it --rm -v "$PWD:/plugin:ro" buildkite/plugin-linter --id a-github-user/file-counter
 ```
 
-### Plugin linter plugin
+### Run with the dedicated plugin
 
 If your plugin has a Buildkite pipeline, you can add a step to lint it using the corresponding plugin:
 
@@ -109,8 +116,9 @@ If your plugin has a Buildkite pipeline, you can add a step to lint it using the
 ```
 {: codeblock-file=".buildkite/pipeline.yml"}
 
-### Docker compose
-You can also make it easier to run this command during development by adding the following to a `docker-compose.yml` file:
+### Run with Docker Compose
+
+If you want to run the linter using Docker Compose, you can add the following to a `docker-compose.yml` file:
 
 ```yml
 services:
@@ -122,7 +130,7 @@ services:
 ```
 {: codeblock-file="docker-compose.yml"}
 
-You can now run the tests using the following command:
+You can then run the tests using the following command:
 
 ```shell
 docker-compose run --rm lint
