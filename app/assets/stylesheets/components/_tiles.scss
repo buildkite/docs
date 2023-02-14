@@ -8,7 +8,7 @@
 }
 
 .TileItem {
-  font-size: 0.888888rem;
+  font-size: .875rem;
   margin-bottom: 30px;
 
   .TileItem__image {
@@ -20,18 +20,22 @@
   }
 
   .TileItem__title {
-    font-size: 1.111111rem;
+    font-size: 1.1875rem;
     font-weight: bold;
     margin: 0 0 15px;
   }
 
+  .TileItem__title-link {
+    color: map-get($color-aliases, 'text-base');
+  }
+
   .TileItem__desc {
-    font-size: 0.888888rem;
+    font-size: .875rem;
     margin: 0 0 10px;
   }
 
   .TileItem__learn-more {
-    font-size: 0.888888rem;
+    font-size: .875rem;
     font-weight: bold;
   }
 
