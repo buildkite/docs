@@ -12,7 +12,7 @@
       line-height: 1em;
     }
 
-    @media (min-width: $screen-md) {
+    @media (min-width: $screen-sm) {
       // position Algolia results to the right
       // because search's position has changed from medium screen and up
       right: 0 !important;

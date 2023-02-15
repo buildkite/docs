@@ -50,17 +50,22 @@
   .SiteHeader__nav {
     flex-basis: 100%;
   }
+
+  .SiteHeader__search {
+    margin-left: auto;
+    margin-right: 55px;
+  }
 }
 
 @media (min-width: $screen-md) {
+  .SiteHeader__search {
+    margin-right: 0;
+  }
+  
   .SiteHeader__nav {
     border-top: 1px solid $gray-300;
     order: 4;
     padding-top: 8px;
-  }
-
-  .SiteHeader__search {
-    margin-left: auto;
   }
 
   .SiteHeader__global-links {
