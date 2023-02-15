@@ -2,7 +2,8 @@
   "name": "docs",
   "private": true,
   "devDependencies": {
-    "husky": "^8.0.0"
+    "husky": "^8.0.0",
+    "prettier": "2.8.4"
   },
   "scripts": {
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
