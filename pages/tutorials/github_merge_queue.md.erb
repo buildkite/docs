@@ -1,0 +1,13 @@
+# GitHub pull request merge queue in Buildkite
+
+Merge queues increase the efficiency and stability of your delivery workflows by automatically handling pull request merges into your busiest target branches. Merge queues ensure that pull requests get merged in the correct order, and reduce the number of CI workloads, and flaky merges that can block your `main` delivery pipelines.
+
+## Using GitHub pull request merge queue in Buildkite pipelines
+
+1. Include the `gh-readonly-queue/{base_branch}/*` filter pattern in your pipeline's Pipeline Settings → GitHub → Branch Limiting.
+2. Check the “Skip builds with existing commits” checkbox in your Pipeline Settings → GitHub → GitHub Settings. This will ensure that you will no longer kick off any unnecessary builds.
+
+## Further reading
+
+* The [GitHub merge queue docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request-with-a-merge-queue) show you how the merge queue feature works in the GitHub pull request workflow.
+* The [Managing a merge queue docs] provide information who can use merge queues in GitHub.
