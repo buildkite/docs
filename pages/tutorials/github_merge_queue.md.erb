@@ -1,13 +1,33 @@
-# GitHub pull request merge queue in Buildkite
+# Using GitHub merge queues
 
-Merge queues increase the efficiency and stability of your delivery workflows by automatically handling pull request merges into your busiest target branches. Merge queues ensure that pull requests get merged in the correct order, and reduce the number of CI workloads, and flaky merges that can block your `main` delivery pipelines.
+>🚧 GitHub beta feature
+> The pull request merge queue feature is in public beta and subject to change.
 
-## Using GitHub pull request merge queue in Buildkite pipelines
+Merge queues increase the efficiency and stability of your delivery workflows by automatically handling pull request merges into your busiest branches. They ensure pull requests merge in the correct order, remove redundant builds, and reduce flaky merges.
 
-1. Include the `gh-readonly-queue/{base_branch}/*` filter pattern in your pipeline's Pipeline Settings → GitHub → Branch Limiting.
-2. Check the “Skip builds with existing commits” checkbox in your Pipeline Settings → GitHub → GitHub Settings. This will ensure that you will no longer kick off any unnecessary builds.
+{:toc}
 
-## Further reading
+## Before you start
 
-* The [GitHub merge queue docs](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/incorporating-changes-from-a-pull-request/merging-a-pull-request-with-a-merge-queue) show you how the merge queue feature works in the GitHub pull request workflow.
-* The [Managing a merge queue docs] provide information who can use merge queues in GitHub.
+Familiarize yourself with [managing a merge queue in GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue).
+
+## Trigger builds from the merge queue
+
+You need to update the pipeline configuration to run builds when a branch begins with a special prefix from GitHub.
+
+To trigger builds from the merge queue:
+
+1. From your Buildkite dashboard, select your pipeline.
+1. Select _Pipeline Settings_ > _GitHub_.
+1. In the _Branch Limiting_ section, add a filter for the pattern: `gh-readonly-queue/{base_branch}/*`.
+
+## Skip builds with existing commits
+
+Merge queues run the builds for PRs one after another, so they can run a build for the same commit multiple times. To avoid that redundancy, update the pipeline configuration to skip builds with existing commits.
+
+To skip a build with existing commits:
+
+1. Remain in _Pipeline Settings_ > _GitHub_ for your pipeline.
+1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
+
+That's it! Your pipeline supports merge queues in GitHub. 🎉
