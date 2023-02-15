@@ -79,12 +79,10 @@ You can use conditionals to skip builds at both the pipeline and step level. Ref
 
 ## Skip builds with existing commits
 
-Sometimes don't want to create a new build if one exists with the same commit, regardless of the branch. For example, when [using merge queues in GitHub](/docs/tutorials/github-merge-queue).
+Sometimes you don't want to create a new build if one exists with the same commit, regardless of the branch. For example, when [using merge queues in GitHub](/docs/tutorials/github-merge-queue).
 
 To skip a build with existing commits:
 
 1. From your Buildkite dashboard, select your pipeline.
 1. Select _Pipeline Settings_ > _GitHub_.
 1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
-
-You can also configure these options using the [REST API]().
