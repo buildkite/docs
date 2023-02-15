@@ -11,11 +11,11 @@ Merge queues are a feature of GitHub to improve development velocity on busy bra
 
 Familiarize yourself with [managing a merge queue in GitHub](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue).
 
-## Filter branches with the special prefix
+## Enable a merge queue for a pipeline
 
-The merge queue creates temporary branches with a special prefix to validate pull request changes. You need to update the pipeline configuration to match branches with the special prefix.
+The merge queue creates temporary branches with a special prefix to validate pull request changes. You need to update the pipeline configuration to match branches with the special prefix. You also need to enable build skipping to avoid running redundant builds on commits that have already passed validation.
 
-To filter branches with the special prefix:
+To enable a merge queue for a pipeline:
 
 1. From your Buildkite dashboard, select your pipeline.
 1. Select _Pipeline Settings_ > _GitHub_.
@@ -25,13 +25,6 @@ To filter branches with the special prefix:
     gh-readonly-queue/{base_branch}/*
     ```
 
-## Skip builds with existing commits
-
-Pull requests in a merge queue have passed their status checks, so you don't want to trigger new builds for the validated commits. To avoid that redundancy, update the pipeline configuration to skip builds with existing commits.
-
-To skip a build with existing commits:
-
-1. Navigate to _Pipeline Settings_ > _GitHub_ for your pipeline.
 1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
 
 That's it! Your pipeline supports merge queues in GitHub. 🎉
