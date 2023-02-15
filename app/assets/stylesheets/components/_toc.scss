@@ -38,7 +38,7 @@
     }
 
     &::after {
-      background: url('icons/angle-down.svg') 50% 50% no-repeat;
+      background: asset-url('icons/angle-down.svg') 50% 50% no-repeat;
       content: "";
       height: 8px;
       transition: transform 300ms;
