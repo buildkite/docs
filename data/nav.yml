@@ -2,6 +2,12 @@
 - - name: 'Pipelines'
     path: 'tutorials/getting-started'
     children:
+      - name: 'Migration'
+        children:
+          - name: 'From Jenkins'
+            path: 'tutorials/migrating-from-jenkins'
+          - name: 'From Bamboo'
+            path: 'tutorials/migrating-from-bamboo'
       - name: 'Tutorials'
         children:
           - name: 'Getting started'
@@ -12,8 +18,6 @@
             path: 'tutorials/docker-containerized-builds'
           - name: 'Parallelizing builds'
             path: 'tutorials/parallel-builds'
-          - name: 'Migrating from Bamboo'
-            path: 'tutorials/migrating-from-bamboo'
           - name: 'Using Bazel on Buildkite'
             path: 'tutorials/bazel'
           - name: 'Migrating to YAML steps'
