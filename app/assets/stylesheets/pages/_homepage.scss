@@ -190,11 +190,7 @@
   }
 
   &__header:hover &__icon {
-    background-color: map-get($color-aliases, 'brand');
-
-    .HomepageCategory__icon-img {
-      filter: brightness(0) invert(1);
-    }
+    background-color: map-get($color-aliases, 'selected-bg');
   }
 
   &__list {
