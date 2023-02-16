@@ -10,7 +10,7 @@ All steps in pipelines have implicit dependencies, often managed with wait and b
 
 By adding these steps to your pipeline, the Buildkite scheduler will automatically know which steps need to be run in serial and which can be run in parallel.
 
-<%= image "steps.png", width: 2028/2, height: 880/2, alt: "Screenshot of the edit step view, highlighting the Wait, Block and Input Steps in the right column" %>
+ ![Screenshot of the edit step view, highlighting the Wait, Block and Input Steps in the right column](steps.png "width=1014")
 
 A wait step, as in the example below, is dependent on all previous steps completing successfully; it won't proceed until all steps before it have passed. All steps following the wait step are dependent on the wait step; none of them will run until the wait step is satisfied.
 
@@ -26,7 +26,7 @@ steps:
 
 [Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or using an API call before the rest of the steps can be run.
 
-<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
+![Screenshot of a basic block step](block-step.png "width=472")
 
 If you are collecting information with your block steps using the `prompt` or `fields` attributes but don't want it to implicitly depend on the steps around it, you can use an [input step](/docs/pipelines/input-step).
 
@@ -39,7 +39,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-<%= image "input.png", width: 600, height: 268, alt: "Screenshot of an input step titled 'Who is running this script?' with a required 'Your name' text input" %>
+![Screenshot of an input step titled 'Who is running this script?' with a required 'Your name' text input](input.png "width=600")
 
 ## Defining explicit dependencies
 

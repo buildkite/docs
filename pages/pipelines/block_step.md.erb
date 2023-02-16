@@ -16,11 +16,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
+![Screenshot of a basic block step](block-step.png "width=472")
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
 
-<%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
+![Screenshot of a block step with input fields](block-step-with-fields.png "width=472")
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data).
 
@@ -360,12 +360,12 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 
     ```bash
     #!/bin/bash
-    
+
     set -euo pipefail
-    
+
     # Set up a variable to hold the meta-data from your block step
     RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
-    
+
     # Create a pipeline with your trigger step
     PIPELINE="steps:
       - trigger: \"deploy-pipeline\"
@@ -374,7 +374,7 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
           meta_data:
             release-name: $RELEASE_NAME
     "
-   
+
     # Upload the new pipeline and add it to the current build
     echo "$PIPELINE" | buildkite-agent pipeline upload
     ```
@@ -413,7 +413,7 @@ steps:
 
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
 
-<%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
+![Screenshot of pipeline showing the uploaded trigger step](block-trigger-pipeline.png "width=1164")
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
 

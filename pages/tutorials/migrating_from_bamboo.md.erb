@@ -43,7 +43,7 @@ steps:
 
 Let's look at an example Bamboo Plan:
 
-<%= image "bamboo_stages_and_tasks.png", width: 680, height: 312, alt: "Screenshot of a Bamboo Plan" %>
+![Screenshot of a Bamboo Plan](bamboo_stages_and_tasks.png "width=680")
 
 You can map this plan to a Buildkite Pipeline using a combination of `command`, `wait`, and `block` steps:
 
@@ -85,7 +85,7 @@ Once your build pipelines are set up, you can update step labels to something mo
 
 If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
 
-<%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
+![Screenshot of a Buildkite Build](buildkite-pipeline.png "width=653")
 
 ## Steps and tasks
 
@@ -93,7 +93,7 @@ If you have many pipelines to migrate or manage at once, you can use the [Update
 
 For example, you had the following set of Bamboo Tasks:
 
-<%= image("bamboo_task_list.png", size: '610x267', alt: 'Screenshot of a Bamboo Task List') %>
+![Screenshot of a Bamboo Task List](bamboo_task_list.png "width=610")
 
 This can be rewritten as a single script and then committed to your
 repository. The Buildkite agent takes care of checking out the repository for you before each step, so the script would be as follows:

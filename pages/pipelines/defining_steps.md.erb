@@ -12,7 +12,7 @@ Create a pipeline from the Pipelines page of Buildkite using the ➕ button.
 
 Required fields are _Name_ and _Repository_.
 
-<%= image "new-pipeline-setup.png", width: 1768/2, height: 928/2, alt: "Screenshot of the 'New Pipeline' setup form" %>
+![Screenshot of the 'New Pipeline' setup form](new-pipeline-setup.png "width=884")
 
 You can set up webhooks at this point, but this step is optional. These webhook setup instructions can be found in pipeline settings on your specific repository provider page.
 
@@ -90,7 +90,7 @@ steps:
 
 With the above example code in a `pipeline.yml` file, commit and push the file up to your repository. If you have set up webhooks, this will automatically create a new build. You can also create a new build using the 'New Build' button on the pipeline page.
 
-<%= image "show-example-test.png", width: 968/2, height: 698/2, alt: "Screenshot of the build passing with pipeline upload step first, and then the example step" %>
+![Screenshot of the build passing with pipeline upload step first, and then the example step](show-example-test.png "width=484")
 
 For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation:
 
@@ -111,7 +111,7 @@ When a step is run by an agent, it will be run with a clean checkout of the pipe
 
 When you run a pipeline, a build is created. The following diagram shows you how builds progress from start to end.
 
-<%= image "build-states.svg", size: "900x615", alt: "Build state diagram" %>
+![Build state diagram](build-states.svg "width=900")
 
 
 <%= render_markdown partial: 'pipelines/build_states' %>
@@ -120,7 +120,7 @@ When you run a pipeline, a build is created. The following diagram shows you how
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
 
-<%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
+![Job state diagram](job-states.svg "width=1482")
 
 As well as the states shown in the diagram, the following progressions can occur:
 

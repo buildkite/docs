@@ -68,7 +68,7 @@ steps:
 
 Each dimension you add is multiplied by the other dimensions, so two architectures (`matrix.setup.arch`), two operating systems (`matrix.setup.os`), and two tests (`matrix.setup.test`) create an eight job build (`2 * 2 * 2 = 8`):
 
-<%= image "matrix_build.jpg", width: 1155/2, height: 814/2, alt: "Screenshot of an eight job matrix" %>
+![Screenshot of an eight job matrix](matrix_build.jpg "width=577")
 
 If you're using `matrix.setup`, you can also use the `adjustments` key to change specific entries in the build matrix, or add new combinations. You can set the `skip` attribute to effectively remove them from the matrix, or `soft_fail` attributes to allow them to fail without breaking the build.
 
@@ -140,7 +140,7 @@ Each build matrix has a limit of 10 dimensions, 10 elements in each dimension an
 
 When you're creating many jobs with a matrix, you might want to [group](/docs/pipelines/group-step) them together, for a tidier view.
 
-<%= image "grouped.jpg", width: 497/2, height: 331/2, alt: "Screenshot of an eight job matrix inside a group step" %>
+![Screenshot of an eight job matrix inside a group step](grouped.jpg "width=248")
 
 To do that, indent the matrix steps inside a [group step](/docs/pipelines/group-step):
 

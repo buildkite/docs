@@ -7,7 +7,7 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 <!-- vale off -->
 <!-- alex ignore master -->
 
-<a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
+<a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite&templateURL=https://s3.amazonaws.com/buildkite-aws-stack/latest/aws-stack.yml">![Launch stack button](launch-stack.svg)</a>
 
 <!-- vale on -->
 
@@ -91,7 +91,7 @@ See also [Storing your Buildkite Agent token in AWS Secrets Manager](/docs/agent
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
-<%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", width: 1110/2, height: 719/2, alt: "Elastic CI Stack for AWS Architecture Diagram" %>
+![Elastic CI Stack for AWS Architecture Diagram](buildkite-elastic-ci-stack-on-aws-architecture.png "width=555")
 
 ## Features
 
@@ -311,7 +311,7 @@ changes to resume instance auto scaling.
 
 Metrics are calculated every minute from the Buildkite API using a Lambda function.
 
-<%= image "cloudwatch-metrics.png", alt: 'CloudWatch metrics' %>
+![CloudWatch metrics](cloudwatch-metrics.png)
 
 You can view the stack's metrics under _Custom Namespaces_ > _Buildkite_ within CloudWatch.
 

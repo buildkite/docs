@@ -27,7 +27,7 @@ steps:
 
 This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the main branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
 
-<%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
+![Screenshot of a deploy step output](deploy-step.png "width=741")
 
 ## Dedicated deployment pipelines
 
@@ -116,7 +116,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-<%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>
+![Screenshot of a pipeline with a deploy block step](deploy-block-step.png "width=231")
 
 Until the block step is manually unblocked either in Buildkite or using an API call, the build will be paused and the "🚀" deployment step will not run.
 
@@ -153,7 +153,7 @@ You can deploy applications to services like Kubernetes, Heroku, or ECS from a s
 
 In more complex environments you can use external deployment/delivery systems such as [Spinnaker](https://www.spinnaker.io), [Shipit](https://github.com/Shopify/shipit-engine), [Samson](https://github.com/zendesk/samson), or [Octopus](https://octopus.com). You can call the deployment system's CLI tool or API from a script in a Buildkite [command step](/docs/pipelines/command-step), similar to how you'd do it on a command line.
 
-<%= image "deploy-step.png", width: 1482/2, height: 730/2, alt: "Screenshot of a deploy step output" %>
+![Screenshot of a deploy step output](deploy-step.png "width=741")
 
 ## GitHub deployments
 
@@ -161,7 +161,7 @@ You can set up your pipelines to create a build whenever there is a deployment c
 
 To enable builds to be created from GitHub deployment events, create a pipeline and select 'Trigger builds on deployment' in your Buildkite pipeline's GitHub settings:
 
-<%= image "github-settings-trigger-builds-on-deployments.png", width: 1458/2, height: 744/2, alt: "Buildkite's GitHub Settings with 'Trigger builds on deployment' checkbox selected" %>
+![Buildkite's GitHub Settings with 'Trigger builds on deployment' checkbox selected](github-settings-trigger-builds-on-deployments.png "width=729")
 
 To customize the deployment's environment name and URL in GitHub, you can set the following two [build meta-data](/docs/pipelines/build-meta-data) values in the pipeline that performs the deployment:
 

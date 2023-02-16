@@ -16,7 +16,7 @@ Docker image. Also check your agents have `kubectl` access to your target
 cluster. Refer to the notes at the end of tutorial for tips on setting this
 up.
 
-<%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
+![Final Test Pipeline](final_test_pipeline.png "width=720")
 
 ## Create the deploy pipeline
 
@@ -29,7 +29,7 @@ The first step will be a pipeline upload using our new deploy pipeline YAML
 file. Create a new pipeline. Enter `buildkite-agent pipeline upload
 .buildkite/pipeline.deploy.yml` in the commands to run field.
 
-<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline'  %>
+![Creating a New Pipeline](new_pipeline.png "width=720")
 
 Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
 deploy script in the next step.
@@ -131,11 +131,11 @@ Docker image.
 Open the deployment pipeline and click "New Build". Click "Options" and set the
 `DOCKER_IMAGE` environment variable.
 
-<%= image "manual_deployment.png", width: 1382/2, height: 1542/2, alt: "New Manual Build" %>
+![New Manual Build](manual_deployment.png "width=691")
 
 Assuming your agents have the required access, then success! :tada:
 
-<%= image "manual_deployment_success.png", width: 1440/2, height: 750/2, alt: "Manual Build Success" %>
+![Manual Build Success](manual_deployment_success.png "width=720")
 
 ## Continuous deployment
 
@@ -185,7 +185,7 @@ goes wrong, then verify your `kubectl` and Kubernetes versions are compatible.
 You can check with `kubectl version`. If your agents cannot connect to the
 cluster, then check the kubectl access section for setup advice.
 
-<%= image "final_test_pipeline.png", width: 1440/2, height: 430/2, alt: 'Final Test Pipeline' %>
+![Final Test Pipeline](final_test_pipeline.png "width=720")
 
 ## Next steps
 

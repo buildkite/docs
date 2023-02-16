@@ -43,7 +43,7 @@ You can even include colors and emojis!
 echo -e "--- Running \033[33mspecs\033[0m \:cow\:\:bell\:"
 ```
 
-<%= image("collapsing_example.png", size: '261x127', alt: 'Screenshot of colored, emoji build output') %>
+![Screenshot of colored, emoji build output](collapsing_example.png "width=261")
 
 ## Log output limits
 
@@ -77,7 +77,7 @@ steps:
 
 When your build is finished the agent will upload `build.log` as a build artifact, which will be downloadable from the "Artifacts" tab on your build page.
 
-<%= image("large_build_log.png", alt: "Screenshot of build log available in the Artifacts tab", size: '511x241') %>
+![Screenshot of build log available in the Artifacts tab](large_build_log.png "width=511")
 
 ## Filtering with grep
 
@@ -117,7 +117,7 @@ xcodebuild <build options> | tee -a build.log | xcpretty -c
 
 Make sure to set the `-o pipefail` option in your buildscript as above, otherwise the build failure status might not be passed through correctly.
 
-<%= image("xcpretty.png", alt: "Screenshot of xcpretty output", size: '656x316') %>
+![Screenshot of xcpretty output](xcpretty.png "width=656")
 
 ## Encryption and security
 

@@ -2,7 +2,7 @@
 
 The Buildkite Agent's `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown.
 
-<%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
+![Screenshot of annotations with test reports](overview.png)
 
 {:toc}
 
@@ -37,7 +37,7 @@ steps:
       buildkite-agent annotate 'Example `success` style' --style 'success' --context 'ctx-success'
 ```
 
-<%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
+![Screenshot of available annotation styles](annotations-styles.png)
 
 ## Supported Markdown syntax
 
@@ -126,7 +126,7 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
     \x1b[31m  (compared using eql?)\x1b[0m
     ```
 
-<%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
+![Screenshot of colored terminal output in an annotation](annotations-terminal-output.png)
 
 
 >📘
@@ -144,7 +144,7 @@ steps:
 
 The results are piped though to the `buildkite-agent annotate` command:
 
-<%= image "annotations-terminal-output-color.png", alt: "Screenshot of colored terminal output in an annotation" %>
+![Screenshot of colored terminal output in an annotation](annotations-terminal-output-color.png)
 
 Or for more complex annotations, pipe an entire file to the `buildkite-agent annotate` command:
 
@@ -177,7 +177,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-<%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
+![Screenshot of using an artifact in an annotation](artifact-embed.png)
 
 You can also link to uploaded artifacts as a shortcut to important files:
 

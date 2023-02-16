@@ -211,7 +211,7 @@ Timeouts for jobs can be specified as [command steps attributes](/docs/pipelines
 
 To prevent jobs from consuming too many job minutes or running forever, you can specify default as well as maximum timeouts from your organization's [Pipeline Settings page](https://buildkite.com/organizations/~/pipeline-settings), or on a pipeline's Builds settings page.
 
-<%= image "default-timeout.png", width: 1724/2, height: 736/2, alt: "Set default and maximum timeout period for your jobs" %>
+![Set default and maximum timeout period for your jobs](default-timeout.png "width=862")
 
 Specific timeouts take precedence over more general ones — a step level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization default.
 
@@ -262,15 +262,15 @@ steps:
 
 If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes) on the job.
 
-<%= image "retry-time-date.png", width: 2456/2, height: 1076/2, alt: "You can view how and when a job was retried" %>
+![You can view how and when a job was retried](retry-time-date.png "width=1228")
 
 You can also see when a job has been retried and whether it was retried automatically or by a user. Such jobs will hidden - you can expand and view all the hidden retried jobs.
 
-<%= image "hidden-jobs.png", width: 1400, height: 330, alt: "Retry history is preserved and can be viewed" %>
+![Retry history is preserved and can be viewed](hidden-jobs.png "width=1400")
 
 In the Buildkite UI, there is a [Job Retries Report section](https://buildkite.com/organizations/~/reports/job-retries) where you can view a graphic report on jobs retried manually or automatically within the last 30 days. This can help you understand flakiness and instability across all of your pipelines.
 
-<%= image "job-retries-report.png", width: 2792/2, height: 1400/2, alt: "Information on manual and automatic job retries over the last 24 hours to 30 days " %>
+![Information on manual and automatic job retries over the last 24 hours to 30 days ](job-retries-report.png "width=1396")
 
 Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
 

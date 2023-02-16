@@ -49,7 +49,7 @@ steps:
     command:
       - cp .env.sample-dev .env
       - foreman run rake db:setup spec
-      
+
   - label: "\:heroku\: Deploy"
     branches: "master"
     command:
@@ -64,7 +64,7 @@ What's happening here? `heroku git:remote` ensures the Git `remote` is always po
 
 Once you've saved the pipeline settings the final step is to push a commit to the `master` branch and watch it automatically deploy to Heroku:
 
-<%= image "deploy-success.png", size: '726x691', alt: 'Buildkite Heroku deploy success' %>
+![Buildkite Heroku deploy success](deploy-success.png "width=726")
 
 ## Post-deploy scripts
 
