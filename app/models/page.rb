@@ -68,7 +68,7 @@ class Page
                 text
                end
 
-      Page::Renderer.render(text).html_safe
+      Page::Renderer.new(@image_path, @view_helpers).render(text).html_safe
     end
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
@@ -110,14 +110,17 @@ class Page
 
   def markdown_body
     erb_renderer = ERB.new(contents, nil, '-')
-    template_binding = TemplateBinding.new(view_helpers: @view,
-                                           image_path: File.join("docs", basename))
+    template_binding = TemplateBinding.new(view_helpers: @view, image_path: image_path)
 
     erb_renderer.result(template_binding.get_binding)
   end
 
+  def image_path
+    File.join("docs", basename)
+  end
+
   def body
-    Page::Renderer.render(markdown_body)
+    Page::Renderer.new(basename, @view).render(markdown_body)
   end
 
   def extracted_data

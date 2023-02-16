@@ -3,8 +3,9 @@
 class Page::Renderer
   require "rouge/plugins/redcarpet"
 
-  def self.render(text, options = {})
-    new.render(text, options)
+  def initialize(image_path, view_helpers)
+    @image_path = image_path
+    @view_helpers = view_helpers
   end
 
   def render(text, options = {})
@@ -28,25 +29,42 @@ class Page::Renderer
   private
 
   def markdown(options)
-    Redcarpet::Markdown.new(HTMLWithSyntaxHighlighting.new(options), autolink: true,
-                                                                     space_after_headers: true,
-                                                                     fenced_code_blocks: true,
-                                                                     tables: true,
-                                                                     no_intra_emphasis: true)
+    Redcarpet::Markdown.new(
+      HTMLWithSyntaxHighlighting.new(@image_path, @view_helpers, options),
+      autolink: true,
+      space_after_headers: true,
+      fenced_code_blocks: true,
+      tables: true,
+      no_intra_emphasis: true
+    )
   end
 
   class HTMLWithSyntaxHighlighting < Redcarpet::Render::HTML
     include Rouge::Plugins::Redcarpet
 
-    def initialize(options = {})
+    def initialize(image_path, view_helpers, options = {})
+      @image_path = image_path
+      @view_helpers = view_helpers
       @options = options
       super()
     end
 
-    def image(link, title, alt)
-      url = Camo::UrlBuilder.build(link) unless link.nil?
+    # Render an image with a responsive container. Image paths are relative to the
+    # `image_path` provided which is generally set to the page directory.
+    #
+    # An image width can be optionally provided via the markdown title attribute.
+    #
+    # eg. ![alt text](/path/to/image.png "width=100")
+    #
+    def image(path, title, alt)
+      image = @view_helpers.image_tag(File.join(@image_path, path), alt: alt)
+      container = @view_helpers.content_tag(:div, image, class: ["responsive-image-container"])
 
-      %{<img src="#{EscapeUtils.escape_html(url || '')}" alt="#{EscapeUtils.escape_html(alt || '')}" class="#{@options[:img_classes]}"/>}
+      if title =~ /width=(\d+)/
+        @view_helpers.content_tag(:div, container, style: "max-width: #{$1}px")
+      else
+        container
+      end
     end
 
     def codespan(code)
