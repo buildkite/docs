@@ -371,6 +371,11 @@
               path: "apis/agent-api"
             - name: "Metrics"
               path: "apis/agent-api/metrics"
+        - name: "Analytics REST API"
+          children:
+            - name: "Flaky tests"
+              pill: "beta"
+              path: "apis/rest-api/analytics/flaky-tests"
     - name: "GraphQL"
       path: "apis/graphql-api"
     - name: "Webhooks"
