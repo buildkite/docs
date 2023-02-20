@@ -279,7 +279,7 @@ steps:
   - wait: ~
   - command: |
       if [ $$(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload 
+         cat <<- YAML | buildkite-agent pipeline upload
          steps:
            - label: "Notify slack about soft failed step"
              command: echo "Notifying slack about the soft_failed step"
@@ -366,3 +366,5 @@ See the full [build states diagram](/docs/pipelines/defining-steps#build-states)
 <%= render_markdown partial: 'pipelines/job_states' %>
 
 See the full [job states diagram](/docs/pipelines/defining-steps#job-states) for more information on how jobs transition between states.
+
+Testing 1, 2, 3
