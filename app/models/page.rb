@@ -16,10 +16,6 @@ class Page
       raise "image deprecated, use markdown ![#{args[:alt]}](#{path})"
     end
 
-    def estimated_time(description)
-      %{<p class="Docs__time-estimate">Estimated time: #{description}</p>}
-    end
-
     def paginated_resource_docs_url
       @url_helpers.docs_path + '/rest-api#pagination'
     end
