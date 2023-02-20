@@ -1,5 +1,6 @@
 ls:
-  .md.erb: snake_case
+  pages/*:
+    .md: snake_case
 
 ignore:
   - node_modules
