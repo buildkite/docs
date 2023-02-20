@@ -3,6 +3,8 @@
 class Page::Renderer
   require "rouge/plugins/redcarpet"
 
+  attr_reader :image_path
+
   def initialize(image_path, view_helpers)
     @image_path = image_path
     @view_helpers = view_helpers

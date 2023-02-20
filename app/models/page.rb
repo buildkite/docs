@@ -6,39 +6,18 @@ class Page
   class TemplateBinding
     delegate_missing_to :@view_helpers
 
-    def initialize(view_helpers: nil, image_path: '')
+    def initialize(renderer:, view_helpers:)
+      @renderer = renderer
       @view_helpers = view_helpers
-      @image_path = image_path
       @url_helpers = Page::BuildkiteUrl.new
+    end
+
+    def image(path, args = {})
+      raise "image deprecated, use markdown ![#{args[:alt]}](#{path})"
     end
 
     def estimated_time(description)
       %{<p class="Docs__time-estimate">Estimated time: #{description}</p>}
-    end
-
-    def image(name, args={})
-      # Support the same :size that the standard Rails helper supports
-      if size = args.delete(:size)
-        width, height = size.split('x').map(&:to_i)
-        args[:width] = width
-        args[:height] = height
-      end
-
-      if args.include?(:width) && args.include?(:height)
-        args[:max_width] = args[:width]
-
-        responsive_image_tag(image_url(name),
-                             args[:width],
-                             args[:height],
-                             args.except(:width, :height))
-      else
-        @view_helpers.image_tag(image_url(name), args)
-      end
-    end
-
-    def image_url(name)
-      stripped_image_path = @image_path.sub(/\Adocs\//, "")
-      @view_helpers.image_path(File.join(stripped_image_path, name))
     end
 
     def paginated_resource_docs_url
@@ -62,24 +41,8 @@ class Page
         raise ArgumentError, "partial or nil not specified"
       end
 
-      text = if partial
-                 render(partial)
-               else
-                text
-               end
-
-      Page::Renderer.new(@image_path, @view_helpers).render(text).html_safe
-    end
-
-    def responsive_image_tag(image, width, height, image_tag_options={}, &block)
-      max_width = image_tag_options.delete(:max_width)
-      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]]
-
-      if max_width
-        content_tag :div, container, style: "max-width: #{max_width}px", class: image_tag_options[:class]
-      else
-        container
-      end
+      text = partial ? render(partial) : text
+      @renderer.render(text).html_safe
     end
   end
 
@@ -110,9 +73,12 @@ class Page
 
   def markdown_body
     erb_renderer = ERB.new(contents, nil, '-')
-    template_binding = TemplateBinding.new(view_helpers: @view, image_path: image_path)
-
+    template_binding = TemplateBinding.new(renderer: markdown_renderer, view_helpers: @view)
     erb_renderer.result(template_binding.get_binding)
+  end
+
+  def markdown_renderer
+    Page::Renderer.new(basename, @view)
   end
 
   def image_path
@@ -120,7 +86,7 @@ class Page
   end
 
   def body
-    Page::Renderer.new(basename, @view).render(markdown_body)
+    markdown_renderer.render(markdown_body)
   end
 
   def extracted_data
