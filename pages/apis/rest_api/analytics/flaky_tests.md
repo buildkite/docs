@@ -1,15 +1,15 @@
 # Flaky tests API
 
+The Flaky test API endpoint provides information about tests detected as flaky in a test suite.
+
 {:toc}
 
-This feature is currently in beta, and not available to all organizations. If you would like early access, please TBC.
+## List all flaky tests
 
-## List flaky tests
-
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of the user's flaky tests.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of the flaky tests detected in a test suite.
 
 ```bash
-curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/flaky-tests?access_token={token}"
+curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}/flaky-tests"
 ```
 
 ```json
