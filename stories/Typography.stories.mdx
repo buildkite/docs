@@ -1,0 +1,39 @@
+import { Meta, Typeset } from '@storybook/addon-docs';
+
+<Meta title="Base/Typography" />
+
+export const fontSizeBase = 16;
+export const fontFamilySystem = '-apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif';
+export const fontFamilyDisplay = `"Aeonik", ${fontFamilySystem}`;
+export const fontFamilyBody = `"Maison Neue", ${fontFamilySystem}`;
+export const fontFamilyBase = fontFamilySystem;
+
+# Typography
+
+Body content are wrapped within `.TextContent`.
+
+## Headings
+
+Uses display font Aeonik.
+
+<Typeset
+  fontFamily={fontFamilyDisplay}
+  fontSizes={[
+    fontSizeBase * 3,
+    fontSizeBase * 2,
+    fontSizeBase * 1.5,
+    fontSizeBase * 1.1875,
+    fontSizeBase,
+    fontSizeBase * .875,
+  ]}
+  fontWeight={'bold'}
+  sampleText="Launching and running Elastic CI Stack for AWS"
+/>
+
+## Paragraph
+
+<Typeset
+  fontFamily={fontFamilyBody}
+  fontSizes={[fontSizeBase * 1.1875]}
+  sampleText="See this overview page for extensive information on compatibility, configuration, security, and other topics that will allow you to effectively use Elastic CI Stack for AWS."
+/>
