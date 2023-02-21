@@ -26,13 +26,13 @@ To add the test collector package:
     ```
 
 1. Install [`buildkite-test-collector`](https://www.npmjs.com/package/buildkite-test-collector) using your package manager.
-   
+
     For npm, run:
 
     ```shell
     npm install --dev buildkite-test-collector
     ```
-  
+
     For yarn, run:
 
     ```shell
