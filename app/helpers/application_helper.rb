@@ -48,8 +48,9 @@ module ApplicationHelper
 
     # Pride month is June in The United States,
     # and this is generally acknowledged around the world
-    # even if jurisdictions have their own dates.
-    if DateTime.now.month == 6
+    # even if jurisdictions have their own dates. We also recognize
+    # Mardi Gras in Sydney as Australia's main Pride festival in February.
+    if DateTime.now.month == 6 || DateTime.now.month == 2 || DateTime.now.month == 3 # Remove case for March on March 6
       image = 'logo-pride.svg'
     end
 
