@@ -15,8 +15,8 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 ```json
 [
   {
-    "id": ":test_id",
-    "web_url": "/organizations/my_great_org/analytics/suites/my_suite_name/tests/:test_id",
+    "id": "01867216-8478-7fde-a55a-0300f88bb49b",
+    "web_url": "/organizations/my_great_org/analytics/suites/my_suite_name/tests/01867216-8478-7fde-a55a-0300f88bb49b",
     "scope": "User#email",
     "name": "is correctly formatted",
     "location": "./spec/models/user_spec.rb:42",
