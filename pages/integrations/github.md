@@ -120,6 +120,9 @@ You can customize the commit statuses, for example to reuse the same pipeline fo
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
+>🚧 Build source limitations when using custom statuses
+> In order for Buildkite to deliver custom status updates the build source must be "Webhook", builds from other sources will not allow Buildkite to identify the destination for the custom status updates.
+
 In a setup for a repository containing one codebase and one `pipeline.yml`, this customizes the commit status for the pipeline. However, if you have multiple `pipeline.yml` files in one repo, feeding in to the same Buildkite pipeline, this allows you to have different statuses when building different sections of the repo.
 
 For example, if you have a monorepo containing three applications, you could use the same pipeline, with different `pipeline.yml` files for each application. Each `pipeline.yml` can contain a different GitHub status.
