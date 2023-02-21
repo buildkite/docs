@@ -306,6 +306,24 @@ _Optional Attributes_
     </td>
   </tr>
   <tr>
+    <td><code>signal</code></td>
+    <td>
+      The signal sent to a process, if the process did not intercept and handle the signal<br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>kill</code><br>
+      <em>Example:</em> <code>SIGINT</code>
+    </td>
+  </tr>
+  <tr>
+    <td><code>signal_reason</code></td>
+    <td>
+      The reason a process was signalled<br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>none</code><br>
+      <em>Example:</em> <code>cancel</code>
+    </td>
+  </tr>
+  <tr>
     <td><code>limit</code></td>
     <td>
       The number of times this job can be retried. The maximum value this can be set to is 10.<br>
