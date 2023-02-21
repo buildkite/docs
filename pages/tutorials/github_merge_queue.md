@@ -25,6 +25,8 @@ To enable a merge queue for a pipeline:
     gh-readonly-queue/{base_branch}/*
     ```
 
+This will configure your pipeline to create builds on the specifically for the temporary branch created by GitHub, used by the merge queue. If you do not want multiple builds on the same pipeline for the same commit, you can configure skipping builds on existing commits here:
+
 1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
 
 That's it! Your pipeline supports merge queues in GitHub. 🎉
