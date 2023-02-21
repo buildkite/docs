@@ -21,7 +21,7 @@
           - name: 'Two-factor authentication (2FA)'
             path: 'tutorials/2fa'
         # If you're adding a source control provider you probably want to update
-        # /docs/pages/integrations/source_control.md.erb
+        # /docs/pages/integrations/source_control.md
         # as well
       - name: 'Source control'
         children:
