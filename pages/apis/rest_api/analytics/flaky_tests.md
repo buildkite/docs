@@ -17,10 +17,10 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
   {
     "id": ":test_id",
     "web_url": "/organizations/my_great_org/analytics/suites/my_suite_name/tests/:test_id",
-    "scope": "My test scope",
-    "name": "My test name",
-    "location": null,
-    "file_name": null,
+    "scope": "User#email",
+    "name": "is correctly formatted",
+    "location": "./spec/models/user_spec.rb:42",
+    "file_name": "./spec/models/user_spec.rb",
     "instances": 1,
     "most_recent_instance_at": "2023-02-14T23:19:03.223Z"
   }
