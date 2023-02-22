@@ -1,0 +1,43 @@
+.CopyToClipboardButton {
+  @extend .Button;
+  @extend .Button--default;
+
+  transition: opacity .05s linear;
+  font-family: $font-family-display;
+  font-size: 14px;
+  font-weight: 400;
+
+  opacity: 0;
+  position: absolute;
+  gap: .4em;
+  right: .4em;
+  top: .4em;
+  padding: .4em;
+  cursor: pointer;
+
+  > svg {
+    @extend .Button__icon;
+
+    padding: 0;
+    border: 0;
+  }
+
+  // Render when focusing sibling (<pre>) element
+  pre:focus-visible + &,
+  pre:hover + & {
+    opacity: 1;
+  }
+
+  &:hover, &:focus {
+    opacity: 1;
+  }
+
+  &[aria-checked="true"] {
+    border-color: map-get($color-aliases, 'button-primary');
+    background: $base-0;
+
+    svg > path {
+      stroke: map-get($color-aliases, 'button-primary');
+    }
+  }
+}

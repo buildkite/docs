@@ -1,5 +1,5 @@
 (function () {
-  const maxWidth = 1536;
+  const maxWidth = 1440;
 
   initCurrentNavs();
   bindToggles();

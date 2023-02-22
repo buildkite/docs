@@ -1,24 +1,5 @@
-@import "public/reset";
-@import "public/variables";
-@import "public/utils/*";
-@import "public/*";
-@import "pygments";
-@import "emoji";
-
-html {
-  font-family: BK-Circular, $font-family;
-  font-size: 18px;
-  font-weight: 400;
-  background: white;
-  color: #1F1F1F;
-}
-
-.system-font {
-  font-family: $font-family;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+@import "vendors/index";
+@import "base/index";
+@import "components/index";
+@import "pages/index";
+@import "utilities/index";

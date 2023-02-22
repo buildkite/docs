@@ -1,0 +1,53 @@
+/*
+* Legal Disclaimer
+*
+* These Fonts are licensed only for use on these domains and their subdomains:
+* www.buildkite.com
+*
+* It is illegal to download or use them on other websites.
+*
+* While the @font-face statements below may be modified by the client, this
+* disclaimer may not be removed.
+*
+* Lineto.com, 2017
+*/
+
+@font-face {
+  font-family: Aeonik;
+  src: asset-url('https://www2.buildkiteassets.com/assets/aeonik/Aeonik-Bold-78fff47500f27f2f0d8d777c9d431a87036e566af7577a58ccc0776b4eb4b994.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: asset-url('https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeue-Book-5e1404c0c8bc64daaae66d3a37fa7b0c7ffe65340d181e9068741deff8669cda.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: asset-url('https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeue-BookItalic-2a5e47b91af0050b44c21f9038ef63a37e228fd53b0289dfccbcdd3aa44ba19c.woff2') format('woff2');
+  font-weight: normal;
+  font-style: oblique;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: asset-url('https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeue-Bold-b76254964ac5dfd24f6500339e2dd7b29433d19f62dc0395720e339359fb2e61.woff2') format('woff2');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Maison Neue';
+  src: asset-url('https://www2.buildkiteassets.com/assets/maison-neue/MaisonNeue-BoldItalic-f834c7a46132c4df3cf948dd4c005775f758fb68b77b5199d75f814e5abf3484.woff2') format('woff2');
+  font-weight: bold;
+  font-style: oblique;
+  font-display: swap;
+}
