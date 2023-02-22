@@ -308,7 +308,7 @@ _Optional Attributes_
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal sent to a process, if the process did not intercept and handle the signal<br>
+      The signal sent to a process, if the process did not intercept and handle the signal.<br>
       <em>Example:</em> <code>"*"</code><br>
       <em>Example:</em> <code>kill</code><br>
       <em>Example:</em> <code>SIGINT</code>
@@ -317,7 +317,7 @@ _Optional Attributes_
   <tr>
     <td><code>signal_reason</code></td>
     <td>
-      The reason a process was signalled<br>
+      The reason a process was signaled.<br>
       <em>Example:</em> <code>"*"</code><br>
       <em>Example:</em> <code>none</code><br>
       <em>Example:</em> <code>cancel</code>
