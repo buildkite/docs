@@ -9,8 +9,9 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 * [environment variables](/docs/pipelines/environment-variables)
 * [labels](/docs/pipelines/command-step#label)
 * [commands](/docs/pipelines/command-step#command-step-attributes)
+* [plugins](/docs/pipelines/command-step#plugins)
 
-You can't use matrix values in other attributes, including step keys and plugin attributes.
+You can't use matrix values in other attributes, including step keys.
 
 For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
 

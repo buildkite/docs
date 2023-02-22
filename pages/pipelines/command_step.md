@@ -152,7 +152,7 @@ _Optional attributes:_
       <em>Example:</em> <code>3</code>
     </td>
   </tr>
-  <tr>
+  <tr id="plugins">
     <td><code>plugins</code></td>
     <td>
       An array of <a href="/docs/plugins">plugins</a> for this step.<br>
