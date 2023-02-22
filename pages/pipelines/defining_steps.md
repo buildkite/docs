@@ -34,7 +34,7 @@ If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defa
 * `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 
 >📘 Environment variable precedence
-> Because environment variables can be set in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to make sure that your  environment variables work as you expect them to.
+> Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to ensure your environment variables work as expected.
 
 For example, to set steps `blah.sh` and `blahblah.sh` to use the `something` queue and the step `yada.sh` to use the `other` queue:
 
