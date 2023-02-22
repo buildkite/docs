@@ -308,7 +308,7 @@ _Optional Attributes_
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal sent to a process, if the process did not intercept and handle the signal.<br>
+      The signal causing the job to exit, if a signal was sent, and the currently running process did not intercept and handle the signal supplying a non-default exit status.<br>
       <em>Example:</em> <code>"*"</code><br>
       <em>Example:</em> <code>kill</code><br>
       <em>Example:</em> <code>SIGINT</code>
