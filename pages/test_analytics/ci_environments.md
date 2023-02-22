@@ -87,7 +87,6 @@ During GitHub Actions workflow runs,test collectors upload information from the 
 {: class="responsive-table"}
 
 For GitHub Action runs:
-
 ```
 run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT"`
 ```
