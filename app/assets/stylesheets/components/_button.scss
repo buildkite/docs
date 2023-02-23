@@ -1,16 +1,22 @@
-$button-default-background-color: white;
+@mixin button-font {
+  font-family: $font-family-base;
+  font-size: $font-size-template;
+}
+
+button {
+  @include button-font;
+}
 
 .Button {
+  @include button-font;
   align-items: center;
   border: transparent 1px solid;
   border-radius: 5px;
   color: map-get($color-aliases, 'text-base');
   display: flex;
-  font-size: 0.8888rem;
-  font-weight: 500;
   gap: 10px;
   justify-content: center;
-  line-height: 24px;
+  line-height: map-get($line-heights, 'default');
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
   transition: background-color $transition-speed, border-color $transition-speed;

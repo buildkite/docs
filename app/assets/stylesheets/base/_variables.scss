@@ -81,12 +81,21 @@ $color-aliases: (
   'selected-bg': $purple-100
 );
 
-// font
+// typography
 $font-size-base: 16px;
+$font-size-template: .9375rem;
+$font-size-body: 1.125rem;
 $font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
 $font-family-display: 'Aeonik', $font-family-system;
 $font-family-body: 'Maison Neue', $font-family-system;
 $font-family-base: $font-family-body;
+$line-heights: (
+  'default': 1.5,
+  'golden': 1.618,
+  'heading': 1.35,
+  'tight': 1.2,
+  'tightest': 1.2
+);
 
 // breakpoints
 $screen-xs: 480px;

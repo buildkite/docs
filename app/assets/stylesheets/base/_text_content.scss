@@ -10,7 +10,7 @@
   font-size: #{$size-multiplier}rem;
   font-style: normal;
   font-weight: bold;
-  line-height: 1.35;
+  line-height: map-get($line-heights, 'heading');
 
   @include margin($margin);
 }
@@ -42,7 +42,7 @@ h6 {
 .TextContent {
   color: map-get($color-aliases, "text-body");
   font-size: 1.1875rem;
-  line-height: 1.618;
+  line-height: map-get($line-heights, 'golden');
 
   > :first-child {
     margin-top: 0;
@@ -148,7 +148,7 @@ h6 {
   code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
   pre code {
     font-size: #{(16/18)}em;
-    line-height: 1.5;
+    line-height: map-get($line-heights, 'default');
   }
   em { font-style: italic; }
   strong { font-weight: 600; }
@@ -159,7 +159,7 @@ h6 {
     padding: .8em 1em;
     border-radius: 5px;
     font-size: #{(15/18)}rem;
-    line-height: 1.5;
+    line-height: map-get($line-heights, 'default');
     min-width: 0;
     white-space: pre-wrap;
     &.overflow-scroll {
