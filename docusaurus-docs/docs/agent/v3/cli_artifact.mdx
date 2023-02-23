@@ -7,7 +7,6 @@ steps no matter the machine or network.
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
 
-{:toc}
 
 ## Uploading artifacts
 

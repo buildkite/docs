@@ -7,7 +7,6 @@ Every agent installer comes with a configuration file. You can also customize ma
 
 You can find the location of your configuration file in your platform's installation documentation, or you can set it using the `BUILDKITE_AGENT_CONFIG` environment variable or the `--config` command line argument.
 
-{:toc}
 
 ## Configuration settings
 

@@ -4,7 +4,6 @@ This page provides examples for common API tasks. Want to suggest a recipe? We w
 
 You can test out the Buildkite API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built in documentation under the _Docs_ panel.
 
-{:toc}
 
 ## Get all environment variables set on a build
 

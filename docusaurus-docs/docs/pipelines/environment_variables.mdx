@@ -5,7 +5,6 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/secrets) guide.
 
-{:toc}
 
 ## Buildkite environment variables
 {: id="bk-env-vars"}

@@ -4,7 +4,6 @@ Pipeline steps are defined in YAML and are either stored in Buildkite or in your
 
 Defining your pipeline steps in a `pipeline.yml` file gives you access to more configuration options and environment variables than the web interface, and allows you to version, audit and review your build pipelines alongside your source code.
 
-{:toc}
 
 ## Getting started
 

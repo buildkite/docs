@@ -4,7 +4,6 @@ A *trigger* step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
-{:toc}
 
 A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 

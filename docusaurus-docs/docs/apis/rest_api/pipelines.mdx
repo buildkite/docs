@@ -1,6 +1,5 @@
 # Pipelines API
 
-{:toc}
 
 ## List pipelines
 

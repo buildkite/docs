@@ -2,7 +2,6 @@
 
 Monitors track what matters to you. They trigger alerts under conditions that you decide.
 
-{:toc}
 
 ## Monitors
 

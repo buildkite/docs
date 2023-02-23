@@ -1,6 +1,5 @@
 # Teams API
 
-{:toc}
 
 ## Team data model
 

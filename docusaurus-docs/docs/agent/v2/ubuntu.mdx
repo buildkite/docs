@@ -5,7 +5,6 @@
 
 The Buildkite Agent can be installed on Ubuntu versions 14.04 and above using our signed apt repository.
 
-{:toc}
 
 ## Installation
 

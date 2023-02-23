@@ -5,7 +5,6 @@ You can use [Azure Active Directory](https://azure.microsoft.com/en-us/services/
 >📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
-{:toc}
 
 ## Step 1. Create a Buildkite SSO provider
 

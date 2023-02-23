@@ -2,7 +2,6 @@
 
 Plugins can be used in pipeline [command steps](/docs/pipelines/command-step) to access a library of commands or perform actions.
 
-{:toc}
 
 ## Adding a plugin to your pipeline
 

@@ -4,7 +4,6 @@ To use Test Analytics with your Ruby projects use the :github: [`test-collectors
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-{:toc}
 
 ## RSpec collector
 

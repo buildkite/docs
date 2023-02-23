@@ -6,7 +6,6 @@ An input step is functionally identical to a [block step](/docs/pipelines/block-
 
 Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
 
-{:toc}
 
 An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 

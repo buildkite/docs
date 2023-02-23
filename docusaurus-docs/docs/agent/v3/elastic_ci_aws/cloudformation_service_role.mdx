@@ -18,7 +18,6 @@ missing.
 This template can be deployed as is, or used as the basis for your own
 CloudFormation service role.
 
-{:toc}
 
 ## Deploying the service role template
 

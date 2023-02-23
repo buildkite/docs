@@ -4,7 +4,6 @@ The Buildkite Agent's `meta-data` command provides your build pipeline with a po
 
 See the [Using build meta-data](/docs/pipelines/build-meta-data) guide for a step-by-step example.
 
-{:toc}
 
 ## Setting data
 

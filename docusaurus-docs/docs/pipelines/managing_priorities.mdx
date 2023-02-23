@@ -2,7 +2,6 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-{:toc}
 
 ## Prioritizing specific jobs
 

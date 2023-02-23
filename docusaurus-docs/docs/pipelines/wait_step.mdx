@@ -2,7 +2,6 @@
 
 A *wait* step waits for all previous steps to have successfully completed before allowing following jobs to continue.
 
-{:toc}
 
 A wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
 
