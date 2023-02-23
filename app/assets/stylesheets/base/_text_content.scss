@@ -173,12 +173,16 @@ h6 {
   }
   li, p, dt, td, th, a {
     > code {
-      font-size: #{(16/18)}em;
+      font-size: .875rem;
     }
   }
   table {
-    font-size: #{(16/18)}rem;
+    font-size: .875rem;
     word-wrap: break-word;
+
+    p {
+      font-size: .875rem;
+    }
   }
   table, tbody, tr, th, td { color: currentColor; }
   tr { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
