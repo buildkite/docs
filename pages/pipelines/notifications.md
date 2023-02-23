@@ -254,6 +254,33 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to be mentioned: 
+
+Build-level notifications
+
+```yaml
+notify:
+  - slack:
+      channels:
+        - "#general"
+      message: "This message will ping <@user>!"
+```
+{: codeblock-file="pipeline.yml"}
+
+Step-level notifications
+
+```yaml
+steps:
+  - label: "Slack mention"
+    command: echo "Sending a notification with a mention"
+    notify:
+      - slack:
+          channels:
+            - "general"
+          message: "This message will ping <@user>!"
+```
+{: codeblock-file="pipeline.yml"}
+
 You can also add [conditionals](/docs/pipelines/notifications#conditional-notifications) to restrict the events on which notifications are sent:
 
 ```yaml
