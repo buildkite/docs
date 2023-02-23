@@ -79,7 +79,6 @@
     text-decoration: none;
     transition: background-color $transition-speed, color $transition-speed;
     width: 100%;
-    word-break: break-all;
 
     @media (min-width: $screen-md) {
       padding-left: $gutter / 2;
@@ -111,6 +110,7 @@
       left: 10px;
       height: 8px;
       position: absolute;
+      top: calc(1rem - 1px);
       transition: transform $transition-speed;
       width: 8px;
     }
