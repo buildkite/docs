@@ -2,8 +2,7 @@
 
 The Buildkite Agent's `annotate` command allows you to add additional information to Buildkite build pages using CommonMark Markdown.
 
-<%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
-
+{/* image "overview.png", alt: "Screenshot of annotations with test reports" */}
 
 ## Creating an annotation
 
@@ -13,7 +12,7 @@ There is no limit to the amount of annotations you can create, but the maximum b
 
 Options for the `annotate` command can be found in the `buildkite-agent` cli help:
 
-<%= render 'agent/v3/help/annotate' %>
+{/* render 'agent/v3/help/annotate' */}
 
 ## Removing an annotation
 
@@ -36,7 +35,7 @@ steps:
       buildkite-agent annotate 'Example `success` style' --style 'success' --context 'ctx-success'
 ```
 
-<%= image "annotations-styles.png", alt: "Screenshot of available annotation styles" %>
+{/* image "annotations-styles.png", alt: "Screenshot of available annotation styles" */}
 
 ## Supported Markdown syntax
 
@@ -57,21 +56,21 @@ A number of CSS classes are accepted in annotations. These include a subset of l
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
 We accept the following parts of version 8.0 of Basscss within annotations:
 
-* [Align](http://basscss.com/#basscss-align)
-* [Border](http://basscss.com/#basscss-border)
-* [Colors](https://basscss.com/v7/docs/colors/)
-* [Flexbox](http://basscss.com/#basscss-flexbox)
+- [Align](http://basscss.com/#basscss-align)
+- [Border](http://basscss.com/#basscss-border)
+- [Colors](https://basscss.com/v7/docs/colors/)
+- [Flexbox](http://basscss.com/#basscss-flexbox)
   - All except `sm-flex`, `md-flex` and `lg-flex`
-* [Margin](http://basscss.com/#basscss-margin)
-* [Layout](http://basscss.com/#basscss-layout)
+- [Margin](http://basscss.com/#basscss-margin)
+- [Layout](http://basscss.com/#basscss-layout)
   - All except Floats (Please use Flexbox instead)
-* [Padding](http://basscss.com/#basscss-padding)
-* [Typography](http://basscss.com/#basscss-typography)
+- [Padding](http://basscss.com/#basscss-padding)
+- [Typography](http://basscss.com/#basscss-typography)
   - `bold`, `regular`, `italic`, `caps`
   - `left-align`, `center`, `right-align`, `justify`
   - `underline`, `truncate`
   - `list-reset`
-* [Type Scale](http://basscss.com/#basscss-type-scale)
+- [Type Scale](http://basscss.com/#basscss-type-scale)
 
 An exhaustive list of classes that annotations support can be found below:
 
@@ -125,10 +124,9 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
     \x1b[31m  (compared using eql?)\x1b[0m
     ```
 
-<%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
+{/* image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" */}
 
-
->📘
+> 📘
 > Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're echoing to the terminal, so it doesn't get interpreted as a shell interpreted command.
 
 The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
@@ -139,11 +137,10 @@ steps:
     command:
       - echo -e "\`\`\`term\nThis is a \033[0;31mtest\033[0m\n\`\`\`" | buildkite-agent annotate
 ```
-{: codeblock-file="pipeline.yml"}
 
 The results are piped though to the `buildkite-agent annotate` command:
 
-<%= image "annotations-terminal-output-color.png", alt: "Screenshot of colored terminal output in an annotation" %>
+{/* image "annotations-terminal-output-color.png", alt: "Screenshot of colored terminal output in an annotation" */}
 
 Or for more complex annotations, pipe an entire file to the `buildkite-agent annotate` command:
 
@@ -174,9 +171,8 @@ steps:
         <img src="artifact://indy.png" alt="Belongs in a museum" height=250 >
       EOF
 ```
-{: codeblock-file="pipeline.yml"}
 
-<%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
+{/* image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" */}
 
 You can also link to uploaded artifacts as a shortcut to important files:
 
@@ -189,7 +185,6 @@ steps:
         Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
       EOF
 ```
-{: codeblock-file="pipeline.yml"}
 
 ## Using annotations to report test results
 
@@ -208,4 +203,3 @@ steps:
       - junit-annotate#v1.2.0:
           artifacts: tmp/junit-*.xml
 ```
-{: codeblock-file="pipeline.yml"}

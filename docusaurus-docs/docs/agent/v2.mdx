@@ -1,18 +1,17 @@
 # The Buildkite Agent
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3">see the latest version of this document</a>.
 
 <!--alex ignore easy-->
 
 The Buildkite agent is a small, reliable and cross-platform build runner that makes it easy to run automated builds on your own infrastructure. Its main responsibilities are polling buildkite.com for work, running build jobs, reporting back the status code and output log of the job, and uploading the job's artifacts.
 
-
 ## How it works
 
 The agent works by polling Buildkite's agent API over HTTPS. There is no need to forward ports or provide incoming firewall access, and the agents can be run across any number of machines and networks.
 
-<%= image "how-it-works.svg", alt: "Diagram showing agent to agent API communication" %>
+{/* image "how-it-works.svg", alt: "Diagram showing agent to agent API communication" */}
 
 The agent starts by registering itself with Buildkite, and once registered it's placed into your organization's agents pool. The agent periodically polls Buildkite looking for new work, waiting to accept an available job.
 
@@ -30,17 +29,22 @@ You can install the agent on a wide variety of platforms, see the [installation 
   <pre class="highlight shell"><code>$ buildkite-agent --help
 Usage:
 
+```
   buildkite-agent <command> [arguments...]
+```
 
 Available commands are:
 
-  <a href="/docs/agent/v2/cli-start">start</a>       Starts a Buildkite agent
-  <a href="/docs/agent/v2/cli-artifact">artifact</a>    Upload/download artifacts from Buildkite jobs
-  <a href="/docs/agent/v2/cli-meta-data">meta-data</a>   Get/set data from Buildkite jobs
-  <a href="/docs/agent/v3/cli-pipeline">pipeline</a>   Make changes to the pipeline of the currently running build
-  help, h     Shows a list of commands or help for one command
+<a href="/docs/agent/v2/cli-start">start</a> Starts a Buildkite agent
+<a href="/docs/agent/v2/cli-artifact">artifact</a> Upload/download artifacts from
+Buildkite jobs
+<a href="/docs/agent/v2/cli-meta-data">meta-data</a> Get/set data from Buildkite
+jobs
+<a href="/docs/agent/v3/cli-pipeline">pipeline</a> Make changes to the pipeline of
+the currently running build help, h Shows a list of commands or help for one command
 
-Use "buildkite-agent <command> --help" for more information about a command.
+Use `buildkite-agent <command> --help` for more information about a command.
+
 </code></pre></div>
 
 To start an agent you'll need your organization's agent token from the Agents page of your Buildkite dashboard. You pass the token to the agent using an environment variable or command line flag, and it will register itself with Buildkite and wait to accept jobs.
