@@ -4,12 +4,19 @@
 
 # mv pages/* docusaurus-docs/docs
 
+cd docusaurus-docs
+
 # rename all .md files to .mdx
-# find . -type f -name "*.md" -exec rename "s/\.md/\.mdx/" '{}' \;
+find . -type f -name "*.md" -exec rename "s/\.md/\.mdx/" '{}' \;
 
 # remove {:toc} from all files
-# find docusaurus-docs/docs -type f -name "*.mdx" -exec sed -i '' '/{:toc}/d' {} \;
+find docs -type f -name "*.mdx" -exec sed -i '' '/{:toc}/d' {} \;
+
+# replace erb tags with mdx comment tags
+find docs -type f -name "*.mdx" -exec sed -i '' 's/<%=/{\/\*/g' {} \;
+find docs -type f -name "*.mdx" -exec sed -i '' 's/%>/\*\/}/g' {} \;
+
+
 
 # run eslint to fix formatting
-cd docusaurus-docs
 node_modules/.bin/eslint --fix docs
