@@ -14,12 +14,17 @@ class Page::DataExtractor
     page_description = markdown_doc('')
     page_description_found = false
     page_attributes = []
+    sections = []
 
     markdown_ast.each do |node|
       case node.type
       when :header
+        header = node.to_plaintext(:DEFAULT, 32_767).strip
         if node.header_level == 1 && page_name.nil?
-          page_name = node.to_plaintext(:DEFAULT, 32_767).strip
+          page_name = header
+        end
+        if node.header_level === 2
+          sections << header
         end
       when :paragraph, :code_block
         unless page_description_found
@@ -90,7 +95,8 @@ class Page::DataExtractor
       "name" => page_name,
       "shortDescription" => page_description.first_child&.to_plaintext(:DEFAULT, 32_767)&.strip,
       "textContent" => page_description.to_commonmark(:DEFAULT, 32_767).strip,
-      "attributes" => page_attributes
+      "attributes" => page_attributes,
+      "sections" => sections,
     }
   end
 

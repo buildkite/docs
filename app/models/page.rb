@@ -104,6 +104,10 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def sections
+    extracted_data.fetch("sections")
+  end
+
   def description
     extracted_data.fetch("shortDescription")
   end

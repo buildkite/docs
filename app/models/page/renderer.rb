@@ -106,22 +106,7 @@ class Page::Renderer
       if headings.empty? or node.text == notoc
         node.replace('')
       else
-        html_list_items = headings.map {|heading|
-          <<~HTML.strip
-            <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
-          HTML
-        }.join("").strip
-
-        node.replace(<<~HTML.strip)
-          <nav class="Toc">
-            <button class="Toc__toggle">
-              <h2 class="Toc__title">On this page</h2>
-            </button>
-            <ul class="Toc__list Toc__list--is-collapsed">
-              #{html_list_items}
-            </ul>
-          </nav>
-        HTML
+        node.replace('')
       end
     end
 
