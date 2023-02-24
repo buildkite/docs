@@ -26,32 +26,32 @@
   @include margin($margin);
 }
 
+h1 {
+  @include heading(3);
+}
+
+h2 {
+  @include heading(2);
+}
+
+h3 {
+  @include heading(1.5)
+}
+
+h4 {
+  @include heading(1.1875)
+}
+
+h5 {
+  @include heading(1)
+}
+
+h6 {
+  @include heading(.875)
+}
+
 .TextContent {
   @include body;
-  
-  h1 {
-    @include heading(3);
-  }
-
-  h2 {
-    @include heading(2);
-  }
-
-  h3 {
-    @include heading(1.5)
-  }
-
-  h4 {
-    @include heading(1.1875)
-  }
-
-  h5 {
-    @include heading(1)
-  }
-
-  h6 {
-    @include heading(.875)
-  }
 
   p {
     @include body;
