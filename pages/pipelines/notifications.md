@@ -117,7 +117,11 @@ Once a Slack channel has been configured in your organization, add a Slack notif
 >🚧
 > When using only a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
 
-For example, to deliver build-level notifications to the `#general` channel of all configured workspaces:
+### Notify a channel in all workspaces
+
+You can notify a channel in all workspaces by providing the channel name in the `pipeline.yml`.
+
+Build-level notifications to the `#general` channel of all configured workspaces:
 
 ```yaml
 steps:
@@ -128,7 +132,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-For step-level notifications to the `#general` channel of all configured workspaces, use the following syntax:
+Step-level notifications to the `#general` channel of all configured workspaces:
 
 ```yaml
 steps:
@@ -139,7 +143,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-For example, to deliver build-level notifications to user `@someuser` in all configured workspaces:
+### Notify a user in all workspaces
+
+You can notify a user in all workspaces by providing their username in the `pipeline.yml`.
+
+Build-level notifications to user `@someuser` in all configured workspaces:
 
 ```
 notify:
@@ -147,7 +155,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-For step-level notifications to to user `@someuser` in all configured workspaces:
+Step-level notifications to user `@someuser` in all configured workspaces:
 
 ```yaml
 steps:
@@ -158,10 +166,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+### Notify a channel in one workspace
 
-To send a notification to one particular workspace and channel or workspace and user, specify the workspace name, too:
+You can notify one particular workspace and channel or workspace and user by specifying the workspace name.
 
-Build-level notifications for channels
+Build-level notifications:
 
 ```yaml
 steps:
@@ -175,7 +184,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Step-level notifications for channels
+Step-level notifications:
 
 ```yaml
 steps:
@@ -189,9 +198,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-You can also specify multiple teams and channels with the `channels` attribute:
+### Notify multiple teams and channels
 
-Build-level notifications
+You can specify multiple teams and channels by listing them in the `channels` attribute.
+
+Build-level notifications:
 
 ```yaml
 notify:
@@ -204,7 +215,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Step-level notifications
+Step-level notifications:
 
 ```yaml
 steps:
@@ -220,9 +231,11 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To add a custom message to the notification:
+### Custom messages
 
-Build-level notifications
+You can define a custom message to send in the notification using the `message` attribute.
+
+Build-level notifications:
 
 ```yaml
 notify:
@@ -237,7 +250,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Step-level notifications
+Step-level notifications:
 
 ```yaml
 steps:
@@ -254,9 +267,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to be mentioned: 
+To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to mention. 
 
-Build-level notifications
+Build-level notifications:
 
 ```yaml
 notify:
@@ -267,7 +280,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Step-level notifications
+Step-level notifications:
 
 ```yaml
 steps:
@@ -280,6 +293,8 @@ steps:
           message: "This message will ping <@user>!"
 ```
 {: codeblock-file="pipeline.yml"}
+
+### Conditional Slack notifications
 
 You can also add [conditionals](/docs/pipelines/notifications#conditional-notifications) to restrict the events on which notifications are sent:
 
