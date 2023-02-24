@@ -267,7 +267,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to mention. 
+To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to mention.
 
 Build-level notifications:
 
