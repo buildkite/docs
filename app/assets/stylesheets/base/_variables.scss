@@ -86,7 +86,7 @@ $font-size-base: 16px;
 $font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, "Helvetica Neue", Helvetica, sans-serif;
 $font-family-display: 'Aeonik', $font-family-system;
 $font-family-body: 'Maison Neue', $font-family-system;
-$font-family-base: $font-family-system;
+$font-family-base: $font-family-body;
 
 // breakpoints
 $screen-xs: 480px;
