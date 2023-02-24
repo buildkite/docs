@@ -211,6 +211,9 @@ module RenderHelpers
     valeOff = @@vale_off_pages.any? { |page_name| page_name == name }
 
     page_content = <<~HTML.strip
+      ---
+      toc: false
+      ---
       <!--
         _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
         |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
@@ -233,8 +236,6 @@ module RenderHelpers
       #{valeOff ? "<!-- vale off -->" : nil}
 
       #{render_html(schema_type_data["description"])}
-
-      {:notoc}
 
       #{table}
 

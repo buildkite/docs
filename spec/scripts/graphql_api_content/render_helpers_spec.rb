@@ -611,6 +611,9 @@ RSpec.describe RenderHelpers do
 
       expect(page_string).to eq(
         <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
+          ---
+          toc: false
+          ---
           <!--
             _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
             |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
@@ -628,7 +631,6 @@ RSpec.describe RenderHelpers do
           <h1 class="has-pills" data-algolia-exclude>JobTypeTrigger<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
           <!-- vale on -->
           <p>A type of job that triggers another build on a pipeline</p>
-          {:notoc}
           <table class="responsive-table responsive-table--single-column-rows">
             <thead>
               <th>
@@ -686,6 +688,9 @@ RSpec.describe RenderHelpers do
         page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
         expect(page_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
+            ---
+            toc: false
+            ---
             <!--
               _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
               |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
@@ -701,9 +706,6 @@ RSpec.describe RenderHelpers do
             -->
             <!-- vale off -->
             <h1 class="has-pills" data-algolia-exclude>__DirectiveLocation<span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span></h1>
-            <!-- vale on -->
-            <!-- vale off -->
-            {:notoc}
             <!-- vale on -->
 
           HTML
