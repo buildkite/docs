@@ -19,8 +19,6 @@ RSpec.describe Page::Renderer do
   describe "TOC generation" do
     it "adds TOC and heading links" do
       md = <<~MD
-        {:toc}
-
         ## Section 1
 
         ### Subsection 1.1
@@ -63,8 +61,6 @@ RSpec.describe Page::Renderer do
 
     it "ignores nested h2s" do
       md = <<~MD
-        {:toc}
-
         ## Section
 
         <section>
@@ -128,8 +124,6 @@ RSpec.describe Page::Renderer do
 
     it "renders nothing if there's no sections" do
       md = <<~MD
-        {:toc}
-
         Just some words
       MD
 

@@ -48,10 +48,8 @@ class Page::DataExtractor
           end
 
           # Add any paragraphs or code blocks we hit before we find
-          # other information to the description, ignoring any TOC entries
-          unless node.to_plaintext == "{:toc}\n"
-            page_description.append_child(node)
-          end
+          # other information to the description
+          page_description.append_child(node)
 
           # Add the ending HTML fragment for the figure/figcaption pair
           if wrap_figure

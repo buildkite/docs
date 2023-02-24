@@ -38,8 +38,6 @@ RSpec.describe Page::DataExtractor do
       md = <<~MD
         # Page title
 
-        {:toc}
-
         Some description
 
         And some more description here
@@ -68,8 +66,6 @@ RSpec.describe Page::DataExtractor do
     it "ignores raw HTML tags in the description" do
       md = <<~MD
         # Page title
-
-        {:toc}
 
         Some description
 
