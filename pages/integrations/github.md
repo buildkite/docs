@@ -142,6 +142,30 @@ For example, if you have a monorepo containing three applications, you could use
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
+
+You can also define the commit status in a group step:
+
+```yml
+steps:
+  - group: "\:lock_with_ink_pen\: Security Audits"
+    key: "audits"
+    notify:
+    - github_commit_status:
+        context: "group status"
+    
+    steps:
+      - label: "\:brakeman\: Brakeman"
+        command: ".buildkite/steps/brakeman"
+      - label: "\:bundleaudit\: Bundle Audit"
+        command: ".buildkite/steps/bundleaudit"
+      - label: "\:yarn\: Yarn Audit"
+        command: ".buildkite/steps/yarn"
+      - label: "\:yarn\: Outdated Check"
+        command: ".buildkite/steps/outdated"
+```
+
+In this case, you'll have a "logical AND"-style behaviour for the notification.
+
 ## Using one repository in multiple pipelines and organizations
 
 <%= render_markdown partial: 'integrations/one_repo_multi_org' %>
