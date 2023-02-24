@@ -140,14 +140,22 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
+  def metadata
+    defaults = {
+      # Default to rendering table of contents
+      "toc": true
+    }
+    defaults.merge(file.front_matter)
+  end
+
   private
 
+  def file
+    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  end
+
   def contents
-    @contents ||= begin
-                    File.read(filename) if exists?
-                  rescue => e
-                    raise e
-                  end
+    file.content
   end
 
   def filename
