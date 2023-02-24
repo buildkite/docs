@@ -4,7 +4,7 @@
 <%= @page.body %>
 
 <%= content_for :toc do %>
-  <% if @page.metadata["toc"] %>
+  <% if @page.metadata[:toc] %>
     <nav class="Toc">
       <button class="Toc__toggle">
         <h2 class="Toc__title">On this page</h2>

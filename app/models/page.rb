@@ -145,7 +145,11 @@ class Page
       # Default to rendering table of contents
       "toc": true
     }
-    defaults.merge(file.front_matter)
+    if file.front_matter
+      defaults.merge(file.front_matter.symbolize_keys)
+    else
+      defaults
+    end
   end
 
   private

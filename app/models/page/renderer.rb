@@ -17,7 +17,6 @@ class Page::Renderer
     doc = add_custom_classes(doc)
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
-    doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
@@ -88,26 +87,6 @@ class Page::Renderer
       link = "<a class='Docs__heading__anchor' href='##{node['id']}'></a>"
 
       node.children.wrap(link)
-    end
-
-    doc
-  end
-
-  def add_table_of_contents(doc)
-    headings = doc.search('./h2')
-
-    # Third, we generate and replace the actual toc.
-    doc.search('./p').each do |node|
-      toc = '{:toc}'
-      notoc = '{:notoc}'
-
-      next unless [toc, notoc].include? node.text
-
-      if headings.empty? or node.text == notoc
-        node.replace('')
-      else
-        node.replace('')
-      end
     end
 
     doc
