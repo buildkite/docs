@@ -7,7 +7,6 @@ The Buildkite Agent's `pipeline` command allows you to add and replace build ste
 
 See the [Defining your pipeline steps](/docs/pipelines/uploading-pipelines) guide for a step-by-step example and list of step types.
 
-{:toc}
 
 ## Uploading pipelines
 

@@ -4,7 +4,6 @@ Customers on the Buildkite [Business and Enterprise](https://buildkite.com/prici
 
 For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/pipelines/permissions).
 
-{:toc}
 
 ## Permissions with teams
 

@@ -1,6 +1,5 @@
 # Buildkite APIs
 
-{:toc}
 
 ## Authentication
 

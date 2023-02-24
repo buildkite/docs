@@ -4,7 +4,6 @@ The Buildkite Agent's `annotate` command allows you to add additional informatio
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
-{:toc}
 
 ## Creating an annotation
 

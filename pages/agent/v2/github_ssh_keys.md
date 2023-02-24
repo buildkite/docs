@@ -8,7 +8,6 @@ The Buildkite Agent clones your source code directly from GitHub or GitHub Enter
 >📘
 > If you're running a build agent on a local development machine which already has access to GitHub then you can skip this setup and start running builds.
 
-{:toc}
 
 ## Method 1: Machine user
 

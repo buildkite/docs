@@ -3,7 +3,6 @@
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.
 
-{:toc}
 
 Your VPC needs to provide routable access to the buildkite.com service
 so that `buildkite-agent` processes can connect, and retrieve the jobs assigned

@@ -2,7 +2,6 @@
 
 The My Builds menu provides a personalised list of your most recently triggered builds across all the organizations you're a member of.
 
-{:toc}
 
 ## Navigation bar counter
 

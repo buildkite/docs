@@ -11,7 +11,6 @@ See the [Elastic CI Stack for AWS tutorial](/docs/tutorials/elastic_ci_stack_aws
 
 <!-- vale on -->
 
-{:toc}
 
 ## Before you start
 

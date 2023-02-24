@@ -4,7 +4,6 @@ Each pipeline has the ability to separate jobs using queues. This allows you to 
 
 Common use cases for queues include deployment agents, and pools of agents for specific pipelines or teams.
 
-{:toc}
 
 ## The default queue
 

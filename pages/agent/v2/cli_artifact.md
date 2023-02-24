@@ -7,7 +7,6 @@ The Buildkite Agent's `artifact` command provides support for uploading and down
 
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step example.
 
-{:toc}
 
 ## Uploading artifacts
 

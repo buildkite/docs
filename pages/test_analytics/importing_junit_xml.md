@@ -2,7 +2,6 @@
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
 
-{:toc}
 
 ## Mandatory JUnit XML attributes
 

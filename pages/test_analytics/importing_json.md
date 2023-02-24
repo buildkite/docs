@@ -1,6 +1,5 @@
 # Importing JSON
 
-{:toc}
 
 If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-analytics/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-analytics/importing-junit-xml).

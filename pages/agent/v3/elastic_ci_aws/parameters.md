@@ -9,7 +9,6 @@ You can use these parameters to configure the EC2 instances to suit your needs.
 Note that you must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
 or [`BuildkiteAgentToken`](#BuildkiteAgentToken) to be able to use `aws-stack.yml` template, all other parameters are optional.
 
-{:toc}
 
 <!--
   _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
