@@ -227,7 +227,7 @@ Watch out for differences such as:
   ```
 
 ### Adding and naming new documentation pages
-To add a new documentation page, create it as a *.md.erb file. Give it a lowercase name, separate words using underscores.
+To add a new documentation page, create it as a *.md file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
 `data/nav.yml` with the following data in the sitetree:
 
@@ -245,7 +245,7 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
 
 ### Filenames and filename linting
-Use `snake_case` for `*.md.erb` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
+Use `snake_case` for `*.md` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
 See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
 
 ### Escaping vale linting
@@ -288,11 +288,11 @@ Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipe
 ### Content reuse (snippets)
 You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
-Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md.erb`. **However**, when pulling the snippet into a file, remove the leading underscore.
+Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
 
 This way, this:
 
-`/integrations/_step_2_3_github_custom_status.md.erb`
+`/integrations/_step_2_3_github_custom_status.md`
 
 Needs to become this in a snippet render link:
 
@@ -304,7 +304,7 @@ Do not use H2, H3-level headings in the first line of a snippet because this res
 
 If a snippet is stored within a sub-solder, you need to specify the names of both folder and subfolder in the link to the snippet.
 
-So a link to `_agent_events_table.md.erb` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
+So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `apis` folder will need to look like this:
 
 `<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`
 

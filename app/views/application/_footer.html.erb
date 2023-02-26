@@ -17,13 +17,13 @@
   </div>
   <hr />
   <div class="Footer__heading">Need more help?</div>
-  <div class="Footer__links Footer__links--has-gaps">
+  <div class="Footer__links">
     <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
     <a class="Button Button--link" href="mailto:<%= support_email %>">
       <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/email.svg') %>" />
       Email support
     </a>
-    <a class="Button Button--link" href="https://chat.buildkite.community/">
+    <a class="Button Button--link" href="https://join.slack.com/t/buildkite-community/shared_invite/zt-1lm0xnwqu-r11BLIt7ZWr8JQ8fVyvMUw">
       <img alt="Icon: Slack" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/slack.svg') %>" />
       <% unless "test-analytics".in? request.path %>
         Ask our Slack community
