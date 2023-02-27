@@ -13,7 +13,6 @@ class Page::Renderer
     # It's like our own little HTML::Pipeline. These methods are easily
     # switchable to HTML::Pipeline steps in the future, if we so wish.
     doc = Nokogiri::HTML.fragment(html)
-    doc = add_custom_ids(doc)
     doc = add_custom_classes(doc)
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
@@ -125,19 +124,6 @@ class Page::Renderer
       next unless Page::Renderers::Callout::CALLOUT_TYPE.key? callout
 
       Page::Renderers::Callout.new(node, callout).process
-    end
-
-    doc
-  end
-
-  def add_custom_ids(doc)
-    doc.search('./p').each do |node|
-      next unless node.text.starts_with?('{: id=')
-
-      id = node.content[/id="(.*)"}/, 1]
-
-      node.previous_element['id'] = id
-      node.remove
     end
 
     doc

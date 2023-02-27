@@ -87,19 +87,6 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
-  it "supports {: id=\"some-id\"} for manually specifying an id of the previous bit of content" do
-    md = <<~MD
-      ## This is a section
-      {: id="some-id"}
-    MD
-
-    html = <<~HTML
-      <h2 id="some-id" class="Docs__heading"><a class="Docs__heading__anchor" href="#some-id">This is a section</a></h2>
-    HTML
-
-    expect(Page::Renderer.render(md).strip).to eql(html.strip)
-  end
-
   describe "Responsive table" do
     it "prepends faux th to each table cell" do
       md = <<~MD
