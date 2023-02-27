@@ -20,7 +20,7 @@ Follow the [setup instructions for Ubuntu](/docs/agent/v3/ubuntu).
 
 ## Running the agent on Google Kubernetes Engine
 
-[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/user-guide/pods/#privileged-mode-for-containers) and mount the Docker socket as a volume.
+[Google Kubernetes Engine](https://cloud.google.com/kubernetes-engine) can run the agent as a [Docker](https://www.docker.com) container using [Kubernetes](https://kubernetes.io). To [run Docker–based builds](/docs/tutorials/docker-containerized-builds), ensure the container is started with a [privileged security context](https://kubernetes.io/docs/concepts/workloads/pods/#privileged-mode-for-containers) and mount the Docker socket as a volume.
 
 In the [Google Cloud Console](https://console.cloud.google.com/kubernetes/add), create a _Standard_ Google Kubernetes Engine cluster:
 
@@ -53,14 +53,14 @@ Metrics-server is running at https://34.71.166.83/api/v1/namespaces/kube-system/
 To further debug and diagnose cluster problems, use 'kubectl cluster-info dump'.
 ```
 
-Create a [secret](https://kubernetes.io/docs/user-guide/secrets/#using-secrets-as-environment-variables) with your [agent registration token](/docs/agent/v3/tokens#main):
+Create a [secret](https://kubernetes.io/docs/concepts/configuration/secret/#using-secrets-as-environment-variables) with your [agent registration token](/docs/agent/v3/tokens#main):
 
 ```shell
 $ kubectl create secret generic buildkite-agent --from-literal=token=INSERT-YOUR-AGENT-TOKEN-HERE
 secret "buildkite-agent" created
 ```
 
-Create a [Kubernetes deployment](https://kubernetes.io/docs/user-guide/deployments/#creating-a-deployment) to start an agent:
+Create a [Kubernetes deployment](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/#creating-a-deployment) to start an agent:
 
 ```shell
 $ cat | kubectl apply -f -
@@ -111,7 +111,7 @@ spec:
 deployment "buildkite-agent" created
 ```
 
-After waiting another minute, verify that your agent [pod](https://kubernetes.io/docs/user-guide/pods/) is running:
+After waiting another minute, verify that your agent [pod](https://kubernetes.io/docs/concepts/workloads/pods/) is running:
 
 ```shell
 $ kubectl get pods
@@ -233,7 +233,7 @@ _You'll need to add an environment hook to set the git `credential.helper` to ac
 
 ### Further configuration
 
-To [configure](/docs/agent/v3/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/user-guide/configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
+To [configure](/docs/agent/v3/configuration) the agent further you can create a [config map](https://kubernetes.io/docs/tasks/configure-pod-container/configure-pod-configmap/) and volume mount it over the default agent configuration file in `/buildkite/buildkite-agent.cfg`.
 
 To add [agent hooks](/docs/agent/v3/hooks) add another config map and volume mount them into `/buildkite/hooks/`.
 
