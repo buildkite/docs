@@ -24,7 +24,10 @@ class Page::DataExtractor
           page_name = header
         end
         if node.header_level === 2
-          sections << header
+          sections << {
+            header: header,
+            id: "##{header.to_url}",
+          }
         end
       when :paragraph, :code_block
         unless page_description_found

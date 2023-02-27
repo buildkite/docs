@@ -12,8 +12,8 @@
       <ul class="Toc__list Toc__list--is-collapsed">
         <% @page.sections.each do |section| %>
           <li class="Toc__list-item">
-            <a class="Toc__link" href="#<%= section.parameterize %>">
-              <%= section %>
+            <a class="Toc__link" href="<%= section[:id] %>">
+              <%= section[:header] %>
             </a>
           </li>
         <% end %>
