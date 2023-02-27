@@ -164,7 +164,7 @@ steps:
         command: ".buildkite/steps/outdated"
 ```
 
-In this case, you'll have a "logical AND"-style behaviour for the notification.
+When you set a custom commit status on a group step, GitHub only displays one status for the group. A passing result only shows when all jobs in the group pass. If you want to show custom commit statuses for each job, set them on the individual step.
 
 ## Using one repository in multiple pipelines and organizations
 
