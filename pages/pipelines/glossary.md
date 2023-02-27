@@ -12,7 +12,7 @@ To learn more, see the [Agent overview](/docs/agent/v3).
 
 ## Artifact
 
-An artifact is a file or metadata generated during a build. You can keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service like Amazon S3, Google Cloud Storage, or Artifactory. Common uses include storing assets like logs and reports, or passing files between steps.
+An artifact is a file generated during a build. You can keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service like Amazon S3, Google Cloud Storage, or Artifactory. Common uses include storing assets like logs and reports, or passing files between steps.
 
 To learn more, see [Build artifacts](/docs/pipelines/artifacts).
 
@@ -38,12 +38,6 @@ To learn more, see [Hooks](/docs/agent/v3/hooks).
 
 A job is the execution of a command step during a build. Jobs run the commands, scripts, or plugins defined in the step.
 
-## Job queue
-
-The job queue is a queue of jobs waiting to run on an agent. You can configure queues for particular groups of agents, isolating a set of jobs and agents. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
-
-To learn more, see [Queues](/docs/agent/v3/queues).
-
 ## Pipeline
 
 A pipeline is a container for modeling and defining workflows. They contain a series of steps to achieve goals like building, testing, and deploying software.
@@ -58,6 +52,12 @@ Plugins can be open source and available for anyone to use or private for just y
 
 To learn more, see [Plugins](/docs/plugins).
 
+## Queue
+
+Queues contain jobs waiting to run on an agent. You can configure queues for particular groups of agents, isolating a set of jobs and agents. Typical uses for queues include separating deployment agents and pools of agents for specific pipelines or teams.
+
+To learn more, see [Queues](/docs/agent/v3/queues).
+
 ## Step
 
 A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
@@ -65,7 +65,7 @@ A step describes a single, self-contained task as part of a pipeline. You define
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Block step:** Pauses a build until unblocked.
 - **Wait step:** Pauses a build until all previous jobs have completed.
-- **Input step:** Pauses a build while collecting information from a user.
+- **Input step:** Collects information from a user.
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
 
