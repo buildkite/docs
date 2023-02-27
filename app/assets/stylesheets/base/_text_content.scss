@@ -1,12 +1,6 @@
 @mixin margin($margin: 1) {
   margin-bottom: #{$margin}rem;
-}
-
-@mixin body {
-  color: map-get($color-aliases, 'text-body');
-  font-size: 1.1875rem;
-  line-height: 1.618;
-  @include margin;
+  margin-top: #{$margin}rem;
 }
 
 @mixin heading($size-multiplier, $margin: 1) {
@@ -46,10 +40,16 @@ h6 {
 }
 
 .TextContent {
-  @include body;
+  color: map-get($color-aliases, "text-body");
+  font-size: 1.1875rem;
+  line-height: 1.618;
+
+  > :first-child {
+    margin-top: 0;
+  }
 
   p {
-    @include body;
+    @include margin;
   }
 
   blockquote,
