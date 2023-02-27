@@ -4,7 +4,8 @@
   border: 1px solid $gray-500;
   border-radius: 5px;
   font-size: 13px;
-  
+  margin-bottom: $gutter / 2;
+
   @media (min-width: $screen-lg) {
     background-color: transparent;
     border-radius: initial;
