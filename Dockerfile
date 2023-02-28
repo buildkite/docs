@@ -23,7 +23,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo "deb http://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs yarn gh \
+    && apt-get install -y nodejs npm gh \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
