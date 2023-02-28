@@ -108,7 +108,7 @@ steps:
 
 The explicit null `~` character used in the above examples isn't required, but is recommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute. 
 
-If command step before wait step with `continue_on_failure: true` is cancelled then all the steps after this cancelled step will not get executed because cancellation is purposefully excluded from continue_on_failure behaviour. In above example, if we cancel `echo THIRD command` which is step before wait step with `continue_on_failure: true` then `echo FOURTH command` step will not get executed.
+If command step before wait step with `continue_on_failure` is cancelled then all the steps after this cancelled step will not get executed because cancellation is purposefully excluded from continue_on_failure behaviour. In above example, if we cancel `echo THIRD command` which is step before wait step with `continue_on_failure` then `echo FOURTH command` step will not get executed.
 
 ## Block steps interacting with wait steps
 
