@@ -1,6 +1,6 @@
 html {
   background: $base-0;
-  color: map-get($color-aliases, 'text-base');
+  color: map-get($color-aliases, "text-base");
   font-family: $font-family-base;
   font-size: $font-size-base;
   font-weight: normal;

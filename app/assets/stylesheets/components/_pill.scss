@@ -2,123 +2,123 @@ $_pills: (
   agents: (
     background-color: $blue-100,
     border-color: $blue-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Agents"
+    color: map-get($color-aliases, "text-base"),
+    content: "Agents",
   ),
   access-token: (
     background-color: $pink-100,
     border-color: $pink-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Access token"
+    color: map-get($color-aliases, "text-base"),
+    content: "Access token",
   ),
   builds: (
     background-color: $orange-100,
     border-color: $orange-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Builds"
+    color: map-get($color-aliases, "text-base"),
+    content: "Builds",
   ),
   jobs: (
     background-color: $purple-100,
     border-color: $purple-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Jobs"
+    color: map-get($color-aliases, "text-base"),
+    content: "Jobs",
   ),
   meta: (
     background-color: $gray-300,
     border-color: $gray-300,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Meta"
+    color: map-get($color-aliases, "text-base"),
+    content: "Meta",
   ),
   notification-services: (
     background-color: $purple-100,
     border-color: $purple-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Notification services"
+    color: map-get($color-aliases, "text-base"),
+    content: "Notification services",
   ),
   organizations: (
     background-color: $pink-100,
     border-color: $pink-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Organizations"
+    color: map-get($color-aliases, "text-base"),
+    content: "Organizations",
   ),
   pipelines: (
     background-color: $aqua-100,
     border-color: $aqua-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Pipelines"
+    color: map-get($color-aliases, "text-base"),
+    content: "Pipelines",
   ),
   users: (
     background-color: $red-100,
     border-color: $red-100,
-    color: map-get($color-aliases, 'text-base'),
-    content: "Users"
+    color: map-get($color-aliases, "text-base"),
+    content: "Users",
   ),
   beta: (
-    background-color: rgba(255, 165, 0, .2),
-    border-color: rgba(255, 165, 0, .2),
+    background-color: rgba(255, 165, 0, 0.2),
+    border-color: rgba(255, 165, 0, 0.2),
     color: rgb(255, 165, 0),
-    content: "Beta"
+    content: "Beta",
   ),
   coming-soon: (
     background-color: $gray-200,
     border-color: $gray-200,
     color: $charcoal-500,
-    content: "Coming soon"
+    content: "Coming soon",
   ),
   deprecated: (
     background-color: $gray-200,
     border-color: $gray-200,
     color: $charcoal-500,
-    content: "Deprecated"
+    content: "Deprecated",
   ),
   new: (
     background-color: $olive-700,
     border-color: $olive-700,
     color: $base-0,
-    content: "New"
+    content: "New",
   ),
   required: (
     background-color: $red-100,
     border-color: $red-100,
     color: $red-700,
-    content: "Required"
+    content: "Required",
   ),
   object: (
     background-color: $blue-100,
     border-color: $blue-100,
     color: $blue-700,
-    content: "Object"
+    content: "Object",
   ),
   scalar: (
     background-color: $pink-100,
     border-color: $pink-100,
     color: $pink-800,
-    content: "Scalar"
+    content: "Scalar",
   ),
   interface: (
     background-color: $gray-300,
     border-color: $gray-300,
     color: $charcoal-600,
-    content: "Interface"
+    content: "Interface",
   ),
   enum: (
     background-color: $green-100,
     border-color: $green-100,
     color: $olive-800,
-    content: "ENUM"
+    content: "ENUM",
   ),
   input_object: (
     background-color: $purple-100,
     border-color: $purple-100,
     color: $purple-600,
-    content: "Input object"
+    content: "Input object",
   ),
   union: (
     background-color: $orange-100,
     border-color: $orange-100,
     color: $orange-700,
-    content: "Union"
-  )
+    content: "Union",
+  ),
 );
 
 @mixin pill {
@@ -140,11 +140,11 @@ $_pills: (
     border-color: map-get($_styles, border-color);
     color: map-get($_styles, color);
     content: map-get($_styles, content);
-    
+
     &[href] {
       color: map-get($_styles, color);
       text-decoration: underline;
-      text-decoration-color: rgba(map-get($_styles, color), .25);
+      text-decoration-color: rgba(map-get($_styles, color), 0.25);
 
       &:hover {
         border-color: map-get($_styles, color);

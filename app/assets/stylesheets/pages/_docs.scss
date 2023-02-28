@@ -1,12 +1,12 @@
 $color-green: rgb(3, 165, 98);
 
 .Docs__page-container {
-  @media (min-width: $screen-md) { 
-    padding-top: map-get($header-height, 'two-rows') + 30px; 
+  @media (min-width: $screen-md) {
+    padding-top: map-get($header-height, "two-rows") + 30px;
   }
 
-  @media (min-width: $screen-lg) { 
-    padding-top: map-get($header-height, 'one-row') + 30px; 
+  @media (min-width: $screen-lg) {
+    padding-top: map-get($header-height, "one-row") + 30px;
   }
 }
 
@@ -20,7 +20,9 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__header {
-  @media (max-width: ($screen-md - 1)) { font-size: 2rem; }
+  @media (max-width: ($screen-md - 1)) {
+    font-size: 2rem;
+  }
 }
 
 .Docs__article {
@@ -29,14 +31,14 @@ $color-green: rgb(3, 165, 98);
 
   @media (min-width: $screen-md) {
     margin-left: $sidebar-width + ($gutter / 2);
-    margin-top: map-get($header-height, 'two-rows') - 24px;
+    margin-top: map-get($header-height, "two-rows") - 24px;
   }
 
   @media (min-width: $screen-lg) {
     margin-left: auto;
     margin-right: auto;
-    margin-top: map-get($header-height, 'one-row') - 24px;
-    max-width: map-get($max-w, 'prose');
+    margin-top: map-get($header-height, "one-row") - 24px;
+    max-width: map-get($max-w, "prose");
   }
 
   &--is-landing-page {
@@ -47,14 +49,35 @@ $color-green: rgb(3, 165, 98);
     }
   }
 
-  img.no-decoration, .responsive-image-container.no-decoration { padding: 0; border: none; margin: 0; }
-  img.emoji { padding: 0; border: none; }
-  hr + h2 { margin-top: 0; }
-  th { font-weight:600; }
-  thead th { font-weight: 600; }
-  .image, img { max-width: 100%; }
-  .responsive-image-container { margin: .5rem 0 2rem 0; }
-  li .responsive-image-container { margin: .5rem 0 0 0; }
+  img.no-decoration,
+  .responsive-image-container.no-decoration {
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+  img.emoji {
+    padding: 0;
+    border: none;
+  }
+  hr + h2 {
+    margin-top: 0;
+  }
+  th {
+    font-weight: 600;
+  }
+  thead th {
+    font-weight: 600;
+  }
+  .image,
+  img {
+    max-width: 100%;
+  }
+  .responsive-image-container {
+    margin: 0.5rem 0 2rem 0;
+  }
+  li .responsive-image-container {
+    margin: 0.5rem 0 0 0;
+  }
 
   table.fixed-width {
     // In general, the width of our tables within articles depends on the size of their content. This works great except
@@ -74,7 +97,7 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__article .Docs__api-param-eg {
-  margin: .25em 0 0 0;
+  margin: 0.25em 0 0 0;
 }
 
 .Docs__attribute__table {
@@ -102,7 +125,9 @@ $color-green: rgb(3, 165, 98);
     padding-top: 2rem;
   }
 
-  td p:first-child { margin-top: 0; }
+  td p:first-child {
+    margin-top: 0;
+  }
 
   .Docs__attribute__link {
     color: $gray-600;
@@ -181,12 +206,14 @@ a.Docs__example-repo {
   padding: 15px;
   text-decoration: none;
 
-  &:hover, &:active, &:focus {
-    border-color: map-get($color-aliases, 'brand');
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: map-get($color-aliases, "brand");
     color: black;
 
     .repo {
-      color: map-get($color-aliases, 'brand');
+      color: map-get($color-aliases, "brand");
     }
   }
 
@@ -209,22 +236,22 @@ a.Docs__example-repo {
   }
 
   .repo {
-    color: map-get($color-aliases, 'text-lightest');
+    color: map-get($color-aliases, "text-lightest");
     display: block;
     font-size: #{(14/18)}rem;
     font-weight: normal;
-    margin-top: .2rem;
+    margin-top: 0.2rem;
     text-decoration: underline;
   }
 }
 
 .Docs__time-estimate {
-  color: map-get($color-aliases, 'brand');
+  color: map-get($color-aliases, "brand");
   font-size: 0.85em;
   letter-spacing: 0.02em;
   &:before {
     content: " ";
-    background: asset-url('clock_green.svg') no-repeat;
+    background: asset-url("clock_green.svg") no-repeat;
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -241,19 +268,19 @@ a.Docs__example-repo {
   position: relative;
 
   .Docs__heading__anchor {
-    color: map-get($color-aliases, 'text-display');
+    color: map-get($color-aliases, "text-display");
     text-decoration: none;
 
     &:hover,
     &:active,
     &:focus {
-      color: map-get($color-aliases, 'text-display');
+      color: map-get($color-aliases, "text-display");
     }
 
     &:hover {
       &:before {
-        content: '#';
-        color: map-get($color-aliases, 'border');
+        content: "#";
+        color: map-get($color-aliases, "border");
         font-size: 2rem;
         font-weight: normal;
         position: absolute;
@@ -267,11 +294,11 @@ html {
   scroll-padding-top: 15px;
 
   @media (min-width: $screen-md) {
-    scroll-padding-top: map-get($header-height, 'two-rows') + 15px;
+    scroll-padding-top: map-get($header-height, "two-rows") + 15px;
   }
 
   @media (min-width: $screen-md) {
-    scroll-padding-top: map-get($header-height, 'one-row') + 15px;
+    scroll-padding-top: map-get($header-height, "one-row") + 15px;
   }
 }
 

@@ -7,39 +7,50 @@
     margin-bottom: 10px;
   }
 
-  input[type='text'],
-  input[type='password'],
-  input[type='email'],
-  input[type='tel'] {
+  input[type="text"],
+  input[type="password"],
+  input[type="email"],
+  input[type="tel"] {
     display: block;
     box-sizing: border-box;
     padding: 10px 12px;
-    border-radius: .3em;
+    border-radius: 0.3em;
     font-size: 1rem;
     width: 100%;
     font-family: $font-family-base;
     background-color: $base-0;
     border: 1px solid #ccc;
-    color: map-get($color-aliases, 'text-lightest');
+    color: map-get($color-aliases, "text-lightest");
     outline: none;
-    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -webkit-appearance: none;
     -moz-appearance: none;
-    &:focus { background-color: rgba(white, .1); }
+    &:focus {
+      background-color: rgba(white, 0.1);
+    }
 
-    &::-webkit-input-placeholder { color: rgba(white, .35); }
-    &:-moz-placeholder { color: rgba(white, .35); }
-    &::-moz-placeholder { color: rgba(white, .35); }
-    &:-ms-input-placeholder { color: rgba(white, .35); }
+    &::-webkit-input-placeholder {
+      color: rgba(white, 0.35);
+    }
+    &:-moz-placeholder {
+      color: rgba(white, 0.35);
+    }
+    &::-moz-placeholder {
+      color: rgba(white, 0.35);
+    }
+    &:-ms-input-placeholder {
+      color: rgba(white, 0.35);
+    }
 
     &:disabled {
-      background-color: rgba(0, 0, 0, .1);
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 
-  input[type='submit'], button {
+  input[type="submit"],
+  button {
     @extend .Link--solid-on-dark;
-    background-color: map-get($color-aliases, 'button-primary') !important;
+    background-color: map-get($color-aliases, "button-primary") !important;
     color: white !important;
     padding-left: 20px;
     padding-right: 20px;
@@ -62,7 +73,7 @@
     transition: background-color $transition-speed;
 
     &:hover {
-      background-color: #00BB64;
+      background-color: #00bb64;
     }
   }
 

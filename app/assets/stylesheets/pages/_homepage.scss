@@ -1,9 +1,9 @@
 @mixin _link-with-arrow {
-  color: map-get($color-aliases, 'text-base');
+  color: map-get($color-aliases, "text-base");
   text-decoration: none;
 
   &:hover {
-    color: map-get($color-aliases, 'text-lightest');
+    color: map-get($color-aliases, "text-lightest");
   }
 
   &:active::after {
@@ -37,7 +37,7 @@
     will-change: opacity;
 
     &:hover {
-      opacity: .75;
+      opacity: 0.75;
     }
   }
 
@@ -52,7 +52,7 @@
 .HomeHeader__logo {
   width: 96px;
   height: auto;
-  margin-top: .55em;
+  margin-top: 0.55em;
 }
 
 .HomeHeader__wordmark {
@@ -60,7 +60,7 @@
 }
 
 .HomeSuggestions {
-  background-color: map-get($color-aliases, 'panel-background');
+  background-color: map-get($color-aliases, "panel-background");
   font-size: 16px;
   max-width: 500px;
   display: block;
@@ -82,7 +82,7 @@
   flex-direction: column;
   gap: $gutter;
   margin-bottom: 30px;
-  
+
   @media (min-width: $screen-md) {
     flex-direction: row;
   }
@@ -90,8 +90,8 @@
 
 .HomepageSection {
   &__heading {
-    color: map-get($color-aliases, 'text-lightest');
-    font-size: .888rem;
+    color: map-get($color-aliases, "text-lightest");
+    font-size: 0.888rem;
     font-weight: 600;
     letter-spacing: 1px;
     margin-bottom: 10px;
@@ -102,7 +102,7 @@
 }
 
 .HomepageCategory {
-  border: map-get($color-aliases, 'border') 1px solid;
+  border: map-get($color-aliases, "border") 1px solid;
   border-radius: 5px;
   box-sizing: border-box;
   display: flex;
@@ -110,7 +110,7 @@
   gap: 20px;
   padding: 20px;
   position: relative;
-  
+
   @media (min-width: $screen-md) {
     flex: 1 1 0;
   }
@@ -126,8 +126,8 @@
   }
 
   &__header {
-    border-bottom: map-get($color-aliases, 'border') 1px solid;
-    color: map-get($color-aliases, 'text-base');
+    border-bottom: map-get($color-aliases, "border") 1px solid;
+    color: map-get($color-aliases, "text-base");
     display: grid;
     grid-template-areas:
       "heading icon"
@@ -166,15 +166,15 @@
   }
 
   &__subtext {
-    color: map-get($color-aliases, 'text-lightest');
-    font-size: .888rem;
+    color: map-get($color-aliases, "text-lightest");
+    font-size: 0.888rem;
     font-weight: 500;
     grid-area: subtext;
   }
 
   &__icon {
     align-items: center;
-    background-color: map-get($color-aliases, 'panel-background');
+    background-color: map-get($color-aliases, "panel-background");
     border-radius: 50%;
     display: flex;
     grid-area: icon;
@@ -191,7 +191,7 @@
   }
 
   &__header:hover &__icon {
-    background-color: map-get($color-aliases, 'selected-bg');
+    background-color: map-get($color-aliases, "selected-bg");
   }
 
   &__list {
