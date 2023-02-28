@@ -2,7 +2,6 @@
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
-{:toc}
 
 Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your pipeline YAML.
 

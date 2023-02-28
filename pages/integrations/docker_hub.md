@@ -10,7 +10,6 @@ For Buildkite customers using images hosted on Docker Hub, this results in inter
 
 How to prevent job failure caused by the Docker Hub rates limits depends on exactly how you are using Docker images, here are a few solutions for common scenarios.
 
-{:toc}
 
 ## Elastic CI Stack for AWS, authenticating with a paid Docker Hub account
 

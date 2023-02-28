@@ -2,7 +2,6 @@
 
 If you're working on an open-source project, and want the whole world to be able to see your builds, you can make your pipeline public.
 
-{:toc}
 
 Making a pipeline public provides read-only public/anonymous access to:
 

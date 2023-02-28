@@ -2,7 +2,6 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-{:toc}
 
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 

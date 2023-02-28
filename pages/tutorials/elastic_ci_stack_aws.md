@@ -4,7 +4,6 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 
 
 
-{:toc}
 
 ## Before you start
 

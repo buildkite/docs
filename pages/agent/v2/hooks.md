@@ -6,7 +6,6 @@
 Every agent installer comes with a hooks directory which can be used to override and extend the built-in agent behavior. For example you could create a global `checkout` hook which speeds up a fresh `git clone` on a new build machine, a global `environment` hook which exports secret API keys as environment variables, or a pipeline-level `command` hook which runs the pipeline's steps inside a custom containerized environment.
 
 
-{:toc}
 
 >📘 Windows support
 > Agent hooks aren't available in this version. They are introduced in <a href="/docs/agent/v3/hooks">Agent v3</a>

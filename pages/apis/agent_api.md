@@ -6,7 +6,6 @@ The only publicly available endpoint is `/metrics`. The [Buildkite metrics agent
 
 The current version of the Agent API is v3.
 
-{:toc}
 
 ## Schema
 

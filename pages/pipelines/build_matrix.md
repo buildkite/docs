@@ -2,7 +2,6 @@
 
 Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
-{:toc}
 
 The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
 

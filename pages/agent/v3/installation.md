@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # How to install Buildkite Agent
 
 The Buildkite agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
@@ -6,8 +10,6 @@ The Buildkite agent runs on your own machine, whether it's a VPS, server, deskto
 * [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
 
 Alternatively you can install it manually using the instructions below.
-
-{:notoc}
 
 ## Manual installation
 

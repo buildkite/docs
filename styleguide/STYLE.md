@@ -328,13 +328,15 @@ Any file listed there will automatically pick up the beta styling.
 Adding the class `has-pill-beta` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
 
 #### Table of contents
-To generate a table of contents from all your \##\-level headings, use `{:toc}`.
-Make sure there are no spaces after the `{:toc}` - spaces immediately after this custom element are known to break the script.
+Table of contents are automatically generated based on \##\-level headings.
 
-To omit a table of contents, use `{:notoc}`.
-Typically `{:notoc}` is for pages where the text immediately following the \#-level heading is the body of the page or where there's only one \##\-level heading, which looks lonely in a table of contents.
+You can omit a table of contents by adding some additional metadata to a markdown template using the following YAML front matter:
 
-A page must have either `{:toc}` or `{:notoc}`.
+```yaml
+---
+toc: false
+---
+```
 
 #### Callouts
 Currently, the standard Markdown blockquote syntax is combined with particular

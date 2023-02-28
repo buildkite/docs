@@ -1,7 +1,8 @@
+---
+toc: false
+---
+
 # Integrations
-
-{:notoc}
-
 
 <%= tiles "integrations" %>
 

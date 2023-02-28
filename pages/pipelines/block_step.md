@@ -4,7 +4,6 @@ A *block* step is used to pause the execution of a build and wait on a team memb
 
 A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
 
-{:toc}
 
 A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 

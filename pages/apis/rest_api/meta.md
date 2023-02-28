@@ -4,7 +4,6 @@ The Meta API provides information about Buildkite, including a list of Buildkite
 
 It does not require authentication.
 
-{:toc}
 
 ## Get meta information
 

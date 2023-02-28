@@ -4,7 +4,6 @@ The Buildkite GraphQL API provides an alternative to the [REST API](/docs/apis/r
 
 For the list of existing disparities between the GraphQL API and the REST API, see [API differences](/docs/apis/api-differences).
 
-{:toc}
 
 ## Getting started
 

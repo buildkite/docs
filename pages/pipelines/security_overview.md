@@ -7,7 +7,6 @@ The hybrid-SaaS model used by Buildkite allows you to maintain tight control ove
 
 Buildkite implements a number of measures and mechanisms, both on the control plane and agent, to ensure that customer data remains safe.
 
-{:toc}
 
 ## Infrastructure
 

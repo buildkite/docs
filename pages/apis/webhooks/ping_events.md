@@ -1,6 +1,5 @@
 # Ping events
 
-{:toc}
 
 ## Events
 

@@ -1,8 +1,10 @@
+---
+toc: false
+---
+
 # Configuring Golang with Test Analytics
 
 To use Test Analytics with your Go language projects use [gotestsum](https://github.com/gotestyourself/gotestsum) to generate JUnit XML files, then [upload the JUnit XML files](/docs/test-analytics/importing-junit-xml) to Test Analytics.
-
-{:notoc}
 
 1. Install [gotestsum](https://github.com/gotestyourself/gotestsum):
 
@@ -10,13 +12,13 @@ To use Test Analytics with your Go language projects use [gotestsum](https://git
     go install gotest.tools/gotestsum@latest
     ```
 
-1. Use gotestsum to run your tests and output JUnit XML, by replacing `go test` with `go testsum`, for example:
+2. Use gotestsum to run your tests and output JUnit XML, by replacing `go test` with `go testsum`, for example:
 
     ```sh
     gotestsum --junitfile junit.xml ./...
     ```
 
-1. Upload the JUnit.xml to Buildkite:
+3. Upload the JUnit.xml to Buildkite:
 
     ```sh
     curl \

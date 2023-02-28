@@ -2,7 +2,6 @@
 
 You can use OneLogin as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both OneLogin and Buildkite.
 
-{:toc}
 
 ## Step 1. Add the Buildkite app to your OneLogin account
 

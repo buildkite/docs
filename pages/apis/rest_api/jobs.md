@@ -1,6 +1,5 @@
 # Jobs API
 
-{:toc}
 
 ## Retry a job
 

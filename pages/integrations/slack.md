@@ -2,7 +2,6 @@
 
 The [Slack](https://slack.com/) Notification Service in Buildkite lets you receive notifications about your builds and jobs in your Slack workspace.
 
-{:toc}
 
 Configuring a Slack notification service will authorize access for your desired channel. By default, notifications will be sent to all configured Slack channels.
 

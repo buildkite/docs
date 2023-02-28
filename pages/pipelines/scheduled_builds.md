@@ -8,7 +8,6 @@ You can create and manage schedules in the Schedules section of your Pipeline Se
 
 You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
-{:toc}
 
 ## Schedule intervals
 

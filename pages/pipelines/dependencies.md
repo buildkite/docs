@@ -2,7 +2,6 @@
 
 All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
-{:toc}
 
 ## Implicit dependencies with wait and block
 

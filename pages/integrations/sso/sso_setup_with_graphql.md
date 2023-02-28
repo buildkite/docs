@@ -5,7 +5,6 @@ Buildkite's single sign-on (SSO) can be set up by emailing support, or you can s
 >📘
 > For details on every available option available in the GraphQL APIs, please use the documentation sidebar built into the <a href="/docs/graphql-api#getting-started">GraphQL explorer</a>.
 
-{:toc}
 
 ## Finding your organization's GraphQL ID
 

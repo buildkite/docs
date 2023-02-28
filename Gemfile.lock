@@ -54,6 +54,7 @@ GEM
     execjs (2.8.1)
     ffi (1.15.3)
     foreman (0.87.2)
+    front_matter_parser (1.0.1)
     graphql (2.0.16)
     graphql-client (0.18.0)
       activesupport (>= 3.0)
@@ -177,6 +178,7 @@ DEPENDENCIES
   dotenv-rails
   escape_utils
   foreman
+  front_matter_parser
   graphql-client
   listen
   lograge
@@ -197,4 +199,4 @@ RUBY VERSION
    ruby 2.7.5p203
 
 BUNDLED WITH
-   2.3.5
+   2.4.7
