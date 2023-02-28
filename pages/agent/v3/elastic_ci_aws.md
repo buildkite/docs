@@ -194,10 +194,10 @@ CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but 
 <!-- vale off -->
 
 * [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
-* [Buildkite Agent v3.43.1](https://buildkite.com/docs/agent)
-* [Git v2.39.1](https://git-scm.com/)
-* [Docker](https://www.docker.com) - 20.10.7 (Linux) and 20.10.0 (Windows)
-* [Docker Compose](https://docs.docker.com/compose/) - 1.29.2 (Linux) and 1.28.5 (Windows)
+* [Buildkite Agent v3.44.0](https://buildkite.com/docs/agent)
+* [Git](https://git-scm.com/)
+* [Docker](https://www.docker.com) - 20.10.23 (Linux) and 20.10.9 (Windows)
+* [Docker Compose](https://docs.docker.com/compose/) - 1.29.2 and 2.16.0 (Linux) and 1.29.2 (Windows)
 * [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
 * [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
 
