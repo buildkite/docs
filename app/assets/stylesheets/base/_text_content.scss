@@ -5,12 +5,12 @@
 
 @mixin heading($size-multiplier, $margin: 1) {
   clear: both;
-  color: map-get($color-aliases, 'text-display');
+  color: map-get($color-aliases, "text-display");
   font-family: $font-family-display;
   font-size: #{$size-multiplier}rem;
   font-style: normal;
   font-weight: bold;
-  line-height: map-get($line-heights, 'heading');
+  line-height: map-get($line-heights, "heading");
 
   @include margin($margin);
 }
@@ -24,25 +24,25 @@ h2 {
 }
 
 h3 {
-  @include heading(1.5)
+  @include heading(1.5);
 }
 
 h4 {
-  @include heading(1.1875)
+  @include heading(1.1875);
 }
 
 h5 {
-  @include heading(1)
+  @include heading(1);
 }
 
 h6 {
-  @include heading(.875)
+  @include heading(0.875);
 }
 
 .TextContent {
   color: map-get($color-aliases, "text-body");
   font-size: 1.1875rem;
-  line-height: map-get($line-heights, 'golden');
+  line-height: map-get($line-heights, "golden");
 
   > :first-child {
     margin-top: 0;
@@ -54,13 +54,13 @@ h6 {
 
   blockquote,
   pre,
-  table { 
-    margin: 1rem 0; 
+  table {
+    margin: 1rem 0;
   }
 
   li {
-    margin-bottom: .5em;
-    margin-top: .5em;
+    margin-bottom: 0.5em;
+    margin-top: 0.5em;
   }
 
   ol {
@@ -75,10 +75,10 @@ h6 {
 
         ol {
           list-style: decimal;
-      
+
           ol {
             list-style: lower-alpha;
-      
+
             ol {
               list-style: lower-roman;
             }
@@ -100,10 +100,10 @@ h6 {
 
         ul {
           list-style: disc;
-      
+
           ul {
             list-style: circle;
-      
+
             ul {
               list-style: square;
             }
@@ -136,30 +136,37 @@ h6 {
   }
 
   a {
-    color: map-get($color-aliases, 'text-link');
+    color: map-get($color-aliases, "text-link");
     transition: color $transition-speed;
     will-change: color;
 
     &:hover {
-      color: map-get($color-aliases, 'text-link-hover');
+      color: map-get($color-aliases, "text-link-hover");
     }
   }
 
-  code { font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace; }
+  code {
+    font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
+      Courier, monospace;
+  }
   pre code {
     font-size: #{(16/18)}em;
-    line-height: map-get($line-heights, 'default');
+    line-height: map-get($line-heights, "default");
   }
-  em { font-style: italic; }
-  strong { font-weight: 600; }
+  em {
+    font-style: italic;
+  }
+  strong {
+    font-weight: 600;
+  }
   pre {
     word-break: break-all;
     word-wrap: break-word;
     border: 1px solid #ddd;
-    padding: .8em 1em;
+    padding: 0.8em 1em;
     border-radius: 5px;
     font-size: #{(15/18)}rem;
-    line-height: map-get($line-heights, 'default');
+    line-height: map-get($line-heights, "default");
     min-width: 0;
     white-space: pre-wrap;
     &.overflow-scroll {
@@ -171,26 +178,43 @@ h6 {
   iframe {
     border: 1px solid #ddd;
   }
-  li, p, dt, td, th, a {
+  li,
+  p,
+  dt,
+  td,
+  th,
+  a {
     > code {
-      font-size: .875rem;
+      font-size: 0.875rem;
     }
   }
   table {
-    font-size: .875rem;
+    font-size: 0.875rem;
     word-wrap: break-word;
 
     p {
-      font-size: .875rem;
+      font-size: 0.875rem;
     }
   }
-  table, tbody, tr, th, td { color: currentColor; }
-  tr { border-top: 1px solid #ddd; border-bottom: 1px solid #ddd; }
-  th code, td code { border: none; }
-  
+  table,
+  tbody,
+  tr,
   th,
   td {
-    padding: .5rem;
+    color: currentColor;
+  }
+  tr {
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+  }
+  th code,
+  td code {
+    border: none;
+  }
+
+  th,
+  td {
+    padding: 0.5rem;
 
     h1,
     h2,
@@ -209,8 +233,15 @@ h6 {
     }
   }
 
-  th { font-weight: inherit; color: currentColor; text-align: left; font-weight: 700; }
-  th code { font-weight: normal; }
+  th {
+    font-weight: inherit;
+    color: currentColor;
+    text-align: left;
+    font-weight: 700;
+  }
+  th code {
+    font-weight: normal;
+  }
   table.two-column {
     td {
       border: none;
@@ -239,10 +270,17 @@ h6 {
     }
   }
 
-  blockquote { padding-left: 1em; border-left: 5px solid #8E8E8E; }
+  blockquote {
+    padding-left: 1em;
+    border-left: 5px solid #8e8e8e;
+  }
 
-  .no-margin-top { margin-top: 0; }
-  .no-margin-bottom { margin-top: 0; }
+  .no-margin-top {
+    margin-top: 0;
+  }
+  .no-margin-bottom {
+    margin-top: 0;
+  }
 
   img,
   svg {
@@ -253,7 +291,7 @@ h6 {
   }
 
   details {
-    background-color: map-get($color-aliases, 'panel-background');
+    background-color: map-get($color-aliases, "panel-background");
     display: inline-block;
     padding: 10px 15px;
 
@@ -289,24 +327,32 @@ h6 {
   }
 
   .is-small {
-    font-size: .8888rem;
+    font-size: 0.8888rem;
   }
 
   /* Some styles from Bass that our Markdown render outputs */
-  .rounded { border-radius: map-get($color-aliases, 'border')-rounded; }
-  .dark-gray { color: $charcoal-300; }
-  .border { border: 1px solid; }
-  .border-gray { border-color: map-get($color-aliases, 'border'); }
+  .rounded {
+    border-radius: map-get($color-aliases, "border")-rounded;
+  }
+  .dark-gray {
+    color: $charcoal-300;
+  }
+  .border {
+    border: 1px solid;
+  }
+  .border-gray {
+    border-color: map-get($color-aliases, "border");
+  }
 
   .highlight-figure {
     figcaption {
       border: 1px solid #ddd;
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       border-top-left-radius: 5px;
       border-top-right-radius: 5px;
       border-bottom: none;
       font-size: 14px;
-      color: map-get($color-aliases, 'text-lightest');
+      color: map-get($color-aliases, "text-lightest");
     }
     pre {
       margin-top: 0;

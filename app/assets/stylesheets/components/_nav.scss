@@ -1,5 +1,6 @@
 @mixin _make-nav-icon-purple {
-  filter: invert(15%) sepia(80%) saturate(550%) hue-rotate(210deg) brightness(80%) contrast(110%);
+  filter: invert(15%) sepia(80%) saturate(550%) hue-rotate(210deg)
+    brightness(80%) contrast(110%);
 }
 
 .Nav {
@@ -43,21 +44,21 @@
     &--level2 {
       @media (min-width: $screen-md) {
         background-color: $base-0;
-        border-color: map-get($color-aliases, 'border');
+        border-color: map-get($color-aliases, "border");
         box-sizing: border-box;
-        height: calc(100vh - #{map-get($header-height, 'two-rows')});
+        height: calc(100vh - #{map-get($header-height, "two-rows")});
         left: 0;
         overflow-y: auto;
         overscroll-behavior: contain;
         padding: 44px 5px;
         position: fixed;
-        top: map-get($header-height, 'two-rows');
+        top: map-get($header-height, "two-rows");
         width: $sidebar-width;
       }
 
       @media (min-width: $screen-lg) {
-        height: calc(100vh - #{map-get($header-height, 'one-row')});
-        top: map-get($header-height, 'one-row');
+        height: calc(100vh - #{map-get($header-height, "one-row")});
+        top: map-get($header-height, "one-row");
       }
     }
   }
@@ -72,7 +73,7 @@
     display: flex;
     font-size: $font-size-template;
     gap: 5px;
-    line-height: map-get($line-heights, 'default');
+    line-height: map-get($line-heights, "default");
     margin: 0;
     padding: 8px 15px;
     position: relative;
@@ -88,8 +89,8 @@
 
     &:hover {
       &:not(span) {
-        color: map-get($color-aliases, 'selected');
-  
+        color: map-get($color-aliases, "selected");
+
         &::before {
           @include _make-nav-icon-purple;
         }
@@ -97,16 +98,16 @@
     }
 
     &--current {
-      background-color: map-get($color-aliases, 'selected-bg');
-      color: map-get($color-aliases, 'selected');
+      background-color: map-get($color-aliases, "selected-bg");
+      color: map-get($color-aliases, "selected");
     }
 
     &--parent {
-      color: map-get($color-aliases, 'selected');
+      color: map-get($color-aliases, "selected");
     }
 
     &::before {
-      content: '';
+      content: "";
       left: 10px;
       height: 8px;
       position: absolute;
@@ -148,7 +149,8 @@
     &--type {
       &-back {
         &::before {
-          background: transparent asset-url("icons/chevron-left.svg") 50% 50% no-repeat;
+          background: transparent asset-url("icons/chevron-left.svg") 50% 50%
+            no-repeat;
         }
 
         &:hover {
@@ -161,7 +163,8 @@
       &-link {
         &:after {
           content: "";
-          background: transparent asset-url("icons/external_link.svg") 50% 50% no-repeat;
+          background: transparent asset-url("icons/external_link.svg") 50% 50%
+            no-repeat;
           background-size: cover;
           height: 16px;
           width: 16px;
@@ -179,7 +182,7 @@
       }
 
       &.Nav__link--parent {
-        background-color: map-get($color-aliases, 'selected-bg');
+        background-color: map-get($color-aliases, "selected-bg");
       }
     }
 
@@ -221,7 +224,8 @@
     width: 100%;
 
     &::before {
-      background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+      background: transparent asset-url("icons/angle-down.svg") 50% 50%
+        no-repeat;
       transform: rotate(-90deg);
       will-change: transform;
     }
@@ -231,7 +235,7 @@
     }
 
     &--parent {
-      color: map-get($color-aliases, 'selected');
+      color: map-get($color-aliases, "selected");
 
       &::before {
         @include _make-nav-icon-purple;
@@ -260,7 +264,8 @@
   &__dropdown-toggle {
     @media (min-width: $screen-md) {
       &::after {
-        background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+        background: transparent asset-url("icons/angle-down.svg") 50% 50%
+          no-repeat;
         content: "";
         height: 8px;
         width: 8px;
@@ -282,9 +287,9 @@
 
     @media (min-width: $screen-md) {
       background: $base-0;
-      border: map-get($color-aliases, 'border') 1px solid;
+      border: map-get($color-aliases, "border") 1px solid;
       border-radius: 5px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, .05);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
       display: none;
       padding: 5px;
       position: absolute;

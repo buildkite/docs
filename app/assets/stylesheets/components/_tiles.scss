@@ -8,7 +8,7 @@
 }
 
 .TileItem {
-  font-size: .875rem;
+  font-size: 0.875rem;
   margin-bottom: 30px;
 
   .TileItem__image {
@@ -26,23 +26,23 @@
   }
 
   .TileItem__title-link {
-    color: map-get($color-aliases, 'text-base');
+    color: map-get($color-aliases, "text-base");
   }
 
   .TileItem__desc {
-    font-size: .875rem;
+    font-size: 0.875rem;
     margin: 0 0 10px;
   }
 
   .TileItem__learn-more {
-    font-size: .875rem;
+    font-size: 0.875rem;
     font-weight: bold;
   }
 
   .TileItem__list {
     font-family: $font-family-system;
     font-weight: 500;
-    line-height: map-get($line-heights, 'heading');
+    line-height: map-get($line-heights, "heading");
     padding: 0; // override `.TextContent ul`
   }
 
@@ -57,7 +57,7 @@
   }
 
   .TileItem__list-item-link {
-    color: map-get($color-aliases, 'text-base');
+    color: map-get($color-aliases, "text-base");
     text-decoration: none;
 
     &::after {
@@ -69,7 +69,7 @@
     }
 
     &:hover {
-      color: map-get($color-aliases, 'text-lightest');
+      color: map-get($color-aliases, "text-lightest");
 
       &::after {
         transform: translateX(2px);
