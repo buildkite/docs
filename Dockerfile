@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:3.0.5-bullseye@sha256:8da0838543ccbf4222cd18042c8768d1383c3ecedfc307d030271aeb00af1565
+FROM public.ecr.aws/docker/library/ruby:3.0.5-bullseye@sha256:8c9ce5f3b09f32fea02f547a96c64a80a76bd6e691b1f16ca7c93074b65db4c8
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
