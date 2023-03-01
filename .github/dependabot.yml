@@ -2,17 +2,23 @@ version: 2
 updates:
   - package-ecosystem: gitsubmodule
     directory: "/"
+    reviewers:
+      - "dannymidnight"
     schedule:
       interval: monthly
     open-pull-requests-limit: 3
   - package-ecosystem: docker
     directory: "/vale"
+    reviewers:
+      - "dannymidnight"
     schedule:
       interval: daily
   - package-ecosystem: "docker"
     directory: "/"
     schedule:
       interval: "monthly"
+    reviewers:
+      - "dannymidnight"
     ignore:
       # Permit dependabot to bump the digest only, we'll manually bump the ruby version when we're ready
       - dependency-name: "*"
