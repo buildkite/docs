@@ -92,11 +92,14 @@ nssm status buildkite-agent
 If you'd like to change the user the buildkite-agent service runs as, you can use the same third-party tool [nssm](https://nssm.cc/) using the command-line:
 
 ```
-# Change ComputerName to the name of the System under "Settings"
-# Change AccountName to the name of the Account you'd like to use
-# Change password to the password of the account you provided in the above comment
-nssm set buildkite-agent ObjectName "ComputerName\AccountName" "password"
+nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 ```
+
+Replace the following:
+
+- `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
+- `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
+- `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
 
 ## Which user the agent runs as
 
