@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Storing your Buildkite Agent token in AWS Secrets Manager
 
 The Elastic CI Stack for AWS supports reading a Buildkite Agent token from
@@ -5,8 +9,6 @@ the AWS Systems Manager Parameter Store. The token can be stored in a plaintext
 parameter, or encrypted with a KMS Key for access control purposes. You can also store your Buildkite Agent token using AWS Secrets Manager if
 you need the advanced functionality it offers over the Parameter
 Store.
-
-{:notoc}
 
 For example, AWS Secrets Manager can automatically rotate and
 revoke secrets using Lambda functions, and replicate secrets across multiple

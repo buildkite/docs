@@ -5,7 +5,6 @@
 
 If your agent needs to clone your repositories using git and SSH, you'll need to configure your agent with a valid SSH key.
 
-{:toc}
 
 ## Finding your SSH key directory
 

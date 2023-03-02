@@ -1,8 +1,10 @@
+---
+toc: false
+---
+
 # Source control
 
 Buildkite integrates with several popular code repository management systems (RMS). These are also known as version control systems (VCS). These integrations allow you to trigger builds from on version control events.
-
-{:notoc}
 
 * [GitHub](/docs/integrations/github)
 * [GitHub Enterprise](/docs/integrations/github-enterprise)

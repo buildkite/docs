@@ -3,7 +3,6 @@
 This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
-{:toc}
 
 The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy

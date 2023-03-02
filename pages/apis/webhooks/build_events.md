@@ -1,6 +1,5 @@
 # Build webhook events
 
-{:toc}
 
 ## Events
 

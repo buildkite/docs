@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
 
-{:toc}
 
 ## Security considerations
 

@@ -1,6 +1,5 @@
 # Agents API
 
-{:toc}
 
 ## List agents
 

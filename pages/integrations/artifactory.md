@@ -2,7 +2,6 @@
 
 There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Buildkite. This document covers how to configure the Buildkite Agent's built-in Artifactory support, as well as how to use Artifactory's package management features in your Buildkite pipelines.
 
-{:toc}
 
 ## Buildkite Agent's Artifactory support
 

@@ -2,7 +2,6 @@
 
 This page shows you how to write your own Buildkite plugin, and how to validate the `plugin.yml` file which describes it against the plugin schema.
 
-{:toc}
 
 ## Tutorial: write a plugin
 

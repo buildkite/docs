@@ -2,7 +2,6 @@
 
 You can use GitHub as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both the Buildkite organization and your GitHub organization.
 
-{:toc}
 
 ## Step 1. Link your Buildkite organization to your GitHub organization
 

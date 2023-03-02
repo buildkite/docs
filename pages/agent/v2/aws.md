@@ -5,7 +5,6 @@
 
 The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS.
 
-{:toc}
 
 ## Install the agent on your own AWS instance
 

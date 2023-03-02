@@ -1,6 +1,5 @@
 # Archiving and deleting pipelines
 
-{:toc}
 
 ## Archiving pipeline
 

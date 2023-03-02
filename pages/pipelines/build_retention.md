@@ -3,7 +3,6 @@
 Each [Buildkite plan](https://buildkite.com/pricing) has a maximum build retention
 period, after which your oldest builds will be automatically deleted.
 
-{:toc}
 
 Depending on your plan, you can configure your pipeline to retain builds for
 a certain period of time.

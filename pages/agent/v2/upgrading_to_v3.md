@@ -2,7 +2,6 @@
 
 Upgrade your Agents using your operating system package manager, or by re-running the installation script.
 
-{:toc}
 
 ## Upgrading from 3.0-beta to a stable 3.0 agent
 

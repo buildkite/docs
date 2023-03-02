@@ -1,10 +1,12 @@
+---
+toc: false
+---
+
 # Elixir collectors
 
 To use Test Analytics with your Elixir projects use :github: [`test_collector_elixir`](https://github.com/buildkite/test_collector_elixir) with ExUnit.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
-
-{:notoc}
 
 ## ExUnit
 
@@ -49,12 +51,12 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
 
     ```sh
     $ mix test
-    
+
     ...
-    
+
     Finished in 0.01 seconds (0.003s on load, 0.004s on tests)
     3 tests, 0 failures
-    
+
     Randomized with seed 12345
     ```
 

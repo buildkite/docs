@@ -1,6 +1,8 @@
-# Your own collectors
+---
+toc: false
+---
 
-{:notoc}
+# Your own collectors
 
 Test Analytics integrates directly with your test runner to provide in-depth information about your tests (including spans) in real time.
 

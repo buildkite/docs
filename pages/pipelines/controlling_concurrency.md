@@ -4,7 +4,6 @@ Some tasks need to be run with very strict concurrency rules to ensure they don'
 
 To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
 
-{:toc}
 
 ## Concurrency limits
 

@@ -6,7 +6,6 @@ The [plugins directory](https://buildkite.com/plugins) is where you can both dis
 
 Plugins supported by the Buildkite team display the Buildkite logo in the directory, and can be found in the [Buildkite Plugins GitHub Organization](https://github.com/buildkite-plugins).
 
-{:toc}
 
 ## Adding your plugin
 

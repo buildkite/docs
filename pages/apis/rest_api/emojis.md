@@ -4,7 +4,6 @@ Buildkite supports emojis (using the `\:emoji\:` syntax) in build step names and
 
 Emojis can be found in text using the pattern `/:([\w+-]+):/`
 
-{:toc}
 
 ## List emojis
 

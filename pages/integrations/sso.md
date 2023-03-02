@@ -4,7 +4,6 @@ You can use a single sign-on (SSO) provider to protect access to your organizati
 
 SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans.
 
-{:toc}
 
 ## Supported providers
 
