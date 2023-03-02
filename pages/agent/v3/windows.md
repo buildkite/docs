@@ -97,9 +97,9 @@ nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 
 Replace the following:
 
-- `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
-- `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
-- `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
+* `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
+* `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
+* `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
 
 ## Which user the agent runs as
 
