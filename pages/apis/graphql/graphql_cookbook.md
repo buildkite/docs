@@ -428,7 +428,7 @@ mutation PipelineUpdate {
 
 To get the first 100 pipelines managed by the first 100 teams, use the following query.
 
-```graphql 
+```graphql
 query getPipelinesByTeam {
   organization(slug: "organization-slug") {
     id
