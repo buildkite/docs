@@ -1,27 +1,26 @@
 GEM
   remote: https://rubygems.org/
   specs:
-    actionpack (6.1.5.1)
-      actionview (= 6.1.5.1)
-      activesupport (= 6.1.5.1)
-      rack (~> 2.0, >= 2.0.9)
+    actionpack (7.0.4.2)
+      actionview (= 7.0.4.2)
+      activesupport (= 7.0.4.2)
+      rack (~> 2.0, >= 2.2.0)
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.0, >= 1.2.0)
-    actionview (6.1.5.1)
-      activesupport (= 6.1.5.1)
+    actionview (7.0.4.2)
+      activesupport (= 7.0.4.2)
       builder (~> 3.1)
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
-    activemodel (6.1.5.1)
-      activesupport (= 6.1.5.1)
-    activesupport (6.1.5.1)
+    activemodel (7.0.4.2)
+      activesupport (= 7.0.4.2)
+    activesupport (7.0.4.2)
       concurrent-ruby (~> 1.0, >= 1.0.2)
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
-      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     bindex (0.8.1)
@@ -49,7 +48,7 @@ GEM
     dotenv-rails (2.8.1)
       dotenv (= 2.8.1)
       railties (>= 3.2)
-    erubi (1.10.0)
+    erubi (1.12.0)
     escape_utils (1.2.1)
     execjs (2.8.1)
     ffi (1.15.3)
@@ -59,7 +58,7 @@ GEM
     graphql-client (0.18.0)
       activesupport (>= 3.0)
       graphql
-    i18n (1.10.0)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     listen (3.5.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
@@ -75,7 +74,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.0)
     mini_portile2 (2.8.1)
-    minitest (5.15.0)
+    minitest (5.17.0)
     nio4r (2.5.8)
     nokogiri (1.14.1)
       mini_portile2 (~> 2.8.0)
@@ -95,12 +94,13 @@ GEM
       nokogiri (>= 1.6)
     rails-html-sanitizer (1.5.0)
       loofah (~> 2.19, >= 2.19.1)
-    railties (6.1.5.1)
-      actionpack (= 6.1.5.1)
-      activesupport (= 6.1.5.1)
+    railties (7.0.4.2)
+      actionpack (= 7.0.4.2)
+      activesupport (= 7.0.4.2)
       method_source
       rake (>= 12.2)
       thor (~> 1.0)
+      zeitwerk (~> 2.5)
     rake (13.0.6)
     rb-fsevent (0.11.0)
     rb-inotify (0.10.1)
@@ -149,11 +149,11 @@ GEM
     stringex (2.8.5)
     thor (1.2.1)
     tilt (2.0.10)
-    tzinfo (2.0.4)
+    tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
-    web-console (4.1.0)
+    web-console (4.2.0)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
@@ -161,15 +161,15 @@ GEM
     websocket (1.2.9)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.5.4)
+    zeitwerk (2.6.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  actionpack (~> 6.0)
-  actionview (~> 6.0)
-  activesupport (~> 6.0)
+  actionpack (~> 7.0)
+  actionview (~> 7.0)
+  activesupport (~> 7.0)
   bugsnag
   buildkite-test_collector
   byebug
@@ -184,7 +184,7 @@ DEPENDENCIES
   lograge
   pry
   puma
-  railties (~> 6.0)
+  railties (~> 7.0)
   redcarpet
   rouge (= 3.3.0)
   rspec-rails
