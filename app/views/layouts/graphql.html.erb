@@ -9,14 +9,11 @@
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">
           <div class="Docs__article">
-            <div class="column1">
-              <div class="TextContent">
-                <%= yield %>
-              </div>
-              <%= render "footer", :embed_emojicom => false %>
+            <%= yield :toc %>
+            <div class="TextContent">
+              <%= yield %>
             </div>
-            <div class="column2"></div>
-          </div>
+            <%= render "footer", :embed_emojicom => true %>
         </div>
       </div>
     </main>
