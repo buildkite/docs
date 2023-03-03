@@ -1,6 +1,6 @@
 "use strict";
 
-(function (window, document) {
+function initToc() {
   const initCurrentLinkListener = () => {
     const scrollPadding = 125;
     const currentClassName = "Toc__link--current";
@@ -57,4 +57,4 @@
 
   initCurrentLinkListener();
   initToggle();
-})(window, document);
+}
