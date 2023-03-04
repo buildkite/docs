@@ -7,7 +7,7 @@ Meta-data is intended to store data 1 kilobyte or less in size, to be used acros
 
 ## Setting data
 
-You can set meta-data using the command line or in a script. Both of these methods use the `buildkite-agent` cli with the `meta-data` command.
+You can set meta-data using the command line or in a script. Both of these methods use the `buildkite-agent` cli with the `meta-data` command. Meta-data can only be set using the `buildkite-agent meta-data set` command, setting meta-data via API or other methods is not possible.
 
 To set meta-data in the meta-data store, use the `set` command with a key/value pair:
 
