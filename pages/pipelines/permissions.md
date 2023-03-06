@@ -31,6 +31,21 @@ Users who are team maintainers can:
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions.
 
+### Pipeline-level permissions
+
+There are 3 levels of permissions that a team can be given on a pipeline, these are:
+
+* Full Access
+  * Can view and create builds
+  * Can edit pipeline settings
+* Build & Read
+  * Can view and create builds
+  * Can **not** edit pipeline settings
+* Read Only
+  * Can view builds
+  * Can **not** create builds
+  * Can **not** edit pipeline settings
+
 ### User-level permissions
 
 Any user can create a new pipeline. If you have read, write, and edit permissions on a pipeline, you can also provide access to others. You can give access to a team that you're in, or a team that has been marked as 'visible'.
