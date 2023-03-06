@@ -82,10 +82,6 @@ Yes, team maintainers can select whether a user is 'required' to use SSO or whet
 ### Do you support JIT provisioning?
 Yes, we do.
 
-Just in Time (JIT) provisioning is supported but differs in functionality depending on the SSO provider and their method of provisioning. For example, Okta supports JIT provisioning, but it is not supported for Google Workspace. 
-
-[Enterprise](https://buildkite.com/enterprise) 
-
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
 
