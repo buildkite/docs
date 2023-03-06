@@ -449,6 +449,8 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
   }
 }
 ```
+>📘
+> To determine if a job has <code>passed</code> or <code>failed</code>, that is reflected by the "passed" boolean which is <code>true</code> or <code>false</code>.
 
 <h3 id="events-job-activated">Job Activated</h3>
 
