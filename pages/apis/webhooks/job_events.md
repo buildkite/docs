@@ -24,6 +24,7 @@
 </tbody>
 </table>
 
+
 ## Request body data
 
 <table>
@@ -55,3 +56,6 @@ Example request body:
   }
 }
 ```
+
+>📘
+> The job states of webhook events do not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> based on the  <a href="/docs/apis/rest-api/builds">REST API</a>  for legacy compatibility.  
