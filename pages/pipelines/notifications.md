@@ -321,7 +321,7 @@ steps:
     key: 'step1'
   - wait: ~
   - command: |
-      if [ $$(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
+      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
          cat <<- YAML | buildkite-agent pipeline upload 
          steps:
            - label: "Notify slack about soft failed step"
