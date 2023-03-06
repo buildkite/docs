@@ -215,6 +215,21 @@ variables:
     The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
   modifable: false
   example: "production"
+- name: BUILDKITE_GROUP_ID
+  desc: |
+    The UUID of the [group step](/docs/pipelines/group-step) that the job belongs to. This variable is only available if the job belongs to a group step.
+  modifable: false
+  example: "4a331026-8c9a-4714-aff0-8aa30211a34e"
+- name: BUILDKITE_GROUP_KEY
+  desc: |
+    The value of the `key` attribute of the [group step](/docs/pipelines/group-step) that the job belongs to. This variable is only available if the job belongs to a group step.
+  modifable: false
+  example: "audit-tasks"
+- name: BUILDKITE_GROUP_LABEL
+  desc: |
+    The label/name of the [group step](/docs/pipelines/group-step) that the job belongs to. This variable is only available if the job belongs to a group step.
+  modifable: false
+  example: "\":lock: Audit\""
 - name: BUILDKITE_HOOKS_PATH
   desc: |
     The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration).
