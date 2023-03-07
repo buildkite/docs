@@ -24,6 +24,7 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td>An agent has disconnected. This happens when the agent shuts down and disconnects from the API</td></tr>
   <tr><th><a href="#events-agent-stopping">Agent Stopping</a></th><td>An agent is stopping. This happens when an agent is instructed to stop from the API. It first transitions to stopping and finishes any current jobs</td></tr>
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
+  <tr><th><a href="#audit-event-logged">Audit Event Logged</a></th><td><%= pill "COMING SOON", "march-23-release", "small"%> An audit event has been logged for the organization.</td></tr>
 </tbody>
 </table>
 
@@ -690,5 +691,85 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "description": "Default agent token"
     }
   }
+}
+```
+
+<h3 id="events-agent-stopping">Agent Stopping</h3>
+
+```json
+{
+  "detail-type": "Agent Stopping",
+  "detail": {
+    "version": 1,
+    "agent": {
+      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+      "connection_state": "stopping",
+      "name": "my-agent-1",
+      "version": "3.13.2",
+      "ip_address": "3.80.193.183",
+      "hostname": "ip-10-0-2-73.ec2.internal",
+      "pid": "18534",
+      "priority": 0,
+      "meta_data": [
+        "aws:instance-id=i-0ce2c738afbfc6c83"
+      ],
+      "connected_at": "2019-08-10 09:44:40 UTC",
+      "disconnected_at": null,
+      "lost_at": null
+    },
+    "organization": {
+      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
+    },
+    "token": {
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+      "created_at": "2019-08-10 07:44:40 UTC",
+      "description": "Default agent token"
+    }
+  }
+}
+```
+
+<h3 id="audit-event-logged" style="vertical-align: middle">Audit Event Logged</h3>
+
+<%= pill "COMING SOON", "march-23-release" %> [Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
+
+```json
+{
+    "version": "0",
+    "id": "...",
+    "detail-type": "Audit Event Logged",
+    "source": "...",
+    "account": "...",
+    "time": "2023-03-07T23:14:43Z",
+    "region": "us-east-1",
+    "resources": [],
+    "detail": {
+        "version": 1,
+        "organization": {
+            "uuid": "...",
+            "graphql_id": "...",
+            "slug": "buildkite"
+        },
+        "event": {
+            "uuid": "...",
+            "occurred_at": "2023-03-25 23:14:43 UTC",
+            "type": "ORGANIZATION_UPDATED",
+            "data": {
+                "name": "Buildkite",
+            },
+            "subject_type": "Organization",
+            "subject_uuid": "...",
+            "subject_name": "Buildkite",
+            "context": "{\"request_id\":\"...\",\"request_ip\":\"127.0.0.0\",\"session_key\":\"...\",\"session_user_uuid\":\"...\",\"request_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\",\"session_created_at\":\"2023-03-25T23:30:54.559Z\"}"
+        },
+        "actor": {
+            "name": "Buildkite member",
+            "type": null,
+            "uuid": "..."
+        }
+    }
 }
 ```
