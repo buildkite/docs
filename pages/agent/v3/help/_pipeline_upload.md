@@ -35,6 +35,9 @@ provided, the command looks for the file in the following locations:
 You can also pipe build pipelines to the command allowing you to create
 scripts that generate dynamic pipelines.
 
+>🚧
+> Configuration file uploaded using pipeline upload command has a limit of 500 steps per file. If there are more than 500 steps per file then it should be split into multiple configuration files with less than 500 steps each and uploaded as separate steps.
+
 ## Example
 
     $ buildkite-agent pipeline upload
