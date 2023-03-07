@@ -424,6 +424,45 @@ mutation PipelineUpdate {
 }
 ```
 
+## Get pipelines by team
+
+To get the first 100 pipelines managed by the first 100 teams, use the following query.
+
+```graphql
+query getPipelinesByTeam {
+  organization(slug: "organization-slug") {
+    id
+    name
+    teams(first: 100) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          name
+          pipelines(first: 100) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            edges {
+              node {
+                pipeline {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
+
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 
 Remove edit access from existing teams. This is helpful when you want to centralize pipeline edit permissions to a single system user, controlled by an organization admin.
