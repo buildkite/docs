@@ -29,11 +29,7 @@ function initToc() {
       }
     };
 
-    tocLinkNodes.forEach((link) => {
-      link.addEventListener("click", (e) => setCurrentLink(e.target.hash));
-    });
-
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       const topPos = window.scrollY + scrollPadding;
 
       headingNodes.forEach((heading) => {
@@ -41,6 +37,14 @@ function initToc() {
         if (topPos >= pos) {
           setCurrentLink(`#${heading.id}`);
         }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    tocLinkNodes.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        setTimeout(() => setCurrentLink(e.target.hash), 25);
       });
     });
   };

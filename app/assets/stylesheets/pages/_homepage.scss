@@ -44,7 +44,7 @@
   h1 {
     font-size: 32px;
     font-weight: bold;
-    line-height: 200%;
+    line-height: map-get($line-heights, 'heading');
     margin-bottom: 60px;
   }
 }
@@ -69,7 +69,7 @@
   align-self: flex-start;
   width: 100%;
   box-sizing: border-box;
-  line-height: 150%;
+  line-height: map-get($line-heights, 'default');
 
   a {
     font-weight: 500;
@@ -135,7 +135,7 @@
     grid-template-columns: 1fr auto;
     font-family: $font-family-base;
     gap: 5px;
-    line-height: 1.4;
+    line-height: map-get($line-heights, 'heading');
     padding-bottom: 20px;
     text-decoration: none;
     width: 100%;
@@ -146,12 +146,13 @@
   }
 
   &__heading {
+    align-items: center;
+    display: flex;
     font-weight: bold;
     font-size: 20px;
     grid-area: heading;
-    line-height: 130%;
-    display: flex;
-    align-items: center;
+    line-height: map-get($line-heights, 'heading');
+    margin: 0;
   }
 
   &__heading-text {
@@ -197,7 +198,7 @@
     font-family: $font-family-base;
     font-size: 16px;
     font-weight: 500;
-    line-height: 125%;
+    line-height: map-get($line-heights, 'heading');
   }
 
   &__list-item {

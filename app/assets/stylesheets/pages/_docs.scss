@@ -95,7 +95,7 @@ $color-green: rgb(3, 165, 98);
 
   tr.importance th {
     border-top: none;
-    font-weight: 700;
+    font-weight: bold;
   }
 
   tr.optional th {
@@ -112,7 +112,7 @@ $color-green: rgb(3, 165, 98);
 
   &:hover {
     .Docs__attribute__link {
-      opacity: 1.0;
+      opacity: 1;
 
       &:hover {
         color: $gray-700;
@@ -122,12 +122,12 @@ $color-green: rgb(3, 165, 98);
 
   small {
     display: block;
-    font-size: 0.8em;
-    margin: 1em 0;
+    font-size: 0.875rem;
+    margin: 1rem 0;
   }
 
   .comma-separated {
-    margin: 1em 0;
+    margin: 1rem 0;
 
     li {
       display: inline;
@@ -144,32 +144,32 @@ $color-green: rgb(3, 165, 98);
   }
 
   .Docs__attribute__importance {
-    color: map-get($color-aliases, 'brand');
+    color: $olive-700;
     margin: 5px 0;
     text-transform: uppercase;
-    font: 300 13px $font-family-base;
+    font-size: .875rem;
     letter-spacing: 1px
   }
 
   .Docs__attribute__env-var {
-    font-size: 0.8em;
+    font-size: 0.875rem;
   }
 
   .Docs__attribute__default {
-    font-size: 0.8em;
+    font-size: 0.875rem;
   }
 
   .Docs__attribute__example {
     align-content: baseline;
     display: grid;
-    gap: 0.4rem;
+    gap: .4rem;
     grid-template-columns: auto auto;
     justify-content: left;
 
     strong,
     code {
-      font-size: 12px;
-      line-height: 1.3;
+      font-size: .875rem;
+      line-height: map-get($line-heights, 'tight');
     }
   }
 }
@@ -230,7 +230,7 @@ a.Docs__example-repo {
     height: 20px;
     background-size: 100%;
     opacity: 0.8;
-    line-height: 1;
+    line-height: map-get($line-heights, 'tighest');
     vertical-align: middle;
     margin-top: -3px;
     margin-right: 4px;
