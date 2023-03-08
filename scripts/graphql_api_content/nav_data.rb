@@ -10,14 +10,14 @@ module NavData
         "path" => "apis/graphql/schemas/#{sub_dir.gsub('_', '-')}/#{schema_type_data['name'].downcase.gsub('_', '-')}"
       })
     end
-  
+
     nav_items.sort_by { |nav_item| nav_item["name"] }
   end
 
   def generate_graphql_nav_data(docs_nav_data, type_sets)
     graphql_nav_data = docs_nav_data
-    graphql_nav_data[0].map { |nav_item| nav_item.delete('children') }
-    graphql_nav_data[0][2]["children"] = [
+    graphql_nav_data.map { |nav_item| nav_item.delete('children') }
+    graphql_nav_data.find { |nav_item| nav_item['name'] == 'APIs' }['children'] = [
       {
         "name" => "All APIs",
         "path" => "apis",
