@@ -17,12 +17,12 @@ echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
 
 echo "--- Commit and push changes"
+git add .
 BRANCH=buildkite-docs-bot/graphql/$(git rev-parse --short :data/graphql_data_schema.json)
 
 git config user.email $GIT_EMAIL
 git config user.name $GIT_NAME
 git checkout -b $BRANCH
-git add .
 git commit -m "Update GraphQL docs"
 git push -u origin $BRANCH
 
