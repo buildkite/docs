@@ -33,4 +33,4 @@ gh pr create \
   | buildkite-agent annotate --style "success"
 
 # Auto-merge PR once checks have passed
-gh merge --auto
+gh pr merge -r --auto
