@@ -1,5 +1,5 @@
 .Search {
-  line-height: map-get($line-heights, 'tightest');
+  line-height: map-get($line-heights, "tightest");
   position: relative;
 
   .algolia-autocomplete {
@@ -36,7 +36,7 @@
   display: none;
   font-size: 14px;
   font-weight: bold;
-  line-height: map-get($line-heights, 'tightest');
+  line-height: map-get($line-heights, "tightest");
   margin-top: -10px;
   padding: 2px 10px;
   position: absolute;
@@ -60,7 +60,7 @@
   display: block;
   font-family: inherit;
   font-size: 1rem;
-  line-height: map-get($line-heights, 'default');
+  line-height: map-get($line-heights, "default");
   outline: none;
   padding: 7px 15px 7px 42px;
   transition: background-color $transition-speed, border-color $transition-speed;

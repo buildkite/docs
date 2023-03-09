@@ -172,8 +172,8 @@ $color-green: rgb(3, 165, 98);
     color: $olive-700;
     margin: 5px 0;
     text-transform: uppercase;
-    font-size: .875rem;
-    letter-spacing: 1px
+    font-size: 0.875rem;
+    letter-spacing: 1px;
   }
 
   .Docs__attribute__env-var {
@@ -187,14 +187,14 @@ $color-green: rgb(3, 165, 98);
   .Docs__attribute__example {
     align-content: baseline;
     display: grid;
-    gap: .4rem;
+    gap: 0.4rem;
     grid-template-columns: auto auto;
     justify-content: left;
 
     strong,
     code {
-      font-size: .875rem;
-      line-height: map-get($line-heights, 'tight');
+      font-size: 0.875rem;
+      line-height: map-get($line-heights, "tight");
     }
   }
 }
@@ -257,7 +257,7 @@ a.Docs__example-repo {
     height: 20px;
     background-size: 100%;
     opacity: 0.8;
-    line-height: map-get($line-heights, 'tighest');
+    line-height: map-get($line-heights, "tighest");
     vertical-align: middle;
     margin-top: -3px;
     margin-right: 4px;

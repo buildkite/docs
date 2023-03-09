@@ -73,7 +73,7 @@
     display: flex;
     font-size: $font-size-template;
     gap: 5px;
-    line-height: map-get($line-heights, 'default');
+    line-height: map-get($line-heights, "default");
     margin: 0;
     padding: 8px 15px;
     position: relative;

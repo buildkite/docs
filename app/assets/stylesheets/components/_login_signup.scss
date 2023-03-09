@@ -39,7 +39,7 @@
 
 .LoginSignup__heading__intro {
   font-size: 1.1rem;
-  line-height: map-get($line-heights, 'heading');
+  line-height: map-get($line-heights, "heading");
   margin-top: 10px;
   margin-bottom: 20px;
   font-style: normal;
@@ -56,7 +56,7 @@
 }
 
 .LoginSignup__intro {
-  line-height: map-get($line-heights, 'heading');
+  line-height: map-get($line-heights, "heading");
   font-size: 1.1rem;
 }
 
@@ -68,7 +68,7 @@
 }
 
 .LoginSignup__hints__hint {
-  line-height: map-get($line-heights, 'tight');
+  line-height: map-get($line-heights, "tight");
   + .LoginSignup__hints__hint {
     margin-top: 10px;
   }
@@ -103,7 +103,7 @@
   color: map-get($color-aliases, "text-lightest");
   margin-top: 1.5rem;
   margin-bottom: 2rem;
-  line-height: map-get($line-heights, 'tight');
+  line-height: map-get($line-heights, "tight");
   font-size: 0.9rem;
   p {
     margin: 0;
@@ -128,7 +128,7 @@
 }
 
 .LoginSignup__identity__info {
-  line-height: map-get($line-heights, 'tight');
+  line-height: map-get($line-heights, "tight");
 }
 
 .LoginSignup__identity__email {

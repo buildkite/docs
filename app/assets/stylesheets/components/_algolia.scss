@@ -9,7 +9,7 @@
     @media (min-width: $screen-sm) {
       min-width: 650px;
       max-width: 750px;
-      line-height: map-get($line-heights, 'default');
+      line-height: map-get($line-heights, "default");
     }
 
     @media (min-width: $screen-sm) {

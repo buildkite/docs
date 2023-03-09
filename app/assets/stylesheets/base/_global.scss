@@ -4,7 +4,7 @@ html {
   font-family: $font-family-base;
   font-size: $font-size-base;
   font-weight: normal;
-  line-height: map-get($line-heights, 'default');
+  line-height: map-get($line-heights, "default");
 }
 
 .system-font {

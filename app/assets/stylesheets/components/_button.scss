@@ -16,7 +16,7 @@ button {
   display: flex;
   gap: 10px;
   justify-content: center;
-  line-height: map-get($line-heights, 'default');
+  line-height: map-get($line-heights, "default");
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
   transition: background-color $transition-speed, border-color $transition-speed;
