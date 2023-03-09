@@ -10,6 +10,9 @@ if git diff --exit-code --quiet data/graphql_data_schema.json; then
   exit 0
 fi
 
+echo "+++ Schema changes detected..."
+git --no-pager diff data/graphql_data_schema.json
+
 echo "+++ Generate GraphQL docs"
 ./scripts/generate-graphql-api-content.sh
 
