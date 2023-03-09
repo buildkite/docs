@@ -18,12 +18,16 @@ To enable a merge queue for a pipeline:
 
 1. From your Buildkite dashboard, select your pipeline.
 1. Select _Pipeline Settings_ > _GitHub_.
+1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
+
+If you have existing branch limiting rules:
+
+1. From your Buildkite dashboard, select your pipeline.
+1. Select _Pipeline Settings_ > _GitHub_.
 1. In the _Branch Limiting_ section, add a filter for the following pattern:
 
     ```text
     gh-readonly-queue/{base_branch}/*
     ```
-
-1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
 
 That's it! Your pipeline supports merge queues in GitHub. 🎉
