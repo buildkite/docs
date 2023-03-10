@@ -21,7 +21,8 @@ button {
   line-height: map-get($line-heights, "default");
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
-  transition: background-color $transition-speed, border-color $transition-speed, color $transition-speed;
+  transition: background-color $transition-speed, border-color $transition-speed,
+    color $transition-speed;
 
   .TextContent & {
     @media (min-width: $screen-xs) {
@@ -66,13 +67,13 @@ button {
 }
 
 .Button--link {
-  color: map-get($color-aliases, 'text-link');
+  color: map-get($color-aliases, "text-link");
   gap: 4px;
   margin: 0;
   padding: 0;
 
   &:hover {
-    color: map-get($color-aliases, 'text-link-hover');
+    color: map-get($color-aliases, "text-link-hover");
   }
 }
 
