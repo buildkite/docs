@@ -1,4 +1,5 @@
 import { Meta, StoryFn } from '@storybook/html';
+import { withDesign } from 'storybook-addon-designs';
 import cn from 'classnames';
 
 enum ButtonType {
@@ -30,6 +31,7 @@ export default {
       },
     },
   },
+  decorators: [ withDesign ],
 } as Meta<ButtonArgs>;
 
 const Template: StoryFn<ButtonArgs> = (args): HTMLButtonElement => {
@@ -55,21 +57,36 @@ Default.args = {
   small: false,
   dropdown: false,
 };
+Default.parameters = {
+  design: {
+    type: 'figma',
+    url: 'https://www.figma.com/file/6ezYLCsTndj2HCCrlYJuRR/BKUI?node-id=1518%3A252&t=gP3J9M0lpUMIBnzz-1',
+  },
+};
 
 export const Primary = Template.bind({});
 Primary.args = {
   ...Default.args,
   type: ButtonType.Primary,
 };
+Primary.parameters = {
+  ...Default.parameters,
+}
 
 export const Purple = Template.bind({});
 Purple.args = {
   ...Default.args,
   type: ButtonType.Purple,
 };
+Purple.parameters = {
+  ...Default.parameters,
+}
 
 export const Link = Template.bind({});
 Link.args = {
   ...Default.args,
   type: ButtonType.Link,
 };
+Link.parameters = {
+  ...Default.parameters,
+}
