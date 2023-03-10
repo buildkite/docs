@@ -1,17 +1,25 @@
 /* These are ported from our own codemirror.css */
 
-.highlight { color: #3c3c3c; font-size: 12px; }
-.highlight .hll { background-color: #ffffcc }
+.highlight {
+  color: #3c3c3c;
+  font-size: 12px;
+}
+.highlight .hll {
+  background-color: #ffffcc;
+}
 
 .highlight .c,  /* Comment */
 .highlight .cm, /* Comment.Multiline */
 .highlight .cp, /* Comment.Preproc */
 .highlight .c1, /* Comment.Single */
-.highlight .cs  /* Comment.Special */
-{ color: #999; }
+.highlight .cs  /* Comment.Special */ {
+  color: #999;
+}
 
-.highlight .err /* Error */
-{ color: #a40000; border: 1px solid #ef2929 }
+.highlight .err /* Error */ {
+  color: #a40000;
+  border: 1px solid #ef2929;
+}
 
 .highlight .na,  /* Name.Attribute */
 .highlight .nc, /* Name.Class */
@@ -26,8 +34,9 @@
 .highlight .nv, /* Name.Variable */
 .highlight .vc, /* Name.Variable.Class */
 .highlight .vg, /* Name.Variable.Global */
-.highlight .vi  /* Name.Variable.Instance */
-{ color: #2465ad }
+.highlight .vi  /* Name.Variable.Instance */ {
+  color: #2465ad;
+}
 
 .highlight .s,  /* Literal.String */
 .highlight .sb, /* Literal.String.Backtick */
@@ -39,8 +48,9 @@
 .highlight .sx, /* Literal.String.Other */
 .highlight .sr, /* Literal.String.Regex */
 .highlight .s1, /* Literal.String.Single */
-.highlight .ss  /* Literal.String.Symbol */
-{ color: #388a26; }
+.highlight .ss  /* Literal.String.Symbol */ {
+  color: #388a26;
+}
 
 .highlight .k,  /* Keyword */
 .highlight .kc, /* Keyword.Constant */
@@ -61,8 +71,9 @@
 .highlight .il, /* Literal.Number.Integer.Long */
 .highlight .mo, /* Literal.Number.Oct */
 .highlight .ld, /* Literal.Date */
-.highlight .m   /* Literal.Number */
-{ color: #ca1655; }
+.highlight .m   /* Literal.Number */ {
+  color: #ca1655;
+}
 
 .highlight {
   position: relative;
