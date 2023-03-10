@@ -3633,18 +3633,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TEAM_PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
@@ -3784,6 +3772,18 @@
             },
             {
               "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
