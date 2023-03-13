@@ -24,7 +24,13 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-agent-disconnected">Agent Disconnected</a></th><td>An agent has disconnected. This happens when the agent shuts down and disconnects from the API</td></tr>
   <tr><th><a href="#events-agent-stopping">Agent Stopping</a></th><td>An agent is stopping. This happens when an agent is instructed to stop from the API. It first transitions to stopping and finishes any current jobs</td></tr>
   <tr><th><a href="#events-agent-stopped">Agent Stopped</a></th><td>An agent has stopped. This happens when an agent is instructed to stop from the API. It can be graceful or forceful</td></tr>
-  <tr><th><a href="#audit-event-logged">Audit Event Logged</a></th><td><%= pill "COMING SOON", "march-23-release", "small"%> An audit event has been logged for the organization</td></tr>
+  <tr>
+    <th><a href="#audit-event-logged">Audit Event Logged</a></th>
+    <td>An audit event has been logged for the organization</td>
+    <td style="white-space: nowrap; text-align: right;">
+      <%= pill "Private Beta", "march-23-release", "small" %>
+    </td>
+  </tr>
 </tbody>
 </table>
 
