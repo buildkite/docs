@@ -8,9 +8,8 @@
 
 .Footer__heading {
   color: map-get($color-aliases, "text-base");
-  font-size: 0.875rem;
-  font-weight: bold;
-  margin-bottom: 5px;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
 }
 
 .Footer__links {
