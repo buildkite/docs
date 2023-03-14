@@ -4,7 +4,6 @@ To use Test Analytics with your Ruby projects use the :github: [`test-collectors
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-{:toc}
 
 ## RSpec collector
 
@@ -62,7 +61,7 @@ Failure/Error: allow_any_instance_of(Object).to receive(:sleep)
        Using `any_instance` to stub a method (sleep) that has been defined on a prepended module (Buildkite::TestCollector::Object::CustomObjectSleep) is not supported.
 ```
 
-You can fix them by being more specific in your stubbing, which is [better practice](https://relishapp.com/rspec/rspec-mocks/v/3-11/docs/working-with-legacy-code/any-instance), by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
+You can fix them by being more specific in your stubbing, which is [better practice](https://web.archive.org/web/20220810120550/https://relishapp.com/rspec/rspec-mocks/v/3-11/docs/working-with-legacy-code/any-instance), by replacing `allow_any_instance_of(Object).to receive(:sleep)` with `allow_any_instance_of(TheClassUnderTest).to receive(:sleep)`.
 
 ## minitest collector
 

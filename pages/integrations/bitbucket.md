@@ -4,7 +4,6 @@ Buildkite integrates with [Bitbucket](https://bitbucket.org/) to provide automat
 
 This guide shows you how to set up your Bitbucket builds with Buildkite.
 
-{:toc}
 
 ## Set up the Bitbucket webhook
 

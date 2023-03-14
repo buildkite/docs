@@ -19,15 +19,23 @@
 Rails.application.config.content_security_policy do |policy|
   policy.default_src :self
   policy.font_src    :self, "https://www2.buildkiteassets.com/"
-  policy.img_src     :self, "https://buildkiteassets.com/", "https://buildkite.com/", ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com")
-  policy.object_src  :none
-  policy.style_src   :self, :unsafe_inline
+  policy.object_src  :none, "https://beacon-v2.helpscout.net"
+  policy.style_src   :self, :unsafe_inline, "https://beacon-v2.helpscout.net"
+
+  policy.img_src(
+    :self,
+    "https://buildkiteassets.com/",
+    "https://buildkite.com/",
+    ENV.fetch("BADGE_DOMAIN", "https://badge.buildkite.com"),
+    "https://beacon-v2.helpscout.net",
+  )
 
   policy.script_src(
     :self,
     "https://www.googletagmanager.com/",
     "https://cdn.segment.com/",
-    "https://cdn.emojicom.io/"
+    "https://cdn.emojicom.io/",
+    "https://beacon-v2.helpscout.net",
   )
 
   policy.connect_src(
@@ -39,11 +47,16 @@ Rails.application.config.content_security_policy do |policy|
 
     "https://cdn.segment.com/",
     "https://api.segment.io/",
-    "https://emojicom.io/"
+    "https://emojicom.io/",
+    "https://beacon-v2.helpscout.net"
   )
 
   policy.frame_src(
     "https://cdn.emojicom.io/"
+  )
+
+  policy.media_src(
+   "https://beacon-v2.helpscout.net"
   )
 
   # Specify URI for violation reports

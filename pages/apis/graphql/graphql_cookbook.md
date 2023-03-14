@@ -4,7 +4,6 @@ This page provides examples for common API tasks. Want to suggest a recipe? We w
 
 You can test out the Buildkite API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built in documentation under the _Docs_ panel.
 
-{:toc}
 
 ## Get all environment variables set on a build
 
@@ -424,6 +423,45 @@ mutation PipelineUpdate {
   }
 }
 ```
+
+## Get pipelines by team
+
+To get the first 100 pipelines managed by the first 100 teams, use the following query.
+
+```graphql
+query getPipelinesByTeam {
+  organization(slug: "organization-slug") {
+    id
+    name
+    teams(first: 100) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          name
+          pipelines(first: 100) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            edges {
+              node {
+                pipeline {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
 ## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 

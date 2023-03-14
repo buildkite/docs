@@ -4,7 +4,6 @@ Using conditionals, you can run builds or steps only when specific conditions ar
 
 You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
-{:toc}
 
 ## Conditionals in pipelines
 

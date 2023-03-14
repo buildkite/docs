@@ -54,6 +54,7 @@ GEM
     execjs (2.8.1)
     ffi (1.15.3)
     foreman (0.87.2)
+    front_matter_parser (1.0.1)
     graphql (2.0.16)
     graphql-client (0.18.0)
       activesupport (>= 3.0)
@@ -86,7 +87,7 @@ GEM
     puma (5.6.4)
       nio4r (~> 2.0)
     racc (1.6.2)
-    rack (2.2.3.1)
+    rack (2.2.6.3)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails-dom-testing (2.0.3)
@@ -177,6 +178,7 @@ DEPENDENCIES
   dotenv-rails
   escape_utils
   foreman
+  front_matter_parser
   graphql-client
   listen
   lograge
@@ -194,7 +196,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 2.7.5p203
+   ruby 3.0.5p211
 
 BUNDLED WITH
-   2.3.5
+   2.4.7

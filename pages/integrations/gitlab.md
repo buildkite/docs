@@ -2,7 +2,6 @@
 
 You can use Buildkite to run builds on [GitLab](https://about.gitlab.com/) commits.
 
-{:toc}
 
 ## GitLab repositories
 

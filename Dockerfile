@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:2.7.5-buster@sha256:d76f1c822df854ecc6a983c63be3bd2e5854a6b47a3cdd140664953877d91651
+FROM public.ecr.aws/docker/library/ruby:3.0.5-bullseye@sha256:8da0838543ccbf4222cd18042c8768d1383c3ecedfc307d030271aeb00af1565
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
@@ -23,7 +23,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo "deb http://dl.yarnpkg.com/debian/ stable main" > /etc/apt/sources.list.d/yarn.list \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs yarn gh \
+    && apt-get install -y nodejs npm gh \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \

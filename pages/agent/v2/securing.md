@@ -5,7 +5,6 @@
 
 In cases where a Buildkite Agent is being deployed into a sensitive environment there are a few default settings and techniques which may be adjusted.
 
-{:toc}
 
 ## Securely storing secrets
 

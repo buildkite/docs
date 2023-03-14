@@ -4,7 +4,6 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
-{:toc}
 
 ## Connecting Buildkite and GitHub
 

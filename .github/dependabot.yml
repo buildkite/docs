@@ -9,3 +9,14 @@ updates:
     directory: "/vale"
     schedule:
       interval: daily
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    ignore:
+      # Permit dependabot to bump the digest only, we'll manually bump the ruby version when we're ready
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-major"
+          - "version-update:semver-minor"
+          - "version-update:semver-patch"

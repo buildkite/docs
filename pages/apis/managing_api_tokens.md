@@ -4,7 +4,6 @@ Buildkite API access tokens are issued to individuals not organizations. You can
 
 On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
-{:toc}
 
 ## Token scopes
 

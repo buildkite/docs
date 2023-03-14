@@ -1,6 +1,5 @@
 # Annotations API
 
-{:toc}
 
 ## Annotation data model
 

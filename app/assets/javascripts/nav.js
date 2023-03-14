@@ -1,5 +1,5 @@
-(function () {
-  const maxWidth = 1536;
+function initNav() {
+  const maxWidth = 1440;
 
   initCurrentNavs();
   bindToggles();
@@ -109,4 +109,4 @@
       if (tocNode) tocNode.style.right = `${pos}px`;
     }
   }
-})();
+}

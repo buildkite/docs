@@ -1,6 +1,8 @@
-# Plugin tools
+---
+toc: false
+---
 
-{:notoc}
+# Plugin tools
 
 The following tools can be helpful when creating and maintaining your own Buildkite plugins:
 

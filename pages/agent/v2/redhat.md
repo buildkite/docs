@@ -5,7 +5,6 @@
 
 The Buildkite Agent can be installed on Red Hat, CentOS and Amazon Linux using our yum repository.
 
-{:toc}
 
 ## Installation
 

@@ -1,6 +1,5 @@
 # Builds API
 
-{:toc}
 
 ## Build number vs build ID
 

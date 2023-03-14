@@ -6,21 +6,15 @@
 %>
 
 <% if nav_data && !nav_data.empty? %>
-  <% nav_level = 0 %>
   <nav class="Nav">
-    <input class="Nav__toggle-checkbox" type="checkbox" id="navicon" />
-    <label class="Nav__toggle-label Button Button--default" for="navicon"><span>Display menu</span></label>
-    <div class="Nav__container PageContainer">
-      <% nav_data.each_with_index do |children, i| %>
-        <%=
-          render 'nav_children',
-          children: children,
-          current_path: current_path,
-          nav_level: nav_level,
-          start_expanded: false,
-          type: nil
-        %>
-      <% end %>
-    </div>
+    <%=
+      render 'nav_children',
+      children: nav_data,
+      current_path: current_path ,
+      is_dropdown: nil,
+      nav_level: nav_level,
+      start_expanded: nil,
+      type: nil
+    %>
   </nav>
 <% end %>

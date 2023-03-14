@@ -15,6 +15,16 @@ steps:
             - RAILS_ENV
             - BUILDKITE_ANALYTICS_TOKEN
 
+  - label: ":lipstick: Compile assets"
+    depends_on: "linting"
+    command: bundle exec rake assets:precompile
+    key: "assets"
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          env:
+            - RAILS_ENV=production
+
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out
     # and the test will appear to have failed without having run. The time to wait is hard to

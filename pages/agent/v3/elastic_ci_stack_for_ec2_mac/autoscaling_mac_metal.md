@@ -11,7 +11,6 @@ Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
 hardware failures occur.
 
-{:toc}
 
 ## Before you start
 

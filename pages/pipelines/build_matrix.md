@@ -2,15 +2,16 @@
 
 Build matrices help you simplify complex build configurations by expanding a step template and array of matrix elements into multiple jobs.
 
-{:toc}
 
 The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
 
 * [environment variables](/docs/pipelines/environment-variables)
 * [labels](/docs/pipelines/command-step#label)
 * [commands](/docs/pipelines/command-step#command-step-attributes)
+* [plugins](/docs/pipelines/command-step#plugins)
+* [agents](/docs/pipelines/command-step#agents)
 
-You can't use matrix values in other attributes, including step keys and plugin attributes.
+You can't use matrix values in other attributes, including step keys.
 
 For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
 
@@ -52,6 +53,8 @@ For more complex builds, add multiple dimensions to `matrix.setup` instead of th
 steps:
 - label: "💥 Matrix Build"
   command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  agents:
+    queue: "builder-{{matrix.arch}}"
   matrix:
     setup:
       arch:

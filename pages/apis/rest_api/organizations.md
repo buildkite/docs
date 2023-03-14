@@ -1,6 +1,5 @@
 # Organizations API
 
-{:toc}
 
 ## List organizations
 

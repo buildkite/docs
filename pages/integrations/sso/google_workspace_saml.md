@@ -9,7 +9,6 @@ To complete this tutorial, you need admin privileges for both Google Workspace a
 
 After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.  
 
-{:toc}
 
 ## Step 1. Create a Buildkite SSO provider
 

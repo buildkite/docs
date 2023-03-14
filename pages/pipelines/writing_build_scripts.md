@@ -4,7 +4,6 @@ One of the most common actions that Buildkite steps perform is running shell scr
 
 The [Buildkite Agent](/docs/agent/v3) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
-{:toc}
 
 ## Configuring Bash
 

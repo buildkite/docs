@@ -2,7 +2,6 @@
 
 The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
 
-{:toc}
 
 ## The default token
 
