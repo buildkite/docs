@@ -57,6 +57,7 @@
     color: $charcoal-900;
     display: flex;
     font-size: $font-size-template;
+    font-weight: 500;
     gap: 5px;
     line-height: map-get($line-heights, "default");
     margin: 0;

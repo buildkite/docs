@@ -74,6 +74,7 @@ button {
     $color-aliases,
     "text-base"
   ) !important; // override possible nested content styling
+  font-weight: 500;
 
   &:hover {
     background-color: map-get($color-aliases, "panel-background");
@@ -84,6 +85,7 @@ button {
   gap: 4px;
   margin: 0;
   padding: 0;
+  font-weight: 500;
 }
 
 .Button--small {
