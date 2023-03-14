@@ -9,6 +9,7 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 * [labels](/docs/pipelines/command-step#label)
 * [commands](/docs/pipelines/command-step#command-step-attributes)
 * [plugins](/docs/pipelines/command-step#plugins)
+* [agents](/docs/pipelines/command-step#agents)
 
 You can't use matrix values in other attributes, including step keys.
 
@@ -52,6 +53,8 @@ For more complex builds, add multiple dimensions to `matrix.setup` instead of th
 steps:
 - label: "💥 Matrix Build"
   command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  agents:
+    queue: "builder-{{matrix.arch}}"
   matrix:
     setup:
       arch:

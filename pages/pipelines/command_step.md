@@ -45,7 +45,7 @@ steps:
 _Optional attributes:_
 
 <table data-attributes>
-  <tr>
+  <tr id="agents">
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>
