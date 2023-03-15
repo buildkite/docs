@@ -14,7 +14,7 @@ You can also create and manage schedules using the [Buildkite GraphQL API](/docs
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
 
 >🚧 Interval granularity
-> Buildkite only guarantees that scheduled builds will be run with 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
+> Buildkite only guarantees that scheduled builds run within 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
 
 ### Predefined intervals
 
