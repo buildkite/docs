@@ -98,11 +98,13 @@ variables:
 - name: BUILDKITE_BUILD_CREATOR
   desc: |
     The name of the user who created the build. May be **[unverified](#unverified-commits)**.
+
+    This will be set to the same value as the AUTHOR, unless the AUTHOR has not verified their email address with Buildkite, then it will fall back to an identity which it can be attributed to, often a bot user or the person whom merged a PR.
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_CREATOR_EMAIL
   desc: |
-    The notification email of the user who created the build.
+    The notification email of the user who created the build. Provided the AUTHOR has verified their email, this field will match BUILDKITE_BUILD_AUTHOR_EMAIL.
   modifiable: false
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
