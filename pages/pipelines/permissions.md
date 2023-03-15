@@ -32,7 +32,7 @@ All users in a team have the same level of access to the pipelines in their team
 
 ### Pipeline-level permissions
 
-There are 3 levels of permissions that a team can be given on a pipeline, these are:
+You can grant teams the following permissions on a pipeline:
 
 * Full Access
   - Can view and create builds
