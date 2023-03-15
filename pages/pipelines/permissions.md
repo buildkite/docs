@@ -34,16 +34,16 @@ All users in a team have the same level of access to the pipelines in their team
 
 You can grant teams the following permissions on a pipeline:
 
-* Full Access
-  - Can view and create builds
-  - Can edit pipeline settings
-* Build & Read
-  - Can view and create builds
-  - Can **not** edit pipeline settings
-* Read Only
-  - Can view builds
-  - Can **not** create builds
-  - Can **not** edit pipeline settings
+* Full Access:
+  - Can view and create builds.
+  - Can edit pipeline settings.
+* Build & Read:
+  - Can view and create builds.
+  - Can _not_ edit pipeline settings.
+* Read Only:
+  - Can view builds.
+  - Can _not_ create builds.
+  - Can _not_ edit pipeline settings.
 
 ### User-level permissions
 
