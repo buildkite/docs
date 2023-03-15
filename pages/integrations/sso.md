@@ -76,7 +76,7 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 ## Frequently asked questions
 
 ### Can some people in the organization use SSO and others not?
-Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. This setting can be found in the user settings within the organization's settings page.
+Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. You can find this setting in the [organization's user settings](https://buildkite.com/organizations/~/users).
 
 ### Do you support JIT provisioning?
 Yes, we do.
