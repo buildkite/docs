@@ -2,8 +2,6 @@
 
 The following terms describe key concepts to help you use Pipelines.
 
-{:toc}
-
 ## Agent
 
 An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
