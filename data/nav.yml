@@ -6,6 +6,8 @@
       path: "pipelines"
     - name: "Getting started"
       path: "tutorials/getting-started"
+    - name: 'Glossary'
+      path: 'pipelines/glossary'
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
