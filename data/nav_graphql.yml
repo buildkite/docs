@@ -87,7 +87,7 @@
         path: apis/graphql/schemas/mutation/jobtypecommandretry
       - name: noticeDismiss
         path: apis/graphql/schemas/mutation/noticedismiss
-      - name: organizationAPIIPAllowListUpdate
+      - name: organizationApiIpAllowlistUpdate
         path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
       - name: organizationInvitationCreate
         path: apis/graphql/schemas/mutation/organizationinvitationcreate
@@ -381,7 +381,7 @@
         path: apis/graphql/schemas/object/operatingsystem
       - name: Organization
         path: apis/graphql/schemas/object/organization
-      - name: OrganizationAPIIPAllowListUpdateMutationPayload
+      - name: OrganizationAPIIPAllowlistUpdateMutationPayload
         path: apis/graphql/schemas/object/organizationapiipallowlistupdatemutationpayload
       - name: OrganizationAuditEventConnection
         path: apis/graphql/schemas/object/organizationauditeventconnection
@@ -835,7 +835,7 @@
         path: apis/graphql/schemas/input-object/jobtypecommandretryinput
       - name: NoticeDismissInput
         path: apis/graphql/schemas/input-object/noticedismissinput
-      - name: OrganizationAPIIPAllowListUpdateMutationInput
+      - name: OrganizationAPIIPAllowlistUpdateMutationInput
         path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
       - name: OrganizationInvitationCreateInput
         path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
