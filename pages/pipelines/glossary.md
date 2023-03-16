@@ -63,8 +63,8 @@ To learn more, see [Queues](/docs/agent/v3/queues).
 A step describes a single, self-contained task as part of a pipeline. You define a step in the pipeline configuration using one of the following types:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
-- **Block step:** Pauses a build until unblocked.
 - **Wait step:** Pauses a build until all previous jobs have completed.
+- **Block step:** Pauses a build until unblocked.
 - **Input step:** Collects information from a user.
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
