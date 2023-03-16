@@ -6,7 +6,6 @@ For GitHub-based pipelines you can use Heroku's [Automatic Deploys](https://devc
 
 If you don't use GitHub or need more control of deployments, this guide will run you through the steps required for performing a manual deployment using `git push`. You can also use these methods to create pipelines for `heroku` cli tasks you'd like to automate.
 
-{:toc}
 
 ## Setting up the Heroku command-line interface (CLI)
 

@@ -1,6 +1,6 @@
 "use strict";
 
-(function (window, document) {
+function initToc() {
   const initCurrentLinkListener = () => {
     const scrollPadding = 125;
     const currentClassName = "Toc__link--current";
@@ -29,11 +29,7 @@
       }
     };
 
-    tocLinkNodes.forEach((link) => {
-      link.addEventListener("click", (e) => setCurrentLink(e.target.hash));
-    });
-
-    window.addEventListener("scroll", () => {
+    const handleScroll = () => {
       const topPos = window.scrollY + scrollPadding;
 
       headingNodes.forEach((heading) => {
@@ -41,6 +37,14 @@
         if (topPos >= pos) {
           setCurrentLink(`#${heading.id}`);
         }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    tocLinkNodes.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        setTimeout(() => setCurrentLink(e.target.hash), 25);
       });
     });
   };
@@ -57,4 +61,4 @@
 
   initCurrentLinkListener();
   initToggle();
-})(window, document);
+}

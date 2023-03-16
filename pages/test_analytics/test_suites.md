@@ -8,7 +8,6 @@ Each suite inside Test Analytics has a unique API token that you can use to rout
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
-{:toc}
 
 ## Parallelized builds
 

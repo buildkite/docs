@@ -1,4 +1,4 @@
-(function () {
+function initNav() {
   const maxWidth = 1440;
 
   initCurrentNavs();
@@ -109,4 +109,4 @@
       if (tocNode) tocNode.style.right = `${pos}px`;
     }
   }
-})();
+}

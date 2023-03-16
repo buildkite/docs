@@ -2,7 +2,6 @@
 
 This guide will help you set up your first Buildkite pipeline. If you don't have a Buildkite account you'll first need to <a href="<%= url_helpers.signup_path %>">sign up</a>. This guide uses GitHub but Buildkite can work with any version control system.
 
-{:toc}
 
 ## Install and run your first agent
 

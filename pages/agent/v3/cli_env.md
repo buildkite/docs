@@ -2,7 +2,6 @@
 
 The Buildkite Agent's `env` subcommands provide the ability to inspect environment variables.
 
-{:toc}
 
 ## Printing env
 

@@ -5,7 +5,6 @@
 
 The Buildkite Agent can be installed on Debian versions 7.x and 8.x using our signed apt repository.
 
-{:toc}
 
 ## Installation
 

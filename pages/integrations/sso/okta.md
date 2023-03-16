@@ -2,7 +2,6 @@
 
 To add Okta as an SSO provider for your Buildkite organization, you need admin privileges for both Okta and Buildkite.
 
-{:toc}
 
 ## Setting up SSO with SAML
 

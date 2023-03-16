@@ -3,7 +3,6 @@
 The Metrics API provides information about a particular Buildkite agent.
 
 
-{:toc}
 
 ## Get metrics
 

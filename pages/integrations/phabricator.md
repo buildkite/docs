@@ -4,7 +4,6 @@
 
 Phabricator and Buildkite integrate using webhooks. Phabricator triggers builds in Buildkite with webhooks, then Buildkite reports the status back to Phabricator also using webhooks.
 
-{:toc}
 
 ## Before you start
 

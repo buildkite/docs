@@ -1,10 +1,12 @@
+---
+toc: false
+---
+
 # Swift collectors
 
 To use Test Analytics with your Swift projects use the :github: [`test-collector-swift`](https://github.com/buildkite/test-collector-swift) package with XCTest.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
-
-{:notoc}
 
 ## XCTest
 

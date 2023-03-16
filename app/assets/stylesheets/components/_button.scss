@@ -1,16 +1,22 @@
-$button-default-background-color: white;
+@mixin button-font {
+  font-family: $font-family-base;
+  font-size: $font-size-template;
+}
+
+button {
+  @include button-font;
+}
 
 .Button {
+  @include button-font;
   align-items: center;
   border: transparent 1px solid;
   border-radius: 5px;
-  color: map-get($color-aliases, 'text-base');
+  color: map-get($color-aliases, "text-base");
   display: flex;
-  font-size: 0.8888rem;
-  font-weight: 500;
   gap: 10px;
   justify-content: center;
-  line-height: 24px;
+  line-height: map-get($line-heights, "default");
   padding: 11px 15px;
   text-decoration: none !important; // button labels should never have underlines
   transition: background-color $transition-speed, border-color $transition-speed;
@@ -27,34 +33,37 @@ $button-default-background-color: white;
 }
 
 .Button--primary {
-  background-color: map-get($color-aliases, 'button-primary');
-  border-color: map-get($color-aliases, 'button-primary');
+  background-color: map-get($color-aliases, "button-primary");
+  border-color: map-get($color-aliases, "button-primary");
   color: $base-0;
   font-weight: bold;
 
   &:hover {
-    background-color: map-get($color-aliases, 'button-primary-hover');
+    background-color: map-get($color-aliases, "button-primary-hover");
   }
 }
 
 .Button--purple {
-  background-color: map-get($color-aliases, 'button-purple');
-  border-color: map-get($color-aliases, 'button-purple');
+  background-color: map-get($color-aliases, "button-purple");
+  border-color: map-get($color-aliases, "button-purple");
   color: $base-0;
   font-weight: bold;
 
   &:hover {
-    background-color: map-get($color-aliases, 'button-purple-hover');
+    background-color: map-get($color-aliases, "button-purple-hover");
   }
 }
 
 .Button--default {
   background-color: $base-0;
-  border-color: map-get($color-aliases, 'border');
-  color: map-get($color-aliases, 'text-base') !important; // override possible nested content styling
+  border-color: map-get($color-aliases, "border");
+  color: map-get(
+    $color-aliases,
+    "text-base"
+  ) !important; // override possible nested content styling
 
   &:hover {
-    background-color: map-get($color-aliases, 'panel-background');
+    background-color: map-get($color-aliases, "panel-background");
   }
 }
 
@@ -70,7 +79,7 @@ $button-default-background-color: white;
 
 .Button--dropdown {
   &::after {
-    background: transparent asset-url('icons/angle-down.svg') 50% 50% no-repeat;
+    background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
     content: "";
     height: 8px;
     width: 8px;

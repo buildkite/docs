@@ -1,10 +1,10 @@
 html {
   background: $base-0;
-  color: map-get($color-aliases, 'text-base');
+  color: map-get($color-aliases, "text-base");
   font-family: $font-family-base;
   font-size: $font-size-base;
   font-weight: normal;
-  line-height: 1.5;
+  line-height: map-get($line-heights, "default");
 }
 
 .system-font {

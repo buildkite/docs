@@ -2,7 +2,6 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-{:toc}
 
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 
@@ -46,7 +45,7 @@ steps:
 _Optional attributes:_
 
 <table data-attributes>
-  <tr>
+  <tr id="agents">
     <td><code>agents</code></td>
     <td>
       A map of <a href="/docs/agent/v3/cli-start#setting-tags">agent tag</a> keys to values to <a href="/docs/agent/v3/cli-start#agent-targeting">target specific agents</a> for this step. <br>

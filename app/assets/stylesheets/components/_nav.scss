@@ -1,5 +1,6 @@
 @mixin _make-nav-icon-purple {
-  filter: invert(24%) sepia(92%) saturate(7443%) hue-rotate(258deg) brightness(81%) contrast(109%);
+  filter: invert(15%) sepia(80%) saturate(550%) hue-rotate(210deg)
+    brightness(80%) contrast(110%);
 }
 
 .Nav {
@@ -31,8 +32,6 @@
     &--level1 {
       display: flex;
       flex-direction: column;
-      font-family: $font-family-display;
-      font-size: 1rem;
       padding-bottom: 0;
       padding-top: 0;
 
@@ -45,21 +44,21 @@
     &--level2 {
       @media (min-width: $screen-md) {
         background-color: $base-0;
-        border-color: map-get($color-aliases, 'border');
+        border-color: map-get($color-aliases, "border");
         box-sizing: border-box;
-        height: calc(100vh - #{map-get($header-height, 'two-rows')});
+        height: calc(100vh - #{map-get($header-height, "two-rows")});
         left: 0;
         overflow-y: auto;
         overscroll-behavior: contain;
         padding: 44px 5px;
         position: fixed;
-        top: map-get($header-height, 'two-rows');
+        top: map-get($header-height, "two-rows");
         width: $sidebar-width;
       }
 
       @media (min-width: $screen-lg) {
-        height: calc(100vh - #{map-get($header-height, 'one-row')});
-        top: map-get($header-height, 'one-row');
+        height: calc(100vh - #{map-get($header-height, "one-row")});
+        top: map-get($header-height, "one-row");
       }
     }
   }
@@ -72,17 +71,15 @@
     box-sizing: border-box;
     color: $charcoal-900;
     display: flex;
-    font-family: $font-family-system;
-    font-size: 14px;
+    font-size: $font-size-template;
     gap: 5px;
-    line-height: 24px;
+    line-height: map-get($line-heights, "default");
     margin: 0;
     padding: 8px 15px;
     position: relative;
     text-decoration: none;
     transition: background-color $transition-speed, color $transition-speed;
     width: 100%;
-    word-break: break-all;
 
     @media (min-width: $screen-md) {
       padding-left: $gutter / 2;
@@ -92,8 +89,8 @@
 
     &:hover {
       &:not(span) {
-        color: map-get($color-aliases, 'selected');
-  
+        color: map-get($color-aliases, "selected");
+
         &::before {
           @include _make-nav-icon-purple;
         }
@@ -101,25 +98,22 @@
     }
 
     &--current {
-      background-color: map-get($color-aliases, 'selected-bg');
-      color: map-get($color-aliases, 'selected');
+      background-color: map-get($color-aliases, "selected-bg");
+      color: map-get($color-aliases, "selected");
     }
 
     &--parent {
-      color: map-get($color-aliases, 'selected');
+      color: map-get($color-aliases, "selected");
     }
 
     &::before {
-      content: '';
+      content: "";
       left: 10px;
       height: 8px;
       position: absolute;
+      top: calc(1rem - 1px);
       transition: transform $transition-speed;
       width: 8px;
-    }
-
-    &--level1 {
-      font-weight: bold;
     }
 
     &--level2 {
@@ -155,7 +149,8 @@
     &--type {
       &-back {
         &::before {
-          background: transparent asset-url("icons/chevron-left.svg") 50% 50% no-repeat;
+          background: transparent asset-url("icons/chevron-left.svg") 50% 50%
+            no-repeat;
         }
 
         &:hover {
@@ -168,7 +163,8 @@
       &-link {
         &:after {
           content: "";
-          background: transparent asset-url("icons/external_link.svg") 50% 50% no-repeat;
+          background: transparent asset-url("icons/external_link.svg") 50% 50%
+            no-repeat;
           background-size: cover;
           height: 16px;
           width: 16px;
@@ -177,23 +173,20 @@
     }
 
     &--level1 {
-      font-size: 16px;
       padding-left: 26px;
       padding-right: 26px;
 
       @media (min-width: $screen-md) {
-        font-size: 14px;
         padding-left: $gutter / 2;
         padding-right: $gutter / 2;
       }
 
       &.Nav__link--parent {
-        background-color: map-get($color-aliases, 'selected-bg');
+        background-color: map-get($color-aliases, "selected-bg");
       }
     }
 
     &--level2 {
-      font-weight: 600;
       padding-left: 50px;
 
       @media (min-width: $screen-md) {
@@ -228,12 +221,13 @@
 
   &__toggle {
     cursor: pointer;
-    font-weight: 600;
     width: 100%;
 
     &::before {
-      background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+      background: transparent asset-url("icons/angle-down.svg") 50% 50%
+        no-repeat;
       transform: rotate(-90deg);
+      will-change: transform;
     }
 
     &--on::before {
@@ -241,7 +235,7 @@
     }
 
     &--parent {
-      color: map-get($color-aliases, 'selected');
+      color: map-get($color-aliases, "selected");
 
       &::before {
         @include _make-nav-icon-purple;
@@ -270,7 +264,8 @@
   &__dropdown-toggle {
     @media (min-width: $screen-md) {
       &::after {
-        background: transparent asset-url("icons/angle-down.svg") 50% 50% no-repeat;
+        background: transparent asset-url("icons/angle-down.svg") 50% 50%
+          no-repeat;
         content: "";
         height: 8px;
         width: 8px;
@@ -292,9 +287,9 @@
 
     @media (min-width: $screen-md) {
       background: $base-0;
-      border: map-get($color-aliases, 'border') 1px solid;
+      border: map-get($color-aliases, "border") 1px solid;
       border-radius: 5px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, .05);
+      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.05);
       display: none;
       padding: 5px;
       position: absolute;
@@ -314,8 +309,6 @@
     }
 
     .Nav__link {
-      font-weight: 400;
-
       @media (min-width: $screen-md) {
         padding-left: 15px;
         padding-right: 15px;

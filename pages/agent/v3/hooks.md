@@ -35,7 +35,6 @@ the hooks feature for both the agent and bootstrap processes, and the agent
 [`hooks-path` configuration](configuration#hooks-path) for the
 directory that agent level hooks are defined.
 
-{:toc}
 
 ## Hook locations
 

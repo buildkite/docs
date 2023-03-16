@@ -11,7 +11,7 @@ class Emoji
   # Parses text and converts emojis to images
   def self.parse(text, options = {})
     html_attributes = options.delete(:html_attributes)
-    Emoji::Parser.parse(CATALOGUES.values, text, options) do |match, emoji|
+    Emoji::Parser.parse(CATALOGUES.values, text, **options) do |match, emoji|
       # Replace shortcode emojis with unicode if possible
       if unicode = emoji.unicode
         unicode

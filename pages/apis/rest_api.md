@@ -6,7 +6,6 @@ The current version of the Buildkite API is v2.
 
 For the list of existing disparities between the REST API and the GraphQL API, see [API differences](/docs/apis/api-differences).
 
-{:toc}
 
 ## Schema
 

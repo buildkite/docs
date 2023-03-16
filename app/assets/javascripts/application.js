@@ -1,4 +1,6 @@
+//= require nav
 //= require copyToClipboardButton
+//= require toc
 
 window.addEventListener("DOMContentLoaded", () => {
   document.onkeydown = (e) => {
@@ -16,4 +18,7 @@ window.addEventListener("DOMContentLoaded", () => {
     code.setAttribute("tabindex", 0);
     createCopyToClipboardButton(code);
   });
+
+  initNav();
+  initToc();
 });

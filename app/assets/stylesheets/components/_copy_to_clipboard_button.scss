@@ -2,17 +2,17 @@
   @extend .Button;
   @extend .Button--default;
 
-  transition: opacity .05s linear;
+  transition: opacity 0.05s linear;
   font-family: $font-family-display;
   font-size: 14px;
   font-weight: 400;
 
   opacity: 0;
   position: absolute;
-  gap: .4em;
-  right: .4em;
-  top: .4em;
-  padding: .4em;
+  gap: 0.4em;
+  right: 0.4em;
+  top: 0.4em;
+  padding: 0.4em;
   cursor: pointer;
 
   > svg {
@@ -28,16 +28,17 @@
     opacity: 1;
   }
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     opacity: 1;
   }
 
   &[aria-checked="true"] {
-    border-color: map-get($color-aliases, 'button-primary');
+    border-color: map-get($color-aliases, "button-primary");
     background: $base-0;
 
     svg > path {
-      stroke: map-get($color-aliases, 'button-primary');
+      stroke: map-get($color-aliases, "button-primary");
     }
   }
 }
