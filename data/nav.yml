@@ -218,6 +218,8 @@
           path: "pipelines/notifications"
         - name: "Job minutes"
           path: "pipelines/job-minutes"
+        - name: "Emojis"
+          path: "pipelines/emojis"
         - name: "Example pipelines"
           path: "pipelines/example-pipelines"
         - name: "Step types"
