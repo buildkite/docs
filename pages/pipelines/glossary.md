@@ -18,7 +18,7 @@ To learn more, see [Build artifacts](/docs/pipelines/artifacts).
 
 ## Build
 
-A build is a single run of a pipeline. You can trigger a build in various ways, including through the UI, API, as the result of a webhook, or on a schedule.
+A build is a single run of a pipeline. You can trigger a build in various ways, including through the dashboard, API, as the result of a webhook, on a schedule, or even from another pipeline using a trigger step.
 
 ## Dynamic pipeline
 
