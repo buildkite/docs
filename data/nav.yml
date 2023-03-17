@@ -250,8 +250,6 @@
               path: "pipelines/branch-configuration"
             - name: "Scheduled builds"
               path: "pipelines/scheduled-builds"
-            - name: "Archive and delete"
-              path: "pipelines/archiving-and-deleting-pipelines"
     - name: "Security"
       children:
         - name: "Overview"
