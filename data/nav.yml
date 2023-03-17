@@ -361,6 +361,8 @@
               path: "apis/rest-api/user"
             - name: "Meta"
               path: "apis/rest-api/meta"
+            - name: "Teams"
+              path: "apis/rest-api/teams"
         - name: "Agent REST API"
           children:
             - name: "Overview"
