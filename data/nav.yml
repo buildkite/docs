@@ -428,6 +428,8 @@
       path: "integrations/build-status-badges"
     - name: "CCMenu & CCTray"
       path: "integrations/cc-menu"
+    - name: "Docker Hub"
+      path: "integrations/docker-hub"
     - name: "PagerDuty"
       path: "integrations/pagerduty"
     - name: "Slack"
