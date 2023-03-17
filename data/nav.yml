@@ -117,6 +117,8 @@
               path: "agent/v3/cli-start"
             - name: "annotate"
               path: "agent/v3/cli-annotate"
+            - name: "annotation"
+              path: "agent/v3/cli-annotation"
             - name: "artifact"
               path: "agent/v3/cli-artifact"
             - name: "meta-data"
