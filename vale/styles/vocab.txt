@@ -32,6 +32,7 @@ Hashicorp
 Inlining
 JWT
 JWTs
+Kuzco
 Memcache
 minitest
 Namespace
