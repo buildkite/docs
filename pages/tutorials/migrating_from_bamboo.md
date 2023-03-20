@@ -1,4 +1,4 @@
-# Migrating from Bamboo
+# Migrate from Bamboo
 
 Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite. This guide is applicable to both Bamboo Server and Bamboo Cloud.
 
