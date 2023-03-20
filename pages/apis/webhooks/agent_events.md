@@ -1,0 +1,34 @@
+# Agent webhook events
+
+
+## Events
+
+<table>
+<tbody>
+<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
+</tbody>
+</table>
+
+## Request body data
+
+<table>
+<tbody>
+  <tr><th><code>agent</code></th><td>The <a href="/docs/api/agents">Agent</a> this notification relates to</td></tr>
+  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
+</tbody>
+</table>
+
+Example request body:
+
+```json
+{
+  "event": "agent.connected",
+  "agent": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```

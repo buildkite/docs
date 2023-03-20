@@ -13,11 +13,9 @@ class Page::Renderer
     # It's like our own little HTML::Pipeline. These methods are easily
     # switchable to HTML::Pipeline steps in the future, if we so wish.
     doc = Nokogiri::HTML.fragment(html)
-    doc = add_custom_ids(doc)
     doc = add_custom_classes(doc)
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
-    doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
@@ -93,39 +91,6 @@ class Page::Renderer
     doc
   end
 
-  def add_table_of_contents(doc)
-    headings = doc.search('./h2')
-
-    # Third, we generate and replace the actual toc.
-    doc.search('./p').each do |node|
-      toc = '{:toc}'
-      notoc = '{:notoc}'
-
-      next unless [toc, notoc].include? node.text
-
-      if headings.empty? or node.text == notoc
-        node.replace('')
-      else
-        html_list_items = headings.map {|heading|
-          <<~HTML.strip
-            <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
-          HTML
-        }.join("").strip
-
-        node.replace(<<~HTML.strip)
-          <nav class="Toc">
-            <p class="Toc__title"><strong>On this page:</strong></p>
-            <ul class="Toc__list">
-              #{html_list_items}
-            </ul>
-          </nav>
-        HTML
-      end
-    end
-
-    doc
-  end
-
   def fix_curl_highlighting(doc)
     doc.search('.//code').each do |node|
       next unless node.text.starts_with?('curl ')
@@ -159,19 +124,6 @@ class Page::Renderer
       next unless Page::Renderers::Callout::CALLOUT_TYPE.key? callout
 
       Page::Renderers::Callout.new(node, callout).process
-    end
-
-    doc
-  end
-
-  def add_custom_ids(doc)
-    doc.search('./p').each do |node|
-      next unless node.text.starts_with?('{: id=')
-
-      id = node.content[/id="(.*)"}/, 1]
-
-      node.previous_element['id'] = id
-      node.remove
     end
 
     doc

@@ -104,6 +104,10 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def sections
+    extracted_data.fetch("sections")
+  end
+
   def description
     extracted_data.fetch("shortDescription")
   end
@@ -136,21 +140,33 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
+  def metadata
+    defaults = {
+      # Default to rendering table of contents
+      "toc": true
+    }
+    if file.front_matter
+      defaults.merge(file.front_matter.symbolize_keys)
+    else
+      defaults
+    end
+  end
+
   private
 
+  def file
+    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  end
+
   def contents
-    @contents ||= begin
-                    File.read(filename) if exists?
-                  rescue => e
-                    raise e
-                  end
+    file.content
   end
 
   def filename
     @filename ||= begin
                     directory = Rails.root.join("pages")
 
-                    potential_files = [ "#{basename}.md", "#{basename}.md.erb" ].map { |n| directory.join(n) }
+                    potential_files = [ "#{basename}.md" ].map { |n| directory.join(n) }
                     potential_files.find { |file| File.exist?(file) }
                   end
   end

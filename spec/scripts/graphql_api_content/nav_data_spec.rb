@@ -1,7 +1,10 @@
+require 'rails_helper'
 require_relative '../../../scripts/graphql_api_content/nav_data'
 include NavData
 
 RSpec.describe NavData do
+  let(:nav) { YAML.load_file(Rails.root.join('data/nav.yml')) }
+
   type_sets = {
     "query_types" => [
       {
@@ -160,7 +163,7 @@ RSpec.describe NavData do
       }
     ],
     "interface_types" => [
-      {          
+      {
         "kind" => "INTERFACE",
         "name" => "Node",
         "description" => "An object with an ID.",
@@ -264,38 +267,19 @@ RSpec.describe NavData do
 
   describe "#generate_graphql_nav_data" do
     it "generates nav data correctly" do
-      docs_nav_data = [
+      expect(generate_graphql_nav_data(nav, type_sets)).to eq(
         [
           {
             "name" => "Pipelines",
-            "path" => "tutorials/getting-started"
-          },
-          { 
-            "name" => "Test Analytics",
-            "path" => "test-analytics",
-            "pill" => "new"
-          },
-          {
-            "name" => "APIs",
-            "path" => "apis/graphql-api"
-          }
-        ]
-      ]
-
-      expect(generate_graphql_nav_data(docs_nav_data, type_sets)).to eq([
-        [
-          {
-            "name" => "Pipelines",
-            "path" => "tutorials/getting-started"
+            "path" => "pipelines"
           },
           {
             "name" => "Test Analytics",
             "path" => "test-analytics",
-            "pill" => "new"
           },
           {
             "name" => "APIs",
-            "path" => "apis/graphql-api",
+            "path" => "apis",
             "children" => [
               {
                 "name" => "All APIs",
@@ -428,9 +412,13 @@ RSpec.describe NavData do
                 "path" => "apis/graphql/graphql-cookbook"
               }
             ]
-          }
+          },
+          {
+            "name" => "Integrations",
+            "path" => "integrations",
+          },
         ]
-      ])
+      )
     end
   end
 end

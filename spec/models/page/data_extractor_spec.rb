@@ -12,6 +12,7 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => "Page title",
+        "sections" => [],
         "shortDescription" => "Some description",
         "textContent" => "Some description"
       })
@@ -29,16 +30,15 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => "Page title",
+        "sections" => [],
         "shortDescription" => "Some description",
         "textContent" => "Some description"
       })
     end
 
-    it "ignores table-of-contents directives, stops at secondary headings" do
+    it "extracts sections from secondary headings" do
       md = <<~MD
         # Page title
-
-        {:toc}
 
         Some description
 
@@ -56,6 +56,10 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => "Page title",
+        "sections" => [
+          { id: "#heres-a-second-heading", header: "Here's a second heading"},
+          { id: "#heres-another", header: "Here's another!" },
+        ],
         "shortDescription" => "Some description",
         "textContent" => <<~MD.strip
           Some description
@@ -69,8 +73,6 @@ RSpec.describe Page::DataExtractor do
       md = <<~MD
         # Page title
 
-        {:toc}
-
         Some description
 
         <img src="https://placekitten.com/320/240" />
@@ -81,6 +83,7 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => "Page title",
+        "sections" => [],
         "shortDescription" => "Some description",
         "textContent" => <<~MD.strip
           Some description
@@ -101,6 +104,7 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => nil,
+        "sections" => [],
         "shortDescription" => "",
         "textContent" => <<~MD.strip
           <figure class="highlight-figure"><figcaption>file.json</figcaption>
@@ -159,6 +163,7 @@ RSpec.describe Page::DataExtractor do
           }
         ],
         "name" => nil,
+        "sections" => [],
         "shortDescription" => nil,
         "textContent" => ""
       })
@@ -180,6 +185,7 @@ RSpec.describe Page::DataExtractor do
       expect(Page::DataExtractor.extract(md)).to eql({
         "attributes" => [],
         "name" => nil,
+        "sections" => [],
         "shortDescription" => nil,
         "textContent" => ""
       })

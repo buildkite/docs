@@ -225,6 +225,7 @@ VPC's
 VPCs
 XCTest
 xUnit
+dotenv
 
 # GraphQL code words
 # TODO: format these as code instead of making exceptions
