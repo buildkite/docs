@@ -27,9 +27,6 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr>
     <th><a href="#audit-event-logged">Audit Event Logged</a></th>
     <td>An audit event has been logged for the organization</td>
-    <td style="white-space: nowrap; text-align: right;">
-      <%= pill "Private Beta", "march-23-release", "small" %>
-    </td>
   </tr>
 </tbody>
 </table>
@@ -700,7 +697,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 }
 ```
 
-<h3 id="audit-event-logged">Audit Event Logged <%= pill "PRIVATE BETA", "march-23-release" %> </h3>
+<h3 id="audit-event-logged">Audit Event Logged</h3>
 
 [Audit log](/docs/pipelines/audit-log) is only available to Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan
 
@@ -726,7 +723,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
             "occurred_at": "2023-03-25 23:14:43 UTC",
             "type": "ORGANIZATION_UPDATED",
             "data": {
-                "name": "Buildkite",
+                "name": "Buildkite"
             },
             "subject_type": "Organization",
             "subject_uuid": "...",
