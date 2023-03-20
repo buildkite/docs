@@ -4,7 +4,7 @@
 
 This guide presents various ways on how to define and pass environment variables to triggered pipelines.
 
-## Option 1: Via the `trigger` env attribute
+## Option 1: Via the trigger env attribute
 
 Utilising a [trigger step](/docs/pipelines/trigger-step) - Environment variables are able to be defined as parameters that will be present in the corresponding triggered builds that are kicked off.
 
