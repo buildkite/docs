@@ -12,13 +12,43 @@ This guide walks you through the process of migrating from Jenkins to Buildkite,
 
 > If you want to jump into the pipeline definitions, see ...
 
-## Key concepts
+## Understand the differences
+
+Jenkins Pipeline is a suite of plugins that supports implementing and integrating continuous delivery pipelines into Jenkins.
 
 - Source control
 - Pipeline configuration
 - Build environemnt / infrastructure
 
-## Set up
+
+Architecture -> Jenkins controller vs Buildkite dashboard
+- Scheduling builds
+- Scaling performance + managing infra
+
+- Agents…
+- What you’re responsible for
+- What you need to host/run
+
+Pipeline creation
+- Creating pipelines in UI vs. checking into SCM
+- A Jenkinsfile can be written using two types of syntax - Declarative and Scripted.
+
+Environment variables
+
+Pipeline = Pipeline
+Stage -> Group step
+Step = Step
+Job = ?
+Controller = Buildkite dashbaord
+Agent = Agent
+Node = We don't have a term. Just agents.
+
+
+Customization:
+- BK Beyond conditionals to dynamic pipelines -> Beyond Jenkins
+- Flexibility through the API, hooks, and plugins. -> Similar to Jenkins
+
+## Try it out
 
 The first step in migrating to Buildkite is to set up a Buildkite account. This can be done by visiting the Buildkite website and signing up for a free trial. Once you have an account, you can start creating pipelines and agents to run your builds.
 
@@ -29,7 +59,15 @@ Build agents are the servers that run your builds. To run builds in Buildkite, y
 - Account
 - Connect code + trigger builds from webhooks
 - Agent
-- Integrate with existing tools like notifications etc.
+
+Learn the basics with local agents -> Translate a few pipelines. See our examples.
+
+Key takeaways:
+
+- Pipelines model... with steps.
+- Running a pipeline creates a build, which you monitor and view in the dashboard.
+- You install agents on your infrasturcutee. They receive instructions for the work to complete from BK.
+- Agents isolate your code and secrets so BK never sees it.
 
 ## Translate pipeline definitions
 
@@ -55,18 +93,23 @@ steps:
       queue: "node"
 This pipeline defines two steps: "Run tests" and "Build and Deploy". The first step runs the npm test command to run the tests for the Node.js application. The second step runs the npm run build and npm run deploy commands to build and deploy the application.
 
-
-
-## Trigger and monitor builds
-
 -> webhooks
 Once you have created your pipeline and set up your Build agents, you can trigger builds by pushing code to your source code repository. Buildkite will automatically detect the changes and start a build.
 
 Once you have created your pipeline and set up your Build agents, you can trigger builds by pushing code to your source code repository. Buildkite will automatically detect the changes and start a build.
 
-## Scaling infrasturture
+## Provision your agent infrastructure
+
+...
 
 Best practice.......
+
+## Intregrate with your tools
+
+- Integrate with existing tools like notifications etc.
+
+
+
 
 
 That's it! 🎉
