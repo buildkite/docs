@@ -47,6 +47,12 @@
           path: "tutorials/2fa"
         - name: "Using GitHub merge queues"
           path: "tutorials/github-merge-queue"
+        - name: "Example Support Template - Single Approach"
+          path: "tutorials/example-template"
+        - name: "Example Support Template - Multiple Options"
+          path: "tutorials/example-template-multi-options"
+        - name: "Passing build metadata as Environment Variables"
+          path: "tutorials/passing-build-metadata"
     - name: "Agent"
       children:
         - name: "Overview"
