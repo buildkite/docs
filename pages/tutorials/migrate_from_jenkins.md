@@ -43,10 +43,12 @@ Controller = Buildkite dashbaord
 Agent = Agent
 Node = We don't have a term. Just agents.
 
+Targeting agents.
 
 Customization:
 - BK Beyond conditionals to dynamic pipelines -> Beyond Jenkins
 - Flexibility through the API, hooks, and plugins. -> Similar to Jenkins
+
 
 ## Try it out
 
@@ -98,14 +100,15 @@ Once you have created your pipeline and set up your Build agents, you can trigge
 
 Once you have created your pipeline and set up your Build agents, you can trigger builds by pushing code to your source code repository. Buildkite will automatically detect the changes and start a build.
 
-## Provision your agent infrastructure
+## Provision agent infrastructure
 
 ...
 
 Best practice.......
 
-## Intregrate with your tools
+## Intregrate your tools
 
+Your workflow.
 - Integrate with existing tools like notifications etc.
 
 
