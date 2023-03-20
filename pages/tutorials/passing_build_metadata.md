@@ -2,7 +2,7 @@
 
 ## Overview
 
-This section shall showcase and present the overview of the piece of functionality that is being explored, and any potential callouts/prerequisites/links.
+This guide presents various ways on how to define and pass environment variables to triggered pipelines.
 
 ## Option 1: Via the `trigger` env attribute
 
