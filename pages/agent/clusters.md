@@ -11,20 +11,20 @@ You can turn on clusters for your organization if you have an administrator role
 * Queues can be created within a cluster and validated when a pipeline's configuration is saved during pipeline upload, and when a new agent connects. This helps to make queues more discoverable to pipeline authors and helps to prevent ghost jobs that never run because they had a typo in their pipeline.yml's queue name.
 * Pipelines now belong to a cluster. Pipelines can only schedule jobs on the cluster it belongs to, and can only trigger builds on pipelines in the same cluster.
 
-<!-- <%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %> -->
+<%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %>
 
 ## Trying it out
 We've built clusters in a way that shouldn't affect any of your existing agents or pipelines or require any breaking changes to try out. Once turned on, all members of your organization will see a new clusters tab in the navigation.
 
 Your agents will be shown under their cluster or in the unclustered view:
 
-<!-- <%= image "clusters-views.png", alt: "Image showing clustered and unclustered views" %> -->
+<%= image "clusters-views.png", alt: "Image showing clustered and unclustered views" %>
 
 You can still access your agent and its count through the agent tab in the left navigation.
 
 Once you create a cluster, copy the auto-generated token for your agents and add it to the agents in the cluster. If you want to use a custom token, edit the token in the Agent Tokens tab:
 
-<!-- <%= image "agent-registration-tokens-views.png", alt: "Image showing Agent Tokens view" %> -->
+<%= image "agent-registration-tokens-views.png", alt: "Image showing Agent Tokens view" %>
 
 You can add teams and individual users under Maintainers for that cluster.
 
