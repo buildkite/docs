@@ -52,7 +52,7 @@ Inspecting a step of `pipeline-b`, the passed environment variable will be state
 - Utilising the passed through Environment variable will need interpolation if needing to use it at build time.
 - [Additional parameters](/docs/pipelines/trigger_step#trigger-step-attributes) for the `trigger` step exist which can be specified along the example given in Step 1.
 
-## Method 2 - Utilising Dynamic Pipelines
+## Option 2 - Utilising Dynamic Pipelines
 
 To be filled with steps
 
