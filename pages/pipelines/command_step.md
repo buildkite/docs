@@ -300,7 +300,7 @@ _Optional Attributes_
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number that will cause this job to retry ('*' does not include 0) <br>
+      The exit status number that causes this job to retry ('*' does not include 0) <br>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
@@ -311,7 +311,7 @@ _Optional Attributes_
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal that will cause this job to retry. This signal will only be present if the agent sends a signal to the job and an interior process does not handle the signal. `SIGKILL` propagates reliably because it cannot be handled, and is a useful to differentiate graceful cancelation and timeouts.
+      The signal that causes this job to retry. This signal will only be present if the agent sends a signal to the job and an interior process does not handle the signal. `SIGKILL` propagates reliably because it cannot be handled, and is a useful to differentiate graceful cancelation and timeouts.
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
