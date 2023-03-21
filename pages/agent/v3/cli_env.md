@@ -13,14 +13,14 @@ This command is used internally by the agent and isn't recommended for use in yo
 
 Jobs can inspect and modify their environment variables using the `env get`, `set`, and `unset` commands, so long as the `job-api` experiment is enabled. These commands provide an alternative to using shell commands to inspect and modify environment variables.
 
-### Getting a job's environment variables
+## Getting a job's environment variables
 
 <%= render 'agent/v3/help/env_get' %>
 
-### Setting a job's environment variables
+## Setting a job's environment variables
 
 <%= render 'agent/v3/help/env_set' %>
 
-### Removing environment variables from a job
+## Removing environment variables from a job
 
 <%= render 'agent/v3/help/env_unset' %>

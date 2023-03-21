@@ -52,6 +52,9 @@ Shardy
 Shellcheck
 Shipit
 Unencrypted
+Unset
+Unsets
+Unsetting
 Webtask
 Xcode
 Zapier
@@ -190,6 +193,9 @@ unbuildable
 unencrypted
 unmanaged
 untrusted
+unset
+unsets
+unsetting
 url
 urls
 util

@@ -17,29 +17,31 @@ script.
 `buildkite-agent env unset [variables]`
 
 ### Description
-Unsets environment variables in the current job execution environment. 
+Unsets environment variables in the current job execution environment.
 
-Note that this subcommand is only available from within the job executor with
-the ′job-api′ experiment enabled.
+Note that this subcommand is only available from within the job executor with the `job-api` experiment enabled.
 
-Note that changes to the job environment variables only apply to subsequent
-phases of the job. To read the new values of variables from within the
-current phase, use ′env get′.
+Note that changes to the job environment variables only apply to subsequent phases of the job. To read the new values of variables from within the current phase, use `env get`.
 
 Note that Buildkite read-only variables cannot be un-set.
 
-Example (un-sets the variables ′LLAMA′ and ′ALPACA′):
+Examples:
 
-    $ buildkite-agent env unset LLAMA ALPACA
+Unsetting the variables `LLAMA` and `ALPACA`:
+
+```
+$ buildkite-agent env unset LLAMA ALPACA
 Un-set:
 - ALPACA
 - LLAMA
+```
 
-Example (Un-sets the variables ′LLAMA′ and ′ALPACA′ with a JSON list supplied
-over standard input):
+Unsetting the variables `LLAMA` and `ALPACA` with a JSON list supplied
+over standard input:
 
-    $ echo '["LLAMA","ALPACA"]' | buildkite-agent env unset --input-format=json --output-format=quiet -
-
+```
+$ echo '["LLAMA","ALPACA"]' | buildkite-agent env unset --input-format=json --output-format=quiet -
+```
 
 ### Options
 
