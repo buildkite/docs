@@ -17,7 +17,7 @@ script.
 `buildkite-agent env unset [variables]`
 
 ### Description
-Un-sets environment variables in the current job execution environment. 
+Unsets environment variables in the current job execution environment. 
 
 Note that this subcommand is only available from within the job executor with
 the ′job-api′ experiment enabled.

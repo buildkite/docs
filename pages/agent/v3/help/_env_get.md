@@ -17,15 +17,15 @@ script.
 `buildkite-agent env get [variables]`
 
 ### Description
-Retrieves environment variables and their current values from the current job
+Retrieves environment variables and their values from the current job
 execution environment. 
 
 Note that this subcommand is only available from within the job executor with
 the ′job-api′ experiment enabled.
 
 Changes to the job environment only apply to the environments of subsequent
-phases of the job. However, ′env get′ can be used to inspect the changes made
-with ′env set′ and ′env unset′.
+job phases. However, `env get` can be used to inspect the changes made
+with `env set` and `env unset`.
 
 Example (gets all variables in key=value format):
 
