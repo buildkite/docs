@@ -1,4 +1,4 @@
-# Pipeline Tags
+# Pipeline tags
 
 You can now tag your pipelines and search for them through the search bar. Tags are beneficial when you have many pipelines and would like to group them so you can filter through them quickly.
 
