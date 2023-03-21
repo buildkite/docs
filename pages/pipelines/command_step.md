@@ -311,7 +311,7 @@ _Optional Attributes_
   <tr>
     <td><code>signal</code></td>
     <td>
-      The signal causing the job to exit, if a signal was sent, and the currently running process did not intercept and handle the signal supplying a non-default exit status.<br>
+      The signal that will cause this job to retry. This signal will only be present if the agent sends a signal to the job and an interior process does not handle the signal. `SIGKILL` propagates reliably because it cannot be handled, and is a useful to differentiate graceful cancelation and timeouts.
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
