@@ -301,26 +301,35 @@ _Optional Attributes_
     <td><code>exit_status</code></td>
     <td>
       The exit status number that will cause this job to retry ('*' does not include 0) <br>
-      <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>2</code>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li><code>"*"</code></li>
+        <li><code>2</code></li>
+      </ul>
     </td>
   </tr>
   <tr>
     <td><code>signal</code></td>
     <td>
       The signal causing the job to exit, if a signal was sent, and the currently running process did not intercept and handle the signal supplying a non-default exit status.<br>
-      <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>kill</code><br>
-      <em>Example:</em> <code>SIGINT</code>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li><code>"*"</code></li>
+        <li><code>kill</code></li>
+        <li><code>SIGINT</code></li>
+      </ul>
     </td>
   </tr>
   <tr>
     <td><code>signal_reason</code></td>
     <td>
       The reason a process was signaled.<br>
-      <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>none</code><br>
-      <em>Example:</em> <code>cancel</code>
+      <p><em>Examples:</em></p>
+      <ul>
+        <li><code>"*"</code></li>
+        <li><code>none</code></li>
+        <li><code>cancel</code></li>
+      </ul>
     </td>
   </tr>
   <tr>
