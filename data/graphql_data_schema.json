@@ -2891,12 +2891,6 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION_UPDATED",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "CLUSTER_QUEUE_CREATED",
               "description": null,
               "isDeprecated": false,
@@ -3633,36 +3627,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TEAM_PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_REPOSITORY_HOST",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SUITE",
               "description": null,
               "isDeprecated": false,
@@ -3670,6 +3634,12 @@
             },
             {
               "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3693,6 +3663,12 @@
               "deprecationReason": null
             },
             {
+              "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "USER",
               "description": null,
               "isDeprecated": false,
@@ -3705,25 +3681,19 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "SSO_PROVIDER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3784,6 +3754,30 @@
             },
             {
               "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_SERVICE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_PIPELINE_SETTINGS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -12879,18 +12873,18 @@
               "deprecationReason": null
             },
             {
-              "name": "organizationAPIIPAllowListUpdate",
-              "description": "Sets an allow-list of IP addresses for API access to an organization. Please note that this is a beta feature and is not yet available to all organizations. ",
+              "name": "organizationApiIpAllowlistUpdate",
+              "description": "Sets an allowlist of IP addresses for API access to an organization. Please note that this is a beta feature and is not yet available to all organizations. ",
               "args": [
                 {
                   "name": "input",
-                  "description": "Parameters for OrganizationAPIIPAllowListUpdateMutation",
+                  "description": "Parameters for OrganizationAPIIPAllowlistUpdateMutation",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "OrganizationAPIIPAllowListUpdateMutationInput",
+                      "name": "OrganizationAPIIPAllowlistUpdateMutationInput",
                       "ofType": null
                     }
                   },
@@ -12901,7 +12895,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "OrganizationAPIIPAllowListUpdateMutationPayload",
+                "name": "OrganizationAPIIPAllowlistUpdateMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -14895,7 +14889,7 @@
             },
             {
               "name": "allowedApiIpAddresses",
-              "description": "A space-separated allow-list of IP addresses that can access the organization via the GraphQL or REST API",
+              "description": "A space-separated allowlist of IP addresses that can access the organization via the GraphQL or REST API",
               "args": [
 
               ],
@@ -16309,8 +16303,8 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "OrganizationAPIIPAllowListUpdateMutationInput",
-          "description": "Autogenerated input type of OrganizationAPIIPAllowListUpdateMutation",
+          "name": "OrganizationAPIIPAllowlistUpdateMutationInput",
+          "description": "Autogenerated input type of OrganizationAPIIPAllowlistUpdateMutation",
           "fields": null,
           "inputFields": [
             {
@@ -16364,8 +16358,8 @@
         },
         {
           "kind": "OBJECT",
-          "name": "OrganizationAPIIPAllowListUpdateMutationPayload",
-          "description": "Autogenerated return type of OrganizationAPIIPAllowListUpdateMutation.",
+          "name": "OrganizationAPIIPAllowlistUpdateMutationPayload",
+          "description": "Autogenerated return type of OrganizationAPIIPAllowlistUpdateMutation.",
           "fields": [
             {
               "name": "clientMutationId",
@@ -33306,9 +33300,17 @@
                   "name": "state",
                   "description": null,
                   "type": {
-                    "kind": "ENUM",
-                    "name": "BuildStates",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "BuildStates",
+                        "ofType": null
+                      }
+                    }
                   },
                   "defaultValue": null,
                   "isDeprecated": false,
