@@ -6,6 +6,8 @@ Pipeline tags allow you to tag and search for your pipelines using the search ba
 
 ## Using tags
 
-Tags are unique per pipeline. You can only add the same tag once. Tags are limited to five per pipeline, and are no longer than 64 chars. Tag names support emoji and text.
+You can assign each pipeline up to five unique tags. A tag can comprise emoji and text, up to 64 characters. We recommend using an emoji to make the tag stand out and keeping the text short and clear
 
-Tags are available through Pipeline Settings and the APIs; you can set it through the tags property in Pipelines Rest API or under pipeline types through GraphQL API.
+You can tag a pipeline by navigating to its _Pipeline Settings_ or using the API. In REST, use the `tags` property on the [Pipeline REST API](/docs/apis/rest-api/pipelines). In GraphQL, use the `tag` field on the [`pipelineUpdate` mutation](/docs/apis/graphql/schemas/mutation/pipelineupdate).
+
+To use the same tag across multiple pipelines, you must create the same tag on each pipeline.
