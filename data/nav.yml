@@ -288,7 +288,7 @@
           path: "test-analytics/permissions"
         - name: "CI environment variables"
           path: "test-analytics/ci-environments"
-        - name: "Test Executions"
+        - name: "Test executions"
           path: "test-analytics/test-executions"
     - name: "Languages"
       start_expanded: true
