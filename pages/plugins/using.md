@@ -56,6 +56,9 @@ steps:
       - library-example#v1.0.0: ~
 ```
 
+>🚧
+> Plugins cannot be defined at a pipeline level, however it is possiple to use YAML anchors in order to avoid repetition of plugin code.
+
 More commonly, plugins accept various configuration options. For example, the [Docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin) requires the attribute `image`, and we have also included the optional `workdir` attribute:
 
 ```yml
@@ -90,6 +93,28 @@ steps:
 ```
 
 See each plugin's readme for a list of which options are available.
+
+## Using YAML anchors with plugins
+
+YAML anchors allow you to identify an item with an anchor, also known as an alias. They allow us to then reference this azlias whenever we want to refer to the *thing* they are an alias for. The following example removes the need to repeat the plugin configuration on each individual step, provided the desired configuration is the same.
+
+```yml
+common:
+  - docker_plugin: &docker
+      docker#v3.3.0:
+        image: something-quiet
+
+steps:
+  - label: "Read in isolation"
+    command: echo "I'm reading..."
+    plugins:
+      - *docker
+  - label: "Read something else"
+    command: echo "On to a new book"
+    plugins:
+      - *docker 
+
+```
 
 ## Plugin sources
 
