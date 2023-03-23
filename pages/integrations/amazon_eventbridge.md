@@ -17,7 +17,7 @@ Once you've configured an Amazon EventBridge notification service in Buildkite, 
   <tr><th><a href="#events-build-finished">Build Finished</a></th><td>A build has finished</td></tr>
   <tr><th><a href="#events-job-scheduled">Job Scheduled</a></th><td>A job has been scheduled</td></tr>
   <tr><th><a href="#events-job-started">Job Started</a></th><td>A command step job has started running on an agent</td></tr>
-  <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished</td></tr>
+  <tr><th><a href="#events-job-finished">Job Finished</a></th><td>A job has finished. To check a job's result, use the <code>passed</code> field. The value is <code>true</code> when the job passed, and <code>false</code> otherwise.</td></tr>
   <tr><th><a href="#events-job-activated">Job Activated</a></th><td>A block step job has been unblocked using the web or API</td></tr>
   <tr><th><a href="#events-agent-connected">Agent Connected</a></th><td>An agent has connected to the API</td></tr>
   <tr><th><a href="#events-agent-lost">Agent Lost</a></th><td>An agent has been marked as lost. This happens when Buildkite stops receiving pings from the agent</td></tr>
