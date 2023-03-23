@@ -2,11 +2,11 @@
 
 Pipeline tags allow you to tag and search for your pipelines using the search bar. Tags are beneficial when you have many pipelines and would like to group and filter through them quickly.
 
-<%= image "pipeline-tag-search.png", alt: "Imagine showing pipeline tag search" %>
+<%= image "pipeline-tag-search.png", alt: "The search bar is selected and shows a dropdown with suggested tags." %>
 
 ## Using tags
 
-You can assign each pipeline up to five unique tags. A tag can comprise emoji and text, up to 64 characters. We recommend using an emoji to make the tag stand out and keeping the text short and clear
+You can assign each pipeline up to five unique tags. A tag can comprise emoji and text, up to 64 characters. We recommend using an emoji to make the tag stand out and keeping the text short and clear.
 
 You can tag a pipeline by navigating to its _Pipeline Settings_ or using the API. In REST, use the `tags` property on the [Pipeline REST API](/docs/apis/rest-api/pipelines). In GraphQL, use the `tag` field on the [`pipelineUpdate` mutation](/docs/apis/graphql/schemas/mutation/pipelineupdate).
 
