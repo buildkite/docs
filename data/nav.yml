@@ -6,8 +6,8 @@
       path: "pipelines"
     - name: "Getting started"
       path: "tutorials/getting-started"
-    - name: 'Glossary'
-      path: 'pipelines/glossary'
+    - name: "Glossary"
+      path: "pipelines/glossary"
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
@@ -288,6 +288,8 @@
           path: "test-analytics/permissions"
         - name: "CI environment variables"
           path: "test-analytics/ci-environments"
+        - name: "Test Executions"
+          path: "test-analytics/test-executions"
     - name: "Languages"
       start_expanded: true
       children:

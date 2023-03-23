@@ -17,9 +17,12 @@ Parallelism does not affect how job minutes are calculated, the following situat
 
 ## Usage page
 
-The [Usage page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows your plan information, any applicable inclusions or limits, and recent job minute usage.
+The [Usage page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows a breakdown of job minutes and test executions for your organization.
 
-<%= image "usage.png", width: 554, height: 794, alt: "Job minute usage page" %>
+The [Job minutes usage page](https://buildkite.com/organizations/~/usage/job_minutes) graphs the total job minute usage over the organization's billing periods. It includes a breakdown of usage by pipeline and a CSV download of usage over the period.
+
+>📘 Calculating job minutes usage
+> We store job usage data in seconds but charge by summing all the usage and rounding down to the nearest minute. Please keep in mind that when displaying usage data per pipeline in the chart and CSV download, there may be minor discrepancies due to the rounding of each individual pipeline's usage.
 
 ## Limits for the Developer Plan
 
