@@ -206,6 +206,8 @@
           path: "pipelines/skipping"
         - name: "Build artifacts"
           path: "pipelines/artifacts"
+        - name: "Pipeline tags"
+          path: "pipelines/tags"
         - name: "Build retention"
           path: "pipelines/build-retention"
         - name: "Public pipelines"
