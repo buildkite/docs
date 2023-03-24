@@ -35,7 +35,7 @@ Your agents display under their cluster or in the unclustered view:
 
 You can still access your agent and its count by selecting _Clusters_ > _All Agents_.
 
-Once you create a cluster, copy the auto-generated token for your agents and add it to the agents in the cluster. If you want to use a custom token, edit the token in the Agent Tokens tab:
+Once you create a cluster, copy the auto-generated token for your agents and add it to the agents in the cluster. If you want to use a custom token, edit the token in the _Agent Tokens_ tab:
 
 <%= image "agent-registration-tokens-views.png", alt: "Image showing Agent Tokens view" %>
 
