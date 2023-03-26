@@ -55,10 +55,7 @@ From the API access audit page, find the token whose access you want to remove. 
 
 Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
 
-Removing access from a token will send a notification email to the token's owner.
-
->📘
-> Removing access from a token does not delete the token, however token owner cannot re-add your organization to their token's scope.
+Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
 ## Programmatically managing tokens
 
@@ -72,7 +69,7 @@ No, you can change the scope and description of a token, or revoke it, but you c
 
 ### Can I re-add my organization to a token?
 
-Yes, the token owner can re-add the organization to the token from their _API Access Tokens_ settings page.
+No. If an organization has revoked a token, it cannot be re-added to the token. The token owner would have to create a new token with access to your organization.
 
 ### Can I delete a token?
 
