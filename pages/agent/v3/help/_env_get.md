@@ -23,7 +23,7 @@ Note that this subcommand is only available from within the job executor with th
 
 Changes to the job environment only apply to the environments of subsequent phases of the job. However, `env get` can be used to inspect the changes made with `env set` and `env unset`.
 
-Examples:
+### Examples
 
 Getting all variables in key=value format:
 

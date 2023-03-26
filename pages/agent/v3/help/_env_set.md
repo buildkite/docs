@@ -25,7 +25,7 @@ To read the new values of variables from within the current phase, use ′env ge
 
 Note that this subcommand is only available from within the job executor with the job-api experiment enabled.
 
-Examples:
+### Examples
 
 Setting the variables `LLAMA` and `ALPACA`:
 
@@ -43,7 +43,6 @@ over standard input:
 ```
 $ echo '{"ALPACA":"Geronimo the Incredible","LLAMA":"Kuzco"}' | buildkite-agent env set --input-format=json --output-format=quiet -
 ```
-
 
 ### Options
 

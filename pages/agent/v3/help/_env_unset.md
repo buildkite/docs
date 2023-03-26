@@ -25,7 +25,7 @@ To read the new values of variables from within the current phase, use ′env ge
 
 Note that this subcommand is only available from within the job executor with the job-api experiment enabled.
 
-Examples:
+### Examples
 
 Unsetting the variables `LLAMA` and `ALPACA`:
 
