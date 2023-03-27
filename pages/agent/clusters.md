@@ -6,20 +6,20 @@ The following diagram shows the architecture difference after enabling clusters.
 
 <%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %>
 
-In the diagram, you'll see that clusters encapsulate groups of agents and pipelines. These groups enable the following behaviors:
+In the diagram, you’ll see that clusters encapsulate groups of agents and pipelines. These groups enable the following behaviors:
 
 * Clusters are viewable to your entire organization, allowing engineers to understand better what agents and queues are available in their pipelines.
 * You can grant cluster-admin access to individual users or teams to let them self-administer their own sets of agents. Cluster admins can create and delete queues, access agent tokens, and add and remove pipelines.
-* Queues can be created within a cluster and validated when a pipeline's configuration is saved during pipeline upload, and when a new agent connects. This helps to make queues more discoverable to pipeline authors and helps to prevent ghost jobs that never run because they had a typo in their pipeline.yml's queue name.
+* Queues can be created within a cluster and validated when a pipeline’s configuration is saved during pipeline upload, and when a new agent connects. This helps to make queues more discoverable to pipeline authors and helps to prevent ghost jobs that never run because they had a typo in their pipeline.yml’s queue name.
 * Pipelines now belong to a cluster. Pipelines can only schedule jobs on the cluster it belongs to and can only trigger builds on pipelines in the same cluster.
 
 ## Enabling clusters
 
-Any administrator can enable clusters for an organization. Note that once enabled, you can't disable clusters.
+Any administrator can enable clusters for an organization. Note that once enabled, you can’t disable clusters.
 
 To enable clusters:
 
-1. Navigate to the [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
+1. Navigate to the [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 1. In _Clusters_, select _Enable Clusters_.
 1. In the modal that opens, select _Enable Clusters_ to confirm.
 
@@ -27,7 +27,7 @@ _Clusters_ appears in the global navigation.
 
 ## Using clusters
 
-We've built clusters in a way that shouldn't affect any of your existing agents or pipelines or require any breaking changes to try out. Once enabled, all members of your organization will see _Clusters_ in the global navigation.
+We’ve built clusters in a way that shouldn’t affect any of your existing agents or pipelines or require any breaking changes to try out. Once enabled, all members of your organization will see _Clusters_ in the global navigation.
 
 Your agents display under their cluster or in the unclustered view:
 
