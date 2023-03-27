@@ -331,6 +331,7 @@ _Optional Attributes_
         <li><code>"*"</code></li>
         <li><code>none</code></li>
         <li><code>cancel</code></li>
+        <li><code>agent_stop</code></li>
       </ul>
     </td>
   </tr>
