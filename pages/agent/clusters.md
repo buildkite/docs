@@ -15,15 +15,14 @@ Clusters encapsulate groups of agents and pipelines. This enables the following:
 
 ## Enabling clusters
 
-Any administrator can enable clusters for an organization. Note that once enabled, you can’t disable clusters.
+Any administrator can enable clusters for an organization. Once you enable clusters, you can only disable it by contacting support.
 
 To enable clusters:
 
-1. Navigate to the [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
+1. Navigate to your [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 1. In _Clusters_, select _Enable Clusters_.
-1. In the modal that opens, select _Enable Clusters_ to confirm.
 
-_Clusters_ appears in the global navigation.
+_Clusters_ will now appear in the global navigation.
 
 ## Using clusters
 
