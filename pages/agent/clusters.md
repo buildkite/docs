@@ -11,7 +11,7 @@ Clusters encapsulate groups of agents and pipelines. This enables the following:
 * Clusters are viewable to your entire organization, allowing engineers to understand better what agents and queues are available in their pipelines.
 * You can grant cluster-admin access to individual users or teams to let them self-administer their own sets of agents. Cluster admins can create and delete queues, access agent tokens, and add and remove pipelines.
 * Queues can be created within a cluster and validated when a pipeline’s configuration is saved during pipeline upload, and when a new agent connects. This helps to make queues more discoverable to pipeline authors and helps to prevent ghost jobs that never run because they had a typo in their pipeline.yml’s queue name.
-* Pipelines now belong to a cluster. Pipelines can only schedule jobs on the cluster it belongs to and can only trigger builds on pipelines in the same cluster.
+* Pipelines can belong to a cluster. Such pipelines can only schedule jobs on the cluster it belongs to and can only trigger builds on pipelines in the same cluster.
 
 ## Enabling clusters
 
