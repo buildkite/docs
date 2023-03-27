@@ -2,8 +2,6 @@
 
 The Flaky test API endpoint provides information about tests detected as flaky in a test suite.
 
-{:toc}
-
 ## List all flaky tests
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of the flaky tests detected in a test suite.
