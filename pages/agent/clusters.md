@@ -89,7 +89,7 @@ Enabling clusters will not impact any of your existing agents or pipelines, or o
 
 Once you’ve enabled clusters, all members of your organization will see _Clusters_ in the global navigation. This will show all your clusters as well as _Unclustered_ agents and pipelines.
 
-To view and manage your unclustered agents, agent tokens and pipelines (i.e. not conenected to any cluster), click _Unclustered._
+To view and manage your unclustered agents, agent tokens and pipelines (in other words, not connected to any cluster), click _Unclustered._
 
 To view all running agents in your organization (in a cluster or not), click on _All agents_ in the sidebar.
 
