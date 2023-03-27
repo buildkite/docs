@@ -57,6 +57,12 @@ Click through the token you'd like to remove, then click the 'Remove Organizatio
 
 Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
+## Limiting API Access by IP address
+
+If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's permission settings](https://buildkite.com/organizations/~/member-permissions).
+
+You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
+
 ## Programmatically managing tokens
 
 The `access-token` REST API endpoint can be used to retrieve or revoke an API access token. See the [REST API access token](/docs/apis/rest-api/access-token) page for further information.
