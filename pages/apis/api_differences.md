@@ -41,7 +41,6 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "USERS", "users" %> [Create and revoke](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
 * <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/graphql-cookbook#create-a-user-add-them-to-a-team-and-set-user-permissions).
 
-
 ## Known missing API features
 
 These are known requested features that are currently missing from both REST and GraphQL APIs:
