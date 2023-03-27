@@ -229,6 +229,8 @@ _At least one of the following attributes is required:_
       Whether to allow a job to retry automatically. This field accepts a boolean value, individual retry conditions, or a list of multiple different retry conditions.<br> If set to <code>true</code>, the retry conditions are set to the default value.<br>
       <em>Default value:</em><br>
       <code>exit_status: "*"</code><br>
+      <code>signal: "*"</code><br>
+      <code>signal_reason: "*"</code><br>
       <code>limit: 2</code><br>
       <em>Example:</em> <code>true</code>
     </td>
