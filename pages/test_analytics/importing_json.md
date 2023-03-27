@@ -352,7 +352,7 @@ Detail objects contains additional information about the span.
   "detail": {
     method: "POST",
     url: "https://example.com",
-    lib: "curl
+    lib: "curl"
   }
 }
 ```
