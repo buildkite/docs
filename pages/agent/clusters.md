@@ -2,20 +2,19 @@
 
 Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
 
-The following diagram shows the architecture difference after enabling clusters.
+The following diagram shows the architectural change when enabling clusters.
 
 <%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %>
 
 Clusters encapsulate groups of agents and pipelines. This enables the following:
 
-* Clusters are viewable to your entire organization, allowing engineers to understand better what agents and queues are available in their pipelines.
-* You can grant cluster-admin access to individual users or teams to let them self-administer their own sets of agents. Cluster admins can create and delete queues, access agent tokens, and add and remove pipelines.
-* Queues can be created within a cluster and validated when a pipeline’s configuration is saved during pipeline upload, and when a new agent connects. This helps to make queues more discoverable to pipeline authors and helps to prevent ghost jobs that never run because they had a typo in their pipeline.yml’s queue name.
-* Pipelines can belong to a cluster. Such pipelines can only schedule jobs on the cluster it belongs to and can only trigger builds on pipelines in the same cluster.
+* Clusters are viewable to your entire organization, allowing engineers to better understand the agents and queues available for their pipelines.
+* Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens and add and remove pipelines.
+* Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
 ## Enabling clusters
 
-Any administrator can enable clusters for an organization. Once you enable clusters, you can only disable it by contacting support.
+Any Buildkite administrator can enable clusters for an organization. Once you enable clusters, you can only disable it by contacting support.
 
 To enable clusters:
 
@@ -52,7 +51,7 @@ You should [supply the queue’s key][agent-queue-key] to the agents that you wi
 
 Once you’ve created your cluster and queues, navigate to the cluster’s _Agent tokens_, copy the auto-generated token and [use this token][agent-use-token] for the agents you wish to connect to the cluster.
 
-You can also create, edit, and revoke other cluster agent tokens in this area.
+You can also create, edit, and revoke other agent tokens here.
 
 [agent-use-token]: /docs/agent/v3/tokens#using-and-storing-tokens
 
@@ -67,7 +66,7 @@ To add a pipeline to a cluster:
 
 ### Adding maintainers to a cluster
 
-Only Buildkite admins or users with the [“change organization” permission][permissions] can create clusters.
+Only Buildkite administrators or users with the [“change organization” permission][permissions] can create clusters.
 
 Afterwards, you can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
 
@@ -85,7 +84,7 @@ To add a maintainer to a cluster:
 
 ## Using clusters alongside unclustered agents and pipelines
 
-Enabling clusters will not impact any of your existing agents or pipelines, or otherwise require any workflow-breaking changes to try.
+Enabling clusters will not impact any of your existing agents or pipelines, nor will it require any workflow-breaking changes for you to try clusters.
 
 Once you’ve enabled clusters, all members of your organization will see _Clusters_ in the global navigation. This will show all your clusters as well as _Unclustered_ agents and pipelines.
 
@@ -96,5 +95,4 @@ To view all running agents in your organization (in a cluster or not), click on 
 ## Migrating to clusters
 
 You can create clusters through the Buildkite dashboard, the REST API, or the GraphQL API.
-
-If you migrate all your existing agents over to clusters, be sure to add all your pipelines to the relevant clusters. Otherwise, any builds created (either manually, using source code, or schedules) will never find any agents to run their builds.
+If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
