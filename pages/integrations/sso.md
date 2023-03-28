@@ -84,11 +84,11 @@ With session IP address pinning, authorized sessions can only come from the IP a
 
 To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
 
-* Select Provider
-* Under Session IP Address Pinning section
-  Click Update Session IP Address Pinning
-* Check Session IP Address Pinning checkbox
-* Click Save Session IP Address Pinning
+1. Navigate to the [organization's SSO settings](https://buildkite.com/organizations/~/sso).
+1. In the _Configured SSO Providers_ section, select the provider.
+1. In the _Session IP Address Pinning_ section, select _Update Session IP Address Pinning_.
+1. In the modal that appears, select the _Session IP Address Pinning_ checkbox.
+1. Select _Save Session IP Address Pinning_.
 
 ## Frequently asked questions
 
