@@ -53,13 +53,17 @@ To create additional queues:
 1. Enter a key and description.
 1. Select _Create Queue_.
 
-For agents to run jobs in a particular queue, [supply the queue’s key](/docs/agent/v3/queues#setting-an-agents-queue) to the agents.
+### Connect agents to a cluster
 
-### Using cluster agent tokens
+Agents are associated with a cluster through the cluster’s agent tokens.
 
-Once you’ve created your cluster and queues, navigate to the cluster’s _Agent tokens_, copy the auto-generated token and [use this token](/docs/agent/v3/tokens#using-and-storing-tokens) for the agents you wish to connect to the cluster.
+To connect an agent:
 
-You can also create, edit, and revoke other agent tokens here.
+1. Navigate to the cluster's _Agent tokens_.
+1. Copy the auto-generated token.
+1. [Use the token](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with [the key from the relevant cluster queue](/docs/agent/v3/queues#setting-an-agents-queue).
+
+You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
 ### Adding pipelines to a cluster
 
