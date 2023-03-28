@@ -82,7 +82,7 @@ Prompt your users to re-authenticate when their IP address changes.
 
 With session IP address pinning, authorized sessions can only come from the IP address that created the session. If another IP address attempts to access Buildkite, the session will be immediately revoked. This helps to prevent session hijacking.
 
-To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-sso-provider-session-ip-address-pinning) or complete the following steps in the Buildkite dashboard:
+To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
 
 * Select Provider
 * Under Session IP Address Pinning section
