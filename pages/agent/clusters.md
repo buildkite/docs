@@ -94,5 +94,4 @@ To view all running agents in your organization (in a cluster or not), click on 
 
 ## Migrating to clusters
 
-You can create clusters through the Buildkite dashboard, the REST API, or the GraphQL API.
 If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
