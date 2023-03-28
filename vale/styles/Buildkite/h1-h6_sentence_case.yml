@@ -19,6 +19,7 @@ exceptions:
   - Amazon Web Services
   - API(s)
   - Artifactory
+  - Audit Event Logged
   - Auto Scaling
   - AWS Console
   - AWS Lambda

@@ -23,6 +23,18 @@ Organizations typically choose their main production branch as their default, al
 
 To change your default branch, go to suite settings. You can also filter Test Analytics views by any branch by typing its name into the branch query parameter in the Test Analytics URL.
 
+## Detecting flaky tests
+
+Flaky tests are automated tests that produce inconsistent or unreliable results, despite being run on the same code and environment. They cause frustration, decrease confidence in testing, and waste time while you investigate whether the failure is due to a genuine bug.
+
+Test Analytics detects flaky tests by surfacing when the same test is run multiple times on the same commit SHA with different results. The tests might run multiple times within a single build or across different builds. Either way, they are detected as flaky if they report both passed and failed results.
+
+If your test suite supports it, we recommend enabling the option to retry failed tests automatically. Automatic retries are typically run more often and provide more data to detect flaky tests. If you can't use automatic retries, Test Analytics also detects flaky tests from manual retries.
+
+Alternatively, you can create [scheduled builds](/docs/pipelines/scheduled-builds) to run your test suite on the default branch. You can schedule them outside your typical development time to run the test suite multiple times against the same commit SHA. You can still enable test retries in this setup, but they're less important. The more builds you run, the more likely you'll detect flaky tests that fail infrequently.
+
+Test Analytics reviews the test results to detect flaky tests once per day. The list of flaky tests doesn't change often, so we've found this to be frequent enough to provide helpful information.
+
 ## Tracking reliability
 
 Test Analytics calculates reliability of both your entire test suite and individual tests as a measure of flakiness over time.

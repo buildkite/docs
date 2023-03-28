@@ -27,6 +27,7 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "JOBS", "jobs" %> [Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#get-all-jobs-in-a-given-queue-for-a-given-timeframe).
 * <%= pill "JOBS", "jobs" %> [Get all jobs in a particular concurrency group](/docs/apis/graphql/graphql-cookbook#get-all-jobs-in-a-particular-concurrency-group).
 * <%= pill "JOBS", "jobs" %> list job events.
+* <%= pill "JOBS", "jobs" %> [Cancel a job](/docs/apis/graphql/schemas/mutation/jobtypecommandcancel).
 * <%= pill "ORGANIZATIONS", "organizations" %> [Remove users from an organization](/docs/apis/graphql/graphql-cookbook#delete-an-organization-member).
 * <%= pill "ORGANIZATIONS", "organizations" %> Manage teams - [add](/docs/apis/graphql/graphql-cookbook#add-an-existing-organization-user-to-a-team) or [remove](/docs/apis/graphql/graphql-cookbook#remove-a-team-member) a team member. Most of the team management features are only available for GraphQL. The REST API can only list teams and can create pipelines in teams.
 * <%= pill "ORGANIZATIONS", "organizations" %> [Set up SSO](/docs/integrations/sso/sso-setup-with-graphql).
