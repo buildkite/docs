@@ -278,6 +278,125 @@
           "possibleTypes": null
         },
         {
+          "kind": "ENUM",
+          "name": "APIAccessTokenScopes",
+          "description": "All possible scopes on a user's API Access Token",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "GRAPHQL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_AGENTS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_ARTIFACTS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_BUILD_LOGS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_BUILDS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_FLAKY_TESTS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_JOB_ENV",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_NOTIFICATION_SERVICES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_ORGANIZATIONS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_PIPELINES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_TEAMS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_AGENTS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_ARTIFACTS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_BUILD_LOGS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_BUILDS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_NOTIFICATION_SERVICES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_PIPELINES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
           "kind": "OBJECT",
           "name": "APIApplication",
           "description": "An API Application",
@@ -2891,12 +3010,6 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION_UPDATED",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "CLUSTER_QUEUE_CREATED",
               "description": null,
               "isDeprecated": false,
@@ -3633,49 +3746,13 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TEAM_PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_REPOSITORY_HOST",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "USER_TOTP",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3693,24 +3770,6 @@
               "deprecationReason": null
             },
             {
-              "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
@@ -3723,7 +3782,13 @@
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3765,13 +3830,13 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_INVITATION",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_SCHEDULE",
+              "name": "ORGANIZATION_INVITATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3784,6 +3849,54 @@
             },
             {
               "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_SCHEDULE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_SERVICE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_REPOSITORY_HOST",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_PIPELINE_SETTINGS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_EMAIL",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -5975,6 +6088,59 @@
 
           ],
           "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "BuildRetentionPeriods",
+          "description": "All the possible build retention periods, depending on your billing plan",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "DAYS_30",
+              "description": "30 days",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_60",
+              "description": "60 days",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_90",
+              "description": "90 days",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MONTHS_6",
+              "description": "6 months",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MONTHS_12",
+              "description": "12 months",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "MONTHS_18",
+              "description": "18 months",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "YEARS_2",
+              "description": "2 years",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
           "possibleTypes": null
         },
         {
@@ -12879,18 +13045,18 @@
               "deprecationReason": null
             },
             {
-              "name": "organizationAPIIPAllowListUpdate",
-              "description": "Sets an allow-list of IP addresses for API access to an organization. Please note that this is a beta feature and is not yet available to all organizations. ",
+              "name": "organizationApiIpAllowlistUpdate",
+              "description": "Sets an allowlist of IP addresses for API access to an organization. Please note that this is a beta feature and is not yet available to all organizations. ",
               "args": [
                 {
                   "name": "input",
-                  "description": "Parameters for OrganizationAPIIPAllowListUpdateMutation",
+                  "description": "Parameters for OrganizationAPIIPAllowlistUpdateMutation",
                   "type": {
                     "kind": "NON_NULL",
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "OrganizationAPIIPAllowListUpdateMutationInput",
+                      "name": "OrganizationAPIIPAllowlistUpdateMutationInput",
                       "ofType": null
                     }
                   },
@@ -12901,7 +13067,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "OrganizationAPIIPAllowListUpdateMutationPayload",
+                "name": "OrganizationAPIIPAllowlistUpdateMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -14873,6 +15039,18 @@
                   "deprecationReason": null
                 },
                 {
+                  "name": "clustered",
+                  "description": "Pass `false` to exclude agents that belong to a cluster queue",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Boolean",
+                    "ofType": null
+                  },
+                  "defaultValue": "true",
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
                   "name": "isRunningJob",
                   "description": "Filter agents by whether they are running a job or not",
                   "type": {
@@ -14895,7 +15073,7 @@
             },
             {
               "name": "allowedApiIpAddresses",
-              "description": "A space-separated allow-list of IP addresses that can access the organization via the GraphQL or REST API",
+              "description": "A space-separated allowlist of IP addresses that can access the organization via the GraphQL or REST API",
               "args": [
 
               ],
@@ -14903,6 +15081,71 @@
                 "kind": "SCALAR",
                 "name": "String",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "apiAccessTokens",
+              "description": "Returns user API access tokens that can access this organization",
+              "args": [
+                {
+                  "name": "after",
+                  "description": "Returns the elements in the list that come after the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
+                  "name": "before",
+                  "description": "Returns the elements in the list that come before the specified cursor.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "String",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
+                  "name": "first",
+                  "description": "Returns the first _n_ elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                },
+                {
+                  "name": "last",
+                  "description": "Returns the last _n_ elements from the list.",
+                  "type": {
+                    "kind": "SCALAR",
+                    "name": "Int",
+                    "ofType": null
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "OrganizationAPIAccessTokenConnection",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -16308,9 +16551,270 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "OrganizationAPIAccessToken",
+          "description": "Information on user API Access Tokens which can access the Organization. Excludes the token attribute",
+          "fields": [
+            {
+              "name": "createdAt",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "A description of the token",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ipAddress",
+              "description": "The IP address of the last request to the Buildkite API",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "lastAccessedAt",
+              "description": "The last time the token was used to access the Buildkite API",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "owner",
+              "description": "The user associated with this token",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "scopes",
+              "description": "The organization scopes that the user's token has access to",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "LIST",
+                  "name": null,
+                  "ofType": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "ENUM",
+                      "name": "APIAccessTokenScopes",
+                      "ofType": null
+                    }
+                  }
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "uuid",
+              "description": "The public UUID for the API Access Token",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OrganizationAPIAccessTokenConnection",
+          "description": "The connection type for OrganizationAPIAccessToken.",
+          "fields": [
+            {
+              "name": "edges",
+              "description": "A list of edges.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "OrganizationAPIAccessTokenEdge",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "nodes",
+              "description": "A list of nodes.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "OrganizationAPIAccessToken",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pageInfo",
+              "description": "Information to aid in pagination.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "PageInfo",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OrganizationAPIAccessTokenEdge",
+          "description": "An edge in a connection.",
+          "fields": [
+            {
+              "name": "cursor",
+              "description": "A cursor for use in pagination.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "node",
+              "description": "The item at the end of the edge.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "OrganizationAPIAccessToken",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
-          "name": "OrganizationAPIIPAllowListUpdateMutationInput",
-          "description": "Autogenerated input type of OrganizationAPIIPAllowListUpdateMutation",
+          "name": "OrganizationAPIIPAllowlistUpdateMutationInput",
+          "description": "Autogenerated input type of OrganizationAPIIPAllowlistUpdateMutation",
           "fields": null,
           "inputFields": [
             {
@@ -16364,8 +16868,8 @@
         },
         {
           "kind": "OBJECT",
-          "name": "OrganizationAPIIPAllowListUpdateMutationPayload",
-          "description": "Autogenerated return type of OrganizationAPIIPAllowListUpdateMutation.",
+          "name": "OrganizationAPIIPAllowlistUpdateMutationPayload",
+          "description": "Autogenerated return type of OrganizationAPIIPAllowlistUpdateMutation.",
           "fields": [
             {
               "name": "clientMutationId",
@@ -19581,6 +20085,48 @@
               "deprecationReason": null
             },
             {
+              "name": "buildRetentionEnabled",
+              "description": "Choose to keep builds or remove them after a set time period. Pipelines are scanned once a day for builds that can be removed according to these settings.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionNumber",
+              "description": "The minimum number of builds to keep in the pipeline regardless of how old the builds are.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionPeriod",
+              "description": "How long is a build kept before it is automatically removed.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "ENUM",
+                "name": "BuildRetentionPeriods",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "builds",
               "description": "Returns the builds for this pipeline",
               "args": [
@@ -19866,6 +20412,20 @@
               "deprecationReason": null
             },
             {
+              "name": "defaultTimeoutInMinutes",
+              "description": "The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "description",
               "description": "The short description of the pipeline",
               "args": [
@@ -20105,6 +20665,20 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "JobConnection",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maximumTimeoutInMinutes",
+              "description": "The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -20902,6 +21476,66 @@
                 "ofType": null
               },
               "defaultValue": "true",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "defaultTimeoutInMinutes",
+              "description": "The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maximumTimeoutInMinutes",
+              "description": "The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionEnabled",
+              "description": "Choose to keep builds or remove them after a set time period. Pipelines are scanned once a day for builds that can be removed according to these settings. Some billing plans require this setting to be enabled.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionPeriod",
+              "description": "How long is a build kept before it is automatically removed.",
+              "type": {
+                "kind": "ENUM",
+                "name": "BuildRetentionPeriods",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionNumber",
+              "description": "The minimum number of builds to keep in the pipeline regardless of how old the builds are.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -23241,6 +23875,66 @@
                 "ofType": null
               },
               "defaultValue": "true",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "defaultTimeoutInMinutes",
+              "description": "The default timeout in minutes for all command steps in this pipeline. This can still be overridden in any command step.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "maximumTimeoutInMinutes",
+              "description": "The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionEnabled",
+              "description": "Choose to keep builds or remove them after a set time period. Pipelines are scanned once a day for builds that can be removed according to these settings. Some billing plans require this setting to be enabled.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionPeriod",
+              "description": "How long is a build kept before it is automatically removed.",
+              "type": {
+                "kind": "ENUM",
+                "name": "BuildRetentionPeriods",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "buildRetentionNumber",
+              "description": "The minimum number of builds to keep in the pipeline regardless of how old the builds are.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
@@ -30761,6 +31455,18 @@
               "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "role",
+              "description": "If no role is specified, the team member will be assigned the team's default role.",
+              "type": {
+                "kind": "ENUM",
+                "name": "TeamMemberRole",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "interfaces": null,
@@ -33306,9 +34012,17 @@
                   "name": "state",
                   "description": null,
                   "type": {
-                    "kind": "ENUM",
-                    "name": "BuildStates",
-                    "ofType": null
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "ENUM",
+                        "name": "BuildStates",
+                        "ofType": null
+                      }
+                    }
                   },
                   "defaultValue": null,
                   "isDeprecated": false,
