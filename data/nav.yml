@@ -51,6 +51,8 @@
       children:
         - name: "Overview"
           path: "agent/v3"
+        - name: "Clusters"
+          path: "agent/clusters"
         - name: "Installation"
           path: "agent/v3/installation"
         - name: "Upgrading"
