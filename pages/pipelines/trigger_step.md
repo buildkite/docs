@@ -109,6 +109,16 @@ _Optional attributes:_
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>soft_fail</code></td>
+    <td>
+      Allow specified non-zero exit statuses not to fail the build.
+      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em><br>
+      <code>- exit_status: 1</code><br>
+    </td>
+  </tr>
 </table>
 
 _Optional_ `build` _attributes:_
