@@ -190,7 +190,7 @@ _Optional Attributes_
 </table>
 
 ```yml
-- trigger:
+- trigger: "some-tests"
     label: "I don't want to fail my triggering build"
     command: "tests.sh"
     soft_fail:
@@ -199,7 +199,7 @@ _Optional Attributes_
 {: codeblock-file="pipeline.yml"}
 
 ```yml
-- trigger:
+- trigger: "some-tests"
     label: "I don't want to fail my triggering build"
     command: "tests.sh"
     soft_fail: true
