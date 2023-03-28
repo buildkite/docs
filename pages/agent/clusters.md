@@ -86,6 +86,6 @@ To add a maintainer to a cluster:
 1. Select a user or team.
 1. Click _Add Maintainer_.
 
-## Migrating to clusters
+### Migrating to clusters
 
 If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
