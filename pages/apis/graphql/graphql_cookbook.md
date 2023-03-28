@@ -350,9 +350,9 @@ mutation UpdateSessionDuration {
 }
 ```
 
-## Update the SSO provider session IP address pinning
+## Pin SSO sessions to IP addresses
 
-You can configure users must reauthorize with your SSO when their IP changes:
+You can require users to re-authenticate with your SSO provider when their IP address changes with the following call, replacing `ID` with the GraphQL ID of the SSO Provider:
 
 ```graphql
 mutation UpdateSessionIPAddressPinning {

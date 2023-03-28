@@ -75,12 +75,14 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 
 ## SSO session IP address pinning
 
-> 📘
-> Session IP Address Pinning is an Enterprise only feature.
+> 📘 Enterprise feature
+> Pinning SSO sessions to IP addresses is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
-You can configure the SSO Session IP Address Pinning to require re-authentication when user IP changes.
+Prompt your users to re-authenticate when their IP address changes.
 
-To set the Session IP Address Pinning you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-sso-provider-session-ip-address-pinning) or complete the following steps via the settings interface.
+With session IP address pinning, authorized sessions can only come from the IP address that created the session. If another IP address attempts to access Buildkite, the session will be immediately revoked. This helps to prevent session hijacking.
+
+To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-sso-provider-session-ip-address-pinning) or complete the following steps in the Buildkite dashboard:
 
 * Select Provider
 * Under Session IP Address Pinning section
