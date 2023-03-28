@@ -23,6 +23,16 @@ To enable clusters:
 
 _Clusters_ will now appear in the global navigation.
 
+## Using clusters alongside unclustered agents and pipelines
+
+Enabling clusters will not impact any of your existing agents or pipelines, nor will you require any workflow-breaking changes for you to try clusters.
+
+Once you’ve enabled clusters, all members of your organization will see _Clusters_ in the global navigation. This will show all your clusters as well as _Unclustered_ agents and pipelines.
+
+Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
+
+To view all running agents in your organization (in a cluster or not), click on _All agents_ in the sidebar.
+
 ## Setting up a cluster
 
 To set up a new cluster:
@@ -75,16 +85,6 @@ To add a maintainer to a cluster:
 1. Navigate to the cluster’s _Maintainers_.
 1. Select a user or team.
 1. Click _Add Maintainer_.
-
-## Using clusters alongside unclustered agents and pipelines
-
-Enabling clusters will not impact any of your existing agents or pipelines, nor will it require any workflow-breaking changes for you to try clusters.
-
-Once you’ve enabled clusters, all members of your organization will see _Clusters_ in the global navigation. This will show all your clusters as well as _Unclustered_ agents and pipelines.
-
-Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
-
-To view all running agents in your organization (in a cluster or not), click on _All agents_ in the sidebar.
 
 ## Migrating to clusters
 
