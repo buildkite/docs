@@ -23,7 +23,7 @@ To enable clusters:
 
 _Clusters_ will now appear in the global navigation.
 
-## Use clusters alongside unclustered agents and pipelines
+### Use clusters alongside unclustered agents and pipelines
 
 Enabling clusters will not impact any of your existing agents or pipelines, nor will you require any workflow-breaking changes for you to try clusters.
 
