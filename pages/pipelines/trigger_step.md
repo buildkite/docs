@@ -257,7 +257,7 @@ _Optional Attributes_
       Allow specified non-zero exit statuses not to fail the build.
       <br>
       <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>1</code>
+      <em>Example:</em> <code>1</code><br>
       <em>Example:</em> <code>true</code>
     </td>
   </tr>
