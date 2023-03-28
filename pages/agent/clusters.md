@@ -45,7 +45,7 @@ To create additional queues:
 
 You should [supply the queue’s key][agent-queue-key] to the agents that you wish to run build jobs on the queue.
 
-[agent-queue-key]: http://localhost:3000/docs/agent/v3/queues#setting-an-agents-queue
+[agent-queue-key]: /docs/agent/v3/queues#setting-an-agents-queue
 
 ### Using cluster agent tokens
 
