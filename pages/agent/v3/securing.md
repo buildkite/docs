@@ -83,7 +83,7 @@ set -euo pipefail
 
 for line in "$(grep "^BUILDKITE_REPO=" "${BUILDKITE_ENV_FILE}")"
 do
-  repo="$(echo "${line}" | cut -d= -f2)"
+  repo="$(echo "${line}" | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
   if [ "${repo}" != "git@server:repo.git" ]
   then
     echo "Repository not allowed: ${repo}"
@@ -93,7 +93,7 @@ done
 
 for line in "$(grep "^BUILDKITE_COMMAND=" "${BUILDKITE_ENV_FILE}")"
 do
-  command="$(echo "${line}" | cut -d= -f2)"
+  command="$(echo "${line}" | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
   if [ "${command}" != "some-script.sh" ]
   then
     echo "Command not allowed: ${command}"
