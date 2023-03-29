@@ -17,8 +17,6 @@ Then configure your [agent token](/docs/agent/v3/tokens) by replacing `INSERT-YO
 sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
 ```
 
-In the above command, you only need to replace `INSERT-YOUR-AGENT-TOKEN-HERE` and then run the command.
-
 If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) install instructions.
 
 ## SSH key configuration
