@@ -11,7 +11,7 @@ If you have <a href="http://brew.sh/">Homebrew</a> installed you can use our <a 
 brew tap buildkite/buildkite && brew install buildkite-agent
 ```
 
-Then configure your [agent token](/docs/agent/v3/tokens):
+Then configure your [agent token](/docs/agent/v3/tokens) by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
 
 ```shell
 sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
