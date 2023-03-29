@@ -53,6 +53,7 @@
           path: "agent/v3"
         - name: "Clusters"
           path: "agent/clusters"
+          pill: "beta"
         - name: "Installation"
           path: "agent/v3/installation"
         - name: "Upgrading"
