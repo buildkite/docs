@@ -25,7 +25,7 @@ To install the agent using Homebrew:
 
     ```shell
     buildkite-agent start
-    ``` 
+    ```
 
 ## SSH key configuration
 
