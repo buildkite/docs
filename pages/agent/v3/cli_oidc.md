@@ -9,8 +9,8 @@ See the [OpenID Connect Core documentation](https://openid.net/specs/openid-conn
 
 ## OIDC endpoints
 
-* OpenID Connect Discovery URL: https://agent.buildkite.com/.well-known/openid-configuration
-* JWKS URI: https://agent.buildkite.com/.well-known/jwks
+* **OpenID Connect Discovery URL:** https://agent.buildkite.com/.well-known/openid-configuration
+* **JWKS URI:** https://agent.buildkite.com/.well-known/jwks
 
 ## Example token contents
 
