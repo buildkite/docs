@@ -87,6 +87,8 @@
         path: apis/graphql/schemas/mutation/jobtypecommandretry
       - name: noticeDismiss
         path: apis/graphql/schemas/mutation/noticedismiss
+      - name: organizationApiAccessTokenRevoke
+        path: apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke
       - name: organizationApiIpAllowlistUpdate
         path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
       - name: organizationInvitationCreate
@@ -381,6 +383,14 @@
         path: apis/graphql/schemas/object/operatingsystem
       - name: Organization
         path: apis/graphql/schemas/object/organization
+      - name: OrganizationAPIAccessToken
+        path: apis/graphql/schemas/object/organizationapiaccesstoken
+      - name: OrganizationAPIAccessTokenConnection
+        path: apis/graphql/schemas/object/organizationapiaccesstokenconnection
+      - name: OrganizationAPIAccessTokenEdge
+        path: apis/graphql/schemas/object/organizationapiaccesstokenedge
+      - name: OrganizationAPIAccessTokenRevokeMutationPayload
+        path: apis/graphql/schemas/object/organizationapiaccesstokenrevokemutationpayload
       - name: OrganizationAPIIPAllowlistUpdateMutationPayload
         path: apis/graphql/schemas/object/organizationapiipallowlistupdatemutationpayload
       - name: OrganizationAuditEventConnection
@@ -713,6 +723,8 @@
         path: apis/graphql/schemas/interface/step
     - name: ENUMs
       children:
+      - name: APIAccessTokenScopes
+        path: apis/graphql/schemas/enum/apiaccesstokenscopes
       - name: AnnotationStyle
         path: apis/graphql/schemas/enum/annotationstyle
       - name: AuditActorType
@@ -837,6 +849,8 @@
         path: apis/graphql/schemas/input-object/jobtypecommandretryinput
       - name: NoticeDismissInput
         path: apis/graphql/schemas/input-object/noticedismissinput
+      - name: OrganizationAPIAccessTokenRevokeMutationInput
+        path: apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput
       - name: OrganizationAPIIPAllowlistUpdateMutationInput
         path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
       - name: OrganizationInvitationCreateInput
