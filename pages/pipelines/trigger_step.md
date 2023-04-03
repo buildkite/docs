@@ -205,6 +205,7 @@ _Optional Attributes_
     soft_fail: true
 ```
 {: codeblock-file="pipeline.yml"}
+
 ## Environment variables
 
 You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#environment-variable-substitution) to set attribute values:
