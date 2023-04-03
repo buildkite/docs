@@ -7,7 +7,13 @@ See the [OpenID Connect Core documentation](https://openid.net/specs/openid-conn
 
 <%= render "agent/v3/help/oidc_request_token" %>
 
-## OIDC endpoints
+## OIDC URLs
+
+If using a plugin, such as our [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin, you'll need to provide an OpenID provider URL, the provider URL should be set to https://agent.buildkite.com.
+
+For specific endpoints for OpenID or JWKS, see below.
+
+### Specific OIDC endpoints
 * OpenID Connect Discovery URL: https://agent.buildkite.com/.well-known/openid-configuration
 * JWKS URI: https://agent.buildkite.com/.well-known/jwks
 
@@ -20,7 +26,6 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
   "iss": "https://agent.buildkite.com",
   "sub": "organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build",
   "aud": "https://buildkite.com/acme-inc",
-  "kid": "sup3rs3cr3tk3y",
   "iat": 1669014898,
   "nbf": 1669014898,
   "exp": 1669015198,
