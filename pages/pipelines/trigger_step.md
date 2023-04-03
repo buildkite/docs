@@ -279,5 +279,3 @@ steps:
 
 ```
 {: codeblock-file="pipeline.yml"}
-
-
