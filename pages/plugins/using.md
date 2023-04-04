@@ -93,7 +93,7 @@ See each plugin's readme for a list of which options are available.
 
 ## Using YAML anchors with plugins
 
-YAML anchors enable you to identify an item with an anchor, also known as an _alias_. You can then reference the anchor when referring to that item. 
+YAML anchors enable you to identify an item with an anchor, also known as an _alias_. You can then reference the anchor when referring to that item.
 
 The following example uses a YAML anchor (`docker`) to remove the need to repeat the same plugin configuration on each step:
 
