@@ -10,14 +10,17 @@ module RenderHelpers
     markdown ? CommonMarker.render_html(markdown) : nil
   end
 
-  def render_of_type(of_type, size = "medium")
-    if of_type["ofType"]
-      render_of_type(of_type["ofType"])
+  def render_of_type(type, nullable = true, size = "medium")
+    if type["ofType"]
+      nullable = type["kind"] != "NON_NULL"
+      render_of_type(type["ofType"], nullable)
     else
-      kind = of_type["kind"] || ""
-      if name = of_type["name"]
+      kind = type["kind"] || ""
+      nullable_symbol = nullable ? "!" : ""
+
+      if name = type["name"]
         <<~HTML
-          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{name}</code></a>
+          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{nullable_symbol}#{name}</code></a>
         HTML
       else
         kind
@@ -101,7 +104,7 @@ module RenderHelpers
     if possible_types.is_a?(Array) && !possible_types.empty?
       <<~HTML
         <h2 data-algolia-exclude>Possible types</h2>
-        #{possible_types.map { |possible_type| render_of_type(possible_type, "large") }.join('')}
+        #{possible_types.map { |possible_type| render_of_type(possible_type, false, "large") }.join('')}
       HTML
     end
   end
@@ -147,7 +150,7 @@ module RenderHelpers
         #{
           interfaces.map {
             |interface|
-            render_of_type(interface, "large")
+            render_of_type(interface, false, "large")
           }.join('')
         }
       HTML
@@ -195,7 +198,7 @@ module RenderHelpers
         </span>
       HTML
     elsif type = schema_type_data["type"]
-      render_of_type(type, "large")
+      render_of_type(type, false, "large")
     else
       ""
     end
