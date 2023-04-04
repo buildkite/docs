@@ -83,7 +83,6 @@ module RenderHelpers
                           <h4 class="is-small has-pills no-margin">
                             <code>#{arg["name"]}</code>
                             #{render_of_type(arg["type"])}
-                            #{!arg["defaultValue"] ? '<span class="pill pill--required pill--normal-case"><code>required</code></span>' : ""}
                           </h4>
                           #{arg["description"] && "#{render_html(arg["description"])}"}
                           #{arg["defaultValue"] && "<p class=\"no-margin\">Default value: <code>#{arg["defaultValue"]}</code></p>"}
@@ -128,7 +127,6 @@ module RenderHelpers
                       <p>
                         <strong><code>#{input_field["name"]}</code></strong>
                         #{render_of_type(input_field["type"])}
-                        #{!input_field["defaultValue"] ? "<span class=\"pill pill--required pill--normal-case pill--medium\">required</span>" : nil}
                       </p>
                       #{input_field["description"] ? "#{render_html(input_field["description"])}" : nil}
                       #{input_field["defaultValue"] ? "<p>Default value: #{input_field["defaultValue"]}</p>" : nil}
