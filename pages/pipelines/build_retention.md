@@ -57,21 +57,23 @@ up to the maximum build retention period your plan offers.
 
 <%= image "builds.png", width: 1404/2, height: 1608/2, alt: "Screenshot of the 'Build' settings" %>
 
-## Configuring build backups
+## Configuring build export
 
 > 📘 Enterprise feature
-> Build backups is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+> Build export is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 If you require to keep builds longer than your [Buildkite plan](https://buildkite.com/pricing)
-allows you can setup build backups using your private Amazon S3 bucket.
+allows you can setup build export using your private Amazon S3 bucket. Buildkite will export json
+representations of your builds to your private Amazon S3 bucket as they are removed per the build
+retention period for your [Buildkite plan](https://buildkite.com/pricing).
 
 Select organization settings
 
-<%= image "organization-settings.png", width: 1404/2, height: 1608/2, alt: "Screenshot of the 'Build' settings" %>
+<%= image "organization-settings.png", alt: "Screenshot of the organization settings button" %>
 
 From the Organization Settings menu, select Settings under the Pipelines heading
 
-<%= image "organization-pipeline-settings.png", width: 1404/2, height: 1608/2, alt: "Screenshot of the 'Build' settings" %>
+<%= image "organization-pipeline-settings.png", alt: "Screenshot of the organization pipeline settings" %>
 
-Then, under the *Back Up Builds to S3 pane*, you can input your private Amazon S3 bucket location and
-click *Enable Backup*.
+Then, under the *Export Build Data to S3 pane*, you can input your private Amazon S3 bucket location and
+click *Enable Export*.
