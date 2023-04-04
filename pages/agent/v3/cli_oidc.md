@@ -9,7 +9,7 @@ See the [OpenID Connect Core documentation](https://openid.net/specs/openid-conn
 
 ## OIDC URLs
 
-If using a plugin, such as our [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin, you'll need to provide an OpenID provider URL, the provider URL should be set to https://agent.buildkite.com.
+If using a plugin, such as the [AWS assume-role-with-web-identity](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin) plugin, you'll need to provide an OpenID provider URL. You should set the provider URL to:  https://agent.buildkite.com.
 
 For specific endpoints for OpenID or JWKS, see below.
 
