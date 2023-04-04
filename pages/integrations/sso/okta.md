@@ -43,7 +43,7 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 
 ### Provisioning existing users
 
-Existing Okta users aren't automatically provisioned in Buildkite; you'll need to sync your users in order to deprovision them.
+Existing Okta users aren't automatically provisioned in Buildkite; you'll need to sync your users in order to deprovision them. Users will have their Buildkite accounts created via [JIT provisioning](/docs/integrations/sso#frequently-asked-questions-do-you-support-jit-provisioning).
 
 This can be done one of two ways:
 
