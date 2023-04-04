@@ -192,17 +192,15 @@ _Optional Attributes_
 ```yml
 - trigger: "some-tests"
     label: "I don't want to fail my triggering build"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
+    soft_fail: true
 ```
 {: codeblock-file="pipeline.yml"}
 
 ```yml
 - trigger: "some-tests"
     label: "I don't want to fail my triggering build"
-    command: "tests.sh"
-    soft_fail: true
+    soft_fail:
+      - exit_status: 1
 ```
 {: codeblock-file="pipeline.yml"}
 
