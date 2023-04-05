@@ -124,7 +124,7 @@ http {
 
 ## Multiple GitHub Enterprise integrations
 
-It is possible to configure multiple GitHub Enterprise integrations with your Buildkite organization, however, because of the nature of the OAuth installation, each integration *must* be configured by a different user, who has Admin permissions in both Buildkite and GitHub
+You can set up multiple GitHub Enterprise integrations with your Buildkite organization. However, due to the OAuth installation requirements, each integration must be configured by a unique user. Each user must possess admin permissions in both Buildkite and GitHub.
 
 ## Using one repository in multiple pipelines and organizations
 
