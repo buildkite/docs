@@ -96,6 +96,9 @@ Yes, team maintainers can select whether a user is 'required' to use SSO or whet
 ### Do you support JIT provisioning?
 Yes, we do.
 
+### What **is** JIT provisioning?
+Just In Time (JIT) provisioning is a method of creating accounts at the point in which they are needed; you can give a user access to Buildkite in your SSO provider, but their account won't be created (and thus they won't use a "seat") until it's required, which is assumed to be their first login attempt.
+
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
 
