@@ -32,6 +32,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>organizationMemberDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can delete the user from the organization</p></td></tr><tr><td><h3 class="is-small has-pills"><code>organizationMemberUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can update the organization's members role information</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>organizationMemberDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can delete the user from the organization</p></td></tr><tr><td><h3 class="is-small has-pills"><code>organizationMemberUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can update the organization's members role information</p></td></tr>
   </tbody>
 </table>

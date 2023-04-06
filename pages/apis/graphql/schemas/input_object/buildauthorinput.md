@@ -34,6 +34,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>name</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case pill--medium">required</span></p><p>The name for the build author</p></td></tr><tr><td><p><strong><code>email</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case pill--medium">required</span></p><p>The email for the build author</p></td></tr>
+    <tr><td><p><strong><code>name</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The name for the build author</p></td></tr><tr><td><p><strong><code>email</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The email for the build author</p></td></tr>
   </tbody>
 </table>
