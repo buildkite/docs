@@ -20,7 +20,7 @@ module RenderHelpers
 
       if name = type["name"]
         <<~HTML
-          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{nullable_symbol}#{name}</code></a>
+          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{name}#{nullable_symbol}</code></a>
         HTML
       else
         kind
