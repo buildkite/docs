@@ -94,7 +94,7 @@ To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graph
 Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. You can find this setting in the [organization's user settings](https://buildkite.com/organizations/~/users).
 
 ### Do you support JIT provisioning?
-Yes, we do.
+Yes, we do. Just-in-time user provisioning (JIT provisioning) creates accounts only when needed. You can grant a user access to Buildkite through your SSO provider, but their account won't be created until it's required—typically upon their first login attempt. For billing purposes, the user doesn't exist until their account is created.
 
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.
