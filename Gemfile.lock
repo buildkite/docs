@@ -72,7 +72,6 @@ GEM
     loofah (2.19.1)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
-    matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.0)
     mini_portile2 (2.8.1)
@@ -183,7 +182,6 @@ DEPENDENCIES
   graphql-client
   listen
   lograge
-  matrix
   pry
   puma
   railties (~> 6.0)
@@ -198,7 +196,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.1.4p223
+   ruby 3.0.5p211
 
 BUNDLED WITH
    2.4.7
