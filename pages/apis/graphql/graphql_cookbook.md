@@ -205,6 +205,44 @@ query AgentJobs {
 }
 ```
 
+### Get the job run time per build
+
+To get the job run time of each job in a build, you can use the following query.
+
+```
+query GetJobRunTimeByBuild{
+  build(slug: "organiation-slug/pipeline-slug/build-number") {
+    jobs(first: 1) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            startedAt
+            finishedAt
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Get the total build run time
+
+To get total run time for a build, you can use the following query.
+
+```
+query GetTotalBuildRunTime{
+  build(slug: "organization-slug/pipeline-slug/build-number") {
+    pipeline {
+      name
+    }
+    url
+    startedAt
+    finishedAt
+  }
+}
+```
+
 ## Get pipeline metrics
 
 The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
