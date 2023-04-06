@@ -32,6 +32,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>yaml</code><a href="/docs/apis/graphql/schemas/scalar/yaml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR YAML"><code>YAML</code></a></h3><p>A YAML representation of the pipeline steps</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>yaml</code><a href="/docs/apis/graphql/schemas/scalar/yaml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR YAML"><code>YAML!</code></a></h3><p>A YAML representation of the pipeline steps</p></td></tr>
   </tbody>
 </table>

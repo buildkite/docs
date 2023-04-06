@@ -33,6 +33,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>xml</code></strong><a href="/docs/apis/graphql/schemas/scalar/xml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR XML"><code>XML</code></a><span class="pill pill--required pill--normal-case pill--medium">required</span></p></td></tr><tr><td><p><strong><code>url</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a><span class="pill pill--required pill--normal-case pill--medium">required</span></p></td></tr>
+    <tr><td><p><strong><code>xml</code></strong><a href="/docs/apis/graphql/schemas/scalar/xml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR XML"><code>XML!</code></a></p></td></tr><tr><td><p><strong><code>url</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></p></td></tr>
   </tbody>
 </table>

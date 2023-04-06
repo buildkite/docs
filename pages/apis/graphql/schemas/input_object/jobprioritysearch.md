@@ -34,6 +34,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>number</code></strong><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a><span class="pill pill--required pill--normal-case pill--medium">required</span></p><p>The priority number to search</p></td></tr>
+    <tr><td><p><strong><code>number</code></strong><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></p><p>The priority number to search</p></td></tr>
   </tbody>
 </table>

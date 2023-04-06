@@ -1,0 +1,2 @@
+# Suppress generated GraphQL files in diffs
+pages/apis/graphql/schemas/** linguist-generated
