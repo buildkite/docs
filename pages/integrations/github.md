@@ -80,6 +80,9 @@ Optionally, select one or more of the following:
 
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
+>🚧
+> When a commit is pushed to a branch which already has an one pull request then only build for the code push will happen and associate pull request related information to that build instead of running two builds one for code push and one for pull request.
+
 ## Running builds on git tags
 
 Builds are only run for tags when a [`push` event is triggered](https://docs.github.com/en/developers/webhooks-and-events/webhook-events-and-payloads#push). To enable builds for `push` events for git tags, edit the _GitHub settings_ for your Buildkite pipeline, and choose the _Build Tags_ checkbox.
