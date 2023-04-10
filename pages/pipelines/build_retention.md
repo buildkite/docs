@@ -62,10 +62,7 @@ up to the maximum build retention period your plan offers.
 > 📘 Enterprise feature
 > Build export is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
-If you require to keep builds longer than your [Buildkite plan](https://buildkite.com/pricing)
-allows you can setup build export using your private Amazon S3 bucket. Buildkite will export json
-representations of your builds to your private Amazon S3 bucket as they are removed per the build
-retention period for your [Buildkite plan](https://buildkite.com/pricing).
+If you need to retain build data beyond the retention period in your [Buildkite plan](https://buildkite.com/pricing), you can have Buildkite export the data to a private Amazon S3 bucket. As build data is removed, Buildkite exports JSON representations of the builds to the Amazon S3 bucket you provide.
 
 Select organization settings
 
