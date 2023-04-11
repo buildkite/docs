@@ -84,6 +84,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+>🚧 
+> Concurrency gates does not support if there are `input` or `block` step inside the gates.
+
 ### Controlling command order
 
 By default, steps that belong to the same concurrency group are run in the order that they are added to the pipeline.
