@@ -289,8 +289,9 @@ Conditions on retries can be specified. For example, it's possible to set steps 
     command: "deploy.sh"
     branches: "main"
     retry:
-      manual: false
-      reason: "Deploys shouldn't be retried"
+      manual: 
+        allowed: false
+        reason: "Deploys shouldn't be retried"
 ```
 {: codeblock-file="pipeline.yml"}
 
