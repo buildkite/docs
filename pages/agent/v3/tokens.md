@@ -14,6 +14,7 @@ The token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start#star
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
 ## Creating tokens
+Note: There is a grace period of 10 minutes after Agent Token is created. During this period,  even if the page is reloaded the Token will still be visible. 
 
 New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
 
