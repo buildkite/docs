@@ -43,6 +43,7 @@ To run the same query using [cURL](https://curl.haxx.se), replace `xxxxxxx` with
 ```sh
 $ curl 'https://graphql.buildkite.com/v1' \
        -H 'Authorization: Bearer xxxxxxx' \
+       -H "Content-Type: application/json" \
        -d '{
          "query": "query { viewer { user { name } } }"
        }'

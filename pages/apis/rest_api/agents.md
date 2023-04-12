@@ -147,6 +147,7 @@ Instruct an agent to stop accepting new build jobs and shut itself down.
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}/stop" \
+  -H "Content-Type: application/json" \
   -d '{
     "force": true
   }'

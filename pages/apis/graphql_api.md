@@ -41,6 +41,7 @@ For example, the following `curl` command returns the `name` property of the cur
 ```bash
 curl https://graphql.buildkite.com/v1 \
   -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
   -d '{
     "query": "{ viewer { user { name } } }",
     "variables": "{ }"
