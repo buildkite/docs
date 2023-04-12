@@ -31,10 +31,10 @@ then your feed URL would be
 
 If you want to scope the builds to a particular branch, add `&branch=[branch-name]` to the end of the URL. This works for organization and pipeline feeds.
 
-For example, the following URL will provide build status updates for only the `master` branch of a pipeline:
+For example, the following URL will provide build status updates for only the `main` branch of a pipeline:
 
 ```
-https://cc.buildkite.com/[organization-slug]/[pipeline-slug].xml?branch=master&access_token=xxx
+https://cc.buildkite.com/[organization-slug]/[pipeline-slug].xml?branch=main&access_token=xxx
 ```
 
 ## CCMenu for OS X

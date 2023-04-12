@@ -7,7 +7,7 @@ You can find your pipeline's status badge on the **Pipeline Settings** page.
 
 ## Scoping to a branch
 
-By default the build status badge will show the last build's status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `master` branch you would add: `?branch=master` to the URL.
+By default the build status badge will show the last build's status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `main` branch you would add: `?branch=main` to the URL.
 
 ## Scoping to a step
 
@@ -110,7 +110,7 @@ You can use the following URLs for testing your theme:
 You can get the JSON value of the status badge by specifying `.json` in the badge URL instead of `.svg`, including [branch scoping](#scoping-to-a-branch) and [step scoping](#scoping-to-a-step). For example:
 
 ```shell
-$ curl https://badge.buildkite.com/3826789cf8890b426057e6fe1c4e683bdf04fa24d498885489.json?branch=master
+$ curl https://badge.buildkite.com/3826789cf8890b426057e6fe1c4e683bdf04fa24d498885489.json?branch=main
 {"status": "passing"}
 ```
 

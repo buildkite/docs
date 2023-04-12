@@ -102,7 +102,7 @@ which returns:
             {
               "node": {
                 "number": 136,
-                "branch": "master",
+                "branch": "main",
                 "message": "Merge pull request #796 from buildkite/docs\n\nImprove API docs"
               }
             }

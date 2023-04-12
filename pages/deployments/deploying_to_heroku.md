@@ -50,10 +50,10 @@ steps:
       - foreman run rake db:setup spec
       
   - label: "\:heroku\: Deploy"
-    branches: "master"
+    branches: "main"
     command:
       - "heroku git:remote --app my-app"
-      - "git push heroku \"$$BUILDKITE_COMMIT\":master"
+      - "git push heroku \"$$BUILDKITE_COMMIT\":main"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -61,7 +61,7 @@ What's happening here? `heroku git:remote` ensures the Git `remote` is always po
 
 ## Running a build
 
-Once you've saved the pipeline settings the final step is to push a commit to the `master` branch and watch it automatically deploy to Heroku:
+Once you've saved the pipeline settings the final step is to push a commit to the `main` branch and watch it automatically deploy to Heroku:
 
 <%= image "deploy-success.png", size: '726x691', alt: 'Buildkite Heroku deploy success' %>
 
@@ -74,7 +74,7 @@ steps:
   - label: "\:heroku\: Deploy"
     commands:
       - "heroku git:remote --app my-app"
-      - "git push heroku \"$$BUILDKITE_COMMIT\":master"
+      - "git push heroku \"$$BUILDKITE_COMMIT\":main"
 
   - wait
 

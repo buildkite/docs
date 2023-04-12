@@ -72,7 +72,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "blocked": false,
     "message": "Bumping to version 0.2-beta.6",
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-    "branch": "master",
+    "branch": "main",
     "env": { },
     "source": "webhook",
     "creator": {
@@ -129,7 +129,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "slug": "great-pipeline",
       "repository": "git@github.com:my-great-org/my-pipeline",
       "branch_configuration": null,
-      "default_branch": "master",
+      "default_branch": "main",
       "provider": {
         "id": "github",
         "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -189,7 +189,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "master",
+  "branch": "main",
   "env": { },
   "source": "webhook",
   "creator": {
@@ -301,7 +301,7 @@ Success response: `200 OK`
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
   -d '{
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-    "branch": "master",
+    "branch": "main",
     "message": "Testing all the things \:rocket\:",
     "author": {
       "name": "Keith Pitt",
@@ -328,7 +328,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "blocked": false,
   "message": "Testing all the things \:rocket\:",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "master",
+  "branch": "main",
   "env": { },
   "source": "webhook",
   "creator": {
@@ -423,7 +423,7 @@ Required [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr><th><code>commit</code></th><td>Ref, SHA or tag to be built.<br><em>Example:</em> <code>"HEAD"</code><br><em>Note:</em>Before running builds on tags, make sure your agent is <a href="/docs/integrations/github#running-builds-on-git-tags">fetching git tags</a> .
 </td></tr>
-  <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"master"</code></td></tr>
+  <tr><th><code>branch</code></th><td>Branch the commit belongs to. This allows you to take advantage of your pipeline and step-level branch filtering rules.<br><em>Example:</em> <code>"main"</code></td></tr>
 </tbody>
 </table>
 
@@ -437,7 +437,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>ignore_pipeline_branch_filters</code></th><td>Run the build regardless of the pipeline's branch filtering rules. Step branch filtering rules will still apply.<br><em>Default value:</em> <code>false</code>.</td></tr>
   <tr><th><code>message</code></th><td>Message for the build.<br><em>Example:</em> <code>"Testing all the things \:rocket\:"</code></td></tr>
   <tr><th><code>meta_data</code></th><td>A hash of meta-data to make available to the build.<br><em>Default value:</em> <code>{}</code>.</td></tr>
-  <tr><th><code>pull_request_base_branch</code></th><td>For a pull request build, the base branch of the pull request.<br><em>Example:</em> <code>"master"</code></td></tr>
+  <tr><th><code>pull_request_base_branch</code></th><td>For a pull request build, the base branch of the pull request.<br><em>Example:</em> <code>"main"</code></td></tr>
   <tr><th><code>pull_request_id</code></th><td>For a pull request build, the pull request number.<br><em>Example:</em> <code>42</code></td></tr>
   <tr><th><code>pull_request_repository</code></th><td>For a pull request build, the git repository of the pull request.<br><em>Example:</em> <code>"git://github.com/my-org/my-repo.git"</code></td></tr>
   </tbody>
@@ -475,7 +475,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "master",
+  "branch": "main",
   "env": { },
   "source": "webhook",
   "creator": {
@@ -597,7 +597,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "master",
+  "branch": "main",
   "env": { },
   "source": "api",
   "creator": {

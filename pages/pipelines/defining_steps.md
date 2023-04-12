@@ -153,7 +153,7 @@ Each job in a build also has a footer that displays exit status information. It 
 
 ## Example pipeline
 
-Here's a more complete example based on [the Buildkite agent's build pipeline](https://github.com/buildkite/agent/blob/master/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
+Here's a more complete example based on [the Buildkite agent's build pipeline](https://github.com/buildkite/agent/blob/main/.buildkite/pipeline.yml). It contains script commands, wait steps, block steps, and automatic artifact uploading:
 
 ```yaml
 steps:
@@ -175,23 +175,23 @@ steps:
   - label: "\:debian\: Publish"
     command: scripts/build-debian-packages.sh
     artifact_paths: "deb/**/*"
-    branches: "master"
+    branches: "main"
     agents:
       queue: "deploy"
 
   - block: "\:shipit\: Release"
-    branches: "master"
+    branches: "main"
 
   - label: "\:github\: Release"
     command: scripts/build-github-release.sh
     artifact_paths: "releases/**/*"
-    branches: "master"
+    branches: "main"
 
   - wait
 
   - label: "\:whale\: Update images"
     command: scripts/release-docker.sh
-    branches: "master"
+    branches: "main"
     agents:
       queue: "deploy"
 ```

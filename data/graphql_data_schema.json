@@ -22161,7 +22161,7 @@
                 "name": "String",
                 "ofType": null
               },
-              "defaultValue": "\"master\"",
+              "defaultValue": "\"main\"",
               "isDeprecated": false,
               "deprecationReason": null
             },

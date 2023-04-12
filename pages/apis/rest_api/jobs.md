@@ -166,7 +166,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "BUILDKITE": "true",
     "BUILDKITE_TAG": "",
     "BUILDKITE_REPO": "git@github.com:my-great-org/my-repo.git",
-    "BUILDKITE_BRANCH": "master",
+    "BUILDKITE_BRANCH": "main",
     "BUILDKITE_COMMIT": "a65572555600c07c7ee79a2bd909220e1ca5485b",
     "BUILDKITE_JOB_ID": "bde076a8-bc2c-4fda-9652-10220a56d638",
     "BUILDKITE_COMMAND": "buildkite-agent pipeline upload",

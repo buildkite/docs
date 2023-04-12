@@ -6,8 +6,8 @@
     </th>
     <td>
       <span>Filters the results by the given branch or branches.</span>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=master</code> returns all builds on the <code>master</code> branch</p>
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch[]=master&branch[]=testing</code> returns all builds on <code>master</code> and <code>testing</code> branches</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch=main</code> returns all builds on the <code>main</code> branch</p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>?branch[]=main&branch[]=testing</code> returns all builds on <code>main</code> and <code>testing</code> branches</p>
     </td>
   </tr>
   <tr>

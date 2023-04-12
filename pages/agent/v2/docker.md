@@ -29,4 +29,4 @@ By default Docker [starts containers on restart](https://docs.docker.com/article
 
 ## SSH keys, configuration and customization
 
-See the [GitHub repository](https://github.com/buildkite/docker-buildkite-agent) for instructions on how to customize the base image. Alternatively you can create your own Docker image using our standard installer packages (see our [Ubuntu Dockerfile](https://github.com/buildkite/agent/blob/master/packaging/docker/ubuntu-linux/Dockerfile) for an example).
+See the [GitHub repository](https://github.com/buildkite/docker-buildkite-agent) for instructions on how to customize the base image. Alternatively you can create your own Docker image using our standard installer packages (see our [Ubuntu Dockerfile](https://github.com/buildkite/agent/blob/main/packaging/docker/ubuntu-22.04/Dockerfile) for an example).

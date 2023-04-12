@@ -20,7 +20,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
     "slug": "my-pipeline",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
     "branch_configuration": null,
-    "default_branch": "master",
+    "default_branch": "main",
     "provider": {
       "id": "github",
       "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -62,7 +62,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         "name": "Test :white_check_mark:",
         "command": "script/test.sh",
         "artifact_paths": "results/*",
-        "branch_configuration": "master feature/*",
+        "branch_configuration": "main feature/*",
         "env": { },
         "timeout_in_minutes": null,
         "agent_query_rules": [ ]
@@ -95,7 +95,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "branch_configuration": null,
-  "default_branch": "master",
+  "default_branch": "main",
   "provider": {
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -137,7 +137,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
       "name": "Test :white_check_mark:",
       "command": "script/test.sh",
       "artifact_paths": "results/*",
-      "branch_configuration": "master feature/*",
+      "branch_configuration": "main feature/*",
       "env": { },
       "timeout_in_minutes": null,
       "agent_query_rules": [ ]
@@ -199,7 +199,7 @@ The response contains information about your new pipeline:
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "cluster_id": null,
   "branch_configuration": null,
-  "default_branch": "master",
+  "default_branch": "main",
   "skip_queued_branch_builds": false,
   "skip_queued_branch_builds_filter": null,
   "cancel_running_branch_builds": false,
@@ -297,7 +297,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>branch_configuration</code></th>
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
-      <p><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p>
+      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
@@ -318,7 +318,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
-      <p><em>Example:</em> <code>"master"</code></p>
+      <p><em>Example:</em> <code>"main"</code></p>
     </td>
   </tr>
   <tr>
@@ -346,7 +346,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
-      <p><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p>
+      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
@@ -423,7 +423,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
         "type": "script",
         "name": "Release \:rocket\:",
         "command": "script/release.sh",
-        "branch_configuration": "master",
+        "branch_configuration": "main",
         "env": {
           "AMAZON_S3_BUCKET_NAME": "my-pipeline-releases"
         },
@@ -435,7 +435,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
         "label": "Deploy \:ship\:",
         "trigger_project_slug": "deploy",
         "trigger_commit": "HEAD",
-        "trigger_branch": "master",
+        "trigger_branch": "main",
         "trigger_async": true
       }
     ]
@@ -455,7 +455,7 @@ The response contains information about your new pipeline:
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/my-pipeline.git",
   "branch_configuration": null,
-  "default_branch": "master"
+  "default_branch": "main"
   "provider": {
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -510,7 +510,7 @@ The response contains information about your new pipeline:
       "name": "Release \:rocket\:",
       "command": "script/release.sh",
       "artifact_paths": null,
-      "branch_configuration": "master",
+      "branch_configuration": "main",
       "env": {
         "AMAZON_S3_BUCKET_NAME": "my-pipeline-releases"
       },
@@ -527,7 +527,7 @@ The response contains information about your new pipeline:
       "pipeline": "deploy",
       "build": {
         "message": null,
-        "branch": "master",
+        "branch": "main",
         "commit": "HEAD",
         "env": null
       },
@@ -581,7 +581,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>branch_configuration</code></th>
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.</p>
-      <p><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p>
+      <p><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
@@ -602,7 +602,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>default_branch</code></th>
     <td>
       <p>The name of the branch to prefill when new builds are created or triggered in Buildkite. It is also used to filter the builds and metrics shown on the Pipelines page.</p>
-      <p><em>Example:</em> <code>"master"</code></p>
+      <p><em>Example:</em> <code>"main"</code></p>
     </td>
   </tr>
   <tr>
@@ -637,7 +637,7 @@ Optional [request body properties](/docs/api#request-body-properties):
     <th><code>skip_queued_branch_builds_filter</code></th>
     <td>
       <p>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to.</p>
-      <p><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p>
+      <p><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p>
     </td>
   </tr>
   <tr>
@@ -704,8 +704,8 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   "description": null,
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/new-repo.git",
-  "branch_configuration": "master",
-  "default_branch": "master"
+  "branch_configuration": "main",
+  "default_branch": "main"
   "provider": {
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -761,7 +761,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 <tbody>
   <tr>
     <th><code>branch_configuration</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"master feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/branch-configuration#pipeline-level-branch-filtering">branch filter pattern</a> to limit which pushed branches trigger builds on this pipeline.<p class="Docs__api-param-eg"><em>Example:</em> <code>"main feature/*"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>cancel_running_branch_builds</code></th>
@@ -774,7 +774,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>default_branch</code></th>
     <td>The name of the branch to prefill when new builds are created or triggered in Buildkite.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"master"</code></p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"main"</code></p>
     </td>
   </tr>
   <tr>
@@ -807,7 +807,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>skip_queued_branch_builds_filter</code></th>
-    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!master"</code><br><em>Default:</em> <code>null</code></p></td>
+    <td>A <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch filter pattern</a> to limit which branches intermediate build skipping applies to. <p class="Docs__api-param-eg"><em>Example:</em> <code>"!main"</code><br><em>Default:</em> <code>null</code></p></td>
   </tr>
   <tr>
     <th><code>visibility</code></th>
@@ -849,8 +849,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{s
   "description": null,
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/new-repo.git",
-  "branch_configuration": "master",
-  "default_branch": "master"
+  "branch_configuration": "main",
+  "default_branch": "main"
   "provider": {
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -931,8 +931,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{s
   "description": null,
   "slug": "my-pipeline",
   "repository": "git@github.com:acme-inc/new-repo.git",
-  "branch_configuration": "master",
-  "default_branch": "master"
+  "branch_configuration": "main",
+  "default_branch": "main"
   "provider": {
     "id": "github",
     "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
@@ -1045,7 +1045,7 @@ Properties available for all providers:
     <th><code>filter_condition</code></th>
     <td>
       The conditions under which this pipeline will trigger a build. See the <a href="/docs/pipelines/conditionals">Using conditionals</a> guide for more information.
-      <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /master/"</code></p>
+      <p class="Docs__api-param-eg"><em>Example:</em> <code>"build.pull_request.base_branch =~ /main/"</code></p>
     </td>
   </tr>
 </tbody>
@@ -1142,7 +1142,7 @@ Additional properties available for GitHub:
     <tr>
       <th><code>prefix_pull_request_fork_branch_names</code></th>
       <td>
-        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>master</code> branch from <code>some-user</code> will become <code>some-user:master</code>.
+        Prefix branch names for third-party fork builds to ensure they don't trigger branch conditions. For example, the <code>main</code> branch from <code>some-user</code> will become <code>some-user:main</code>.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>
