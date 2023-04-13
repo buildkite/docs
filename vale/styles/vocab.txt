@@ -36,6 +36,7 @@ JWTs
 Kuzco
 Memcache
 minitest
+misconfiguration
 Namespace
 Namespaced
 Namespaces
