@@ -1,7 +1,7 @@
-# Configuring build export
+# Export build data
 
 Each [Buildkite plan](https://buildkite.com/pricing) has a maximum build retention
-period, after which your oldest builds will be automatically deleted.
+period, after which your oldest builds are automatically deleted.
 
 > 📘 Enterprise feature
 > Build export is only available on an [Enterprise](https://buildkite.com/pricing) plan.
