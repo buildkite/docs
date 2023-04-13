@@ -137,11 +137,36 @@ Run the migrated pipelines on Buildkite to verify that they are working correctl
 
 ## Provision agent infrastructure
 
-...
-
-Best practice.......
-
 Ensure that the agents have the necessary dependencies, such as programming languages, build tools, and libraries, to run your pipelines.
+
+Will be similar to your setup with Jenkins except that you don't also have to run a node for the controller.
+
+The agent infrastructure is where your builds, tests, and deployments run. In Buildkite, agents run on your infrastructure, providing flexibility and control over the environment and resources. 
+
+Evaluate your current Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure. This assessment will help you plan the right resources and ensure optimal performance for your CI/CD pipelines.
+
+Identify platform dependencies: Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents with the required platforms and dependencies for your pipelines.
+
+Examine network configurations: Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
+
+Choose the infrastructure type: Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
+
+Determine agent scaling: Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
+
+Plan for build isolation and security: Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
+
+Install Buildkite agent software: Follow the Buildkite agent installation guide for your chosen infrastructure type. The agent software is available for various platforms, including Linux, macOS, and Windows.
+
+Configure agent settings: Configure the Buildkite agent settings, including the agent token, name, and tags. Use agent tags to describe the agent's capabilities (e.g., operating system, tools, or environment) to target specific agents in your pipeline steps.
+
+Migrate platform dependencies: Install the necessary platforms, tools, and dependencies identified in step 1.2 on your Buildkite agents to ensure compatibility with your pipelines.
+
+Configure network settings: Apply the network configurations from your existing Jenkins nodes, such as firewall rules, proxy settings, and access to external resources, to your Buildkite agent infrastructure.
+
+Monitor agent performance: Keep an eye on your Buildkite agent infrastructure's performance, resource usage, and build times to identify any bottlenecks or resource constraints.
+
+Optimize resource allocation: Adjust the number of Buildkite agents or their resource allocation based on your monitoring data to optimize build times and resource usage.
+
 
 
 ## Intregrate your tools
@@ -151,6 +176,25 @@ Your workflow.
 
 Configure your new Buildkite pipelines to work with your existing development workflow, such as triggering builds on pull requests or commits. Set up notifications to inform your team about build status, test results, and deployments.
 
+Integrating workflow tools and notifications with your CI/CD pipelines helps streamline processes and keeps your team informed about build and deployment status. Buildkite supports various integrations with tools like chat applications, issue trackers, and monitoring systems. In this document, we will provide advice and best practices for integrating your normal workflow tools and notifications with Buildkite.
+Identify Your Workflow Tools and Notification Requirements:
+1.1. List essential tools: Identify the workflow tools and notification systems that you currently use or need to integrate with your CI/CD pipelines. Common tools include chat applications (e.g., Slack, Microsoft Teams), issue trackers (e.g., Jira, GitHub Issues), and monitoring systems (e.g., Datadog, New Relic).
+1.2. Define notification requirements: Determine the types of notifications your team needs, such as build status, deployment updates, test results, and alerts for critical issues. This information will help you configure the appropriate integrations and notification settings.
+Choose the Right Integration Approach:
+2.1. Use Buildkite plugins: Buildkite provides several plugins to integrate with popular workflow tools and notification systems. Check the Buildkite plugins directory to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions.
+2.2. Leverage webhooks and APIs: If no Buildkite plugin is available for your desired tool, consider using webhooks or APIs to create custom integrations. Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools.
+2.3. Utilize third-party services: Some third-party services, like Zapier, provide integration platforms that can connect Buildkite with various workflow tools and notification systems. Explore these services to see if they can help you achieve the desired integrations without writing custom scripts or managing complex configurations.
+Configure Notifications:
+3.1. Set up notification channels: Create dedicated notification channels in your chat applications, such as a Slack channel or a Microsoft Teams group, to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels.
+3.2. Customize notification content: Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues.
+3.3. Configure notification triggers: Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention.
+Monitor and Optimize Your Integrations:
+4.1. Gather feedback: Collect feedback from your team on the effectiveness and usefulness of your integrations and notifications. Use this feedback to adjust your notification settings, content, and triggers to better serve your team's needs.
+4.2. Stay up to date: Keep your integrations up to date by monitoring the release notes and updates for Buildkite plugins and the workflow tools you use. Updating your integrations can help ensure compatibility, fix bugs, and introduce new features.
+
+Conclusion: Integrating your normal workflow tools and notifications with Buildkite requires identifying your needs, choosing the right integration approach, and configuring your notifications to best serve your team. By following these best practices and advice, you can effectively integrate your workflow tools with Buildkite and streamline your CI/CD processes
+
+
 ## Share with your team
 
 Train your team:
@@ -158,10 +202,46 @@ Educate your team about the changes in the CI/CD process, the new Buildkite inte
 
 Continuously monitor your Buildkite pipelines and identify areas for improvement. Optimize your pipelines to reduce build times and resource usage, and maintain the quality and stability of your software.
 
+Prepare Documentation and Resources:
+1.1. Internal documentation:
+Create internal documentation that outlines your organization's CI/CD processes, Buildkite-specific guidelines, and best practices. Include information on your Buildkite agent infrastructure, pipeline configurations, and integration with workflow tools and notifications. This documentation will serve as a reference for your team members as they get started with Buildkite.
+
+1.2. Gather external resources:
+Compile a list of helpful external resources, such as Buildkite's official documentation, blog articles, and community forums. These resources can help your team members familiarize themselves with Buildkite's features and capabilities.
+
+Conduct Training and Workshops:
+2.1. Introductory training:
+Organize an introductory training session to familiarize your team with Buildkite's features, pipeline configuration, and integrations. Use this opportunity to showcase the benefits of Buildkite compared to your previous CI/CD solution and explain how it aligns with your organization's goals.
+
+2.2. Hands-on workshops:
+Host hands-on workshops where team members can practice creating and configuring Buildkite pipelines, using plugins, and integrating with workflow tools. These workshops will help your team gain practical experience and confidence in using Buildkite.
+
+Assign Buildkite Champions:
+3.1. Identify champions:
+Select one or more team members who are knowledgeable about Buildkite and can serve as "champions" for the platform. These champions will help answer questions, provide guidance, and support their colleagues during the onboarding process.
+
+3.2. Support and recognition:
+Provide your Buildkite champions with additional resources, training, and recognition for their efforts. Encourage them to stay up to date with Buildkite's latest features and best practices, and share their knowledge with the rest of the team.
+
+Encourage Collaboration and Knowledge Sharing:
+4.1. Share success stories:
+Encourage team members to share their experiences and success stories with Buildkite. This can help demonstrate the value of the platform and motivate others to fully utilize its features.
+
+4.2. Organize knowledge-sharing sessions:
+Schedule regular knowledge-sharing sessions where team members can discuss their experiences, share tips and tricks, and learn from each other. This can help foster a culture of collaboration and continuous improvement.
+
+Monitor Progress and Gather Feedback:
+5.1. Track onboarding progress:
+Monitor your team's progress with Buildkite by tracking metrics such as pipeline adoption, build times, and the number of successful integrations. Use this data to identify areas where additional support or training may be needed.
+
+5.2. Collect feedback:
+Gather feedback from your team members on their experiences with Buildkite, including any challenges they have faced and suggestions for improvement. Use this feedback to refine your onboarding process and address any concerns.
+
+Conclusion:
+Sharing Buildkite with your team and ensuring successful onboarding involves preparing documentation and resources, conducting training and workshops, assigning champions, encouraging collaboration, and monitoring progress. By following these steps, you can help your team onboard smoothly, embrace Buildkite, and fully realize the benefits of your CI/CD pipelines.
 
 
-
-
+## Next steps
 
 That's it! 🎉
 
@@ -169,3 +249,7 @@ Migrating from Jenkins to Buildkite is a straightforward process that can provid
 
 
 By following these steps, you can ensure a smooth migration of your CI/CD pipelines from Jenkins to Buildkite. Remember that it may take some time to adapt to the new platform, and be prepared to address any issues or challenges that arise during the migration process.
+
+To keep learning about Buildkite, see:
+
+- ...
