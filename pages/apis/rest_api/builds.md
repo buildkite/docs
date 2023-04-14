@@ -120,6 +120,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "finished_at": "2015-05-09T21:05:59.874Z",
     "meta_data": { },
     "pull_request": { },
+    "rebuilt_from": null,
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
       "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -182,9 +183,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 {
   "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
   "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-  "number": 1,
+  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
+  "number": 2,
   "state": "passed",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
@@ -208,9 +209,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "step_key": "package",
       "agent_query_rules": ["*"],
       "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
       "command": "scripts/build.sh",
       "soft_failed": false,
       "exit_status": 0,
@@ -251,6 +252,11 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "finished_at": "2015-05-09T21:05:59.874Z",
   "meta_data": { },
   "pull_request": { },
+  "rebuilt_from": {
+    "id": "812135b3-eee7-408c-9f63-760538b96bd5",
+    "number": 1,
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1"
+  },
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
