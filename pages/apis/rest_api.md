@@ -57,7 +57,7 @@ To authenticate using a header token, set the <code>Authorization</code> HTTP he
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 ```
 
-To authenticate using query paramters add `access_token=$TOKEN` to your query URL. For example:
+To authenticate using query parameters add `access_token=$TOKEN` to your query URL. For example:
 
 ```bash
 curl "https://api.buildkite.com/v2/user?access_token=$TOKEN"
