@@ -31,6 +31,10 @@ module NavData
         "path" => "apis/graphql-api"
       },
       {
+        "name" => "Cookbook",
+        "path" => "apis/graphql/graphql-cookbook"
+      },
+      {
         "name" => "Console and CLI tutorial",
         "path" => "apis/graphql/graphql-tutorial"
       },
@@ -71,10 +75,6 @@ module NavData
             "children" => convert_to_nav_items(type_sets["union_types"])
           }
         ]
-      },
-      {
-        "name" => "Cookbook",
-        "path" => "apis/graphql/graphql-cookbook"
       }
     ]
 

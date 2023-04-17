@@ -294,6 +294,10 @@ RSpec.describe NavData do
                 "path" => "apis/graphql-api"
               },
               {
+                "name" => "Cookbook",
+                "path" => "apis/graphql/graphql-cookbook"
+              },
+              {
                 "name" => "Console and CLI tutorial",
                 "path" => "apis/graphql/graphql-tutorial"
               },
@@ -320,12 +324,12 @@ RSpec.describe NavData do
                       {
                         "name" => "agentStop",
                         "path" => "apis/graphql/schemas/mutation/agentstop"
+                      ]
                       },
                       {
                         "name" => "agentTokenCreate",
                         "path" => "apis/graphql/schemas/mutation/agenttokencreate"
                       }
-                    ]
                   },
                   {
                     "name" => "Objects",
@@ -406,10 +410,6 @@ RSpec.describe NavData do
                     ]
                   }
                 ]
-              },
-              {
-                "name" => "Cookbook",
-                "path" => "apis/graphql/graphql-cookbook"
               }
             ]
           },
