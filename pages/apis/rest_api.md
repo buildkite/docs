@@ -49,10 +49,18 @@ You can authenticate with the Buildkite API using access tokens.
 
 API access tokens allow to call the API without using your username and password. They can be created on your <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API access tokens</a> page, limited to individual organizations and permissions, and revoked at any time from the web interface [or the REST API](/docs/apis/rest-api/access-token#revoke-the-current-token).
 
-To authenticate using a token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
+Authentication can be done with both HTTP headers and as a query parameter in a HTTP request.
+
+To authenticate using a header token, set the <code>Authorization</code> HTTP header to the word <code>Bearer</code>, followed by a space, followed by the access token. For example:
 
 ```bash
 curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
+```
+
+To authenticate using query paramters add `access_token=$TOKEN` to your query URL. For example:
+
+```bash
+curl "https://api.buildkite.com/v2/user?access_token=$TOKEN"
 ```
 
 >🚧 Basic authentication
