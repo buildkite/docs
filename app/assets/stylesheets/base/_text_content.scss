@@ -158,6 +158,7 @@ h6 {
   code {
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
+    font-size: $font-size-code;
 
     a {
       text-decoration: none;
@@ -166,10 +167,6 @@ h6 {
         text-decoration: underline;
       }
     }
-  }
-  pre code {
-    font-size: #{(16/18)}em;
-    line-height: map-get($line-heights, "default");
   }
 
   h1,
@@ -202,20 +199,30 @@ h6 {
   strong {
     font-weight: 600;
   }
+
+  .highlight {
+    font-size: 1rem;
+  }
+
   pre {
     word-break: break-all;
     word-wrap: break-word;
     border: 1px solid #ddd;
     padding: 0.8em 1em;
     border-radius: 5px;
-    font-size: #{(15/18)}rem;
     line-height: map-get($line-heights, "default");
     min-width: 0;
     white-space: pre-wrap;
+
     &.overflow-scroll {
       overflow: auto;
       word-break: normal;
       word-wrap: normal;
+    }
+
+    code {
+      font-size: $font-size-code;
+      line-height: map-get($line-heights, "default");
     }
   }
   iframe {
