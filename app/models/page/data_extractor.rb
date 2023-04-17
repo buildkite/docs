@@ -32,7 +32,7 @@ class Page::DataExtractor
           }
         end
 
-        if node.header_level === 3
+        if node.header_level === 3 && !sections.empty?
           sections.last[:subsections] << {
             header: header,
             id: "##{header.to_url}",

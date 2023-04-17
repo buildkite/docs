@@ -36,6 +36,18 @@ RSpec.describe Page::DataExtractor do
       })
     end
 
+    it "ignores h3s outside of sections" do
+      md = <<~MD
+        ### Meow
+
+        Sub section text
+      MD
+
+      expect(Page::DataExtractor.extract(md)).to include({
+        "sections" => []
+      })
+    end
+
     it "extracts sections from secondary headings" do
       md = <<~MD
         # Page title
