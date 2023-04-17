@@ -1,20 +1,11 @@
-<%
-  current_path = request.original_fullpath
-  nav_level = 0
-  use_nav = use_nav || "nav"
-  nav_data = get_nav_data(use_nav)
-%>
-
-<% if nav_data && !nav_data.empty? %>
-  <nav class="Nav">
-    <%=
-      render 'nav_children',
-      children: nav_data,
-      current_path: current_path ,
-      is_dropdown: nil,
-      nav_level: nav_level,
-      start_expanded: nil,
-      type: nil
-    %>
-  </nav>
-<% end %>
+<nav class="Nav">
+  <%=
+    render 'nav_children',
+    children: nav || base_nav,
+    current_path: request.original_fullpath,
+    is_dropdown: nil,
+    nav_level: 0,
+    start_expanded: nil,
+    type: nil
+  %>
+</nav>
