@@ -31,50 +31,44 @@ module NavData
         "path" => "apis/graphql-api"
       },
       {
-        "name" => "Cookbook",
-        "path" => "apis/graphql/graphql-cookbook"
-      },
-      {
         "name" => "Console and CLI tutorial",
         "path" => "apis/graphql/graphql-tutorial"
       },
       {
-        "name" => "Schema browser",
-        "start_expanded" => true,
-        "children" => [
-          {
-            "name" => "Queries",
-            "children" => convert_to_nav_items(type_sets["query_types"], "query")
-          },
-          {
-            "name" => "Mutations",
-            "children" => convert_to_nav_items(type_sets["mutation_types"], "mutation")
-          },
-          {
-            "name" => "Objects",
-            "children" => convert_to_nav_items(type_sets["object_types"])
-          },
-          {
-            "name" => "Scalars",
-            "children" => convert_to_nav_items(type_sets["scalar_types"])
-          },
-          {
-            "name" => "Interfaces",
-            "children" => convert_to_nav_items(type_sets["interface_types"])
-          },
-          {
-            "name" => "ENUMs",
-            "children" => convert_to_nav_items(type_sets["enum_types"])
-          },
-          {
-            "name" => "Input objects",
-            "children" => convert_to_nav_items(type_sets["input_object_types"])
-          },
-          {
-            "name" => "Unions",
-            "children" => convert_to_nav_items(type_sets["union_types"])
-          }
-        ]
+        "name" => "Cookbook",
+        "path" => "apis/graphql/graphql-cookbook"
+      },
+      {
+        "name" => "Queries",
+        "children" => convert_to_nav_items(type_sets["query_types"], "query")
+      },
+      {
+        "name" => "Mutations",
+        "children" => convert_to_nav_items(type_sets["mutation_types"], "mutation")
+      },
+      {
+        "name" => "Objects",
+        "children" => convert_to_nav_items(type_sets["object_types"])
+      },
+      {
+        "name" => "Scalars",
+        "children" => convert_to_nav_items(type_sets["scalar_types"])
+      },
+      {
+        "name" => "Interfaces",
+        "children" => convert_to_nav_items(type_sets["interface_types"])
+      },
+      {
+        "name" => "ENUMs",
+        "children" => convert_to_nav_items(type_sets["enum_types"])
+      },
+      {
+        "name" => "Input objects",
+        "children" => convert_to_nav_items(type_sets["input_object_types"])
+      },
+      {
+        "name" => "Unions",
+        "children" => convert_to_nav_items(type_sets["union_types"])
       }
     ]
 
