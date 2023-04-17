@@ -1,4 +1,4 @@
-# Elastic CI Stack for AWS for EC2 Mac
+# EC2 Mac setup for the Elastic CI Stack for AWS
 
 You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws). This template creates an Auto Scaling group, launch template, and host resource group for maintaining a pool of EC2 Mac instances that run the
 Buildkite agent. Using Buildkite agents, you can run pipelines and build

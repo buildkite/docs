@@ -1,4 +1,4 @@
-# AWS VPC design
+# VPC design for the Elastic CI Stack for AWS
 
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.

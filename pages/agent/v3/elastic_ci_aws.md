@@ -1,4 +1,4 @@
-# Elastic CI Stack for AWS
+# Linux and Windows setup for the Elastic CI Stack for AWS
 
 The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling [Buildkite agent](/docs/agent/v3) cluster. Use it to parallelize large test suites across hundreds of nodes, run tests and deployments for Linux or Windows based services and apps, or run AWS ops tasks.
 
