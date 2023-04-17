@@ -15,6 +15,12 @@
   @include margin($margin);
 }
 
+@mixin code-bg {
+  background-color: $gray-300;
+  border-radius: $border-rounded;
+  padding: 0.185em 0.375em;
+}
+
 h1 {
   @include heading(3);
 }
@@ -143,16 +149,53 @@ h6 {
     &:hover {
       color: map-get($color-aliases, "text-link-hover");
     }
+
+    &:has(code) {
+      text-decoration: none;
+    }
   }
 
   code {
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
   pre code {
     font-size: #{(16/18)}em;
     line-height: map-get($line-heights, "default");
   }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    &:not([class]) {
+      > code {
+        @include code-bg;
+      }
+    }
+  }
+
+  li,
+  dt,
+  td,
+  th {
+    > code {
+      @include code-bg;
+    }
+  }
+
   em {
     font-style: italic;
   }
@@ -177,16 +220,6 @@ h6 {
   }
   iframe {
     border: 1px solid #ddd;
-  }
-  li,
-  p,
-  dt,
-  td,
-  th,
-  a {
-    > code {
-      font-size: 0.875rem;
-    }
   }
   table {
     font-size: 0.875rem;
