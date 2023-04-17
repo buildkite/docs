@@ -1,6 +1,6 @@
 # GraphQL API cookbook
 
-This page provides examples for common API tasks. You can test out the Buildkite API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built in documentation under the _Docs_ panel.
+This page provides recipes for common API tasks. You can test out the Buildkite API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built in documentation under the _Docs_ panel.
 
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
