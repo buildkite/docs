@@ -57,7 +57,7 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 
 You can configure the SSO Session Duration to timeout after a predetermined time. When the specified duration elapses, the user will be signed out of the session.
 
-To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-default-sso-provider-session-duration) or complete
+To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-update-the-default-sso-provider-session-duration) or complete
 the following steps via the settings interface.
 
 First select the SSO Provider you would like to configure.
@@ -80,7 +80,7 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 
 Session IP address pinning prompts users to re-authenticate when their IP address changes. This prevents session hijacking by restricting authorized sessions to only originate from the IP address used to create the session. If any attempt is made to access Buildkite from a different IP address, the session is instantly revoked and the user must re-authenticate.
 
-To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
+To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
 
 1. Navigate to the [organization's SSO settings](https://buildkite.com/organizations/~/sso).
 1. In the _Configured SSO Providers_ section, select the provider.
