@@ -48,6 +48,10 @@ RSpec.describe Page::DataExtractor do
 
         More text goes here!
 
+        ### Meow
+
+        Sub section text
+
         ## Here's another!
 
         Yet more text goes in this section
@@ -57,8 +61,14 @@ RSpec.describe Page::DataExtractor do
         "attributes" => [],
         "name" => "Page title",
         "sections" => [
-          { id: "#heres-a-second-heading", header: "Here's a second heading"},
-          { id: "#heres-another", header: "Here's another!" },
+          {
+            id: "#heres-a-second-heading",
+            header: "Here's a second heading",
+            subsections: [
+              { id: "#meow", header: "Meow" },
+            ]
+          },
+          { id: "#heres-another", header: "Here's another!", subsections: [] },
         ],
         "shortDescription" => "Some description",
         "textContent" => <<~MD.strip

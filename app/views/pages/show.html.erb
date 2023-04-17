@@ -15,6 +15,19 @@
             <a class="Toc__link" href="<%= section[:id] %>">
               <%= section[:header] %>
             </a>
+
+            <% if section[:subsections].count && @page.metadata[:h3s] %>
+              <ul class="Toc__list--h3">
+                <% section[:subsections].each do |subsection| %>
+                  <li class="Toc__list-item">
+                    <a class="Toc__link" href="<%= section[:id] %>">
+                      <%= subsection[:header] %>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+
           </li>
         <% end %>
       </ul>

@@ -23,8 +23,17 @@ class Page::DataExtractor
         if node.header_level == 1 && page_name.nil?
           page_name = header
         end
+
         if node.header_level === 2
           sections << {
+            header: header,
+            id: "##{header.to_url}",
+            subsections: []
+          }
+        end
+
+        if node.header_level === 3
+          sections.last[:subsections] << {
             header: header,
             id: "##{header.to_url}",
           }
