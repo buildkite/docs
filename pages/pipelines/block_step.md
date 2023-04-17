@@ -11,19 +11,21 @@ Once all steps before the block have completed, the pipeline will pause and wait
 
 ```yml
 steps:
-  - block: "\:rocket\: Release!"
+  - block: "\:rocket\: Are we ready?"
 ```
 {: codeblock-file="pipeline.yml"}
 
-<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
+<%= image "block-step-button.png", alt: "Screenshot of button to press to unblock a block step" %>
+
+<%= image "block-step-confirm-modal.png", alt: "Screenshot of a basic block step" %>
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
-
-<%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data).
 
 In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+
+<%= image "block-step-text-field.png", alt: "Screenshot of a block step with input fields" %>
 
 ```yml
 - block: "Release"
@@ -39,7 +41,7 @@ RELEASE_NAME=$(buildkite-agent meta-data get release-name)
 ```
 {: codeblock-file="script.sh"}
 
-For a complete example pipeline, including dynamically generated input fields, see the [Block step example pipeline](https://github.com/buildkite/block-step-example) on GitHub:
+For a complete example pipeline, including dynamically generated input fields, see the [Block step example pipeline](https://github.com/buildkite/block-step-example/blob/main/.buildkite/pipeline.yml) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example"><span class="detail">:pipeline: Block Step Example Pipeline</span> <span class="repo">github.com/buildkite/block-step-example</span></a>
 
@@ -411,8 +413,6 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
-
-<%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
 
