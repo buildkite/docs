@@ -87,6 +87,71 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
+  describe "#decorate_external_links" do
+    it "adds `.external-link` class to external links" do
+      md = <<~MD
+        [Google](https://www.google.com)
+      MD
+
+      html = <<~HTML
+        <p><a href="https://www.google.com" class="external-link">Google</a></p>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
+
+    context "non-external links" do
+      it "does not affect /docs/ links" do
+        md = <<~MD
+          [Test Analytics](/docs/test-analytics)
+        MD
+  
+        html = <<~HTML
+          <p><a href="/docs/test-analytics">Test Analytics</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect fragments" do
+        md = <<~MD
+          [Back to top](#top)
+        MD
+  
+        html = <<~HTML
+          <p><a href="#top">Back to top</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect tel:" do
+        md = <<~MD
+          [Call us](tel:131313)
+        MD
+  
+        html = <<~HTML
+          <p><a href="tel:131313">Call us</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+    end
+
+
+    it "is appends and preserves existing css classes" do
+      md = <<~MD
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
+      MD
+
+      html = <<~HTML
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo external-link">Docs repo</a></p>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
+  end
+
   describe "Responsive table" do
     it "prepends faux th to each table cell" do
       md = <<~MD

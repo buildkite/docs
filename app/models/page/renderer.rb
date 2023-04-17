@@ -19,6 +19,7 @@ class Page::Renderer
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
+    doc = decorate_external_links(doc)
     doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
@@ -137,6 +138,19 @@ class Page::Renderer
 
       node.previous_element['class'] = css_class
       node.remove
+    end
+
+    doc
+  end
+
+  def decorate_external_links(doc)
+    doc.css('a').each do |node|
+      href = node['href']
+
+      unless href.starts_with?('/docs/') || URI.parse(href).host == "buildkite.com" || href.starts_with?('#') || href.starts_with?('tel:')
+        existing_classes = node['class']
+        node.set_attribute('class', [existing_classes, 'external-link'].compact.join(' '))
+      end
     end
 
     doc
