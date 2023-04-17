@@ -218,8 +218,7 @@ Maximum timeouts are applied to any command step without a timeout or with a tim
 
 Maximums are always enforced, when supplied — the smallest value will be used.
 
->🚧
-> Timeout applies to the whole job lifetime, including hooks and artifact uploads. If timeout is triggered while the command is running or hooks is running then cancel grace period will come into play which is 10 seconds by default. If hooks or artifact uploads need more time then cancel grace period can be increased by setting flag cancel-grace-period
+Timeouts apply to the whole job lifecycle, including hooks and artifact uploads. If a timeout is triggered while a command or hook is running, there's a 10 second grace period by default. You can change the grace period by setting the [`cancel-grace-period`](https://buildkite.com/docs/agent/v3/configuration#cancel-grace-period) flag.
 
 ## Retry attributes
 
