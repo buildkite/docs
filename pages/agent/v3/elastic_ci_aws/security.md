@@ -31,7 +31,7 @@ documentation for guidance on choosing a VPC layout suitable for your use case.
 By default, CloudFormation will operate using the permissions granted to the
 identity, AWS IAM User or Role, used to create or update a stack.
 
-See [CloudFormation service role](elastic_ci_aws/cloudformation_service_role.md)
+See [CloudFormation service role](/docs/agent/v3/elastic-ci-aws/cloudformation-service-role)
 for a listing of the IAM actions required to create, update, and delete a stack
 with the Elastic CI Stack for AWS template.
 
