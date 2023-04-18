@@ -19,6 +19,6 @@ window.addEventListener("DOMContentLoaded", () => {
     createCopyToClipboardButton(code);
   });
 
-  initNav();
+  // initNav();
   initToc();
 });
