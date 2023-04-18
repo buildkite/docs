@@ -1,7 +1,3 @@
----
-toc: false
----
-
 # Using AWS Secrets Manager in the Elastic CI Stack for AWS
 
 The Elastic CI Stack for AWS supports reading a Buildkite Agent token from
@@ -13,6 +9,8 @@ Store.
 For example, AWS Secrets Manager can automatically rotate and
 revoke secrets using Lambda functions, and replicate secrets across multiple
 regions in your account.
+
+## Storing agent tokens
 
 To store your Buildkite Agent token as an AWS Secrets
 Manager secret, configure the Elastic CI Stack for AWS's

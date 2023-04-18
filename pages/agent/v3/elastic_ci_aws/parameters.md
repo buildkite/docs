@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Template parameters in the Elastic CI Stack for AWS
 
 To create an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment, you can either use the default YAML config file, or you can copy it, and substitute that YAML config file with your own configuration file when you create new instances.
