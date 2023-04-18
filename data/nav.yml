@@ -31,8 +31,6 @@
           path: "integrations/git"
     - name: "Tutorials"
       children:
-        - name: "Elastic CI Stack for AWS"
-          path: "tutorials/elastic-ci-stack-aws"
         - name: "Docker-based builds"
           path: "tutorials/docker-containerized-builds"
         - name: "Parallelizing builds"
