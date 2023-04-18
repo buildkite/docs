@@ -2,11 +2,7 @@
 
 This page describes common tasks for managing the Elastic CI Stack for AWS.
 
-## Docker
-
-Using Docker in the Elastic CI Stack for AWS.
-
-### Docker registry support
+## Docker registry support
 
 If you want to push or pull from registries such as [Docker Hub](https://hub.docker.com/) or [Quay](https://quay.io/) you can use the `environment` hook in your secrets bucket to export the following environment variables:
 
@@ -24,7 +20,7 @@ If you want to log in to an ECR server on another AWS account, you can set `AWS_
 
 The AWS ECR options are powered by an embedded version of the [ECR plugin](https://github.com/buildkite-plugins/ecr-buildkite-plugin), so if you require options that aren't listed here, you can disable the embedded version as above and call the plugin directly. See [its README](https://github.com/buildkite-plugins/ecr-buildkite-plugin) for more examples (requires Agent v3.x).
 
-### Optimizing for slow Docker builds
+## Optimizing for slow Docker builds
 
 For large legacy applications the Docker build process might take a long time on new instances. For these cases it's recommended to create an optimized "builder" stack which doesn't scale down, keeps a warm docker cache and is responsible for building and pushing the application to Docker Hub before running the parallel build jobs across your normal CI stack.
 
@@ -62,7 +58,7 @@ If you need different instances sizes and scaling characteristics for different 
 
 Examples:
 
-* A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](/docs/agent/v3/elastic-ci-aws#optimizing-for-slow-docker-builds))
+* A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](#optimizing-for-slow-docker-builds))
 * A `pipeline-uploaders` stack with tiny, always-on instances for lightning fast `buildkite-agent pipeline upload` jobs.
 * A `deploy` stack with added credentials and permissions specifically for deployment.
 
