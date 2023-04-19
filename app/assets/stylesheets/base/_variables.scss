@@ -111,10 +111,12 @@ $gutter: 32px;
 $max-w: (
   "outer-container": 1600px,
   "container": 1440px,
+  "narrow-container": 960px,
   "prose": 752px,
   "search": 500px,
 );
-$border-rounded: 5px;
+$rounded: 5px;
+$rounded-lg: 16px;
 $transition-speed: 300ms;
 $filter-brand-green: invert(58%) sepia(82%) saturate(466%) hue-rotate(103deg)
   brightness(95%) contrast(86%);

@@ -3,6 +3,14 @@
   font-size: $font-size-template;
 }
 
+@mixin button-white-text {
+  color: $base-0;
+
+  .TextContent & {
+    color: $base-0;
+  }
+}
+
 button {
   @include button-font;
 }
@@ -21,6 +29,10 @@ button {
   text-decoration: none !important; // button labels should never have underlines
   transition: background-color $transition-speed, border-color $transition-speed;
 
+  &--inline {
+    display: inline-flex;
+  }
+
   .TextContent & {
     @media (min-width: $screen-xs) {
       display: inline-flex;
@@ -33,9 +45,9 @@ button {
 }
 
 .Button--primary {
+  @include button-white-text;
   background-color: map-get($color-aliases, "button-primary");
   border-color: map-get($color-aliases, "button-primary");
-  color: $base-0;
   font-weight: bold;
 
   &:hover {
@@ -44,6 +56,7 @@ button {
 }
 
 .Button--purple {
+  @include button-white-text;
   background-color: map-get($color-aliases, "button-purple");
   border-color: map-get($color-aliases, "button-purple");
   color: $base-0;
