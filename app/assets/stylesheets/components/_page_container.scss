@@ -7,13 +7,16 @@
   padding-right: $gutter / 2;
 }
 
+$md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
+$lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
+
 .Page {
   @media (min-width: $screen-md) {
-    margin-top: map-get($header-height, "one-row") + $gutter;
+    margin-top: $md-screen-margin-top;
   }
 
   @media (min-width: $screen-lg) {
-    margin-top: $gutter;
+    margin-top: $lg-screen-margin-top;
   }
 
   display: grid;
@@ -55,12 +58,12 @@
 
   @media (min-width: $screen-md) {
     display: block;
-    top: map-get($header-height, "two-rows");
+    top: $md-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "two-rows")});
   }
 
   @media (min-width: $screen-lg) {
-    top: map-get($header-height, "one-row");
+    top: $lg-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "one-row")});
   }
 }
@@ -71,7 +74,7 @@
 
   @media (min-width: $screen-lg) {
     margin-bottom: 0;
-    top: map-get($header-height, "one-row");
+    top: $lg-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "one-row")});
     overscroll-behavior: contain;
     overflow-y: auto;
