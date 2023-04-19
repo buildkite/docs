@@ -1,3 +1,7 @@
+---
+toc_include_h3: true
+---
+
 # Scheduled builds
 
 Build schedules automatically create builds at specified intervals. For example, you can use scheduled builds to run nightly builds, hourly integration tests, or daily ops tasks.

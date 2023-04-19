@@ -15,6 +15,12 @@
   @include margin($margin);
 }
 
+@mixin code-bg {
+  background-color: $gray-300;
+  border-radius: $border-rounded;
+  padding: 0.185em 0.375em;
+}
+
 h1 {
   @include heading(3);
 }
@@ -137,56 +143,91 @@ h6 {
 
   a {
     color: map-get($color-aliases, "text-link");
+    text-underline-offset: 0.1em;
     transition: color $transition-speed;
     will-change: color;
 
     &:hover {
       color: map-get($color-aliases, "text-link-hover");
     }
+
+    &:has(code) {
+      text-decoration: none;
+    }
   }
 
   code {
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
+    font-size: $font-size-code;
+
+    a {
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
-  pre code {
-    font-size: #{(16/18)}em;
-    line-height: map-get($line-heights, "default");
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  a {
+    &:not([class]) {
+      > code {
+        @include code-bg;
+      }
+    }
   }
+
+  li,
+  dt,
+  td,
+  th {
+    > code {
+      @include code-bg;
+    }
+  }
+
   em {
     font-style: italic;
   }
   strong {
     font-weight: 600;
   }
+
+  .highlight {
+    font-size: 1rem;
+  }
+
   pre {
     word-break: break-all;
     word-wrap: break-word;
     border: 1px solid #ddd;
     padding: 0.8em 1em;
     border-radius: 5px;
-    font-size: #{(15/18)}rem;
     line-height: map-get($line-heights, "default");
     min-width: 0;
     white-space: pre-wrap;
+
     &.overflow-scroll {
       overflow: auto;
       word-break: normal;
       word-wrap: normal;
     }
+
+    code {
+      font-size: $font-size-code;
+      line-height: map-get($line-heights, "default");
+    }
   }
   iframe {
     border: 1px solid #ddd;
-  }
-  li,
-  p,
-  dt,
-  td,
-  th,
-  a {
-    > code {
-      font-size: 0.875rem;
-    }
   }
   table {
     font-size: 0.875rem;
