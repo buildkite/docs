@@ -3,23 +3,27 @@
   <head>
     <%= render "head" %>
   </head>
-  <body class="StandardWhiteContentPage  <%= beta? ? 'beta' : ''-%> ">
+  <body class="<%= beta? ? 'beta' : ''-%>">
     <%= render "site_header" %>
 
-    <main id="main" role="main" class="PageContainer">
-      <div class="PageContainer__Sidebar">
-        <%= render 'sidebar' %>
-      </div>
-
-      <div class="PageContainer__Toc">
-        <%= yield :toc %>
-      </div>
-
-      <div class="PageContainer__Content">
+    <main id="main" role="main">
+      <div class="PageContainer">
         <div class="Page">
-          <%= yield %>
+          <div class="Page__sidebar">
+            <%= render 'sidebar' %>
+          </div>
+
+          <div class="Page__toc">
+            <%= yield :toc %>
+          </div>
+
+          <div class="Page__content">
+            <div class="TextContent">
+              <%= yield %>
+            </div>
+            <%= render "footer", :embed_emojicom => true %>
+          </div>
         </div>
-        <%= render "footer", :embed_emojicom => true %>
       </div>
     </main>
 

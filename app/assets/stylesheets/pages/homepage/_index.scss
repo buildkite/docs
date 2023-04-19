@@ -1,0 +1,15 @@
+.HomePage__section-heading {
+  @include heading(1.5);
+}
+
+.HomePage__container {
+  @include container;
+
+  @media (min-width: $screen-md) {
+    margin-top: map-get($header-height, "two-rows");
+  }
+
+  @media (min-width: $screen-lg) {
+    margin-top: map-get($header-height, "one-row");
+  }
+}

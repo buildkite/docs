@@ -1,13 +1,33 @@
-$color-green: rgb(3, 165, 98);
+@mixin margin-left-sidebar {
+  margin-left: $sidebar-width + ($gutter / 2);
+}
 
-.Page {
-  @extend .TextContent;
+.Docs__header {
+  @media (max-width: ($screen-md - 1)) {
+    font-size: 2rem;
+  }
+}
 
+.Docs__article {
+  flex: 7;
   font-weight: 400;
 
-  h1 {
-    line-height: 1;
-    margin-bottom: 1.3rem;
+  @media (min-width: $screen-md) {
+    @include margin-left-sidebar;
+    margin-top: 44px;
+  }
+
+  @media (min-width: $screen-lg) {
+    @include container("prose");
+    margin-top: 30px;
+  }
+
+  &--is-landing-page {
+    max-width: none;
+
+    @media (min-width: $screen-md) {
+      @include margin-left-sidebar;
+    }
   }
 
   img.no-decoration,
