@@ -4,20 +4,5 @@
 <%= @page.body %>
 
 <%= content_for :toc do %>
-  <% if @page.metadata[:toc] %>
-    <nav class="Toc">
-      <button class="Toc__toggle">
-        <h2 class="Toc__title">On this page</h2>
-      </button>
-      <ul class="Toc__list Toc__list--is-collapsed">
-        <% @page.sections.each do |section| %>
-          <li class="Toc__list-item">
-            <a class="Toc__link" href="<%= section[:id] %>">
-              <%= section[:header] %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </nav>
-  <% end %>
+  <%= render 'toc' %>
 <% end %>
