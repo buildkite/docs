@@ -55,27 +55,24 @@ function initNav() {
             )
           );
 
-          if (e.target.className.includes("Nav__toggle--on")) {
+          function collapse() {
             e.target.nextSibling.nextSibling.classList.remove(
               "Nav__section--show"
             );
             e.target.classList.remove("Nav__toggle--on");
-          } else {
-            sectionNodes.map((section) =>
-              section.classList.remove("Nav__section--show")
-            );
+          }
+
+          function expand() {
             e.target.nextSibling.nextSibling.classList.add(
               "Nav__section--show"
             );
-            toggleNodes.map((toggle) => {
-              if (
-                parseInt(toggle.getAttribute("data-toggle-nav-level")) ===
-                currentLevel
-              ) {
-                toggle.classList.remove("Nav__toggle--on");
-              }
-            });
             e.target.classList.add("Nav__toggle--on");
+          }
+
+          if (e.target.className.includes("Nav__toggle--on")) {
+            collapse();
+          } else {
+            expand();
           }
 
           if (window.matchMedia("screen and (max-width: 959px)").matches) {
