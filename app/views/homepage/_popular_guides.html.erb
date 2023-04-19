@@ -1,0 +1,57 @@
+<%
+  popular_guides = [
+    {
+      id: "defining_steps",
+      title: "Defining steps",
+      summary: "How to define steps in YAML and create dynamic pipelines",
+      link: "/docs/pipelines/defining-steps",
+    },
+    {
+      id: "agent_overview",
+      title: "Agent overview",
+      summary: "An introduction to the Buildkite agent",
+      link: "/docs/agent/v3",
+    },
+    {
+      id: "managing_pipeline_secrets",
+      title: "Managing pipeline secrets",
+      summary: "Best practices for using secrets in pipelines",
+      link: "/docs/pipelines/secrets",
+    },
+    {
+      id: "build_artifacts",
+      title: "Build artifacts",
+      summary: "How to get the most from artifacts in pipelines",
+      link: "/docs/pipelines/artifacts",
+    },
+    {
+      id: "example_pipelines",
+      title: "Example pipelines",
+      summary: "A collection of examples that demonstrate pipeline features",
+      link: "/docs/pipelines/example-pipelines",
+    },
+    {
+      id: "glossary",
+      title: "Glossary",
+      summary: "A list of common terms that describe key concepts",
+      link: "/docs/pipelines/glossary",
+    }
+  ]
+%>
+
+<section class="PopularGuides">
+  <div class="container container-narrow">
+    <h2 class="HomePage__section-heading">Popular guides</h2>
+    <div class="PopularGuides__grid">
+      <% popular_guides.each do |guide| %>
+        <a class="PopularGuide" href="<%= guide[:link] %>">
+          <img alt="Icon: <%= guide[:title] %>" class="PopularGuide__img" src="<%= image_url("home/icon_#{guide[:id]}.svg") %>" />
+          <div>
+            <h3 class="PopularGuide__title"><%= guide[:title] %></h3>
+            <p class="PopularGuide__summary"><%= guide[:summary] %></p>
+          </div>
+        </a>
+      <% end %>
+    </div>
+  </div>
+</section>
