@@ -1,0 +1,35 @@
+.HeroBanner {
+  background-image: asset-url("home/bg_hero_banner.svg");
+  background-position: center bottom;
+  background-size: cover;
+  border-radius: $rounded-lg;
+  margin-bottom: 3rem;
+  padding: 2.5rem ($gutter / 2) 3rem;
+
+  @media (min-width: $screen-md) {
+    padding-bottom: 72px;
+    padding-top: 60px;
+  }
+}
+
+.HeroBanner__title {
+  @include heading(1.75, 0);
+  margin-bottom: 0.75rem;
+
+  @media (min-width: $screen-md) {
+    @include heading(2.25);
+    margin-bottom: 0.5rem;
+  }
+}
+
+.HeroBanner__summary {
+  color: $slate-800;
+  font-size: $font-size-base;
+  margin-bottom: 1rem;
+  max-width: 36ch;
+  
+  @media (min-width: $screen-md) {
+    font-size: $font-size-body;
+    margin-bottom: 1.5rem;
+  }
+}
