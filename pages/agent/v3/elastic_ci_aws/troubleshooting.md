@@ -1,4 +1,4 @@
-# Troubleshooting the Elastic CI stack for AWS
+# Troubleshooting the Elastic CI Stack for AWS
 
 <!-- alex ignore easy -->
 
