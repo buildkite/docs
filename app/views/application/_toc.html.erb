@@ -1,0 +1,29 @@
+  <% if @page.metadata[:toc] %>
+    <nav class="Toc">
+      <button class="Toc__toggle">
+        <h2 class="Toc__title">On this page</h2>
+      </button>
+      <ul class="Toc__list Toc__list--is-collapsed">
+        <% @page.sections.each do |section| %>
+          <li class="Toc__list-item">
+            <a class="Toc__link Toc__link--h2" href="<%= section[:id] %>">
+              <%= section[:header] %>
+            </a>
+
+            <% if section[:subsections].count && @page.metadata[:toc_include_h3] %>
+              <ul class="Toc__list">
+                <% section[:subsections].each do |subsection| %>
+                  <li class="Toc__list-item">
+                    <a class="Toc__link Toc__link--h3" href="<%= subsection[:id] %>">
+                      <%= subsection[:header] %>
+                    </a>
+                  </li>
+                <% end %>
+              </ul>
+            <% end %>
+
+          </li>
+        <% end %>
+      </ul>
+    </nav>
+  <% end %>
