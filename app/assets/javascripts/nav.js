@@ -1,42 +1,8 @@
 function initNav() {
   const maxWidth = 1440;
 
-  initCurrentNavs();
   bindToggles();
   initSidebarsPos();
-
-  function initCurrentNavs() {
-    const currentNode = Array.from(
-      document.getElementsByClassName("Nav__link--current")
-    ).pop();
-
-    recurseCurrentParentNavs(currentNode);
-  }
-
-  function recurseCurrentParentNavs(currentNode) {
-    const { parentNode } = currentNode;
-    const { className } = parentNode;
-
-    if (className.includes("Nav")) {
-      if (className.includes("Nav__section")) {
-        parentNode.classList.add("Nav__section--parent", "Nav__section--show");
-      }
-      if (className.includes("Nav__item")) {
-        parentNode.classList.add("Nav__section--parent", "Nav__section--show");
-
-        const toggleNode = parentNode.querySelector(".Nav__link");
-        if (toggleNode) {
-          if (toggleNode.className.includes("Nav__toggle")) {
-            toggleNode.classList.add("Nav__toggle--on", "Nav__toggle--parent");
-          } else {
-            toggleNode.classList.add("Nav__link--parent");
-          }
-        }
-      }
-
-      recurseCurrentParentNavs(parentNode);
-    }
-  }
 
   function bindToggles() {
     const toggleNodes = Array.from(
