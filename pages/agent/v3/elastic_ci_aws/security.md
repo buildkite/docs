@@ -1,3 +1,7 @@
+---
+toc_include_h3: true
+---
+
 # Security in the Elastic CI Stack for AWS
 
 The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws/) repository hasn't been reviewed by security researchers so exercise caution with what credentials you make available to your builds.

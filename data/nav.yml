@@ -99,6 +99,8 @@
               children:
               - name: "Setup"
                 path: "agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal"
+              - name: "Troubleshooting"
+                path: "agent/v3/elastic-ci-stack-for-ec2-mac/troubleshooting"
         - name: "Agent installers"
           children:
             - name: "Ubuntu"
