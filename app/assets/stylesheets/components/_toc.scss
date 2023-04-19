@@ -86,10 +86,6 @@
     }
   }
 
-  .Toc__list--h3 {
-    font-size: 0.7rem;
-  }
-
   .Toc__list-item {
     list-style-type: none;
     margin-bottom: 2px;
@@ -111,5 +107,10 @@
       background-color: $purple-100;
       color: $purple-600;
     }
+  }
+
+  .Toc__link--h3 {
+    font-size: 0.875rem;
+    padding-left: 16px + 10px;
   }
 }
