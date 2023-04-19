@@ -7,14 +7,21 @@
     <%= render "site_header", nav: default_nav %>
 
     <main id="main" role="main">
-      <div class="Docs__page-container StandardWhiteContentPage">
-        <div class="Docs__page-container__inner PageContainer">
-          <div class="Docs__article">
+      <div class="StandardWhiteContentPage">
+        <div class="PageContainer Page">
+          <div class="Page__sidebar">
+          </div>
+
+          <div class="Page__toc">
             <%= yield :toc %>
+          </div>
+
+          <div class="Page__content">
             <div class="TextContent">
               <%= yield %>
             </div>
             <%= render "footer", :embed_emojicom => true %>
+          </div>
         </div>
       </div>
     </main>

@@ -1,24 +1,5 @@
 $color-green: rgb(3, 165, 98);
 
-.Docs__page-container {
-  @media (min-width: $screen-md) {
-    padding-top: map-get($header-height, "two-rows") + 30px;
-  }
-
-  @media (min-width: $screen-lg) {
-    padding-top: map-get($header-height, "one-row") + 30px;
-  }
-}
-
-.Docs__page-container__inner {
-  margin-top: 15px;
-
-  @media (min-width: $screen-md) {
-    display: flex;
-    margin-top: 0;
-  }
-}
-
 .Docs__header {
   @media (max-width: ($screen-md - 1)) {
     font-size: 2rem;
@@ -26,20 +7,7 @@ $color-green: rgb(3, 165, 98);
 }
 
 .Docs__article {
-  flex: 7;
   font-weight: 400;
-
-  @media (min-width: $screen-md) {
-    margin-left: $sidebar-width + ($gutter / 2);
-    margin-top: map-get($header-height, "two-rows") - 24px;
-  }
-
-  @media (min-width: $screen-lg) {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: map-get($header-height, "one-row") - 24px;
-    max-width: map-get($max-w, "prose");
-  }
 
   &--is-landing-page {
     max-width: none;

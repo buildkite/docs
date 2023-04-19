@@ -6,3 +6,77 @@
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
 }
+
+.Page {
+  @media (min-width: $screen-md) {
+    margin-top: map-get($header-height, "one-row") + $gutter;
+  }
+
+  @media (min-width: $screen-lg) {
+    margin-top: $gutter;
+  }
+
+  display: grid;
+  grid-template-rows: auto;
+
+  gap: $gutter / 2;
+  grid-template-columns: 1fr;
+  grid-template-areas:
+    "sidebar"
+    "toc"
+    "content";
+
+  @media (min-width: $screen-md) {
+    grid-template-columns: 270px 1fr;
+    grid-template-areas:
+      "sidebar toc"
+      "sidebar content";
+  }
+
+  @media (min-width: $screen-lg) {
+    grid-template-columns: 270px 1fr 270px;
+    grid-template-areas: "sidebar content toc";
+  }
+}
+
+.Page__sidebar {
+  grid-area: sidebar;
+  position: sticky;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  display: none;
+
+  @media (min-width: $screen-md) {
+    display: block;
+    top: map-get($header-height, "two-rows");
+    height: calc(100vh - #{map-get($header-height, "two-rows")});
+  }
+
+  @media (min-width: $screen-lg) {
+    top: map-get($header-height, "one-row");
+    height: calc(100vh - #{map-get($header-height, "one-row")});
+  }
+}
+
+.Page__toc {
+  grid-area: toc;
+  margin-bottom: $gutter / 2;
+
+  @media (min-width: $screen-lg) {
+    margin-bottom: 0;
+    top: map-get($header-height, "one-row");
+    height: calc(100vh - #{map-get($header-height, "one-row")});
+    overscroll-behavior: contain;
+    overflow-y: auto;
+    position: sticky;
+  }
+}
+
+.Page__content {
+  grid-area: content;
+
+  @media (min-width: $screen-lg) {
+    max-width: map-get($max-w, "prose");
+    justify-self: center;
+  }
+}
