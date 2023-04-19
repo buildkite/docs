@@ -8,7 +8,7 @@ source "https://rubygems.org"
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack", "~> 6.0"
 gem "actionview", "~> 6.0"
-gem "activesupport", "~> 6.0"
+gem "activesupport", "~> 6.1"
 gem "railties", "~> 6.0"
 gem "sprockets-rails"
 

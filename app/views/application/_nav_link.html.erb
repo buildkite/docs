@@ -3,6 +3,7 @@
     Nav__link
     Nav__link--level#{nav_level}
     #{"Nav__link--type-#{type}" if type}
+    #{start_expanded && "Nav__toggle--on"}
   "
 %>
 
@@ -20,20 +21,13 @@
     <%= new_window && 'target=_blank' %>
   >
     <%= name %>
-    
+
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
     <% end %>
   </a>
-<% elsif start_expanded %>
-  <span class="<%= css_classes_nav_link %> Nav__link--pre-expand-children">
-    <%= name %>
-    <% if pill %>
-      <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
-    <% end %>
-  </span>
 <% else %>
-  <button 
+  <button
     class="<%= css_classes_nav_link %> <%= type == "dropdown" ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
     data-toggle-nav-level="<%= nav_level %>"
   >
@@ -41,5 +35,5 @@
     <% if pill %>
       <span class="Nav__pill pill pill--<%= pill %> pill--small"><%= pill %></span>
     <% end %>
-  </button> 
+  </button>
 <% end %>

@@ -143,7 +143,9 @@ class Page
   def metadata
     defaults = {
       # Default to rendering table of contents
-      "toc": true
+      "toc": true,
+      # Default to H2s being included in the table of contents
+      "toc_include_h3": false
     }
     if file.front_matter
       defaults.merge(file.front_matter.symbolize_keys)
