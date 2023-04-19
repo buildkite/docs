@@ -145,12 +145,7 @@ class Page::Renderer
 
   def decorate_external_links(doc)
     doc.css('a').each do |node|
-      href = node['href']
-
-      unless href.starts_with?('/docs/') || URI.parse(href).host == "buildkite.com" || href.starts_with?('#') || href.starts_with?('tel:')
-        existing_classes = node['class']
-        node.set_attribute('class', [existing_classes, 'external-link'].compact.join(' '))
-      end
+      Page::Renderers::ExternalLink.new(node).process
     end
 
     doc

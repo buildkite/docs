@@ -113,13 +113,45 @@ RSpec.describe Page::Renderer do
         expect(Page::Renderer.render(md).strip).to eql(html.strip)
       end
 
-      it "does not affect fragments" do
+      it "does not affect links to Buildkite domains" do
+        md = <<~MD
+          [Test Analytics](https://buildkite.com/test-analytics)
+
+          [GraphQL Explorer](https://graphql.buildkite.com/explorer)
+
+          [Buildkite status](https://www.buildkitestatus.com)
+        MD
+
+        html = <<~HTML
+          <p><a href="https://buildkite.com/test-analytics">Test Analytics</a></p>
+
+          <p><a href="https://graphql.buildkite.com/explorer">GraphQL Explorer</a></p>
+
+          <p><a href="https://www.buildkitestatus.com">Buildkite status</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect internal fragments" do
         md = <<~MD
           [Back to top](#top)
         MD
   
         html = <<~HTML
           <p><a href="#top">Back to top</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect mailto:" do
+        md = <<~MD
+          [Email us](mailto:test@example.com)
+        MD
+  
+        html = <<~HTML
+          <p><a href="mailto:test@example.com">Email us</a></p>
         HTML
 
         expect(Page::Renderer.render(md).strip).to eql(html.strip)
@@ -139,13 +171,13 @@ RSpec.describe Page::Renderer do
     end
 
 
-    it "is appends and preserves existing css classes" do
+    it "does not affect links with existing css classes" do
       md = <<~MD
         <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
       MD
 
       html = <<~HTML
-        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo external-link">Docs repo</a></p>
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
       HTML
 
       expect(Page::Renderer.render(md).strip).to eql(html.strip)
