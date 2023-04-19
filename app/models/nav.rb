@@ -9,9 +9,7 @@ class Nav
   # Returns the current nav item
   def current_item
     item = route_map[path.sub("/docs/", "")]
-    if !item
-      raise "Could not find nav item for #{path}"
-    end
+    raise ActionController::RoutingError.new("Missing navigation for #{path}") unless item
     item
   end
 
