@@ -1,5 +1,4 @@
 //= require nav
-//= require copyToClipboardButton
 //= require toc
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -13,11 +12,6 @@ window.addEventListener("DOMContentLoaded", () => {
         break;
     }
   };
-
-  document.querySelectorAll("pre.highlight").forEach((code) => {
-    code.setAttribute("tabindex", 0);
-    createCopyToClipboardButton(code);
-  });
 
   // initNav();
   initToc();
