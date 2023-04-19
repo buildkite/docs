@@ -1,6 +1,6 @@
 # Troubleshooting
 
-The following are solutions to problems some users face when using the Elastic CI Stack for EC2 Mac.
+The following are solutions to problems some users face when using the [Elastic CI Stack for AWS Mac](https://github.com/buildkite/elastic-mac-for-aws).
 
 ## My Auto Scaling group doesn't launch any instances
 

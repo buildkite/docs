@@ -2,7 +2,7 @@
 
 <!-- alex ignore easy -->
 
-Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the Elastic CI Stack for AWS, and some solutions for specific situations.
+Infrastructure as code isn't always easy to troubleshoot, but here are some ways to debug exactly what's going on inside the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws), and some solutions for specific situations.
 
 ## Using CloudWatch Logs
 
