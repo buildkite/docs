@@ -4,7 +4,8 @@
     <%= render "head" %>
   </head>
   <body <%= beta? ? 'class=beta' : ''-%>>
-    <%= render "site_header" %>
+    <%= render "site_header", nav: default_nav %>
+
     <main id="main" role="main">
       <div class="Docs__page-container StandardWhiteContentPage">
         <div class="Docs__page-container__inner PageContainer">

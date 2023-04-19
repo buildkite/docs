@@ -1,5 +1,3 @@
-<% use_nav = use_nav || "nav" %>
-
 <header class="SiteHeader">
   <div class="SiteHeader__container">
     <div class="SiteHeader__inner">
@@ -10,7 +8,7 @@
       <a class="sr-only" href="#main">Skip to main content</a>
       <%= render 'menu_toggle' %>
       <div class="SiteHeader__nav">
-        <%= render "nav", use_nav: use_nav %>
+        <%= render "nav", nav: nav %>
       </div>
       <div class="SiteHeader__global-links">
         <%= render 'global_links' %>
