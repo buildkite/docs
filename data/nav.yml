@@ -85,10 +85,10 @@
               children:
               - name: "Setup"
                 path: "agent/v3/elastic-ci-aws"
-              - name: "Security"
-                path: "agent/v3/elastic-ci-aws/security"
               - name: "Managing the stack"
                 path: "agent/v3/elastic-ci-aws/managing-elastic-ci-stack"
+              - name: "Security"
+                path: "agent/v3/elastic-ci-aws/security"
               - name: "Template parameters"
                 path: "agent/v3/elastic-ci-aws/parameters"
               - name: "CloudFormation service role"
