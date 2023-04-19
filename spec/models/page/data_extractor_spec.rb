@@ -74,13 +74,13 @@ RSpec.describe Page::DataExtractor do
         "name" => "Page title",
         "sections" => [
           {
-            id: "#heres-a-second-heading",
+            id: "heres-a-second-heading",
             header: "Here's a second heading",
             subsections: [
-              { id: "#meow", header: "Meow" },
+              { id: "meow", header: "Meow" },
             ]
           },
-          { id: "#heres-another", header: "Here's another!", subsections: [] },
+          { id: "heres-another", header: "Here's another!", subsections: [] },
         ],
         "shortDescription" => "Some description",
         "textContent" => <<~MD.strip

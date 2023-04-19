@@ -27,7 +27,7 @@ class Page::DataExtractor
         if node.header_level === 2
           sections << {
             header: header,
-            id: "##{header.to_url}",
+            id: "#{header.to_url}",
             subsections: []
           }
         end
@@ -35,7 +35,7 @@ class Page::DataExtractor
         if node.header_level === 3 && !sections.empty?
           sections.last[:subsections] << {
             header: header,
-            id: "##{header.to_url}",
+            id: "#{header.to_url}",
           }
         end
       when :paragraph, :code_block
