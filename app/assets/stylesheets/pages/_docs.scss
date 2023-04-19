@@ -9,14 +9,6 @@ $color-green: rgb(3, 165, 98);
 .Docs__article {
   font-weight: 400;
 
-  &--is-landing-page {
-    max-width: none;
-
-    @media (min-width: $screen-md) {
-      margin-left: $sidebar-width + ($gutter / 2);
-    }
-  }
-
   img.no-decoration,
   .responsive-image-container.no-decoration {
     padding: 0;

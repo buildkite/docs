@@ -37,6 +37,13 @@
     grid-template-columns: 270px 1fr 270px;
     grid-template-areas: "sidebar content toc";
   }
+
+  &--landing {
+    @media (min-width: $screen-lg) {
+      grid-template-columns: 270px 1fr;
+      grid-template-areas: "sidebar content";
+    }
+  }
 }
 
 .Page__sidebar {
@@ -78,5 +85,11 @@
   @media (min-width: $screen-lg) {
     max-width: map-get($max-w, "prose");
     justify-self: center;
+  }
+
+  .Page--landing & {
+    @media (min-width: $screen-lg) {
+      max-width: none;
+    }
   }
 }
