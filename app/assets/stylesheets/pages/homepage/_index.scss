@@ -1,3 +1,6 @@
+@import "hero_banner";
+@import "products";
+
 .HomePage__section-heading {
   @include heading(1.5);
 }
