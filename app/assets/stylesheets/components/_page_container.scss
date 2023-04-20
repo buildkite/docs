@@ -8,6 +8,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   max-width: map-get($max-w, "container");
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
+
   display: grid;
   grid-template-rows: auto;
   gap: $gutter / 2;
@@ -32,6 +33,10 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 
   &--landing {
+    @media (min-width: $screen-md) {
+      grid-template-areas: "sidebar content";
+    }
+
     @media (min-width: $screen-lg) {
       grid-template-columns: 270px 1fr;
       grid-template-areas: "sidebar content";
