@@ -228,7 +228,7 @@ query GetJobRunTimeByBuild{
 
 ### Get the total build run time
 
-To get total run time for a build, you can use the following query.
+To get the total run time for a build, you can use the following query.
 
 ```
 query GetTotalBuildRunTime{
