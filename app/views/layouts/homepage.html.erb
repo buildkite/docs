@@ -8,7 +8,7 @@
     <main id="main" role="main">
       <div class="HomePage__container">
         <%= yield %>
-        <%= render "footer", :embed_emojicom => false %>
+        <%= render "footer", hide_feedback: true %>
       </div>
     </main>
     <%= render "algolia" %>
