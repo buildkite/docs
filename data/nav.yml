@@ -115,6 +115,8 @@
               path: "agent/v3/gcloud"
         - name: "Command-line reference"
           children:
+            - name: "Overview"
+              path: "agent/v3/cli-reference"
             - name: "start"
               path: "agent/v3/cli-start"
             - name: "annotate"
@@ -198,6 +200,8 @@
           path: "pipelines/defining-steps"
         - name: "Step types"
           children:
+            - name: "Overview"
+              path: "pipelines/step-reference"
             - name: "Command step"
               path: "pipelines/command-step"
             - name: "Wait step"
