@@ -9,6 +9,8 @@ Hooks can be defined in the following locations:
 * In your pipeline's repository
 * In [plugins](/docs/plugins) applied to steps
 
+Agent hooks are also referred to as Global hooks while pipeline's repository hooks are referred to as Local hooks.
+
 For example, you could define an agent-wide `checkout` hook which spins up a fresh `git clone` on a new build
 machine, a repository `pre-command` hook which sets up repository-specific
 environment variables, or a plugin `environment` hook which fetches API keys
