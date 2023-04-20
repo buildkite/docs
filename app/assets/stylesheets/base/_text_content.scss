@@ -3,14 +3,14 @@
   margin-top: #{$margin}rem;
 }
 
-@mixin heading($size-multiplier, $margin: 1) {
+@mixin heading($size-multiplier, $margin: 1, $line-height: "heading") {
   clear: both;
   color: map-get($color-aliases, "text-display");
   font-family: $font-family-display;
   font-size: #{$size-multiplier}rem;
   font-style: normal;
   font-weight: bold;
-  line-height: map-get($line-heights, "heading");
+  line-height: map-get($line-heights, $line-height);
 
   @include margin($margin);
 }
@@ -22,7 +22,7 @@
 }
 
 h1 {
-  @include heading(3);
+  @include heading(3, $line-height: "tightest");
 }
 
 h2 {
@@ -312,7 +312,7 @@ h6 {
     margin-top: 0;
   }
 
-  img,
+  img:not(.emoji):not(.TileItem__image),
   svg {
     border: 1px solid #eee;
     border-radius: 5px;

@@ -7,15 +7,13 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   @media (min-width: $screen-md) {
     margin-top: $md-screen-margin-top;
   }
-  
+
   @media (min-width: $screen-lg) {
     margin-top: $lg-screen-margin-top;
   }
 }
 
-
 .Page {
-
   display: grid;
   grid-template-rows: auto;
 
