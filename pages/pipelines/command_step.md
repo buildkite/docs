@@ -215,6 +215,7 @@ To prevent jobs from consuming too many job minutes or running forever, you can 
 Specific timeouts take precedence over more general ones — a step level timeout takes precedence over a pipeline timeout, which in turn takes precedence over an organization default.
 
 Maximum timeouts are applied to command steps in the following situations:
+
 - No timeout attribute is set on the step.
 - No default timeout is set in the pipeline settings.
 - When the timeout set is greater than the maximum timeout
