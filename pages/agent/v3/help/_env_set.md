@@ -17,32 +17,31 @@ script.
 `buildkite-agent env set [variable]`
 
 ### Description
-Sets environment variables in the current job execution environment.
-Changes to the job environment variables only apply to subsequent phases of the job.
-This command cannot unset Buildkite read-only variables.
+Sets environment variable values in the current job execution environment. 
+Existing variables will be overwritten.
 
-To read the new values of variables from within the current phase, use ′env get′.
+Note that this subcommand is only available from within the job executor with
+the ′job-api′ experiment enabled.
 
-Note that this subcommand is only available from within the job executor with the job-api experiment enabled.
+Note that changes to the job environment variables only apply to subsequent
+phases of the job. To read the new values of variables from within the
+current phase, use ′env get′.
 
-### Examples
+Note that Buildkite read-only variables cannot be overwritten.
 
-Setting the variables `LLAMA` and `ALPACA`:
+Example (sets the variables ′LLAMA′ and ′ALPACA′):
 
-```
-$ buildkite-agent env set LLAMA=Kuzco "ALPACA=Geronimo the Incredible"
+    $ buildkite-agent env set LLAMA=Kuzco "ALPACA=Geronimo the Incredible"
 Added:
 + LLAMA
 Updated:
-~ ALPACA
-```
+~ ALPACA  
 
-Setting the variables `LLAMA` and `ALPACA` using a JSON object supplied
-over standard input:
+Example (sets the variables ′LLAMA′ and ′ALPACA′ using a JSON object supplied
+over standard input):
 
-```
-$ echo '{"ALPACA":"Geronimo the Incredible","LLAMA":"Kuzco"}' | buildkite-agent env set --input-format=json --output-format=quiet -
-```
+    $ echo '{"ALPACA":"Geronimo the Incredible","LLAMA":"Kuzco"}' | buildkite-agent env set --input-format=json --output-format=quiet -
+
 
 ### Options
 

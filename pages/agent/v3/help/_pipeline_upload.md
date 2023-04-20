@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent pipeline upload [file] [options...]`
 
-## Description
+### Description
 
 Allows you to change the pipeline of a running build by uploading either a
 YAML (recommended) or JSON configuration file. If no configuration file is
@@ -35,13 +35,13 @@ provided, the command looks for the file in the following locations:
 You can also pipe build pipelines to the command allowing you to create
 scripts that generate dynamic pipelines.
 
-## Example
+### Example
 
     $ buildkite-agent pipeline upload
     $ buildkite-agent pipeline upload my-custom-pipeline.yml
     $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
 
-## Options
+### Options
 
 <!-- vale off -->
 

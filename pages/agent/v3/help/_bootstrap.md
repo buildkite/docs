@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent bootstrap [options...]`
 
-## Description
+### Description
 
 The bootstrap command executes a Buildkite job locally.
 
@@ -32,13 +32,13 @@ You can run only specific phases with the --phases flag.
 The bootstrap is also responsible for executing hooks around the phases.
 See https://buildkite.com/docs/agent/v3/hooks for more details.
 
-## Example
+### Example
 
     $ eval $(curl -s -H "Authorization: Bearer xxx" \
         "https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | sed 's/^/export /')
     $ buildkite-agent bootstrap --build-path builds
 
-## Options
+### Options
 
 <!-- vale off -->
 
@@ -72,7 +72,7 @@ See https://buildkite.com/docs/agent/v3/hooks for more details.
 <tr id="bin-path"><th><code>--bin-path value</code> <a class="Docs__attribute__link" href="#bin-path">#</a></th><td><p>Directory where the buildkite-agent binary lives<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BIN_PATH</code></p></td></tr>
 <tr id="build-path"><th><code>--build-path value</code> <a class="Docs__attribute__link" href="#build-path">#</a></th><td><p>Directory where builds will be created<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_PATH</code></p></td></tr>
 <tr id="hooks-path"><th><code>--hooks-path value</code> <a class="Docs__attribute__link" href="#hooks-path">#</a></th><td><p>Directory where the hook scripts are found<br /><strong>Environment variable</strong>: <code>$BUILDKITE_HOOKS_PATH</code></p></td></tr>
-<tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent places sockets (default: "$HOME/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
+<tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "/Users/mbelton/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
 <tr id="plugins-path"><th><code>--plugins-path value</code> <a class="Docs__attribute__link" href="#plugins-path">#</a></th><td><p>Directory where the plugins are saved to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGINS_PATH</code></p></td></tr>
 <tr id="command-eval"><th><code>--command-eval </code> <a class="Docs__attribute__link" href="#command-eval">#</a></th><td><p>Allow running of arbitrary commands<br /><strong>Environment variable</strong>: <code>$BUILDKITE_COMMAND_EVAL</code></p></td></tr>
 <tr id="plugins-enabled"><th><code>--plugins-enabled </code> <a class="Docs__attribute__link" href="#plugins-enabled">#</a></th><td><p>Allow plugins to be run<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGINS_ENABLED</code></p></td></tr>

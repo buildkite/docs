@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent start [options...]`
 
-## Description
+### Description
 
 When a job is ready to run it will call the &quot;bootstrap-script&quot;
 and pass it all the environment variables required for the job to run.
@@ -25,11 +25,11 @@ actual build script defined in the pipeline.
 
 The agent will run any jobs within a PTY (pseudo terminal) if available.
 
-## Example
+### Example
 
     $ buildkite-agent start --token xxx
 
-## Options
+### Options
 
 <!-- vale off -->
 
@@ -67,7 +67,7 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 <tr id="bootstrap-script"><th><code>--bootstrap-script value</code> <a class="Docs__attribute__link" href="#bootstrap-script">#</a></th><td><p>The command that is executed for bootstrapping a job, defaults to the bootstrap sub-command of this binary<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BOOTSTRAP_SCRIPT_PATH</code></p></td></tr>
 <tr id="build-path"><th><code>--build-path value</code> <a class="Docs__attribute__link" href="#build-path">#</a></th><td><p>Path to where the builds will run from<br /><strong>Environment variable</strong>: <code>$BUILDKITE_BUILD_PATH</code></p></td></tr>
 <tr id="hooks-path"><th><code>--hooks-path value</code> <a class="Docs__attribute__link" href="#hooks-path">#</a></th><td><p>Directory where the hook scripts are found<br /><strong>Environment variable</strong>: <code>$BUILDKITE_HOOKS_PATH</code></p></td></tr>
-<tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "$HOME/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
+<tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "/Users/mbelton/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
 <tr id="plugins-path"><th><code>--plugins-path value</code> <a class="Docs__attribute__link" href="#plugins-path">#</a></th><td><p>Directory where the plugins are saved to<br /><strong>Environment variable</strong>: <code>$BUILDKITE_PLUGINS_PATH</code></p></td></tr>
 <tr id="timestamp-lines"><th><code>--timestamp-lines </code> <a class="Docs__attribute__link" href="#timestamp-lines">#</a></th><td><p>Prepend timestamps on each line of output.<br /><strong>Environment variable</strong>: <code>$BUILDKITE_TIMESTAMP_LINES</code></p></td></tr>
 <tr id="health-check-addr"><th><code>--health-check-addr value</code> <a class="Docs__attribute__link" href="#health-check-addr">#</a></th><td><p>Start an HTTP server on this addr:port that returns whether the agent is healthy, disabled by default<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_HEALTH_CHECK_ADDR</code></p></td></tr>

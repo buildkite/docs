@@ -17,49 +17,44 @@ script.
 `buildkite-agent env get [variables]`
 
 ### Description
-Retrieves environment variables and their current values from the current job execution environment.
+Retrieves environment variables and their current values from the current job
+execution environment. 
 
-Note that this subcommand is only available from within the job executor with the `job-api` experiment enabled.
+Note that this subcommand is only available from within the job executor with
+the ′job-api′ experiment enabled.
 
-Changes to the job environment only apply to the environments of subsequent phases of the job. However, `env get` can be used to inspect the changes made with `env set` and `env unset`.
+Changes to the job environment only apply to the environments of subsequent
+phases of the job. However, ′env get′ can be used to inspect the changes made
+with ′env set′ and ′env unset′.
 
-### Examples
+Example (gets all variables in key=value format):
 
-Getting all variables in key=value format:
-
-```
-$ buildkite-agent env get
+    $ buildkite-agent env get
 ALPACA=Geronimo the Incredible
 BUILDKITE=true
 LLAMA=Kuzco
-```
+...
 
-Getting the value of one variable:
+Example (gets the value of one variable):
 
-```
-$ buildkite-agent env get LLAMA
+    $ buildkite-agent env get LLAMA
 Kuzco
-```
 
-Getting multiple specific variables:
+Example (gets multiple specific variables):
 
-```
-$ buildkite-agent env get LLAMA ALPACA
+    $ buildkite-agent env get LLAMA ALPACA
 ALPACA=Geronimo the Incredible
 LLAMA=Kuzco
-```
 
-Getting variables as a JSON object:
+Example (gets variables as a JSON object):
 
-```
-$ buildkite-agent env get --format=json-pretty
+    $ buildkite-agent env get --format=json-pretty
 {
-"ALPACA": "Geronimo the Incredible",
-"BUILDKITE": "true",
-"LLAMA": "Kuzco",
+&quot;ALPACA&quot;: &quot;Geronimo the Incredible&quot;,
+&quot;BUILDKITE&quot;: &quot;true&quot;,
+&quot;LLAMA&quot;: &quot;Kuzco&quot;,
 ...
 }
-```
 
 
 ### Options
