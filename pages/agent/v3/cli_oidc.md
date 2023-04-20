@@ -4,6 +4,7 @@ The Buildkite Agent's `oidc request-token` command allows you to request an OIDC
 
 See the [OpenID Connect Core documentation](https://openid.net/specs/openid-connect-core-1_0.html#IDToken) for more information about how OIDC tokens are constructed and how to extract and use claims.
 
+## Request OIDC token
 
 <%= render "agent/v3/help/oidc_request_token" %>
 
