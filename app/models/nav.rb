@@ -1,18 +1,20 @@
 class Nav
-  attr_reader :data, :path
+  attr_reader :data
 
-  def initialize(path, data = [])
+  def initialize(data = [])
     @data = data.freeze
-    @path = path
+    route_map
   end
 
-  def current_item_root
-    data.find { |item| item["name"] == current_item[:parents][0] }
+  # Returns the current nav item's root
+  def current_item_root(request)
+    current = current_item(request)
+    data.find { |item| item["name"] == current[:parents][0] }
   end
 
   # Returns the current nav item
-  def current_item
-    item = route_map[path.sub("/docs/", "")]
+  def current_item(request)
+    item = route_map[request.path.sub("/docs/", "")]
     raise ActionController::RoutingError.new("Missing navigation for #{path}") unless item
     item
   end
