@@ -207,7 +207,7 @@ query AgentJobs {
 
 ### Get the job run time per build
 
-To get the job run time of each job in a build, you can use the following query.
+To get the run time of each job in a build, you can use the following query.
 
 ```
 query GetJobRunTimeByBuild{
