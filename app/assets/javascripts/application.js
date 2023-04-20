@@ -1,4 +1,3 @@
-//= require nav
 //= require toc
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -13,6 +12,5 @@ window.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  // initNav();
   initToc();
 });
