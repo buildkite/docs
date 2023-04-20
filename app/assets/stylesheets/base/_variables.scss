@@ -61,7 +61,7 @@ $slate-900: #151921;
 // color aliases
 $color-aliases: (
   "text-base": $charcoal-700,
-  "text-lightest": $charcoal-400,
+  "text-lightest": $charcoal-300,
   "text-link": $purple-600,
   "text-link-hover": $purple-700,
   "text-display": $slate-900,
@@ -140,3 +140,9 @@ $box-shadow-depth-500: 0px 4px 15px rgba($base-1000, 0.2);
 $box-shadow-depth-800: 0 20px 20px rgba($base-1000, 0.07),
   0 10px 20px rgba($base-1000, 0.05), 0 13px 18px rgba($base-1000, 0.04),
   0 7px 9px rgba($base-1000, 0.03);
+
+$icon-sizes: (
+  xs: 12px,
+  sm: 22px,
+  md: 24px,
+);

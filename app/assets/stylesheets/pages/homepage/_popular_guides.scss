@@ -7,6 +7,7 @@
   display: grid;
   margin-left: $gutter / -2;
   margin-right: $gutter / -2;
+  margin-top: 1.5rem;
 
   @media (min-width: $screen-sm) {
     grid-template-columns: repeat(2, 1fr);
