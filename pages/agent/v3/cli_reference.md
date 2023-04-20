@@ -1,6 +1,8 @@
 # Command-line reference overview
 
-The agent has a CLI that lets you interact with and control the agent. The following pages describe how to use the agent CLI, organized by command:
+The agent has a CLI that lets you interact with and control the agent through the command line. The comprehensive command set lets you interact with Buildkite, manage agent configuration, control job execution, and manipulate artifacts. These commands are essential for managing your build infrastructure, automating tasks, and troubleshooting issues.
+
+The following pages describe how to use the agent CLI, organized by command:
 
 - [`start`](/docs/agent/v3/cli-start)
 - [`annotate`](/docs/agent/v3/cli-annotate)
