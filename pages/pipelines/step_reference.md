@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Step types overview
 
 A step describes a single, self-contained task as part of a pipeline. There are different types of steps to use depending on the task. The flexibility and extensibility of steps let you create highly customized and efficient pipelines tailored to your needs. By understanding these step types, you'll be in a good position to design, build, and manage your pipelines effectively.
