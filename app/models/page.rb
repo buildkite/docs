@@ -144,8 +144,8 @@ class Page
     defaults = {
       # Default to rendering table of contents
       "toc": true,
-      # Default to H2s being included in the table of contents
-      "toc_include_h3": false
+      # Default to H3s being included in the table of contents
+      "toc_include_h3": true
     }
     if file.front_matter
       defaults.merge(file.front_matter.symbolize_keys)
