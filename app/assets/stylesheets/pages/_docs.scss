@@ -1,6 +1,8 @@
 $color-green: rgb(3, 165, 98);
 
-.Docs__article {
+.Page {
+  @extend .TextContent;
+
   font-weight: 400;
 
   img.no-decoration,
@@ -50,7 +52,7 @@ $color-green: rgb(3, 165, 98);
   }
 }
 
-.Docs__article .Docs__api-param-eg {
+.Docs__api-param-eg {
   margin: 0.25em 0 0 0;
 }
 
@@ -257,7 +259,7 @@ html {
 }
 
 body.beta {
-  .Docs__article {
+  .Page {
     h1,
     .Docs__heading {
       display: inline;
