@@ -218,7 +218,7 @@ Maximum timeouts are applied to command steps in the following situations:
 
 - No timeout attribute is set on the step.
 - No default timeout is set in the pipeline settings.
-- When the timeout set is greater than the maximum timeout
+- When the timeout set is greater than the maximum timeout.
 
 Maximums are always enforced, when supplied — the smallest value will be used.
 
