@@ -15,7 +15,7 @@
     end
   %>
   <a
-    class="<%= css_classes_nav_link %> <%= 'Nav__link--current' if current_path == nav_path(path) %>"
+    class="<%= css_classes_nav_link %> <%= 'Nav__link--current' if current %>"
     href="<%= nav_path(path) %>"
     title="<%= title %>"
     <%= new_window && 'target=_blank' %>
@@ -28,7 +28,7 @@
   </a>
 <% else %>
   <button
-    class="<%= css_classes_nav_link %> <%= type == "dropdown" ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
+    class="<%= css_classes_nav_link %> <%= 'Nav__link--parent' if current %> <%= type == "dropdown" ? 'Nav__dropdown-toggle' : 'Nav__toggle' %>"
     data-toggle-nav-level="<%= nav_level %>"
   >
     <%= name %>

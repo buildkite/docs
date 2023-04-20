@@ -19,6 +19,7 @@ class Page::Renderer
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
+    doc = decorate_external_links(doc)
     doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
@@ -137,6 +138,14 @@ class Page::Renderer
 
       node.previous_element['class'] = css_class
       node.remove
+    end
+
+    doc
+  end
+
+  def decorate_external_links(doc)
+    doc.css('a').each do |node|
+      Page::Renderers::ExternalLink.new(node).process
     end
 
     doc

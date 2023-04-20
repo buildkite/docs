@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Running Buildkite Agent on AWS
 
 The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS

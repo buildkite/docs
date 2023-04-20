@@ -43,8 +43,6 @@ _Required attributes:_
   </tr>
 </table>
 
->🚧
-> When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.
 
 _Optional attributes:_
 
