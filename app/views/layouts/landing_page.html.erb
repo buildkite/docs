@@ -3,20 +3,22 @@
   <head>
     <%= render "head" %>
   </head>
-  <body <%= beta? ? 'class=beta' : ''-%>>
+  <body class="StandardWhiteContentPage  <%= beta? ? 'beta' : ''-%> ">
     <%= render "site_header" %>
-    <main id="main" role="main">
-      <div class="Docs__page-container StandardWhiteContentPage">
-        <div class="Docs__page-container__inner PageContainer">
-          <div class="Docs__article Docs__article--is-landing-page">
-              <div class="TextContent">
-                <%= yield %>
-              </div>
-              <%= render "footer", :embed_emojicom => false %>
-            </div>
+
+    <main id="main" role="main" class="PageContainer PageContainer--landing">
+      <div class="PageContainer__Sidebar">
+        <%= render 'sidebar' %>
+      </div>
+
+      <div class="PageContainer__Content">
+        <div class="Page">
+          <%= yield %>
         </div>
+        <%= render "footer", :embed_emojicom => false %>
       </div>
     </main>
+
     <%= render "algolia" %>
   </body>
 </html>

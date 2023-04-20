@@ -1,42 +1,7 @@
 function initNav() {
   const maxWidth = 1440;
 
-  initCurrentNavs();
   bindToggles();
-  initSidebarsPos();
-
-  function initCurrentNavs() {
-    const currentNode = Array.from(
-      document.getElementsByClassName("Nav__link--current")
-    ).pop();
-
-    recurseCurrentParentNavs(currentNode);
-  }
-
-  function recurseCurrentParentNavs(currentNode) {
-    const { parentNode } = currentNode;
-    const { className } = parentNode;
-
-    if (className.includes("Nav")) {
-      if (className.includes("Nav__section")) {
-        parentNode.classList.add("Nav__section--parent", "Nav__section--show");
-      }
-      if (className.includes("Nav__item")) {
-        parentNode.classList.add("Nav__section--parent", "Nav__section--show");
-
-        const toggleNode = parentNode.querySelector(".Nav__link");
-        if (toggleNode) {
-          if (toggleNode.className.includes("Nav__toggle")) {
-            toggleNode.classList.add("Nav__toggle--on", "Nav__toggle--parent");
-          } else {
-            toggleNode.classList.add("Nav__link--parent");
-          }
-        }
-      }
-
-      recurseCurrentParentNavs(parentNode);
-    }
-  }
 
   function bindToggles() {
     const toggleNodes = Array.from(
@@ -83,27 +48,5 @@ function initNav() {
           }
         })
     );
-  }
-
-  function initSidebarsPos() {
-    const leftMenuNode = document.querySelector(
-      ".Nav__section--level2.Nav__section--show"
-    );
-    const tocNode = document.querySelector(".Toc");
-
-    if (leftMenuNode || tocNode) {
-      setSidebarsPos();
-      addEventListener("resize", (event) => setSidebarsPos());
-    }
-
-    function setSidebarsPos() {
-      const pos =
-        window.innerWidth > maxWidth
-          ? Math.floor((window.innerWidth - maxWidth) / 2)
-          : 0;
-
-      if (leftMenuNode) leftMenuNode.style.left = `${pos}px`;
-      if (tocNode) tocNode.style.right = `${pos}px`;
-    }
   }
 }
