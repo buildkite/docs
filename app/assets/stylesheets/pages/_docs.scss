@@ -1,11 +1,5 @@
 $color-green: rgb(3, 165, 98);
 
-.Docs__header {
-  @media (max-width: ($screen-md - 1)) {
-    font-size: 2rem;
-  }
-}
-
 .Docs__article {
   font-weight: 400;
 
