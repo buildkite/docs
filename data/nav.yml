@@ -239,6 +239,8 @@
           path: "pipelines/artifacts"
         - name: "Pipeline tags"
           path: "pipelines/tags"
+        - name: "Build retention"
+          path: "pipelines/build-retention"
         - name: "Export build data"
           path: "pipelines/build-export"
         - name: "Public pipelines"
