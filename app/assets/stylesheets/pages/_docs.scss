@@ -5,6 +5,11 @@ $color-green: rgb(3, 165, 98);
 
   font-weight: 400;
 
+  h1 {
+    line-height: 1;
+    margin-bottom: 1.3rem;
+  }
+
   img.no-decoration,
   .responsive-image-container.no-decoration {
     padding: 0;
