@@ -7,18 +7,16 @@
     <%= render "site_header" %>
 
     <main id="main" role="main">
-      <div class="PageContainer StandardWhiteContentPage">
-        <div class="Page Page--landing">
-          <div class="Page__sidebar">
-            <%= render 'sidebar' %>
-          </div>
+      <div class="PageContainer PageContainer--landing StandardWhiteContentPage">
+        <div class="PageContainer__Sidebar">
+          <%= render 'sidebar' %>
+        </div>
 
-          <div class="Page__content">
-            <div class="Docs__article TextContent">
-              <%= yield %>
-            </div>
-            <%= render "footer", :embed_emojicom => false %>
+        <div class="PageContainer__Content">
+          <div class="Docs__article TextContent">
+            <%= yield %>
           </div>
+          <%= render "footer", :embed_emojicom => false %>
         </div>
       </div>
     </main>

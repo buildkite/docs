@@ -6,7 +6,7 @@
   <body <%= beta? ? 'class=beta' : ''-%>>
     <%= render "home_header" %>
     <main id="main" role="main">
-      <div class="PageContainer">
+      <div class="Home">
         <%= yield %>
         <%= render "footer", :embed_emojicom => false %>
       </div>

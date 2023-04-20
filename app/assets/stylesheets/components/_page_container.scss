@@ -1,3 +1,6 @@
+$md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
+$lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
+
 .PageContainer {
   box-sizing: border-box;
   margin-left: auto;
@@ -5,23 +8,8 @@
   max-width: map-get($max-w, "container");
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
-}
-
-$md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
-$lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
-
-.Page {
-  @media (min-width: $screen-md) {
-    margin-top: $md-screen-margin-top;
-  }
-
-  @media (min-width: $screen-lg) {
-    margin-top: $lg-screen-margin-top;
-  }
-
   display: grid;
   grid-template-rows: auto;
-
   gap: $gutter / 2;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -30,6 +18,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     "content";
 
   @media (min-width: $screen-md) {
+    margin-top: $md-screen-margin-top;
     grid-template-columns: 270px 1fr;
     grid-template-areas:
       "sidebar toc"
@@ -37,6 +26,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 
   @media (min-width: $screen-lg) {
+    margin-top: $lg-screen-margin-top;
     grid-template-columns: 270px 1fr 270px;
     grid-template-areas: "sidebar content toc";
   }
@@ -49,7 +39,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 }
 
-.Page__sidebar {
+.PageContainer__Sidebar {
   grid-area: sidebar;
   position: sticky;
   overflow-y: auto;
@@ -68,7 +58,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 }
 
-.Page__toc {
+.PageContainer__Toc {
   grid-area: toc;
   margin-bottom: $gutter / 2;
 
@@ -82,7 +72,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 }
 
-.Page__content {
+.PageContainer__Content {
   grid-area: content;
 
   @media (min-width: $screen-lg) {
@@ -90,7 +80,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     justify-self: center;
   }
 
-  .Page--landing & {
+  .PageContainer--landing & {
     @media (min-width: $screen-lg) {
       max-width: none;
     }
