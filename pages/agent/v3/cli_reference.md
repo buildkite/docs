@@ -1,0 +1,14 @@
+# Command-line reference overview
+
+The agent has a CLI that lets you interact with and control the agent. The following pages describe how to use the agent CLI, organized by command:
+
+- [`start`](/docs/agent/v3/cli-start)
+- [`annotate`](/docs/agent/v3/cli-annotate)
+- [`annotation`](/docs/agent/v3/cli-annotation)
+- [`artifact`](/docs/agent/v3/cli-artifact)
+- [`meta-data`](/docs/agent/v3/cli-meta-data)
+- [`env`](/docs/agent/v3/cli-env)
+- [`oidc`](/docs/agent/v3/cli-oidc)
+- [`pipeline`](/docs/agent/v3/cli-pipeline)
+- [`bootstrap`](/docs/agent/v3/cli-bootstrap)
+- [`step`](/docs/agent/v3/cli-step)
