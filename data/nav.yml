@@ -200,6 +200,8 @@
           path: "pipelines/defining-steps"
         - name: "Step types"
           children:
+            - name: "Overview"
+              path: "pipelines/step-reference"
             - name: "Command step"
               path: "pipelines/command-step"
             - name: "Wait step"
