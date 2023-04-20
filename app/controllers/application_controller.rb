@@ -21,8 +21,6 @@ class ApplicationController < ActionController::Base
     )
   end
 
-  helper_method :default_nav, :graphql_nav
-
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super

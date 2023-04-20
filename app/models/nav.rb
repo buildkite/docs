@@ -6,6 +6,10 @@ class Nav
     @path = path
   end
 
+  def current_item_root
+    data.find { |item| item["name"] == current_item[:parents][0] }
+  end
+
   # Returns the current nav item
   def current_item
     item = route_map[path.sub("/docs/", "")]

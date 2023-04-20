@@ -1,10 +1,10 @@
-<nav class="Nav">
+<nav class="Nav Nav--sidebar">
   <%=
     render 'nav_children',
-    children: @nav.data,
+    children: @nav.current_item_root["children"],
     current_nav_item: @nav.current_item,
     is_dropdown: nil,
-    nav_level: 0,
+    nav_level: 1,
     start_expanded: true,
     type: nil
   %>
