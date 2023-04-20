@@ -13,8 +13,9 @@ script.
 -->
 
 ### Usage
-buildkite-agent env dump [options]
-``
+
+`buildkite-agent env dump [options]`
+
 ### Description
 Prints out the environment of the current process as a JSON object, easily
 parsable by other programs. Used when executing hooks to discover changes
