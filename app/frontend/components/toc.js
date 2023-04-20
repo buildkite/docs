@@ -1,6 +1,4 @@
-"use strict";
-
-function initToc() {
+export function initToc() {
   const initCurrentLinkListener = () => {
     const scrollPadding = 125;
     const currentClassName = "Toc__link--current";

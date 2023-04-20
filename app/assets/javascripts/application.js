@@ -1,5 +1,3 @@
-//= require toc
-
 window.addEventListener("DOMContentLoaded", () => {
   document.onkeydown = (e) => {
     const event = window.event || e;
@@ -11,6 +9,4 @@ window.addEventListener("DOMContentLoaded", () => {
         break;
     }
   };
-
-  initToc();
 });
