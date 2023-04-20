@@ -211,7 +211,7 @@ To get the run time of each job in a build, you can use the following query.
 
 ```
 query GetJobRunTimeByBuild{
-  build(slug: "organiation-slug/pipeline-slug/build-number") {
+  build(slug: "organization-slug/pipeline-slug/build-number") {
     jobs(first: 1) {
       edges {
         node {
