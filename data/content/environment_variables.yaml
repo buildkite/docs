@@ -269,7 +269,7 @@ variables:
     - false
 - name: BUILDKITE_MESSAGE
   desc: |
-    The message associated with the build, usually the commit message.
+    The message associated with the build, usually the commit message. This value can be blank if message is not set when builds manually triggered using Buildkite web interface.
   modifiable: false
   example: "Added a great new feature"
 - name: BUILDKITE_ORGANIZATION_SLUG
