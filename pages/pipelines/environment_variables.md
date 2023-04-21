@@ -255,3 +255,11 @@ environment, and will override any previous values that are set.
 This is the environment your command runs in 🎉
 
 Finally, if your job's commands make any changes to the environment, those changes will only survive as long as the script is running.
+
+### Environment variables in multiple pipeline uploads
+
+In the event that you are uploading multiple pipeline definitions, depending on the order of uploads, environment variable precedence behaves differently.
+
+If you are uploading pipeline definitions concurrently the value of the environment variable will match the uploading pipeline definition.
+,
+Pipeline uploads performed serially will result in the most recent declaration of an environment variable to be true.
