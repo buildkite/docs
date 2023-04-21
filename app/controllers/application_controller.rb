@@ -8,17 +8,11 @@ class ApplicationController < ActionController::Base
   private
 
   def default_nav
-    @_nav ||= Nav.new(
-      request.path,
-      YAML.load_file(File.join(Rails.root, 'data', 'nav.yml'))
-    )
+    Rails.application.config.default_nav
   end
 
   def graphql_nav
-    @_graphql_nav ||= Nav.new(
-      request.path,
-      YAML.load_file(File.join(Rails.root, 'data', 'nav_graphql.yml'))
-    )
+    Rails.application.config.graphql_nav
   end
 
   # capture some extra data so we can log it with lograge
