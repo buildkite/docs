@@ -24,6 +24,9 @@ RUN echo "--- :package: Installing system deps" \
     # clean up
     && rm -rf /tmp/*
 
+# Install yarn as recommended by https://yarnpkg.com/getting-started/install
+RUN corepack enable && corepack prepare yarn@stable --activate
+
 WORKDIR /app
 
 # Install deps
