@@ -45,92 +45,92 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>aud</code></td>
     <td>
-      Audience. Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/{organization.slug}</code> but can be overridden using the <code>--audience</code> flag
+      <p>Audience. Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/{organization.slug}</code> but can be overridden using the <code>--audience</code> flag</p>
     </td>
   </tr>
    <tr>
     <td><code>exp</code></td>
     <td>
-      Expiration Time. Specifies the expiration time of the JWT, after which the token is no longer valid. Set to 5 minutes in the future at generation.<br>
-      Can be changed with the <code>--lifetime</code> flag.<br>
-      <em>Example:</em> <code>1669015898</code><br>
+      <p>Expiration Time. Specifies the expiration time of the JWT, after which the token is no longer valid. Set to 5 minutes in the future at generation.<br>
+      Can be changed with the <code>--lifetime</code> flag.</p>
+      <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>nbf</code></td>
     <td>
-      Not Before. Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation. <br>
-      <em>Example:</em> <code>1669014898</code><br>
+      <p>Not Before. Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation.</p>
+      <p><em>Example:</em> <code>1669014898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>iat</code></td>
     <td>
-      Issued At. Specifies the time at which the JWT was issued. Set to the current timestamp at generation.<br>
-      <em>Example:</em> <code>1669014898</code>
+      <p>Issued At. Specifies the time at which the JWT was issued. Set to the current timestamp at generation.</p>
+      <p><em>Example:</em> <code>1669014898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>organization_slug</code></td>
     <td>
-      The slug of your organization in the Buildkite platform.
-      <em>Example:</em> <code>acme-inc</code><br>
+      <p>The slug of your organization in the Buildkite platform.</p>
+      <p><em>Example:</em> <code>acme-inc</code></p>
     </td>
   </tr>
    <tr>
     <td><code>pipeline_slug</code></td>
     <td>
-      The slug of your pipeline in the Buildkite platform.
-      <em>Example:</em> <code>super-duper-app</code><br>
+      <p>The slug of your pipeline in the Buildkite platform.</p>
+      <p><em>Example:</em> <code>super-duper-app</code></p>
     </td>
   </tr>
    <tr>
     <td><code>build_number</code></td>
     <td>
-      The unique number of your build.
-      <em>Example:</em> <code>1</code><br>
+      <p>The unique number of your build.</p>
+      <p><em>Example:</em> <code>1</code></p>
     </td>
   </tr>
    <tr>
     <td><code>build_branch</code></td>
     <td>
-      The repository branch used in your build.
-      <em>Example:</em> <code>main</code><br>
+      <p>The repository branch used in your build.</p>
+      <p><em>Example:</em> <code>main</code></p>
     </td>
   </tr>
   <tr>
     <td><code>build_tag</code></td>
     <td>
-      The tag of the build if enabled in Buildkite. This claim is only included if the tag is set.
-      <em>Example:</em> <code>1</code><br>
+      <p>The tag of the build if enabled in Buildkite. This claim is only included if the tag is set.</p>
+      <p><em>Example:</em> <code>1</code></p>
     </td>
   </tr>
   <tr>
     <td><code>build_commit</code></td>
     <td>
-      The SHA commit from the repository.
-      <em>Example:</em> <code>9f3182061f1e2cca4702c368cbc039b7dc9d4485</code><br>
+      <p>The SHA commit from the repository.</p>
+      <p><em>Example:</em> <code>9f3182061f1e2cca4702c368cbc039b7dc9d4485</code></p>
     </td>
   </tr>
   <tr>
     <td><code>step_key</code></td>
     <td>
-      The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step, <code>nil</code> will be returned.
-      <em>Example:</em> <code>build_step</code><br>
+      <p>The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step, <code>nil</code> will be returned.</p>
+      <p><em>Example:</em> <code>build_step</code></p>
     </td>
   </tr>
   <tr>
     <td><code>job_id</code></td>
     <td>
-      The job UUID.
-      <em>Example:</em> <code>0184990a-477b-4fa8-9968-496074483cee</code><br>
+      <p>The job UUID.</p>
+      <p><em>Example:</em> <code>0184990a-477b-4fa8-9968-496074483cee</code></p>
     </td>
   </tr>
   <tr>
     <td><code>agent_id</code></td>
     <td>
-      The agent UUID.
-      <em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b8ff</code><br>
+      <p>The agent UUID.</p>
+      <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b8ff</code></p>
     </td>
   </tr>
   </tbody>
