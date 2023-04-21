@@ -3,6 +3,10 @@
   margin-top: 3rem;
 }
 
+.References__heading {
+  @include section-heading;
+}
+
 .References__grid {
   display: grid;
   gap: $gutter;

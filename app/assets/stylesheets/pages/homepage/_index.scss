@@ -1,11 +1,11 @@
+@mixin section-heading {
+  @include heading(1.5);
+}
+
 @import "hero_banner";
 @import "products";
 @import "popular_guides";
 @import "references";
-
-.HomePage__section-heading {
-  @include heading(1.5);
-}
 
 .HomePage__container {
   @include container;
