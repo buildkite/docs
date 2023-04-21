@@ -5,10 +5,6 @@ services:
       context: .
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
-    depends_on:
-      - vite
-    environment:
-      VITE_RUBY_HOST: vite
     volumes:
       - '.:/app'
       - /app/node_modules
@@ -22,19 +18,3 @@ services:
     entrypoint:
       - ash
       - -c
-
-  vite:
-    build:
-      context: .
-      args:
-        RAILS_ENV: ${RAILS_ENV:-development}
-    command: bin/vite dev
-    environment:
-      DEBUG: '*vite*'
-      RAILS_ENV: development
-      VITE_RUBY_HOST: 0.0.0.0
-    ports:
-      - "3036:3036"
-    volumes:
-      - .:/app
-      - /app/node_modules
