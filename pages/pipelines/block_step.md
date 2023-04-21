@@ -57,60 +57,60 @@ _Optional attributes:_
   <tr>
     <td><code>prompt</code></td>
     <td>
-      The instructional message displayed in the dialog box when the unblock step is activated.<br>
-      <em>Example:</em> <code>"Release to production?"</code><br>
-      <em>Example:</em> <code>"Fill out the details for this release"</code>
+      <p>The instructional message displayed in the dialog box when the unblock step is activated.</p>
+      <p><em>Example:</em></p>
+      <ul><li> <code>"Release to production?"</code></li><li><code>"Fill out the details for this release"</code></li></ul>
     </td>
   </tr>
   <tr>
     <td><code>fields</code></td>
     <td>
-      A list of input fields required to be filled out before unblocking the step.<br>
-      Available input field types: <code>text</code>, <code>select</code>
+      <p>A list of input fields required to be filled out before unblocking the step.</p>
+      <p>Available input field types: <code>text</code>, <code>select</code></p>
     </td>
   </tr>
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      <p>The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.<br>
-      <em>Default:</em> <code>passed</code><br>
-      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code></p>
+      <p>The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.</p>
+      <p><em>Default:</em> <code>passed</code></p>
+      <p><em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code></p>
       <p>If you're using GitHub, you can also <a href="/docs/integrations/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipline basis.</p>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.<br>
-      <em>Example:</em> <code>"main stable/*"</code>
+      <p>The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.</p>
+      <p><em>Example:</em> <code>"main stable/*"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
-      <em>Example:</em> <code>build.message != "skip me"</code>
+      <p>A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.</p>
+      <p><em>Example:</em> <code>build.message != "skip me"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
-      <em>Example:</em> <code>"test-suite"</code>
+      <p>A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.</p>
+      <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-	    A unique string to identify the block step.
-      <em>Example:</em> <code>"test-suite"</code>
+	    <p>A unique string to identify the block step.</p>
+      <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
-      <em>Default:</em> <code>false</code>
+      <p>Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.</p>
+      <p><em>Default:</em> <code>false</code></p>
     </td>
   </tr>
 </table>
@@ -133,9 +133,9 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
-      <em>Example:</em> <code>"release-name"</code>
+      <p>The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.</p>
+      <p><em>Example:</em> <code>"release-name"</code></p>
     </td>
   </tr>
 </table>
@@ -156,22 +156,22 @@ _Optional attributes:_
   <tr>
     <td><code>hint</code></td>
     <td>
-      The explanatory text that is shown after the label.<br>
-      <em>Example:</em> <code>"What's the code name for this release? \:name_badge\:"</code>
+      <p>The explanatory text that is shown after the label.</p>
+      <p><em>Example:</em> <code>"What's the code name for this release? \:name_badge\:"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-      A boolean value that defines whether the field is required for form submission.<br>
-      <em>Default value:</em> <code>true</code>
+      <p>A boolean value that defines whether the field is required for form submission.</p>
+      <p><em>Default value:</em> <code>true</code></p>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The value that is pre-filled in the text field.<br>
-      <em>Example:</em> <code>"Flying Dolphin"</code>
+      <p>The value that is pre-filled in the text field.</p>
+      <p><em>Example:</em> <code>"Flying Dolphin"</code></p>
     </td>
   </tr>
 </table>
