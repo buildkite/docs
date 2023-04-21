@@ -1,8 +1,8 @@
 <nav class="Nav Nav--sidebar">
   <%=
     render 'nav_children',
-    children: @nav.current_item_root["children"],
-    current_nav_item: @nav.current_item,
+    children: @nav.current_item_root(request)["children"],
+    current_nav_item: @nav.current_item(request),
     is_dropdown: nil,
     nav_level: 1,
     start_expanded: true,

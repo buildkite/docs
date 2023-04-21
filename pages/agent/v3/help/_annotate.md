@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent annotate [body] [options...]`
 
-## Description
+### Description
 
 Build annotations allow you to customize the Buildkite build interface to
 show information that may surface from your builds. Some examples include:
@@ -39,14 +39,14 @@ leave context blank, it will use the default context.
 You can also update only the style of an existing annotation by omitting the
 body entirely and providing a new style value.
 
-## Example
+### Example
 
     $ buildkite-agent annotate "All tests passed! :rocket:"
     $ cat annotation.md | buildkite-agent annotate --style "warning"
     $ buildkite-agent annotate --style "success" --context "junit"
     $ ./script/dynamic_annotation_generator | buildkite-agent annotate --style "success"
 
-## Options
+### Options
 
 <!-- vale off -->
 

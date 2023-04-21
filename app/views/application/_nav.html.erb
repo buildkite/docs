@@ -2,7 +2,7 @@
   <%=
     render 'nav_children',
     children: @nav.data,
-    current_nav_item: @nav.current_item,
+    current_nav_item: @nav.current_item(request),
     is_dropdown: nil,
     nav_level: 0,
     start_expanded: true,
