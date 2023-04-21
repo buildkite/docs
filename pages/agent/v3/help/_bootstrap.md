@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent bootstrap [options...]`
 
-## Description
+### Description
 
 The bootstrap command executes a Buildkite job locally.
 
@@ -32,13 +32,13 @@ You can run only specific phases with the --phases flag.
 The bootstrap is also responsible for executing hooks around the phases.
 See https://buildkite.com/docs/agent/v3/hooks for more details.
 
-## Example
+### Example
 
     $ eval $(curl -s -H "Authorization: Bearer xxx" \
         "https://api.buildkite.com/v2/organizations/[org]/pipelines/[proj]/builds/[build]/jobs/[job]/env.txt" | sed 's/^/export /')
     $ buildkite-agent bootstrap --build-path builds
 
-## Options
+### Options
 
 <!-- vale off -->
 
