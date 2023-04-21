@@ -19,22 +19,27 @@
     <td>
       <p>Subject</p>
       <p>Identifies the subject of the JWT, typically representing the user or entity being authenticated.</p>
-      <p><em>Format:</em> <code>organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY</code>. If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>. Otherwise, <code>REF</code> is <code>refs/heads/BRANCH</code>.</p>
-      <p><em>Example:</em> <code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
+      <p><em>Format:</em>
+        <code>organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY</code>.
+        If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>. Otherwise, <code>REF</code> is
+        <code>refs/heads/BRANCH</code>.</p>
+      <p><em>Example:</em><code>organization:acme-inc:pipeline:super-duper-                app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
     </td>
   </tr>
    <tr>
     <td><code>aud</code></td>
     <td>
       <p>Audience</p>
-      <p>Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code> but can be overridden using the <code>--audience</code> flag</p>
+      <p>Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code>
+         but can be overridden using the <code>--audience</code> flag</p>
     </td>
   </tr>
    <tr>
     <td><code>exp</code></td>
     <td>
       <p>Expiration time</p>
-      <p>Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden using the <code>--lifetime</code> flag.</p>
+      <p>Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the
+        future at generation, but can be overridden using the <code>--lifetime</code> flag.</p>
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
@@ -99,7 +104,8 @@
   <tr>
     <td><code>step_key</code></td>
     <td>
-      <p>The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step, <code>nil</code> is returned.</p>
+      <p>The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step,
+        <code>nil</code> is returned.</p>
       <p><em>Example:</em> <code>build_step</code></p>
     </td>
   </tr>
