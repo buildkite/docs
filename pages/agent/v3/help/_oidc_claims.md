@@ -33,7 +33,8 @@
       <p>Audience</p>
       <p>Identifies the intended audience for the JWT.</p>
       <p>Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code>
-         but can be overridden using the <code>--audience</code> flag</p>
+         but can be overridden using the <code>
+        --audience</code> flag</p>
     </td>
   </tr>
    <tr>
@@ -41,8 +42,8 @@
     <td>
       <p>Expiration time</p>
       <p>Specifies the expiration time of the JWT, after which the token is no longer valid.</p>
-      <p>Defaults to 5 minutes in the future at generation, but can be overridden using the
-        <code>--lifetime</code> flag.</p>
+      <p>Defaults to 5 minutes in the future at generation, but can be overridden using the <code>
+        --lifetime</code> flag.</p>
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
