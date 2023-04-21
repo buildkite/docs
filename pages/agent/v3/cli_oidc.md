@@ -15,7 +15,7 @@ For specific endpoints for OpenID or JWKS, use:
 - **OpenID Connect Discovery URL:** https://agent.buildkite.com/.well-known/openid-configuration
 - **JWKS URI:** https://agent.buildkite.com/.well-known/jwks
 
-## Token contents
+## Claims
 
 <table data-attributes data-attributes-required>
   <thead>
@@ -45,20 +45,22 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>aud</code></td>
     <td>
-      <p>Audience. Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code> but can be overridden using the <code>--audience</code> flag</p>
+      <p>Audience.</p>
+      <p>Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code> but can be overridden using the <code>--audience</code> flag</p>
     </td>
   </tr>
    <tr>
     <td><code>exp</code></td>
     <td>
-      <p>Expiration Time. Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden with the <code>--lifetime</code> flag.</p>
+      <p>Expiration Time</p>
+      <p>Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden with the <code>--lifetime</code> flag.</p>
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>nbf</code></td>
     <td>
-      <p>Not Before.</p> 
+      <p>Not Before</p> 
       <p>Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation.</p>
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
@@ -66,35 +68,36 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>iat</code></td>
     <td>
-      <p>Issued At. Specifies the time at which the JWT was issued. Set to the current timestamp at generation.</p>
+      <p>Issued At</p>
+      <p>Specifies the time at which the JWT was issued. Set to the current timestamp at generation.</p>
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>organization_slug</code></td>
     <td>
-      <p>The slug of your organization in the Buildkite platform.</p>
+      <p>The organization's slug.</p>
       <p><em>Example:</em> <code>acme-inc</code></p>
     </td>
   </tr>
    <tr>
     <td><code>pipeline_slug</code></td>
     <td>
-      <p>The slug of your pipeline in the Buildkite platform.</p>
+      <p>The pipeline's slug.</p>
       <p><em>Example:</em> <code>super-duper-app</code></p>
     </td>
   </tr>
    <tr>
     <td><code>build_number</code></td>
     <td>
-      <p>The unique number of your build.</p>
+      <p>The build number.</p>
       <p><em>Example:</em> <code>1</code></p>
     </td>
   </tr>
    <tr>
     <td><code>build_branch</code></td>
     <td>
-      <p>The repository branch used in your build.</p>
+      <p>The repository branch used in the build.</p>
       <p><em>Example:</em> <code>main</code></p>
     </td>
   </tr>
@@ -143,7 +146,7 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
 <table data-attributes data-attributes-required>
   <thead>
     <tr>
-      <th>Token</th>
+      <th>Claim</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -151,15 +154,15 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
   <tr>
     <td><code>organization_id</code></td>
     <td>
-      The organization UUID.
-      <em>Example:</em> <code>0184990a-477b-4fa8-9968-496074483k77</code><br>
+      <p>The organization UUID.</p>
+      <p><em>Example:</em> <code>0184990a-477b-4fa8-9968-496074483k77</code></p>
     </td>
   </tr>
   <tr>
     <td><code>pipeline_id</code></td>
     <td>
-      The pipeline UUID.
-      <em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1l0</code><br>
+      <p>The pipeline UUID.</p>
+      <p><em>Example:</em> <code>0184990a-4782-42b5-afc1-16715b10b1l0</code></p>
     </td>
   </tr>
   </tbody>
