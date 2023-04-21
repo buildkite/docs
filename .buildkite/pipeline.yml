@@ -68,7 +68,7 @@ steps:
     steps:
       - label: ":prettier: Lint assets"
         commands:
-          - npm install
+          - yarn
           - npm run prettier-check
         plugins:
           - docker#v3.7.0:
