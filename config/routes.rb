@@ -83,6 +83,8 @@ Rails.application.routes.draw do
   get "/docs/pipelines/build-retention",          to: redirect("/docs/pipelines/build-export")
   get "/docs/tutorials/elastic-ci-stack-aws",     to: redirect("/docs/agent/v3/elastic-ci-aws")
 
+  mount Graphql::Voyager::Rails::Engine, at: "/graphql-voyager", graphql_path: "https://graphql.buildkite.com/v1?access_token=#{ENV["API_ACCESS_TOKEN"]}"
+
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
 

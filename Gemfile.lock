@@ -59,6 +59,9 @@ GEM
     graphql-client (0.18.0)
       activesupport (>= 3.0)
       graphql
+    graphql-voyager-rails (1.0.4)
+      railties
+      sprockets-rails
     i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     listen (3.5.1)
@@ -181,6 +184,7 @@ DEPENDENCIES
   foreman
   front_matter_parser
   graphql-client
+  graphql-voyager-rails
   listen
   lograge
   matrix

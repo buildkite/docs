@@ -11,6 +11,6 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in the app/assets
 # folder are already added.
-Rails.application.config.assets.precompile += %w( docsearch.js docsearch.css )
+Rails.application.config.assets.precompile += %w( docsearch.js docsearch.css graphql/voyager/rails/application.css graphql/voyager/rails/application.js graphql/voyager/rails/voyager.js )
 
 Rails.application.config.assets.prefix = "/docs/assets"

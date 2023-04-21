@@ -48,6 +48,9 @@ gem "bugsnag"
 # Parse "front matter" from markdown files
 gem 'front_matter_parser'
 
+# GraphQL visualizer
+gem 'graphql-voyager-rails'
+
 gem 'matrix'
 
 group :development, :test do
