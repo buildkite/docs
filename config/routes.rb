@@ -1,3 +1,5 @@
+Graphql::Voyager::Rails.config.headers["Authorization"] = -> (view_context) { "Bearer #{ENV["API_ACCESS_TOKEN"]}" }
+
 Rails.application.routes.draw do
   # Pages and guides that have been renamed (and we don't want to break old URLs)
   get "/docs/api",                                to: redirect("/docs/apis/rest-api")
@@ -83,7 +85,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/build-retention",          to: redirect("/docs/pipelines/build-export")
   get "/docs/tutorials/elastic-ci-stack-aws",     to: redirect("/docs/agent/v3/elastic-ci-aws")
 
-  mount Graphql::Voyager::Rails::Engine, at: "/graphql-voyager", graphql_path: "https://graphql.buildkite.com/v1?access_token=#{ENV["API_ACCESS_TOKEN"]}"
+  mount Graphql::Voyager::Rails::Engine, at: "/graphql-voyager", graphql_path: "https://graphql.buildkite.com/v1"
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
