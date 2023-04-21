@@ -1,7 +1,7 @@
 module NavData
   def convert_to_nav_items(type_set, sub_dir = nil)
     nav_items = []
-    
+
     type_set.each do |schema_type_data|
       sub_dir = sub_dir || schema_type_data["kind"].to_s.downcase
 
@@ -14,18 +14,8 @@ module NavData
     nav_items.sort_by { |nav_item| nav_item["name"] }
   end
 
-  def generate_graphql_nav_data(docs_nav_data, type_sets)
-    graphql_nav_data = docs_nav_data
-    graphql_nav_data.map { |nav_item| nav_item.delete('children') }
-    graphql_nav_data.find { |nav_item| nav_item['name'] == 'APIs' }['children'] = [
-      {
-        "name" => "All APIs",
-        "path" => "apis",
-        "type" => "back"
-      },
-      {
-        "type" => "divider"
-      },
+  def generate_graphql_nav_data(type_sets)
+    [
       {
         "name" => "GraphQL API",
         "path" => "apis/graphql-api"
@@ -71,7 +61,5 @@ module NavData
         "children" => convert_to_nav_items(type_sets["union_types"])
       }
     ]
-
-    graphql_nav_data
   end
 end
