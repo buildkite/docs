@@ -2,15 +2,13 @@ $md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
 $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
 .PageContainer {
-  box-sizing: border-box;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: map-get($max-w, "container");
-  padding-left: $gutter / 2;
-  padding-right: $gutter / 2;
+  @include container;
+}
 
+.Page {
   display: grid;
   grid-template-rows: auto;
+
   gap: $gutter / 2;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -19,32 +17,29 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     "content";
 
   @media (min-width: $screen-md) {
-    margin-top: $md-screen-margin-top;
     grid-template-columns: 270px 1fr;
     grid-template-areas:
       "sidebar toc"
       "sidebar content";
+    margin-top: $md-screen-margin-top;
   }
 
   @media (min-width: $screen-lg) {
-    margin-top: $lg-screen-margin-top;
     grid-template-columns: 270px 1fr 270px;
     grid-template-areas: "sidebar content toc";
+    margin-top: $lg-screen-margin-top;
   }
 
   &--landing {
-    @media (min-width: $screen-md) {
-      grid-template-areas: "sidebar content";
-    }
-
     @media (min-width: $screen-lg) {
+      grid-gap: 58px;
       grid-template-columns: 270px 1fr;
       grid-template-areas: "sidebar content";
     }
   }
 }
 
-.PageContainer__Sidebar {
+.Page__sidebar {
   grid-area: sidebar;
   position: sticky;
   overflow-y: auto;
@@ -63,7 +58,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 }
 
-.PageContainer__Toc {
+.Page__toc {
   grid-area: toc;
   margin-bottom: $gutter / 2;
 
@@ -77,7 +72,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   }
 }
 
-.PageContainer__Content {
+.Page__content {
   grid-area: content;
 
   @media (min-width: $screen-lg) {
@@ -85,7 +80,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     justify-self: center;
   }
 
-  .PageContainer--landing & {
+  .Page--landing & {
     @media (min-width: $screen-lg) {
       max-width: none;
     }

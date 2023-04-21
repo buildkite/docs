@@ -9,13 +9,17 @@ class Nav
   # Returns the current nav item's root
   def current_item_root(request)
     current = current_item(request)
+
     data.find { |item| item["name"] == current[:parents][0] }
   end
 
   # Returns the current nav item
   def current_item(request)
+    return nil if request.path == "/docs"
+
     item = route_map[request.path.sub("/docs/", "")]
-    raise ActionController::RoutingError.new("Missing navigation for #{path}") unless item
+    raise ActionController::RoutingError.new("Missing navigation for #{request.path}") unless item
+
     item
   end
 

@@ -3,6 +3,8 @@ class PagesController < ApplicationController
   layout :layout_by_path
 
   def index
+    @nav = default_nav
+
     render :index, layout: "homepage"
   end
 

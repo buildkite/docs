@@ -3,19 +3,23 @@
   <head>
     <%= render "head" %>
   </head>
-  <body class="StandardWhiteContentPage  <%= beta? ? 'beta' : ''-%> ">
+  <body class="<%= beta? ? 'beta' : ''-%>">
     <%= render "site_header" %>
 
-    <main id="main" role="main" class="PageContainer PageContainer--landing">
-      <div class="PageContainer__Sidebar">
-        <%= render 'sidebar' %>
-      </div>
+    <main id="main" role="main">
+      <div class="PageContainer">
+        <div class="Page Page--landing">
+          <div class="Page__sidebar">
+            <%= render 'sidebar' %>
+          </div>
 
-      <div class="PageContainer__Content">
-        <div class="Page">
-          <%= yield %>
+          <div class="Page__content">
+            <article class="Article">
+              <%= yield %>
+            </article>
+            <%= render "footer" %>
+          </div>
         </div>
-        <%= render "footer", :embed_emojicom => false %>
       </div>
     </main>
 
