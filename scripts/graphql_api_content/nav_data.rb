@@ -14,10 +14,14 @@ module NavData
     nav_items.sort_by { |nav_item| nav_item["name"] }
   end
 
-  def generate_graphql_nav_data(type_sets)
-    [
+  def generate_graphql_nav_data(docs_nav_data, type_sets)
+    graphql_item = docs_nav_data
+      .find { |item| item["name"] == "APIs" }["children"]
+      .find { |item| item["name"] == "GraphQL" }
+
+    graphql_item['children'] = [
       {
-        "name" => "GraphQL API",
+        "name" => "Overview",
         "path" => "apis/graphql-api"
       },
       {
@@ -61,5 +65,7 @@ module NavData
         "children" => convert_to_nav_items(type_sets["union_types"])
       }
     ]
+
+    docs_nav_data
   end
 end

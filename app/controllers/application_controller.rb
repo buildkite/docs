@@ -11,10 +11,6 @@ class ApplicationController < ActionController::Base
     Rails.application.config.default_nav
   end
 
-  def graphql_nav
-    Rails.application.config.graphql_nav
-  end
-
   # capture some extra data so we can log it with lograge
   def append_info_to_payload(payload)
     super
