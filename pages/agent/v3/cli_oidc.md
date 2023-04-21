@@ -20,7 +20,7 @@ For specific endpoints for OpenID or JWKS, use:
 <table data-attributes data-attributes-required>
   <thead>
     <tr>
-      <th>Token</th>
+      <th>Claim</th>
       <th>Description</th>
     </tr>
   </thead>
@@ -28,17 +28,18 @@ For specific endpoints for OpenID or JWKS, use:
   <tr>
     <td><code>iss</code></td>
     <td>
-      Issuer. Identifies the entity that issued the JWT.
-      <em>Example:</em> <code>Example: https://agent.buildkite.com</code><br>
+      <p>Issuer</p>
+      <p>Identifies the entity that issued the JWT.</p>
+      <p><em>Example:</em> <code>https://agent.buildkite.com</code></p>
     </td>
   </tr>
    <tr>
     <td><code>sub</code></td>
     <td>
-      Subject. Identifies the subject of the JWT, typically representing the user or entity being authenticated.
-      The format is <code>organization:{organization.slug}:pipeline:{pipeline.slug}:ref:{ref}:commit:{build.commit}:step:{step.key}</code>. <code>{ref}</code> is <code>refs/tags/{tag}</code> if the build has a tag, otherwise is <code>refs/heads/{branch}</code>.
-      <br>
-      <em>Example:</em> <code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code><br>
+      <p>Subject</p>
+      <p>Identifies the subject of the JWT, typically representing the user or entity being authenticated.</p>
+      <p><em>Format:</em> <code>organization:ORGANIZATION_SLUG:pipeline:PIPELINE_SLUG:ref:REF:commit:BUILD_COMMIT:step:STEP_KEY</code>. If the build has a tag, <code>REF</code> is <code>refs/tags/TAG</code>. Otherwise, <code>REF</code> is <code>refs/heads/BRANCH</code>.</p>
+      <p><em>Example:</em> <code>organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build</code></p>
     </td>
   </tr>
    <tr>
@@ -164,7 +165,7 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
   </tbody>
 </table>
 
-## Example token contents
+### Example token contents
 
 OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-json-web-token) — and the following is a complete example:
 
