@@ -412,7 +412,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
+The command step added in the above example uploads the trigger step and adds it to the end of the pipeline at runtime.
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
 
