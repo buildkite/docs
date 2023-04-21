@@ -36,9 +36,9 @@ RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set force_ruby_platform true \
     && bundle install --jobs $(nproc) --retry 3
 
-COPY package.json package-lock.json ./
-RUN echo "--- :npm: Installing npm deps" \
-    && npm ci
+COPY package.json yarn.lock ./
+RUN echo "--- :npm: Installing node dependencies" \
+    && yarn
 
 # Add the app
 COPY . /app
