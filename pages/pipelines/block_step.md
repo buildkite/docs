@@ -414,7 +414,7 @@ steps:
 
 The command step added in the above example uploads the trigger step and adds it to the end of the pipeline at runtime.
 
-In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
+In the pipeline you're triggering, you can use the meta-data passed through as if it was set during the triggered build.
 
 ## Block steps interacting with wait steps
 
