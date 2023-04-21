@@ -3,14 +3,6 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
 .PageContainer {
   @include container;
-
-  @media (min-width: $screen-md) {
-    margin-top: $md-screen-margin-top;
-  }
-
-  @media (min-width: $screen-lg) {
-    margin-top: $lg-screen-margin-top;
-  }
 }
 
 .Page {
@@ -29,11 +21,13 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     grid-template-areas:
       "sidebar toc"
       "sidebar content";
+    margin-top: $md-screen-margin-top;
   }
 
   @media (min-width: $screen-lg) {
     grid-template-columns: 270px 1fr 270px;
     grid-template-areas: "sidebar content toc";
+    margin-top: $lg-screen-margin-top;
   }
 
   &--landing {

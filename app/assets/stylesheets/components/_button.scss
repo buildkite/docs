@@ -6,7 +6,7 @@
 @mixin button-white-text {
   color: $base-0;
 
-  .TextContent & {
+  .Article & {
     color: $base-0;
   }
 }
@@ -33,7 +33,7 @@ button {
     display: inline-flex;
   }
 
-  .TextContent & {
+  .Article & {
     @media (min-width: $screen-xs) {
       display: inline-flex;
     }

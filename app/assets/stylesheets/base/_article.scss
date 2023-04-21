@@ -1,51 +1,4 @@
-@mixin margin($margin: 1) {
-  margin-bottom: #{$margin}rem;
-  margin-top: #{$margin}rem;
-}
-
-@mixin heading($size-multiplier, $margin: 1, $line-height: "heading") {
-  clear: both;
-  color: map-get($color-aliases, "text-display");
-  font-family: $font-family-display;
-  font-size: #{$size-multiplier}rem;
-  font-style: normal;
-  font-weight: bold;
-  line-height: map-get($line-heights, $line-height);
-
-  @include margin($margin);
-}
-
-@mixin code-bg {
-  background-color: $gray-300;
-  border-radius: $rounded;
-  padding: 0.185em 0.375em;
-}
-
-h1 {
-  @include heading(3, $line-height: "tightest");
-}
-
-h2 {
-  @include heading(2);
-}
-
-h3 {
-  @include heading(1.5);
-}
-
-h4 {
-  @include heading(1.1875);
-}
-
-h5 {
-  @include heading(1);
-}
-
-h6 {
-  @include heading(0.875);
-}
-
-.TextContent {
+.Article {
   color: map-get($color-aliases, "text-body");
   font-size: 1.1875rem;
   line-height: map-get($line-heights, "golden");
@@ -388,6 +341,52 @@ h6 {
       margin-top: 0;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
+    }
+  }
+
+  img.no-decoration,
+  .responsive-image-container.no-decoration {
+    padding: 0;
+    border: none;
+    margin: 0;
+  }
+  img.emoji {
+    padding: 0;
+    border: none;
+  }
+  hr + h2 {
+    margin-top: 0;
+  }
+  th {
+    font-weight: 600;
+  }
+  thead th {
+    font-weight: 600;
+  }
+  .image,
+  img {
+    max-width: 100%;
+  }
+  .responsive-image-container {
+    margin: 0.5rem 0 2rem 0;
+  }
+  li .responsive-image-container {
+    margin: 0.5rem 0 0 0;
+  }
+
+  table.fixed-width {
+    // In general, the width of our tables within articles depends on the size of their content. This works great except
+    // when we have text such as a HTTP response snippet that includes a long unbroken string. When that happens, the
+    // table overflows outside of its bounding box and doesn't wrap or scroll nicely, causing text cropping. Use this
+    // "fixed-width" class for a table that won't overflow it's bounding box horizontally and forces text wrapping.
+
+    table-layout: fixed;
+    width: 100%;
+    th {
+      width: 25%;
+    }
+    tr {
+      width: 75%;
     }
   }
 }
