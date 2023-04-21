@@ -47,22 +47,22 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>aud</code></td>
     <td>
-      <p>Audience.</p>
+      <p>Audience</p>
       <p>Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code> but can be overridden using the <code>--audience</code> flag</p>
     </td>
   </tr>
    <tr>
     <td><code>exp</code></td>
     <td>
-      <p>Expiration Time</p>
-      <p>Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden with the <code>--lifetime</code> flag.</p>
+      <p>Expiration time</p>
+      <p>Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden using the <code>--lifetime</code> flag.</p>
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>nbf</code></td>
     <td>
-      <p>Not Before</p> 
+      <p>Not before</p>
       <p>Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation.</p>
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
@@ -70,7 +70,7 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>iat</code></td>
     <td>
-      <p>Issued At</p>
+      <p>Issued at</p>
       <p>Specifies the time at which the JWT was issued. Set to the current timestamp at generation.</p>
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
@@ -120,7 +120,7 @@ For specific endpoints for OpenID or JWKS, use:
   <tr>
     <td><code>step_key</code></td>
     <td>
-      <p>The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step, <code>nil</code> will be returned.</p>
+      <p>The <code>key</code> attribute of the step from the pipeline. If the key is not set for the step, <code>nil</code> is returned.</p>
       <p><em>Example:</em> <code>build_step</code></p>
     </td>
   </tr>
