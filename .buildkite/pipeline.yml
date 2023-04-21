@@ -12,8 +12,6 @@ steps:
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
-          volumes:
-            - /app/node_modules
           env:
             - BUILDKITE_JOB_ID
             - CI

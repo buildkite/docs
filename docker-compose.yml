@@ -11,6 +11,7 @@ services:
       VITE_RUBY_HOST: vite
     volumes:
       - '.:/app'
+      - /app/node_modules
     ports:
       - '3000:3000'
 
