@@ -45,21 +45,21 @@ For specific endpoints for OpenID or JWKS, use:
    <tr>
     <td><code>aud</code></td>
     <td>
-      <p>Audience. Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/{organization.slug}</code> but can be overridden using the <code>--audience</code> flag</p>
+      <p>Audience. Identifies the intended audience for the JWT. Defaults to <code>https://buildkite.com/ORGANIZATION_SLUG</code> but can be overridden using the <code>--audience</code> flag</p>
     </td>
   </tr>
    <tr>
     <td><code>exp</code></td>
     <td>
-      <p>Expiration Time. Specifies the expiration time of the JWT, after which the token is no longer valid. Set to 5 minutes in the future at generation.<br>
-      Can be changed with the <code>--lifetime</code> flag.</p>
+      <p>Expiration Time. Specifies the expiration time of the JWT, after which the token is no longer valid. Defaults to 5 minutes in the future at generation, but can be overridden with the <code>--lifetime</code> flag.</p>
       <p><em>Example:</em> <code>1669015898</code></p>
     </td>
   </tr>
    <tr>
     <td><code>nbf</code></td>
     <td>
-      <p>Not Before. Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation.</p>
+      <p>Not Before.</p> 
+      <p>Specifies the time before which the JWT must not be accepted for processing. Set to the current timestamp at generation.</p>
       <p><em>Example:</em> <code>1669014898</code></p>
     </td>
   </tr>
