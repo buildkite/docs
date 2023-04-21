@@ -1,12 +1,39 @@
-# Export build data
+# Build exports
 
 Each [Buildkite plan](https://buildkite.com/pricing) has a maximum build retention
-period, after which your oldest builds are automatically deleted.
+period. Once your builds reach the retention period, they will be removed from Buildkite.
 
 > 📘 Enterprise feature
-> Build export is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+> Build exports is only available on an [Enterprise](https://buildkite.com/pricing) plan, which has a build retention period of 12 months.
 
-If you need to retain build data beyond the retention period in your [Buildkite plan](https://buildkite.com/pricing), you can have Buildkite export the data to a private Amazon S3 bucket. Prior to old build data being removed, Buildkite exports JSON representations of the builds to the S3 bucket you provide.
+If you need to retain build data beyond the retention period in your [Buildkite plan](https://buildkite.com/pricing), you can use the build exports feature.
+
+Build exports enables you to configure your own S3 bucket for Buildkite to export your build data to.
+
+If you do not configure an S3 bucket, the exported build data will continue to be stored automatically by Buildkite. You can not access this build data using the Buildkite UI or API, but you can request them from us at any time. Buildkite will store this build data for 12 months before deleting.
+
+## How it works
+Builds older than the build retention limit will be automatically exported (in JSON format) to either the S3 bucket you have provided, or Buildkite will continue to store that build data (in JSON format) for a further 12 months before deletion.
+
+<%= image "build-exports-flow-chart.png", alt: "Simplified flow chart of the build exports process" %>
+
+You are able to configure you own S3 bucket in the UI. See [Enabling build exports](#enabling-build-exports) below.
+
+Buildkite stores your build data as multiple JSON files which include the following data:
+
+```
+buildkite/build-exports/org={UUID}/date={YYYY-MM-DD}/pipeline={UUID}/build={UUID}/
+    annotations.json.gz
+    artifacts.json.gz
+    build.json.gz
+    step-uploads.json.gz
+    jobs/
+        job-{UUID}.json.gz
+        job-{UUID}.log
+```
+
+The files will be stored in the following formats: [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build), [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build), [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs` as they are stored in separate files), and Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build)).
+
 
 ## Preparing your S3 bucket
 
