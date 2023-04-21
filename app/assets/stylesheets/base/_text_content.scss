@@ -142,29 +142,7 @@ h6 {
   }
 
   a {
-    color: map-get($color-aliases, "text-link");
-    text-underline-offset: 0.1em;
-    transition: color $transition-speed;
-    will-change: color;
-
-    &:hover {
-      color: map-get($color-aliases, "text-link-hover");
-    }
-
-    &:has(code) {
-      text-decoration: none;
-    }
-
-    &.external-link {
-      &::after {
-        background-image: asset-url("icons/external_link.svg");
-        content: "";
-        display: inline-block;
-        height: 12px;
-        margin-left: 1px;
-        width: 12px;
-      }
-    }
+    @include style-text-link;
   }
 
   code {

@@ -18,3 +18,39 @@
   padding-left: $gutter / 2;
   padding-right: $gutter / 2;
 }
+
+@mixin style-text-link(
+  $underline: true,
+  $color: map-get($color-aliases, "text-link"),
+  $color-hover: map-get($color-aliases, "text-link-hover")
+) {
+  color: $color;
+
+  @if $underline {
+    text-decoration: underline;
+    text-underline-offset: 0.1em;
+    transition: color $transition-speed, text-decoration-color $transition-speed;
+  } @else {
+    text-decoration: none;
+    transition: color $transition-speed;
+  }
+
+  &:hover {
+    color: $color-hover;
+  }
+
+  &:has(code) {
+    text-decoration: none;
+  }
+
+  &.external-link {
+    &::after {
+      background-image: asset-url("icons/external_link.svg");
+      content: "";
+      display: inline-block;
+      height: map-get($icon-sizes, "xs");
+      margin-left: 0.1em;
+      width: map-get($icon-sizes, "xs");
+    }
+  }
+}
