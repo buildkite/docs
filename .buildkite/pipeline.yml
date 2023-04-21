@@ -1,7 +1,9 @@
 steps:
   - label: ":rspec: RSpec"
     depends_on: linting
-    command: bundle exec rspec
+    command:
+      - vite build
+      - bundle exec rspec
     artifact_paths: "log/rspec-*.xml"
     key: "rspec"
     env:
@@ -9,6 +11,9 @@ steps:
     plugins:
       - docker-compose#v3.9.0:
           run: app
+          dependencies: false
+          volumes:
+            - /app/node_modules
           env:
             - BUILDKITE_JOB_ID
             - CI
