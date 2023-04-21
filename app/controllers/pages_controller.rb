@@ -9,12 +9,7 @@ class PagesController < ApplicationController
   end
 
   def show
-    if request.path.starts_with? "/docs/apis/graphql"
-      @nav = graphql_nav
-    else
-      @nav = default_nav
-    end
-
+    @nav = default_nav
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, throw a 404

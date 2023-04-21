@@ -396,7 +396,7 @@
               pill: "beta"
               path: "apis/rest-api/analytics/flaky-tests"
     - name: "GraphQL"
-      path: "apis/graphql-api"
+      children: []
     - name: "Webhooks"
       children:
         - name: "Overview"
