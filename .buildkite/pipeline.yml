@@ -1,9 +1,7 @@
 steps:
   - label: ":rspec: RSpec"
     depends_on: linting
-    command:
-      - vite build
-      - bundle exec rspec
+    command: bundle exec rspec
     artifact_paths: "log/rspec-*.xml"
     key: "rspec"
     env:
