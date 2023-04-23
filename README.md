@@ -33,8 +33,9 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    ```bash
    # Install the dependencies
    bundle
-   # Start the app on http://localhost:3000/
-   bin/rails server
+
+   # Start the app
+   foreman start
    ```
 
    Or with Docker, run:

@@ -9,6 +9,7 @@ steps:
     plugins:
       - docker-compose#v3.9.0:
           run: app
+          dependencies: false
           env:
             - BUILDKITE_JOB_ID
             - CI
@@ -22,8 +23,7 @@ steps:
     plugins:
       - docker-compose#v3.9.0:
           run: app
-          env:
-            - RAILS_ENV=production
+          config: docker-compose.production.yml
 
   - label: ":spider: muffet"
     # We need to wait until rails has started before running muffet as otherwise it will error out

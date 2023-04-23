@@ -38,6 +38,9 @@ Rails.application.config.content_security_policy do |policy|
     "https://beacon-v2.helpscout.net",
   )
 
+  # Allow @vite/client to hot reload javascript changes in development
+  policy.script_src *policy.script_src, :unsafe_eval, "http://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
+
   policy.connect_src(
     # allow AJAX queries against our search vendor
     "https://#{ENV['ALGOLIA_APP_ID']}-dsn.algolia.net",
@@ -50,6 +53,9 @@ Rails.application.config.content_security_policy do |policy|
     "https://emojicom.io/",
     "https://beacon-v2.helpscout.net"
   )
+
+  # Allow @vite/client to hot reload changes in development
+  policy.connect_src *policy.connect_src, "ws://#{ ViteRuby.config.host_with_port }" if Rails.env.development?
 
   policy.frame_src(
     "https://cdn.emojicom.io/"

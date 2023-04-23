@@ -3,7 +3,9 @@
   "private": true,
   "devDependencies": {
     "husky": "^8.0.0",
-    "prettier": "2.8.4"
+    "prettier": "2.8.4",
+    "vite": "^4.2.0",
+    "vite-plugin-ruby": "^3.2.0"
   },
   "scripts": {
     "validate-agent-attributes-yaml": "npx --package ajv-cli ajv validate -s \"data/content/agent_attributes.schema.yaml\" -d \"data/content/agent_attributes.yaml\"",
