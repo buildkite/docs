@@ -15,5 +15,8 @@
     "prepare": "husky install",
     "prettier-check": "prettier -c \"app/assets/**/*.{js,scss}\"",
     "prettier-fix": "prettier -w \"app/assets/**/*.{js,scss}\""
+  },
+  "dependencies": {
+    "@hotwired/turbo-rails": "^7.3.0"
   }
 }
