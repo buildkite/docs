@@ -35,7 +35,7 @@
 <meta property="og:site_name" content="Buildkite" />
 <meta property="og:locale" content="en_US" />
 
-<%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
+<%= render 'analytics' %>
 
 <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
   <meta name="robots" content="noindex, nofollow">
