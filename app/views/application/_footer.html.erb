@@ -45,9 +45,9 @@
 <% unless hide_feedback %>
   <% emojicom_campaign_id = Rails.env.production? ? '7O7Rc8JaykqXiCmaqe1C' : 'YeriBgQjRQmOU3br2W1g' %>
   <!-- Start emojicom.io widget -->
-  <%= javascript_tag nonce: true do %>
+  <%= javascript_tag do %>
     window.emojicom_widget = { campaign: "<%= emojicom_campaign_id %>" };
   <% end %>
-  <%= javascript_include_tag 'https://cdn.emojicom.io/embed/widget.js', async: true, nonce: true %>
+  <%= javascript_include_tag 'https://cdn.emojicom.io/embed/widget.js', async: true %>
   <!-- End emojicom.io widget -->
 <% end %>
