@@ -18,7 +18,7 @@
 }
 
 .MenuToggleLabel {
-  background: transparent asset-url("icons/menu.svg") 50% 50% no-repeat;
+  background: transparent url("~/images/icons/menu.svg") 50% 50% no-repeat;
   border-radius: 6px;
   box-sizing: border-box;
   cursor: pointer;
@@ -39,7 +39,7 @@
   }
 
   .MenuToggleCheckbox:checked + & {
-    background-image: asset-url("icons/remove.svg");
+    background-image: url("~/images/icons/remove.svg");
   }
 
   span {
