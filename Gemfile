@@ -15,9 +15,6 @@ gem "sprockets-rails"
 # Use Puma as the app server
 gem "puma"
 
-# Use Uglifier as compressor for JavaScript assets
-gem "uglifier"
-
 # Helps with running the server locally
 gem "foreman"
 

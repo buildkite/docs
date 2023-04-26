@@ -55,7 +55,6 @@ GEM
     dry-cli (1.0.0)
     erubi (1.12.0)
     escape_utils (1.2.1)
-    execjs (2.8.1)
     foreman (0.87.2)
     front_matter_parser (1.0.1)
     globalid (1.1.0)
@@ -149,8 +148,6 @@ GEM
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    uglifier (4.2.0)
-      execjs (>= 0.3.0, < 3)
     vite_rails (3.0.14)
       railties (>= 5.1, < 8)
       vite_ruby (~> 3.0, >= 3.2.2)
@@ -198,7 +195,6 @@ DEPENDENCIES
   sprockets-rails
   stringex
   turbo-rails
-  uglifier
   vite_rails
   web-console
 
