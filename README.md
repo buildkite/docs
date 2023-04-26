@@ -31,8 +31,8 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    For non-containerized development, run:
 
    ```bash
-   # Install the dependencies
-   bundle
+   # Install dependencies
+   bin/setup
 
    # Start the app
    foreman start
