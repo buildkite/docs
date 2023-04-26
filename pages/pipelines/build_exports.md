@@ -3,36 +3,39 @@
 > 📘 Enterprise feature
 > Build exports is only available on an [Enterprise](https://buildkite.com/pricing) plan, which has a [build retention](/docs/pipelines/build-retention) period of 12 months.
 
-If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can use the build exports feature.
+If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/).
 
-Build exports enables you to configure your own S3 bucket for Buildkite to export your build data to.
-
-If you do not configure an S3 bucket, the exported build data will be stored for 18 months by Buildkite in case you need it. You cannot access this build data using the Buildkite UI or API, but you can request them from us by contacting support.
+If you don't configure an S3 bucket, Buildkite stores the build data for 18 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
 
 ## How it works
-Builds older than the build retention limit will be automatically exported as JSON to the S3 bucket you have configured. If you haven't configured a build export bucket, Buildkite will store that build data as JSON in our own S3 bucket for a further 18 months in case you need it.
+
+Builds older than the build retention limit are automatically exported as JSON to the S3 bucket you have configured. If you haven't configured a bucket for build export, Buildkite stores that build data as JSON in our own S3 bucket for a further 18 months in case you need it. The following diagram outlines this process.
 
 <%= image "build-exports-flow-chart.png", alt: "Simplified flow chart of the build exports process" %>
 
-You are able to configure you own S3 bucket in the UI. See [Enabling build exports](#enabling-build-exports) below.
-
-Buildkite exports each build as multiple gzipped JSON files which include the following data:
+Buildkite exports each build as multiple gzipped JSON files, which include the following data:
 
 ```
 buildkite/build-exports/org={UUID}/date={YYYY-MM-DD}/pipeline={UUID}/build={UUID}/
-    annotations.json.gz
-    artifacts.json.gz
-    build.json.gz
-    step-uploads.json.gz
-    jobs/
-        job-{UUID}.json.gz
-        job-{UUID}.log
+├── annotations.json.gz
+├── artifacts.json.gz
+├── build.json.gz
+├── step-uploads.json.gz
+└── jobs/
+    ├── job-{UUID}.json.gz
+    └── job-{UUID}.log
 ```
 
-The files will be stored in the following formats: [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build), [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build), [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs` as they are stored in separate files), and Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build)).
+The files are stored in the following formats:
 
+* [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+* [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+* [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
+* Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build))
 
-## Preparing your S3 bucket
+## Configure build exports
+
+### Prepare your S3 bucket
 
 + Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
 + Your bucket must be located in Amazon's `us-east-1` region.
@@ -78,7 +81,7 @@ The files will be stored in the following formats: [Annotations](https://buildki
 
 Your Buildkite Organization ID (UUID) can be found on the settings page described in the next section.
 
-## Enabling build exports
+### Enable build exports
 
 To enable build exports:
 
