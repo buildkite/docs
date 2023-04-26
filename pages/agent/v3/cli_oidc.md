@@ -183,7 +183,6 @@ Generate these additional claims by adding `--claims` to the `buildkite-agent oi
   </tbody>
 </table>
 
-
 ### Example token contents
 
 OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html/draft-ietf-oauth-json-web-token) — and the following is a complete example:
