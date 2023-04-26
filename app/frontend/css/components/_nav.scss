@@ -133,7 +133,7 @@
     &--type {
       &-back {
         &::before {
-          background: transparent asset-url("icons/chevron-left.svg") 50% 50%
+          background: transparent url("~/images/icons/chevron-left.svg") 50% 50%
             no-repeat;
         }
 
@@ -147,8 +147,8 @@
       &-link {
         &:after {
           content: "";
-          background: transparent asset-url("icons/external_link.svg") 50% 50%
-            no-repeat;
+          background: transparent url("~/images/icons/external_link.svg") 50%
+            50% no-repeat;
           background-size: cover;
           height: 16px;
           width: 16px;
@@ -166,7 +166,7 @@
       }
 
       &.Nav__link--parent {
-        background-color: map-get($color-aliases, "selected-bg");
+        background-color: map-get($color-aliases, "~/images/selected-bg");
       }
     }
 
@@ -208,7 +208,7 @@
     width: 100%;
 
     &::before {
-      background: transparent asset-url("icons/angle-down.svg") 50% 50%
+      background: transparent url("~/images/icons/angle-down.svg") 50% 50%
         no-repeat;
       transform: rotate(-90deg);
       will-change: transform;
@@ -248,7 +248,7 @@
   &__dropdown-toggle {
     @media (min-width: $screen-md) {
       &::after {
-        background: transparent asset-url("icons/angle-down.svg") 50% 50%
+        background: transparent url("~/images/icons/angle-down.svg") 50% 50%
           no-repeat;
         content: "";
         height: 8px;
