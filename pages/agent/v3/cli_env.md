@@ -1,6 +1,6 @@
 # `buildkite-agent env`
 
-The Buildkite Agent's `env` subcommands provide the ability to inspect environment variables. In order for jobs to inspect and modify the environment variables the agent needs to have expermiment flag set with job-api like `--experiment=job-api`
+The Buildkite Agent's `env` subcommands provide the ability to inspect environment variables.
 
 With the job-api experiment enabled, jobs can inspect and modify their environment variables using the `get`, `set`, and `unset` sub-commands. These provide an alternative to using shell commands to inspect and modify environment variables. To enable the job-api experiment, include the `--experiment=job-api` flag when starting the agents.
 
