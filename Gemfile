@@ -15,9 +15,6 @@ gem "sprockets-rails"
 # Use Puma as the app server
 gem "puma"
 
-# Use SCSS for stylesheets
-gem "sass-rails"
-
 # Use Uglifier as compressor for JavaScript assets
 gem "uglifier"
 
