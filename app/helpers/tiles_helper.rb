@@ -32,7 +32,7 @@ module TilesHelper
     end
 
     image_html = if image_path
-      image_tag(image_path, alt: title, class: "TileItem__image")
+      vite_image_tag(image_path, alt: title, class: "TileItem__image")
     end
 
     desc_html = if desc
