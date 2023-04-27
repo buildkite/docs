@@ -55,7 +55,7 @@ class Page
 
     def image_path(name)
       stripped_image_path = @image_path.sub(/\Adocs\//, "")
-      @view_helpers.image_path(File.join(stripped_image_path, name))
+      @view_helpers.vite_asset_path(File.join("images", stripped_image_path, name))
     end
 
     def paginated_resource_docs_url
