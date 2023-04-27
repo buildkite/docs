@@ -5,7 +5,7 @@ The Buildkite Agent requires an agent token to connect to Buildkite and register
 
 ## Finding and creating tokens
 
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended to create new, specific tokens for each new environment.
+When you create a new organization in Buildkite, a default agent token is created. You can use this token for testing and development, but creating new, specific tokens for each new environment is recommended.
 
 Tokens can be found and managed on your [Agent Tokens page](https://buildkite.com/organizations/-/agent-tokens).
 
