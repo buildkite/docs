@@ -9,7 +9,7 @@ When you create a new organization in Buildkite, a default agent token is create
 
 Tokens can be found and managed on your [Agent Tokens page](https://buildkite.com/organizations/-/agent-tokens).
 
-Tokens can also be created using [the GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokencreate).
+You can also create tokens using the [GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokencreate).
 
 ## Using and storing tokens
 
