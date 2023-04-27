@@ -27,7 +27,6 @@ buildkite/build-exports/org={UUID}/date={YYYY-MM-DD}/pipeline={UUID}/build={UUID
 ```
 
 The files are stored in the following formats:
-
 * [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 * [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
 * [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
@@ -37,18 +36,18 @@ The files are stored in the following formats:
 
 ### Prepare your S3 bucket
 
-+ Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
-+ Your bucket must be located in Amazon's `us-east-1` region.
-+ Your bucket must have a policy allowing cross-account access as described here and demonstrated in the example below¹.
-  * Allow Buildkite's AWS account `032379705303` to `s3:GetBucketLocation`.
-  * Allow Buildkite's AWS account `032379705303` to `s3:PutObject` keys matching `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
-  * Do *not* allow AWS account `032379705303` to `s3:PutObject` keys outside that prefix.
-+ Your bucket should use modern S3 security features and configurations, for example (but not limited to):
-  * [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
-  * [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
-  * [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default but you may want to consider `SSE-KMS`).
-  * [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
-+ You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
+* Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
+* Your bucket must be located in Amazon's `us-east-1` region.
+* Your bucket must have a policy allowing cross-account access as described here and demonstrated in the example below¹.
+  - Allow Buildkite's AWS account `032379705303` to `s3:GetBucketLocation`.
+  - Allow Buildkite's AWS account `032379705303` to `s3:PutObject` keys matching `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
+  - Do *not* allow AWS account `032379705303` to `s3:PutObject` keys outside that prefix.
+* Your bucket should use modern S3 security features and configurations, for example (but not limited to):
+  - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
+  - [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
+  - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default but you may want to consider `SSE-KMS`).
+  - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
+* You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
 
 ¹ Your S3 bucket policy should look like this, with `YOUR-BUCKET-NAME-HERE` and
 `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
