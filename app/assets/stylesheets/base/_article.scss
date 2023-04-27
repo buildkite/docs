@@ -266,14 +266,6 @@
     margin-top: 0;
   }
 
-  img:not(.emoji):not(.TileItem__image),
-  svg {
-    border: 1px solid #eee;
-    border-radius: 5px;
-    box-sizing: border-box;
-    padding: 5px;
-  }
-
   details {
     background-color: map-get($color-aliases, "panel-background");
     display: inline-block;
@@ -345,12 +337,6 @@
     }
   }
 
-  img.no-decoration,
-  .responsive-image-container.no-decoration {
-    padding: 0;
-    border: none;
-    margin: 0;
-  }
   img.emoji {
     padding: 0;
     border: none;
@@ -364,13 +350,11 @@
   thead th {
     font-weight: 600;
   }
-  .image,
+
   img {
     max-width: 100%;
   }
-  .responsive-image-container {
-    margin: 0.5rem 0 2rem 0;
-  }
+
   li .responsive-image-container {
     margin: 0.5rem 0 0 0;
   }
