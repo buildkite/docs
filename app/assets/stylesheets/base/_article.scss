@@ -102,6 +102,7 @@
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
     font-size: $font-size-code;
+    overflow-wrap: anywhere;
 
     a {
       text-decoration: none;
