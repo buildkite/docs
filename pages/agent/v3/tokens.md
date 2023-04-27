@@ -21,7 +21,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 You can revoke tokens from the [Agent Tokens page](https://buildkite.com/organizations/-/agent-tokens). Once you revoke a token, no new agents can start with that token. Revoking a token does not affect any connected agents.
 
-Tokens can also be revoked using [the GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokenrevoke).
+You can also revoke tokens using the [GraphQL API](/docs/apis/graphql/schemas/mutation/agenttokenrevoke).
 
 ## Scope of access
 
