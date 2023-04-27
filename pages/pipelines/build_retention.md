@@ -1,6 +1,6 @@
 # Build retention
 
-Each [Buildkite plan](https://buildkite.com/pricing) has a maximum build retention period. Once your builds reach the retention period, they will be removed from Buildkite.
+Each [Buildkite plan](https://buildkite.com/pricing) has a maximum build retention period. Once builds reach the retention period, their data is removed from Buildkite.
 
 The following diagram shows the lifecycle of build data by plan.
 
@@ -51,6 +51,7 @@ The following diagram shows the lifecycle of build data by plan.
 </table>
 
 ## Exporting build data
+
 > 📘 Enterprise feature
 > Exporting build data is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
