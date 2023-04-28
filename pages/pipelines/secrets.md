@@ -124,6 +124,7 @@ steps:
   - command: |
       curl \
         --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+        --header "Content-Type: application/json" \
         --request POST \
         --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
         https://api.github.com/repos/my-org/my-app/deployments
@@ -155,6 +156,7 @@ steps:
   - command: |
       curl \
         --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+        --header "Content-Type: application/json" \
         --request POST \
         --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
         https://api.github.com/repos/my-org/my-app/deployments

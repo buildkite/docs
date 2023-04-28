@@ -35,8 +35,11 @@ RSpec.feature "reading pages" do
   describe "all pages" do
     example "render" do
       root = Rails.root.join("pages")
-      root.glob("**/*.md{,.erb}").each do |path|
-        url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".erb").delete_suffix(".md")
+      root.glob("**/*.md").each do |path|
+        # Skip partials
+        next if path.to_s.include?("/_")
+
+        url = "/docs" + path.to_s.delete_prefix(root.to_s).delete_suffix(".md")
         puts "Visiting #{url}"
         visit url
         if !page.status_code.in?([200, 403])

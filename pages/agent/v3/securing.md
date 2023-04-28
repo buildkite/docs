@@ -54,6 +54,8 @@ If you still want to use plugins, you can check out a tool for [signing pipeline
 
 ## Disabling local hooks
 
+Local hooks are hooks defined in pipeline's repository.
+
 If you have enforced a security policy using agent hooks (for example, you force commands to
 run within a Docker container or a chroot environment), you should also disable
 local hooks so that your security measures cannot be evaded with local hooks.

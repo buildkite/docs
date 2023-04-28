@@ -1,10 +1,8 @@
-"use strict";
-
-function initToc() {
+export function initToc() {
   const initCurrentLinkListener = () => {
     const scrollPadding = 125;
     const currentClassName = "Toc__link--current";
-    const tocLinkNodes = document.querySelectorAll(".Toc__link");
+    const tocLinkNodes = document.querySelectorAll(".Toc__link--h2");
     const headingNodes = document.querySelectorAll("h2.Docs__heading");
 
     const getDistanceFromTop = (element) => {

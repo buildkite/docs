@@ -73,10 +73,14 @@ class Page
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
       max_width = image_tag_options.delete(:max_width)
-      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]]
+
+      img_class = image_tag_options.delete(:class).try(:split, " ") || []
+      img_class << "responsive-image-container"
+
+      container = content_tag :div, image_tag(image, image_tag_options), class: img_class
 
       if max_width
-        content_tag :div, container, style: "max-width: #{max_width}px", class: image_tag_options[:class]
+        content_tag :div, container, style: "max-width: #{max_width}px"
       else
         container
       end
@@ -143,7 +147,9 @@ class Page
   def metadata
     defaults = {
       # Default to rendering table of contents
-      "toc": true
+      "toc": true,
+      # Default to H3s being included in the table of contents
+      "toc_include_h3": true
     }
     if file.front_matter
       defaults.merge(file.front_matter.symbolize_keys)

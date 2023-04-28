@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Triggering notifications
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.

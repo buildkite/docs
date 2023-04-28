@@ -70,6 +70,7 @@ while read -r _oldrev newrev ref; do
   curl -X POST \
     "https://api.buildkite.com/v2/organizations/$BUILDKITE_ORG_SLUG/pipelines/$BUILDKITE_PIPELINE_SLUG/builds" \
     -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+    -H "Content-Type: application/json" \
     -d "$(printf "$BUILDKITE_PAYLOAD_FORMAT" "$newrev" "$branch" "$message" "$author" "$email")"
 done
 ```

@@ -11,7 +11,15 @@ const clipboardDocumentIcon = `
 
 const COPY_TIMEOUT = 600;
 
-function createCopyToClipboardButton(code) {
+export function attachCopyToClipboardButton(querySelector) {
+  document.querySelectorAll("pre.highlight").forEach((code) => {
+    createCopyToClipboardButton(code);
+  });
+}
+
+export function createCopyToClipboardButton(code) {
+  code.setAttribute("tabindex", 0);
+
   const button = document.createElement("button");
   button.setAttribute("class", "CopyToClipboardButton");
   setButtonChecked(false);

@@ -43,7 +43,7 @@
     font-family: $font-family-system;
     font-weight: 500;
     line-height: map-get($line-heights, "heading");
-    padding: 0; // override `.TextContent ul`
+    padding: 0; // override `.Article ul`
   }
 
   .TileItem__list-item {

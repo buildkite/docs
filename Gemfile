@@ -8,7 +8,7 @@ source "https://rubygems.org"
 # Choo choo 🚝 (only include the Rails gems we need)
 gem "actionpack", "~> 6.0"
 gem "actionview", "~> 6.0"
-gem "activesupport", "~> 6.0"
+gem "activesupport", "~> 6.1"
 gem "railties", "~> 6.0"
 gem "sprockets-rails"
 
@@ -49,6 +49,12 @@ gem "bugsnag"
 gem 'front_matter_parser'
 
 gem 'matrix'
+
+# Asset compilation
+gem 'vite_rails'
+
+# No page reloads
+gem 'turbo-rails'
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console

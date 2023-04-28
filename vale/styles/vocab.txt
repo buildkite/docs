@@ -36,6 +36,7 @@ JWTs
 Kuzco
 Memcache
 minitest
+misconfiguration
 Namespace
 Namespaced
 Namespaces
@@ -112,6 +113,7 @@ golang
 gotestsum
 Graviton
 gz
+gzipped
 heroku
 hostname
 http
