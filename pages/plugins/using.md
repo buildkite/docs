@@ -47,7 +47,7 @@ location.
 
 ## Configuring plugins
 
-Plugins are configured using attributes in your pipeline YAML configuration. The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin):
+Plugins are configured using attributes on steps in your pipeline YAML definition. While you can't define plugins at a pipeline level, you can use [YAML anchors](/docs/plugins/using#using-yaml-anchors-with-plugins) to avoid repeating the plugin code over multiple steps. The simplest plugin is one that accepts no configuration, such as the [Library Example plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin):
 
 ```yml
 steps:
@@ -90,6 +90,30 @@ steps:
 ```
 
 See each plugin's readme for a list of which options are available.
+
+## Using YAML anchors with plugins
+
+YAML anchors enable you to identify an item with an anchor, also known as an _alias_. You can then reference the anchor when referring to that item.
+
+The following example uses a YAML anchor (`docker`) to remove the need to repeat the same plugin configuration on each step:
+
+```yml
+common:
+  - docker_plugin: &docker
+      docker#v3.3.0:
+        image: something-quiet
+
+steps:
+  - label: "Read in isolation"
+    command: echo "I'm reading..."
+    plugins:
+      - *docker
+  - label: "Read something else"
+    command: echo "On to a new book"
+    plugins:
+      - *docker 
+
+```
 
 ## Plugin sources
 

@@ -12,13 +12,13 @@
       "global": true,
       "default_value": "Documentation"
     },
-    "lvl1": ".Docs__article h1",
-    "lvl2": ".Docs__article h2",
-    "lvl3": ".Docs__article h3",
-    "lvl4": ".Docs__article h4, .Docs__article th",
-    "lvl5": ".Docs__article h5, .Docs__article td:first-child",
-    "lvl6": ".Docs__article h6",
-    "text": ".Docs__article p, .Docs__article li, .Docs__article td"
+    "lvl1": ".Page h1",
+    "lvl2": ".Page h2",
+    "lvl3": ".Page h3",
+    "lvl4": ".Page h4, .Page th",
+    "lvl5": ".Page h5, .Page td:first-child",
+    "lvl6": ".Page h6",
+    "text": ".Page p, .Page li, .Page td"
   },
   "selectors_exclude": [
     "[data-algolia-exclude]",

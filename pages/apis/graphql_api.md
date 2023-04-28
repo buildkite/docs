@@ -9,7 +9,7 @@ For the list of existing disparities between the GraphQL API and the REST API, s
 
 The quickest way to get started with the GraphQL API is to generate an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Token</a> with GraphQL scope, and then use the [GraphQL explorer](https://graphql.buildkite.com/explorer) with its built-in documentation:
 
-<a href="https://graphql.buildkite.com/explorer"><%= image "explorer.png", width: 1065, height: 489, alt: "Screenshot of the Buildkite GraphQL Explorer" %></a>
+<div><a href="https://graphql.buildkite.com/explorer"><%= image "explorer.png", width: 1065, height: 489, alt: "Screenshot of the Buildkite GraphQL Explorer" %></a></div>
 
 See our [Getting started tutorial](https://building.buildkite.com/tutorial-getting-started-with-graphql-queries-and-mutations-11211dfe5d64) for a step-by-step guide to using GraphQL queries and mutations.
 
@@ -41,6 +41,7 @@ For example, the following `curl` command returns the `name` property of the cur
 ```bash
 curl https://graphql.buildkite.com/v1 \
   -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
   -d '{
     "query": "{ viewer { user { name } } }",
     "variables": "{ }"

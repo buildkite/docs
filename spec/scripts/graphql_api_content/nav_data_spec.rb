@@ -1,7 +1,35 @@
+require 'rails_helper'
 require_relative '../../../scripts/graphql_api_content/nav_data'
 include NavData
 
 RSpec.describe NavData do
+  let(:nav) {
+    [
+        {
+          "name" => "Pipelines",
+          "path" => "pipelines"
+        },
+        {
+          "name" => "Test Analytics",
+          "path" => "test-analytics",
+        },
+        {
+          "name" => "APIs",
+          "path" => "apis",
+          "children" => [
+            {
+              "name" => "GraphQL",
+              "children" => []
+            },
+          ]
+        },
+        {
+          "name" => "Integrations",
+          "path" => "integrations",
+        },
+      ]
+   }
+
   type_sets = {
     "query_types" => [
       {
@@ -160,7 +188,7 @@ RSpec.describe NavData do
       }
     ],
     "interface_types" => [
-      {          
+      {
         "kind" => "INTERFACE",
         "name" => "Node",
         "description" => "An object with an ID.",
@@ -264,173 +292,147 @@ RSpec.describe NavData do
 
   describe "#generate_graphql_nav_data" do
     it "generates nav data correctly" do
-      docs_nav_data = [
+      expect(generate_graphql_nav_data(nav, type_sets)).to eq(
         [
           {
             "name" => "Pipelines",
-            "path" => "tutorials/getting-started"
-          },
-          { 
-            "name" => "Test Analytics",
-            "path" => "test-analytics",
-            "pill" => "new"
-          },
-          {
-            "name" => "APIs",
-            "path" => "apis/graphql-api"
-          }
-        ]
-      ]
-
-      expect(generate_graphql_nav_data(docs_nav_data, type_sets)).to eq([
-        [
-          {
-            "name" => "Pipelines",
-            "path" => "tutorials/getting-started"
+            "path" => "pipelines"
           },
           {
             "name" => "Test Analytics",
             "path" => "test-analytics",
-            "pill" => "new"
           },
           {
             "name" => "APIs",
-            "path" => "apis/graphql-api",
+            "path" => "apis",
             "children" => [
-              {
-                "name" => "All APIs",
-                "path" => "apis",
-                "type" => "back"
-              },
-              {
-                "type" => "divider"
-              },
-              {
-                "name" => "GraphQL API",
-                "path" => "apis/graphql-api"
-              },
-              {
-                "name" => "Console and CLI tutorial",
-                "path" => "apis/graphql/graphql-tutorial"
-              },
-              {
-                "name" => "Schema browser",
-                "start_expanded" => true,
-                "children" => [
-                  {
-                    "name" => "Queries",
-                    "children" => [
-                      {
-                        "name" => "agent",
-                        "path" => "apis/graphql/schemas/query/agent"
-                      },
-                      {
-                        "name" => "agentToken",
-                        "path" => "apis/graphql/schemas/query/agenttoken"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Mutations",
-                    "children" => [
-                      {
-                        "name" => "agentStop",
-                        "path" => "apis/graphql/schemas/mutation/agentstop"
-                      },
-                      {
-                        "name" => "agentTokenCreate",
-                        "path" => "apis/graphql/schemas/mutation/agenttokencreate"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Objects",
-                    "children" => [
-                      {
-                        "name" => "Avatar",
-                        "path" => "apis/graphql/schemas/object/avatar"
-                      },
-                      {
-                        "name" => "PullRequest",
-                        "path" => "apis/graphql/schemas/object/pullrequest"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Scalars",
-                    "children" => [
-                      {
-                        "name" => "Boolean",
-                        "path" => "apis/graphql/schemas/scalar/boolean"
-                      },
-                      {
-                        "name" => "String",
-                        "path" => "apis/graphql/schemas/scalar/string"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Interfaces",
-                    "children" => [
-                      {
-                        "name" => "Connection",
-                        "path" => "apis/graphql/schemas/interface/connection"
-                      },
-                      {
-                        "name" => "Node",
-                        "path" => "apis/graphql/schemas/interface/node"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "ENUMs",
-                    "children" => [
-                      {
-                        "name" => "BuildBlockedStates",
-                        "path" => "apis/graphql/schemas/enum/buildblockedstates"
-                      },
-                      {
-                        "name" => "PipelineVisibility",
-                        "path" => "apis/graphql/schemas/enum/pipelinevisibility"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Input objects",
-                    "children" => [
-                      {
-                        "name" => "JobConcurrencySearch",
-                        "path" => "apis/graphql/schemas/input-object/jobconcurrencysearch"
-                      },
-                      {
-                        "name" => "JobStepSearch",
-                        "path" => "apis/graphql/schemas/input-object/jobstepsearch"
-                      }
-                    ]
-                  },
-                  {
-                    "name" => "Unions",
-                    "children" => [
-                      {
-                        "name" => "BuildCreator",
-                        "path" => "apis/graphql/schemas/union/buildcreator"
-                      },
-                      {
-                        "name" => "Job",
-                        "path" => "apis/graphql/schemas/union/job"
-                      }
-                    ]
-                  }
-                ]
-              },
-              {
-                "name" => "Cookbook",
-                "path" => "apis/graphql/graphql-cookbook"
-              }
-            ]
-          }
+              "name" => "GraphQL",
+              "children" => [
+                {
+                  "name" => "Overview",
+                  "path" => "apis/graphql-api"
+                },
+                {
+                  "name" => "Console and CLI tutorial",
+                  "path" => "apis/graphql/graphql-tutorial"
+                },
+                {
+                  "name" => "Cookbook",
+                  "path" => "apis/graphql/graphql-cookbook"
+                },
+                {
+                  "name" => "Queries",
+                  "children" => [
+                    {
+                      "name" => "agent",
+                      "path" => "apis/graphql/schemas/query/agent"
+                    },
+                    {
+                      "name" => "agentToken",
+                      "path" => "apis/graphql/schemas/query/agenttoken"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Mutations",
+                  "children" => [
+                    {
+                      "name" => "agentStop",
+                      "path" => "apis/graphql/schemas/mutation/agentstop"
+                    },
+                    {
+                      "name" => "agentTokenCreate",
+                      "path" => "apis/graphql/schemas/mutation/agenttokencreate"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Objects",
+                  "children" => [
+                    {
+                      "name" => "Avatar",
+                      "path" => "apis/graphql/schemas/object/avatar"
+                    },
+                    {
+                      "name" => "PullRequest",
+                      "path" => "apis/graphql/schemas/object/pullrequest"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Scalars",
+                  "children" => [
+                    {
+                      "name" => "Boolean",
+                      "path" => "apis/graphql/schemas/scalar/boolean"
+                    },
+                    {
+                      "name" => "String",
+                      "path" => "apis/graphql/schemas/scalar/string"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Interfaces",
+                  "children" => [
+                    {
+                      "name" => "Connection",
+                      "path" => "apis/graphql/schemas/interface/connection"
+                    },
+                    {
+                      "name" => "Node",
+                      "path" => "apis/graphql/schemas/interface/node"
+                    }
+                  ]
+                },
+                {
+                  "name" => "ENUMs",
+                  "children" => [
+                    {
+                      "name" => "BuildBlockedStates",
+                      "path" => "apis/graphql/schemas/enum/buildblockedstates"
+                    },
+                    {
+                      "name" => "PipelineVisibility",
+                      "path" => "apis/graphql/schemas/enum/pipelinevisibility"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Input objects",
+                  "children" => [
+                    {
+                      "name" => "JobConcurrencySearch",
+                      "path" => "apis/graphql/schemas/input-object/jobconcurrencysearch"
+                    },
+                    {
+                      "name" => "JobStepSearch",
+                      "path" => "apis/graphql/schemas/input-object/jobstepsearch"
+                    }
+                  ]
+                },
+                {
+                  "name" => "Unions",
+                  "children" => [
+                    {
+                      "name" => "BuildCreator",
+                      "path" => "apis/graphql/schemas/union/buildcreator"
+                    },
+                    {
+                      "name" => "Job",
+                      "path" => "apis/graphql/schemas/union/job"
+                    }
+                  ]
+                }
+              ]
+            ],
+          },
+          {
+            "name" => "Integrations",
+            "path" => "integrations",
+          },
         ]
-      ])
+      )
     end
   end
 end

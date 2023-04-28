@@ -35,6 +35,7 @@ Some API requests accept JSON request bodies for specifying data. For example, t
 
 ```
 curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
+  -H "Content-Type: application/json" \
   -d '{
     "key": "value"
   }'

@@ -30,7 +30,7 @@ Added:
 * [Plugins](/docs/plugins) for sharing functionality between pipelines and customizing how agents behave
 * [Variable interpolation](/docs/agent/v3/cli-pipeline) in `pipeline.yml`
 * [Build annotations](/docs/agent/v3/cli-annotate)
-* [pre-exit hook](/docs/agent/v3/hooks#available-hooks)
+* [pre-exit hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
 
 Changed:
 

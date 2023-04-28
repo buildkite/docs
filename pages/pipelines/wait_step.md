@@ -107,6 +107,20 @@ steps:
 
 The explicit null `~` character used in the above examples isn't required, but is recommended as a best practice. It ensures that nothing else is accidentally added to the `wait` before the `continue_on_failure` attribute.
 
+### Continuing after cancelation
+
+The `continue_on_failure` attribute enables builds to continue after a failed job but not after a cancelation. If you cancel a job, any subsequent wait steps with `continue_on_failure: true` do not execute.
+
+For example, if you cancel the first command, the second command doesn't run in the following `plugin.yml` file:
+
+```yml
+steps:
+  - command: "run-first-command.sh"
+  - wait: ~
+    continue_on_failure: true
+  - command: "run-second-command.sh"
+```
+
 ## Block steps interacting with wait steps
 
 <%= render_markdown partial: 'pipelines/block_wait' %>

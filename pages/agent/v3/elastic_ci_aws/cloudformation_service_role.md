@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # CloudFormation service role
 
 If you want to explicitly specify the actions CloudFormation can perform on

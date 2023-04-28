@@ -54,6 +54,8 @@ If you still want to use plugins, you can check out a tool for [signing pipeline
 
 ## Disabling local hooks
 
+Local hooks are hooks defined in pipeline's repository.
+
 If you have enforced a security policy using agent hooks (for example, you force commands to
 run within a Docker container or a chroot environment), you should also disable
 local hooks so that your security measures cannot be evaded with local hooks.
@@ -83,7 +85,7 @@ set -euo pipefail
 
 for line in "$(grep "^BUILDKITE_REPO=" "${BUILDKITE_ENV_FILE}")"
 do
-  repo="$(echo "${line}" | cut -d= -f2)"
+  repo="$(echo "${line}" | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
   if [ "${repo}" != "git@server:repo.git" ]
   then
     echo "Repository not allowed: ${repo}"
@@ -93,7 +95,7 @@ done
 
 for line in "$(grep "^BUILDKITE_COMMAND=" "${BUILDKITE_ENV_FILE}")"
 do
-  command="$(echo "${line}" | cut -d= -f2)"
+  command="$(echo "${line}" | cut -d= -f2 | sed -e 's/^"//' -e 's/"$//')"
   if [ "${command}" != "some-script.sh" ]
   then
     echo "Command not allowed: ${command}"

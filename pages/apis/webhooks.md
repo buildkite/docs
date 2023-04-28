@@ -17,6 +17,7 @@ You can subscribe to one or more of the following events:
   <tr><th>ping</th><td>Webhook notification settings have changed</td></tr>
   <tr><th>build.scheduled</th><td>A build has been scheduled</td></tr>
   <tr><th>build.running</th><td>A build has started running</td></tr>
+  <tr><th>build.failing</th><td>A build is failing</td></tr>
   <tr><th>build.finished</th><td>A build has finished</td></tr>
   <tr><th>job.scheduled</th><td>A job has been scheduled</td></tr>
   <tr><th>job.started</th><td>A command step job has started running on an agent</td></tr>
