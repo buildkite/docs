@@ -80,8 +80,7 @@ Optionally, select one or more of the following:
 
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
->🚧
-> When a commit is pushed to a branch which already has an one pull request then only build for the code push will happen and associate pull request related information to that build instead of running two builds one for code push and one for pull request.
+When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
 ## Running builds on git tags
 
