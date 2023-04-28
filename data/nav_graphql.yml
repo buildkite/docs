@@ -236,8 +236,10 @@
       path: pipelines/artifacts
     - name: Pipeline tags
       path: pipelines/tags
-    - name: Export build data
-      path: pipelines/build-export
+    - name: Build retention
+      path: pipelines/build-retention
+    - name: Build exports
+      path: pipelines/build-exports
     - name: Public pipelines
       path: pipelines/public-pipelines
     - name: Using build meta-data

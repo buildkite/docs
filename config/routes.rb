@@ -80,7 +80,6 @@ Rails.application.routes.draw do
   get "/docs/integrations/sso/g-cloud-identity",  to: redirect("/docs/integrations/sso/google-workspace-saml")
   get "/docs/agent/v3/osx",                       to: redirect("/docs/agent/v3/macos")
   get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-analytics/javascript-collectors")
-  get "/docs/pipelines/build-retention",          to: redirect("/docs/pipelines/build-export")
   get "/docs/tutorials/elastic-ci-stack-aws",     to: redirect("/docs/agent/v3/elastic-ci-aws")
 
   # Doc sections that don't have overview/index pages, so need redirecting
