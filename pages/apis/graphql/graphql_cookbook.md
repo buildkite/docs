@@ -292,6 +292,23 @@ mutation PipelineUpdate {
 }
 ```
 
+### Get the total build run time
+
+To get the total run time for a build, you can use the following query.
+
+```
+query GetTotalBuildRunTime{
+  build(slug: "organization-slug/pipeline-slug/build-number") {
+    pipeline {
+      name
+    }
+    url
+    startedAt
+    finishedAt
+  }
+}
+```
+
 ## Jobs
 
 A collection of common tasks with jobs using the GraphQL API.
@@ -372,6 +389,27 @@ query AgentJobs {
             build {
               state
             }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### Get the job run time per build
+
+To get the run time of each job in a build, you can use the following query.
+
+```
+query GetJobRunTimeByBuild{
+  build(slug: "organization-slug/pipeline-slug/build-number") {
+    jobs(first: 1) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            startedAt
+            finishedAt
           }
         }
       }
