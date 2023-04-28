@@ -1,0 +1,13 @@
+.emoji {
+  width: 1.23em;
+  height: 1.23em;
+  margin-left: 0.05em;
+  margin-right: 0.05em;
+  vertical-align: -0.2em;
+
+  .tiny-kitemoji & {
+    width: 1em;
+    height: 1em;
+    vertical-align: -0.1em;
+  }
+}

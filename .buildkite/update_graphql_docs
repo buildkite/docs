@@ -1,0 +1,36 @@
+#!/bin/bash
+set -euo pipefail
+
+echo "+++ Fetch latest schema"
+rake graphql:fetch_schema >| data/graphql_data_schema.json
+
+echo "+++ Check for schema changes"
+if git diff --exit-code --quiet data/graphql_data_schema.json; then
+  buildkite-agent annotate  "Nothing to change, schema is up to date." --style "info"
+  exit 0
+fi
+
+echo "+++ Schema changes detected..."
+git --no-pager diff data/graphql_data_schema.json
+
+echo "+++ Generate GraphQL docs"
+./scripts/generate-graphql-api-content.sh
+
+echo "--- Commit and push changes"
+git add .
+BRANCH=buildkite-docs-bot/graphql/$(git rev-parse --short :data/graphql_data_schema.json)
+
+git config user.email $GIT_EMAIL
+git config user.name $GIT_NAME
+git checkout -b $BRANCH
+git commit -m "Update GraphQL docs"
+git push -u origin $BRANCH
+
+echo "+++ Create pull request"
+gh pr create \
+  --title "Update GraphQL docs" \
+  --body "This is an automated PR based on the current GraphQL schema" \
+  | buildkite-agent annotate --style "success"
+
+# Auto-merge PR once checks have passed
+gh pr merge -m --auto

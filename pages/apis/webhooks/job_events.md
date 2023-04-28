@@ -1,0 +1,57 @@
+# Job webhook events
+
+
+## Events
+
+<table>
+<tbody>
+  <tr>
+    <th><code>job.scheduled</code></th>
+    <td>A command step job has been scheduled to run on an agent</td>
+  </tr>
+  <tr>
+    <th><code>job.started</code></th>
+    <td>A command step job has started running on an agent</td>
+  </tr>
+  <tr>
+    <th><code>job.finished</code></th>
+    <td>A job has finished</td>
+  </tr>
+  <tr>
+    <th><code>job.activated</code></th>
+    <td>A block step job has been unblocked using the web or API</td>
+  </tr>
+</tbody>
+</table>
+
+## Request body data
+
+<table>
+<tbody>
+  <tr><th><code>job</code></th><td>The <a href="/docs/api/jobs">Job</a> this notification relates to</td></tr>
+  <tr><th><code>build</code></th><td>The <a href="/docs/api/builds">Build</a> this notification relates to</td></tr>
+  <tr><th><code>pipeline</code></th><td>The <a href="/docs/api/pipelines">Pipeline</a> this notification relates to</td></tr>
+  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
+</tbody>
+</table>
+
+Example request body:
+
+```json
+{
+  "event": "job.started",
+  "job": {
+    "...": "..."
+  },
+  "build": {
+    "...": "..."
+  },
+  "pipeline": {
+    "...": "..."
+  },
+  "sender": {
+    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+    "name": "Some Person"
+  }
+}
+```

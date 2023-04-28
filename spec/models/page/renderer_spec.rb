@@ -16,127 +16,6 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
-  describe "TOC generation" do
-    it "adds TOC and heading links" do
-      md = <<~MD
-        {:toc}
-
-        ## Section 1
-
-        ### Subsection 1.1
-
-        ### Subsection 1.2
-
-        ## Section 2
-
-        ### Subsection 2.1
-
-        ### Subsection 2.2
-        MD
-
-      html = <<~HTML
-        <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
-          <ul class="Toc__list">
-            <li class="Toc__list-item"><a class="Toc__link" href="#section-1">Section 1</a></li>
-        <li class="Toc__list-item"><a class="Toc__link" href="#section-2">Section 2</a></li>
-          </ul>
-        </nav>
-
-        <h2 id="section-1" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-1">Section 1</a></h2>
-
-        <h3 id="section-1-subsection-1-dot-1" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-1-subsection-1-dot-1">Subsection 1.1</a></h3>
-
-        <h3 id="section-1-subsection-1-dot-2" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-1-subsection-1-dot-2">Subsection 1.2</a></h3>
-
-        <h2 id="section-2" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-2">Section 2</a></h2>
-
-        <h3 id="section-2-subsection-2-dot-1" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-2-subsection-2-dot-1">Subsection 2.1</a></h3>
-
-        <h3 id="section-2-subsection-2-dot-2" class="Docs__heading"><a class="Docs__heading__anchor" href="#section-2-subsection-2-dot-2">Subsection 2.2</a></h3>
-      HTML
-
-      expect(Page::Renderer.render(md).strip).to eql(html.strip)
-    end
-
-    it "ignores nested h2s" do
-      md = <<~MD
-        {:toc}
-
-        ## Section
-
-        <section>
-          <hgroup>
-            <h1>Subsection</h1>
-            <h2>Subheading</h2>
-          </hgroup>
-        </section>
-      MD
-
-      html = <<~HTML
-        <nav class="Toc">
-          <p class="Toc__title"><strong>On this page:</strong></p>
-          <ul class="Toc__list">
-            <li class="Toc__list-item"><a class="Toc__link" href="#section">Section</a></li>
-          </ul>
-        </nav>
-        
-        <h2 id="section" class="Docs__heading"><a class="Docs__heading__anchor" href="#section">Section</a></h2>
-        
-        <section>
-          <hgroup>
-            <h1>Subsection</h1>
-            <h2>Subheading</h2>
-          </hgroup>
-        </section>
-      HTML
-
-      expect(Page::Renderer.render(md).strip).to eql(html.strip)
-    end
-
-    it "handles custom ids" do
-      md = <<~MD
-        ## A Super Long Section Title
-        {: id="short-id"}
-
-        ### Subsection
-
-        ## A Title
-
-        ### Subsection With Custom Id
-        {: id="custom-id"}
-        MD
-
-      html = <<~HTML
-        <h2 id="short-id" class="Docs__heading"><a class="Docs__heading__anchor" href="#short-id">A Super Long Section Title</a></h2>
-
-
-
-        <h3 id="short-id-subsection" class="Docs__heading"><a class="Docs__heading__anchor" href="#short-id-subsection">Subsection</a></h3>
-
-        <h2 id="a-title" class="Docs__heading"><a class="Docs__heading__anchor" href="#a-title">A Title</a></h2>
-
-        <h3 id="custom-id" class="Docs__heading"><a class="Docs__heading__anchor" href="#custom-id">Subsection With Custom Id</a></h3>
-      HTML
-
-      expect(Page::Renderer.render(md).strip).to eql(html.strip)
-    end
-
-    it "renders nothing if there's no sections" do
-      md = <<~MD
-        {:toc}
-
-        Just some words
-      MD
-
-      html = <<~HTML
-        <p>Just some words</p>
-      HTML
-
-      expect(Page::Renderer.render(md).strip).to eql(html.strip)
-    end
-  end
-
   it "adds custom syntax highlighting for curl examples" do
     md = <<~MD
       ```bash
@@ -208,17 +87,101 @@ RSpec.describe Page::Renderer do
     expect(Page::Renderer.render(md).strip).to eql(html.strip)
   end
 
-  it "supports {: id=\"some-id\"} for manually specifying an id of the previous bit of content" do
-    md = <<~MD
-      ## This is a section
-      {: id="some-id"}
-    MD
+  describe "#decorate_external_links" do
+    it "adds `.external-link` class to external links" do
+      md = <<~MD
+        [Google](https://www.google.com)
+      MD
 
-    html = <<~HTML
-      <h2 id="some-id" class="Docs__heading"><a class="Docs__heading__anchor" href="#some-id">This is a section</a></h2>
-    HTML
+      html = <<~HTML
+        <p><a href="https://www.google.com" class="external-link">Google</a></p>
+      HTML
 
-    expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
+
+    context "non-external links" do
+      it "does not affect /docs/ links" do
+        md = <<~MD
+          [Test Analytics](/docs/test-analytics)
+        MD
+  
+        html = <<~HTML
+          <p><a href="/docs/test-analytics">Test Analytics</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect links to Buildkite domains" do
+        md = <<~MD
+          [Test Analytics](https://buildkite.com/test-analytics)
+
+          [GraphQL Explorer](https://graphql.buildkite.com/explorer)
+
+          [Buildkite status](https://www.buildkitestatus.com)
+        MD
+
+        html = <<~HTML
+          <p><a href="https://buildkite.com/test-analytics">Test Analytics</a></p>
+
+          <p><a href="https://graphql.buildkite.com/explorer">GraphQL Explorer</a></p>
+
+          <p><a href="https://www.buildkitestatus.com">Buildkite status</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect internal fragments" do
+        md = <<~MD
+          [Back to top](#top)
+        MD
+  
+        html = <<~HTML
+          <p><a href="#top">Back to top</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect mailto:" do
+        md = <<~MD
+          [Email us](mailto:test@example.com)
+        MD
+  
+        html = <<~HTML
+          <p><a href="mailto:test@example.com">Email us</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+
+      it "does not affect tel:" do
+        md = <<~MD
+          [Call us](tel:131313)
+        MD
+  
+        html = <<~HTML
+          <p><a href="tel:131313">Call us</a></p>
+        HTML
+
+        expect(Page::Renderer.render(md).strip).to eql(html.strip)
+      end
+    end
+
+
+    it "does not affect links with existing css classes" do
+      md = <<~MD
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
+      MD
+
+      html = <<~HTML
+        <p><a href="https://www.github.com/buildkite/docs" class="Docs__example-repo">Docs repo</a></p>
+      HTML
+
+      expect(Page::Renderer.render(md).strip).to eql(html.strip)
+    end
   end
 
   describe "Responsive table" do

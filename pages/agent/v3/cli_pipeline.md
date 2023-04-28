@@ -1,0 +1,121 @@
+# `buildkite-agent pipeline`
+
+The Buildkite Agent's `pipeline` command allows you to add and replace build steps in the running build. The steps are defined using YAML or JSON and can be read from a file or streamed from the output of a script.
+
+See the [Defining your pipeline steps](/docs/pipelines/defining-steps) guide for a step-by-step example and list of step types.
+
+
+## Uploading pipelines
+
+<%= render 'agent/v3/help/pipeline_upload' %>
+
+## Pipeline format
+
+The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
+
+* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+
+
+## Insertion order
+
+Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
+
+
+## Environment variable substitution
+
+The `pipeline upload` command supports environment variable substitution using the syntax `$VAR` and `${VAR}`.
+
+For example, the following pipeline substitutes a number of [Buildkite's default environment variables](/docs/pipelines/environment-variables) into a [trigger step](/docs/pipelines/trigger-step):
+
+```yml
+- trigger: "app-deploy"
+  label: "\:rocket\: Deploy"
+  branches: "master"
+  async: true
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+```
+
+If you want an environment variable to be evaluated at run-time (for example, using the step's environment variables) make sure to escape the `$` character using `$$` or `\$`. For example:
+
+```yml
+- command: "deploy.sh $$SERVER"
+  env:
+    SERVER: "server-a"
+```
+
+### Escaping the `$` character
+
+If you need to prevent substitution, you can escape the `$` character by using `$$` or `\$`.
+
+For example, using `$$USD` and `\$USD` will both result in the same value: `$USD`.
+
+### Disabling interpolation
+
+You can disable interpolation with the `--no-interpolation` flag, which was added in v3.1.1.
+
+### Requiring environment variables
+
+You can set required environment variables using the syntax `${VAR?}`. If `VAR` is not set, the `pipeline upload` command will print an error and exit with a status of 1.
+
+For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?}\""
+```
+
+You can set a custom error message after the `?` character. For example, the following prints the error message `SERVER: is not set. Please specify a server` if the environment variable has not been set:
+
+```yaml
+- command: "deploy.sh \"${SERVER?is not set. Please specify a server}\""
+```
+
+### Default, blank, and missing values
+
+If an environment variable has not been set it will evaluate to a blank string. You can set a fallback value using the syntax `${VAR:-default-value}`.
+
+For example, the following step will run the command `deploy.sh staging`:
+
+```yaml
+- command: "deploy.sh \"${SERVER:-staging}\""
+```
+
+<table>
+  <thead>
+    <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code></code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER=""</code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER="staging-5"</code></td><td><code>"${SERVER:-staging}"</code></td><td><code>"staging-5"</code></td></tr>
+  </tbody>
+</table>
+
+If you need to substitute environment variables containing empty strings, you can use the syntax `${VAR-default-value}` (notice the missing `:`).
+
+<table>
+  <thead>
+    <tr><th>Environment Variables</th><th>Syntax</th><th>Result</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code></code></td><td><code>"${SERVER-staging}"</code></td><td><code>"staging"</code></td></tr>
+    <tr><td><code>SERVER=""</code></td><td><code>"${SERVER-staging}"</code></td><td><code>""</code></td></tr>
+    <tr><td><code>SERVER="staging-5"</code></td><td><code>"${SERVER-staging}"</code></td><td><code>"staging-5"</code></td></tr>
+  </tbody>
+</table>
+
+### Extracting character ranges
+
+You can substitute a subset of characters from an environment variable by specifying a start and end range using the syntax `${VAR:start:end}`.
+
+For example, the following step will echo the first 7 characters of the `BUILDKITE_COMMIT` environment variable:
+
+```yaml
+- command: "echo \"Short commit is: ${BUILDKITE_COMMIT:0:7}\""
+```
+
+If the environment variable has not been set, the range will return a blank string.

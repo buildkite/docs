@@ -1,0 +1,61 @@
+# Getting started
+
+This guide will help you set up your first Buildkite pipeline. If you don't have a Buildkite account you'll first need to <a href="<%= url_helpers.signup_path %>">sign up</a>. This guide uses GitHub but Buildkite can work with any version control system.
+
+
+## Install and run your first agent
+
+[Buildkite agents](/docs/agent/v3/) are small, reliable and cross-platform build runners that run automated builds. Buildkite never accesses your code, and does not run any agents, so you need to install and run agents on your own infrastructure. You can do this on your local development machine, an existing CI machine, or a new server.
+
+1. Follow the [Agent installation instructions](/docs/agent/v3/installation) to install and start an agent.
+2. Make sure you've configured the agent token, as that is what connects the agent to your Buildkite account. Refer to [Buildkite Agent configuration](/docs/agent/v3/configuration) for more information.
+3. Opt in to the YAML steps editor. This is the newer way of configuring pipelines. Refer to [Pipeline Upgrade - Using YAML Steps for new pipelines](/docs/tutorials/pipeline-upgrade#using-yaml-steps-for-new-pipelines) for more information.
+
+To confirm that your Buildkite agent is running, and configured correctly with your credentials, go to your organization's *Agents* page. You should see a list of all agents linked to the account, and their status.
+
+## Add the sample pipeline
+
+[Pipelines](/docs/pipelines/) are how Buildkite represents your CI workflow, a series of steps that you run on your code.
+
+Choose a sample pipeline to use as your first pipeline:
+
+1. Click the appropriate *Add to Buildkite* button:
+
+    [bash-example test repository](https://github.com/buildkite/bash-example)
+
+    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+
+    <!-- vale off -->
+
+    [powershell-example test repository](https://github.com/buildkite/powershell-example)
+
+    <!-- vale on -->
+
+    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+
+2. Accept the pre-filled defaults, and select *Create Pipeline*.
+3. The example repositories contain a `pipeline.yml` setting out the pipeline steps, so on the *Steps* screen, add the following to upload and use the `pipeline.yml`:
+
+    ```yml
+    steps:
+      - label: "Pipeline upload"
+        command: buildkite-agent pipeline upload
+    ```
+
+    >📘
+    > If you do not see the <i>Steps</i> screen, or if the previous screen included a <i>Steps</i> section, you are still using the old web-based editor. This will be deprecated at some point. Please make sure to opt in to the YAML steps editor. Refer to <a href="https://buildkite.com/docs/tutorials/pipeline-upgrade#using-yaml-steps-for-new-pipelines">Pipeline Upgrade - Using YAML Steps for new pipelines</a> for more information.
+
+4. Select *Save and Build*. Buildkite opens the *New Build* modal.
+5. You can usually accept the defaults here. If your repository uses 'main' rather than 'master' branch, edit the *Branch* option. Select *Create build*. Buildkite takes you to the pipeline build.
+
+Congratulations, you have run your first Buildkite build! :tada:
+
+## Invite your team to the organization
+
+Invite your team to see your build from your Buildkite organization [User Settings page](https://buildkite.com/organizations/-/users/new), by pasting their email addresses into the form.
+
+## Use a private repository
+
+When you create a new pipeline with a private repository URL you'll be shown instructions for configuring your source control's webhooks (in GitHub, Bitbucket, etc). Once you've followed those instructions make sure your [agent's SSH keys](/docs/agent/v3/ssh-keys) are configured, and you'll be good to run a build of your private pipeline.
+
+For more advanced pipelines it can be a good idea to use your development machine as the agent for your first few builds. That way all the dependencies are ready and you'll soon be able to share a link to a green build with the rest of your team.

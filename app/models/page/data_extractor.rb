@@ -14,12 +14,29 @@ class Page::DataExtractor
     page_description = markdown_doc('')
     page_description_found = false
     page_attributes = []
+    sections = []
 
     markdown_ast.each do |node|
       case node.type
       when :header
+        header = node.to_plaintext(:DEFAULT, 32_767).strip
         if node.header_level == 1 && page_name.nil?
-          page_name = node.to_plaintext(:DEFAULT, 32_767).strip
+          page_name = header
+        end
+
+        if node.header_level === 2
+          sections << {
+            header: header,
+            id: "#{header.to_url}",
+            subsections: []
+          }
+        end
+
+        if node.header_level === 3 && !sections.empty?
+          sections.last[:subsections] << {
+            header: header,
+            id: "#{header.to_url}",
+          }
         end
       when :paragraph, :code_block
         unless page_description_found
@@ -43,10 +60,8 @@ class Page::DataExtractor
           end
 
           # Add any paragraphs or code blocks we hit before we find
-          # other information to the description, ignoring any TOC entries
-          unless node.to_plaintext == "{:toc}\n"
-            page_description.append_child(node)
-          end
+          # other information to the description
+          page_description.append_child(node)
 
           # Add the ending HTML fragment for the figure/figcaption pair
           if wrap_figure
@@ -90,7 +105,8 @@ class Page::DataExtractor
       "name" => page_name,
       "shortDescription" => page_description.first_child&.to_plaintext(:DEFAULT, 32_767)&.strip,
       "textContent" => page_description.to_commonmark(:DEFAULT, 32_767).strip,
-      "attributes" => page_attributes
+      "attributes" => page_attributes,
+      "sections" => sections,
     }
   end
 
