@@ -3776,6 +3776,12 @@
               "deprecationReason": null
             },
             {
+              "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3788,7 +3794,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3801,12 +3807,6 @@
             },
             {
               "name": "NOTIFICATION_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3860,12 +3860,6 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
@@ -3873,6 +3867,12 @@
             },
             {
               "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_PIPELINE_SETTINGS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3896,7 +3896,7 @@
               "deprecationReason": null
             },
             {
-              "name": "USER",
+              "name": "USER_EMAIL",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3920,7 +3920,7 @@
               "deprecationReason": null
             },
             {
-              "name": "USER_EMAIL",
+              "name": "USER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
