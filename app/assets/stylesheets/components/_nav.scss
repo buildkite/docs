@@ -43,22 +43,7 @@
 
     &--level2 {
       @media (min-width: $screen-md) {
-        background-color: $base-0;
-        border-color: map-get($color-aliases, "border");
-        box-sizing: border-box;
-        height: calc(100vh - #{map-get($header-height, "two-rows")});
-        left: 0;
-        overflow-y: auto;
-        overscroll-behavior: contain;
-        padding: 44px 5px;
-        position: fixed;
-        top: map-get($header-height, "two-rows");
-        width: $sidebar-width;
-      }
-
-      @media (min-width: $screen-lg) {
-        height: calc(100vh - #{map-get($header-height, "one-row")});
-        top: map-get($header-height, "one-row");
+        display: none;
       }
     }
   }
@@ -316,4 +301,16 @@
     }
   }
   // Dropdown styling ends
+}
+
+.Nav--sidebar {
+  .Nav__section {
+    &--level2 {
+      @media (min-width: $screen-md) {
+        display: block;
+        background-color: $base-0;
+        border-color: map-get($color-aliases, "border");
+      }
+    }
+  }
 }

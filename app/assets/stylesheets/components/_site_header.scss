@@ -24,11 +24,7 @@
 }
 
 .SiteHeader__container {
-  max-width: map-get($max-w, "outer-container");
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: $gutter / 2;
-  padding-right: $gutter / 2;
+  @include container("outer-container");
 }
 
 .SiteHeader__inner {
@@ -106,7 +102,6 @@
   color: $charcoal-900;
   text-decoration: none;
   transition: color $transition-speed;
-  will-change: color;
 
   &:hover,
   &:focus,

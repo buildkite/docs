@@ -292,18 +292,6 @@ In `enforce-rules.sh` you can add steps to the YAML, require certain versions of
 
 See how [Hasura.io](https://hasura.io) used [dynamic templates and pipelines](https://hasura.io/blog/what-we-learnt-by-migrating-from-circleci-to-buildkite/#dynamic-pipelines) to replace their YAML configuration with Go and some shell scripts.
 
-## Cloning a pipeline
-
-When creating a new pipeline, you can take a shortcut if you want to set up the new pipeline with the same steps as an existing pipeline.
-
-Using the `?clone` URL parameter, you can prefill the new pipeline page with the steps from another pipeline. It will not copy any other fields such as environment variables or repository information.
-
-The below example URL will copy the steps from the 'My Llamas Pipeline' into the New Pipeline page:
-
-```
-https://buildkite.com/organizations/acme-inc/pipelines/new?clone=my-llamas-pipeline
-```
-
 ## Targeting specific agents
 
 To run [command steps](/docs/pipelines/command-step) only on specific agents:

@@ -7,6 +7,7 @@ services:
         RAILS_ENV: ${RAILS_ENV:-development}
     volumes:
       - '.:/app'
+      - /app/node_modules
     ports:
       - '3000:3000'
 

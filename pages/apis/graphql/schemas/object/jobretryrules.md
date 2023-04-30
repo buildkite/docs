@@ -32,6 +32,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>automatic</code><a href="/docs/apis/graphql/schemas/object/jobretryruleautomatic" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobRetryRuleAutomatic"><code>JobRetryRuleAutomatic</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>manual</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>automatic</code><a href="/docs/apis/graphql/schemas/object/jobretryruleautomatic" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobRetryRuleAutomatic"><code>JobRetryRuleAutomatic!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>manual</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3></td></tr>
   </tbody>
 </table>

@@ -1,22 +1,407 @@
 ---
 - name: Pipelines
   path: pipelines
+  children:
+  - name: Overview
+    path: pipelines
+  - name: Getting started
+    path: tutorials/getting-started
+  - name: Glossary
+    path: pipelines/glossary
+  - name: Connect source control
+    children:
+    - name: Overview
+      path: integrations/source-control
+    - name: GitHub
+      path: integrations/github
+    - name: GitHub Enterprise
+      path: integrations/github-enterprise
+    - name: GitLab
+      path: integrations/gitlab
+    - name: Bitbucket
+      path: integrations/bitbucket
+    - name: Bitbucket Server
+      path: integrations/bitbucket-server
+    - name: Phabricator
+      path: integrations/phabricator
+    - name: Other Git servers
+      path: integrations/git
+  - name: Tutorials
+    children:
+    - name: Docker-based builds
+      path: tutorials/docker-containerized-builds
+    - name: Parallelizing builds
+      path: tutorials/parallel-builds
+    - name: Migrating from Bamboo
+      path: tutorials/migrating-from-bamboo
+    - name: Using Bazel on Buildkite
+      path: tutorials/bazel
+    - name: Migrating to YAML steps
+      path: tutorials/pipeline-upgrade
+    - name: Two-factor authentication (2FA)
+      path: tutorials/2fa
+    - name: Using GitHub merge queues
+      path: tutorials/github-merge-queue
+  - name: Agent
+    children:
+    - name: Overview
+      path: agent/v3
+    - name: Clusters
+      path: agent/clusters
+      pill: beta
+    - name: Installation
+      path: agent/v3/installation
+    - name: Upgrading
+      path: agent/v3/upgrading
+    - name: Configuration
+      path: agent/v3/configuration
+    - name: SSH keys
+      path: agent/v3/ssh-keys
+    - name: GitHub SSH keys
+      path: agent/v3/github-ssh-keys
+    - name: Hooks
+      path: agent/v3/hooks
+    - name: Queues
+      path: agent/v3/queues
+    - name: Prioritization
+      path: agent/v3/prioritization
+    - name: Securing
+      path: agent/v3/securing
+    - name: Tokens
+      path: agent/v3/tokens
+    - name: Tracing
+      path: agent/v3/tracing
+    - name: Running on AWS
+      children:
+      - name: Overview
+        path: agent/v3/elastic-ci-aws/elastic-ci-stack-overview
+      - name: VPC design
+        path: agent/v3/aws/vpc
+      - name: EC2 Linux and Windows
+        children:
+        - name: Setup
+          path: agent/v3/elastic-ci-aws
+        - name: Using AWS Secrets Manager
+          path: agent/v3/aws/secrets-manager
+        - name: Managing the stack
+          path: agent/v3/elastic-ci-aws/managing-elastic-ci-stack
+        - name: Security
+          path: agent/v3/elastic-ci-aws/security
+        - name: Template parameters
+          path: agent/v3/elastic-ci-aws/parameters
+        - name: CloudFormation service role
+          path: agent/v3/elastic-ci-aws/cloudformation-service-role
+        - name: Troubleshooting
+          path: agent/v3/elastic-ci-aws/troubleshooting
+      - name: EC2 Mac
+        children:
+        - name: Setup
+          path: agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal
+        - name: Troubleshooting
+          path: agent/v3/elastic-ci-stack-for-ec2-mac/troubleshooting
+    - name: Agent installers
+      children:
+      - name: Ubuntu
+        path: agent/v3/ubuntu
+      - name: Debian
+        path: agent/v3/debian
+      - name: Red Hat/CentOS
+        path: agent/v3/redhat
+      - name: FreeBSD
+        path: agent/v3/freebsd
+      - name: macOS
+        path: agent/v3/macos
+      - name: Windows
+        path: agent/v3/windows
+      - name: Linux
+        path: agent/v3/linux
+      - name: Docker
+        path: agent/v3/docker
+      - name: AWS
+        path: agent/v3/aws
+      - name: Google Cloud
+        path: agent/v3/gcloud
+    - name: Command-line reference
+      children:
+      - name: Overview
+        path: agent/v3/cli-reference
+      - name: start
+        path: agent/v3/cli-start
+      - name: annotate
+        path: agent/v3/cli-annotate
+      - name: annotation
+        path: agent/v3/cli-annotation
+      - name: artifact
+        path: agent/v3/cli-artifact
+      - name: meta-data
+        path: agent/v3/cli-meta-data
+      - name: env
+        path: agent/v3/cli-env
+      - name: oidc
+        path: agent/v3/cli-oidc
+      - name: pipeline
+        path: agent/v3/cli-pipeline
+      - name: bootstrap
+        path: agent/v3/cli-bootstrap
+      - name: step
+        path: agent/v3/cli-step
+    - name: Agent v2
+      pill: deprecated
+      children:
+      - name: Overview
+        path: agent/v2
+      - name: Installation
+        path: agent/v2/installation
+      - name: Upgrading to v2
+        path: agent/v2/upgrading-to-v2
+      - name: Upgrading to v3
+        path: agent/v2/upgrading-to-v3
+      - name: Configuration
+        path: agent/v2/configuration
+      - name: SSH keys
+        path: agent/v2/ssh-keys
+      - name: GitHub SSH keys
+        path: agent/v2/github-ssh-keys
+      - name: Hooks
+        path: agent/v2/hooks
+      - name: Queues
+        path: agent/v2/queues
+      - name: Prioritization
+        path: agent/v2/prioritization
+      - name: Securing
+        path: agent/v2/securing
+      - name: Agent installers
+        children:
+        - name: Ubuntu
+          path: agent/v2/ubuntu
+        - name: Debian
+          path: agent/v2/debian
+        - name: Red Hat/CentOS
+          path: agent/v2/redhat
+        - name: FreeBSD
+          path: agent/v2/freebsd
+        - name: macOS
+          path: agent/v2/osx
+        - name: Windows
+          path: agent/v2/windows
+        - name: Linux
+          path: agent/v2/linux
+        - name: Docker
+          path: agent/v2/docker
+        - name: AWS
+          path: agent/v2/aws
+        - name: Google Cloud
+          path: agent/v2/gcloud
+      - name: Command-line reference
+        children:
+        - name: start
+          path: agent/v2/cli-start
+        - name: meta-data
+          path: agent/v2/cli-meta-data
+        - name: artifact
+          path: agent/v2/cli-artifact
+        - name: pipeline
+          path: agent/v2/cli-pipeline
+  - name: Configure pipelines
+    children:
+    - name: Defining steps
+      path: pipelines/defining-steps
+    - name: Step types
+      children:
+      - name: Overview
+        path: pipelines/step-reference
+      - name: Command step
+        path: pipelines/command-step
+      - name: Wait step
+        path: pipelines/wait-step
+      - name: Block step
+        path: pipelines/block-step
+      - name: Input step
+        path: pipelines/input-step
+      - name: Trigger step
+        path: pipelines/trigger-step
+      - name: Group step
+        path: pipelines/group-step
+    - name: Writing build scripts
+      path: pipelines/writing-build-scripts
+    - name: Using conditionals
+      path: pipelines/conditionals
+    - name: Step dependencies
+      path: pipelines/dependencies
+    - name: Environment variables
+      path: pipelines/environment-variables
+    - name: Skipping builds
+      path: pipelines/skipping
+    - name: Build artifacts
+      path: pipelines/artifacts
+    - name: Pipeline tags
+      path: pipelines/tags
+    - name: Build retention
+      path: pipelines/build-retention
+    - name: Build exports
+      path: pipelines/build-exports
+    - name: Public pipelines
+      path: pipelines/public-pipelines
+    - name: Using build meta-data
+      path: pipelines/build-meta-data
+    - name: Managing log output
+      path: pipelines/managing-log-output
+    - name: Links & images in log output
+      path: pipelines/links-and-images-in-log-output
+    - name: Notifications
+      path: pipelines/notifications
+    - name: Job minutes
+      path: pipelines/job-minutes
+    - name: Emojis
+      path: pipelines/emojis
+    - name: Example pipelines
+      path: pipelines/example-pipelines
+    - name: Workflows
+      children:
+      - name: Prioritizing jobs
+        path: pipelines/managing-priorities
+      - name: Controlling concurrency
+        path: pipelines/controlling-concurrency
+      - name: Build matrix
+        path: pipelines/build-matrix
+      - name: Branch configuration
+        path: pipelines/branch-configuration
+      - name: Scheduled builds
+        path: pipelines/scheduled-builds
+      - name: Archive and delete
+        path: pipelines/archiving-and-deleting-pipelines
+  - name: Security
+    children:
+    - name: Overview
+      path: pipelines/security-overview
+    - name: Managing secrets
+      path: pipelines/secrets
+    - name: Users and teams
+      path: pipelines/permissions
+    - name: Webhooks security
+      path: pipelines/incoming-webhooks
+    - name: Audit log
+      path: pipelines/audit-log
+  - name: Deployments
+    children:
+    - name: Overview
+      path: deployments
+    - name: Deploying to Heroku
+      path: deployments/deploying-to-heroku
+    - name: Deploying to Kubernetes
+      path: deployments/deploying-to-kubernetes
 - name: Test Analytics
   path: test-analytics
+  children:
+  - name: Overview
+    path: test-analytics
+  - name: Getting started
+    start_expanded: true
+    children:
+    - name: Configuring test suites
+      path: test-analytics/test-suites
+    - name: Monitoring
+      path: test-analytics/monitors
+    - name: Access control
+      path: test-analytics/permissions
+    - name: CI environment variables
+      path: test-analytics/ci-environments
+    - name: Test executions
+      path: test-analytics/test-executions
+  - name: Languages
+    start_expanded: true
+    children:
+    - name: Ruby
+      path: test-analytics/ruby-collectors
+    - name: JavaScript
+      path: test-analytics/javascript-collectors
+    - name: Swift
+      path: test-analytics/swift-collectors
+      pill: beta
+    - name: Android
+      path: test-analytics/android-collectors
+      pill: beta
+    - name: Python
+      path: test-analytics/python-collectors
+    - name: Golang
+      path: test-analytics/golang-collectors
+    - name: ".NET"
+      path: test-analytics/dotnet-collectors
+      pill: beta
+    - name: Elixir
+      path: test-analytics/elixir-collectors
+    - name: Rust
+      path: test-analytics/rust-collectors
+      pill: beta
+    - name: Other languages
+      path: test-analytics/other-collectors
+  - name: References
+    start_expanded: true
+    children:
+    - name: Importing JUnit XML
+      path: test-analytics/importing-junit-xml
+    - name: Importing JSON
+      path: test-analytics/importing-json
+    - name: Writing your own collectors
+      path: test-analytics/your-own-collectors
 - name: APIs
   path: apis
   children:
-  - name: All APIs
+  - name: Overview
     path: apis
-    type: back
-  - type: divider
-  - name: GraphQL API
-    path: apis/graphql-api
-  - name: Console and CLI tutorial
-    path: apis/graphql/graphql-tutorial
-  - name: Schema browser
-    start_expanded: true
+  - name: Managing API tokens
+    path: apis/managing-api-tokens
+  - name: API differences
+    path: apis/api-differences
+  - name: REST
     children:
+    - name: Overview
+      path: apis/rest-api
+    - name: Pipelines REST API
+      children:
+      - name: Access token
+        path: apis/rest-api/access-token
+      - name: Organizations
+        path: apis/rest-api/organizations
+      - name: Pipelines
+        path: apis/rest-api/pipelines
+      - name: Builds
+        path: apis/rest-api/builds
+      - name: Jobs
+        path: apis/rest-api/jobs
+      - name: Agents
+        path: apis/rest-api/agents
+      - name: Artifacts
+        path: apis/rest-api/artifacts
+      - name: Annotations
+        path: apis/rest-api/annotations
+      - name: Emojis
+        path: apis/rest-api/emojis
+      - name: User
+        path: apis/rest-api/user
+      - name: Meta
+        path: apis/rest-api/meta
+      - name: Teams
+        path: apis/rest-api/teams
+    - name: Agent REST API
+      children:
+      - name: Overview
+        path: apis/agent-api
+      - name: Metrics
+        path: apis/agent-api/metrics
+    - name: Analytics REST API
+      children:
+      - name: Flaky tests
+        pill: beta
+        path: apis/rest-api/analytics/flaky-tests
+  - name: GraphQL
+    children:
+    - name: Overview
+      path: apis/graphql-api
+    - name: Console and CLI tutorial
+      path: apis/graphql/graphql-tutorial
+    - name: Cookbook
+      path: apis/graphql/graphql-cookbook
     - name: Queries
       children:
       - name: agent
@@ -87,7 +472,9 @@
         path: apis/graphql/schemas/mutation/jobtypecommandretry
       - name: noticeDismiss
         path: apis/graphql/schemas/mutation/noticedismiss
-      - name: organizationAPIIPAllowListUpdate
+      - name: organizationApiAccessTokenRevoke
+        path: apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke
+      - name: organizationApiIpAllowlistUpdate
         path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
       - name: organizationInvitationCreate
         path: apis/graphql/schemas/mutation/organizationinvitationcreate
@@ -347,6 +734,8 @@
         path: apis/graphql/schemas/object/jobeventretried
       - name: JobEventTimedOut
         path: apis/graphql/schemas/object/jobeventtimedout
+      - name: JobMinutesUsage
+        path: apis/graphql/schemas/object/jobminutesusage
       - name: JobPriority
         path: apis/graphql/schemas/object/jobpriority
       - name: JobRetryRuleAutomatic
@@ -381,7 +770,15 @@
         path: apis/graphql/schemas/object/operatingsystem
       - name: Organization
         path: apis/graphql/schemas/object/organization
-      - name: OrganizationAPIIPAllowListUpdateMutationPayload
+      - name: OrganizationAPIAccessToken
+        path: apis/graphql/schemas/object/organizationapiaccesstoken
+      - name: OrganizationAPIAccessTokenConnection
+        path: apis/graphql/schemas/object/organizationapiaccesstokenconnection
+      - name: OrganizationAPIAccessTokenEdge
+        path: apis/graphql/schemas/object/organizationapiaccesstokenedge
+      - name: OrganizationAPIAccessTokenRevokeMutationPayload
+        path: apis/graphql/schemas/object/organizationapiaccesstokenrevokemutationpayload
+      - name: OrganizationAPIIPAllowlistUpdateMutationPayload
         path: apis/graphql/schemas/object/organizationapiipallowlistupdatemutationpayload
       - name: OrganizationAuditEventConnection
         path: apis/graphql/schemas/object/organizationauditeventconnection
@@ -645,8 +1042,14 @@
         path: apis/graphql/schemas/object/teamsuiteupdatepayload
       - name: TeamUpdatePayload
         path: apis/graphql/schemas/object/teamupdatepayload
+      - name: TestExecutionsUsage
+        path: apis/graphql/schemas/object/testexecutionsusage
       - name: UnregisteredUser
         path: apis/graphql/schemas/object/unregistereduser
+      - name: UsageUnionConnection
+        path: apis/graphql/schemas/object/usageunionconnection
+      - name: UsageUnionEdge
+        path: apis/graphql/schemas/object/usageunionedge
       - name: User
         path: apis/graphql/schemas/object/user
       - name: Viewer
@@ -673,6 +1076,8 @@
         path: apis/graphql/schemas/scalar/datetime
       - name: ID
         path: apis/graphql/schemas/scalar/id
+      - name: ISO8601Date
+        path: apis/graphql/schemas/scalar/iso8601date
       - name: Int
         path: apis/graphql/schemas/scalar/int
       - name: JSInt
@@ -701,18 +1106,24 @@
         path: apis/graphql/schemas/interface/connection
       - name: JobEvent
         path: apis/graphql/schemas/interface/jobevent
+      - name: JobInterface
+        path: apis/graphql/schemas/interface/jobinterface
       - name: Node
         path: apis/graphql/schemas/interface/node
       - name: NotificationService
         path: apis/graphql/schemas/interface/notificationservice
       - name: RepositoryProvider
         path: apis/graphql/schemas/interface/repositoryprovider
+      - name: ResourceUsageInterface
+        path: apis/graphql/schemas/interface/resourceusageinterface
       - name: SSOProvider
         path: apis/graphql/schemas/interface/ssoprovider
       - name: Step
         path: apis/graphql/schemas/interface/step
     - name: ENUMs
       children:
+      - name: APIAccessTokenScopes
+        path: apis/graphql/schemas/enum/apiaccesstokenscopes
       - name: AnnotationStyle
         path: apis/graphql/schemas/enum/annotationstyle
       - name: AuditActorType
@@ -725,6 +1136,8 @@
         path: apis/graphql/schemas/enum/authorizationtype
       - name: BuildBlockedStates
         path: apis/graphql/schemas/enum/buildblockedstates
+      - name: BuildRetentionPeriods
+        path: apis/graphql/schemas/enum/buildretentionperiods
       - name: BuildStates
         path: apis/graphql/schemas/enum/buildstates
       - name: ClusterOrder
@@ -739,6 +1152,8 @@
         path: apis/graphql/schemas/enum/jobeventtype
       - name: JobOrder
         path: apis/graphql/schemas/enum/joborder
+      - name: JobRetryTypes
+        path: apis/graphql/schemas/enum/jobretrytypes
       - name: JobStates
         path: apis/graphql/schemas/enum/jobstates
       - name: JobTypes
@@ -763,6 +1178,8 @@
         path: apis/graphql/schemas/enum/pipelineorders
       - name: PipelineVisibility
         path: apis/graphql/schemas/enum/pipelinevisibility
+      - name: ResourceUsageType
+        path: apis/graphql/schemas/enum/resourceusagetype
       - name: SSOAuthorizationState
         path: apis/graphql/schemas/enum/ssoauthorizationstate
       - name: SSOProviderSAMLRSAXMLSecurity
@@ -835,7 +1252,9 @@
         path: apis/graphql/schemas/input-object/jobtypecommandretryinput
       - name: NoticeDismissInput
         path: apis/graphql/schemas/input-object/noticedismissinput
-      - name: OrganizationAPIIPAllowListUpdateMutationInput
+      - name: OrganizationAPIAccessTokenRevokeMutationInput
+        path: apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput
+      - name: OrganizationAPIIPAllowlistUpdateMutationInput
         path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
       - name: OrganizationInvitationCreateInput
         path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
@@ -947,7 +1366,72 @@
         path: apis/graphql/schemas/union/job
       - name: JobEventActorNodeUnion
         path: apis/graphql/schemas/union/jobeventactornodeunion
-  - name: Cookbook
-    path: apis/graphql/graphql-cookbook
+      - name: UsageUnion
+        path: apis/graphql/schemas/union/usageunion
+  - name: Webhooks
+    children:
+    - name: Overview
+      path: apis/webhooks
+    - name: Agent events
+      path: apis/webhooks/agent-events
+    - name: Build events
+      path: apis/webhooks/build-events
+    - name: Job events
+      path: apis/webhooks/job-events
+    - name: Ping events
+      path: apis/webhooks/ping-events
+    - name: Integrations
+      path: apis/webhooks/integrations
 - name: Integrations
   path: integrations
+  children:
+  - name: Overview
+    path: integrations
+  - name: Plugins
+    children:
+    - name: Overview
+      path: plugins
+    - name: Using plugins
+      path: plugins/using
+    - name: Plugins directory
+      path: plugins/directory
+    - name: Plugin tools
+      path: plugins/tools
+    - name: Writing plugins
+      path: plugins/writing
+  - name: SSO
+    children:
+    - name: Overview
+      path: integrations/sso
+    - name: Okta
+      path: integrations/sso/okta
+    - name: ADFS
+      path: integrations/sso/adfs
+    - name: Google Workspace
+      path: integrations/sso/google-workspace
+    - name: Google Workspace (SAML)
+      path: integrations/sso/google-workspace-saml
+    - name: GitHub
+      path: integrations/sso/github-sso
+    - name: OneLogin
+      path: integrations/sso/onelogin
+    - name: Azure AD
+      path: integrations/sso/azure-ad
+    - name: Custom SAML
+      path: integrations/sso/custom-saml
+    - name: Set up with GraphQL
+      path: integrations/sso/sso-setup-with-graphql
+  - name: Amazon EventBridge
+    path: integrations/amazon-eventbridge
+  - name: Artifactory
+    path: integrations/artifactory
+  - name: Build status badges
+    path: integrations/build-status-badges
+  - name: CCMenu & CCTray
+    path: integrations/cc-menu
+  - name: Docker Hub
+    path: integrations/docker-hub
+  - name: PagerDuty
+    path: integrations/pagerduty
+  - name: Slack
+    path: integrations/slack

@@ -32,7 +32,10 @@ class DataVariables
       if Object.const_source_location(variable_name_string).nil?
         Object.const_set(
           variable_name_string,
-          YAML.load_file("#{DIR_PATH}/#{file_name}").freeze,
+          YAML.safe_load_file(
+            "#{DIR_PATH}/#{file_name}",
+            permitted_classes: [Date]
+          ).freeze,
         )
       end
     end

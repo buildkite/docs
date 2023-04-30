@@ -32,6 +32,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The URL that this metadata can be publicly accessed at</p></td></tr><tr><td><h3 class="is-small has-pills"><code>xml</code><a href="/docs/apis/graphql/schemas/scalar/xml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR XML"><code>XML</code></a></h3><p>The XML for this metadata</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The URL that this metadata can be publicly accessed at</p></td></tr><tr><td><h3 class="is-small has-pills"><code>xml</code><a href="/docs/apis/graphql/schemas/scalar/xml" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR XML"><code>XML!</code></a></h3><p>The XML for this metadata</p></td></tr>
   </tbody>
 </table>
