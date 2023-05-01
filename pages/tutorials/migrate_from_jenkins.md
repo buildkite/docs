@@ -56,84 +56,73 @@ With Buildkite, you are responsible for securing the build agents running on you
 
 ### Pipeline configuration
 
-When migrating your CI/CD pipelines from Jenkins to Buildkite, one key aspect to understand is the difference in pipeline configuration between these two platforms. 
+When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to understand the differences in pipeline configuration.
 
-Like Jenkins, Buildkite lets you create pipeline definitions in the UI or in a file checked into the repo. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
+Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repo. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a Jenkinsfile is a `pipeline.yml`.
 
-Rather than a full programming language like the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler,  more human-readable, and easier to understand. 
+Rather than a full programming language like the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand.
 
 The hierarchical structure of Jenkins pipelines, stages, and steps is replaced by a linear sequence of steps in Buildkite, making the pipeline configuration more accessible. You can use the expressive labels and group steps to achieve a similar organization as stages in Jenkins, but it's not required.
 
 ### Plugin system
 
-Plugins are an essential part of both Jenkins and Buildkite. Jenkins has a vast plugin ecosystem, with thousands of plugins available to extend its functionality. Jenkins plugins are typically written in Java and tightly integrated with the Jenkins core.
+Plugins are an essential part of both Jenkins and Buildkite. They help you extend the products to customize your CI/CD workflows further.
 
-Buildkite has a more streamlined plugin system. Buildkite plugins are focused on essential integrations and frequently used tasks in CI/CD pipelines. The Buildkite plugin system encourages using custom scripts, APIs, or third-party tools to achieve additional functionality, making the system more flexible and less reliant on plugins. Buildkite plugins are typically written in Bash or other scripting languages and hosted on GitHub. They can be easily included in pipeline configuration files using the plugins attribute.
+Rather than a web-based plugin management system like Jenkins, you manage Buildkite plugins directly in pipeline definitions. This makes Buildkite plugins more decentralized and allows for easier version control.
 
-Jenkins has a larger plugin ecosystem with thousands of plugins available for various tools, platforms, and integrations. These plugins may have compatibility issues, security vulnerabilities, or require constant updates. Buildkite has a smaller, more focused set of plugins that cover essential use cases. Buildkite promotes using custom scripts or third-party tools for additional functionality, which may require you to adapt your pipeline configurations during migration.
-
-Jenkins provides a web-based plugin management system for searching, installing, updating, and configuring plugins. Buildkite plugins are managed through pipeline configurations, where you include the desired plugin's GitHub repository and version. This makes Buildkite plugins more decentralized and allows for easier version control.
-
-Jenkins plugins are typically developed in Java and are closely integrated with the Jenkins core, which may lead to compatibility issues when updating Jenkins or its plugins. Buildkite plugins are written in Bash or other scripting languages and are more loosely coupled with the Buildkite core, making them more maintainable and less prone to compatibility issues.
-
-In Jenkins, plugins are configured globally or per project, and their functionality is exposed through pipeline steps or post-build actions. In Buildkite, plugins are included and configured directly in the pipeline configuration file, making it easier to track, version-control, and share plugin configurations across pipelines and teams.
+Jenkins plugins are typically developed in Java and are closely integrated with the Jenkins core, which may lead to compatibility issues when updating Jenkins or its plugins. Buildkite plugins are written in Bash and loosely coupled with Buildkite, making them more maintainable and less prone to compatibility issues.
 
 ## 2. Try out Buildkite
 
-The first step in migrating to Buildkite is to set up a Buildkite account. This can be done by visiting the Buildkite website and signing up for a free trial. Once you have an account, you can start creating pipelines and agents to run your builds.
+With a basic understanding of the differences between Buildkite and Jenkins, the next step is to try creating and running a pipeline.
 
-Build agents are the servers that run your builds. To run builds in Buildkite, you will need to set up one or more Build agents. Buildkite provides a variety of options for setting up Build agents, including cloud-based agents and on-premise agents.
+We recommend following the [Getting started](/docs/tutorials/getting-started/) guide to:
 
-
-- Getting started guide
-- Account
-- Connect code + trigger builds from webhooks
-- Agent
-
-Learn the basics with local agents -> Translate a few pipelines. See our examples.
-
-Key takeaways:
-
-- Pipelines model... with steps.
-- Running a pipeline creates a build, which you monitor and view in the dashboard.
-- You install agents on your infrasturcutee. They receive instructions for the work to complete from BK.
-- Agents isolate your code and secrets so BK never sees it.
+1. Sign up for a free account.
+1. Set up an agent to execute the pipeline steps.
+1. Create a pipeline using an example repository.
+1. View the output in the Buildkite dashboard.
 
 ## 3. Provision agent infrastructure
 
-Ensure that the agents have the necessary dependencies, such as programming languages, build tools, and libraries, to run your pipelines.
+The agents are where your builds, tests, and deployments run. They run on your infrastructure, providing flexibility and control over the environment and resources.
 
-Will be similar to your setup with Jenkins except that you don't also have to run a node for the controller.
+You'll need to consider:
 
-The agent infrastructure is where your builds, tests, and deployments run. In Buildkite, agents run on your infrastructure, providing flexibility and control over the environment and resources. 
+- **Infrastructure type:** Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
+- **Resource usage:** Provisioning agent infrastructure is similar to the requirements for nodes in Jenkins without operating the controller. Evaluate your current Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure.
+- **Platform dependencies:** To run your pipelines, you'll need to ensure the agents have the necessary dependencies, such as programming languages, build tools, and libraries. Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents.
+- **Network Configurations:** Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
+- **Agent scaling:** Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
+- **Build isolation and security:** Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
 
-Evaluate your current Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure. This assessment will help you plan the right resources and ensure optimal performance for your CI/CD pipelines.
+When you're ready to install an agent, see the [Installation](/docs/agent/v3/installation/) guides and follow the instructions for your infrastructure type. 
 
-Identify platform dependencies: Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents with the required platforms and dependencies for your pipelines.
-
-Examine network configurations: Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
-
-Choose the infrastructure type: Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
-
-Determine agent scaling: Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
-
-Plan for build isolation and security: Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
-
-Install Buildkite agent software: Follow the Buildkite agent installation guide for your chosen infrastructure type. The agent software is available for various platforms, including Linux, macOS, and Windows.
-
-Configure agent settings: Configure the Buildkite agent settings, including the agent token, name, and tags. Use agent tags to describe the agent's capabilities (e.g., operating system, tools, or environment) to target specific agents in your pipeline steps.
-
-Migrate platform dependencies: Install the necessary platforms, tools, and dependencies identified in step 1.2 on your Buildkite agents to ensure compatibility with your pipelines.
-
-Configure network settings: Apply the network configurations from your existing Jenkins nodes, such as firewall rules, proxy settings, and access to external resources, to your Buildkite agent infrastructure.
-
-Monitor agent performance: Keep an eye on your Buildkite agent infrastructure's performance, resource usage, and build times to identify any bottlenecks or resource constraints.
-
-Optimize resource allocation: Adjust the number of Buildkite agents or their resource allocation based on your monitoring data to optimize build times and resource usage.
+You'll continue to adjust the agent configuration as you monitor performance to optimize build times and resource usage for your needs.
 
 ## 4. Translate pipeline definitions
 
 Recommend you think of the goal and how to achieve that in Buildkite rather than automating the migration.
+
+
+
+1. Audit your pipelines.
+
+
+For each pipeline:
+1. Look for an example.
+1. Customize
+1. Target an agent/queue
+
+1. Setup webhooks.
+
+1. Migrate environment variables, secrets, and credentials
+
+1. Test the pipeline(s)
+
+
+EXAMPLE pipelines
+
 
 Take inventory of your existing Jenkins pipelines, plugins, and integrations. Determine which parts of your Jenkins setup are essential and which can be replaced or removed. This will help you decide what needs to be migrated to Buildkite.
 
