@@ -44,21 +44,15 @@ This decoupling provides flexibility, as you can scale the build agents independ
 
 ### Security
 
-Clusters?
+Security is crucial in CI/CD, protecting sensitive information, system integrity, and compliance with industry standards. Jenkins and Buildkite have different approaches to security, which will impact how you manage your CI/CD pipeline's security aspects.
 
-Security plays a crucial role in CI/CD, protecting sensitive information, system integrity, and compliance with industry standards. Jenkins and Buildkite have different approaches to security, which will impact how you manage your CI/CD pipeline's security aspects.
+Securing a Jenkins instance requires careful configuration, plugin management, and regular updates to address security vulnerabilities. You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage.
 
-Jenkins provides various security features, including user authentication, authorization, and access control. Jenkins supports multiple authentication providers, such as LDAP, Active Directory, and OAuth. Jenkins also includes Role-Based Access Control (RBAC) and Matrix Authorization, allowing you to define permissions for users and groups. However, securing a Jenkins instance requires careful configuration, plugin management, and regular updates to address security vulnerabilities. Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage.
-
-Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. Buildkite supports single sign-on (SSO) with various identity providers and uses granular permissions to manage user access. Buildkite also has a strong focus on security best practices and compliance with industry standards.
-
-Jenkins requires you to manage and secure the entire platform, including the master server and build agents. With Buildkite, you are responsible for securing the build agents running on your infrastructure, while Buildkite takes care of the SaaS platform's security. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
+Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. 
 
 Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
 
-Jenkins relies heavily on plugins, which may introduce security vulnerabilities if not carefully managed and updated. Buildkite's streamlined plugin system, with a focus on custom scripts and third-party tools, reduces the potential security risks associated with plugins.
-
-As a self-hosted solution, Jenkins requires you to secure the underlying infrastructure, network, and storage. Buildkite's hybrid architecture allows you to leverage cloud infrastructure or on-premises resources for build agents, giving you more control over security and compliance requirements in your build environment.
+With Buildkite, you are responsible for securing the build agents running on your infrastructure, while Buildkite handles the SaaS platform's security. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
 
 ### Pipeline configuration
 
