@@ -9,26 +9,56 @@ While Jenkins and Buildkite have similar goals as CI/CD platforms, they differ i
 
 Buildkite addresses the pain points of Jenkins’ users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible. 
 
-This guide walks you through the process of migrating from Jenkins to Buildkite, setting you up for success when adopting Buildkite into your workflow.
+Follow the steps in this guide for a smooth migration from Jenkins to Buildkite.
 
-## Understand the differences
+## 1. Understand the differences
 
 While most of the concepts will be familiar, there are some differences in the approach to understand.
 
 ### System architecture
 
-At a high level, Buildkite follows a similar architecture to Jenkins:
-A central control panel that coordinates work and displays results.
-A program executes the work it receives from the control panel.
-However, while you're responsible for scaling and managing both components in Jenkins, Buildkite manages the control panel as a SaaS offering. This reduces the operational burden on your team, as Buildkite takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
+While Jenkins is a general automation engine with plugins to add additional features, Buildkite Pipelines is a product specifically aimed at CI/CD. You can think of Buildkite Pipelines like Jenkins with the Pipeline suite of plugins. To simplify it, we'll refer to Jenkins Pipeline as just _Jenkins_ and Buildkite Pipelines as _Buildkite_.
 
-The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
+At a high level, Buildkite follows a similar architecture to Jenkins:
+
+- A central control panel that coordinates work and displays results. 
+  - **Jenkins:** A _controller_ shown in the web UI. 
+  - **Buildkite:** The _Buildkite dashboard_.
+- A program that executes the work it receives from the control panel. 
+  - **Jenkins:** A combination of _nodes_, _executors_, and _agents_.
+  - **Buldkite:** _Agents_.
+
+However, while you're responsible for scaling and operating both components in Jenkins, Buildkite manages the control panel as a SaaS offering (the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
+
+The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines.
+
+In Jenkins, you manage concurrency by having multiple executors within a single node. In Buildkite, you run multiple agents on a single machine or across multiple machines.
 
 The following diagram shows the split between the hosted platform and the agents running on your infrastructure.
 
 <svg alt="Diagram showing agent to agent API communication" viewBox="0 0 730 570"><defs><rect id="agent-comms-svg-i" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-j" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-k" width="102" height="65" rx="8"/><rect id="agent-comms-svg-l" width="75" height="48" rx="8"/><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-a"/><mask id="agent-comms-svg-m" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-a"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.997 0h178.006C190.42 0 194 3.588 194 8.007v31.986c0 4.422-3.575 8.007-7.997 8.007H7.997C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-b"/><mask id="agent-comms-svg-n" x="0" y="0" width="194" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-b"/></mask><path d="M0 8.007C0 3.585 3.576 0 7.99 0h119.02c4.412 0 7.99 3.588 7.99 8.007v31.986c0 4.422-3.576 8.007-7.99 8.007H7.99C3.579 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-c"/><mask id="agent-comms-svg-o" x="0" y="0" width="135" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-c"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-d"/><mask id="agent-comms-svg-p" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-d"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-e"/><mask id="agent-comms-svg-q" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-e"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.997 0h178.006C190.42 0 194 3.588 194 8.007v31.986c0 4.422-3.575 8.007-7.997 8.007H7.997C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-f"/><mask id="agent-comms-svg-r" x="0" y="0" width="194" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-f"/></mask><path d="M14 8.007C14 3.585 17.576 0 21.99 0h119.02c4.412 0 7.99 3.588 7.99 8.007v31.986c0 4.422-3.576 8.007-7.99 8.007H21.99C17.579 48 14 44.412 14 39.993V8.007z" id="agent-comms-svg-g"/><mask id="agent-comms-svg-s" x="0" y="0" width="135" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-g"/></mask><path d="M0 8.007C0 3.585 3.585 0 7.998 0h151.004C163.419 0 167 3.588 167 8.007v31.986c0 4.422-3.585 8.007-7.998 8.007H7.998C3.581 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-h"/><mask id="agent-comms-svg-t" x="0" y="0" width="167" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-h"/></mask><rect id="agent-comms-svg-u" width="75" height="48" rx="8"/><rect id="agent-comms-svg-v" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-w" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-x" width="102" height="65" rx="8"/><rect id="agent-comms-svg-y" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-z" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-A" width="102" height="65" rx="8"/></defs><g fill="none" fill-rule="evenodd"><path d="M-.5 274.5h732.154" stroke="#DCDCDC" stroke-linecap="square" stroke-dasharray="10"/><text font-family="'Maison Neue'" font-size="18" font-weight="400" fill="#666"><tspan x="618" y="305">On-Premises</tspan></text><text font-family="'Maison Neue'" font-size="18" font-weight="400" fill="#666"><tspan x="581" y="32">Hosted Platform</tspan></text><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-i"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-j"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-k"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(163 383)"><tspan x="18.311" y="39">AGENT</tspan></text><g transform="translate(95 312)"><use fill="#FFF" xlink:href="#agent-comms-svg-l"/><rect stroke="#979797" x=".5" y=".5" width="74" height="47" rx="8"/></g><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#2ACE69" transform="translate(95 312)"><tspan x="14.157" y="30">AGENT</tspan></text><g transform="translate(56 490)"><use stroke="#979797" mask="url(#m)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-a"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="20.434" y="30">YOUR SOURCE CODE</tspan></text></g><g transform="translate(275 492)"><use stroke="#979797" mask="url(#n)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-b"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="15.187" y="30">YOUR DEPLOY SECRETS</tspan></text></g><g transform="translate(65 67)"><use stroke="#979797" mask="url(#o)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-c"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="26.595" y="30">WEBHOOKS</tspan></text></g><g transform="translate(264 43)"><use stroke="#979797" mask="url(#p)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-d"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="19.539" y="30">SCM INTEGRATIONS</tspan></text></g><g transform="translate(39 185)"><use stroke="#979797" mask="url(#q)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-e"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="16.084" y="30">CHAT INTEGRATIONS</tspan></text></g><g transform="translate(494 185)"><use stroke="#979797" mask="url(#r)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-f"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="19.984" y="30">REST &amp; GRAPHQL APIs</tspan></text></g><g transform="translate(507 67)"><use stroke="#979797" mask="url(#s)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-g"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="26.849" y="30">WEB INTERFACE</tspan></text></g><g transform="translate(507 490)"><use stroke="#979797" mask="url(#t)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-h"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="13.482" y="30">INTERNAL SYSTEMS</tspan></text></g><g transform="translate(526 312)"><use fill="#FFF" xlink:href="#agent-comms-svg-u"/><rect stroke="#979797" x=".5" y=".5" width="74" height="47" rx="8"/></g><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#2ACE69" transform="translate(526 312)"><tspan x="14.157" y="30">AGENT</tspan></text><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-v"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-w"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-x"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(298 383)"><tspan x="18.311" y="39">AGENT</tspan></text><g transform="translate(228 113)"><rect stroke="#979797" x=".5" y=".5" width="249" height="64" rx="8"/><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69"><tspan x="18.98" y="39">BUILDKITE AGENT API</tspan></text></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-y"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-z"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-A"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(430 383)"><tspan x="18.311" y="39">AGENT</tspan></text><path d="M353.5 185.5l166 119M519.5 304.5l-7.03-8.73-3.495 4.876L519.5 304.5zM353.5 185.5l116 183M469.5 368.5l-3.248-10.728-5.068 3.212 8.316 7.516zM353.5 185.5l-8 181M345.5 366.5l3.474-10.657-5.994-.265 2.52 10.922zM353.5 185.5l-131 184M222.5 369.5l8.708-7.058-4.888-3.48-3.82 10.538zM353.5 185.5l-173 118M180.5 303.5l10.613-3.607-3.381-4.957-7.232 8.564z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"/></g></svg>
 
+The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. Buildkite communicates with the agents on your infrastructure, which access your code, secrets, and internal systems.
+
 This decoupling provides flexibility, as you can scale the build agents independently while Buildkite manages the coordination, scheduling, and web interface.
+
+### Security
+
+Clusters?
+
+Security plays a crucial role in CI/CD, protecting sensitive information, system integrity, and compliance with industry standards. Jenkins and Buildkite have different approaches to security, which will impact how you manage your CI/CD pipeline's security aspects.
+
+Jenkins provides various security features, including user authentication, authorization, and access control. Jenkins supports multiple authentication providers, such as LDAP, Active Directory, and OAuth. Jenkins also includes Role-Based Access Control (RBAC) and Matrix Authorization, allowing you to define permissions for users and groups. However, securing a Jenkins instance requires careful configuration, plugin management, and regular updates to address security vulnerabilities. Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage.
+
+Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. Buildkite supports single sign-on (SSO) with various identity providers and uses granular permissions to manage user access. Buildkite also has a strong focus on security best practices and compliance with industry standards.
+
+Jenkins requires you to manage and secure the entire platform, including the master server and build agents. With Buildkite, you are responsible for securing the build agents running on your infrastructure, while Buildkite takes care of the SaaS platform's security. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
+
+Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
+
+Jenkins relies heavily on plugins, which may introduce security vulnerabilities if not carefully managed and updated. Buildkite's streamlined plugin system, with a focus on custom scripts and third-party tools, reduces the potential security risks associated with plugins.
+
+As a self-hosted solution, Jenkins requires you to secure the underlying infrastructure, network, and storage. Buildkite's hybrid architecture allows you to leverage cloud infrastructure or on-premises resources for build agents, giving you more control over security and compliance requirements in your build environment.
 
 ### Pipeline configuration
 
@@ -54,23 +84,7 @@ Jenkins plugins are typically developed in Java and are closely integrated with 
 
 In Jenkins, plugins are configured globally or per project, and their functionality is exposed through pipeline steps or post-build actions. In Buildkite, plugins are included and configured directly in the pipeline configuration file, making it easier to track, version-control, and share plugin configurations across pipelines and teams.
 
-### Security
-
-Security plays a crucial role in CI/CD, protecting sensitive information, system integrity, and compliance with industry standards. Jenkins and Buildkite have different approaches to security, which will impact how you manage your CI/CD pipeline's security aspects.
-
-Jenkins provides various security features, including user authentication, authorization, and access control. Jenkins supports multiple authentication providers, such as LDAP, Active Directory, and OAuth. Jenkins also includes Role-Based Access Control (RBAC) and Matrix Authorization, allowing you to define permissions for users and groups. However, securing a Jenkins instance requires careful configuration, plugin management, and regular updates to address security vulnerabilities. Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage.
-
-Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. Buildkite supports single sign-on (SSO) with various identity providers and uses granular permissions to manage user access. Buildkite also has a strong focus on security best practices and compliance with industry standards.
-
-Jenkins requires you to manage and secure the entire platform, including the master server and build agents. With Buildkite, you are responsible for securing the build agents running on your infrastructure, while Buildkite takes care of the SaaS platform's security. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
-
-Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
-
-Jenkins relies heavily on plugins, which may introduce security vulnerabilities if not carefully managed and updated. Buildkite's streamlined plugin system, with a focus on custom scripts and third-party tools, reduces the potential security risks associated with plugins.
-
-As a self-hosted solution, Jenkins requires you to secure the underlying infrastructure, network, and storage. Buildkite's hybrid architecture allows you to leverage cloud infrastructure or on-premises resources for build agents, giving you more control over security and compliance requirements in your build environment.
-
-## Try out Buildkite
+## 2. Try out Buildkite
 
 The first step in migrating to Buildkite is to set up a Buildkite account. This can be done by visiting the Buildkite website and signing up for a free trial. Once you have an account, you can start creating pipelines and agents to run your builds.
 
@@ -91,7 +105,39 @@ Key takeaways:
 - You install agents on your infrasturcutee. They receive instructions for the work to complete from BK.
 - Agents isolate your code and secrets so BK never sees it.
 
-## Translate pipeline definitions
+## 3. Provision agent infrastructure
+
+Ensure that the agents have the necessary dependencies, such as programming languages, build tools, and libraries, to run your pipelines.
+
+Will be similar to your setup with Jenkins except that you don't also have to run a node for the controller.
+
+The agent infrastructure is where your builds, tests, and deployments run. In Buildkite, agents run on your infrastructure, providing flexibility and control over the environment and resources. 
+
+Evaluate your current Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure. This assessment will help you plan the right resources and ensure optimal performance for your CI/CD pipelines.
+
+Identify platform dependencies: Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents with the required platforms and dependencies for your pipelines.
+
+Examine network configurations: Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
+
+Choose the infrastructure type: Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
+
+Determine agent scaling: Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
+
+Plan for build isolation and security: Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
+
+Install Buildkite agent software: Follow the Buildkite agent installation guide for your chosen infrastructure type. The agent software is available for various platforms, including Linux, macOS, and Windows.
+
+Configure agent settings: Configure the Buildkite agent settings, including the agent token, name, and tags. Use agent tags to describe the agent's capabilities (e.g., operating system, tools, or environment) to target specific agents in your pipeline steps.
+
+Migrate platform dependencies: Install the necessary platforms, tools, and dependencies identified in step 1.2 on your Buildkite agents to ensure compatibility with your pipelines.
+
+Configure network settings: Apply the network configurations from your existing Jenkins nodes, such as firewall rules, proxy settings, and access to external resources, to your Buildkite agent infrastructure.
+
+Monitor agent performance: Keep an eye on your Buildkite agent infrastructure's performance, resource usage, and build times to identify any bottlenecks or resource constraints.
+
+Optimize resource allocation: Adjust the number of Buildkite agents or their resource allocation based on your monitoring data to optimize build times and resource usage.
+
+## 4. Translate pipeline definitions
 
 Recommend you think of the goal and how to achieve that in Buildkite rather than automating the migration.
 
@@ -135,41 +181,7 @@ Move your environment variables, secrets, and credentials from Jenkins to Buildk
 Test the migrated pipelines:
 Run the migrated pipelines on Buildkite to verify that they are working correctly. Monitor the pipeline execution, compare the results with your Jenkins pipelines, and address any issues that may arise.
 
-## Provision agent infrastructure
-
-Ensure that the agents have the necessary dependencies, such as programming languages, build tools, and libraries, to run your pipelines.
-
-Will be similar to your setup with Jenkins except that you don't also have to run a node for the controller.
-
-The agent infrastructure is where your builds, tests, and deployments run. In Buildkite, agents run on your infrastructure, providing flexibility and control over the environment and resources. 
-
-Evaluate your current Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure. This assessment will help you plan the right resources and ensure optimal performance for your CI/CD pipelines.
-
-Identify platform dependencies: Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents with the required platforms and dependencies for your pipelines.
-
-Examine network configurations: Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
-
-Choose the infrastructure type: Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
-
-Determine agent scaling: Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
-
-Plan for build isolation and security: Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
-
-Install Buildkite agent software: Follow the Buildkite agent installation guide for your chosen infrastructure type. The agent software is available for various platforms, including Linux, macOS, and Windows.
-
-Configure agent settings: Configure the Buildkite agent settings, including the agent token, name, and tags. Use agent tags to describe the agent's capabilities (e.g., operating system, tools, or environment) to target specific agents in your pipeline steps.
-
-Migrate platform dependencies: Install the necessary platforms, tools, and dependencies identified in step 1.2 on your Buildkite agents to ensure compatibility with your pipelines.
-
-Configure network settings: Apply the network configurations from your existing Jenkins nodes, such as firewall rules, proxy settings, and access to external resources, to your Buildkite agent infrastructure.
-
-Monitor agent performance: Keep an eye on your Buildkite agent infrastructure's performance, resource usage, and build times to identify any bottlenecks or resource constraints.
-
-Optimize resource allocation: Adjust the number of Buildkite agents or their resource allocation based on your monitoring data to optimize build times and resource usage.
-
-
-
-## Intregrate your tools
+## 5. Intregrate your tools
 
 Your workflow.
 - Integrate with existing tools like notifications etc.
@@ -195,7 +207,7 @@ Monitor and Optimize Your Integrations:
 Conclusion: Integrating your normal workflow tools and notifications with Buildkite requires identifying your needs, choosing the right integration approach, and configuring your notifications to best serve your team. By following these best practices and advice, you can effectively integrate your workflow tools with Buildkite and streamline your CI/CD processes
 
 
-## Share with your team
+## 6. Share with your team
 
 Train your team:
 Educate your team about the changes in the CI/CD process, the new Buildkite interface, and any new tools or integrations introduced during the migration. Provide documentation and resources to help your team adapt to the new environment.
