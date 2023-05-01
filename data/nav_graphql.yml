@@ -8,6 +8,12 @@
     path: tutorials/getting-started
   - name: Glossary
     path: pipelines/glossary
+  - name: Migration
+    children:
+      - name: From Jenkins
+        path: tutorials/migrate-from-jenkins
+      - name: From Bamboo
+        path: tutorials/migrating-from-bamboo
   - name: Connect source control
     children:
     - name: Overview
