@@ -5,8 +5,14 @@ class Page
 
   class << self
     def all
-      Dir.glob("app/views/pages/**/*.md").map do |path|
-        Struct.new(:path, :updated_at).new(path, File.mtime(path))
+      Dir.glob("#{Rails.root}/pages/**/*.md").map do |path|
+        Struct.new(:path, :updated_at).new(
+          path
+            .sub("#{Rails.root}/pages/", "/docs/")
+            .sub(/\.md$/, "")
+            .gsub("_", "-"),
+          File.mtime(path)
+        )
       end
     end
   end
