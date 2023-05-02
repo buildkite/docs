@@ -3,6 +3,14 @@
 class Page
   HEADING_REGEX = /^[#]{2}\s(.+)$/
 
+  class << self
+    def all
+      Dir.glob("app/views/pages/**/*.md").map do |path|
+        Struct.new(:path, :updated_at).new(path, File.mtime(path))
+      end
+    end
+  end
+
   class TemplateBinding
     delegate_missing_to :@view_helpers
 
