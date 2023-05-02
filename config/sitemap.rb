@@ -1,5 +1,5 @@
 # Set the host name for URL creation
-SitemapGenerator::Sitemap.default_host = "http://www.example.com"
+SitemapGenerator::Sitemap.default_host = "https://buildkite.com"
 SitemapGenerator::Sitemap.sitemaps_path = "docs/"
 
 SitemapGenerator::Sitemap.create do
