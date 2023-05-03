@@ -84,6 +84,7 @@ exceptions:
   - IDs
   - IronWorker
   - JavaScript
+  - Jenkins
   - JUnit
   - Kubernetes
   - Linux

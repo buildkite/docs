@@ -31,6 +31,7 @@ GitLab
 Gradle
 Hashicorp
 Inlining
+Jenkins
 JWT
 JWTs
 Kuzco
@@ -139,6 +140,7 @@ namespaces
 negator
 npm
 nssm
+onboarding
 parsable
 phabricator
 php

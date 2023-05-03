@@ -5,13 +5,13 @@ If you are familiar with [Jenkins](https://www.jenkins.io) and want to migrate t
 While Jenkins and Buildkite have similar goals as CI/CD platforms, their approach differs. Buildkite uses a hybrid model consisting of:
 
 - A software-as-a-service (SaaS) platform for visualization and management of CI pipelines.
-- Agents that execute jobs on your infrastructure, either on-premise or in the cloud. 
+- Agents that execute jobs on your infrastructure, either on-premise or in the cloud.
 
-Buildkite addresses the pain points of Jenkins’ users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible. 
+Buildkite addresses the pain points of Jenkins’ users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible.
 
 Follow the steps in this guide for a smooth migration from Jenkins to Buildkite.
 
-## 1. Understand the differences
+## Understand the differences
 
 Most of the concepts will likely be familiar, but there are some differences to understand about the approaches.
 
@@ -21,12 +21,12 @@ While Jenkins is a general automation engine with plugins to add additional feat
 
 At a high level, Buildkite follows a similar architecture to Jenkins:
 
-- A central control panel that coordinates work and displays results. 
-  - **Jenkins:** A _controller_ shown in the web UI. 
-  - **Buildkite:** The _Buildkite dashboard_.
-- A program that executes the work it receives from the control panel. 
-  - **Jenkins:** A combination of _nodes_, _executors_, and _agents_.
-  - **Buldkite:** _Agents_.
+- A central control panel that coordinates work and displays results.
+  * **Jenkins:** A _controller_ shown in the web UI.
+  * **Buildkite:** The _Buildkite dashboard_.
+- A program that executes the work it receives from the control panel.
+  * **Jenkins:** A combination of _nodes_, _executors_, and _agents_.
+  * **Buildkite:** _Agents_.
 
 However, while you're responsible for scaling and operating both components in Jenkins, Buildkite manages the control panel as a SaaS offering (the Buildkite dashboard). This reduces the operational burden on your team, as Buildkite takes care of platform maintenance, updates, and availability. The Buildkite dashboard also handles monitoring tools like logs, user access, and notifications.
 
@@ -36,7 +36,11 @@ In Jenkins, you manage concurrency by having multiple executors within a single 
 
 The following diagram shows the split in Buildkite between the hosted platform and the agents running on your infrastructure.
 
+<!-- vale off -->
+
 <svg alt="Diagram showing agent to agent API communication" viewBox="0 0 730 570"><defs><rect id="agent-comms-svg-i" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-j" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-k" width="102" height="65" rx="8"/><rect id="agent-comms-svg-l" width="75" height="48" rx="8"/><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-a"/><mask id="agent-comms-svg-m" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-a"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.997 0h178.006C190.42 0 194 3.588 194 8.007v31.986c0 4.422-3.575 8.007-7.997 8.007H7.997C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-b"/><mask id="agent-comms-svg-n" x="0" y="0" width="194" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-b"/></mask><path d="M0 8.007C0 3.585 3.576 0 7.99 0h119.02c4.412 0 7.99 3.588 7.99 8.007v31.986c0 4.422-3.576 8.007-7.99 8.007H7.99C3.579 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-c"/><mask id="agent-comms-svg-o" x="0" y="0" width="135" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-c"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-d"/><mask id="agent-comms-svg-p" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-d"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.996 0h165.008C177.42 0 181 3.588 181 8.007v31.986c0 4.422-3.575 8.007-7.996 8.007H7.996C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-e"/><mask id="agent-comms-svg-q" x="0" y="0" width="181" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-e"/></mask><path d="M0 8.007C0 3.585 3.575 0 7.997 0h178.006C190.42 0 194 3.588 194 8.007v31.986c0 4.422-3.575 8.007-7.997 8.007H7.997C3.58 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-f"/><mask id="agent-comms-svg-r" x="0" y="0" width="194" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-f"/></mask><path d="M14 8.007C14 3.585 17.576 0 21.99 0h119.02c4.412 0 7.99 3.588 7.99 8.007v31.986c0 4.422-3.576 8.007-7.99 8.007H21.99C17.579 48 14 44.412 14 39.993V8.007z" id="agent-comms-svg-g"/><mask id="agent-comms-svg-s" x="0" y="0" width="135" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-g"/></mask><path d="M0 8.007C0 3.585 3.585 0 7.998 0h151.004C163.419 0 167 3.588 167 8.007v31.986c0 4.422-3.585 8.007-7.998 8.007H7.998C3.581 48 0 44.412 0 39.993V8.007z" id="agent-comms-svg-h"/><mask id="agent-comms-svg-t" x="0" y="0" width="167" height="48" fill="#fff"><use xlink:href="#agent-comms-svg-h"/></mask><rect id="agent-comms-svg-u" width="75" height="48" rx="8"/><rect id="agent-comms-svg-v" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-w" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-x" width="102" height="65" rx="8"/><rect id="agent-comms-svg-y" x="11" y="11" width="102" height="65" rx="8"/><rect id="agent-comms-svg-z" x="6" y="6" width="102" height="65" rx="8"/><rect id="agent-comms-svg-A" width="102" height="65" rx="8"/></defs><g fill="none" fill-rule="evenodd"><path d="M-.5 274.5h732.154" stroke="#DCDCDC" stroke-linecap="square" stroke-dasharray="10"/><text font-family="'Maison Neue'" font-size="18" font-weight="400" fill="#666"><tspan x="618" y="305">On-Premises</tspan></text><text font-family="'Maison Neue'" font-size="18" font-weight="400" fill="#666"><tspan x="581" y="32">Hosted Platform</tspan></text><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-i"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-j"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(163 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-k"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(163 383)"><tspan x="18.311" y="39">AGENT</tspan></text><g transform="translate(95 312)"><use fill="#FFF" xlink:href="#agent-comms-svg-l"/><rect stroke="#979797" x=".5" y=".5" width="74" height="47" rx="8"/></g><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#2ACE69" transform="translate(95 312)"><tspan x="14.157" y="30">AGENT</tspan></text><g transform="translate(56 490)"><use stroke="#979797" mask="url(#m)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-a"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="20.434" y="30">YOUR SOURCE CODE</tspan></text></g><g transform="translate(275 492)"><use stroke="#979797" mask="url(#n)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-b"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="15.187" y="30">YOUR DEPLOY SECRETS</tspan></text></g><g transform="translate(65 67)"><use stroke="#979797" mask="url(#o)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-c"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="26.595" y="30">WEBHOOKS</tspan></text></g><g transform="translate(264 43)"><use stroke="#979797" mask="url(#p)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-d"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="19.539" y="30">SCM INTEGRATIONS</tspan></text></g><g transform="translate(39 185)"><use stroke="#979797" mask="url(#q)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-e"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="16.084" y="30">CHAT INTEGRATIONS</tspan></text></g><g transform="translate(494 185)"><use stroke="#979797" mask="url(#r)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-f"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="19.984" y="30">REST &amp; GRAPHQL APIs</tspan></text></g><g transform="translate(507 67)"><use stroke="#979797" mask="url(#s)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-g"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="26.849" y="30">WEB INTERFACE</tspan></text></g><g transform="translate(507 490)"><use stroke="#979797" mask="url(#t)" stroke-width="2" fill="#FFF" stroke-dasharray="3" xlink:href="#agent-comms-svg-h"/><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#000"><tspan x="13.482" y="30">INTERNAL SYSTEMS</tspan></text></g><g transform="translate(526 312)"><use fill="#FFF" xlink:href="#agent-comms-svg-u"/><rect stroke="#979797" x=".5" y=".5" width="74" height="47" rx="8"/></g><text font-family="'Maison Neue'" font-size="13" font-weight="bold" letter-spacing=".813" fill="#2ACE69" transform="translate(526 312)"><tspan x="14.157" y="30">AGENT</tspan></text><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-v"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-w"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(298 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-x"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(298 383)"><tspan x="18.311" y="39">AGENT</tspan></text><g transform="translate(228 113)"><rect stroke="#979797" x=".5" y=".5" width="249" height="64" rx="8"/><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69"><tspan x="18.98" y="39">BUILDKITE AGENT API</tspan></text></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-y"/><rect stroke="#979797" x="11.5" y="11.5" width="101" height="64" rx="8"/></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-z"/><rect stroke="#979797" x="6.5" y="6.5" width="101" height="64" rx="8"/></g><g transform="translate(430 383)"><use fill="#FFF" xlink:href="#agent-comms-svg-A"/><rect stroke="#979797" x=".5" y=".5" width="101" height="64" rx="8"/></g><text font-family="'Maison Neue'" font-size="18" font-weight="bold" letter-spacing="1.125" fill="#2ACE69" transform="translate(430 383)"><tspan x="18.311" y="39">AGENT</tspan></text><path d="M353.5 185.5l166 119M519.5 304.5l-7.03-8.73-3.495 4.876L519.5 304.5zM353.5 185.5l116 183M469.5 368.5l-3.248-10.728-5.068 3.212 8.316 7.516zM353.5 185.5l-8 181M345.5 366.5l3.474-10.657-5.994-.265 2.52 10.922zM353.5 185.5l-131 184M222.5 369.5l8.708-7.058-4.888-3.48-3.82 10.538zM353.5 185.5l-173 118M180.5 303.5l10.613-3.607-3.381-4.957-7.232 8.564z" stroke="#B4B4B4" fill="#B4B4B4" stroke-linecap="square"/></g></svg>
+
+<!-- vale on -->
 
 The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. Buildkite communicates with the agents on your infrastructure, which access your code, secrets, and internal systems.
 
@@ -50,7 +54,7 @@ Securing a Jenkins instance requires:
 
 - Careful configuration.
 - Plugin management.
-- Regular updates to address security vulnerabilities. 
+- Regular updates to address security vulnerabilities.
 
 You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage. Some updates require you to take Jenkins offline to perform, leaving your team without access to CI/CD during that period.
 
@@ -77,7 +81,7 @@ In Jenkins, the core description of work is a job. Jobs contain stages with step
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
 
-Trigging a pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. You upload the `pipeline.yml` file from a repository using a command on the agent.
+Triggering a pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. You upload the `pipeline.yml` file from a repository using a command on the agent.
 
 ### Plugin system
 
@@ -87,7 +91,7 @@ Rather than a web-based plugin management system like Jenkins, you manage Buildk
 
 Jenkins plugins are typically developed in Java and are closely integrated with the Jenkins core, which may lead to compatibility issues when updating Jenkins or its plugins. Buildkite plugins are written in Bash and loosely coupled with Buildkite, making them more maintainable and less prone to compatibility issues.
 
-## 2. Try out Buildkite
+## Try out Buildkite
 
 With a basic understanding of the differences between Buildkite and Jenkins, the next step is to try creating and running a pipeline.
 
@@ -98,7 +102,7 @@ We recommend following the [Getting started](/docs/tutorials/getting-started/) g
 1. Create a pipeline using an example repository.
 1. Run a build and view the output in the Buildkite dashboard.
 
-## 3. Provision agent infrastructure
+## Provision agent infrastructure
 
 The agents are where your builds, tests, and deployments run. They run on your infrastructure, providing flexibility and control over the environment and resources. Operating agents is similar in approach to hosting nodes in Jenkins.
 
@@ -113,9 +117,9 @@ You'll need to consider the following:
 
 You'll continue to adjust the agent configuration as you monitor performance to optimize build times and resource usage for your needs.
 
-See the [Installation](/docs/agent/v3/installation/) guides when you're ready to install an agent and follow the instructions for your infrastructure type. 
+See the [Installation](/docs/agent/v3/installation/) guides when you're ready to install an agent and follow the instructions for your infrastructure type.
 
-## 4. Translate pipeline definitions
+## Translate pipeline definitions
 
 A pipeline is a container for modeling and defining workflows. While that's true for both Buildkite and Jenkins, they look quite different. Both can read a configuration file checked into a repository to define the workflow. In Jenkins, the `Jenkinsfile`. In Buildkite, the `pipeline.yml`. Where the `Jenkinsfile` uses a Groovy-based syntax and strong hierarchy, `pipelines.yml` uses YAML and a flat structure for better readability.
 
@@ -127,7 +131,7 @@ Before you start moving pipelines, we recommend taking inventory of your existin
 
 Since the configuration files are quite different, creating an automated tool to translate between them is difficult. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
 
-Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), and [build matrices](http://localhost:3000/docs/pipelines/build-matrix).
+Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), and [build matrices](/docs/pipelines/build-matrix).
 
 A simple pipeline in Buildkite might look like the following:
 
@@ -152,36 +156,36 @@ To translate a pipeline:
 1. Identify the goal of the pipeline.
 1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
 1. Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
-   - Targeting a specific agent or queue.
-   - Replacing any Jenkins plugins and integrations with native integrations, existing Buildkite plugins, custom plugins, or custom scripts.
+   * Targeting a specific agent or queue.
+   * Replacing any Jenkins plugins and integrations with native integrations, existing Buildkite plugins, custom plugins, or custom scripts.
 1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data using Buildkite's secret management or a third-party secret management tool.
 1. Run the pipeline to verify it works as expected.
-   - If it does, nice work! On to the next one.
-   - If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
+   * If it does, nice work! On to the next one.
+   * If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
 
 Many teams continue running pipelines on their existing infrastructure to verify the results match before removing the pipeline from Jenkins.
 
-## 5. Integrate your tools
+## Integrate your tools
 
-Integrating workflow tools and notifications with your CI/CD pipelines helps streamline processes and keeps your team informed about build and deployment status. Buildkite supports various integrations with tools like chat applications, artifact managers, and monitoring systems. 
+Integrating workflow tools and notifications with your CI/CD pipelines helps streamline processes and keeps your team informed about build and deployment status. Buildkite supports various integrations with tools like chat applications, artifact managers, and monitoring systems.
 
 To set up your integrations:
 
 1. **List existing tools:** Identify the workflow tools and notification systems you use or need to integrate with your CI/CD pipelines.
 1. **Define notification requirements:** Determine the types of notifications your team needs, such as build status, deployment updates, test results, and alerts for critical issues. This information will help you configure the appropriate integrations and notification settings.
 1. **Choose the integration approach:**
-   - **Plugins:** Buildkite provides plugins to integrate with popular workflow tools and notification systems. Check the [Plugins directory](/docs/plugins/directory) to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions. If it's not, learn about [writing plugins](/docs/plugins/writing).
-   - **Webhooks and APIs:** If no plugin is available for your desired tool, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis) to create custom integrations. Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools. 
-   - **Third-party services:** Some third-party services provide direct integrations with Buildkite. Check your tools to see if they can help you achieve the desired integrations without writing custom scripts.
-1. **Set up notification channels:** Create dedicated notification channels in your chat applications to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels. 
+   * **Plugins:** Buildkite provides plugins to integrate with popular workflow tools and notification systems. Check the [Plugins directory](/docs/plugins/directory) to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions. If it's not, learn about [writing plugins](/docs/plugins/writing).
+   * **Webhooks and APIs:** If no plugin is available for your desired tool, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis) to create custom integrations. Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools.
+   * **Third-party services:** Some third-party services provide direct integrations with Buildkite. Check your tools to see if they can help you achieve the desired integrations without writing custom scripts.
+1. **Set up notification channels:** Create dedicated notification channels in your chat applications to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels.
 1. **Configure notification triggers:** Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention. See [Triggering notifications](/docs/pipelines/notifications) for more information.
-1. **Customize notification content:** Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues. 
+1. **Customize notification content:** Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues.
 
-Continue adjusting the settings as you gather feedback from your team on the effectiveness and usefulness of your integrations and notifications. 
+Continue adjusting the settings as you gather feedback from your team on the effectiveness and usefulness of your integrations and notifications.
 
 Keep your integrations up to date by monitoring the release notes and updates for Buildkite plugins and the workflow tools you use. Updating your integrations ensures compatibility, fixes bugs, and introduces new features.
 
-## 6. Share with your team
+## Share with your team
 
 Buildkite is more fun together, so share the new CI/CD setup with your wider team. Use resources from the [home page](https://buildkite.com/home), [documentation](https://buildkite.com/docs), and [community forum](https://forum.buildkite.community/) to help introduce people to Buildkite and its principles. These will help them adapt to the new CI/CD environment.
 
@@ -193,7 +197,7 @@ Some companies assign _Buildkite champions_ who are knowledgeable about Buildkit
 
 That's it! 🎉
 
-Migrating from Jenkins to Buildkite provides a more flexible, scalable, and secure build infrastructure for your applications. 
+Migrating from Jenkins to Buildkite provides a more flexible, scalable, and secure build infrastructure for your applications.
 
 Remember that it may take some time to adapt to the new platform, and be prepared to address any issues or challenges that arise during the migration process. We recommend you gather feedback from your team members on their experiences with Buildkite, so you can continually optimize your setup.
 
