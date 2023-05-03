@@ -46,23 +46,38 @@ This decoupling provides flexibility, as you can scale the build agents independ
 
 Security is crucial in CI/CD, protecting sensitive information, system integrity, and compliance with industry standards. Jenkins and Buildkite have different approaches to security, which will impact how you manage your CI/CD pipeline's security aspects.
 
-Securing a Jenkins instance requires careful configuration, plugin management, and regular updates to address security vulnerabilities. You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage.
+Securing a Jenkins instance requires:
 
-Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. 
+- Careful configuration.
+- Plugin management.
+- Regular updates to address security vulnerabilities. 
+
+You must consider vulnerabilities in both the [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html). Additionally, since Jenkins is a self-hosted solution, you are responsible for securing the underlying infrastructure, network, and storage. Some updates require you to take Jenkins offline to perform, leaving your team without access to CI/CD during that period.
+
+Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
+
+Secret management is more straightforward in Buildkite with enviornment hooks and native support for third-party tools like AWS Secrets Manager and Hashicorp Vault.
 
 Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
-
-With Buildkite, you are responsible for securing the build agents running on your infrastructure, while Buildkite handles the SaaS platform's security. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
 
 ### Pipeline configuration
 
 When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to understand the differences in pipeline configuration.
 
-Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repo. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
+Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repository. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
 
 Rather than a full programming language like the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand.
 
-The hierarchical structure of Jenkins pipelines, stages, and steps is replaced by a linear sequence of steps in Buildkite, making the pipeline configuration more accessible. You can use the expressive labels and group steps to achieve a similar organization as stages in Jenkins, but it's not required.
+In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in a different way. _Pipelines_ are the core description of work. Pipelines contain different types of _steps_ for different tasks:
+
+- **Command step:** Runs one or more shell commands on one or more agents.
+- **Wait step:** Pauses a build until all previous jobs have completed.
+- **Block step:** Pauses a build until unblocked.
+- **Input step:** Collects information from a user.
+- **Trigger step:** Creates a build on another pipeline.
+- **Group step:** Displays a group of sub-steps as one parent step.
+
+When you trigger a pipeline it creates a _build_ and any command steps are dispatched as _jobs_ to run on agents. You upload `pipeline.yml` from a repository using a command on the agent.
 
 ### Plugin system
 
@@ -114,11 +129,29 @@ Since the configuration files are quite different, it's difficult to create an a
 
 Some Buildkite features you might want to make use of include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts) and [build matrices](http://localhost:3000/docs/pipelines/build-matrix).
 
+A simple pipeline in Buildkite might look like:
+
+```yaml
+steps:
+- label: "Build"
+  command: "build.sh"
+  key: "build"
+
+- label: "Test"
+  command: "test.sh"
+  key: "test"
+  depends_on: "build"
+
+- label: "Deploy"
+  command: "deploy.sh"
+  depends_on: "build"
+```
+
 To translate a pipeline:
 
 1. Identify the goal of the pipeline.
 1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
-1. Follow [Defining steps](/docs/pipelines/defining-steps)  to learn how to customize the pipeline definition to meet your needs, including:
+1. Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
    - Targetting a specific agent or queue.
    - Replacing any Jenkins plugins and integrations with native integrations, existing Buildkite plugins, custom plugins, or custom scripts.
 1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Store your sensitive data securely using Buildkite's secret management or a third-party secrets management tool.
