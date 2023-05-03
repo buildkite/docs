@@ -292,145 +292,124 @@ RSpec.describe NavData do
 
   describe "#generate_graphql_nav_data" do
     it "generates nav data correctly" do
-      expect(generate_graphql_nav_data(nav, type_sets)).to eq(
-        [
-          {
-            "name" => "Pipelines",
-            "path" => "pipelines"
+      expect(generate_graphql_nav_data(type_sets)).to eq(
+       [
+        {
+            "name" => "Overview",
+            "path" => "apis/graphql-api"
           },
           {
-            "name" => "Test Analytics",
-            "path" => "test-analytics",
+            "name" => "Console and CLI tutorial",
+            "path" => "apis/graphql/graphql-tutorial"
           },
           {
-            "name" => "APIs",
-            "path" => "apis",
+            "name" => "Cookbook",
+            "path" => "apis/graphql/graphql-cookbook"
+          },
+          {
+            "name" => "Queries",
             "children" => [
-              "name" => "GraphQL",
-              "children" => [
-                {
-                  "name" => "Overview",
-                  "path" => "apis/graphql-api"
-                },
-                {
-                  "name" => "Console and CLI tutorial",
-                  "path" => "apis/graphql/graphql-tutorial"
-                },
-                {
-                  "name" => "Cookbook",
-                  "path" => "apis/graphql/graphql-cookbook"
-                },
-                {
-                  "name" => "Queries",
-                  "children" => [
-                    {
-                      "name" => "agent",
-                      "path" => "apis/graphql/schemas/query/agent"
-                    },
-                    {
-                      "name" => "agentToken",
-                      "path" => "apis/graphql/schemas/query/agenttoken"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Mutations",
-                  "children" => [
-                    {
-                      "name" => "agentStop",
-                      "path" => "apis/graphql/schemas/mutation/agentstop"
-                    },
-                    {
-                      "name" => "agentTokenCreate",
-                      "path" => "apis/graphql/schemas/mutation/agenttokencreate"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Objects",
-                  "children" => [
-                    {
-                      "name" => "Avatar",
-                      "path" => "apis/graphql/schemas/object/avatar"
-                    },
-                    {
-                      "name" => "PullRequest",
-                      "path" => "apis/graphql/schemas/object/pullrequest"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Scalars",
-                  "children" => [
-                    {
-                      "name" => "Boolean",
-                      "path" => "apis/graphql/schemas/scalar/boolean"
-                    },
-                    {
-                      "name" => "String",
-                      "path" => "apis/graphql/schemas/scalar/string"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Interfaces",
-                  "children" => [
-                    {
-                      "name" => "Connection",
-                      "path" => "apis/graphql/schemas/interface/connection"
-                    },
-                    {
-                      "name" => "Node",
-                      "path" => "apis/graphql/schemas/interface/node"
-                    }
-                  ]
-                },
-                {
-                  "name" => "ENUMs",
-                  "children" => [
-                    {
-                      "name" => "BuildBlockedStates",
-                      "path" => "apis/graphql/schemas/enum/buildblockedstates"
-                    },
-                    {
-                      "name" => "PipelineVisibility",
-                      "path" => "apis/graphql/schemas/enum/pipelinevisibility"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Input objects",
-                  "children" => [
-                    {
-                      "name" => "JobConcurrencySearch",
-                      "path" => "apis/graphql/schemas/input-object/jobconcurrencysearch"
-                    },
-                    {
-                      "name" => "JobStepSearch",
-                      "path" => "apis/graphql/schemas/input-object/jobstepsearch"
-                    }
-                  ]
-                },
-                {
-                  "name" => "Unions",
-                  "children" => [
-                    {
-                      "name" => "BuildCreator",
-                      "path" => "apis/graphql/schemas/union/buildcreator"
-                    },
-                    {
-                      "name" => "Job",
-                      "path" => "apis/graphql/schemas/union/job"
-                    }
-                  ]
-                }
-              ]
-            ],
+              {
+                "name" => "agent",
+                "path" => "apis/graphql/schemas/query/agent"
+              },
+              {
+                "name" => "agentToken",
+                "path" => "apis/graphql/schemas/query/agenttoken"
+              }
+            ]
           },
           {
-            "name" => "Integrations",
-            "path" => "integrations",
+            "name" => "Mutations",
+            "children" => [
+              {
+                "name" => "agentStop",
+                "path" => "apis/graphql/schemas/mutation/agentstop"
+              },
+              {
+                "name" => "agentTokenCreate",
+                "path" => "apis/graphql/schemas/mutation/agenttokencreate"
+              }
+            ]
           },
+          {
+            "name" => "Objects",
+            "children" => [
+              {
+                "name" => "Avatar",
+                "path" => "apis/graphql/schemas/object/avatar"
+              },
+              {
+                "name" => "PullRequest",
+                "path" => "apis/graphql/schemas/object/pullrequest"
+              }
+            ]
+          },
+          {
+            "name" => "Scalars",
+            "children" => [
+              {
+                "name" => "Boolean",
+                "path" => "apis/graphql/schemas/scalar/boolean"
+              },
+              {
+                "name" => "String",
+                "path" => "apis/graphql/schemas/scalar/string"
+              }
+            ]
+          },
+          {
+            "name" => "Interfaces",
+            "children" => [
+              {
+                "name" => "Connection",
+                "path" => "apis/graphql/schemas/interface/connection"
+              },
+              {
+                "name" => "Node",
+                "path" => "apis/graphql/schemas/interface/node"
+              }
+            ]
+          },
+          {
+            "name" => "ENUMs",
+            "children" => [
+              {
+                "name" => "BuildBlockedStates",
+                "path" => "apis/graphql/schemas/enum/buildblockedstates"
+              },
+              {
+                "name" => "PipelineVisibility",
+                "path" => "apis/graphql/schemas/enum/pipelinevisibility"
+              }
+            ]
+          },
+          {
+            "name" => "Input objects",
+            "children" => [
+              {
+                "name" => "JobConcurrencySearch",
+                "path" => "apis/graphql/schemas/input-object/jobconcurrencysearch"
+              },
+              {
+                "name" => "JobStepSearch",
+                "path" => "apis/graphql/schemas/input-object/jobstepsearch"
+              }
+            ]
+          },
+          {
+            "name" => "Unions",
+            "children" => [
+              {
+                "name" => "BuildCreator",
+                "path" => "apis/graphql/schemas/union/buildcreator"
+              },
+              {
+                "name" => "Job",
+                "path" => "apis/graphql/schemas/union/job"
+              }
+            ]
+          }
         ]
       )
     end

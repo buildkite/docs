@@ -92,3 +92,19 @@ To test changes to the indexing configuration:
 ## License
 
 See [LICENSE.md](LICENSE.md) (MIT)
+
+## Updating the navigation
+
+The navigation is split into the following files:
+
+- `nav_graphql.yml`: For the GraphQL API content.
+- `nav.yml`: For everything else.
+
+A combined navigation is generated when the application starts.
+
+To update the GraphQL docs, follow the [style guide](/styleguide/STYLE.md#graphql-api-schemas).
+
+Otherwise, to update the general navigation:
+
+1. Edit `nav.yml` with your changes.
+1. Restart the application.

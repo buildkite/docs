@@ -205,9 +205,8 @@ html {
 }
 
 body.beta {
-  .Page {
-    h1,
-    .Docs__heading {
+  .Article {
+    > h1:first-of-type {
       display: inline;
       position: relative;
 
@@ -215,9 +214,9 @@ body.beta {
         @include pill;
         @include pill-style(beta);
         @include pill-small;
-        left: 5px;
+        left: 1em;
         position: relative;
-        top: -5px;
+        top: -1em;
       }
     }
   }
