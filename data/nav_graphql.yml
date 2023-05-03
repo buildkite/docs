@@ -10,6 +10,8 @@
     path: pipelines/glossary
   - name: Migration
     children:
+      - name: Overview
+        path: tutorials/migration-overview
       - name: From Jenkins
         path: tutorials/migrate-from-jenkins
       - name: From Bamboo
@@ -38,8 +40,6 @@
       path: tutorials/docker-containerized-builds
     - name: Parallelizing builds
       path: tutorials/parallel-builds
-    - name: Migrating from Bamboo
-      path: tutorials/migrating-from-bamboo
     - name: Using Bazel on Buildkite
       path: tutorials/bazel
     - name: Migrating to YAML steps
