@@ -1,6 +1,6 @@
 # Migrate from Jenkins
 
-If you are familiar with [Jenkins](https://www.jenkins.io) and want to migrate to Buildkite, this guide is for you. Buildkite is a modern and flexible continuous integration and delivery (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
+If you are familiar with [Jenkins](https://www.jenkins.io) and want to migrate to Buildkite, this guide is for you. Buildkite is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
 
 While Jenkins and Buildkite have similar goals as CI/CD platforms, their approach differs. Buildkite uses a hybrid model consisting of:
 
