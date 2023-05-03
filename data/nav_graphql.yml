@@ -10,12 +10,12 @@
     path: pipelines/glossary
   - name: Migration
     children:
-      - name: Overview
-        path: tutorials/migration-overview
-      - name: From Jenkins
-        path: tutorials/migrate-from-jenkins
-      - name: From Bamboo
-        path: tutorials/migrating-from-bamboo
+    - name: Overview
+      path: tutorials/migration-overview
+    - name: From Jenkins
+      path: tutorials/migrate-from-jenkins
+    - name: From Bamboo
+      path: tutorials/migrating-from-bamboo
   - name: Connect source control
     children:
     - name: Overview
