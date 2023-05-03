@@ -13,7 +13,7 @@ Follow the steps in this guide for a smooth migration from Jenkins to Buildkite.
 
 ## 1. Understand the differences
 
-Most of the concepts will likely be familiar, but there are some differences in the approach to understand.
+Most of the concepts will likely be familiar, but there are some differences to understand about the approaches.
 
 ### System architecture
 
@@ -56,7 +56,7 @@ You must consider vulnerabilities in both the [base code](https://www.cvedetails
 
 Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
 
-Secret management is more straightforward in Buildkite with enviornment hooks and native support for third-party tools like AWS Secrets Manager and Hashicorp Vault.
+Secret management is more straightforward in Buildkite with environment hooks and native support for third-party tools like AWS Secrets Manager and Hashicorp Vault.
 
 Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
 
@@ -68,7 +68,7 @@ Like Jenkins, Buildkite lets you create pipeline definitions in the web interfac
 
 Rather than a full programming language like the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand.
 
-In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in a different way. _Pipelines_ are the core description of work. Pipelines contain different types of _steps_ for different tasks:
+In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of _steps_ for different tasks:
 
 - **Command step:** Runs one or more shell commands on one or more agents.
 - **Wait step:** Pauses a build until all previous jobs have completed.
@@ -77,7 +77,7 @@ In Jenkins, the core description of work is a job. Jobs contain stages with step
 - **Trigger step:** Creates a build on another pipeline.
 - **Group step:** Displays a group of sub-steps as one parent step.
 
-When you trigger a pipeline it creates a _build_ and any command steps are dispatched as _jobs_ to run on agents. You upload `pipeline.yml` from a repository using a command on the agent.
+Trigging a pipeline creates a _build_, and any command steps are dispatched as _jobs_ to run on agents. You upload the `pipeline.yml` file from a repository using a command on the agent.
 
 ### Plugin system
 
@@ -102,14 +102,14 @@ We recommend following the [Getting started](/docs/tutorials/getting-started/) g
 
 The agents are where your builds, tests, and deployments run. They run on your infrastructure, providing flexibility and control over the environment and resources. Operating agents is similar in approach to hosting nodes in Jenkins.
 
-You'll need to consider:
+You'll need to consider the following:
 
-- **Infrastructure type:** Buildkite agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
-- **Resource usage:** Provisioning agent infrastructure is similar to the requirements for nodes in Jenkins without operating the controller. Evaluate your Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure.
+- **Infrastructure type:** Agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
+- **Resource usage:** Agent infrastructure is similar to the requirements for nodes in Jenkins, without operating the controller. Evaluate your Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure.
 - **Platform dependencies:** To run your pipelines, you'll need to ensure the agents have the necessary dependencies, such as programming languages, build tools, and libraries. Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents.
 - **Network configurations:** Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents.
 - **Agent scaling:** Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
-- **Build isolation and security:** Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
+- **Build isolation and security:** Consider using separate agents for different projects or environments to ensure build isolation and security. You can use agent tags and clusters to target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
 
 You'll continue to adjust the agent configuration as you monitor performance to optimize build times and resource usage for your needs.
 
@@ -125,11 +125,11 @@ Before you start moving pipelines, we recommend taking inventory of your existin
 
 ### Translate a pipeline
 
-Since the configuration files are quite different, it's difficult to create an automated tool to translate between them. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
+Since the configuration files are quite different, creating an automated tool to translate between them is difficult. Instead, we recommend assessing the goal of a pipeline and investing the time to see how to achieve the same thing the Buildkite way. This results in clearer pipelines with better performance.
 
-Some Buildkite features you might want to make use of include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts) and [build matrices](http://localhost:3000/docs/pipelines/build-matrix).
+Some Buildkite features you might want to use include [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines), [lifecycle hooks](/docs/agent/v3/hooks), [conditionals](/docs/pipelines/conditionals), [artifacts](/docs/pipelines/artifacts), and [build matrices](http://localhost:3000/docs/pipelines/build-matrix).
 
-A simple pipeline in Buildkite might look like:
+A simple pipeline in Buildkite might look like the following:
 
 ```yaml
 steps:
@@ -152,16 +152,16 @@ To translate a pipeline:
 1. Identify the goal of the pipeline.
 1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
 1. Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
-   - Targetting a specific agent or queue.
+   - Targeting a specific agent or queue.
    - Replacing any Jenkins plugins and integrations with native integrations, existing Buildkite plugins, custom plugins, or custom scripts.
-1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Store your sensitive data securely using Buildkite's secret management or a third-party secrets management tool.
+1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data using Buildkite's secret management or a third-party secret management tool.
 1. Run the pipeline to verify it works as expected.
    - If it does, nice work! On to the next one.
    - If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
 
-Many people continue running pipelines on their existing infrastructure to verify the results match before removing the pipeline from Jenkins.
+Many teams continue running pipelines on their existing infrastructure to verify the results match before removing the pipeline from Jenkins.
 
-## 5. Intregrate your tools
+## 5. Integrate your tools
 
 Integrating workflow tools and notifications with your CI/CD pipelines helps streamline processes and keeps your team informed about build and deployment status. Buildkite supports various integrations with tools like chat applications, artifact managers, and monitoring systems. 
 
@@ -170,14 +170,14 @@ To set up your integrations:
 1. **List existing tools:** Identify the workflow tools and notification systems you use or need to integrate with your CI/CD pipelines.
 1. **Define notification requirements:** Determine the types of notifications your team needs, such as build status, deployment updates, test results, and alerts for critical issues. This information will help you configure the appropriate integrations and notification settings.
 1. **Choose the integration approach:**
-   - **Plugins:** Buildkite provides several plugins to integrate with popular workflow tools and notification systems. Check the [Plugins directory](/docs/plugins/directory) to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions. If it's not, learn about [writing plugins](/docs/plugins/writing).
+   - **Plugins:** Buildkite provides plugins to integrate with popular workflow tools and notification systems. Check the [Plugins directory](/docs/plugins/directory) to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions. If it's not, learn about [writing plugins](/docs/plugins/writing).
    - **Webhooks and APIs:** If no plugin is available for your desired tool, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis) to create custom integrations. Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools. 
-   - **Third-party services:** Some third-party services, like Zapier, provide integration platforms connecting Buildkite with various workflow tools and notification systems. Explore these services to see if they can help you achieve the desired integrations without writing custom scripts or managing complex configurations.
+   - **Third-party services:** Some third-party services provide direct integrations with Buildkite. Check your tools to see if they can help you achieve the desired integrations without writing custom scripts.
 1. **Set up notification channels:** Create dedicated notification channels in your chat applications to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels. 
 1. **Configure notification triggers:** Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention. See [Triggering notifications](/docs/pipelines/notifications) for more information.
 1. **Customize notification content:** Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues. 
 
-Continue adjusting the notifications settings as you gather feedback from your team on the effectiveness and usefulness of your integrations and notifications. 
+Continue adjusting the settings as you gather feedback from your team on the effectiveness and usefulness of your integrations and notifications. 
 
 Keep your integrations up to date by monitoring the release notes and updates for Buildkite plugins and the workflow tools you use. Updating your integrations ensures compatibility, fixes bugs, and introduces new features.
 
@@ -185,7 +185,7 @@ Keep your integrations up to date by monitoring the release notes and updates fo
 
 Buildkite is more fun together, so share the new CI/CD setup with your wider team. Use resources from the [home page](https://buildkite.com/home), [documentation](https://buildkite.com/docs), and [community forum](https://forum.buildkite.community/) to help introduce people to Buildkite and its principles. These will help them adapt to the new CI/CD environment.
 
-Consider also creating internal documentation to outline any information specific to how you're using Buildkite. Include information on your Buildkite agent infrastructure, pipeline configurations, and integration with workflow tools and notifications. Hands-on internal training and workshop sessions have helped people bring the rest of their teams along and explain how it aligns with your organization's goals.
+Consider also creating internal documentation to outline any information specific to how you're using Buildkite. Include information on your Buildkite agent infrastructure, pipeline configurations, and integration with workflow tools and notifications. Hands-on internal training and workshop sessions have helped people bring the rest of their teams along and explain how Buildkite aligns with your organization's goals.
 
 Some companies assign _Buildkite champions_ who are knowledgeable about Buildkite to each team. These champions help answer questions, provide guidance, and support their colleagues during onboarding.
 
@@ -197,4 +197,4 @@ Migrating from Jenkins to Buildkite provides a more flexible, scalable, and secu
 
 Remember that it may take some time to adapt to the new platform, and be prepared to address any issues or challenges that arise during the migration process. We recommend you gather feedback from your team members on their experiences with Buildkite, so you can continually optimize your setup.
 
-After setting up Buildkite for your team, you could get actionable insights from the tests running in pipelines using [Test Analytics](/docs/test-analytics).
+After configuring Buildkite Pipelines for your team, you could get actionable insights from the tests running in pipelines using [Test Analytics](/docs/test-analytics).
