@@ -11,9 +11,9 @@
     - name: Migration
       children:
         - name: Overview
-          path: tutorials/migration-overview
+          path: pipelines/migration-overview
         - name: From Jenkins
-          path: tutorials/migrate-from-jenkins
+          path: pipelines/migrate-from-jenkins
         - name: From Bamboo
           path: tutorials/migrating-from-bamboo
     # If you're adding a source control provider you probably want to update
