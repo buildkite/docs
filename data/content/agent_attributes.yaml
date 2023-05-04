@@ -234,7 +234,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Force checking out a fresh clone of plugins every build. By default, if the organization, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development. Introduced in [v3.37](https://github.com/buildkite/agent/releases/tag/v3.37.0).
+      Force checking out a fresh clone of plugins every build. By default, if the organization, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development. Available from [v3.37](https://github.com/buildkite/agent/releases/tag/v3.37.0).
 - name: priority
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"
