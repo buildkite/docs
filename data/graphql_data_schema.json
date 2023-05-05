@@ -1551,7 +1551,7 @@
             },
             {
               "name": "token",
-              "description": "The name of the agent",
+              "description": "The token value used to register a new agent",
               "args": [
 
               ],
@@ -3770,7 +3770,79 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "SCM_REPOSITORY_HOST",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE_MONITOR",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_TOTP",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3788,7 +3860,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3801,12 +3873,6 @@
             },
             {
               "name": "NOTIFICATION_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3861,72 +3927,6 @@
             },
             {
               "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_REPOSITORY_HOST",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE_MONITOR",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_TOTP",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SSO_PROVIDER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
