@@ -31,7 +31,6 @@
             render 'nav_children',
             children: child['children'],
             current_nav_item: current_nav_item,
-            current: current_nav_item && current_nav_item[:path] == child['path'],
             is_dropdown: child['is_dropdown'],
             nav_level: nav_level,
             start_expanded: current_nav_item && current_nav_item[:parents].include?(child['name']) || child['start_expanded'],
