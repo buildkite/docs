@@ -176,7 +176,7 @@ Create the following `tests/post-command.bats` file:
 ```shell
 #!/usr/bin/env bats
 
-load '/usr/local/lib/bats/load.bash'
+load "$BATS_PLUGIN_PATH/load.bash"
 
 # Uncomment the following line to debug stub failures
 # export BUILDKITE_AGENT_STUB_DEBUG=/dev/tty
