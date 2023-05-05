@@ -209,11 +209,14 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.creator.id</code></td>
 		<td><code>String</code></td>
-		<td>The ID of the user who created the build. This variable is set several different ways depending on how the build was created:<br>
-    	* Buildkite UI - Set based on who manually created the build using the Buildkite UI <br>
-		* GitHub Webhook - Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit. <br>
-		* Webhook - This will be the user attached to the API Key used.<br><br>
-  		<i>In each case, the user must be a verified Buildkite user, meaning their email must be verified, for pipeline conditionals including this variable to function.</i></td>
+		<td><p>The ID of the user who created the build. The value differs depending on how the build was created:</p>
+			<ul>
+				<li><strong>Buildkite dashboard:</strong> Set based on who manually created the build.</li>
+				<li><strong>GitHub webhook:</strong> Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit.</li>
+				<li><strong>Webhook:</strong> Set based on which user is attached to the API Key used.</li>
+			</ul>
+  			<p>For conditionals to use this variable, the user set must be a verified Buildkite user.</p>
+		</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.name</code></td>
