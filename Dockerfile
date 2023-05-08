@@ -49,6 +49,9 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
     && cp -r /app/public/docs/assets /app/public/assets; \
     fi
 
+# Generate sitemap
+RUN bundle exec rake sitemap:create
+
 EXPOSE 3000
 
 # Let puma serve the static files
