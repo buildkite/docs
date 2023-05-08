@@ -2,12 +2,12 @@
 
 If you are familiar with [Jenkins](https://www.jenkins.io) and want to migrate to Buildkite, this guide is for you. Buildkite is a modern and flexible continuous integration and deployment (CI/CD) platform that provides a powerful and scalable build infrastructure for your applications.
 
-While Jenkins and Buildkite have similar goals as CI/CD platforms, their approach differs. Buildkite uses a hybrid model consisting of:
+While Jenkins and Buildkite have similar goals as CI/CD platforms, their approach differs. Buildkite uses a hybrid model consisting of the following:
 
 - A software-as-a-service (SaaS) platform for visualization and management of CI/CD pipelines.
-- Agents for executing jobs, hosted by you, either on-premise or in the cloud.
+- Agents for executing jobs—hosted by you, either on-premise or in the cloud.
 
-Buildkite addresses the pain points of Jenkins’ users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible.
+Buildkite addresses the pain points of Jenkins' users, namely its security issues (both in its [base code](https://www.cvedetails.com/vulnerability-list/vendor_id-15865/product_id-34004/Jenkins-Jenkins.html) and [plugins](https://securityaffairs.co/wordpress/132836/security/jenkins-plugins-zero-day-flaws.html)), time-consuming setup, and speed. This approach makes Buildkite more secure, scalable, and flexible.
 
 Follow the steps in this guide for a smooth migration from Jenkins to Buildkite.
 
@@ -109,7 +109,7 @@ You'll need to consider the following:
 - **Infrastructure type:** Agents can run on various infrastructure types, including on-premises, cloud (AWS, GCP, Azure), or container platforms (Docker, Kubernetes). Based on your analysis of the existing Jenkins nodes, choose the infrastructure type that best suits your organization's needs and constraints.
 - **Resource usage:** Agent infrastructure is similar to the requirements for nodes in Jenkins, without operating the controller. Evaluate your Jenkins nodes' resource usage (CPU, memory, and disk space) to determine the requirements for your Buildkite agent infrastructure.
 - **Platform dependencies:** To run your pipelines, you'll need to ensure the agents have the necessary dependencies, such as programming languages, build tools, and libraries. Take note of the operating systems, libraries, tools, and dependencies installed on your Jenkins nodes. This information will help you configure your Buildkite agents.
-- **Network configurations:** Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents. The Buildkite agent works by polling Buildkite's agent API over HTTPS.  There is no need to forward ports or provide incoming firewall access.
+- **Network configurations:** Review the network configurations of your Jenkins nodes, including firewalls, proxy settings, and network access to external resources. These configurations will guide you in setting up the network environment for your Buildkite agents. The Buildkite agent works by polling Buildkite's agent API over HTTPS. There is no need to forward ports or provide incoming firewall access.
 - **Agent scaling:** Evaluate the number of concurrent builds and the build queue length in your Jenkins nodes to estimate the number of Buildkite agents needed. Keep in mind that you can scale Buildkite agents independently, allowing you to optimize resource usage and reduce build times.
 - **Build isolation and security:** Consider using separate agents for different projects or environments to ensure build isolation and security. You can use [agent tags](/docs/agent/v3/cli-start#setting-tags) and [clusters](/docs/agent/clusters) to target specific agents for specific pipeline steps, allowing for fine-grained control over agent allocation.
 
