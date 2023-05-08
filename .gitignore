@@ -19,6 +19,7 @@
 .yarn
 
 /public/assets
+/public/docs/sitemap.xml.gz
 .byebug_history
 
 .DS_Store
