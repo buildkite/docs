@@ -88,7 +88,6 @@ To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graph
 1. In the modal that appears, select the _Session IP Address Pinning_ checkbox.
 1. Select _Save Session IP Address Pinning_.
 
-
 ## Frequently asked questions
 
 ### Can some people in the organization use SSO and others not?
