@@ -2,6 +2,7 @@ FROM public.ecr.aws/docker/library/ruby:3.1.4-bullseye@sha256:0e72d957aa3adb3130
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
+ENV SECRET_KEY_BASE=xxx
 
 RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
@@ -45,7 +46,7 @@ RUN yarn
 # Compile sprockets
 RUN if [ "$RAILS_ENV" = "production" ]; then \
     echo "--- :sprockets: Precompiling assets" \
-    && RAILS_ENV=production RAILS_GROUPS=assets SECRET_KEY_BASE=xxx bundle exec rake assets:precompile \
+    && RAILS_ENV=production RAILS_GROUPS=assets bundle exec rake assets:precompile \
     && cp -r /app/public/docs/assets /app/public/assets; \
     fi
 
