@@ -56,7 +56,9 @@ You must consider vulnerabilities in both the [base code](https://www.cvedetails
 
 Buildkite's hybrid architecture, which combines a centralized SaaS platform with self-hosted build agents, provides a unique approach to security. Buildkite takes care of the security of the SaaS platform, including user authentication, pipeline management, and the web interface. Build agents, which run on your infrastructure, allow you to maintain control over the environment, security, and resources. This separation reduces the operational burden and allows you to focus on securing the environments where your code is built and tested.
 
-Secret management is more straightforward in Buildkite with environment hooks and native support for third-party tools like AWS Secrets Manager and Hashicorp Vault.
+Buildkite does not have or need access to your source code. Only the agents you host on your infrastructure need access to clone your repositories. This gives you all the benefits of a SaaS platform without many of the common security concerns.
+
+Buildkite also doesn't store your secrets. Instead, Buildkite integrates with best-in-class tools like AWS Secrets Manager and Hashicorp Vault to use in your pipelines.
 
 Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
 
