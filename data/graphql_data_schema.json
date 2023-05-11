@@ -1551,7 +1551,7 @@
             },
             {
               "name": "token",
-              "description": "The name of the agent",
+              "description": "The token value used to register a new agent",
               "args": [
 
               ],
@@ -3770,25 +3770,13 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AGENT_TOKEN",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "API_ACCESS_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3801,12 +3789,6 @@
             },
             {
               "name": "NOTIFICATION_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3830,7 +3812,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM",
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3848,7 +3830,13 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_SUITE",
+              "name": "TEAM",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3872,31 +3860,25 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SUITE_MONITOR",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SUITE",
+              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "USER",
+              "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3914,19 +3896,37 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "USER_EMAIL",
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "AUTHORIZATION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -7608,6 +7608,66 @@
             {
               "name": "description",
               "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPaused",
+              "description": "States whether job dispatch is paused for this cluster queue",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedAt",
+              "description": "The time this queue was paused",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedBy",
+              "description": "The user who paused this cluster queue",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedNote",
+              "description": "Note describing why job dispatch was paused for this cluster queue",
               "args": [
 
               ],
