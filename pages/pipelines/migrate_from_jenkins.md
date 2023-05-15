@@ -38,7 +38,7 @@ The following diagram shows the split in Buildkite between the SaaS platform and
 
 <%= image "hybrid-saas-architecture.svg", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
 
-The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. Buildkite communicates with the agents on your infrastructure, which access your code, secrets, and internal systems.
+The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite.
 
 This decoupling provides flexibility, as you can scale the build agents independently while Buildkite manages the coordination, scheduling, and web interface.
 
@@ -68,7 +68,7 @@ When migrating your CI/CD pipelines from Jenkins to Buildkite, it's important to
 
 Like Jenkins, Buildkite lets you create pipeline definitions in the web interface or a file checked into the repository. Most people use the latter to include their pipeline definitions next to the code, managed in source control. The equivalent of a `Jenkinsfile` is a `pipeline.yml`.
 
-Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even have code generate those pipelines on the fly if you need the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
+Rather than the Groovy-based syntax in Jenkins, Buildkite uses a YAML-based syntax. The YAML definitions are simpler, more human-readable, and easier to understand. And you can even have code generate pipelines on the fly with the power and flexibility of [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines).
 
 In Jenkins, the core description of work is a job. Jobs contain stages with steps and can trigger other jobs. You use a job to upload a `Jenkinsfile` from a repository. Installing the Pipeline plugin lets you describe a workflow of jobs as a pipeline. Buildkite uses similar terms in different ways. _Pipelines_ are the core description of work. Pipelines contain different types of _steps_ for different tasks:
 
@@ -155,8 +155,9 @@ To translate a pipeline:
 1. Look for an [example pipeline](/docs/pipelines/example-pipelines) closest to that goal.
 1. Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs, including:
    * Targeting a specific agent or queue.
-   * Replacing any Jenkins plugins and integrations with native integrations, existing Buildkite plugins, custom plugins, or custom scripts.
-1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data on your preferred secret management tool and integrate them into your agents and pipelines.
+   * Replacing any Jenkins plugins and integrations with Builkite features, existing Buildkite plugins, custom plugins, or custom scripts.
+1. Migrate any environment variables, secrets, or credentials used in the pipeline. Buildkite allows you to manage environment variables and secrets on different levels, such as organization, pipeline, and step levels. Securely store your sensitive data on your preferred secret management tool and integrate them into your agents and pipelines. See [Managing pipeline secrets
+](/docs/pipelines/secrets) to learn more.
 1. Run the pipeline to verify it works as expected.
    * If it does, nice work! On to the next one.
    * If it doesn't, check the logs to resolve the issues. If you're having trouble, reach out to [support](https://buildkite.com/support).
@@ -173,8 +174,8 @@ To set up your integrations:
 1. **Define notification requirements:** Determine the types of notifications your team needs, such as build status, deployment updates, test results, and alerts for critical issues. This information will help you configure the appropriate integrations and notification settings.
 1. **Choose the integration approach:**
    * **Plugins:** Buildkite provides plugins to integrate with popular workflow tools and notification systems. Check the [Plugins directory](/docs/plugins/directory) to see if there's a plugin available for your desired tool. If a plugin is available, include it in your pipeline configuration and follow the plugin's documentation for configuration instructions. If it's not, learn about [writing plugins](/docs/plugins/writing).
-   * **Webhooks and APIs:** If no plugin is available for your desired tool, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis) to create custom integrations. Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools.
    * **Third-party services:** Some third-party services provide direct integrations with Buildkite. Check your tools to see if they can help you achieve the desired integrations without writing custom scripts.
+   * **Webhooks and APIs:** If you need a custom integration, consider using [webhooks](/docs/apis/webhooks) or [APIs](/docs/apis). Buildkite supports outgoing webhooks for various pipeline events, and many workflow tools provide APIs to interact with their services. Use custom scripts or tools in your pipeline steps to send notifications and interact with your workflow tools.
 1. **Set up notification channels:** Create dedicated notification channels in your chat applications to receive CI/CD updates. This approach helps keep your team informed without cluttering general communication channels.
 1. **Configure notification triggers:** Configure your integrations to send notifications based on specific pipeline events, such as build failures, deployments, or critical alerts. Avoid excessive notifications by focusing on essential events that require your team's attention. See [Triggering notifications](/docs/pipelines/notifications) for more information.
 1. **Customize notification content:** Tailor the content of your notifications to include relevant information, such as build status, commit details, and links to artifacts or logs. Customize your notifications to be as informative and actionable as possible, so your team can quickly identify and address issues.
