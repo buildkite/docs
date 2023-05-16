@@ -58,7 +58,7 @@ Buildkite's hybrid architecture, which combines a centralized SaaS platform with
 
 Buildkite does not have or need access to your source code. Only the agents you host on your infrastructure need access to clone your repositories. This gives you all the benefits of a SaaS platform without many of the common security concerns.
 
-Buildkite also doesn't store your secrets. Instead, Buildkite integrates with best-in-class tools like AWS Secrets Manager and Hashicorp Vault to use in your pipelines.
+Buildkite also doesn't store your secrets. Instead, Buildkite integrates with best-in-class tools like [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) and [Hashicorp Vault](https://www.vaultproject.io/) to use in your pipelines.
 
 Both Jenkins and Buildkite support multiple authentication providers and offer granular access control. However, Buildkite's SaaS platform provides a more centralized and streamlined approach to user management, making it easier to enforce security policies and manage user access across your organization.
 
