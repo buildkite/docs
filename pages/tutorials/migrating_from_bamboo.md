@@ -1,18 +1,21 @@
 # Migrate from Bamboo
 
-Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite. This guide is applicable to both Bamboo Server and Bamboo Cloud.
-
+Migrating continuous integration tools can be challenging, so we've put together a guide to help you transition your Bamboo skills to Buildkite.
 
 ## Plans to pipelines
 
 <!--alex ignore easy-->
 
-Most Bamboo workflows can be easily mapped to Buildkite. *Projects
-and Plans* in Bamboo are known as [pipelines](/docs/pipelines) in Buildkite (and *Pipelines* in Buildkite UI). Bamboo deployments also become Buildkite pipelines.
+You can easily map most Bamboo workflows to Buildkite. *Projects and Plans* in Bamboo are called [pipelines](/docs/pipelines) in Buildkite (and *Pipelines* in the Buildkite dashboard). Bamboo deployments also become Buildkite pipelines.
 
-Buildkite pipelines consist of [*steps*](/docs/pipelines/defining-steps). There are 6 types of pipeline steps: [`command`](/docs/pipelines/command-step), [`trigger`](/docs/pipelines/trigger-step), [`wait`](/docs/pipelines/wait-step), [`block`](/docs/pipelines/block-step), [`input`](/docs/pipelines/input-step), and [`group`](/docs/pipelines/group-step).
+Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
 
-`command`, `trigger`, and `input` steps run in parallel. `wait` and `block` steps cause a build to pause and wait for all previous steps to complete. `group` steps group together various steps, and display them as a single logical group. This way, your pipeline becomes a set of stages.
+- **Command step:** Runs one or more shell commands on one or more agents.
+- **Wait step:** Pauses a build until all previous jobs have completed.
+- **Block step:** Pauses a build until unblocked.
+- **Input step:** Collects information from a user.
+- **Trigger step:** Creates a build on another pipeline.
+- **Group step:** Displays a group of sub-steps as one parent step, like stages.
 
 For example, a test and deploy pipeline might consist of the following steps:
 
@@ -29,7 +32,7 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Instead of the `wait` step above, you could use a `block` step to stop the build **and** require a user to manually "unblock" the pipeline by clicking the "Continue" button in the Buildkite UI, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
+Instead of the `wait` step above, you could use a `block` step to stop the build and require a user to manually _unblock_ the pipeline by clicking the _Continue_ button in the Buildkite dashboard, or use the [Unblock Job](/docs/api/jobs#unblock-a-job) REST API endpoint. This is the equivalent of a *Manual Stage* in Bamboo.
 
 ```yaml
 steps:
@@ -42,11 +45,13 @@ steps:
 
 Let's look at an example Bamboo Plan:
 
-<%= image "bamboo_stages_and_tasks.png", width: 680, height: 312, alt: "Screenshot of a Bamboo Plan" %>
+<%= image "bamboo_stages_and_tasks.png", width: 680, height: 312, alt: "An example Bamboo plan" %>
 
-You can map this plan to a Buildkite Pipeline using a combination of `command`, `wait`, and `block` steps:
+You can map this plan to a Buildkite pipeline using a combination of `command`, `wait`, and `block` steps:
 
-This Bamboo Plan could also be defined using the following `pipeline.yml` file:
+<%= image "buildkite_steps.png", width: 680, height: 312, alt: "The equivalent pipeline in Buildkite" %>
+
+You could also define this Bamboo Plan using the following `pipeline.yml` file:
 
 ```yaml
 steps:
@@ -80,22 +85,21 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
-Once your build pipelines are set up, you can update step labels to something more fun than plain text :smiley: (see our [extensive list of supported emojis](https://github.com/buildkite/emojis)).
-
-If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
+Once your build pipelines are set up, you can update step labels to something more fun than plain text (see our [extensive list of supported emojis](https://github.com/buildkite/emojis)). :smiley:
 
 <%= image("buildkite-pipeline.png", size: '653x436', alt: 'Screenshot of a Buildkite Build') %>
 
+If you have many pipelines to migrate or manage at once, you can use the [Update pipeline](/docs/api/pipelines#update-a-pipeline) REST API.
+
 ## Steps and tasks
 
-`command` steps are Buildkite's version of the *Command Task* in Bamboo - they can run any commands you like on your build server, whether it's `rake test` or `make`. Buildkite doesn't have the concept of *Tasks* in general, it's up to you to write scripts that perform the same tasks that your Bamboo Jobs have.
+`command` steps are Buildkite's version of the *Command Task* in Bamboo. They can run any commands you like on your build server, whether it's `rake test` or `make`. Buildkite doesn't have the concept of *Tasks* in general. It's up to you to write scripts that perform the same tasks that your Bamboo Jobs have.
 
 For example, you had the following set of Bamboo Tasks:
 
 <%= image("bamboo_task_list.png", size: '610x267', alt: 'Screenshot of a Bamboo Task List') %>
 
-This can be rewritten as a single script and then committed to your
-repository. The Buildkite agent takes care of checking out the repository for you before each step, so the script would be as follows:
+You can rewrite this as a single script and then commit it to your repository. The Buildkite agent takes care of checking out the repository for you before each step, so the script would be as follows:
 
 ```bash
 #!/bin/bash
@@ -109,20 +113,20 @@ rake cucumber
 ```
 {: codeblock-file="build.sh"}
 
-If you'd like to learn more about how to write build scripts, read the [Writing build scripts](/docs/builds/writing-build-scripts) guide.
+If you'd like to learn more about how to write build scripts, see [Writing build scripts](/docs/builds/writing-build-scripts).
 
 To trigger builds in other pipelines, you can use `trigger` steps. This way, you can create dependent pipelines. See the [trigger steps docs](/docs/pipelines/trigger-step) for more information.
 
 ## Remote and Elastic agents
 
-The [Buildkite agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install the Buildkite agent onto any server to run your builds.
+The [Buildkite agent](/docs/agent/v3) replaces your Bamboo *Remote Agents*. You can install agents onto any server to run your builds.
 
-In Bamboo, you can target specific agents for your jobs using their *Capabilities*, and in Buildkite you target them using [meta-data](/docs/agent/v3/cli-meta-data).
+In Bamboo, you can target specific agents for your jobs using their *Capabilities*, and in Buildkite, you target them using [meta-data](/docs/agent/v3/cli-meta-data).
 
-Like *Elastic Bamboo*, Buildkite can also manage a fleet of agents for you on AWS using the [Buildkite AWS Stack](https://github.com/buildkite/buildkite-aws-stack). Buildkite doesn't limit the number of agents you can run at any one time, so by using the Buildkite AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
+Like *Elastic Bamboo*, Buildkite can also manage a fleet of agents for you on AWS using the [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview). Buildkite doesn't limit the number of agents you can run at any one time, so by using the AWS Stack, you can auto-scale your build infrastructure, going from 0 to 1000s of agents within moments.
 
 ## Authentication and permissions
 
 Buildkite supports SSO with a variety of different providers, as well as custom SAML setups. See the [SSO support guide](/docs/integrations/sso) for detailed information.
 
-For larger teams, it can be useful to control what users have access to which pipelines. Organization admins can enable Teams in the Buildkite Organization Settings.
+For larger teams, it can be useful to control what users have access to which pipelines. Organization admins can enable Teams in the [organization's team settings](https://buildkite.com/organizations/~/teams).
