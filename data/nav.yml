@@ -8,6 +8,14 @@
       path: "tutorials/getting-started"
     - name: "Glossary"
       path: "pipelines/glossary"
+    - name: Migration
+      children:
+        - name: Overview
+          path: pipelines/migration-overview
+        - name: From Jenkins
+          path: pipelines/migrate-from-jenkins
+        - name: From Bamboo
+          path: tutorials/migrating-from-bamboo
     # If you're adding a source control provider you probably want to update
     # /docs/pages/integrations/source_control.md.erb
     # as well
@@ -35,8 +43,6 @@
           path: "tutorials/docker-containerized-builds"
         - name: "Parallelizing builds"
           path: "tutorials/parallel-builds"
-        - name: "Migrating from Bamboo"
-          path: "tutorials/migrating-from-bamboo"
         - name: "Using Bazel on Buildkite"
           path: "tutorials/bazel"
         - name: "Migrating to YAML steps"
