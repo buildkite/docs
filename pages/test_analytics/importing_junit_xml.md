@@ -52,6 +52,11 @@ For example, to import the contents of a `junit.xml` file in a Buildkite pipelin
     curl \
       -X POST \
       -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -s \
+      --connect-timeout 5 \
+      --retry 3 \
+      --retry-max-time 120 \
+      --max-time 60 \
       -F "data=@junit.xml" \
       -F "format=junit" \
       -F "run_env[CI]=buildkite" \
@@ -86,6 +91,11 @@ For example, to import the contents of a `junit.xml` file in a CircleCI pipeline
     curl \
       -X POST \
       -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -s \
+      --connect-timeout 5 \
+      --retry 3 \
+      --retry-max-time 120 \
+      --max-time 60 \
       -F "data=@junit.xml" \
       -F "format=junit" \
       -F "run_env[CI]=circleci" \
@@ -119,6 +129,11 @@ For example, to import the contents of a `junit.xml` file in a GitHub Actions pi
       -X POST \
       --fail-with-body \
       -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -s \
+      --connect-timeout 5 \
+      --retry 3 \
+      --retry-max-time 120 \
+      --max-time 60 \
       -F "data=@junit.xml" \
       -F "format=junit" \
       -F "run_env[CI]=github_actions" \
