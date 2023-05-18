@@ -78,6 +78,8 @@ Optionally, select one or more of the following:
 * _Rebuild pull requests when they become ready for review_
 * _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
+If you want to prefix branch names for third-party forked builds to ensure they don't trigger branch conditions then you need to select _Prefix third-party fork branch names_.
+
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
