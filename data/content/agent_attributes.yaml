@@ -154,6 +154,16 @@ attributes:
   required: false
   desc: |
         The DogStatsD instance to send metrics to using UDP.
+- name: metrics-datadog-distributions
+  env_var: BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS
+  default_value: "false"
+  requires: false
+  desc: |
+      Use Datadog Distributions for Timing metrics. By default, we submit metrics via standard gauges. This will unfortunately cause issues if you have multiple agents running,
+      as components like buildkite.jobs.duration.success.median becomes a roll up of the median execution time _from each agent_. As each agent is likely only running a single job
+      at a time, this causes all time related histogram metrics (avg, max, median, 95percentile) from a given agent to be the same value.
+      Distributions, however, aggregate the metrics server side at Datadog, thus the median and 95percentile is calculated given the set of builds executing across all agents.
+      Learn more about [Datadog Distributions](Use Datadog Distributions for Timing metrics)
 - name: name
   env_var: BUILDKITE_AGENT_NAME
   default_value: "%hostname-%spawn"
