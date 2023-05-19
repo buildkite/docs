@@ -53,6 +53,19 @@ To create additional queues:
 1. Enter a key and description.
 1. Select _Create Queue_.
 
+### Pause a queue
+
+Pausing a queue will prevent jobs from being dispatched to agents associated with that queue. This may affect builds targeting the paused queue.
+
+To pause a queue:
+1. Navigate to your cluster’s _Queues_.
+1. Click on the queue you wish to pause.
+1. Click _Edit_.
+1. Under _Queue Management_, click _Pause Queue_.
+1. Enter an optional note in the dialog if needed, and confirm that you wish to pause the queue.
+
+To resume the queue again, click Resume Queue.
+
 ### Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster’s agent tokens.
