@@ -906,3 +906,25 @@ mutation UpdateTeamPipelineReadonly {
   }
 }
 ```
+
+## Test Analytics
+
+### Get number of builds between 2 dates 
+There is a correlation between number of builds and job minutes used. Though this query won't get you how many job minutes have been used, but it will give an idea of whether or not there is an increase in the number of builds, which will cause more job minutes to be used.
+
+```graphql
+query PipelineBuildCountForBranchQuery {
+  pipeline(slug: "organization-slug") {
+    builds(createdAtFrom:"YYYY-MM-DD", createdAtTo:"YYYY-MM-DD") {
+      count
+      edges{
+        node{
+          createdAt
+          finishedAt
+          id
+        }
+      }
+    }
+  }
+}
+```
