@@ -1551,7 +1551,7 @@
             },
             {
               "name": "token",
-              "description": "The name of the agent",
+              "description": "The token value used to register a new agent",
               "args": [
 
               ],
@@ -3770,7 +3770,25 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3788,7 +3806,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3801,12 +3819,6 @@
             },
             {
               "name": "NOTIFICATION_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3836,6 +3848,12 @@
               "deprecationReason": null
             },
             {
+              "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TEAM_MEMBER",
               "description": null,
               "isDeprecated": false,
@@ -3854,7 +3872,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_SERVICE",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3866,19 +3884,19 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE",
+              "name": "SSO_PROVIDER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3896,7 +3914,7 @@
               "deprecationReason": null
             },
             {
-              "name": "USER",
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3908,25 +3926,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -6431,7 +6431,7 @@
             },
             {
               "name": "payload",
-              "description": "The body of the webhook. Buildkite only webhook data for a short period of time, so if this returns null - then the webhook data has been purged by Buildkite",
+              "description": "The body of the webhook. Buildkite only stores webhook data for a short period of time, so if this returns null - then the webhook data has been purged by Buildkite",
               "args": [
 
               ],
@@ -7620,6 +7620,66 @@
               "deprecationReason": null
             },
             {
+              "name": "dispatchPaused",
+              "description": "States whether job dispatch is paused for this cluster queue",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedAt",
+              "description": "The time this queue was paused",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "DateTime",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedBy",
+              "description": "The user who paused this cluster queue",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "User",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "dispatchPausedNote",
+              "description": "Note describing why job dispatch was paused for this cluster queue",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "id",
               "description": null,
               "args": [
@@ -7814,6 +7874,186 @@
               "deprecationReason": null
             }
           ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "ClusterQueuePauseDispatchInput",
+          "description": "Autogenerated input type of ClusterQueuePauseDispatch",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "note",
+              "description": "An optional note describing the reason for pausing",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ClusterQueuePauseDispatchPayload",
+          "description": "Autogenerated return type of ClusterQueuePauseDispatch.",
+          "fields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "queue",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ClusterQueue",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "ClusterQueueResumeDispatchInput",
+          "description": "Autogenerated input type of ClusterQueueResumeDispatch",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ClusterQueueResumeDispatchPayload",
+          "description": "Autogenerated return type of ClusterQueueResumeDispatch.",
+          "fields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "queue",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ClusterQueue",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
           "possibleTypes": null
         },
         {
@@ -13426,6 +13666,64 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "BuildRebuildPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clusterQueuePauseDispatch",
+              "description": "This will prevent dispatch of jobs to agents on this queue. You can add an optional note describing the reason for pausing.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "Parameters for ClusterQueuePauseDispatch",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ClusterQueuePauseDispatchInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ClusterQueuePauseDispatchPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clusterQueueResumeDispatch",
+              "description": "This will resume dispatch of jobs on this queue.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "Parameters for ClusterQueueResumeDispatch",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ClusterQueueResumeDispatchInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ClusterQueueResumeDispatchPayload",
                 "ofType": null
               },
               "isDeprecated": false,
