@@ -5,11 +5,11 @@
 
 If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/).
 
-If you don't configure an S3 bucket, Buildkite stores the build data for 18 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
+If you don't configure an S3 bucket, Buildkite stores the build data for 12 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
 
 ## How it works
 
-Builds older than the build retention limit are automatically exported as JSON to the S3 bucket you have configured. If you haven't configured a bucket for build export, Buildkite stores that build data as JSON in our own S3 bucket for a further 18 months in case you need it. The following diagram outlines this process.
+Builds older than the build retention limit are automatically exported as JSON to the S3 bucket you have configured. If you haven't configured a bucket for build export, Buildkite stores that build data as JSON in our own S3 bucket for a further 12 months in case you need it. The following diagram outlines this process.
 
 <%= image "build-exports-flow-chart.png", alt: "Simplified flow chart of the build exports process" %>
 
