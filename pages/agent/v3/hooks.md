@@ -1,15 +1,21 @@
 # Buildkite Agent hooks
 
-Hooks extend or override the built-in behaviours of the Buildkite agent and
-Bootstrap binaries.
+Hooks allow you extend or override the built-in behaviour of the Buildkite Agent as it runs jobs in a variety of phases using a variety of programming languages.
+
+### What's a hook?
+
+At its core, a hook is a script that is executed or sourced by the Buildkite agent at a specific point in the job lifecycle. Hooks can be used to extend or override the built-in behaviour of the Buildkite agent. Hooks are generally run as shell scripts, which the agent then executes or sources.
+
+>🛠 Experimental feature
+> Using the `polyglot-hooks` experiment, agents running v3.47.0 or later can run hooks written in any programming language. See the [polyglot hooks](#polyglot-hooks) section for more information.
+
+### Hook scopes
 
 Hooks can be defined in the following locations:
 
-* On the agent
-* In your pipeline's repository
+* In the filesystem of the agent machine (called _agent hooks_, or more rarely _global hooks_)
+* In your pipeline's repository (called _repository hooks_, or more rarely _local hooks_)
 * In [plugins](/docs/plugins) applied to steps
-
-Hooks defined on the agent are also referred to as _global hooks_, while hooks defined in the pipeline's repository are known as _local hooks_.
 
 For example, you could define an agent-wide `checkout` hook which spins up a fresh `git clone` on a new build machine, a repository `pre-command` hook which sets up repository-specific environment variables, or a plugin `environment` hook which fetches API keys from a secrets' storage service.
 
@@ -20,10 +26,18 @@ There are two categories of hook:
 
 Agent lifecycle hooks are **executed** by the Buildkite agent as part of the agent's lifecycle. For example, the `pre-bootstrap` hook is executed before starting a job's bootstrap process, and the `agent-shutdown` hook is executed before the agent process terminates.
 
-Job lifecycle hooks are **sourced** by the Buildkite bootstrap in the different job phases. They are run in a per-job shell environment, and any exported environment variables are carried to the job's subsequent phases and hooks. For example, the `environment` hook can modify or export new environment variables for the job's subsequent checkout and command phases. Shell options set by individual hooks, such as set `-e -o pipefail`, are not carried over to other phases or hooks.
+Job lifecycle hooks are **sourced** (kinda sorta, see "📝 A note on sourcing for shellscripting nerds" below) by the Buildkite bootstrap in the different job phases. They are run in a per-job shell environment, and any exported environment variables are carried to the job's subsequent phases and hooks. For example, the `environment` hook can modify or export new environment variables for the job's subsequent checkout and command phases. Shell options set by individual hooks, such as set `-e -o pipefail`, are not carried over to other phases or hooks.
 
-In August 2021 we changed how we refer to agent hooks to differentiate between the hooks feature for both the agent and bootstrap processes, and the agent [`hooks-path` configuration](configuration#hooks-path) for the directory that agent level hooks are defined.
+<details>
+<summary> 📝 A note on sourcing for shellscripting nerds </summary>
+<p> We use the word "sourcing" in this article, but it's not strictly speaking true; we're lying by omission a little bit. Instead, the agent uses a process called <a href="https://github.com/buildkite/agent/blob/1a5f05029cc363a984188c441f938dd316dedd16/hook/scriptwrapper.go">"the scriptwrapper"</a> to run hooks.</p>
 
+<p> This process notes down the environment variables prior to a hook run, sources that hook, and then compares the environment variables after the hook run to the environment variables before the hook run.</p>
+
+<p> Any environment variables that were added, changed or removed are then exported to the subsequent phases and hooks. Functionally, this is very similar to how <code>source</code> would work, but it's not quite the same, and it means that if you're relying on some very specific pieces of shellscripting arcana, you might find that things don't work quite as you expect.</p>
+
+<p> The reason that we do this is that there's no shared bash environment between two different hooks on the same job; functionally, each hook is run in its own shell, which are orchestrated through the Agent's Go code. This means that if you set an environment variable in one hook, it wouldn't be available in the next hook without this scriptwrapper process.</p>
+</details>
 
 ## Hook locations
 
@@ -56,11 +70,42 @@ Plugin hooks allow plugins you've defined in your Pipeline Steps to override def
 
 See the [plugin documentation](/docs/plugins) for how to implement plugin hooks and [job lifecycle hooks](#job-lifecycle-hooks) for the list of hook types that a plugin can define.
 
+## Polyglot hooks
+
+>🛠 Experimental feature
+> To use Polyglot hooks, set <code>experiment="polyglot-hooks"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
+
+By default, hooks must be shell scripts. However, with the `polyglot-hooks` experiment on Agents running version v3.47.0, hooks are significantly more flexible, and can be written in the programming language of your choice.
+
+In addition to the regular shell script hooks, Polyglot Hooks enables two more types of hook to be run:
+
+* _Interpreted hooks_ - hooks that are run by an interpreter, such as Python, Ruby, or Node.js. These hooks are run in the same way as shell script hooks, but are executed by the appropriate interpreter instead of by the shell. These hooks **must** have a valid [shebang](https://en.wikipedia.org/wiki/Shebang_(Unix)) (e.g `#!/usr/bin/python3` or `#!/usr/bin/env ruby`) as the first line of the hook. Note that unfortunately, **interpreted hooks are not supported on Windows agents**.
+* _Binary hooks_ are binary executables produced by compiled languages such as Go, Rust, or C++. These hooks are run in the same way as shell script hooks, but are executed directly by the operating system. These hooks must be compiled for the correct operating system and architecture, and be executable by the agent user.
+
+Polyglot hooks are run transparently by the agent, and are not distinguished from shell script hooks in the logs or in the UI. The agent will automatically detect the type of hook - whether it's a shell script, an interpreted hook, or a binary - and run it appropriately. All you need to do place your hook in the correct location, and ensure that it's executable.
+
+#### Extra environment
+
+Polyglot hooks have are called with a couple of extra environment variables set:
+
+* `BUILDKITE_HOOK_PHASE` - the lifecycle phase of the hook being run, e.g `environment` or `post-checkout`. See [job lifecycle hooks](#job-lifecycle-hooks) for the full list of phases. This allows you to use the same hook for multiple phases, as it allows the hook to determine what phase it's being run in.
+* `BUILDKITE_HOOK_PATH` - the path to the hook being run, e.g `/path/to/my-hook`.
+* `BUILDKITE_HOOK_SCOPE` - the scope of the hook being run, e.g `global`, `local` or `plugin`.
+
+#### Caveats
+
+Polyglot hook usage comes with a couple of caveats:
+
+* As mentioned above, interpreted hooks are not supported on windows.
+* On windows, binary hooks must have the `.exe` extension.
+* In all other cases, the hook must not have a file extension.
+* For interpreted hooks, the specified interpreter must already be installed on the agent machine. The agent won't install the interpreter or any package dependencies you.
+* Unlike shell hooks, environment variable changes are not automatically captured from polyglot hooks. If you want to modify the job's environment, you'll have to use the [Job API](/docs/agent/v3#experimental-features-job-api).
+
 ## Agent lifecycle hooks
 
 | Hook             | Location Order | Description |
 | ---------------- | -------------- | ----------- |
-| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
 | `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
 | `agent-shutdown` | <span class="add-icon-agent">Agent</span> | Executed when the agent shuts down. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle. |
 {: class="table table--no-wrap"}
@@ -86,6 +131,7 @@ they are run as part of each job:
 
 | Hook            | Location Order | Description |
 | --------------- | -------------- | ----------- |
+| `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
 | `environment`   | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before all other hooks. Useful for [exporting secret keys](/docs/pipelines/secrets#exporting-secrets-with-environment-hooks). |
 | `pre-checkout`  | <span class="add-icon-agent">Agent</span><br /><span class="add-icon-plugin">Plugin (non-vendored)</span>                                                                                                                    | Runs before checkout. |
 | `checkout`      | <span class="add-icon-plugin">Plugin (non-vendored)</span><br /><span class="add-icon-agent">Agent</span>                                                                                                                    | Overrides the default git checkout behavior.<br>*Note:* As of Agent v3.15.0, if multiple checkout hooks are found, only the first will be run. |
@@ -109,7 +155,6 @@ Job lifecycle hooks are copied to `$TMPDIR` directory and *sourced* by the agent
 
 * `$BASH_SOURCE` contains the location the hook is sourced from
 * `$0` contains the location of the copy of the script that is running from `$TMPDIR`
-* the shebang line of the hook script has no effect
 
 >🚧 "Permission denied" error when trying to execute hooks
 > If your hooks don't execute, and throw a <code>Permission denied</code> error, it might mean that they were copied to a temporary directory on the agent that isn't executable. Configure the directory that hooks are copied to before execution using the <code>$TMPDIR</code> environment variable on the Buildkite agent, or make sure the existing directory is marked as executable.
