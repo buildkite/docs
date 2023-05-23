@@ -24,7 +24,7 @@ buildkite-agent start --tags "queue=building,queue=testing"
 <%= image "agent-queues.png", width: 1182/2, height: 160/2, alt: "Screenshot of an agent's tags showing both building and testing queues" %>
 
 >🚧 Configuring Cluster Queues
->If you have [Clusters](/docs/agent/clusters) enabled, and are configuring your agent with a _Cluster Queue_, you will need to ensure the cluster queue has been explicitly created first. See [setting up Cluster Queues](/docs/agent/clusters#set-up-a-cluster-set-up-queues) to learn more.
+>If you have [Clusters](/docs/agent/clusters) enabled and are configuring your agent with a _Cluster Queue_, you need to create the cluster queue first. See [Set up a Cluster Queue](/docs/agent/clusters#set-up-a-cluster-set-up-queues) for more information.
 
 ## Targeting a queue
 
