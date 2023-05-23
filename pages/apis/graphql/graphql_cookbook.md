@@ -911,7 +911,7 @@ mutation UpdateTeamPipelineReadonly {
 
 ### Get number of builds between two dates
  
-There is a correlation between number of builds and job minutes used. Though this query won't get you how many job minutes have been used, but it will give an idea of whether or not there is an increase in the number of builds, which will cause more job minutes to be used.
+This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
