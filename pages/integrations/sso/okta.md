@@ -24,7 +24,7 @@ Customers on the Buildkite [Enterprise](https://buildkite.com/pricing) plan can 
 Using the SCIM provisioning settings in Okta, Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can automatically remove user accounts from your Buildkite organization. In Okta this feature is called 'Deactivating' a user. You need an enabled Okta SSO Provider before you can set up SCIM.
 
 >📘
-> User deprovisioning is an Enterprise only feature that needs to be enabled. Please contact support at support@buildkite.com to have this enabled.
+> User deprovisioning is an Enterprise only feature.
 
 After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and _API Token_ from your Okta SSO Provider Settings:
 
@@ -33,13 +33,13 @@ After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and
 Go to your Buildkite application in Okta to set up deprovisioning:
 
 1. On the _Sign On_ tab in the Okta Buildkite application, edit the _Credential Details_ settings, select _Email_ for the _Application username format_ and press _Save_.
-1. On the _Provisioning_ tab, select _Integration_ from the left side menu.
-1. Click _Configure API Integration_.
-1. Tick _Enable API integration_ and enter the URL and API token copied from your Buildkite SSO Provider settings.
-1. Click _Test API Credentials_ and then _Save_ once successfully verified.
-1. Select _To App_ from the left side menu.
-1. Edit the _Provisioning to App_ settings, and enable _Create Users_ and _Deactivate Users_.
-1. Save and test your settings.
+2. On the _Provisioning_ tab, select _Integration_ from the left side menu.
+3. Click _Configure API Integration_.
+4. Tick _Enable API integration_ and enter the URL and API token copied from your Buildkite SSO Provider settings.
+5. Click _Test API Credentials_ and then _Save_ once successfully verified.
+6. Select _To App_ from the left side menu.
+7. Edit the _Provisioning to App_ settings, and enable _Create Users_ and _Deactivate Users_.
+8. Save and test your settings.
 
 ### Provisioning existing users
 
