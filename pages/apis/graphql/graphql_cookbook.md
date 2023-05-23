@@ -110,7 +110,7 @@ query AllPipelineMetrics {
 ```
 
 ### Get number of builds between two dates
- 
+
 This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
 
 ```graphql
