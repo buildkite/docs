@@ -53,19 +53,6 @@ To create additional queues:
 1. Enter a key and description.
 1. Select _Create Queue_.
 
-### Pause a queue
-
-Pausing a queue will prevent jobs from being dispatched to agents associated with that queue. This may affect builds targeting the paused queue.
-
-To pause a queue:
-1. Navigate to your cluster’s _Queues_.
-1. Click on the queue you wish to pause.
-1. Click _Edit_.
-1. Under _Queue Management_, click _Pause Queue_.
-1. Enter an optional note in the dialog if needed, and confirm that you wish to pause the queue.
-
-To resume the queue again, click Resume Queue.
-
 ### Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster’s agent tokens.
@@ -102,6 +89,23 @@ To add a maintainer to a cluster:
 1. Navigate to the cluster’s _Maintainers_.
 1. Select a user or team.
 1. Click _Add Maintainer_.
+
+### Pause a queue
+
+You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
+To pause a queue:
+
+1. Navigate to your cluster’s _Queues_.
+1. Select on the queue you wish to pause.
+1. Select _Edit_.
+1. Under _Queue Management_, select _Pause Queue_.
+1. Enter an optional note in the dialog if needed, and confirm that you wish to pause the queue. The note will be displayed on the queue page, and any affected builds.
+
+Jobs which have _already_ been dispatched to agents in the queue prior to pausing will continue to run. New jobs which target the paused queue will 'wait' until the queue is resumed.
+
+Trigger steps do not rely on agents, so they will run unless they have a dependency that has been halted by the paused queue. The behaviour of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will 'wait' until the queue is resumed. If a triggered job does not target the pasued queue, it will run as usual.
+
+To resume the queue again, select _Resume Queue_. Once resumed, job dispatch to the queue will operate as usual, and any 'waiting' jobs affected by the pause will be picked up.
 
 ### Migrate to clusters
 
