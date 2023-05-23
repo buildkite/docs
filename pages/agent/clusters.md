@@ -103,7 +103,7 @@ To pause a queue:
 
 Jobs which have _already_ been dispatched to agents in the queue prior to pausing will continue to run. New jobs which target the paused queue will 'wait' until the queue is resumed.
 
-Trigger steps do not rely on agents, so they will run unless they have a dependency that has been halted by the paused queue. The behaviour of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will 'wait' until the queue is resumed. If a triggered job does not target the pasued queue, it will run as usual.
+Trigger steps do not rely on agents, so they will run unless they have a dependency that has been halted by the paused queue. The behaviour of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will 'wait' until the queue is resumed. If a triggered job does not target the paused queue, it will run as usual.
 
 To resume the queue again, select _Resume Queue_. Once resumed, job dispatch to the queue will operate as usual, and any 'waiting' jobs affected by the pause will be picked up.
 
