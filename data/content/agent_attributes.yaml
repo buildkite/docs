@@ -159,7 +159,7 @@ attributes:
   default_value: "false"
   requires: false
   desc: |
-      Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This advisable when running multiple agents. Otherwise, metrics from multiple agents may be rolled up and appear to have the same value.
+      Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is advisable when running multiple agents. Otherwise, metrics from multiple agents may be rolled up and appear to have the same value.
 - name: name
   env_var: BUILDKITE_AGENT_NAME
   default_value: "%hostname-%spawn"
