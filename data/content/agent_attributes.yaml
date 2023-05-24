@@ -157,7 +157,7 @@ attributes:
 - name: metrics-datadog-distributions
   env_var: BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS
   default_value: "false"
-  requires: false
+  required: false
   desc: |
       Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is advisable when running multiple agents. Otherwise, metrics from multiple agents may be rolled up and appear to have the same value.
 - name: name
