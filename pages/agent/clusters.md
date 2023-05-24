@@ -93,19 +93,22 @@ To add a maintainer to a cluster:
 ### Pause a queue
 
 You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
+
 To pause a queue:
 
 1. Navigate to your cluster’s _Queues_.
-1. Select on the queue you wish to pause.
+1. Select the queue you wish to pause.
 1. Select _Edit_.
 1. Under _Queue Management_, select _Pause Queue_.
-1. Enter an optional note in the dialog if needed, and confirm that you wish to pause the queue. The note will be displayed on the queue page, and any affected builds.
+1. Enter an optional note in the dialog, and confirm that you wish to pause the queue.
 
-Jobs which have _already_ been dispatched to agents in the queue prior to pausing will continue to run. New jobs which target the paused queue will 'wait' until the queue is resumed.
+      You can use the note to explain why you're pausing the queue. The note will display on the queue page and any affected builds.
 
-Trigger steps do not rely on agents, so they will run unless they have a dependency that has been halted by the paused queue. The behaviour of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will 'wait' until the queue is resumed. If a triggered job does not target the paused queue, it will run as usual.
+Jobs _already_ dispatched to agents in the queue before pausing will continue to run. New jobs that target the paused queue will wait until the queue is resumed.
 
-To resume the queue again, select _Resume Queue_. Once resumed, job dispatch to the queue will operate as usual, and any 'waiting' jobs affected by the pause will be picked up.
+Trigger steps do not rely on agents, so they will run unless they have dependencies waiting on the paused queue. The behaviour of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will wait until the queue is resumed. If a triggered job does not target the paused queue, it will run as usual.
+
+Select _Resume Queue_ to resume a paused queue. Jobs will resume dispatching to the queue as usual, including any jobs waiting to run.
 
 ### Migrate to clusters
 
