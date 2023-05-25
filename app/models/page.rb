@@ -3,6 +3,23 @@
 class Page
   HEADING_REGEX = /^[#]{2}\s(.+)$/
 
+  class << self
+    # Find all markdown pages in the pages directory (ignoring partials).
+    def all
+      Dir.glob("#{Rails.root}/pages/**/*.md")
+        .select { |path | !path.to_s.include?("/_") }
+        .map do |path|
+          Struct.new(:path, :updated_at).new(
+            path
+              .sub("#{Rails.root}/pages/", "/docs/")
+              .sub(/\.md$/, "")
+              .gsub("_", "-"),
+            File.mtime(path)
+          )
+      end
+    end
+  end
+
   class TemplateBinding
     delegate_missing_to :@view_helpers
 

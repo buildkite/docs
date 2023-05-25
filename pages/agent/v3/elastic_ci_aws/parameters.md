@@ -15,12 +15,12 @@ or [`BuildkiteAgentToken`](#BuildkiteAgentToken) to be able to use `aws-stack.ym
 
 
 <!--
-  _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
+  _____   ____    _   _  ____ _______   ______ _____ _____ _______
  |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
- | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |   
- | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |   
- | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |   
- |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|   
+ | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
+ | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
+ | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
+ |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
 
 The template below provides correct layouts for auto-generated configuration tables based on script/generate-elastic-ci-stack-for-aws-parameters.sh.
 Proceed with caution.
@@ -34,6 +34,14 @@ interface = metadata['AWS::CloudFormation::Interface']
 parameter_groups = interface['ParameterGroups']
 
 parameters = AWS_STACK['Parameters']
+
+def escape_colons(x)
+  if x.is_a? String
+    x.gsub(/:(.+?):/, '\:\1\:')
+  else
+    x
+  end
+end
 %>
 
 <% parameter_groups.each do |group| %>
@@ -55,7 +63,7 @@ parameters = AWS_STACK['Parameters']
 				<td>
 					<%= parameter['Description'] %>
 
-					<% if allowed = parameter['AllowedValues'] %>
+					<% if allowed = escape_colons(parameter['AllowedValues']) %>
 						<br/><strong>Allowed Values</strong>:
 							<ul>
 								<% allowed.each do |allow| %>
@@ -65,11 +73,11 @@ parameters = AWS_STACK['Parameters']
 					<% end %>
 
 					<% if parameter['Default'] && parameter['Default'] != "" %>
-						<br/><strong>Default Value:</strong> <code><%= parameter['Default'] %></code>
+						<br/><strong>Default Value:</strong> <code><%= escape_colons(parameter['Default']) %></code>
 					<% end %>
 
 					<% if pattern = parameter['AllowedPattern'] %>
-						<br/><strong>Allowed Pattern:</strong> <code><%= pattern %></code>
+						<br/><strong>Allowed Pattern:</strong> <code><%= escape_colons(pattern) %></code>
 					<% end %>
 
 					<% if minLength = parameter['MinLength'] %>

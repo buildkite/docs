@@ -78,6 +78,8 @@ Optionally, select one or more of the following:
 * _Rebuild pull requests when they become ready for review_
 * _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
+If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select _Prefix third-party fork branch names_.
+
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
 
 When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
@@ -142,6 +144,29 @@ For example, if you have a monorepo containing three applications, you could use
     - Enable both _Update commit statuses_ and _Create a status for each job_. Buildkite sends its default statuses as well as your custom status.
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
+
+You can also define the commit status in a group step:
+
+```yml
+steps:
+  - group: "\:lock_with_ink_pen\: Security Audits"
+    key: "audits"
+    notify:
+    - github_commit_status:
+        context: "group status"
+    
+    steps:
+      - label: "\:brakeman\: Brakeman"
+        command: ".buildkite/steps/brakeman"
+      - label: "\:bundleaudit\: Bundle Audit"
+        command: ".buildkite/steps/bundleaudit"
+      - label: "\:yarn\: Yarn Audit"
+        command: ".buildkite/steps/yarn"
+      - label: "\:yarn\: Outdated Check"
+        command: ".buildkite/steps/outdated"
+```
+
+When you set a custom commit status on a group step, GitHub only displays one status for the group. A passing result only shows when all jobs in the group pass. If you want to show custom commit statuses for each job, set them on the individual step.
 
 ## Using one repository in multiple pipelines and organizations
 

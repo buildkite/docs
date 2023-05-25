@@ -51,6 +51,10 @@ export function initToc() {
     const toggleNode = document.querySelector(".Toc__toggle");
     const listNode = document.querySelector(".Toc__list");
 
+    if (!toggleNode) {
+      return;
+    }
+
     toggleNode.addEventListener("click", (e) => {
       e.target.classList.toggle("Toc__toggle--is-collapsed");
       listNode.classList.toggle("Toc__list--is-collapsed");
