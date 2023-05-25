@@ -6,7 +6,8 @@ class BetaPages
       'test-analytics/android-collectors',
       'test-analytics/dotnet-collectors',
       'apis/rest-api/analytics/flaky-tests',
-      'agent/clusters'
+      'agent/clusters',
+      'apis/rest-api/clusters'
     ]
   end
 end

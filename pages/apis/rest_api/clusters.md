@@ -1,5 +1,10 @@
 # Clusters API
 
+A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines within an organization.
+
+> 📘 Enable clusters
+> You'll need to [enable clusters](/docs/agent/clusters#enable-clusters) for your organization to use this API.
+
 ## Cluster data model
 
 <table class="responsive-table">

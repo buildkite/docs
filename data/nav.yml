@@ -382,6 +382,7 @@
               path: "apis/rest-api/agents"
             - name: "Clusters"
               path: "apis/rest-api/clusters"
+              pill: "beta"
             - name: "Artifacts"
               path: "apis/rest-api/artifacts"
             - name: "Annotations"
