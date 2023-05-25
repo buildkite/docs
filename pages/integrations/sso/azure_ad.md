@@ -73,7 +73,7 @@ Enterprise customers can automatically add and remove user accounts from their B
 Adding and removing users accounts in Azure AD is called provisioning. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
 >📘
-> User deprovisioning is an Enterprise only feature that needs to be enabled. Please contact support at support@buildkite.com to have this enabled.
+> User deprovisioning is an Enterprise only feature and automatically enabled. If you are using a [custom provider](/docs/integrations/sso/custom-saml) as an Enterprise customer, please contact support@buildite.com to have this feature enabled.
 
 After enabling your Azure AD SSO provider in Buildkite, get the _Base URL_ and _API Token_ from your Azure AD SSO provider settings:
 
