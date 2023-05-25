@@ -169,6 +169,7 @@ make the following POST request, substituting your organization slug instead of 
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+  -H "Content-Type: application/json" \
   -d '{
       "name": "My Pipeline X",
       "repository": "git@github.com:acme-inc/my-pipeline.git",
@@ -397,6 +398,7 @@ YAML pipelines are the recommended way to [manage your pipelines](https://buildk
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
+  -H "Content-Type: application/json" \
   -d '{
     "name": "My Pipeline",
     "repository": "git@github.com:acme-inc/my-pipeline.git",
@@ -684,6 +686,7 @@ To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpo
 
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
+  -H "Content-Type: application/json" \
   -d '{
     "repository": "git@github.com:acme-inc/new-repo.git",
     "configuration": "steps:\n  - command: \"new.sh\"\n    agents:\n    - \"myqueue=true\""

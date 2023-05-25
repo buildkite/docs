@@ -31,6 +31,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>cursor</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>node</code><a href="/docs/apis/graphql/schemas/object/changelog" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Changelog"><code>Changelog</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>cursor</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>node</code><a href="/docs/apis/graphql/schemas/object/changelog" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Changelog"><code>Changelog!</code></a></h3></td></tr>
   </tbody>
 </table>

@@ -9,6 +9,7 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 * [labels](/docs/pipelines/command-step#label)
 * [commands](/docs/pipelines/command-step#command-step-attributes)
 * [plugins](/docs/pipelines/command-step#plugins)
+* [agents](/docs/pipelines/command-step#agents)
 
 You can't use matrix values in other attributes, including step keys.
 
@@ -52,6 +53,8 @@ For more complex builds, add multiple dimensions to `matrix.setup` instead of th
 steps:
 - label: "💥 Matrix Build"
   command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  agents:
+    queue: "builder-{{matrix.arch}}"
   matrix:
     setup:
       arch:
@@ -134,7 +137,7 @@ To remove a combination from the matrix, add it to the `adjustments` key and set
 
 ## Matrix limits
 
-Each build matrix has a limit of 10 dimensions, 10 elements in each dimension and a total of 10 adjustments.
+Each build matrix has a limit of 6 dimensions, 20 elements in each dimension and a total of 12 adjustments.
 
 ## Grouping matrix elements
 

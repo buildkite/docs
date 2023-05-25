@@ -1,0 +1,7 @@
+.container {
+  @include container;
+
+  &-narrow {
+    max-width: map-get($max-w, "narrow-container");
+  }
+}

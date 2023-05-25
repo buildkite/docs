@@ -4,7 +4,6 @@ Buildkite integrates with [Bitbucket](https://bitbucket.org/) to provide automat
 
 This guide shows you how to set up your Bitbucket builds with Buildkite.
 
-
 ## Set up the Bitbucket webhook
 
 Once you've created a pipeline in Buildkite and copied in your Bitbucket repository URL, Buildkite shows you setup instructions for configuring your Bitbucket webhooks.
@@ -44,12 +43,6 @@ Buildkite prompts you to give permission for Buildkite to post status updates, t
 ## Branch configuration and settings
 
 <%= render_markdown partial: 'integrations/branch_config_settings' %>
-
-## Mercurial support
-
-Buildkite Agent's default source control tool is Git, and doesn't support [Mercurial](https://www.mercurial-scm.org) out of the box. If you want to use
-Buildkite with a Bitbucket Mercurial repository, you must supply your own
-Mercurial checkout code using a [`checkout` hook](/docs/agent/v3/hooks#job-lifecycle-hooks).
 
 ## Using one repository in multiple pipelines and organizations
 

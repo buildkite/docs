@@ -1,6 +1,6 @@
 @mixin callout($callout_color) {
   border-left: 3px solid $callout_color;
-  color: map-get($color-aliases, 'text-lightest');
+  color: map-get($color-aliases, "text-lightest");
   font-size: #{(16/18)}rem;
   margin: 1.5rem 0 2rem 0;
   padding: 0 0 0 1rem;
@@ -24,20 +24,24 @@
       }
 
       &:hover:before {
-        color: map-get($color-aliases, 'text-lightest');
-        content: '#';
+        color: map-get($color-aliases, "text-lightest");
+        content: "#";
         font-size: 1rem;
         font-weight: normal;
         left: -23px;
-        margin-left: .5rem;
+        margin-left: 0.5rem;
         position: absolute;
       }
     }
   }
 
-  p { margin: 0; }
+  p {
+    margin: 0;
+  }
 
-  p + p { margin: 0.5rem 0 0 0; }
+  p + p {
+    margin: 0.5rem 0 0 0;
+  }
 }
 
 .callout {

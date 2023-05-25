@@ -176,7 +176,7 @@ Create the following `tests/post-command.bats` file:
 ```shell
 #!/usr/bin/env bats
 
-load '/usr/local/lib/bats/load.bash'
+load "$BATS_PLUGIN_PATH/load.bash"
 
 # Uncomment the following line to debug stub failures
 # export BUILDKITE_AGENT_STUB_DEBUG=/dev/tty
@@ -238,7 +238,7 @@ Next, add a `README.md` file to introduce the plugin to the world:
 
 When developing plugins, it is useful to have a quick feedback loop between making a change in your plugin code, and seeing the effects in a Buildkite pipeline. Let's say you're developing your feature on `my-org/plugin#dev-branch`. *By default*, if a Buildkite agent sees that it needs the plugin `my-org/plugin#dev-branch`, and it already has a checkout matching that, it will *not* pull any changes from the Git repository. But if you *do* want to see changes reflected immediately, set [`plugins-always-clone-fresh`](/docs/agent/v3/configuration#plugins-always-clone-fresh) to `true`.
 
-One way to try this is to add the following step to the Buildkite pipeline where you're testing your plugin.  Configuring `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH` on only one step means that other plugins, which are unlikely to be changing in the meantime, won't get unnecessarily cloned on every step invocation.
+One way to try this is to add the following step to the Buildkite pipeline where you're testing your plugin.  Configuring `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH` on only one step means that other plugins, which are unlikely to be changing in the meantime, won't get unnecessarily cloned on every step invocation. You need agent version v3.37.0 or above to use `BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH`.
 
 ```yml
 steps:

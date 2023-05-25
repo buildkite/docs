@@ -67,7 +67,7 @@ Buildkite will recognize that it's hosted on your GitHub Enterprise Server, and 
 
 ## Transferring ownership
 
-If you need to leave your current GitHub Enterprise Organization, you need to transfer the OAuth ownership first. Without this, the remaining members of your Buildkite team who are using that GitHub Enterprise Organization for OAth won't be able to log in.
+If you need to leave your current GitHub Enterprise Organization, you need to transfer the OAuth ownership first. Without this, the remaining members of your Buildkite team who are using that GitHub Enterprise Organization for OAuth won't be able to log in.
 
 To correctly transfer the OAuth ownership over your GitHub Enterprise Organization, see GitHub's official documentation for [Transferring ownership of an OAuth App](https://docs.github.com/en/developers/apps/managing-oauth-apps/transferring-ownership-of-an-oauth-app) and [Maintaining ownership continuity for your organization](https://docs.github.com/en/organizations/managing-peoples-access-to-your-organization-with-roles/maintaining-ownership-continuity-for-your-organization).
 
@@ -121,6 +121,10 @@ http {
   }
 }
 ```
+
+## Multiple GitHub Enterprise integrations
+
+You can set up multiple GitHub Enterprise integrations with your Buildkite organization. However, due to the OAuth installation requirements, each integration must be configured by a unique user. Each user must possess admin permissions in both Buildkite and GitHub.
 
 ## Using one repository in multiple pipelines and organizations
 
