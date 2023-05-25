@@ -148,6 +148,12 @@ By default, build logs are stored in encrypted form in Buildkite's managed Amazo
 >📘 Enterprise feature
 > This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
 
+The folder structure and file format are as follows and are not customizable:
+
+```text
+{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+```
+
 To set up a private build log archive storage:
 
 1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
@@ -208,11 +214,5 @@ To set up a private build log archive storage:
         ]
     }
     ```
-
-    >📘
-    > Folder structure and file format will be as follow: {BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log. This file format and folder structure is currently not customisable. 
-    
-    > 🚧 Log Retention
-    > After build logs are archived to customer's S3 buckets, Buildkite won't retain a copy of those logs internally. 
 
 3. Reach out to [support@buildkite.com](mailto:support@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.
