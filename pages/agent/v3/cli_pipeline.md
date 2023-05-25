@@ -32,7 +32,7 @@ For example, the following pipeline substitutes a number of [Buildkite's default
 ```yml
 - trigger: "app-deploy"
   label: "\:rocket\: Deploy"
-  branches: "master"
+  branches: "main"
   async: true
   build:
     message: "${BUILDKITE_MESSAGE}"

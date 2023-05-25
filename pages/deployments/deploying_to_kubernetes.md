@@ -8,7 +8,7 @@ The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
 deployment][k8s_deployment] using `kubectl`. Then, you'll see how to link them
-together to automate deploys from `master` branch.
+together to automate deploys from `main` branch.
 
 First up, you need to add a step to your existing test pipeline that pushes a
 Docker image. Also check your agents have `kubectl` access to your target
@@ -159,7 +159,7 @@ Next add a `trigger` step:
   - label: ':rocket: Deploy'
     # TODO: replace with your deploy pipeline's name
     trigger: kubernetes-tutorial-deploy
-    # Only trigger on master build
+    # Only trigger on main build
     build:
       message: "${BUILDKITE_MESSAGE}"
       commit: "${BUILDKITE_COMMIT}"
@@ -167,7 +167,7 @@ Next add a `trigger` step:
       env:
         # TODO: replace with your Docker image name
         DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
-    branches: master
+    branches: main
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -176,7 +176,7 @@ This `trigger` step creates a build with the same message, commit, and branch.
 correct values are replaced when the pipeline starts. The `env` setting passes
 along the `DOCKER_IMAGE` environment variable.
 
-Lastly, the `branches` options indicates to only build on `master`. This
+Lastly, the `branches` options indicates to only build on `main`. This
 prevents deploying unexpected topic branches.
 
 It's magic time. Push some code. :tada: Continuous deployment! If something

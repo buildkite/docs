@@ -29,7 +29,7 @@ The following is an example [command step](/docs/pipelines/command-step) that en
 ```yaml
 - command: 'deploy.sh'
   label: '\:rocket\: Deploy production'
-  branches: 'master'
+  branches: 'main'
   agents:
     deploy: true
   concurrency: 1

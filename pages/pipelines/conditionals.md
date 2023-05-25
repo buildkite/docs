@@ -7,9 +7,7 @@ You can define conditionals at the step level in your `pipeline.yml` or at the p
 
 ## Conditionals in pipelines
 
-<!--alex ignore master-->
-
-You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the master branch:
+You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
 
 <%= image "conditionals.png", width: 864, height: 298, alt: "Conditional Filtering settings" %>
 
@@ -369,10 +367,10 @@ The following variables are supported by the `if` attribute. Note that you canno
 
 ## Example expressions
 
-To run only when the branch is `master` or `production`:
+To run only when the branch is `main` or `production`:
 
 ```js
-build.branch == "master" || build.branch == "production"
+build.branch == "main" || build.branch == "production"
 ```
 
 To run only when the branch is not `production`:

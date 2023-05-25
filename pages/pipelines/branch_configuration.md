@@ -31,7 +31,7 @@ steps:
     command:
       - "npm install"
       - "tests.sh"
-    branches: "master feature/* !feature/beta release/*"
+    branches: "main feature/* !feature/beta release/*"
   - block: "Release notes"
     prompt: "Please add notes for this release"
     fields:
@@ -40,11 +40,11 @@ steps:
     branches: "release/*"
   - label: "Deploy Preparation"
     command: "deploy-prep.sh"
-    branches: "master"
+    branches: "main"
   - wait
   - trigger: "app-deploy"
     label: "\:shipit\:"
-    branches: "master"
+    branches: "main"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -59,9 +59,9 @@ When combining positive and negative patterns, any positive pattern must match, 
 
 The following are examples of patterns, and the branches that they will match:
 
-* `master` will match `master` only
+* `main` will match `main` only
 * `!production` will match any branch that's not `production`
-* `master features/*` will match `master` and any branch that starts with `features/`
+* `main features/*` will match `main` and any branch that starts with `features/`
 * `*-test` will match any branch ending with `-test`, such as `rails-update-test`
 * `stages/* !stages/production` will match any branch starting with `stages/` except `stages/production`, such as `stages/demo`
 * `v*.0` will match any branch that begins with a `v` and ends with a `.0`, such as `v1.0`
