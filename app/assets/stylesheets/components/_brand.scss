@@ -10,7 +10,6 @@
   display: block;
   transition: opacity $transition-speed;
   width: 28px;
-  will-change: opacity;
 
   &:hover {
     opacity: 0.75;

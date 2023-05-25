@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Triggering notifications
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
@@ -321,7 +325,7 @@ steps:
     key: 'step1'
   - wait: ~
   - command: |
-      if [ $$(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
+      if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
          cat <<- YAML | buildkite-agent pipeline upload 
          steps:
            - label: "Notify slack about soft failed step"

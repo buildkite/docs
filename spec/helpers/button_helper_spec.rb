@@ -33,6 +33,12 @@ RSpec.describe ButtonHelper do
         expect(button_html).to eq('<span class="Button Button--default">:hammer: Test</span>')
       end
     end
+
+    it "renders an inline button" do
+      button_html = button("Inline button", "http://www.buildkite.com", { inline: true })
+
+      expect(button_html).to eq('<a class="Button Button--default Button--inline" href="http://www.buildkite.com">Inline button</a>')
+    end
   end
 
 end

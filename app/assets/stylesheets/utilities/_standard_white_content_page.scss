@@ -1,8 +1,0 @@
-.StandardWhiteContentPage {
-  background-color: white;
-  color: map-get($color-aliases, "text-base");
-
-  @media (min-width: $screen-md) {
-    padding-top: 60px;
-  }
-}

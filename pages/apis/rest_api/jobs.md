@@ -60,6 +60,7 @@ Unblocks a build's "Block pipeline" job. The job's `unblockable` property indica
 
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds/{build.number}/jobs/{job.id}/unblock"  \
+  -H "Content-Type: application/json" \
   -d '{
     "fields": {
       "name": "Liam Neeson",

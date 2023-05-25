@@ -1,6 +1,6 @@
 .Dropdown {
   background-color: $base-0;
-  border-radius: $border-rounded;
+  border-radius: $rounded;
   cursor: default;
   font-size: $font-size-template;
   position: relative;
@@ -9,7 +9,7 @@
 .Dropdown__menu {
   background-color: $base-0;
   border: 1px solid map-get($color-aliases, "border");
-  border-radius: $border-rounded;
+  border-radius: $rounded;
   box-shadow: $box-shadow-depth-800;
   left: -9999em;
   padding: 8px;
@@ -43,7 +43,7 @@
 }
 
 .Dropdown__menu-link {
-  border-radius: $border-rounded;
+  border-radius: $rounded;
   color: map-get($color-aliases, "text-base");
   display: block;
   font-weight: bold;

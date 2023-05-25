@@ -299,6 +299,7 @@ Success response: `200 OK`
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.slug}/builds" \
+  -H "Content-Type: application/json" \
   -d '{
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
     "branch": "main",

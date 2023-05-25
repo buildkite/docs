@@ -12,23 +12,23 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent annotation remove [arguments...]`
 
-## Description
+### Description
 
 Remove an existing annotation which was previously published using the
 buildkite-agent annotate command.
 
 If you leave context blank, it will use the default context.
 
-## Example
+### Example
 
     $ buildkite-agent annotation remove
     $ buildkite-agent annotation remove --context "remove-me"
 
-## Options
+### Options
 
 <!-- vale off -->
 

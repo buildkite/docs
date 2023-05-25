@@ -31,11 +31,13 @@ GitLab
 Gradle
 Hashicorp
 Inlining
+Jenkins
 JWT
 JWTs
 Kuzco
 Memcache
 minitest
+misconfiguration
 Namespace
 Namespaced
 Namespaces
@@ -112,6 +114,7 @@ golang
 gotestsum
 Graviton
 gz
+gzipped
 heroku
 hostname
 http
@@ -137,6 +140,7 @@ namespaces
 negator
 npm
 nssm
+onboarding
 parsable
 phabricator
 php

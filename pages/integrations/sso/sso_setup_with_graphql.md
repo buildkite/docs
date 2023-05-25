@@ -1,3 +1,7 @@
+---
+toc_include_h3: false
+---
+
 # Setting up single sign-on with GraphQL
 
 Buildkite's single sign-on (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql-api). This tutorial covers how to set up SSO manually using GraphQL.

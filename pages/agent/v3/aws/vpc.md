@@ -1,4 +1,4 @@
-# AWS VPC design
+# VPC design for the Elastic CI Stack for AWS
 
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.
@@ -51,13 +51,11 @@ address of any outbound connections to its own public IP address. NAT devices
 statefully limit response traffic to known outbound network connections,
 similar to a security group.
 
-### Access
-
-In order to diagnose agent instance performance and behaviours, it is common
+To diagnose agent instance performance and behaviours, it is common
 to remotely access an interactive prompt. There are a number of options
-available for remote access to instances in a private subnet.
+available for remote access to instances in a private subnet, described in the following sections.
 
-#### AWS Systems Manager Session Manager
+### AWS Systems Manager Session Manager
 
 Installing the [AWS SSM Agent](https://docs.aws.amazon.com/systems-manager/latest/userguide/ssm-agent.html)
 allows you to initiate sessions on private instances without requiring publicly
@@ -67,7 +65,7 @@ routable SSH, or adding a VPN gateway to your VPC.
 
 See the [AWS Systems Manager Session Manager](https://docs.aws.amazon.com/systems-manager/latest/userguide/session-manager.html) documentation for more details.
 
-#### Bastion instance
+### Bastion instance
 
 The bastion or jump host pattern, involves deploying an instance to a public
 subnet with a publicly routable IP address and a security group that allows
@@ -82,7 +80,7 @@ patched and updated regularly.
 The [Linux Bastion Hosts on AWS Quick Start](https://aws.amazon.com/quickstart/architecture/linux-bastion/)
 provides a example of this pattern.
 
-#### VPN
+### VPN
 
 A client VPN can be used to provide hosts outside your VPC with access to your
 otherwise non-internet routable private subnets.
