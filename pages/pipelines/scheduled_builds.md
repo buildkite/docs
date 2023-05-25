@@ -8,14 +8,13 @@ You can create and manage schedules in the Schedules section of your Pipeline Se
 
 You can also create and manage schedules using the [Buildkite GraphQL API](/docs/apis/graphql-api).
 
-{:toc}
 
 ## Schedule intervals
 
 The interval defines when the schedule will create builds. Schedules run in UTC time by default, and can be defined using either predefined intervals or standard crontab time syntax.
 
 >🚧 Interval granularity
-> Buildkite doesn't support intervals less than 10 minutes.
+> Buildkite only guarantees that scheduled builds run within 10 minutes of the scheduled time, and therefore does not support intervals less than 10 minutes.
 
 ### Predefined intervals
 

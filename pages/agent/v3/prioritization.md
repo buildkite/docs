@@ -1,9 +1,11 @@
+---
+toc: false
+---
+
 # Buildkite Agent prioritization
 
 By setting an Agent's priority value you determine when it gets assigned build jobs compared to other agents.
 Agents with a higher value priority number are assigned work first, with the last priority being given to Agents with the default value of `null`.
-
-{:notoc}
 
 To set an Agent's priority you can set it in the configuration file:
 

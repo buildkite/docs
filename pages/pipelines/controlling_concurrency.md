@@ -4,7 +4,6 @@ Some tasks need to be run with very strict concurrency rules to ensure they don'
 
 To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
 
-{:toc}
 
 ## Concurrency limits
 
@@ -47,7 +46,7 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 ## Concurrency and parallelism
 
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
-In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time.
+In these situations you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time. You can't use input or block steps inside concurrency gates.
 
 In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 

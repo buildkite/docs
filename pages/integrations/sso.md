@@ -1,10 +1,13 @@
+---
+toc_include_h3: false
+---
+
 # Single sign-on support
 
 You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
 
 SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans.
 
-{:toc}
 
 ## Supported providers
 
@@ -58,7 +61,7 @@ If you'd like to have some help with the migration, contact support@buildkite.co
 
 You can configure the SSO Session Duration to timeout after a predetermined time. When the specified duration elapses, the user will be signed out of the session.
 
-To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#update-the-default-sso-provider-session-duration) or complete
+To set the Session Duration you can either use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-update-the-default-sso-provider-session-duration) or complete
 the following steps via the settings interface.
 
 First select the SSO Provider you would like to configure.
@@ -74,13 +77,28 @@ You can configure the session duration to any timeout between 6 hours and 8,760 
 
 <%= image "session_duration/configure_session_duration.png", width: 623, height: 315, alt: "Screenshot of the Buildkite SSO Session Duration Configuration" %>
 
+## SSO session IP address pinning
+
+> 📘 Enterprise feature
+> Pinning SSO sessions to IP addresses is only available on an [Enterprise](https://buildkite.com/pricing) plan.
+
+Session IP address pinning prompts users to re-authenticate when their IP address changes. This prevents session hijacking by restricting authorized sessions to only originate from the IP address used to create the session. If any attempt is made to access Buildkite from a different IP address, the session is instantly revoked and the user must re-authenticate.
+
+To set up SSO session IP address pinning, use the [GraphQL API](/docs/apis/graphql/graphql-cookbook#organizations-pin-sso-sessions-to-ip-addresses) or complete the following steps in the Buildkite dashboard:
+
+1. Navigate to the [organization's SSO settings](https://buildkite.com/organizations/~/sso).
+1. In the _Configured SSO Providers_ section, select the provider.
+1. In the _Session IP Address Pinning_ section, select _Update Session IP Address Pinning_.
+1. In the modal that appears, select the _Session IP Address Pinning_ checkbox.
+1. Select _Save Session IP Address Pinning_.
+
 ## Frequently asked questions
 
 ### Can some people in the organization use SSO and others not?
-Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. This setting can be found in the team settings.
+Yes, team maintainers can select whether a user is 'required' to use SSO or whether it is 'optional'. You can find this setting in the [organization's user settings](https://buildkite.com/organizations/~/users).
 
 ### Do you support JIT provisioning?
-Yes, we do.
+Yes, we do. Just-in-time user provisioning (JIT provisioning) creates accounts only when needed. You can grant a user access to Buildkite through your SSO provider, but their account won't be created until it's required—typically upon their first login attempt. For billing purposes, the user doesn't exist until their account is created.
 
 ### What happens if a person leaves our company?
 You will need to manually remove them from your Buildkite organization. This will not affect access to the user's personal account or any other organizations they are a member of.

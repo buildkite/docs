@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # CloudFormation service role
 
 If you want to explicitly specify the actions CloudFormation can perform on
@@ -18,7 +22,6 @@ missing.
 This template can be deployed as is, or used as the basis for your own
 CloudFormation service role.
 
-{:toc}
 
 ## Deploying the service role template
 

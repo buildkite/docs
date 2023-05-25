@@ -4,7 +4,6 @@ In this guide, we'll walk through using the Buildkite agent's [meta-data command
 
 Meta-data is intended to store data 1 kilobyte or less in size, to be used across steps. For example, you can tag a build with the software version it deploys so that you can later identify which build deployed a particular version. For anything over 1 kb use an [artifact](/docs/pipelines/artifacts) instead.
 
-{:toc}
 
 ## Setting data
 

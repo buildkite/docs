@@ -5,7 +5,6 @@
 
 The Buildkite Agent can be installed on both 64bit and 32bit editions of Windows XP and later.
 
-{:toc}
 
 ## Installation
 

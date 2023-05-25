@@ -1,4 +1,4 @@
-# Elastic CI Stack for AWS for EC2 Mac
+# EC2 Mac setup for the Elastic CI Stack for AWS
 
 You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation template](https://github.com/buildkite/elastic-mac-for-aws). This template creates an Auto Scaling group, launch template, and host resource group for maintaining a pool of EC2 Mac instances that run the
 Buildkite agent. Using Buildkite agents, you can run pipelines and build
@@ -11,7 +11,6 @@ Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
 hardware failures occur.
 
-{:toc}
 
 ## Before you start
 
@@ -193,33 +192,3 @@ Buildkite Agent.
 EC2 Mac instances are slower to boot and terminate than Linux instances. If want
 to match your *Desired capacity* to your workload, consider configuring
 [scheduled scaling for your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)
-
-## Frequently asked questions
-
-### My Auto Scaling group doesn't launch any instances
-
-* If your Auto Scaling group does not launch any instances, open the EC2 Console
-dashboard and *Auto Scaling Groups* from the side bar. Find your Auto Scaling
-group and open the *Activity* tab. The *Activity history* table will list the
-scaling actions that have occurred and any errors that resulted.
-
-* There may be a shortage of `mac1.metal` instances in the region, or Availability
-Zones of your VPC subnets. This error is likely to be a temporary one, wait for your
-Auto Scaling group to attempt to scale out again and see if the error persists.
-
-* Your launch template's AMI may not have been associated with a Customer
-Managed License in AWS License Manager. Ensure you [associate your AMI](#step-3-associate-your-ami-with-a-customer-managed-license-in-aws-license-manager)
-and any new AMIs with a Customer managed license. Ensure the License
-configuration has a *License type* of `Cores`.
-
-### My instances don't start the `buildkite-agent`
-
-Ensure your AMI has been [configured to auto-login as the `ec2-user`](#step-2-build-an-ami)
-in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
-
-Buildkite Agent launchd job configuration requires an `Aqua` session type.
-
-### What user does the agent run as?
-
-The Buildkite agent runs as `ec2-user`.
-

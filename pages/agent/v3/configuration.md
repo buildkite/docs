@@ -2,7 +2,6 @@
 
 Every agent installer comes with a configuration file. You can also customize many of the configuration values using environment variables.
 
-{:toc}
 
 ## Example configuration file
 

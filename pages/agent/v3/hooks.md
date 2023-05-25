@@ -9,6 +9,8 @@ Hooks can be defined in the following locations:
 * In your pipeline's repository
 * In [plugins](/docs/plugins) applied to steps
 
+Hooks defined on the agent are also referred to as _global hooks_, while hooks defined in the pipeline's repository are known as _local hooks_.
+
 For example, you could define an agent-wide `checkout` hook which spins up a fresh `git clone` on a new build
 machine, a repository `pre-command` hook which sets up repository-specific
 environment variables, or a plugin `environment` hook which fetches API keys
@@ -35,7 +37,6 @@ the hooks feature for both the agent and bootstrap processes, and the agent
 [`hooks-path` configuration](configuration#hooks-path) for the
 directory that agent level hooks are defined.
 
-{:toc}
 
 ## Hook locations
 
@@ -96,7 +97,7 @@ a plugin can define.
 | Hook             | Location Order | Description |
 | ---------------- | -------------- | ----------- |
 | `pre-bootstrap`  | <span class="add-icon-agent">Agent</span> | Executed before any job is started. Useful for [adding strict checks](/docs/agent/v3/securing#strict-checks-using-a-pre-bootstrap-hook) before jobs are permitted to run.<br /><br />The proposed job command and environment is written to a file and the path to this file provided in the `BUILDKITE_ENV_FILE` environment variable. Use the contents of this file to determine whether to permit the job to run on this agent.<br /><br />If the <code>pre-bootstrap</code> hook terminates with an exit code of `0`, the job is permitted to run. Any other exit code results in the job being rejected, and job failure being reported to the Buildkite API. |
-| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle. |
+| `agent-startup` | <span class="add-icon-agent">Agent</span> | Executed at agent startup, immediately prior to the agent being registered with Buildkite. Useful for initialising resources that will be used by all jobs that an agent runs, outside of the job lifecycle.<br /><br />Supported from agent version 3.42.0 and above. |
 | `agent-shutdown` | <span class="add-icon-agent">Agent</span> | Executed when the agent shuts down. Useful for performing cleanup tasks for the entire agent, outside of the job lifecycle. |
 {: class="table table--no-wrap"}
 

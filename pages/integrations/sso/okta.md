@@ -2,7 +2,6 @@
 
 To add Okta as an SSO provider for your Buildkite organization, you need admin privileges for both Okta and Buildkite.
 
-{:toc}
 
 ## Setting up SSO with SAML
 
@@ -44,7 +43,7 @@ Go to your Buildkite application in Okta to set up deprovisioning:
 
 ### Provisioning existing users
 
-Existing Okta users aren't automatically provisioned in Buildkite; you'll need to sync your users in order to deprovision them.
+Buildkite creates accounts for existing Okta users with just-in-time user provisioning (JIT provisioning). To deprovision users, you need to sync them.
 
 This can be done one of two ways:
 

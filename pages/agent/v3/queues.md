@@ -4,7 +4,6 @@ Each pipeline has the ability to separate jobs using queues. This allows you to 
 
 Common use cases for queues include deployment agents, and pools of agents for specific pipelines or teams.
 
-{:toc}
 
 ## The default queue
 
@@ -23,6 +22,9 @@ buildkite-agent start --tags "queue=building,queue=testing"
 ```
 
 <%= image "agent-queues.png", width: 1182/2, height: 160/2, alt: "Screenshot of an agent's tags showing both building and testing queues" %>
+
+>🚧 Configuring cluster queues
+>If you have [Clusters](/docs/agent/clusters) enabled and are configuring your agent with a _cluster queue_, you need to create the cluster queue first. See [Set up a cluster queue](/docs/agent/clusters#set-up-a-cluster-set-up-queues) for more information.
 
 ## Targeting a queue
 

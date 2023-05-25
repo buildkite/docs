@@ -5,7 +5,6 @@
 
 You can install Buildkite Agent on most FreeBSD systems.
 
-{:toc}
 
 ## Installation
 

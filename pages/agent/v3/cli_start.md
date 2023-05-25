@@ -2,7 +2,6 @@
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
 
-{:toc}
 
 ## Starting an agent
 

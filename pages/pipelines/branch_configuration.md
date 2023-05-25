@@ -4,7 +4,6 @@ You can use branch patterns to ensure pipelines are only triggered when necessar
 
 In step-level and pipeline-level branch filtering, you can use `*` as a wildcard, and `!` for not, as shown in the [examples](#branch-pattern-examples). If you want a full range of regular expressions that operate on more than branch names, take a look at the [conditionals](/docs/pipelines/conditionals) page.
 
-{:toc}
 
 ## Pipeline-level branch filtering
 

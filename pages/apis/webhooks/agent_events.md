@@ -1,6 +1,5 @@
 # Agent webhook events
 
-{:toc}
 
 ## Events
 

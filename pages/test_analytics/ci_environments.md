@@ -12,7 +12,6 @@ If you run test collectors inside containers or you're using another CI system, 
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
-{:toc}
 
 ## Containers and test collectors
 

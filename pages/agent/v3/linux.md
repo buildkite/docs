@@ -2,7 +2,6 @@
 
 You can install Buildkite Agent on most Linux based systems (including macOS).
 
-{:toc}
 
 ## Installation
 

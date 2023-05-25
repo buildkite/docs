@@ -1,6 +1,86 @@
+
+<%= javascript_tag nonce: true do %>
+var getFirstSource = function() {
+  const firstSourceCookie = '_first_lead_source',
+        firstReferrerCookie = '_first_referrer',
+        firstLandingPageCookie = '_first_landing_page',
+        sessionSourceCookie = '_session_lead_source',
+        prevPageCookie = '_previous_page',
+        currentPageCookie = '_current_page',
+        domainName = window.location.hostname,
+        cookieDuration = 90;
+
+      function readCookie(name) {
+          var nameEQ = name + "=";
+          var ca = document.cookie.split(';');
+          for(var i=0;i < ca.length;i++) {
+              var c = ca[i];
+              while (c.charAt(0)==' ') c = c.substring(1,c.length);
+              if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+          }
+          return null;
+      }
+
+      function setCookie(days, cName, cValue) {
+        var d = new Date();
+          d.setTime( d.getTime() + (days * 24 * 60 * 60 * 1000) );
+          var expires = "expires="+ d.toUTCString();
+          document.cookie = cName + "=" + cValue + ";" + expires + ";path=/;domain=" + domainName;
+      }
+
+      function getReferrer() {
+        var referrer = document.referrer ? document.referrer : "(Direct)";
+        return referrer;
+      }
+
+      function getURL() {
+        var url = window.location.href;
+        return url;
+      }
+
+      function getLeadSource() {
+        var ls,
+          params = {},
+          search = location.search.substring(1);
+        if ( search != '' ) {
+          params = JSON.parse('{"' + decodeURI(search).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+        }
+        if (params.hasOwnProperty('utm_medium')) {
+            ls = params['utm_medium'];
+        } else if ((document.referrer.indexOf('google') + document.referrer.indexOf('bing') + document.referrer.indexOf('duckduck')) > -3) {
+            ls = 'Organic Search';
+        } else if (readCookie(prevPageCookie) != null && readCookie(prevPageCookie).includes(domainName)) {
+            ls = readCookie(sessionSourceCookie);
+        } else if (document.referrer != '') {
+            ls = 'Inbound Link';
+        } else {
+            ls = 'Direct';
+        }
+        return ls;
+      }
+
+      var i = readCookie(firstSourceCookie),
+        j = readCookie(firstReferrerCookie),
+        k = readCookie(firstLandingPageCookie);
+      if ((i != "" && i != null) || (j != "" && j != null) || (k != "" && k != null)) {
+        setCookie(cookieDuration, sessionSourceCookie, getLeadSource());
+      } else {
+        setCookie(cookieDuration, sessionSourceCookie, getLeadSource());
+        setCookie(cookieDuration, firstSourceCookie, getLeadSource());
+        setCookie(cookieDuration, firstReferrerCookie, getReferrer());
+        setCookie(cookieDuration, firstLandingPageCookie, getURL());
+      }
+
+      return readCookie(firstSourceCookie);
+  };
+<% end %>
+
+
 <%= javascript_tag nonce: true do %>
    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on","addSourceMiddleware","addIntegrationMiddleware","setAnonymousId","addDestinationMiddleware"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var key=analytics.methods[e];analytics[key]=analytics.factory(key)}analytics.load=function(key,e){var t=document.createElement("script");t.type="text/javascript";t.async=!0;t.src="https://cdn.segment.com/analytics.js/v1/" + key + "/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(t,n);analytics._loadOptions=e};analytics._writeKey="<%= ENV['SEGMENT_TRACKING_ID'] %>";;analytics.SNIPPET_VERSION="4.15.3";
-   analytics.load("<%= ENV['SEGMENT_TRACKING_ID'] %>");
-   analytics.page();
+    analytics.load("<%= ENV['SEGMENT_TRACKING_ID'] %>");
+    analytics.page({
+      firstSource: getFirstSource()
+    });
    }}();
  <% end %>

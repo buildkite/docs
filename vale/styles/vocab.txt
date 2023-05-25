@@ -1,4 +1,5 @@
 Allowlist
+allowlist
 Artifactory
 Artifactory's
 Atlassian
@@ -30,10 +31,13 @@ GitLab
 Gradle
 Hashicorp
 Inlining
+Jenkins
 JWT
 JWTs
+Kuzco
 Memcache
 minitest
+misconfiguration
 Namespace
 Namespaced
 Namespaces
@@ -51,6 +55,9 @@ Shardy
 Shellcheck
 Shipit
 Unencrypted
+Unset
+Unsets
+Unsetting
 Webtask
 Xcode
 Zapier
@@ -107,6 +114,7 @@ golang
 gotestsum
 Graviton
 gz
+gzipped
 heroku
 hostname
 http
@@ -132,6 +140,7 @@ namespaces
 negator
 npm
 nssm
+onboarding
 parsable
 phabricator
 php
@@ -186,9 +195,13 @@ unarchive
 unarchived
 unblocker
 unbuildable
+unclustered
 unencrypted
 unmanaged
 untrusted
+unset
+unsets
+unsetting
 url
 urls
 util
@@ -225,6 +238,7 @@ VPC's
 VPCs
 XCTest
 xUnit
+dotenv
 
 # GraphQL code words
 # TODO: format these as code instead of making exceptions

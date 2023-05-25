@@ -2,7 +2,6 @@
 
 This guide will help you set up your first Buildkite pipeline. If you don't have a Buildkite account you'll first need to <a href="<%= url_helpers.signup_path %>">sign up</a>. This guide uses GitHub but Buildkite can work with any version control system.
 
-{:toc}
 
 ## Install and run your first agent
 
@@ -26,7 +25,11 @@ Choose a sample pipeline to use as your first pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-    [`powershell-example` test repository](https://github.com/buildkite/powershell-example)
+    <!-- vale off -->
+
+    [powershell-example test repository](https://github.com/buildkite/powershell-example)
+
+    <!-- vale on -->
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 

@@ -1,6 +1,5 @@
 # Importing JSON
 
-{:toc}
 
 If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-analytics/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
@@ -211,7 +210,6 @@ end
   "id": "95f7e024-9e0a-450f-bc64-9edb62d43fa9",
   "scope": "Analytics::Upload associations",
   "name": "fails",
-  "identifier": "./spec/models/analytics/upload_spec.rb[1:1:3]",
   "location": "./spec/models/analytics/upload_spec.rb:24",
   "file_name": "./spec/models/analytics/upload_spec.rb",
   "result": "failed",
@@ -353,7 +351,7 @@ Detail objects contains additional information about the span.
   "detail": {
     method: "POST",
     url: "https://example.com",
-    lib: "curl
+    lib: "curl"
   }
 }
 ```

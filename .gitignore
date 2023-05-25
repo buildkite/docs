@@ -16,9 +16,13 @@
 
 /node_modules
 /yarn-error.log
+.yarn
 
 /public/assets
+/public/docs/sitemap.xml.gz
 .byebug_history
+
+.DS_Store
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
@@ -26,3 +30,11 @@
 /.env
 
 /vendor/bundle
+
+# Vite Ruby
+/public/vite*
+node_modules
+# Vite uses dotenv and suggests to ignore local-only env files. See
+# https://vitejs.dev/guide/env-and-mode.html#env-files
+*.local
+

@@ -1,0 +1,8 @@
+<div class="Brand">
+  <%= link_to "https://buildkite.com/home", class: "Brand__mark", title: "Go to Buildkite homepage" do %>
+    <img alt="Buildkite logo" class="Brand__img" src="<%= logo_image_url %>" />
+  <% end %>
+  <%= link_to home_page_path, title: "Return to Docs index page" do %>
+    <img alt="Buildkite Docs" class="Brand__wordmark" src="<%= image_url "brand-wordmark-on-white.svg" %>" />
+  <% end %>
+</div>

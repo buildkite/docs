@@ -4,7 +4,6 @@ Distributed tracing tools like [Datadog APM](https://www.datadoghq.com/product/a
 
 The Buildkite agent currently supports the two tracing backends listed above, Datadog APM (using OpenTracing) and OpenTelemetry. This doc will guide you through setting up tracing using either of these backends.
 
-{:toc}
 
 ## Using Datadog APM
 

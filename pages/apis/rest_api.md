@@ -6,7 +6,6 @@ The current version of the Buildkite API is v2.
 
 For the list of existing disparities between the REST API and the GraphQL API, see [API differences](/docs/apis/api-differences).
 
-{:toc}
 
 ## Schema
 
@@ -36,6 +35,7 @@ Some API requests accept JSON request bodies for specifying data. For example, t
 
 ```
 curl -X POST "https://api.buildkite.com/v2/organizations/my-org/pipelines/my-pipeline/builds" \
+  -H "Content-Type: application/json" \
   -d '{
     "key": "value"
   }'

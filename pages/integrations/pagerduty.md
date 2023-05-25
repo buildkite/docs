@@ -4,7 +4,6 @@ The [PagerDuty](http://pagerduty.com/) integration in Buildkite can send [change
 
 <%= image "overview.png", width: 2202/2, height: 638/2, alt: "Screenshot of the recent events in PagerDuty" %>
 
-{:toc}
 
 ## Generating a PagerDuty integration API key
 
