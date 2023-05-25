@@ -61,6 +61,10 @@
     path: apis/graphql/schemas/mutation/buildcreate
   - name: buildRebuild
     path: apis/graphql/schemas/mutation/buildrebuild
+  - name: clusterQueuePauseDispatch
+    path: apis/graphql/schemas/mutation/clusterqueuepausedispatch
+  - name: clusterQueueResumeDispatch
+    path: apis/graphql/schemas/mutation/clusterqueueresumedispatch
   - name: emailCreate
     path: apis/graphql/schemas/mutation/emailcreate
   - name: emailResendVerification
@@ -287,6 +291,10 @@
     path: apis/graphql/schemas/object/clusterqueueconnection
   - name: ClusterQueueEdge
     path: apis/graphql/schemas/object/clusterqueueedge
+  - name: ClusterQueuePauseDispatchPayload
+    path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
+  - name: ClusterQueueResumeDispatchPayload
+    path: apis/graphql/schemas/object/clusterqueueresumedispatchpayload
   - name: ClusterToken
     path: apis/graphql/schemas/object/clustertoken
   - name: Dependency
@@ -835,6 +843,10 @@
     path: apis/graphql/schemas/input-object/buildmetadatainput
   - name: BuildRebuildInput
     path: apis/graphql/schemas/input-object/buildrebuildinput
+  - name: ClusterQueuePauseDispatchInput
+    path: apis/graphql/schemas/input-object/clusterqueuepausedispatchinput
+  - name: ClusterQueueResumeDispatchInput
+    path: apis/graphql/schemas/input-object/clusterqueueresumedispatchinput
   - name: EmailCreateInput
     path: apis/graphql/schemas/input-object/emailcreateinput
   - name: EmailResendVerificationInput
