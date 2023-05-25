@@ -143,10 +143,16 @@ For example, if you have environment variable `MY_SECRET="topsecret"`and you run
 
 ## Private build log archive storage
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket.
+By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
->📘
-> This feature is only available to customers on the Buildkite <a href="https://buildkite.com/pricing">Enterprise</a> plan.
+>📘 Enterprise feature
+> This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
+
+The folder structure and file format are as follows and are not customizable:
+
+```text
+{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+```
 
 To set up a private build log archive storage:
 
