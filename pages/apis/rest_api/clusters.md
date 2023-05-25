@@ -13,8 +13,8 @@ A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines wit
   <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID of the cluster</a></td></tr>
   <tr><th><code>name</code></th><td>Name of the cluster</td></tr>
   <tr><th><code>description</code></th><td>Description of the cluster</td></tr>
-  <tr><th><code>emoji</code></th><td>Emoji that represents the cluster</td></tr>
-  <tr><th><code>color</code></th><td>Color that represents the cluster</td></tr>
+  <tr><th><code>emoji</code></th><td>Emoji assigned to the cluster</td></tr>
+  <tr><th><code>color</code></th><td>Color assigned to the cluster</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the cluster</td></tr>
   <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>  
   <tr><th><code>created_at</code></th><td>When the cluster was created</td></tr>
@@ -45,9 +45,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
     "created_by": {
       "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
       "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Keith Pitt",
-      "email": "keith@buildkite.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+      "name": "Sam Kim",
+      "email": "sam@example.com",
+      "avatar_url": "https://www.gravatar.com/avatar/example",
       "created_at": "2013-08-29T10:10:03.000Z"
     }
   }
@@ -78,9 +78,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}"
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
     "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Keith Pitt",
-    "email": "keith@buildkite.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
     "created_at": "2013-08-29T10:10:03.000Z"
   }
 }
