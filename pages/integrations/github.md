@@ -145,7 +145,6 @@ For example, if you have a monorepo containing three applications, you could use
 3. When you make a new commit or pull request, you should see _my-custom-status_ as the commit status:
     <%= image "github-custom-status.png", alt: "Screenshot of GitHub build settings and the resulting GitHub pull request statuses" %>
 
-
 You can also define the commit status in a group step:
 
 ```yml
