@@ -13,14 +13,13 @@ class Page::Renderer
     # It's like our own little HTML::Pipeline. These methods are easily
     # switchable to HTML::Pipeline steps in the future, if we so wish.
     doc = Nokogiri::HTML.fragment(html)
-    doc = add_custom_ids(doc)
     doc = add_custom_classes(doc)
     doc = add_automatic_ids_to_headings(doc)
     doc = add_heading_anchor_links(doc)
-    doc = add_table_of_contents(doc)
     doc = fix_curl_highlighting(doc)
     doc = add_code_filenames(doc)
     doc = add_callout(doc)
+    doc = decorate_external_links(doc)
     doc = init_responsive_tables(doc)
     doc.to_html.html_safe
   end
@@ -93,41 +92,6 @@ class Page::Renderer
     doc
   end
 
-  def add_table_of_contents(doc)
-    headings = doc.search('./h2')
-
-    # Third, we generate and replace the actual toc.
-    doc.search('./p').each do |node|
-      toc = '{:toc}'
-      notoc = '{:notoc}'
-
-      next unless [toc, notoc].include? node.text
-
-      if headings.empty? or node.text == notoc
-        node.replace('')
-      else
-        html_list_items = headings.map {|heading|
-          <<~HTML.strip
-            <li class="Toc__list-item"><a class="Toc__link" href="##{heading['id']}">#{heading.text.strip}</a></li>
-          HTML
-        }.join("").strip
-
-        node.replace(<<~HTML.strip)
-          <nav class="Toc">
-            <button class="Toc__toggle">
-              <h2 class="Toc__title">On this page</h2>
-            </button>
-            <ul class="Toc__list Toc__list--is-collapsed">
-              #{html_list_items}
-            </ul>
-          </nav>
-        HTML
-      end
-    end
-
-    doc
-  end
-
   def fix_curl_highlighting(doc)
     doc.search('.//code').each do |node|
       next unless node.text.starts_with?('curl ')
@@ -166,19 +130,6 @@ class Page::Renderer
     doc
   end
 
-  def add_custom_ids(doc)
-    doc.search('./p').each do |node|
-      next unless node.text.starts_with?('{: id=')
-
-      id = node.content[/id="(.*)"}/, 1]
-
-      node.previous_element['id'] = id
-      node.remove
-    end
-
-    doc
-  end
-
   def add_custom_classes(doc)
     doc.search('./p').each do |node|
       next unless node.text.starts_with?('{: class=')
@@ -187,6 +138,14 @@ class Page::Renderer
 
       node.previous_element['class'] = css_class
       node.remove
+    end
+
+    doc
+  end
+
+  def decorate_external_links(doc)
+    doc.css('a').each do |node|
+      Page::Renderers::ExternalLink.new(node).process
     end
 
     doc

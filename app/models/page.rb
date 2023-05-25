@@ -3,6 +3,23 @@
 class Page
   HEADING_REGEX = /^[#]{2}\s(.+)$/
 
+  class << self
+    # Find all markdown pages in the pages directory (ignoring partials).
+    def all
+      Dir.glob("#{Rails.root}/pages/**/*.md")
+        .select { |path | !path.to_s.include?("/_") }
+        .map do |path|
+          Struct.new(:path, :updated_at).new(
+            path
+              .sub("#{Rails.root}/pages/", "/docs/")
+              .sub(/\.md$/, "")
+              .gsub("_", "-"),
+            File.mtime(path)
+          )
+      end
+    end
+  end
+
   class TemplateBinding
     delegate_missing_to :@view_helpers
 
@@ -73,10 +90,14 @@ class Page
 
     def responsive_image_tag(image, width, height, image_tag_options={}, &block)
       max_width = image_tag_options.delete(:max_width)
-      container = content_tag :div, image_tag(image, image_tag_options), class: ["responsive-image-container", image_tag_options[:class]]
+
+      img_class = image_tag_options.delete(:class).try(:split, " ") || []
+      img_class << "responsive-image-container"
+
+      container = content_tag :div, image_tag(image, image_tag_options), class: img_class
 
       if max_width
-        content_tag :div, container, style: "max-width: #{max_width}px", class: image_tag_options[:class]
+        content_tag :div, container, style: "max-width: #{max_width}px"
       else
         container
       end
@@ -104,12 +125,16 @@ class Page
     agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
   end
 
+  def sections
+    extracted_data.fetch("sections")
+  end
+
   def description
     extracted_data.fetch("shortDescription")
   end
 
   def markdown_body
-    erb_renderer = ERB.new(contents, nil, '-')
+    erb_renderer = ERB.new(contents, trim_mode: '-')
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 
@@ -136,14 +161,28 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
+  def metadata
+    defaults = {
+      # Default to rendering table of contents
+      "toc": true,
+      # Default to H3s being included in the table of contents
+      "toc_include_h3": true
+    }
+    if file.front_matter
+      defaults.merge(file.front_matter.symbolize_keys)
+    else
+      defaults
+    end
+  end
+
   private
 
+  def file
+    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  end
+
   def contents
-    @contents ||= begin
-                    File.read(filename) if exists?
-                  rescue => e
-                    raise e
-                  end
+    file.content
   end
 
   def filename

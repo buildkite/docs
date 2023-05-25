@@ -5,10 +5,8 @@ When the agent invokes your build scripts it passes in a set of standard Buildki
 
 For best practices and recommendations about using secrets in your environment variables, see the [Managing secrets](/docs/pipelines/secrets) guide.
 
-{:toc}
 
 ## Buildkite environment variables
-{: id="bk-env-vars"}
 
 The following environment variables may be visible in your commands, plugins, and hooks.
 
@@ -140,7 +138,7 @@ If you're using the YAML Steps editor to define your pipeline, only the followin
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/environment-variables#runtime-variable-interpolation).
 
-Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#bk-env-vars) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
+Alternatively, You can also access the rest of the Buildkite [environment variables](/docs/pipelines/environment-variables#buildkite-environment-variables) by using a `pipeline.yml` file. Either define your entire pipeline in the YAML file, or you do a [pipeline upload](/docs/agent/v3/cli-pipeline) part way through your build that adds only the steps that use environment variables. See the [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) docs for more information about adding steps with pipeline uploads.
 
 ## Runtime variable interpolation
 

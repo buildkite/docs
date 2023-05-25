@@ -5,7 +5,6 @@ The Access token API allows you to inspect and revoke an API access token. This 
 >📘
 > All the endpoints expect the token to be provided using the <a href="/docs/apis/rest-api#authentication">Authorization HTTP header</a>.
 
-{:toc}
 
 ## Get the current token
 

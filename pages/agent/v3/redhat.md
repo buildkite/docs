@@ -3,7 +3,6 @@
 The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2
 using our yum repository.
 
-{:toc}
 
 ## Installation
 

@@ -2,3 +2,7 @@
 <% content_for :page_description, @page.description %>
 
 <%= @page.body %>
+
+<%= content_for :toc do %>
+  <%= render 'toc' %>
+<% end %>

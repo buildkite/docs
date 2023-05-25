@@ -3,7 +3,6 @@
 `bootstrap` is the command the agent executes when it comes to run a job on
 your agent.
 
-{:toc}
 
 ## Running the bootstrap
 

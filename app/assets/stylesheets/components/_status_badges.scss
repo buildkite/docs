@@ -1,6 +1,7 @@
 .status-badges__examples {
-  color: map-get($color-aliases, 'text-base');
-  th, td {
+  color: map-get($color-aliases, "text-base");
+  th,
+  td {
     padding: 5px 1px;
   }
   th {
@@ -18,7 +19,8 @@
     color: $gray-900;
   }
   @media (max-width: 768px) {
-    tr, th {
+    tr,
+    th {
       display: block;
     }
     tr {
@@ -30,7 +32,9 @@
     td {
       display: inline-block;
       padding: 0;
-      img { padding: 0; }
+      img {
+        padding: 0;
+      }
     }
     tr + tr {
       border-top: none;

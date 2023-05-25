@@ -16,20 +16,12 @@ fields:
   examples:
       - Student.isEnrolled()
 - name: name
-  required: false
+  required: true
   type: string
   desc: |
       A name or description for the test
   examples:
       - Manager.isEnrolled() returns_boolean
-- name: identifier
-  required: true
-  type: string
-  enumerated_values:
-  desc: |
-      A unique identifier for the test. If your test runner supports it, use the identifier needed to rerun this test
-  examples:
-      - Manager.isEnrolled#returns_boolean
 - name: location
   required: false
   type: string
@@ -69,7 +61,7 @@ fields:
   type: array of hashes
   desc: |
        A more detailed explanation of why the test failed
-  examples: 
+  examples:
 
 - name: history
   required: true

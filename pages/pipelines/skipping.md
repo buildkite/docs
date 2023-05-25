@@ -2,7 +2,6 @@
 
 Build skipping allows you to avoid unnecessary rebuilds, conserving resources and freeing up agents.
 
-{:toc}
 
 ## Skip queued intermediate builds
 

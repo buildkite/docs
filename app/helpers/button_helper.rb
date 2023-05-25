@@ -1,7 +1,10 @@
 module ButtonHelper
 
   def button(children, url = "", options = {})
-    css_classes = "Button Button--#{options[:type] || "default"}"
+    css_classes = "Button" 
+    css_classes << " Button--#{options[:type] || "default"}" 
+    css_classes << " Button--inline" if options[:inline]
+
     inner_html = (
       children.html_safe +
       if options[:has_right_arrow]

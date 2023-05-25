@@ -4,7 +4,6 @@ Build status badges help to visually show the current build state for a pipeline
 
 You can find your pipeline's status badge on the **Pipeline Settings** page.
 
-{:toc}
 
 ## Scoping to a branch
 

@@ -6,7 +6,6 @@ This guide explains how to trigger builds when you push to a Git server.
 For example, if you're using a proprietary Git server, then you can trigger builds on push with a post-recieve hook.
 This method can be adapted for other Git events or for running Buildkite builds from arbitrary scripts and services.
 
-{:toc}
 
 ## Before you start
 
@@ -71,6 +70,7 @@ while read -r _oldrev newrev ref; do
   curl -X POST \
     "https://api.buildkite.com/v2/organizations/$BUILDKITE_ORG_SLUG/pipelines/$BUILDKITE_PIPELINE_SLUG/builds" \
     -H "Authorization: Bearer $BUILDKITE_API_TOKEN" \
+    -H "Content-Type: application/json" \
     -d "$(printf "$BUILDKITE_PAYLOAD_FORMAT" "$newrev" "$branch" "$message" "$author" "$email")"
 done
 ```

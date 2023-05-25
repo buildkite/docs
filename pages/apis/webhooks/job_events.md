@@ -1,6 +1,5 @@
 # Job webhook events
 
-{:toc}
 
 ## Events
 

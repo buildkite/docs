@@ -1,8 +1,10 @@
+---
+toc: false
+---
+
 # Metrics API
 
 The Metrics API endpoint provides information on idle and busy agents, jobs, and queues for the [Agent registration token](/docs/agent/v3/tokens) supplied in the request `Authorization` header.
-
-{:notoc}
 
 ## Get metrics
 

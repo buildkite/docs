@@ -2,7 +2,6 @@
 
 Google Workspace (previously G Suite and Google Apps) can be used as an SSO provider for your Buildkite organization. To complete this tutorial, you will need admin privileges for Buildkite.
 
-{:toc}
 
 ## Step 1. Create an SSO provider
 

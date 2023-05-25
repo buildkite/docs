@@ -8,7 +8,6 @@ To use Test Analytics with your JavaScript (npm) projects, use the :github: [`te
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-{:toc}
 
 ## Add the test collector package
 

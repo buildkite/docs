@@ -4,7 +4,6 @@ Each [Buildkite plan](https://buildkite.com/pricing) has job minute inclusions, 
 
 Job minutes are calculated as the total number of minutes run by all `command` jobs in a build. It is calculated per-second, starting from when the agent starts running the job, until the job has completed.
 
-{:toc}
 
 You can find the total job run time for a build on the bottom of the [build page](/docs/pipelines#pipelines-page-walkthrough-build-page), and your organization's [total usage](#usage-page) in Settings.
 
@@ -18,9 +17,12 @@ Parallelism does not affect how job minutes are calculated, the following situat
 
 ## Usage page
 
-The [Usage page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows your plan information, any applicable inclusions or limits, and recent job minute usage.
+The [Usage page](https://buildkite.com/organizations/~/usage) is available on every Buildkite plan and shows a breakdown of job minutes and test executions for your organization.
 
-<%= image "usage.png", width: 554, height: 794, alt: "Job minute usage page" %>
+The [Job minutes usage page](https://buildkite.com/organizations/~/usage/job_minutes) graphs the total job minute usage over the organization's billing periods. It includes a breakdown of usage by pipeline and a CSV download of usage over the period.
+
+>📘 Calculating job minutes usage
+> We store job usage data in seconds but charge by summing all the usage and rounding down to the nearest minute. Please keep in mind that when displaying usage data per pipeline in the chart and CSV download, there may be minor discrepancies due to the rounding of each individual pipeline's usage.
 
 ## Limits for the Developer Plan
 

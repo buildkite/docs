@@ -1,10 +1,8 @@
 # Block step
 
-A *block* step is used to pause the execution of a build and wait on a team member to unblock it using the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
+A _block_ step is used to pause the execution of a build and wait on a team member to unblock it using the web or the [API](/docs/apis/rest-api/jobs#unblock-a-job).
 
 A block step is functionally identical to an [input step](/docs/pipelines/input-step), however a block step creates [implicit dependencies](/docs/pipelines/dependencies) to the steps before and after it. Note that explicit dependencies specified by `depends_on` take precedence over implicit dependencies; subsequent steps will run when the step they depend on passes, without waiting for `block` or `wait` steps, unless those are also explicit dependencies.
-
-{:toc}
 
 A block step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
@@ -12,19 +10,22 @@ Once all steps before the block have completed, the pipeline will pause and wait
 
 ```yml
 steps:
-  - block: "\:rocket\: Release!"
+  - block: "\:rocket\: Are we ready?"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
-<%= image "block-step.png", width: 944/2, height: 364/2, alt: "Screenshot of a basic block step" %>
+<%= image "unblock_button.png", width: 2048/2, height: 2048/2, alt: "Screenshot of button to press to unblock a block step" %>
+
+<%= image "confirm_modal.png", width: 2048/2, height: 2048/2, alt: "Screenshot of a basic block step" %>
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
-
-<%= image "block-step-with-fields.png", width: 944/2, height: 1178/2, alt: "Screenshot of a block step with input fields" %>
 
 The data you collect from these fields is then available to subsequent steps in the pipeline in the [build meta-data](/docs/pipelines/build-meta-data).
 
 In this example, the `pipeline.yml` defines an input step with the key `release-name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
+
+<%= image "release_modal_input.png", alt: "Screenshot of a block step with input fields" %>
 
 ```yml
 - block: "Release"
@@ -33,14 +34,16 @@ In this example, the `pipeline.yml` defines an input step with the key `release-
     - text: "Release Name"
       key: "release-name"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ```bash
 RELEASE_NAME=$(buildkite-agent meta-data get release-name)
 ```
+
 {: codeblock-file="script.sh"}
 
-For a complete example pipeline, including dynamically generated input fields, see the [Block step example pipeline](https://github.com/buildkite/block-step-example) on GitHub:
+For a complete example pipeline, including dynamically generated input fields, see the [Block step example pipeline](https://github.com/buildkite/block-step-example/blob/main/.buildkite/pipeline.yml) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/block-step-example"><span class="detail">:pipeline: Block Step Example Pipeline</span> <span class="repo">github.com/buildkite/block-step-example</span></a>
 
@@ -54,60 +57,60 @@ _Optional attributes:_
   <tr>
     <td><code>prompt</code></td>
     <td>
-      The instructional message displayed in the dialog box when the unblock step is activated.<br>
-      <em>Example:</em> <code>"Release to production?"</code><br>
-      <em>Example:</em> <code>"Fill out the details for this release"</code>
+      <p>The instructional message displayed in the dialog box when the unblock step is activated.</p>
+      <p><em>Example:</em></p>
+      <ul><li> <code>"Release to production?"</code></li><li><code>"Fill out the details for this release"</code></li></ul>
     </td>
   </tr>
   <tr>
     <td><code>fields</code></td>
     <td>
-      A list of input fields required to be filled out before unblocking the step.<br>
-      Available input field types: <code>text</code>, <code>select</code>
+      <p>A list of input fields required to be filled out before unblocking the step.</p>
+      <p>Available input field types: <code>text</code>, <code>select</code></p>
     </td>
   </tr>
     <tr>
     <td><code>blocked_state</code></td>
     <td>
-      <p>The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.<br>
-      <em>Default:</em> <code>passed</code><br>
-      <em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code></p>
+      <p>The state that the build is set to when the build is blocked by this block step. The default is passed. When the <code>blocked_state</code> of a block step is set to <code>failed</code>, the step that triggered it will be stuck in the <code>running</code> state until it is manually unblocked.</p>
+      <p><em>Default:</em> <code>passed</code></p>
+      <p><em>Values:</em> <code>passed</code>, <code>failed</code>, <code>running</code></p>
       <p>If you're using GitHub, you can also <a href="/docs/integrations/github#customizing-commit-statuses">configure which GitHub status</a> to use for blocked builds on a per-pipline basis.</p>
     </td>
   </tr>
   <tr>
     <td><code>branches</code></td>
     <td>
-      The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.<br>
-      <em>Example:</em> <code>"main stable/*"</code>
+      <p>The <a href="/docs/pipelines/branch-configuration#branch-pattern-examples">branch pattern</a> defining which branches will include this block step in their builds.</p>
+      <p><em>Example:</em> <code>"main stable/*"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>if</code></td>
     <td>
-      A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.<br>
-      <em>Example:</em> <code>build.message != "skip me"</code>
+      <p>A boolean expression that omits the step when false. See <a href="/docs/pipelines/conditionals">Using conditionals</a> for supported expressions.</p>
+      <p><em>Example:</em> <code>build.message != "skip me"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>depends_on</code></td>
     <td>
-      A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.<br>
-      <em>Example:</em> <code>"test-suite"</code>
+      <p>A list of step keys that this step depends on. This step will only proceed after the named steps have completed. See <a href="/docs/pipelines/dependencies">managing step dependencies</a> for more information.</p>
+      <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>
   <tr>
     <td><code>key</code></td>
     <td>
-	    A unique string to identify the block step.
-      <em>Example:</em> <code>"test-suite"</code>
+	    <p>A unique string to identify the block step.</p>
+      <p><em>Example:</em> <code>"test-suite"</code></p>
     </td>
    </tr>
    <tr>
     <td><code>allow_dependency_failure</code></td>
     <td>
-      Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.<br>
-      <em>Default:</em> <code>false</code>
+      <p>Whether to continue to proceed past this step if any of the steps named in the <code>depends_on</code> attribute fail.</p>
+      <p><em>Default:</em> <code>false</code></p>
     </td>
   </tr>
 </table>
@@ -116,11 +119,12 @@ _Optional attributes:_
 steps:
   - block: "\:rocket\: Release!"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Text input attributes
 
->📘 Line endings
+> 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
 
 _Required attributes:_
@@ -129,9 +133,9 @@ _Required attributes:_
   <tr>
     <td><code>key</code></td>
     <td>
-      The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
-      The key may only contain alphanumeric characters, slashes, dashes, or underscores.
-      <em>Example:</em> <code>"release-name"</code>
+      <p>The meta-data key that stores the field's input (using the <a href="/docs/agent/v3/cli-meta-data">buildkite-agent meta-data command</a>)<br>
+      The key may only contain alphanumeric characters, slashes, dashes, or underscores.</p>
+      <p><em>Example:</em> <code>"release-name"</code></p>
     </td>
   </tr>
 </table>
@@ -143,6 +147,7 @@ steps:
       - text: "Code Name"
         key: "release-name"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -151,22 +156,22 @@ _Optional attributes:_
   <tr>
     <td><code>hint</code></td>
     <td>
-      The explanatory text that is shown after the label.<br>
-      <em>Example:</em> <code>"What's the code name for this release? \:name_badge\:"</code>
+      <p>The explanatory text that is shown after the label.</p>
+      <p><em>Example:</em> <code>"What's the code name for this release? \:name_badge\:"</code></p>
     </td>
   </tr>
   <tr>
     <td><code>required</code></td>
     <td>
-      A boolean value that defines whether the field is required for form submission.<br>
-      <em>Default value:</em> <code>true</code>
+      <p>A boolean value that defines whether the field is required for form submission.</p>
+      <p><em>Default value:</em> <code>true</code></p>
     </td>
   </tr>
   <tr>
     <td><code>default</code></td>
     <td>
-      The value that is pre-filled in the text field.<br>
-      <em>Example:</em> <code>"Flying Dolphin"</code>
+      <p>The value that is pre-filled in the text field.</p>
+      <p><em>Example:</em> <code>"Flying Dolphin"</code></p>
     </td>
   </tr>
 </table>
@@ -181,6 +186,7 @@ steps:
         required: false
         default: "Release #"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Select input attributes
@@ -237,6 +243,7 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -290,6 +297,7 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ```yml
@@ -315,6 +323,7 @@ steps:
           - label: "Oceania"
             value: "aunz"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Passing block step data to other steps
@@ -330,6 +339,7 @@ steps:
       - text: "Code Name"
         key: "release-name"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 You can access the stored meta-data after the block step has passed. Use the `buildkite-agent meta-data get` command to retrieve your data:
@@ -338,7 +348,7 @@ You can access the stored meta-data after the block step has passed. Use the `bu
 buildkite-agent meta-data get "release-name"
 ```
 
->🚧
+> 🚧
 > Meta-data cannot be interpolated directly from the <code>pipeline.yml</code> at runtime. The meta-data store can only be accessed from within a command step.
 
 In the below example, the script uses the `buildkite-agent` meta-data command to retrieve the meta-data and print it to the log:
@@ -358,26 +368,26 @@ You can modify a trigger step to dynamically upload itself to a pipeline as foll
 
 1. Move your trigger step from your `pipeline.yml` file into a script. The below example script is stored in a file named `.buildkite/trigger-deploy.sh`:
 
-    ```bash
-    #!/bin/bash
-    
-    set -euo pipefail
-    
-    # Set up a variable to hold the meta-data from your block step
-    RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
-    
-    # Create a pipeline with your trigger step
-    PIPELINE="steps:
-      - trigger: \"deploy-pipeline\"
-        label: \"Trigger deploy\"
-        build:
-          meta_data:
-            release-name: $RELEASE_NAME
-    "
-   
-    # Upload the new pipeline and add it to the current build
-    echo "$PIPELINE" | buildkite-agent pipeline upload
-    ```
+   ```bash
+   #!/bin/bash
+
+   set -euo pipefail
+
+   # Set up a variable to hold the meta-data from your block step
+   RELEASE_NAME="$(buildkite-agent meta-data get "release-name")"
+
+   # Create a pipeline with your trigger step
+   PIPELINE="steps:
+     - trigger: \"deploy-pipeline\"
+       label: \"Trigger deploy\"
+       build:
+         meta_data:
+           release-name: $RELEASE_NAME
+   "
+
+   # Upload the new pipeline and add it to the current build
+   echo "$PIPELINE" | buildkite-agent pipeline upload
+   ```
 
 1. Replace the old trigger step in your `pipeline.yml` with a dynamic pipeline upload:
 
@@ -394,6 +404,7 @@ steps:
   - trigger: "deploy-pipeline"
     label: "Trigger Deploy"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 #### After
@@ -409,11 +420,10 @@ steps:
   - command: ".buildkite/trigger-deploy.sh"
     label: "Prepare Deploy Trigger"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 The command step added in the above example will upload the trigger step and add it to the end of our pipeline at runtime.
-
-<%= image "block-trigger-pipeline.png", width: 2328/2, height: 952/2, alt: "Screenshot of pipeline showing the uploaded trigger step" %>
 
 In the pipeline you're triggering, you will be able to use the meta-data that you have passed through as if it was set during the triggered build.
 

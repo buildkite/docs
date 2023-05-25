@@ -2,7 +2,6 @@
 
 This guide explains the differences between the web-based editor and the YAML Steps editor, and shows how to migrate your organization's pipelines to YAML Steps.
 
-{:toc}
 
 There are two parts to migrating:
 
