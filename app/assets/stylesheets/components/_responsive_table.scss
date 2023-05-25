@@ -102,18 +102,18 @@
       grid-template-columns: 1fr;
       padding-bottom: 15px;
       padding-top: 15px;
-  
+
       @media (min-width: $screen-sm) and (max-width: ($screen-md - 1)) {
         gap: ($gutter / 2) $gutter;
         grid-template-columns: 20ch 1fr;
         padding-bottom: 1rem;
         padding-top: 1rem;
       }
-  
+
       @media (min-width: $screen-md) {
         display: table-row;
       }
-  
+
       &:not(:first-child) {
         border-top: 0;
       }
@@ -148,7 +148,7 @@
 
   .responsive-table__faux-th {
     font-weight: 600;
-    
+
     @media (min-width: $screen-md) {
       display: none;
     }

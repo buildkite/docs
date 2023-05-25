@@ -1,10 +1,12 @@
+---
+toc: false
+---
+
 # Android collectors
 
 To use Test Analytics with your Android projects use the :github: [`test-collector-android`](https://github.com/buildkite/test-collector-android) package.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
-
-{:notoc}
 
 ## Android
 
@@ -54,12 +56,12 @@ Before you start, make sure your tests run with access to [CI environment variab
             ...
 
             buildConfigField(
-                "String", 
-                "BUILDKITE_ANALYTICS_TOKEN", 
+                "String",
+                "BUILDKITE_ANALYTICS_TOKEN",
                 "\"${System.getenv("BUILDKITE_ANALYTICS_TOKEN")}\""
             )
         }
-    }    
+    }
     ```
 
     Sync Gradle, and rebuild the project to ensure the `BuildConfig` is generated.

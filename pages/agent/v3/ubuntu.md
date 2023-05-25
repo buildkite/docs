@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on Ubuntu versions 18.04 and above using our signed apt repository.
 
-{:toc}
 
 ## Installation
 

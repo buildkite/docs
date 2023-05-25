@@ -4,7 +4,6 @@ Buildkite can connect to a GitHub repository in your GitHub account or GitHub or
 
 To complete this integration, you need admin privileges for your GitHub repository.
 
-{:toc}
 
 ## Connecting Buildkite and GitHub
 
@@ -79,7 +78,11 @@ Optionally, select one or more of the following:
 * _Rebuild pull requests when they become ready for review_
 * _Build pull requests from third-party forked repositories_. Make sure to check the [managing secrets](/docs/pipelines/secrets) guide if you choose to do this.
 
+If you want to control which third-party forks can trigger builds in GitHub, you can prefix the branches from third-party forks with the contributor's username. For example, the `main` branch from `some-user` becomes `some-user:main`. You can then detect these using a pre-command hook or something similar before running a build. To enable prefixing the branch names, go to the GitHub settings for the pipeline and select _Prefix third-party fork branch names_.
+
 If you want to run builds only on pull requests, set the _Branch Filter Pattern_ in the pipeline to a branch name that will never occur (such as "this-branch-will-never-occur"). Pull request builds ignore the _Branch Filter Pattern_, and all pushes to other branches that don't match the pattern are ignored.
+
+When you create a pull request, two builds are triggered: one for the pull request and one for the most recent commit. However, any commit made after the pull request is created only triggers one build.
 
 ## Running builds on git tags
 

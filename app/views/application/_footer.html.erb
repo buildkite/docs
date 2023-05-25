@@ -1,21 +1,25 @@
+<% hide_feedback = hide_feedback || false %>
+
 <footer class="Footer">
   <hr />
-  <div class="Footer__heading">How helpful was this page?</div>
-  <% if embed_emojicom %>
+
+  <% unless hide_feedback %>
+    <div class="Footer__heading">How helpful was this page?</div>
     <div id="emojicom-widget-inline"></div>
+    <p>If you have questions or feedback</p>
+    <div class="Footer__links">
+      <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
+        <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/issue.svg') %>" />
+        Open an issue
+      </a>
+      <a class="Button Button--default" href="<%= open_source_url %>">
+        <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/pull-request.svg') %>" />
+        Contribute an update
+      </a>
+    </div>
+    <hr />
   <% end %>
-  <p>If you have questions or feedback</p>
-  <div class="Footer__links">
-    <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
-      <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/issue.svg') %>" />
-      Open an issue
-    </a>
-    <a class="Button Button--default" href="<%= open_source_url %>">
-      <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/pull-request.svg') %>" />
-      Contribute an update
-    </a>
-  </div>
-  <hr />
+
   <div class="Footer__heading">Need more help?</div>
   <div class="Footer__links">
     <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
@@ -38,7 +42,7 @@
   </div>
 </footer>
 
-<% if embed_emojicom %>
+<% unless hide_feedback %>
   <% emojicom_campaign_id = Rails.env.production? ? '7O7Rc8JaykqXiCmaqe1C' : 'YeriBgQjRQmOU3br2W1g' %>
   <!-- Start emojicom.io widget -->
   <%= javascript_tag nonce: true do %>

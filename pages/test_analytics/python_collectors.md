@@ -1,10 +1,12 @@
+---
+toc: false
+---
+
 # Python collectors
 
 To use Test Analytics with your Python projects use the [`buildkite-test-collector`](https://pypi.org/project/buildkite-test-collector/) package with pytest.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
-
-{:notoc}
 
 ## pytest collector
 

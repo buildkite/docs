@@ -1,6 +1,5 @@
 # Artifacts API
 
-{:toc}
 
 ## Artifact data model
 

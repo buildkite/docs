@@ -3,12 +3,12 @@
   <head>
     <%= render "head" %>
   </head>
-  <body <%= beta? ? 'class=beta' : ''-%>>
-    <%= render "home_header" %>
+  <body>
+    <%= render "site_header" %>
     <main id="main" role="main">
-      <div class="PageContainer">
+      <div class="HomePage__container">
         <%= yield %>
-        <%= render "footer", :embed_emojicom => false %>
+        <%= render "footer", hide_feedback: true %>
       </div>
     </main>
     <%= render "algolia" %>

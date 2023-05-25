@@ -2,7 +2,6 @@
 
 When you need to use secret values in your pipelines, there are some best practices you should follow to ensure they stay safely within your infrastructure and are never stored in, or sent to, Buildkite.
 
-{:toc}
 
 ## Using a secrets storage service
 
@@ -125,6 +124,7 @@ steps:
   - command: |
       curl \
         --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+        --header "Content-Type: application/json" \
         --request POST \
         --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
         https://api.github.com/repos/my-org/my-app/deployments
@@ -156,6 +156,7 @@ steps:
   - command: |
       curl \
         --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+        --header "Content-Type: application/json" \
         --request POST \
         --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
         https://api.github.com/repos/my-org/my-app/deployments

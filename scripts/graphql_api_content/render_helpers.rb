@@ -10,21 +10,24 @@ module RenderHelpers
     markdown ? CommonMarker.render_html(markdown) : nil
   end
 
-  def render_of_type(of_type, size = "medium")
-    if of_type["ofType"]
-      render_of_type(of_type["ofType"])
+  def render_of_type(type, nullable = true, size = "medium")
+    if type["ofType"]
+      nullable = type["kind"] != "NON_NULL"
+      render_of_type(type["ofType"], nullable)
     else
-      kind = of_type["kind"] || ""
-      if name = of_type["name"]
+      kind = type["kind"] || ""
+      nullable_symbol = nullable ? "!" : ""
+
+      if name = type["name"]
         <<~HTML
-          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{name}</code></a>
+          <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}"><code>#{name}#{nullable_symbol}</code></a>
         HTML
       else
         kind
       end
     end
   end
-  
+
   def render_table(schema_type_data)
     if table_data = schema_type_data["fields"] || schema_type_data["args"] || nil
       table_heading = schema_type_data["fields"] ? "Fields" : "Arguments"
@@ -62,7 +65,7 @@ module RenderHelpers
       end
     end
   end
-  
+
   def render_field_args(args)
     if args.is_a?(Array) && !args.empty?
       <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
@@ -80,7 +83,6 @@ module RenderHelpers
                           <h4 class="is-small has-pills no-margin">
                             <code>#{arg["name"]}</code>
                             #{render_of_type(arg["type"])}
-                            #{!arg["defaultValue"] ? '<span class="pill pill--required pill--normal-case"><code>required</code></span>' : ""}
                           </h4>
                           #{arg["description"] && "#{render_html(arg["description"])}"}
                           #{arg["defaultValue"] && "<p class=\"no-margin\">Default value: <code>#{arg["defaultValue"]}</code></p>"}
@@ -96,16 +98,16 @@ module RenderHelpers
       HTML
     end
   end
-  
+
   def render_possible_types(possible_types)
     if possible_types.is_a?(Array) && !possible_types.empty?
       <<~HTML
         <h2 data-algolia-exclude>Possible types</h2>
-        #{possible_types.map { |possible_type| render_of_type(possible_type, "large") }.join('')}
+        #{possible_types.map { |possible_type| render_of_type(possible_type, false, "large") }.join('')}
       HTML
     end
   end
-  
+
   def render_input_fields(input_fields)
     if input_fields.is_a?(Array) && !input_fields.empty?
       <<~HTML
@@ -125,7 +127,6 @@ module RenderHelpers
                       <p>
                         <strong><code>#{input_field["name"]}</code></strong>
                         #{render_of_type(input_field["type"])}
-                        #{!input_field["defaultValue"] ? "<span class=\"pill pill--required pill--normal-case pill--medium\">required</span>" : nil}
                       </p>
                       #{input_field["description"] ? "#{render_html(input_field["description"])}" : nil}
                       #{input_field["defaultValue"] ? "<p>Default value: #{input_field["defaultValue"]}</p>" : nil}
@@ -139,7 +140,7 @@ module RenderHelpers
       HTML
     end
   end
-  
+
   def render_interfaces(interfaces)
     if interfaces.is_a?(Array) && !interfaces.empty?
       <<~HTML
@@ -147,13 +148,13 @@ module RenderHelpers
         #{
           interfaces.map {
             |interface|
-            render_of_type(interface, "large")
+            render_of_type(interface, false, "large")
           }.join('')
         }
       HTML
     end
   end
-  
+
   def render_enum_values(enum_values)
     if enum_values.is_a?(Array) && !enum_values.empty?
       <<~HTML
@@ -186,7 +187,7 @@ module RenderHelpers
       HTML
     end
   end
-  
+
   def render_pill(schema_type_data, size = "medium")
     if kind = schema_type_data["kind"]
       <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
@@ -195,7 +196,7 @@ module RenderHelpers
         </span>
       HTML
     elsif type = schema_type_data["type"]
-      render_of_type(type, "large")
+      render_of_type(type, false, "large")
     else
       ""
     end
@@ -211,13 +212,16 @@ module RenderHelpers
     valeOff = @@vale_off_pages.any? { |page_name| page_name == name }
 
     page_content = <<~HTML.strip
+      ---
+      toc: false
+      ---
       <!--
-        _____   ____    _   _  ____ _______   ______ _____ _____ _______ 
+        _____   ____    _   _  ____ _______   ______ _____ _____ _______
         |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
-        | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |   
-        | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |   
-        | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |   
-        |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|   
+        | |  | | |  | | |  \| | |  | | | |    | |__  | |  | || |    | |
+        | |  | | |  | | | . ` | |  | | | |    |  __| | |  | || |    | |
+        | |__| | |__| | | |\  | |__| | | |    | |____| |__| || |_   | |
+        |_____/ \____/  |_| \_|\____/  |_|    |______|_____/_____|  |_|
         This file is auto-generated by script/generate_graphql_api_content.sh,
         please build the schema.json by running `rails api:graph:export`
         with https://github.com/buildkite/buildkite/,
@@ -234,8 +238,6 @@ module RenderHelpers
 
       #{render_html(schema_type_data["description"])}
 
-      {:notoc}
-
       #{table}
 
       #{input_fields}
@@ -243,7 +245,7 @@ module RenderHelpers
       #{interfaces}
 
       #{possible_types}
-      
+
       #{enum_values}
       #{valeOff ? "<!-- vale on -->" : nil}
     HTML

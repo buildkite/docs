@@ -6,7 +6,6 @@ For example, you can group all of your linting steps or all of your UI test step
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
 
-{:toc}
 
 A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.
 

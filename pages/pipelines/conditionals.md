@@ -4,7 +4,6 @@ Using conditionals, you can run builds or steps only when specific conditions ar
 
 You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
-{:toc}
 
 ## Conditionals in pipelines
 
@@ -198,22 +197,50 @@ The following variables are supported by the `if` attribute. Note that you canno
 	<tr>
 		<td><code>build.creator.email</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified-commits">unverified</a></strong> email of the user who created the build. </td>
+		<td><p>The email address of the user who created the build. The value differs depending on how the build was created:</p>
+			<ul>
+				<li><strong>Buildkite dashboard:</strong> Set based on who manually created the build.</li>
+				<li><strong>GitHub webhook:</strong> Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit.</li>
+				<li><strong>Webhook:</strong> Set based on which user is attached to the API Key used.</li>
+			</ul>
+  			<p>For conditionals to use this variable, the user set must be a verified Buildkite user.</p>
+		</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.id</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified-commits">unverified</a></strong> ID of the user who created the build</td>
+		<td><p>The ID of the user who created the build. The value differs depending on how the build was created:</p>
+			<ul>
+				<li><strong>Buildkite dashboard:</strong> Set based on who manually created the build.</li>
+				<li><strong>GitHub webhook:</strong> Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit.</li>
+				<li><strong>Webhook:</strong> Set based on which user is attached to the API Key used.</li>
+			</ul>
+  			<p>For conditionals to use this variable, the user set must be a verified Buildkite user.</p>
+		</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.name</code></td>
 		<td><code>String</code></td>
-		<td>The <strong><a href="#unverified-commits">unverified</a></strong> name of the user who created the build</td>
+		<td><p>The name of the user who created the build. The value differs depending on how the build was created:</p>
+			<ul>
+				<li><strong>Buildkite dashboard:</strong> Set based on who manually created the build.</li>
+				<li><strong>GitHub webhook:</strong> Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit.</li>
+				<li><strong>Webhook:</strong> Set based on which user is attached to the API Key used.</li>
+			</ul>
+  			<p>For conditionals to use this variable, the user set must be a verified Buildkite user.</p>
+		</td>
 	</tr>
 	<tr>
 		<td><code>build.creator.teams</code></td>
 		<td><code>Array</code></td>
-		<td>An <strong><a href="#unverified-commits">unverified</a></strong> array of the team/s which the user who created the build is a member of</td>
+		<td><p>An array of the teams which the user who created the build is a member of. The value differs depending on how the build was created:</p>
+			<ul>
+				<li><strong>Buildkite dashboard:</strong> Set based on who manually created the build.</li>
+				<li><strong>GitHub webhook:</strong> Set from the <strong><a href="#unverified-commits">unverified</a></strong> HEAD commit.</li>
+				<li><strong>Webhook:</strong> Set based on which user is attached to the API Key used.</li>
+			</ul>
+  			<p>For conditionals to use this variable, the user set must be a verified Buildkite user.</p>
+		</td>
 	</tr>
 	<tr>
 		<td><code>build.env()</code></td>

@@ -8,7 +8,6 @@ If you don't want your steps to run at the same time, you can add [wait steps](/
 
 A single command step can also be broken up into many [parallel jobs](#parallel-jobs). For example, a long-running test suite can be split into many parallel pieces across multiple agents, reducing the total run time of your build.
 
-{:toc}
 
 ## Running multiple agents
 

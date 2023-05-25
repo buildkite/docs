@@ -4,7 +4,6 @@ A *trigger* step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
 
-{:toc}
 
 A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
@@ -44,8 +43,6 @@ _Required attributes:_
   </tr>
 </table>
 
->🚧
-> When a <a href="/docs/pipelines/trigger-step">triggered build</a> fails, the step that triggered it will be stuck in the <code>running</code> state forever.
 
 _Optional attributes:_
 
@@ -110,6 +107,16 @@ _Optional attributes:_
       <em>Example:</em> <code>"My reason"</code>
     </td>
   </tr>
+  <tr>
+    <td><code>soft_fail</code></td>
+    <td>
+      Allow specified non-zero exit statuses not to fail the build.
+      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
+      <em>Example:</em> <code>true</code><br>
+      <em>Example:</em><br>
+      <code>- exit_status: 1</code><br>
+    </td>
+  </tr>
 </table>
 
 _Optional_ `build` _attributes:_
@@ -160,6 +167,38 @@ _Optional_ `build` _attributes:_
   build:
     meta_data:
       release-version: "1.1"
+```
+{: codeblock-file="pipeline.yml"}
+
+## Soft fail attributes
+
+_Optional Attributes_
+
+<table>
+  <tr>
+    <td><code>exit_status</code></td>
+    <td>
+      Allow specified non-zero exit statuses not to fail the build.
+      <br>
+      <em>Example:</em> <code>"*"</code><br>
+      <em>Example:</em> <code>1</code><br>
+      <em>Example:</em> <code>true</code>
+    </td>
+  </tr>
+</table>
+
+```yml
+- trigger: "some-tests"
+    label: "I don't want to fail my triggering build"
+    soft_fail: true
+```
+{: codeblock-file="pipeline.yml"}
+
+```yml
+- trigger: "some-tests"
+    label: "I don't want to fail my triggering build"
+    soft_fail:
+      - exit_status: 1
 ```
 {: codeblock-file="pipeline.yml"}
 

@@ -154,6 +154,12 @@ attributes:
   required: false
   desc: |
         The DogStatsD instance to send metrics to using UDP.
+- name: metrics-datadog-distributions
+  env_var: BUILDKITE_METRICS_DATADOG_DISTRIBUTIONS
+  default_value: "false"
+  required: false
+  desc: |
+      Use [Datadog Distributions](https://docs.datadoghq.com/metrics/types/?tab=distribution#metric-types) for timing metrics. This is advisable when running multiple agents. Otherwise, metrics from multiple agents may be rolled up and appear to have the same value.
 - name: name
   env_var: BUILDKITE_AGENT_NAME
   default_value: "%hostname-%spawn"
@@ -234,7 +240,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Force checking out a fresh clone of plugins every build. By default, if the organization, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development.
+      Force checking out a fresh clone of plugins every build. By default, if the organization, repository, and version tag of a plugin specified in a step match a plugin that is already on the agent, the agent uses that local version. Forcing fresh checkout is especially useful during plugin development. Available from [v3.37](https://github.com/buildkite/agent/releases/tag/v3.37.0).
 - name: priority
   env_var: BUILDKITE_AGENT_PRIORITY
   default_value: "null"

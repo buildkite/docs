@@ -4,7 +4,6 @@ Buildkite API access tokens are issued to individuals not organizations. You can
 
 On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
-{:toc}
 
 ## Token scopes
 
@@ -56,10 +55,13 @@ From the API access audit page, find the token whose access you want to remove. 
 
 Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
 
-Removing access from a token will send a notification email to the token's owner.
+Removing access from a token sends a notification email to the token's owner, who cannot re-add your organization to the token's scope.
 
->📘
-> Removing access from a token does not delete the token, however token owner cannot re-add your organization to their token's scope.
+## Limiting API Access by IP address
+
+If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's permission settings](https://buildkite.com/organizations/~/member-permissions).
+
+You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
 ## Programmatically managing tokens
 
@@ -73,7 +75,7 @@ No, you can change the scope and description of a token, or revoke it, but you c
 
 ### Can I re-add my organization to a token?
 
-Yes, the token owner can re-add the organization to the token from their _API Access Tokens_ settings page.
+No. If an organization has revoked a token, it cannot be re-added to the token. The token owner would have to create a new token with access to your organization.
 
 ### Can I delete a token?
 

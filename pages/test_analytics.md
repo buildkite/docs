@@ -1,3 +1,7 @@
+---
+toc: true
+---
+
 # Buildkite Test Analytics
 
 Where Buildkite Pipelines help you automate your build pipelines,
@@ -8,8 +12,6 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 - Identify, fix, and monitor test suite performance
 - Track, improve, and monitor test suite reliability
 
-{:notoc}
-
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 
 ## Get started
@@ -19,7 +21,9 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 <div class="ButtonGroup">
   <%= button ":rspec: RSpec", "/docs/test-analytics/ruby-collectors#rspec-collector" %>
   <%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
-  <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors" %>
+  <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jest" %>
+  <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha-collector" %>
+  <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine-collector" %>
   <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>

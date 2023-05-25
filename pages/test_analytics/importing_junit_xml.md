@@ -2,7 +2,6 @@
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
 
-{:toc}
 
 ## Mandatory JUnit XML attributes
 
@@ -36,7 +35,7 @@ See more configuration information in the [Test Collector plugin README](https:/
 
 Using the plugin is the recommended way as it allows for a better debugging process in case of an issue.
 
-An equivalent of Buildkite Test Collector plugin for GitHub Action and CircleCI Orb is in the works. Stay tuned!
+An equivalent of Buildkite Test Collector plugin for GitHub Actions and CircleCI Orb is in the works. Stay tuned!
 
 ### Not using a plugin
 

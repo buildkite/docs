@@ -5,7 +5,6 @@
 
 Merge queues are a feature of GitHub to improve development velocity on busy branches. They can increase the rate at which pull requests are merged into a branch while ensuring all the required branch protection checks pass. Merge queues preserve the order of pull requests to merge, remove redundant builds, and reduce flaky merges.
 
-{:toc}
 
 ## Before you start
 

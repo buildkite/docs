@@ -6,11 +6,11 @@
   @supports (backdrop-filter: blur(2px)) {
     -webkit-backdrop-filter: blur(2px);
     backdrop-filter: blur(2px);
-    background-color: rgba($base-0, .85);
+    background-color: rgba($base-0, 0.85);
   }
-  
+
   @media (min-width: $screen-md) {
-    min-height: map-get($header-height, 'two-rows');
+    min-height: map-get($header-height, "two-rows");
     padding-right: 0;
     position: fixed;
     top: 0;
@@ -19,16 +19,12 @@
   }
 
   @media (min-width: $screen-lg) {
-    min-height: map-get($header-height, 'one-row');
+    min-height: map-get($header-height, "one-row");
   }
 }
 
 .SiteHeader__container {
-  max-width: map-get($max-w, 'outer-container');
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: $gutter / 2;
-  padding-right: $gutter / 2;
+  @include container("outer-container");
 }
 
 .SiteHeader__inner {
@@ -61,7 +57,7 @@
   .SiteHeader__search {
     margin-right: 0;
   }
-  
+
   .SiteHeader__nav {
     border-top: 1px solid $gray-300;
     order: 4;
@@ -92,10 +88,10 @@
 }
 
 .SiteHeader__links {
-  border-top: 1px solid map-get($color-aliases, 'border');
+  border-top: 1px solid map-get($color-aliases, "border");
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: 0.5rem;
 
   @media (min-width: $screen-sm) {
     flex-direction: row;
@@ -106,11 +102,10 @@
   color: $charcoal-900;
   text-decoration: none;
   transition: color $transition-speed;
-  will-change: color;
 
   &:hover,
   &:focus,
   &:active {
-    color: map-get($color-aliases, 'brand');
+    color: map-get($color-aliases, "brand");
   }
 }
