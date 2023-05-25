@@ -1,102 +1,4 @@
-$color-green: rgb(3, 165, 98);
-
-.Docs__page-container {
-  @media (min-width: $screen-md) {
-    padding-top: map-get($header-height, "two-rows") + 30px;
-  }
-
-  @media (min-width: $screen-lg) {
-    padding-top: map-get($header-height, "one-row") + 30px;
-  }
-}
-
-.Docs__page-container__inner {
-  margin-top: 15px;
-
-  @media (min-width: $screen-md) {
-    display: flex;
-    margin-top: 0;
-  }
-}
-
-.Docs__header {
-  @media (max-width: ($screen-md - 1)) {
-    font-size: 2rem;
-  }
-}
-
-.Docs__article {
-  flex: 7;
-  font-weight: 400;
-
-  @media (min-width: $screen-md) {
-    margin-left: $sidebar-width + ($gutter / 2);
-    margin-top: map-get($header-height, "two-rows") - 24px;
-  }
-
-  @media (min-width: $screen-lg) {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: map-get($header-height, "one-row") - 24px;
-    max-width: map-get($max-w, "prose");
-  }
-
-  &--is-landing-page {
-    max-width: none;
-
-    @media (min-width: $screen-md) {
-      margin-left: $sidebar-width + ($gutter / 2);
-    }
-  }
-
-  img.no-decoration,
-  .responsive-image-container.no-decoration {
-    padding: 0;
-    border: none;
-    margin: 0;
-  }
-  img.emoji {
-    padding: 0;
-    border: none;
-  }
-  hr + h2 {
-    margin-top: 0;
-  }
-  th {
-    font-weight: 600;
-  }
-  thead th {
-    font-weight: 600;
-  }
-  .image,
-  img {
-    max-width: 100%;
-  }
-  .responsive-image-container {
-    margin: 0.5rem 0 2rem 0;
-  }
-  li .responsive-image-container {
-    margin: 0.5rem 0 0 0;
-  }
-
-  table.fixed-width {
-    // In general, the width of our tables within articles depends on the size of their content. This works great except
-    // when we have text such as a HTTP response snippet that includes a long unbroken string. When that happens, the
-    // table overflows outside of its bounding box and doesn't wrap or scroll nicely, causing text cropping. Use this
-    // "fixed-width" class for a table that won't overflow it's bounding box horizontally and forces text wrapping.
-
-    table-layout: fixed;
-    width: 100%;
-    th {
-      width: 25%;
-    }
-    tr {
-      width: 75%;
-    }
-  }
-}
-
-.Docs__article .Docs__api-param-eg {
+.Docs__api-param-eg {
   margin: 0.25em 0 0 0;
 }
 
@@ -200,8 +102,8 @@ $color-green: rgb(3, 165, 98);
 }
 
 a.Docs__example-repo {
-  align-items: top;
   border: 1px solid #ccc;
+  color: map-get($color-aliases, "text-base");
   display: flex;
   padding: 15px;
   text-decoration: none;
@@ -303,9 +205,8 @@ html {
 }
 
 body.beta {
-  .Docs__article {
-    h1,
-    .Docs__heading {
+  .Article {
+    > h1:first-of-type {
       display: inline;
       position: relative;
 
@@ -313,9 +214,9 @@ body.beta {
         @include pill;
         @include pill-style(beta);
         @include pill-small;
-        left: 5px;
+        left: 1em;
         position: relative;
-        top: -5px;
+        top: -1em;
       }
     }
   }

@@ -12,11 +12,11 @@ script.
 
 -->
 
-## Usage
+### Usage
 
 `buildkite-agent start [options...]`
 
-## Description
+### Description
 
 When a job is ready to run it will call the &quot;bootstrap-script&quot;
 and pass it all the environment variables required for the job to run.
@@ -25,11 +25,11 @@ actual build script defined in the pipeline.
 
 The agent will run any jobs within a PTY (pseudo terminal) if available.
 
-## Example
+### Example
 
     $ buildkite-agent start --token xxx
 
-## Options
+### Options
 
 <!-- vale off -->
 

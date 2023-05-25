@@ -50,6 +50,15 @@ gem 'front_matter_parser'
 
 gem 'matrix'
 
+# Asset compilation
+gem 'vite_rails'
+
+# No page reloads
+gem 'turbo-rails'
+
+# Sitemap
+gem 'sitemap_generator'
+
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: [:mri, :mingw, :x64_mingw]

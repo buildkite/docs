@@ -7,7 +7,7 @@ first_param = false
 ARGF.each_with_index do |line, line_num|
     # Headings
     if /^(\w*):/ =~ line
-        puts "## #{$1}"
+        puts "### #{$1}"
     # Initial usage command
     elsif line_num == 2
         puts "`#{line.strip}`"

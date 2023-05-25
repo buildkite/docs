@@ -33,7 +33,7 @@ If your test suite supports it, we recommend enabling the option to retry failed
 
 Alternatively, you can create [scheduled builds](/docs/pipelines/scheduled-builds) to run your test suite on the default branch. You can schedule them outside your typical development time to run the test suite multiple times against the same commit SHA. You can still enable test retries in this setup, but they're less important. The more builds you run, the more likely you'll detect flaky tests that fail infrequently.
 
-Test Analytics reviews the test results to detect flaky tests once per day. The list of flaky tests doesn't change often, so we've found this to be frequent enough to provide helpful information.
+Test Analytics reviews the test results to detect flaky tests after every test run.
 
 ## Tracking reliability
 

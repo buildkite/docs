@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
 
-<%= javascript_include_tag "docsearch", "application", nonce: true %>
+<%= javascript_include_tag "docsearch", nonce: true %>
 
 <%= csp_meta_tag %>
 
@@ -40,5 +40,8 @@
 <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
   <meta name="robots" content="noindex, nofollow">
 <% end %>
+
+<%= vite_client_tag %>
+<%= vite_javascript_tag 'application' %>
 
 <%= render 'helpscout' %>
