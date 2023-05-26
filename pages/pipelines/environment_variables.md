@@ -261,5 +261,4 @@ Finally, if your job's commands make any changes to the environment, those chang
 If you upload multiple pipeline definitions, the environment variable precedence behaves differently depending on the order of uploads.
 
 If you are uploading pipeline definitions concurrently the value of the environment variable will match the uploading pipeline definition.
-,
 When you upload pipeline definitions in serial, environment variables have the value from the most recent declaration.
