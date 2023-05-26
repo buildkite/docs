@@ -10,7 +10,7 @@ A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines wit
 <table class="responsive-table">
 <tbody>
   <tr><th><code>id</code></th><td>ID of the cluster</td></tr>
-  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID of the cluster</a></td></tr>
+  <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the cluster</td></tr>
   <tr><th><code>name</code></th><td>Name of the cluster</td></tr>
   <tr><th><code>description</code></th><td>Description of the cluster</td></tr>
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td></tr>
@@ -151,7 +151,7 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: ..." }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
 
@@ -160,14 +160,14 @@ Error responses:
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   -H "Content-Type: application/json" \
-  -d '{ "name": "Hack the Planet" }'
+  -d '{ "name": "Open Source" }'
 ```
 
 ```json
 {
   "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "name": "Hack the Planet",
+  "name": "Open Source",
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
@@ -210,7 +210,7 @@ Error responses:
 
 ## Delete a cluster
 
-Delete a cluster and any cluster queues and cluster tokens that belong to it.
+Delete a cluster along with any queues and tokens that belong to it.
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}"
@@ -224,6 +224,6 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the cluster couln't be deleted" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the cluster couldn't be deleted" }</code></td></tr>
 </tbody>
 </table>
