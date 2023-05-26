@@ -204,7 +204,7 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: ..." }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
 </tbody>
 </table>
 
