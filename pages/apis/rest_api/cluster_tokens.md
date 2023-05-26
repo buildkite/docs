@@ -1,4 +1,4 @@
-# Cluster Tokens API
+# Cluster tokens API
 
 A [cluster token](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-connect-agents-to-a-cluster) is used to connect agents to a cluster.
 

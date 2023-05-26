@@ -383,7 +383,7 @@
             - name: "Clusters"
               pill: "beta"
               path: "apis/rest-api/clusters"
-            - name: "Cluster Tokens"
+            - name: "Cluster tokens"
               pill: "beta"
               path: "apis/rest-api/cluster-tokens"
             - name: "Artifacts"
