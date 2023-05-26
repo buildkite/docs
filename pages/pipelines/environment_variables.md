@@ -262,4 +262,4 @@ If you upload multiple pipeline definitions, the environment variable precedence
 
 If you are uploading pipeline definitions concurrently the value of the environment variable will match the uploading pipeline definition.
 ,
-Pipeline uploads performed serially will result in the most recent declaration of an environment variable to be true.
+When you upload pipeline definitions in serial, environment variables have the value from the most recent declaration.
