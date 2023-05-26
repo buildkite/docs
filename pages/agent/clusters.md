@@ -90,7 +90,11 @@ To add a maintainer to a cluster:
 1. Select a user or team.
 1. Click _Add Maintainer_.
 
-### Pause a queue
+### Migrate to clusters
+
+If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
+
+## Pause a queue
 
 You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
 
@@ -109,7 +113,3 @@ Jobs _already_ dispatched to agents in the queue before pausing will continue to
 Trigger steps do not rely on agents, so they will run unless they have dependencies waiting on the paused queue. The behavior of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will wait until the queue is resumed. If a triggered job does not target the paused queue, it will run as usual.
 
 Select _Resume Queue_ to resume a paused queue. Jobs will resume dispatching to the queue as usual, including any jobs waiting to run.
-
-### Migrate to clusters
-
-If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
