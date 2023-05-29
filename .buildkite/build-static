@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -eu
+
+# Scrape page (based on static.json settings)
+staticgen generate
+
+# Copy images
+mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
