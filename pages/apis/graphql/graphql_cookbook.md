@@ -179,7 +179,7 @@ query GetEnvVarsBuild {
 Retrieve all of the builds for a given pipeline. This will print out a list of builds that are run on the given pipeline and return the id, number, and url of each build.
 ```graphql
 query GetBuilds {
-  pipeline(slug: "<pipeline-slug>") {
+  pipeline(slug: "organization-slug/pipeline-slug") {
     builds(first: 10) {
       edges {
         node {
