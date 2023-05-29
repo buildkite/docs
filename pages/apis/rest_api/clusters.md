@@ -343,7 +343,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 }
 ```
 
-[Request body properties](/docs/api#request-body-properties):
+Required [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
