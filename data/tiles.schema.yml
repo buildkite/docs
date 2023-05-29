@@ -20,7 +20,7 @@ properties:
         description: |
           [Optional] Link the title and render a 'learn more' link
           at the bottom of the Tile item
-      image_url:
+      image_path:
         type: string
         description: |
           [Optional] Render an image at the top of the Tile item

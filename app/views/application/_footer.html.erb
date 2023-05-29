@@ -9,11 +9,11 @@
     <p>If you have questions or feedback</p>
     <div class="Footer__links">
       <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
-        <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/issue.svg') %>" />
+        <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/issue.svg') %>" />
         Open an issue
       </a>
       <a class="Button Button--default" href="<%= open_source_url %>">
-        <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/pull-request.svg') %>" />
+        <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/pull-request.svg') %>" />
         Contribute an update
       </a>
     </div>
@@ -24,11 +24,11 @@
   <div class="Footer__links">
     <% support_email = ("test-analytics".in? request.path) ? "support+analytics@buildkite.com" : "support@buildkite.com" %>
     <a class="Button Button--link" href="mailto:<%= support_email %>">
-      <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/email.svg') %>" />
+      <img alt="Icon: paper dart" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/email.svg') %>" />
       Email support
     </a>
     <a class="Button Button--link" href="https://join.slack.com/t/buildkite-community/shared_invite/zt-1lm0xnwqu-r11BLIt7ZWr8JQ8fVyvMUw">
-      <img alt="Icon: Slack" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/slack.svg') %>" />
+      <img alt="Icon: Slack" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/slack.svg') %>" />
       <% unless "test-analytics".in? request.path %>
         Ask our Slack community
       <% else %>
@@ -36,7 +36,7 @@
       <% end %>
     </a>
     <a class="Button Button--link" href="https://forum.buildkite.community/">
-      <img alt="Icon: Discourse" class="Button__icon Button__icon--16x16" src="<%= image_url('icons/discourse.svg') %>" />
+      <img alt="Icon: Discourse" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/discourse.svg') %>" />
       Post on our forum
     </a>
   </div>

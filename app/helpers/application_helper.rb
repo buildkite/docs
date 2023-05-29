@@ -43,7 +43,7 @@ module ApplicationHelper
     render(partial: "quick_reference/#{attribute}", formats: [:md]).to_json.html_safe
   end
 
-  def logo_image_url
+  def logo_image_path
     image = 'logo.svg'
 
     # Pride month is June in The United States,
@@ -54,7 +54,7 @@ module ApplicationHelper
       image = 'logo-pride.svg'
     end
 
-    image_url(image)
+    image_path(image)
   end
 
   def top_level_nav_item_name(path)
