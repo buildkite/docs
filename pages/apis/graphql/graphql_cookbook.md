@@ -174,6 +174,25 @@ query GetEnvVarsBuild {
 }
 ```
 
+### Get all builds for a given pipeline
+
+Retrieve all of the builds for a given pipeline. This will print out a list of builds that are run on the given pipeline and return the id, number, and url of each build.
+```graphql
+query GetBuilds {
+  pipeline(slug: "<pipeline-slug>") {
+    builds(first: 10) {
+      edges {
+        node {
+          id
+          number
+          url
+        }
+      }
+    }
+  }
+}
+```
+
 ### Get the creation date of the most recent build in every pipeline
 
 Get the creation date of the most recent build in every pipeline. Use pagination to handle large responses. Buildkite sorts builds by newest first.
