@@ -14,6 +14,7 @@ The following pages describe how to use the agent CLI, organized by command:
 - [`artifact`](/docs/agent/v3/cli-artifact)
 - [`meta-data`](/docs/agent/v3/cli-meta-data)
 - [`env`](/docs/agent/v3/cli-env)
+- [`lock`](/docs/agent/v3/cli-lock)
 - [`oidc`](/docs/agent/v3/cli-oidc)
 - [`pipeline`](/docs/agent/v3/cli-pipeline)
 - [`bootstrap`](/docs/agent/v3/cli-bootstrap)

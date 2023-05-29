@@ -146,6 +146,8 @@
               path: "agent/v3/cli-meta-data"
             - name: "env"
               path: "agent/v3/cli-env"
+            - name: "lock"
+              path: "agent/v3/cli-lock"
             - name: "oidc"
               path: "agent/v3/cli-oidc"
             - name: "pipeline"
