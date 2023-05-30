@@ -23,6 +23,9 @@ Set arbitrary data on a build using a basic key/value store.
 You can supply the value as an argument to the command, or pipe in a file or
 script output.
 
+The value must be a non-empty string, and strings containing only whitespace
+characters are not allowed.
+
 ### Example
 
     $ buildkite-agent meta-data set "foo" "bar"
