@@ -306,6 +306,8 @@
           path: "pipelines/incoming-webhooks"
         - name: "Audit log"
           path: "pipelines/audit-log"
+        - name: "Sign commits with OIDC and Sigstore"
+          path: "pipelines/sign-commits-with-oidc-sigstore"
     - name: "Governance"
       children:
         - name: "Overview"
