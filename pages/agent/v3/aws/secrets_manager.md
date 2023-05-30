@@ -46,6 +46,9 @@ To ensure your Elastic CI Stack for AWS has access to the secret:
 }
 ```
 
+>📘 Single instance Elastic CI Stacks
+> If you have set `minSize` and `maxSize` parameters equal to 1 in your [Elastic CI Stack parameters](/docs/agent/v3/elastic-ci-aws/parameters), you will only need to set the `IAMRole` to your Secret Manager secret's resource policy as above. The  `AutoscalingLambdaExecutionRole` IAM role and corresponding autoscaling resources are not created in this Elastic CI Stack setup.
+
 ## Multi-region replication
 
 It is also possible to replicate your Buildkite Agent token to multiple regions
