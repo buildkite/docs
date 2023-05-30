@@ -2,11 +2,11 @@
 
 set -eu
 
-# Scrape page (based on static.json settings)
+echo "--- :spider_web: Generating static site"
 staticgen generate
 
 # Copy images into build directory
 mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
 
-# Deploy to Netlify
+echo "+++ :cloud: Deploying to Netlify"
 yarn run netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --dir build
