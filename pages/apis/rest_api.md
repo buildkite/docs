@@ -113,5 +113,6 @@ To make getting started easier, check out these clients available from our contr
 * [pybuildkite](https://github.com/pyasi/pybuildkite) for [Python](https://www.python.org/)
 * [buildkite-php](https://github.com/bbaga/buildkite-php) for [PHP](https://www.php.net/)
 * [buildkite-swift](https://github.com/aaronsky/buildkite-swift) for [Swift](https://swift.org)
+* [buildkite-api-client](https://github.com/SourceLabOrg/Buildkite-Api-Client) for [Java](https://www.java.com/en/)
 
 <!-- vale on -->
