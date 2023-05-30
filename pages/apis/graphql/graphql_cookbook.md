@@ -174,7 +174,7 @@ query GetEnvVarsBuild {
 }
 ```
 
-### Get all builds for a given pipeline
+### Get all builds for a pipeline
 
 Retrieve all of the builds for a given pipeline. This will print out a list of builds that are run on the given pipeline and return the id, number, and url of each build.
 ```graphql
