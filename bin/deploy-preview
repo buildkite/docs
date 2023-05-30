@@ -9,4 +9,6 @@ staticgen generate
 mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
 
 echo "+++ :cloud: Deploying to Netlify"
-yarn run netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --dir build
+PREVIEW_URL=$(./node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --dir build --json true | jq -r .deploy_url)
+
+buildkite-agent annotate --style "success" --context "netlify/preview-url" "Preview URL: $PREVIEW_URL"

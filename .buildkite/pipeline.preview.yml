@@ -5,6 +5,7 @@ steps:
       - docker-compose#v3.9.0:
           run: app
           config: docker-compose.production.yml
+          mount-buildkite-agent: true
           env:
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID

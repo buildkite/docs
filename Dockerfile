@@ -18,7 +18,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs gh \
+    && apt-get install -y nodejs gh jq \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
