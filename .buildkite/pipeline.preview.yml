@@ -1,0 +1,7 @@
+steps:
+  - label: "Build static site"
+    command: .buildkite/build-static
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          config: docker-compose.production.yml
