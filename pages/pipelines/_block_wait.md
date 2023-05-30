@@ -30,3 +30,17 @@ steps:
   - block: "unblock me"
 ```
 {: codeblock-file="pipeline.yml"}
+
+Alternatively, it is possible to use a wait step with a block step if conditionals are used. In these cases, the wait step must come before the block step:
+
+```yml
+steps:
+  - command: ".buildkite/steps/yarn"
+  - wait:
+    if: build.source == "schedule"
+  - block: "Deploy changes?"
+    if: build.branch == pipeline.default_branch && build.source != "schedule"
+  - command: ".buildkite/scripts/deploy"
+    if: build.branch == pipeline.default_branch
+```
+{: codeblock-file="pipeline.yml"}
