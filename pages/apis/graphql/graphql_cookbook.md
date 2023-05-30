@@ -361,7 +361,7 @@ To see which jobs are waiting for a concurrency group in case the secret URL fai
 ```
 query getConcurrency {
   organization(slug: "{org}") {
-    jobs(first:100,concurrency:{group: "name"}, type:[COMMAND], state:[LIMITED]) {
+    jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
       edges {
         node {
           ... on JobTypeCommand {
