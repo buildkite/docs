@@ -110,11 +110,8 @@ _Optional attributes:_
   <tr>
     <td><code>soft_fail</code></td>
     <td>
-      Allow specified non-zero exit statuses not to fail the build.
-      Can be either an array of allowed soft failure exit statuses or <code>true</code> to make all exit statuses soft-fail.<br>
+      When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.
       <em>Example:</em> <code>true</code><br>
-      <em>Example:</em><br>
-      <code>- exit_status: 1</code><br>
     </td>
   </tr>
 </table>
@@ -167,38 +164,6 @@ _Optional_ `build` _attributes:_
   build:
     meta_data:
       release-version: "1.1"
-```
-{: codeblock-file="pipeline.yml"}
-
-## Soft fail attributes
-
-_Optional Attributes_
-
-<table>
-  <tr>
-    <td><code>exit_status</code></td>
-    <td>
-      Allow specified non-zero exit statuses not to fail the build.
-      <br>
-      <em>Example:</em> <code>"*"</code><br>
-      <em>Example:</em> <code>1</code><br>
-      <em>Example:</em> <code>true</code>
-    </td>
-  </tr>
-</table>
-
-```yml
-- trigger: "some-tests"
-    label: "I don't want to fail my triggering build"
-    soft_fail: true
-```
-{: codeblock-file="pipeline.yml"}
-
-```yml
-- trigger: "some-tests"
-    label: "I don't want to fail my triggering build"
-    soft_fail:
-      - exit_status: 1
 ```
 {: codeblock-file="pipeline.yml"}
 
