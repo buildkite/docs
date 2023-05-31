@@ -44,16 +44,16 @@ class Page
       if args.include?(:width) && args.include?(:height)
         args[:max_width] = args[:width]
 
-        responsive_image_tag(image_url(name),
+        responsive_image_tag(image_path(name),
                              args[:width],
                              args[:height],
                              args.except(:width, :height))
       else
-        @view_helpers.image_tag(image_url(name), args)
+        @view_helpers.image_tag(image_path(name), args)
       end
     end
 
-    def image_url(name)
+    def image_path(name)
       stripped_image_path = @image_path.sub(/\Adocs\//, "")
       @view_helpers.image_path(File.join(stripped_image_path, name))
     end

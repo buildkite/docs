@@ -18,7 +18,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs gh \
+    && apt-get install -y nodejs gh jq \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
@@ -36,6 +36,9 @@ RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
     && bundle config set force_ruby_platform true \
     && bundle install --jobs $(nproc) --retry 3
+
+# Install tool for generating static site
+RUN curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
 
 # Add the app
 COPY . /app

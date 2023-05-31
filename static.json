@@ -1,0 +1,5 @@
+{
+  "command": "rails s",
+  "concurrency": 10,
+  "dir": "build"
+}
