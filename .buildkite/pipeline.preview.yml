@@ -1,7 +1,10 @@
 steps:
-  - label: "Build static site"
-    command: .buildkite/build-static
+  - label: "Deploy preview"
+    command: bin/deploy-preview
     plugins:
       - docker-compose#v3.9.0:
           run: app
           config: docker-compose.production.yml
+          env:
+            - NETLIFY_AUTH_TOKEN
+            - NETLIFY_SITE_ID

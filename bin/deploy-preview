@@ -5,5 +5,8 @@ set -eu
 # Scrape page (based on static.json settings)
 staticgen generate
 
-# Copy images
+# Copy images into build directory
 mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
+
+# Deploy to Netlify
+yarn run netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --dir build
