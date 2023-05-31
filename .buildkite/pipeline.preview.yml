@@ -7,5 +7,7 @@ steps:
           config: docker-compose.production.yml
           mount-buildkite-agent: true
           env:
+            - GH_TOKEN
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID
+            - BUILDKITE_PULL_REQUEST

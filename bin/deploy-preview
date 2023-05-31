@@ -8,7 +8,31 @@ staticgen generate
 # Copy images into build directory
 mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
 
-echo "+++ :cloud: Deploying to Netlify"
-PREVIEW_URL=$(./node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --dir build --json true | jq -r .deploy_url)
+echo "--- :netlify: Deploying to Netlify"
+PREVIEW_URL=$(./node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --alias $BUILDKITE_PULL_REQUEST --dir build --json true | jq -r .deploy_url)
 
-buildkite-agent annotate --style "success" --context "netlify/preview-url" "Preview URL: $PREVIEW_URL"
+msg="Preview URL: $PREVIEW_URL"
+
+echo "--- :buildkite: Annotating build"
+buildkite-agent annotate --style "success" --context "netlify/preview-url" "$msg"
+
+if [ -n "$BUILDKITE_PULL_REQUEST" ]; then
+  # Find comment on pull request
+  comment_id=$(gh api \
+    -H "Accept: application/vnd.github+json" \
+    -H "X-GitHub-Api-Version: 2022-11-28" \
+    /repos/buildkite/docs/issues/$BUILDKITE_PULL_REQUEST/comments \
+    | jq --arg msg "$msg" '.[] | select(.body==$msg) | .id')
+
+
+  # Post comment if not found
+  if [ -z "$comment_id" ]; then
+    echo "--- :github: Commenting on GitHub pull request"
+    gh api \
+      --method POST \
+      -H "Accept: application/vnd.github+json" \
+      -H "X-GitHub-Api-Version: 2022-11-28" \
+      /repos/buildkite/docs/issues/$BUILDKITE_PULL_REQUEST/comments \
+      -f body="$msg"
+    fi
+fi
