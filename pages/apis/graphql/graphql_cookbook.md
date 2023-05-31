@@ -448,7 +448,7 @@ query token {
 ```graphql
 query SearchAgent {
    organization(slug:"organization-slug") {
-    agents(first:500, search:"searchstring") {
+    agents(first:500, search:"search-string") {
       edges {
         node {
           name
