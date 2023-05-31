@@ -314,8 +314,8 @@ Success response: `200 OK`
 
 ### Create a token
 
-> 📘 Token values
-> The token value is only be included in the response for the request to create it. To ensure the security of tokens, their value isn't included in subsequent responses.
+> 📘 Token visibility
+> To ensure the security of tokens, the value is only included in the response for the request to create the token. Subsequent responses do not contain the token value.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
