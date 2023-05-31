@@ -4,8 +4,32 @@
   children:
     - name: "Overview"
       path: "pipelines"
+    - name: "Evaluating Buildkite"
+      path: "evaluationmatrix"
     - name: "Getting started"
-      path: "tutorials/getting-started"
+      children:
+        - name: Overview
+          path: tutorials/getting-started
+        - name: Organization Size
+          children: 
+          name: Enterprises
+          path: tutorials/enterprises
+        - name: Smaller Teams
+          path: tutorials/enterprises
+        - name: Code Architecture
+          children: 
+        - name: With Monorepos
+          path: tutorials/monorepos
+        - name: With Microservices
+          path: tutorials/microservices
+        - name: Infrastructure Preferences
+          children:
+        - name: Infrastructure on AWS
+          path: tutorials/infrastructure/aws
+        - name: Infrastructure on GCP
+          path: tutorials/infrastructure/gcp
+        - name: Mac Builds
+          path: tutorials/infrastructure/mac
     - name: "Glossary"
       path: "pipelines/glossary"
     - name: Migration
