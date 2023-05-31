@@ -443,7 +443,7 @@ query token {
 }
 ```
 
-### Search for a list of agents in an organization.
+### Search for agents in an organization
 
 ```graphql
 query SearchAgent {
