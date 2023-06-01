@@ -484,6 +484,24 @@ query token {
 }
 ```
 
+### Search for agents in an organization
+
+```graphql
+query SearchAgent {
+   organization(slug:"organization-slug") {
+    agents(first:500, search:"search-string") {
+      edges {
+        node {
+          name
+          hostname
+          version
+        }
+      }
+    }
+  }
+}
+```
+
 ### Revoke an agent token
 
 Revoking an agent token means no new agents can start using the token. It does not affect any connected agents.
