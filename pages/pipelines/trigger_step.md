@@ -66,7 +66,7 @@ _Optional attributes:_
     <td>
       If set to <code>true</code> the step will immediately continue, regardless of the success of the triggered build. If set to <code>false</code> the step will wait for the triggered build to complete and continue only if the triggered build passed.<br>
       <p>Note that when <code>async</code> is set to <code>true</code>, as long as the triggered build starts, the original pipeline will show that as successful. The original pipeline does not get updated after subsequent steps or after the triggered build completes.<br>
-      <em>Default value:</em> <code>false</code>
+      <em>Default:</em> <code>false</code>
     </td>
   </tr>
   <tr>
@@ -110,8 +110,8 @@ _Optional attributes:_
   <tr>
     <td><code>soft_fail</code></td>
     <td>
-      When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.
-      <em>Example:</em> <code>true</code><br>
+      When <code>true</code>, failure of the triggered build will not cause the triggering build to fail.<br>
+      <em>Default:</em> <code>false</code><br>
     </td>
   </tr>
 </table>
@@ -122,15 +122,16 @@ _Optional_ `build` _attributes:_
   <tr>
     <td><code>message</code></td>
     <td>
-      The message for the build. Supports emoji. Default: the label of the trigger step.
-      <br>
+      The message for the build. Supports emoji.<br>
+      <em>Default:</em> the label of the trigger step.<br>
       <em>Example:</em> <code>"Triggered build"</code><br>
     </td>
   </tr>
   <tr>
     <td><code>commit</code></td>
     <td>
-      The commit hash for the build. Default: <code>"HEAD"</code><br>
+      The commit hash for the build.<br>
+      <em>Default:</em> <code>"HEAD"</code><br>
       <em>Example:</em> <code>"ca82a6d"</code><br>
     </td>
   </tr>
@@ -138,7 +139,7 @@ _Optional_ `build` _attributes:_
     <td><code>branch</code></td>
     <td>
       The branch for the build.<br>
-      Default: The triggered pipeline's default branch.<br>
+      <em>Default:</em> The triggered pipeline's default branch.<br>
       <em>Example:</em> <code>"production"</code><br>
     </td>
   </tr>
