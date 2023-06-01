@@ -1,6 +1,7 @@
 steps:
   - label: "Deploy preview"
     command: bin/deploy-preview
+    if: build.env('BUILDKITE_PULL_REQUEST') != 'false'
     plugins:
       - docker-compose#v3.9.0:
           run: app
@@ -10,5 +11,4 @@ steps:
             - GH_TOKEN
             - NETLIFY_AUTH_TOKEN
             - NETLIFY_SITE_ID
-            - BUILDKITE_BRANCH
             - BUILDKITE_PULL_REQUEST
