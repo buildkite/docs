@@ -15,12 +15,14 @@ A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines wit
 <tbody>
   <tr><th><code>id</code></th><td>ID of the cluster</td></tr>
   <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the cluster</td></tr>
+  <tr><th><code>default_queue_id</code></th><td>ID of the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.</td></tr>
   <tr><th><code>name</code></th><td>Name of the cluster</td></tr>
   <tr><th><code>description</code></th><td>Description of the cluster</td></tr>
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td></tr>
   <tr><th><code>color</code></th><td>Color hex code for the cluster</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the cluster</td></tr>
   <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>  
+  <tr><th><code>default_queue_url</code></th><td>API URL of the cluster's default queue</td></tr>
   <tr><th><code>created_at</code></th><td>When the cluster was created</td></tr>
   <tr><th><code>created_by</code></th><td>User who created the cluster</td></tr>
 </tbody>
@@ -39,12 +41,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
   {
     "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
     "name": "Open Source",
     "description": "A place for safely running our open source builds",
     "emoji": "\:technologist\:",
     "color": "#FFE0F1",
     "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "created_at": "2023-05-03T04:17:55.867Z",
     "created_by": {
       "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -72,12 +76,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}"
 {
   "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
   "name": "Open Source",
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -111,12 +117,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
 {
   "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "default_queue_id": null,
   "name": "Open Source",
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "default_queue_url": null,
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -171,12 +179,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
 {
   "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
   "name": "Open Source",
   "description": "A place for safely running our open source builds",
   "emoji": "\:technologist\:",
   "color": "#FFE0F1",
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -197,6 +207,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   <tr><th><code>description</code></th><td>Description for the cluster.<br><em>Example:</em> <code>"A place for safely running our open source builds"</code>
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:technologist\:"</code>
   <tr><th><code>color</code></th><td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code>
+  <tr><th><code>default_queue_id</code></th><td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code>
 </tbody>
 </table>
 
