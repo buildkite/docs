@@ -21,7 +21,8 @@ A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines wit
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a></td></tr>
   <tr><th><code>color</code></th><td>Color hex code for the cluster</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the cluster</td></tr>
-  <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>  
+  <tr><th><code>web_url</code></th><td>URL of the cluster on Buildkite</td></tr>
+  <tr><th><code>queues_url</code></th><td>API URL of the cluster's queues</td></tr>
   <tr><th><code>default_queue_url</code></th><td>API URL of the cluster's default queue</td></tr>
   <tr><th><code>created_at</code></th><td>When the cluster was created</td></tr>
   <tr><th><code>created_by</code></th><td>User who created the cluster</td></tr>
@@ -49,6 +50,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
     "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
     "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
     "created_at": "2023-05-03T04:17:55.867Z",
     "created_by": {
       "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -84,6 +86,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}"
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -125,6 +128,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": null,
+  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -187,6 +191,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
   "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -243,6 +248,116 @@ Error responses:
 </tbody>
 </table>
 
+## Cluster queues
+
+[Cluster queues](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-set-up-queues) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
+
+### Cluster queue data model
+
+<table class="responsive-table">
+  <tbody>
+    <tr><th><code>id</code></th><td>ID of the queue</td></tr>
+    <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the queue</td></tr>
+    <tr><th><code>key</code></th><td>The queue key</td></tr>
+    <tr><th><code>description</code></th><td>Description of the queue</td></tr>
+    <tr><th><code>url</code></th><td>Canonical API URL of the queue</td></tr>
+    <tr><th><code>web_url</code></th><td>URL of the queue on Buildkite</td></tr>
+    <tr><th><code>cluster_url</code></th><td>API URL of the cluster the queue belongs to</td></tr>
+    <tr><th><code>dispatch_paused</code></th><td>Indicates whether the queue has paused dispatching jobs to associated agents</td></tr>
+    <tr><th><code>dispatch_paused_by</code></th><td>User who paused the queue</td></tr>
+    <tr><th><code>dispatch_paused_at</code></th><td>When the queue was paused</td></tr>
+    <tr><th><code>dispatch_paused_note</code></th><td>The note left when the queue was paused</td></tr>
+    <tr><th><code>created_at</code></th><td>When the queue was created</td></tr>
+    <tr><th><code>created_by</code></th><td>User who created the queue</td></tr>
+  </tbody>
+</table>
+
+### List queues
+
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's queues.
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues"
+```
+
+```json
+[{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "Default Queue",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "dispatch_paused": true,
+  "dispatch_paused_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  },
+  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
+  "dispatch_paused_note": "Paused for maintenance",
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}]
+```
+
+Required scope: `read_clusters`
+
+Success response: `200 OK`
+
+### Get a queue
+
+```bash
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/{queue.id}"
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "Default Queue",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "dispatch_paused": true,
+  "dispatch_paused_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  },
+  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
+  "dispatch_paused_note": "Paused for maintenance",
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}
+```
+
+Required scope: `read_clusters`
+
+Success response: `200 OK`
+
 ## Cluster tokens
 
 A [cluster token](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-connect-agents-to-a-cluster) is used to connect agents to a cluster.
@@ -255,7 +370,7 @@ A [cluster token](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-con
   <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the token</td></tr>
   <tr><th><code>description</code></th><td>Description of the token</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the token</td></tr>
-  <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>  
+  <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>
   <tr><th><code>created_at</code></th><td>When the token was created</td></tr>
   <tr><th><code>created_by</code></th><td>User who created the token</td></tr>
 </tbody>
