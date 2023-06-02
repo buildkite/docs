@@ -203,7 +203,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
   <tr><th><code>description</code></th><td>Description for the cluster.<br><em>Example:</em> <code>"A place for safely running our open source builds"</code>
   <tr><th><code>emoji</code></th><td>Emoji for the cluster using the <a href="/docs/pipelines/emojis">emoji syntax</a>.<br><em>Example:</em> <code>"\:technologist\:"</code>
   <tr><th><code>color</code></th><td>Color hex code for the cluster.<br><em>Example:</em> <code>"#FFE0F1"</code>
-  <tr><th><code>default_queue_id</code></th><td>The ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code>
+  <tr><th><code>default_queue_id</code></th><td>ID of the queue to set as the cluster's default queue. Agents that connect to the cluster without specifying a queue will accept jobs from this queue.<br><em>Example:</em> <code>"01885682-55a7-44f5-84f3-0402fb452e66"</code>
 </tbody>
 </table>
 
