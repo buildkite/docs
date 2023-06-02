@@ -227,17 +227,3 @@ Error responses:
   <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the cluster couldn't be deleted" }</code></td></tr>
 </tbody>
 </table>
-
-## Add pipelines to a cluster
-
-Use the [Pipelines API](/docs/apis/rest-api/pipelines) to control which cluster a pipeline runs on by setting the `cluster_id` property.
-
-Set `cluster_id` to `null` to remove a pipeline from a cluster.
-
-For example, to add an existing pipeline to a cluster:
-
-```bash
-curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
-  -H "Content-Type: application/json" \
-  -d '{ "cluster_id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf" }'
-```
