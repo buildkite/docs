@@ -316,6 +316,12 @@
               "deprecationReason": null
             },
             {
+              "name": "READ_CLUSTERS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "READ_FLAKY_TESTS",
               "description": null,
               "isDeprecated": false,
@@ -341,6 +347,12 @@
             },
             {
               "name": "READ_PIPELINES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_SUITES",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -377,6 +389,12 @@
             },
             {
               "name": "WRITE_BUILDS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_CLUSTERS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3788,6 +3806,12 @@
               "deprecationReason": null
             },
             {
+              "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
@@ -3812,6 +3836,12 @@
               "deprecationReason": null
             },
             {
+              "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
@@ -3819,24 +3849,6 @@
             },
             {
               "name": "SUBSCRIPTION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3854,13 +3866,19 @@
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "USER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE",
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3920,7 +3938,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_MEMBER",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
