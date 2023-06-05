@@ -97,17 +97,26 @@ variables:
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR
   desc: |
-    The name of the user who created the build. May be **[unverified](#unverified-commits)**.
+    The name of the user who created the build. The value differs depending on how the build was created:
+      Buildkite dashboard: Set based on who manually created the build.
+      GitHub webhook: Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      Webhook: Set based on which user is attached to the API Key used. 
   modifiable: false
   example: "Carol Danvers"
 - name: BUILDKITE_BUILD_CREATOR_EMAIL
   desc: |
-    The notification email of the user who created the build.
+    The notification email of the user who created the build. The value differs depending on how the build was created:
+      Buildkite dashboard: Set based on who manually created the build.
+      GitHub webhook: Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      Webhook: Set based on which user is attached to the API Key used. 
   modifiable: false
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
   desc: |
-    A colon separated list of **[unverified](#unverified-commits)** non-private team slugs that the build creator belongs to.
+    A colon separated list of non-private team slugs that the build creator belongs to. The value differs depending on how the build was created:
+      Buildkite dashboard: Set based on who manually created the build.
+      GitHub webhook: Set from the  **[unverified](#unverified-commits)** HEAD commit.
+      Webhook: Set based on which user is attached to the API Key used. 
   modifiable: false
   example: "everyone:platform"
 - name: BUILDKITE_BUILD_ID
