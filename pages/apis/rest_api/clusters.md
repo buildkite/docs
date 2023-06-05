@@ -281,35 +281,30 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 ```
 
 ```json
-[{
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "Default Queue",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "dispatch_paused": true,
-  "dispatch_paused_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  },
-  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
-  "dispatch_paused_note": "Paused for maintenance",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
+[
+  {
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "Default Queue",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "dispatch_paused": false,
+    "dispatch_paused_by": null,
+    "dispatch_paused_at": null,
+    "dispatch_paused_note": null,
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+      "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+      "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+      "name": "Sam Kim",
+      "email": "sam@example.com",
+      "avatar_url": "https://www.gravatar.com/avatar/example",
+      "created_at": "2023-05-03T04:17:43.118Z"
+    }
   }
-}]
+]
 ```
 
 Required scope: `read_clusters`
@@ -331,17 +326,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "dispatch_paused": true,
-  "dispatch_paused_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  },
-  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
-  "dispatch_paused_note": "Paused for maintenance",
+  "dispatch_paused": false,
+  "dispatch_paused_by": null,
+  "dispatch_paused_at": null,
+  "dispatch_paused_note": null,
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
@@ -357,6 +345,118 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 Required scope: `read_clusters`
 
 Success response: `200 OK`
+
+### Pause a queue
+
+[Pause a queue](/docs/agent/clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \
+  -H "Content-Type: application/json" \
+  -d '{ "note": "Paused while we investigate a security issue" }'
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "Default Queue",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
+  "dispatch_paused": true,
+  "dispatch_paused_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  },
+  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
+  "dispatch_paused_note": "Paused while we investigate a security issue",
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}
+```
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr>
+    <th><code>note</code></th>
+    <td>
+      Note explaining why the queue is paused. The note will display on the queue page and any affected builds.
+      <br><em>Example:</em> <code>"Paused while we investigate a security issue"</code>
+    </td>
+  </tr>
+</tbody>
+</table>
+
+Required scope: `write_clusters`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Cluster queue is already paused" }</code></td></tr>
+</tbody>
+</table>
+
+### Resume a paused queue
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/resume_dispatch" \
+  -H "Content-Type: application/json"
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "Default Queue",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
+  "dispatch_paused": false,
+  "dispatch_paused_by": null,
+  "dispatch_paused_at": null,
+  "dispatch_paused_note": null,
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}
+```
+
+Required scope: `write_clusters`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Cluster queue is not paused" }</code></td></tr>
+</tbody>
+</table>
 
 ## Cluster tokens
 
