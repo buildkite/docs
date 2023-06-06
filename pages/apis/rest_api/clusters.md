@@ -277,7 +277,7 @@ Error responses:
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's queues.
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues"
 ```
 
 ```json
@@ -319,7 +319,7 @@ Success response: `200 OK`
 ### Get a queue
 
 ```bash
-curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/{queue.id}"
+curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{queue.id}"
 ```
 
 ```json
