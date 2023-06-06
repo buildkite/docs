@@ -294,7 +294,7 @@ steps:
     notify:
       - slack:
           channels:
-            - "general"
+            - "#general"
           message: "This message will ping <@user>!"
 ```
 {: codeblock-file="pipeline.yml"}
