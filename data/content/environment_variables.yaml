@@ -107,9 +107,10 @@ variables:
 - name: BUILDKITE_BUILD_CREATOR_EMAIL
   desc: |
     The notification email of the user who created the build. The value differs depending on how the build was created:
-      Buildkite dashboard: Set based on who manually created the build.
-      GitHub webhook: Set from the  **[unverified](#unverified-commits)** HEAD commit.
-      Webhook: Set based on which user is attached to the API Key used. 
+
+    - **Buildkite dashboard:** Set based on who manually created the build.
+    - **GitHub webhook:** Set from the  **[unverified](#unverified-commits)** HEAD commit.
+    - **Webhook:** Set based on which user is attached to the API Key used.
   modifiable: false
   example: "cdanvers@kree-net.com"
 - name: BUILDKITE_BUILD_CREATOR_TEAMS
