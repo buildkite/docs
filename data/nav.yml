@@ -411,6 +411,9 @@
             - name: "Suites"
               pill: "beta"
               path: "apis/rest-api/analytics/suites"
+            - name: "Tests"
+              pill: "beta"
+              path: "apis/rest-api/analytics/tests"
     - name: "GraphQL"
       children: []
     - name: "Webhooks"
