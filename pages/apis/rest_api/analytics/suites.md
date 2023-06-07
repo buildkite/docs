@@ -1,4 +1,5 @@
 # Suites API
+
 ## Get a suite
 
 ```bash
