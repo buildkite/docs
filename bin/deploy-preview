@@ -2,8 +2,22 @@
 
 set -eu
 
-if [ "$BUILDKITE_PULL_REQUEST" eq "false" ]; then
-  echo "Not a pull request, skipping deploy-preview"
+# Find pull request number for the current branch (e.g. 123).
+#
+# If no PR is found this should exit with a non-zero status code.
+#
+# Why not `$BUILDKITE_PULL_REQUEST`? That env variable is only set
+# for builds triggered via Github and it's possible previews are
+# manually triggered via the API or Buildkite Dashboard.
+#
+PULL_REQUEST_NUMBER=$(gh api \
+  -H "Accept: application/vnd.github+json" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  /repos/buildkite/docs/pulls \
+  -X GET -f head="buildkite:$BUILDKITE_BRANCH" | jq ".[0].number")
+
+if [ -z "$PULL_REQUEST_NUMBER" ]; then
+  echo "No pull request found for branch $BUILDKITE_BRANCH"
   exit 1
 fi
 
@@ -14,7 +28,7 @@ staticgen generate
 mkdir -p build/docs/assets && cp -r public/docs/assets build/docs
 
 echo "--- :netlify: Deploying to Netlify"
-PREVIEW_URL=$(./node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --alias $BUILDKITE_PULL_REQUEST --dir build --json true | jq -r .deploy_url)
+PREVIEW_URL=$(./node_modules/.bin/netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --alias $PULL_REQUEST_NUMBER --dir build --json true | jq -r .deploy_url)
 
 msg="Preview URL: $PREVIEW_URL"
 
@@ -25,7 +39,7 @@ buildkite-agent annotate --style "success" --context "netlify/preview-url" "$msg
 comment_id=$(gh api \
   -H "Accept: application/vnd.github+json" \
   -H "X-GitHub-Api-Version: 2022-11-28" \
-  /repos/buildkite/docs/issues/$BUILDKITE_PULL_REQUEST/comments \
+  /repos/buildkite/docs/issues/$PULL_REQUEST_NUMBER/comments \
   | jq --arg msg "$msg" '.[] | select(.body==$msg) | .id')
 
 
@@ -36,6 +50,6 @@ if [ -z "$comment_id" ]; then
     --method POST \
     -H "Accept: application/vnd.github+json" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    /repos/buildkite/docs/issues/$BUILDKITE_PULL_REQUEST/comments \
+    /repos/buildkite/docs/issues/$PULL_REQUEST_NUMBER/comments \
     -f body="$msg"
   fi
