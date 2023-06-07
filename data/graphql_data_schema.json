@@ -316,6 +316,12 @@
               "deprecationReason": null
             },
             {
+              "name": "READ_CLUSTERS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "READ_FLAKY_TESTS",
               "description": null,
               "isDeprecated": false,
@@ -341,6 +347,12 @@
             },
             {
               "name": "READ_PIPELINES",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "READ_SUITES",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -377,6 +389,12 @@
             },
             {
               "name": "WRITE_BUILDS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "WRITE_CLUSTERS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3770,6 +3788,30 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "PIPELINE_SCHEDULE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
@@ -3782,7 +3824,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_PIPELINE_SETTINGS",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3794,7 +3836,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE_MONITOR",
+              "name": "ORGANIZATION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_PIPELINE_SETTINGS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3806,7 +3854,7 @@
               "deprecationReason": null
             },
             {
-              "name": "USER_EMAIL",
+              "name": "SUITE_MONITOR",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3818,25 +3866,19 @@
               "deprecationReason": null
             },
             {
+              "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3854,13 +3896,13 @@
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3896,37 +3938,13 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "ORGANIZATION_INVITATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE_SCHEDULE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
