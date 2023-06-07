@@ -12,8 +12,8 @@ To complete this tutorial, you'll need:
 
 - To enable the YAML steps editor in Buildkite:
 
-   - Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
-   - Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+  * Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
+  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
@@ -41,17 +41,17 @@ The program that executes work is called an _agent_ in Buildkite. An agent is a 
 
 To install and run an agent:
 
-1. Decide where you want to run the agent. 
+1. Decide where you want to run the agent.
 
     Most engineers start by running an agent on their local machine while playing around with pipeline definitions before setting up a long-term solution.
 
 1. Follow the instructions for where you want to install the agent.
 
     To install locally, see:
-   - [macOS](/docs/agent/v3/macos#installation)
-   - [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-   - [Linux](/docs/agent/v3/linux#installation)
-   - [Docker](/docs/agent/v3/docker#running-using-docker)
+   * [macOS](/docs/agent/v3/macos#installation)
+   * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
+   * [Linux](/docs/agent/v3/linux#installation)
+   * [Docker](/docs/agent/v3/docker#running-using-docker)
 
      Or see [all installation options](/docs/agent/v3/installation).
 
@@ -66,7 +66,7 @@ _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipel
 Next, you'll create a new pipeline based on one of the following example pipelines:
 
 - [Bash example](https://github.com/buildkite/bash-example/)
-- [Powershell example](https://github.com/buildkite/powershell-example/)
+- [PowerShell example](https://github.com/buildkite/powershell-example/)
 
 Both result in the same behavior: the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
 
@@ -78,13 +78,13 @@ To create a pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-    For Powershell:
+    For PowerShell:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
-    
-1. Accept the prefilled defaults by selecting *Create Pipeline*. This associates the example repository with your new pipeline.
-1. Accept the prefilled defaults by selecting _Save and Build_. This adds a step to upload the full pipeline definition from the repository.
-1. In the modal that opens, create a build using the prefilled details.
+
+1. Accept the pre-filled defaults by selecting *Create Pipeline*. This associates the example repository with your new pipeline.
+1. Accept the pre-filled defaults by selecting _Save and Build_. This adds a step to upload the full pipeline definition from the repository.
+1. In the modal that opens, create a build using the pre-filled details.
 
    1. Enter a message for the build. For example, _My first build_.
    1. Select _Create Build_.

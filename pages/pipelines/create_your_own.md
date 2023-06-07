@@ -1,6 +1,6 @@
 # Create your own pipeline
 
-So you've created pipelines based on prefilled examples and are ready to make your own? This is the tutorial for you. You'll continue playing with Buildkite by writing a pipeline definition for your own code.
+So you've created pipelines based on pre-filled examples and are ready to make your own? This is the tutorial for you. You'll continue playing with Buildkite by writing a pipeline definition for your own code.
 
 While the specifics may vary based on your code and goal, this tutorial provides a general flow you can adapt to your needs.
 
@@ -14,8 +14,8 @@ You'll also need the following:
 - A task you want to perform with the code. For example, run some tests or a script.
 - To enable the YAML steps editor in Buildkite. If you haven't already:
 
-   - Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
-   - Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+  * Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
+  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 ## Continue running an agent
 
@@ -78,7 +78,7 @@ To create a new pipeline:
     ```
 
 1. Select _Save and Build_.
-1. In the modal that opens, create a build using the prefilled details.
+1. In the modal that opens, create a build using the pre-filled details.
 
    1. Enter a message for the build. For example, _My first build_.
    1. Select _Create Build_.
@@ -105,7 +105,7 @@ We recommend you continue by:
 
 - Inviting your team to see your build and try Buildkite themselves. Invite users from your [organization's user settings](https://buildkite.com/organizations/-/users/new) by pasting their email addresses into the form.
 - Learning to [create more complex pipelines](/docs/pipelines/defining-steps) with dynamic definitions, conditionals, and concurrency.
-- Customizing your [agent configuration](/docs/agent/v3/configuration) and learning to use [lifecycle hooks](http://localhost:3000/docs/agent/v3/hooks).
+- Customizing your [agent configuration](/docs/agent/v3/configuration) and learning to use [lifecycle hooks](/docs/agent/v3/hooks).
 - Understanding how to tailor Buildkite to fit your bespoke workflows with [plugins](/docs/plugins) and the [API](/docs/apis).
 
 Remember, this is just the start of your journey with Buildkite. Take time to explore, learn, and experiment to make the most out of your pipelines. Happy building!
