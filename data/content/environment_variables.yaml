@@ -379,7 +379,7 @@ variables:
   example: "git@github.com:acme-inc/my-project.git"
 - name: BUILDKITE_REPO_MIRROR
   desc: |
-    Only available if the experimental feature [git-mirrors](/docs/agent/v3#experimental-features-git-mirrors) is enabled. The path to the shared git mirror.
+    The path to the shared git mirror.
   modifiable: false
   example: "/tmp/buildkite-git-mirrors"
 - name: BUILDKITE_RETRY_COUNT

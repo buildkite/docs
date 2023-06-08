@@ -91,8 +91,7 @@ attributes:
   experimental: true
   required: false
   desc: |
-      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
       _Example:_ `-v --mirror`.
 - name: git-fetch-flags
   env_var: BUILDKITE_GIT_FETCH_FLAGS
@@ -107,16 +106,14 @@ attributes:
   required: false
   experimental: true
   desc: |
-      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
   experimental: true
   desc: |
-      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
       _Example:_ `/tmp/buildkite-git-mirrors`
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
