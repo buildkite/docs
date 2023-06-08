@@ -178,6 +178,12 @@ attributes:
   required: false
   desc: |
       Do not show colors in logging.
+- name: no-ansi-timestamps
+  env_var: BUILDKITE_NO_ANSI_TIMESTAMPS
+  default_value: "false"
+  required: false
+  desc: |
+    Do not insert ANSI timestamp codes at the start of each line of job output.
 - name: no-command-eval
   env_var: BUILDKITE_NO_COMMAND_EVAL
   default_value: "false"
@@ -304,7 +310,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Prepend timestamps on each line of output.
+      Prepend timestamps on each line of output. Has no effect unless --no-ansi-timestamps is also used.
 - name: tracing-backend
   env_var: BUILDKITE_TRACING_BACKEND
   default_value: "none"
