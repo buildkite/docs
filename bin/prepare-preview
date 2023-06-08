@@ -26,15 +26,23 @@ cat << EOF > build/index.html
 </html>
 EOF
 
-echo "--- :netlify: Deploying to Netlify"
-netlify deploy --auth $NETLIFY_AUTH_TOKEN --site $NETLIFY_SITE_ID --alias $PULL_REQUEST_NUMBER --dir build --json true | tee netlify-deploy.json
+zip -r build.zip build
 
-PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_url')
+echo "--- :netlify: Deploying placeholder site Netlify"
+curl -H "Content-Type: application/zip" \
+     -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+     --data-binary "@build.zip" \
+     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PULL_REQUEST_NUMBER > netlify-deploy.json
+
+
+PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_ssl_url')
 PREVIEW_MESSAGE="Preview URL: $PREVIEW_URL"
 
 echo "--- :buildkite: Annotating build"
 buildkite-agent annotate --style "info" --context "netlify/preview-url" "$PREVIEW_MESSAGE"
 
+echo "--- :github: Finding existing comment on GitHub"
 if [ -z "$(find_github_comment $PULL_REQUEST_NUMBER "$PREVIEW_MESSAGE")" ]; then
+  echo "--- :github: Posting comment on GitHub"
   post_github_comment $PULL_REQUEST_NUMBER "$PREVIEW_MESSAGE"
 fi

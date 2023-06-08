@@ -7,26 +7,29 @@
 # manually triggered via the API or Buildkite Dashboard.
 #
 function get_branch_pull_request_number() {
-  gh api \
+  curl -L \
     -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    /repos/buildkite/docs/pulls \
-    -X GET -f head="buildkite:$1" | jq ".[0].number | select (.!=null)"
+    https://api.github.com/repos/buildkite/docs/pulls\?head=buildkite\:$1 \
+    | jq ".[0].number | select (.!=null)"
 }
 
 function find_github_comment() {
-  gh api \
+  curl -L \
     -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    /repos/buildkite/docs/issues/$1/comments \
+    https://api.github.com/repos/buildkite/docs/issues/$1/comments \
     | jq --arg msg "$2" '.[] | select(.body==$msg)'
 }
 
 function post_github_comment() {
-  gh api \
-    --method POST \
+  curl -L \
+    -X POST \
     -H "Accept: application/vnd.github+json" \
+    -H "Authorization: Bearer $GH_TOKEN" \
     -H "X-GitHub-Api-Version: 2022-11-28" \
-    /repos/buildkite/docs/issues/$1/comments \
-    -f body="$2"
+    --data "{\"body\":\"$2\"}" \
+    https://api.github.com/repos/buildkite/docs/issues/$1/comments
 }
