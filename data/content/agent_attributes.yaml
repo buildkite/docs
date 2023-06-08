@@ -88,7 +88,7 @@ attributes:
 - name: git-clone-mirror-flags
   env_var: BUILDKITE_GIT_CLONE_MIRROR_FLAGS
   default_value: "none"
-  experimental: true
+  experimental: false
   required: false
   desc: |
       Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
@@ -104,14 +104,14 @@ attributes:
   env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
   default_value: "300"
   required: false
-  experimental: true
+  experimental: false
   desc: |
       Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
-  experimental: true
+  experimental: false
   desc: |
       Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
       _Example:_ `/tmp/buildkite-git-mirrors`
