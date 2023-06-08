@@ -110,3 +110,9 @@ steps:
         plugins:
           - docker#v3.7.0:
               image: "node:lts-alpine3.14"
+
+      - block: "Generate preview?"
+        if: build.branch != "main" && build.pull_request.id != null
+
+      - trigger: "buildkite/docs-main"
+        if: build.branch != "main" && build.pull_request.id != null
