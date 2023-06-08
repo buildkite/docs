@@ -91,7 +91,7 @@ attributes:
   experimental: false
   required: false
   desc: |
-      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
+      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
       _Example:_ `-v --mirror`.
 - name: git-fetch-flags
   env_var: BUILDKITE_GIT_FETCH_FLAGS
@@ -106,14 +106,14 @@ attributes:
   required: false
   experimental: false
   desc: |
-      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
+      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
   experimental: false
   desc: |
-      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
+      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature.
       _Example:_ `/tmp/buildkite-git-mirrors`
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
