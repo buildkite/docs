@@ -4,10 +4,15 @@
   children:
     - name: "Overview"
       path: "pipelines"
-    - name: "Getting started"
-      path: "tutorials/getting-started"
-    - name: "Glossary"
-      path: "pipelines/glossary"
+    - name: "Introduction"
+      start_expanded: true
+      children:
+        - name: "Getting started"
+          path: "tutorials/getting-started"
+        - name: "Create your own pipeline"
+          path: "pipelines/create-your-own"
+        - name: "Glossary"
+          path: "pipelines/glossary"
     - name: Migration
       children:
         - name: Overview
