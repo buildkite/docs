@@ -285,7 +285,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
   {
     "id": "01885682-55a7-44f5-84f3-0402fb452e66",
     "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-    "key": "Default Queue",
+    "key": "default",
     "description": "The default queue for this cluster",
     "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
     "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
@@ -321,7 +321,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 {
   "id": "01885682-55a7-44f5-84f3-0402fb452e66",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "Default Queue",
+  "key": "default",
   "description": "The default queue for this cluster",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
@@ -346,6 +346,138 @@ Required scope: `read_clusters`
 
 Success response: `200 OK`
 
+### Create a queue
+
+```bash
+curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues" \
+  -H "Content-Type: application/json" \
+  -d '{ "key": "default", "description": "The default queue for this cluster" }'
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "default",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "dispatch_paused": false,
+  "dispatch_paused_by": null,
+  "dispatch_paused_at": null,
+  "dispatch_paused_note": null,
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}
+```
+
+Required [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>key</code></th><td>Key for the queue.<br><em>Example:</em> <code>"default"</code>
+</tbody>
+</table>
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+</tbody>
+</table>
+
+Required scope: `write_clusters`
+
+Success response: `201 Created`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+</tbody>
+</table>
+
+### Update a queue
+
+```bash
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "description": "The default queue for this cluster" }'
+```
+
+```json
+{
+  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+  "key": "default",
+  "description": "The default queue for this cluster",
+  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+  "dispatch_paused": false,
+  "dispatch_paused_by": null,
+  "dispatch_paused_at": null,
+  "dispatch_paused_note": null,
+  "created_at": "2023-05-03T04:17:55.867Z",
+  "created_by": {
+    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+    "name": "Sam Kim",
+    "email": "sam@example.com",
+    "avatar_url": "https://www.gravatar.com/avatar/example",
+    "created_at": "2023-05-03T04:17:43.118Z"
+  }
+}
+```
+
+[Request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>description</code></th><td>Description for the queue.<br><em>Example:</em> <code>"The default queue for this cluster"</code>
+</tbody>
+</table>
+
+Required scope: `write_clusters`
+
+Success response: `200 OK`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Validation failed: Reason for failure" }</code></td></tr>
+</tbody>
+</table>
+
+### Delete a queue
+
+```bash
+curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}"
+```
+
+Required scope: `write_clusters`
+
+Success response: `204 No Content`
+
+Error responses:
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the queue couldn't be deleted" }</code></td></tr>
+</tbody>
+</table>
+
 ### Pause a queue
 
 [Pause a queue](/docs/agent/clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
@@ -360,7 +492,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 {
   "id": "01885682-55a7-44f5-84f3-0402fb452e66",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "Default Queue",
+  "key": "default",
   "description": "The default queue for this cluster",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
@@ -425,7 +557,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 {
   "id": "01885682-55a7-44f5-84f3-0402fb452e66",
   "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "Default Queue",
+  "key": "default",
   "description": "The default queue for this cluster",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
   "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
