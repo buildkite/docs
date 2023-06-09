@@ -37,7 +37,7 @@ The diagram shows that Buildkite provides a web interface, handles integrations 
 The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
 
 >📘 Already running an agent
-> If you're already running an agent, skip this section.
+> If you're already running an agent, skip to the [next step](#create-a-pipeline).
 
 To install and run an agent:
 
