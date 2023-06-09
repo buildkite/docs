@@ -1,4 +1,7 @@
 steps:
+  - label: "Prepare preview"
+    command: bin/prepare-preview
+
   - label: "Deploy preview"
     command: bin/deploy-preview
     plugins:

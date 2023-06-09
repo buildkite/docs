@@ -1,0 +1,48 @@
+#!/bin/bash
+
+set -eu
+
+. bin/utils.sh
+
+PULL_REQUEST_NUMBER=$(get_branch_pull_request_number $BUILDKITE_BRANCH)
+
+if [ -z "$PULL_REQUEST_NUMBER" ]; then
+  echo "No pull request found for branch $BUILDKITE_BRANCH"
+  exit 1
+fi
+
+# Create placeholder site whilst we build the real thing.
+mkdir build
+cat << EOF > build/index.html
+<!DOCTYPE html>
+  <html>
+    <head>
+      <meta http-equiv="refresh" content="30">
+    </head>
+    <body>
+      <p>Building preview...</p>
+      Follow progress here: <a href="$BUILDKITE_BUILD_URL">$BUILDKITE_BUILD_URL</a>
+    </body>
+</html>
+EOF
+
+zip -r build.zip build
+
+echo "--- :netlify: Deploying placeholder site Netlify"
+curl -H "Content-Type: application/zip" \
+     -H "Authorization: Bearer $NETLIFY_AUTH_TOKEN" \
+     --data-binary "@build.zip" \
+     https://api.netlify.com/api/v1/sites/$NETLIFY_SITE_ID/deploys\?deploy-preview\=true\&branch\=$PULL_REQUEST_NUMBER > netlify-deploy.json
+
+
+PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_ssl_url')
+PREVIEW_MESSAGE="Preview URL: $PREVIEW_URL"
+
+echo "--- :buildkite: Annotating build"
+buildkite-agent annotate --style "info" --context "netlify/preview-url" "$PREVIEW_MESSAGE"
+
+echo "--- :github: Finding existing comment on GitHub"
+if [ -z "$(find_github_comment $PULL_REQUEST_NUMBER "$PREVIEW_MESSAGE")" ]; then
+  echo "--- :github: Posting comment on GitHub"
+  post_github_comment $PULL_REQUEST_NUMBER "$PREVIEW_MESSAGE"
+fi
