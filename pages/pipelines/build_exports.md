@@ -3,13 +3,13 @@
 > 📘 Enterprise feature
 > Build exports is only available on an [Enterprise](https://buildkite.com/pricing) plan, which has a [build retention](/docs/pipelines/build-retention) period of 12 months.
 
-If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/).
+If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/) or [Google Cloud Storage (GCS) bucket] (https://cloud.google.com/storage).
 
-If you don't configure an S3 bucket, Buildkite stores the build data for 12 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
+If you don't configure a bucket, Buildkite stores the build data for 12 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
 
 ## How it works
 
-Builds older than the build retention limit are automatically exported as JSON to the S3 bucket you have configured. If you haven't configured a bucket for build export, Buildkite stores that build data as JSON in our own S3 bucket for a further 12 months in case you need it. The following diagram outlines this process.
+Builds older than the build retention limit are automatically exported as JSON to the build export strategy (S3 or GCS) you have configured. If you haven't configured a bucket for build exports, Buildkite stores that build data as JSON in our own S3 bucket for a further 12 months in case you need it. The following diagram outlines this process.
 
 <%= image "build-exports-flow-chart.png", alt: "Simplified flow chart of the build exports process" %>
 
@@ -83,10 +83,57 @@ To configure build exports for your organization, you'll need to prepare an S3 b
 
 Your Buildkite Organization ID (UUID) can be found on the settings page described in the next section.
 
+### Prepare your GCS Bucket
+
+* Read and understand [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/best-practices).
+* VERIFY: Your bucket must be located in GCS's `us-east-1` region.
+* TODO: Your bucket must have a policy allowing cross-account access as described here and demonstrated in the example below¹.
+  - Allow Buildkite's Google Cloud Provider account `TODO` to `TODO`.
+  - Allow Buildkite's Google Cloud Provider account `TODO` to `TODO` keys matching `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
+  - TODO/VERIFY: Do *not* allow AWS account `032379705303` to `s3:PutObject` keys outside that prefix.
+* Your bucket should use modern GCS security features and configurations, for example (but not limited to):
+  - [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to prevent accidental misconfiguration leading to data exposure.
+  - [Access control lists](https://cloud.google.com/storage/docs/access-control/lists) to ensure your GCP (Google Cloud Provider) account owns the objects written by Buildkite.
+  - [Data encryption options](https://cloud.google.com/storage/docs/encryption).
+  - [Object versioning](https://cloud.google.com/storage/docs/object-versioning) to help recover objects from accidental deletion or overwrite.
+* You may want to use [GCS Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) to manage storage class and object expiry.
+* TODO: comments about using gsutil?
+
+¹ Your S3 bucket policy should look like this, with `YOUR-BUCKET-NAME-HERE` and
+`YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
+
+TODO: UPDATE
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "BuildkiteGetBucketLocation",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:GetBucketLocation",
+            "Resource": "arn\:aws\:s3:::YOUR-BUCKET-NAME-HERE"
+        },
+        {
+            "Sid": "BuildkitePutObject",
+            "Effect": "Allow",
+            "Principal": {
+                "AWS": "arn\:aws\:iam::032379705303:root"
+            },
+            "Action": "s3:PutObject",
+            "Resource": "arn\:aws\:s3:::YOUR-BUCKET-NAME-HERE/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*"
+        }
+    ]
+}
+```
+
 ### Enable build exports
 
 To enable build exports:
 
 1. Navigate to your [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
-1. In the _Export Build Data to S3_ section, enter your Amazon S3 bucket name to use.
+1. In the _Export Build Data_ section, select your build export strategy (S3 or GCS).
+1. Enter your bucket name to use.
 1. Select _Enable Export_.
