@@ -71,10 +71,16 @@
     path: apis/graphql/schemas/mutation/clustercreate
   - name: clusterDelete
     path: apis/graphql/schemas/mutation/clusterdelete
+  - name: clusterQueueCreate
+    path: apis/graphql/schemas/mutation/clusterqueuecreate
+  - name: clusterQueueDelete
+    path: apis/graphql/schemas/mutation/clusterqueuedelete
   - name: clusterQueuePauseDispatch
     path: apis/graphql/schemas/mutation/clusterqueuepausedispatch
   - name: clusterQueueResumeDispatch
     path: apis/graphql/schemas/mutation/clusterqueueresumedispatch
+  - name: clusterQueueUpdate
+    path: apis/graphql/schemas/mutation/clusterqueueupdate
   - name: clusterUpdate
     path: apis/graphql/schemas/mutation/clusterupdate
   - name: emailCreate
@@ -311,12 +317,18 @@
     path: apis/graphql/schemas/object/clusterqueue
   - name: ClusterQueueConnection
     path: apis/graphql/schemas/object/clusterqueueconnection
+  - name: ClusterQueueCreatePayload
+    path: apis/graphql/schemas/object/clusterqueuecreatepayload
+  - name: ClusterQueueDeletePayload
+    path: apis/graphql/schemas/object/clusterqueuedeletepayload
   - name: ClusterQueueEdge
     path: apis/graphql/schemas/object/clusterqueueedge
   - name: ClusterQueuePauseDispatchPayload
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
     path: apis/graphql/schemas/object/clusterqueueresumedispatchpayload
+  - name: ClusterQueueUpdatePayload
+    path: apis/graphql/schemas/object/clusterqueueupdatepayload
   - name: ClusterToken
     path: apis/graphql/schemas/object/clustertoken
   - name: ClusterUpdatePayload
@@ -877,10 +889,16 @@
     path: apis/graphql/schemas/input-object/clustercreateinput
   - name: ClusterDeleteInput
     path: apis/graphql/schemas/input-object/clusterdeleteinput
+  - name: ClusterQueueCreateInput
+    path: apis/graphql/schemas/input-object/clusterqueuecreateinput
+  - name: ClusterQueueDeleteInput
+    path: apis/graphql/schemas/input-object/clusterqueuedeleteinput
   - name: ClusterQueuePauseDispatchInput
     path: apis/graphql/schemas/input-object/clusterqueuepausedispatchinput
   - name: ClusterQueueResumeDispatchInput
     path: apis/graphql/schemas/input-object/clusterqueueresumedispatchinput
+  - name: ClusterQueueUpdateInput
+    path: apis/graphql/schemas/input-object/clusterqueueupdateinput
   - name: ClusterUpdateInput
     path: apis/graphql/schemas/input-object/clusterupdateinput
   - name: EmailCreateInput
