@@ -8,10 +8,10 @@ RSpec.describe TilesHelper do
         tile_item_html = tile({
           "title" => "Title",
           "url" => "https://buildkite.com",
-          "image_url" => "/placeholder.jpg",
+          "image_path" => "/placeholder.jpg",
           "desc" => "Placeholder TileItem"
         })
-        
+
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
             '<img alt="Title" class="TileItem__image" src="/placeholder.jpg" />' +
@@ -27,7 +27,7 @@ RSpec.describe TilesHelper do
       it "doesn't link the heading nor render learn more link" do
         tile_item_html = tile({
           "title" => "Title",
-          "image_url" => "/placeholder.jpg",
+          "image_path" => "/placeholder.jpg",
           "desc" => "Placeholder TileItem"
         })
 
@@ -60,7 +60,7 @@ RSpec.describe TilesHelper do
             }
           ]
         })
-        
+
         expect(tile_item_html).to eq(
           '<article class="TileItem">' +
             '<h2 class="TileItem__title">Title</h2>' +

@@ -4,10 +4,15 @@
   children:
     - name: "Overview"
       path: "pipelines"
-    - name: "Getting started"
-      path: "tutorials/getting-started"
-    - name: "Glossary"
-      path: "pipelines/glossary"
+    - name: "Introduction"
+      start_expanded: true
+      children:
+        - name: "Getting started"
+          path: "tutorials/getting-started"
+        - name: "Create your own pipeline"
+          path: "pipelines/create-your-own"
+        - name: "Glossary"
+          path: "pipelines/glossary"
     - name: Migration
       children:
         - name: Overview
@@ -143,6 +148,8 @@
               path: "agent/v3/cli-meta-data"
             - name: "env"
               path: "agent/v3/cli-env"
+            - name: "lock"
+              path: "agent/v3/cli-lock"
             - name: "oidc"
               path: "agent/v3/cli-oidc"
             - name: "pipeline"
@@ -385,8 +392,8 @@
             - name: "Agents"
               path: "apis/rest-api/agents"
             - name: "Clusters"
-              path: "apis/rest-api/clusters"
               pill: "beta"
+              path: "apis/rest-api/clusters"
             - name: "Artifacts"
               path: "apis/rest-api/artifacts"
             - name: "Annotations"

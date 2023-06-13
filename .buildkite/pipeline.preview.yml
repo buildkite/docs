@@ -1,0 +1,16 @@
+steps:
+  - label: "Prepare preview"
+    command: bin/prepare-preview
+
+  - label: "Deploy preview"
+    command: bin/deploy-preview
+    plugins:
+      - docker-compose#v3.9.0:
+          run: app
+          config: docker-compose.production.yml
+          mount-buildkite-agent: true
+          env:
+            - GH_TOKEN
+            - NETLIFY_AUTH_TOKEN
+            - NETLIFY_SITE_ID
+            - BUILDKITE_BRANCH

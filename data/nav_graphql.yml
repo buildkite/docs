@@ -61,10 +61,28 @@
     path: apis/graphql/schemas/mutation/buildcreate
   - name: buildRebuild
     path: apis/graphql/schemas/mutation/buildrebuild
+  - name: clusterAgentTokenCreate
+    path: apis/graphql/schemas/mutation/clusteragenttokencreate
+  - name: clusterAgentTokenRevoke
+    path: apis/graphql/schemas/mutation/clusteragenttokenrevoke
+  - name: clusterAgentTokenUpdate
+    path: apis/graphql/schemas/mutation/clusteragenttokenupdate
+  - name: clusterCreate
+    path: apis/graphql/schemas/mutation/clustercreate
+  - name: clusterDelete
+    path: apis/graphql/schemas/mutation/clusterdelete
+  - name: clusterQueueCreate
+    path: apis/graphql/schemas/mutation/clusterqueuecreate
+  - name: clusterQueueDelete
+    path: apis/graphql/schemas/mutation/clusterqueuedelete
   - name: clusterQueuePauseDispatch
     path: apis/graphql/schemas/mutation/clusterqueuepausedispatch
   - name: clusterQueueResumeDispatch
     path: apis/graphql/schemas/mutation/clusterqueueresumedispatch
+  - name: clusterQueueUpdate
+    path: apis/graphql/schemas/mutation/clusterqueueupdate
+  - name: clusterUpdate
+    path: apis/graphql/schemas/mutation/clusterupdate
   - name: emailCreate
     path: apis/graphql/schemas/mutation/emailcreate
   - name: emailResendVerification
@@ -277,10 +295,20 @@
     path: apis/graphql/schemas/object/cluster
   - name: ClusterAgentTokenConnection
     path: apis/graphql/schemas/object/clusteragenttokenconnection
+  - name: ClusterAgentTokenCreateMutationPayload
+    path: apis/graphql/schemas/object/clusteragenttokencreatemutationpayload
   - name: ClusterAgentTokenEdge
     path: apis/graphql/schemas/object/clusteragenttokenedge
+  - name: ClusterAgentTokenRevokeMutationPayload
+    path: apis/graphql/schemas/object/clusteragenttokenrevokemutationpayload
+  - name: ClusterAgentTokenUpdateMutationPayload
+    path: apis/graphql/schemas/object/clusteragenttokenupdatemutationpayload
   - name: ClusterConnection
     path: apis/graphql/schemas/object/clusterconnection
+  - name: ClusterCreatePayload
+    path: apis/graphql/schemas/object/clustercreatepayload
+  - name: ClusterDeletePayload
+    path: apis/graphql/schemas/object/clusterdeletepayload
   - name: ClusterEdge
     path: apis/graphql/schemas/object/clusteredge
   - name: ClusterPermission
@@ -289,14 +317,22 @@
     path: apis/graphql/schemas/object/clusterqueue
   - name: ClusterQueueConnection
     path: apis/graphql/schemas/object/clusterqueueconnection
+  - name: ClusterQueueCreatePayload
+    path: apis/graphql/schemas/object/clusterqueuecreatepayload
+  - name: ClusterQueueDeletePayload
+    path: apis/graphql/schemas/object/clusterqueuedeletepayload
   - name: ClusterQueueEdge
     path: apis/graphql/schemas/object/clusterqueueedge
   - name: ClusterQueuePauseDispatchPayload
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
     path: apis/graphql/schemas/object/clusterqueueresumedispatchpayload
+  - name: ClusterQueueUpdatePayload
+    path: apis/graphql/schemas/object/clusterqueueupdatepayload
   - name: ClusterToken
     path: apis/graphql/schemas/object/clustertoken
+  - name: ClusterUpdatePayload
+    path: apis/graphql/schemas/object/clusterupdatepayload
   - name: Dependency
     path: apis/graphql/schemas/object/dependency
   - name: DependencyConnection
@@ -843,10 +879,28 @@
     path: apis/graphql/schemas/input-object/buildmetadatainput
   - name: BuildRebuildInput
     path: apis/graphql/schemas/input-object/buildrebuildinput
+  - name: ClusterAgentTokenCreateMutationInput
+    path: apis/graphql/schemas/input-object/clusteragenttokencreatemutationinput
+  - name: ClusterAgentTokenRevokeMutationInput
+    path: apis/graphql/schemas/input-object/clusteragenttokenrevokemutationinput
+  - name: ClusterAgentTokenUpdateMutationInput
+    path: apis/graphql/schemas/input-object/clusteragenttokenupdatemutationinput
+  - name: ClusterCreateInput
+    path: apis/graphql/schemas/input-object/clustercreateinput
+  - name: ClusterDeleteInput
+    path: apis/graphql/schemas/input-object/clusterdeleteinput
+  - name: ClusterQueueCreateInput
+    path: apis/graphql/schemas/input-object/clusterqueuecreateinput
+  - name: ClusterQueueDeleteInput
+    path: apis/graphql/schemas/input-object/clusterqueuedeleteinput
   - name: ClusterQueuePauseDispatchInput
     path: apis/graphql/schemas/input-object/clusterqueuepausedispatchinput
   - name: ClusterQueueResumeDispatchInput
     path: apis/graphql/schemas/input-object/clusterqueueresumedispatchinput
+  - name: ClusterQueueUpdateInput
+    path: apis/graphql/schemas/input-object/clusterqueueupdateinput
+  - name: ClusterUpdateInput
+    path: apis/graphql/schemas/input-object/clusterupdateinput
   - name: EmailCreateInput
     path: apis/graphql/schemas/input-object/emailcreateinput
   - name: EmailResendVerificationInput

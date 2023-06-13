@@ -377,6 +377,10 @@ teams: {
       <p>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p>
     </td>
   </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/agent/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/agent/clusters#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
 </tbody>
 </table>
 
@@ -662,6 +666,10 @@ teams: {
 ```} %>
     </td>
   </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/agent/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/agent/clusters#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
+  </tr>
 </tbody>
 </table>
 
@@ -815,6 +823,10 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>visibility</code></th>
     <td>Whether the pipeline is visible to everyone, including users outside this organization. <p class="Docs__api-param-eg"><em>Example:</em> <code>"public"</code><br><em>Default:</em> <code>"private"</code></p></td>
+  </tr>
+  <tr>
+    <th><code>cluster_id</code></th>
+    <td>The ID of the <a href="/docs/agent/clusters">cluster</a> the pipeline should run in. Set to <code>null</code> to remove the pipeline from a cluster.<br />You'll need to <a href="/docs/agent/clusters#enable-clusters">enable clusters</a> for your organization to use this feature. <p class="Docs__api-param-eg"><em>Example:</em> <code>"42f1a7da-812d-4430-93d8-1cc7c33a6bcf"</code></p>
   </tr>
 </tbody>
 </table>

@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:3.1.4-bullseye@sha256:0e72d957aa3adb3130c145f907c35cb422c620cdd5cdd8f788b735abe24daa97
+FROM public.ecr.aws/docker/library/ruby:3.1.4-bullseye@sha256:813becd8e98cfdfc9cc8a86fc48cfc90f959f3273d58da2619be0d50ed550e8b
 
 ARG RAILS_ENV
 ENV RAILS_ENV=${RAILS_ENV:-production}
@@ -18,7 +18,7 @@ RUN echo "--- :package: Installing system deps" \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs gh \
+    && apt-get install -y nodejs gh jq \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
@@ -36,6 +36,9 @@ RUN echo "--- :bundler: Installing ruby gems" \
     && bundle config set --local without "$([ "$RAILS_ENV" = "production" ] && echo 'development test')" \
     && bundle config set force_ruby_platform true \
     && bundle install --jobs $(nproc) --retry 3
+
+# Install tool for generating static site
+RUN curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
 
 # Add the app
 COPY . /app

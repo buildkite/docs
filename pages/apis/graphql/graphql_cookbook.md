@@ -174,6 +174,26 @@ query GetEnvVarsBuild {
 }
 ```
 
+### Get all builds for a pipeline
+
+Retrieve all of the builds for a given pipeline, including each build's ID, number, and URL.
+
+```graphql
+query GetBuilds {
+  pipeline(slug: "organization-slug/pipeline-slug") {
+    builds(first: 10) {
+      edges {
+        node {
+          id
+          number
+          url
+        }
+      }
+    }
+  }
+}
+```
+
 ### Get the creation date of the most recent build in every pipeline
 
 Get the creation date of the most recent build in every pipeline. Use pagination to handle large responses. Buildkite sorts builds by newest first.
@@ -229,6 +249,27 @@ query {
               }
             }
           }
+        }
+      }
+    }
+  }
+}
+```
+
+### Get number of builds between two dates
+
+This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
+
+```graphql
+query PipelineBuildCountForPeriod {
+  pipeline(slug: "organization-slug") {
+    builds(createdAtFrom:"YYYY-MM-DD", createdAtTo:"YYYY-MM-DD") {
+      count
+      edges{
+        node{
+          createdAt
+          finishedAt
+          id
         }
       }
     }
@@ -361,7 +402,7 @@ To see which jobs are waiting for a concurrency group in case the secret URL fai
 ```
 query getConcurrency {
   organization(slug: "{org}") {
-    jobs(first:100,concurrency:{"name"}, type:[COMMAND], state:[LIMITED]) {
+    jobs(first:100,concurrency:{group:"name"}, type:[COMMAND], state:[LIMITED,WAITING,ASSIGNED]) {
       edges {
         node {
           ... on JobTypeCommand {
@@ -436,6 +477,24 @@ query token {
         node {
           id
           description
+        }
+      }
+    }
+  }
+}
+```
+
+### Search for agents in an organization
+
+```graphql
+query SearchAgent {
+   organization(slug:"organization-slug") {
+    agents(first:500, search:"search-string") {
+      edges {
+        node {
+          name
+          hostname
+          version
         }
       }
     }
