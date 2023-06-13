@@ -485,7 +485,7 @@ Error responses:
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \
   -H "Content-Type: application/json" \
-  -d '{ "note": "Paused while we investigate a security issue" }'
+  -d '{ "dispatch_paused_note": "Paused while we investigate a security issue" }'
 ```
 
 ```json
