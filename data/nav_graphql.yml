@@ -295,14 +295,14 @@
     path: apis/graphql/schemas/object/cluster
   - name: ClusterAgentTokenConnection
     path: apis/graphql/schemas/object/clusteragenttokenconnection
-  - name: ClusterAgentTokenCreateMutationPayload
-    path: apis/graphql/schemas/object/clusteragenttokencreatemutationpayload
+  - name: ClusterAgentTokenCreatePayload
+    path: apis/graphql/schemas/object/clusteragenttokencreatepayload
   - name: ClusterAgentTokenEdge
     path: apis/graphql/schemas/object/clusteragenttokenedge
-  - name: ClusterAgentTokenRevokeMutationPayload
-    path: apis/graphql/schemas/object/clusteragenttokenrevokemutationpayload
-  - name: ClusterAgentTokenUpdateMutationPayload
-    path: apis/graphql/schemas/object/clusteragenttokenupdatemutationpayload
+  - name: ClusterAgentTokenRevokePayload
+    path: apis/graphql/schemas/object/clusteragenttokenrevokepayload
+  - name: ClusterAgentTokenUpdatePayload
+    path: apis/graphql/schemas/object/clusteragenttokenupdatepayload
   - name: ClusterConnection
     path: apis/graphql/schemas/object/clusterconnection
   - name: ClusterCreatePayload
@@ -879,12 +879,12 @@
     path: apis/graphql/schemas/input-object/buildmetadatainput
   - name: BuildRebuildInput
     path: apis/graphql/schemas/input-object/buildrebuildinput
-  - name: ClusterAgentTokenCreateMutationInput
-    path: apis/graphql/schemas/input-object/clusteragenttokencreatemutationinput
-  - name: ClusterAgentTokenRevokeMutationInput
-    path: apis/graphql/schemas/input-object/clusteragenttokenrevokemutationinput
-  - name: ClusterAgentTokenUpdateMutationInput
-    path: apis/graphql/schemas/input-object/clusteragenttokenupdatemutationinput
+  - name: ClusterAgentTokenCreateInput
+    path: apis/graphql/schemas/input-object/clusteragenttokencreateinput
+  - name: ClusterAgentTokenRevokeInput
+    path: apis/graphql/schemas/input-object/clusteragenttokenrevokeinput
+  - name: ClusterAgentTokenUpdateInput
+    path: apis/graphql/schemas/input-object/clusteragenttokenupdateinput
   - name: ClusterCreateInput
     path: apis/graphql/schemas/input-object/clustercreateinput
   - name: ClusterDeleteInput
