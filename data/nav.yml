@@ -60,9 +60,6 @@
       children:
         - name: "Overview"
           path: "agent/v3"
-        - name: "Clusters"
-          path: "agent/clusters"
-          pill: "beta"
         - name: "Installation"
           path: "agent/v3/installation"
         - name: "Upgrading"
@@ -286,6 +283,13 @@
               path: "pipelines/scheduled-builds"
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
+    - name: "Clusters"
+      pill: "beta"
+      children:
+        - name: "Overview"
+          path: "clusters/overview"
+        - name: "Manage clusters"
+          path: "clusters/manage-clusters"
     - name: "Security"
       children:
         - name: "Overview"
