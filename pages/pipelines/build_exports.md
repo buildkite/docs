@@ -3,13 +3,13 @@
 > 📘 Enterprise feature
 > Build exports is only available on an [Enterprise](https://buildkite.com/pricing) plan, which has a [build retention](/docs/pipelines/build-retention) period of 12 months.
 
-If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own cloud object storage. We currently support [Amazon S3 bucket](https://aws.amazon.com/s3/) and [Google Cloud Storage bucket](https://cloud.google.com/storage/).
+If you need to retain build data beyond the [retention period](/docs/pipelines/build-retention) in your [Buildkite plan](https://buildkite.com/pricing), you can export the data to your own [Amazon S3 bucket](https://aws.amazon.com/s3/) or [Google Cloud Storage (GCS) bucket](https://cloud.google.com/storage).
 
-If you don't configure a cloud object storage, Buildkite stores the build data for 12 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
+If you don't configure a bucket, Buildkite stores the build data for 12 months in case you need it. You cannot access this build data through the API or Buildkite dashboard, but you can request the data by contacting support.
 
 ## How it works
 
-Builds older than the build retention limit are automatically exported as JSON to the cloud object storage bucket you have configured. If you haven't configured a bucket for build export, Buildkite stores that build data as JSON in our own Amazon S3 bucket for a further 12 months in case you need it. The following diagram outlines this process.
+Builds older than the build retention limit are automatically exported as JSON using the build export strategy (S3 or GCS) you have configured. If you haven't configured a bucket for build exports, Buildkite stores that build data as JSON in our own Amazon S3 bucket for a further 12 months in case you need it. The following diagram outlines this process.
 
 <%= image "build-exports-flow-chart.png", alt: "Simplified flow chart of the build exports process" %>
 
@@ -35,7 +35,7 @@ The files are stored in the following formats:
 
 ## Configure build exports
 
-To configure build exports for your organization, you'll need to prepare your cloud object storage bucket before enabling exports in the Buildkite dashboard.
+To configure build exports for your organization, you'll need to prepare an Amazon S3 or GCS bucket before enabling exports in the Buildkite dashboard.
 
 ### Prepare your Amazon S3 bucket
 
@@ -85,14 +85,17 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 
 ### Prepare your Google Cloud Storage bucket
 
-* Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices).
+* Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices) and [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/).
 * Your bucket must have a policy allowing our Buildkite service-account access as described here and demonstrated in the example below¹.
   * Assign Buildkite's service-account `buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com` the `"Storage Object Creator"`.
   * Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`¹.
 * Your bucket must grant our Buildkite service-account (`buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com`) `storage.objects.create` permission.
 * Your bucket should use modern Google Cloud Storage security features and configurations, for example (but not limited to):
-  - [Access control lists](https://cloud.google.com/storage/docs/access-control/lists) disabled with bucket owner enforced to ensure your GCP account owns the objects written by Buildkite.
+  - [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to prevent accidental misconfiguration leading to data exposure.
+  - [Access control lists](https://cloud.google.com/storage/docs/access-control/lists) to ensure your GCP (Google Cloud Provider) account owns the objects written by Buildkite.
+  - [Data encryption options](https://cloud.google.com/storage/docs/encryption).
   - [Object versioning](https://cloud.google.com/storage/docs/object-versioning) to help recover objects from accidental deletion or overwrite.
+* You may want to use [GCS Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) to manage storage class and object expiry.
 
 ¹ Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
 
@@ -111,5 +114,6 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 To enable build exports:
 
 1. Navigate to your [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
-1. In the _Exporting historical build data_ section, enter your cloud object storage bucket name.
+1. In the _Exporting historical build data_ section, select your build export strategy (S3 or GCS).
+1. Enter your bucket name.
 1. Select _Enable Export_.
