@@ -3914,7 +3914,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE_MONITOR",
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3926,7 +3926,19 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE_MONITOR",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3938,19 +3950,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "USER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
