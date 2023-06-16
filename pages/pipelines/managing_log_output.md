@@ -1,6 +1,6 @@
 # Managing log output
 
-Buildkite uses our open-source [terminal Golang library](https://github.com/buildkite/terminal) to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
+Buildkite uses our open-source [terminal-to-html](https://github.com/buildkite/terminal-to-html) tool to provide you with the best possible terminal rendering experience for your build logs, including ANSI terminal emulation to ensure spinners, progress bars, colors and emojis are rendered beautifully.
 
 
 ## Collapsing output

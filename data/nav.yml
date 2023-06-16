@@ -343,7 +343,7 @@
           pill: "beta"
         - name: "Python"
           path: "test-analytics/python-collectors"
-        - name: "Golang"
+        - name: "Go"
           path: "test-analytics/golang-collectors"
         - name: ".NET"
           path: "test-analytics/dotnet-collectors"

@@ -4,7 +4,7 @@ toc: false
 
 # Rust collector
 
-To use Test Analytics with your Rust projects use the :github: [`test-collector-rust`](https://github.com/buildkite/test-collector-rust) package with `cargo test`.
+To use Test Analytics with your [Rust](https://www.rust-lang.org/) projects use the :github: [`test-collector-rust`](https://github.com/buildkite/test-collector-rust) package with `cargo test`.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
