@@ -3812,12 +3812,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
@@ -3842,6 +3836,12 @@
               "deprecationReason": null
             },
             {
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CLUSTER_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3861,12 +3861,6 @@
             },
             {
               "name": "ORGANIZATION_INVITATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3920,13 +3914,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3938,13 +3932,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER",
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3956,7 +3944,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
+              "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3969,6 +3957,18 @@
             },
             {
               "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
