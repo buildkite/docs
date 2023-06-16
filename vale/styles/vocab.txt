@@ -165,10 +165,12 @@ ruleset
 rvm
 sandboxed
 sed
+scriptwrapper
 sha
 sharding
 shasum
 Shellcheck
+shellscripting
 Shipit
 sre
 sso
