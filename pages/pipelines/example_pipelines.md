@@ -110,8 +110,8 @@ A list of repositories containing example [pipelines](/docs/pipelines).
 <a class="Docs__example-repo" href="https://github.com/buildkite/golang-example">
  <span class="icon">:golang:</span>
   <span class="detail">
-    <strong>Golang</strong>
-     <span class="description">An example of testing a Golang project</span>
+    <strong>Go</strong>
+     <span class="description">An example of testing a Go project</span>
     <span class="repo">github.com/buildkite/golang-example</span>
   </span>
 </a>
@@ -119,8 +119,8 @@ A list of repositories containing example [pipelines](/docs/pipelines).
 <a class="Docs__example-repo" href="https://github.com/buildkite/golang-docker-example">
  <span class="icon">:golang:</span>
   <span class="detail">
-    <strong>Golang - Docker</strong>
-     <span class="description">An example of testing a Golang project w/ Docker</span>
+    <strong>Go - Docker</strong>
+     <span class="description">An example of testing a Go project w/ Docker</span>
     <span class="repo">github.com/buildkite/golang-docker-example</span>
   </span>
 </a>

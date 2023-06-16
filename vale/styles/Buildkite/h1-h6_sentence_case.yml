@@ -67,7 +67,7 @@ exceptions:
   - GitLab
   - GitLab Community
   - GitLab Enterprise
-  - Golang
+  - Go
   - Google Chrome
   - Google Cloud
   - Google Cloud Functions

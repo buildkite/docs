@@ -1,6 +1,6 @@
 # Ruby collectors
 
-To use Test Analytics with your Ruby projects use the :github: [`test-collectors-ruby`](https://github.com/buildkite/test-collector-ruby) gem with RSpec or minitest.
+To use Test Analytics with your [Ruby](https://www.ruby-lang.org/) projects use the :github: [`test-collectors-ruby`](https://github.com/buildkite/test-collector-ruby) gem with RSpec or minitest.
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 

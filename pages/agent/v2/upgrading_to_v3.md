@@ -37,7 +37,7 @@ Changed:
 * Agent meta-data has been renamed to "tags"
 * Much better Windows support, including .BAT hooks support
 * Checkout clean no longer ignores files in `.gitignore`
-* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli-bootstrap). This means it's written in golang and cross-platform.
+* The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli-bootstrap). This means it's written in Go and cross-platform.
 
 Deprecated:
 
