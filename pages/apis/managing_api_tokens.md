@@ -63,6 +63,14 @@ If you'd like to limit access to your organization by IP address, you can create
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
+## Revoking inactive tokens automatically
+
+To enable the automatic revocation of inactive tokens, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive token to remain valid.
+
+Inactive tokens refer to those that have not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
+
+Upon token revocation, Buildkite will notify the owner of their change in access.
+
 ## Programmatically managing tokens
 
 The `access-token` REST API endpoint can be used to retrieve or revoke an API access token. See the [REST API access token](/docs/apis/rest-api/access-token) page for further information.
