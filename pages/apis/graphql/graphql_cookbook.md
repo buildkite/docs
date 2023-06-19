@@ -541,6 +541,64 @@ mutation {
 }
 ```
 
+## Clusters
+
+A collection of common tasks with clusters using the GraphQL API.
+
+### List cluster queues 
+
+List the first 20 cluster queues' key and ID for the first 10 clusters in the organisation
+
+```graphql
+query getClusterQueues {
+  organization(slug: "organization-slug") {
+    clusters(first:10){
+      edges{
+        node{
+          name
+          queues(first:20){
+            edges{
+              node{
+                key
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### List jobs as part of a specific cluster queue
+
+List the first 20 jobs as part of a cluster queue in the `RUNNING` [job state](/docs/apis/graphql/schemas/enum/jobstates)).
+
+```graphql
+query getClusterQueueJobs {
+  organization(slug:"organization-slug"){
+    jobs(first: 20, clusterQueue:"cluster-queue-id", state:[RUNNING]) {
+  	  edges{
+        node{
+          ... on JobTypeCommand{
+            state
+            uuid
+            build{
+              id
+              number
+              pipeline{
+                name
+              }
+            }
+          }  
+        }
+      }
+    }
+  }
+}
+```
+
 ## Organizations
 
 A collection of common tasks with organizations using the GraphQL API.
