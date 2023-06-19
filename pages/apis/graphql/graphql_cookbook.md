@@ -573,7 +573,7 @@ query getClusterQueues {
 
 ### List jobs as part of a specific cluster queue
 
-List the first 20 jobs as part of a cluster queue in the `RUNNING` [job state](/docs/apis/graphql/schemas/enum/jobstates)).
+List the first 20 jobs as part of a cluster queue in the `RUNNING` [job state](/docs/apis/graphql/schemas/enum/jobstates).
 
 ```graphql
 query getClusterQueueJobs {
