@@ -21,8 +21,8 @@ For example, you could define an agent-wide `checkout` hook that spins up a fres
 
 There are two categories of hooks:
 
-* Agent Lifecycle
-* Job Lifecycle
+* Agent lifecycle
+* Job lifecycle
 
 Agent lifecycle hooks are _executed_ by the Buildkite agent as part of the agent's lifecycle. For example, the `pre-bootstrap` hook is executed before starting a job's bootstrap process, and the `agent-shutdown` hook is executed before the agent process terminates.
 
@@ -30,7 +30,7 @@ Job lifecycle hooks are _sourced_ (see "A note on sourcing" for specifics) by th
 
 <details>
 <summary> 📝 A note on sourcing </summary>
-<p>We use the word "sourcing" on this page, but it's not strictly true. Instead, the agent uses a process called <a href="https://github.com/buildkite/agent/blob/1a5f05029cc363a984188c441f938dd316dedd16/hook/scriptwrapper.go">"the scriptwrapper"</a> to run hooks.</p>
+<p>We use the word "sourcing" on this page, but it's not strictly correct. Instead, the agent uses a process called <a href="https://github.com/buildkite/agent/blob/1a5f05029cc363a984188c441f938dd316dedd16/hook/scriptwrapper.go">"the scriptwrapper"</a> to run hooks.</p>
 
 <p>This process notes down the environment variables before a hook run, sources that hook, and compares the environment variables after the hook run to the environment variables before the hook run.</p>
 
@@ -87,7 +87,7 @@ In addition to the regular shell script hooks, polyglot hooks enable you to run 
 
 Polyglot hooks are run transparently by the agent, and are not distinguished from shell script hooks in the logs or the Buildkite dashboard. The agent will automatically detect the type of hook–whether it's a shell script, an interpreted hook, or a binary–and run it appropriately. All you need to do is place your hook in the correct location and ensure it's executable.
 
-#### Extra environment
+### Extra environment variables
 
 When polyglot hooks are called, the following extra environment variables are set:
 
@@ -95,7 +95,7 @@ When polyglot hooks are called, the following extra environment variables are se
 * `BUILDKITE_HOOK_PATH` - The path to the hook being run. For example, `/path/to/my-hook`.
 * `BUILDKITE_HOOK_SCOPE` - The scope of the hook being run. For example, `global`, `local`, or `plugin`.
 
-#### Caveats
+### Caveats
 
 Polyglot hook usage comes with the following caveats:
 
