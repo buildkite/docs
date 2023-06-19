@@ -28,6 +28,10 @@ REST API scopes are very granular, you can select some or all of the following:
 * Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
 * Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
 * Read User `read_user` - Permission to retrieve basic details of the user
+* Read Suites `read_suites` - Permission to list and retrieve details of suites; including runs,
+  tests, executions, etc.
+* Read Flaky Tests `read_flaky_tests` - Deprecated. Use `read_suites` instead. Permission to list
+  flaky tests.
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
