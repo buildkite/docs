@@ -48,7 +48,7 @@ Success response: `200 OK`
 
 ```bash
 curl -X POST \
-  http://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites \
+  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites \
   -d '{
     "name": "Jasmine",
     "default_branch": "main",
@@ -62,8 +62,8 @@ curl -X POST \
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "slug": "jasmine",
   "name": "Jasmine",
-  "url": "http://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
-  "web_url": "http://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
+  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
   "default_branch": "main",
   "api_token": "AAAAAAAAAAAAAAAAAAAAAAAA"
 }
