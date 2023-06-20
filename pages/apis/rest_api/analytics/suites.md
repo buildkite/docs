@@ -48,7 +48,7 @@ Success response: `200 OK`
 
 ```bash
 curl -X POST \
-  http://api.buildkite.localhost/v2/analytics/organizations/{org.slug}/suites \
+  http://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites \
   -d '{
     "name": "Jasmine",
     "default_branch": "main",
