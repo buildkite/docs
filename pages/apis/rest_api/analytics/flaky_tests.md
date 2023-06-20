@@ -25,6 +25,6 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 ]
 ```
 
-Required scope: `read_flaky_tests`
+Required scope: `read_suites`
 
 Success response: `200 OK`

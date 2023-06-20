@@ -27,7 +27,7 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
   <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
   <%= button ":android: Android", "/docs/test-analytics/android-collectors" %>
   <%= button ":pytest: pytest", "/docs/test-analytics/python-collectors" %>
-  <%= button ":golang: Golang", "/docs/test-analytics/golang-collectors" %>
+  <%= button ":golang: Go", "/docs/test-analytics/golang-collectors" %>
   <%= button ":junit: JUnit", "/docs/test-analytics/importing-junit-xml" %>
   <%= button ":dotnet: .NET", "/docs/test-analytics/dotnet-collectors" %>
   <%= button ":elixir: Elixir", "/docs/test-analytics/elixir-collectors" %>

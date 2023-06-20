@@ -16,14 +16,14 @@ toc: false
 -->
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
-  clusterAgentTokenCreate
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenCreatePayload"><code>ClusterAgentTokenCreatePayload</code></a>
+  clusterQueueDelete
+  <a href="/docs/apis/graphql/schemas/object/clusterqueuedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueDeletePayload"><code>ClusterQueueDeletePayload</code></a>
 
 </h1>
 <!-- vale on -->
 
 
-<p>Create a new cluster agent token</p>
+<p>Delete a cluster queue.</p>
 
 
 <table class="responsive-table responsive-table--single-column-rows">
@@ -33,6 +33,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokencreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenCreateInput"><code>ClusterAgentTokenCreateInput</code></a></h3><p>Parameters for ClusterAgentTokenCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueuedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueDeleteInput"><code>ClusterQueueDeleteInput</code></a></h3><p>Parameters for ClusterQueueDelete</p></td></tr>
   </tbody>
 </table>

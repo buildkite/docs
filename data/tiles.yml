@@ -25,7 +25,7 @@ test_analytics_guides:
         url: "/docs/test-analytics/android-collectors"
       - text: "Python"
         url: "/docs/test-analytics/python-collectors"
-      - text: "Golang"
+      - text: "Go"
         url: "/docs/test-analytics/golang-collectors"
       - text: ".NET"
         url: "/docs/test-analytics/dotnet-collectors"

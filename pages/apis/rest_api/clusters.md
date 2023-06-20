@@ -3,11 +3,11 @@
 The clusters API lets you create and manage clusters in your organization.
 
 > 📘 Enable clusters
-> You'll need to [enable clusters](/docs/agent/clusters#enable-clusters) for your organization to use this API.
+> You'll need to [enable clusters](/docs/clusters/overview#enable-clusters) for your organization to use this API.
 
 ## Clusters
 
-A [cluster](/docs/agent/clusters) is an isolated set of agents and pipelines within an organization.
+A [cluster](/docs/clusters/overview) is an isolated set of agents and pipelines within an organization.
 
 ### Cluster data model
 
@@ -250,7 +250,7 @@ Error responses:
 
 ## Cluster queues
 
-[Cluster queues](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-set-up-queues) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
+[Cluster queues](/docs/clusters/manage-clusters#set-up-clusters-create-a-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
 
 ### Cluster queue data model
 
@@ -480,12 +480,12 @@ Error responses:
 
 ### Pause a queue
 
-[Pause a queue](/docs/agent/clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/clusters/manage-clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \
   -H "Content-Type: application/json" \
-  -d '{ "note": "Paused while we investigate a security issue" }'
+  -d '{ "dispatch_paused_note": "Paused while we investigate a security issue" }'
 ```
 
 ```json
@@ -592,7 +592,7 @@ Error responses:
 
 ## Cluster tokens
 
-A [cluster token](https://buildkite.com/docs/agent/clusters#set-up-a-cluster-connect-agents-to-a-cluster) is used to connect agents to a cluster.
+A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster) is used to connect agents to a cluster.
 
 ### Token data model
 
