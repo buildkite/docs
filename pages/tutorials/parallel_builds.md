@@ -39,13 +39,13 @@ buildkite-agent start --tags queue=deploy
 
 >🛠️ Experimental feature
 > To use it, set <code>experiment="agent-api"</code> in your <a href="/docs/agent/v3/configuration#experiment"> agent configuration</a>.
-> This also requires Agent v3.47.0 or later.
+> This requires Agent v3.47.0 or later.
 
-Multiple agents on a single host can sometimes interfere with one another. For example, a pipeline might contain commands like `docker prune` or `apt upgrade`, but these commands fail if another job is running the same command at the same time.
+Multiple agents on a single host can sometimes interfere with one another. For example, a pipeline might contain commands like `docker prune` or `apt upgrade`, but these commands fail if another job runs the same command at the same time.
 
 To coordinate access to shared resources on the same host, you can use agent locks. Locking is advisory (nothing prevents a buggy command from ignoring a lock), but it can help avoid multiple agents interfering with each other.
 
-Here's how you could use locks to make sure a command is run by only one agent at a time:
+Here's how you could use locks in a script to make sure a command is run by only one agent at a time:
 
 ```bash
 # Acquire the lock called "docker prune", and store the token.
