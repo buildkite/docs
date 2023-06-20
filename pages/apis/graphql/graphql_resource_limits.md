@@ -83,9 +83,9 @@ query RecentPipelineSlugs {
 
 
 ## Rate limits
-Buildkite has implemented two distinct limits to our graphql endpoints. These limits play a critical role in ensuring that our platform operates smoothly and efficiently, while also minimising the risk of unnecessary downtime or system failures.
+Buildkite has implemented two distinct limits to our GraphQL endpoints. These limits play a critical role in ensuring that our platform operates smoothly and efficiently, while also minimising the risk of unnecessary downtime or system failures.
 
-By enforcing these limits, we can effectively manage and allocate the necessary resources for our graphql endpoints.
+By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
 
 ### Single query limit
 
@@ -144,7 +144,7 @@ RateLimit-Reset: 120
 
 ### Response body
 
-You can include the header  `Buildkite-Include-Query-Stats` to the graphql request, which will return the complexity data along with the graphql response.
+You can include the header  `Buildkite-Include-Query-Stats` to the GraphQL request, which will return the complexity data along with the GraphQL response.
 
 ```json
 {
@@ -162,13 +162,13 @@ You can include the header  `Buildkite-Include-Query-Stats` to the graphql reque
 
 ## Best practices to avoid rate limit errors
 
-Designing your client application with best practices in mind is the best way to avoid throttling errors. For example, you can stagger API requests in a queue and do other processing tasks while waiting for the next queued job to run. 
+Designing your client application with best practices in mind is the best way to avoid throttling errors. For example, you can stagger API requests in a queue and do other processing tasks while waiting for the next queued job to run.  
 
 Consider the following best practices when designing the app:
 
 * Optimize the request by only requesting data your app requires. We recommend using specific queries rather than a single all-purpose queries.
 * Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to up to 500 which can increase the requested complexity exponentially.
-* Use strategies like caching for data that you use often and are unlikely to be updated instead of calling APIs constantly. 
+* Use strategies like caching for data that you use often and are unlikely to be updated instead of calling APIs constantly.
 * Regulate the rate of your requests for smoother distribution. These can be done by using queues or scheduling API calls in appropriate intervals.
 * Use metadata about your app’s API usage, including rate limit status to manage app’s behaviour dynamically.
 * Think of rate limiting while designing your client application. Be mindful of retries, errors, loops and the frequency of API calls.
