@@ -65,7 +65,7 @@ You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](
 
 ## Revoking inactive tokens automatically
 
-To enable the automatic revocation of inactive tokens, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive token to remain valid.
+To enable the automatic revocation of inactive tokens, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
 
 Inactive tokens refer to those that have not been used within the specified duration. When an API token surpasses the configured setting, Buildkite will automatically revoke the token's access to your organization.
 
