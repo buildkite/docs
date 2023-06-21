@@ -1112,6 +1112,12 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
     </td>
   </tr>
   <tr>
+    <th><code>skip_builds_for_existing_commits</code></th>
+    <td>
+      Whether to skip creating a new build if a build for the commit and branch already exists.
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
     <th><code>skip_pull_request_builds_for_existing_commits</code></th>
     <td>
       Whether to skip creating a new build for a pull request if an existing build for the commit and branch already exists.
