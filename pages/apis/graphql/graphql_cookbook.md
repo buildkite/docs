@@ -540,7 +540,80 @@ mutation {
   }
 }
 ```
+## Clusters
 
+A collection of common tasks with clusters using the GraphQL API
+
+### Create a queue
+
+Creates a new queue in a cluster
+
+```graphql
+mutation {
+  clusterQueueCreate(input: {
+    organizationId: "T3JnYW5pemF0aW9uLS0tZDZmNzU1NTEtZTM2OC00NzNmLTk1YzctNmFlOWU1OTNkOWU2",
+    clusterId: "Q2x1c3Rlci0tLWU3YWFjN2Q3LTg2ZmYtNDJjZi04NzYyLTM0ZjAwY2Q5MWRkOQ=="
+    key: "Default",
+    description: "The default queue"
+  }) {
+    clusterQueue {
+      id
+      key
+      description
+      createdBy {
+        id
+        name
+      }
+      cluster {
+        id
+        name
+      }
+    }
+  }
+}
+```
+### Update a queue
+
+Update an already existing queue
+
+```graphql
+mutation {
+  clusterQueueUpdate(input: {
+    organizationId: "T3JnYW5pemF0aW9uLS0tZDZmNzU1NTEtZTM2OC00NzNmLTk1YzctNmFlOWU1OTNkOWU2",
+    id: "Q2x1c3RlclF1ZXVlLS0tMWY5NDUzMTgtNzI2Zi00OGExLTg4NGQtZGNkN2NjNGFiN2Jj",
+    description: "The default queue",
+    
+  }) {
+    clusterQueue {
+      id
+      key
+      description
+      createdBy {
+        id
+        name
+      }
+      cluster {
+        id
+        name
+      }
+    }
+  }
+}
+```
+### Delete a queue
+
+Deletes a queue using the queue id
+
+```graphql
+mutation {
+  clusterQueueDelete(input: {
+    organizationId: "T3JnYW5pemF0aW9uLS0tZDZmNzU1NTEtZTM2OC00NzNmLTk1YzctNmFlOWU1OTNkOWU2",
+    id: ""
+  }) {
+    deletedClusterQueueId
+  }
+}
+```
 ## Organizations
 
 A collection of common tasks with organizations using the GraphQL API.
