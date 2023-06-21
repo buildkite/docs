@@ -133,7 +133,7 @@ We provide rate limit status on response headers of each GraphQL call. We have 3
 
 ```js
 RateLimit-Remaining: 20
-RateLimit-Limit: 10000
+RateLimit-Limit: 20000
 RateLimit-Reset: 120
 ```
 
