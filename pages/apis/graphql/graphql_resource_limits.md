@@ -108,7 +108,7 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 
 ### Time based rate limit
 
-To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5 minute period. By allowing a set number of actual complexity points, we provide organizations flexibility to run query of different sizes within a 5 minute window.
+To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5 minute period. By allowing a set number of actual complexity points, we provide organizations flexibility to run queries of different sizes within a 5 minute window.
 
 As a best practice, we recommend utilising client size strategies like caching to lower the number of API calls, queues to schedule API calls or proper use of pagination to only request necessary data to manage time based rate limits.
 
