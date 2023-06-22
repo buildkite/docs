@@ -60,7 +60,7 @@ query RecentPipelineSlugs {
 ```
 
 ### Actual complexity
-The actual complexity is based on the results returned after the query execution, since the connection fields can return fewer nodes than requested. Lowering requested complexity usually lowers the actual complexity of queries.
+The actual complexity is based on the results returned after the query execution, since the connection fields can return fewer nodes than requested. Lowering the requested complexity usually lowers the actual complexity of queries.
 
 Taking the same query as above, if the organization has only 10 pipelines, the actual complexity will be around 13.
 
