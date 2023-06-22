@@ -166,7 +166,7 @@ Designing your client application with best practices in mind is the best way to
 
 Consider the following best practices when designing the app:
 
-* Optimize the request by only requesting data your app requires. We recommend using specific queries rather than a single all-purpose queries.
+* Optimize the request by only requesting data your app requires. We recommend using specific queries rather than a single all-purpose query.
 * Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to up to 500 which can increase the requested complexity exponentially.
 * Use strategies like caching for data that you use often and are unlikely to be updated instead of calling APIs constantly.
 * Regulate the rate of your requests for smoother distribution. These can be done by using queues or scheduling API calls in appropriate intervals.
