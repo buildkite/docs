@@ -139,7 +139,7 @@ RateLimit-Reset: 120
 
 `RateLimit-Remaining` provides the remaining complexity left within the current time window.  
 `RateLimit-Limit` is the complexity limit for the time window.  
-`RateLimit-Limit` is the number of seconds remaining until a new time window is started and the limits are reset.  
+`RateLimit-Reset` is the number of seconds remaining until a new time window is started and the limits are reset.  
 
 
 ### Response body
