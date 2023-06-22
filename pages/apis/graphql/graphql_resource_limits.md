@@ -112,7 +112,7 @@ To ensure optimal performance, an organization can use up to 20,000 actual compl
 
 As a best practice, we recommend utilising client size strategies like caching to lower the number of API calls, queues to schedule API calls or proper use of pagination to only request necessary data to manage time based rate limits.
 
-If an organisation exceeds the 20,000 points limit, the response will return HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 points limit, the response will return HTTP 429 status code with the following error.
 
 ```json
 {
