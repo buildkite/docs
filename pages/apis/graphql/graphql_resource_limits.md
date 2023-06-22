@@ -33,7 +33,7 @@ A cost is based on what the field returns.
   </tr>
 </table>
 
-Although these default costs are in place, Buildkite also reserves the right to set manual costs to individual fields.
+Although these default costs are in place, Buildkite reserves the right to set manual costs to individual fields.
 
 
 ## Complexity calculation
