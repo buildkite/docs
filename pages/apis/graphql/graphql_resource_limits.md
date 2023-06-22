@@ -83,7 +83,7 @@ query RecentPipelineSlugs {
 
 
 ## Rate limits
-Buildkite has implemented two distinct limits to our GraphQL endpoints. These limits play a critical role in ensuring that our platform operates smoothly and efficiently, while also minimising the risk of unnecessary downtime or system failures.
+Buildkite has implemented two distinct limits to our GraphQL endpoints. These limits play a critical role in ensuring that our platform operates smoothly and efficiently, while minimising the risk of unnecessary downtime or system failures.
 
 By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
 
