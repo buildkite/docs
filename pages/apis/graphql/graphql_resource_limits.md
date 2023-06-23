@@ -4,8 +4,8 @@ To ensure that Buildkite stays stable for everyone, we have set some limits on o
 
 Our limits are based on the complexity of the query. We calculate complexity based on requested resources of the query and encourage developers to responsibly use techniques for limiting calls, pagination, caching and retrying requests to lower the complexity of the queries.
 
-
 ## Query complexity
+
 Every field type in the schema has an integer cost assigned to it. The cost of the query is the sum of the cost of each field. Usually, running the query is the best way to know the true cost of the query.
 
 A cost is based on what the field returns.
