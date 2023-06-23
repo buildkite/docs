@@ -135,7 +135,7 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 
 ## Accessing limit details
 
-### HTTP headers
+### Check time based limits
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
@@ -149,7 +149,7 @@ RateLimit-Limit: 20000
 RateLimit-Reset: 120
 ```
 
-### Response body
+### View query complexity
 
 To include the complexity data in responses, use the `Buildkite-Include-Query-Stats` header in GraphQL requests. This returns the complexity data in the response like the following:
 
