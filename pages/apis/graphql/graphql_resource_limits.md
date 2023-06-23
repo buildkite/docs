@@ -40,6 +40,7 @@ Although these default costs are in place, Buildkite reserves the right to set m
 Buildkite calculates the cost of the query before and after the query execution.
 
 ### Requested complexity
+
 The requested complexity is calculated based on the number of fields and objects requested. Usually, requesting a deeply nested query or excluding pagination details from connections results in high requested complexity.
 
 A simple query like the following would incur more than 500 requested complexity points as the query asks for 503 possible resources.
