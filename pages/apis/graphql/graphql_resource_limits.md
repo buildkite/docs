@@ -41,7 +41,7 @@ A cost is based on what the field returns using the following values.
   <tbody>
 </table>
 
-Although these default costs are in place, Buildkite reserves the right to set manual costs to individual fields.
+Although these default costs are in place, Buildkite reserves the right to set different costs for specific fields.
 
 ## Complexity calculation
 
@@ -86,11 +86,6 @@ query RecentPipelineSlugs {
   }
 }
 ```
-
-<!-- How to show example -->
-
-
-
 
 ## Rate limits
 Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
@@ -144,16 +139,15 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
+`RateLimit-Remaining` — The remaining complexity left within the current time window.  
+`RateLimit-Limit` — The complexity limit for the time window.  
+`RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset. 
+
 ```js
 RateLimit-Remaining: 20
 RateLimit-Limit: 20000
 RateLimit-Reset: 120
 ```
-
-`RateLimit-Remaining` provides the remaining complexity left within the current time window.  
-`RateLimit-Limit` is the complexity limit for the time window.  
-`RateLimit-Reset` is the number of seconds remaining until a new time window is started and the limits are reset.  
-
 
 ### Response body
 
