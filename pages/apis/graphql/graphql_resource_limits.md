@@ -1,6 +1,6 @@
 # GraphQL resource limits
 
-To ensure that Buildkite stays stable for everyone, we have set some limits on our GraphQL API. These limits prevent excessive or abusive calls to our servers while still allowing API users to use GraphQL endpoints in a wide range of ways.
+To ensure that Buildkite stays stable for everyone, there are limits on how you can use the GraphQL API. These limits prevent excessive or abusive calls to the servers while still allowing you to use GraphQL endpoints in a wide range of ways.
 
 Our limits are based on the complexity of the query. We calculate complexity based on requested resources of the query and encourage developers to responsibly use techniques for limiting calls, pagination, caching and retrying requests to lower the complexity of the queries.
 
