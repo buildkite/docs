@@ -8,7 +8,7 @@ The limits are based on query complexity, which is calculated from the requested
 
 Every field type in the schema has an integer cost assigned to it. The cost of the query is the sum of the cost of each field. Usually, running the query is the best way to know the true cost of the query.
 
-A cost is based on what the field returns.
+A cost is based on what the field returns using the following values.
 
 <table>
   <tr>
