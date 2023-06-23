@@ -545,9 +545,9 @@ mutation {
 
 A collection of common tasks with clusters using the GraphQL API.
 
-### List cluster queues 
+### List cluster queues
 
-List the first 20 cluster queues' key and ID for the first 10 clusters in the organisation
+For the first 10 clusters in an organization, list the key and ID of the first 20 cluster queues.
 
 ```graphql
 query getClusterQueues {
@@ -571,7 +571,7 @@ query getClusterQueues {
 }
 ```
 
-### List jobs as part of a specific cluster queue
+### List jobs in a cluster queue
 
 List the first 20 jobs as part of a cluster queue in the `RUNNING` [job state](/docs/apis/graphql/schemas/enum/jobstates).
 
