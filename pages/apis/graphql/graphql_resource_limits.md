@@ -35,7 +35,6 @@ A cost is based on what the field returns using the following values.
 
 Although these default costs are in place, Buildkite reserves the right to set manual costs to individual fields.
 
-
 ## Complexity calculation
 
 Buildkite calculates the cost of the query before and after the query execution.
