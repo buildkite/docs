@@ -11,26 +11,34 @@ Every field type in the schema has an integer cost assigned to it. The cost of t
 A cost is based on what the field returns using the following values.
 
 <table>
-  <tr>
-    <td>Scalar</td>
-    <td>0 complexity point</td>
-  </tr>
-  <tr>
-    <td>Enum</td>
-    <td>0 complexity point</td>
-  </tr>
-  <tr>
-    <td>Object</td>
-    <td>1 complexity point</td>
-  </tr>
-  <tr>
-    <td>Interface</td>
-    <td>1 complexity point</td>
-  </tr>
-  <tr>
-    <td>Union</td>
-    <td>1 complexity point</td>
-  </tr>
+  <thead>
+    <tr>
+      <th>Field type</th>
+      <th>Complexity value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Scalar</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Enum</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Object</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Interface</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Union</td>
+      <td>1</td>
+    </tr>
+  <tbody>
 </table>
 
 Although these default costs are in place, Buildkite reserves the right to set manual costs to individual fields.
@@ -51,7 +59,7 @@ query RecentPipelineSlugs {
     pipelines(first: 500) {                  # 1 point
       edges {                                # 1 point
         node {                               # 500 points
-          slug                               # 0 point
+          slug                               # 0 points
         }
       }
     }
@@ -60,9 +68,10 @@ query RecentPipelineSlugs {
 ```
 
 ### Actual complexity
+
 The actual complexity is based on the results returned after the query execution, since the connection fields can return fewer nodes than requested. Lowering the requested complexity usually lowers the actual complexity of queries.
 
-Taking the same query as above, if the organization has only 10 pipelines, the actual complexity will be around 13.
+Taking the same query used earlier, if the organization has only 10 pipelines, the actual complexity will be around 13.
 
 ```graphql
 query RecentPipelineSlugs {
@@ -70,7 +79,7 @@ query RecentPipelineSlugs {
     pipelines(first: 500) {                  # 1 point
       edges {                                # 1 point
         node {                               # 10 points
-          slug                               # 0 point
+          slug                               # 0 points
         }
       }
     }
@@ -82,8 +91,9 @@ query RecentPipelineSlugs {
 
 
 
+
 ## Rate limits
-Buildkite has implemented two distinct limits to our GraphQL endpoints. These limits play a critical role in ensuring that our platform operates smoothly and efficiently, while minimising the risk of unnecessary downtime or system failures.
+Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
 
 By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
 
@@ -91,7 +101,7 @@ By enforcing these limits, we can effectively manage and allocate the necessary 
 
 Buildkite's API has a requested complexity limit of 50,000 for each individual query. This limit is enforced prior to query execution. The intention of this limit is to prevent users from requesting an excessive number of resources in a single query.
 
-As a best practice, we recommend breaking up queries into smaller, more manageable chunks and utilizing pagination to navigate through the resulting list, rather than relying on a single large query.
+As a best practice, we recommend breaking up queries into smaller, more manageable chunks and utilizing pagination to navigate through the resulting list rather than relying on a single large query.
 
 If the query exceeds the limit, the response will return HTTP 200 status code with the following error.
 
@@ -105,14 +115,17 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 }
 ```
 
+### Time-based rate limit
 
-### Time based rate limit
+To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5-minute period. By allowing a set number of actual complexity points, you have the flexibility to run queries of different sizes within a 5-minute window.
 
-To ensure optimal performance, an organization can use up to 20,000 actual complexity points within a 5 minute period. By allowing a set number of actual complexity points, we provide organizations flexibility to run queries of different sizes within a 5 minute window.
+As a best practice, we recommend utilizing client-side strategies like the following to manage time-based rate limits:
 
-As a best practice, we recommend utilizing client size strategies like caching to lower the number of API calls, queues to schedule API calls or proper use of pagination to only request necessary data to manage time based rate limits.
+- Caching to lower the number of API calls.
+- Queues to schedule API calls.
+- Pagination to only request the necessary data.
 
-If an organization exceeds the 20,000 points limit, the response will return HTTP 429 status code with the following error.
+If an organization exceeds the 20,000 point limit, the response will return HTTP 429 status code with the following error.
 
 ```json
 {
@@ -125,11 +138,11 @@ If an organization exceeds the 20,000 points limit, the response will return HTT
 ```
 
 
-## Accessing limits details
+## Accessing limit details
 
 ### HTTP headers
 
-We provide rate limit status on response headers of each GraphQL call. We have 3 rate limit related headers
+The rate limit status is available in the following response headers of each GraphQL call:
 
 ```js
 RateLimit-Remaining: 20
@@ -144,7 +157,7 @@ RateLimit-Reset: 120
 
 ### Response body
 
-You can include the header  `Buildkite-Include-Query-Stats` to the GraphQL request, which will return the complexity data along with the GraphQL response.
+To include the complexity data in responses, use the `Buildkite-Include-Query-Stats` header in GraphQL requests. This returns the complexity data in the response like the following:
 
 ```json
 {
@@ -162,13 +175,13 @@ You can include the header  `Buildkite-Include-Query-Stats` to the GraphQL reque
 
 ## Best practices to avoid rate limit errors
 
-Designing your client application with best practices in mind is the best way to avoid throttling errors. For example, you can stagger API requests in a queue and do other processing tasks while waiting for the next queued job to run.  
+Designing your client application with best practices in mind is the simplest way to avoid throttling errors. For example, you can stagger API requests in a queue and do other processing tasks while waiting for the next queued job to run.
 
-Consider the following best practices when designing the app:
+Consider the following best practices when designing you API usage:
 
-* Optimize the request by only requesting data your app requires. We recommend using specific queries rather than a single all-purpose query.
-* Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500 which can increase the requested complexity exponentially.
-* Use strategies like caching for data that you use often and are unlikely to be updated instead of calling APIs constantly.
-* Regulate the rate of your requests for smoother distribution. These can be done by using queues or scheduling API calls in appropriate intervals.
-* Use metadata about your app’s API usage, including rate limit status to manage app’s behaviour dynamically.
+* Optimize the request by only requesting data you require. We recommend using specific queries rather than a single all-purpose query.
+* Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
+* Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
+* Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
+* Use metadata about your API usage, including rate limit status to manage the behavior dynamically.
 * Think of rate limiting while designing your client application. Be mindful of retries, errors, loops, and the frequency of API calls.
