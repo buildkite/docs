@@ -171,4 +171,4 @@ Consider the following best practices when designing the app:
 * Use strategies like caching for data that you use often and are unlikely to be updated instead of calling APIs constantly.
 * Regulate the rate of your requests for smoother distribution. These can be done by using queues or scheduling API calls in appropriate intervals.
 * Use metadata about your app’s API usage, including rate limit status to manage app’s behaviour dynamically.
-* Think of rate limiting while designing your client application. Be mindful of retries, errors, loops and the frequency of API calls.
+* Think of rate limiting while designing your client application. Be mindful of retries, errors, loops, and the frequency of API calls.
