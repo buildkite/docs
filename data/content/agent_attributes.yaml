@@ -88,11 +88,10 @@ attributes:
 - name: git-clone-mirror-flags
   env_var: BUILDKITE_GIT_CLONE_MIRROR_FLAGS
   default_value: "none"
-  experimental: true
+  experimental: false
   required: false
   desc: |
-      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Flags to pass to the `git clone` command when used for mirroring. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
       _Example:_ `-v --mirror`.
 - name: git-fetch-flags
   env_var: BUILDKITE_GIT_FETCH_FLAGS
@@ -105,18 +104,16 @@ attributes:
   env_var: BUILDKITE_GIT_MIRRORS_LOCK_TIMEOUT
   default_value: "300"
   required: false
-  experimental: true
+  experimental: false
   desc: |
-      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Seconds to lock a git mirror during clone. Should exceed your longest checkout. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
 - name: git-mirrors-path
   env_var: BUILDKITE_GIT_MIRRORS_PATH
   default_value: "none"
   required: false
-  experimental: true
+  experimental: false
   desc: |
-      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](https://buildkite.com/docs/agent/v3#experimental-features-git-mirrors) for more information on this feature.
-      This is an experimental feature. To use it, set `experiment="git-mirrors"` in your agent configuration. Learn more about [Experimental features](https://buildkite.com/docs/agent/v3#experimental-features).
+      Path to where mirrors of git repositories are stored. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
       _Example:_ `/tmp/buildkite-git-mirrors`
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
@@ -181,6 +178,12 @@ attributes:
   required: false
   desc: |
       Do not show colors in logging.
+- name: no-ansi-timestamps
+  env_var: BUILDKITE_NO_ANSI_TIMESTAMPS
+  default_value: "false"
+  required: false
+  desc: |
+    Do not insert ANSI timestamp codes at the start of each line of job output.
 - name: no-command-eval
   env_var: BUILDKITE_NO_COMMAND_EVAL
   default_value: "false"
@@ -307,7 +310,7 @@ attributes:
   default_value: "false"
   required: false
   desc: |
-      Prepend timestamps on each line of output.
+      Prepend timestamps on each line of output. Has no effect unless --no-ansi-timestamps is also used.
 - name: tracing-backend
   env_var: BUILDKITE_TRACING_BACKEND
   default_value: "none"
