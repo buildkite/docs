@@ -19,5 +19,6 @@ are in a state of RUNNING, CANCELING, TIMING_OUT, ACCEPTED, or ASSIGNED. Jobs Wa
 for this cluster queue which are in a state of SCHEDULED.
 
 ## Wait panel
-Wait shows the various job wait time percentiles for this cluster queue. They represent how long
-jobs wait after they are created to be assigned to an agent.
+Wait shows the various job wait time percentiles for this cluster queue's waiting jobs. The
+percentiles represent how long it takes jobs to be assigned an agent. If there are no waiting jobs
+then dashes '-' are shown instead.
