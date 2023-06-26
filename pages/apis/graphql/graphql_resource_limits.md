@@ -171,7 +171,7 @@ To include the complexity data in responses, use the `Buildkite-Include-Query-St
 
 Designing your client application with best practices in mind is the simplest way to avoid throttling errors. For example, you can stagger API requests in a queue and do other processing tasks while waiting for the next queued job to run.
 
-Consider the following best practices when designing you API usage:
+Consider the following best practices when designing your API usage:
 
 - Optimize the request by only requesting data you require. We recommend using specific queries rather than a single all-purpose query.
 - Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
