@@ -97,3 +97,39 @@ Optional [request body properties](/docs/api#request-body-properties):
 Required scope: `write_suites`
 
 Success response: `201 Created`
+
+## Update a suite
+
+```bash
+curl -X PUT \
+  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
+  -d '{
+    "name": "Jasmine",
+    "default_branch": "main"
+  }'
+```
+
+```json
+{
+  "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+  "slug": "jasmine",
+  "name": "Jasmine",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
+  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/jasmine",
+  "default_branch": "main"
+}
+```
+
+Optional [request body properties](/docs/api#request-body-properties):
+
+<table class="responsive-table">
+<tbody>
+  <tr><th><code>name</code></th><td>Name of the new suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td></tr>
+  <tr><th><code>default_branch</code></th><td>Your test suite will default to showing trends for this default branch, but collect data for all test runs.<br><em>Example:</em> <code>"main"</code> or <code>"master"</code>.</td></tr>
+</tbody>
+</table>
+
+
+Required scope: `write_suites`
+
+Success response: `200 OK`
