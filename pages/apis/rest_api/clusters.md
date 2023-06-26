@@ -601,6 +601,7 @@ A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-
   <tr><th><code>id</code></th><td>ID of the token</td></tr>
   <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the token</td></tr>
   <tr><th><code>description</code></th><td>Description of the token</td></tr>
+  <tr><th><code>allowed_ip_addresses</code></th><td>A list of CIDR-notation IPv4 addresses from which agents can use this token</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the token</td></tr>
   <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>
   <tr><th><code>created_at</code></th><td>When the token was created</td></tr>
@@ -622,6 +623,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
     "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
     "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
     "description": "Windows agents",
+    "allowed_ip_addresses": "202.144.0.0/24",
     "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
     "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
     "created_at": "2023-05-26T04:21:41.350Z",
@@ -652,6 +654,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
   "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
+  "allowed_ip_addresses": "202.144.0.0/24",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
   "created_at": "2023-05-26T04:21:41.350Z",
@@ -678,7 +681,7 @@ Success response: `200 OK`
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "Windows agents" }'
+  -d '{ "description": "Windows agents", "allowed_ip_addresses": "202.144.0.0/24" }'
 ```
 
 ```json
@@ -686,6 +689,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
   "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
+  "allowed_ip_addresses": "202.144.0.0/24",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
   "created_at": "2023-05-26T04:21:41.350Z",
@@ -726,7 +730,7 @@ Error responses:
 ```bash
 curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
   -H "Content-Type: application/json" \
-  -d '{ "description": "Windows agents" }'
+  -d '{ "description": "Windows agents", "allowed_ip_addresses": "202.144.0.0/24" }'
 ```
 
 ```json
@@ -734,6 +738,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{clu
   "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
   "description": "Windows agents",
+  "allowed_ip_addresses": "202.144.0.0/24",
   "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
   "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
   "created_at": "2023-05-26T04:21:41.350Z",
