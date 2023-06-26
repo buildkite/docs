@@ -63,6 +63,22 @@ To add a maintainer to a cluster:
 1. Select a user or team.
 1. Click _Add Maintainer_.
 
+### Restrict access for a cluster token by IP address
+
+Each cluster token can be locked down so that only agents with an allowed IP address can use them to register.
+
+You can set the _Allowed IP Addresses_ when creating a token, or you can modify existing tokens:
+
+1. Navigate to the cluster's _Agent Tokens_.
+1. Select the token to which you wish to restrict access.
+1. Select _Edit_.
+1. Update the _Allowed IP Addresses_ setting, using CIDR notation.
+1. Click _Save Token_.
+
+Note that modifying the _Allowed IP Addresses_ will forcefully disconnect any existing agents with IP addresses that fall outside the updated value. This will prevent the completion of any jobs in progress on those agents.
+
+There is a maximum of 24 addresses per agent token, and IPv6 is currently not supported.
+
 ### Migrate to clusters
 
 If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
