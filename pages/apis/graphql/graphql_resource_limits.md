@@ -135,7 +135,7 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 
 ## Accessing limit details
 
-### Check time based limits
+### Check time-based limits
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
