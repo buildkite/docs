@@ -3812,13 +3812,25 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "PIPELINE",
+              "name": "USER_EMAIL",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3830,7 +3842,7 @@
               "deprecationReason": null
             },
             {
-              "name": "API_ACCESS_TOKEN",
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3843,6 +3855,12 @@
             },
             {
               "name": "CLUSTER_TOKEN",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "API_ACCESS_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3866,13 +3884,25 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_SCHEDULE",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "TEAM",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_SCHEDULE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3920,31 +3950,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "USER",
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3956,19 +3968,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AUTHORIZATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUBSCRIPTION",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -7401,6 +7401,18 @@
               "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "interfaces": null,
@@ -7687,6 +7699,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null,
@@ -9095,6 +9119,20 @@
           "name": "ClusterToken",
           "description": "A token used to connect an agent in cluster to Buildkite",
           "fields": [
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "cluster",
               "description": null,
