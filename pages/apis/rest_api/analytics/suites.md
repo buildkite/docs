@@ -133,3 +133,14 @@ Optional [request body properties](/docs/api#request-body-properties):
 Required scope: `write_suites`
 
 Success response: `200 OK`
+
+## Delete a suite
+
+```bash
+curl -X DELETE \
+  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
+```
+
+Required scope: `write_clusters`
+
+Success response: `204 No Content`
