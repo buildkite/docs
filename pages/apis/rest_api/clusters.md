@@ -601,7 +601,7 @@ A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-
   <tr><th><code>id</code></th><td>ID of the token</td></tr>
   <tr><th><code>graphql_id</code></th><td><a href="/docs/apis/graphql-api#graphql-ids">GraphQL ID</a> of the token</td></tr>
   <tr><th><code>description</code></th><td>Description of the token</td></tr>
-  <tr><th><code>allowed_ip_addresses</code></th><td>A list of CIDR-notation IPv4 addresses from which agents can use this token</td></tr>
+  <tr><th><code>allowed_ip_addresses</code></th><td>A list of <a href="https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing">CIDR-notation</a> IPv4 addresses from which agents can use this token</td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the token</td></tr>
   <tr><th><code>cluster_url</code></th><td>API URL of the cluster the token belongs to</td></tr>
   <tr><th><code>created_at</code></th><td>When the token was created</td></tr>

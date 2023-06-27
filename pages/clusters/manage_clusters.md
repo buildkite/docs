@@ -72,10 +72,10 @@ You can set the _Allowed IP Addresses_ when creating a token, or you can modify 
 1. Navigate to the cluster's _Agent Tokens_.
 1. Select the token to which you wish to restrict access.
 1. Select _Edit_.
-1. Update the _Allowed IP Addresses_ setting, using CIDR notation.
-1. Click _Save Token_.
+1. Update the _Allowed IP Addresses_ setting, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+1. Select _Save Token_.
 
-Note that modifying the _Allowed IP Addresses_ will forcefully disconnect any existing agents with IP addresses that fall outside the updated value. This will prevent the completion of any jobs in progress on those agents.
+Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
 
 There is a maximum of 24 addresses per agent token, and IPv6 is currently not supported.
 
