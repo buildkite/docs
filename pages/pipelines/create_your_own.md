@@ -66,6 +66,7 @@ To create a new pipeline:
  _New Pipeline_.
 
     If you're prompted to connect your repositories, we recommend completing that first, but you can always connect them later from the settings.
+    After connecting your repositories, you can select them from the dropdown during pipeline creation and enable automatic webhook creation.
 
 1. Enter the details you want for the pipeline. You can always change these later in the pipeline settings.
 1. Select _Create Pipeline_.

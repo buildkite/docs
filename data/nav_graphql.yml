@@ -5,6 +5,8 @@
   path: apis/graphql/graphql-tutorial
 - name: Cookbook
   path: apis/graphql/graphql-cookbook
+- name: Limits
+  path: apis/graphql/graphql-resource-limits
 - name: Queries
   children:
   - name: agent
