@@ -662,7 +662,7 @@ query Usage {
     usage(
       aggregatedOnFrom: "2023-04-01"
       aggregatedOnTo: "2023-05-01"
-      resource:[JOB_MINUTES, TEST_EXECUTIONS]
+      resource: [JOB_MINUTES, TEST_EXECUTIONS]
     ) {
       edges {
         node {
