@@ -49,14 +49,14 @@ Here's how you could use locks in a script to make sure a command is run by only
 
 ```bash
 # Acquire the lock called "docker prune", and store the token.
-buildkite-agent lock acquire "docker prune"
+token=$(buildkite-agent lock acquire "docker prune")
 
 # Once the lock is acquired, proceed to run the command - in this example, docker prune
 docker prune
 
 # Release the lock afterwards.
 # To make this example more robust, consider using an EXIT trap, so that the lock is released whether the command succeeded or not.
-buildkite-agent lock release "docker prune"
+buildkite-agent lock release "docker prune" "${token}"
 ```
 
 ### Multiple agents on many machines
