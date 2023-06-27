@@ -678,7 +678,7 @@ query Usage {
 
         node {
           __typename ... on TestExecutionsUsage {
-            Time:aggregatedOn
+            Time: aggregatedOn
             executions
             suite {
               name
