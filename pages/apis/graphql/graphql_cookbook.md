@@ -675,7 +675,6 @@ query Usage {
             }
           }
         }
-
         node {
           __typename ... on TestExecutionsUsage {
             Time: aggregatedOn
