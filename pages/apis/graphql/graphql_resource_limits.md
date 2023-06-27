@@ -132,16 +132,17 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 }
 ```
 
-
 ## Accessing limit details
 
 ### Check time-based limits
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
-`RateLimit-Remaining` — The remaining complexity left within the current time window.  
-`RateLimit-Limit` — The complexity limit for the time window.  
-`RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
+- `RateLimit-Remaining` — The remaining complexity left within the current time window.  
+- `RateLimit-Limit` — The complexity limit for the time window.  
+- `RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
+
+For example:
 
 ```js
 RateLimit-Remaining: 20
@@ -173,7 +174,7 @@ Designing your client application with best practices in mind is the simplest wa
 
 Consider the following best practices when designing your API usage:
 
-- Optimize the request by only requesting data you require. We recommend using specific queries rather than a single all-purpose query.
+- Optimize the request by only requesting the data you require. We recommend using specific queries rather than a single all-purpose query.
 - Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
 - Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
 - Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
