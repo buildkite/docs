@@ -77,7 +77,7 @@ You can set the _Allowed IP Addresses_ when creating a token, or you can modify 
 
 Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
 
-There is a maximum of 24 addresses per agent token, and IPv6 is currently not supported.
+There is a maximum of 24 CIDR blocks per agent token, and IPv6 is currently not supported.
 
 ### Migrate to clusters
 
