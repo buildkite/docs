@@ -28,35 +28,35 @@ An administrator can test a pipeline template against a pipeline using the _New 
 
 If a template exists for the organization, it can be selected from the _Pipeline template_ dropdown to create a new build using the step configuration from that template.
 
-## Assigning a pipeline template to a pipeline
-
-To permanently override a pipeline's step configuration with a pipeline template, administrators must first require pipeline templates via settings (see next section).
-
-Once pipeline templates are required, there are three options for assigning a template to individual pipelines:
-
-1. Selecting the template on the step settings for that pipeline (_Pipeline_ > _Settings_ > _Steps_).
-1. Using the REST API to [update the pipeline](https://buildkite.com/docs/apis/rest-api/pipelines#update-a-pipeline) with the appropriate `pipeline_template_uuid`.
-1. Using the GraphQL API [`pipelineUpdate` mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
-
-The correct IDs to use with the APIs for a template can be found on the template page in the UI.
-
-> Note that pipelines that have not been setup using YAML steps cannot be assigned a pipeline template via the UI.
-> These pipelines must be either [migrated to YAML steps first](https://buildkite.com/docs/tutorials/pipeline-upgrade), updated via the APIs, or bulk-assigned a template when selecting the _Require a pipeline template for everything_ setting.
-
 ## Requiring pipeline templates
 
-To change your organizations pipeline template settings, first make sure you have created at least one pipeline template.
+The power of pipeline templates comes from how much you require their use. Administrators can select from the following options, listed in increasing strictness:
 
-Navigate to your Buildkite _Organization Settings_ and choose _Templates_ > [Settings](https://buildkite.com/organizations/-/pipeline-templates/settings).
+1. **Do not require pipeline templates:** Pipeline steps remain editable for any user with permission to create or update a pipeline. Templates can be tested against pipelines but cannot be assigned to them.
+1. **Require a pipeline template on new pipelines:** A template must be selected when creating a new pipeline. The step configuration of existing pipelines will become read-only. Pipelines can be assigned a template individually, making a gradual migration to pipeline templates possible.
+1. **Requiring a pipeline template for everything:** Templates are mandatory on all new and existing pipelines. When choosing this setting, you will select a pipeline template to apply to any pipeline that does not already have a template assigned.
 
-Three options are available:
+>🚧 Changing requirements
+> When updating the requirements, you can only update the setting to an option that is more strict. Take care to test your pipeline templates before enforcing them on all pipelines. 
 
-- **Do not require pipeline templates** <br />
-  Pipeline steps remain editable for any user that has permission to create or update a pipeline. Templates can be tested against pipelines but cannot be assigned to them.
+To change your organization's requirements for pipeline templates:
 
-- **Require a pipeline template on new pipelines** <br />
-  A template must be selected when creating a new pipeline. The step configuration of existing pipelines will become read only. Pipelines can be assigned a template individually, making a gradual migration to pipeline templates possible.
-- **Requiring a pipeline template for everything** <br />
-  Templates are mandatory on all new and existing pipelines. When choosing this setting you will select a pipeline template that will be applied to any pipeline that does not already have a template assigned.
+1. Navigate to your [organization's pipeline template settings](https://buildkite.com/organizations/-/pipeline-templates).
+1. Check you have at least one template. If you don't have a template, create one.
+1. Select _Settings_.
+1. Select the requirement you want to set.
 
-> Note that once a setting has applied you cannot revert to a more permissive setting. Take care to test your pipeline templates before enforcing them on all pipelines.
+## Assigning a pipeline template to a pipeline
+
+After an administrator requires pipelines to use a template, anyone with permission to create or change a pipeline can assign a template. Assigning a template overrides the pipeline's step configuration with the template.
+
+Once pipeline templates are required, you can use the following methods to assign a template to individual pipelines:
+
+- On the step settings for the pipeline (_Pipeline_ > _Settings_ > _Steps_), select the template to assign.
+- Using the REST API, [update the pipeline](https://buildkite.com/docs/apis/rest-api/pipelines#update-a-pipeline) with the appropriate `pipeline_template_uuid`.
+- Using the GraphQL API, run the [`pipelineUpdate` mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
+
+You can find the IDs to use for a template with the APIs on the template page in the Buildkite dashboard.
+
+>📘 Web steps editor compatibility
+> Pipelines defined using the web steps editor cannot be assigned templated through the Buildkite dashboard. These pipelines must be either [migrated to YAML steps first](https://buildkite.com/docs/tutorials/pipeline-upgrade), updated using the APIs, or bulk-assigned a template when selecting the _Require a pipeline template for everything_ setting.
