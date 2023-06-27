@@ -134,6 +134,8 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 
 ## Accessing limit details
 
+You can access both time-based limits and query complexity information through the API. Accessing limit details will not incur any additional complexity points.
+
 ### Check time-based limits
 
 The rate limit status is available in the following response headers of each GraphQL call:
