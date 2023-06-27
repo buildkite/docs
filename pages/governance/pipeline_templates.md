@@ -37,7 +37,7 @@ The power of pipeline templates comes from how much you require their use. Admin
 1. **Requiring a pipeline template for everything:** Templates are mandatory on all new and existing pipelines. When choosing this setting, you will select a pipeline template to apply to any pipeline that does not already have a template assigned.
 
 >🚧 Changing requirements
-> When updating the requirements, you can only update the setting to an option that is more strict. Take care to test your pipeline templates before enforcing them on all pipelines. 
+> When updating the requirements, you can only update the setting to an option that is more strict. Take care to test your pipeline templates before enforcing them on all pipelines.
 
 To change your organization's requirements for pipeline templates:
 
