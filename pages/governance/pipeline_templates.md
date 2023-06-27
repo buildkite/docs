@@ -34,7 +34,7 @@ Once pipeline templates are required, there are three options for assigning a te
 
 1. Selecting the template on the step settings for that pipeline (_Pipeline_ > _Settings_ > _Steps_).
 1. Using the REST API to [update the pipeline](https://buildkite.com/docs/apis/rest-api/pipelines#update-a-pipeline) with the appropriate `pipeline_template_uuid`.
-1. Using the GraphQL API [pipelineUpdate mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
+1. Using the GraphQL API [`pipelineUpdate` mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
 
 The correct IDs to use with the APIs for a template can be found on the template page in the UI.
 
