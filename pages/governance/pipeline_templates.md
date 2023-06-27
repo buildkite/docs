@@ -5,26 +5,28 @@
 
 ## Overview
 
-Pipeline templates allow you to define standard pipeline step configurations to be used by all the pipelines in your organization.
+Pipeline templates allow you to define standard pipeline step configurations to use across all the pipelines in your organization.
 
-When a pipeline has a pipeline template assigned to it, the step configuration for that pipeline is inherited from the template and it is no longer possible to configure a custom step configuration for that pipeline via the UI.
+When a pipeline has a template assigned, the pipeline inherits its step configuration from the template. Configuring a custom step configuration for that pipeline in the Buildkite dashboard is no longer possible.
 
 ## Creating a pipeline template
 
 Only administrators can create or update pipeline templates.
 
-1. Open your Buildkite _Organization Settings_ and choose [Templates](https://buildkite.com/organizations/-/pipeline-templates)
-1. If this is your first template, click _Create a Template_. Otherwise choose _New Template_. A pipeline template is created automatically for you.
-1. Update the name and description of your new template and click _Apply_ to save your changes.
-1. You can also click _Edit_ to change the step configuration for the template.
+To create a template:
 
-An administrator can add multiple templates to be used across the organization. Making changes and saving a template will apply those changes to all pipelines using that template.
+1. Navigate to your [organization’s pipeline template settings](https://buildkite.com/organizations/-/pipeline-templates).
+1. If this is your first template, select _Create a Template_. Otherwise, select _New Template_. A pipeline template is created automatically for you.
+1. Update the name and description of your new template and select _Apply_ to save your changes.
+1. You can also select _Edit_ to change the step configuration for the template.
+
+An administrator can add multiple templates to use across the organization. Making changes and saving a template will apply those changes to all pipelines using that template.
 
 ## Testing a pipeline template
 
-At any time an administrator may test a pipeline template against a pipeline via the _New Build_ button on the pipeline page.
+An administrator can test a pipeline template against a pipeline using the _New Build_ button on the pipeline page.
 
-If a template exists for the organization then it can be selected from the _Pipeline template_ dropdown to create a new build using the step configuration from that template.
+If a template exists for the organization, it can be selected from the _Pipeline template_ dropdown to create a new build using the step configuration from that template.
 
 ## Assigning a pipeline template to a pipeline
 
