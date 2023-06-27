@@ -302,6 +302,12 @@
           path: "pipelines/incoming-webhooks"
         - name: "Audit log"
           path: "pipelines/audit-log"
+    - name: "Governance"
+      children:
+        - name: "Overview"
+          path: "governance/overview"
+        - name: "Pipeline templates"
+          path: "governance/pipeline-templates"
     - name: "Deployments"
       children:
         - name: "Overview"
