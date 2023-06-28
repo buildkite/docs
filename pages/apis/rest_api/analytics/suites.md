@@ -101,7 +101,7 @@ Success response: `201 Created`
 ## Update a suite
 
 ```bash
-curl -X PUT \
+curl -X PATCH \
   https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
   -d '{
     "name": "Jasmine",
@@ -124,7 +124,7 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>name</code></th><td>Name of the new suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td></tr>
+  <tr><th><code>name</code></th><td>Name of the suite.<br><em>Example:</em> <code>"Jasmine"</code>.</td></tr>
   <tr><th><code>default_branch</code></th><td>Your test suite will default to showing trends for this default branch, but collect data for all test runs.<br><em>Example:</em> <code>"main"</code> or <code>"master"</code>.</td></tr>
 </tbody>
 </table>
@@ -138,9 +138,9 @@ Success response: `200 OK`
 
 ```bash
 curl -X DELETE \
-  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug} \
+  https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{suite.slug}
 ```
 
-Required scope: `write_clusters`
+Required scope: `write_suites`
 
 Success response: `204 No Content`
