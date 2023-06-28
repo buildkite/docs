@@ -3,11 +3,11 @@
 By default, the agent is only observable either through Buildkite or
  through log output on the host:
 
-- Job logs, which relate to the jobs the agent runs, are uploaded to Buildkite,
- and are shown for each step in a build.
-- Agent logs, which relate to how the agent itself is running, are not uploaded
- or saved (except where the output from the agent is read or redirected by
- another process, such as [systemd] or [launchd]).
+- **Job logs:** Relate to the jobs the agent runs. These are uploaded to
+  Buildkite and shown for each step in a build.
+- **Agent logs:** Relate to how the agent itself is running. These are not
+  uploaded or saved (except where the output from the agent is read or
+  redirected by another process, such as [systemd] or [launchd]).
 
 ## Health checking and status page
 
@@ -44,7 +44,8 @@ The URL paths available from the health checking service are as follows:
   of the failure. Otherwise, it returns HTTP status 200.
 - **`/status`**: A human-friendly page detailing various systems inside the
   agent. To aid debugging, this page does _not_ automatically refresh—it shows
-  the status of each agent internal at a particular moment in time.
+  the status of each internal component of the agent at a particular moment in
+  time.
 
 The following shows the `/status` page for an agent:
 
