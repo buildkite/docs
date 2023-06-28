@@ -32,7 +32,7 @@ If a template exists for the organization, it can be selected from the _Pipeline
 
 The power of pipeline templates comes from how much you require their use. Administrators can select from the following options, listed in increasing strictness:
 
-1. **Do not require pipeline templates:** Pipeline steps remain editable for any user with permission to create or update a pipeline. Templates can be tested against pipelines but cannot be assigned to them.
+1. **Do not require pipeline templates:** Pipeline steps remain editable for any user with permission to create or update a pipeline. Templates can be tested (by administrators) against pipelines but cannot be assigned to them.
 1. **Require a pipeline template on new pipelines:** A template must be selected when creating a new pipeline. The step configuration of existing pipelines will become read-only. Pipelines can be assigned a template individually, making a gradual migration to pipeline templates possible.
 1. **Requiring a pipeline template for everything:** Templates are mandatory on all new and existing pipelines. When choosing this setting, you will select a pipeline template to apply to any pipeline that does not already have a template assigned.
 
