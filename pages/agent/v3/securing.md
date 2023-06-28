@@ -149,7 +149,16 @@ exit 1
 
 ## Forcing clean checkouts
 
-By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (for example, 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment.
+By default Buildkite will reuse (after cleaning) a previous checkout. This may not be safe if building commits from untrusted sources (for example, 3rd party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment. Here is an example to force a clean checkout at step level:
+
+```yaml
+steps:
+- label: ":github: Clean Checkout"
+  command: echo "clean checkout"
+  env:
+    BUILDKITE_CLEAN_CHECKOUT: true
+```
+In logs for this step, you will find log group "Cleaning pipeline checkout".
 
 ## Running the Agent behind a proxy
 
