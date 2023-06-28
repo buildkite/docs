@@ -305,9 +305,9 @@
     - name: "Governance"
       children:
         - name: "Overview"
-          path: "governance/overview"
+          path: "pipelines/governance"
         - name: "Pipeline templates"
-          path: "governance/pipeline-templates"
+          path: "pipelines/templates"
     - name: "Deployments"
       children:
         - name: "Overview"
