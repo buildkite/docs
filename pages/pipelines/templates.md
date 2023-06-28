@@ -15,7 +15,7 @@ Only administrators can create or update pipeline templates.
 
 To create a template:
 
-1. Navigate to your [organization’s pipeline template settings](https://buildkite.com/organizations/-/pipeline-templates).
+1. Navigate to your [organization’s pipeline templates](https://buildkite.com/organizations/-/pipeline-templates).
 1. If this is your first template, select _Create a Template_. Otherwise, select _New Template_. A pipeline template is created automatically for you.
 1. Update the name and description of your new template and select _Apply_ to save your changes.
 1. You can also select _Edit_ to change the step configuration for the template.
