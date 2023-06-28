@@ -59,4 +59,4 @@ Once pipeline templates are required, you can use the following methods to assig
 You can find the IDs to use for a template with the APIs on the template page in the Buildkite dashboard.
 
 >📘 Web steps editor compatibility
-> Pipelines defined using the web steps editor cannot be assigned templated through the Buildkite dashboard. These pipelines must be either [migrated to YAML steps first](https://buildkite.com/docs/tutorials/pipeline-upgrade), updated using the APIs, or bulk-assigned a template when selecting the _Require a pipeline template for everything_ setting.
+> Pipelines defined using the web steps editor cannot be assigned templates through the Buildkite dashboard. These pipelines must be either [migrated to YAML steps first](https://buildkite.com/docs/tutorials/pipeline-upgrade), updated using the APIs, or bulk-assigned a template when selecting the _Require a pipeline template for everything_ setting.
