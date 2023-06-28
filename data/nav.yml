@@ -72,6 +72,8 @@
           path: "agent/v3/github-ssh-keys"
         - name: "Hooks"
           path: "agent/v3/hooks"
+        - name: "Monitoring & observing"
+          path: "agent/v3/monitoring"
         - name: "Queues"
           path: "agent/v3/queues"
         - name: "Prioritization"
