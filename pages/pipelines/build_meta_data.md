@@ -17,7 +17,7 @@ buildkite-agent meta-data set "release-version" "1.1"
 
 This command results in the value "1.1" being associated with the key "release-version" in the meta-data store.
 
-Once `meta-data` is set for a build cannot be deleted and only it can be updated using the `set` command.
+Once meta-data is set for a build, it cannot be deleted. It can only be updated using the `set` command.
 
 ## Getting data
 
