@@ -23,7 +23,7 @@ buildkite-agent start --health-check-addr=:3901
 ```
 
 The flag expects [a "host:port" address](https://pkg.go.dev/net#Dial).
-Passing `:0` allows the agent to choose a port which will be logged at startup.
+Passing `:0` allows the agent to choose a port, which will be logged at startup.
 
 For security reasons, we recommend that you do _not_ expose the service
 directly to the internet. While there should be no ability to manipulate the
