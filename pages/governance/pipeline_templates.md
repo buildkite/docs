@@ -41,7 +41,7 @@ The power of pipeline templates comes from how much you require their use. Admin
 
 To change your organization's requirements for pipeline templates:
 
-1. Navigate to your [organization's pipeline template settings](https://buildkite.com/organizations/-/pipeline-templates).
+1. Navigate to your [organization's pipeline templates](https://buildkite.com/organizations/-/pipeline-templates).
 1. Check you have at least one template. If you don't have a template, create one.
 1. Select _Settings_.
 1. Select the requirement you want to set.
