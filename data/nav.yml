@@ -253,8 +253,6 @@
           path: "pipelines/tags"
         - name: "Build retention"
           path: "pipelines/build-retention"
-        - name: "Build exports"
-          path: "pipelines/build-exports"
         - name: "Public pipelines"
           path: "pipelines/public-pipelines"
         - name: "Using build meta-data"
@@ -312,6 +310,8 @@
           path: "pipelines/governance"
         - name: "Pipeline templates"
           path: "pipelines/templates"
+        - name: "Build exports"
+          path: "pipelines/build-exports"
     - name: "Deployments"
       children:
         - name: "Overview"
