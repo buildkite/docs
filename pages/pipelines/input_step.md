@@ -284,13 +284,13 @@ If you associate a RegEx to a field, the field outline will turn red when an inv
 
 To do it, use the following sample syntax:
 
-```
+```yml
 steps:
-- block: "Click me!"
-  fields:
-  - text: Must be hexadecimal
-    key: hex
-    format: "[0-9a-f]+"
+  - input: "Click me!"
+    fields:
+      - text: Must be hexadecimal
+        key: hex
+        format: "[0-9a-f]+"
 ```
 
 The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the [HTML5 pattern attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
