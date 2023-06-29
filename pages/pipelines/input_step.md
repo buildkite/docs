@@ -275,3 +275,22 @@ steps:
             value: "stable"
 ```
 {: codeblock-file="pipeline.yml"}
+
+## Input validation
+
+To prevent the users from entering invalid values when using an input step with text inputs (for example, to gather some deployment information), you can use input validation.
+
+If you associate a RegEx to a field, the field outline will turn red when an invalid value is entered.
+
+To do it, use the following sample syntax:
+
+```
+steps:
+- block: "Click me!"
+  fields:
+  - text: Must be hexadecimal
+    key: hex
+    format: "[0-9a-f]+"
+```
+
+The format must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the [HTML5 pattern attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).
