@@ -742,8 +742,11 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
     }
 }
 ```
+<!-- vale off -->
 
 <h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
+
+<!-- vale on -->
 
 ```json
 {
