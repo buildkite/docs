@@ -6,7 +6,7 @@ Monitors track what matters to you. They trigger alerts under conditions that yo
 ## Monitors
 
 >🚧 Feature temporarily unavailable
-> Monitors and alerts for Test Analytics are unavailable as of September 05, 2022. We expect them to be back soon in the capacity outlined on this page.
+> Monitors and alerts for Test Analytics are unavailable as of right. We are working on this, but do not have a concrete timeline for when it will be released
 
 There are three different types of monitors in Test Analytics:
 
@@ -30,4 +30,4 @@ When you get an alert from one of your monitors, see
 
 Mark it as resolved, mute it, or leave it open.
 
-**Coming soon:** web hooks and integrations with platforms such as Slack, GitHub, and issue tracking tools so you can assign ownership of problematic tests, and see alerts in your preferred platform.
+**Added new Features:** web hooks and integrations with platforms such as Slack, GitHub, and issue tracking tools so you can assign ownership of problematic tests, and see alerts in your preferred platform.
