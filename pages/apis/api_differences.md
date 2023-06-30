@@ -24,7 +24,7 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/graphql-cookbook#builds-get-all-environment-variables-set-on-a-build).
 * <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/graphql-cookbook#builds-increase-the-next-build-number).
 * <%= pill "BUILDS", "builds" %> [Get build info by ID] (/docs/apis/graphql/graphql-cookbook#builds-get-build-info-by-id).
-* <%= pill "BUILDS", "builds" %> [Get detailed retry info for jobs in a build](/docs/apis/graphq/graphql-cookbook#builds-get-job-retry-info-for-a-build)
+* <%= pill "BUILDS", "builds" %> [Get detailed retry info for jobs in a build](/docs/apis/graphql/graphql-cookbook#builds-get-job-retry-info-for-a-build).
 * <%= pill "JOBS", "jobs" %> [Get all jobs in a given queue for a given timeframe](/docs/apis/graphql/graphql-cookbook#jobs-get-all-jobs-in-a-given-queue-for-a-given-timeframe).
 * <%= pill "JOBS", "jobs" %> [Get all jobs in a particular concurrency group](/docs/apis/graphql/graphql-cookbook#jobs-get-all-jobs-in-a-particular-concurrency-group).
 * <%= pill "JOBS", "jobs" %> list job events.
