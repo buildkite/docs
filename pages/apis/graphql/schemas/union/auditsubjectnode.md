@@ -49,6 +49,7 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember"><code>OrganizationMember</code></a>
 <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
 <a href="/docs/apis/graphql/schemas/object/pipelineschedule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineSchedule"><code>PipelineSchedule</code></a>
+<a href="/docs/apis/graphql/schemas/object/pipelinetemplate" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplate"><code>PipelineTemplate</code></a>
 <a href="/docs/apis/graphql/schemas/object/scmpipelinesettings" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMPipelineSettings"><code>SCMPipelineSettings</code></a>
 <a href="/docs/apis/graphql/schemas/object/scmrepositoryhost" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMRepositoryHost"><code>SCMRepositoryHost</code></a>
 <a href="/docs/apis/graphql/schemas/object/scmservice" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SCMService"><code>SCMService</code></a>
