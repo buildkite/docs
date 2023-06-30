@@ -154,7 +154,7 @@ query GetBuilds {
 
 ### Get job retry info for a build
 
-Get the retry info for jobs in a given build, jobs retried [automatically](/docs/pipelines/command-step#retry-attributes) will return `nil` for `retriedBy`.
+Get the retry info for jobs in a given build. Any jobs retried [automatically](/docs/pipelines/command-step#retry-attributes) will return `nil` for `retriedBy`.
 
 ```graphql
 query GetJobRetryInfo {
