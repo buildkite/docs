@@ -1,6 +1,5 @@
 # Cluster token events
 
-
 ## Events
 
 <table>
