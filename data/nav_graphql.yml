@@ -5,8 +5,6 @@
   path: apis/graphql/graphql-tutorial
 - name: Cookbook
   path: apis/graphql/graphql-cookbook
-- name: Limits
-  path: apis/graphql/graphql-resource-limits
 - name: Queries
   children:
   - name: agent
@@ -535,6 +533,8 @@
     path: apis/graphql/schemas/object/pipelinesteps
   - name: PipelineTag
     path: apis/graphql/schemas/object/pipelinetag
+  - name: PipelineTemplate
+    path: apis/graphql/schemas/object/pipelinetemplate
   - name: PipelineUnarchivePayload
     path: apis/graphql/schemas/object/pipelineunarchivepayload
   - name: PipelineUpdatePayload
