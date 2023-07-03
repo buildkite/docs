@@ -78,6 +78,7 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
 <a href="/docs/apis/graphql/schemas/object/pipelinemetric" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineMetric"><code>PipelineMetric</code></a>
 <a href="/docs/apis/graphql/schemas/object/pipelineschedule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineSchedule"><code>PipelineSchedule</code></a>
+<a href="/docs/apis/graphql/schemas/object/pipelinetemplate" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplate"><code>PipelineTemplate</code></a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidergithubapp" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderGitHubApp"><code>SSOProviderGitHubApp</code></a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidergooglegsuite" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderGoogleGSuite"><code>SSOProviderGoogleGSuite</code></a>
 <a href="/docs/apis/graphql/schemas/object/ssoprovidersaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderSAML"><code>SSOProviderSAML</code></a>
