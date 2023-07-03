@@ -3238,6 +3238,24 @@
               "deprecationReason": null
             },
             {
+              "name": "PIPELINE_TEMPLATE_CREATED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_TEMPLATE_DELETED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_TEMPLATE_UPDATED",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "PIPELINE_UPDATED",
               "description": null,
               "isDeprecated": false,
@@ -3733,6 +3751,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "PipelineTemplate",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "SCMPipelineSettings",
               "ofType": null
             },
@@ -3812,13 +3835,13 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "PIPELINE",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3872,6 +3895,12 @@
               "deprecationReason": null
             },
             {
+              "name": "PIPELINE_TEMPLATE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TEAM",
               "description": null,
               "isDeprecated": false,
@@ -3908,7 +3937,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3920,13 +3955,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3944,13 +3973,13 @@
               "deprecationReason": null
             },
             {
-              "name": "USER",
+              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "USER_TOTP",
+              "name": "USER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -7401,6 +7430,18 @@
               "defaultValue": null,
               "isDeprecated": false,
               "deprecationReason": null
+            },
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
             }
           ],
           "interfaces": null,
@@ -7687,6 +7728,18 @@
               "type": {
                 "kind": "SCALAR",
                 "name": "Boolean",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null,
@@ -9095,6 +9148,20 @@
           "name": "ClusterToken",
           "description": "A token used to connect an agent in cluster to Buildkite",
           "fields": [
+            {
+              "name": "allowedIpAddresses",
+              "description": "A list of CIDR-notation IPv4 addresses from which agents can use this token. Please note that this feature is not yet available to all organizations",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "cluster",
               "description": null,
@@ -16752,6 +16819,11 @@
             },
             {
               "kind": "OBJECT",
+              "name": "PipelineTemplate",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "SSOProviderGitHubApp",
               "ofType": null
             },
@@ -18976,7 +19048,7 @@
             },
             {
               "name": "usage",
-              "description": "Returns the resource usage data for this organization. Please note that this feature is not yet available to all organizations",
+              "description": "Returns the resource usage data for this organization.",
               "args": [
                 {
                   "name": "after",
@@ -23497,6 +23569,20 @@
               "deprecationReason": null
             },
             {
+              "name": "pipelineTemplate",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PipelineTemplate",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "public",
               "description": "Whether this pipeline is visible to everyone, including people outside this organization",
               "args": [
@@ -24110,13 +24196,9 @@
               "name": "steps",
               "description": "Steps used by this pipeline defined as YAML",
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "PipelineStepsInput",
-                  "ofType": null
-                }
+                "kind": "INPUT_OBJECT",
+                "name": "PipelineStepsInput",
+                "ofType": null
               },
               "defaultValue": null,
               "isDeprecated": false,
@@ -24299,6 +24381,18 @@
               "deprecationReason": null
             },
             {
+              "name": "pipelineTemplateId",
+              "description": "The GraphQL ID of the pipeline template you want to use for the pipeline",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "tags",
               "description": "Tags you want this pipeline to have",
               "type": {
@@ -24418,6 +24512,20 @@
                   "name": "PipelineEdge",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pipelineTemplate",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "PipelineTemplate",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -26296,6 +26404,181 @@
           "possibleTypes": null
         },
         {
+          "kind": "OBJECT",
+          "name": "PipelineTemplate",
+          "description": "A template defining a fixed step configuration for a pipeline",
+          "fields": [
+            {
+              "name": "configuration",
+              "description": "A YAML representation of the step configuration",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "YAML",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdAt",
+              "description": "The time when the template was created",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "createdBy",
+              "description": "The user who created the template",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "User",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "description",
+              "description": "The short description of the template",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "id",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": "The name of the template",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedAt",
+              "description": "The last time the template was changed",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "DateTime",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedBy",
+              "description": "The user who last updated the template",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "User",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "uuid",
+              "description": "The UUID for the template",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
           "kind": "INPUT_OBJECT",
           "name": "PipelineUnarchiveInput",
           "description": "Autogenerated input type of PipelineUnarchive",
@@ -26644,6 +26927,18 @@
             {
               "name": "clusterId",
               "description": "The GraphQL ID of the cluster you want to update for the pipeline",
+              "type": {
+                "kind": "SCALAR",
+                "name": "ID",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "pipelineTemplateId",
+              "description": "The GraphQL ID of the pipeline template you want to apply to this pipeline",
               "type": {
                 "kind": "SCALAR",
                 "name": "ID",

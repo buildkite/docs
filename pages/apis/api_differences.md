@@ -39,7 +39,6 @@ On this page, we've collected the known limitation where some API features are o
 * <%= pill "PIPELINES", "pipelines" %> [Get the creation date of the most recent build in every pipeline](/docs/apis/graphql/graphql-cookbook#builds-get-the-creation-date-of-the-most-recent-build-in-every-pipeline).
 * <%= pill "PIPELINES", "pipelines" %> Filter results from pipeline listings.
 * <%= pill "PIPELINES", "pipelines" %> Create and manage pipeline schedules.
-* <%= pill "USERS", "users" %> [Create and revoke](/docs/apis/rest-api/access-token) user API tokens (while REST can only revoke user API tokens).
 * <%= pill "USERS", "users" %> [Invite a user into a specific team with a specific role and permissions set](/docs/apis/graphql/graphql-cookbook#organizations-create-a-user-add-them-to-a-team-and-set-user-permissions).
 
 ## Known missing API features

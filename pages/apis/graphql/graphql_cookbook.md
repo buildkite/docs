@@ -82,6 +82,48 @@ query RecentPipelineSlugs {
 }
 ```
 
+### Get a pipeline's UUID
+
+Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
+
+_Note: Pipeline slugs are modifiable and can change_
+
+```graphql
+query GetPipelineUUID {
+  organization(slug: "organization-slug") {
+    pipelines(first: 50, search: "part of slug") {
+      edges {
+        node {
+          slug
+          uuid
+        }
+      }
+    }
+  }
+}
+```
+
+### Get a pipeline's information
+
+You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](https://buildkite.com/docs/apis/graphql/schemas/object/pipeline) page.
+
+```graphql
+query GetPipelineInfo {
+  pipeline(uuid: "pipeline-uuid") {
+    slug
+    uuid
+    builds(first:50){
+      edges {
+        node {
+          state
+          message
+        }
+      }
+    }
+  }
+}
+```
+
 ### Get pipeline metrics
 
 The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
@@ -668,6 +710,51 @@ mutation UpdateSessionIPAddressPinning {
   ssoProviderUpdate(input: { id: "ID", pinSessionToIpAddress: true }) {
     ssoProvider {
       pinSessionToIpAddress
+    }
+  }
+}
+```
+
+### Query the usage API
+
+Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
+
+```graphql
+query Usage {
+  organization(slug: "organization-slug") {
+    id
+    name
+    usage(
+      aggregatedOnFrom: "2023-04-01"
+      aggregatedOnTo: "2023-05-01"
+      resource: [JOB_MINUTES, TEST_EXECUTIONS]
+    ) {
+      edges {
+        node {
+          __typename ... on JobMinutesUsage {
+            aggregatedOn
+            seconds
+            pipeline {
+              name
+              id
+            }
+          }
+        }
+        node {
+          __typename ... on TestExecutionsUsage {
+            Time: aggregatedOn
+            executions
+            suite {
+              name
+              id
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 }

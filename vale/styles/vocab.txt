@@ -119,6 +119,7 @@ hostname
 http
 https
 inlining
+IPs
 jpegs
 json
 junit
