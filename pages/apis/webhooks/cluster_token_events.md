@@ -3,6 +3,9 @@
 ## Events
 
 <table>
+  <thead>
+    <tr><th>Event</th><th>Description</th></tr>
+  </thead>
 <tbody>
   <tr>
     <th><code>cluster_token.registration_blocked</code></th>
@@ -14,11 +17,26 @@
 ## Request body data
 
 <table>
-<tbody>
-  <tr><th><code>blocked_ip</code></th><td>The IP address of the blocked registration request</td></tr>
-  <tr><th><code>cluster_token</code></th><td>The <a href="/docs/apis/rest-api/clusters#cluster-tokens">cluster token</a> used in the registration attempt</td></tr>
-  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
-</tbody>
+  <thead>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>blocked_ip</code></td>
+      <td>String</td>
+      <td>The IP address of the blocked registration request</td>
+    </tr>
+    <tr>
+      <td><code>cluster_token</code></td>
+      <td><a href="/docs/apis/rest-api/clusters#cluster-tokens">Cluster token</a></td>
+      <td>The cluster token used in the registration attempt</td>
+    </tr>
+    <tr>
+      <td><code>sender</code></td>
+      <td>String</td>
+      <td>The user who created the webhook</td>
+    </tr>
+  </tbody>
 </table>
 
 Example request body:

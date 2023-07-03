@@ -7,9 +7,9 @@
   <thead>
     <tr><th>Event</th><th>Description</th></tr>
   </thead>
-<tbody>
-<%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
-</tbody>
+  <tbody>
+    <%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
+  </tbody>
 </table>
 
 ## Common event data
