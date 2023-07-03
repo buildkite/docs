@@ -24,6 +24,6 @@ _Jobs Running_ shows the number of jobs assigned to agents. These are any jobs i
 
 _Jobs Waiting_ shows the number of jobs not yet assigned to an agent. These are any jobs for the cluster queue in the `SCHEDULED` state.
 
-## Wait panel
+## Current wait panel
 
-_Wait_ shows the various job wait time percentiles for this cluster queue's waiting jobs. The percentiles represent how long it takes jobs to be assigned an agent. If there are no waiting jobs, dashes (`-`) are shown instead.
+_Current Wait_ shows the various job wait time percentiles for this cluster queue's waiting jobs. The percentiles represent how long it takes jobs to be assigned an agent. If there are no waiting jobs, dashes (`-`) are shown instead.
