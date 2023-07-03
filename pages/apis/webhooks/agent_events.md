@@ -4,18 +4,33 @@
 ## Events
 
 <table>
+  <thead>
+    <tr><th>Event</th><th>Description</th></tr>
+  </thead>
 <tbody>
 <%= render_markdown partial: 'apis/webhooks/agent_events_table' %>
 </tbody>
 </table>
 
-## Request body data
+## Common event data
+
+The following properties are sent by all events.
 
 <table>
-<tbody>
-  <tr><th><code>agent</code></th><td>The <a href="/docs/api/agents">Agent</a> this notification relates to</td></tr>
-  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
-</tbody>
+  <thead>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>agent</code></td>
+      <td><a href="/docs/api/agents">Agent</a></td>
+      <td>The agent this notification relates to</td></tr>
+    <tr>
+      <td><code>sender</code></td>
+      <td>String</td>
+      <td>The user who created the webhook</td>
+    </tr>
+  </tbody>
 </table>
 
 Example request body:
@@ -33,15 +48,35 @@ Example request body:
 }
 ```
 
-### `agent.blocked`
+## Agent blocked event data
+
+The following properties are sent by the `agent.blocked` event.
 
 <table>
-<tbody>
-  <tr><th><code>blocked_ip</code></th><td>The blocked request IP address</td></tr>
-  <tr><th><code>agent</code></th><td>The <a href="/docs/api/agents">Agent</a> this notification relates to</td></tr>
-  <tr><th><code>cluster_token</code></th><td>The <a href="/docs/apis/rest-api/clusters#cluster-tokens">cluster token</a> used in the registration attempt</td></tr>
-  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
-</tbody>
+  <thead>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>blocked_ip</code></td>
+      <td>String</td>
+      <td>The blocked request IP address</td>
+    </tr>
+    <tr>
+      <td><code>agent</code></td>
+      <td><a href="/docs/api/agents">Agent</a></td>
+      <td>The agent this notification relates to</td>
+    </tr>
+    <tr>
+      <td><code>cluster_token</code></td>
+      <td><a href="/docs/apis/rest-api/clusters#cluster-tokens-token-data-model">Cluster token</a></td>
+      <td>The cluster token used in the registration attempt</td>
+    </tr>
+    <tr>
+      <td><code>sender</code></td>
+      <td>String</td>
+      <td>The user who created the webhook</td></tr>
+  </tbody>
 </table>
 
 Example request body:
