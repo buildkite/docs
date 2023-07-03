@@ -446,6 +446,8 @@
           path: "apis/webhooks/agent-events"
         - name: "Build events"
           path: "apis/webhooks/build-events"
+        - name: "Cluster token events"
+          path: "apis/webhooks/cluster-token-events"
         - name: "Job events"
           path: "apis/webhooks/job-events"
         - name: "Ping events"
