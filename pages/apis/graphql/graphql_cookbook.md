@@ -825,6 +825,32 @@ mutation deleteOrgMember {
 }
 ```
 
+### Get organization audit events
+
+Query your organization's audit events. Audit events are only available to Enterprise customers.
+
+```graphql
+  query getOrganizationAuditEvents{
+    organization(slug:"organization-slug"){
+      auditEvents(first: 500){
+        edges{
+          node{
+            type
+            occurredAt
+            actor{
+              name
+            }
+            subject{
+              name
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+```
+
 ## Teams
 
 A collection of common tasks with teams using the GraphQL API.
