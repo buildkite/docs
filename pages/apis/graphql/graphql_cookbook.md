@@ -826,6 +826,7 @@ mutation deleteOrgMember {
 ```
 
 ### Get organization audit events
+
 Query your organization's audit events. Audit events are only available to Enterprise customers.
 
 ```graphql
