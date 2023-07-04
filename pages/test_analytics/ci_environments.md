@@ -12,6 +12,17 @@ If you run test collectors inside containers or you're using another CI system, 
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
+## Recommended environment variables
+If you're manually providing Buildkite Test Analytics environment variables, we'd strongly recommend setting the following variables:
+
+| Field name             | Description                                   | Features unlocked                                 |
+|------------------------|-----------------------------------------------|---------------------------------------------------|
+| `run_env[key]`         | the UUID for the build                        | required field, group batches of data by this key |
+| `run_env[branch]`      | the branch or reference for this build        | filter data by branch                             |
+| `run_env[url]`         | the URL for the build on your CI provider     | handy link back to your CI build                  |
+| `run_env[commit_sha]`  | the commit hash for the head of the branch    | enable automatic flaky test detection             |
+| `run_env[message]`     | the commit message for the head of the branch | easily identify your runs                         |
+{: class="responsive-table"}
 
 ## Containers and test collectors
 
