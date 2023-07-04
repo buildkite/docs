@@ -500,6 +500,21 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
+### Cancel Job
+
+To cancel a job using its ID
+
+```
+mutation CancelJob{
+  jobTypeCommandCancel(input: { 
+    id: "{insert-job-id}"
+  }) {      
+    jobTypeCommand {
+      id
+    }
+  }
+}
+```
 
 ## Agents
 
