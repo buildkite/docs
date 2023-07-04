@@ -176,6 +176,21 @@ _Optional attributes:_
     </td>
   </tr>
   <tr>
+    <td><code>signature</code></td>
+    <td>
+      Signs the pipeline upload for extra security<br>
+      <code>- label: "signed build"<br>
+      &nbsp;&nbsp;command: "run-signed-build.sh"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;signature:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; value: "Some signature"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; version: "2"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; hashing_algorithm: "hmac-sha256"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp; signed_keys:<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - "command"<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; - "env"<code>
+    </td>
+  </tr>
+  <tr>
     <td><code>skip</code></td>
     <td>
       Whether to skip this step or not. Passing a string provides a reason for skipping this command. Passing an empty string is equivalent to <code>false</code>.
@@ -295,7 +310,7 @@ Conditions on retries can be specified. For example, it's possible to set steps 
     command: "deploy.sh"
     branches: "main"
     retry:
-      manual: 
+      manual:
         allowed: false
         reason: "Deploys shouldn't be retried"
 ```
@@ -501,6 +516,49 @@ To set `cancel_on_build_failing: true` for all jobs in a Build:
 
 
  -->
+
+ ## Signature attributes
+
+ <table>
+  <tr>
+    <td><code>value</code></td>
+    <td>
+      Placeholder
+    </td>
+  </tr>
+  <tr>
+    <td><code>version</code></td>
+    <td>
+      Placeholder
+    </td>
+  </tr>
+  <tr>
+    <td><code>hashing_algorithm</code></td>
+    <td>
+      Placeholder
+    </td>
+  </tr>
+  <tr>
+    <td><code>signed_keys</code></td>
+    <td>
+      Placeholder
+    </td>
+  </tr>
+</table>
+
+ ```yml
+ steps:
+  - label: "Signed pipeline"
+    command: "run-signed-pipeline.sh"
+    signature:
+      value: "Some signature"
+      version: "2"
+      hashing_algorithm: "hmac-sha256"
+      signed_keys:
+         - "command"
+         - "env"
+ ```
+ {: codeblock-file="pipeline.yml"}
 
 ## Example
 

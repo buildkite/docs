@@ -255,6 +255,8 @@
           path: "pipelines/build-retention"
         - name: "Public pipelines"
           path: "pipelines/public-pipelines"
+        - name: "Signed pipelines"
+          path: "pipelines/signed-pipelines"
         - name: "Using build meta-data"
           path: "pipelines/build-meta-data"
         - name: "Managing log output"
