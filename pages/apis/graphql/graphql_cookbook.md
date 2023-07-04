@@ -831,7 +831,7 @@ Query your organization's audit events. Audit events are only available to Enter
 
 ```graphql
   query getOrganizationAuditEvents{
-    organization(slug:"<organization-slug>"){
+    organization(slug:"organization-slug"){
       auditEvents(first: 500){
         edges{
           node{
