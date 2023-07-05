@@ -31,6 +31,12 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    For non-containerized development, run:
 
    ```bash
+   # Check that you have Xcode Command Line Tools installed - required to build dependencies
+   xcode-select -p
+
+   # If not, install them
+   xcode-select --install
+
    # Install dependencies
    bin/setup
 
