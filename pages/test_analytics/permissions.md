@@ -43,3 +43,5 @@ From the Member Permissions page, organization admins can toggle whether or not 
 * Delete suites
 
 If your organization has teams enabled, the suite creation permissions are managed at a team level. Suite creation permission controls can be found on the Teams Settings page. Without teams enabled, the suite creation permission control can be found on the Member Permissions page.
+
+Note:  The Team-Level permissions on a given pipeline, will override the lower priviledge member permisions in the team settings.
