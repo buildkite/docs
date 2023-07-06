@@ -13,16 +13,14 @@ If you run test collectors inside [containers](/docs/test-analytics/ci-environme
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
 ## Recommended environment variables
-If you're manually providing Buildkite Test Analytics environment variables, we'd strongly recommend setting the following variables:
 
-| Field name             | Description                                   | Features unlocked                                 |
-|------------------------|-----------------------------------------------|---------------------------------------------------|
-| `run_env[key]`         | the UUID for the build                        | required field, group batches of data by this key |
-| `run_env[branch]`      | the branch or reference for this build        | filter data by branch                             |
-| `run_env[url]`         | the URL for the build on your CI provider     | handy link back to your CI build                  |
-| `run_env[commit_sha]`  | the commit hash for the head of the branch    | enable automatic flaky test detection             |
-| `run_env[message]`     | the commit message for the head of the branch | easily identify your runs                         |
-{: class="responsive-table"}
+If you're manually providing environment variables, we strongly recommend setting the following variables:
+
+- `run_env[key]`: A required variable that sends the UUID for the build, letting you group batches of data by the key.
+- `run_env[branch]`: Sends the branch or reference for this build, enabling you to filter data by branch.
+- `run_env[url]`: Provides the URL for the build on your CI provider, giving you a handy link back to the CI build.
+- `run_env[commit_sha]`: Sends the commit hash for the head of the branch, enabling automatic flaky test detection in your builds.
+- `run_env[message]`: Forwards the commit message for the head of the branch, helping you identify different runs more easily.
 
 ## Containers and test collectors
 
