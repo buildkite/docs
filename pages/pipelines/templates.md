@@ -17,7 +17,9 @@ To create a template:
 
 1. Navigate to your [organization’s pipeline templates](https://buildkite.com/organizations/-/pipeline-templates).
 1. If this is your first template, select _Create a Template_. Otherwise, select _New Template_.
-1. Enter the name and description for your new template, update the default step configuration and select _Create Template_ to create the template.
+1. Enter the name and description for your new template.
+1. Update the default step configuration.
+1. Select _Create Template_.
 
 An administrator can add multiple templates to use across the organization. Making changes and saving a template will apply those changes to all pipelines using that template.
 
