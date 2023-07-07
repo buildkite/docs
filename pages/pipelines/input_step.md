@@ -278,7 +278,7 @@ steps:
 
 ## Input validation
 
-To prevent the users from entering invalid values when using an input step with text inputs (for example, to gather some deployment information), you can use input validation.
+To prevent users from entering invalid text values in input steps  (for example, to gather some deployment information), you can use input validation.
 
 If you associate a RegEx to a field, the field outline will turn red when an invalid value is entered.
 
