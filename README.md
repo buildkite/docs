@@ -114,3 +114,4 @@ Otherwise, to update the general navigation:
 
 1. Edit `nav.yml` with your changes.
 1. Restart the application.
+
