@@ -127,6 +127,12 @@ attributes:
   required: false
   desc: |
       The directory to use for agent hooks. See [Hook locations](https://buildkite.com/docs/agent/v3/hooks#hook-locations) for details.
+- name: job-log-path
+  env_var: BUILDKITE_JOB_LOG_PATH
+  default_value: "platform's TempDir; e.g. '/tmp'"
+  required: false
+  desc: |
+      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration). Introduced in [TBD](https://github.com/buildkite/agent/releases/tag/TBD).
 - name: log-format
   env_var: BUILDKITE_LOG_FORMAT
   default_value: "text"
