@@ -807,6 +807,7 @@ query {
       }
     }
   }
+}
 ```
 
 Then, use the ID to delete the user:
@@ -833,6 +834,32 @@ Query your organization's audit events. Audit events are only available to Enter
   query getOrganizationAuditEvents{
     organization(slug:"organization-slug"){
       auditEvents(first: 500){
+        edges{
+          node{
+            type
+            occurredAt
+            actor{
+              name
+            }
+            subject{
+              name
+              type
+            }
+          }
+        }
+      }
+    }
+  }
+```
+
+### Get timeboxed organization audit events 
+
+Query your organization's audit events in a timeboxed manner using the `occurredAtFrom` and `occurredAtTo` filters in an Organization's `auditEvents` field. Audit events are only available to Enterprise customers.
+
+```graphql
+  query getOrganizationAuditEvents{
+    organization(slug:"organization-slug"){
+      auditEvents(first: 500, occurredAtFrom: "2023-01-01T12:00:00.000", occurredAtTo: "2023-01-01T13:00:00.000"){
         edges{
           node{
             type
