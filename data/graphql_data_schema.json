@@ -3835,13 +3835,19 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE",
+              "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3895,7 +3901,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_TEMPLATE",
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3907,13 +3919,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_PIPELINE",
+              "name": "PIPELINE_TEMPLATE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3937,13 +3943,25 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3955,19 +3973,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
+              "name": "TEAM_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3985,19 +3997,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "AUTHORIZATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -15672,6 +15672,35 @@
               "deprecationReason": null
             },
             {
+              "name": "organizationRevokeInactiveTokensAfterUpdate",
+              "description": "Specify the maximum timeframe to revoke organization access from inactive API tokens.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "Parameters for OrganizationRevokeInactiveTokensAfterUpdateMutation",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "OrganizationRevokeInactiveTokensAfterUpdateMutationInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "OrganizationRevokeInactiveTokensAfterUpdateMutationPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "pipelineArchive",
               "description": "Archive a pipeline.",
               "args": [
@@ -18699,6 +18728,20 @@
                   "name": "Boolean",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "revokeInactiveTokensAfter",
+              "description": "API tokens with access to this organization will be automatically revoked after this many seconds of inactivity. A `null` value indicates never revoke inactive tokens.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "ENUM",
+                "name": "RevokeInactiveTokenPeriod",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -22555,6 +22598,102 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "Permission",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "OrganizationRevokeInactiveTokensAfterUpdateMutationInput",
+          "description": "Autogenerated input type of OrganizationRevokeInactiveTokensAfterUpdateMutation",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "organizationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "revokeInactiveTokensAfter",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "RevokeInactiveTokenPeriod",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OrganizationRevokeInactiveTokensAfterUpdateMutationPayload",
+          "description": "Autogenerated return type of OrganizationRevokeInactiveTokensAfterUpdateMutation.",
+          "fields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "organization",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Organization",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -28630,6 +28769,53 @@
             {
               "name": "TEST_EXECUTIONS",
               "description": "These records represent a suite's test executions usage for a single day",
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "possibleTypes": null
+        },
+        {
+          "kind": "ENUM",
+          "name": "RevokeInactiveTokenPeriod",
+          "description": "API tokens with access to this organization will be automatically revoked after this many days of inactivity.",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": [
+            {
+              "name": "DAYS_30",
+              "description": "Revoke organization access from API tokens after 30 days of inactivity",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_60",
+              "description": "Revoke organization access from API tokens after 60 days of inactivity",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_90",
+              "description": "Revoke organization access from API tokens after 90 days of inactivity",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_180",
+              "description": "Revoke organization access from API tokens after 180 days of inactivity",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "DAYS_365",
+              "description": "Revoke organization access from API tokens after 365 days of inactivity",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NEVER",
+              "description": "Never revoke organization access from inactive API tokens",
               "isDeprecated": false,
               "deprecationReason": null
             }
