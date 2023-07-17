@@ -376,6 +376,7 @@ variables:
 - name: BUILDKITE_REPO
   desc: |
     The repository of your pipeline. This variable can be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+  modifable: true
   example: "git@github.com:acme-inc/my-project.git"
 - name: BUILDKITE_REPO_MIRROR
   desc: |
