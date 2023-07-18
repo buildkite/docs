@@ -8,7 +8,7 @@ Test collectors gather information from the following CI environments:
 - [CircleCI](/docs/test-analytics/ci-environments#circleci)
 - [GitHub Actions](/docs/test-analytics/ci-environments#github-actions)
 
-If you run test collectors inside [containers](/docs/test-analytics/ci-environments#containers-and-test-collectors) or you're using another CI system, then you must set variables to report your CI details to Buildkite.
+If you run test collectors inside [containers](/docs/test-analytics/ci-environments#containers-and-test-collectors) or use another CI system, you must set variables to report your CI details to Buildkite.
 
 If you're not using a test collector, see [Importing JSON](/docs/test-analytics/importing-json) and [Importing JUnit XML](/docs/test-analytics/importing-junit-xml) to learn how to provide run environment data.
 
