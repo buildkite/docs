@@ -132,7 +132,7 @@ attributes:
   default_value: "platform's TempDir; e.g. '/tmp'"
   required: false
   desc: |
-      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration). Introduced in [v3.50.0](https://github.com/buildkite/agent/releases/tag/v3.50.0).
+      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration#enable-job-log-tmpfile). Introduced in [v3.50.0](https://github.com/buildkite/agent/releases/tag/v3.50.0).
 - name: log-format
   env_var: BUILDKITE_LOG_FORMAT
   default_value: "text"
