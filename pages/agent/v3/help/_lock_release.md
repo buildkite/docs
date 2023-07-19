@@ -14,7 +14,7 @@ script.
 
 ### Usage
 
-`buildkite-agent lock release [key]`
+`buildkite-agent lock release [key] [token]`
 
 ### Description
 Releases the lock for the given key. This should only be called by the
