@@ -14,13 +14,13 @@ script.
 
 ### Usage
 
-`buildkite-agent lock release [key]`
+`buildkite-agent lock release [key] [token]`
 
 ### Description
 Releases the lock for the given key. This should only be called by the
 process that acquired the lock. To help prevent different processes unlocking
 each other unintentionally, the output from `lock acquire` is required as the
-second argument.
+second argument (`token`).
 
 Note that this subcommand is only available when an agent has been started
 with the `agent-api` experiment enabled.

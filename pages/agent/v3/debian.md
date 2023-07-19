@@ -88,25 +88,7 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 
 ## Running multiple agents
 
-You can run as many parallel agents on the one machine as you wish by duplicating the systemd/upstart service configuration file, for example:
-
-```shell
-# Disable the default unit
-sudo systemctl stop buildkite-agent && sudo systemctl disable buildkite-agent
-
-# Create a systemd template
-sudo cp /lib/systemd/system/buildkite-agent.service /etc/systemd/system/buildkite-agent@.service
-
-# Now, as many times as you like
-sudo systemctl enable buildkite-agent@1 && sudo systemctl start buildkite-agent@1
-sudo systemctl enable buildkite-agent@2 && sudo systemctl start buildkite-agent@2
-
-# Follow them all
-sudo journalctl -f -u "buildkite-agent@*"
-
-# Or one-by-one
-sudo journalctl -f -u buildkite-agent@2
-```
+<%= render_markdown partial: 'agent/v3/linux_multiple_agents' %>
 
 ## Upgrading
 

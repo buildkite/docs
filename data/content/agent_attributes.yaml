@@ -132,7 +132,7 @@ attributes:
   default_value: "platform's TempDir; e.g. '/tmp'"
   required: false
   desc: |
-      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration). Introduced in [v3.50](https://github.com/buildkite/agent/releases/tag/v3.50.0).
+      The directory of the temporary job log file created by the `enable-job-log-tmpfile` [agent configuration option](/docs/agent/v3/configuration#enable-job-log-tmpfile). Introduced in [v3.50.0](https://github.com/buildkite/agent/releases/tag/v3.50.0).
 - name: log-format
   env_var: BUILDKITE_LOG_FORMAT
   default_value: "text"
@@ -306,7 +306,7 @@ attributes:
   desc: |
       Include the host's Google Cloud instance labels as tags.
 - name: tags-from-host
-  env_var: BUILDKITE_AGENTS_TAGS_FROM_HOST
+  env_var: BUILDKITE_AGENT_TAGS_FROM_HOST
   default_value: "false"
   required: false
   desc: |
