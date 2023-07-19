@@ -31,8 +31,6 @@ REST API scopes are very granular, you can select some or all of the following:
 * Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
 * Write Suites `write_suites` - Permission to create, update and delete test suites
-* Read Flaky Tests `read_flaky_tests` - Deprecated. Use `read_suites` instead. Permission to list
-  flaky tests
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
@@ -69,6 +67,9 @@ If you'd like to limit access to your organization by IP address, you can create
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
 ## Revoking inactive tokens automatically
+
+> 📘 Enterprise feature
+> Revoking inactive tokens automatically is only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 To enable the automatic revocation of inactive tokens, navigate to your [organization's security settings](https://buildkite.com/organizations/~/security) and specify the maximum timeframe for inactive tokens to remain valid.
 

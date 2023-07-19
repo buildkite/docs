@@ -307,6 +307,10 @@ RSpec.describe NavData do
             "path" => "apis/graphql/graphql-cookbook"
           },
           {
+            "name" => "Limits",
+            "path" => "apis/graphql/graphql-resource-limits"
+          },
+          {
             "name" => "Queries",
             "children" => [
               {
