@@ -106,7 +106,7 @@ done
 
 ## Signing pipelines
 
-If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/seek-oss/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.  
+If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/buildkite/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.
 
 ## Allowing a list of plugins
 
@@ -185,3 +185,9 @@ To safeguard your organization's infrastructure in case of Buildkite infrastruct
 
 As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.
+
+## Restrict agent connection by IP address
+
+[Clusters](/docs/clusters/overview) provide a mechanism to restrict which IP addresses can connect using a given agent token. This protects against the misuse of agent tokens and the hijacking of agent sessions.
+
+To restrict agent connection by IP address, set the [_Allowed IP Addresses_ attribute](/docs/clusters/manage-clusters#set-up-clusters-restrict-access-for-a-cluster-token-by-ip-address). This restricts agent registration to those IPs, and any existing agents outside the allowed IP ranges will be forcefully disconnected.

@@ -24,13 +24,13 @@ the work.
 Note that this subcommand is only available when an agent has been started with
 the ′agent-api′ experiment enabled.
 
-′lock do′ will do one of two things:
+`lock do` will do one of two things:
 
 - Print `do`. The calling process should proceed to do the work and then
 call ′lock done′.
 - Wait until the work is marked as done (with ′lock done′) and print `done`.
 
-If ′lock do′ prints `done` immediately, the work was already done.
+If `lock do` prints `done` immediately, the work was already done.
 
 ### Examples
 

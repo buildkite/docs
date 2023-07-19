@@ -5,6 +5,8 @@
   path: apis/graphql/graphql-tutorial
 - name: Cookbook
   path: apis/graphql/graphql-cookbook
+- name: Limits
+  path: apis/graphql/graphql-resource-limits
 - name: Queries
   children:
   - name: agent
@@ -111,6 +113,8 @@
     path: apis/graphql/schemas/mutation/organizationmemberdelete
   - name: organizationMemberUpdate
     path: apis/graphql/schemas/mutation/organizationmemberupdate
+  - name: organizationRevokeInactiveTokensAfterUpdate
+    path: apis/graphql/schemas/mutation/organizationrevokeinactivetokensafterupdate
   - name: pipelineArchive
     path: apis/graphql/schemas/mutation/pipelinearchive
   - name: pipelineCreate
@@ -481,6 +485,8 @@
     path: apis/graphql/schemas/object/organizationmemberupdatepayload
   - name: OrganizationPermissions
     path: apis/graphql/schemas/object/organizationpermissions
+  - name: OrganizationRevokeInactiveTokensAfterUpdateMutationPayload
+    path: apis/graphql/schemas/object/organizationrevokeinactivetokensafterupdatemutationpayload
   - name: OrganizationSSO
     path: apis/graphql/schemas/object/organizationsso
   - name: OrganizationSSOProvider
@@ -533,6 +539,8 @@
     path: apis/graphql/schemas/object/pipelinesteps
   - name: PipelineTag
     path: apis/graphql/schemas/object/pipelinetag
+  - name: PipelineTemplate
+    path: apis/graphql/schemas/object/pipelinetemplate
   - name: PipelineUnarchivePayload
     path: apis/graphql/schemas/object/pipelineunarchivepayload
   - name: PipelineUpdatePayload
@@ -827,6 +835,8 @@
     path: apis/graphql/schemas/enum/pipelinevisibility
   - name: ResourceUsageType
     path: apis/graphql/schemas/enum/resourceusagetype
+  - name: RevokeInactiveTokenPeriod
+    path: apis/graphql/schemas/enum/revokeinactivetokenperiod
   - name: SSOAuthorizationState
     path: apis/graphql/schemas/enum/ssoauthorizationstate
   - name: SSOProviderSAMLRSAXMLSecurity
@@ -943,6 +953,8 @@
     path: apis/graphql/schemas/input-object/organizationmembersecurityinput
   - name: OrganizationMemberUpdateInput
     path: apis/graphql/schemas/input-object/organizationmemberupdateinput
+  - name: OrganizationRevokeInactiveTokensAfterUpdateMutationInput
+    path: apis/graphql/schemas/input-object/organizationrevokeinactivetokensafterupdatemutationinput
   - name: PipelineArchiveInput
     path: apis/graphql/schemas/input-object/pipelinearchiveinput
   - name: PipelineCreateInput
