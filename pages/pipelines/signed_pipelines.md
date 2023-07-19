@@ -8,6 +8,8 @@ https://3.basecamp.com/3453178/buckets/27608512/messages/5725400045
 We know that builds and deploys can be run on highly privileged machines, and that an attacker convincing that machine to run a malicious command could compromise production infrastructure.
 As customer secuirty is paramount to Buildkite, and we wish to ensure thata all customers are immune by default from our control plane being compromised.
 
+Signed pipelines allow users to sign the pipelines they upload, which means that agents can refuse to run jobs that are not signed by a trusted public key. This makes it impossible for Buildkite (or an attacker thereof) to tamper with the workload that Buildkite orchestrates onto customer infrastructure.
+
 * link to best practices?
 * mention exisitng tool on github? https://github.com/buildkite/buildkite-signed-pipeline
 * Maybe this should live in security? Not sure
