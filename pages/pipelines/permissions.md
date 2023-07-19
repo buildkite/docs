@@ -135,6 +135,8 @@ From the Member Permissions page, organization admins can toggle whether or not 
 
 If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page.
 
+Note:  The Team-Level permissions on a given pipeline, will override the lower priviledge member permisions in the team settings.
+
 Organization admin can delete organization members. To delete organization members using GraphQL, the admin needs to:
 
 1. Find the `id` for the user to be deleted (in this example `Jane Doe`):
