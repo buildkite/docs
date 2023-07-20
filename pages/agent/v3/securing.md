@@ -159,7 +159,7 @@ steps:
     BUILDKITE_CLEAN_CHECKOUT: true
 ```
 
-In logs for this step, you will find log group "Cleaning pipeline checkout".
+In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
 
 ## Running the Agent behind a proxy
 
