@@ -300,7 +300,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 >🚧  Build creator environment variable
-> We cannot substitute `user` with the build creator environment variable value
+> You cannot substitute `user` with the build creator environment variable value.
 
 ### Conditional Slack notifications
 
