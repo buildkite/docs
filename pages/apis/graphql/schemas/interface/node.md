@@ -58,6 +58,8 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/authorizationsaml" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationSAML"><code>AuthorizationSAML</code></a>
 <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build"><code>Build</code></a>
 <a href="/docs/apis/graphql/schemas/object/changelog" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Changelog"><code>Changelog</code></a>
+<a href="/docs/apis/graphql/schemas/object/cluster" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Cluster"><code>Cluster</code></a>
+<a href="/docs/apis/graphql/schemas/object/clusterqueue" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueue"><code>ClusterQueue</code></a>
 <a href="/docs/apis/graphql/schemas/object/clustertoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterToken"><code>ClusterToken</code></a>
 <a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Email"><code>Email</code></a>
 <a href="/docs/apis/graphql/schemas/object/jobeventassigned" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobEventAssigned"><code>JobEventAssigned</code></a>

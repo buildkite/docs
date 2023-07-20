@@ -3829,6 +3829,12 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "AUTHORIZATION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
@@ -3919,7 +3925,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
+              "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3937,37 +3949,25 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SUITE_MONITOR",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_TOTP",
+              "name": "SSO_PROVIDER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3985,13 +3985,13 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -7275,7 +7275,11 @@
           ],
           "inputFields": null,
           "interfaces": [
-
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
           ],
           "enumValues": null,
           "possibleTypes": null
@@ -8477,7 +8481,11 @@
           ],
           "inputFields": null,
           "interfaces": [
-
+            {
+              "kind": "INTERFACE",
+              "name": "Node",
+              "ofType": null
+            }
           ],
           "enumValues": null,
           "possibleTypes": null
@@ -16742,6 +16750,16 @@
             },
             {
               "kind": "OBJECT",
+              "name": "Cluster",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "ClusterQueue",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "ClusterToken",
               "ofType": null
             },
@@ -23003,8 +23021,8 @@
                 "name": "Boolean",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Build retention is now determined by your billing plan. This field is no longer used and always returns null."
             },
             {
               "name": "buildRetentionNumber",
@@ -23017,8 +23035,8 @@
                 "name": "Int",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Build retention is now determined by your billing plan. This field is no longer used and always returns null."
             },
             {
               "name": "buildRetentionPeriod",
@@ -23031,8 +23049,8 @@
                 "name": "BuildRetentionPeriods",
                 "ofType": null
               },
-              "isDeprecated": false,
-              "deprecationReason": null
+              "isDeprecated": true,
+              "deprecationReason": "Build retention is now determined by your billing plan. This field is no longer used and always returns null."
             },
             {
               "name": "builds",
@@ -24412,42 +24430,6 @@
             {
               "name": "maximumTimeoutInMinutes",
               "description": "The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionEnabled",
-              "description": "Choose to keep builds or remove them after a set time period. Pipelines are scanned once a day for builds that can be removed according to these settings. Some billing plans require this setting to be enabled.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionPeriod",
-              "description": "How long is a build kept before it is automatically removed.",
-              "type": {
-                "kind": "ENUM",
-                "name": "BuildRetentionPeriods",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionNumber",
-              "description": "The minimum number of builds to keep in the pipeline regardless of how old the builds are.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
@@ -27012,42 +26994,6 @@
             {
               "name": "maximumTimeoutInMinutes",
               "description": "The maximum timeout in minutes for all command steps in this pipeline. Any command step without a timeout or with a timeout greater than this value will be set to this value.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionEnabled",
-              "description": "Choose to keep builds or remove them after a set time period. Pipelines are scanned once a day for builds that can be removed according to these settings. Some billing plans require this setting to be enabled.",
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionPeriod",
-              "description": "How long is a build kept before it is automatically removed.",
-              "type": {
-                "kind": "ENUM",
-                "name": "BuildRetentionPeriods",
-                "ofType": null
-              },
-              "defaultValue": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "buildRetentionNumber",
-              "description": "The minimum number of builds to keep in the pipeline regardless of how old the builds are.",
               "type": {
                 "kind": "SCALAR",
                 "name": "Int",
