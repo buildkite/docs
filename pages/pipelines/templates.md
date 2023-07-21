@@ -7,7 +7,9 @@
 
 Pipeline templates allow you to define standard pipeline step configurations to use across all the pipelines in your organization.
 
-When a pipeline has a template assigned, the pipeline inherits its step configuration from the template. Configuring a custom step configuration for that pipeline in the Buildkite dashboard is no longer possible.
+When a pipeline has a template assigned, the pipeline inherits its step configuration from the template. Configuring a custom step configuration for that pipeline in the Buildkite dashboard is no longer possible. This includes any custom command steps.
+
+Before assigning a template to a pipeline, you need to [require pipeline templates](#requiring-pipeline-templates) in your organization.
 
 ## Creating a pipeline template
 
