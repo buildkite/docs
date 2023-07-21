@@ -82,7 +82,7 @@ query RecentPipelineSlugs {
 }
 ```
 
-### Get a pipeline's UUID
+### Get a pipeline's persistent UUID
 
 While a pipeline's name and slug can change over time, its UUID is permanent. Use the UUID when you need a way to reference a pipeline that won't change.
 
