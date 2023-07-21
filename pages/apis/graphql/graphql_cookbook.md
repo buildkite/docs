@@ -500,6 +500,19 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
+### Cancel a job
+
+If you need to cancel a job, you can use the following call with the job's ID:
+
+```graphql
+mutation CancelJob {
+  jobTypeCommandCancel(input: { id: "job-id" }) {
+    jobTypeCommand {
+      id
+    }
+  }
+}
+```
 
 ## Agents
 
