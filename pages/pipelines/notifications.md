@@ -272,7 +272,7 @@ steps:
 
 ### Custom messages with user mentions
 
-To mention a specific user in a custom message within a notification, use the `<@user>` annotation, substituting `user` with the username of the person to mention.
+To mention a specific user in a custom message within a notification, use the `<@user-id>` annotation, substituting `userid` with the Slack user ID of the person to mention. See the [Slack documentation on mentioning users](https://api.slack.com/reference/surfaces/formatting#mentioning-users) for more details, including how to find a particular user's user ID. You can even mention user groups using the `<!subteam^$subteam-id>` annotation (where the first `subteam` is literal text)! See the [Slack documentation on mentioning user groups](https://api.slack.com/reference/surfaces/formatting#mentioning-groups) for more information.
 
 Build-level notifications:
 
@@ -281,7 +281,7 @@ notify:
   - slack:
       channels:
         - "#general"
-      message: "This message will ping <@user>!"
+      message: "This message will ping the user with ID U024BE7LH <@U024BE7LH>!"
 ```
 {: codeblock-file="pipeline.yml"}
 
@@ -295,7 +295,7 @@ steps:
       - slack:
           channels:
             - "#general"
-          message: "This message will ping <@user>!"
+          message: "This message will ping the group with ID SAZ94GDB8 <!subteam^SAZ94GDB8>!"
 ```
 {: codeblock-file="pipeline.yml"}
 

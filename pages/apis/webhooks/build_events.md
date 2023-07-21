@@ -1,24 +1,41 @@
 # Build webhook events
 
-
 ## Events
 
 <table>
-<tbody>
-  <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
-  <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
-  <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
-</tbody>
+  <thead>
+    <tr><th>Event</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
+    <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
+    <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+  </tbody>
 </table>
 
 ## Request body data
 
 <table>
-<tbody>
-  <tr><th><code>build</code></th><td>The <a href="/docs/api/builds">Build</a> this notification relates to</td></tr>
-  <tr><th><code>pipeline</code></th><td>The <a href="/docs/api/pipelines">Pipeline</a> this notification relates to</td></tr>
-  <tr><th><code>sender</code></th><td>The user who created the webhook</td></tr>
-</tbody>
+  <thead>
+    <tr><th>Property</th><th>Type</th><th>Description</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>build</code></td>
+      <td><a href="/docs/api/builds">Build</a></td>
+      <td>The build this notification relates to</td>
+    </tr>
+    <tr>
+      <td><code>pipeline</code></td>
+      <td><a href="/docs/api/pipelines">Pipeline</a></td>
+      <td>The pipeline this notification relates to</td>
+    </tr>
+    <tr>
+      <td><code>sender</code></td>
+      <td>String</td>
+      <td>The user who created the webhook</td>
+    </tr>
+  </tbody>
 </table>
 
 Example request body:
