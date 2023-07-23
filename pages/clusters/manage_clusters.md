@@ -37,7 +37,7 @@ To connect an agent:
 1. Enter a description.
 1. Select _Create Token_.
 1. Select _Copy to Clipboard_ and save the token somewhere secure.
-1. Select _Okay, I'm done!_.
+1. Select _Okay, I'm done!_
 1. [Use the token](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with [the key from the relevant cluster queue](/docs/agent/v3/queues#setting-an-agents-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
