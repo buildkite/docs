@@ -16,6 +16,9 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 Any Buildkite administrator can enable clusters for an organization. Once you enable clusters, you can only disable them by contacting support.
 
+Enabling clusters also changes access to agent tokens. Rather than being available in the Buildkite dashboard, agent tokens are only visible upon creation, ensuring greater security for your applications.
+
+
 To enable clusters:
 
 1. Navigate to your [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
