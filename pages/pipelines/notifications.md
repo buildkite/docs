@@ -299,6 +299,9 @@ steps:
 ```
 {: codeblock-file="pipeline.yml"}
 
+>🚧  Build creator environment variable
+> You cannot substitute `user` with the build creator environment variable value.
+
 ### Conditional Slack notifications
 
 You can also add [conditionals](/docs/pipelines/notifications#conditional-notifications) to restrict the events on which notifications are sent:
