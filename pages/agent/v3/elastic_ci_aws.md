@@ -9,7 +9,6 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 This guide leads you through getting started with the stack for Linux and Windows.
 
 <!-- vale off -->
-<!-- alex ignore master -->
 
 > 📘 Get hands-on
 > Read on for detailed instructions, or jump straight in:
@@ -26,7 +25,7 @@ The following AMIs are available in all the supported regions:
 - Amazon Linux 2 (64-bit ARM, Graviton)
 - Windows Server 2019 (64-bit x86)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \

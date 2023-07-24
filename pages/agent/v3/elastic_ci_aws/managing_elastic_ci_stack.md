@@ -87,14 +87,15 @@ or a specific release available from the [releases page](https://github.com/buil
 The latest stable release can be deployed to any of our supported AWS Regions.
 
 The most recent build of the CloudFormation stack is published to
-`https://s3.amazonaws.com/buildkite-aws-stack/master/aws-stack.yml`, along with
+`https://s3.amazonaws.com/buildkite-aws-stack/main/aws-stack.yml`, along with
 a version for each commit at
+`https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml`.
+For commits that are ancestors of , the is build was published to
 `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
 
 <!-- vale off -->
-<!-- alex ignore master -->
 
-A master branch release can also be deployed to any of our supported AWS
+A main branch release can also be deployed to any of our supported AWS
 Regions.
 
 <!-- vale on -->
@@ -136,7 +137,7 @@ You can view the stack's metrics under _Custom Namespaces_ > _Buildkite_ within 
 
 ## Reading instance and agent logs
 
-Each instance streams file system logs such as `/var/log/messages` and `/var/log/docker` into namespaced AWS log groups. A full list of files and log groups can be found in the relevant [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/packer/linux/conf/cloudwatch-agent/config.json) CloudWatch agent `config.json` file.
+Each instance streams file system logs such as `/var/log/messages` and `/var/log/docker` into namespaced AWS log groups. A full list of files and log groups can be found in the relevant [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) CloudWatch agent `config.json` file.
 
 Within each stream the logs are grouped by instance ID.
 

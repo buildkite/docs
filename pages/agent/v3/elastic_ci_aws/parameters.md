@@ -6,7 +6,7 @@ toc: false
 
 To create an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment, you can either use the default YAML config file, or you can copy it, and substitute that YAML config file with your own configuration file when you create new instances.
 
-The following tables list all the available parameters for the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/templates/aws-stack.yml) which creates an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment.
+The following tables list all the available parameters for the [`aws-stack.yml` template](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/templates/aws-stack.yml) which creates an Auto Scaling group and the launch template for the Elastic CI Stack for AWS deployment.
 
 You can use these parameters to configure the EC2 instances to suit your needs.
 
