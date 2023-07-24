@@ -21,8 +21,8 @@ This guide leads you through getting started with the stack for Linux and Window
 Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
 The following AMIs are available in all the supported regions:
 
-- Amazon Linux 2 (64-bit x86)
-- Amazon Linux 2 (64-bit ARM, Graviton)
+- Amazon Linux 2023 (64-bit x86)
+- Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2019 (64-bit x86)
 
 If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
@@ -70,7 +70,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 <!-- vale off -->
 
-- [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
+- [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
 - [Buildkite Agent v3.50.2](https://buildkite.com/docs/agent)
 - [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
 - [Docker](https://www.docker.com)
