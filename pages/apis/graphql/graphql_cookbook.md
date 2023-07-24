@@ -82,11 +82,9 @@ query RecentPipelineSlugs {
 }
 ```
 
-### Get a pipeline's UUID
+### Get a pipeline's persistent UUID
 
-Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
-
-_Note: Pipeline slugs are modifiable and can change_
+While a pipeline's name and slug can change over time, its UUID is permanent. Use the UUID when you need a way to reference a pipeline that won't change.
 
 ```graphql
 query GetPipelineUUID {
@@ -105,7 +103,7 @@ query GetPipelineUUID {
 
 ### Get a pipeline's information
 
-You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](https://buildkite.com/docs/apis/graphql/schemas/object/pipeline) page.
+You can get more specific pipeline information for each of your pipelines. You can retrieve information for each build, jobs, and any other information listed on [this](https://buildkite.com/docs/apis/graphql/schemas/object/pipeline) page.
 
 ```graphql
 query GetPipelineInfo {
