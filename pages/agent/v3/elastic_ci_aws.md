@@ -79,6 +79,8 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 - [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
 - [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
 
+For more details on what versions are installed on a given Elastic CI Stack, see the corresponding [release announcement](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
+
 <!-- vale on -->
 
 On both Linux and Windows, the Buildkite agent runs as user `buildkite-agent`.
