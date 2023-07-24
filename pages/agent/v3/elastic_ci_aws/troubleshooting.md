@@ -22,7 +22,7 @@ On Windows instances only:
 
 There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
-## Accessing  Elastic CI Stack for AWS instances directly
+## Accessing Elastic CI Stack for AWS instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
