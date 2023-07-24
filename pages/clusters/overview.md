@@ -20,6 +20,7 @@ Enabling clusters also changes access to agent tokens. Rather than being availab
 
 To enable clusters:
 
+1. Securely save any existing agent tokens you need because these won't be available after enabling clusters.
 1. Navigate to your [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 1. In _Clusters_, select _Enable Clusters_.
 
