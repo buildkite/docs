@@ -691,6 +691,23 @@ mutation UpdateSessionDuration {
 }
 ```
 
+### Update inactive API token revocation
+
+On the Enterprise plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
+
+```graphql
+mutation UpdateRevokeInactiveTokenPeriod {
+  organizationRevokeInactiveTokensAfterUpdate(input: {
+    organizationId: "organization-id",
+    revokeInactiveTokensAfter: DAYS_30
+  }) {
+    organization {
+      revokeInactiveTokensAfter
+    }
+  }
+}
+```
+
 ### Pin SSO sessions to IP addresses
 
 You can require users to re-authenticate with your SSO provider when their IP address changes with the following call, replacing `ID` with the GraphQL ID of the SSO provider:
