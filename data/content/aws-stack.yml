@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v5.22.0"
+Description: "Buildkite stack v5.22.1"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -686,26 +686,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-08cfba79fef1b10fe, linuxarm64: ami-076adf6543b3fef83, windows: ami-0d18f2fdc2ab6c053 }
-    us-east-2 : { linuxamd64: ami-06cf2149338f5e29f, linuxarm64: ami-09fd91113b35a01c8, windows: ami-0f807625668456c3a }
-    us-west-1 : { linuxamd64: ami-0921afd952cc1e447, linuxarm64: ami-04e4ed513fd4521f8, windows: ami-07864e2362e9b2a9a }
-    us-west-2 : { linuxamd64: ami-0c31e114a2dbd2e75, linuxarm64: ami-018d150edad79560a, windows: ami-074204a0ce6e6148a }
-    af-south-1 : { linuxamd64: ami-0aef13d927fa101d8, linuxarm64: ami-0e2421ed0a468fd6a, windows: ami-0938078f8e5a94fd7 }
-    ap-east-1 : { linuxamd64: ami-0b8d25292f9c31f22, linuxarm64: ami-0f89bd8175fb73f28, windows: ami-0c04468543ae6b748 }
-    ap-south-1 : { linuxamd64: ami-019252e79f09508fe, linuxarm64: ami-042d263cb287ddf23, windows: ami-0b47d9f1a7b0abf8a }
-    ap-northeast-2 : { linuxamd64: ami-0e651390e2c3be9c7, linuxarm64: ami-04b45d929bc800e93, windows: ami-05a2e83a97ec9b023 }
-    ap-northeast-1 : { linuxamd64: ami-094455b5d1b951ecc, linuxarm64: ami-0e81ec3c1c469f242, windows: ami-0914a4bfff15fbebc }
-    ap-southeast-2 : { linuxamd64: ami-0bcbb62a5e7e55efc, linuxarm64: ami-0ce28f5705b4fa2d2, windows: ami-035098b3152b89df2 }
-    ap-southeast-1 : { linuxamd64: ami-07ba561a1f68b2aef, linuxarm64: ami-073dc18aafbf3c1ff, windows: ami-0a9ebc12e2c526681 }
-    ca-central-1 : { linuxamd64: ami-04400ba8e9ea14033, linuxarm64: ami-03bfc588aa738726b, windows: ami-03f23d96a56efc740 }
-    eu-central-1 : { linuxamd64: ami-05c2a5d020da3e5e7, linuxarm64: ami-09a795714e59bc8aa, windows: ami-0cd5687c66d32b829 }
-    eu-west-1 : { linuxamd64: ami-0428c1f2730229a73, linuxarm64: ami-0fbe615212bed61b0, windows: ami-05a556e5610af903d }
-    eu-west-2 : { linuxamd64: ami-01e027d7f596da3fe, linuxarm64: ami-0301c35010bd30d89, windows: ami-063d6c6886cdc53a4 }
-    eu-south-1 : { linuxamd64: ami-0a88e1ab611d43cf6, linuxarm64: ami-0e4f389c9aeaa9251, windows: ami-04c4382d5d5053a2b }
-    eu-west-3 : { linuxamd64: ami-026811f937907943b, linuxarm64: ami-051e332c639ae794b, windows: ami-0730b44b80e8b0ba8 }
-    eu-north-1 : { linuxamd64: ami-014698afb9d57c9fb, linuxarm64: ami-0f6cadc2785471ef2, windows: ami-0ed64c827cba21144 }
-    me-south-1 : { linuxamd64: ami-04af590382c61041f, linuxarm64: ami-09ea60534efedbf0c, windows: ami-0d2a0a5e7fa4232e7 }
-    sa-east-1 : { linuxamd64: ami-034929ae61dad4cba, linuxarm64: ami-0f670db6f7b790f5f, windows: ami-0d5c9728b3aa8f4e1 }
+    us-east-1 : { linuxamd64: ami-06b0cdfed27ed5d01, linuxarm64: ami-0dead2191ea96fe51, windows: ami-0b2007b2a17a428ec }
+    us-east-2 : { linuxamd64: ami-0ea7171d64fb24998, linuxarm64: ami-0e95b8853f6a2af65, windows: ami-0daf31201af383905 }
+    us-west-1 : { linuxamd64: ami-02e6fabd072c991c3, linuxarm64: ami-096239b13828cb247, windows: ami-0d768167a2d48f7a1 }
+    us-west-2 : { linuxamd64: ami-0ca610ef9708efe56, linuxarm64: ami-00ffc5da2ceecdeef, windows: ami-0a9238c0388e244f8 }
+    af-south-1 : { linuxamd64: ami-00cd4bd756a63b0f7, linuxarm64: ami-01c72e8dec82eb996, windows: ami-0050a51f3d759c881 }
+    ap-east-1 : { linuxamd64: ami-0bdb3b97f948dc783, linuxarm64: ami-00d9064f233440268, windows: ami-001222f3c1dbc66a1 }
+    ap-south-1 : { linuxamd64: ami-0c3aafe71a1688149, linuxarm64: ami-011301631fbfd88f0, windows: ami-0c31660fdf945365d }
+    ap-northeast-2 : { linuxamd64: ami-0e503308bab2c01e4, linuxarm64: ami-075be57275e11f8bf, windows: ami-03ad94fe9a1869378 }
+    ap-northeast-1 : { linuxamd64: ami-0cd2186c20a997cdd, linuxarm64: ami-054a95cc8d4997dcc, windows: ami-01a690796e84a6b09 }
+    ap-southeast-2 : { linuxamd64: ami-0e62d3b323d5bab76, linuxarm64: ami-0c116090d2a9a769f, windows: ami-093b14429afa6af80 }
+    ap-southeast-1 : { linuxamd64: ami-0ba493cc7e09b34f2, linuxarm64: ami-01d5ac06ffa6dff51, windows: ami-01a6ae4a2dea33aa0 }
+    ca-central-1 : { linuxamd64: ami-0588e5208995a40f7, linuxarm64: ami-0409cd4ea4aaa57e4, windows: ami-0bddab2ef7eade51d }
+    eu-central-1 : { linuxamd64: ami-03044fc7985daf7c4, linuxarm64: ami-01f631bb781dd8dcd, windows: ami-007406512e1a406bd }
+    eu-west-1 : { linuxamd64: ami-079b84392c885ce08, linuxarm64: ami-05e22e08b27f576fb, windows: ami-0f02a3d10c3bb5e3b }
+    eu-west-2 : { linuxamd64: ami-07ba01fdf08b664a6, linuxarm64: ami-0684a13bee46a41e4, windows: ami-0c300f71676807386 }
+    eu-south-1 : { linuxamd64: ami-010e79eb69a610c61, linuxarm64: ami-00fa4baee2ae237fd, windows: ami-078669b0f7667697e }
+    eu-west-3 : { linuxamd64: ami-0a8eda60572b12c5a, linuxarm64: ami-063efd0df3cfbb5d8, windows: ami-0b33a48e30e226965 }
+    eu-north-1 : { linuxamd64: ami-07d3f237ca7ffd7ff, linuxarm64: ami-0487f72ff794c771b, windows: ami-0d21a9540c709b30d }
+    me-south-1 : { linuxamd64: ami-02b7e21a63e504350, linuxarm64: ami-01bf861f9cbffd2da, windows: ami-059bf3e418c0bb381 }
+    sa-east-1 : { linuxamd64: ami-0f8d154d826a4e896, linuxarm64: ami-03ae762a304bf8c18, windows: ami-0fb3c655895e94cc1 }
 
 Resources:
   Vpc:
@@ -1149,7 +1149,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v5.22.0"
+                  $Env:BUILDKITE_STACK_VERSION="v5.22.1"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1204,7 +1204,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v5.22.0" \
+                  BUILDKITE_STACK_VERSION="v5.22.1" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
