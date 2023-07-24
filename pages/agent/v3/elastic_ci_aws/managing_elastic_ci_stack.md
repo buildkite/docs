@@ -68,7 +68,7 @@ If you configure `MinSize` < `MaxSize` in your AWS autoscaling configuration, th
 
 This means you can scale down to zero when idle, which means you can use larger instances for the same cost.
 
-Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. You should only use one Elastic CI Stack for AWS per queue to avoid scaling up redundant agents. If you target the same queue with multiple stacks, each stack will scale up to handle the work.
+Metrics are collected with a Lambda function, polling every 10 seconds based on the queue the stack is configured with. The autoscaler monitors only one queue, and the monitoring drives the scaling of the stack. You should only use one Elastic CI Stack for AWS per queue to avoid scaling up redundant agents. If you target the same queue with multiple stacks, each stack will independently scale up additional agents as if it were the only stack running, leading to over provisioning.
 
 ## Terminating the instance after the job is complete
 
