@@ -41,7 +41,7 @@ aws cloudformation create-stack \
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
 
 - [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
-- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceType` stack parameter appropriate for your workload)
+- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
 - [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack for AWS provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.

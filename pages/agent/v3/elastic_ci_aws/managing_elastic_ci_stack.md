@@ -174,7 +174,7 @@ If the file is private, you also need to create an IAM policy to allow the insta
 }
 ```
 
-After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARN` stack parameter.
+After creating the policy, you must specify the policy's ARN in the `ManagedPolicyARNs` stack parameter.
 
 ## Health monitoring
 

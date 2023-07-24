@@ -33,7 +33,7 @@ Sometimes, looking at the logs isn't enough to figure out what's going on in you
 
 Resource shortage can cause this issue. See the Auto Scaling group's Activity log for diagnostics.
 
-To fix this issue, change or add more instance types to the `InstanceType` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
+To fix this issue, change or add more instance types to the `InstanceTypes` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
 
 ## Stacks over-provision agents
 
