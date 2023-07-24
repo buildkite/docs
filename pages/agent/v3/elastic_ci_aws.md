@@ -72,7 +72,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 <!-- vale off -->
 
 - [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
-- [Buildkite Agent v3.44.0](https://buildkite.com/docs/agent)
+- [Buildkite Agent v3.50.1](https://buildkite.com/docs/agent)
 - [Git v2.39.1](https://git-scm.com/) and [Git LFS v3.3.0](https://git-lfs.com/)
 - [Docker](https://www.docker.com) - v20.10.23 (Linux) and v20.10.9 (Windows)
 - [Docker Compose](https://docs.docker.com/compose/) - v1.29.2 and v2.16.0 (Linux) and v1.29.2 (Windows)
