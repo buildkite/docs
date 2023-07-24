@@ -498,6 +498,19 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
+### Cancel a job
+
+If you need to cancel a job, you can use the following call with the job's ID:
+
+```graphql
+mutation CancelJob {
+  jobTypeCommandCancel(input: { id: "job-id" }) {
+    jobTypeCommand {
+      id
+    }
+  }
+}
+```
 
 ## Agents
 
@@ -690,6 +703,51 @@ mutation UpdateSessionIPAddressPinning {
 }
 ```
 
+### Query the usage API
+
+Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
+
+```graphql
+query Usage {
+  organization(slug: "organization-slug") {
+    id
+    name
+    usage(
+      aggregatedOnFrom: "2023-04-01"
+      aggregatedOnTo: "2023-05-01"
+      resource: [JOB_MINUTES, TEST_EXECUTIONS]
+    ) {
+      edges {
+        node {
+          __typename ... on JobMinutesUsage {
+            aggregatedOn
+            seconds
+            pipeline {
+              name
+              id
+            }
+          }
+        }
+        node {
+          __typename ... on TestExecutionsUsage {
+            Time: aggregatedOn
+            executions
+            suite {
+              name
+              id
+            }
+          }
+        }
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+}
+```
+
 ### Create a user, add them to a team, and set user permissions
 
 Invite a new user to the organization, add them to a team, and set their role.
@@ -776,6 +834,32 @@ mutation deleteOrgMember {
     }
   }
 }
+```
+
+### Get organization audit events
+
+Query your organization's audit events. Audit events are only available to Enterprise customers.
+
+```graphql
+  query getOrganizationAuditEvents{
+    organization(slug:"organization-slug"){
+      auditEvents(first: 500){
+        edges{
+          node{
+            type
+            occurredAt
+            actor{
+              name
+            }
+            subject{
+              name
+              type
+            }
+          }
+        }
+      }
+    }
+  }
 ```
 
 ## Teams

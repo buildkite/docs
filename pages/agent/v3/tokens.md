@@ -25,10 +25,10 @@ mutation {
     organizationID: "organization-id",
     description: "A description"
   }) {
+    tokenValue
     agentTokenEdge {
       node {
         id
-        token
       }
     }
   }

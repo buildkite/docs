@@ -72,7 +72,7 @@ steps:
           - npm run prettier-check
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: Linting text and markdown"
         plugins:
@@ -89,7 +89,7 @@ steps:
           - docker#v3.7.0:
               # Alpine 3.14 - EOS 01 May 2023
               # lts = Node 1415.1 - 2023-04-30
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: "Validate YAML"
         command:
@@ -97,16 +97,16 @@ steps:
           - npm run -y validate-environment-variables-yaml
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":lint-roller: :markdown: Linting the Markdown"
         command: npm run -y mdlint
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":snake: Linting markdown files for snake case"
         command: npx -y @ls-lint/ls-lint
         plugins:
           - docker#v3.7.0:
-              image: "node:lts-alpine3.14"
+              image: "public.ecr.aws/docker/library/node:lts-alpine3.14"

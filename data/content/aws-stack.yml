@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v5.20.0"
+Description: "Buildkite stack v5.22.1"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -181,7 +181,7 @@ Parameters:
   BuildkiteAgentScalerVersion:
     Description: Version of the buildkite-agent-scaler to use
     Type: String
-    Default: "1.3.2"
+    Default: "1.4.0"
 
   BuildkiteAgentTracingBackend:
     Description: The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing
@@ -488,7 +488,7 @@ Parameters:
 
   EnableAgentGitMirrorsExperiment:
     Type: String
-    Description: Enables the git-mirrors experiment in the agent
+    Description: Enables git-mirrors in the agent
     AllowedValues:
       - "true"
       - "false"
@@ -686,26 +686,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-05e9fd6d2bd47782d, linuxarm64: ami-0c82f6e29ddd8fb22, windows: ami-061258593fda02fb6 }
-    us-east-2 : { linuxamd64: ami-09b8e1c0ab03997e2, linuxarm64: ami-01057ef7dbe4ea122, windows: ami-0dd9754e101b266cb }
-    us-west-1 : { linuxamd64: ami-094319d7aea2a18b6, linuxarm64: ami-05a8b8699e36cddeb, windows: ami-0fee2443db7048a7a }
-    us-west-2 : { linuxamd64: ami-0eb174aaaf7937f77, linuxarm64: ami-0ee4e2b9990df0035, windows: ami-011a88a73457ceb02 }
-    af-south-1 : { linuxamd64: ami-0cdc52383b34530da, linuxarm64: ami-0334fd9ad6499ef2d, windows: ami-096ced7e3f4976f92 }
-    ap-east-1 : { linuxamd64: ami-0b245b966d15f4bc8, linuxarm64: ami-086a1af2d21b3ecc5, windows: ami-0a87a51470dda8d0e }
-    ap-south-1 : { linuxamd64: ami-01cf6a3b5b90e83f1, linuxarm64: ami-038ebe2e4267aa15e, windows: ami-0447aa7a5afbbbffd }
-    ap-northeast-2 : { linuxamd64: ami-0043ecd34504b9201, linuxarm64: ami-0f2f49744ce5d2801, windows: ami-07604a1ecd624f3e1 }
-    ap-northeast-1 : { linuxamd64: ami-0db72a9c598c70399, linuxarm64: ami-0c3a5050769e30ac9, windows: ami-0443489fb3a10e8cb }
-    ap-southeast-2 : { linuxamd64: ami-065bc081574e1392c, linuxarm64: ami-01c512d9f5953ad34, windows: ami-05ffd1d10470f63dc }
-    ap-southeast-1 : { linuxamd64: ami-033b7b31454f8a3ee, linuxarm64: ami-0afa77a5d6765e44e, windows: ami-08188014616704d2f }
-    ca-central-1 : { linuxamd64: ami-01e39ba68c989d77e, linuxarm64: ami-0d1ed2c58d9c92399, windows: ami-08adb53008cb01f13 }
-    eu-central-1 : { linuxamd64: ami-0e904e6fbd02bf9ff, linuxarm64: ami-0034248bc71488758, windows: ami-05cbd39e799f3a474 }
-    eu-west-1 : { linuxamd64: ami-0708fe9486e6b6a02, linuxarm64: ami-0ebacb6c752880c1e, windows: ami-0d1b8a25d2c920e2e }
-    eu-west-2 : { linuxamd64: ami-01a14a049fa658de2, linuxarm64: ami-02a43fddf765c49de, windows: ami-04b1c2b9c1c27503c }
-    eu-south-1 : { linuxamd64: ami-0f8579fea2b242304, linuxarm64: ami-04f4f51ad6915b39c, windows: ami-0da9692b61bdc9194 }
-    eu-west-3 : { linuxamd64: ami-0d40b87e3d028ce59, linuxarm64: ami-089dc34061b014e08, windows: ami-0536a38b59282d785 }
-    eu-north-1 : { linuxamd64: ami-0228e018f3ef4887e, linuxarm64: ami-093da24abb0e4f905, windows: ami-0da51bd45d6b0502b }
-    me-south-1 : { linuxamd64: ami-0193550e84bbac5d1, linuxarm64: ami-02fb408c2ece8b0bf, windows: ami-0998571c5054e9e1e }
-    sa-east-1 : { linuxamd64: ami-0f21eaa673255d009, linuxarm64: ami-053a9b01522b97a2f, windows: ami-065b1de4ad3fe086b }
+    us-east-1 : { linuxamd64: ami-06b0cdfed27ed5d01, linuxarm64: ami-0dead2191ea96fe51, windows: ami-0b2007b2a17a428ec }
+    us-east-2 : { linuxamd64: ami-0ea7171d64fb24998, linuxarm64: ami-0e95b8853f6a2af65, windows: ami-0daf31201af383905 }
+    us-west-1 : { linuxamd64: ami-02e6fabd072c991c3, linuxarm64: ami-096239b13828cb247, windows: ami-0d768167a2d48f7a1 }
+    us-west-2 : { linuxamd64: ami-0ca610ef9708efe56, linuxarm64: ami-00ffc5da2ceecdeef, windows: ami-0a9238c0388e244f8 }
+    af-south-1 : { linuxamd64: ami-00cd4bd756a63b0f7, linuxarm64: ami-01c72e8dec82eb996, windows: ami-0050a51f3d759c881 }
+    ap-east-1 : { linuxamd64: ami-0bdb3b97f948dc783, linuxarm64: ami-00d9064f233440268, windows: ami-001222f3c1dbc66a1 }
+    ap-south-1 : { linuxamd64: ami-0c3aafe71a1688149, linuxarm64: ami-011301631fbfd88f0, windows: ami-0c31660fdf945365d }
+    ap-northeast-2 : { linuxamd64: ami-0e503308bab2c01e4, linuxarm64: ami-075be57275e11f8bf, windows: ami-03ad94fe9a1869378 }
+    ap-northeast-1 : { linuxamd64: ami-0cd2186c20a997cdd, linuxarm64: ami-054a95cc8d4997dcc, windows: ami-01a690796e84a6b09 }
+    ap-southeast-2 : { linuxamd64: ami-0e62d3b323d5bab76, linuxarm64: ami-0c116090d2a9a769f, windows: ami-093b14429afa6af80 }
+    ap-southeast-1 : { linuxamd64: ami-0ba493cc7e09b34f2, linuxarm64: ami-01d5ac06ffa6dff51, windows: ami-01a6ae4a2dea33aa0 }
+    ca-central-1 : { linuxamd64: ami-0588e5208995a40f7, linuxarm64: ami-0409cd4ea4aaa57e4, windows: ami-0bddab2ef7eade51d }
+    eu-central-1 : { linuxamd64: ami-03044fc7985daf7c4, linuxarm64: ami-01f631bb781dd8dcd, windows: ami-007406512e1a406bd }
+    eu-west-1 : { linuxamd64: ami-079b84392c885ce08, linuxarm64: ami-05e22e08b27f576fb, windows: ami-0f02a3d10c3bb5e3b }
+    eu-west-2 : { linuxamd64: ami-07ba01fdf08b664a6, linuxarm64: ami-0684a13bee46a41e4, windows: ami-0c300f71676807386 }
+    eu-south-1 : { linuxamd64: ami-010e79eb69a610c61, linuxarm64: ami-00fa4baee2ae237fd, windows: ami-078669b0f7667697e }
+    eu-west-3 : { linuxamd64: ami-0a8eda60572b12c5a, linuxarm64: ami-063efd0df3cfbb5d8, windows: ami-0b33a48e30e226965 }
+    eu-north-1 : { linuxamd64: ami-07d3f237ca7ffd7ff, linuxarm64: ami-0487f72ff794c771b, windows: ami-0d21a9540c709b30d }
+    me-south-1 : { linuxamd64: ami-02b7e21a63e504350, linuxarm64: ami-01bf861f9cbffd2da, windows: ami-059bf3e418c0bb381 }
+    sa-east-1 : { linuxamd64: ami-0f8d154d826a4e896, linuxarm64: ami-03ae762a304bf8c18, windows: ami-0fb3c655895e94cc1 }
 
 Resources:
   Vpc:
@@ -1149,7 +1149,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v5.20.0"
+                  $Env:BUILDKITE_STACK_VERSION="v5.22.1"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1161,7 +1161,7 @@ Resources:
                   $Env:BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}"
                   $Env:BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}"
                   $Env:BUILDKITE_QUEUE="${BuildkiteQueue}"
-                  $Env:BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT="${EnableAgentGitMirrorsExperiment}"
+                  $Env:BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${EnableAgentGitMirrorsExperiment}"
                   $Env:BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}"
                   $Env:BUILDKITE_ENV_FILE_URL="${AgentEnvFileUrl}"
                   $Env:BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}"
@@ -1186,6 +1186,11 @@ Resources:
                   Content-Type: multipart/mixed; boundary="==BOUNDARY=="
                   MIME-Version: 1.0
                   --==BOUNDARY==
+                  Content-Type: text/cloud-config; charset="us-ascii"
+                  #cloud-config
+                  cloud_final_modules:
+                    - [scripts-user, always]
+                  --==BOUNDARY==
                   Content-Type: text/cloud-boothook; charset="us-ascii"
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                     /usr/local/bin/bk-mount-instance-storage.sh
@@ -1199,7 +1204,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v5.20.0" \
+                  BUILDKITE_STACK_VERSION="v5.22.1" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1211,7 +1216,7 @@ Resources:
                   BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
-                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT="${EnableAgentGitMirrorsExperiment}" \
+                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${EnableAgentGitMirrorsExperiment}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
                   BUILDKITE_ENV_FILE_URL=${AgentEnvFileUrl} \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
@@ -1334,7 +1339,7 @@ Resources:
               cfnresponse.send(event, context, cfnresponse.FAILED, {}, "CustomResourcePhysicalID")
       Handler: index.handler
       Role: !GetAtt AsgProcessSuspenderRole.Arn
-      Runtime: 'python3.7'
+      Runtime: 'python3.10'
 
   AzRebalancingSuspender:
     Type: AWS::CloudFormation::CustomResource
