@@ -10,6 +10,7 @@
     <tr><th><code>build.scheduled</code></th><td>A build has been scheduled</td></tr>
     <tr><th><code>build.running</code></th><td>A build has started running</td></tr>
     <tr><th><code>build.finished</code></th><td>A build has finished</td></tr>
+    <tr><th><code>build.failing</code></th><td>A build is failing</td></tr>
   </tbody>
 </table>
 
