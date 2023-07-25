@@ -50,3 +50,7 @@ See the Auto Scaling group's Activity logs and CloudWatch Logs for the booting i
 Successfully booted instances can fail jobs for numerous reasons. A frequent source of issues is their disk filling up before the hourly cron job fixes it or terminates them.
 
 An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
+
+## Permissions errors when running docker images with volume mounts
+
+The docker daemon is configured by default to run containers in a [username namespace](https://docs.docker.com/engine/security/userns-remap/). This will map the `root:root` user and group inside the container to the `buildkite-agent:docker` on the host. This may be disabled using the stack parameter `EnableDockerUserNamespaceRemap`.
