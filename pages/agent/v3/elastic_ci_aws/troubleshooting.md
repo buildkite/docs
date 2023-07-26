@@ -51,6 +51,6 @@ Successfully booted instances can fail jobs for numerous reasons. A frequent sou
 
 An instance with a full disk can be causing jobs to fail. If such instance is not being replaced automatically — for example, because of a stack with the `MinSize` parameter greater than zero, you can manually terminate the instance using the EC2 Dashboard.
 
-## Permissions errors when running docker images with volume mounts
+## Permission errors when running Docker images with volume mounts
 
-The docker daemon is configured by default to run containers in a [username namespace](https://docs.docker.com/engine/security/userns-remap/). This will map the `root:root` user and group inside the container to the `buildkite-agent:docker` on the host. This may be disabled using the stack parameter `EnableDockerUserNamespaceRemap`.
+The Docker daemon is configured by default to run containers in a [username namespace](https://docs.docker.com/engine/security/userns-remap/). This will map the `root:root` user and group inside the container to the `buildkite-agent:docker` on the host. You can disable this using the stack parameter `EnableDockerUserNamespaceRemap`.
