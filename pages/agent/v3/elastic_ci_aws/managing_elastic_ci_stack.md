@@ -90,8 +90,7 @@ The most recent build of the CloudFormation stack is published to
 `https://s3.amazonaws.com/buildkite-aws-stack/main/aws-stack.yml`, along with
 a version for each commit at
 `https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml`.
-For commits that are ancestors of , the is build was published to
-`https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+Note: for commits that are ancestors of [419f271b54802c4c8301730bc35b34ed379074c4](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), the build was published to `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
 
 <!-- vale off -->
 
