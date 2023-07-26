@@ -28,7 +28,7 @@ the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 To run the agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
-* For Amazon Linux 2 or later use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
+* For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
 * For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
 ## Using the experimental Elastic CI Stack for AWS for EC2 Mac CloudFormation template
