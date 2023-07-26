@@ -602,7 +602,7 @@ A collection of common tasks with clusters using the GraphQL API.
 
 ### List cluster IDs
 
-Get the first 10 clusters and their information for a particular organization:
+Get the first 10 clusters and their information for an organization:
 
 ```graphql
 query getClusters {
@@ -646,7 +646,7 @@ query getClusterQueues {
 
 ### List jobs in a particular cluster queue
 
-To get jobs for a particular cluster queue, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from:
+To get jobs within a cluster queue, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from:
 
 ```graphql
 query getClusterQueueJobs {
@@ -673,7 +673,7 @@ query getClusterQueueJobs {
 }
 ```
 
-To obtain jobs for a particular cluster queue in a particular state, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from, and the `state` list filter by one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates):
+To obtain jobs within a cluster queue of a particular state, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from, and the `state` list filter by one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates):
 
 ```graphql
 query getClusterQueueJobsByJobState {
