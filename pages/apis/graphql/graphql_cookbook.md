@@ -852,9 +852,7 @@ Query your organization's audit events. Audit events are only available to Enter
   }
 ```
 
-### Get timeboxed organization audit events 
-
-Query your organization's audit events in a timeboxed manner using the `occurredAtFrom` and `occurredAtTo` filters in an Organization's `auditEvents` field. Audit events are only available to Enterprise customers.
+To get all audit events in a given period, use the `occurredAtFrom` and `occurredAtTo` filters like in the following query:
 
 ```graphql
   query getOrganizationAuditEvents{
