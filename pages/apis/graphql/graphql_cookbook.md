@@ -602,7 +602,7 @@ A collection of common tasks with clusters using the GraphQL API.
 
 ### List cluster IDs
 
-Get the fist 10 clusters and their information for a particular organization:
+Get the first 10 clusters and their information for a particular organization:
 
 ```graphql
 query getClusters {
@@ -623,7 +623,7 @@ query getClusters {
 
 ### List cluster queue IDs
 
-Get the fist 10 cluster queues for a particular cluster by specifying its UUID in `cluster-uuid`:
+Get the first 10 cluster queues for a particular cluster by specifying its UUID in `cluster-uuid`:
 
 ```graphql
 query getClusterQueues {
