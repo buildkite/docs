@@ -3841,7 +3841,19 @@
               "deprecationReason": null
             },
             {
+              "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3895,7 +3907,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_TEMPLATE",
+              "name": "PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3907,7 +3925,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_MEMBER",
+              "name": "PIPELINE_TEMPLATE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3925,18 +3943,6 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SCM_PIPELINE_SETTINGS",
               "description": null,
               "isDeprecated": false,
@@ -3944,6 +3950,12 @@
             },
             {
               "name": "SCM_REPOSITORY_HOST",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3961,19 +3973,13 @@
               "deprecationReason": null
             },
             {
-              "name": "USER_EMAIL",
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3986,12 +3992,6 @@
             },
             {
               "name": "USER_TOTP",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
