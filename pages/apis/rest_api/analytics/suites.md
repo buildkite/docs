@@ -11,6 +11,8 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
 ```json
 [
   {
+    "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+    "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
     "slug":"my_suite_slug",
     "name":"My suite name",
     "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
@@ -32,6 +34,8 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 
 ```json
 {
+  "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+  "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
   "slug":"my_suite_slug",
   "name":"My suite name",
   "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
@@ -60,6 +64,7 @@ curl -X POST \
 ```json
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+  "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
@@ -112,6 +117,7 @@ curl -X PATCH \
 ```json
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
+  "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
   "slug": "jasmine",
   "name": "Jasmine",
   "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/jasmine",
