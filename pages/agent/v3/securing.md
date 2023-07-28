@@ -50,8 +50,6 @@ You can disable plugins with the command line flag: `--no-plugins` or the [`no-p
 
 If you still want to use plugins, you can check out a tool for [signing pipelines](/docs/agent/v3/securing#signing-pipelines).
 
-
-
 ## Disabling local hooks
 
 Local hooks are hooks defined in pipeline's repository.
@@ -103,6 +101,22 @@ do
   fi
 done
 ```
+
+You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set.
+
+```bash
+#!/bin/bash
+
+set -euo pipefail
+
+if grep '^ENVIRONMENT_VARIABLE_TO_DENY=' "$BUILDKITE_ENV_FILE" > /dev/null
+then
+  echo "Rejecting job because it the environment variable ENVIRONMENT_VARIABLE_TO_DENY has been set"
+  exit 1
+fi
+```
+
+But remember to that some [environment variables may be essential](https://buildkite.com/docs/pipelines/environment-variables) to the execution of jobs, so deny-listing them in this manner is not advisable.
 
 ## Signing pipelines
 
