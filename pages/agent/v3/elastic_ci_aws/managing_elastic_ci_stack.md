@@ -86,13 +86,23 @@ or a specific release available from the [releases page](https://github.com/buil
 
 The latest stable release can be deployed to any of our supported AWS Regions.
 
-The most recent build of the CloudFormation stack is published to
-`https://s3.amazonaws.com/buildkite-aws-stack/main/aws-stack.yml`, along with
-a version for each commit at
-`https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml`.
+The most recent build of the CloudFormation stack is published to:
 
->📘 Ancestors of commit 419f271
-> For commits that are ancestors of [419f271](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), the build was published to `https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+```text
+https://s3.amazonaws.com/buildkite-aws-stack/main/aws-stack.yml
+```
+
+With a version for each commit also published at:
+
+```text
+https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml
+```
+
+>📘 Versions prior to v6.0.0
+> Per commit builds for versions prior to v6.0.0, in particular for commits that are ancestors of [419f271](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), were published to
+> ```text
+> https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
+> ```
 
 <!-- vale off -->
 
