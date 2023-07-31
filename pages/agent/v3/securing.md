@@ -102,7 +102,7 @@ do
 done
 ```
 
-You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set.
+You can see from the previous example that `$BUILDKITE_ENV_FILE` is the location of file that contains the environment variables that the control plane passes to a job. You may use this to block jobs from executing if certain environment variables are set. For example, the following `pre-bootstrap` hook blocks a job from executing if the `ENVIRONMENT_VARIABLE_TO_DENY` environment variable is set.
 
 ```bash
 #!/bin/bash
