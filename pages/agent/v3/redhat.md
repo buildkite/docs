@@ -1,7 +1,6 @@
 # Installing Buildkite Agent on Red Hat Enterprise Linux, CentOS, and Amazon Linux
 
-The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2
-using our yum repository.
+The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2 and newer using our yum repository.
 
 
 ## Installation

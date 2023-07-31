@@ -9,7 +9,6 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 This guide leads you through getting started with the stack for Linux and Windows.
 
 <!-- vale off -->
-<!-- alex ignore master -->
 
 > 📘 Get hands-on
 > Read on for detailed instructions, or jump straight in:
@@ -22,11 +21,11 @@ This guide leads you through getting started with the stack for Linux and Window
 Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
 The following AMIs are available in all the supported regions:
 
-- Amazon Linux 2 (64-bit x86)
-- Amazon Linux 2 (64-bit ARM, Graviton)
+- Amazon Linux 2023 (64-bit x86)
+- Amazon Linux 2023 (64-bit ARM, Graviton)
 - Windows Server 2019 (64-bit x86)
 
-If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/master/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
+If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
 
 ```bash
 aws cloudformation create-stack \
@@ -42,7 +41,7 @@ aws cloudformation create-stack \
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
 
 - [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
-- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceType` stack parameter appropriate for your workload)
+- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
 - [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack for AWS provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
@@ -71,7 +70,7 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 <!-- vale off -->
 
-- [Amazon Linux 2](https://aws.amazon.com/amazon-linux-2/)
+- [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
 - [Buildkite Agent v3.50.2](https://buildkite.com/docs/agent)
 - [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
 - [Docker](https://www.docker.com)
