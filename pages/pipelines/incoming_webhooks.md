@@ -20,7 +20,7 @@ IP filtering is available for:
 * GitLab Community
 * GitLab Enterprise
 
-For cloud products like GitHub, Buildkite manages a set of well-known IP addresses and filters them automatically. For self-hosted solutions like GitHub Enterprise Server, you can provide the IP addresses to filter.
+For GitHub's cloud-hosted products, Buildkite manages a [set of IP addresses](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses) and filters them automatically. For self-hosted solutions like GitHub Enterprise Server, you can provide the IP addresses to filter.
 
 To enable IP filtering for these repository providers:
 
