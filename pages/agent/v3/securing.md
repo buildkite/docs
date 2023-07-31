@@ -111,7 +111,7 @@ set -euo pipefail
 
 if grep '^ENVIRONMENT_VARIABLE_TO_DENY=' "$BUILDKITE_ENV_FILE" > /dev/null
 then
-  echo "Rejecting job because it the environment variable ENVIRONMENT_VARIABLE_TO_DENY has been set"
+  echo "Rejecting job because the environment variable ENVIRONMENT_VARIABLE_TO_DENY has been set"
   exit 1
 fi
 ```
