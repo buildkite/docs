@@ -200,5 +200,6 @@ $_pills: (
 .has-pills {
   align-items: center;
   display: inline-flex;
+  flex-wrap: wrap;
   gap: 5px;
 }
