@@ -74,6 +74,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
 .Page__content {
   grid-area: content;
+  width: 100%;
 
   @media (min-width: $screen-lg) {
     max-width: map-get($max-w, "prose");
