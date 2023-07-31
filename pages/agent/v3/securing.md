@@ -116,7 +116,7 @@ then
 fi
 ```
 
-But remember to that some [environment variables may be essential](https://buildkite.com/docs/pipelines/environment-variables) to the execution of jobs, so deny-listing them in this manner is not advisable.
+But also remember that some [environment variables may be essential](/docs/pipelines/environment-variables) to the execution of jobs, so adding them to a blocklist in this manner is not advisable.
 
 ## Signing pipelines
 
