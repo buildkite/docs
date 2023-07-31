@@ -100,6 +100,7 @@ https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml
 
 >📘 Versions prior to v6.0.0
 > Per commit builds for versions prior to v6.0.0, in particular for commits that are ancestors of [419f271](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), were published to
+>
 > ```text
 > https://s3.amazonaws.com/buildkite-aws-stack/master/${COMMIT}.aws-stack.yml`.
 > ```
