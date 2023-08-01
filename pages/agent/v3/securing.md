@@ -153,7 +153,7 @@ By default, Buildkite will reuse (after cleaning) a previous checkout. This may 
 
 ```yaml
 steps:
-- label: ":github: Clean Checkout"
+- label: "Clean Checkout"
   command: echo "clean checkout"
   env:
     BUILDKITE_CLEAN_CHECKOUT: true
