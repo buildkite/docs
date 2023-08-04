@@ -22,6 +22,7 @@ toc: false
 <!-- vale on -->
 
 
+<p>The connection type for Email.</p>
 
 
 <table class="responsive-table responsive-table--single-column-rows">
@@ -31,7 +32,7 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>count</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>edges</code><a href="/docs/apis/graphql/schemas/object/emailedge" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT EmailEdge"><code>EmailEdge!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>pageInfo</code><a href="/docs/apis/graphql/schemas/object/pageinfo" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT PageInfo"><code>PageInfo!</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>count</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>edges</code><a href="/docs/apis/graphql/schemas/object/emailedge" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT EmailEdge"><code>EmailEdge!</code></a></h3><p>A list of edges.</p></td></tr><tr><td><h3 class="is-small has-pills"><code>nodes</code><a href="/docs/apis/graphql/schemas/object/email" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Email"><code>Email!</code></a></h3><p>A list of nodes.</p></td></tr><tr><td><h3 class="is-small has-pills"><code>pageInfo</code><a href="/docs/apis/graphql/schemas/object/pageinfo" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT PageInfo"><code>PageInfo!</code></a></h3></td></tr>
   </tbody>
 </table>
 
