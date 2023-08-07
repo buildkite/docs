@@ -330,8 +330,6 @@
       children:
         - name: "Configuring test suites"
           path: "test-analytics/test-suites"
-        - name: "Monitoring"
-          path: "test-analytics/monitors"
         - name: "Access control"
           path: "test-analytics/permissions"
         - name: "CI environment variables"
