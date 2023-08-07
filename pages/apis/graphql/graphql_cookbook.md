@@ -321,7 +321,7 @@ query PipelineBuildCountForPeriod {
 
 ### Get all builds with a certain state between two dates
 
-This query allows you to find all builds that have the same state (for example, `running`) and that were started withing a certain time frame. This way you can find all the builds that started at one particular point time and are still running or have failed (you can query for any available build state).
+This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
 
 ```graphql
 query {
