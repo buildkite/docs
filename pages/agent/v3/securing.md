@@ -149,7 +149,7 @@ exit 1
 
 ## Forcing clean checkouts
 
-By default, Buildkite will reuse (after cleaning) a previous checkout. This may be unsafe if building commits from untrusted sources (for example, third-party pull requests). To force a clean checkout every time, set BUILDKITE_CLEAN_CHECKOUT=true in the environment. The following example shows how to enforce a clean checkout at the step level:
+By default, Buildkite will reuse (after cleaning) a previous checkout. This may be unsafe if building commits from untrusted sources (for example, third-party pull requests). To force a clean checkout every time, set `BUILDKITE_CLEAN_CHECKOUT=true` in the environment. The following example shows how to enforce a clean checkout at the step level:
 
 ```yaml
 steps:
