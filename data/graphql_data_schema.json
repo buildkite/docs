@@ -3829,13 +3829,13 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "SSO_PROVIDER",
+              "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "AUTHORIZATION",
+              "name": "SSO_PROVIDER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3847,13 +3847,19 @@
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "CLUSTER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
+              "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3883,7 +3889,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "NOTIFICATION_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3901,13 +3907,13 @@
               "deprecationReason": null
             },
             {
-              "name": "NOTIFICATION_SERVICE",
+              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_SCHEDULE",
+              "name": "PIPELINE_TEMPLATE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3925,13 +3931,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_TEMPLATE",
+              "name": "TEAM_PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TEAM_PIPELINE",
+              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3944,12 +3950,6 @@
             },
             {
               "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
