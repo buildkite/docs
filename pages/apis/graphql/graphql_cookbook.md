@@ -319,6 +319,41 @@ query PipelineBuildCountForPeriod {
 }
 ```
 
+### Get all builds with a certain state between two dates
+
+This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
+
+```graphql
+query {
+  organization(slug: "organization-slug") {
+    pipelines(first: 10) {
+      edges {
+        node {
+          name
+          slug
+          builds(
+            first: 10,
+            createdAtFrom: "YYYY-MM-DD",
+            createdAtTo: "YYYY-MM-DD",
+            state: RUNNING
+          ) {
+            edges {
+              node {
+                id
+                number
+                message
+                state
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Count the number of builds on a branch
 
 Count how many builds a pipeline has done for a given repository branch.
