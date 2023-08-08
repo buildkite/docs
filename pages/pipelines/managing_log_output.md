@@ -132,11 +132,23 @@ To further tighten the security in a Buildkite organization, you can use the [AP
 
 ## Redacted environment variables
 
-The Buildkite agent can redact the values of environment variables whose names match common patterns for passwords, and other secure information, before the build log is uploaded to Buildkite.
+Agents can redact the values of environment variables whose names match common patterns for passwords and other secure information before the build log is uploaded to Buildkite.
 
-The default environment variable name patterns are `*_PASSWORD`, `*_SECRET`, `*_TOKEN`, `*_ACCESS_KEY`, and `*_SECRET_KEY`. You can append additional patterns, or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) **on your agent**. 
+The default environment variable name patterns are:
 
-For example, if you have environment variable `MY_SECRET="topsecret"`and you run a command that outputs `This is topsecret info`, the log output will actually be `This is [REDACTED] info`.
+- `*_PASSWORD`
+- `*_SECRET`
+- `*_TOKEN`
+- `*_ACCESS_KEY`
+- `*_SECRET_KEY`
+
+With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
+
+You can append additional patterns or replace the default patterns entirely by [setting redacted-vars](/docs/agent/v3/configuration#redacted-vars) on your agent. For example, if you wanted to redact the value of `FOO` in your log output and keep the existing default patterns, the configuration setting should look like the following:
+
+```sh
+redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_SOME_VALUE, FOO"
+```
 
 >📘 Setting environment variables
 > Note that if you <emphasis>set</emphasis> or <emphasis>interpolate</emphasis> a secret environment variable in your <code>pipeline.yml</code> it is not redacted, but doing that is <a href="/docs/pipelines/secrets#anti-pattern-storing-secrets-in-your-pipeline-dot-yml">not recommended</a>.
