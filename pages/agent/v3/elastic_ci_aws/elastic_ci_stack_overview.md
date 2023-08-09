@@ -7,7 +7,7 @@ The Buildkite Elastic CI Stack for AWS gives you a private, autoscaling
 
 This diagram illustrates a standard deployment of Elastic CI Stack for AWS.
 
-<%= image "buildkite-elastic-ci-stack-on-aws-architecture.svg", alt: "Elastic CI Stack for AWS Architecture Diagram" %>
+<%= image "buildkite-elastic-ci-stack-on-aws-architecture.png", alt: "Elastic CI Stack for AWS Architecture Diagram" %>
 
 ## Features
 
