@@ -3835,36 +3835,6 @@
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION_MEMBER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_PERMISSION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUBSCRIPTION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3883,6 +3853,12 @@
               "deprecationReason": null
             },
             {
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "CLUSTER_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3895,7 +3871,7 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3907,7 +3883,7 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_SCHEDULE",
+              "name": "ORGANIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3919,7 +3895,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM",
+              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3931,7 +3907,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_PIPELINE",
+              "name": "TEAM",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3943,7 +3919,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_SERVICE",
+              "name": "TEAM_PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3955,7 +3931,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3967,7 +3943,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE",
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3979,7 +3955,25 @@
               "deprecationReason": null
             },
             {
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "USER_TOTP",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3991,7 +3985,13 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE",
+              "name": "SSO_PROVIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ORGANIZATION_MEMBER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
