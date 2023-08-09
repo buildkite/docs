@@ -171,6 +171,8 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 
 Required scope: `read_builds`
 
+Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+
 Success response: `200 OK`
 
 ## Get a build
@@ -298,6 +300,8 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 </table>
 
 Required scope: `read_builds`
+
+Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
 Success response: `200 OK`
 
@@ -452,6 +456,8 @@ Optional [request body properties](/docs/api#request-body-properties):
 
 Required scope: `write_builds`
 
+Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+
 Success response: `201 Created`
 
 Error responses:
@@ -575,6 +581,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 
 Required scope: `write_builds`
 
+Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+
 Success response: `200 OK`
 
 Error responses:
@@ -696,6 +704,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 ```
 
 Required scope: `write_builds`
+
+Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
 Success response: `200 OK`
 

@@ -76,6 +76,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 
 Required scope: `read_pipelines`
 
+Note: `provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+
 Success response: `200 OK`
 
 ## Get a pipeline
@@ -150,8 +152,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 
 Required scope: `read_pipelines`
 
-Success response: `200 OK`
+Note: `provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
+Success response: `200 OK`
 
 ## Create a YAML pipeline
 
