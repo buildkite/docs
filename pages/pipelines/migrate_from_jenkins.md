@@ -34,7 +34,7 @@ The program that executes work is called an _agent_ in Buildkite. An agent is a 
 
 The following diagram shows the split in Buildkite between the SaaS platform and the agents running on your infrastructure.
 
-<%= image "buildkite-hybrid-architecture.svg", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
+<%= image "buildkite-hybrid-architecture.png", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
 
 The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite. This decoupling provides flexibility, as you can scale the build agents independently while Buildkite manages the coordination, scheduling, and web interface.
 

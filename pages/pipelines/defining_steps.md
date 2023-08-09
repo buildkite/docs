@@ -113,7 +113,7 @@ When a step is run by an agent, it will be run with a clean checkout of the pipe
 
 When you run a pipeline, a build is created. The following diagram shows you how builds progress from start to end.
 
-<%= image "build-states.svg", size: "900x615", alt: "Build state diagram" %>
+<%= image "build-states.png", alt: "Build state diagram" %>
 
 
 <%= render_markdown partial: 'pipelines/build_states' %>
@@ -122,7 +122,7 @@ When you run a pipeline, a build is created. The following diagram shows you how
 
 When you run a pipeline, a build is created. Each of the steps in the pipeline ends up as a job in the build, which then get distributed to available agents. Job states have a similar flow to [build states](#build-states) but with a few extra states. The following diagram shows you how jobs progress from start to end.
 
-<%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
+<%= image "job-states.png", alt: "Job state diagram" %>
 
 As well as the states shown in the diagram, the following progressions can occur:
 
