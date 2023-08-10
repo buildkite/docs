@@ -143,7 +143,7 @@ For example, if you have environment variable `MY_SECRET="topsecret"`and you run
 
 ## Private build log archive storage
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
+By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
 >📘 Enterprise feature
 > This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
@@ -157,8 +157,7 @@ The folder structure and file format are as follows and are not customizable:
 To set up a private build log archive storage:
 
 1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
->📘 SSE-S3 Encryption Support
-> We don't support SSE-KMS encryption for customer log buckets, only SSE-S3. 
+
 2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
 
     Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
