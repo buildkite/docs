@@ -3835,6 +3835,18 @@
               "deprecationReason": null
             },
             {
+              "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3853,12 +3865,6 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "CLUSTER_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3871,7 +3877,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "ORGANIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3883,7 +3889,7 @@
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION",
+              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3895,7 +3901,7 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_SCHEDULE",
+              "name": "TEAM",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3907,7 +3913,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM",
+              "name": "TEAM_PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3919,7 +3925,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_PIPELINE",
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3931,7 +3937,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_SERVICE",
+              "name": "SCM_REPOSITORY_HOST",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3943,13 +3949,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_EMAIL",
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3961,7 +3961,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "USER_EMAIL",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -12166,6 +12166,12 @@
             {
               "name": "AGENT_REFUSED",
               "description": "The agent pre-bootstrap hook refused the job. Note that in this case, no signal was sent to the process, the bootstrap was not run at all.",
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SIGNATURE_REJECTED",
+              "description": "The agent refused the job because the signature could not be verified. Note that in this case, no signal was sent to the process, the bootstrap was not run at all.",
               "isDeprecated": false,
               "deprecationReason": null
             }
