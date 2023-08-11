@@ -1004,25 +1004,49 @@ mutation deleteOrgMember {
 Query your organization's audit events. Audit events are only available to Enterprise customers.
 
 ```graphql
-  query getOrganizationAuditEvents{
-    organization(slug:"organization-slug"){
-      auditEvents(first: 500){
-        edges{
-          node{
+query getOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
             type
-            occurredAt
-            actor{
-              name
-            }
-            subject{
-              name
-              type
-            }
           }
         }
       }
     }
   }
+}
+```
+
+To get all audit events in a given period, use the `occurredAtFrom` and `occurredAtTo` filters like in the following query:
+
+```graphql
+query getTimeScopedOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500, occurredAtFrom: "2023-01-01T12:00:00.000", occurredAtTo: "2023-01-01T13:00:00.000"){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
+            type
+          }
+        }
+      }
+    }
+  }
+}
 ```
 
 ## Teams
