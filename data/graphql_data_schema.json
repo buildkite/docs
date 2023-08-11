@@ -3829,6 +3829,12 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "AUTHORIZATION",
               "description": null,
               "isDeprecated": false,
@@ -3842,6 +3848,12 @@
             },
             {
               "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3925,7 +3937,7 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_SERVICE",
+              "name": "PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3943,13 +3955,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SUITE_MONITOR",
+              "name": "SCM_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SUBSCRIPTION",
+              "name": "SUITE_MONITOR",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3967,31 +3979,19 @@
               "deprecationReason": null
             },
             {
-              "name": "USER_TOTP",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "USER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SSO_PROVIDER",
+              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "ORGANIZATION_MEMBER",
+              "name": "SSO_PROVIDER",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
