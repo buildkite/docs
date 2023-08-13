@@ -165,13 +165,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 ]
 ```
 
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <%= render_markdown partial: 'apis/rest_api/builds_list_query_strings' %>
 
 Required scope: `read_builds`
-
-Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
 Success response: `200 OK`
 
@@ -286,6 +287,9 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 }
 ```
 
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
+
 Optional [query string parameters](/docs/api#query-string-parameters):
 
 <table>
@@ -300,8 +304,6 @@ Optional [query string parameters](/docs/api#query-string-parameters):
 </table>
 
 Required scope: `read_builds`
-
-Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
 Success response: `200 OK`
 
@@ -427,6 +429,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   }
 }
 ```
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
 Required [request body properties](/docs/api#request-body-properties):
 
@@ -455,8 +459,6 @@ Optional [request body properties](/docs/api#request-body-properties):
 </table>
 
 Required scope: `write_builds`
-
-Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
 
 Success response: `201 Created`
 
@@ -579,9 +581,10 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 }
 ```
 
-Required scope: `write_builds`
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+Required scope: `write_builds`
 
 Success response: `200 OK`
 
@@ -703,9 +706,10 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 }
 ```
 
-Required scope: `write_builds`
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Note: `pipeline.provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+Required scope: `write_builds`
 
 Success response: `200 OK`
 

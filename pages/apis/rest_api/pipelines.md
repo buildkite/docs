@@ -74,9 +74,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 ]
 ```
 
-Required scope: `read_pipelines`
+> 📘 Webhook URL
+> The response only includes a webhook URL in `provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Note: `provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+Required scope: `read_pipelines`
 
 Success response: `200 OK`
 
@@ -150,9 +151,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}"
 }
 ```
 
-Required scope: `read_pipelines`
+> 📘 Webhook URL
+> The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
-Note: `provider.webhook_url` value is only returned if the user has edit permissions for the pipeline.
+Required scope: `read_pipelines`
 
 Success response: `200 OK`
 
