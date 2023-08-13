@@ -7,7 +7,7 @@ The Buildkite Agent is supported on Ubuntu versions 18.04 and above using our si
 
 First, add our signed apt repository. The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
 
-Next, download the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
+Start by downloading the Buildkite PGP key to a directory that is only writable by `root` (create the directory before running the following command if it doesn't already exist):
 
 ```shell
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
