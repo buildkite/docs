@@ -1,4 +1,4 @@
-# Controlling user permissions
+# Access control for users and teams
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
 

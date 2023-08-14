@@ -298,7 +298,7 @@
           path: "pipelines/security-overview"
         - name: "Managing secrets"
           path: "pipelines/secrets"
-        - name: "Users and teams"
+        - name: "User and team permissions"
           path: "pipelines/permissions"
         - name: "Webhooks security"
           path: "pipelines/incoming-webhooks"
