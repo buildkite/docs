@@ -55,3 +55,6 @@ This can be done one of two ways:
 ## SAML user attributes
 
 <%= render_markdown partial: 'integrations/sso/saml_user_attributes' %>
+
+>🚧 Accidental user role demotion/promotion
+> Note that if SSO via Okta is enabled and configured, Buildkite will receive the information about user roles from Okta and match it. So if you manually user change roles in Buildkite but not in Okta, then every time a user logs into Buildkite via Okta, the role type in Buildkite will be rewritten to match the information provided by Okta. This can cause unintended user role demotion or promotion.
