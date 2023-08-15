@@ -606,11 +606,12 @@ RSpec.describe RenderHelpers do
         "possibleTypes" => nil
       }
 
-      page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+      page_string = render_page(schema_type_data, 'Object').gsub(/^[\s\t]*|[\s\t]*\n/, '')
 
       expect(page_string).to eq(
         <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
           ---
+          title: JobTypeTrigger – Object – GraphQL API
           toc: false
           ---
           <!--
@@ -684,10 +685,11 @@ RSpec.describe RenderHelpers do
           "kind" => "OBJECT",
           "name" => "__DirectiveLocation"
         }
-        page_string = render_page(schema_type_data).gsub(/^[\s\t]*|[\s\t]*\n/, '')
+        page_string = render_page(schema_type_data, 'Object').gsub(/^[\s\t]*|[\s\t]*\n/, '')
         expect(page_string).to eq(
           <<~HTML.gsub(/^[\s\t]*|[\s\t]*\n/, '')
             ---
+            title: __DirectiveLocation – Object – GraphQL API
             toc: false
             ---
             <!--
