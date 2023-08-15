@@ -153,8 +153,9 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
+  # Page title, either from front matter or extracted from the markdown
   def title
-    agentize_title(extracted_data.fetch("name"))
+    front_matter.fetch(:title, agentize_title(extracted_data.fetch("name")))
   end
 
   # Page description, either from front matter or extracted from the markdown
