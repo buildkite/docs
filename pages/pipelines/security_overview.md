@@ -7,6 +7,22 @@ The hybrid-SaaS model used by Buildkite allows you to maintain tight control ove
 
 Buildkite implements a number of measures and mechanisms, both on the control plane and agent, to ensure that customer data remains safe.
 
+## Data flow
+
+The following diagram shows how data typically flows between different parts of Buildkite
+
+<%= image "data-flow.png", alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
+
+The diagram shows that:
+
+1. Buildkite receives a webhook from your Source Control Ma (SCM) to say there's work to do.
+1. An agent running on your infrastructure is polling Buildkite and sees there is work do to.
+1. The agent that will run the job, tells Buildkite that it's acccepted the job.
+1. Your source code is checked out by the agent.
+1. The logs for the job are sent to Buildkite.
+1. Any artifacts are managed by the agent and your artifact store.
+1. The agent reports that the job finished to Buildkite.
+1. Buildkite posts the status update to your SCM.
 
 ## Infrastructure
 
