@@ -1,4 +1,4 @@
-  <% if @page.metadata[:toc] %>
+  <% if @page.toc? %>
     <nav class="Toc">
       <button class="Toc__toggle">
         <h2 class="Toc__title">On this page</h2>
@@ -10,7 +10,7 @@
               <%= section[:header] %>
             </a>
 
-            <% if section[:subsections].count && @page.metadata[:toc_include_h3] %>
+            <% if section[:subsections].count && @page.toc_include_h3? %>
               <ul class="Toc__list">
                 <% section[:subsections].each do |subsection| %>
                   <li class="Toc__list-item">
@@ -21,7 +21,6 @@
                 <% end %>
               </ul>
             <% end %>
-
           </li>
         <% end %>
       </ul>
