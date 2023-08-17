@@ -237,7 +237,7 @@ module RenderHelpers
       <!-- vale on -->
       #{valeOff ? "<!-- vale off -->" : nil}
 
-      #{render_html(schema_type_data["description"])}
+      #{schema_type_data["description"]}
 
       #{table}
 
