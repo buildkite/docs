@@ -210,6 +210,7 @@ module RenderHelpers
     interfaces = render_interfaces(schema_type_data["interfaces"])
     enum_values = render_enum_values(schema_type_data["enumValues"])
     valeOff = @@vale_off_pages.any? { |page_name| page_name == name }
+    description = schema_type_data["description"].strip if !schema_type_data["description"].nil?
 
     page_content = <<~HTML.strip
       ---
@@ -236,7 +237,7 @@ module RenderHelpers
       <!-- vale on -->
       #{valeOff ? "<!-- vale off -->" : nil}
 
-      #{schema_type_data["description"]}
+      #{description}
 
       #{table}
 
