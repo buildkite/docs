@@ -1,4 +1,5 @@
 ---
+title: SSOProviderDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: OrganizationAPIAccessTokenRevokeMutationPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

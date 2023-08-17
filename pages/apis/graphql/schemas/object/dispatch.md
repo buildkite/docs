@@ -1,4 +1,5 @@
 ---
+title: Dispatch – Objects – GraphQL API
 toc: false
 ---
 <!--

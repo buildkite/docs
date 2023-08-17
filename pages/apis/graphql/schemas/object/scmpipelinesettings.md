@@ -1,4 +1,5 @@
 ---
+title: SCMPipelineSettings – Objects – GraphQL API
 toc: false
 ---
 <!--

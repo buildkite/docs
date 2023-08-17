@@ -1,4 +1,5 @@
 ---
+title: AgentStopPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

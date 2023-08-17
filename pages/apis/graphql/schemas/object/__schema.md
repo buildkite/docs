@@ -1,4 +1,5 @@
 ---
+title: __Schema – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ViewerPermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

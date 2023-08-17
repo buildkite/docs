@@ -1,4 +1,5 @@
 ---
+title: teamPipelineUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!--

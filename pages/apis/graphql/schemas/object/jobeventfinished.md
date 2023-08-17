@@ -1,4 +1,5 @@
 ---
+title: JobEventFinished – Objects – GraphQL API
 toc: false
 ---
 <!--

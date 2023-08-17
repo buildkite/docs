@@ -1,4 +1,5 @@
 ---
+title: pipelineUnarchive – Mutations – GraphQL API
 toc: false
 ---
 <!--

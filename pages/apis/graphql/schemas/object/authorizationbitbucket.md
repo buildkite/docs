@@ -1,4 +1,5 @@
 ---
+title: AuthorizationBitbucket – Objects – GraphQL API
 toc: false
 ---
 <!--

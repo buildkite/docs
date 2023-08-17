@@ -1,4 +1,5 @@
 ---
+title: ClusterQueuePauseDispatchPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

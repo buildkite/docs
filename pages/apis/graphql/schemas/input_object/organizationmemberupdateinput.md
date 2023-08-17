@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: AuthorizationType – Enums – GraphQL API
 toc: false
 ---
 <!--

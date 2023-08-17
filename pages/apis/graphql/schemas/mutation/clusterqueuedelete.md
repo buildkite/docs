@@ -1,4 +1,5 @@
 ---
+title: clusterQueueDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

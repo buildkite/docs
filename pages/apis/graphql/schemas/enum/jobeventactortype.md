@@ -1,4 +1,5 @@
 ---
+title: JobEventActorType – Enums – GraphQL API
 toc: false
 ---
 <!--

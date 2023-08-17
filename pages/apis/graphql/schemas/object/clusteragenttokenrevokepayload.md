@@ -1,4 +1,5 @@
 ---
+title: ClusterAgentTokenRevokePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

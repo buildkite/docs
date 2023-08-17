@@ -1,4 +1,5 @@
 ---
+title: organizationInvitationCreate – Mutations – GraphQL API
 toc: false
 ---
 <!--

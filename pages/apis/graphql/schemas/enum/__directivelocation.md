@@ -1,4 +1,5 @@
 ---
+title: __DirectiveLocation – Enums – GraphQL API
 toc: false
 ---
 <!--

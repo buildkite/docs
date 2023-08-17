@@ -1,4 +1,5 @@
 ---
+title: SSOProviderSAMLIdPMetadata – Input_objects – GraphQL API
 toc: false
 ---
 <!--

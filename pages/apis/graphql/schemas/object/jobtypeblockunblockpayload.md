@@ -1,4 +1,5 @@
 ---
+title: JobTypeBlockUnblockPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

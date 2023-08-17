@@ -1,4 +1,5 @@
 ---
+title: ssoProvider – Queries – GraphQL API
 toc: false
 ---
 <!--

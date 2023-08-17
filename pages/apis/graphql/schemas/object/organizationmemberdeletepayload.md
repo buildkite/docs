@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

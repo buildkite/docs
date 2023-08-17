@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberPipelineEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

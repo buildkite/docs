@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteOrder – Enums – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ClusterQueueCreatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

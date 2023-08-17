@@ -1,4 +1,5 @@
 ---
+title: EmailCreatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

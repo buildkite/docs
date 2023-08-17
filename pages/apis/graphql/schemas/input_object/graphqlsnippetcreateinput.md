@@ -1,4 +1,5 @@
 ---
+title: GraphQLSnippetCreateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

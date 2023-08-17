@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: emailCreate – Mutations – GraphQL API
 toc: false
 ---
 <!--

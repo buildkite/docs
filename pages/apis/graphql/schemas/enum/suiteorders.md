@@ -1,4 +1,5 @@
 ---
+title: SuiteOrders – Enums – GraphQL API
 toc: false
 ---
 <!--

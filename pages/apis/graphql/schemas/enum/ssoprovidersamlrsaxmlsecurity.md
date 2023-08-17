@@ -1,4 +1,5 @@
 ---
+title: SSOProviderSAMLRSAXMLSecurity – Enums – GraphQL API
 toc: false
 ---
 <!--

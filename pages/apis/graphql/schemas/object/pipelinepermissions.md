@@ -1,4 +1,5 @@
 ---
+title: PipelinePermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

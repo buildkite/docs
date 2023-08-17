@@ -1,4 +1,5 @@
 ---
+title: RevokeInactiveTokenPeriod – Enums – GraphQL API
 toc: false
 ---
 <!--

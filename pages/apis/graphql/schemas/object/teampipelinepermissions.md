@@ -1,4 +1,5 @@
 ---
+title: TeamPipelinePermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

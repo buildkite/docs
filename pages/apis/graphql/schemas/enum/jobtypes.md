@@ -1,4 +1,5 @@
 ---
+title: JobTypes – Enums – GraphQL API
 toc: false
 ---
 <!--

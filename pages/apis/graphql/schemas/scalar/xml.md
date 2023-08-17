@@ -1,4 +1,5 @@
 ---
+title: XML – Scalars – GraphQL API
 toc: false
 ---
 <!--

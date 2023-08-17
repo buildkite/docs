@@ -1,4 +1,5 @@
 ---
+title: RepositoryProviderGithubEnterprise – Objects – GraphQL API
 toc: false
 ---
 <!--

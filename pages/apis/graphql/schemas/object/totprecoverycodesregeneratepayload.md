@@ -1,4 +1,5 @@
 ---
+title: TOTPRecoveryCodesRegeneratePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

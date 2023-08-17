@@ -1,4 +1,5 @@
 ---
+title: clusterAgentTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!--

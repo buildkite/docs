@@ -1,4 +1,5 @@
 ---
+title: organizationInvitationRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!--

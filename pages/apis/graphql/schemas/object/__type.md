@@ -1,4 +1,5 @@
 ---
+title: __Type – Objects – GraphQL API
 toc: false
 ---
 <!--

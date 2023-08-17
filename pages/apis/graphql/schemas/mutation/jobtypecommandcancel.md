@@ -1,4 +1,5 @@
 ---
+title: jobTypeCommandCancel – Mutations – GraphQL API
 toc: false
 ---
 <!--

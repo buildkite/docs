@@ -1,4 +1,5 @@
 ---
+title: EmailCreateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

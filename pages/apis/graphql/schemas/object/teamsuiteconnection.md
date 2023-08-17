@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

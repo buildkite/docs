@@ -1,4 +1,5 @@
 ---
+title: AnnotationConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

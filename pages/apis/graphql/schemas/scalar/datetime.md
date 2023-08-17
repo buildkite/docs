@@ -1,4 +1,5 @@
 ---
+title: DateTime – Scalars – GraphQL API
 toc: false
 ---
 <!--

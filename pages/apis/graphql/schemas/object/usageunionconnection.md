@@ -1,4 +1,5 @@
 ---
+title: UsageUnionConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

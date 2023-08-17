@@ -1,4 +1,5 @@
 ---
+title: StepTrigger – Objects – GraphQL API
 toc: false
 ---
 <!--

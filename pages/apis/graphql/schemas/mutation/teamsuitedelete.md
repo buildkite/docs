@@ -1,4 +1,5 @@
 ---
+title: teamSuiteDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

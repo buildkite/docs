@@ -1,4 +1,5 @@
 ---
+title: JobTypeWait – Objects – GraphQL API
 toc: false
 ---
 <!--

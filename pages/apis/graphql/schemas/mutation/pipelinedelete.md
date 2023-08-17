@@ -1,4 +1,5 @@
 ---
+title: pipelineDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

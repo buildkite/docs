@@ -1,4 +1,5 @@
 ---
+title: AgentTokenRevokeInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

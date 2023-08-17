@@ -1,4 +1,5 @@
 ---
+title: pipelineScheduleDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

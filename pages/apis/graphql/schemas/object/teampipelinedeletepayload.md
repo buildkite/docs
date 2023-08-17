@@ -1,4 +1,5 @@
 ---
+title: TeamPipelineDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

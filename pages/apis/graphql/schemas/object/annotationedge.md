@@ -1,4 +1,5 @@
 ---
+title: AnnotationEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

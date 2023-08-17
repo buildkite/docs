@@ -1,4 +1,5 @@
 ---
+title: JobTypeBlockUnblockInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

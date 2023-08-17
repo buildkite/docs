@@ -1,4 +1,5 @@
 ---
+title: AnnotationStyle – Enums – GraphQL API
 toc: false
 ---
 <!--

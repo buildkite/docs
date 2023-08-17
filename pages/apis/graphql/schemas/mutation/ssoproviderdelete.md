@@ -1,4 +1,5 @@
 ---
+title: ssoProviderDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

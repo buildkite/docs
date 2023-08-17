@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberPermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

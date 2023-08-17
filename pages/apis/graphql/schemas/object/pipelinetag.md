@@ -1,4 +1,5 @@
 ---
+title: PipelineTag – Objects – GraphQL API
 toc: false
 ---
 <!--

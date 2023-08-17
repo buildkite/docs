@@ -1,4 +1,5 @@
 ---
+title: EmailResendVerificationPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

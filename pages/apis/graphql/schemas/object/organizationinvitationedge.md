@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: SSOProviderDisableInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: NotificationService – Interfaces – GraphQL API
 toc: false
 ---
 <!--

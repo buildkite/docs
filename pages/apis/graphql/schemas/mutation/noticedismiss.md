@@ -1,4 +1,5 @@
 ---
+title: noticeDismiss – Mutations – GraphQL API
 toc: false
 ---
 <!--

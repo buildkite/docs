@@ -1,4 +1,5 @@
 ---
+title: TeamCreateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

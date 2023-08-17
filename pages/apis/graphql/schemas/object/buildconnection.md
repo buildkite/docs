@@ -1,4 +1,5 @@
 ---
+title: BuildConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: BuildMetaDataConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

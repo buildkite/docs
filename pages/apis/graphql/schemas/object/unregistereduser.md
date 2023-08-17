@@ -1,4 +1,5 @@
 ---
+title: UnregisteredUser – Objects – GraphQL API
 toc: false
 ---
 <!--

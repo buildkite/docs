@@ -1,4 +1,5 @@
 ---
+title: OrganizationSSOProvider – Objects – GraphQL API
 toc: false
 ---
 <!--

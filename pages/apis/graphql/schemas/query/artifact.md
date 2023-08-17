@@ -1,4 +1,5 @@
 ---
+title: artifact – Queries – GraphQL API
 toc: false
 ---
 <!--

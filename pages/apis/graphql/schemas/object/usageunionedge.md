@@ -1,4 +1,5 @@
 ---
+title: UsageUnionEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

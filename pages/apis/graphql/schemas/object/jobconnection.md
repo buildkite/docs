@@ -1,4 +1,5 @@
 ---
+title: JobConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

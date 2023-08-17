@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteDeleteInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

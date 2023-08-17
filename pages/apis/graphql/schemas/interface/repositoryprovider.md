@@ -1,4 +1,5 @@
 ---
+title: RepositoryProvider – Interfaces – GraphQL API
 toc: false
 ---
 <!--

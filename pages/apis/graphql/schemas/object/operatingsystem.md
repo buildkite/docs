@@ -1,4 +1,5 @@
 ---
+title: OperatingSystem – Objects – GraphQL API
 toc: false
 ---
 <!--

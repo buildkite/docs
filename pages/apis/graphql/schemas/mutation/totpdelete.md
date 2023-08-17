@@ -1,4 +1,5 @@
 ---
+title: totpDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

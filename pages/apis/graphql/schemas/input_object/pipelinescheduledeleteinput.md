@@ -1,4 +1,5 @@
 ---
+title: PipelineScheduleDeleteInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

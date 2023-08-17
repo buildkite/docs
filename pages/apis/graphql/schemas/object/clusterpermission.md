@@ -1,4 +1,5 @@
 ---
+title: ClusterPermission – Objects – GraphQL API
 toc: false
 ---
 <!--

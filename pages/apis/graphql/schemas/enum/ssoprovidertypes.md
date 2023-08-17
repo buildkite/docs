@@ -1,4 +1,5 @@
 ---
+title: SSOProviderTypes – Enums – GraphQL API
 toc: false
 ---
 <!--

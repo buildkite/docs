@@ -1,4 +1,5 @@
 ---
+title: graphQLSnippetCreate – Mutations – GraphQL API
 toc: false
 ---
 <!--

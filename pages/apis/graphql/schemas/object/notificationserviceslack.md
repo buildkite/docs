@@ -1,4 +1,5 @@
 ---
+title: NotificationServiceSlack – Objects – GraphQL API
 toc: false
 ---
 <!--

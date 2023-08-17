@@ -1,4 +1,5 @@
 ---
+title: ClusterEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

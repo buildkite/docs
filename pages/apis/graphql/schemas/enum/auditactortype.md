@@ -1,4 +1,5 @@
 ---
+title: AuditActorType – Enums – GraphQL API
 toc: false
 ---
 <!--

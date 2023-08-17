@@ -1,4 +1,5 @@
 ---
+title: OrganizationAPIIPAllowlistUpdateMutationPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

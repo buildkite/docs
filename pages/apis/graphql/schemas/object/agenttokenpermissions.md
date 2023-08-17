@@ -1,4 +1,5 @@
 ---
+title: AgentTokenPermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

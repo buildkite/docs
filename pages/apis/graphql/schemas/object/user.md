@@ -1,4 +1,5 @@
 ---
+title: User – Objects – GraphQL API
 toc: false
 ---
 <!--

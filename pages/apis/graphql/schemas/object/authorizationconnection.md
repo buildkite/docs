@@ -1,4 +1,5 @@
 ---
+title: AuthorizationConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

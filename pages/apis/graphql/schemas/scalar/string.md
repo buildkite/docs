@@ -1,4 +1,5 @@
 ---
+title: String – Scalars – GraphQL API
 toc: false
 ---
 <!--

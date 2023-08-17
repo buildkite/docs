@@ -1,4 +1,5 @@
 ---
+title: APIApplication – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: TeamMemberPermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

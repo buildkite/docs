@@ -1,4 +1,5 @@
 ---
+title: ClusterAgentTokenUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

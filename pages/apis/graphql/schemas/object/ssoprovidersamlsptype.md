@@ -1,4 +1,5 @@
 ---
+title: SSOProviderSAMLSPType – Objects – GraphQL API
 toc: false
 ---
 <!--

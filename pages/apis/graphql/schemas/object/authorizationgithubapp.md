@@ -1,4 +1,5 @@
 ---
+title: AuthorizationGitHubApp – Objects – GraphQL API
 toc: false
 ---
 <!--

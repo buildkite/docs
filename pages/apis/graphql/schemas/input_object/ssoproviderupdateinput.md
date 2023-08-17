@@ -1,4 +1,5 @@
 ---
+title: SSOProviderUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

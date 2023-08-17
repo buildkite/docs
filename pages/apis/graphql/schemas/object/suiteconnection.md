@@ -1,4 +1,5 @@
 ---
+title: SuiteConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

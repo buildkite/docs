@@ -1,4 +1,5 @@
 ---
+title: OrganizationAuditEventConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: pipelineFavorite – Mutations – GraphQL API
 toc: false
 ---
 <!--

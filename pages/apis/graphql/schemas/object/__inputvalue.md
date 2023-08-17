@@ -1,4 +1,5 @@
 ---
+title: __InputValue – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: JSInt – Scalars – GraphQL API
 toc: false
 ---
 <!--

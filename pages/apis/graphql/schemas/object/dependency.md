@@ -1,4 +1,5 @@
 ---
+title: Dependency – Objects – GraphQL API
 toc: false
 ---
 <!--

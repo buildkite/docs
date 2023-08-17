@@ -1,4 +1,5 @@
 ---
+title: teamSuiteUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!--

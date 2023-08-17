@@ -1,4 +1,5 @@
 ---
+title: BuildEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

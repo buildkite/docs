@@ -1,4 +1,5 @@
 ---
+title: NoticeNamespaces – Enums – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: team – Queries – GraphQL API
 toc: false
 ---
 <!--

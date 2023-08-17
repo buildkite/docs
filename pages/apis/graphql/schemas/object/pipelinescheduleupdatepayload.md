@@ -1,4 +1,5 @@
 ---
+title: PipelineScheduleUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

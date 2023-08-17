@@ -1,4 +1,5 @@
 ---
+title: TeamPipelineUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

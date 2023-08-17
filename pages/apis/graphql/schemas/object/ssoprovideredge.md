@@ -1,4 +1,5 @@
 ---
+title: SSOProviderEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

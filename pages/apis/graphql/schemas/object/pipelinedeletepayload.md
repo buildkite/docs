@@ -1,4 +1,5 @@
 ---
+title: PipelineDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

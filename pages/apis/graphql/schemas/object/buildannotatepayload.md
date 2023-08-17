@@ -1,4 +1,5 @@
 ---
+title: BuildAnnotatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

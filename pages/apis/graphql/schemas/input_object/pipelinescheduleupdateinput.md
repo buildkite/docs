@@ -1,4 +1,5 @@
 ---
+title: PipelineScheduleUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

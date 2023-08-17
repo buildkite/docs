@@ -1,4 +1,5 @@
 ---
+title: PipelineFavoritePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

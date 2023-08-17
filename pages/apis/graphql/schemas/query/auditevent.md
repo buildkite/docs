@@ -1,4 +1,5 @@
 ---
+title: auditEvent – Queries – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ClusterQueueResumeDispatchInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

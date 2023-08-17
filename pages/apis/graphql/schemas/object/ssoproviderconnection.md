@@ -1,4 +1,5 @@
 ---
+title: SSOProviderConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

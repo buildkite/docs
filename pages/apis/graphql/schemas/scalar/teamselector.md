@@ -1,4 +1,5 @@
 ---
+title: TeamSelector – Scalars – GraphQL API
 toc: false
 ---
 <!--

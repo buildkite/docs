@@ -1,4 +1,5 @@
 ---
+title: __Directive – Objects – GraphQL API
 toc: false
 ---
 <!--

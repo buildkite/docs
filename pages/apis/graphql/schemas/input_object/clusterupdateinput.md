@@ -1,4 +1,5 @@
 ---
+title: ClusterUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

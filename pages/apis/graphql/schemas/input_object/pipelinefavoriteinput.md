@@ -1,4 +1,5 @@
 ---
+title: PipelineFavoriteInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ChangelogEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

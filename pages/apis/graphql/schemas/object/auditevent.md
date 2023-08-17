@@ -1,4 +1,5 @@
 ---
+title: AuditEvent – Objects – GraphQL API
 toc: false
 ---
 <!--

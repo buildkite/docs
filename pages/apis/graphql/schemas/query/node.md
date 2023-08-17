@@ -1,4 +1,5 @@
 ---
+title: node – Queries – GraphQL API
 toc: false
 ---
 <!--

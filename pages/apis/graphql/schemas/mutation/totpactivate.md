@@ -1,4 +1,5 @@
 ---
+title: totpActivate – Mutations – GraphQL API
 toc: false
 ---
 <!--

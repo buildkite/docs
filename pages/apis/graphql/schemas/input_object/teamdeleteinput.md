@@ -1,4 +1,5 @@
 ---
+title: TeamDeleteInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

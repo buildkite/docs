@@ -1,4 +1,5 @@
 ---
+title: TeamUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

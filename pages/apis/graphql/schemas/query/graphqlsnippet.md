@@ -1,4 +1,5 @@
 ---
+title: graphQLSnippet – Queries – GraphQL API
 toc: false
 ---
 <!--

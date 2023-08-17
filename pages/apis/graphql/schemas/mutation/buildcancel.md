@@ -1,4 +1,5 @@
 ---
+title: buildCancel – Mutations – GraphQL API
 toc: false
 ---
 <!--

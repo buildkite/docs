@@ -1,4 +1,5 @@
 ---
+title: agentStop – Mutations – GraphQL API
 toc: false
 ---
 <!--

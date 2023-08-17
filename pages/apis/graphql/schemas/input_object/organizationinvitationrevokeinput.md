@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationRevokeInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

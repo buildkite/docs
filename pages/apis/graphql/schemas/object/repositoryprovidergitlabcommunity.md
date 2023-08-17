@@ -1,4 +1,5 @@
 ---
+title: RepositoryProviderGitlabCommunity – Objects – GraphQL API
 toc: false
 ---
 <!--

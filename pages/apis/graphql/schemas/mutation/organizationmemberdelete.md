@@ -1,4 +1,5 @@
 ---
+title: organizationMemberDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: SSOAuthorizationState – Enums – GraphQL API
 toc: false
 ---
 <!--

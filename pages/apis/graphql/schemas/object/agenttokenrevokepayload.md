@@ -1,4 +1,5 @@
 ---
+title: AgentTokenRevokePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: SCMRepositoryHost – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: BuildCancelInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

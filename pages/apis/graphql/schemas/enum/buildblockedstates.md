@@ -1,4 +1,5 @@
 ---
+title: BuildBlockedStates – Enums – GraphQL API
 toc: false
 ---
 <!--

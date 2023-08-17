@@ -1,4 +1,5 @@
 ---
+title: pipelineScheduleCreate – Mutations – GraphQL API
 toc: false
 ---
 <!--

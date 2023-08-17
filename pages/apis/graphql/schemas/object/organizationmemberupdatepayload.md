@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

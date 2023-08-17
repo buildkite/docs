@@ -1,4 +1,5 @@
 ---
+title: Artifact – Objects – GraphQL API
 toc: false
 ---
 <!--

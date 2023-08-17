@@ -1,4 +1,5 @@
 ---
+title: OrganizationRevokeInactiveTokensAfterUpdateMutationPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

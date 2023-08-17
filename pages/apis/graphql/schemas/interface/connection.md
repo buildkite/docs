@@ -1,4 +1,5 @@
 ---
+title: Connection – Interfaces – GraphQL API
 toc: false
 ---
 <!--

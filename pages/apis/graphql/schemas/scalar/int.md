@@ -1,4 +1,5 @@
 ---
+title: Int – Scalars – GraphQL API
 toc: false
 ---
 <!--
