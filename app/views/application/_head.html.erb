@@ -50,3 +50,30 @@
 <%= vite_javascript_tag 'application' %>
 
 <%= render 'helpscout' %>
+
+<% if Rails.env.production? %>
+<script>
+  (function(h,o,u,n,d) {
+    h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
+    d=o.createElement(u);d.async=1;d.src=n
+    n=o.getElementsByTagName(u)[0];n.parentNode.insertBefore(d,n)
+  })(window,document,'script','https://www.datadoghq-browser-agent.com/us1/v4/datadog-rum.js','DD_RUM')
+  window.DD_RUM.onReady(function() {
+    window.DD_RUM.init({
+      clientToken: 'pubc9a743f98fb0ff68a47484d3672088cf',
+      applicationId: 'd8c88382-4a5b-43ec-9069-ba06aac75e7a',
+      site: 'datadoghq.com',
+      service: 'buildkite-docs',
+      env: '<%= Rails.env %>',
+      sessionSampleRate: 100,
+      sessionReplaySampleRate: 0,
+      trackUserInteractions: false,
+      trackResources: true,
+      trackLongTasks: true,
+      defaultPrivacyLevel: 'mask',
+    });
+
+    window.DD_RUM.startSessionReplayRecording();
+  })
+</script>
+<% end %>
