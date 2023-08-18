@@ -35,6 +35,12 @@ Resource shortage can cause this issue. See the Auto Scaling group's Activity lo
 
 To fix this issue, change or add more instance types to the `InstanceTypes` template parameter. If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
 
+## Instances are abruptly terminated
+
+This can happen when using Spot Instances. AWS EC2 sends a notification to a spot instance 2 minutes prior to termination. The agent intercepts that notification and attempts to gracefully shutdown. If the instance does not shut down gracefully in that time, it is terminated.
+
+If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
+
 ## Stacks over-provision agents
 
 If you have multiple stacks, check that they listen to unique queues—determined by the `BuildkiteQueue` parameter. Each Elastic CI Stack for AWS you launch through CloudFormation should have a unique value for this parameter. Otherwise, each scales out independently to service all the jobs on the queue, but the jobs will be distributed amongst them. This will mean that your stacks are over-provisioned.
