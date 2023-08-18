@@ -193,6 +193,8 @@ class Page
 
   def file
     @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  rescue
+    raise "Error parsing #{filename}"
   end
 
   def filename
