@@ -1,4 +1,5 @@
 ---
+title: AuthorizationSAML – Objects – GraphQL API
 toc: false
 ---
 <!--

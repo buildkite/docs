@@ -1,4 +1,5 @@
 ---
+title: JobEventActor – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: pipelineArchive – Mutations – GraphQL API
 toc: false
 ---
 <!--

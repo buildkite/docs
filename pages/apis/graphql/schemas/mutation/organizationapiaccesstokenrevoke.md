@@ -1,4 +1,5 @@
 ---
+title: organizationApiAccessTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!--

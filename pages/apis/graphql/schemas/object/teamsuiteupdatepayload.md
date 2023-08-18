@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

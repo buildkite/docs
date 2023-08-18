@@ -1,4 +1,5 @@
 ---
+title: DependencyEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

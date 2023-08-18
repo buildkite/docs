@@ -121,16 +121,12 @@ class Page
     filename.present?
   end
 
-  def title
-    agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
-  end
-
   def sections
     extracted_data.fetch("sections")
   end
 
   def markdown_body
-    erb_renderer = ERB.new(contents, trim_mode: '-')
+    erb_renderer = ERB.new(file.content, trim_mode: '-')
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 
@@ -155,6 +151,11 @@ class Page
 
   def basename
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
+  end
+
+  # Page title, either from front matter or extracted from the markdown
+  def title
+    front_matter.fetch(:title, agentize_title(extracted_data.fetch("name")))
   end
 
   # Page description, either from front matter or extracted from the markdown
@@ -192,10 +193,6 @@ class Page
 
   def file
     @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
-  end
-
-  def contents
-    file.content
   end
 
   def filename

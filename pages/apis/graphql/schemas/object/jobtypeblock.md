@@ -1,4 +1,5 @@
 ---
+title: JobTypeBlock – Objects – GraphQL API
 toc: false
 ---
 <!--

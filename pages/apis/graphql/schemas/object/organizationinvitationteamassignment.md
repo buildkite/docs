@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationTeamAssignment – Objects – GraphQL API
 toc: false
 ---
 <!--

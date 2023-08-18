@@ -1,4 +1,5 @@
 ---
+title: JobEvent – Interfaces – GraphQL API
 toc: false
 ---
 <!--

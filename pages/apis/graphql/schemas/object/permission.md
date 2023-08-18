@@ -1,4 +1,5 @@
 ---
+title: Permission – Objects – GraphQL API
 toc: false
 ---
 <!--

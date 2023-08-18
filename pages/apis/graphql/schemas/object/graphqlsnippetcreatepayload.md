@@ -1,4 +1,5 @@
 ---
+title: GraphQLSnippetCreatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

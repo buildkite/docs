@@ -1,4 +1,5 @@
 ---
+title: ClusterPermissionActor – Unions – GraphQL API
 toc: false
 ---
 <!--

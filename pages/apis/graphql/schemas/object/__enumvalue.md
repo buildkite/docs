@@ -1,4 +1,5 @@
 ---
+title: __EnumValue – Objects – GraphQL API
 toc: false
 ---
 <!--

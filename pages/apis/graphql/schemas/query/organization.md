@@ -1,4 +1,5 @@
 ---
+title: organization – Queries – GraphQL API
 toc: false
 ---
 <!--

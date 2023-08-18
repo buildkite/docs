@@ -1,4 +1,5 @@
 ---
+title: TOTPActivatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

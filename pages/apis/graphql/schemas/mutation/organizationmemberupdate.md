@@ -1,4 +1,5 @@
 ---
+title: organizationMemberUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!--

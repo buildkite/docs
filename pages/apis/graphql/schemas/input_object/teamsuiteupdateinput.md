@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

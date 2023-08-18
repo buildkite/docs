@@ -1,4 +1,5 @@
 ---
+title: JobEventEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

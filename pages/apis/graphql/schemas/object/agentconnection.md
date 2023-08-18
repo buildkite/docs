@@ -1,4 +1,5 @@
 ---
+title: AgentConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

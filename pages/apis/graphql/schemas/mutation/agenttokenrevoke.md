@@ -1,4 +1,5 @@
 ---
+title: agentTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
 <!--

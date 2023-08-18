@@ -1,4 +1,5 @@
 ---
+title: TeamPipelineConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

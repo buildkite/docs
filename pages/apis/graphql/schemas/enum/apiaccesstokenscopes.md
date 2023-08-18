@@ -1,4 +1,5 @@
 ---
+title: APIAccessTokenScopes – Enums – GraphQL API
 toc: false
 ---
 <!--

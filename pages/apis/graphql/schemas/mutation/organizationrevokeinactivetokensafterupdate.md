@@ -1,4 +1,5 @@
 ---
+title: organizationRevokeInactiveTokensAfterUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!--

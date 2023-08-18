@@ -1,4 +1,5 @@
 ---
+title: TeamMemberEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationRevokePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

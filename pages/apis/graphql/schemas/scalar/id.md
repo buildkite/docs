@@ -1,4 +1,5 @@
 ---
+title: ID – Scalars – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: EmailEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

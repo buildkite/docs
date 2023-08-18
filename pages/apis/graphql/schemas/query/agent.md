@@ -1,4 +1,5 @@
 ---
+title: agent – Queries – GraphQL API
 toc: false
 ---
 <!--

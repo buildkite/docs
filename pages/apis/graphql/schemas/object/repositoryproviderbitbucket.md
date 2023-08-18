@@ -1,4 +1,5 @@
 ---
+title: RepositoryProviderBitbucket – Objects – GraphQL API
 toc: false
 ---
 <!--

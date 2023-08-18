@@ -1,4 +1,5 @@
 ---
+title: ResourceUsageType – Enums – GraphQL API
 toc: false
 ---
 <!--

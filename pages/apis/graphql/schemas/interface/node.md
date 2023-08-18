@@ -1,4 +1,5 @@
 ---
+title: Node – Interfaces – GraphQL API
 toc: false
 ---
 <!--

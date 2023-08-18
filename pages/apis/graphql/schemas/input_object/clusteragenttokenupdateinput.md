@@ -1,4 +1,5 @@
 ---
+title: ClusterAgentTokenUpdateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

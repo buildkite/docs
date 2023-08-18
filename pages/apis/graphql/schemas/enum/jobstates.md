@@ -1,4 +1,5 @@
 ---
+title: JobStates – Enums – GraphQL API
 toc: false
 ---
 <!--

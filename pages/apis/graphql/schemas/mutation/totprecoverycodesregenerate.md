@@ -1,4 +1,5 @@
 ---
+title: totpRecoveryCodesRegenerate – Mutations – GraphQL API
 toc: false
 ---
 <!--

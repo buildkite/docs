@@ -1,4 +1,5 @@
 ---
+title: SSOProvider – Interfaces – GraphQL API
 toc: false
 ---
 <!--

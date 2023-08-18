@@ -1,4 +1,5 @@
 ---
+title: UserSelector – Scalars – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: PipelineArchivePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

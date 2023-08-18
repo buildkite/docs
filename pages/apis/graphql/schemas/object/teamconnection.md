@@ -1,4 +1,5 @@
 ---
+title: TeamConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

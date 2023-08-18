@@ -202,7 +202,7 @@ module RenderHelpers
     end
   end
 
-  def render_page(schema_type_data)
+  def render_page(schema_type_data, namespace)
     name = schema_type_data["name"]
     table = render_table(schema_type_data)
     input_fields = render_input_fields(schema_type_data["inputFields"])
@@ -213,6 +213,7 @@ module RenderHelpers
 
     page_content = <<~HTML.strip
       ---
+      title: #{name} – #{namespace} – GraphQL API
       toc: false
       ---
       <!--

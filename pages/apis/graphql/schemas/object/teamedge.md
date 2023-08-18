@@ -1,4 +1,5 @@
 ---
+title: TeamEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

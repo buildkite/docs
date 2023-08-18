@@ -1,4 +1,5 @@
 ---
+title: BuildCancelPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

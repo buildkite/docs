@@ -1,4 +1,5 @@
 ---
+title: EmailConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

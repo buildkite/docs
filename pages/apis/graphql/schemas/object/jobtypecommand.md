@@ -1,4 +1,5 @@
 ---
+title: JobTypeCommand – Objects – GraphQL API
 toc: false
 ---
 <!--

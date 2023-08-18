@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationStates – Enums – GraphQL API
 toc: false
 ---
 <!--

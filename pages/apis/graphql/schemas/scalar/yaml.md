@@ -1,4 +1,5 @@
 ---
+title: YAML – Scalars – GraphQL API
 toc: false
 ---
 <!--

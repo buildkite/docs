@@ -1,4 +1,5 @@
 ---
+title: OrganizationEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

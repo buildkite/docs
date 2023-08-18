@@ -1,4 +1,5 @@
 ---
+title: Cluster – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: Pipeline – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: TeamPrivacy – Enums – GraphQL API
 toc: false
 ---
 <!--

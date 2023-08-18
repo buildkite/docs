@@ -1,4 +1,5 @@
 ---
+title: ArtifactEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

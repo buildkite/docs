@@ -1,4 +1,5 @@
 ---
+title: Avatar – Objects – GraphQL API
 toc: false
 ---
 <!--

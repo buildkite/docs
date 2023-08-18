@@ -1,4 +1,5 @@
 ---
+title: JobTypeCommandCancelPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: AuthorizationEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

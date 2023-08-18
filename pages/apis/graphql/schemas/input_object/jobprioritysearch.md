@@ -1,4 +1,5 @@
 ---
+title: JobPrioritySearch – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: PipelineCreateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: JobTypeTrigger – Objects – GraphQL API
 toc: false
 ---
 <!--

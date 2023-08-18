@@ -1,4 +1,5 @@
 ---
+title: JobRetryTypes – Enums – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: TeamSuitePermissions – Objects – GraphQL API
 toc: false
 ---
 <!--

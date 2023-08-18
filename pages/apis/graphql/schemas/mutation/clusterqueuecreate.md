@@ -1,4 +1,5 @@
 ---
+title: clusterQueueCreate – Mutations – GraphQL API
 toc: false
 ---
 <!--

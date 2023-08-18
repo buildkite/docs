@@ -1,4 +1,5 @@
 ---
+title: PipelineMetricEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

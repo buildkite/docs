@@ -1,4 +1,5 @@
 ---
+title: SuiteEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

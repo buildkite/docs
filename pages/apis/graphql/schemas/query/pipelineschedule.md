@@ -1,4 +1,5 @@
 ---
+title: pipelineSchedule – Queries – GraphQL API
 toc: false
 ---
 <!--

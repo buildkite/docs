@@ -1,4 +1,5 @@
 ---
+title: ClusterQueueDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: RepositoryProviderBeanstalk – Objects – GraphQL API
 toc: false
 ---
 <!--

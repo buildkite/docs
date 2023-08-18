@@ -1,4 +1,5 @@
 ---
+title: jobTypeCommandRetry – Mutations – GraphQL API
 toc: false
 ---
 <!--

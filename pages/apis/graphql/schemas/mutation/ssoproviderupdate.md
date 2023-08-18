@@ -1,4 +1,5 @@
 ---
+title: ssoProviderUpdate – Mutations – GraphQL API
 toc: false
 ---
 <!--

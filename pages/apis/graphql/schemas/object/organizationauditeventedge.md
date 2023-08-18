@@ -1,4 +1,5 @@
 ---
+title: OrganizationAuditEventEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

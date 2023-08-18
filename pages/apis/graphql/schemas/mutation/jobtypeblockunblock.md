@@ -1,4 +1,5 @@
 ---
+title: jobTypeBlockUnblock – Mutations – GraphQL API
 toc: false
 ---
 <!--

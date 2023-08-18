@@ -1,4 +1,5 @@
 ---
+title: SSOAuthorizationConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

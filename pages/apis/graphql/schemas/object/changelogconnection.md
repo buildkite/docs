@@ -1,4 +1,5 @@
 ---
+title: ChangelogConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

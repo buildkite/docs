@@ -1,4 +1,5 @@
 ---
+title: JobEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ClusterQueueConnection – Objects – GraphQL API
 toc: false
 ---
 <!--

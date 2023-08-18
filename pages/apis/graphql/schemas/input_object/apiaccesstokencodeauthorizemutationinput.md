@@ -1,4 +1,5 @@
 ---
+title: APIAccessTokenCodeAuthorizeMutationInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

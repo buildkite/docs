@@ -1,4 +1,5 @@
 ---
+title: OrganizationMemberSecurityInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

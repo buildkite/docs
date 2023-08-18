@@ -1,4 +1,5 @@
 ---
+title: Authorization – Interfaces – GraphQL API
 toc: false
 ---
 <!--

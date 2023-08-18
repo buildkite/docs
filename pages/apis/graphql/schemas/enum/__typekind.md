@@ -1,4 +1,5 @@
 ---
+title: __TypeKind – Enums – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: ChangelogAuthor – Objects – GraphQL API
 toc: false
 ---
 <!--

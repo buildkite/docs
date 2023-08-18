@@ -1,4 +1,5 @@
 ---
+title: OrganizationSSO – Objects – GraphQL API
 toc: false
 ---
 <!--

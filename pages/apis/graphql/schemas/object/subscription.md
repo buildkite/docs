@@ -1,4 +1,5 @@
 ---
+title: Subscription – Objects – GraphQL API
 toc: false
 ---
 <!--

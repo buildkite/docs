@@ -1,4 +1,5 @@
 ---
+title: GraphQLSnippet – Objects – GraphQL API
 toc: false
 ---
 <!--

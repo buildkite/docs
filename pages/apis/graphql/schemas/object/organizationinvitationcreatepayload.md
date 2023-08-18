@@ -1,4 +1,5 @@
 ---
+title: OrganizationInvitationCreatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

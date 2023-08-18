@@ -1,4 +1,5 @@
 ---
+title: clusterQueuePauseDispatch – Mutations – GraphQL API
 toc: false
 ---
 <!--

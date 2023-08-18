@@ -1,4 +1,5 @@
 ---
+title: TeamMemberUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

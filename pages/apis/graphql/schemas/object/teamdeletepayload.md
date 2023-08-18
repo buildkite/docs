@@ -1,4 +1,5 @@
 ---
+title: TeamDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

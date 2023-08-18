@@ -1,4 +1,5 @@
 ---
+title: teamPipelineDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

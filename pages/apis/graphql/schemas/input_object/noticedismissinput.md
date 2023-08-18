@@ -1,4 +1,5 @@
 ---
+title: NoticeDismissInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

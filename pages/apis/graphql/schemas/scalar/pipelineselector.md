@@ -1,4 +1,5 @@
 ---
+title: PipelineSelector – Scalars – GraphQL API
 toc: false
 ---
 <!--

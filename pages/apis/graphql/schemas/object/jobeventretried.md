@@ -1,4 +1,5 @@
 ---
+title: JobEventRetried – Objects – GraphQL API
 toc: false
 ---
 <!--

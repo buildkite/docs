@@ -1,4 +1,5 @@
 ---
+title: JobEventCanceled – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: JSON – Scalars – GraphQL API
 toc: false
 ---
 <!--

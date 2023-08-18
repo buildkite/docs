@@ -1,4 +1,5 @@
 ---
+title: AgentTokenEdge – Objects – GraphQL API
 toc: false
 ---
 <!--

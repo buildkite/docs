@@ -1,4 +1,5 @@
 ---
+title: TOTPActivateInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: BuildSourceFrontend – Objects – GraphQL API
 toc: false
 ---
 <!--

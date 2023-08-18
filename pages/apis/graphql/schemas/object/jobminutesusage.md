@@ -1,4 +1,5 @@
 ---
+title: JobMinutesUsage – Objects – GraphQL API
 toc: false
 ---
 <!--

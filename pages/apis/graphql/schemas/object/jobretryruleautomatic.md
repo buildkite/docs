@@ -1,4 +1,5 @@
 ---
+title: JobRetryRuleAutomatic – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: teamMemberDelete – Mutations – GraphQL API
 toc: false
 ---
 <!--

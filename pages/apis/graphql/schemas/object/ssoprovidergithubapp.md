@@ -1,4 +1,5 @@
 ---
+title: SSOProviderGitHubApp – Objects – GraphQL API
 toc: false
 ---
 <!--

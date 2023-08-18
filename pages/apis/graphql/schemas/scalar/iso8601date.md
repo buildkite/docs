@@ -1,4 +1,5 @@
 ---
+title: ISO8601Date – Scalars – GraphQL API
 toc: false
 ---
 <!--

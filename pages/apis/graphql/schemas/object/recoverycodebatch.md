@@ -1,4 +1,5 @@
 ---
+title: RecoveryCodeBatch – Objects – GraphQL API
 toc: false
 ---
 <!--

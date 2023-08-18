@@ -1,4 +1,5 @@
 ---
+title: PipelineVisibility – Enums – GraphQL API
 toc: false
 ---
 <!--

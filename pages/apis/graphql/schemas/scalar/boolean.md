@@ -1,4 +1,5 @@
 ---
+title: Boolean – Scalars – GraphQL API
 toc: false
 ---
 <!--

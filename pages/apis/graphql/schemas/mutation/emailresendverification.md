@@ -1,4 +1,5 @@
 ---
+title: emailResendVerification – Mutations – GraphQL API
 toc: false
 ---
 <!--

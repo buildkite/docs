@@ -1,4 +1,5 @@
 ---
+title: BuildRebuildInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--

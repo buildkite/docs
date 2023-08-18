@@ -1,4 +1,5 @@
 ---
+title: ClusterToken – Objects – GraphQL API
 toc: false
 ---
 <!--

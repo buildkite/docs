@@ -1,4 +1,5 @@
 ---
+title: StepCommand – Objects – GraphQL API
 toc: false
 ---
 <!--

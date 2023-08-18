@@ -1,4 +1,5 @@
 ---
+title: SSOProviderUpdatePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

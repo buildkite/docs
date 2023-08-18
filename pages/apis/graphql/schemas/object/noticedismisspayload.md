@@ -1,4 +1,5 @@
 ---
+title: NoticeDismissPayload – Objects – GraphQL API
 toc: false
 ---
 <!--

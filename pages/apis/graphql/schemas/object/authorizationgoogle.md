@@ -1,4 +1,5 @@
 ---
+title: AuthorizationGoogle – Objects – GraphQL API
 toc: false
 ---
 <!--

@@ -1,4 +1,5 @@
 ---
+title: TeamSuiteDeletePayload – Objects – GraphQL API
 toc: false
 ---
 <!--

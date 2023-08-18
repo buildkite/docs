@@ -1,4 +1,5 @@
 ---
+title: JobInterface – Interfaces – GraphQL API
 toc: false
 ---
 <!--

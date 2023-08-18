@@ -1,4 +1,5 @@
 ---
+title: SSOProviderGoogleGSuite – Objects – GraphQL API
 toc: false
 ---
 <!--

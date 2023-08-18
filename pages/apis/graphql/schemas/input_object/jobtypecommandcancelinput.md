@@ -1,4 +1,5 @@
 ---
+title: JobTypeCommandCancelInput – Input_objects – GraphQL API
 toc: false
 ---
 <!--
