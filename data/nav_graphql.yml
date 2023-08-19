@@ -103,6 +103,8 @@
     path: apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke
   - name: organizationApiIpAllowlistUpdate
     path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
+  - name: organizationCreate
+    path: apis/graphql/schemas/mutation/organizationcreate
   - name: organizationInvitationCreate
     path: apis/graphql/schemas/mutation/organizationinvitationcreate
   - name: organizationInvitationResend
@@ -437,6 +439,8 @@
     path: apis/graphql/schemas/object/organizationauditeventedge
   - name: OrganizationConnection
     path: apis/graphql/schemas/object/organizationconnection
+  - name: OrganizationCreatePayload
+    path: apis/graphql/schemas/object/organizationcreatepayload
   - name: OrganizationEdge
     path: apis/graphql/schemas/object/organizationedge
   - name: OrganizationInvitation
@@ -935,6 +939,8 @@
     path: apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput
   - name: OrganizationAPIIPAllowlistUpdateMutationInput
     path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
+  - name: OrganizationCreateInput
+    path: apis/graphql/schemas/input-object/organizationcreateinput
   - name: OrganizationInvitationCreateInput
     path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
   - name: OrganizationInvitationResendInput
