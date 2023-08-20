@@ -32,6 +32,7 @@ Rails.application.config.content_security_policy do |policy|
 
   policy.script_src(
     :self,
+    :unsafe_inline,
     "https://www.googletagmanager.com/",
     "https://cdn.segment.com/",
     "https://cdn.emojicom.io/",
@@ -68,9 +69,6 @@ Rails.application.config.content_security_policy do |policy|
   # Specify URI for violation reports
   policy.report_uri "/_csp-violation-reports"
 end
-
-# We use nonce for inline scripts
-Rails.application.config.content_security_policy_nonce_generator = -> request { SecureRandom.base64(16) }
 
 # Report CSP violations to a specified URI
 # For further information see the following documentation:

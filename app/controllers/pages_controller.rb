@@ -3,12 +3,15 @@ class PagesController < ApplicationController
   layout :layout_by_path
 
   def index
-    @nav = default_nav
+    expires_in 5.minutes, public: true, must_revalidate: true
 
+    @nav = default_nav
     render :index, layout: "homepage"
   end
 
   def show
+    expires_in 5.minutes, public: true, must_revalidate: true
+
     @nav = default_nav
     @page = Page.new(view_context, params[:path])
 
@@ -20,6 +23,7 @@ class PagesController < ApplicationController
     unless @page.is_canonical?
       redirect_to "/docs/#{@page.canonical_url}", status: :moved_permanently
     end
+
 
     # Otherwise, render the page (the default)
   end

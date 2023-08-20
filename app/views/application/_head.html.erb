@@ -13,9 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <%= stylesheet_link_tag "docsearch", "application", media: "all" %>
 
-<%= javascript_include_tag "docsearch", nonce: true %>
-
-<%= csp_meta_tag %>
+<%= javascript_include_tag "docsearch" %>
 
 <meta name="referrer" content="origin-when-cross-origin" />
 
@@ -38,7 +36,7 @@
 <meta property="og:site_name" content="Buildkite" />
 <meta property="og:locale" content="en_US" />
 
-<%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
+<%= render 'analytics' %>
 
 <% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
   <meta name="robots" content="noindex, nofollow">
