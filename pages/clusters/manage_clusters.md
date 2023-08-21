@@ -33,7 +33,11 @@ Agents are associated with a cluster through the cluster’s agent tokens.
 To connect an agent:
 
 1. Navigate to the cluster's _Agent tokens_.
-1. Copy the auto-generated token.
+1. Select _New Token_.
+1. Enter a description.
+1. Select _Create Token_.
+1. Select _Copy to Clipboard_ and save the token somewhere secure.
+1. Select _Okay, I'm done!_
 1. [Use the token](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with [the key from the relevant cluster queue](/docs/agent/v3/queues#setting-an-agents-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
@@ -77,7 +81,11 @@ You can set the _Allowed IP Addresses_ when creating a token, or you can modify 
 
 Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
 
-There is a maximum of 24 CIDR blocks per agent token, and IPv6 is currently not supported.
+Note the following limitations:
+
+* This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given cluster token.
+* There is a maximum of 24 CIDR blocks per agent token.
+* IPv6 is currently not supported.
 
 ### Migrate to clusters
 

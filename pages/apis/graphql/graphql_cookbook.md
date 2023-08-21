@@ -319,6 +319,41 @@ query PipelineBuildCountForPeriod {
 }
 ```
 
+### Get all builds with a certain state between two dates
+
+This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
+
+```graphql
+query {
+  organization(slug: "organization-slug") {
+    pipelines(first: 10) {
+      edges {
+        node {
+          name
+          slug
+          builds(
+            first: 10,
+            createdAtFrom: "YYYY-MM-DD",
+            createdAtTo: "YYYY-MM-DD",
+            state: RUNNING
+          ) {
+            edges {
+              node {
+                id
+                number
+                message
+                state
+                url
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Count the number of builds on a branch
 
 Count how many builds a pipeline has done for a given repository branch.
@@ -500,6 +535,19 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
+### Cancel a job
+
+If you need to cancel a job, you can use the following call with the job's ID:
+
+```graphql
+mutation CancelJob {
+  jobTypeCommandCancel(input: { id: "job-id" }) {
+    jobTypeCommand {
+      id
+    }
+  }
+}
+```
 
 ## Agents
 
@@ -578,6 +626,114 @@ mutation {
       description
       revokedAt
       revokedReason
+    }
+  }
+}
+```
+
+## Clusters
+
+A collection of common tasks with clusters using the GraphQL API.
+
+### List cluster IDs
+
+Get the first 10 clusters and their information for an organization:
+
+```graphql
+query getClusters {
+  organization(slug: "organization-slug") {
+    clusters(first: 10){
+      edges{
+        node{
+          id
+          uuid
+          color
+          description
+        }
+      }
+    }
+  }
+}
+```
+
+### List cluster queue IDs
+
+Get the first 10 cluster queues for a particular cluster by specifying its UUID in `cluster-uuid`:
+
+```graphql
+query getClusterQueues {
+  organization(slug: "organization-slug") {
+    cluster(id: "cluster-uuid") {
+      queues(first: 10) {
+        edges {
+          node {
+            id
+            uuid
+            key
+            description
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+### List jobs in a particular cluster queue
+
+To get jobs within a cluster queue, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from:
+
+```graphql
+query getClusterQueueJobs {
+  organization(slug: "organization-slug") {
+    jobs(first: 10, clusterQueue: "cluster-queue-id") {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            id
+            state
+            label
+            url
+            build {
+              number
+            }
+            pipeline {
+              name
+            }
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+To obtain jobs within a cluster queue of a particular state, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from, and the `state` list filter by one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates):
+
+```graphql
+query getClusterQueueJobsByJobState {
+  organization(slug: "organization-slug") {
+    jobs(
+      first: 10, 
+      clusterQueue: "cluster-queue-id",
+      state: [WAITING, BLOCKED]
+    ){
+      edges {
+        node {
+          ... on JobTypeCommand {
+            id
+            state
+            label
+            url
+            build {
+              number
+            }
+            pipeline {
+              name
+            }
+          }
+        }
+      }
     }
   }
 }
@@ -673,6 +829,23 @@ mutation UpdateSessionDuration {
   ssoProviderUpdate(input: { id: "ID", sessionDurationInHours: 2 }) {
     ssoProvider {
       sessionDurationInHours
+    }
+  }
+}
+```
+
+### Update inactive API token revocation
+
+On the Enterprise plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
+
+```graphql
+mutation UpdateRevokeInactiveTokenPeriod {
+  organizationRevokeInactiveTokensAfterUpdate(input: {
+    organizationId: "organization-id",
+    revokeInactiveTokensAfter: DAYS_30
+  }) {
+    organization {
+      revokeInactiveTokensAfter
     }
   }
 }
@@ -793,7 +966,7 @@ This deletes a member from an organization. It does not delete their Buildkite u
 First, find the member's ID:
 
 ```graphql
-query {
+query getOrganizationMemberIds {
   organization(slug: "organization-slug") {
     members(search: "organization-member-name", first: 10) {
       edges {
@@ -807,6 +980,7 @@ query {
       }
     }
   }
+}
 ```
 
 Then, use the ID to delete the user:
@@ -820,6 +994,56 @@ mutation deleteOrgMember {
     deletedOrganizationMemberID
     user{
         name
+    }
+  }
+}
+```
+
+### Get organization audit events
+
+Query your organization's audit events. Audit events are only available to Enterprise customers.
+
+```graphql
+query getOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
+            type
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+To get all audit events in a given period, use the `occurredAtFrom` and `occurredAtTo` filters like in the following query:
+
+```graphql
+query getTimeScopedOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500, occurredAtFrom: "2023-01-01T12:00:00.000", occurredAtTo: "2023-01-01T13:00:00.000"){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
+            type
+          }
+        }
+      }
     }
   }
 }

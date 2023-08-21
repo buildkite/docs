@@ -29,6 +29,10 @@ module NavData
         "path" => "apis/graphql/graphql-cookbook"
       },
       {
+        "name" => "Limits",
+        "path" => "apis/graphql/graphql-resource-limits"
+      },
+      {
         "name" => "Queries",
         "children" => convert_to_nav_items(type_sets["query_types"], "query")
       },

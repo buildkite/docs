@@ -130,7 +130,7 @@ Steps that are in a `concurrency_group` run in the order they are created in and
 
 ## Allowing dependency failures
 
-You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, fail or even did not run. However, even if you continue to run the next step, if there are any failures at all, the build will still end up failing.
+You can add the `allow_dependency_failure` attribute to any step that has dependencies. The step will then run when the depended-on jobs complete, fail, or do not run. However, if you cancel a job, any subsequent steps with `allow_dependency_failure: true` do not execute. Note that even if you continue to run the next step, the build will still fail if there are any failures.
 
 ```yml
 steps:

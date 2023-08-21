@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v5.20.0"
+Description: "Buildkite stack v6.3.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -41,7 +41,7 @@ Metadata:
         - BuildkiteAgentTags
         - BuildkiteAgentTimestampLines
         - BuildkiteAgentExperiments
-        - EnableAgentGitMirrorsExperiment
+        - BuildkiteAgentEnableGitMirrors
         - BuildkiteAgentTracingBackend
         - BuildkiteTerminateInstanceAfterJob
         - BuildkiteAdditionalSudoPermissions
@@ -55,7 +55,7 @@ Metadata:
         - VpcId
         - Subnets
         - AvailabilityZones
-        - SecurityGroupId
+        - SecurityGroupIds
         - AssociatePublicIpAddress
 
       - Label:
@@ -64,11 +64,10 @@ Metadata:
         - ImageId
         - ImageIdParameter
         - InstanceOperatingSystem
-        - InstanceType
+        - InstanceTypes
         - EnableInstanceStorage
         - AgentsPerInstance
         - KeyName
-        - SpotPrice
         - SecretsBucket
         - SecretsBucketRegion
         - SecretsBucketEncryption
@@ -80,7 +79,7 @@ Metadata:
         - RootVolumeName
         - RootVolumeType
         - RootVolumeEncrypted
-        - ManagedPolicyARN
+        - ManagedPolicyARNs
         - InstanceRoleName
         - InstanceRolePermissionsBoundaryARN
         - IMDSv2Tokens
@@ -93,10 +92,12 @@ Metadata:
         - MinSize
         - MaxSize
         - OnDemandPercentage
+        - SpotAllocationStrategy
         - ScaleOutFactor
         - ScaleInIdlePeriod
         - ScaleOutForWaitingJobs
         - InstanceCreationTimeout
+        - ScalerMinPollInterval
 
       - Label:
           default: Cost Allocation Configuration
@@ -181,7 +182,7 @@ Parameters:
   BuildkiteAgentScalerVersion:
     Description: Version of the buildkite-agent-scaler to use
     Type: String
-    Default: "1.3.2"
+    Default: "1.5.0"
 
   BuildkiteAgentTracingBackend:
     Description: The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing
@@ -278,29 +279,30 @@ Parameters:
     Description: Optional - Comma separated list of AZs that subnets are created in (if Subnets parameter is not specified)
     Default: ""
 
-  InstanceType:
-    Description: Instance type. Comma-separated list with 1-4 instance types. The order is a prioritized preference for launching OnDemand instances, and a non-prioritized list of types to consider for Spot Instances (where used).
+  InstanceTypes:
+    Description: Comma-separated list with 1-4 instance types. The order is a prioritized preference for launching OnDemand instances, and a non-prioritized list of types to consider for Spot Instances (where used).
     Type: String
     Default: t3.large
     MinLength: 1
     AllowedPattern: "^[\\w\\.]+(,[\\w\\.]*){0,3}$"
     ConstraintDescription: "must contain 1-4 instance types separated by commas. No space before/after the comma."
 
-  SpotPrice:
-    Description: Maximum spot price to use for the instances, in instance cost per hour. Values >0 will result in 100% of instances being spot. 0 means only use normal (non-spot) instances. This parameter is deprecated - we recommend setting to 0 and using OnDemandPercentage to opt into spot instances.
-    Type: String
-    Default: 0
-
   MaxSize:
     Description: Maximum number of instances
     Type: Number
     Default: 10
-    MinValue: 1
+    MinValue: 0
 
   MinSize:
     Description: Minimum number of instances
     Type: Number
     Default: 0
+    MinValue: 0
+
+  ScalerMinPollInterval:
+    Description: Minimum interval at which the auto scaler should poll the AWS API
+    Type: String
+    Default: "10s"
 
   OnDemandPercentage:
     Description: Percentage of total instances that should launch as OnDemand. Default is 100% OnDemand - reduce this to use some Spot Instances when they're available and cheaper than the OnDemand price. A value of 70 means 70% OnDemand and 30% Spot Instances.
@@ -308,6 +310,16 @@ Parameters:
     Default: 100
     MinValue: 0
     MaxValue: 100
+
+  SpotAllocationStrategy:
+    Description: The strategy for allocating Spot Instances when launching or replacing instances. If choosing `capacity-optimized-prioritized`, the order you specify in InstanceTypes will be the priority.
+    Type: String
+    Default: capacity-optimized
+    AllowedValues:
+      - price-capacity-optimized
+      - capacity-optimized
+      - lowest-price
+      - capacity-optimized-prioritized
 
   ScaleOutFactor:
     Description: A decimal factor to apply to scale out changes to speed up or slow down scale-out
@@ -356,7 +368,7 @@ Parameters:
       - "false"
     Default: "false"
 
-  SecurityGroupId:
+  SecurityGroupIds:
     Type: String
     Description: Optional - Comma separated list of security group ids to assign to instances
     Default: ""
@@ -371,7 +383,7 @@ Parameters:
     Description: Optional - Custom AMI SSM Parameter to use for instances (must be based on the stack's AMI)
     Default: ""
 
-  ManagedPolicyARN:
+  ManagedPolicyARNs:
     Type: CommaDelimitedList
     Description: Optional - Comma separated list of managed IAM policy ARNs to attach to the instance role
     Default: ""
@@ -486,9 +498,9 @@ Parameters:
     Description: The value of the Cost Allocation Tag used for billing purposes
     Default: "buildkite-elastic-ci-stack-for-aws"
 
-  EnableAgentGitMirrorsExperiment:
+  BuildkiteAgentEnableGitMirrors:
     Type: String
-    Description: Enables the git-mirrors experiment in the agent
+    Description: Enables git-mirrors in the agent
     AllowedValues:
       - "true"
       - "false"
@@ -505,7 +517,7 @@ Parameters:
   InstanceName:
     Type: String
     Description: Optional - Customise the EC2 instance Name tag
-    Default: "buildkite-agent"
+    Default: ""
 
 Rules:
   HasToken:
@@ -552,14 +564,11 @@ Outputs:
       Name: !Sub '${AWS::StackName}-InstanceRoleName'
 
 Conditions:
-    SpotPriceSet:
-      !Not [ !Equals [ !Ref SpotPrice, 0 ] ]
-
     CreateVpcResources:
       !Equals [ !Ref VpcId, "" ]
 
     CreateSecurityGroup:
-      !Equals [ !Ref SecurityGroupId, "" ]
+      !Equals [ !Ref SecurityGroupIds, "" ]
 
     CreateSecretsBucket:
       !And
@@ -601,16 +610,16 @@ Conditions:
       !Equals [ !Ref RootVolumeName, "" ]
 
     UseInstanceType2:
-      !Not [ !Equals [ !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
 
     UseInstanceType3:
-      !Not [ !Equals [ !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
 
     UseInstanceType4:
-      !Not [ !Equals [ !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ], ""] ]
+      !Not [ !Equals [ !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ], ""] ]
 
     UseManagedPolicyARN:
-      !Not [ !Equals [ !Join [ "", !Ref ManagedPolicyARN ], "" ] ]
+      !Not [ !Equals [ !Join [ "", !Ref ManagedPolicyARNs ], "" ] ]
 
     UseECR:
       !Not [ !Equals [ !Ref ECRAccessPolicy, "none" ] ]
@@ -655,27 +664,31 @@ Conditions:
     # into using a Custom Resource.
     UsingArmInstances:
       !Or
-        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "a1" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "a1" ]
         - !Or
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "c6g" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "c6gd" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "c6gn" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "c7g" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "c7gn" ]
-        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "g5g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c6g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c6gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c6gn" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gn" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "g5g" ]
         - !Or
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "Im4gn" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "Is4gen" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "i4g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "Im4gn" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "Is4gen" ]
         - !Or
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "m6g" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "m6gd" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "m7g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7g" ]
         - !Or
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "r6g" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "r6gd" ]
-          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "r7g" ]
-        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "t4g" ]
-        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceType ] ], "x2gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6gd" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7g" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
+        - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
+
+    UseStackNameForInstanceName:
+      !Equals [ !Ref InstanceName, "" ]
 
 Mappings:
   ECRManagedPolicy:
@@ -686,26 +699,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-05e9fd6d2bd47782d, linuxarm64: ami-0c82f6e29ddd8fb22, windows: ami-061258593fda02fb6 }
-    us-east-2 : { linuxamd64: ami-09b8e1c0ab03997e2, linuxarm64: ami-01057ef7dbe4ea122, windows: ami-0dd9754e101b266cb }
-    us-west-1 : { linuxamd64: ami-094319d7aea2a18b6, linuxarm64: ami-05a8b8699e36cddeb, windows: ami-0fee2443db7048a7a }
-    us-west-2 : { linuxamd64: ami-0eb174aaaf7937f77, linuxarm64: ami-0ee4e2b9990df0035, windows: ami-011a88a73457ceb02 }
-    af-south-1 : { linuxamd64: ami-0cdc52383b34530da, linuxarm64: ami-0334fd9ad6499ef2d, windows: ami-096ced7e3f4976f92 }
-    ap-east-1 : { linuxamd64: ami-0b245b966d15f4bc8, linuxarm64: ami-086a1af2d21b3ecc5, windows: ami-0a87a51470dda8d0e }
-    ap-south-1 : { linuxamd64: ami-01cf6a3b5b90e83f1, linuxarm64: ami-038ebe2e4267aa15e, windows: ami-0447aa7a5afbbbffd }
-    ap-northeast-2 : { linuxamd64: ami-0043ecd34504b9201, linuxarm64: ami-0f2f49744ce5d2801, windows: ami-07604a1ecd624f3e1 }
-    ap-northeast-1 : { linuxamd64: ami-0db72a9c598c70399, linuxarm64: ami-0c3a5050769e30ac9, windows: ami-0443489fb3a10e8cb }
-    ap-southeast-2 : { linuxamd64: ami-065bc081574e1392c, linuxarm64: ami-01c512d9f5953ad34, windows: ami-05ffd1d10470f63dc }
-    ap-southeast-1 : { linuxamd64: ami-033b7b31454f8a3ee, linuxarm64: ami-0afa77a5d6765e44e, windows: ami-08188014616704d2f }
-    ca-central-1 : { linuxamd64: ami-01e39ba68c989d77e, linuxarm64: ami-0d1ed2c58d9c92399, windows: ami-08adb53008cb01f13 }
-    eu-central-1 : { linuxamd64: ami-0e904e6fbd02bf9ff, linuxarm64: ami-0034248bc71488758, windows: ami-05cbd39e799f3a474 }
-    eu-west-1 : { linuxamd64: ami-0708fe9486e6b6a02, linuxarm64: ami-0ebacb6c752880c1e, windows: ami-0d1b8a25d2c920e2e }
-    eu-west-2 : { linuxamd64: ami-01a14a049fa658de2, linuxarm64: ami-02a43fddf765c49de, windows: ami-04b1c2b9c1c27503c }
-    eu-south-1 : { linuxamd64: ami-0f8579fea2b242304, linuxarm64: ami-04f4f51ad6915b39c, windows: ami-0da9692b61bdc9194 }
-    eu-west-3 : { linuxamd64: ami-0d40b87e3d028ce59, linuxarm64: ami-089dc34061b014e08, windows: ami-0536a38b59282d785 }
-    eu-north-1 : { linuxamd64: ami-0228e018f3ef4887e, linuxarm64: ami-093da24abb0e4f905, windows: ami-0da51bd45d6b0502b }
-    me-south-1 : { linuxamd64: ami-0193550e84bbac5d1, linuxarm64: ami-02fb408c2ece8b0bf, windows: ami-0998571c5054e9e1e }
-    sa-east-1 : { linuxamd64: ami-0f21eaa673255d009, linuxarm64: ami-053a9b01522b97a2f, windows: ami-065b1de4ad3fe086b }
+    us-east-1 : { linuxamd64: ami-0386bf4d5700435ef, linuxarm64: ami-060594eed5acfe347, windows: ami-036a837fb3b754d70 }
+    us-east-2 : { linuxamd64: ami-0339fe324b3fd79ab, linuxarm64: ami-080ffcf21f418ceae, windows: ami-052e9706ba8a96c49 }
+    us-west-1 : { linuxamd64: ami-0a32bc5331c481f14, linuxarm64: ami-0717874b162f66185, windows: ami-0c900dcc5d3477c8c }
+    us-west-2 : { linuxamd64: ami-0051223442eab4ac0, linuxarm64: ami-0e516dc6dc52e238d, windows: ami-0826c2c7462bfb678 }
+    af-south-1 : { linuxamd64: ami-057a30c40d9bc5095, linuxarm64: ami-0c13f0b6e6fe9a6c4, windows: ami-09470a9affa218708 }
+    ap-east-1 : { linuxamd64: ami-0191355291a7b3a26, linuxarm64: ami-0b199bca0f7589f55, windows: ami-006242189e6bd5992 }
+    ap-south-1 : { linuxamd64: ami-0726fb20146e93713, linuxarm64: ami-079ea8b2687b9230d, windows: ami-009204ef8282db8b0 }
+    ap-northeast-2 : { linuxamd64: ami-0e2408f1f6d16e0df, linuxarm64: ami-0e975389b2bfa273d, windows: ami-0b96c0334cb71e0af }
+    ap-northeast-1 : { linuxamd64: ami-0cb73256114e3b6fc, linuxarm64: ami-0852693675165c9df, windows: ami-0249e6a0c06e3f809 }
+    ap-southeast-2 : { linuxamd64: ami-0a8363a513a7924ec, linuxarm64: ami-0878b9e657607d5c6, windows: ami-097dfee8695d3c194 }
+    ap-southeast-1 : { linuxamd64: ami-0de2694bdaeec7d67, linuxarm64: ami-01dd918ccc5fe4d7f, windows: ami-0f53a32dd6f7daab0 }
+    ca-central-1 : { linuxamd64: ami-08399689356e0befa, linuxarm64: ami-05202bbce66b79415, windows: ami-01b6afaa126054975 }
+    eu-central-1 : { linuxamd64: ami-09e08b163564c617d, linuxarm64: ami-033995724b18a26ad, windows: ami-0ef043f300ad63395 }
+    eu-west-1 : { linuxamd64: ami-0daa114e371ee09e5, linuxarm64: ami-003fb09a87837a032, windows: ami-0ccf7220a37e6b32a }
+    eu-west-2 : { linuxamd64: ami-0c79b4bd87c5e2f51, linuxarm64: ami-0050822e6aaa25089, windows: ami-0c8e38beb2ebd2ef8 }
+    eu-south-1 : { linuxamd64: ami-01b24c9d8e926db6c, linuxarm64: ami-0fb901c9d1a2a4d84, windows: ami-0033d2287191d2b61 }
+    eu-west-3 : { linuxamd64: ami-06c2500150099570e, linuxarm64: ami-07859f9f4e57673ae, windows: ami-0e43465a1e0ae1b60 }
+    eu-north-1 : { linuxamd64: ami-0dfbb3bd47660608e, linuxarm64: ami-0ea784b1a611cec19, windows: ami-09e12ca50edd31ce2 }
+    me-south-1 : { linuxamd64: ami-0c35e8e35c2e87fcb, linuxarm64: ami-08d3b43403ffa4b93, windows: ami-03863a61e38c6fffb }
+    sa-east-1 : { linuxamd64: ami-03fd567ccb9ed7379, linuxarm64: ami-017ff3aee400d0070, windows: ami-00b5a08198aa5c205 }
 
 Resources:
   Vpc:
@@ -845,7 +858,7 @@ Resources:
                # This may support multiple values of its own (separated by commas)
                - !If
                  - UseManagedPolicyARN
-                 - !Join [ ',', !Ref ManagedPolicyARN ]
+                 - !Join [ ',', !Ref ManagedPolicyARNs ]
                  - !Ref 'AWS::NoValue'
           - !Ref 'AWS::NoValue'
       Policies:
@@ -1085,11 +1098,11 @@ Resources:
           NetworkInterfaces:
             - DeviceIndex: 0
               AssociatePublicIpAddress: { Ref: AssociatePublicIpAddress }
-              Groups: !Split [ ",", !If [ "CreateSecurityGroup", !Ref SecurityGroup, !Ref SecurityGroupId ] ]
+              Groups: !Split [ ",", !If [ "CreateSecurityGroup", !Ref SecurityGroup, !Ref SecurityGroupIds ] ]
           KeyName: !If [ "HasKeyName", !Ref KeyName, !Ref 'AWS::NoValue' ]
           IamInstanceProfile:
             Arn: !GetAtt "IAMInstanceProfile.Arn"
-          InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ]
+          InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
           MetadataOptions:
             HttpTokens: !Ref IMDSv2Tokens
             # Allow containers using a Docker network on the host to receive IDMSv2 responses
@@ -1128,7 +1141,7 @@ Resources:
                 - Key: Role
                   Value: buildkite-agent
                 - Key: Name
-                  Value: !Ref InstanceName
+                  Value: !If [ UseStackNameForInstanceName, !Ref AWS::StackName, !Ref InstanceName ]
                 - Key: BuildkiteAgentRelease
                   Value: !Ref BuildkiteAgentRelease
                 - Key: BuildkiteQueue
@@ -1138,6 +1151,14 @@ Resources:
                   - Key: !Ref CostAllocationTagName
                     Value: !Ref CostAllocationTagValue
                   - !Ref "AWS::NoValue"
+            - !If
+              - UseCostAllocationTags
+              - ResourceType: volume
+                Tags:
+                  - Key: !Ref CostAllocationTagName
+                    Value: !Ref CostAllocationTagValue
+              - !Ref "AWS::NoValue"
+
           UserData:
             Fn::Base64: !If
               - UseWindowsAgents
@@ -1149,7 +1170,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v5.20.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.3.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1161,7 +1182,7 @@ Resources:
                   $Env:BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}"
                   $Env:BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}"
                   $Env:BUILDKITE_QUEUE="${BuildkiteQueue}"
-                  $Env:BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT="${EnableAgentGitMirrorsExperiment}"
+                  $Env:BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}"
                   $Env:BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}"
                   $Env:BUILDKITE_ENV_FILE_URL="${AgentEnvFileUrl}"
                   $Env:BUILDKITE_AUTHORIZED_USERS_URL="${AuthorizedUsersUrl}"
@@ -1186,11 +1207,18 @@ Resources:
                   Content-Type: multipart/mixed; boundary="==BOUNDARY=="
                   MIME-Version: 1.0
                   --==BOUNDARY==
-                  Content-Type: text/cloud-boothook; charset="us-ascii"
+                  Content-Type: text/cloud-config; charset="us-ascii"
+                  #cloud-config
+                  cloud_final_modules:
+                    - [scripts-user, always]
+                  --==BOUNDARY==
+                  Content-Type: text/x-shellscript; charset="us-ascii"
+                  #!/bin/bash -v
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
                     /usr/local/bin/bk-mount-instance-storage.sh
                   --==BOUNDARY==
-                  Content-Type: text/cloud-boothook; charset="us-ascii"
+                  Content-Type: text/x-shellscript; charset="us-ascii"
+                  #!/bin/bash -v
                   DOCKER_USERNS_REMAP=${EnableDockerUserNamespaceRemap} \
                   DOCKER_EXPERIMENTAL=${EnableDockerExperimental} \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
@@ -1199,7 +1227,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v5.20.0" \
+                  BUILDKITE_STACK_VERSION="v6.3.0" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1211,7 +1239,7 @@ Resources:
                   BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
-                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS_EXPERIMENT="${EnableAgentGitMirrorsExperiment}" \
+                  BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
                   BUILDKITE_ENV_FILE_URL=${AgentEnvFileUrl} \
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
@@ -1242,26 +1270,25 @@ Resources:
       VPCZoneIdentifier: !If [ "CreateVpcResources", [ !Ref Subnet0, !Ref Subnet1 ], !Ref Subnets ]
       MixedInstancesPolicy:
         InstancesDistribution:
-          OnDemandPercentageAboveBaseCapacity: !If [ SpotPriceSet, 0, !Ref OnDemandPercentage ]
-          SpotAllocationStrategy: capacity-optimized
-          SpotMaxPrice: !If [SpotPriceSet, !Ref SpotPrice, !Ref "AWS::NoValue"]
+          OnDemandPercentageAboveBaseCapacity: !Ref OnDemandPercentage
+          SpotAllocationStrategy: !Ref SpotAllocationStrategy
         LaunchTemplate:
           LaunchTemplateSpecification:
             LaunchTemplateId: !Ref AgentLaunchTemplate
             Version: !GetAtt "AgentLaunchTemplate.LatestVersionNumber"
           Overrides:
-          - InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ]
+          - InstanceType: !Select [ "0", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
           - !If
             - UseInstanceType2
-            - InstanceType: !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "1", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
           - !If
             - UseInstanceType3
-            - InstanceType: !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "2", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
           - !If
             - UseInstanceType4
-            - InstanceType: !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceType, "", "", "" ] ] ] ]
+            - InstanceType: !Select [ "3", !Split [ ",", !Join [ ",", [ !Ref InstanceTypes, "", "", "" ] ] ] ]
             - !Ref "AWS::NoValue"
       MinSize: !Ref MinSize
       MaxSize: !Ref MaxSize
@@ -1334,7 +1361,7 @@ Resources:
               cfnresponse.send(event, context, cfnresponse.FAILED, {}, "CustomResourcePhysicalID")
       Handler: index.handler
       Role: !GetAtt AsgProcessSuspenderRole.Arn
-      Runtime: 'python3.7'
+      Runtime: 'python3.10'
 
   AzRebalancingSuspender:
     Type: AWS::CloudFormation::CustomResource
@@ -1381,3 +1408,4 @@ Resources:
         AgentAutoScaleGroup: !Ref AgentAutoScaleGroup
         ScaleOutFactor: !Ref ScaleOutFactor
         ScaleOutForWaitingJobs: !Ref ScaleOutForWaitingJobs
+        MinPollInterval: !Ref ScalerMinPollInterval

@@ -43,7 +43,7 @@ steps:
 {: codeblock-file="pipeline.yml"}
 
 Set `concurrency` and `concurrency_group` when updating mutable state. These
-settings ensures only one step runs at a time.
+settings ensure only one step runs at a time.
 
 ## Writing the deploy script
 
@@ -96,7 +96,7 @@ The resulting output may be piped directly into `kubectl`.
 The full script has three parts:
 
 1. Check `$DOCKER_IMAGE` is set
-2. Generate a complete manifest with `envsubt` and apply with `kubectl`
+2. Generate a complete manifest with `envsubst` and apply with `kubectl`
 3. Wait for Kubernetes to complete the deploy.
 
 This fits neatly into a Bash script. Here's the complete `script/buildkite/deploy`:
@@ -122,7 +122,7 @@ echo '--- \:zzz\: Waiting for deployment'
 kubectl wait --for condition=available --timeout=300s -f "${manifest}"
 ```
 
-You can test pipeline now that everything is in place. All you need is your
+You can test your pipeline now that everything is in place. All you need is your
 Docker image.
 
 ## Test the pipeline
@@ -132,7 +132,7 @@ Open the deployment pipeline and click "New Build". Click "Options" and set the
 
 <%= image "manual_deployment.png", width: 1382/2, height: 1542/2, alt: "New Manual Build" %>
 
-Assuming your agents have the required access, then success! :tada:
+Assuming your agents have the required access to run `kubectl` against your cluster, then success! :tada:
 
 <%= image "manual_deployment_success.png", width: 1440/2, height: 750/2, alt: "Manual Build Success" %>
 
@@ -143,7 +143,7 @@ to connect the test and deploy pipelines. This effectively creates a continuous
 deployment pipeline.
 
 First, add a wait step at the end of your existing `.buildkite/pipeline.yml`
-otherwise deploys will trigger at the wrong time and even for failed builds!
+otherwise deploys will trigger at the wrong time, and even for failed builds!
 
 ```yml
   # Add a wait step to only deploy after all steps complete
@@ -204,7 +204,7 @@ Kubernetes. Practically speaking there are some things to do next.
 Configuring `kubectl` access depends on your infrastructure. Here's an overview
 for common scenarios.
 
-If you're on GCP using agents on GCE and an GKE cluster:
+If you're on GCP using agents on GCE and a GKE cluster:
 
 1. Grant GCE agents GKE access with a [service account](https://cloud.google.com/compute/docs/access/service-accounts)
 2. Install `gcloud` agent instances

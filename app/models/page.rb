@@ -121,20 +121,12 @@ class Page
     filename.present?
   end
 
-  def title
-    agentize_title(contents.match(/^\#\s(.+)/).try(:[], 1) || "")
-  end
-
   def sections
     extracted_data.fetch("sections")
   end
 
-  def description
-    extracted_data.fetch("shortDescription")
-  end
-
   def markdown_body
-    erb_renderer = ERB.new(contents, trim_mode: '-')
+    erb_renderer = ERB.new(file.content, trim_mode: '-')
     template_binding = TemplateBinding.new(view_helpers: @view,
                                            image_path: File.join("docs", basename))
 
@@ -161,28 +153,48 @@ class Page
     @name.to_s.gsub(/[^0-9a-zA-Z\-\_\/]/, '').underscore
   end
 
-  def metadata
-    defaults = {
-      # Default to rendering table of contents
-      "toc": true,
-      # Default to H3s being included in the table of contents
-      "toc_include_h3": true
-    }
-    if file.front_matter
-      defaults.merge(file.front_matter.symbolize_keys)
-    else
-      defaults
-    end
+  # Page title, either from front matter or extracted from the markdown
+  def title
+    front_matter.fetch(:title, agentize_title(extracted_data.fetch("name")))
+  end
+
+  # Page description, either from front matter or extracted from the markdown
+  def description
+    front_matter.fetch(:description, extracted_data.fetch("shortDescription"))
+  end
+
+  # Should page render a table of contents?
+  def toc?
+    front_matter.fetch(:toc)
+  end
+
+  # Should pageinclude H3s in the table of contents?
+  def toc_include_h3?
+    front_matter.fetch(:toc_include_h3)
   end
 
   private
 
-  def file
-    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  def front_matter
+    @front_matter ||= begin
+      defaults = {
+        # Default to rendering table of contents
+        "toc": true,
+        # Default to H3s being included in the table of contents
+        "toc_include_h3": true,
+      }
+      if file.front_matter
+        defaults.merge(file.front_matter.symbolize_keys)
+      else
+        defaults
+      end
+    end
   end
 
-  def contents
-    file.content
+  def file
+    @_file ||= ::FrontMatterParser::Parser.parse_file(filename)
+  rescue
+    raise "Error parsing #{filename}"
   end
 
   def filename

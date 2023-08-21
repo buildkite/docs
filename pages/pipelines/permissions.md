@@ -1,4 +1,4 @@
-# Controlling user permissions
+# User and team permissions
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [member Permissions](#member-permissions) page.
 
@@ -34,15 +34,15 @@ All users in a team have the same level of access to the pipelines in their team
 
 You can grant teams the following permissions on a pipeline:
 
-* Full Access:
-  - Can view and create builds.
+* Full Access (`MANAGE_BUILD_AND_READ`):
+  - Can view and create builds or rebuilds.
   - Can edit pipeline settings.
-* Build & Read:
-  - Can view and create builds.
+* Build & Read (`BUILD_AND_READ`):
+  - Can view and create builds or rebuilds.
   - Can _not_ edit pipeline settings.
-* Read Only:
+* Read Only (`READ_ONLY`):
   - Can view builds.
-  - Can _not_ create builds.
+  - Can _not_ create builds or issue rebuilds.
   - Can _not_ edit pipeline settings.
 
 ### User-level permissions

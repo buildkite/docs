@@ -154,7 +154,7 @@ RateLimit-Reset: 120
 
 ### View query complexity
 
-To include the complexity data in responses, use the `Buildkite-Include-Query-Stats` header in GraphQL requests. This returns the complexity data in the response like the following:
+To include the complexity data in responses, set the `Buildkite-Include-Query-Stats` header to `true` in GraphQL requests. This returns the complexity data in the response like the following:
 
 ```json
 {

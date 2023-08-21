@@ -54,7 +54,7 @@ variables:
 - name: BUILDKITE_AGENT_NAME
   desc: |
     The name of the agent that ran the job.
-  modifable: false
+  modifiable: false
   example: "elastic-builders-088264dc4f9"
 - name: BUILDKITE_AGENT_PID
   desc: |
@@ -64,7 +64,7 @@ variables:
 - name: BUILDKITE_ARTIFACT_PATHS
   desc: |
     The artifact paths to upload after the job, if any have been specified. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
-  modifable: true
+  modifiable: true
   example: "`tmp/capybara/**/*;coverage/**/*`"
 - name: BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
   desc: |
@@ -203,7 +203,7 @@ variables:
 - name: BUILDKITE_GITHUB_DEPLOYMENT_ENVIRONMENT
   desc: |
     The name of the GitHub deployment environment. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
-  modifable: false
+  modifiable: false
   example: "production"
 - name: BUILDKITE_GITHUB_DEPLOYMENT_TASK
   desc: |
@@ -213,27 +213,27 @@ variables:
 - name: BUILDKITE_GITHUB_DEPLOYMENT_PAYLOAD
   desc: |
     The GitHub deployment payload data as serialized JSON. Only available on builds triggered by a [GitHub Deployment](https://developer.github.com/v3/repos/deployments/).
-  modifable: false
+  modifiable: false
   example: "production"
 - name: BUILDKITE_GROUP_ID
   desc: |
     The UUID of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.
-  modifable: false
+  modifiable: false
   example: "4a331026-8c9a-4714-aff0-8aa30211a34e"
 - name: BUILDKITE_GROUP_KEY
   desc: |
     The value of the `key` attribute of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.
-  modifable: false
+  modifiable: false
   example: "audit-tasks"
 - name: BUILDKITE_GROUP_LABEL
   desc: |
     The label/name of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.
-  modifable: false
+  modifiable: false
   example: "\":lock: Audit\""
 - name: BUILDKITE_HOOKS_PATH
   desc: |
     The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   example: "/etc/buildkite-agent/hooks/"
 - name: BUILDKITE_IGNORED_ENV
   desc: |
@@ -263,7 +263,7 @@ variables:
 - name: BUILDKITE_LOCAL_HOOKS_ENABLED
   desc: |
     The opposite of the value of the `no-local-hooks` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   values:
     - true
     - false
@@ -325,14 +325,14 @@ variables:
 - name: BUILDKITE_PLUGINS_ENABLED
   desc: |
     The opposite of the value of the `no-plugins` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   values:
     - true
     - false
 - name: BUILDKITE_PLUGINS_PATH
   desc: |
     The value of the `plugins-path` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   example: "/etc/buildkite-agent/plugins/"
 - name: BUILDKITE_PLUGIN_VALIDATION
   desc: |
@@ -371,11 +371,12 @@ variables:
 - name: BUILDKITE_REFSPEC
   desc: |
     A custom refspec for the buildkite-agent bootstrap script to use when checking out code. This variable can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
-  modifable: true
+  modifiable: true
   example: "+refs/weird/123abc:refs/local/weird/456"
 - name: BUILDKITE_REPO
   desc: |
     The repository of your pipeline. This variable can be set by exporting the environment variable in the `environment` or `pre-checkout` hooks.
+  modifiable: true
   example: "git@github.com:acme-inc/my-project.git"
 - name: BUILDKITE_REPO_MIRROR
   desc: |
@@ -423,7 +424,7 @@ variables:
 - name: BUILDKITE_SHELL
   desc: |
     The value of the `shell` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   example: "\"/bin/bash -e -c\""
 - name: BUILDKITE_SOURCE
   desc: |
@@ -439,19 +440,19 @@ variables:
 - name: BUILDKITE_SSH_KEYSCAN
   desc: |
     The opposite of the value of the `no-ssh-keyscan` [agent configuration option](/docs/agent/v3/configuration).
-  modifable: false
+  modifiable: false
   values:
     - true
     - false
 - name: BUILDKITE_STEP_ID
   desc: |
     A unique string that identifies a step.
-  modifable: false
+  modifiable: false
   example: "080b7d73-986d-4a39-a510-b34f9faf4710"
 - name: BUILDKITE_STEP_KEY
   desc: |
     The value of the `key` [command step attribute](/docs/pipelines/command-step#command-step-attributes), a unique string set by you to identify a step.
-  modifable: false
+  modifiable: false
   example: "tests-06"
 - name: BUILDKITE_TAG
   desc: |

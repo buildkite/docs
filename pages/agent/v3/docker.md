@@ -21,7 +21,7 @@ docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "
 ```
 
 >🚧 Caveats for builds that need Docker access.
-> If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.</a>.
+> If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.
 
 ## Version tagging
 

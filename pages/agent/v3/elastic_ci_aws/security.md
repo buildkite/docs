@@ -7,7 +7,7 @@ The S3 buckets that Buildkite Agent creates for secrets don't allow public acces
 * `VpcId`
 * `Subnets`
 * `AvailabilityZones`
-* `SecurityGroupId`
+* `SecurityGroupIds`
 
 Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) also has access to your secrets bucket files.
 
