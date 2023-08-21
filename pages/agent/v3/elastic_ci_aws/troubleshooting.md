@@ -37,9 +37,9 @@ To fix this issue, change or add more instance types to the `InstanceTypes` temp
 
 ## Instances are abruptly terminated
 
-This can happen when using Spot Instances. AWS EC2 sends a notification to a spot instance 2 minutes prior to termination. The agent intercepts that notification and attempts to gracefully shutdown. If the instance does not shut down gracefully in that time, it is terminated.
+This can happen when using Spot Instances. AWS EC2 sends a notification to a spot instance 2 minutes prior to termination. The agent intercepts that notification and attempts to gracefully shut down. If the instance does not shut down gracefully in that time, it is terminated.
 
-If 100% of your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting `OnDemandPercentage` parameter to a value above zero.
+If all your existing instances are Spot Instances, switch some of them to On-Demand Instances by setting the `OnDemandPercentage` parameter to a value above zero.
 
 ## Stacks over-provision agents
 
