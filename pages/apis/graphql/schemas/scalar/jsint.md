@@ -22,6 +22,4 @@ toc: false
 <!-- vale on -->
 
 
-Represents non-fractional signed whole numeric values.
-
-`JSInt` can represent values between -(2^53) + 1 and 2^53 - 1.
+Represents non-fractional signed whole numeric values.  `JSInt` can represent values between -(2^53) + 1 and 2^53 - 1.

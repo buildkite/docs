@@ -39,6 +39,6 @@ All the possible SSO Provider types
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>SAML</code></strong></p><p>An SSO Provider configured to use SAML</p></td></tr><tr><td><p><strong><code>GOOGLE_GSUITE</code></strong></p><p>A SSO Provider configured to use Google G Suite for authorization</p></td></tr><tr><td><p><strong><code>GITHUB_APP</code></strong></p><p>A SSO Provider configured to use a GitHub App for authorization</p></td></tr>
+    <tr><td><p><strong><code>GITHUB_APP</code></strong></p><p>A SSO Provider configured to use a GitHub App for authorization</p></td></tr><tr><td><p><strong><code>GOOGLE_GSUITE</code></strong></p><p>A SSO Provider configured to use Google G Suite for authorization</p></td></tr><tr><td><p><strong><code>SAML</code></strong></p><p>An SSO Provider configured to use SAML</p></td></tr>
   </tbody>
 </table>

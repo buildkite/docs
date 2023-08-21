@@ -2,6 +2,7 @@ require 'json'
 require 'yaml'
 require "active_support"
 require "active_support/core_ext"
+require "graphql/client/schema"
 
 require_relative 'graphql_api_content/schema'
 require_relative 'graphql_api_content/render_helpers'

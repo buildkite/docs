@@ -39,6 +39,6 @@ All the possible namespaces for a notice
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>CHANGE</code></strong></p><p>A change to an existing feature</p></td></tr><tr><td><p><strong><code>EMAIL_SUGGESTION</code></strong></p><p>The user has had an email suggested to them</p></td></tr><tr><td><p><strong><code>FEATURE</code></strong></p><p>A new feature was added</p></td></tr><tr><td><p><strong><code>EVENT</code></strong></p><p>An event announcement</p></td></tr>
+    <tr><td><p><strong><code>CHANGE</code></strong></p><p>A change to an existing feature</p></td></tr><tr><td><p><strong><code>EMAIL_SUGGESTION</code></strong></p><p>The user has had an email suggested to them</p></td></tr><tr><td><p><strong><code>EVENT</code></strong></p><p>An event announcement</p></td></tr><tr><td><p><strong><code>FEATURE</code></strong></p><p>A new feature was added</p></td></tr>
   </tbody>
 </table>

@@ -39,6 +39,6 @@ The different orders you can sort team members by
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>NAME</code></strong></p><p>Order by name alphabetically</p></td></tr><tr><td><p><strong><code>RELEVANCE</code></strong></p><p>Order by most relevant results when doing a search</p></td></tr><tr><td><p><strong><code>RECENTLY_CREATED</code></strong></p><p>Order by the most recently added members first</p></td></tr>
+    <tr><td><p><strong><code>NAME</code></strong></p><p>Order by name alphabetically</p></td></tr><tr><td><p><strong><code>RECENTLY_CREATED</code></strong></p><p>Order by the most recently added members first</p></td></tr><tr><td><p><strong><code>RELEVANCE</code></strong></p><p>Order by most relevant results when doing a search</p></td></tr>
   </tbody>
 </table>

@@ -39,6 +39,6 @@ All the possible states an SSO Authorization
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>VERIFIED</code></strong></p><p>The authorization has been verified and is in use</p></td></tr><tr><td><p><strong><code>VERIFIED_USER_SESSION_DESTROYED</code></strong></p><p>The authorization was verified but has since been destroyed as the user logged out of that session</p></td></tr><tr><td><p><strong><code>VERIFIED_REVOKED</code></strong></p><p>The authorization was verified but has since been manually revoked</p></td></tr><tr><td><p><strong><code>VERIFIED_EXPIRED</code></strong></p><p>The authorization was verified but has since expired</p></td></tr>
+    <tr><td><p><strong><code>VERIFIED</code></strong></p><p>The authorization has been verified and is in use</p></td></tr><tr><td><p><strong><code>VERIFIED_EXPIRED</code></strong></p><p>The authorization was verified but has since expired</p></td></tr><tr><td><p><strong><code>VERIFIED_REVOKED</code></strong></p><p>The authorization was verified but has since been manually revoked</p></td></tr><tr><td><p><strong><code>VERIFIED_USER_SESSION_DESTROYED</code></strong></p><p>The authorization was verified but has since been destroyed as the user logged out of that session</p></td></tr>
   </tbody>
 </table>

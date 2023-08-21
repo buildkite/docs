@@ -39,6 +39,6 @@ The visibility of the pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>PUBLIC</code></strong></p><p>The pipeline is public</p></td></tr><tr><td><p><strong><code>PRIVATE</code></strong></p><p>The pipeline is private</p></td></tr>
+    <tr><td><p><strong><code>PRIVATE</code></strong></p><p>The pipeline is private</p></td></tr><tr><td><p><strong><code>PUBLIC</code></strong></p><p>The pipeline is public</p></td></tr>
   </tbody>
 </table>

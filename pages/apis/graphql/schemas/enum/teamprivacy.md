@@ -39,6 +39,6 @@ Whether a team is visible or secret within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>VISIBLE</code></strong></p><p>Visible to all members of the organization</p></td></tr><tr><td><p><strong><code>SECRET</code></strong></p><p>Visible to organization administrators and members</p></td></tr>
+    <tr><td><p><strong><code>SECRET</code></strong></p><p>Visible to organization administrators and members</p></td></tr><tr><td><p><strong><code>VISIBLE</code></strong></p><p>Visible to all members of the organization</p></td></tr>
   </tbody>
 </table>

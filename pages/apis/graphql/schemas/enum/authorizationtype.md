@@ -39,6 +39,6 @@ The type of the authorization
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>GITHUB</code></strong></p><p>GitHub Authorization</p></td></tr><tr><td><p><strong><code>GITHUB_ENTERPRISE</code></strong></p><p>GitHub Enterprise Authorization</p></td></tr><tr><td><p><strong><code>BITBUCKET</code></strong></p><p>Bitbucket Authorization</p></td></tr>
+    <tr><td><p><strong><code>BITBUCKET</code></strong></p><p>Bitbucket Authorization</p></td></tr><tr><td><p><strong><code>GITHUB</code></strong></p><p>GitHub Authorization</p></td></tr><tr><td><p><strong><code>GITHUB_ENTERPRISE</code></strong></p><p>GitHub Enterprise Authorization</p></td></tr>
   </tbody>
 </table>

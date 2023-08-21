@@ -39,6 +39,6 @@ All the possible states an SSO Provider can be in
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>CREATED</code></strong></p><p>The SSO Provider has been created, but has not been enabled for use yet</p></td></tr><tr><td><p><strong><code>ENABLED</code></strong></p><p>The SSO Provider has been setup correctly and can be used by users</p></td></tr><tr><td><p><strong><code>DISABLED</code></strong></p><p>The SSO Provider has been disabled and can't be used directly</p></td></tr>
+    <tr><td><p><strong><code>CREATED</code></strong></p><p>The SSO Provider has been created, but has not been enabled for use yet</p></td></tr><tr><td><p><strong><code>DISABLED</code></strong></p><p>The SSO Provider has been disabled and can't be used directly</p></td></tr><tr><td><p><strong><code>ENABLED</code></strong></p><p>The SSO Provider has been setup correctly and can be used by users</p></td></tr>
   </tbody>
 </table>

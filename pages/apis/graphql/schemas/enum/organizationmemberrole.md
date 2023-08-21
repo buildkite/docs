@@ -39,6 +39,6 @@ The roles a user can be within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>MEMBER</code></strong></p><p>The user is a regular member of the organization</p></td></tr><tr><td><p><strong><code>ADMIN</code></strong></p><p>Has full access to the entire organization</p></td></tr>
+    <tr><td><p><strong><code>ADMIN</code></strong></p><p>Has full access to the entire organization</p></td></tr><tr><td><p><strong><code>MEMBER</code></strong></p><p>The user is a regular member of the organization</p></td></tr>
   </tbody>
 </table>

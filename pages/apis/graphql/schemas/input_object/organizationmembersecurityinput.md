@@ -33,6 +33,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>twoFactorEnabled</code></strong><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></p></td></tr><tr><td><p><strong><code>passwordProtected</code></strong><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></p></td></tr>
+    <tr><td><p><strong><code>passwordProtected</code></strong><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></p></td></tr><tr><td><p><strong><code>twoFactorEnabled</code></strong><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></p></td></tr>
   </tbody>
 </table>

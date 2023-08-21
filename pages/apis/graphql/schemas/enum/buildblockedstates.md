@@ -39,6 +39,6 @@ All the possible blocked states a build can be in
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>RUNNING</code></strong></p><p>The blocked build is running</p></td></tr><tr><td><p><strong><code>PASSED</code></strong></p><p>The blocked build is passed</p></td></tr><tr><td><p><strong><code>FAILED</code></strong></p><p>The blocked build is failed</p></td></tr>
+    <tr><td><p><strong><code>FAILED</code></strong></p><p>The blocked build is failed</p></td></tr><tr><td><p><strong><code>PASSED</code></strong></p><p>The blocked build is passed</p></td></tr><tr><td><p><strong><code>RUNNING</code></strong></p><p>The blocked build is running</p></td></tr>
   </tbody>
 </table>
