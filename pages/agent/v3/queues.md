@@ -28,12 +28,17 @@ buildkite-agent start --tags "queue=building,queue=testing"
 
 ## Targeting a queue
 
-Target specific queues using the `agents` attribute on your pipeline steps.
+Target specific queues using the `agents` attribute on your pipeline steps or at the root level for the entire pipeline.
 
-For example, the following build step matches only agents running on the `deploy` queue (and ignores the agents running the `default` queue):
+For example, the following pipeline would run on the `priority` queue as determined by the root level `agents` attribute (and ignores the agents running the `default` queue). The `tests.sh` build step matches only agents running on the `deploy` queue.
 
 ```yaml
+agents:
+  queue: "priority"
+
 steps:
+  - command: echo "hello"
+
   - command: tests.sh
     agents:
       queue: "deploy"
