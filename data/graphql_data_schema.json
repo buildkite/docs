@@ -3835,37 +3835,25 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_TEMPLATE",
+              "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TEAM_MEMBER",
+              "name": "API_ACCESS_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TEAM_PIPELINE",
+              "name": "CLUSTER_QUEUE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "TEAM_SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SCM_PIPELINE_SETTINGS",
+              "name": "CLUSTER_TOKEN",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3877,31 +3865,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_REPOSITORY_HOST",
+              "name": "NOTIFICATION_SERVICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "SUITE_MONITOR",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_TOTP",
+              "name": "ORGANIZATION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3913,7 +3883,79 @@
               "deprecationReason": null
             },
             {
+              "name": "PIPELINE_SCHEDULE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_TEMPLATE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "CLUSTER_PERMISSION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_SERVICE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_REPOSITORY_HOST",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SCM_PIPELINE_SETTINGS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SUBSCRIPTION",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_TOTP",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3925,7 +3967,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER_PERMISSION",
+              "name": "SUITE_MONITOR",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3949,49 +3991,7 @@
               "deprecationReason": null
             },
             {
-              "name": "AGENT_TOKEN",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "API_ACCESS_TOKEN",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_QUEUE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_TOKEN",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NOTIFICATION_SERVICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "ORGANIZATION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "PIPELINE_SCHEDULE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -15553,6 +15553,35 @@
               "deprecationReason": null
             },
             {
+              "name": "organizationCreate",
+              "description": "Create a new organization.",
+              "args": [
+                {
+                  "name": "input",
+                  "description": "Parameters for OrganizationCreate",
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "OrganizationCreateInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null,
+                  "isDeprecated": false,
+                  "deprecationReason": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "OrganizationCreatePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "organizationInvitationCreate",
               "description": "Send email invitations to this organization.",
               "args": [
@@ -19971,6 +20000,98 @@
               "name": "Connection",
               "ofType": null
             }
+          ],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "OrganizationCreateInput",
+          "description": "Autogenerated input type of OrganizationCreate",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "name",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "slug",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "OrganizationCreatePayload",
+          "description": "Autogenerated return type of OrganizationCreate.",
+          "fields": [
+            {
+              "name": "clientMutationId",
+              "description": "A unique identifier for the client performing the mutation.",
+              "args": [
+
+              ],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "organization",
+              "description": null,
+              "args": [
+
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Organization",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [
+
           ],
           "enumValues": null,
           "possibleTypes": null
