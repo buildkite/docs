@@ -263,11 +263,11 @@ A failure expanded array contains extra details about the failed test.
     "  -false","  +true"
   ],
   "backtrace": [
-    "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
-    "./spec/support/log.rb:66:in `block (2 levels) in \u003ctop (required)\u003e'",
-    "./spec/support/database.rb:19:in `block (2 levels) in \u003ctop (required)\u003e'",
+    "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in <top (required)>'","./spec/support/log.rb:17:in `run'",
+    "./spec/support/log.rb:66:in `block (2 levels) in <top (required)>'",
+    "./spec/support/database.rb:19:in `block (2 levels) in <top (required)>'",
     "/Users/abc/Documents/rspec-buildkite-analytics/lib/rspec/buildkite/analytics/uploader.rb:153:in `block (2 levels) in configure'",
-    "-e:1:in `\u003cmain\u003e'"
+    "-e:1:in `<main>'"
   ]
 }
 ```
