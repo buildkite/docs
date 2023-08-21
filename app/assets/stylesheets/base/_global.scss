@@ -5,6 +5,7 @@ html {
   font-size: $font-size-base;
   font-weight: normal;
   line-height: map-get($line-heights, "default");
+  scroll-behavior: smooth;
 }
 
 .system-font {
