@@ -29,31 +29,31 @@ module NavData
         "children" => [
           {
             "name" => "Pipelines",
-            "path" => "apis/graphql/cookbook/pipelines"
+            "path" => "apis/graphql/cookbooks/pipelines"
           },
           {
             "name" => "Builds",
-            "path" => "apis/graphql/cookbook/builds"
+            "path" => "apis/graphql/cookbooks/builds"
           },
           {
             "name" => "Jobs",
-            "path" => "apis/graphql/cookbook/jobs"
+            "path" => "apis/graphql/cookbooks/jobs"
           },
           {
             "name" => "Agents",
-            "path" => "apis/graphql/cookbook/agents"
+            "path" => "apis/graphql/cookbooks/agents"
           },
           {
             "name" => "Clusters",
-            "path" => "apis/graphql/cookbook/clusters"
+            "path" => "apis/graphql/cookbooks/clusters"
           },
           {
             "name" => "Organizations",
-            "path" => "apis/graphql/cookbook/organizations"
+            "path" => "apis/graphql/cookbooks/organizations"
           },
           {
             "name" => "Teams",
-            "path" => "apis/graphql/cookbook/teams"
+            "path" => "apis/graphql/cookbooks/teams"
           }
         ]
       },
