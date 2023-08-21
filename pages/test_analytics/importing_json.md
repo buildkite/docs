@@ -253,14 +253,14 @@ A failure expanded array contains extra details about the failed test.
 ```js
 {
   "expanded": [
-  "  expected: false",
-  "       got: true",
-  "",
-  "  (compared using ==)",
-  "",
-  "  Diff:",
-  "  @@ -1 +1 @@",
-  "  -false","  +true"
+    "  expected: false",
+    "       got: true",
+    "",
+    "  (compared using ==)",
+    "",
+    "  Diff:",
+    "  @@ -1 +1 @@",
+    "  -false","  +true"
   ],
   "backtrace": [
     "./spec/models/analytics/upload_spec.rb:25:in `block (3 levels) in \u003ctop (required)\u003e'","./spec/support/log.rb:17:in `run'",
