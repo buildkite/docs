@@ -171,7 +171,50 @@ a.Docs__example-repo {
 
   .Docs__heading__anchor {
     color: map-get($color-aliases, "text-display");
+    display: block;
     text-decoration: none;
+
+    &:before,
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      transition: opacity 0.2s ease;
+    }
+
+    &:before {
+      color: $navy-600;
+      width: 24px;
+      height: 24px;
+      top: 2;
+      left: 0;
+      opacity: 0;
+      margin-left: -32px;
+      z-index: 3;
+      border-radius: 8px;
+      background-color: #fff;
+      background-image: asset-url("icons/anchor");
+      background-position: 50% 50%;
+      background-repeat: no-repeat;
+      box-shadow: 
+        0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(0, 0, 0, 0.1);
+    }
+
+    &:after {
+      width: 32px;
+      top: 0;
+      bottom: 0;
+      margin-left: -32px;
+    }
+
+    &:hover:before {
+      box-shadow: 
+        0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04),
+        0 0 0 1px rgba(0, 0, 0, 0.2);
+    }
 
     &:hover,
     &:active,
@@ -181,11 +224,7 @@ a.Docs__example-repo {
 
     &:hover {
       &:before {
-        content: "#";
-        color: map-get($color-aliases, "border");
-        font-weight: normal;
-        position: absolute;
-        left: -1.5rem;
+        opacity: 1;
       }
     }
   }
