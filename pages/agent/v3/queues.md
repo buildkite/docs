@@ -4,6 +4,7 @@ Each pipeline has the ability to separate jobs using queues. This allows you to 
 
 Common use cases for queues include deployment agents, and pools of agents for specific pipelines or teams.
 
+Alternatively you can use [branch patterns](/docs/pipelines/branch-configuration) to ensure pipelines and build steps are only built when necessary (determined by branch name).
 
 ## The default queue
 
