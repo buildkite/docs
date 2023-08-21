@@ -70,12 +70,12 @@ $slate-900: #151921;
 
 // color aliases
 $color-aliases: (
-  "text-base": $charcoal-700,
-  "text-lightest": $charcoal-300,
+  "text-base": $navy-800,
+  "text-lightest": $navy-600,
   "text-link": $purple-600,
   "text-link-hover": $purple-700,
-  "text-display": $slate-900,
-  "text-body": $charcoal-400,
+  "text-display": $navy-900,
+  "text-body": '#433f57',
   "button-primary": $olive-700,
   "button-primary-hover": $olive-800,
   "button-purple": $purple-600,
@@ -93,13 +93,12 @@ $color-aliases: (
 
 // typography
 $font-size-base: 16px;
-$font-size-template: 0.9375rem;
-$font-size-body: 1.125rem;
+$font-size-template: 0.875rem;
+$font-size-body: 1rem;
 $font-size-code: 0.875em;
-$font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-  "Helvetica Neue", Helvetica, sans-serif;
+$font-family-system: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-display: "Aeonik", $font-family-system;
-$font-family-body: "Maison Neue", $font-family-system;
+$font-family-body: $font-family-system;
 $font-family-base: $font-family-body;
 $line-heights: (
   "default": 1.5,
@@ -119,13 +118,13 @@ $screen-xl: 1536px;
 // settings
 $gutter: 32px;
 $max-w: (
-  "outer-container": 1600px,
+  "outer-container": 1520px,
   "container": 1440px,
   "narrow-container": 960px,
-  "prose": 752px,
+  "prose": 712px,
   "search": 500px,
 );
-$rounded: 5px;
+$rounded: 6px;
 $rounded-lg: 16px;
 $transition-speed: 150ms;
 $filter-brand-green: invert(58%) sepia(82%) saturate(466%) hue-rotate(103deg)

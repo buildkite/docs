@@ -183,7 +183,6 @@ a.Docs__example-repo {
       &:before {
         content: "#";
         color: map-get($color-aliases, "border");
-        font-size: 2rem;
         font-weight: normal;
         position: absolute;
         left: -1.5rem;

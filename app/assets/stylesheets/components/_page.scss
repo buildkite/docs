@@ -2,7 +2,7 @@ $md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
 $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
 .PageContainer {
-  @include container;
+  @include container("outer-container");
 }
 
 .Page {

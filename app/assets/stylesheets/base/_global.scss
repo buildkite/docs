@@ -18,19 +18,19 @@ body {
 }
 
 h1 {
-  @include heading(3, $line-height: "tightest");
+  @include heading(1.5, $line-height: "tightest");
 }
 
 h2 {
-  @include heading(2);
+  @include heading(1.25);
 }
 
 h3 {
-  @include heading(1.5);
+  @include heading(1.1875);
 }
 
 h4 {
-  @include heading(1.1875);
+  @include heading(1);
 }
 
 h5 {
