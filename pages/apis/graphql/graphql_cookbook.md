@@ -176,6 +176,24 @@ mutation PipelineDelete {
 }
 ```
 
+### Update pipeline schedule with multiple environment variables
+
+You can set multiple environment variables on a pipeline schedule by using the new-line value `\n` as a delimiter.
+
+```graphql
+mutation UpdateSchedule {
+  pipelineScheduleUpdate(input:{
+    id: "schedule-id"
+    env: "FOO=bar\nBAR=foo"
+  }) {
+    pipelineSchedule {
+      id
+      env
+    }
+  }
+}
+```
+
 ## Builds
 
 A collection of common tasks with builds using the GraphQL API.
@@ -403,7 +421,7 @@ mutation PipelineUpdate {
   nextBuildNumber: 300
   }) {
     pipeline {
-      name 
+      name
       nextBuildNumber
     }
   }
@@ -714,7 +732,7 @@ To obtain jobs within a cluster queue of a particular state, use the `clusterQue
 query getClusterQueueJobsByJobState {
   organization(slug: "organization-slug") {
     jobs(
-      first: 10, 
+      first: 10,
       clusterQueue: "cluster-queue-id",
       state: [WAITING, BLOCKED]
     ){
@@ -1242,7 +1260,7 @@ query TeamPipelineIDs {
     pipelines(first: 500) {
       edges {
         node {
-          id 
+          id
         }
       }
     }
@@ -1273,43 +1291,6 @@ mutation UpdateTeamPipelineReadonly {
       }
     }
     clientMutationId
-  }
-}
-```
-
-## Update multiple environment variables for a schedule
-
-This updates a schedules environment variables by using the new-line value "\n" as a delimiter.
-
-First, find the schedule's ID:
-
-```graphql
-query GetSchedules {
-  pipeline(slug: "organization/pipeline") {
-    schedules(first: 500) {
-      edges {
-        node {
-          id
-          label
-        }
-      }
-    }
-  }
-}
-```
-
-Then, use the ID to delete the user:
-
-```graphql
-mutation UpdateSchedule {
-  pipelineScheduleUpdate(input:{
-    id: "schedule-id"
-    env: "FOO=bar\nBAR=foo"
-  }) {
-    pipelineSchedule {
-      id
-      env
-    }
   }
 }
 ```
