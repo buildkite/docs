@@ -1,4 +1,4 @@
-## Organizations
+# Organizations
 
 A collection of common tasks with organizations using the GraphQL API.
 
@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-### List organization members
+## List organization members
 
 List the first 100 members in the organization.
 
@@ -30,7 +30,7 @@ query getOrgMembers{
 }
 ```
 
-### Search for organization members
+## Search for organization members
 
 Look up organization members using their email address.
 
@@ -53,7 +53,7 @@ query getOrgMember{
 }
 ```
 
-### Get the most recent SSO sign-in for all users
+## Get the most recent SSO sign-in for all users
 
 Use this to get the last sign-in date for users in your organization, if your organization has SSO enabled.
 
@@ -84,7 +84,7 @@ query getRecentSignOn {
 }
 ```
 
-### Update the default SSO provider session duration
+## Update the default SSO provider session duration
 
 You can control how long the session can go before the user must revalidate with your SSO. By default that's indefinite, but you can reduce it down to hours or days.
 
@@ -98,7 +98,7 @@ mutation UpdateSessionDuration {
 }
 ```
 
-### Update inactive API token revocation
+## Update inactive API token revocation
 
 On the Enterprise plan, you can control when inactive API tokens are revoked. By default, they are never (`NEVER`) revoked, but you can set your token revocation to either 30, 60, 90, 180, or 365 days.
 
@@ -115,7 +115,7 @@ mutation UpdateRevokeInactiveTokenPeriod {
 }
 ```
 
-### Pin SSO sessions to IP addresses
+## Pin SSO sessions to IP addresses
 
 You can require users to re-authenticate with your SSO provider when their IP address changes with the following call, replacing `ID` with the GraphQL ID of the SSO provider:
 
@@ -129,7 +129,7 @@ mutation UpdateSessionIPAddressPinning {
 }
 ```
 
-### Query the usage API
+## Query the usage API
 
 Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
 
@@ -174,7 +174,7 @@ query Usage {
 }
 ```
 
-### Create a user, add them to a team, and set user permissions
+## Create a user, add them to a team, and set user permissions
 
 Invite a new user to the organization, add them to a team, and set their role.
 
@@ -223,7 +223,7 @@ mutation CreateUser {
 
 
 
-### Delete an organization member
+## Delete an organization member
 
 This deletes a member from an organization. It does not delete their Buildkite user account.
 
@@ -263,7 +263,7 @@ mutation deleteOrgMember {
 }
 ```
 
-### Get organization audit events
+## Get organization audit events
 
 Query your organization's audit events. Audit events are only available to Enterprise customers.
 

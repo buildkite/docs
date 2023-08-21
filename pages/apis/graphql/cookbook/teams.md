@@ -1,4 +1,4 @@
-## Teams
+# Teams
 
 A collection of common tasks with teams using the GraphQL API.
 
@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-### Create a team
+## Create a team
 
 Create a new team.
 
@@ -47,7 +47,7 @@ mutation CreateTeam {
 }
 ```
 
-### Add an existing organization user to a team
+## Add an existing organization user to a team
 
 Add an organization member to a team. This does not create a new user.
 
@@ -82,7 +82,7 @@ mutation addTeamMember{
 }
 ```
 
-### Remove a team member
+## Remove a team member
 
 This deletes a user from a team, but not from the organization.
 
@@ -129,7 +129,7 @@ mutation deleteTeamMember {
 }
 ```
 
-### Get pipelines by team
+## Get pipelines by team
 
 To get the first 100 pipelines managed by the first 100 teams, use the following query.
 
@@ -168,7 +168,7 @@ query getPipelinesByTeam {
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
-### Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
+## Set teams' pipeline edit access to READ_ONLY or BUILD_AND_READ
 
 Remove edit access from existing teams. This is helpful when you want to centralize pipeline edit permissions to a single system user, controlled by an organization admin.
 

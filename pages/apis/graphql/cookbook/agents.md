@@ -1,4 +1,4 @@
-## Agents
+# Agents
 
 A collection of common tasks with agents using the GraphQL API.
 
@@ -8,7 +8,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
 
-### Get a list of agent token IDs
+## Get a list of agent token IDs
 
 Get the first five agent token IDs for an organization.
 
@@ -29,7 +29,7 @@ query token {
 }
 ```
 
-### Search for agents in an organization
+## Search for agents in an organization
 
 ```graphql
 query SearchAgent {
@@ -47,7 +47,7 @@ query SearchAgent {
 }
 ```
 
-### Revoke an agent token
+## Revoke an agent token
 
 Revoking an agent token means no new agents can start using the token. It does not affect any connected agents.
 

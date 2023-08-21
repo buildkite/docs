@@ -1,4 +1,4 @@
-## Clusters
+# Clusters
 
 A collection of common tasks with clusters using the GraphQL API.
 
@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-### List cluster IDs
+## List cluster IDs
 
 Get the first 10 clusters and their information for an organization:
 
@@ -28,7 +28,7 @@ query getClusters {
 }
 ```
 
-### List cluster queue IDs
+## List cluster queue IDs
 
 Get the first 10 cluster queues for a particular cluster by specifying its UUID in `cluster-uuid`:
 
@@ -51,7 +51,7 @@ query getClusterQueues {
 }
 ```
 
-### List jobs in a particular cluster queue
+## List jobs in a particular cluster queue
 
 To get jobs within a cluster queue, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from:
 

@@ -1,4 +1,4 @@
-## Jobs
+# Jobs
 
 A collection of common tasks with jobs using the GraphQL API.
 
@@ -8,7 +8,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
 
-### Get all jobs in a given queue for a given timeframe
+## Get all jobs in a given queue for a given timeframe
 
 Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name, so you can omit the `agentQueryRules` option.
 
@@ -49,7 +49,7 @@ query PipelineRecentBuildLastJobQueue {
 }
 ```
 
-### Get all jobs in a particular concurrency group
+## Get all jobs in a particular concurrency group
 
 To see which jobs are waiting for a concurrency group in case the secret URL fails, you can use the following query.
 
@@ -69,7 +69,7 @@ query getConcurrency {
   }
 }
 ```
-### Get the last job of an agent
+## Get the last job of an agent
 
 To get the last job of an agent or `null`. You will need to know the UUID of the agent.
 
@@ -92,7 +92,7 @@ query AgentJobs {
 }
 ```
 
-### Get the job run time per build
+## Get the job run time per build
 
 To get the run time of each job in a build, you can use the following query.
 
@@ -112,7 +112,7 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
-### Cancel a job
+## Cancel a job
 
 If you need to cancel a job, you can use the following call with the job's ID:
 

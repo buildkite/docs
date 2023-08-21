@@ -1,4 +1,4 @@
-## Pipelines
+# Pipelines
 
 A collection of common tasks with pipelines using the GraphQL API.
 
@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-### Create a pipeline
+## Create a pipeline
 
 Create a pipeline programmatically.
 
@@ -62,7 +62,7 @@ When setting pipeline steps using the API, you must pass in a string that Buildk
 steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
 </code>
 
-### Get a list of recently created pipelines
+## Get a list of recently created pipelines
 
 Get a list of the 500 most recently created pipelines.
 
@@ -80,7 +80,7 @@ query RecentPipelineSlugs {
 }
 ```
 
-### Get a pipeline's UUID
+## Get a pipeline's UUID
 
 Get a pipeline's UUID by searching for it in the API. Search term can match a pipeline slug.
 
@@ -101,7 +101,7 @@ query GetPipelineUUID {
 }
 ```
 
-### Get a pipeline's information
+## Get a pipeline's information
 
 You can get specific pipeline information for each of your pipeline. You can retrieve information for each build, jobs, and any other information listed on [this](https://buildkite.com/docs/apis/graphql/schemas/object/pipeline) page.
 
@@ -122,7 +122,7 @@ query GetPipelineInfo {
 }
 ```
 
-### Get pipeline metrics
+## Get pipeline metrics
 
 The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week, for each pipeline. You can also access this information through the API.
 
@@ -149,7 +149,7 @@ query AllPipelineMetrics {
 }
 ```
 
-### Delete a pipeline
+## Delete a pipeline
 
 First, get the ID of the pipeline you want to delete:
 

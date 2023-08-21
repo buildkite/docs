@@ -1,4 +1,4 @@
-## Builds
+# Builds
 
 A collection of common tasks with builds using the GraphQL API.
 
@@ -7,7 +7,7 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-### Get build info by ID
+## Get build info by ID
 
 Get all the available info from a build while only having its UUID.
 
@@ -21,7 +21,7 @@ query GetBuilds {
 }
 ```
 
-### Get all environment variables set on a build
+## Get all environment variables set on a build
 
 Retrieve all of a job's environment variables for a given build. This is the equivalent of what you see in the _Environment_ tab of each build.
 
@@ -43,7 +43,7 @@ query GetEnvVarsBuild {
 }
 ```
 
-### Get all builds for a pipeline
+## Get all builds for a pipeline
 
 Retrieve all of the builds for a given pipeline, including each build's ID, number, and URL.
 
@@ -63,7 +63,7 @@ query GetBuilds {
 }
 ```
 
-### Get the creation date of the most recent build in every pipeline
+## Get the creation date of the most recent build in every pipeline
 
 Get the creation date of the most recent build in every pipeline. Use pagination to handle large responses. Buildkite sorts builds by newest first.
 
@@ -125,7 +125,7 @@ query {
 }
 ```
 
-### Get number of builds between two dates
+## Get number of builds between two dates
 
 This query helps you understand how many job minutes you've used by looking at the number of builds. While not equivalent, there's a correlation between the number of builds and job minutes. So, looking at the number of builds in different periods gives you an idea of how the job minutes would compare in those periods.
 
@@ -146,7 +146,7 @@ query PipelineBuildCountForPeriod {
 }
 ```
 
-### Get all builds with a certain state between two dates
+## Get all builds with a certain state between two dates
 
 This query allows you to find all builds with the same state (for example, `running`) that were started within a certain time frame. For example, you could find all builds that started at a particular point and failed or are still running.
 
@@ -181,7 +181,7 @@ query {
 }
 ```
 
-### Count the number of builds on a branch
+## Count the number of builds on a branch
 
 Count how many builds a pipeline has done for a given repository branch.
 
@@ -207,7 +207,7 @@ query PipelineBuildCountForBranchQuery {
 }
 ```
 
-### Increase the next build number
+## Increase the next build number
 
 Set the number for the next build to run in this pipeline.
 
@@ -237,7 +237,7 @@ mutation PipelineUpdate {
 }
 ```
 
-### Get the total build run time
+## Get the total build run time
 
 To get the total run time for a build, you can use the following query.
 
