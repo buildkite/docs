@@ -521,5 +521,5 @@ variables:
   example: "everyone:platform"
 - name: CI
   desc: |
-    Always `true".
+    Always `true`.
   modifiable: false
