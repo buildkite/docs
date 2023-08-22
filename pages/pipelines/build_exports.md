@@ -91,13 +91,14 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
   - Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
   - Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
 
-```json
-{
-    "expression": "resource.name.startsWith('projects/_/buckets/YOUR-BUCKET-NAME-HERE/objects/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/')",
-    "title": "Scope build exports prefix",
-    "description": "Allow Buildkite's service-account to create objects only within the build exports prefix",
-}
-```
+    ```json
+    {
+      "expression": "resource.name.startsWith('projects/_/buckets/YOUR-BUCKET-NAME-HERE/objects/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/')",
+      "title": "Scope build exports prefix",
+      "description": "Allow Buildkite's service-account to create objects only within the build exports prefix",
+    }
+    ```
+
     Your Buildkite Organization ID (UUID) can be found on the [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 * Your bucket must grant our Buildkite service-account (`buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com`) `storage.objects.create` permission.
 * Your bucket should use modern Google Cloud Storage security features and configurations, for example (but not limited to):
