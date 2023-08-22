@@ -79,6 +79,23 @@
     margin-top: 2px;
   }
 
+  // It's possible that two elements are being highlighted at the same time
+  // (e.g. when the user is scrolling between two headings). In this case, we
+  // only want to highlight the first one.
+  .Toc__list-item--current + .Toc__list-item--current {
+    > .Toc__link {
+      background-color: initial;
+      color: $charcoal-500;
+    }
+  }
+
+  .Toc__list-item--current {
+    > .Toc__link {
+      background-color: $purple-100;
+      color: $purple-600;
+    }
+  }
+
   .Toc__link {
     border-radius: 5px;
     color: $navy-500;
@@ -87,11 +104,6 @@
     text-decoration: none;
 
     &:hover {
-      color: $purple-600;
-    }
-
-    &--current {
-      background-color: $purple-100;
       color: $purple-600;
     }
   }
