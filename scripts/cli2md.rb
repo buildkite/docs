@@ -46,6 +46,7 @@ ARGF.each_with_index do |line, line_num|
     # helptext for... reasons.
     # See: https://github.com/buildkite/agent/blob/main/clicommand/prime-signs.md
     desc.tr!("′", "`")
+    desc.gsub!(Dir.home, "$HOME")
     print "<tr id=\"#{command}\">"
     print "<th><code>--#{command} #{value}</code> <a class=\"Docs__attribute__link\" href=\"##{command}\">#</a></th>"
     print "<td><p>#{desc}"
