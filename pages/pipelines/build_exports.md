@@ -86,7 +86,7 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 ### Prepare your Google Cloud Storage bucket
 
 * Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices) and [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/).
-* Your bucket must have a policy allowing our Buildkite service-account access as described here and demonstrated in the example below¹.
+* Your bucket must have a policy allowing our Buildkite service-account access as described here.
   - Assign Buildkite's service-account `buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com` the `"Storage Object Creator"`.
   - Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
   - Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
