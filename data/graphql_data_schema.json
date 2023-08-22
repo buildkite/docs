@@ -3835,6 +3835,12 @@
               "deprecationReason": null
             },
             {
+              "name": "CLUSTER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "AGENT_TOKEN",
               "description": null,
               "isDeprecated": false,
@@ -3859,13 +3865,7 @@
               "deprecationReason": null
             },
             {
-              "name": "CLUSTER",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "NOTIFICATION_SERVICE",
+              "name": "CLUSTER_PERMISSION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3883,7 +3883,19 @@
               "deprecationReason": null
             },
             {
+              "name": "NOTIFICATION_SERVICE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "PIPELINE_SCHEDULE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "PIPELINE_TEMPLATE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3901,19 +3913,7 @@
               "deprecationReason": null
             },
             {
-              "name": "PIPELINE_TEMPLATE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "TEAM_PIPELINE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "CLUSTER_PERMISSION",
+              "name": "TEAM_SUITE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3925,7 +3925,7 @@
               "deprecationReason": null
             },
             {
-              "name": "TEAM_SUITE",
+              "name": "SCM_PIPELINE_SETTINGS",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3937,37 +3937,13 @@
               "deprecationReason": null
             },
             {
-              "name": "SCM_PIPELINE_SETTINGS",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUITE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "SUBSCRIPTION",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_TOTP",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "USER_EMAIL",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SUITE_MONITOR",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "TEAM_PIPELINE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -3980,6 +3956,30 @@
             },
             {
               "name": "ORGANIZATION_MEMBER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUITE",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_EMAIL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "USER_TOTP",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "SUBSCRIPTION",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
