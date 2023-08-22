@@ -1,49 +1,25 @@
 export function initToc() {
   const initCurrentLinkListener = () => {
-    const scrollPadding = 125;
-    const currentClassName = "Toc__link--current";
-    const tocLinkNodes = document.querySelectorAll(".Toc__link--h2");
-    const headingNodes = document.querySelectorAll("h2.Docs__heading");
+    const content = document.querySelector(".Page");
 
-    const getDistanceFromTop = (element) => {
-      if (!element.offsetParent) {
-        return element.offsetTop;
-      }
-      return element.offsetTop + getDistanceFromTop(element.offsetParent);
-    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const id = entry.target.getAttribute("id");
 
-    const getHeadingPos = (heading) => getDistanceFromTop(heading);
+          const link = document.querySelector(`.Toc__link--h2[href="#${id}"]`);
+          if (entry.intersectionRatio > 0) {
+            link.parentElement.classList.add("Toc__list-item--current");
+          } else {
+            link.parentElement.classList.remove("Toc__list-item--current");
+          }
+        });
+      },
+      { rootMargin: `-${content.offsetTop}px 0px 0px 0px` }
+    );
 
-    const setCurrentLink = (hash) => {
-      tocLinkNodes.forEach((link) => {
-        link.classList.remove(currentClassName);
-        link.removeAttribute("aria-current");
-      });
-
-      const currentNode = [...tocLinkNodes].find((link) => link.hash === hash);
-      if (currentNode) {
-        currentNode.classList.add(currentClassName);
-        currentNode.setAttribute("aria-current", "");
-      }
-    };
-
-    const handleScroll = () => {
-      const topPos = window.scrollY + scrollPadding;
-
-      headingNodes.forEach((heading) => {
-        const pos = getHeadingPos(heading);
-        if (topPos >= pos) {
-          setCurrentLink(`#${heading.id}`);
-        }
-      });
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    tocLinkNodes.forEach((link) => {
-      link.addEventListener("click", (e) => {
-        setTimeout(() => setCurrentLink(e.target.hash), 25);
-      });
+    document.querySelectorAll("section[id]").forEach((sections) => {
+      observer.observe(sections);
     });
   };
 
