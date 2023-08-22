@@ -66,6 +66,16 @@ The `queue` tag works differently from other tags, and can be used for isolating
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
 
+For example, if a job has agent targeting rules set as shown below then an agent should be present which has both queue=test and postgres=1.9.4 otherwise job will not schedule to an agent.
+
+```yaml
+steps:
+  - command: "script.sh"
+    agents:
+      postgres: '1.9.4'
+      queue: test
+```
+
 ## Sourcing tags from Amazon Web Services
 
 You can load an Agent's tags from the underlying Amazon EC2 instance using `--tags-from-ec2-tags` for the instance tags and `--tags-from-ec2` to load the EC2 metadata (for example, instance name and machine type).
