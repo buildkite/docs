@@ -52,7 +52,7 @@ module RenderHelpers
                           #{row_data["isDeprecated"] ? '<span class="pill pill--deprecated"><code>deprecated</code></span>' : ""}
                         </h3>
                         #{row_data["deprecationReason"] ? "<p><em>Deprecated: #{row_data["deprecationReason"]}</em></p>" : nil}
-                        #{row_data["description"] ? "#{render_html(row_data["description"])}" : nil}
+                        #{row_data["description"] ? "#{render_html(row_data["description"].gsub("\n", " "))}" : nil}
                         #{render_field_args(row_data["args"])}
                       </td>
                     </tr>
@@ -84,7 +84,7 @@ module RenderHelpers
                             <code>#{arg["name"]}</code>
                             #{render_of_type(arg["type"])}
                           </h4>
-                          #{arg["description"] && "#{render_html(arg["description"])}"}
+                          #{arg["description"] && "#{render_html(arg["description"].gsub("\n", " "))}"}
                           #{arg["defaultValue"] && "<p class=\"no-margin\">Default value: <code>#{arg["defaultValue"]}</code></p>"}
                         </td>
                       </tr>
@@ -128,7 +128,7 @@ module RenderHelpers
                         <strong><code>#{input_field["name"]}</code></strong>
                         #{render_of_type(input_field["type"])}
                       </p>
-                      #{input_field["description"] ? "#{render_html(input_field["description"])}" : nil}
+                      #{input_field["description"] ? "#{render_html(input_field["description"].gsub("\n", " "))}" : nil}
                       #{input_field["defaultValue"] ? "<p>Default value: #{input_field["defaultValue"]}</p>" : nil}
                     </td>
                   </tr>
@@ -175,7 +175,7 @@ module RenderHelpers
                         <strong><code>#{enum_value["name"]}</code></strong>
                         #{enum_value["isDeprecated"] ? "<span class=\"pill pill--deprecated\">deprecated</span>" : nil}
                       </p>
-                      #{enum_value["description"] ? "#{render_html(enum_value["description"])}" : nil}
+                      #{enum_value["description"] ? "#{render_html(enum_value["description"].gsub("\n", " "))}" : nil}
                       #{enum_value["deprecationReason"] ? "<p>Deprecated: #{enum_value["deprecationReason"]}</p>" : nil}
                     </td>
                   </tr>
@@ -210,7 +210,7 @@ module RenderHelpers
     interfaces = render_interfaces(schema_type_data["interfaces"])
     enum_values = render_enum_values(schema_type_data["enumValues"])
     valeOff = @@vale_off_pages.any? { |page_name| page_name == name }
-    description = schema_type_data["description"].strip if !schema_type_data["description"].nil?
+    description = schema_type_data["description"].gsub("\n", " ").strip if !schema_type_data["description"].nil?
 
     page_content = <<~HTML.strip
       ---
