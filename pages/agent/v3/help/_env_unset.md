@@ -27,7 +27,7 @@ Note that this subcommand is only available from within the job executor with th
 
 ### Examples
 
-Unsetting the variables `LLAMA` and `ALPACA`)
+Unsetting the variables `LLAMA` and `ALPACA`:
 
 ```shell
 $ buildkite-agent env unset LLAMA ALPACA
