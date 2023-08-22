@@ -6,7 +6,7 @@
       <ul class="Toc__list Toc__list--is-collapsed">
         <% @page.sections.each do |section| %>
           <li class="Toc__list-item">
-            <a class="Toc__link Toc__link--h2" href="#<%= section[:id] %>">
+            <a data-turbo="false" class="Toc__link Toc__link--h2" href="#<%= section[:id] %>">
               <%= section[:header] %>
             </a>
 
@@ -14,7 +14,7 @@
               <ul class="Toc__list">
                 <% section[:subsections].each do |subsection| %>
                   <li class="Toc__list-item">
-                    <a class="Toc__link Toc__link--h3" href="#<%= "#{section[:id]}-#{subsection[:id]}" %>">
+                    <a data-turbo="false" class="Toc__link Toc__link--h3" href="#<%= "#{section[:id]}-#{subsection[:id]}" %>">
                       <%= subsection[:header] %>
                     </a>
                   </li>
