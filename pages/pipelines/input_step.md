@@ -45,7 +45,7 @@ For an example pipeline, see the [Input step example pipeline](https://github.c
 <a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
 
 >🚧 Don't store sensitive data in input steps
-> You shouldn't use input steps to store sensitive information like secrets because the data is available in subsequent steps.
+> You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
 
 ## Input step attributes
 
