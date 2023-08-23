@@ -123,7 +123,7 @@ When you run a pipeline, a build is created. Each of the steps in the pipeline e
 
 <%= image "job-states.svg", size: "1482x690", alt: "Job state diagram" %>
 
-Job State             | Description
+Job state             | Description
 ----------------------| -----------------------------------------
 PENDING               | The job has just been created and doesn't have a state yet
 WAITING               | The job is waiting on a wait step to finish
