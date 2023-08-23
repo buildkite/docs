@@ -88,8 +88,10 @@ ARGF.each_with_index do |line, line_num|
   end
 end
 
-# last line of input was in a table
-puts "</table>\n\n<!-- vale on -->\n" if state == STATE_TABLE
-
-# last line of input was in a code block
-puts "```" if state == STATE_CODE
+# handle when the last line was in a code block or table
+case state
+when STATE_TABLE
+  puts "</table>\n\n<!-- vale on -->\n"
+when STATE_CODE
+  puts "```"
+end
