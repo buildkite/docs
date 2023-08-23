@@ -1,11 +1,17 @@
 $md-screen-margin-top: map-get($header-height, "two-rows");
 $lg-screen-margin-top: map-get($header-height, "one-row");
 
+.PageContainer {
+  padding: 16px;
+  @media (min-width: $screen-md) {
+    padding: 0;
+  }
+}
+
 .Page {
   display: grid;
   grid-template-rows: auto;
 
-  gap: $gutter / 2;
   grid-template-columns: 1fr;
   grid-template-areas:
     "sidebar"
@@ -13,6 +19,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
     "content";
 
   @media (min-width: $screen-md) {
+    gap: $gutter / 2;
     grid-template-columns: 270px 1fr;
     grid-template-areas:
       "sidebar toc"
