@@ -11,7 +11,8 @@ state = STATE_INITIAL
 # read from stdin or files in the args
 ARGF.each_with_index do |line, line_num|
   # Replace all prime symbols with backticks. We use prime symbols instead of backticks in CLI
-  # helptext because Go does not support escaping backticks in backtick delimited strings.
+  # helptext because the cli framework we use, urfave/cli, has special handling for backticks.
+  #
   # See: https://github.com/buildkite/agent/blob/main/clicommand/prime-signs.md
   line.tr!("′", "`")
 
