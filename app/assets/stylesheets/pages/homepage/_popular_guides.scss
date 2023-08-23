@@ -3,10 +3,6 @@
   margin-top: 4rem;
 }
 
-.PopularGuides__heading {
-  @include section-heading;
-}
-
 .PopularGuides__grid {
   display: grid;
   margin-left: $gutter / -2;
@@ -42,9 +38,7 @@
 }
 
 .PopularGuide__title {
-  font-family: $font-family-base;
   font-size: 1rem;
-  font-weight: normal;
   margin-bottom: 0.24rem;
   margin-top: 0;
 }

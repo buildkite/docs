@@ -17,7 +17,6 @@
     border-radius: 0.3em;
     font-size: 1rem;
     width: 100%;
-    font-family: $font-family-base;
     background-color: $base-0;
     border: 1px solid #ccc;
     color: map-get($color-aliases, "text-lightest");
@@ -62,7 +61,6 @@
     border-radius: 3px;
     box-sizing: border-box;
     font-size: #{(21/18)}rem;
-    font-family: $font-family-base;
     font-weight: bold;
     width: 100%;
     text-align: center;

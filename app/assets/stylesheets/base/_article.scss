@@ -1,14 +1,13 @@
 .Article {
   color: map-get($color-aliases, "text-body");
-  font-size: 1.1875rem;
-  line-height: map-get($line-heights, "golden");
 
   > :first-child {
     margin-top: 0;
   }
 
   p {
-    @include margin;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
   }
 
   blockquote,
@@ -98,10 +97,22 @@
     @include style-text-link;
   }
 
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  ol,
+  ul {
+    max-width: map-get($max-w, "prose");
+  }
+
   code {
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
-    font-size: $font-size-code;
+    font-size: map-get($font-size-aliases, "code");
     overflow-wrap: anywhere;
 
     a {
@@ -165,7 +176,7 @@
     }
 
     code {
-      font-size: $font-size-code;
+      font-size: map-get($font-size-aliases, "code");
       line-height: map-get($line-heights, "default");
     }
   }
