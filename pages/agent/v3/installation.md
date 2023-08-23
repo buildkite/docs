@@ -29,7 +29,7 @@ buildkite-agent start --help
 
 If your architecture isn't on the releases page send an email to support and we'll help you out, or check out the [buildkite-agent's readme](https://github.com/buildkite/agent#readme) for instructions on how to compile it yourself.
 
-## Upgrade the agent
+## Upgrade agents
 
 To update your agents, you can either:
 
