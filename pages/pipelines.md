@@ -94,4 +94,4 @@ Job exit status may include the exit signal reason, which indicates whether the 
 <%= image "exit-status.png", width: 2048/2, height: 880/2, alt: "Exit status of a job" %>
 
 >🚧
-> Exit status information available in the <a href="/docs/apis/graphql-api">GraphQL API</a> but not the <a href="/docs/apis/rest-api">REST API</a>.
+> Exit status information is only available using the <a href="/docs/apis/graphql-api">GraphQL API</a>.
