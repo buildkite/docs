@@ -11,6 +11,8 @@
           path: "tutorials/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
+        - name: "Understand the architecture"
+          path: "pipelines/architecture"
         - name: "UI walkthrough"
           path: "pipelines/ui-walkthrough"
         - name: "Glossary"
