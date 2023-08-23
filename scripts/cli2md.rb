@@ -22,9 +22,11 @@ ARGF.each_with_index do |line, line_num|
   # Headings end in `:`
   if /^(\w*):$/ =~ line
     puts "### #{Regexp.last_match(1)}"
+
   # Initial usage command
   elsif line_num == 2
     puts "`#{line.strip}`"
+
   # code blocks
   elsif /^\s{4}/ =~ line
     puts "```shell" unless in_code
@@ -62,7 +64,8 @@ ARGF.each_with_index do |line, line_num|
     print "<br /><strong>Environment variable</strong>: <code>#{env_var}</code>" unless env_var.nil? || env_var.empty?
     print "</p></td>"
     print "</tr>"
-    puts
+    print "\n"
+
   else
     puts CGI.escapeHTML(line.lstrip)
   end
