@@ -11,6 +11,8 @@
           path: "tutorials/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
+        - name: "UI walkthrough"
+          path: "pipelines/ui-walkthrough"
         - name: "Glossary"
           path: "pipelines/glossary"
     - name: Migration
