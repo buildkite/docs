@@ -11,11 +11,7 @@
     "lvl5": ".Page article h6",
     "text": ".Page article p, .Page article li, .Page article td"
   },
-  "selectors_exclude": [
-    "[data-algolia-exclude]",
-    ".Docs__toc",
-    ".HomepageCategory"
-  ],
+  "selectors_exclude": ["[data-algolia-exclude]", ".Toc", ".Footer", ".Nav"],
   "custom_settings": {
     "synonyms": [["Pipeline.yml", "Pipeline.yaml", "config.yml", "config.yaml"]]
   }
