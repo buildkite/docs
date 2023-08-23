@@ -17,6 +17,7 @@ script.
 `buildkite-agent lock done [key]`
 
 ### Description
+
 Completes a do-once lock. This should only be used by the process performing
 the work.
 

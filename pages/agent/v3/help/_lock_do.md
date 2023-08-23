@@ -17,6 +17,7 @@ script.
 `buildkite-agent lock do [key]`
 
 ### Description
+
 Begins a do-once lock. Do-once can be used by multiple processes to
 wait for completion of some shared work, where only one process should do
 the work.

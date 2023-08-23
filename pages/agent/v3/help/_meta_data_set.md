@@ -28,9 +28,11 @@ characters are not allowed.
 
 ### Example
 
-    $ buildkite-agent meta-data set "foo" "bar"
-    $ buildkite-agent meta-data set "foo" < ./tmp/meta-data-value
-    $ ./script/meta-data-generator | buildkite-agent meta-data set "foo"
+```shell
+$ buildkite-agent meta-data set "foo" "bar"
+$ buildkite-agent meta-data set "foo" < ./tmp/meta-data-value
+$ ./script/meta-data-generator | buildkite-agent meta-data set "foo"
+```
 
 ### Options
 

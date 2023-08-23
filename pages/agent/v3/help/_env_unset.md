@@ -17,6 +17,7 @@ script.
 `buildkite-agent env unset [variables]`
 
 ### Description
+
 Unsets environment variables in the current job execution environment.
 Changes to the job environment variables only apply to subsequent phases of the job.
 This command cannot unset Buildkite read-only variables.

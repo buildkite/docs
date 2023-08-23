@@ -17,6 +17,7 @@ script.
 `buildkite-agent env get [variables]`
 
 ### Description
+
 Retrieves environment variables and their current values from the current job
 execution environment.
 
@@ -28,6 +29,7 @@ phases of the job. However, `env get` can be used to inspect the changes made
 with `env set` and `env unset`.
 
 ### Examples
+
 Getting all variables in key=value format:
 
 ```shell

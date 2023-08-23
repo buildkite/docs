@@ -17,6 +17,7 @@ script.
 `buildkite-agent lock get [key]`
 
 ### Description
+
 Retrieves the value of a lock key. Any key not in use returns an empty
 string.
 

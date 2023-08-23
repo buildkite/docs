@@ -39,9 +39,11 @@ must be split into multiple files and uploaded in separate steps.
 
 ### Example
 
-    $ buildkite-agent pipeline upload
-    $ buildkite-agent pipeline upload my-custom-pipeline.yml
-    $ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+```shell
+$ buildkite-agent pipeline upload
+$ buildkite-agent pipeline upload my-custom-pipeline.yml
+$ ./script/dynamic_step_generator | buildkite-agent pipeline upload
+```
 
 ### Options
 

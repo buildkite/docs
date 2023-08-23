@@ -17,16 +17,19 @@ script.
 `buildkite-agent oidc request-token [options...]`
 
 ### Description
+
 Requests and prints an OIDC token from Buildkite that claims the Job ID
 (amongst other things) and the specified audience. If no audience is
 specified, the endpoint&#39;s default audience will be claimed.
 
 ### Example
-    $ buildkite-agent oidc request-token --audience sts.amazonaws.com
+
+```shell
+$ buildkite-agent oidc request-token --audience sts.amazonaws.com
+```
 
 Requests and prints an OIDC token from Buildkite that claims the Job ID
 (amongst other things) and the audience &quot;sts.amazonaws.com&quot;.
-
 
 ### Options
 
