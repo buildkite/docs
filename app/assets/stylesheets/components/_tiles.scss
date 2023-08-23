@@ -27,6 +27,7 @@
 
   .TileItem__title-link {
     color: map-get($color-aliases, "text-base");
+    text-decoration: none;
   }
 
   .TileItem__desc {

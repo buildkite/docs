@@ -1,7 +1,5 @@
 .Article {
-  color: map-get($color-aliases, "text-body");
   font-size: 1rem;
-  line-height: map-get($line-heights, "golden");
 
   > :first-child {
     margin-top: 0;
@@ -9,7 +7,7 @@
 
   p {
     font-size: 1rem; 
-    margin-block: 0.5em;
+    margin-block: 1em;
   }
 
   blockquote,
@@ -19,8 +17,13 @@
   }
 
   li {
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    margin-block: 0.66em;
+    p {
+      margin-block: 0.33em;
+    }
+    li {
+      margin-block: 0.33em;
+    }
   }
 
   ol {

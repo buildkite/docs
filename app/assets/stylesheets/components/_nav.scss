@@ -9,8 +9,6 @@
   &__section {
     display: none;
     flex-direction: column;
-    padding-bottom: 4px;
-    padding-top: 4px;
     width: 100%;
 
     @media (min-width: $screen-md) {
@@ -26,6 +24,7 @@
           flex-direction: row;
         }
       }
+
     }
 
     &--level1 {
@@ -84,7 +83,7 @@
     }
 
     &--current {
-      background-color: map-get($color-aliases, "selected-bg");
+      background-color: map-get($color-aliases, "selected-bg") !important;
       color: map-get($color-aliases, "selected");
     }
 

@@ -18,7 +18,7 @@ body {
 }
 
 h1 {
-  @include heading(1.5, $line-height: "tightest");
+  @include heading(1.5);
 }
 
 h2 {
@@ -26,7 +26,7 @@ h2 {
 }
 
 h3 {
-  @include heading(1.1875);
+  @include heading(1.125);
 }
 
 h4 {
@@ -34,9 +34,9 @@ h4 {
 }
 
 h5 {
-  @include heading(1);
+  @include heading(0.875);
 }
 
 h6 {
-  @include heading(0.875);
+  @include heading(0.75);
 }

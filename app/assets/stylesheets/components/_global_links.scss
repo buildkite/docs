@@ -6,6 +6,10 @@
   @media (min-width: $screen-sm) {
     flex-direction: row;
   }
+
+  li .Button {
+    font-family: $font-family-system;
+  }
 }
 
 .GlobalLinks__call-to-action {

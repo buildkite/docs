@@ -143,8 +143,8 @@ $_pills: (
 
     &[href] {
       color: map-get($_styles, color);
-      text-decoration: underline;
-      text-decoration-color: rgba(map-get($_styles, color), 0.25);
+      text-decoration: none;
+      text-decoration-color: rgba(map-get($_styles, color), 0);
 
       &:hover {
         border-color: map-get($_styles, color);

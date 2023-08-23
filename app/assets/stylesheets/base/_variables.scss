@@ -17,15 +17,25 @@ $charcoal-600: #444444;
 $charcoal-700: #333333;
 $charcoal-800: #222222;
 $charcoal-900: #111111;
+$purple1-50: #FBFBFF;
+$purple1-100: #F7F3FF;
+$purple1-200: #EFDDFF;
+$purple1-300: #DBADFF;
+$purple1-400: #BF7FF8;
+$purple1-500: #A742ED;
+$purple1-600: #7C24B4;
+$purple1-700: #55127F;
+$purple1-800: #390559;
+$purple1-900: #1A002E;
 $navy-50: #FDFDFF;
 $navy-100: #F4F3FB;
 $navy-200: #E2DFF1;
-$navy-300: #C7C3DF;
-$navy-400: #9E99C4;
-$navy-500: #7068A0;
-$navy-600: #504581;
-$navy-700: #383063;
-$navy-800: #282050;
+$navy-300: #C7C3DD;
+$navy-400: #9E9ABB;
+$navy-500: #706B8E;
+$navy-600: #4F4A6A;
+$navy-700: #383451;
+$navy-800: #28243F;
 $navy-900: #140D30;
 $gray-100: #f8f8f8;
 $gray-200: #f5f5f5;
@@ -80,7 +90,7 @@ $color-aliases: (
   "button-primary-hover": $olive-800,
   "button-purple": $purple-600,
   "button-purple-hover": $purple-700,
-  "border": $gray-500,
+  "border": $navy-200,
   "panel-background": $gray-100,
   "icon": $charcoal-700,
   "state-success": $green-500,

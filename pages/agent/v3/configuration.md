@@ -29,7 +29,7 @@ You can find the location of your configuration file in your platform's installa
       <% if attr['required'] %>
         <tr id="<%= attr['name'] %>">
           <th>
-            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <code><%= attr['name'] %><a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
             <span class="Docs__attribute__importance"><%= attr['required'] ? "Required" : "Optional" -%></span>
             <p class="Docs__attribute__env-var">
               <strong>Environment variable: </strong>
@@ -52,7 +52,7 @@ You can find the location of your configuration file in your platform's installa
       <% if !attr['required'] %>
         <tr id="<%= attr['name'] %>">
           <th>
-            <code><%= attr['name'] %> <a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
+            <code><%= attr['name'] %><a class="Docs__attribute__link" href="#<%= attr['name'] %>">#</a></code>
             <span class="Docs__attribute__importance"><%= attr['required'] ? "<strong>Required</strong>" : "Optional" -%></span>
             <p class="Docs__attribute__env-var">
               <strong>Environment variable: </strong>

@@ -25,7 +25,10 @@
 }
 
 .SiteHeader__container {
-  padding-inline: 24px;
+  padding-inline: 16px;
+  @media (min-width: $screen-md) {
+    padding-inline: 24px;
+  }
   @media (min-width: $screen-lg) {
     padding-inline: 32px;
   }
