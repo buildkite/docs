@@ -71,12 +71,13 @@
   font-weight: 500;
   line-height: map-get($line-heights, $line-height);
 
-  margin-top: 1.2rem;
-  margin-bottom: 0.5rem;
+  scroll-margin-top: 1.5em;
+  margin-top: 1.5em;
+  margin-bottom: 0.4em;
 }
 
 @mixin code-bg {
-  background-color: $gray-300;
+  background-color: $navy-100;
   border-radius: $rounded;
   padding: 0.185em 0.375em;
 }
