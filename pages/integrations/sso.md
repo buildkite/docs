@@ -141,3 +141,13 @@ Both authentication and authorization are necessary because SSO using one Buildk
 Some people choose to have multiple user accounts, one per Buildkite organization. It's fine to do this, but it can be slightly inconvenient as such an approach does not provide easy tools for switching between accounts. You will need to use different browsers or log in and out quite often.
 
 It's recommended to have a single Buildkite user account and join multiple organizations when required.
+
+### Why do I get the error "this email is already being used by another user" when logging in?
+
+There are two common reasons. The first is that you are using shared accounts, so the email is associated with another account. To resolve that, you need to remove the association from your Email Personal Settings.
+
+The second is that the account already exists in Buildkite. If you have access to the old account, delete it before continuing. You may also need to clean up any SSO authorization records on Buildkite for the old account. If that doesn't resolve the issue or you don't have access to the account, please reach out to support@buildkite.com for assistance.
+
+### Why do I get the error "we couldn't find an account with that email address" when logging in?
+
+This is likely caused by trying to log in from the wrong place. You need to log in from https://buildkite.com/sso and follow the link from the email you receive. If the issue persists, please reach out to support@buildkite.com for assistance.
