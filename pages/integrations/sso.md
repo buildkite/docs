@@ -142,9 +142,12 @@ Some people choose to have multiple user accounts, one per Buildkite organizatio
 
 It's recommended to have a single Buildkite user account and join multiple organizations when required.
 
-### Why do we get errors such as "this email is already being used by another user" or "we couldn't find an account with that email address" when trying to login ?
-There are few reasons why error "this email is already being used by another user" can occur. One such possibility is you are using shared accounts. The email is associated with another account. You will need to remove that association from your Email Personal Settings.
+### Why do I get the error "this email is already being used by another user" when logging in?
 
-Other possibility is the account already exists in Buildkite but probably forgot about its existence. The faster and easier solution is to delete the account but sometimes that may not resolve the issue as there might be some SSO authorization records on Buildkite end for that account which needs to be cleaned up. In scenarios where even after deleting the account and adding the user does not resolve the issue, please reach out to support@buildkite.com for assistance.
+There are two common reasons. The first is that you are using shared accounts, so the email is associated with another account. To resolve that, you need to remove the association from your Email Personal Settings.
 
-For scenarios, where you get error "we couldn't find an account with that email address" it is likely due to trying to log in from the wrong place. You need to log in to https://buildkite.com/sso and follow the link from the email you received. If the issue still persists, please reach out to support@buildkite.com for assistance.
+The second is that the account already exists in Buildkite. If you have access to the old account, delete it before continuing. You may also need to clean up any SSO authorization records on Buildkite for the old account. If that doesn't resolve the issue or you don't have access to the account, please reach out to support@buildkite.com for assistance.
+
+### Why do I get the error "we couldn't find an account with that email address" when logging in?
+
+This is likely caused by trying to log in from the wrong place. You need to log in from https://buildkite.com/sso and follow the link from the email you receive. If the issue persists, please reach out to support@buildkite.com for assistance.
