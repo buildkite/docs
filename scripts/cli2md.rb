@@ -20,7 +20,7 @@ ARGF.each_with_index do |line, line_num|
   line.gsub!(Dir.home, "$HOME")
 
   # Headings end in `:`
-  if /^(\w*):/ =~ line
+  if /^(\w*):$/ =~ line
     puts "### #{Regexp.last_match(1)}"
   # Initial usage command
   elsif line_num == 2
