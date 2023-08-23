@@ -82,6 +82,8 @@ ARGF.each_with_index do |line, line_num|
   when STATE_INITIAL
     puts CGI.escapeHTML(line.lstrip)
     next
+  else
+    warn "Unknown state #{state} on line #{line_num}: #{line}"
   end
 end
 
