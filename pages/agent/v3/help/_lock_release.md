@@ -17,6 +17,7 @@ script.
 `buildkite-agent lock release [key] [token]`
 
 ### Description
+
 Releases the lock for the given key. This should only be called by the
 process that acquired the lock. To help prevent different processes unlocking
 each other unintentionally, the output from `lock acquire` is required as the

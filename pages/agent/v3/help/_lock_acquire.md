@@ -17,6 +17,7 @@ script.
 `buildkite-agent lock acquire [key]`
 
 ### Description
+
 Acquires the lock for the given key. `lock acquire` will wait (potentially
 forever) until it can acquire the lock, if the lock is already held by
 another process. If multiple processes are waiting for the same lock, there

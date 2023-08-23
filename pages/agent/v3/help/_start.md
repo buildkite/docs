@@ -27,7 +27,9 @@ The agent will run any jobs within a PTY (pseudo terminal) if available.
 
 ### Example
 
-    $ buildkite-agent start --token xxx
+```shell
+$ buildkite-agent start --token xxx
+```
 
 ### Options
 

@@ -41,10 +41,12 @@ body entirely and providing a new style value.
 
 ### Example
 
-    $ buildkite-agent annotate "All tests passed! :rocket:"
-    $ cat annotation.md | buildkite-agent annotate --style "warning"
-    $ buildkite-agent annotate --style "success" --context "junit"
-    $ ./script/dynamic_annotation_generator | buildkite-agent annotate --style "success"
+```shell
+$ buildkite-agent annotate "All tests passed! :rocket:"
+$ cat annotation.md | buildkite-agent annotate --style "warning"
+$ buildkite-agent annotate --style "success" --context "junit"
+$ ./script/dynamic_annotation_generator | buildkite-agent annotate --style "success"
+```
 
 ### Options
 

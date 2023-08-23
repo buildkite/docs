@@ -26,7 +26,9 @@ which will break the search.
 
 ### Example
 
-    $ buildkite-agent artifact search "pkg/*.tar.gz" --build xxx
+```shell
+$ buildkite-agent artifact search "pkg/*.tar.gz" --build xxx
+```
 
 This will search across all uploaded artifacts in a build for files that match that query.
 The first argument is the search query.
@@ -34,13 +36,17 @@ The first argument is the search query.
 If you&#39;re trying to find a specific file, and there are multiple artifacts from different
 jobs, you can target the particular job you want to search the artifacts from using --step:
 
-    $ buildkite-agent artifact search "pkg/*.tar.gz" --step "tests" --build xxx
+```shell
+$ buildkite-agent artifact search "pkg/*.tar.gz" --step "tests" --build xxx
+```
 
 You can also use the step&#39;s job id (provided by the environment variable $BUILDKITE_JOB_ID)
 
 Output formatting can be altered with the -format flag as follows:
 
-    $ buildkite-agent artifact search "*" -format "%p\n"
+```shell
+$ buildkite-agent artifact search "*" -format "%p\n"
+```
 
 The above will return a list of filenames separated by newline.
 
