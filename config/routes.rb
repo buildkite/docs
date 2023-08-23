@@ -82,6 +82,7 @@ Rails.application.routes.draw do
   get "/docs/test-analytics/js-collectors",       to: redirect("/docs/test-analytics/javascript-collectors")
   get "/docs/tutorials/elastic-ci-stack-aws",     to: redirect("/docs/agent/v3/elastic-ci-aws")
   get "/docs/agent/clusters",                     to: redirect("/docs/clusters/overview")
+  get "/docs/agent/v3/upgrading",                 to: redirect("/docs/agent/v3/installation#upgrade-agents")
 
   # Doc sections that don't have overview/index pages, so need redirecting
   get "/docs/tutorials",    to: redirect("/docs/tutorials/getting-started"), status: 302
