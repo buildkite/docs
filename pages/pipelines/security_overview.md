@@ -9,17 +9,17 @@ Buildkite implements a number of measures and mechanisms, both on the control pl
 
 ## Data flow
 
-The following diagram shows how data typically flows between different parts of Buildkite
+Data flows through different systems when a build triggers, both in Buildkite and in environments you manage. The following diagram shows the typical flow of data when a build triggers.
 
 <%= image "data-flow.png", alt: "Screenshot of a pipeline step with a plugin, and the plugin from the directory", class: "no-decoration" %>
 
 The diagram shows that:
 
-1. Buildkite receives a webhook from your Source Control Ma (SCM) to say there's work to do.
-1. An agent running on your infrastructure is polling Buildkite and sees there is work do to.
-1. The agent that will run the job, tells Buildkite that it's acccepted the job.
-1. Your source code is checked out by the agent.
-1. The logs for the job are sent to Buildkite.
+1. Buildkite receives a webhook from your SCM when code changes.
+1. An agent running on your infrastructure polls Buildkite and detects a job to run.
+1. An agent accepts the job and reports that to Buildkite.
+1. The agent checks out your source code to run the job.
+1. The agent sends the job logs to Buildkite.
 1. Any artifacts are managed by the agent and your artifact store.
 1. The agent reports that the job finished to Buildkite.
 1. Buildkite posts the status update to your SCM.
