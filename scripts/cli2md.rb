@@ -2,11 +2,11 @@
 
 require "cgi"
 
-# are we in a code block?
-in_code = false
+STATE_INITIAL = :inital
+STATE_CODE = :code
+STATE_TABLE = :table
 
-# are with in the table of parameters?
-in_table = false
+state = STATE_INITIAL
 
 # read from stdin or files in the args
 ARGF.each_with_index do |line, line_num|
@@ -19,31 +19,28 @@ ARGF.each_with_index do |line, line_num|
   # We need to replace it back for the docs
   line.gsub!(Dir.home, "$HOME")
 
-  # Headings end in `:`
-  if /^(\w*):$/ =~ line
-    puts "### #{Regexp.last_match(1)}"
-
   # Initial usage command
-  elsif line_num == 2
+  if line_num == 2
     puts "`#{line.strip}`"
+    next
+  end
 
+  case line
+  # Headings end in `:`
+  when /^(\w*):$/
+    puts "### #{Regexp.last_match(1)}"
+    state = STATE_INITIAL
+    next
   # code blocks
-  elsif /^\s{4}/ =~ line
-    puts "```shell" unless in_code
+  when /^\s{4}/
+    puts "```shell" unless state == STATE_CODE
     puts line.gsub(/^\s{4}/, "")
-    in_code = true
-
-  # first line after a code block
-  elsif in_code
-    in_code = false
-    puts "```"
-    puts line
-
+    state = STATE_CODE
+    next
   # Lists of parameters
   #  --config value             Path to a configuration file [$BUILDKITE_AGENT_CONFIG]
-  elsif /\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$/ =~ line
-    puts %(<!-- vale off -->\n\n<table class="Docs__attribute__table">) unless in_table
-    in_table = true
+  when /\s{2}(-{2}[a-z0-9\- ]*)([A-Z].*)$/
+    puts %(<!-- vale off -->\n\n<table class="Docs__attribute__table">) unless state == STATE_TABLE
 
     command_and_value = Regexp.last_match(1).rstrip
     command = command_and_value.split[0][2..]
@@ -65,19 +62,31 @@ ARGF.each_with_index do |line, line_num|
     print "</p></td>"
     print "</tr>"
     print "\n"
+    state = STATE_TABLE
+    next
+  end
 
+  case state
   # first line after a table
-  elsif in_table
-    puts "</table>\n\n<!-- vale on -->\n" if in_table
-    in_table = false
-
-  else
+  when STATE_TABLE
+    puts "</table>\n\n<!-- vale on -->\n"
+    puts line
+    state = STATE_INITIAL
+    next
+  # first line after a code block
+  when STATE_CODE
+    puts "```"
+    puts line
+    state = STATE_INITIAL
+    next
+  when STATE_INITIAL
     puts CGI.escapeHTML(line.lstrip)
+    next
   end
 end
 
 # last line of input was in a table
-puts "</table>\n\n<!-- vale on -->\n" if in_table
+puts "</table>\n\n<!-- vale on -->\n" if state == STATE_TABLE
 
 # last line of input was in a code block
-puts "```" if in_code
+puts "```" if state == STATE_CODE
