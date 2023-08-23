@@ -39,6 +39,6 @@ All the possible types of jobs that can exist
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>COMMAND</code></strong></p><p>A job that runs a command on an agent</p></td></tr><tr><td><p><strong><code>WAIT</code></strong></p><p>A job that waits for all previous jobs to finish</p></td></tr><tr><td><p><strong><code>BLOCK</code></strong></p><p>A job that blocks a pipeline from progressing until it's manually unblocked</p></td></tr><tr><td><p><strong><code>TRIGGER</code></strong></p><p>A job that triggers another build on a pipeline</p></td></tr>
+    <tr><td><p><strong><code>BLOCK</code></strong></p><p>A job that blocks a pipeline from progressing until it's manually unblocked</p></td></tr><tr><td><p><strong><code>COMMAND</code></strong></p><p>A job that runs a command on an agent</p></td></tr><tr><td><p><strong><code>TRIGGER</code></strong></p><p>A job that triggers another build on a pipeline</p></td></tr><tr><td><p><strong><code>WAIT</code></strong></p><p>A job that waits for all previous jobs to finish</p></td></tr>
   </tbody>
 </table>

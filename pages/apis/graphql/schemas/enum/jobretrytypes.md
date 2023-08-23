@@ -39,6 +39,6 @@ The retry types that can be made on a Job
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>MANUAL</code></strong></p></td></tr><tr><td><p><strong><code>AUTOMATIC</code></strong></p></td></tr>
+    <tr><td><p><strong><code>AUTOMATIC</code></strong></p></td></tr><tr><td><p><strong><code>MANUAL</code></strong></p></td></tr>
   </tbody>
 </table>

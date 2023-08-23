@@ -23,12 +23,7 @@ toc: false
 <!-- vale on -->
 
 
-Activate a previously-generated TOTP configuration, and its Recovery Codes.
-
-Once activated, both this TOTP configuration, and the associated Recovery Codes will become active for the user.
-Any previous TOTP configuration or Recovery Codes will no longer be usable.
-
-This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
+Activate a previously-generated TOTP configuration, and its Recovery Codes.  Once activated, both this TOTP configuration, and the associated Recovery Codes will become active for the user. Any previous TOTP configuration or Recovery Codes will no longer be usable.  This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

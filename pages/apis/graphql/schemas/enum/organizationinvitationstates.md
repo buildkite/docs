@@ -39,6 +39,6 @@ All the possible states that an organization invitation can be
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>PENDING</code></strong></p><p>The invitation is waiting for a user to accept it</p></td></tr><tr><td><p><strong><code>ACCEPTED</code></strong></p><p>The invitation was accepted by the person it was sent to</p></td></tr><tr><td><p><strong><code>EXPIRED</code></strong></p><p>The invitation wasn't accepted and the link has expired</p></td></tr><tr><td><p><strong><code>REVOKED</code></strong></p><p>The invitation was revoked and can no longer be accepted</p></td></tr>
+    <tr><td><p><strong><code>ACCEPTED</code></strong></p><p>The invitation was accepted by the person it was sent to</p></td></tr><tr><td><p><strong><code>EXPIRED</code></strong></p><p>The invitation wasn't accepted and the link has expired</p></td></tr><tr><td><p><strong><code>PENDING</code></strong></p><p>The invitation is waiting for a user to accept it</p></td></tr><tr><td><p><strong><code>REVOKED</code></strong></p><p>The invitation was revoked and can no longer be accepted</p></td></tr>
   </tbody>
 </table>

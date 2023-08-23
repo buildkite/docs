@@ -39,6 +39,6 @@ The access levels that can be assigned to a pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>MANAGE_BUILD_AND_READ</code></strong></p><p>Allows edits, builds and reads</p></td></tr><tr><td><p><strong><code>BUILD_AND_READ</code></strong></p><p>Allows builds and read only</p></td></tr><tr><td><p><strong><code>READ_ONLY</code></strong></p><p>Read only - no builds or edits</p></td></tr>
+    <tr><td><p><strong><code>BUILD_AND_READ</code></strong></p><p>Allows builds and read only</p></td></tr><tr><td><p><strong><code>MANAGE_BUILD_AND_READ</code></strong></p><p>Allows edits, builds and reads</p></td></tr><tr><td><p><strong><code>READ_ONLY</code></strong></p><p>Read only - no builds or edits</p></td></tr>
   </tbody>
 </table>

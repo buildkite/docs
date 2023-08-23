@@ -1,8 +1,8 @@
 #!/bin/bash
 set -euo pipefail
 
-echo "+++ Fetch latest schema"
-rake graphql:fetch_schema >| data/graphql_data_schema.json
+echo "+++ Fetch latest schema (via GraphQL introspection)"
+rake graphql:fetch_schema >| data/graphql/schema.graphql
 
 echo "+++ Check for schema changes"
 if git diff --exit-code --quiet data/graphql_data_schema.json; then

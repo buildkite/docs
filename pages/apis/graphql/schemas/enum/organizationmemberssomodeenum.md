@@ -39,6 +39,6 @@ The SSO authorization modes you can use on a member
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>REQUIRED</code></strong></p><p>The member must use SSO to access your organization</p></td></tr><tr><td><p><strong><code>OPTIONAL</code></strong></p><p>The member can either use SSO or their email &amp; password</p></td></tr>
+    <tr><td><p><strong><code>OPTIONAL</code></strong></p><p>The member can either use SSO or their email &amp; password</p></td></tr><tr><td><p><strong><code>REQUIRED</code></strong></p><p>The member must use SSO to access your organization</p></td></tr>
   </tbody>
 </table>

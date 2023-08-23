@@ -39,6 +39,6 @@ The roles a user can be within a team
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>MEMBER</code></strong></p><p>The user is a regular member of the team</p></td></tr><tr><td><p><strong><code>MAINTAINER</code></strong></p><p>The user can manage pipelines and users within the team</p></td></tr>
+    <tr><td><p><strong><code>MAINTAINER</code></strong></p><p>The user can manage pipelines and users within the team</p></td></tr><tr><td><p><strong><code>MEMBER</code></strong></p><p>The user is a regular member of the team</p></td></tr>
   </tbody>
 </table>

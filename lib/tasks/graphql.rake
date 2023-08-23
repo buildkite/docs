@@ -14,6 +14,6 @@ namespace :graphql do
       end
     end
 
-    puts GraphQL::Client.load_schema(HTTP).to_json
+    puts GraphQL::Client.load_schema(HTTP).to_definition
   end
 end

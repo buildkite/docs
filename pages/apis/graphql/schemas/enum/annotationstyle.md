@@ -39,6 +39,6 @@ The visual style of the annotation
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>DEFAULT</code></strong></p><p>The default styling of an annotation</p></td></tr><tr><td><p><strong><code>SUCCESS</code></strong></p><p>The annotation has a green border with a tick next to it</p></td></tr><tr><td><p><strong><code>INFO</code></strong></p><p>The annotation has a blue border with an information icon next to it</p></td></tr><tr><td><p><strong><code>WARNING</code></strong></p><p>The annotation has an orange border with a warning icon next to it</p></td></tr><tr><td><p><strong><code>ERROR</code></strong></p><p>The annotation has a red border with a cross next to it</p></td></tr>
+    <tr><td><p><strong><code>DEFAULT</code></strong></p><p>The default styling of an annotation</p></td></tr><tr><td><p><strong><code>ERROR</code></strong></p><p>The annotation has a red border with a cross next to it</p></td></tr><tr><td><p><strong><code>INFO</code></strong></p><p>The annotation has a blue border with an information icon next to it</p></td></tr><tr><td><p><strong><code>SUCCESS</code></strong></p><p>The annotation has a green border with a tick next to it</p></td></tr><tr><td><p><strong><code>WARNING</code></strong></p><p>The annotation has an orange border with a warning icon next to it</p></td></tr>
   </tbody>
 </table>

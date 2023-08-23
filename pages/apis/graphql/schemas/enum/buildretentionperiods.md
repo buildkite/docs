@@ -39,6 +39,6 @@ All the possible build retention periods, depending on your billing plan
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>DAYS_30</code></strong></p><p>30 days</p></td></tr><tr><td><p><strong><code>DAYS_60</code></strong></p><p>60 days</p></td></tr><tr><td><p><strong><code>DAYS_90</code></strong></p><p>90 days</p></td></tr><tr><td><p><strong><code>MONTHS_6</code></strong></p><p>6 months</p></td></tr><tr><td><p><strong><code>MONTHS_12</code></strong></p><p>12 months</p></td></tr><tr><td><p><strong><code>MONTHS_18</code></strong></p><p>18 months</p></td></tr><tr><td><p><strong><code>YEARS_2</code></strong></p><p>2 years</p></td></tr>
+    <tr><td><p><strong><code>DAYS_30</code></strong></p><p>30 days</p></td></tr><tr><td><p><strong><code>DAYS_60</code></strong></p><p>60 days</p></td></tr><tr><td><p><strong><code>DAYS_90</code></strong></p><p>90 days</p></td></tr><tr><td><p><strong><code>MONTHS_12</code></strong></p><p>12 months</p></td></tr><tr><td><p><strong><code>MONTHS_18</code></strong></p><p>18 months</p></td></tr><tr><td><p><strong><code>MONTHS_6</code></strong></p><p>6 months</p></td></tr><tr><td><p><strong><code>YEARS_2</code></strong></p><p>2 years</p></td></tr>
   </tbody>
 </table>

@@ -23,12 +23,7 @@ toc: false
 <!-- vale on -->
 
 
-Create a new TOTP configuration for the current user.
-
-This will produce a TOTP configuration with an associated set of Recovery Codes. The Recovery Codes must be presented to the user prior to the TOTP's activation with `totpActivate`.
-Neither TOTP configuration nor Recovery Codes will be usable until they have been activated.
-
-This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
+Create a new TOTP configuration for the current user.  This will produce a TOTP configuration with an associated set of Recovery Codes. The Recovery Codes must be presented to the user prior to the TOTP's activation with `totpActivate`. Neither TOTP configuration nor Recovery Codes will be usable until they have been activated.  This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
