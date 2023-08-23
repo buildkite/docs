@@ -27,18 +27,6 @@ module ApplicationHelper
     "https://github.com/buildkite/docs/edit/main#{view_file}"
   end
 
-  def algolia_api_key
-    ENV.fetch("ALGOLIA_API_KEY", "unknown")
-  end
-
-  def algolia_index_name
-    ENV.fetch("ALGOLIA_INDEX_NAME","unknown")
-  end
-
-  def algolia_app_id
-    ENV.fetch("ALGOLIA_APP_ID", "unknown")
-  end
-
   def render_attribute_content(attribute)
     render(partial: "quick_reference/#{attribute}", formats: [:md]).to_json.html_safe
   end

@@ -1,9 +1,0 @@
-<%= javascript_tag nonce: true do %>
-  /* This api key is intentionally public */
-  docsearch({
-    apiKey: '<%= algolia_api_key %>',
-    indexName: '<%= algolia_index_name %>',
-    appId: '<%= algolia_app_id %>',
-    inputSelector: '#search'
-  });
-<% end %>
