@@ -66,6 +66,11 @@ ARGF.each_with_index do |line, line_num|
     print "</tr>"
     print "\n"
 
+  # first line after a table
+  elsif in_table
+    puts "</table>\n\n<!-- vale on -->\n" if in_table
+    in_table = false
+
   else
     puts CGI.escapeHTML(line.lstrip)
   end
