@@ -33,7 +33,7 @@ If your architecture isn't on the releases page send an email to support and we'
 
 To update your agents, you can either:
 
-- Use the package manager for your operating system.
-- Re-run the installation script.
+* Use the package manager for your operating system.
+* Re-run the installation script.
 
 As long as you're using Agent v3 or later, no configuration changes are necessary.
