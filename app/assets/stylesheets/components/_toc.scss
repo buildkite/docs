@@ -2,13 +2,12 @@
   background-color: $gray-100;
   border: 1px solid $gray-500;
   border-radius: 5px;
-  font-size: $font-size-template;
+  font-size: map-get($font-size-aliases, "template");
 
   @media (min-width: $screen-lg) {
     background-color: transparent;
     border-radius: initial;
     border: 0;
-    font-family: $font-family-system;
   }
 
   .Toc__toggle {
@@ -51,22 +50,13 @@
   }
 
   .Toc__title {
-    font-size: $font-size-template;
+    font-family: $font-family-base;
+    font-size: map-get($font-size-aliases, "template");
     margin-bottom: 0;
     margin-top: 0;
   }
 
   .Toc__list {
-    margin-bottom: 16px;
-    margin-top: -4px;
-    padding-left: 16px;
-
-    @media (min-width: $screen-lg) {
-      margin-bottom: 0;
-      margin-top: 0;
-      padding-left: 0;
-    }
-
     &--is-collapsed {
       display: none;
 
@@ -74,6 +64,10 @@
         display: block;
       }
     }
+  }
+
+  > .Toc__list {
+    margin-bottom: 1rem;
   }
 
   .Toc__list-item {

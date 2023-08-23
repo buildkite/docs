@@ -56,7 +56,7 @@
     box-sizing: border-box;
     color: $charcoal-900;
     display: flex;
-    font-size: $font-size-template;
+    font-size: map-get($font-size-aliases, "template");
     gap: 5px;
     line-height: map-get($line-heights, "default");
     margin: 0;

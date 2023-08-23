@@ -60,16 +60,16 @@
   margin-top: #{$margin}rem;
 }
 
-@mixin heading($size-multiplier, $margin: 1, $line-height: "heading") {
+@mixin heading($font-size, $margin-top: 2rem, $margin-bottom: 1rem) {
   clear: both;
   color: map-get($color-aliases, "text-display");
   font-family: $font-family-display;
-  font-size: #{$size-multiplier}rem;
+  font-size: $font-size;
   font-style: normal;
-  font-weight: bold;
-  line-height: map-get($line-heights, $line-height);
-
-  @include margin($margin);
+  font-weight: 500;
+  line-height: map-get($line-heights, "heading");
+  margin-bottom: $margin-bottom;
+  margin-top: $margin-top;
 }
 
 @mixin code-bg {

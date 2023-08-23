@@ -3,8 +3,7 @@
   @extend .Button--default;
 
   transition: opacity 0.05s linear;
-  font-family: $font-family-display;
-  font-size: $font-size-template;
+  font-size: map-get($font-size-aliases, "template");
   font-weight: 400;
 
   opacity: 0;
