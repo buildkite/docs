@@ -8,7 +8,6 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 .Page {
   display: grid;
   grid-template-rows: auto;
-
   gap: $gutter / 2;
   grid-template-columns: 1fr;
   grid-template-areas:
@@ -17,6 +16,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     "content";
 
   @media (min-width: $screen-md) {
+    gap: $gutter;
     grid-template-columns: 270px 1fr;
     grid-template-areas:
       "sidebar toc"
@@ -32,7 +32,6 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
   &--landing {
     @media (min-width: $screen-lg) {
-      grid-gap: 58px;
       grid-template-columns: 270px 1fr;
       grid-template-areas: "sidebar content";
     }
@@ -60,7 +59,6 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
 .Page__toc {
   grid-area: toc;
-  margin-bottom: $gutter / 2;
 
   @media (min-width: $screen-lg) {
     margin-bottom: 0;
@@ -77,13 +75,6 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   width: 100%;
 
   @media (min-width: $screen-lg) {
-    max-width: map-get($max-w, "prose");
     justify-self: center;
-  }
-
-  .Page--landing & {
-    @media (min-width: $screen-lg) {
-      max-width: none;
-    }
   }
 }
