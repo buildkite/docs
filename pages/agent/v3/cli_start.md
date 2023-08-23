@@ -66,7 +66,7 @@ The `queue` tag works differently from other tags, and can be used for isolating
 
 If you specify a `queue` and [agent `tags`](#agent-targeting), your build will only run on agents that match **all** of the specified criteria.
 
-For example, if a job has agent targeting rules set as shown below then an agent should be present which has both queue=test and postgres=1.9.4 otherwise job will not schedule to an agent.
+For example, if a job has the following agent targeting rules, an agent with both `queue=test` and `postgres=1.9.4` should be present. Otherwise, the job will not dispatch to an agent.
 
 ```yaml
 steps:
