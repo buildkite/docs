@@ -93,8 +93,7 @@ notify:
 ```
 {: codeblock-file="pipeline.yml"}
 
->📘 Evaluating conditionals based on build state
-> Conditional expressions on build state will be available only at pipeline level and should not be used at step level.
+Note that conditional expressions on the build state are only available at the pipeline level. You can't use them at the step level.
 
 ## Conditionals and the broken state
 
