@@ -91,7 +91,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
   .Page--landing & {
     @media (min-width: $screen-lg) {
-      max-width: none;
+      max-width: 896px;
     }
   }
 }

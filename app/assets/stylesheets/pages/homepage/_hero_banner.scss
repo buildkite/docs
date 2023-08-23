@@ -14,11 +14,11 @@
 
 .HeroBanner__title {
   @include heading(1.75, 0);
-  margin-bottom: 0.75rem;
+  margin-block: 0.75rem;
 
   @media (min-width: $screen-md) {
     @include heading(2.25);
-    margin-bottom: 0.5rem;
+    margin-block: 0.5rem;
   }
 }
 

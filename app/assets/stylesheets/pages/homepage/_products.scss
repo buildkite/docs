@@ -45,7 +45,7 @@
 
 .ProductCard__title {
   @include heading(1.1875, 0);
-  margin-bottom: 0.125rem;
+  margin-block: 0.125rem;
 }
 
 .ProductCard__summary {
