@@ -28,7 +28,7 @@
 .Card__title-link {
   color: map-get($color-aliases, "text-display");
   text-decoration: none;
-  
+
   &:hover,
   .Card__icon-link:hover + .Card__title & {
     color: map-get($color-aliases, "text-link-hover");
