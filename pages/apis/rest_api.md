@@ -103,8 +103,8 @@ You can page through the records using the following query string parameters:
 
 <table>
 <tbody>
-  <tr><th><code>after</code></th><td>Return a page of results after this cursor (for paginating forward). Specify one of <code>after</code> or <code>before</code> only.</td></tr>
-  <tr><th><code>before</code></th><td>Return a page of results before this cursor (for paginating backward). Specify one of <code>after</code> or <code>before</code> only.</td></tr>
+  <tr><th><code>after</code></th><td>Return a page of results after this cursor (for paginating forward).<p>Specify one of <code>after</code> or <code>before</code> only.</p></td></tr>
+  <tr><th><code>before</code></th><td>Return a page of results before this cursor (for paginating backward).<p>Specify one of <code>after</code> or <code>before</code> only.</p></td></tr>
   <tr><th><code>per_page</code></th><td>How many results to return per-page<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td></tr>
 </tbody>
 </table>
