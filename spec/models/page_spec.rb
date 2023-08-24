@@ -33,24 +33,4 @@ RSpec.describe Page do
       end
     end
   end
-
-  describe "#landing_page?" do
-    context "when page's path is defined in LandingPages" do
-      it "returns true" do
-        allow(LandingPages).to receive(:all).and_return(["integrations"])
-        page = Page.new(double, "integrations")
-
-        expect(page).to be_landing_page
-      end
-    end
-
-    context "when page's path is not defined in the LandingPages" do
-      it "returns false" do
-        allow(LandingPages).to receive(:all).and_return([])
-        page = Page.new(double, "apis/agent-api")
-
-        expect(page).not_to be_landing_page
-      end
-    end
-  end
 end
