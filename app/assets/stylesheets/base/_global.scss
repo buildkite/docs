@@ -7,10 +7,6 @@ html {
   line-height: map-get($line-heights, "default");
 }
 
-.system-font {
-  font-family: $font-family-system;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -18,25 +14,25 @@ body {
 }
 
 h1 {
-  @include heading(3, $line-height: "tightest");
+  @include heading(map-get($font-size-aliases, "heading-1"));
 }
 
 h2 {
-  @include heading(2);
+  @include heading(map-get($font-size-aliases, "heading-2"));
 }
 
 h3 {
-  @include heading(1.5);
+  @include heading(map-get($font-size-aliases, "heading-3"));
 }
 
 h4 {
-  @include heading(1.1875);
+  @include heading(map-get($font-size-aliases, "heading-4"));
 }
 
 h5 {
-  @include heading(1);
+  @include heading(map-get($font-size-aliases, "heading-5"));
 }
 
 h6 {
-  @include heading(0.875);
+  @include heading(map-get($font-size-aliases, "heading-6"));
 }

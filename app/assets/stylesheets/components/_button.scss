@@ -1,6 +1,5 @@
 @mixin button-font {
-  font-family: $font-family-base;
-  font-size: $font-size-template;
+  font-size: map-get($font-size-aliases, "template");
 }
 
 @mixin button-white-text {
@@ -48,7 +47,7 @@ button {
   @include button-white-text;
   background-color: map-get($color-aliases, "button-primary");
   border-color: map-get($color-aliases, "button-primary");
-  font-weight: bold;
+  font-weight: 500;
 
   &:hover {
     background-color: map-get($color-aliases, "button-primary-hover");
@@ -60,7 +59,7 @@ button {
   background-color: map-get($color-aliases, "button-purple");
   border-color: map-get($color-aliases, "button-purple");
   color: $base-0;
-  font-weight: bold;
+  font-weight: 500;
 
   &:hover {
     background-color: map-get($color-aliases, "button-purple-hover");
@@ -114,7 +113,6 @@ button {
 
   &::after {
     content: "→";
-    font-family: $font-family-base;
   }
 }
 

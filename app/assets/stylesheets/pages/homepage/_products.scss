@@ -44,12 +44,12 @@
 }
 
 .ProductCard__title {
-  @include heading(1.1875, 0);
-  margin-bottom: 0.125rem;
+  @include heading(map-get($font-size-aliases, "heading-4"), 0, 0.25rem);
 }
 
 .ProductCard__summary {
   color: map-get($color-aliases, "text-lightest");
+  font-size: map-get($font-size-aliases, "sm");
 }
 
 .ProductCard__img {

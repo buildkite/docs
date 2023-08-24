@@ -34,6 +34,16 @@ $green-700: #00a110;
 $lime-200: #beead8;
 $lime-500: #14cc80;
 $lime-700: #00bb64;
+$navy-50: #fdfdff;
+$navy-100: #f4f3fb;
+$navy-200: #e2dff1;
+$navy-300: #c7c3dd;
+$navy-400: #9e9abb;
+$navy-500: #706b8e;
+$navy-600: #4f4a6a;
+$navy-700: #383451;
+$navy-800: #28243f;
+$navy-900: #140d30;
 $olive-500: #3d9970;
 $olive-700: #078573;
 $olive-800: #0e7868;
@@ -61,11 +71,11 @@ $slate-900: #151921;
 // color aliases
 $color-aliases: (
   "text-base": $charcoal-700,
-  "text-lightest": $charcoal-300,
+  "text-lightest": $navy-600,
   "text-link": $purple-600,
   "text-link-hover": $purple-700,
-  "text-display": $slate-900,
-  "text-body": $charcoal-400,
+  "text-display": $navy-900,
+  "text-body": $navy-800,
   "button-primary": $olive-700,
   "button-primary-hover": $olive-800,
   "button-purple": $purple-600,
@@ -83,18 +93,34 @@ $color-aliases: (
 
 // typography
 $font-size-base: 16px;
-$font-size-template: 0.9375rem;
-$font-size-body: 1.125rem;
-$font-size-code: 0.875em;
-$font-family-system: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+$font-sizes: (
+  "xs": 0.75rem,
+  "sm": 0.875rem,
+  "lg": 1.125rem,
+  "xl": 1.25rem,
+  "2xl": 1.5rem,
+  "3xl": 2rem,
+);
+$font-size-aliases: (
+  "template": map-get($font-sizes, "sm"),
+  "body": $font-size-base,
+  "code": map-get($font-sizes, "sm"),
+  "heading-jumbo": map-get($font-sizes, "3xl"),
+  "heading-1": map-get($font-sizes, "2xl"),
+  "heading-2": map-get($font-sizes, "xl"),
+  "heading-3": map-get($font-sizes, "lg"),
+  "heading-4": $font-size-base,
+  "heading-5": map-get($font-sizes, "sm"),
+  "heading-6": map-get($font-sizes, "xs"),
+);
+$font-family-base: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
   "Helvetica Neue", Helvetica, sans-serif;
-$font-family-display: "Aeonik", $font-family-system;
-$font-family-body: "Maison Neue", $font-family-system;
-$font-family-base: $font-family-body;
+$font-family-display: "Aeonik", $font-family-base;
+
 $line-heights: (
   "default": 1.5,
   "golden": 1.618,
-  "heading": 1.35,
+  "heading": 1.3,
   "tight": 1.2,
   "tightest": 1,
 );
@@ -112,7 +138,7 @@ $max-w: (
   "outer-container": 1600px,
   "container": 1440px,
   "narrow-container": 960px,
-  "prose": 752px,
+  "prose": 712px,
   "search": 500px,
 );
 $rounded: 5px;
