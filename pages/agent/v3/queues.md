@@ -45,4 +45,4 @@ steps:
 
 ## Alternative methods
 
-Alternatively you can use [branch patterns](/docs/pipelines/branch-configuration) to control which pipelines and build steps are built based on the branch names.
+[Branch patterns](/docs/pipelines/branch-configuration) are another way to control what work is done. You can use branch patterns to determine which pipelines and steps run based on the branch name.
