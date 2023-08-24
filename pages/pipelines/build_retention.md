@@ -50,6 +50,8 @@ The following diagram shows the lifecycle of build data by plan.
   </tbody>
 </table>
 
+Per pipeline retention settings have been retired and all pipelines are now in organisation specific retention settings specified above.
+
 ## Exporting build data
 
 > 📘 Enterprise feature
