@@ -1,5 +1,5 @@
 ---
-toc: true
+template: "landing_page"
 ---
 
 # Buildkite Test Analytics
