@@ -71,4 +71,4 @@ For more advanced step filtering, see the [Using conditionals](/docs/pipelines/c
 
 ## Alternative methods
 
-Alternatively you can use [Agent Queues](/docs/agent/v3/queues) to control which pipelines and build steps run on which agents.
+[Queues](/docs/agent/v3/queues) are another way to control what work is done. You can use queues to determine which pipelines and steps run on particular agents.
