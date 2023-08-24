@@ -7,7 +7,7 @@
   }
 
   p {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.01em;
     font-size: 1rem;
     margin-block: 1em;
   }
@@ -157,7 +157,9 @@
 
   th code,
   td:first-child code {
-    white-space: nowrap;
+    @media (min-width: $screen-lg) {
+      white-space: nowrap;
+    }
   }
 
   em {
