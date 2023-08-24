@@ -59,7 +59,11 @@ class Page
     end
 
     def paginated_resource_docs_url
-      @url_helpers.docs_path + '/rest-api#pagination'
+      @url_helpers.docs_path + "/rest-api#page-number-pagination"
+    end
+
+    def cursor_paginated_resource_docs_url
+      @url_helpers.docs_path + "/rest-api#cursor-pagination"
     end
 
     def url_helpers

@@ -60,7 +60,11 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 
 ## Pagination
 
-For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header containing zero or more of `next`, `prev`, `first` and `last`.
+For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header.
+
+### Page number pagination
+
+Unless specified otherwise, endpoints are paginated using page numbers, with the `Link` header containing zero or more of `next`, `prev`, `first` and `last`.
 
 ```bash
 curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
@@ -72,7 +76,7 @@ HTTP/1.1 200 OK
 Link: <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=3>; rel="next", <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=6>; rel="last"
 ```
 
-You can set the page using the following query string parameters:
+You can page through the records using the following query string parameters:
 
 <table>
 <tbody>
@@ -80,6 +84,32 @@ You can set the page using the following query string parameters:
   <tr><th><code>per_page</code></th><td>How many results to return per-page<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td></tr>
 </tbody>
 </table>
+
+### Cursor pagination
+
+Some endpoints are paginated using cursors, with the `Link` header containing zero or more of `next` and `prev` only.
+
+```bash
+curl -i "https://api.buildkite.com/v2/builds"
+```
+
+```
+HTTP/1.1 200 OK
+...
+Link <https://api.buildkite.com/v2/builds?after=e75c64fc419f608e78904e8f0e9145e65e36eab9&after=eyJjcmVhdGVkX2F0IjoiMjAyMy0wOC0yMyAwMjoyOTo1My4yNjA5MzMwMDAgVVRDIiwidXVpZCI6IjAxOGEyNTk3LTY0NzAtNGRjZC05MjIxLWY3OGQ2ZmFiZDkwNiJ9>; rel="next"
+```
+
+You can page through the records using the following query string parameters:
+
+<table>
+<tbody>
+  <tr><th><code>after</code></th><td>Return a page of results after this cursor (for paginating forward). Specify one of <code>after</code> or <code>before</code> only.</td></tr>
+  <tr><th><code>before</code></th><td>Return a page of results before this cursor (for paginating backward). Specify one of <code>after</code> or <code>before</code> only.</td></tr>
+  <tr><th><code>per_page</code></th><td>How many results to return per-page<p class="Docs__api-param-eg"><em>Default:</em> <code>30</code></p><p class="Docs__api-param-eg"><em>Maximum:</em> <code>100</code></p></td></tr>
+</tbody>
+</table>
+
+We recommend you do not need construct cursor-paginated URLs manually, and instead use the `next` and `prev` URLs provided in the `Link` header.
 
 ## CORS headers
 
