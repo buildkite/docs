@@ -78,6 +78,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 .Page__content {
   grid-area: content;
   max-width: map-get($max-w, "prose");
+  width: 100%;
   margin-inline: auto;
   padding-block: 24px;
 

@@ -177,7 +177,7 @@
     border: 1px solid #ddd;
     padding: 0.8em 1em;
     border-radius: 8px;
-    line-height: map-get($line-heights, "default");
+    line-height: map-get($line-heights, "code");
     min-width: 0;
     white-space: pre-wrap;
 
@@ -188,8 +188,8 @@
     }
 
     code {
-      font-size: map-get($font-size-aliases, "code");
-      line-height: map-get($line-heights, "default");
+      line-height: map-get($line-heights, "code");
+      font-size: map-get($font-sizes, "sm");
     }
   }
   iframe {
@@ -236,6 +236,7 @@
   th code,
   td code {
     border: none;
+    font-size: map-get($font-sizes, "xs");
   }
 
   th,

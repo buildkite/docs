@@ -114,7 +114,7 @@ $font-sizes: (
 $font-size-aliases: (
   "template": map-get($font-sizes, "sm"),
   "body": $font-size-base,
-  "code": map-get($font-sizes, "sm"),
+  "code": map-get($font-sizes, "xs"),
   "heading-jumbo": map-get($font-sizes, "3xl"),
   "heading-1": map-get($font-sizes, "2xl"),
   "heading-2": map-get($font-sizes, "xl"),
@@ -134,6 +134,7 @@ $line-heights: (
   "heading": 1.3,
   "tight": 1.2,
   "tightest": 1,
+  "code": 1.3
 );
 
 // breakpoints
