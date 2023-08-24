@@ -54,6 +54,7 @@
     box-sizing: border-box;
     color: $navy-900;
     display: flex;
+    font-family: $font-family-base;
     font-size: map-get($font-size-aliases, "template");
     gap: 5px;
     line-height: map-get($line-heights, "default");
