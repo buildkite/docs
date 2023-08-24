@@ -81,12 +81,13 @@
 
   .Toc__list-item.active {
     > .Toc__link {
-      transition: color 300ms ease-in-out;
       color: $purple-600;
+      transform: translate(5px);
     }
   }
 
   .Toc__link {
+    transition: color 300ms ease-in-out, transform 300ms ease-in-out;
     border-radius: 5px;
     color: $navy-500;
     display: block;
