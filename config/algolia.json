@@ -1,7 +1,7 @@
 {
   "index_name": "prod_docs",
   "start_urls": ["https://buildkite.com/docs"],
-  "stop_urls": ["agent/v2"],
+  "stop_urls": ["agent/v2", "**#main"],
   "selectors": {
     "lvl0": ".Page article h1",
     "lvl1": ".Page article h2",
