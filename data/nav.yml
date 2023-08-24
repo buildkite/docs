@@ -221,6 +221,8 @@
                   path: "agent/v2/cli-pipeline"
     - name: "Configure pipelines"
       children:
+        - name: "Overview"
+          path: "pipelines/overview"
         - name: "Defining steps"
           path: "pipelines/defining-steps"
         - name: "Step types"
