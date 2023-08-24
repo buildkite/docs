@@ -16,4 +16,13 @@
   <% if content %>
     <p class="Card__content"><%= content %></p>
   <% end %>
+  <% if links %>
+    <ul>
+      <% links.each do |link| %>
+        <li class="Card__list-item">
+          <%= link_to link[:text], link[:to], class: "Card__list-item-link" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
 </article>

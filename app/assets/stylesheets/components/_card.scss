@@ -8,17 +8,17 @@
 
 .Card__icon {
   display: block;
-  max-width: 48px;
 }
 
 .Card__icon-link {
-  display: inline-block;
+  display: block;
+  max-width: 48px;
 }
 
 .Card__title {
   font-size: 1rem;
   margin-bottom: 0.25rem;
-  margin-top: 0.5rem;
+  margin-top: 0.75rem;
 
   &:first-child {
     margin-top: 0;
@@ -39,4 +39,18 @@
 .Card__content {
   color: map-get($color-aliases, "text-lightest");
   font-size: map-get($font-sizes, "sm");
+}
+
+.Card__list-item {
+  font-size: map-get($font-sizes, "sm");
+  margin-top: 0.5rem;
+}
+
+.Card__list-item-link {
+  color: map-get($color-aliases, "text-lightest");
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
