@@ -226,6 +226,13 @@ a.Docs__example-repo {
   }
 }
 
+h5.Docs__heading .Docs__heading__anchor:before,
+h5.Docs__heading .Docs__heading__anchor:after,
+h6.Docs__heading .Docs__heading__anchor:before,
+h6.Docs__heading .Docs__heading__anchor:after {
+  margin-top: -3px;
+}
+
 html {
   scroll-padding-top: 15px;
 
