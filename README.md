@@ -54,8 +54,6 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
 Open `http://localhost:3000` to preview the docs site.
 After modifying a page, refresh to see your changes.
 
-**Note:** By default, search (through Algolia) does not work in development.
-
 ## Updating buildkite-agent CLI Docs
 
 With the development dependencies installed you can update the CLI docs using
@@ -81,6 +79,8 @@ Our documentation is based on the principles of common sense, clarity, and brevi
 The [style guide](/styleguide/STYLE.md) should provide you a general idea and an insight into using custom formatting elements.
 
 ## Search index
+
+**Note:** By default, search (through Algolia) references the production search index.
 
 The search index is updated once a day by a scheduled build using the config in `config/algolia.json`.
 
