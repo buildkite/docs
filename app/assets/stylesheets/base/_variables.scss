@@ -17,26 +17,26 @@ $charcoal-600: #444444;
 $charcoal-700: #333333;
 $charcoal-800: #222222;
 $charcoal-900: #111111;
-$purple1-50: #FBFBFF;
-$purple1-100: #F7F3FF;
-$purple1-200: #EFDDFF;
-$purple1-300: #DBADFF;
-$purple1-400: #BF7FF8;
-$purple1-500: #A742ED;
-$purple1-600: #7C24B4;
-$purple1-700: #55127F;
+$purple1-50: #fbfbff;
+$purple1-100: #f7f3ff;
+$purple1-200: #efddff;
+$purple1-300: #dbadff;
+$purple1-400: #bf7ff8;
+$purple1-500: #a742ed;
+$purple1-600: #7c24b4;
+$purple1-700: #55127f;
 $purple1-800: #390559;
-$purple1-900: #1A002E;
-$navy-50: #FDFDFF;
-$navy-100: #F4F3FB;
-$navy-200: #E2DFF1;
-$navy-300: #C7C3DD;
-$navy-400: #9E9ABB;
-$navy-500: #706B8E;
-$navy-600: #4F4A6A;
+$purple1-900: #1a002e;
+$navy-50: #fdfdff;
+$navy-100: #f4f3fb;
+$navy-200: #e2dff1;
+$navy-300: #c7c3dd;
+$navy-400: #9e9abb;
+$navy-500: #706b8e;
+$navy-600: #4f4a6a;
 $navy-700: #383451;
-$navy-800: #28243F;
-$navy-900: #140D30;
+$navy-800: #28243f;
+$navy-900: #140d30;
 $gray-100: #f8f8f8;
 $gray-200: #f5f5f5;
 $gray-300: #eeeeee;
@@ -54,16 +54,6 @@ $green-700: #00a110;
 $lime-200: #beead8;
 $lime-500: #14cc80;
 $lime-700: #00bb64;
-$navy-50: #fdfdff;
-$navy-100: #f4f3fb;
-$navy-200: #e2dff1;
-$navy-300: #c7c3dd;
-$navy-400: #9e9abb;
-$navy-500: #706b8e;
-$navy-600: #4f4a6a;
-$navy-700: #383451;
-$navy-800: #28243f;
-$navy-900: #140d30;
 $olive-500: #3d9970;
 $olive-700: #078573;
 $olive-800: #0e7868;
@@ -133,7 +123,9 @@ $font-size-aliases: (
   "heading-5": map-get($font-sizes, "sm"),
   "heading-6": map-get($font-sizes, "xs"),
 );
-$font-family-base: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-base: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+  "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
+  "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 $font-family-display: "Aeonik", $font-family-base;
 
 $line-heights: (

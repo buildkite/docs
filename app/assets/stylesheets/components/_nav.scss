@@ -24,7 +24,6 @@
           flex-direction: row;
         }
       }
-
     }
 
     &--level1 {
@@ -74,7 +73,7 @@
     &:hover {
       &:not(span) {
         color: map-get($color-aliases, "selected");
-        background-color: #FBFBFF;
+        background-color: #fbfbff;
 
         &::before {
           @include _make-nav-icon-purple;

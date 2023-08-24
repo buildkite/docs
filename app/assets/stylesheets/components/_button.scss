@@ -75,7 +75,8 @@ button {
   ) !important; // override possible nested content styling
   font-weight: 500;
   box-shadow: $box-shadow-depth-100;
-  transition: background-color $transition-speed, border-color $transition-speed, box-shadow $transition-speed;
+  transition: background-color $transition-speed, border-color $transition-speed,
+    box-shadow $transition-speed;
 
   &:hover {
     background-color: map-get($color-aliases, "panel-background");

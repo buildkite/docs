@@ -40,7 +40,8 @@
     color: $color-hover;
     @if $underline {
       text-decoration-color: map-get($color-aliases, "text-link-hover");
-      transition: color $transition-speed, text-decoration-color $transition-speed;
+      transition: color $transition-speed,
+        text-decoration-color $transition-speed;
     }
   }
 

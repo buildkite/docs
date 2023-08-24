@@ -196,10 +196,8 @@ a.Docs__example-repo {
       background-image: asset-url("icons/anchor");
       background-position: 50% 50%;
       background-repeat: no-repeat;
-      box-shadow: 
-        0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
-        0px 6px 12px 0px rgba(0, 0, 0, 0.04),
-        0 0 0 1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.1);
     }
 
     &:after {
@@ -210,10 +208,8 @@ a.Docs__example-repo {
     }
 
     &:hover:before {
-      box-shadow: 
-        0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
-        0px 6px 12px 0px rgba(0, 0, 0, 0.04),
-        0 0 0 1px rgba(0, 0, 0, 0.2);
+      box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+        0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.2);
     }
 
     &:hover,

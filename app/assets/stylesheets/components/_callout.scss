@@ -10,7 +10,7 @@
   &:before {
     width: 24px;
     height: 24px;
-    content: '';
+    content: "";
     display: block;
     position: absolute;
     top: 16px;
@@ -60,10 +60,8 @@
         background-image: asset-url("icons/anchor");
         background-position: 50% 50%;
         background-repeat: no-repeat;
-        box-shadow: 
-          0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
-          0px 6px 12px 0px rgba(0, 0, 0, 0.04),
-          0 0 0 1px rgba(0, 0, 0, 0.1);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.1);
       }
 
       &:after {
@@ -74,10 +72,8 @@
       }
 
       &:hover:before {
-        box-shadow: 
-          0px 2px 4px 0px rgba(0, 0, 0, 0.03), 
-          0px 6px 12px 0px rgba(0, 0, 0, 0.04),
-          0 0 0 1px rgba(0, 0, 0, 0.2);
+        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
+          0px 6px 12px 0px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.2);
       }
 
       &:hover,

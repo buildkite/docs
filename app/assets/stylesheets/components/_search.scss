@@ -60,7 +60,9 @@
   border-radius: $rounded;
   border: 0 none;
   box-sizing: border-box;
-  box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px, rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px, rgba(93, 9, 199, 0.05) 0px 3px 8px;
+  box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px,
+    rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+    rgba(93, 9, 199, 0.05) 0px 3px 8px;
   color: map-get($color-aliases, "text-base");
   display: block;
   font-family: inherit;
@@ -78,7 +80,9 @@
   &:focus {
     background-color: $base-0;
     color: map-get($color-aliases, "text-display");
-    box-shadow: rgba(93, 9, 199, 0.2) 0px 0px 0px 3px, rgba(93, 9, 199, 0.2) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px, rgba(93, 9, 199, 0.1) 0px 3px 8px;
+    box-shadow: rgba(93, 9, 199, 0.2) 0px 0px 0px 3px,
+      rgba(93, 9, 199, 0.2) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+      rgba(93, 9, 199, 0.1) 0px 3px 8px;
   }
 
   @media (min-width: $screen-md) {
