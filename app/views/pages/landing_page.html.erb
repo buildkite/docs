@@ -1,10 +1,6 @@
 <% content_for :page_title, @page.title %>
 <% content_for :page_description, @page.description %>
 
-<div class="Article Article--prose">
+<div class="Article">
   <%= @page.body %>
 </div>
-
-<%= content_for :toc do %>
-  <%= render 'toc' %>
-<% end %>
