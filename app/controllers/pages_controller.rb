@@ -1,6 +1,5 @@
 class PagesController < ApplicationController
   append_view_path "pages"
-  layout :layout_by_path
 
   def index
     @nav = default_nav
@@ -22,6 +21,7 @@ class PagesController < ApplicationController
     end
 
     # Otherwise, render the page (the default)
+    render @page.template
   end
 
   private
@@ -31,15 +31,4 @@ class PagesController < ApplicationController
   end
   helper_method :beta?
 
-  def landing_page?
-    @page && @page.landing_page?
-  end
-
-  def layout_by_path
-    if landing_page?
-      "landing_page"
-    else
-      "application"
-    end
-  end
 end
