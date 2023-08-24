@@ -60,7 +60,7 @@ curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
 
 ## Pagination
 
-For endpoints which support pagination, the pagination information can be found in the `Link` HTTP response header.
+For endpoints that support pagination, the pagination information can be found in the `Link` HTTP response header.
 
 ### Page number pagination
 
