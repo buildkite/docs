@@ -5,6 +5,7 @@
   box-shadow: $box-shadow-depth-100;
   max-width: map-get($max-w, "prose");
   margin-inline: auto;
+  position: relative;
 
   @media (min-width: $screen-lg) {
     background-color: transparent;
