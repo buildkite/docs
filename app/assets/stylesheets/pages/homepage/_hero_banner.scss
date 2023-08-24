@@ -14,6 +14,12 @@
 
 .HeroBanner__title {
   @include heading(map-get($font-size-aliases, "heading-jumbo"), 0, 0.75rem);
+  margin-block: 0.75rem;
+
+  @media (min-width: $screen-md) {
+    @include heading(2.25);
+    margin-block: 0.5rem;
+  }
 }
 
 .HeroBanner__summary {

@@ -31,7 +31,8 @@ class Page::Renderers::Callout
   end
 
   def title
-    lines.first
+    # Removing emoji from first line
+    lines.first[1..-1]
   end
 
   def paragraphs
@@ -41,12 +42,18 @@ class Page::Renderers::Callout
   def template
     @template = <<~HTML
       <section class='callout callout--#{class_name}'>
-        <p class='callout__title'>
-          #{formatted_title}
-        </p>
+        #{title_template}
         #{paragraphs}
       </section>
     HTML
+  end
+
+  def title_template
+    if title.empty?
+      ""
+    else
+      "<p class='callout__title'>#{formatted_title}</p>"
+    end
   end
 
   def url

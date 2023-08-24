@@ -21,12 +21,13 @@
 
   .TileItem__title {
     font-size: 1.1875rem;
-    font-weight: bold;
-    margin: 0 0 15px;
+    font-weight: 500;
+    margin: 0 0 8px;
   }
 
   .TileItem__title-link {
     color: map-get($color-aliases, "text-base");
+    text-decoration: none;
   }
 
   .TileItem__desc {

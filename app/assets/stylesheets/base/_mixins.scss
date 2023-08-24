@@ -29,6 +29,7 @@
   @if $underline {
     text-decoration: underline;
     text-underline-offset: 0.1em;
+    text-decoration-color: #d6c7ff;
     transition: color $transition-speed, text-decoration-color $transition-speed;
   } @else {
     text-decoration: none;
@@ -37,6 +38,10 @@
 
   &:hover {
     color: $color-hover;
+    @if $underline {
+      text-decoration-color: map-get($color-aliases, "text-link-hover");
+      transition: color $transition-speed, text-decoration-color $transition-speed;
+    }
   }
 
   &:has(code) {
@@ -45,19 +50,16 @@
 
   &.external-link {
     &::after {
-      background-image: asset-url("icons/external_link.svg");
-      content: "";
+      content: "↗";
       display: inline-block;
-      height: map-get($icon-sizes, "xs");
       margin-left: 0.1em;
-      width: map-get($icon-sizes, "xs");
     }
   }
 }
 
 @mixin margin($margin: 1) {
-  margin-bottom: #{$margin}rem;
-  margin-top: #{$margin}rem;
+  margin-bottom: #{$margin}em;
+  margin-top: #{$margin}em;
 }
 
 @mixin heading($font-size, $margin-top: 2rem, $margin-bottom: 1rem) {
@@ -68,12 +70,13 @@
   font-style: normal;
   font-weight: 500;
   line-height: map-get($line-heights, "heading");
-  margin-bottom: $margin-bottom;
-  margin-top: $margin-top;
+  scroll-margin-top: 1.75em;
+  margin-top: 1.75em;
+  margin-bottom: 0.4em;
 }
 
 @mixin code-bg {
-  background-color: $gray-300;
+  background-color: $navy-100;
   border-radius: $rounded;
   padding: 0.185em 0.375em;
 }

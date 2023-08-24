@@ -1,14 +1,16 @@
-$md-screen-margin-top: map-get($header-height, "two-rows") + $gutter;
-$lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
+$md-screen-margin-top: map-get($header-height, "two-rows");
+$lg-screen-margin-top: map-get($header-height, "one-row");
 
 .PageContainer {
-  @include container;
+  padding: 16px;
+  @media (min-width: $screen-md) {
+    padding: 0;
+  }
 }
 
 .Page {
   display: grid;
   grid-template-rows: auto;
-  gap: $gutter / 2;
   grid-template-columns: 1fr;
   grid-template-areas:
     "sidebar"
@@ -16,7 +18,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
     "content";
 
   @media (min-width: $screen-md) {
-    gap: $gutter;
+    gap: $gutter / 2;
     grid-template-columns: 270px 1fr;
     grid-template-areas:
       "sidebar toc"
@@ -44,16 +46,18 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
   overflow-y: auto;
   overscroll-behavior: contain;
   display: none;
+  border-right: 1px solid $navy-100;
 
   @media (min-width: $screen-md) {
     display: block;
     top: $md-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "two-rows")});
+    padding: 8px;
   }
 
   @media (min-width: $screen-lg) {
     top: $lg-screen-margin-top;
-    height: calc(100vh - #{map-get($header-height, "one-row")});
+    height: calc(100vh - #{map-get($header-height, "one-row")} - 16px);
   }
 }
 
@@ -62,8 +66,9 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 
   @media (min-width: $screen-lg) {
     margin-bottom: 0;
+    padding: 40px 24px 0 0;
     top: $lg-screen-margin-top;
-    height: calc(100vh - #{map-get($header-height, "one-row")});
+    height: calc(100vh - #{map-get($header-height, "one-row")} - 40px);
     overscroll-behavior: contain;
     overflow-y: auto;
     position: sticky;
@@ -73,8 +78,16 @@ $lg-screen-margin-top: map-get($header-height, "one-row") + $gutter;
 .Page__content {
   grid-area: content;
   width: 100%;
+  padding-block: 24px;
 
   @media (min-width: $screen-lg) {
     justify-self: center;
+    padding-block: 40px;
+  }
+
+  .Page--landing & {
+    @media (min-width: $screen-lg) {
+      max-width: 896px;
+    }
   }
 }
