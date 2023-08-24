@@ -55,16 +55,16 @@ class Page::Renderer
   end
 
   def wrap_sections(doc)
-    h2s = doc.css('h2')
-    h2s.each do |h2|
-      next_element = h2.next_element
-      h2.wrap("<section id=\"#{h2['id']}\"></section>")
+    headers = doc.css('h2,h3')
+    headers.each do |header|
+      next_element = header.next_element
+      header.wrap("<section id=\"#{header['id']}\"></section>")
 
-      while !next_element.nil? && next_element.name != 'h2' do
+      while !next_element.nil? && !next_element.name.match?(/h2|h3/)  do
         current_element = next_element
         next_element = next_element.next_element
 
-        h2.parent.add_child(current_element)
+        header.parent.add_child(current_element)
       end
     end
 
