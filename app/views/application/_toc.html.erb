@@ -3,6 +3,7 @@
       <button class="Toc__toggle">
         <h2 class="Toc__title">On this page</h2>
       </button>
+
       <ul class="Toc__list Toc__list--is-collapsed">
         <% @page.sections.each do |section| %>
           <li class="Toc__list-item">
@@ -24,5 +25,9 @@
           </li>
         <% end %>
       </ul>
+
+      <svg xmlns="http://www.w3.org/2000/svg">
+        <path />
+      </svg>
     </nav>
   <% end %>

@@ -79,19 +79,9 @@
     margin-top: 2px;
   }
 
-  // It's possible that two elements are being highlighted at the same time
-  // (e.g. when the user is scrolling between two headings). In this case, we
-  // only want to highlight the first one.
-  .Toc__list-item--current + .Toc__list-item--current {
+  .Toc__list-item.active {
     > .Toc__link {
-      background-color: initial;
-      color: $charcoal-500;
-    }
-  }
-
-  .Toc__list-item--current {
-    > .Toc__link {
-      background-color: $purple-100;
+      transition: color 300ms ease-in-out;
       color: $purple-600;
     }
   }
@@ -102,6 +92,7 @@
     display: block;
     padding: 6px 16px;
     text-decoration: none;
+    display: inline-block;
 
     &:hover {
       color: $purple-600;
@@ -110,6 +101,31 @@
 
   .Toc__link--h3 {
     font-size: 0.875rem;
-    padding-left: 16px + 10px;
   }
+}
+
+.Toc__list-item .Toc__list {
+  padding-left: 16px;
+}
+
+.Toc svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+
+  display: none;
+  @media (min-width: $screen-lg) {
+    display: initial;
+  }
+}
+
+.Toc path {
+  transition: all 300ms ease;
+  fill: transparent;
+  stroke: $purple-600;
+  stroke-width: 3px;
+  stroke-dasharray: 0 0 0 1000;
 }
