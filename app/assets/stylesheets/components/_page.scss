@@ -82,13 +82,13 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 .Page__content {
   grid-area: content;
   width: 100%;
+  max-width: map-get($max-w, "prose");
   margin-inline: auto;
   padding-block: 24px;
 
   @media (min-width: $screen-lg) {
     justify-self: center;
     padding-block: 40px;
-    max-width: map-get($max-w, "prose");
   }
 
   .Page--landing & {

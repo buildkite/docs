@@ -3,6 +3,8 @@
   font-size: map-get($font-size-aliases, "template");
   background: #fff;
   box-shadow: $box-shadow-depth-100;
+  max-width: map-get($max-w, "prose");
+  margin-inline: auto;
 
   @media (min-width: $screen-lg) {
     background-color: transparent;
