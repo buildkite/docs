@@ -12,12 +12,16 @@ class PagesController < ApplicationController
     @page = Page.new(view_context, params[:path])
 
     # If the page doesn't exist, throw a 404
-    raise ActionController::RoutingError.new("The documentation page `#{@page.basename}` does not exist") unless @page.exists?
+    unless @page.exists?
+      raise ActionController::RoutingError.new("The documentation page `#{@page.basename}` does not exist")
+      return # ensure we exit the method after raising the error
+    end
 
     # If there's another more correct version of the URL (for example, we changed `_`
     # to `-`), then redirect them to where they should be.
     unless @page.is_canonical?
       redirect_to "/docs/#{@page.canonical_url}", status: :moved_permanently
+      return # ensure we exit the method after redirecting
     end
 
     # Otherwise, render the page (the default)
