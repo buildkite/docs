@@ -88,7 +88,7 @@ export function initToc() {
           const id = entry.target.getAttribute("id");
 
           const link = document.querySelector(`.Toc__link[href="#${id}"]`);
-          if (entry.intersectionRatio > 0) {
+          if (entry.intersectionRatio >= 0.25) {
             link.parentElement.classList.add(visibleClass);
           } else {
             link.parentElement.classList.remove(visibleClass);
@@ -97,7 +97,7 @@ export function initToc() {
 
         syncPath();
       },
-      { rootMargin: `-${content.offsetTop}px 0px 0px 0px` }
+      { rootMargin: `-${content.offsetTop}px 0px 0px 0px`, threshold: 0.25 }
     );
 
     drawPath();
