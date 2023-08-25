@@ -20,7 +20,7 @@ On this page, we've collected the known limitation where some API features are o
 
 ## Features only available in the GraphQL API
 
-* <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](#agents-get-a-list-of-agent-token-idsagents#get-a-list-of-agent-token-ids).
+* <%= pill "AGENTS", "agents" %> [Get a list of agent token IDs (agent tokens are currently only available via GraphQL)](/docs/apis/graphql/cookbooks/agents#get-a-list-of-agent-token-ids).
 * <%= pill "BUILDS", "builds" %> [Get all environment variables set on a build](/docs/apis/graphql/cookbooks/builds#get-all-environment-variables-set-on-a-build).
 * <%= pill "BUILDS", "builds" %> [Increase the next build number](/docs/apis/graphql/cookbooks/builds#increase-the-next-build-number).
 * <%= pill "BUILDS", "builds" %> [Get build info by ID] (/docs/apis/graphql/cookbooks/builds#get-build-info-by-id).
