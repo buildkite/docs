@@ -85,7 +85,18 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
     justify-self: center;
     padding-block: 40px;
     &:nth-child(2) {
-      max-width: 896px;
+      max-width: 1074px;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    ul {
+      max-width: map-get($max-w, "prose");
     }
   }
 }
