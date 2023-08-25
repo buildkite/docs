@@ -44,6 +44,7 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack"><code>NotificationServiceSlack</code></a>
 <a href="/docs/apis/graphql/schemas/object/notificationservicewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceWebhook"><code>NotificationServiceWebhook</code></a>
 <a href="/docs/apis/graphql/schemas/object/organization" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Organization"><code>Organization</code></a>
+<a href="/docs/apis/graphql/schemas/object/organizationbanner" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBanner"><code>OrganizationBanner</code></a>
 <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation"><code>OrganizationInvitation</code></a>
 <a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember"><code>OrganizationMember</code></a>
 <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
