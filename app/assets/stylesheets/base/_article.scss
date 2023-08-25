@@ -2,10 +2,6 @@
   font-size: 1rem;
   color: map-get($color-aliases, "text-body");
 
-  &--prose {
-    max-width: map-get($max-w, "prose");
-  }
-
   > :first-child {
     margin-top: 0;
   }
@@ -106,18 +102,6 @@
 
   a {
     @include style-text-link;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ol,
-  ul {
-    max-width: map-get($max-w, "prose");
   }
 
   code {

@@ -31,6 +31,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
     grid-template-columns: 270px 1fr auto;
     grid-template-areas: "sidebar content toc";
     margin-top: $lg-screen-margin-top;
+    padding-right: 0;
   }
 }
 
@@ -63,7 +64,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
   @media (min-width: $screen-lg) {
     margin-bottom: 0;
-    padding: 40px 24px 0 0;
+    padding: 32px 24px 0 0;
     top: $lg-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "one-row")} - 40px);
     overscroll-behavior: contain;
@@ -83,10 +84,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
   @media (min-width: $screen-lg) {
     justify-self: center;
     padding-block: 40px;
-  }
-
-  .Page--landing & {
-    @media (min-width: $screen-lg) {
+    &:nth-child(2) {
       max-width: 896px;
     }
   }
