@@ -224,6 +224,10 @@
   font-size: 1.2em;
 }
 
+.DocSearch-Logo {
+  display: none;
+}
+
 .DocSearch-Logo a {
   display: flex;
 }
@@ -525,6 +529,7 @@ svg.DocSearch-Hit-Select-Icon {
   list-style: none;
   margin: 0;
   padding: 0;
+  flex: 1;
 }
 
 .DocSearch-Commands li {

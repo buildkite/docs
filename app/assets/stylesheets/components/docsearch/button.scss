@@ -1,25 +1,31 @@
 .DocSearch-Button {
   align-items: center;
-  background: var(--docsearch-searchbox-background);
+  background: white;
   border: 0;
   border-radius: 5px;
   color: var(--docsearch-muted-color);
   cursor: pointer;
   display: flex;
-  font-weight: 500;
   height: 36px;
   justify-content: space-between;
   margin: 0 0 0 16px;
   padding: 0 8px;
   user-select: none;
+  transition: box-shadow $transition-speed, color $transition-speed;
+
+  box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px,
+    rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+    rgba(93, 9, 199, 0.05) 0px 3px 8px;
 }
 
 .DocSearch-Button:hover,
 .DocSearch-Button:active,
 .DocSearch-Button:focus {
-  background: var(--docsearch-searchbox-focus-background);
-  box-shadow: var(--docsearch-searchbox-shadow);
-  color: var(--docsearch-text-color);
+  background: $base-0;
+  color: map-get($color-aliases, "text-display");
+  box-shadow: rgba(93, 9, 199, 0.2) 0px 0px 0px 3px,
+    rgba(93, 9, 199, 0.2) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+    rgba(93, 9, 199, 0.1) 0px 3px 8px;
   outline: none;
 }
 
@@ -39,6 +45,10 @@
 .DocSearch-Button-Placeholder {
   font-size: 1rem;
   padding: 0 12px 0 6px;
+
+  @media (min-width: $screen-md) {
+    font-size: map-get($font-sizes, "sm");
+  }
 }
 
 .DocSearch-Button-Keys {
