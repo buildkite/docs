@@ -5,6 +5,7 @@
   box-shadow: $box-shadow-depth-100;
   max-width: map-get($max-w, "prose");
   margin-inline: auto;
+  position: relative;
 
   @media (min-width: $screen-lg) {
     background-color: transparent;
@@ -79,25 +80,63 @@
     margin-top: 2px;
   }
 
+  .Toc__list-item.active {
+    > .Toc__link {
+      color: $purple-600;
+      transform: translate(5px);
+    }
+  }
+
   .Toc__link {
     border-radius: 5px;
     color: $navy-500;
     display: block;
     padding: 6px 16px;
     text-decoration: none;
+    display: inline-block;
 
     &:hover {
-      color: $purple-600;
-    }
-
-    &--current {
-      background-color: $purple-100;
       color: $purple-600;
     }
   }
 
   .Toc__link--h3 {
     font-size: 0.875rem;
-    padding-left: 16px + 10px;
+  }
+}
+
+.Toc__list-item .Toc__list {
+  padding-left: 16px;
+}
+
+.Toc svg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  display: none;
+
+  @media (min-width: $screen-lg) {
+    display: initial;
+  }
+}
+
+.Toc path {
+  fill: transparent;
+  stroke: $purple-600;
+  stroke-width: 3px;
+  stroke-dasharray: 0 0 0 1000;
+}
+
+// Less animations on page load.
+.Toc--is-ready {
+  path {
+    transition: all 300ms ease;
+  }
+
+  .Toc__link {
+    transition: color 300ms ease-in-out, transform 300ms ease-in-out;
   }
 }
