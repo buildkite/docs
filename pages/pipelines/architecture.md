@@ -2,11 +2,9 @@
 toc: false
 ---
 
-# Understand the architecture
+# Hybrid architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides.
-
-Buildkite uses a hybrid model consisting of the following:
+Buildkite Pipelines uses a hybrid architecture consisting of the following:
 
 - **Buildkite dashboard:** A software-as-a-service (SaaS) control panel for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
 - **Agents:** Small, reliable, and cross-platform build runners. These are hosted by you, either on-premise or in the cloud. They execute the work they receive from the Buildkite dashboard.

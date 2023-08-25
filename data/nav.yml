@@ -11,10 +11,10 @@
           path: "tutorials/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
-        - name: "Understand the architecture"
+        - name: "Hybrid architecture"
           path: "pipelines/architecture"
-        - name: "UI walkthrough"
-          path: "pipelines/ui-walkthrough"
+        - name: "Dashboard walkthrough"
+          path: "pipelines/dashboard-walkthrough"
         - name: "Glossary"
           path: "pipelines/glossary"
     - name: Migration
@@ -222,7 +222,7 @@
     - name: "Configure pipelines"
       children:
         - name: "Overview"
-          path: "pipelines/overview"
+          path: "pipelines/configuration-overview"
         - name: "Defining steps"
           path: "pipelines/defining-steps"
         - name: "Step types"

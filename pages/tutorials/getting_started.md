@@ -19,7 +19,14 @@ To complete this tutorial, you'll need:
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand [Buildkite's architecture](/docs/pipelines/architecture) and the advantages it provides.
+Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides. Buildkite uses a hybrid architecture to separate:
+
+- The control panel
+- The build environment
+
+Buildkite runs the control panel as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the orchestration, and you bring the compute. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
+
+The hybrid architecture reduces the maintenance burden on your team compared to self-hosted solutions and gives you the security and control missing from fully SaaS build tools. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
 
 ## Install and run an agent
 
