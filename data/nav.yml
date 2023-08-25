@@ -11,6 +11,10 @@
           path: "tutorials/getting-started"
         - name: "Create your own pipeline"
           path: "pipelines/create-your-own"
+        - name: "Hybrid architecture"
+          path: "pipelines/architecture"
+        - name: "Dashboard walkthrough"
+          path: "pipelines/dashboard-walkthrough"
         - name: "Glossary"
           path: "pipelines/glossary"
     - name: Migration
@@ -217,6 +221,8 @@
                   path: "agent/v2/cli-pipeline"
     - name: "Configure pipelines"
       children:
+        - name: "Overview"
+          path: "pipelines/configuration-overview"
         - name: "Defining steps"
           path: "pipelines/defining-steps"
         - name: "Step types"

@@ -1,0 +1,15 @@
+<ol class="CardsGrid">
+  <% items.each do |item| %>
+    <li class="CardsGrid__item">
+      <%= render partial: "application/card", locals: {
+        title: item[:title],
+        content: item[:content],
+        to: item[:to],
+        icon: item[:icon],
+        links: item[:links],
+        heading_level: heading_level,
+        css_classes: "CardsGrid__card"
+      }%>
+    </li>
+  <% end %>
+</ol>
