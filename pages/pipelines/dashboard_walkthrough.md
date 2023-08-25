@@ -58,7 +58,7 @@ The display settings can be found in the `Pipeline Settings` section. Adding a d
 
 ## Pipeline page
 
-Clicking through to a pipeline page shows the [build history](#pipelines-page-walkthrough-build-history) for that pipeline, your starred branches, and the ten most recently built branches for that pipeline.
+Clicking through to a pipeline page shows the [build history](#build-history) for that pipeline, your starred branches, and the ten most recently built branches for that pipeline.
 
 <%= image "pipelines-detail.png", width: 2048/2, height: 880/2, alt: "Screenshot of the pipelines settings page" %>
 
