@@ -65,7 +65,7 @@ variables:
     desc: |
       The artifact paths to upload after the job, if any have been specified. The value can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
     modifiable: true
-    example: "`tmp/capybara/**/*;coverage/**/*`"
+    example: "tmp/capybara/**/*;coverage/**/*"
   - name: BUILDKITE_ARTIFACT_UPLOAD_DESTINATION
     desc: |
       The path where artifacts will be uploaded. This variable is read by the `buildkite-agent artifact upload` command, and during the artifact upload phase of [command steps](/docs/pipelines/command-step#command-step-attributes). It can only be set by exporting the environment variable in the `environment`, `pre-checkout` or `pre-command` hooks.
@@ -241,7 +241,7 @@ variables:
     desc: |
       The label/name of the [group step](/docs/pipelines/group-step) the job belongs to. This variable is only available if the job belongs to a group step.
     modifiable: false
-    example: '":lock: Audit"'
+    example: ":lock: Audit"
   - name: BUILDKITE_HOOKS_PATH
     desc: |
       The value of the `hooks-path` [agent configuration option](/docs/agent/v3/configuration).
@@ -266,7 +266,7 @@ variables:
     desc: |
       The label/name of the current job.
     modifiable: false
-    example: '":hammer: Specs"'
+    example: ":hammer: Specs"
   - name: BUILDKITE_LAST_HOOK_EXIT_STATUS
     desc: |
       The exit code of the last hook that ran, used internally by the hooks.
@@ -352,14 +352,14 @@ variables:
     default_value: "false"
   - name: BUILDKITE_PULL_REQUEST
     desc: |
-      The number of the pull request, if this branch is a pull request.
+      The number of the pull request or `false` if not a pull request.
     modifiable: false
-    example: '`"123"` for pull request #123, or `"false"` if not a pull request'
+    example: "123"
   - name: BUILDKITE_PULL_REQUEST_BASE_BRANCH
     desc: |
-      The base branch that the pull request is targeting.
+      The base branch that the pull request is targeting or `""` if not a pull request.`
     modifiable: false
-    example: '`"main"`, or `""` if not a pull request'
+    example: "main"
   - name: BUILDKITE_PULL_REQUEST_DRAFT
     desc: |
       Set to `true` when the pull request is a draft. This variable is only available if a build contains a draft pull request.
@@ -367,19 +367,19 @@ variables:
     example: "true"
   - name: BUILDKITE_PULL_REQUEST_REPO
     desc: |
-      The repository URL of the pull request.
+      The repository URL of the pull request or `""` if not a pull request.
     modifiable: false
-    example: '"`git://github.com/acme-inc/my-project.git`", or "``" if not a pull request'
+    example: "git://github.com/acme-inc/my-project.git"
   - name: BUILDKITE_REBUILT_FROM_BUILD_ID
     desc: |
-      The UUID of the original build this was rebuilt from.
+      The UUID of the original build this was rebuilt from or `""` if not a rebuild.
     modifiable: false
-    example: '`"4735ba57-80d0-46e2-8fa0-b28223a86586"`, or `""` if not a rebuild'
+    example: "4735ba57-80d0-46e2-8fa0-b28223a86586"
   - name: BUILDKITE_REBUILT_FROM_BUILD_NUMBER
     desc: |
-      The UUID of the original build this was rebuilt from.
+      The UUID of the original build this was rebuilt from or `""` if not a rebuild.
     modifiable: false
-    example: '`"1514"`, or `""` if not a rebuild'
+    example: "1514"
   - name: BUILDKITE_REFSPEC
     desc: |
       A custom refspec for the buildkite-agent bootstrap script to use when checking out code. This variable can be modified by exporting the environment variable in the `environment` or `pre-checkout` hooks.
@@ -473,9 +473,9 @@ variables:
     example: "v1.2.3"
   - name: BUILDKITE_TIMEOUT
     desc: |
-      The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified. Jobs that time out with an exit status of 0 are marked as "passed".
+      The number of minutes until Buildkite automatically cancels this job, if a timeout has been specified, otherwise it `false` if no timeout is set. Jobs that time out with an exit status of 0 are marked as "passed".
     modifiable: false
-    example: '`"15"` for 15 minutes, or `"false"` if no timeout is set'
+    example: "15"
   - name: BUILDKITE_TRACING_BACKEND
     default_value: ""
     desc: |
@@ -486,19 +486,19 @@ variables:
     example: "datadog"
   - name: BUILDKITE_TRIGGERED_FROM_BUILD_ID
     desc: |
-      The UUID of the build that triggered this build.
+      The UUID of the build that triggered this build. This will be empty if the build was not triggered from another build.
     modifiable: false
-    example: '`"5aa7c894-c8c0-435b-bc17-13923b90f163"`, or `""` if the build was not triggered from another build'
+    example: "5aa7c894-c8c0-435b-bc17-13923b90f163"
   - name: BUILDKITE_TRIGGERED_FROM_BUILD_NUMBER
     desc: |
-      The number of the build that triggered this build.
+      The number of the build that triggered this build or `""` if the build was not triggered from another build.
     modifiable: false
-    example: '`"1264"`, or `""` if the build was not triggered from another build'
+    example: "1264"
   - name: BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG
     desc: |
-      The slug of the pipeline that was used to trigger this build.
+      The slug of the pipeline that was used to trigger this build or `""` if the build was not triggered from another build.
     modifiable: false
-    example: '`"build-and-test"`, or `""` if the build was not triggered from another build'
+    example: "build-and-test"
   - name: BUILDKITE_UNBLOCKER
     desc: |
       The name of the user who unblocked the build.
