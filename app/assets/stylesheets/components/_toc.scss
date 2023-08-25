@@ -83,6 +83,11 @@
   .Toc__list-item.active {
     > .Toc__link {
       color: $purple-600;
+    }
+  }
+
+  .Toc__list-item--visible {
+    > .Toc__link {
       transform: translate(5px);
     }
   }

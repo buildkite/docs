@@ -48,13 +48,11 @@ export function initToc() {
     items.forEach((item) => {
       // Only make the first visible item active
       item.listItem.classList.remove("active");
-      if (visibleItemFound) {
-        item.listItem.classList.remove("active");
-        return;
-      }
 
       if (item.listItem.classList.contains(visibleClass)) {
-        item.listItem.classList.add("active");
+        if (!visibleItemFound) {
+          item.listItem.classList.add("active");
+        }
 
         pathStart = Math.min(item.pathStart, pathStart);
         pathEnd = Math.max(item.pathEnd, pathEnd);
