@@ -1,0 +1,34 @@
+.Hero {
+  align-items: center;
+  display: grid;
+  gap: $gutter;
+  grid-template-areas:
+    "image"
+    "content";
+
+  @media (min-width: $screen-sm) {
+    grid-template-areas: "content image";
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.Hero__content {
+  grid-area: content;
+}
+
+.Hero__image {
+  grid-area: image;
+  max-width: 100%;
+}
+
+.Hero__calls-to-action {
+  display: flex;
+  flex-direction: column;
+  gap: $gutter / 3;
+
+  @media (min-width: $screen-sm) {
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+}

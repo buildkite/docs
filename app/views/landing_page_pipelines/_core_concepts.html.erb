@@ -1,0 +1,35 @@
+<section>
+  <%= render partial: "application/heading_group", locals: {
+    title: "Core concepts",
+    content: "As you start learning to use Buildkite Pipelines, these are the essential parts to understand."
+  } %>
+  <%= render partial: "application/cards_grid", locals: {
+    items: [
+      {
+        title: "Hybrid architecture",
+        content: "Separating the control panel from the build environment gives you control and convenience.",
+        to: "/docs/pipelines/architecture",
+        icon: "pipelines/icon_pipelines_architecture.svg"
+      },
+      {
+        title: "Pipeline steps",
+        content: "Flexible configuration options let you create tailored and dynamic pipelines for your workflow.",
+        to: "/docs/pipelines/defining-steps",
+        icon: "pipelines/icon_pipelines_steps.svg"
+      },
+      {
+        title: "Agents",
+        content: "Open-source and cross-platform build runners that run on your infrastructure.",
+        to: "/docs/agent/v3",
+        icon: "pipelines/icon_pipelines_agents.svg"
+      },
+      {
+        title: "Security",
+        content: "Best practices for mitigating risk and securing your build infrasturcture.",
+        to: "/docs/pipelines/security-overview",
+        icon: "pipelines/icon_pipelines_security.svg"
+      }
+    ],
+    heading_level: 3
+  }%>
+</section>

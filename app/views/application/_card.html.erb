@@ -1,0 +1,28 @@
+<article class="Card<%= " " + css_classes if defined?(css_classes) %>">
+  <% if to %>
+    <%= link_to to, class: "Card__icon-link" do %>
+      <%= image_tag image_path(icon), class: "Card__icon" %>
+    <% end %>
+  <% else %>
+    <%= image_tag image_path(icon), class: "Card__icon" %>
+  <% end %>
+  <%= content_tag "h#{defined?(heading_level) ? heading_level : 2}", class: "Card__title" do %>
+    <% if to %>
+      <%= link_to title, to, class: "Card__title-link" %>
+    <% else %>
+      <%= title %>
+    <% end %>
+  <% end %>
+  <% if content %>
+    <p class="Card__content"><%= content %></p>
+  <% end %>
+  <% if links %>
+    <ul>
+      <% links.each do |link| %>
+        <li class="Card__list-item">
+          <%= link_to link[:text], link[:to], class: "Card__list-item-link" %>
+        </li>
+      <% end %>
+    </ul>
+  <% end %>
+</article>

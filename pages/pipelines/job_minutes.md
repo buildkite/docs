@@ -5,7 +5,7 @@ Each [Buildkite plan](https://buildkite.com/pricing) has job minute inclusions, 
 Job minutes are calculated as the total number of minutes run by all `command` jobs in a build. It is calculated per-second, starting from when the agent starts running the job, until the job has completed.
 
 
-You can find the total job run time for a build on the bottom of the [build page](/docs/pipelines#pipelines-page-walkthrough-build-page), and your organization's [total usage](#usage-page) in Settings.
+You can find the total job run time for a build on the bottom of the [build page](/docs/pipelines/dashboard-walkthrough#build-page), and your organization's [total usage](#usage-page) in Settings.
 
 <%= image "minutes.png", width: 1530/2, height: 590/2, alt: "Total Job Run Time for a build" %>
 
