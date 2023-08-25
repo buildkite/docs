@@ -1,5 +1,10 @@
 export function initToc() {
   const nav = document.querySelector(".Toc");
+
+  if (!nav) {
+    return;
+  }
+
   const visibleClass = "Toc__list-item--visible";
   const navPath = nav.querySelector("svg path");
   const navListItems = [...document.querySelectorAll(".Toc__list-item")];
