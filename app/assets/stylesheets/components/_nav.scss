@@ -9,9 +9,6 @@
   &__section {
     display: none;
     flex-direction: column;
-    gap: 2px;
-    padding-bottom: 5px;
-    padding-top: 5px;
     width: 100%;
 
     @media (min-width: $screen-md) {
@@ -37,7 +34,7 @@
 
       @media (min-width: $screen-md) {
         flex-direction: row;
-        gap: 5px;
+        gap: 4px;
       }
     }
 
@@ -52,10 +49,11 @@
     align-items: center;
     background-color: transparent;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     box-sizing: border-box;
-    color: $charcoal-900;
+    color: $navy-900;
     display: flex;
+    font-family: $font-family-base;
     font-size: map-get($font-size-aliases, "template");
     gap: 5px;
     line-height: map-get($line-heights, "default");
@@ -75,6 +73,7 @@
     &:hover {
       &:not(span) {
         color: map-get($color-aliases, "selected");
+        background-color: #fbfbff;
 
         &::before {
           @include _make-nav-icon-purple;
@@ -83,7 +82,7 @@
     }
 
     &--current {
-      background-color: map-get($color-aliases, "selected-bg");
+      background-color: map-get($color-aliases, "selected-bg") !important;
       color: map-get($color-aliases, "selected");
     }
 
@@ -172,10 +171,10 @@
     }
 
     &--level2 {
-      padding-left: 50px;
+      padding-left: 48px;
 
       @media (min-width: $screen-md) {
-        padding-left: 25px;
+        padding-left: 24px;
       }
     }
 
@@ -183,7 +182,7 @@
       padding-left: 60px;
 
       @media (min-width: $screen-md) {
-        padding-left: 35px;
+        padding-left: 36px;
       }
     }
 
@@ -191,7 +190,7 @@
       padding-left: 70px;
 
       @media (min-width: $screen-md) {
-        padding-left: 45px;
+        padding-left: 44px;
       }
     }
 

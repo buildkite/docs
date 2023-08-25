@@ -1,18 +1,15 @@
 .Article {
+  font-size: 1rem;
   color: map-get($color-aliases, "text-body");
-
-  &--prose {
-    max-width: map-get($max-w, "prose");
-  }
 
   > :first-child {
     margin-top: 0;
   }
 
   p {
-    letter-spacing: -0.02em;
-    margin-bottom: 1rem;
-    margin-top: 1rem;
+    letter-spacing: -0.01em;
+    font-size: 1rem;
+    margin-block: 1em;
   }
 
   blockquote,
@@ -22,8 +19,13 @@
   }
 
   li {
-    margin-bottom: 0.5em;
-    margin-top: 0.5em;
+    margin-block: 0.66em;
+    p {
+      margin-block: 0.33em;
+    }
+    li {
+      margin-block: 0.33em;
+    }
   }
 
   ol {
@@ -102,18 +104,6 @@
     @include style-text-link;
   }
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6,
-  p,
-  ol,
-  ul {
-    max-width: map-get($max-w, "prose");
-  }
-
   code {
     font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono",
       Courier, monospace;
@@ -153,6 +143,13 @@
     }
   }
 
+  th code,
+  td:first-child code {
+    @media (min-width: $screen-lg) {
+      white-space: nowrap;
+    }
+  }
+
   em {
     font-style: italic;
   }
@@ -169,8 +166,8 @@
     word-wrap: break-word;
     border: 1px solid #ddd;
     padding: 0.8em 1em;
-    border-radius: 5px;
-    line-height: map-get($line-heights, "default");
+    border-radius: 8px;
+    line-height: map-get($line-heights, "code");
     min-width: 0;
     white-space: pre-wrap;
 
@@ -181,8 +178,8 @@
     }
 
     code {
-      font-size: map-get($font-size-aliases, "code");
-      line-height: map-get($line-heights, "default");
+      line-height: map-get($line-heights, "code");
+      font-size: map-get($font-sizes, "sm");
     }
   }
   iframe {
@@ -191,11 +188,20 @@
   table {
     font-size: 0.875rem;
     word-wrap: break-word;
+    border-radius: 8px;
+    box-shadow: 0 0 0 1px #28205020, 0 1px 3px #28205033;
+    margin: 2em 0;
+    min-width: 100%;
 
     p {
       font-size: 0.875rem;
     }
   }
+
+  thead {
+    border-bottom: 1px solid $navy-200;
+  }
+
   table,
   tbody,
   tr,
@@ -205,12 +211,22 @@
   }
 
   tbody tr {
-    border-top: 1px solid #ddd;
-    border-bottom: 1px solid #ddd;
+    border-top: 1px solid $navy-100;
+    border-bottom: 1px solid $navy-100;
   }
+
+  tbody tr:first-child {
+    border-top: 0 none;
+  }
+
+  tbody tr:last-child {
+    border-bottom: 0 none;
+  }
+
   th code,
   td code {
     border: none;
+    font-size: map-get($font-sizes, "xs");
   }
 
   th,
@@ -341,8 +357,8 @@
     figcaption {
       border: 1px solid #ddd;
       padding: 0.8em 1em;
-      border-top-left-radius: 5px;
-      border-top-right-radius: 5px;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
       border-bottom: none;
       font-size: 14px;
       color: map-get($color-aliases, "text-lightest");

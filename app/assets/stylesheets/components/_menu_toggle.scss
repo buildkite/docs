@@ -19,8 +19,7 @@
 
 .MenuToggleLabel {
   background: transparent asset-url("icons/menu.svg") 50% 50% no-repeat;
-  border: map-get($color-aliases, "border") 1px solid;
-  border-radius: 5px;
+  border-radius: 6px;
   box-sizing: border-box;
   cursor: pointer;
   display: block;

@@ -1,13 +1,15 @@
 .Toc {
-  background-color: $gray-100;
-  border: 1px solid $gray-500;
   border-radius: 5px;
   font-size: map-get($font-size-aliases, "template");
+  background: #fff;
+  box-shadow: $box-shadow-depth-100;
+  max-width: map-get($max-w, "prose");
+  margin-inline: auto;
 
   @media (min-width: $screen-lg) {
     background-color: transparent;
     border-radius: initial;
-    border: 0;
+    box-shadow: 0 0 0 transparent;
   }
 
   .Toc__toggle {
@@ -68,6 +70,7 @@
 
   > .Toc__list {
     margin-bottom: 1rem;
+    padding: 0 8px 8px;
   }
 
   .Toc__list-item {
@@ -78,7 +81,7 @@
 
   .Toc__link {
     border-radius: 5px;
-    color: $charcoal-500;
+    color: $navy-500;
     display: block;
     padding: 6px 16px;
     text-decoration: none;

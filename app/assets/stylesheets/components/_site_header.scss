@@ -1,5 +1,6 @@
 .SiteHeader {
   background-color: $base-0;
+  border-bottom: 1px solid $navy-100;
   box-sizing: border-box;
   z-index: 20;
 
@@ -24,7 +25,10 @@
 }
 
 .SiteHeader__container {
-  @include container("outer-container");
+  padding-inline: 16px;
+  @media (min-width: $screen-md) {
+    padding-inline: 24px;
+  }
 }
 
 .SiteHeader__inner {
@@ -73,7 +77,7 @@
   .SiteHeader__nav {
     border-top: 0;
     flex-basis: content;
-    margin-left: $gutter;
+    margin-left: $gutter / 2;
     order: 2;
     padding-top: 0;
   }

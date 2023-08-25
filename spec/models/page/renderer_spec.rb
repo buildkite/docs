@@ -56,9 +56,7 @@ RSpec.describe Page::Renderer do
 
     html = <<~HTML
       <section class="callout callout--troubleshooting">
-        <p class="callout__title">
-          <a class="callout__anchor" href="#troubleshooting-launchctl-fails-with-error" id="troubleshooting-launchctl-fails-with-error">🚧 Troubleshooting: <code>launchctl</code> fails with "error"</a>
-        </p>
+        <p class="callout__title"><a class="callout__anchor" href="#troubleshooting-launchctl-fails-with-error" id="troubleshooting-launchctl-fails-with-error"> Troubleshooting: <code>launchctl</code> fails with "error"</a></p>
         <p>Ensure <strong>strong emphasis</strong> works</p>
       <p>Second paragraph has <em>emphasis</em></p>
       </section>
@@ -76,12 +74,10 @@ RSpec.describe Page::Renderer do
 
     html = <<~HTML
       <section class="callout callout--troubleshooting">
-        <p class="callout__title">
-          🚧
-        </p>
-        <p>Ensure <strong>strong emphasis</strong> works</p>
-      <p>Second paragraph has <em>emphasis</em></p>
-      </section>
+  
+  <p>Ensure <strong>strong emphasis</strong> works</p>
+<p>Second paragraph has <em>emphasis</em></p>
+</section>
     HTML
 
     expect(Page::Renderer.render(md).strip).to eql(html.strip)

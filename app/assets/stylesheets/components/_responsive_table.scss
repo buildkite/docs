@@ -10,55 +10,25 @@
 
   th {
     overflow-wrap: anywhere;
-    padding: 0;
-
-    @media (min-width: $screen-md) {
-      padding: 15px;
-    }
-
-    &:first-child {
-      @media (min-width: $screen-md) {
-        padding-left: 0;
-      }
-    }
-
-    &:last-child {
-      @media (min-width: $screen-md) {
-        padding-right: 0;
-      }
-    }
+    padding: 16px;
   }
 
   td {
     overflow-wrap: anywhere;
     margin-bottom: 15px;
-    padding: 0;
+    padding: 16px;
 
     @media (min-width: $screen-sm) {
       margin-bottom: 0;
     }
 
-    @media (min-width: $screen-md) {
-      padding: 15px;
-    }
-
-    &:first-child {
-      @media (min-width: $screen-md) {
-        padding-left: 0;
-      }
-    }
-
     &:last-child {
       margin-bottom: 0;
-
-      @media (min-width: $screen-md) {
-        padding-right: 0;
-      }
     }
 
     p {
-      margin-bottom: 15px;
-      margin-top: 15px;
+      margin-bottom: 16px;
+      margin-top: 16px;
 
       &:first-child {
         margin-top: 0;

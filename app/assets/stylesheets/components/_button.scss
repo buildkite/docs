@@ -1,4 +1,5 @@
 @mixin button-font {
+  font-family: $font-family-display;
   font-size: map-get($font-size-aliases, "template");
 }
 
@@ -68,14 +69,18 @@ button {
 
 .Button--default {
   background-color: $base-0;
-  border-color: map-get($color-aliases, "border");
   color: map-get(
     $color-aliases,
     "text-base"
   ) !important; // override possible nested content styling
+  font-weight: 500;
+  box-shadow: $box-shadow-depth-100;
+  transition: background-color $transition-speed, border-color $transition-speed,
+    box-shadow $transition-speed;
 
   &:hover {
     background-color: map-get($color-aliases, "panel-background");
+    box-shadow: $box-shadow-depth-100-hover;
   }
 }
 
