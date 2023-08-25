@@ -85,20 +85,6 @@
   .Docs__attribute__default {
     font-size: 0.875rem;
   }
-
-  .Docs__attribute__example {
-    align-content: baseline;
-    display: grid;
-    gap: 0.4rem;
-    grid-template-columns: auto auto;
-    justify-content: left;
-
-    strong,
-    code {
-      font-size: 0.875rem;
-      line-height: map-get($line-heights, "tight");
-    }
-  }
 }
 
 a.Docs__example-repo {
