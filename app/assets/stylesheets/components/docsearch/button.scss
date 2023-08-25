@@ -12,10 +12,12 @@
   padding: 0 8px;
   user-select: none;
   transition: box-shadow $transition-speed, color $transition-speed;
-
   box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px,
     rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
     rgba(93, 9, 199, 0.05) 0px 3px 8px;
+  @media (min-width: $screen-md) {
+    min-width: 196px;
+  }
 }
 
 .DocSearch-Button:hover,
@@ -53,24 +55,21 @@
 
 .DocSearch-Button-Keys {
   display: flex;
-  min-width: calc(2 * 20px + 2 * 0.4em);
+  box-shadow: $box-shadow-depth-100;
+  border-radius: 3px;
+  padding: 0 4px;
 }
 
 .DocSearch-Button-Key {
   align-items: center;
-  background: var(--docsearch-key-gradient);
-  border-radius: 3px;
-  box-shadow: var(--docsearch-key-shadow);
-  color: var(--docsearch-muted-color);
+  color: $navy-500;
   display: flex;
-  height: 18px;
   justify-content: center;
-  margin-right: 0.4em;
+  margin: 0;
+  padding: 2px;
   position: relative;
-  padding: 0px 0px 2px 0px;
   border: 0px;
   top: -1px;
-  width: 20px;
 }
 
 @media (max-width: 768px) {

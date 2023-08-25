@@ -42,7 +42,7 @@
 
 .DocSearch-Modal {
   background: var(--docsearch-modal-background);
-  border-radius: 6px;
+  border-radius: 12px;
   box-shadow: var(--docsearch-modal-shadow);
   flex-direction: column;
   margin: 60px auto auto;
@@ -60,14 +60,24 @@
 .DocSearch-Form {
   align-items: center;
   background: var(--docsearch-searchbox-focus-background);
-  border-radius: 4px;
-  box-shadow: var(--docsearch-searchbox-shadow);
+  border-radius: 8px;
+  box-shadow: rgba(93, 9, 199, 0) 0px 0px 0px 0px,
+    rgba(93, 9, 199, 0.1) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+    rgba(93, 9, 199, 0.05) 0px 3px 8px;
   display: flex;
   height: var(--docsearch-searchbox-height);
   margin: 0;
   padding: 0 var(--docsearch-spacing);
   position: relative;
   width: 100%;
+  z-index: 11;
+  transition: 0.2s ease box-shadow;
+
+  &:has(.DocSearch-Input:focus) {
+    box-shadow: rgba(93, 9, 199, 0.2) 0px 0px 0px 3px,
+      rgba(93, 9, 199, 0.2) 0px 1px 3px, rgba(93, 9, 199, 0.2) 0px 0px 0px 1px,
+      rgba(93, 9, 199, 0.1) 0px 3px 8px;
+  }
 }
 
 .DocSearch-Input {
@@ -509,7 +519,7 @@ svg.DocSearch-Hit-Select-Icon {
 .DocSearch-Footer {
   align-items: center;
   background: var(--docsearch-footer-background);
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 12px 12px;
   box-shadow: var(--docsearch-footer-shadow);
   display: flex;
   flex-direction: row-reverse;
@@ -527,6 +537,7 @@ svg.DocSearch-Hit-Select-Icon {
   color: var(--docsearch-muted-color);
   display: flex;
   list-style: none;
+  justify-content: center;
   margin: 0;
   padding: 0;
   flex: 1;
@@ -639,4 +650,8 @@ svg.DocSearch-Hit-Select-Icon {
   100% {
     opacity: 1;
   }
+}
+
+.DocSearch-Title {
+  margin-bottom: 8px;
 }
