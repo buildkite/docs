@@ -64,13 +64,13 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
 
   @media (min-width: $screen-lg) {
     margin-bottom: 0;
-    padding: 24px 24px 0 0;
+    padding: 12px 8px 0 0;
     top: $lg-screen-margin-top;
     height: calc(100vh - #{map-get($header-height, "one-row")} - 40px);
     overscroll-behavior: contain;
     overflow-y: auto;
     position: sticky;
-    width: 288px;
+    width: 300px;
     box-shadow: inset 1px 0 0 $navy-100;
   }
 }
