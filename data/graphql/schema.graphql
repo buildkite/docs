@@ -773,6 +773,9 @@ enum AuditEventType {
   NOTIFICATION_SERVICE_DISABLED
   NOTIFICATION_SERVICE_ENABLED
   NOTIFICATION_SERVICE_UPDATED
+  ORGANIZATION_BANNER_CREATED
+  ORGANIZATION_BANNER_DELETED
+  ORGANIZATION_BANNER_UPDATED
   ORGANIZATION_BUILD_EXPORT_UPDATED
   ORGANIZATION_CREATED
   ORGANIZATION_DELETED
@@ -880,7 +883,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -895,6 +898,7 @@ enum AuditSubjectType {
   CLUSTER_TOKEN
   NOTIFICATION_SERVICE
   ORGANIZATION
+  ORGANIZATION_BANNER
   ORGANIZATION_INVITATION
   ORGANIZATION_MEMBER
   PIPELINE
@@ -5273,6 +5277,23 @@ enum OrganizationAuditEventOrders {
   Order by the most recently occurring events first
   """
   RECENTLY_OCCURRED
+}
+
+"""
+System banner of an organization
+"""
+type OrganizationBanner implements Node {
+  id: ID!
+
+  """
+  The banner message
+  """
+  message: String!
+
+  """
+  The UUID of the organization banner
+  """
+  uuid: String!
 }
 
 type OrganizationConnection implements Connection {
