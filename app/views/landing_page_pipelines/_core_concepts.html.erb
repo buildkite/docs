@@ -1,31 +1,31 @@
 <section>
   <%= render partial: "application/heading_group", locals: {
     title: "Core concepts",
-    content: "Understanding these four fundamental building blocks to leverage Buildkite Pipelines' advantages"
+    content: "As you start learning to use Buildkite Pipelines, these are the essential parts to understand."
   } %>
   <%= render partial: "application/cards_grid", locals: {
     items: [
       {
         title: "Hybrid architecture",
-        content: "Scalable and secure hybrid model decoupling SaaS control plane from your sensitive data",
+        content: "Separating the control panel from the build environment gives you control and convenience.",
         to: "/docs/pipelines/architecture",
         icon: "pipelines/icon_pipelines_architecture.svg"
       },
       {
         title: "Pipeline steps",
-        content: "Flexible configurations to create  extensible, re-usable and dynamic pipelines tailored to your workflow",
-        to: "/docs/pipelines/overview",
+        content: "Flexible configuration options let you create tailored and dynamic pipelines for your workflow.",
+        to: "/docs/pipelines/defining-steps",
         icon: "pipelines/icon_pipelines_steps.svg"
       },
       {
         title: "Agents",
-        content: "Cross-platform runners that run automated builds on your own infrastructure",
+        content: "Open-source and cross-platform build runners that run on your infrastructure.",
         to: "/docs/agent/v3",
         icon: "pipelines/icon_pipelines_agents.svg"
       },
       {
         title: "Security",
-        content: "Infrastructure that maintains tight control over security without compromising on scalability",
+        content: "Best practices for mitigating risk and securing your build infrasturcture.",
         to: "/docs/pipelines/security-overview",
         icon: "pipelines/icon_pipelines_security.svg"
       }
