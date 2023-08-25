@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # GraphQL API cookbook
 
 The GraphQL cookbook is a collection of recipes detailing how to do common tasks using the GraphQL API. Use them as a starting point when trying something new.
