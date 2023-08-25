@@ -1,9 +1,9 @@
 <% content_for :page_title, @page.title %>
 <% content_for :page_description, @page.description %>
 
-<div class="Article Article--prose">
+<article class="Article Article--prose">
   <%= @page.body %>
-</div>
+</article>
 
 <%= content_for :toc do %>
   <%= render 'toc' %>

@@ -3,13 +3,13 @@
   "start_urls": ["https://buildkite.com/docs"],
   "stop_urls": ["agent/v2"],
   "selectors": {
-    "lvl0": ".Page article h1",
-    "lvl1": ".Page article h2",
-    "lvl2": ".Page article h3",
-    "lvl3": ".Page article h4, .Page article th",
-    "lvl4": ".Page article h5, .Page article td:first-child",
-    "lvl5": ".Page article h6",
-    "text": ".Page article p, .Page article li, .Page article td"
+    "lvl0": ".Article h1",
+    "lvl1": ".Article h2",
+    "lvl2": ".Article h3",
+    "lvl3": ".Article h4, .Article th",
+    "lvl4": ".Article h5, .Article td:first-child",
+    "lvl5": ".Article h6",
+    "text": ".Article p, .Article li, .Article td"
   },
   "selectors_exclude": ["[data-algolia-exclude]", ".Toc", ".Footer", ".Nav"],
   "custom_settings": {
