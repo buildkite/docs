@@ -68,7 +68,7 @@ query getOrgTeams {
 }
 ```
 
-Then, add a team member. You can get the `user-id` using the example in [Search for organization members](#organizations-search-for-organization-members).
+Then, add a team member. You can get the `user-id` using the example in [Search for organization members](/docs/apis/graphql/cookbooks/organizations#search-for-organization-members).
 
 >📘
 > <code>clientMutationId</code> is null when the mutation is successful.
