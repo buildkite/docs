@@ -212,6 +212,29 @@ query GetBuilds {
 }
 ```
 
+### Get job retry info for a build
+
+Get the retry info for jobs in a given build. Any jobs retried [automatically](/docs/pipelines/command-step#retry-attributes) will return `nil` for `retriedBy`.
+
+```graphql
+query GetJobRetryInfo {
+  build(slug:"organization-slug/pipeline-slug/build-number") {
+    jobs(first: 10, state:FINISHED) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            retriedBy{
+              name
+            }
+            retryType
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ### Get all environment variables set on a build
 
 Retrieve all of a job's environment variables for a given build. This is the equivalent of what you see in the _Environment_ tab of each build.
