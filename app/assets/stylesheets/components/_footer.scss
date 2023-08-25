@@ -1,8 +1,13 @@
 .Footer {
+  padding-inline: 16px;
+
+  @media (min-width: $screen-md) {
+    padding-inline: 24px;
+  }
+
   color: map-get($color-aliases, "text-lightest");
   font-size: 0.875rem;
   margin-bottom: 30px;
-  margin-top: 60px;
   text-align: center;
 }
 

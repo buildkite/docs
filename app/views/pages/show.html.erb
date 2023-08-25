@@ -8,3 +8,22 @@
 <%= content_for :toc do %>
   <%= render 'toc' %>
 <% end %>
+
+<% hide_feedback = hide_feedback || false %>
+<% unless hide_feedback %>
+  <div class="Feedback">
+    <div class="Feedback__heading">How helpful was this page?</div>
+    <div id="emojicom-widget-inline"></div>
+    <p>If you have questions or feedback</p>
+    <div class="Footer__links">
+      <a class="Button Button--default" href="https://github.com/buildkite/docs/issues">
+        <img alt="Icon: issue" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/issue.svg') %>" />
+        Open an issue
+      </a>
+      <a class="Button Button--default" href="<%= open_source_url %>">
+        <img alt="Icon: pull request" class="Button__icon Button__icon--16x16" src="<%= image_path('icons/pull-request.svg') %>" />
+        Contribute an update
+      </a>
+    </div>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+.Feedback {
+  margin-top: 60px;
+  text-align: center;
+  color: map-get($color-aliases, "text-lightest");
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.Feedback__heading {
+  @include heading(map-get($font-size-aliases, "heading-5"));
+}
