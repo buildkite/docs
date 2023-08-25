@@ -19,14 +19,18 @@ To complete this tutorial, you'll need:
 
 ## Understand the architecture
 
-Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides. Buildkite uses a hybrid architecture to separate:
+Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides.
 
-- The control panel
-- The build environment
+Buildkite uses a hybrid model consisting of the following:
 
-Buildkite runs the control panel as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the orchestration, and you bring the compute. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
+- **Buildkite dashboard:** A software-as-a-service (SaaS) control panel for visualizing and managing CI/CD pipelines. This coordinates work and displays results.
+- **Agents:** Small, reliable, and cross-platform build runners. These are hosted by you, either on-premise or in the cloud. They execute the work they receive from the Buildkite dashboard.
 
-The hybrid architecture reduces the maintenance burden on your team compared to self-hosted solutions and gives you the security and control missing from fully SaaS build tools. See [Hybrid architecture](/docs/pipelines/architecture) to learn more.
+The following diagram shows the split in Buildkite between the SaaS platform and the agents running on your infrastructure.
+
+<%= image "buildkite-hybrid-architecture.png", alt: "Shows the hybrid architecture combining a SaaS platform with your infrastructure" %>
+
+The diagram shows that Buildkite provides a web interface, handles integrations with third-party tools, and offers APIs and webhooks. By design, sensitive data, such as source code and secrets, remain within your environment and are not seen by Buildkite. This decoupling provides flexibility and security as you maintain control over the build environment and agent scaling while Buildkite manages the coordination, scheduling, and web interface.
 
 ## Install and run an agent
 
