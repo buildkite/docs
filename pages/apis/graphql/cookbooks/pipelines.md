@@ -173,3 +173,21 @@ mutation PipelineDelete {
   }
 }
 ```
+
+### Update pipeline schedule with multiple environment variables
+
+You can set multiple environment variables on a pipeline schedule by using the new-line value `\n` as a delimiter.
+
+```graphql
+mutation UpdateSchedule {
+  pipelineScheduleUpdate(input:{
+    id: "schedule-id"
+    env: "FOO=bar\nBAR=foo"
+  }) {
+    pipelineSchedule {
+      id
+      env
+    }
+  }
+}
+```
