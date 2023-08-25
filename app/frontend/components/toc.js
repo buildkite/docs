@@ -37,7 +37,7 @@ export function initToc() {
     });
   }
 
-  function syncPath() {
+  function syncPath(clickedItem = null) {
     const pathLength = navPath.getTotalLength();
 
     let pathStart = pathLength;
@@ -45,22 +45,30 @@ export function initToc() {
     let lastPathStart, lastPathEnd;
     let visibleItemFound = false;
 
-    items.forEach((item) => {
-      // Only make the first visible item active
-      item.listItem.classList.remove("active");
-      if (visibleItemFound) {
+    if (clickedItem) {
+      items.forEach((item) => item.listItem.classList.remove("active"));
+      clickedItem.listItem.classList.add("active");
+      pathStart = Math.min(clickedItem.pathStart, pathStart);
+      pathEnd = Math.max(clickedItem.pathEnd, pathEnd);
+      visibleItemFound = true;
+    } else {
+      items.forEach((item) => {
+        // Only make the first visible item active
         item.listItem.classList.remove("active");
-        return;
-      }
+        if (visibleItemFound) {
+          item.listItem.classList.remove("active");
+          return;
+        }
 
-      if (item.listItem.classList.contains(visibleClass)) {
-        item.listItem.classList.add("active");
+        if (item.listItem.classList.contains(visibleClass)) {
+          item.listItem.classList.add("active");
 
-        pathStart = Math.min(item.pathStart, pathStart);
-        pathEnd = Math.max(item.pathEnd, pathEnd);
-        visibleItemFound = true;
-      }
-    });
+          pathStart = Math.min(item.pathStart, pathStart);
+          pathEnd = Math.max(item.pathEnd, pathEnd);
+          visibleItemFound = true;
+        }
+      });
+    }
 
     if (visibleItemFound && pathStart < pathEnd) {
       if (pathStart !== lastPathStart || pathEnd !== lastPathEnd) {
@@ -125,6 +133,16 @@ export function initToc() {
       listNode.classList.toggle("Toc__list--is-collapsed");
     });
   };
+
+  // Force the clicked item to be active.
+  items.forEach((item) => {
+    item.anchor.addEventListener("click", (e) => {
+      setTimeout(() => {
+        item.listItem.classList.add(visibleClass);
+        syncPath(item);
+      }, 25);
+    });
+  });
 
   initCurrentLinkListener();
   initToggle();
