@@ -25,8 +25,12 @@ module NavData
         "path" => "apis/graphql/graphql-tutorial"
       },
       {
-        "name" => "Cookbooks",
+        "name" => "Cookbook",
         "children" => [
+          {
+            "name" => "Overview",
+            "path" => "apis/graphql/graphql-cookbook"
+          },
           {
             "name" => "Pipelines",
             "path" => "apis/graphql/cookbooks/pipelines"

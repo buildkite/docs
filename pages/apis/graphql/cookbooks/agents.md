@@ -7,7 +7,6 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 >📘 Suggest recipes
 > Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
 
-
 ## Get a list of agent token IDs
 
 Get the first five agent token IDs for an organization.
