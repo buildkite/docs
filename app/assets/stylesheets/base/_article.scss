@@ -2,6 +2,10 @@
   font-size: 1rem;
   color: map-get($color-aliases, "text-body");
 
+  &--prose {
+    max-width: map-get($max-w, "prose");
+  }
+
   > :first-child {
     margin-top: 0;
   }

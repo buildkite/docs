@@ -28,16 +28,9 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
   }
 
   @media (min-width: $screen-lg) {
-    grid-template-columns: 270px 1fr 270px;
+    grid-template-columns: 270px 1fr auto;
     grid-template-areas: "sidebar content toc";
     margin-top: $lg-screen-margin-top;
-  }
-
-  &--landing {
-    @media (min-width: $screen-lg) {
-      grid-template-columns: 270px 1fr;
-      grid-template-areas: "sidebar content";
-    }
   }
 }
 
@@ -76,6 +69,7 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
     overscroll-behavior: contain;
     overflow-y: auto;
     position: sticky;
+    width: 270px;
   }
 }
 

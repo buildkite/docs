@@ -173,6 +173,10 @@ class Page
     front_matter.fetch(:toc_include_h3)
   end
 
+  def template
+    front_matter.fetch(:template, "show")
+  end
+
   private
 
   def front_matter

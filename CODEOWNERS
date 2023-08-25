@@ -6,5 +6,5 @@ images/ @mbelton-buildkite
 vale/ @mbelton-buildkite
 styleguide/ @mbelton-buildkite
 
-app/assets/ @buildkite/onboarding
-app/views/ @buildkite/onboarding
+app/assets/ @buildkite/growth-activate
+app/views/ @buildkite/growth-activate

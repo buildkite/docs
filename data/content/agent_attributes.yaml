@@ -115,6 +115,13 @@ attributes:
   desc: |
       Path to where mirrors of git repositories are stored. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
       _Example:_ `/tmp/buildkite-git-mirrors`
+- name: git-mirrors-skip-update
+  env_var: BUILDKITE_GIT_MIRRORS_SKIP_UPDATE
+  default_value: "false"
+  required: false
+  experimental: false
+  desc: |
+       Skips updating the git mirror before cloning. Refer to [Git mirrors](/docs/agent/v3#promoted-experiments-git-mirrors) for more information on this feature. Introduced in [v3.47.0](https://github.com/buildkite/agent/releases/tag/v3.47.0).
 - name: health-check-addr
   env_var: BUILDKITE_AGENT_HEALTH_CHECK_ADDR
   default_value: "disabled"
