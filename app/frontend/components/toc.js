@@ -101,9 +101,15 @@ export function initToc() {
     );
 
     drawPath();
+
     document.querySelectorAll("section[id]").forEach((section) => {
       observer.observe(section);
     });
+
+    // Wait for the nav to be ready before animating the path
+    setTimeout(() => {
+      nav.classList.add("Toc--is-ready");
+    }, 100);
   };
 
   const initToggle = () => {

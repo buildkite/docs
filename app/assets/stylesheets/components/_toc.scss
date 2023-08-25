@@ -88,7 +88,6 @@
   }
 
   .Toc__link {
-    transition: color 300ms ease-in-out, transform 300ms ease-in-out;
     border-radius: 5px;
     color: $navy-500;
     display: block;
@@ -117,17 +116,27 @@
   width: 100%;
   height: 100%;
   z-index: -1;
-
   display: none;
+
   @media (min-width: $screen-lg) {
     display: initial;
   }
 }
 
 .Toc path {
-  transition: all 300ms ease;
   fill: transparent;
   stroke: $purple-600;
   stroke-width: 3px;
   stroke-dasharray: 0 0 0 1000;
+}
+
+// Less animations on page load.
+.Toc--is-ready {
+  path {
+    transition: all 300ms ease;
+  }
+
+  .Toc__link {
+    transition: color 300ms ease-in-out, transform 300ms ease-in-out;
+  }
 }
