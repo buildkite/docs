@@ -38,23 +38,19 @@
   padding-bottom: 15px;
   padding-top: 10px;
 
-  @media (min-width: $screen-sm) {
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
-    padding-bottom: 10px;
-  }
+  align-items: center;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
 }
 
-@media (min-width: $screen-sm) {
-  .SiteHeader__nav {
-    flex-basis: 100%;
-  }
+.SiteHeader__nav {
+  flex-basis: 100%;
+}
 
-  .SiteHeader__search {
-    margin-left: auto;
-    margin-right: 55px;
-  }
+.SiteHeader__search {
+  margin-left: auto;
+  margin-right: 55px;
 }
 
 @media (min-width: $screen-md) {
