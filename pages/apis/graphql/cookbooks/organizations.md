@@ -4,9 +4,6 @@ A collection of common tasks with organizations using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
 
->📘 Suggest recipes
-> Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
-
 ## List organization members
 
 List the first 100 members in the organization.

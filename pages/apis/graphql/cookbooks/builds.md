@@ -4,9 +4,6 @@ A collection of common tasks with builds using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
 
->📘 Suggest recipes
-> Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
-
 ## Get build info by ID
 
 Get all the available info from a build while only having its UUID.

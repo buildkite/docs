@@ -4,9 +4,6 @@ A collection of common tasks with clusters using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
 
->📘 Suggest recipes
-> Want to suggest a recipe? We welcome pull requests to the [docs repo](https://github.com/buildkite/docs).
-
 ## List cluster IDs
 
 Get the first 10 clusters and their information for an organization:
