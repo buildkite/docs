@@ -2,6 +2,7 @@ export function initToc() {
   const nav = document.querySelector(".Toc");
   const visibleClass = "Toc__list-item--visible";
   const navPath = nav.querySelector("svg path");
+  const tocList = nav.querySelector("Toc__list");
   const navListItems = [...document.querySelectorAll(".Toc__list-item")];
 
   const items = navListItems.map((listItem) => {
@@ -14,7 +15,7 @@ export function initToc() {
     let pathIndent;
 
     items.forEach((item, i) => {
-      const x = item.anchor.offsetLeft + 3;
+      const x = 1;
       const y = item.anchor.offsetTop;
       const height = item.anchor.offsetHeight;
 
