@@ -29,10 +29,12 @@ h4 {
   @include heading(map-get($font-size-aliases, "heading-4"));
 }
 
-h5 {
+h5,
+.h5 {
   @include heading(map-get($font-size-aliases, "heading-5"));
 }
 
-h6 {
+h6,
+.h6 {
   @include heading(map-get($font-size-aliases, "heading-6"));
 }
