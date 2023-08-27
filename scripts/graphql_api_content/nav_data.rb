@@ -26,7 +26,40 @@ module NavData
       },
       {
         "name" => "Cookbook",
-        "path" => "apis/graphql/graphql-cookbook"
+        "children" => [
+          {
+            "name" => "Overview",
+            "path" => "apis/graphql/graphql-cookbook"
+          },
+          {
+            "name" => "Pipelines",
+            "path" => "apis/graphql/cookbooks/pipelines"
+          },
+          {
+            "name" => "Builds",
+            "path" => "apis/graphql/cookbooks/builds"
+          },
+          {
+            "name" => "Jobs",
+            "path" => "apis/graphql/cookbooks/jobs"
+          },
+          {
+            "name" => "Agents",
+            "path" => "apis/graphql/cookbooks/agents"
+          },
+          {
+            "name" => "Clusters",
+            "path" => "apis/graphql/cookbooks/clusters"
+          },
+          {
+            "name" => "Organizations",
+            "path" => "apis/graphql/cookbooks/organizations"
+          },
+          {
+            "name" => "Teams",
+            "path" => "apis/graphql/cookbooks/teams"
+          }
+        ]
       },
       {
         "name" => "Limits",
