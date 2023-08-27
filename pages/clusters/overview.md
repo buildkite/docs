@@ -2,7 +2,7 @@
 
 Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
 
-The following diagram shows the architectural change when enabling clusters.
+The following diagram shows the architecture with cluster enabled.
 
 <%= image "clusters-architecture.png", alt: "Diagram showing existing architecture and architecture with clusters" %>
 
