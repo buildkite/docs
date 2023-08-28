@@ -100,7 +100,7 @@ curl -i "https://api.buildkite.com/v2/builds"
 ```
 HTTP/1.1 200 OK
 ...
-Link <https://api.buildkite.com/v2/builds?after=e75c64fc419f608e78904e8f0e9145e65e36eab9&after=eyJjcmVhdGVkX2F0IjoiMjAyMy0wOC0yMyAwMjoyOTo1My4yNjA5MzMwMDAgVVRDIiwidXVpZCI6IjAxOGEyNTk3LTY0NzAtNGRjZC05MjIxLWY3OGQ2ZmFiZDkwNiJ9>; rel="next"
+Link <https://api.buildkite.com/v2/builds?after=eyJjcmVhdGVkX2F0IjoiMjAyMy0wOC0yMyAwMjoyOTo1My4yNjA5MzMwMDAgVVRDIiwidXVpZCI6IjAxOGEyNTk3LTY0NzAtNGRjZC05MjIxLWY3OGQ2ZmFiZDkwNiJ9>; rel="next"
 ```
 
 You can page through the records using the following query string parameters:
