@@ -1,6 +1,6 @@
-# How to Trigger a Buildkite Pipeline Using GitHub Actions
+# Triggering pipelines using GitHub Actions
 
-[GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the Github action [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
+[GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the Github actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
  
 
 The Trigger Buildkite Pipeline GitHub Action allows you to:
@@ -12,7 +12,7 @@ The Trigger Buildkite Pipeline GitHub Action allows you to:
 
 This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).
 
-## Installing the Buildkite GitHub Action
+## Installing Trigger-Buildkite-Pipeline action
 
 1. Search for Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline).
 
