@@ -8,7 +8,7 @@ RSpec.describe Page::Renderer do
     MD
 
     html = <<~HTML
-      <h1 id="page-title">Page title</h1>
+      <h1>Page title</h1>
 
       <p>Some description</p>
     HTML

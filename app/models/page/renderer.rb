@@ -75,13 +75,6 @@ class Page::Renderer
     h2_ids = []
     h3s_with_manual_ids = []
 
-    # h1 headers
-    doc.search('./h1').each do |header|
-      if (id = header['id']).blank?
-        id = header['id'] = header.text.to_url
-      end
-    end
-
     # h2 headers
     doc.search('./h2').each do |h2|
       if (id = h2['id']).blank?
