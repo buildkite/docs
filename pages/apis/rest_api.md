@@ -113,7 +113,7 @@ You can page through the records using the following query string parameters:
 </tbody>
 </table>
 
-We recommend you do not need construct cursor-paginated URLs manually. Instead, use the `next` and `prev` links in the `Link` header.
+We recommend you do not construct cursor-paginated URLs manually. Instead, use the `next` and `prev` links in the `Link` header.
 
 ## CORS headers
 
