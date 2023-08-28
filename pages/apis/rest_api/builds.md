@@ -19,7 +19,7 @@ API requests that affect a single build accept the more human readable build num
 ## List all builds
 
 Returns a [cursor-paginated list](<%= cursor_paginated_resource_docs_url %>) of all builds across all the user's organizations and pipelines.
-If using token-based authentication the list of builds will be for the authorized organizations only.
+If using token-based authentication, the list of builds will be for the authorized organizations only.
 Builds are listed in the order they were created (newest first).
 
 ```bash
