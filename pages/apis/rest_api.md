@@ -64,7 +64,7 @@ For endpoints that support pagination, the pagination information can be found i
 
 ### Page number pagination
 
-Unless specified otherwise, endpoints are paginated using page numbers, with the `Link` header containing zero or more of `next`, `prev`, `first` and `last`.
+Unless specified otherwise, endpoints are paginated using page numbers, with the `Link` header containing zero or more of `next`, `prev`, `first`, and `last`.
 
 ```bash
 curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
