@@ -66,6 +66,8 @@ For endpoints that support pagination, the pagination information can be found i
 
 Unless specified otherwise, endpoints are paginated using page numbers, with the `Link` header containing zero or more of `next`, `prev`, `first`, and `last`.
 
+For example, the following request for a pipeline’s builds will return a response with page number links for `next` and `last`:
+
 ```bash
 curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds"
 ```
@@ -88,6 +90,8 @@ You can page through the records using the following query string parameters:
 ### Cursor pagination
 
 Some endpoints are paginated using cursors, with the `Link` header containing zero or more of `next` and `prev` only.
+
+For example, the following request for all builds will return a response with a cursor link for `next`:
 
 ```bash
 curl -i "https://api.buildkite.com/v2/builds"
