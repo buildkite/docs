@@ -75,7 +75,7 @@ curl -i "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pi
 ```
 HTTP/1.1 200 OK
 ...
-Link: <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=3>; rel="next", <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?api_key=f8582f070276d764ce3dd4c6d57be92574dccf86&page=6>; rel="last"
+Link: <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?page=2>; rel="next", <https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds?page=6>; rel="last"
 ```
 
 You can page through the records using the following query string parameters:
