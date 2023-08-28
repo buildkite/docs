@@ -147,6 +147,7 @@ Alternatively, you can use a self-managed storage provider. Read these guides fo
 
 - [Amazon S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
 - [Google Cloud Storage](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
+- [Azure Blob Storage](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
 - [Artifactory](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
 
 If you manage your own artifact storage, then you are responsible for encryption and retention planning.
