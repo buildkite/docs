@@ -114,7 +114,18 @@ If you don't know your agent token, there is a _Reveal Agent Token_ button avail
 
 <%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
 
-By default the stack uses a job queue of `default`, but you can specify any other queue name you like. See the [Buildkite Agent job queue docs](/docs/agent/v3/queues) for more info.
+By default the stack uses a job queue of `default`, but you can specify any other queue name you like. 
+
+A common example of setting a queue for a dedicated Windows agent can be achieved with the following in your `pipeline.yml` after you've set up your Windows stack:
+
+```yaml
+steps:
+  - command: echo "hello from windows"
+    agents:
+      queue: "windows"
+```
+
+See the [Buildkite Agent queue target docs](/docs/agent/v3/queues#targeting-a-queue) and [Buildkite Agent job queue docs](/docs/agent/v3/queues) for more info.
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
 
