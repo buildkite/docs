@@ -28,6 +28,8 @@ Download the Buildkite PGP key to a directory that is only writable by `root` (c
 curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC32A79206696452D198 | sudo gpg --dearmor -o /usr/share/keyrings/buildkite-agent-archive-keyring.gpg
 ```
 
+Note: if the [keys.openpgp.org](https://keys.openpgp.org) keyserver is down, see the [Alternative keyservers](#alternative-keyservers) section below.
+
 Then add the signed source to your apt sources list:
 
 ```shell
@@ -93,3 +95,7 @@ On Debian, the Buildkite agent runs as user `buildkite-agent`.
 ## Upgrading
 
 <%= render_markdown partial: 'agent/v3/apt_upgrading' %>
+
+## Alternative keyservers
+
+<%= render_markdown partial: 'agent/v3/alternative_keyservers' %>
