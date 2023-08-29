@@ -241,6 +241,8 @@ VPCs
 XCTest
 xUnit
 dotenv
+keyserver
+keyservers
 
 # GraphQL code words
 # TODO: format these as code instead of making exceptions
