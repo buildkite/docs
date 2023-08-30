@@ -22,6 +22,7 @@ swap:
   (?i:Artifactory): Artifactory
   (?i:AWS Lambda): AWS Lambda
   (?i:AWS License Manager): AWS License Manager
+  (?i:Azure Blob Storage): Azure Blob Storage
   (?i:Bitbucket Server): Bitbucket Server
   (?i:CCMenu): CCMenu
   (?i:CCTray): CCTray

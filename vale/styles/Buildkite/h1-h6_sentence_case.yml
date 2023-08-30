@@ -28,6 +28,7 @@ exceptions:
   - AWS Systems Manager Session Manager
   - Azure AD
   - Azure Active Directory
+  - Azure Blob
   - Bash
   - Bazel
   - Bamboo
