@@ -29,7 +29,7 @@ curl -fsSL https://keys.openpgp.org/vks/v1/by-fingerprint/32A37959C2FA5C3C99EFBC
 ```
 
 >📘 Is [keys.openpgp.org](https://keys.openpgp.org) down?
-> If you get a 404 or other error from `curl` in the command above, see the [Alternative keyservers](#alternative-keyservers) section below.
+> If you get a 404 or other error from `curl` in the previous command, see the [Alternative keyservers](#alternative-keyservers) section.
 
 Then add the signed source to your apt sources list:
 
