@@ -26,7 +26,7 @@ There are a couple of other log groups that the Elastic CI Stack for AWS sends l
 
 An alternative method to collect the logs is to use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/utils/log-collector) script in the [`utils`](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/utils) folder of the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 
-The script will collect CloudWatch logs for the Instance, Lambda function, and AutoScaling activity and package them in a zip archive which you can send via email to [support@buildkite.com](mailto:support@buildkite.com).
+The script collects CloudWatch logs for the Instance, Lambda function, and AutoScaling activity, then packages them in a zip archive that you can email to Support for help at [support@buildkite.com](mailto:support@buildkite.com).
 
 
 ## Accessing Elastic CI Stack for AWS instances directly
