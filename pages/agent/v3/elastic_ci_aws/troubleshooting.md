@@ -28,7 +28,6 @@ An alternative method to collect the logs is to use the [`log-collector`](https:
 
 The script collects CloudWatch logs for the Instance, Lambda function, and AutoScaling activity, then packages them in a zip archive that you can email to Support for help at [support@buildkite.com](mailto:support@buildkite.com).
 
-
 ## Accessing Elastic CI Stack for AWS instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
