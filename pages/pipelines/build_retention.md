@@ -50,7 +50,7 @@ The following diagram shows the lifecycle of build data by plan.
   </tbody>
 </table>
 
-Per pipeline retention settings have been retired and all pipelines are now in organisation specific retention settings specified above.
+Retention periods are set according to an organization's plan, as shown in the previous table. Per-pipeline retention settings are not supported.
 
 ## Exporting build data
 
