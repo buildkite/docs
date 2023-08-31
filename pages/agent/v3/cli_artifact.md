@@ -293,17 +293,16 @@ Artifactory. For instructions for how to set this up, see our
 
 ## Using your private Azure Blob container
 
->📘 Support for uploading artifacts to Azure Blob Storage was added in Agent
-> v3.53.0.
-
 You can configure the `buildkite-agent artifact` command to store artifacts in
 your private [Azure Blob Storage container](https://learn.microsoft.com/en-us/azure/storage/blobs/storage-blobs-introduction).
+Support for uploading artifacts to Azure Blob Storage was added in
+[Agent v3.53.0](https://github.com/buildkite/agent/releases/tag/v3.53.0).
 
 ### Preparation
 
 Firstly, make sure that each agent has access to Azure credentials.
 [By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential),
-these can be provided using: 
+these can be provided using:
 
 - Azure environment variables such as `AZURE_CLIENT_ID`.
 - Loaded by a Kubernetes workload identity hook.
