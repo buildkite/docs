@@ -1156,7 +1156,13 @@ Additional properties available for GitHub:
     <tr>
       <th><code>trigger_mode</code></th>
       <td>
-        What type of event to trigger builds on. <code>code</code> will create builds when code is pushed to GitHub. <code>deployment</code> will create builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>. <code>fork</code> will create builds when the GitHub repository is forked. <code>none</code> will not create any builds based on GitHub activity.
+        What type of event to trigger builds on.
+        <ul>
+          <li><code>code</code> creates builds when code is pushed to GitHub.</li>
+          <li><code>deployment</code> creates builds when a deployment is created with the <a href="https://developer.github.com/v3/repos/deployments/">GitHub Deployments API</a>.</li>
+          <li><code>fork</code> creates builds when the GitHub repository is forked.</li>
+          <li><code>none</code> will not create any builds based on GitHub activity.</li>
+        </ul>
         <p class="Docs__api-param-eg"><em>Values:</em> <code>code</code>, <code>deployment</code>, <code>fork</code>, <code>none</code></p></td>
     </tr>
     <tr>
