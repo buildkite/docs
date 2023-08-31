@@ -302,11 +302,13 @@ your private [Azure Blob Storage container](https://learn.microsoft.com/en-us/az
 ### Preparation
 
 Firstly, make sure that each agent has access to Azure credentials.
-[By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential)
-these can be provided using Azure environment variables such as
-`AZURE_CLIENT_ID`, loaded by a Kubernetes workload identity hook, loaded on a
-host with Azure Managed Identity enabled, or loaded from a user logged in with
-the Azure CLI.
+[By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential),
+these can be provided using: 
+
+- Azure environment variables such as `AZURE_CLIENT_ID`.
+- Loaded by a Kubernetes workload identity hook.
+- Loaded on a host with Azure Managed Identity enabled.
+- Loaded from a user logged in with the Azure CLI.
 
 You can also use an account key or connection string by setting one of these
 environment variables:
@@ -340,10 +342,12 @@ Buildkite web interface, API, or during pipeline upload). For example:
 export BUILDKITE_ARTIFACT_UPLOAD_DESTINATION="https://mystorageaccountname.blob.core.windows.net/my-container/$BUILDKITE_PIPELINE_ID/$BUILDKITE_BUILD_ID/$BUILDKITE_JOB_ID"
 ```
 
-Alternatively you can specify the full upload destination in the form
-`https://[storageaccountname].blob.core.windows.net/[container]/[path]` when
-running `buildkite-agent artifact upload` or `buildkite-agent artifact
-download`.
+Alternatively, when running `buildkite-agent artifact upload` or `buildkite-agent artifact
+download`, you can specify the full upload destination in the form:
+
+```
+https://[storageaccountname].blob.core.windows.net/[container]/[path]
+```
 
 ### Usage
 
