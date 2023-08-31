@@ -119,6 +119,12 @@
     path: apis/graphql/schemas/mutation/organizationapiaccesstokenrevoke
   - name: organizationApiIpAllowlistUpdate
     path: apis/graphql/schemas/mutation/organizationapiipallowlistupdate
+  - name: organizationBannerCreate
+    path: apis/graphql/schemas/mutation/organizationbannercreate
+  - name: organizationBannerDelete
+    path: apis/graphql/schemas/mutation/organizationbannerdelete
+  - name: organizationBannerUpdate
+    path: apis/graphql/schemas/mutation/organizationbannerupdate
   - name: organizationInvitationCreate
     path: apis/graphql/schemas/mutation/organizationinvitationcreate
   - name: organizationInvitationResend
@@ -453,6 +459,16 @@
     path: apis/graphql/schemas/object/organizationauditeventedge
   - name: OrganizationBanner
     path: apis/graphql/schemas/object/organizationbanner
+  - name: OrganizationBannerConnection
+    path: apis/graphql/schemas/object/organizationbannerconnection
+  - name: OrganizationBannerCreatePayload
+    path: apis/graphql/schemas/object/organizationbannercreatepayload
+  - name: OrganizationBannerDeletePayload
+    path: apis/graphql/schemas/object/organizationbannerdeletepayload
+  - name: OrganizationBannerEdge
+    path: apis/graphql/schemas/object/organizationbanneredge
+  - name: OrganizationBannerUpdatePayload
+    path: apis/graphql/schemas/object/organizationbannerupdatepayload
   - name: OrganizationConnection
     path: apis/graphql/schemas/object/organizationconnection
   - name: OrganizationEdge
@@ -953,6 +969,12 @@
     path: apis/graphql/schemas/input-object/organizationapiaccesstokenrevokemutationinput
   - name: OrganizationAPIIPAllowlistUpdateMutationInput
     path: apis/graphql/schemas/input-object/organizationapiipallowlistupdatemutationinput
+  - name: OrganizationBannerCreateInput
+    path: apis/graphql/schemas/input-object/organizationbannercreateinput
+  - name: OrganizationBannerDeleteInput
+    path: apis/graphql/schemas/input-object/organizationbannerdeleteinput
+  - name: OrganizationBannerUpdateInput
+    path: apis/graphql/schemas/input-object/organizationbannerupdateinput
   - name: OrganizationInvitationCreateInput
     path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
   - name: OrganizationInvitationResendInput
