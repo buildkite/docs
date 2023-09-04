@@ -177,6 +177,12 @@ class Page
     front_matter.fetch(:template, "show")
   end
 
+  # Returns focus keywords to guide content writers with an overview notion of the page
+  # It's not for meta keywords, which is a deprecated practice
+  def keywords
+    front_matter.fetch(:keywords)
+  end
+
   private
 
   def front_matter
@@ -186,6 +192,7 @@ class Page
         "toc": true,
         # Default to H3s being included in the table of contents
         "toc_include_h3": true,
+        "keywords": nil,
       }
       if file.front_matter
         defaults.merge(file.front_matter.symbolize_keys)
