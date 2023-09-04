@@ -24,11 +24,7 @@ module RenderHelpers
       formatted_type = "[#{formatted_type}]" if is_list
 
       <<~HTML
-        <a \
-          href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}"
-          class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}"
-          title="Go to #{kind} #{name}"
-        >
+        <a href="/docs/apis/graphql/schemas/#{kind.downcase}/#{name.downcase}" class="pill pill--#{kind.downcase} pill--normal-case pill--#{size}" title="Go to #{kind} #{name}">
           <code>#{formatted_type}</code>
         </a>
       HTML
@@ -110,7 +106,7 @@ module RenderHelpers
     if possible_types.is_a?(Array) && !possible_types.empty?
       <<~HTML
         <h2 data-algolia-exclude>Possible types</h2>
-        <div>#{possible_types.map { |possible_type| render_of_type(possible_type, false, "large") }.join('')}</div>
+        <div>#{possible_types.map { |possible_type| render_of_type(possible_type, false, false, "large") }.join('')}</div>
       HTML
     end
   end
@@ -133,7 +129,7 @@ module RenderHelpers
                     <td>
                       <p>
                         <strong><code>#{input_field["name"]}</code></strong>
-                        <div>#{render_of_type(input_field["type"])}</div>
+                        #{render_of_type(input_field["type"])}
                       </p>
                       #{input_field["description"] ? "#{render_html(input_field["description"].gsub("\n", " "))}" : nil}
                       #{input_field["defaultValue"] ? "<p>Default value: #{input_field["defaultValue"]}</p>" : nil}
@@ -156,7 +152,7 @@ module RenderHelpers
           #{
             interfaces.map {
               |interface|
-              render_of_type(interface, false, "large")
+              render_of_type(interface, false, false, "large")
             }.join('')
           }
         </div>
@@ -205,7 +201,7 @@ module RenderHelpers
         </span>
       HTML
     elsif type = schema_type_data["type"]
-      render_of_type(type, false, "large")
+      render_of_type(type, false, false, "large")
     else
       ""
     end
