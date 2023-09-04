@@ -31,6 +31,6 @@ The pipeline definition for a step upload
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>json</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The uploaded step definition rendered as JSON</p></td></tr><tr><td><h3 class="is-small has-pills"><code>yaml</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The uploaded step definition rendered as YAML</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>json</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The uploaded step definition rendered as JSON</p></td></tr><tr><td><h3 class="is-small has-pills"><code>yaml</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The uploaded step definition rendered as YAML</p></td></tr>
   </tbody>
 </table>

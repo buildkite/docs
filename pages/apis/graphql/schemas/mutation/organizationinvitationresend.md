@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationInvitationResend
-  <a href="/docs/apis/graphql/schemas/object/organizationinvitationresendpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitationResendPayload"><code>OrganizationInvitationResendPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/organizationinvitationresendpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitationResendPayload">
+  <code>OrganizationInvitationResendPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Resend an organization invitation email.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationinvitationresendinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationInvitationResendInput"><code>OrganizationInvitationResendInput</code></a></h3><p>Parameters for OrganizationInvitationResend</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationinvitationresendinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationInvitationResendInput"><code>OrganizationInvitationResendInput!</code></a></h3><p>Parameters for OrganizationInvitationResend</p></td></tr>
   </tbody>
 </table>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   jobTypeBlockUnblock
-  <a href="/docs/apis/graphql/schemas/object/jobtypeblockunblockpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeBlockUnblockPayload"><code>JobTypeBlockUnblockPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/jobtypeblockunblockpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeBlockUnblockPayload">
+  <code>JobTypeBlockUnblockPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Unblocks a build's "Block pipeline" job.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/jobtypeblockunblockinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeBlockUnblockInput"><code>JobTypeBlockUnblockInput</code></a></h3><p>Parameters for JobTypeBlockUnblock</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/jobtypeblockunblockinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT JobTypeBlockUnblockInput"><code>JobTypeBlockUnblockInput!</code></a></h3><p>Parameters for JobTypeBlockUnblock</p></td></tr>
   </tbody>
 </table>

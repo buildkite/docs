@@ -31,7 +31,7 @@ A record of test executions usage, aggregated by day and test suite.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>aggregatedOn</code><a href="/docs/apis/graphql/schemas/scalar/iso8601date" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ISO8601Date"><code>ISO8601Date</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>executions</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3><p>The recorded usage.</p></td></tr><tr><td><h3 class="is-small has-pills"><code>suite</code><a href="/docs/apis/graphql/schemas/object/suite" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Suite"><code>Suite!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>suiteId</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>aggregatedOn</code><a href="/docs/apis/graphql/schemas/scalar/iso8601date" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ISO8601Date"><code>ISO8601Date!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>executions</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int!</code></a></h3><p>The recorded usage.</p></td></tr><tr><td><h3 class="is-small has-pills"><code>suite</code><a href="/docs/apis/graphql/schemas/object/suite" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Suite"><code>Suite</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>suiteId</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr>
   </tbody>
 </table>
 
@@ -39,4 +39,9 @@ A record of test executions usage, aggregated by day and test suite.
 
 
 <h2 data-algolia-exclude>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/interface/resourceusageinterface" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE ResourceUsageInterface"><code>ResourceUsageInterface</code></a>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/resourceusageinterface" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE ResourceUsageInterface">
+  <code>ResourceUsageInterface</code>
+</a>
+
+</div>

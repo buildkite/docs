@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   viewer
-  <a href="/docs/apis/graphql/schemas/object/viewer" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Viewer"><code>Viewer</code></a>
+  <a href="/docs/apis/graphql/schemas/object/viewer" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Viewer">
+  <code>Viewer</code>
+</a>
 
 </h1>
 <!-- vale on -->

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   totpRecoveryCodesRegenerate
-  <a href="/docs/apis/graphql/schemas/object/totprecoverycodesregeneratepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPRecoveryCodesRegeneratePayload"><code>TOTPRecoveryCodesRegeneratePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/totprecoverycodesregeneratepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPRecoveryCodesRegeneratePayload">
+  <code>TOTPRecoveryCodesRegeneratePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Generate a new set of Recovery Codes for a given TOTP.  The new Recovery Codes w
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totprecoverycodesregenerateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPRecoveryCodesRegenerateInput"><code>TOTPRecoveryCodesRegenerateInput</code></a></h3><p>Parameters for TOTPRecoveryCodesRegenerate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totprecoverycodesregenerateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPRecoveryCodesRegenerateInput"><code>TOTPRecoveryCodesRegenerateInput!</code></a></h3><p>Parameters for TOTPRecoveryCodesRegenerate</p></td></tr>
   </tbody>
 </table>

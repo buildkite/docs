@@ -31,6 +31,6 @@ Permissions information about what actions the current user can do against the t
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>teamMemberDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can delete the user from the team</p></td></tr><tr><td><h3 class="is-small has-pills"><code>teamMemberUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can update the team's members admin status</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>teamMemberDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can delete the user from the team</p></td></tr><tr><td><h3 class="is-small has-pills"><code>teamMemberUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can update the team's members admin status</p></td></tr>
   </tbody>
 </table>

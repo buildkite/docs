@@ -31,7 +31,7 @@ Deliver notifications to Slack
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>description</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The description of this service</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The name of the service provider</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>description</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The description of this service</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the service provider</p></td></tr>
   </tbody>
 </table>
 
@@ -39,5 +39,12 @@ Deliver notifications to Slack
 
 
 <h2 data-algolia-exclude>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a>
-<a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService"><code>NotificationService</code></a>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node">
+  <code>Node</code>
+</a>
+<a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService">
+  <code>NotificationService</code>
+</a>
+
+</div>

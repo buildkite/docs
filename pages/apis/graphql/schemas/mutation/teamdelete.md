@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamDelete
-  <a href="/docs/apis/graphql/schemas/object/teamdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamDeletePayload"><code>TeamDeletePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teamdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamDeletePayload">
+  <code>TeamDeletePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Delete a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamDeleteInput"><code>TeamDeleteInput</code></a></h3><p>Parameters for TeamDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamDeleteInput"><code>TeamDeleteInput!</code></a></h3><p>Parameters for TeamDelete</p></td></tr>
   </tbody>
 </table>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   emailResendVerification
-  <a href="/docs/apis/graphql/schemas/object/emailresendverificationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailResendVerificationPayload"><code>EmailResendVerificationPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/emailresendverificationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT EmailResendVerificationPayload">
+  <code>EmailResendVerificationPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Resend a verification email.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/emailresendverificationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT EmailResendVerificationInput"><code>EmailResendVerificationInput</code></a></h3><p>Parameters for EmailResendVerification</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/emailresendverificationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT EmailResendVerificationInput"><code>EmailResendVerificationInput!</code></a></h3><p>Parameters for EmailResendVerification</p></td></tr>
   </tbody>
 </table>

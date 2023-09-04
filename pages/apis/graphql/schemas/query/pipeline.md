@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   pipeline
-  <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline"><code>Pipeline</code></a>
+  <a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Pipeline">
+  <code>Pipeline</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The slug of the pipeline, prefixed with its organization. i.e. <code>acme-inc/my-pipeline</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID of the pipeline</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The slug of the pipeline, prefixed with its organization. i.e. <code>acme-inc/my-pipeline</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The UUID of the pipeline</p></td></tr>
   </tbody>
 </table>

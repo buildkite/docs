@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationBannerUpdate
-  <a href="/docs/apis/graphql/schemas/object/organizationbannerupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerUpdatePayload"><code>OrganizationBannerUpdatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/organizationbannerupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerUpdatePayload">
+  <code>OrganizationBannerUpdatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Update System banner within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannerupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerUpdateInput"><code>OrganizationBannerUpdateInput</code></a></h3><p>Parameters for OrganizationBannerUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannerupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerUpdateInput"><code>OrganizationBannerUpdateInput!</code></a></h3><p>Parameters for OrganizationBannerUpdate</p></td></tr>
   </tbody>
 </table>

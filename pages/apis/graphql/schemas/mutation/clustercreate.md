@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterCreate
-  <a href="/docs/apis/graphql/schemas/object/clustercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterCreatePayload"><code>ClusterCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/clustercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterCreatePayload">
+  <code>ClusterCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a cluster.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clustercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterCreateInput"><code>ClusterCreateInput</code></a></h3><p>Parameters for ClusterCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clustercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterCreateInput"><code>ClusterCreateInput!</code></a></h3><p>Parameters for ClusterCreate</p></td></tr>
   </tbody>
 </table>

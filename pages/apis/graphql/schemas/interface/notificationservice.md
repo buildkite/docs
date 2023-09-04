@@ -31,7 +31,7 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>description</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The description of this service</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The name of the service provider</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>description</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The description of this service</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the service provider</p></td></tr>
   </tbody>
 </table>
 
@@ -41,5 +41,10 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack"><code>NotificationServiceSlack</code></a>
-<a href="/docs/apis/graphql/schemas/object/notificationservicewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceWebhook"><code>NotificationServiceWebhook</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/notificationserviceslack" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceSlack">
+  <code>NotificationServiceSlack</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/notificationservicewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT NotificationServiceWebhook">
+  <code>NotificationServiceWebhook</code>
+</a>
+</div>

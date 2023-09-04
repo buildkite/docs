@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamMemberUpdate
-  <a href="/docs/apis/graphql/schemas/object/teammemberupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamMemberUpdatePayload"><code>TeamMemberUpdatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teammemberupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamMemberUpdatePayload">
+  <code>TeamMemberUpdatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Update a user's role in a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teammemberupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamMemberUpdateInput"><code>TeamMemberUpdateInput</code></a></h3><p>Parameters for TeamMemberUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teammemberupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamMemberUpdateInput"><code>TeamMemberUpdateInput!</code></a></h3><p>Parameters for TeamMemberUpdate</p></td></tr>
   </tbody>
 </table>

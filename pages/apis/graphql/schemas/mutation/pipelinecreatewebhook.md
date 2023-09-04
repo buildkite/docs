@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   pipelineCreateWebhook
-  <a href="/docs/apis/graphql/schemas/object/pipelinecreatewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineCreateWebhookPayload"><code>PipelineCreateWebhookPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/pipelinecreatewebhookpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineCreateWebhookPayload">
+  <code>PipelineCreateWebhookPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create SCM webhooks for a pipeline.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinecreatewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineCreateWebhookInput"><code>PipelineCreateWebhookInput</code></a></h3><p>Parameters for PipelineCreateWebhook</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinecreatewebhookinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineCreateWebhookInput"><code>PipelineCreateWebhookInput!</code></a></h3><p>Parameters for PipelineCreateWebhook</p></td></tr>
   </tbody>
 </table>

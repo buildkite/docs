@@ -31,7 +31,7 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3></td></tr>
   </tbody>
 </table>
 
@@ -41,8 +41,19 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/buildsourceapi" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceAPI"><code>BuildSourceAPI</code></a>
-<a href="/docs/apis/graphql/schemas/object/buildsourcefrontend" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceFrontend"><code>BuildSourceFrontend</code></a>
-<a href="/docs/apis/graphql/schemas/object/buildsourceschedule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceSchedule"><code>BuildSourceSchedule</code></a>
-<a href="/docs/apis/graphql/schemas/object/buildsourcetriggerjob" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceTriggerJob"><code>BuildSourceTriggerJob</code></a>
-<a href="/docs/apis/graphql/schemas/object/buildsourcewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceWebhook"><code>BuildSourceWebhook</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/buildsourceapi" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceAPI">
+  <code>BuildSourceAPI</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/buildsourcefrontend" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceFrontend">
+  <code>BuildSourceFrontend</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/buildsourceschedule" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceSchedule">
+  <code>BuildSourceSchedule</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/buildsourcetriggerjob" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceTriggerJob">
+  <code>BuildSourceTriggerJob</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/buildsourcewebhook" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildSourceWebhook">
+  <code>BuildSourceWebhook</code>
+</a>
+</div>

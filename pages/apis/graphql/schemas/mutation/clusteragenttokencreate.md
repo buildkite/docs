@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterAgentTokenCreate
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenCreatePayload"><code>ClusterAgentTokenCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenCreatePayload">
+  <code>ClusterAgentTokenCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a new cluster agent token
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokencreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenCreateInput"><code>ClusterAgentTokenCreateInput</code></a></h3><p>Parameters for ClusterAgentTokenCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokencreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenCreateInput"><code>ClusterAgentTokenCreateInput!</code></a></h3><p>Parameters for ClusterAgentTokenCreate</p></td></tr>
   </tbody>
 </table>

@@ -31,6 +31,13 @@ Actor types that can create events on a job
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent"><code>Agent</code></a>
-<a href="/docs/apis/graphql/schemas/object/dispatch" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Dispatch"><code>Dispatch</code></a>
-<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User"><code>User</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">
+  <code>Agent</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/dispatch" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Dispatch">
+  <code>Dispatch</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User">
+  <code>User</code>
+</a>
+</div>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   ssoProviderCreate
-  <a href="/docs/apis/graphql/schemas/object/ssoprovidercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderCreatePayload"><code>SSOProviderCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/ssoprovidercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOProviderCreatePayload">
+  <code>SSOProviderCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a SSO provider.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/ssoprovidercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderCreateInput"><code>SSOProviderCreateInput</code></a></h3><p>Parameters for SSOProviderCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/ssoprovidercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT SSOProviderCreateInput"><code>SSOProviderCreateInput!</code></a></h3><p>Parameters for SSOProviderCreate</p></td></tr>
   </tbody>
 </table>

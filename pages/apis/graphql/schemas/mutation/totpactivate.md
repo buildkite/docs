@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   totpActivate
-  <a href="/docs/apis/graphql/schemas/object/totpactivatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPActivatePayload"><code>TOTPActivatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/totpactivatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPActivatePayload">
+  <code>TOTPActivatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Activate a previously-generated TOTP configuration, and its Recovery Codes.  Onc
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpactivateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPActivateInput"><code>TOTPActivateInput</code></a></h3><p>Parameters for TOTPActivate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpactivateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPActivateInput"><code>TOTPActivateInput!</code></a></h3><p>Parameters for TOTPActivate</p></td></tr>
   </tbody>
 </table>

@@ -31,6 +31,6 @@ The author of the changelog
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>avatar</code><a href="/docs/apis/graphql/schemas/object/avatar" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Avatar"><code>Avatar</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The name of the author</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>avatar</code><a href="/docs/apis/graphql/schemas/object/avatar" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Avatar"><code>Avatar!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the author</p></td></tr>
   </tbody>
 </table>

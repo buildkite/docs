@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamSuiteDelete
-  <a href="/docs/apis/graphql/schemas/object/teamsuitedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuiteDeletePayload"><code>TeamSuiteDeletePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teamsuitedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuiteDeletePayload">
+  <code>TeamSuiteDeletePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Remove a suite from a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamsuitedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamSuiteDeleteInput"><code>TeamSuiteDeleteInput</code></a></h3><p>Parameters for TeamSuiteDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamsuitedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamSuiteDeleteInput"><code>TeamSuiteDeleteInput!</code></a></h3><p>Parameters for TeamSuiteDelete</p></td></tr>
   </tbody>
 </table>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterQueueResumeDispatch
-  <a href="/docs/apis/graphql/schemas/object/clusterqueueresumedispatchpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueResumeDispatchPayload"><code>ClusterQueueResumeDispatchPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/clusterqueueresumedispatchpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueResumeDispatchPayload">
+  <code>ClusterQueueResumeDispatchPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ This will resume dispatch of jobs on this queue.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueueresumedispatchinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueResumeDispatchInput"><code>ClusterQueueResumeDispatchInput</code></a></h3><p>Parameters for ClusterQueueResumeDispatch</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueueresumedispatchinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueResumeDispatchInput"><code>ClusterQueueResumeDispatchInput!</code></a></h3><p>Parameters for ClusterQueueResumeDispatch</p></td></tr>
   </tbody>
 </table>

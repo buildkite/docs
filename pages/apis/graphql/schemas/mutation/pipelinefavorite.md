@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   pipelineFavorite
-  <a href="/docs/apis/graphql/schemas/object/pipelinefavoritepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineFavoritePayload"><code>PipelineFavoritePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/pipelinefavoritepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineFavoritePayload">
+  <code>PipelineFavoritePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Favorite a pipeline.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinefavoriteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineFavoriteInput"><code>PipelineFavoriteInput</code></a></h3><p>Parameters for PipelineFavorite</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/pipelinefavoriteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT PipelineFavoriteInput"><code>PipelineFavoriteInput!</code></a></h3><p>Parameters for PipelineFavorite</p></td></tr>
   </tbody>
 </table>

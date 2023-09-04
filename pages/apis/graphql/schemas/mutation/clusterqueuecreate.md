@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterQueueCreate
-  <a href="/docs/apis/graphql/schemas/object/clusterqueuecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueCreatePayload"><code>ClusterQueueCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/clusterqueuecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueCreatePayload">
+  <code>ClusterQueueCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a cluster queue.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueuecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueCreateInput"><code>ClusterQueueCreateInput</code></a></h3><p>Parameters for ClusterQueueCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusterqueuecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterQueueCreateInput"><code>ClusterQueueCreateInput!</code></a></h3><p>Parameters for ClusterQueueCreate</p></td></tr>
   </tbody>
 </table>

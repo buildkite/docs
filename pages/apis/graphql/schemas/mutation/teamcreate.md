@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamCreate
-  <a href="/docs/apis/graphql/schemas/object/teamcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamCreatePayload"><code>TeamCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teamcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamCreatePayload">
+  <code>TeamCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamCreateInput"><code>TeamCreateInput</code></a></h3><p>Parameters for TeamCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamCreateInput"><code>TeamCreateInput!</code></a></h3><p>Parameters for TeamCreate</p></td></tr>
   </tbody>
 </table>

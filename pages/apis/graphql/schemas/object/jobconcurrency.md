@@ -31,6 +31,6 @@ Concurrency configuration for a job
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>group</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The concurrency group</p></td></tr><tr><td><h3 class="is-small has-pills"><code>limit</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3><p>The maximum amount of jobs in the concurrency that are allowed to run at any given time</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>group</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The concurrency group</p></td></tr><tr><td><h3 class="is-small has-pills"><code>limit</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int!</code></a></h3><p>The maximum amount of jobs in the concurrency that are allowed to run at any given time</p></td></tr>
   </tbody>
 </table>

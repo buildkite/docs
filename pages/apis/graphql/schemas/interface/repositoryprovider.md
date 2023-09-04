@@ -31,7 +31,7 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The name of the provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>This URL to the provider’s web interface</p></td></tr><tr><td><h3 class="is-small has-pills"><code>webhookUrl</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The URL to use when setting up webhooks from the provider to trigger Buildkite builds</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>This URL to the provider’s web interface</p></td></tr><tr><td><h3 class="is-small has-pills"><code>webhookUrl</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The URL to use when setting up webhooks from the provider to trigger Buildkite builds</p></td></tr>
   </tbody>
 </table>
 
@@ -41,13 +41,34 @@ toc: false
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/repositoryproviderbeanstalk" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBeanstalk"><code>RepositoryProviderBeanstalk</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryproviderbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBitbucket"><code>RepositoryProviderBitbucket</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryproviderbitbucketserver" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBitbucketServer"><code>RepositoryProviderBitbucketServer</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidercodebase" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderCodebase"><code>RepositoryProviderCodebase</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGithub"><code>RepositoryProviderGithub</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidergithubenterprise" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGithubEnterprise"><code>RepositoryProviderGithubEnterprise</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlab" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlab"><code>RepositoryProviderGitlab</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlabcommunity" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlabCommunity"><code>RepositoryProviderGitlabCommunity</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlabenterprise" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlabEnterprise"><code>RepositoryProviderGitlabEnterprise</code></a>
-<a href="/docs/apis/graphql/schemas/object/repositoryproviderunknown" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderUnknown"><code>RepositoryProviderUnknown</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/repositoryproviderbeanstalk" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBeanstalk">
+  <code>RepositoryProviderBeanstalk</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryproviderbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBitbucket">
+  <code>RepositoryProviderBitbucket</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryproviderbitbucketserver" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBitbucketServer">
+  <code>RepositoryProviderBitbucketServer</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidercodebase" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderCodebase">
+  <code>RepositoryProviderCodebase</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidergithub" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGithub">
+  <code>RepositoryProviderGithub</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidergithubenterprise" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGithubEnterprise">
+  <code>RepositoryProviderGithubEnterprise</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlab" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlab">
+  <code>RepositoryProviderGitlab</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlabcommunity" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlabCommunity">
+  <code>RepositoryProviderGitlabCommunity</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryprovidergitlabenterprise" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderGitlabEnterprise">
+  <code>RepositoryProviderGitlabEnterprise</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/repositoryproviderunknown" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderUnknown">
+  <code>RepositoryProviderUnknown</code>
+</a>
+</div>

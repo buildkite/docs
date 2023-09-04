@@ -33,6 +33,6 @@ Meta-data key/value pairs for a build
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>key</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The key for this meta-data item</p></td></tr><tr><td><p><strong><code>value</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The value for this meta-data item</p></td></tr>
+    <tr><td><p><strong><code>key</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></p><p>The key for this meta-data item</p></td></tr><tr><td><p><strong><code>value</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></p><p>The value for this meta-data item</p></td></tr>
   </tbody>
 </table>

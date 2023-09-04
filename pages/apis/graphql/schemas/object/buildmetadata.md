@@ -31,6 +31,6 @@ A comment on a build
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>key</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The key used to set this meta data</p></td></tr><tr><td><h3 class="is-small has-pills"><code>value</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The value set to this meta data</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>key</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The key used to set this meta data</p></td></tr><tr><td><h3 class="is-small has-pills"><code>value</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The value set to this meta data</p></td></tr>
   </tbody>
 </table>

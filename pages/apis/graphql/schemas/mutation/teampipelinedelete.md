@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamPipelineDelete
-  <a href="/docs/apis/graphql/schemas/object/teampipelinedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineDeletePayload"><code>TeamPipelineDeletePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teampipelinedeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineDeletePayload">
+  <code>TeamPipelineDeletePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Remove a pipeline from a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teampipelinedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineDeleteInput"><code>TeamPipelineDeleteInput</code></a></h3><p>Parameters for TeamPipelineDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teampipelinedeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineDeleteInput"><code>TeamPipelineDeleteInput!</code></a></h3><p>Parameters for TeamPipelineDelete</p></td></tr>
   </tbody>
 </table>

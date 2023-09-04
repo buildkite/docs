@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   totpCreate
-  <a href="/docs/apis/graphql/schemas/object/totpcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPCreatePayload"><code>TOTPCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/totpcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TOTPCreatePayload">
+  <code>TOTPCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a new TOTP configuration for the current user.  This will produce a TOTP 
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPCreateInput"><code>TOTPCreateInput</code></a></h3><p>Parameters for TOTPCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/totpcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TOTPCreateInput"><code>TOTPCreateInput!</code></a></h3><p>Parameters for TOTPCreate</p></td></tr>
   </tbody>
 </table>

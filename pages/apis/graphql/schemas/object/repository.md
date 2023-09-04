@@ -31,6 +31,6 @@ A repository associated with a pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>provider</code><a href="/docs/apis/graphql/schemas/interface/repositoryprovider" class="pill pill--interface pill--normal-case pill--medium" title="Go to INTERFACE RepositoryProvider"><code>RepositoryProvider!</code></a></h3><p>The repository’s provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The git URL for this repository</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>provider</code><a href="/docs/apis/graphql/schemas/interface/repositoryprovider" class="pill pill--interface pill--normal-case pill--medium" title="Go to INTERFACE RepositoryProvider"><code>RepositoryProvider</code></a></h3><p>The repository’s provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The git URL for this repository</p></td></tr>
   </tbody>
 </table>

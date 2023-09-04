@@ -31,7 +31,7 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>count</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>edges</code><a href="/docs/apis/graphql/schemas/object/organizationedge" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT OrganizationEdge"><code>OrganizationEdge!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>pageInfo</code><a href="/docs/apis/graphql/schemas/object/pageinfo" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT PageInfo"><code>PageInfo!</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>count</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>edges</code><a href="/docs/apis/graphql/schemas/object/organizationedge" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT OrganizationEdge"><code>[OrganizationEdge]</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>pageInfo</code><a href="/docs/apis/graphql/schemas/object/pageinfo" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT PageInfo"><code>PageInfo</code></a></h3></td></tr>
   </tbody>
 </table>
 
@@ -39,4 +39,9 @@ toc: false
 
 
 <h2 data-algolia-exclude>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/interface/connection" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Connection"><code>Connection</code></a>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/connection" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Connection">
+  <code>Connection</code>
+</a>
+
+</div>

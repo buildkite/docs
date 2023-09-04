@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   agentTokenCreate
-  <a href="/docs/apis/graphql/schemas/object/agenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentTokenCreatePayload"><code>AgentTokenCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/agenttokencreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AgentTokenCreatePayload">
+  <code>AgentTokenCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a new agent registration token.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/agenttokencreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentTokenCreateInput"><code>AgentTokenCreateInput</code></a></h3><p>Parameters for AgentTokenCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/agenttokencreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT AgentTokenCreateInput"><code>AgentTokenCreateInput!</code></a></h3><p>Parameters for AgentTokenCreate</p></td></tr>
   </tbody>
 </table>
