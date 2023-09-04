@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, 2fa
+---
+
 # Two-factor authentication
 
 Two-factor authentication (2FA) can be added to your Buildkite account to provide an additional layer of security and to make sure your builds are safe even if your login credentials are compromised (exposed or stolen).  

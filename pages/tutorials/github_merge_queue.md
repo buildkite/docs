@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, github merge queues
+---
+
 # Using GitHub merge queues
 
 >🚧 GitHub beta feature

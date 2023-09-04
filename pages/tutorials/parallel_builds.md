@@ -1,3 +1,7 @@
+---
+keywords: docs, pipelines, tutorials, parallel builds
+---
+
 # Parallel builds
 
 Running a build's steps in parallel is a way to decrease your build's total running time. This guide will show you how to use multiple agents and job parallelism to increase the speed of your builds.
