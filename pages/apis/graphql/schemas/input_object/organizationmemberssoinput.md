@@ -33,6 +33,6 @@ toc: false
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>mode</code></strong><a href="/docs/apis/graphql/schemas/enum/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum</code></a></p></td></tr>
+    <tr><td><p><strong><code>mode</code></strong><a href="/docs/apis/graphql/schemas/enum/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum!</code></a></p></td></tr>
   </tbody>
 </table>

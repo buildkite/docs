@@ -31,5 +31,10 @@ The possible resource usage types
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/jobminutesusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobMinutesUsage"><code>JobMinutesUsage</code></a>
-<a href="/docs/apis/graphql/schemas/object/testexecutionsusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TestExecutionsUsage"><code>TestExecutionsUsage</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/jobminutesusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobMinutesUsage">
+  <code>JobMinutesUsage</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/testexecutionsusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TestExecutionsUsage">
+  <code>TestExecutionsUsage</code>
+</a>
+</div>

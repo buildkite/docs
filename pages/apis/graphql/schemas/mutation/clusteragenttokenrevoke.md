@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterAgentTokenRevoke
-  <a href="/docs/apis/graphql/schemas/object/clusteragenttokenrevokepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenRevokePayload"><code>ClusterAgentTokenRevokePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/clusteragenttokenrevokepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterAgentTokenRevokePayload">
+  <code>ClusterAgentTokenRevokePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Revokes a cluster agent token
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokenrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenRevokeInput"><code>ClusterAgentTokenRevokeInput</code></a></h3><p>Parameters for ClusterAgentTokenRevoke</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/clusteragenttokenrevokeinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT ClusterAgentTokenRevokeInput"><code>ClusterAgentTokenRevokeInput!</code></a></h3><p>Parameters for ClusterAgentTokenRevoke</p></td></tr>
   </tbody>
 </table>

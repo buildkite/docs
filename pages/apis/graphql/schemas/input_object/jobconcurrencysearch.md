@@ -33,6 +33,6 @@ Searching for concurrency groups on jobs
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>group</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The groups you want to search</p></td></tr>
+    <tr><td><p><strong><code>group</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>[String!]</code></a></p><p>The groups you want to search</p></td></tr>
   </tbody>
 </table>

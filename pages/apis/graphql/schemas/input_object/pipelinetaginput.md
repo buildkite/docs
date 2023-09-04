@@ -33,6 +33,6 @@ Tag associated with a pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>label</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The label of this tag</p></td></tr>
+    <tr><td><p><strong><code>label</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></p><p>The label of this tag</p></td></tr>
   </tbody>
 </table>

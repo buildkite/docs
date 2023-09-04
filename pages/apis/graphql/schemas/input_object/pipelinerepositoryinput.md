@@ -33,6 +33,6 @@ Repository information for a pipeline
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>url</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></p><p>The remote URL for this repository i.e. git@github.com:foo/bar.git</p></td></tr>
+    <tr><td><p><strong><code>url</code></strong><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></p><p>The remote URL for this repository i.e. git@github.com:foo/bar.git</p></td></tr>
   </tbody>
 </table>

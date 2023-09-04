@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   graphQLSnippet
-  <a href="/docs/apis/graphql/schemas/object/graphqlsnippet" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT GraphQLSnippet"><code>GraphQLSnippet</code></a>
+  <a href="/docs/apis/graphql/schemas/object/graphqlsnippet" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT GraphQLSnippet">
+  <code>GraphQLSnippet</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a GraphQL snippet
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The UUID for this GraphQL snippet</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The UUID for this GraphQL snippet</p></td></tr>
   </tbody>
 </table>

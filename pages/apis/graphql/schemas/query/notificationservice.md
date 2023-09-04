@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   notificationService
-  <a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService"><code>NotificationService</code></a>
+  <a href="/docs/apis/graphql/schemas/interface/notificationservice" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE NotificationService">
+  <code>NotificationService</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a notification service via its UUID
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The UUID for the notification service i.e. <code>0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID for the notification service i.e. <code>0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr>
   </tbody>
 </table>

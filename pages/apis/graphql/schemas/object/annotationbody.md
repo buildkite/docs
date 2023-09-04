@@ -31,6 +31,6 @@ A body of an annotation
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>html</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The body of the annotation rendered as HTML. The renderer result could be an empty string if the textual version has unsupported HTML tags</p></td></tr><tr><td><h3 class="is-small has-pills"><code>text</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The body of the annotation as text</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>html</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The body of the annotation rendered as HTML. The renderer result could be an empty string if the textual version has unsupported HTML tags</p></td></tr><tr><td><h3 class="is-small has-pills"><code>text</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The body of the annotation as text</p></td></tr>
   </tbody>
 </table>

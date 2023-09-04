@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   build
-  <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build"><code>Build</code></a>
+  <a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Build">
+  <code>Build</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a build
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The number of the build, prefixed with its organization and pipeline. i.e. <code>acme-inc/my-pipeline/123</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID of the build</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The number of the build, prefixed with its organization and pipeline. i.e. <code>acme-inc/my-pipeline/123</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The UUID of the build</p></td></tr>
   </tbody>
 </table>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamPipelineCreate
-  <a href="/docs/apis/graphql/schemas/object/teampipelinecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineCreatePayload"><code>TeamPipelineCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teampipelinecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamPipelineCreatePayload">
+  <code>TeamPipelineCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Add a pipeline to a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teampipelinecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineCreateInput"><code>TeamPipelineCreateInput</code></a></h3><p>Parameters for TeamPipelineCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teampipelinecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamPipelineCreateInput"><code>TeamPipelineCreateInput!</code></a></h3><p>Parameters for TeamPipelineCreate</p></td></tr>
   </tbody>
 </table>

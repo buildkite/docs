@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   apiAccessTokenCode
-  <a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode"><code>APIAccessTokenCode</code></a>
+  <a href="/docs/apis/graphql/schemas/object/apiaccesstokencode" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessTokenCode">
+  <code>APIAccessTokenCode</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a API Access Token code
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>code</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The code provided by the Auth API</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>code</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The code provided by the Auth API</p></td></tr>
   </tbody>
 </table>

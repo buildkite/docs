@@ -31,5 +31,10 @@ Actor to whom a cluster permission is applied
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember"><code>OrganizationMember</code></a>
-<a href="/docs/apis/graphql/schemas/object/team" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Team"><code>Team</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/organizationmember" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationMember">
+  <code>OrganizationMember</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/team" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Team">
+  <code>Team</code>
+</a>
+</div>

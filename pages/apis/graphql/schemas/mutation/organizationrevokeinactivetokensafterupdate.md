@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationRevokeInactiveTokensAfterUpdate
-  <a href="/docs/apis/graphql/schemas/object/organizationrevokeinactivetokensafterupdatemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRevokeInactiveTokensAfterUpdateMutationPayload"><code>OrganizationRevokeInactiveTokensAfterUpdateMutationPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/organizationrevokeinactivetokensafterupdatemutationpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationRevokeInactiveTokensAfterUpdateMutationPayload">
+  <code>OrganizationRevokeInactiveTokensAfterUpdateMutationPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Specify the maximum timeframe to revoke organization access from inactive API to
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationrevokeinactivetokensafterupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationRevokeInactiveTokensAfterUpdateMutationInput"><code>OrganizationRevokeInactiveTokensAfterUpdateMutationInput</code></a></h3><p>Parameters for OrganizationRevokeInactiveTokensAfterUpdateMutation</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationrevokeinactivetokensafterupdatemutationinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationRevokeInactiveTokensAfterUpdateMutationInput"><code>OrganizationRevokeInactiveTokensAfterUpdateMutationInput!</code></a></h3><p>Parameters for OrganizationRevokeInactiveTokensAfterUpdateMutation</p></td></tr>
   </tbody>
 </table>

@@ -31,6 +31,6 @@ Single sign-on settings for an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>isEnabled</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a></h3><p>Whether this account is configured for single sign-on</p></td></tr><tr><td><h3 class="is-small has-pills"><code>provider</code><a href="/docs/apis/graphql/schemas/object/organizationssoprovider" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT OrganizationSSOProvider"><code>OrganizationSSOProvider!</code></a></h3><p>The single sign-on provider for this organization</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>isEnabled</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>Whether this account is configured for single sign-on</p></td></tr><tr><td><h3 class="is-small has-pills"><code>provider</code><a href="/docs/apis/graphql/schemas/object/organizationssoprovider" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT OrganizationSSOProvider"><code>OrganizationSSOProvider</code></a></h3><p>The single sign-on provider for this organization</p></td></tr>
   </tbody>
 </table>

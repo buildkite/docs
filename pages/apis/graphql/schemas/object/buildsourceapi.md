@@ -31,7 +31,7 @@ A build was triggered via an API
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3></td></tr>
   </tbody>
 </table>
 
@@ -39,4 +39,9 @@ A build was triggered via an API
 
 
 <h2 data-algolia-exclude>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/interface/buildsource" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE BuildSource"><code>BuildSource</code></a>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/buildsource" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE BuildSource">
+  <code>BuildSource</code>
+</a>
+
+</div>

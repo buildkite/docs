@@ -31,7 +31,7 @@ An aggregate of resource usage, grouped by day and resource.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>aggregatedOn</code><a href="/docs/apis/graphql/schemas/scalar/iso8601date" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ISO8601Date"><code>ISO8601Date</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>aggregatedOn</code><a href="/docs/apis/graphql/schemas/scalar/iso8601date" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ISO8601Date"><code>ISO8601Date!</code></a></h3></td></tr>
   </tbody>
 </table>
 
@@ -41,5 +41,10 @@ An aggregate of resource usage, grouped by day and resource.
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/jobminutesusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobMinutesUsage"><code>JobMinutesUsage</code></a>
-<a href="/docs/apis/graphql/schemas/object/testexecutionsusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TestExecutionsUsage"><code>TestExecutionsUsage</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/jobminutesusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobMinutesUsage">
+  <code>JobMinutesUsage</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/testexecutionsusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TestExecutionsUsage">
+  <code>TestExecutionsUsage</code>
+</a>
+</div>

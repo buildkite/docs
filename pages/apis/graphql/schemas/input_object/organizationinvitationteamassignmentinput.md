@@ -33,6 +33,6 @@ Used to assign teams to organization invitation in mutations
     </th>
   </thead>
   <tbody>
-    <tr><td><p><strong><code>id</code></strong><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></p><p>The ID of the team you want the user to join once they've accepted the invite</p></td></tr><tr><td><p><strong><code>role</code></strong><a href="/docs/apis/graphql/schemas/enum/teammemberrole" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM TeamMemberRole"><code>TeamMemberRole</code></a></p><p>The role in the team you want the user to have</p></td></tr>
+    <tr><td><p><strong><code>id</code></strong><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></p><p>The ID of the team you want the user to join once they've accepted the invite</p></td></tr><tr><td><p><strong><code>role</code></strong><a href="/docs/apis/graphql/schemas/enum/teammemberrole" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM TeamMemberRole"><code>TeamMemberRole!</code></a></p><p>The role in the team you want the user to have</p></td></tr>
   </tbody>
 </table>

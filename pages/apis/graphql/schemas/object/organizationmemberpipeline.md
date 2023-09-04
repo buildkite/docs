@@ -31,6 +31,6 @@ Represents the connection between a user an a pipeline within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>pipeline</code><a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Pipeline"><code>Pipeline</code></a></h3><p>The pipeline the user has access to within the organization</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>pipeline</code><a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Pipeline"><code>Pipeline!</code></a></h3><p>The pipeline the user has access to within the organization</p></td></tr>
   </tbody>
 </table>

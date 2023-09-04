@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   ssoProvider
-  <a href="/docs/apis/graphql/schemas/interface/ssoprovider" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE SSOProvider"><code>SSOProvider</code></a>
+  <a href="/docs/apis/graphql/schemas/interface/ssoprovider" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE SSOProvider">
+  <code>SSOProvider</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find an sso provider either using it's slug, or UUID
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The slug for the sso provider, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID of the sso provider</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The slug for the sso provider, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The UUID of the sso provider</p></td></tr>
   </tbody>
 </table>

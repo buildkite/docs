@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamSuiteCreate
-  <a href="/docs/apis/graphql/schemas/object/teamsuitecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuiteCreatePayload"><code>TeamSuiteCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teamsuitecreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamSuiteCreatePayload">
+  <code>TeamSuiteCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Add a suite to a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamsuitecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamSuiteCreateInput"><code>TeamSuiteCreateInput</code></a></h3><p>Parameters for TeamSuiteCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamsuitecreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamSuiteCreateInput"><code>TeamSuiteCreateInput!</code></a></h3><p>Parameters for TeamSuiteCreate</p></td></tr>
   </tbody>
 </table>

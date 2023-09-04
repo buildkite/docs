@@ -31,6 +31,6 @@ Information about the SSO setup for this invited organization member
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>mode</code><a href="/docs/apis/graphql/schemas/enum/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum!</code></a></h3><p>The SSO mode of the invited organization member</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>mode</code><a href="/docs/apis/graphql/schemas/enum/organizationmemberssomodeenum" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM OrganizationMemberSSOModeEnum"><code>OrganizationMemberSSOModeEnum</code></a></h3><p>The SSO mode of the invited organization member</p></td></tr>
   </tbody>
 </table>

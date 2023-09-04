@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamMemberDelete
-  <a href="/docs/apis/graphql/schemas/object/teammemberdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamMemberDeletePayload"><code>TeamMemberDeletePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teammemberdeletepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamMemberDeletePayload">
+  <code>TeamMemberDeletePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Remove a user from a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teammemberdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamMemberDeleteInput"><code>TeamMemberDeleteInput</code></a></h3><p>Parameters for TeamMemberDelete</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teammemberdeleteinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamMemberDeleteInput"><code>TeamMemberDeleteInput!</code></a></h3><p>Parameters for TeamMemberDelete</p></td></tr>
   </tbody>
 </table>

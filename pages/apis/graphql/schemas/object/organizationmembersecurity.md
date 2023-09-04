@@ -31,6 +31,6 @@ Information about what security settings the user has enabled in Buildkite
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>passwordProtected</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a></h3><p>If the user has secured their Buildkite user account with a password</p></td></tr><tr><td><h3 class="is-small has-pills"><code>twoFactorEnabled</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a></h3><p>If the user has enabled Two Factor Authentication</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>passwordProtected</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>If the user has secured their Buildkite user account with a password</p></td></tr><tr><td><h3 class="is-small has-pills"><code>twoFactorEnabled</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>If the user has enabled Two Factor Authentication</p></td></tr>
   </tbody>
 </table>

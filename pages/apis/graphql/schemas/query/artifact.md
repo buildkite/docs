@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   artifact
-  <a href="/docs/apis/graphql/schemas/object/artifact" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Artifact"><code>Artifact</code></a>
+  <a href="/docs/apis/graphql/schemas/object/artifact" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Artifact">
+  <code>Artifact</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find an artifact by its UUID
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr>
   </tbody>
 </table>

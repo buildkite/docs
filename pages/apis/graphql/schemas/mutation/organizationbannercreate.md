@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationBannerCreate
-  <a href="/docs/apis/graphql/schemas/object/organizationbannercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerCreatePayload"><code>OrganizationBannerCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/organizationbannercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerCreatePayload">
+  <code>OrganizationBannerCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a System banner within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerCreateInput"><code>OrganizationBannerCreateInput</code></a></h3><p>Parameters for OrganizationBannerCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerCreateInput"><code>OrganizationBannerCreateInput!</code></a></h3><p>Parameters for OrganizationBannerCreate</p></td></tr>
   </tbody>
 </table>

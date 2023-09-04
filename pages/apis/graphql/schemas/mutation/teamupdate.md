@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamUpdate
-  <a href="/docs/apis/graphql/schemas/object/teamupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamUpdatePayload"><code>TeamUpdatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/teamupdatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT TeamUpdatePayload">
+  <code>TeamUpdatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Change the settings for a team.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamUpdateInput"><code>TeamUpdateInput</code></a></h3><p>Parameters for TeamUpdate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/teamupdateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT TeamUpdateInput"><code>TeamUpdateInput!</code></a></h3><p>Parameters for TeamUpdate</p></td></tr>
   </tbody>
 </table>

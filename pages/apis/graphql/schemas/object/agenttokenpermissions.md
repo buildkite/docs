@@ -31,6 +31,6 @@ Permissions information about what actions the current user can do against the a
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>agentTokenRevoke</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can revoke this agent token</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>agentTokenRevoke</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can revoke this agent token</p></td></tr>
   </tbody>
 </table>

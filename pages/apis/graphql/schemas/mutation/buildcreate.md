@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   buildCreate
-  <a href="/docs/apis/graphql/schemas/object/buildcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildCreatePayload"><code>BuildCreatePayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/buildcreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildCreatePayload">
+  <code>BuildCreatePayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Create a build.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildCreateInput"><code>BuildCreateInput</code></a></h3><p>Parameters for BuildCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildcreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildCreateInput"><code>BuildCreateInput!</code></a></h3><p>Parameters for BuildCreate</p></td></tr>
   </tbody>
 </table>

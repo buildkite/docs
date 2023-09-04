@@ -31,7 +31,7 @@ A generic event type that doesn't have any additional meta-information associate
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>actor</code><a href="/docs/apis/graphql/schemas/object/jobeventactor" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobEventActor"><code>JobEventActor</code></a></h3><p>The actor that caused this event to occur</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>job</code><a href="/docs/apis/graphql/schemas/object/jobtypecommand" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobTypeCommand"><code>JobTypeCommand</code></a></h3><p>The job that this event belongs to</p></td></tr><tr><td><h3 class="is-small has-pills"><code>timestamp</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime</code></a></h3><p>The time when the event occurred</p></td></tr><tr><td><h3 class="is-small has-pills"><code>type</code><a href="/docs/apis/graphql/schemas/enum/jobeventtype" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobEventType"><code>JobEventType</code></a></h3><p>The type of event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The public UUID for this job event</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>actor</code><a href="/docs/apis/graphql/schemas/object/jobeventactor" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobEventActor"><code>JobEventActor!</code></a></h3><p>The actor that caused this event to occur</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>job</code><a href="/docs/apis/graphql/schemas/object/jobtypecommand" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobTypeCommand"><code>JobTypeCommand!</code></a></h3><p>The job that this event belongs to</p></td></tr><tr><td><h3 class="is-small has-pills"><code>timestamp</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime!</code></a></h3><p>The time when the event occurred</p></td></tr><tr><td><h3 class="is-small has-pills"><code>type</code><a href="/docs/apis/graphql/schemas/enum/jobeventtype" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobEventType"><code>JobEventType!</code></a></h3><p>The type of event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The public UUID for this job event</p></td></tr>
   </tbody>
 </table>
 
@@ -39,5 +39,12 @@ A generic event type that doesn't have any additional meta-information associate
 
 
 <h2 data-algolia-exclude>Interfaces</h2>
-<a href="/docs/apis/graphql/schemas/interface/jobevent" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE JobEvent"><code>JobEvent</code></a>
-<a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node"><code>Node</code></a>
+<div>
+  <a href="/docs/apis/graphql/schemas/interface/jobevent" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE JobEvent">
+  <code>JobEvent</code>
+</a>
+<a href="/docs/apis/graphql/schemas/interface/node" class="pill pill--interface pill--normal-case pill--large" title="Go to INTERFACE Node">
+  <code>Node</code>
+</a>
+
+</div>

@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   buildCancel
-  <a href="/docs/apis/graphql/schemas/object/buildcancelpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildCancelPayload"><code>BuildCancelPayload</code></a>
+  <a href="/docs/apis/graphql/schemas/object/buildcancelpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT BuildCancelPayload">
+  <code>BuildCancelPayload</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Cancel a build.
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildcancelinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildCancelInput"><code>BuildCancelInput</code></a></h3><p>Parameters for BuildCancel</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/buildcancelinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT BuildCancelInput"><code>BuildCancelInput!</code></a></h3><p>Parameters for BuildCancel</p></td></tr>
   </tbody>
 </table>

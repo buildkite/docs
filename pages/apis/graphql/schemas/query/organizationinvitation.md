@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationInvitation
-  <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation"><code>OrganizationInvitation</code></a>
+  <a href="/docs/apis/graphql/schemas/object/organizationinvitation" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationInvitation">
+  <code>OrganizationInvitation</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find an organization invitation via its slug
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3><p>The UUID for the invitation, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>slug</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The UUID for the invitation, prefixed by its organization's slug i.e. <code>acme-inc/0bd5ea7c-89b3-4f40-8ca3-ffac805771eb</code></p></td></tr>
   </tbody>
 </table>

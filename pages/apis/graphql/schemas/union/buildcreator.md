@@ -31,5 +31,10 @@ Either a `User` or an `UnregisteredUser` type
 
 
 <h2 data-algolia-exclude>Possible types</h2>
-<a href="/docs/apis/graphql/schemas/object/unregistereduser" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT UnregisteredUser"><code>UnregisteredUser</code></a>
-<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User"><code>User</code></a>
+<div><a href="/docs/apis/graphql/schemas/object/unregistereduser" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT UnregisteredUser">
+  <code>UnregisteredUser</code>
+</a>
+<a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT User">
+  <code>User</code>
+</a>
+</div>

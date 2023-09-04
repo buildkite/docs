@@ -17,7 +17,9 @@ toc: false
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   job
-  <a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--large" title="Go to UNION Job"><code>Job</code></a>
+  <a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--large" title="Go to UNION Job">
+  <code>Job</code>
+</a>
 
 </h1>
 <!-- vale on -->
@@ -32,6 +34,6 @@ Find a build job
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID</code></a></h3></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr>
   </tbody>
 </table>

@@ -31,6 +31,6 @@ Permission information about what actions the current user can do against the te
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>teamSuiteDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can delete the suite from the team</p></td></tr><tr><td><h3 class="is-small has-pills"><code>teamSuiteUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission!</code></a></h3><p>Whether the user can update the suite connection to the team</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>teamSuiteDelete</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can delete the suite from the team</p></td></tr><tr><td><h3 class="is-small has-pills"><code>teamSuiteUpdate</code><a href="/docs/apis/graphql/schemas/object/permission" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Permission"><code>Permission</code></a></h3><p>Whether the user can update the suite connection to the team</p></td></tr>
   </tbody>
 </table>
