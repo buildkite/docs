@@ -33,4 +33,22 @@ RSpec.describe Page do
       end
     end
   end
+
+  describe "#keywords" do
+    context "when page has keywords defined in frontmatter" do
+      it "returns the keywords" do
+        page = Page.new(double, "tutorials/2fa")
+
+        expect(page.keywords).to eql("docs, pipelines, tutorials, 2fa")
+      end
+    end
+
+    context "when keywords are not defined in frontmatter" do
+      it "returns nil" do
+        page = Page.new(double, "apis/agent-api")
+
+        expect(page.keywords).to eql(nil)
+      end
+    end
+  end
 end
