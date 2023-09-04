@@ -156,7 +156,7 @@ redacted-vars="*_PASSWORD, *_SECRET, *_TOKEN, *_ACCESS_KEY, *_SECRET_KEY, *_CONN
 
 ## Private build log archive storage
 
-By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
+By default, build logs are stored in encrypted form in Buildkite's managed Amazon S3 buckets, but you can instead store the archived build logs in your private AWS S3 bucket. If you decide to store the logs in your S3 bucket, they're encrypted using SSE-S3. SSE-KMS encryption is not supported. After storing the logs in your S3 bucket, Buildkite does not retain a copy of the logs.
 
 >📘 Enterprise feature
 > This feature is only available to customers on the <a href="https://buildkite.com/pricing">Enterprise plan</a> and is applied at the organization level. If you have multiple organizations, send support a list of the organizations where this feature should be enabled.
