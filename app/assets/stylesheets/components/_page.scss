@@ -87,16 +87,5 @@ $lg-screen-margin-top: map-get($header-height, "one-row");
     &:nth-child(2) {
       max-width: 1074px;
     }
-
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    ul {
-      max-width: map-get($max-w, "prose");
-    }
   }
 }
