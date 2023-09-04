@@ -157,7 +157,6 @@ The folder structure and file format are as follows and are not customizable:
 To set up a private build log archive storage:
 
 1. Create an Amazon S3 bucket in *us-east-1* location (the only region that is currently supported).
-
 2. Provide *read* and *write* access permission policy for the Buildkite's AWS account `032379705303`.
 
     Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
