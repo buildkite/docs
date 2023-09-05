@@ -45,7 +45,7 @@ steps:
 All jobs created by a build matrix are marked with the _Matrix_ badge in the Buildkite interface.
 
 >📘 Matrix and Parallel steps
-> Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a <code>matrix</code> and <code>parellism</code> in the same build, as long as they are on separate steps.
+> Matrix builds are not compatible with explicit <a href="/docs/tutorials/parallel-builds#parallel-jobs">parallelism in steps</a>. You can use a <code>matrix</code> and <code>parallelism</code> in the same build, as long as they are on separate steps.
 
 For more complex builds, add multiple dimensions to `matrix.setup` instead of the `matrix` array:
 
