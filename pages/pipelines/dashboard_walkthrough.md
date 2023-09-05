@@ -81,3 +81,20 @@ Job exit status may include the exit signal reason, which indicates whether the 
 <%= image "exit-status.png", width: 2048/2, height: 880/2, alt: "Exit status of a job" %>
 
 If you want to access the exit status through an API, it's only available in the [GraphQL API](/docs/apis/graphql-api).
+
+## Supported browsers
+
+Buildkite Pipelines is designed with the latest web browsers in mind. For the sake of security and providing the best experience to most customers, we do not support browsers that are no longer receiving security updates and represent a small minority of traffic.
+
+We support the latest two stable versions of the following desktop browsers:
+
+- [Google Chrome](https://www.google.com/chrome/)
+- [Mozilla Firefox](https://mozilla.org/firefox)
+- [Apple Safari](https://www.apple.com/safari/)
+- [Microsoft Edge](https://www.microsoft.com/en-us/edge)
+
+Browsers not listed as supported or in beta or developer builds may not work as you expect, or at all. For the best experience, we recommend using the latest version of a supported browser.
+
+All versions of Internet Explorer are not supported, and we recommend you migrate to a modern browser.
+
+If you encounter any issues with Buildkite Pipelines on a supported browser, please [contact us](https://buildkite.com/support) so we can improve its support.
