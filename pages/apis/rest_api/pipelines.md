@@ -1084,6 +1084,12 @@ Properties available for Bitbucket Server:
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   <tr>
+    <th><code>build_branches</code></th>
+    <td>
+      Whether to create builds when branches are pushed
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
+  <tr>
     <th><code>build_tags</code></th>
     <td>
       Whether to create builds when tags are pushed.
