@@ -1104,6 +1104,13 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
     </td>
   </tr>
   <tr>
+    <th><code>build_branches</code></th>
+    <td>
+      Whether to create builds when branches are pushed
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
+    </td>
+  </tr>
+  <tr>
     <th><code>pull_request_branch_filter_enabled</code></th>
     <td>
       Whether to limit the creation of builds to specific branches or patterns.
@@ -1146,6 +1153,12 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
       Whether to create a separate status for each job in a build, allowing you to see the status of each job directly in Bitbucket or GitHub.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
+  <tr>
+    <th><code>cancel_deleted_branch_builds</code></th>
+    <td>
+      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted
+      <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+  </tr>
   </tbody>
 </table>
 
@@ -1169,6 +1182,18 @@ Additional properties available for GitHub:
       <th><code>build_pull_request_forks</code></th>
       <td>
         Whether to create builds for pull requests from third-party forks.
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_labels_changed</code></th>
+      <td>
+        Whether to create builds for pull requests when labels are added or removed
+        <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
+    </tr>
+    <tr>
+      <th><code>build_pull_request_ready_for_review</code></th>
+      <td>
+        Whether to create builds for pull requests that are ready for review.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>
