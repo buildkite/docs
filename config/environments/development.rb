@@ -1,6 +1,14 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
+
+  config.hosts = [
+    IPAddr.new("0.0.0.0/0"), # All IPv4 addresses.
+    IPAddr.new("::/0"),      # All IPv6 addresses.
+    "localhost",             # The localhost reserved domain.
+    "app"   # Allow this to be addressed when running in containers via docker-compose.yml.
+  ]
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
