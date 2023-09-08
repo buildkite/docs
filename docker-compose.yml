@@ -14,6 +14,11 @@ services:
     volumes:
       - ".:/app"
       - /app/node_modules
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/docs"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
 
   vite:
     build:
@@ -33,8 +38,12 @@ services:
 
   muffet:
     depends_on:
-      - app
+      app:
+        condition: service_healthy
     image: raviqqe/muffet
-    entrypoint:
-      - ash
-      - -c
+    command:
+      - "http://app:3000/docs"
+      - --include=/docs/
+      - --exclude=https://github.com/buildkite/docs/
+      - --max-connections=10
+      - --color=always
