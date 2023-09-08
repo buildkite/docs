@@ -5,6 +5,7 @@ services:
       context: .
       args:
         RAILS_ENV: ${RAILS_ENV:-development}
+    command: bin/rails s -p 3000 -b 0.0.0.0
     depends_on:
       - vite
     environment:
@@ -16,8 +17,8 @@ services:
       - /app/node_modules
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3000/docs"]
-      interval: 10s
-      timeout: 30s
+      interval: 5s
+      timeout: 10s
       retries: 5
 
   vite:
