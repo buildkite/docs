@@ -51,7 +51,7 @@
 
 <%= render 'helpscout' %>
 
-<% if Rails.env.production? %>
+<% if ENV.fetch("DD_RUM_ENABLED", false) %>
 <script>
   (function(h,o,u,n,d) {
     h=h[d]=h[d]||{q:[],onReady:function(c){h.q.push(c)}}
@@ -64,7 +64,8 @@
       applicationId: 'd8c88382-4a5b-43ec-9069-ba06aac75e7a',
       site: 'datadoghq.com',
       service: 'buildkite-docs',
-      env: '<%= Rails.env %>',
+      env: '<%= ENV.fetch("DD_RUM_ENV", "unknown") %>',
+      version: '<%= ENV.fetch("DD_RUM_VERSION", "unknown") %>',
       sessionSampleRate: 100,
       sessionReplaySampleRate: 0,
       trackUserInteractions: false,
