@@ -36,6 +36,8 @@ Rails.application.config.content_security_policy do |policy|
     "https://cdn.segment.com/",
     "https://cdn.emojicom.io/",
     "https://beacon-v2.helpscout.net",
+    "https://rum.browser-intake-datadoghq.com",
+    "https://www.datadoghq-browser-agent.com"
   )
 
   # Allow @vite/client to hot reload javascript changes in development
@@ -51,7 +53,8 @@ Rails.application.config.content_security_policy do |policy|
     "https://cdn.segment.com/",
     "https://api.segment.io/",
     "https://emojicom.io/",
-    "https://beacon-v2.helpscout.net"
+    "https://beacon-v2.helpscout.net",
+    "https://rum.browser-intake-datadoghq.com"
   )
 
   # Allow @vite/client to hot reload changes in development
