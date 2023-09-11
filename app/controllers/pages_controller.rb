@@ -35,12 +35,4 @@ class PagesController < ApplicationController
   end
   helper_method :beta?
 
-  # Renders keywords to the page for content writers to inspect and use as a guide
-  # Gracefully falls back to the page's path if no keywords are specified
-  # to help reduce content workload
-  def content_keywords
-    @page.keywords || request.path.split("/").reject(&:empty?).map { |segment| segment.gsub("-", " ") }.join(", ")
-  end
-  helper_method :content_keywords
-
 end

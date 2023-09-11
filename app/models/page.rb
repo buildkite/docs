@@ -177,10 +177,11 @@ class Page
     front_matter.fetch(:template, "show")
   end
 
-  # Returns focus keywords to guide content writers with an overview notion of the page
-  # It's not for meta keywords, which is a deprecated practice
+  # Returns focus keywords to guide content writers with an overview of the page content
+  # Note: it's not for meta keywords, which is a deprecated SEO practice
   def keywords
-    front_matter.fetch(:keywords)
+    # Gracefully falls back to the page's path if no keywords are specified to help reduce technical writer workload
+    front_matter.fetch(:keywords) || @view.request.path.split("/").reject(&:empty?).map { |segment| segment.gsub("-", " ") }.join(", ")
   end
 
   private
