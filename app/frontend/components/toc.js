@@ -92,7 +92,6 @@ export function initToc() {
   }
 
   const initCurrentLinkListener = () => {
-    drawPath();
     const content = document.querySelector(".Page");
 
     const observer = new IntersectionObserver(
