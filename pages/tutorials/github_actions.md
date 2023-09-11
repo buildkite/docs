@@ -1,6 +1,6 @@
 # Triggering pipelines using GitHub Actions
 
-[GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the Github actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
+[GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the GitHub actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
  
 
 The Trigger Buildkite Pipeline GitHub Action allows you to:
@@ -12,7 +12,7 @@ The Trigger Buildkite Pipeline GitHub Action allows you to:
 
 This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).
 
-## Installing Trigger-Buildkite-Pipeline action
+## Using the Trigger-Buildkite-Pipeline action
 
 1. Search for Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline).
 
@@ -32,7 +32,7 @@ This tutorial assumes some familiarity with GitHub and using GitHub Actions. You
 
 1. Create a `.github/workflows` directory in your repo to store the workflow files for Buildkite Pipeline Action
 
-2. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets. You can read more about [Creating encrypted secrets for a repository in Github](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
+2. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets. You can read more about [Creating encrypted secrets for a repository in GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
 2. Configure your GitHub Actions workflow with the details of the pipeline to be triggered, and the settings for the build.
 
