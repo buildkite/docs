@@ -46,8 +46,6 @@ steps:
           shell: false
           upload-container-logs: always
           env:
-            - BUILDKITE_JOB_ID
-            - CI
             - RAILS_ENV
 
   - label: ":junit: Test Summary"
