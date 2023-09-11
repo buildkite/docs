@@ -153,7 +153,8 @@ The second is that the account already exists in Buildkite. If you have access t
 This is likely caused by trying to log in from the wrong place. You need to log in from https://buildkite.com/sso and follow the link from the email you receive. If the issue persists, please reach out to support@buildkite.com for assistance.
 
 ### Will setting the session duration affect all current sessions or only the new sessions?
-When you [update the session duration](https://buildkite.com/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration), it affects both the new and the old SSO sessions.
+
+When you [update the session duration](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration), it affects both new and old SSO sessions.
 
 ### Which even is considered to be the start of an SSO session?
 
