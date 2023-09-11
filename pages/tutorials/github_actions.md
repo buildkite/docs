@@ -2,39 +2,37 @@
 
 [GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the GitHub actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
  
-
 The Trigger Buildkite Pipeline GitHub Action allows you to:
 
 * Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
 * Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
 
+The Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline).
+
+<%= image "trigger-buildkite-pipeline.png", width: 2630/2, height: 1692/2, alt: "Trigger Buildkite Pipeline GitHub Action on GitHub" %>
+
 ## Prerequisites
 
 This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).
 
-## Using the Trigger Buildkite Pipeline GitHub Action
-
-1. Search for Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline).
-
-2. On the [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) page, click "Use latest version".
-
-3. Create and paste the following snippet into your trigger-pipeline-action.yml file.
-
-```yml
-- name: Trigger Buildkite Pipeline
-  uses: buildkite/trigger-pipeline-action@v1.6.0
-```
-{: codeblock-file="trigger-pipeline-action.yml"}
-
-<%= image "trigger-buildkite-pipeline.png", width: 2630/2, height: 1692/2, alt: "Trigger Buildkite Pipeline GitHub Action on GitHub" %>
-
 ## Creating the workflow for Buildkite GitHub Actions
 
-1. Create a `.github/workflows` directory in your repo to store the workflow files for Buildkite Pipeline Action
+1. If a workflow directory does not exist yet, create the `.github/workflows` directory in your repo to store the workflow files for Buildkite Pipeline Action
 
 2. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets. You can read more about [Creating encrypted secrets for a repository in GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
 
-2. Configure your GitHub Actions workflow with the details of the pipeline to be triggered, and the settings for the build.
+2. Define your GitHub Actions workflow with the details of the pipeline to be triggered. Create and paste the following snippet into your trigger-pipeline-action.yml file.
+
+```yml
+steps:
+  - name: Trigger Buildkite Pipeline
+    uses: buildkite/trigger-pipeline-action@v1.6.0
+```
+{: codeblock-file="trigger-pipeline-action.yml"}
+
+To ensure that the latest version is always used, click "Use latest version" on the [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) page. Copy and paste the code snippet provided.
+
+3. Configure the build settings required
 
 For example, the following workflow creates a new Buildkite build on every commit (change `my-org/my-deploy-pipeline` to the slug of your org and pipeline, and `TRIGGER_BK_BUILD_TOKEN` to the secrets env var you have defined):
 
