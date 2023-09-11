@@ -1,7 +1,7 @@
 # Triggering pipelines using GitHub Actions
 
 [GitHub Actions](https://github.com/features/actions) is a GitHub-based workflow automation platform. You can use the GitHub actions [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) to trigger a build on a Buildkite pipeline.
- 
+
 The Trigger Buildkite Pipeline GitHub Action allows you to:
 
 * Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
@@ -83,5 +83,5 @@ steps:
       build-meta-data: '{"FOO": "bar"}'
       ignore-pipeline-branch-filter: true     
 ```
-      
+
 See [Trigger-pipeline-action](https://github.com/buildkite/trigger-pipeline-action) for more details, code, or to contribute to or raise an issue for the Buildkite GitHub Action.
