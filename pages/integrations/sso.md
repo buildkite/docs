@@ -156,6 +156,6 @@ This is likely caused by trying to log in from the wrong place. You need to log 
 
 When you [update the session duration](/docs/apis/graphql/cookbooks/organizations#update-the-default-sso-provider-session-duration), it affects both new and old SSO sessions.
 
-### Which even is considered to be the start of an SSO session?
+### When is an SSO session considered to start?
 
-The start of an SSO session is individually measured per user from the moment that user signs in via SSO.
+An SSO session starts for a user from the moment they sign in using SSO.
