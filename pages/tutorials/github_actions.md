@@ -12,7 +12,7 @@ The Trigger Buildkite Pipeline GitHub Action allows you to:
 
 This tutorial assumes some familiarity with GitHub and using GitHub Actions. You can find the official GitHub Actions documentation [here](https://docs.github.com/en/actions/learn-github-actions).
 
-## Using the Trigger Buildkite Pipeline Github Action
+## Using the Trigger Buildkite Pipeline GitHub Action
 
 1. Search for Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline).
 
