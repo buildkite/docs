@@ -19,21 +19,12 @@ This tutorial assumes some familiarity with GitHub and using GitHub Actions. You
 
 1. If a workflow directory does not exist yet, create the `.github/workflows` directory in your repo to store the workflow files for Buildkite Pipeline Action.
 1. Create a [Buildkite API access token](/docs/apis/rest-api#authentication) with `write_builds` [scope](/docs/apis/managing-api-tokens#token-scopes), and save it to your GitHub repository’s Settings in Secrets. You can read more about [Creating encrypted secrets for a repository in GitHub](https://docs.github.com/en/actions/security-guides/encrypted-secrets#creating-encrypted-secrets-for-a-repository).
-1. Define your GitHub Actions workflow with the details of the pipeline to be triggered.
-  
-  ```yml
-  steps:
-    - name: Trigger Buildkite Pipeline
-      uses: buildkite/trigger-pipeline-action@v1.6.0
-  ```
-  {: codeblock-file="trigger-pipeline-action.yml"}
-
-    >📘 Use the latest version
-    > To ensure that the latest version is always used, click "Use latest version" on the [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) page. Copy and paste the code snippet provided.
-
+1. Define your GitHub Actions workflow with the details of the pipeline to be triggered. To ensure that the latest version is always used, click "Use latest version" on the [Trigger Buildkite Pipeline](https://github.com/marketplace/actions/trigger-buildkite-pipeline) page. Copy and paste the code snippet provided.
 1. Configure the workflow by setting the applicable configuration options.
 
-For example, the following workflow creates a new Buildkite build on every commit (change `my-org/my-deploy-pipeline` to the slug of your org and pipeline, and `TRIGGER_BK_BUILD_TOKEN` to the secrets env var you have defined):
+## Example workflow
+
+The following workflow creates a new Buildkite build on every commit (change `my-org/my-deploy-pipeline` to the slug of your org and pipeline, and `TRIGGER_BK_BUILD_TOKEN` to the secrets env var you have defined):
 
 ```yml
 on: [push]
