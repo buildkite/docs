@@ -1,5 +1,10 @@
 class ApplicationController < ActionController::Base
   helper_method :probably_authenticated?
+  helper_method :image_path
+
+  def image_path(name)
+    view_context.vite_asset_path(File.join("images", name))
+  end
 
   def route_not_found
     render file: Rails.root.join("public","404.html"), layout: false, status: 404

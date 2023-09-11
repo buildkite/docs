@@ -39,15 +39,13 @@ steps:
       echo 💎🛤️🚆 Rails has started running &&
       /muffet http://app:3000/docs --include=/docs/ --exclude=https://github.com/buildkite/docs/ --max-connections=10 --color=always
     env:
-      RAILS_ENV: test
+      RAILS_ENV: production
     plugins:
       - docker-compose#v3.9.0:
           run: muffet
           shell: false
           upload-container-logs: always
           env:
-            - BUILDKITE_JOB_ID
-            - CI
             - RAILS_ENV
 
   - label: ":junit: Test Summary"

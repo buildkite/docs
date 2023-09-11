@@ -4,7 +4,7 @@
  *
  * @param {string} [$max-width="container"] - The maximum width of the container
  *                                            Allowed values: "outer-container", "container", "inner-container", "prose", "search"
- *                                            Defaults to "container" 
+ *                                            Defaults to "container"
  *
  */
 @mixin container($max-width: "container") {
