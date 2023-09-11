@@ -15,7 +15,7 @@
     position: absolute;
     top: 16px;
     left: 16px;
-    background: asset-url("icons/callouts/#{$icon}.svg") no-repeat 0 0;
+    background: url("~/images/icons/callouts/#{$icon}.svg") no-repeat 0 0;
   }
 
   .callout__title {
@@ -57,7 +57,7 @@
         z-index: 3;
         border-radius: 8px;
         background-color: #fff;
-        background-image: asset-url("icons/anchor");
+        background-image: url("~/images/icons/anchor.svg");
         background-position: 50% 50%;
         background-repeat: no-repeat;
         box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.03),
