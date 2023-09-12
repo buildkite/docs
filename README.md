@@ -114,3 +114,17 @@ Otherwise, to update the general navigation:
 
 1. Edit `nav.yml` with your changes.
 1. Restart the application.
+
+## Content keywords
+
+We render content keywords in `data-content-keywords` in the `body` tag to highlight the focus keywords of each page with content authors.
+
+This helps the content team to quickly inspect to see the types of content we're providing across different channels.
+
+Keywords are added as [Frontmatter](https://rubygems.org/gems/front_matter_parser) meta data using the `keywords` key, e.g.:
+
+```md
+keywords: docs, tutorial, pipelines, 2fa
+```
+
+If no keywords are provided it falls back to comma-separated URL path segments.

@@ -3,7 +3,7 @@
   <head>
     <%= render "head" %>
   </head>
-  <body class="<%= beta? ? 'beta' : ''-%>">
+  <body class="<%= beta? ? 'beta' : ''-%>" data-keywords="<%= content_for :keywords %>">
     <%= render "site_header" %>
 
     <main id="__main" role="main">
