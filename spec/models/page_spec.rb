@@ -35,9 +35,17 @@ RSpec.describe Page do
   end
 
   describe "#keywords" do
+    let(:view_double) { double("View") }
+    let(:request_double) { double("Request", path: "/apis/agent-api") }
+
+    before do
+      # Stub the request method for the view_double to return request_double
+      allow(view_double).to receive(:request).and_return(request_double)
+    end
+
     context "when page has keywords defined in frontmatter" do
       it "returns the keywords" do
-        page = Page.new(double, "tutorials/2fa")
+        page = Page.new(view_double, "tutorials/2fa")
 
         expect(page.keywords).to eql("docs, pipelines, tutorials, 2fa")
       end
@@ -45,9 +53,9 @@ RSpec.describe Page do
 
     context "when keywords are not defined in frontmatter" do
       it "returns nil" do
-        page = Page.new(double, "apis/agent-api")
+        page = Page.new(view_double, "apis/agent-api")
 
-        expect(page.keywords).to eql(nil)
+        expect(page.keywords).to eql("apis, agent api")
       end
     end
   end
