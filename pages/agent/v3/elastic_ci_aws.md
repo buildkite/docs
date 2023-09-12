@@ -125,7 +125,7 @@ steps:
       queue: "windows"
 ```
 
-See the [Buildkite Agent queue target docs](/docs/agent/v3/queues#targeting-a-queue) and [Buildkite Agent job queue docs](/docs/agent/v3/queues) for more info.
+For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
 
 Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/elastic_ci_aws/parameters) for more details.
 
