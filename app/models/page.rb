@@ -181,7 +181,7 @@ class Page
   # Note: it's not for meta keywords, which is a deprecated SEO practice
   def keywords
     # Gracefully falls back to the page's path if no keywords are specified to help reduce technical writer workload
-    front_matter.fetch(:keywords) || keywords_from_path
+    front_matter.fetch(:keywords, keywords_from_path)
   end
 
   private
