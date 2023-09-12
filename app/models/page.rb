@@ -193,7 +193,6 @@ class Page
         "toc": true,
         # Default to H3s being included in the table of contents
         "toc_include_h3": true,
-        "keywords": nil,
       }
       if file.front_matter
         defaults.merge(file.front_matter.symbolize_keys)
