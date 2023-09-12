@@ -114,7 +114,7 @@ If you don't know your agent token, there is a _Reveal Agent Token_ button avail
 
 <%= image "buildkite-agent-token.png", size: "#{752/2}x#{424/2}", alt: "Reveal Agent Token" %>
 
-By default the stack uses a job queue of `default`, but you can specify any other queue name you like. 
+By default the stack uses a job queue of `default`, but you can specify any other queue name you like.
 
 A common example of setting a queue for a dedicated Windows agent can be achieved with the following in your `pipeline.yml` after you've set up your Windows stack:
 
