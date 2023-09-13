@@ -60,6 +60,8 @@
           path: "tutorials/2fa"
         - name: "Using GitHub merge queues"
           path: "tutorials/github-merge-queue"
+        - name: "Triggering Pipelines Using GitHub Actions"
+          path: "tutorials/github-actions"
     - name: "Agent"
       children:
         - name: "Overview"
