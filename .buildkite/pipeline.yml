@@ -37,7 +37,7 @@ steps:
         sleep 0.5;
       done &&
       echo 💎🛤️🚆 Rails has started running &&
-      /muffet http://app:3000/docs --exclude=https://github.com/buildkite/docs/ --exclude="buildkite.com/docs" --max-connections=10 --color=always
+      /muffet http://app:3000/docs --exclude=https://github.com/buildkite/docs/ --exclude="buildkite.com/docs" --exclude="buildkiteassets" --max-connections=10 --color=always
     env:
       RAILS_ENV: production
     plugins:
