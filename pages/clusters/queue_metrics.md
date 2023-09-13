@@ -2,7 +2,7 @@
 
 Queue metrics show the most important statistics to help you optimize your agent setup and monitor a queue's performance. These statistics are updated on the page every 10 seconds.
 
-## Metrics Panels
+## Metrics panels
 
 <%= image "cluster-queue-metrics.png", alt: "Screenshot of the queue metrics panel" %>
 
