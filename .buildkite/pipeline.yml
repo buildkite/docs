@@ -113,3 +113,10 @@ steps:
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
+
+  - wait
+
+  - label: ":rocket:"
+    trigger: docs-deploy
+    if: build.branch == "main"
+    async: true
