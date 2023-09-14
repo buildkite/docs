@@ -125,6 +125,8 @@
     path: apis/graphql/schemas/mutation/organizationbannerdelete
   - name: organizationBannerUpdate
     path: apis/graphql/schemas/mutation/organizationbannerupdate
+  - name: organizationEnforceTwoFactorAuthenticationForMembersUpdate
+    path: apis/graphql/schemas/mutation/organizationenforcetwofactorauthenticationformembersupdate
   - name: organizationInvitationCreate
     path: apis/graphql/schemas/mutation/organizationinvitationcreate
   - name: organizationInvitationResend
@@ -473,6 +475,8 @@
     path: apis/graphql/schemas/object/organizationconnection
   - name: OrganizationEdge
     path: apis/graphql/schemas/object/organizationedge
+  - name: OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationPayload
+    path: apis/graphql/schemas/object/organizationenforcetwofactorauthenticationformembersupdatemutationpayload
   - name: OrganizationInvitation
     path: apis/graphql/schemas/object/organizationinvitation
   - name: OrganizationInvitationConnection
@@ -975,6 +979,8 @@
     path: apis/graphql/schemas/input-object/organizationbannerdeleteinput
   - name: OrganizationBannerUpdateInput
     path: apis/graphql/schemas/input-object/organizationbannerupdateinput
+  - name: OrganizationEnforceTwoFactorAuthenticationForMembersUpdateMutationInput
+    path: apis/graphql/schemas/input-object/organizationenforcetwofactorauthenticationformembersupdatemutationinput
   - name: OrganizationInvitationCreateInput
     path: apis/graphql/schemas/input-object/organizationinvitationcreateinput
   - name: OrganizationInvitationResendInput
