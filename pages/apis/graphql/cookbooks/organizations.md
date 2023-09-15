@@ -309,3 +309,40 @@ query getTimeScopedOrganizationAuditEvents{
   }
 }
 ```
+
+## Create & delete system banners
+
+Create & delete system banners via the `organizationBannerUpsert` & `organizationBannerDelete` mutations.
+
+To create a banner call `organizationBannerUpsert` with the organization's GraphQL id and message.
+
+```graphql
+mutation OrganizationBannerUpsert {
+  organizationBannerUpsert(input: {
+    organizationId: "organization-id",
+    message: "**Change to 2FA**: On October 1st ECommerce Inc will require 2FA to be set to access all Pipelines. \r\n\r\n---\r\n\r\nIf you have not set already setup 2FA please go to: [https://buildkite.com/user/two-factor](https://buildkite.com/user/two-factor) and setup 2FA now. ",
+  }) {
+    clientMutationId
+    banner {
+      id
+      message
+      uuid
+    }
+  }
+}
+```
+
+To remove the banner call `organizationBannerDelete` with the banner's GraphQL id.
+
+```graphql
+mutation deleteBanner {
+  organizationBannerDelete(
+    input: {
+      id: "banner-id"
+    }
+  )
+  {
+    deletedBannerId
+  }
+}
+```
