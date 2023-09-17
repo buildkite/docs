@@ -39,15 +39,16 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 Test Analytics will automatically detect issues per run. For each test, we currently detect up to three issues: flaky, slow and failure, listed in the following order of urgency:
 
-* Flaky: [See section on detecting flaky tests](#detecting-flaky-tests).
+* **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
 
-* Slow: Slowness is measured on the comparative performance of tests within the current run. A slow test is seen as an outlier when it is part of the slowest 1% of tests that took more than 15% of the total run time.
+* **Slow:** Slowness is measured on the comparative performance of tests within the current run. A slow test is seen as an outlier when it is part of the slowest 1% of tests that took more than 15% of the total run time.
 
-* Failure: A failed test will impact the overall test performance and efficiency.
+* **Failure:** A failed test will impact the overall test performance and efficiency.
 
-The issues will also be shown on the test execution page:
+These detected issues will also show on a test execution page:
 
 >🛠 Currently in private beta
+> This feature is currently in private beta. If you would like to request access to Run issues, [contact us here](support@buildite.com)
 
 ## Tracking reliability
 
