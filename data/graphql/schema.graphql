@@ -2882,8 +2882,7 @@ The reason why a signal was sent to the job's process, or why the process did no
 """
 enum JobEventSignalReason {
   """
-  The agent pre-bootstrap hook refused the job. Note that in this case, no
-  signal was sent to the process, the bootstrap was not run at all.
+  The agent refused the job. Note that in this case, no signal was sent to the process, the job was not run at all.
   """
   AGENT_REFUSED
 
@@ -2906,7 +2905,7 @@ enum JobEventSignalReason {
 
   """
   The agent refused the job because the signature could not be verified. Note
-  that in this case, no signal was sent to the process, the bootstrap was not run at all.
+  that in this case, no signal was sent to the process, the job was not run at all.
   """
   SIGNATURE_REJECTED
 }
