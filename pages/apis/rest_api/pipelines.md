@@ -1187,7 +1187,7 @@ Additional properties available for GitHub:
     <tr>
       <th><code>build_pull_request_labels_changed</code></th>
       <td>
-        Whether to create builds for pull requests when labels are added or removed
+        Whether to create builds for pull requests when labels are added or removed.
         <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
     </tr>
     <tr>
