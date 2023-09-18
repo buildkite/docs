@@ -1156,7 +1156,7 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
   <tr>
     <th><code>cancel_deleted_branch_builds</code></th>
     <td>
-      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted
+      A boolean to enable automatically cancelling any running builds for a branch if the branch is deleted.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p></td>
   </tr>
   </tbody>
