@@ -273,6 +273,9 @@ Error responses:
 
 ## Delete a pipeline template
 
+>📘
+> A pipeline template can only be deleted when it is not assigned to any pipelines.
+
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
 ```
