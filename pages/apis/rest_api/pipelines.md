@@ -1106,7 +1106,7 @@ Properties available for Bitbucket Cloud, GitHub, and GitHub Enterprise:
   <tr>
     <th><code>build_branches</code></th>
     <td>
-      Whether to create builds when branches are pushed
+      Whether to create builds when branches are pushed.
       <p class="Docs__api-param-eg"><em>Values:</em> <code>true</code>, <code>false</code></p>
     </td>
   </tr>
