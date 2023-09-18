@@ -112,7 +112,7 @@ Beyond the log, select one of the other tabs to see the artifacts, a timeline br
 
 ## Next steps
 
-That's it! You've installed an agent, run a build, and checked the output. 🎉
+That's it! You've installed an agent, ran a build, and checked the output. 🎉
 
 We recommend you continue by [creating your own pipeline](/docs/pipelines/create-your-own).
 
