@@ -2,7 +2,7 @@
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [Member Permissions](#member-permissions) page.
 
-For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/pipelines/permissions).
+For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/team-management/permissions).
 
 
 ## Permissions with teams
