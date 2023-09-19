@@ -1,3 +1,7 @@
+---
+toc: false
+---
+
 # Team management overview
 
 Team management is fundamental in CI/CD tools to ensure streamlined processes, proper access controls, and efficient collaboration. Buildkite provides features for your team management needs:
