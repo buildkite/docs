@@ -37,6 +37,9 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 ## Run issues
 
+>🛠 Currently in private beta
+> This feature is currently in private beta. If you would like to request access to Run issues, [contact us here](support@buildite.com)
+
 <%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
 
 Test Analytics will automatically detect issues for each run. For each test, we currently detect up to three issues: flaky, slow and failure, listed in the following order of urgency:
@@ -51,8 +54,6 @@ These detected issues will also show on a test execution page:
 
 <%= image "execution-issues.png", alt: "Screenshot of an execution with issues with their descriptions, displaying a dropdown, including flaky, slow and failures." %>
 
->🛠 Currently in private beta
-> This feature is currently in private beta. If you would like to request access to Run issues, [contact us here](support@buildite.com)
 
 ## Tracking reliability
 
