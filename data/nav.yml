@@ -316,6 +316,8 @@
           path: "team-management/permissions"
         - name: "Enforce 2FA"
           path: "team-management/enforce-2fa"
+        - name: "System banners"
+          path: "team-management/system-banners"
     - name: "Governance"
       children:
         - name: "Overview"
