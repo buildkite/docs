@@ -126,6 +126,27 @@ mutation UpdateSessionIPAddressPinning {
 }
 ```
 
+## Enforce two-factor authentication (2FA) for your organization
+
+Require users to have two-factor authentication enabled before they can access your organization's Buildkite dashboard.
+
+```graphql
+mutation EnableEnforced2FA {
+  organizationEnforceTwoFactorAuthenticationForMembersUpdate(
+    input: {
+      organizationId: "organization-id",
+      membersRequireTwoFactorAuthentication: true
+    }
+  ) {
+    organization {
+      id
+      membersRequireTwoFactorAuthentication
+      uuid
+    }
+  }
+}
+```
+
 ## Query the usage API
 
 Use the usage API to query your organization's usage by pipeline or test suite at daily granularity.
