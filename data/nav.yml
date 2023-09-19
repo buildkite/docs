@@ -56,6 +56,8 @@
           path: "tutorials/bazel"
         - name: "Migrating to YAML steps"
           path: "tutorials/pipeline-upgrade"
+        - name: "Two-factor authentication (2FA)"
+          path: "tutorials/2fa"
         - name: "Using GitHub merge queues"
           path: "tutorials/github-merge-queue"
         - name: "Triggering Pipelines Using GitHub Actions"
@@ -312,8 +314,6 @@
           path: "team-management"
         - name: "User and team permissions"
           path: "team-management/permissions"
-        - name: "Two-factor authentication (2FA)"
-          path: "team-management/2fa"
     - name: "Governance"
       children:
         - name: "Overview"

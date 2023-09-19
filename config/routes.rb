@@ -74,7 +74,6 @@ Rails.application.routes.draw do
   get "/docs/tutorials/bitbucket",                to: redirect("/docs/integrations/bitbucket")
   get "/docs/tutorials/custom-saml",              to: redirect("/docs/integrations/sso/custom-saml")
   get "/docs/tutorials/sso-setup-with-graphql",   to: redirect("/docs/integrations/sso/sso-setup-with-graphql")
-  get "/docs/tutorials/2fa",                      to: redirect("/docs/team-management/2fa")
   get "/docs/tutorials/deploying-to-heroku",      to: redirect("/docs/deployments/deploying-to-heroku")
   get "/docs/integrations/sso/google-oauth",      to: redirect("/docs/integrations/sso/g-suite")
   get "/docs/integrations/sso/g-suite",           to: redirect("/docs/integrations/sso/google-workspace")
