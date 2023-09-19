@@ -308,6 +308,8 @@
           path: "pipelines/audit-log"
     - name: "Team management"
       children:
+        - name: "Overview"
+          path: "team-management"
         - name: "User and team permissions"
           path: "team-management/permissions"
         - name: "Two-factor authentication (2FA)"
