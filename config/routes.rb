@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
   get "/docs/pipelines/ignoring-a-commit",        to: redirect("/docs/pipelines/skipping#ignore-a-commit")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
+  get "/docs/pipelines/permissions",              to: redirect("/docs/team-management/permissions")
   get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/webhooks/setup",                     to: redirect("/docs/apis/webhooks")

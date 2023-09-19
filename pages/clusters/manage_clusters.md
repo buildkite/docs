@@ -53,7 +53,7 @@ To add a pipeline to a cluster:
 
 ### Add maintainers to a cluster
 
-Only Buildkite administrators or users with the [_change organization_ permission](/docs/pipelines/permissions) can create clusters.
+Only Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
 
 You can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
 
