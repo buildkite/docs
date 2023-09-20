@@ -108,6 +108,27 @@ query GetJobRunTimeByBuild{
   }
 }
 ```
+
+## Get a job's UUID
+
+To get UUIDs of the jobs in a build, you can use the following query.
+
+```graphql
+query GetJobsUUID {
+  build(slug: "org-slug/build-slug/build-number") {
+    jobs(first: 1) {
+      edges {
+        node {
+          ... on JobTypeCommand {
+            uuid
+          }
+        }
+      }
+    }
+  }
+}
+```
+
 ## Cancel a job
 
 If you need to cancel a job, you can use the following call with the job's ID:
