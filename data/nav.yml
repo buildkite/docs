@@ -304,12 +304,16 @@
           path: "pipelines/security-overview"
         - name: "Managing secrets"
           path: "pipelines/secrets"
-        - name: "User and team permissions"
-          path: "pipelines/permissions"
         - name: "Webhooks security"
           path: "pipelines/incoming-webhooks"
         - name: "Audit log"
           path: "pipelines/audit-log"
+    - name: "Team management"
+      children:
+        - name: "Overview"
+          path: "team-management"
+        - name: "User and team permissions"
+          path: "team-management/permissions"
     - name: "Governance"
       children:
         - name: "Overview"
