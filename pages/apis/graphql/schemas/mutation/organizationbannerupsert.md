@@ -11,21 +11,21 @@
 #  replace the content in data/graphql_data_schema.json
 #  and run the generation script `./scripts/generate-graphql-api-content.sh`.
 
-title: organizationBannerCreate – Mutations – GraphQL API
+title: organizationBannerUpsert – Mutations – GraphQL API
 toc: false
 ---
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
-  organizationBannerCreate
-  <a href="/docs/apis/graphql/schemas/object/organizationbannercreatepayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerCreatePayload">
-  <code>OrganizationBannerCreatePayload</code>
+  organizationBannerUpsert
+  <a href="/docs/apis/graphql/schemas/object/organizationbannerupsertpayload" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT OrganizationBannerUpsertPayload">
+  <code>OrganizationBannerUpsertPayload</code>
 </a>
 
 </h1>
 <!-- vale on -->
 
 
-Create a System banner within an organization
+Retrieves the active system banner for provided organization, then updates it with input data. If active banner is not found, a new banner is created with the provided input.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,6 +34,6 @@ Create a System banner within an organization
     </th>
   </thead>
   <tbody>
-    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannercreateinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerCreateInput"><code>OrganizationBannerCreateInput!</code></a></h3><p>Parameters for OrganizationBannerCreate</p></td></tr>
+    <tr><td><h3 class="is-small has-pills"><code>input</code><a href="/docs/apis/graphql/schemas/input_object/organizationbannerupsertinput" class="pill pill--input_object pill--normal-case pill--medium" title="Go to INPUT_OBJECT OrganizationBannerUpsertInput"><code>OrganizationBannerUpsertInput!</code></a></h3><p>Parameters for OrganizationBannerUpsert</p></td></tr>
   </tbody>
 </table>
