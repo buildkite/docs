@@ -31,4 +31,4 @@ enforced 2fa via the GraphQL API.
 
 [cookbook]: </docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization>
 [security settings]: <https://buildkite.com/organizations/~/security>
-[tutorial]: <../tutorials/2fa>
+[tutorial]: </docs/tutorials/2fa>
