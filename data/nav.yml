@@ -289,6 +289,10 @@
               path: "pipelines/scheduled-builds"
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
+    - name: "Insights"
+      children:
+        - name: "Waterfall"
+          path: "pipelines/waterfall"
     - name: "Clusters"
       pill: "beta"
       children:
