@@ -309,3 +309,49 @@ query getTimeScopedOrganizationAuditEvents{
   }
 }
 ```
+
+## Get organization audit events of a specific user
+
+Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
+
+```graphql
+query getActorRefinedOrganizationAuditEvents{
+  organization(slug:"organization-slug"){
+    auditEvents(first: 500, actor: "user-id"){
+      edges{
+        node{
+          type
+          occurredAt
+          actor{
+            name
+          }
+          subject{
+            name
+            type
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user: 
+
+```graphql
+query getActorID{
+  organization(slug:"organization-slug"){
+    members(first:50, search: "search term"){
+      edges{
+        node{
+          user{
+            name
+            email
+            id
+          }
+        }
+      }
+    }
+  }
+}
+``
