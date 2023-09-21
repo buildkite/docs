@@ -25,7 +25,7 @@ toc: false
 <!-- vale on -->
 
 
-Delete a System banner
+Delete the system banner
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -4086,7 +4086,7 @@ type Mutation {
   ): OrganizationAPIIPAllowlistUpdateMutationPayload
 
   """
-  Delete a System banner
+  Delete the system banner
   """
   organizationBannerDelete(
     """
@@ -5380,7 +5380,7 @@ input OrganizationBannerDeleteInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  id: ID!
+  organizationId: ID!
 }
 
 """
