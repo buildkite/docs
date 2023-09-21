@@ -289,10 +289,6 @@
               path: "pipelines/scheduled-builds"
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
-    - name: "Insights"
-      children:
-        - name: "Waterfall"
-          path: "pipelines/waterfall"
     - name: "Clusters"
       pill: "beta"
       children:
@@ -330,6 +326,13 @@
           path: "deployments/deploying-to-heroku"
         - name: "Deploying to Kubernetes"
           path: "deployments/deploying-to-kubernetes"
+    - name: "Insights"
+      children:
+        - name: "Waterfall View"
+          path: "pipelines/waterfall"
+        - name: "Cluster Queue metrics"
+          pill: "beta"
+          path: "clusters/queue-metrics"
 - name: "Test Analytics"
   path: "test-analytics"
   children:
