@@ -314,6 +314,8 @@
           path: "team-management"
         - name: "User and team permissions"
           path: "team-management/permissions"
+        - name: "Enforce 2FA"
+          path: "team-management/enforce-2fa"
     - name: "Governance"
       children:
         - name: "Overview"
