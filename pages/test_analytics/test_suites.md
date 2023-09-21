@@ -46,7 +46,7 @@ Test Analytics will automatically detect issues for each run. For each test, we 
 
 - **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
 
-- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time.
+- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This overall percentage can be manually amended within the suite settings.
 
 - **Failure:** A failed test will impact the overall test performance and efficiency.
 
