@@ -5,13 +5,15 @@
 
 ## Overview
 
-Waterfall view allows you to see your build data as a waterfall chart, providing enhanced visibility into your build's job processes, durations and dependencies.
+Waterfall view allows you to see build data as a waterfall chart, providing enhanced visibility into your build's job processes, durations and dependencies.
 
 To access waterfall view:
 
 1. Navigate to any build page.
 1. Select _View_.
 1. Select _Waterfall_ from the dropdown menu.
+
+Waterfall view displays data for finished steps only.
 
 <!-- TODO: SCREENSHOT OF BASIC ROW WITH POPOVER GOES HERE -->
 
@@ -25,6 +27,7 @@ You can hover over a bar to view these durations. Time is rounded to the nearest
 <!-- TODO: SCREENSHOT OF NESTED ROW WITH POPOVER GOES HERE -->
 
 Group, matrix and parallel steps are shown with nested rows underneath a 'parent' row. This parent row displays a solid bar representing the total duration of its child rows. The bar is green if all child rows passed, and red if any of them failed.
+
 
 
 
