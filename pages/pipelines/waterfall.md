@@ -13,17 +13,19 @@ To access waterfall view:
 1. Select _View_.
 1. Select _Waterfall_ from the dropdown menu.
 
-Each row in the chart represents a job.
-Grey bars represent the Waiting time:  a job spent waiting for an agent to be assigned.
-Yellow represents the Dispatching time: time taken from when the agent is assigned to the job, and when the job started running.
-Green represents the Running time: time it took from when the agent started running the job to when it finished running the job.
+<!-- TODO: SCREENSHOT OF BASIC ROW WITH POPOVER GOES HERE -->
 
-Hover over a bar to view a popover displaying the durations.
+Most rows will show bars with three coloured sections.
+The grey section represents the time a job spent waiting for an agent to be assigned.
+The yellow section represents the time since the agent was assigned, and the time the agent started running the job.
+The last section represents the time it took from when the agent started running the job to when it finished running the job. This section is green is the job passed, and red if it failed.
 
-Time is rounded to the nearest second.
+You can hover over a bar to view these durations. Time is rounded to the nearest second.
 
-If a job is retried, the retry data will display in the existing row for that job.
+<!-- TODO: SCREENSHOT OF NESTED ROW WITH POPOVER GOES HERE -->
 
-Group, matrix and parallel jobs are represented as nested rows underneath a 'parent' row. This parent row displays a solid bar, representing the total duration of its child rows. If any child rows exhibit hard failures, it is red, otherwise, it is green.
+Group, matrix and parallel steps are shown with nested rows underneath a 'parent' row. This parent row displays a solid bar representing the total duration of its child rows. The bar is green if all child rows passed, and red if any of them failed.
+
+
 
 
