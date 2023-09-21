@@ -336,7 +336,7 @@ query getActorRefinedOrganizationAuditEvents{
 }
 ```
 
-To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user: 
+To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user:
 
 ```graphql
 query getActorID{
@@ -354,4 +354,4 @@ query getActorID{
     }
   }
 }
-``` 
+```
