@@ -42,11 +42,11 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 <%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
 
-Test Analytics will automatically detect issues for each run. For each test, we currently detect up to three issues: flaky, slow and failure, listed in the following order of urgency:
+Test Analytics will automatically detect issues per run. For each test, we currently detect three issues: flaky, slow and failure. And display total number of issues, along with the following, ordered by the most problematic to least problematic:
 
 - **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
 
-- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This overall percentage can be manually amended within the suite settings.
+- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This threshold can be manually amended within the suite settings.
 
 - **Failure:** A failed test will impact the overall test performance and efficiency.
 
