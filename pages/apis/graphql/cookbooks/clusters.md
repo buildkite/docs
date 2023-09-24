@@ -103,7 +103,7 @@ query getClusterQueueJobs {
 }
 ```
 
-To obtain jobs within a cluster queue of a particular state, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from, and the `state` list filter by one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates):
+To obtain jobs in a particular state within a cluster queue, specify the cluster queues' ID with the `clusterQueue` argument and one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
 
 ```graphql
 query getClusterQueueJobsByJobState {
