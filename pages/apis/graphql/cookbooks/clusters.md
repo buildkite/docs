@@ -50,7 +50,7 @@ query getClusterQueues {
 
 ## List cluster tokens
 
-Get the first 10 cluster tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query.
+Get the first 10 cluster tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
 query getClusterTokens {
@@ -70,6 +70,9 @@ query getClusterTokens {
   }
 }
 ```
+
+>🚧 Cluster `token` field deprecation
+> The `token` field of the [ClusterToken](https://buildkite.com/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](https://buildkite.com/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
 ## List jobs in a particular cluster queue
 
