@@ -125,7 +125,7 @@ When you run a pipeline, a build is created. Each of the steps in the pipeline e
 
 Job state             | Description
 ----------------------| -----------------------------------------
-PENDING               | The job has just been created and doesn't have a state yet
+`pending`               | The job has just been created and doesn't have a state yet.
 WAITING               | The job is waiting on a wait step to finish
 WAITING_FAILED        | The job was in a WAITING state when the build failed
 BLOCKED               | The job is waiting on a block step to finish
