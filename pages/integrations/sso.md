@@ -4,9 +4,11 @@ toc_include_h3: false
 
 # Single sign-on support
 
-You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization.
+You can use a single sign-on (SSO) provider to protect access to your organization's data in Buildkite. Buildkite supports many different SSO providers, and you can configure multiple SSO providers for a single Buildkite organization. 
 
-SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans.
+SSO is available to customers on the Buildkite [Team, Business, and Enterprise](https://buildkite.com/pricing) plans. 
+
+Note: If Single Sign-On Required is turned on for a User in the organization settings,they will not be able to log into their account if Password-less SSO Login is disabled, even with a password.
 
 
 ## Supported providers
