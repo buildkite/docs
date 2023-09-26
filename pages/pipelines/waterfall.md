@@ -13,20 +13,21 @@ To access waterfall view:
 1. Select _View_.
 1. Select _Waterfall_ from the dropdown menu.
 
-Waterfall view displays data for finished steps only.
+<%= image "waterfall-view.png", alt: "Image of an example waterfall chart" %>
 
-<!-- TODO: SCREENSHOT OF BASIC ROW WITH POPOVER GOES HERE -->
+Waterfall view only displays data for finished steps. Most rows will show bars with three coloured sections:
 
-Most rows will show bars with three coloured sections.
-The grey section represents the time a job spent waiting for an agent to be assigned.
-The yellow section represents the time since the agent was assigned, and the time the agent started running the job.
-The last section represents the time it took from when the agent started running the job to when it finished running the job. This section is green is the job passed, and red if it failed.
+1. Gray: time the job spent waiting for an agent to be assigned.
+1. Yellow: time elapsed since the agent was assigned, up until the time the agent started running the job.
+1. Green or Red: time the agent spent running the job. Displayed as green for a _passed_ job or red for a _failed_ job.
 
 You can hover over a bar to view these durations. Time is rounded to the nearest second.
 
-<!-- TODO: SCREENSHOT OF NESTED ROW WITH POPOVER GOES HERE -->
+<%= image "waterfall-view-popover.png", alt: "Image of a waterfall popover, displaying the job's waiting, dispatching and running durations" %>
 
 Group, matrix and parallel steps are shown with nested rows underneath a 'parent' row. A parent row displays a solid bar representing the total duration of its child rows. The bar is green if all child rows passed, and red if any of them failed.
+
+<%= image "waterfall-view-parent-row.png", alt: "Image showing an example of a parent row and its children in a waterfall chart" %>
 
 
 
