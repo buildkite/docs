@@ -328,7 +328,7 @@
           path: "deployments/deploying-to-kubernetes"
     - name: "Insights"
       children:
-        - name: "Waterfall View"
+        - name: "Waterfall view"
           path: "pipelines/waterfall"
         - name: "Cluster Queue metrics"
           pill: "beta"
