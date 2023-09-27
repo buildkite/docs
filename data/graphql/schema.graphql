@@ -80,6 +80,7 @@ enum APIAccessTokenScopes {
   READ_NOTIFICATION_SERVICES
   READ_ORGANIZATIONS
   READ_PIPELINES
+  READ_PIPELINE_TEMPLATES
   READ_SUITES
   READ_TEAMS
   READ_USER
@@ -90,6 +91,7 @@ enum APIAccessTokenScopes {
   WRITE_CLUSTERS
   WRITE_NOTIFICATION_SERVICES
   WRITE_PIPELINES
+  WRITE_PIPELINE_TEMPLATES
   WRITE_SUITES
 }
 
@@ -4086,7 +4088,7 @@ type Mutation {
   ): OrganizationAPIIPAllowlistUpdateMutationPayload
 
   """
-  Delete a System banner
+  Delete the system banner
   """
   organizationBannerDelete(
     """
@@ -5380,7 +5382,7 @@ input OrganizationBannerDeleteInput {
   A unique identifier for the client performing the mutation.
   """
   clientMutationId: String
-  id: ID!
+  organizationId: ID!
 }
 
 """
