@@ -37,8 +37,8 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 ## Run issues
 
->🛠 Currently in private beta
-> This feature is currently in private beta. If you would like to request access to Run issues, [contact us here](mailto:support@buildite.com)
+>🛠 Beta feature
+> The run issues feature is currently in public beta and subject to change.
 
 <%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
 
