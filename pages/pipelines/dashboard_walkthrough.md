@@ -58,7 +58,7 @@ Your pipeline's name, description, emoji, and color, as well as its repository a
 
 The display settings can be found in the _Pipeline Settings_ section. Adding a description, emoji, and color for your pipeline is optional, but name, repository, and default branch are all required.
 
-The emoji and color will replace the icon on the dashboard. Descriptions also have full emoji support 🙌
+The emoji and color will replace the icon on the dashboard. Descriptions also have full emoji support. 🙌
 
 ## Pipeline page
 
