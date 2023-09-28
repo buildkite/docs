@@ -165,7 +165,7 @@ query getPipelinesByTeam {
 
 If you have more than 100 teams or more than 100 pipelines per team, use the pagination information in `pageInfo` to get the next results page.
 
-## Get Members from a specific Team
+## Get members from a specific team
 
 This query will display members of a team with their roles. 
 
