@@ -52,7 +52,15 @@ If your organization has Teams enabled, you can also filter this page by the tea
 
 ## Customizing the page
 
-Your pipeline's name, description, emoji, and color, as well as its repository and default branch are all editable. After you've clicked on a pipeline, the settings button is in the top right corner.
+You're able to edit a pipeline's:
+- name
+- description
+- emoji
+- color
+- repository
+- default branch
+
+After you've clicked on a pipeline, the settings button is in the top right corner.
 
 <%= image "settings.png", width: 2028/2, height: 880/2, alt: "Screenshot of the pipelines settings button" %>
 
