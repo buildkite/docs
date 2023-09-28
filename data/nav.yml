@@ -338,9 +338,9 @@
       children:
         - name: "Waterfall view"
           path: "pipelines/waterfall"
-        - name: "Cluster Queue metrics"
+        - name: "Cluster queue metrics"
           pill: "beta"
-          path: "clusters/queue-metrics"
+          path: "pipelines/cluster-queue-metrics"
 - name: "Test Analytics"
   path: "test-analytics"
   children:
