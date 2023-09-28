@@ -73,6 +73,10 @@ fi
 
 ### Frequently asked questions
 
+#### Is there a limit to the number of teams an organization can have?
+Yes, we have a limit of **250 teams per organization**. If you are an enterprise
+customer and require additional teams please contact support@buildkite.com.
+
 #### Will users (and API tokens) still have access to their pipelines?
 When you enable Teams we'll create a default team called “Everyone”, containing all your users and pipelines. This ensures that users, and their API tokens, will still have access to their pipelines.
 
