@@ -36,7 +36,7 @@ The builds per week measurement is calculated based on the average number of bui
 
 ## Bookmarking pipelines
 
-You can keep your most used pipelines at the top of the page by hovering over a pipeline and clicking the bookmark icon on the right.
+You can keep your most used pipelines at the top of the page by hovering over a pipeline, and clicking the bookmark icon on the right.
 
 <%= image "favorite.png", width: 2028/2, height: 880/2, alt: "Screenshot of the pipeline star button" %>
 
