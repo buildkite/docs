@@ -13,5 +13,6 @@ There are recipes for a range of different topics, including:
 - [Jobs](/docs/apis/graphql/cookbooks/jobs)
 - [Agents](/docs/apis/graphql/cookbooks/agents)
 - [Clusters](/docs/apis/graphql/cookbooks/clusters)
+- [Pipeline templates](/docs/apis/graphql/cookbooks/pipeline-templates)
 - [Organizations](/docs/apis/graphql/cookbooks/organizations)
 - [Teams](/docs/apis/graphql/cookbooks/teams)
