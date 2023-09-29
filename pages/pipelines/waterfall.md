@@ -15,7 +15,9 @@ To access waterfall view:
 
 <%= image "waterfall-view.png", alt: "Image of an example waterfall chart" %>
 
-Waterfall view only displays data for finished steps. Wait, block, and input steps are not included in the chart. Most rows will show bars with three coloured sections:
+Waterfall view only displays data for finished steps. If a finished step has jobs that are canceled, timed out, expired or skipped, the row will render as blank for those jobs. Wait, block, and input steps are not included in the chart.
+
+Most rows will show bars with three coloured sections:
 
 1. Gray: time the job spent waiting for an agent to be assigned.
 1. Yellow: time elapsed since the agent was assigned, up until the time the agent started running the job.
