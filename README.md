@@ -116,9 +116,6 @@ To test changes to the indexing configuration:
 
 2. Run `bundle exec rake update_test_index`.
 
-## License
-
-See [LICENSE.md](LICENSE.md) (MIT)
 
 ## Updating the navigation
 
@@ -149,3 +146,8 @@ keywords: docs, tutorial, pipelines, 2fa
 ```
 
 If no keywords are provided it falls back to comma-separated URL path segments.
+
+
+## License
+
+See [LICENSE.md](LICENSE.md) (MIT)
