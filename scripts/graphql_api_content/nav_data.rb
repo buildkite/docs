@@ -52,6 +52,10 @@ module NavData
             "path" => "apis/graphql/cookbooks/clusters"
           },
           {
+            "name" => "Pipeline templates",
+            "path" => "apis/graphql/cookbooks/pipeline-templates"
+          },
+          {
             "name" => "Organizations",
             "path" => "apis/graphql/cookbooks/organizations"
           },
