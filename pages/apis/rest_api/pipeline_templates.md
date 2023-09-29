@@ -42,8 +42,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates"
     "description": "Shared build steps configuration",
     "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
     "available": false,
-    "url": "http://api.buildkite.localhost/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-    "web_url": "http://buildkite.localhost/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "url": "http:///api.buildkite.com/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "web_url": "http://www.buildkite.com/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
     "created_at": "2023-05-03T04:17:55.867Z",
     "created_by": {
       "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -84,8 +84,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{
   "description": "Shared build steps configuration",
   "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
   "available": false,
-  "url": "http://api.buildkite.localhost/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://buildkite.localhost/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "url": "http:///api.buildkite.com/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "web_url": "http://www.buildkite.com/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -132,8 +132,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-tem
   "description": "Shared build steps configuration",
   "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
   "available": false,
-  "url": "http://api.buildkite.localhost/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://buildkite.localhost/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "url": "http:///api.buildkite.com/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "web_url": "http://www.buildkite.com/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -213,8 +213,8 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-te
   "description": "Shared build steps configuration",
   "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
   "available": false,
-  "url": "http://api.buildkite.localhost/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://buildkite.localhost/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "url": "http:///api.buildkite.com/v2/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+  "web_url": "http://www.buildkite.com/organizations/buildkite/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "created_at": "2023-05-03T04:17:55.867Z",
   "created_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",

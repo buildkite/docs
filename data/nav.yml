@@ -414,6 +414,9 @@
               path: "apis/rest-api/organizations"
             - name: "Pipelines"
               path: "apis/rest-api/pipelines"
+            - name: "Pipeline templates"
+              path: "apis/rest-api/pipeline-templates"
+              pill: "beta"
             - name: "Builds"
               path: "apis/rest-api/builds"
             - name: "Jobs"
@@ -435,11 +438,6 @@
               path: "apis/rest-api/meta"
             - name: "Teams"
               path: "apis/rest-api/teams"
-        - name: "Pipeline Templates REST API"
-          children:
-            - name: "Overview"
-              path: "apis/rest-api/pipeline-templates"
-              pill: "beta"
         - name: "Agent REST API"
           children:
             - name: "Overview"
