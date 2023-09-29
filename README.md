@@ -64,6 +64,27 @@ With the development dependencies installed you can update the CLI docs using
 PATH="$HOME/Projects/buildkite/agent:$PATH" ./scripts/update-agent-help.sh
 ```
 
+
+## Updating GraphQL API docs
+
+GraphQL API documentation is generated from a local version of the [Buildkite GraphQL API schema](./data/graphql/schema.graphql).
+
+This repository is kept up-to-date with production based on a [daily scheduled build](https://buildkite.com/buildkite/docs-graphql). The build fetches the latest GraphQL schema, generates the documentation, and publishes a pull request for review.
+
+If you need to fetch the latest schema you can either:
+
+- Manually trigger a build on [`buildkite/docs-graphql`](https://buildkite.com/buildkite/docs-graphql); or
+- Run the following in your local environment:
+
+```sh
+# Fetch latest schema
+API_ACCESS_TOKEN=xxx rake graphql:fetch_schema >| data/graphql/schema.graphql
+
+# Generate docs based on latest schema
+./scripts/generate-graphql-api-content.sh
+```
+
+
 ## Linting
 
 We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
