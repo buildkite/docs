@@ -76,11 +76,11 @@ Clicking through to a pipeline page shows the [build history](#build-history) fo
 
 You can filter a pipeline’s builds by branch, build state, or your own builds using the Filter menu.
 
-<%= image "filtering-builds.png", width: 2824/2, height: 1432/2, alt: "Screenshot of the builds filter menu" %>
+<%= image "filtering-builds.png", width: 2608/2, height: 1244/2, alt: "Screenshot of the builds filter menu" %>
 
 To see the steps for a build, click the Show steps button on the right of any build.
 
-<%= image "showing-build-steps.png", width: 2552/2, height: 964/2, alt: "Screenshot of toggling build steps" %>
+<%= image "showing-build-steps.png", width: 2408/2, height: 520/2, alt: "Screenshot of toggling build steps" %>
 
 ## Build page
 
