@@ -113,6 +113,9 @@ toc: false
 <a href="/docs/apis/graphql/schemas/object/pipelinescheduleconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineScheduleConnection">
   <code>PipelineScheduleConnection</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/pipelinetemplateconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT PipelineTemplateConnection">
+  <code>PipelineTemplateConnection</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/ssoauthorizationconnection" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT SSOAuthorizationConnection">
   <code>SSOAuthorizationConnection</code>
 </a>

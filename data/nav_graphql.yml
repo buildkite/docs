@@ -55,6 +55,8 @@
     path: apis/graphql/schemas/query/pipeline
   - name: pipelineSchedule
     path: apis/graphql/schemas/query/pipelineschedule
+  - name: pipelineTemplate
+    path: apis/graphql/schemas/query/pipelinetemplate
   - name: ssoProvider
     path: apis/graphql/schemas/query/ssoprovider
   - name: team
@@ -155,6 +157,12 @@
     path: apis/graphql/schemas/mutation/pipelinescheduledelete
   - name: pipelineScheduleUpdate
     path: apis/graphql/schemas/mutation/pipelinescheduleupdate
+  - name: pipelineTemplateCreate
+    path: apis/graphql/schemas/mutation/pipelinetemplatecreate
+  - name: pipelineTemplateDelete
+    path: apis/graphql/schemas/mutation/pipelinetemplatedelete
+  - name: pipelineTemplateUpdate
+    path: apis/graphql/schemas/mutation/pipelinetemplateupdate
   - name: pipelineUnarchive
     path: apis/graphql/schemas/mutation/pipelineunarchive
   - name: pipelineUpdate
@@ -575,6 +583,16 @@
     path: apis/graphql/schemas/object/pipelinetag
   - name: PipelineTemplate
     path: apis/graphql/schemas/object/pipelinetemplate
+  - name: PipelineTemplateConnection
+    path: apis/graphql/schemas/object/pipelinetemplateconnection
+  - name: PipelineTemplateCreatePayload
+    path: apis/graphql/schemas/object/pipelinetemplatecreatepayload
+  - name: PipelineTemplateDeletePayload
+    path: apis/graphql/schemas/object/pipelinetemplatedeletepayload
+  - name: PipelineTemplateEdge
+    path: apis/graphql/schemas/object/pipelinetemplateedge
+  - name: PipelineTemplateUpdatePayload
+    path: apis/graphql/schemas/object/pipelinetemplateupdatepayload
   - name: PipelineUnarchivePayload
     path: apis/graphql/schemas/object/pipelineunarchivepayload
   - name: PipelineUpdatePayload
@@ -865,6 +883,8 @@
     path: apis/graphql/schemas/enum/pipelineaccesslevels
   - name: PipelineOrders
     path: apis/graphql/schemas/enum/pipelineorders
+  - name: PipelineTemplateOrder
+    path: apis/graphql/schemas/enum/pipelinetemplateorder
   - name: PipelineVisibility
     path: apis/graphql/schemas/enum/pipelinevisibility
   - name: ResourceUsageType
@@ -1021,6 +1041,12 @@
     path: apis/graphql/schemas/input-object/pipelinetaginput
   - name: PipelineTeamAssignmentInput
     path: apis/graphql/schemas/input-object/pipelineteamassignmentinput
+  - name: PipelineTemplateCreateInput
+    path: apis/graphql/schemas/input-object/pipelinetemplatecreateinput
+  - name: PipelineTemplateDeleteInput
+    path: apis/graphql/schemas/input-object/pipelinetemplatedeleteinput
+  - name: PipelineTemplateUpdateInput
+    path: apis/graphql/schemas/input-object/pipelinetemplateupdateinput
   - name: PipelineUnarchiveInput
     path: apis/graphql/schemas/input-object/pipelineunarchiveinput
   - name: PipelineUpdateInput
