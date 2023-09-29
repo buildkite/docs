@@ -54,10 +54,10 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
 Open `http://localhost:3000` to preview the docs site.
 After modifying a page, refresh to see your changes.
 
-## Updating buildkite-agent CLI Docs
+## Updating `buildkite-agent` CLI docs
 
-With the development dependencies installed you can update the CLI docs using
-`scripts/update-agent-help.sh`:
+With the development dependencies installed you can update the CLI docs with the following:
+
 
 ```bash
 # Set a custom PATH to select a locally built buildkite-agent
