@@ -59,9 +59,9 @@ mutation CreatePipelineTemplate {
   }) {
     pipelineTemplate {
       id
-			uuid
-			name
-			description
+      uuid
+      name
+      description
       configuration
       available
     }
@@ -83,9 +83,9 @@ mutation UpdatePipelineTemplate {
   }) {
     pipelineTemplate {
       id
-			uuid
-			name
-			description
+      uuid
+      name
+      description
       configuration
       available
     }
@@ -130,7 +130,7 @@ mutation AssignPipelineTemplate {
 Conversely, pipeline templates can be removed from a pipeline by specifying `pipelineTemplateId` as `null` in the mutation input:
 
 ```graphql
-mutation AssignPipelineTemplate {
+mutation UnassignPipelineTemplate {
   pipelineUpdate(input: {
     id: 'pipeline-id'
     pipelineTemplateId: null
