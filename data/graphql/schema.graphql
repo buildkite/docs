@@ -4078,7 +4078,7 @@ type Mutation {
   """
   Sets an allowlist of IP addresses for API access to an organization. Please
   note that this is a beta feature and is not yet available to all
-  organizations.
+  organizations. 
   """
   organizationApiIpAllowlistUpdate(
     """
@@ -6631,23 +6631,6 @@ input PipelineCreateInput {
   branchConfiguration: String
 
   """
-  Choose to keep builds or remove them after a set time period. Pipelines are
-  scanned once a day for builds that can be removed according to these settings.
-  Some billing plans require this setting to be enabled.
-  """
-  buildRetentionEnabled: Boolean @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  The minimum number of builds to keep in the pipeline regardless of how old the builds are.
-  """
-  buildRetentionNumber: Int @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  How long is a build kept before it is automatically removed.
-  """
-  buildRetentionPeriod: BuildRetentionPeriods @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
   If intermediate builds should be canceled as new builds are created
   """
   cancelIntermediateBuilds: Boolean
@@ -7450,23 +7433,6 @@ input PipelineUpdateInput {
   A branch filter pattern to limit which pushed branches trigger builds on this pipeline.
   """
   branchConfiguration: String
-
-  """
-  Choose to keep builds or remove them after a set time period. Pipelines are
-  scanned once a day for builds that can be removed according to these settings.
-  Some billing plans require this setting to be enabled.
-  """
-  buildRetentionEnabled: Boolean @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  The minimum number of builds to keep in the pipeline regardless of how old the builds are.
-  """
-  buildRetentionNumber: Int @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  How long is a build kept before it is automatically removed.
-  """
-  buildRetentionPeriod: BuildRetentionPeriods @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
 
   """
   If intermediate builds should be canceled as new builds are created
