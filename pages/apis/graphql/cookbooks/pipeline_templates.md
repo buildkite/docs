@@ -115,8 +115,8 @@ Admins and users with manage pipeline permissions can assign a pipeline template
 ```graphql
 mutation AssignPipelineTemplate {
   pipelineUpdate(input: {
-    id: 'pipeline-id'
-    pipelineTemplateId: 'pipeline-template-id'
+    id: "pipeline-id"
+    pipelineTemplateId: "pipeline-template-id"
   }) {
     pipeline {
       id
@@ -132,7 +132,7 @@ Conversely, pipeline templates can be removed from a pipeline by specifying `pip
 ```graphql
 mutation UnassignPipelineTemplate {
   pipelineUpdate(input: {
-    id: 'pipeline-id'
+    id: "pipeline-id"
     pipelineTemplateId: null
   }) {
     pipeline {
