@@ -69,7 +69,7 @@ mutation CreatePipelineTemplate {
 }
 ```
 
-## Updating a pipeline template
+## Update a pipeline template
 
 Update a pipeline template on an organization using the `pipelineTemplateUpdate` mutation, specifying the ID for organization and pipeline template:
 
@@ -93,7 +93,7 @@ mutation UpdatePipelineTemplate {
 }
 ```
 
-## Deleting a pipeline template
+## Delete a pipeline template
 
 Delete a pipeline template using the `pipelineTemplateDelete` mutation, specifying the ID for organization and pipeline template:
 
@@ -108,9 +108,9 @@ mutation DeletePipelineTemplate {
 }
 ```
 
-## Managing pipeline template assignment on a pipeline
+## Assign a template to a pipeline
 
-Admins and users with manage pipeline permissions can assign a pipeline template to a pipeline using the `pipelineUpdate` mutation:
+Admins and users with permission to manage pipelines can assign a pipeline template to a pipeline using the `pipelineUpdate` mutation:
 
 ```graphql
 mutation AssignPipelineTemplate {
@@ -127,7 +127,9 @@ mutation AssignPipelineTemplate {
 }
 ```
 
-Conversely, pipeline templates can be removed from a pipeline by specifying `pipelineTemplateId` as `null` in the mutation input:
+## Remove a template from a pipeline
+
+Admins and users with permission to manage pipeliness can remove from a pipeline by specifying `pipelineTemplateId` as `null` in the mutation input:
 
 ```graphql
 mutation UnassignPipelineTemplate {

@@ -4,7 +4,7 @@
 > [Pipeline templates](https://buildkite.com/docs/pipelines/templates) are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 The pipeline templates API allows admins to create and manage pipeline templates for an organization.
-Non-admins will only be permitted to read pipeline templates marked as available by organization admins.
+Non-admins will only be permitted to read pipeline templates marked as `available` by organization admins.
 
 ## Pipeline template data model
 
@@ -15,13 +15,13 @@ Non-admins will only be permitted to read pipeline templates marked as available
   <tr><th><code>name</code></th><td>Name of the pipeline template</td></tr>
   <tr><th><code>description</code></th><td>Description of the pipeline template</td></tr>
   <tr><th><code>configuration</code></th><td>YAML step configuration for the pipeline template</td></tr>
-  <tr><th><code>available</code></th><td>When set to true, the pipeline template can assigned to pipelines by non-admins<br><em>Default:</em> <code>false</code></td></tr>
+  <tr><th><code>available</code></th><td>When set to <code>true</code>, the pipeline template can assigned to pipelines by non-admins<br><em>Default:</em> <code>false</code></td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the pipeline template</td></tr>
   <tr><th><code>web_url</code></th><td>URL of the pipeline template on Buildkite</td></tr>
   <tr><th><code>created_at</code></th><td>When the pipeline template was created</td></tr>
-  <tr><th><code>created_by</code></th><td>User who created the pipeline template</td></tr>
+  <tr><th><code>created_by</code></th><td><a href="/docs/apis/rest-api/user">User</a> who created the pipeline template</td></tr>
   <tr><th><code>updated_at</code></th><td>When the pipeline template was created</td></tr>
-  <tr><th><code>updated_by</code></th><td>User who last updated the pipeline template</td></tr>
+  <tr><th><code>updated_by</code></th><td><a href="/docs/apis/rest-api/user">User</a> who last updated the pipeline template</td></tr>
 </tbody>
 </table>
 
@@ -131,7 +131,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-tem
   "name": "Build template",
   "description": "Shared build steps configuration",
   "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-  "available": false,
+  "available": true,
   "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "created_at": "2023-05-03T04:17:55.867Z",
@@ -180,7 +180,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>available</code></th>
-    <td>When set to true, the pipeline template can assigned to pipelines by non-admins.<br><em>Example:</em> <code>false</code></td>
+    <td>When set to <code>true</code>, non-admins can assign the pipeline template can assigned to pipelines.<br><em>Example:</em> <code>false</code></td>
   </tr>
 </tbody>
 </table>
@@ -212,7 +212,7 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-te
   "name": "Build template",
   "description": "Shared build steps configuration",
   "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-  "available": false,
+  "available": true,
   "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
   "created_at": "2023-05-03T04:17:55.867Z",
@@ -254,7 +254,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>available</code></th>
-    <td>When set to true, the pipeline template can assigned to pipelines by non-admins.<br><em>Example:</em> <code>false</code></td>
+    <td>When set to <code>true</code>, non-admins can assign the pipeline template can assigned to pipelines.<br><em>Example:</em> <code>false</code></td>
   </tr>
 </tbody>
 </table>
@@ -274,7 +274,7 @@ Error responses:
 ## Delete a pipeline template
 
 >📘
-> A pipeline template can only be deleted when it is not assigned to any pipelines.
+> A pipeline template can only be deleted when it is not assigned to any pipelines. Ensure you remove the pipeline template from all pipelines before trying to delete it.
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{uuid}"
