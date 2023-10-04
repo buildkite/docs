@@ -10,7 +10,8 @@ class BetaPages
       'apis/rest-api/analytics/runs',
       'apis/rest-api/analytics/tests',
       'agent/clusters',
-      'apis/rest-api/clusters'
+      'apis/rest-api/clusters',
+      'apis/rest-api/pipeline-templates'
     ]
   end
 end

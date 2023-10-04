@@ -17,7 +17,7 @@ curl https://agent.buildkite.com
 
 ```json
 {
-"message":"👋"
+  "message":"👋"
 }
 ```
 

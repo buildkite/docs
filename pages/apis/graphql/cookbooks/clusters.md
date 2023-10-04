@@ -11,9 +11,9 @@ Get the first 10 clusters and their information for an organization:
 ```graphql
 query getClusters {
   organization(slug: "organization-slug") {
-    clusters(first: 10){
-      edges{
-        node{
+    clusters(first: 10) {
+      edges {
+        node {
           id
           uuid
           color
