@@ -129,7 +129,7 @@ mutation AssignPipelineTemplate {
 
 ## Remove a template from a pipeline
 
-Admins and users with permission to manage pipeliness can remove from a pipeline by specifying `pipelineTemplateId` as `null` in the mutation input:
+Admins and users with permission to manage pipelines can remove from a pipeline by specifying `pipelineTemplateId` as `null` in the mutation input:
 
 ```graphql
 mutation UnassignPipelineTemplate {

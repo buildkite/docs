@@ -4,7 +4,7 @@
 > [Pipeline templates](https://buildkite.com/docs/pipelines/templates) are only available on an [Enterprise](https://buildkite.com/pricing) plan.
 
 The pipeline templates API allows admins to create and manage pipeline templates for an organization.
-Non-admins will only be permitted to read pipeline templates marked as `available` by organization admins.
+Non-admins can only read or assign pipeline templates marked as `available` by organization admins.
 
 ## Pipeline template data model
 
@@ -180,7 +180,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>available</code></th>
-    <td>When set to <code>true</code>, non-admins can assign the pipeline template can assigned to pipelines.<br><em>Example:</em> <code>false</code></td>
+    <td>When set to <code>true</code>, non-admins can assign the pipeline template to pipelines.<br><em>Example:</em> <code>false</code></td>
   </tr>
 </tbody>
 </table>
@@ -254,7 +254,7 @@ Optional [request body properties](/docs/api#request-body-properties):
   </tr>
   <tr>
     <th><code>available</code></th>
-    <td>When set to <code>true</code>, non-admins can assign the pipeline template can assigned to pipelines.<br><em>Example:</em> <code>false</code></td>
+    <td>When set to <code>true</code>, non-admins can assign the pipeline template to pipelines.<br><em>Example:</em> <code>false</code></td>
   </tr>
 </tbody>
 </table>
