@@ -15,7 +15,7 @@ Non-admins can only read or assign pipeline templates marked as `available` by o
   <tr><th><code>name</code></th><td>Name of the pipeline template</td></tr>
   <tr><th><code>description</code></th><td>Description of the pipeline template</td></tr>
   <tr><th><code>configuration</code></th><td>YAML step configuration for the pipeline template</td></tr>
-  <tr><th><code>available</code></th><td>When set to <code>true</code>, the pipeline template can assigned to pipelines by non-admins<br><em>Default:</em> <code>false</code></td></tr>
+  <tr><th><code>available</code></th><td>When set to <code>true</code>, non-admins can assign the pipeline template to pipelines<br><em>Default:</em> <code>false</code></td></tr>
   <tr><th><code>url</code></th><td>Canonical API URL of the pipeline template</td></tr>
   <tr><th><code>web_url</code></th><td>URL of the pipeline template on Buildkite</td></tr>
   <tr><th><code>created_at</code></th><td>When the pipeline template was created</td></tr>
