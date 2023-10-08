@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:3.1.4-bullseye@sha256:ed0c89268a61c596de5952afa0440a65e9e51d3d8691d6e62b1382026cacacbd
+FROM public.ecr.aws/docker/library/ruby:3.1.4-bookworm@sha256:ce07ca486ea1589cdbc3df60a554c595b10a792e9a61a0363977d42e9de20726
 
 ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
