@@ -12,6 +12,13 @@ steps:
         login: true
         account-ids: ${ECR_ACCOUNT_ID}
 
+  - name: ":ecr: ECR Vulnerabilities Scan"
+    command: "true"
+    soft_fail: true
+    plugins:
+      - buildkite/ecr-scan-results#v1.2.0:
+          image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
+
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
   - wait: ~
