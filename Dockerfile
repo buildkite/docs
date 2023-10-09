@@ -25,6 +25,8 @@ RUN echo "--- :package: Installing system deps" \
     # Install all the things
     && apt-get update \
     && apt-get install -y nodejs gh jq \
+    ## Pull down security updates
+    && apt-get upgrade -y \
     # Upgrade rubygems and bundler
     && gem update --system \
     && gem install bundler \
