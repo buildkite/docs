@@ -15,6 +15,7 @@ steps:
   - name: ":ecr: ECR Vulnerabilities Scan"
     command: "true"
     soft_fail: true
+    depends_on: "ecr-push"
     plugins:
       - buildkite/ecr-scan-results#v1.2.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
