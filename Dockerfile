@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:3.1.4-bookworm@sha256:ce07ca486ea1589cdbc3df60a554c595b10a792e9a61a0363977d42e9de20726
+FROM public.ecr.aws/docker/library/ruby:3.1.4-slim-bookworm@sha256:6c5ebf029d658391fb9243b37e970f84100eab678e2e6e77f316f847e02d5ed9
 
 ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
@@ -10,21 +10,23 @@ ENV DD_RUM_ENABLED=true
 ENV RAILS_ENV=${RAILS_ENV:-production}
 ENV SECRET_KEY_BASE=xxx
 
-RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null
-
-# Install Node.js
-RUN curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add -
-RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
-
 RUN echo "--- :package: Installing system deps" \
     # Cache apt
     rm -f /etc/apt/apt.conf.d/docker-clean \
     && echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache \
+    # Install a few pre-reqs
+    && apt-get update \
+    && apt-get install -y curl gnupg \
+    # Setup apt for GH cli
+    && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
+    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
+    # Setup apt for node
+    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
+    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs gh jq \
+    && apt-get install -y nodejs gh jq build-essential \
     ## Pull down security updates
     && apt-get upgrade -y \
     # Upgrade rubygems and bundler
