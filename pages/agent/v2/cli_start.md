@@ -105,4 +105,4 @@ Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is n
 
 ## The queue tag
 
-The `queue` meta-data tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](queues) for more information about using queues.
+The `queue` meta-data tag works differently from other tags, and can be used for isolating jobs and agents. See the [agent queues documentation](/docs/agent/v2/queues) for more information about using queues.

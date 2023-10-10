@@ -4,7 +4,7 @@ keywords: docs, pipelines, tutorials, docker
 
 # Containerized builds with Docker
 
-Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](parallel-builds).
+Buildkite has built-in support for running your builds in Docker containers. Running your builds with Docker allows each pipeline to define and document its testing environment, greatly simplifying your build servers, and provides build isolation when [parallelizing your build](/docs/tutorials/parallel-builds).
 
 
 ## Overview
@@ -101,7 +101,7 @@ There are many configuration options available for the Docker plugin. For the co
 If your team has significant Docker experience you might find it worthwhile invoking your own runner scripts rather than using the simpler built-in Docker support.
 
 To do this, see the [job lifecycle hooks](/docs/agent/v3/hooks#job-lifecycle-hooks)
-and [parallel builds](parallel-builds) documentation.
+and [parallel builds](/docs/tutorials/parallel-builds) documentation.
 
 ## Adding buildkite-agent to the Docker group
 

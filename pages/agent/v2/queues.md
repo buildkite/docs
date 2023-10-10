@@ -10,7 +10,7 @@ Common use cases for queues include deployment agents, and pools of agents for s
 
 ## The default queue
 
-All agents include an extra default [meta-data tag](agent-meta-data) of `queue=default`.
+All agents include an extra default [meta-data tag](/docs/agent/v2/agent-meta-data) of `queue=default`.
 
 For example, the following empty query pattern matches the 6 agents running the `default` queue:
 
@@ -18,11 +18,11 @@ For example, the following empty query pattern matches the 6 agents running the 
 
 ## Setting an agent's queue
 
-An agent's queue is configured in the [agent's meta-data](agent-meta-data), either using the command line flag, an environment variable, or the config file.
+An agent's queue is configured in the [agent's meta-data](/docs/agent/v2/agent-meta-data), either using the command line flag, an environment variable, or the config file.
 
 ## Targeting a queue
 
-You can target specific queues using `queue=name` in your build pipeline query rules, in the same way as you would target agents using normal [agent meta-data](agent-meta-data)
+You can target specific queues using `queue=name` in your build pipeline query rules, in the same way as you would target agents using normal [agent meta-data](/docs/agent/v2/agent-meta-data)
 
 For example, the following build step matches only agents running the `deploy` queue (and ignores the agents running the `default` queue):
 

@@ -60,7 +60,7 @@ If you installed the agent using Homebrew you can run the following command to g
 brew info buildkite-agent
 ```
 
-If you installed the buildkite-agent using the [Linux install script](linux) then you'll need to install the plist yourself using the following commands:
+If you installed the buildkite-agent using the [Linux install script](/docs/agent/v2/linux) then you'll need to install the plist yourself using the following commands:
 
 ```bash
 # Download the launchd config to /Library/LaunchDaemons/
@@ -87,4 +87,4 @@ If you installed the agent using Homebrew you can use the standard brew upgrade 
 brew update && brew upgrade buildkite-agent
 ```
 
-If you installed the buildkite-agent using the [Linux install script](linux) then you should run the installer script again and it will update your agent.
+If you installed the buildkite-agent using the [Linux install script](/docs/agent/v2/linux) then you should run the installer script again and it will update your agent.

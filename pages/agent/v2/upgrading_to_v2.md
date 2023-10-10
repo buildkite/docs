@@ -9,12 +9,12 @@ The Buildkite Agent has changed a lot in v2 but upgrade process is straight forw
 ## What's changed
 
 * The default install location has changed from `~/.buildbox` to `~/.buildkite-agent` (although each installer may install in different locations).
-* Agents can be configured with [a config file](configuration).
+* Agents can be configured with [a config file](/docs/agent/v2/configuration).
 * Agents register themselves with a organization-wide token, you no longer need to create them using the web.
-* Agents now have [hooks support](hooks) and there should be no reason to customize the `bootstrap.sh` file.
+* Agents now have [hooks support](/docs/agent/v2/hooks) and there should be no reason to customize the `bootstrap.sh` file.
 * There is built-in support for containerizing builds with [Docker and Docker Compose](/docs/tutorials/docker-containerized-builds).
-* There are [installer packages](installation) available for most systems.
-* Agents now have [meta-data](agent-meta-data).
+* There are [installer packages](/docs/agent/v2/installation) available for most systems.
+* Agents now have [meta-data](/docs/agent/v2/agent-meta-data).
 * Agent meta-data can be imported from EC2 tags with `--meta-data-ec2-tags`
 * Build steps select agents using key/value patterns rather than explicit agent selection.
 * Windows support
@@ -28,17 +28,17 @@ The Buildkite Agent has changed a lot in v2 but upgrade process is straight forw
 
 No longer do you select individual agents to run build steps but instead you provide an agent query pattern that's used to select the correct agent.
 
-See the [meta-data documentation](agent-meta-data) for more details.
+See the [meta-data documentation](/docs/agent/v2/agent-meta-data) for more details.
 
 ## Bootstrap customizations
 
-If you customized your `bootstrap.sh` file you should now switch to using hooks to achieve the same results. See our [hooks documentation](hooks) for details on the hooks available.
+If you customized your `bootstrap.sh` file you should now switch to using hooks to achieve the same results. See our [hooks documentation](/docs/agent/v2/hooks) for details on the hooks available.
 
 ## Upgrading each pipeline
 
 We recommend upgrading one pipeline at a time to the new agents. This is because you'll need to update your build pipelines to use agent targeting, rather than selecting the individual agents.
 
-To update the agent on a build machine we recommend stopping the agent, removing all the files, and following the [install instructions for your platform](installation).
+To update the agent on a build machine we recommend stopping the agent, removing all the files, and following the [install instructions for your platform](/docs/agent/v2/installation).
 
 Once you have the new agent running, update your pipeline's build pipeline steps to target the new agent, and trigger a build.
 

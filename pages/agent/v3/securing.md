@@ -69,7 +69,7 @@ If local hooks are disabled and one is in the checkout, the job will fail.
 
 ## Strict checks using a `pre-bootstrap` hook
 
-You can use a [`pre-bootstrap` hook](hooks#agent-lifecycle-hooks) to add strict
+You can use a [`pre-bootstrap` hook](/docs/agent/v3/hooks#agent-lifecycle-hooks) to add strict
 checks for which repositories, commands, and plugins are allowed to run on your
 agent. The `pre-bootstrap` hook is executed before any source code is checked
 out, and before any commands are executed.
@@ -124,8 +124,8 @@ If using plugins is crucial to your workflow and you would still like to preserv
 
 ## Allowing a list of plugins
 
-Defining an [environment hook](hooks#job-lifecycle-hooks) in the
-[agent `hooks-path`](hooks#hook-locations-agent-hooks), you can create a
+Defining an [environment hook](/docs/agent/v3/hooks#job-lifecycle-hooks) in the
+[agent `hooks-path`](/docs/agent/v3/hooks#hook-locations-agent-hooks), you can create a
 list of plugins that an agent is allowed to run by inspecting the
 `BUILDKITE_PLUGINS` [environment variable](https://buildkite.com/docs/pipelines/environment-variables).
 For an example of this, see the [buildkite/buildkite-allowed-plugins-hook-example](https://github.com/buildkite/buildkite-allowed-plugins-hook-example)

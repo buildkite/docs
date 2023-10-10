@@ -34,7 +34,7 @@ Then, start the agent:
 ~/.buildkite-agent/bin/buildkite-agent start
 ```
 
-Alternatively you can follow the [manual installation instructions](installation).
+Alternatively you can follow the [manual installation instructions](/docs/agent/v3/installation).
 
 ## SSH key configuration
 
