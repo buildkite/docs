@@ -179,4 +179,4 @@ For an example, read [download many artifacts](#download-artifacts-with-the-buil
 
 ### Artifacts are missing from retried jobs
 
-Artifacts from retried jobs are discarded by default, so the `buildkite-agent artifact download` command won't find them. To include artifacts from retried jobs in your search results, use `--include-retried-jobs` in the command.
+Artifacts from retried jobs are excluded by default, so the `buildkite-agent artifact download` command won't find them. To include artifacts from retried jobs in your search results, use `--include-retried-jobs` in the command.
