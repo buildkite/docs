@@ -25,6 +25,7 @@ steps:
             - CVE-2023-29007 # git 1:2.39.2-1.1
             - CVE-2023-25652 # git 1:2.39.2-1.1
             - CVE-2021-3864 # linux 6.1.55-1
+            - CVE-2013-7445 # linux 6.1.55-1
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
