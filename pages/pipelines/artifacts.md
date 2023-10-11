@@ -154,7 +154,11 @@ If you manage your own artifact storage, then you are responsible for encryption
 
 To track the actions of users with access to your artifacts, use the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit).
 
-## Troubleshooting a `Multiple artifacts were found for query` error
+## Troubleshooting artifacts
+
+The following suggestions resolve common issues with using artifacts.
+
+### Multiple artifacts were found for query
 
 The `buildkite-agent artifact download` command can fail with the following error message:
 
@@ -172,3 +176,7 @@ For an example, read [download an artifact from a specific step](#download-artif
 
 Alternatively, download the most recent matching file by using a glob pattern.
 For an example, read [download many artifacts](#download-artifacts-with-the-buildkite-agent-example-download-many-artifacts).
+
+### Artifacts are missing from retried jobs
+
+Artifacts from retried jobs are discarded by default, so the `buildkite-agent artifact download` command won't find them. To include artifacts from retried jobs in your search results, use `--include-retried-jobs` in the command.
