@@ -31,6 +31,7 @@ steps:
             - CVE-2021-3847 # linux 6.1.55-1
             - CVE-2023-35827 # linux 6.1.55-1
             - CVE-2023-2953 # openldap 2.5.13+dfsg-5
+            - CVE-2023-31484 # perl 5.36.0-7
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
