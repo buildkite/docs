@@ -1,18 +1,20 @@
 steps:
   - label: "generate site"
     key: "staticgen"
-    artifact_paths: "build/**"
+    artifact_paths: "build/*"
     command: staticgen generate
     plugins:
       - docker-compose#v3.9.0:
           run: app
           config: docker-compose.production.yml
+          volumes:
+            - "./build:/app/build"
 
   - label: "crawl"
     depends_on: "staticgen"
     plugins:
       - artifacts#v1.9.2:
-          download: ["build/**"]
+          download: ["build/*"]
       - docker#v5.9.0:
           image: "lycheeverse/lychee"
           command: ["--offline", "./build"]
