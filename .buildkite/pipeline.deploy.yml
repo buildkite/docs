@@ -29,6 +29,7 @@ steps:
             - CVE-2019-19814 # linux 6.1.55-1
             - CVE-2019-19449 # linux 6.1.55-1
             - CVE-2021-3847 # linux 6.1.55-1
+            - CVE-2023-35827 # linux 6.1.55-1
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
