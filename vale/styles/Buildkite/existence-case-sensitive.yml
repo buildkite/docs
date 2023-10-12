@@ -5,8 +5,6 @@
 
 # For most single words, try using the Buildkite.spelling ignore list first.
 
-
-
 extends: substitution
 message: Consider using '%s' instead of '%s'
 level: error
@@ -17,7 +15,7 @@ swap:
   # Example: `(?i:Spongebob Meme): SpOnGeBoB MeMe`
   # Or use a regular string to capture a specific, frequent case error
   # Example: `Bell Hooks: bell hooks`
-  (?<!-)(?i:BitBucket): Bitbucket  # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
+  (?<!-)(?i:BitBucket): Bitbucket # (?<!-) ignores bitbucket with a preceding dash, as in `buildkite-bitbucket-aws-terraform`
   (?i:Amazon Web Services): Amazon Web Services
   (?i:Artifactory): Artifactory
   (?i:AWS Lambda): AWS Lambda
@@ -37,7 +35,7 @@ swap:
   (?i:Google Cloud Storage): Google Cloud Storage
   (?i:Google Cloud): Google Cloud
   (?i:Google Compute Engine): Google Compute Engine
-  (?i:Google Container Engine): Google Kubernetes Engine  # Google renamed Container to Kubernetes in 2017. See https://cloud.google.com/blog/products/gcp/introducing-certified-kubernetes-and-google-kubernetes-engine
+  (?i:Google Container Engine): Google Kubernetes Engine # Google renamed Container to Kubernetes in 2017. See https://cloud.google.com/blog/products/gcp/introducing-certified-kubernetes-and-google-kubernetes-engine
   (?i:Google Kubernetes Engine): Google Kubernetes Engine
   (?i:GraphQL): GraphQL
   (?i:IronWorker): IronWorker
