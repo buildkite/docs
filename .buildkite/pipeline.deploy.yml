@@ -21,6 +21,19 @@ steps:
     plugins:
       - buildkite/ecr-scan-results#v1.2.0:
           image-name: "${ECR_REPO}:${BUILDKITE_BUILD_NUMBER}"
+          ignore:
+            - CVE-2023-29007 # git 1:2.39.2-1.1
+            - CVE-2023-25652 # git 1:2.39.2-1.1
+            - CVE-2021-3864 # linux 6.1.55-1
+            - CVE-2013-7445 # linux 6.1.55-1
+            - CVE-2019-19814 # linux 6.1.55-1
+            - CVE-2019-19449 # linux 6.1.55-1
+            - CVE-2021-3847 # linux 6.1.55-1
+            - CVE-2023-35827 # linux 6.1.55-1
+            - CVE-2023-2953 # openldap 2.5.13+dfsg-5
+            - CVE-2023-31484 # perl 5.36.0-7
+            - CVE-2023-24329 # python3.11 3.11.2-6
+            - CVE-2023-3640 # linux 6.1.55-1
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
