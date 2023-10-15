@@ -109,7 +109,7 @@ steps:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
 
       - label: ":snake: Linting markdown files for snake case"
-        command: npx -y @ls-lint/ls-lint
+        command: npx -y @ls-lint/ls-lint@2.1.0
         plugins:
           - docker#v3.7.0:
               image: "public.ecr.aws/docker/library/node:lts-alpine3.14"
