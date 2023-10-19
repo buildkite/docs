@@ -10,6 +10,7 @@ scope:
   - heading.h6
 match: $sentence
 exceptions:
+  - '^(\d+\.) [A-Z]\w+' # Allow numbered headings. Example: "1. Install the thing"
   - '^(Agent|Build|Job) ([A-Z]\w+(ed|ing)|Lost)$' # Exceptions for /pages/integrations/amazon_eventbridge.md
   - '^(Step|Method) \d: [A-Z]\w+' # Allow caps after colon. Examples: "Step 3: Do the thing", "Method 2: Deploy keys"
   - ADFS
