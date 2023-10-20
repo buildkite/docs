@@ -44,7 +44,6 @@ buildkite-agent lock release llama "${token}"
 
 <table class="Docs__attribute__table">
 <tr id="lock-wait-timeout"><th><code>--lock-wait-timeout value</code> <a class="Docs__attribute__link" href="#lock-wait-timeout">#</a></th><td><p>Sets a maximum duration to wait for a lock before giving up (default: 0s)<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_WAIT_TIMEOUT</code></p></td></tr>
-<tr id="config"><th><code>--config value</code> <a class="Docs__attribute__link" href="#config">#</a></th><td><p>Path to a configuration file<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_CONFIG</code></p></td></tr>
 <tr id="lock-scope"><th><code>--lock-scope value</code> <a class="Docs__attribute__link" href="#lock-scope">#</a></th><td><p>The scope for locks used in this operation. Currently only 'machine' scope is supported (default: "machine")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_LOCK_SCOPE</code></p></td></tr>
 <tr id="sockets-path"><th><code>--sockets-path value</code> <a class="Docs__attribute__link" href="#sockets-path">#</a></th><td><p>Directory where the agent will place sockets (default: "$HOME/.buildkite-agent/sockets")<br /><strong>Environment variable</strong>: <code>$BUILDKITE_SOCKETS_PATH</code></p></td></tr>
 <tr id="no-color"><th><code>--no-color </code> <a class="Docs__attribute__link" href="#no-color">#</a></th><td><p>Don't show colors in logging<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_NO_COLOR</code></p></td></tr>
