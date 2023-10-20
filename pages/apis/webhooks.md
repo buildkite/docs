@@ -172,4 +172,4 @@ The following example repositories show how to receive a webhook event and trigg
 
 ## Request logs
 
-The last 50 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
+The last 20 webhook request and responses are saved, so you can debug and inspect your webhook. Each webhook's request logs are available on the bottom of their settings page.
