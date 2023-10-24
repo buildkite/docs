@@ -2654,7 +2654,7 @@ type JobEventAssigned implements JobEvent & Node {
   """
   The agent the job was assigned to
   """
-  assignedAgent: Agent!
+  assignedAgent: Agent
   id: ID!
 
   """
