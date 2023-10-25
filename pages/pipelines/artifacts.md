@@ -53,7 +53,7 @@ You can download artifacts by [running the `buildkite-agent artifact download` c
 ## Upload artifacts with a command step
 
 Set the `artifact_paths` attribute of [a command step](/docs/pipelines/command-step) to upload artifacts after the command step has finished its work.
-The `artifacts_path` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
+The `artifact_paths` attribute can contain an array of file paths or [glob patterns](/docs/agent/v3/cli-artifact#uploading-artifacts-artifact-upload-glob-syntax) to upload.
 
 The following example shows a command step configured to upload all of the files in the `logs` and `coverage` directories and their subdirectories:
 
