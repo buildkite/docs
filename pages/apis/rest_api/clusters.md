@@ -174,7 +174,7 @@ Error responses:
 ### Update a cluster
 
 ```bash
-curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
+curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}" \
   -H "Content-Type: application/json" \
   -d '{ "name": "Open Source" }'
 ```
