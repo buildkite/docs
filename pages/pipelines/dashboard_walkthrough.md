@@ -86,7 +86,7 @@ To see the steps for a build, click the Show steps button on the right of any bu
 
 Clicking through to a build page shows the full list of jobs and other steps in that build, the information about who triggered the build, and the controls for rebuilding or cancelling the build while it's in progress.
 
-To retry all failed jobs for a build, select the dropdown menu next to the _Rebuild_ button, and then select _Retry failed jobs_. This option will only appear in the dropdown menu when there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries.
+To retry all failed jobs for a build, select the dropdown menu next to the _Rebuild_ button, and then select _Retry failed jobs_. This option will only appear in the dropdown menu when the build is finished, and there are eligible jobs to retry. Eligible jobs include command jobs in the failures tab, with the exception of those already waiting for automatic retries.
 
 <%= image "inside-build-page.png", width: 2028/2, height: 880/2, alt: "Inside the build page" %>
 
