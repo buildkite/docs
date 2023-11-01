@@ -1,4 +1,4 @@
-FROM public.ecr.aws/docker/library/ruby:3.1.4-slim-bookworm@sha256:6c5ebf029d658391fb9243b37e970f84100eab678e2e6e77f316f847e02d5ed9
+FROM public.ecr.aws/docker/library/ruby:3.2.2-slim-bookworm@sha256:17de1131ceb018ab30cbb76505559baa49a4c1b125e03c90dd10220bf863783c
 
 ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
