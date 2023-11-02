@@ -81,6 +81,7 @@ GEM
     nokogiri (1.15.2)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
+    parslet (2.0.0)
     pry (0.14.1)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -175,6 +176,7 @@ DEPENDENCIES
   graphql-client
   lograge
   matrix
+  parslet
   pry
   puma
   railties (~> 6.0)
