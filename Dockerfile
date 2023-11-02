@@ -50,11 +50,11 @@ RUN echo "--- :bundler: Installing ruby gems" \
 # Install tool for generating static site
 RUN curl -sf https://gobinaries.com/tj/staticgen/cmd/staticgen | sh
 
-# Add the app
-COPY . /app
-
 RUN echo "--- :npm: Installing node dependencies"
+COPY package.json yarn.lock ./
 RUN yarn
+
+COPY . /app/
 
 # Compile assets
 RUN if [ "$RAILS_ENV" = "production" ]; then \
