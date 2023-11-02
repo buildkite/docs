@@ -143,6 +143,10 @@ Rails.application.routes.draw do
   # Homepage
   get "/docs" => "pages#index", as: :home_page
 
+  # Hosted migration/transform tool
+  get "/docs/migrate" => "migration#show"
+  post "/docs/migrate" => "migration#migrate", as: :migrate
+
   # All other standard docs pages
   get "/docs/*path" => "pages#show", as: :docs_page
 

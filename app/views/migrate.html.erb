@@ -1,0 +1,181 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Buildkite-ification!</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Helvetica, sans-serif;
+        padding: 0;
+        margin: 0;
+      }
+      .flex {
+        display: flex;
+      }
+      .flex-column {
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+        flex-direction: column;
+      }
+      .flex-auto {
+        -webkit-box-flex: 1;
+        -ms-flex: 1 1 auto;
+        flex: 1 1 auto;
+        min-width: 0;
+        min-height: 0;
+      }
+      .items-center {
+        align-items: center;
+      }
+      .items-stretch {
+        -webkit-box-align: stretch;
+        -ms-flex-align: stretch;
+        align-items: stretch;
+      }
+      .justify-center {
+        justify-content: center;
+      }
+      .center {
+        text-align: center;
+      }
+      input[type=submit] {
+        border-radius: 4px;
+        background-color: #14cc80;
+        border: 1px solid transparent;
+        color: white;
+        font-size: 1em;
+        padding: .75em 1em;
+        line-height: 1.2;
+        font-weight: bold;
+        font-family: inherit;
+        cursor: pointer;
+      }
+      input[type=submit]:hover {
+        box-shadow: inset 0 0 0 20rem rgba(0, 0, 0, .0625);
+      }
+      input[type=submit]:disabled {
+        opacity: 0.5;
+      }
+      textarea {
+        display: block;
+        width: 100%;
+        padding: 15px;
+        font-size: 12px;
+        font-family: "SFMono-Regular", Monaco, Menlo, Consolas, "Liberation Mono", Courier, monospace;
+        line-height: 1.42857143;
+        color: #555555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: .3em;
+        resize: none;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+                box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+        /* disable iOS' extra inner shadows */
+        -webkit-appearance: none;
+           -moz-appearance: none;
+                appearance: none
+      }
+      textarea:focus {
+        border-color: #888;
+        outline: 0;
+      }
+      textarea[readonly] {
+        background: #f9fafb;
+      }
+      .error {
+        background: #ff000044 !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="flex items-stretch justify-center" style="min-height: 100%">
+      <form onSubmit="return transform(event)" class="flex items-stretch center flex-column" style="width: 100%; padding: 5%;">
+        <div class="flex flex-auto" style="margin-bottom: 20px;">
+          <textarea rows="20" style="width: 50%; margin-right: 20px" placeholder="👋 Paste or drag a config file here!" id="config" class="flex-auto"></textarea>
+          <textarea rows="20" style="width: 50%" readonly="true" id="results" placeholder="👈 Look over there" class="flex-auto"></textarea>
+        </div>
+        <div>
+          <input type="submit" value="Buildkite-ify!" id="button" />
+        </div>
+      </form>
+    </div>
+
+    <script>
+      function transform() {
+        var button = document.getElementById("button");
+
+        var configTextarea = document.getElementById("config");
+        var formData = new FormData();
+        formData.append("file", new Blob([configTextarea.value], { type: "text/plain" }));
+
+        button.disabled = true;
+
+        var resultsTextarea = document.getElementById("results");
+
+        fetch("<%= migrate_url %>", {
+          method: "POST",
+          credentials: 'same-origin',
+          body: formData
+        }).then(function(response) {
+          button.disabled = false;
+          if (!response.ok) {
+            resultsTextarea.classList.add('error')
+          } else {
+            resultsTextarea.classList.remove('error')
+          }
+          return response;
+        }).then(function(response) {
+          response.text().then(function(text) {
+            resultsTextarea.value = text;
+          });
+        }).catch((function(error) {
+          alert(error.message);
+          resultsTextarea.value = '';
+        }));
+
+        return false;
+      }
+
+      function handleFormSubmit() {
+        event.preventDefault();
+
+        transform();
+      }
+
+      function handleFileSelect(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+
+        var file = evt.dataTransfer.files[0];
+
+        if (file) {
+          if (file.type == "application/x-yaml") {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+              document.getElementById("config").value = e.target.result;
+              transform();
+            };
+
+            reader.readAsText(file);
+          } else {
+            alert("Only YAML files are supported - you uploaded a: " + file.type);
+          }
+        }
+      }
+
+      function handleDragOver(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
+      }
+
+      // Setup the dnd listeners.
+      var dropZone = document.body;
+      dropZone.addEventListener('dragover', handleDragOver, false);
+      dropZone.addEventListener('drop', handleFileSelect, false);
+    </script>
+  </body>
+</html>
