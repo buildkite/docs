@@ -33,6 +33,7 @@ steps:
             - CVE-2023-31484 # perl 5.36.0-7
             - CVE-2023-24329 # python3.11 3.11.2-6
             - CVE-2023-3640 # linux 6.1.55-1
+            - CVE-2023-45853 # zlib 1:1.2.13.dfsg-1
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
