@@ -112,7 +112,7 @@ p4 pt4 pr4 pb4 pl4 py4 px4
 
 ### Colored console output
 
-Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax.
+Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax. There is a limit of 10 term/terminal code blocks we'll render per annotation.
 
 <!-- Following code block needs to be indented to show the code block as well as the code -->
 
