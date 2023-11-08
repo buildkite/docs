@@ -407,7 +407,7 @@
         - name: "Overview"
           path: "apis/rest-api"
         - name: "Limits"
-          path: "apis/rest-api/limits.md"
+          path: "apis/rest-api/limits"
         - name: "Pipelines REST API"
           children:
             - name: "Access token"
