@@ -1,7 +1,7 @@
 
 # REST API rate limits
 
-To ensure stability and prevent excessive or abusive calls to the server, Buildkite imposes a limit on the number of REST API requests that can be made within a minute. These limits apply to the Pipelines REST API as well as the Analytics REST API
+To ensure stability and prevent excessive or abusive calls to the server, Buildkite imposes a limit on the number of REST API requests that can be made within a minute. These limits apply to the Pipelines REST API as well as the Analytics REST API.
 
 ## Rate limits
 Buildkite imposes a rate limit of 200 requests per minute for each organization. This is the cumulative limit of all API requests made by users in an organization.
