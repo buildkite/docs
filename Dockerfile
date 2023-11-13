@@ -1,4 +1,5 @@
 ARG BASE_IMAGE=public.ecr.aws/docker/library/ruby:3.2.2-slim-bookworm@sha256:17de1131ceb018ab30cbb76505559baa49a4c1b125e03c90dd10220bf863783c
+ARG NODE_IMAGE=public.ecr.aws/docker/library/node:18-bookworm-slim@sha256:d2d8a6420c9fc6b7b403732d3a3c5395d016ebc4996f057aad1aded74202a476
 
 FROM $BASE_IMAGE AS builder
 
@@ -15,12 +16,9 @@ RUN echo "--- :package: Installing system deps" \
     && curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg \
     && chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg \
     && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    # Setup apt for node
-    && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource.gpg.key | apt-key add - \
-    && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     # Install all the things
     && apt-get update \
-    && apt-get install -y nodejs gh jq build-essential \
+    && apt-get install -y gh jq build-essential \
     ## Pull down security updates
     && apt-get upgrade -y \
     # Upgrade rubygems and bundler
@@ -28,9 +26,6 @@ RUN echo "--- :package: Installing system deps" \
     && gem install bundler \
     # clean up
     && rm -rf /tmp/*
-
-# Install yarn as recommended by https://yarnpkg.com/getting-started/install
-RUN corepack enable && corepack prepare yarn@stable --activate
 
 # ------------------------------------------------------------------
 
@@ -47,7 +42,7 @@ RUN echo "--- :bundler: Installing ruby gems" \
 
 # ------------------------------------------------------------------
 
-FROM builder as yarn
+FROM $NODE_IMAGE as node-deps
 
 COPY package.json yarn.lock ./
 RUN echo "--- :yarn: Installing node packages" && yarn
@@ -57,8 +52,8 @@ RUN echo "--- :yarn: Installing node packages" && yarn
 FROM builder as assets
 
 COPY . /app/
-COPY --from=yarn /app/node_modules /app/node_modules
-COPY --from=yarn /app/.yarn /app/.yarn
+COPY --from=node-deps /usr/local/bin /usr/local/bin
+COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 
 ARG RAILS_ENV
@@ -89,6 +84,8 @@ ENV SEGMENT_TRACKING_ID=q0LtPl49tgnyHHY8PGBsPsshHk9AVNKm
 ENV SECRET_KEY_BASE=xxx
 
 COPY . /app
+COPY --from=node-deps /usr/local/bin /usr/local/bin
+COPY --from=node-deps /node_modules /app/node_modules
 COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 COPY --from=assets /app/public/ /app/public/
 
