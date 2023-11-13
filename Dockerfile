@@ -70,6 +70,7 @@ FROM $BASE_IMAGE AS runtime
 
 # Install a few misc. deps for CI
 RUN apt-get update && apt-get install -y curl jq
+RUN apt purge --assume-yes linux-libc-dev
 
 WORKDIR /app
 
