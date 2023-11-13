@@ -22,6 +22,12 @@ On Windows instances only:
 
 There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
+## Collecting logs via script
+
+An alternative method to collect the logs is to use the [`log-collector`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/main/utils/log-collector) script in the [`utils`](https://github.com/buildkite/elastic-ci-stack-for-aws/tree/main/utils) folder of the [Elastic CI Stack for AWS repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
+
+The script collects CloudWatch Logs for the Instance, Lambda function, and AutoScaling activity, then packages them in a zip archive that you can email to Support for help at [support@buildkite.com](mailto:support@buildkite.com).
+
 ## Accessing Elastic CI Stack for AWS instances directly
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
