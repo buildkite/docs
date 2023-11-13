@@ -68,13 +68,16 @@ RUN if [ "$RAILS_ENV" = "production" ]; then \
 
 FROM $BASE_IMAGE AS runtime
 
+# Install a few misc. deps for CI
+RUN apt-get update && apt-get install -y curl jq
+
 WORKDIR /app
 
 ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
 ARG DD_RUM_ENV="unknown"
 
-# Config. Don't love this.
+# Config. Don't love this.production
 ENV RAILS_ENV=$RAILS_ENV
 ENV DD_RUM_ENV=${DD_RUM_ENV}
 ENV DD_RUM_VERSION=${DD_RUM_VERSION}
