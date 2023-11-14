@@ -78,7 +78,7 @@ ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
 ARG DD_RUM_ENV="unknown"
 
-# Config. Don't love this.production
+# Config. Don't love this.
 ENV RAILS_ENV=$RAILS_ENV
 ENV DD_RUM_ENV=${DD_RUM_ENV}
 ENV DD_RUM_VERSION=${DD_RUM_VERSION}
