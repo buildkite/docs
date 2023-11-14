@@ -59,7 +59,7 @@ COPY --from=bundle /usr/local/bundle/ /usr/local/bundle/
 ARG RAILS_ENV
 
 RUN if [ "$RAILS_ENV" = "production" ]; then \
-    echo "--- Precompiling assets" \
+    echo "--- :vite: Compiling assets" \
     && RAILS_ENV=production RAILS_GROUPS=assets SECRET_KEY_BASE=xxx bundle exec rake assets:precompile \
     && cp -r /app/public/docs/assets /app/public/assets; \
     fi
@@ -78,7 +78,7 @@ ARG RAILS_ENV
 ARG DD_RUM_VERSION="unknown"
 ARG DD_RUM_ENV="unknown"
 
-# Config. Don't love this.production
+# Config. Don't love this.
 ENV RAILS_ENV=$RAILS_ENV
 ENV DD_RUM_ENV=${DD_RUM_ENV}
 ENV DD_RUM_VERSION=${DD_RUM_VERSION}
