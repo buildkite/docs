@@ -98,7 +98,7 @@ Buildkite's API has a requested complexity limit of 50,000 for each individual q
 
 As a best practice, we recommend breaking up queries into smaller, more manageable chunks and utilizing pagination to navigate through the resulting list rather than relying on a single large query.
 
-Here's an example of using cursor-based pagination, to get the first 1000 Pipelines in an Organization. First, retreiving the first 500 Pipelines and the `endCursor` string from the `PageInfo` object.
+Here's an example of using cursor-based pagination, to get the first 1000 Pipelines in an Organization. First, retrieving the first 500 Pipelines and the `endCursor` string from the `PageInfo` object.
 
 ```graphql
 query GetFirst500Pipelines {
