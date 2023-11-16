@@ -5,10 +5,12 @@ The Buildkite Agent's `tool` subcommands are used for performing tasks that are 
 >🛠 Experimental feature
 > The `tool` subcommand may be removed from the Buildkite Agent in the future.
 
+<!-- vale off -->
 ## Generate a JSON Web Key Set
+<!-- vale on -->
 
 <%= render 'agent/v3/help/tool_keygen' %>
 
-## Sign a Pipeline
+## Sign a pipeline
 
 <%= render 'agent/v3/help/tool_sign' %>
