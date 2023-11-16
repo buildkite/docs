@@ -52,4 +52,4 @@ Success response: `200 OK`
 
 Runs are created with a `state` of `running` and proceed to `finished` when all uploads have been processed. The run may return to `running` if additional results are uploaded.
 
-`result` starts as `pending` and may proceed to `passed` or `failed` once finished. If a run does not complete within a reasonable time period it may also proceed to `stale`. `result` may change back to `pending` or change between `passed` and `failed` if additional results are uploaded.
+Run `result` starts as `pending` and will proceed to `passed` or `failed` when at least one test result has been processed.  The presence of a `passed` or `failed` result does not indicate that the run has finished processing. `result` may change from `passed` to `failed` if additional results are uploaded. The `result` is `failed` when there is at least one failing test in the run, and it is not possible for `result` to change from `failed`.
