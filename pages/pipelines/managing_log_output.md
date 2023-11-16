@@ -164,7 +164,7 @@ By default, build logs are stored in encrypted form in Buildkite's managed Amazo
 The folder structure and file format are as follows and are not customizable:
 
 ```text
-{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
+{ORGANIZATION_UUID}/{BUILDKITE_PIPELINE_ID}/{BUILDKITE_BUILD_ID}/{BUILDKITE_JOB_ID}.log
 ```
 
 To set up a private build log archive storage:
