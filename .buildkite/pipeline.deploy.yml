@@ -35,6 +35,7 @@ steps:
             - CVE-2023-3640 # linux 6.1.55-1
             - CVE-2023-45853 # zlib 1:1.2.13.dfsg-1
             - CVE-2023-5717 # linux 6.1.55-1
+            - CVE-2023-5678  # openssl 3.0.11-1~deb12u1
 
   # If the current user is part of the deploy team, then wait for everything to
   # finish before deploying
