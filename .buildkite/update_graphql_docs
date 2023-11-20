@@ -26,7 +26,7 @@ if [ -n "$PULL_REQUEST_NUMBER" ]; then
 fi
 
 echo "+++ Generate GraphQL docs"
-./scripts/generate-graphql-api-content.sh
+rake graphql:generate
 
 echo "--- Commit and push changes"
 git add .
