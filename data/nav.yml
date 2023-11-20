@@ -164,6 +164,8 @@
               path: "agent/v3/cli-bootstrap"
             - name: "step"
               path: "agent/v3/cli-step"
+            - name: "tool"
+              path: "agent/v3/cli-tool"
         - name: "Agent v2"
           pill: "deprecated"
           children:

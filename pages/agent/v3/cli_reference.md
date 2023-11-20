@@ -19,3 +19,4 @@ The following pages describe how to use the agent CLI, organized by command:
 - [`pipeline`](/docs/agent/v3/cli-pipeline)
 - [`bootstrap`](/docs/agent/v3/cli-bootstrap)
 - [`step`](/docs/agent/v3/cli-step)
+- [`tool`](/docs/agent/v3/cli-tool)
