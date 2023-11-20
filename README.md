@@ -81,7 +81,7 @@ If you need to fetch the latest schema you can either:
 API_ACCESS_TOKEN=xxx rake graphql:fetch_schema >| data/graphql/schema.graphql
 
 # Generate docs based on latest schema
-./scripts/generate-graphql-api-content.sh
+rake graphql:generate
 ```
 
 

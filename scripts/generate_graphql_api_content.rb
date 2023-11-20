@@ -33,7 +33,7 @@ type_sets.each do |type_set_name, type_set_value|
         schema_type_data["kind"].to_s.downcase
       end
 
-      Dir.mkdir("#{schemas_dir}/#{sub_dir}") unless File.exists?("#{schemas_dir}/#{sub_dir}")
+      Dir.mkdir("#{schemas_dir}/#{sub_dir}") unless File.exist?("#{schemas_dir}/#{sub_dir}")
       File.write("#{schemas_dir}/#{sub_dir}/#{name.downcase}.md", render_page(schema_type_data, sub_dir.capitalize.pluralize))
     end
   end
