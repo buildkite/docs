@@ -55,6 +55,9 @@ Kinds of subjects which can have audit events performed on them
 <a href="/docs/apis/graphql/schemas/object/clusterqueue" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueue">
   <code>ClusterQueue</code>
 </a>
+<a href="/docs/apis/graphql/schemas/object/clusterqueuetoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterQueueToken">
+  <code>ClusterQueueToken</code>
+</a>
 <a href="/docs/apis/graphql/schemas/object/clustertoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT ClusterToken">
   <code>ClusterToken</code>
 </a>
