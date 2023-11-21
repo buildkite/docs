@@ -40,7 +40,7 @@
 
 <%= render 'analytics', application: 'docs', title: "Docs / #{content_for(:page_title)}", logged_in: probably_authenticated? %>
 
-<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" %>
+<% if ENV.fetch("ROBOTS_NO_INDEX") { "false" } == "true" || request.base_url == "https://badge.buildkite.com" %>
   <meta name="robots" content="noindex, nofollow">
 <% end %>
 
