@@ -98,3 +98,5 @@ USER_TOTP_CREATED
 USER_TOTP_DELETED
 USER_UPDATED
 ```
+
+You can also set up [Amazon EventBridge](/docs/integrations/amazon-eventbridge) to stream Audit Log events.
