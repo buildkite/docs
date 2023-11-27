@@ -89,6 +89,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "type": "script",
         "name": ":package:",
         "step_key": "package",
+        "step": {
+          "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+          "signature": null
+        },
         "agent_query_rules": ["*"],
         "state": "passed",
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -210,6 +214,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": null
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -357,6 +365,10 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": null
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -508,6 +520,10 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": null
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -633,6 +649,10 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": null
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
