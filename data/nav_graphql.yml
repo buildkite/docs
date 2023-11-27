@@ -363,6 +363,8 @@
     path: apis/graphql/schemas/object/clusterqueuepausedispatchpayload
   - name: ClusterQueueResumeDispatchPayload
     path: apis/graphql/schemas/object/clusterqueueresumedispatchpayload
+  - name: ClusterQueueToken
+    path: apis/graphql/schemas/object/clusterqueuetoken
   - name: ClusterQueueUpdatePayload
     path: apis/graphql/schemas/object/clusterqueueupdatepayload
   - name: ClusterToken

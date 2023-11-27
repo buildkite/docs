@@ -764,6 +764,9 @@ enum AuditEventType {
   CLUSTER_PERMISSION_DELETED
   CLUSTER_QUEUE_CREATED
   CLUSTER_QUEUE_DELETED
+  CLUSTER_QUEUE_TOKEN_CREATED
+  CLUSTER_QUEUE_TOKEN_DELETED
+  CLUSTER_QUEUE_TOKEN_UPDATED
   CLUSTER_QUEUE_UPDATED
   CLUSTER_TOKEN_CREATED
   CLUSTER_TOKEN_DELETED
@@ -885,7 +888,7 @@ type AuditSubject {
 """
 Kinds of subjects which can have audit events performed on them
 """
-union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
+union AuditSubjectNode = APIAccessToken | AgentToken | AuthorizationBitbucket | AuthorizationGitHub | AuthorizationGitHubEnterprise | Cluster | ClusterPermission | ClusterQueue | ClusterQueueToken | ClusterToken | Email | NotificationServiceSlack | NotificationServiceWebhook | Organization | OrganizationBanner | OrganizationInvitation | OrganizationMember | Pipeline | PipelineSchedule | PipelineTemplate | SCMPipelineSettings | SCMRepositoryHost | SCMService | SSOProviderGitHubApp | SSOProviderGoogleGSuite | SSOProviderSAML | Subscription | Suite | TOTP | Team | TeamMember | TeamPipeline | TeamSuite | User
 
 """
 All the possible types of subjects in an Audit Event
@@ -897,6 +900,7 @@ enum AuditSubjectType {
   CLUSTER
   CLUSTER_PERMISSION
   CLUSTER_QUEUE
+  CLUSTER_QUEUE_TOKEN
   CLUSTER_TOKEN
   NOTIFICATION_SERVICE
   ORGANIZATION
@@ -2182,6 +2186,37 @@ type ClusterQueueResumeDispatchPayload {
   """
   clientMutationId: String
   queue: ClusterQueue!
+}
+
+"""
+A token used to register an agent with a Buildkite cluster queue
+"""
+type ClusterQueueToken implements Node {
+  """
+  A list of CIDR-notation IPv4 addresses from which agents can use this token.
+  Please note that this feature is not yet available to all organizations
+  """
+  allowedIpAddresses: String
+  cluster: Cluster
+  clusterQueue: ClusterQueue
+  createdBy: User
+
+  """
+  A description for this cluster queue token
+  """
+  description: String!
+  id: ID!
+
+  """
+  Agents registered with this token will use a unique token for each job. Please
+  note that this feature is not yet available to all organizations
+  """
+  jobTokensEnabled: Boolean
+
+  """
+  The public UUID for this cluster queue token
+  """
+  uuid: ID!
 }
 
 """
