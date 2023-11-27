@@ -38,8 +38,6 @@ curl -H "Content-Type: application/zip" \
 PREVIEW_URL=$(cat netlify-deploy.json | jq -r '.deploy_ssl_url')
 PREVIEW_MESSAGE="Preview URL: $PREVIEW_URL"
 
-buildkite-agent meta-data set "environment_url" "$PREVIEW_URL"
-
 echo "--- :buildkite: Annotating build"
 buildkite-agent annotate --style "info" --context "netlify/preview-url" "$PREVIEW_MESSAGE"
 

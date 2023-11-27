@@ -1,6 +1,3 @@
-env:
-  GITHUB_USERNAME: "buildkite-docs-bot"
-
 steps:
   - label: "Prepare preview"
     command: bin/prepare-preview
@@ -10,11 +7,6 @@ steps:
     env:
       RAILS_ENV: "production"
     plugins:
-      - ailohq/github-deployment#v1.0.10:
-          token-env: GH_TOKEN
-          environment: preview
-          production_environment: false
-          transient_environment: true
       - docker-compose#v3.9.0:
           run: app
           dependencies: false
