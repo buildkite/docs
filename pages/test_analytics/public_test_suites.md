@@ -11,7 +11,7 @@ Making a suite public provides read-only public/anonymous access to:
 - Test executions
 - Test execution span data
 - Test suite environmental variables
-  - `commit_sha` `branch` `message` `url` `number` `job_id`
+  + `commit_sha` `branch` `message` `url` `number` `job_id`
 
 Before making a suite public, you should verify that runs do not expose sensitive information in their logs or environment variables — this applies to both new and historical runs.
 
