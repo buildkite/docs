@@ -361,6 +361,8 @@
           path: "test-analytics/ci-environments"
         - name: "Test executions"
           path: "test-analytics/test-executions"
+        - name: "Public test suites"
+          path: "test-analytics/public-test-suites"
     - name: "Languages"
       start_expanded: true
       children:
