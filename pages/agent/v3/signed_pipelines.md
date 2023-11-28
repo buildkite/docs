@@ -1,8 +1,5 @@
 # Signed pipelines
 
-> 🚧 Experimental feature
-> Signed pipelines are experimental, and these docs (and the commands and arguments referenced in them) are subject to change. This is also an opt-in feature, so if you'd like to try using signed pipelines, reach out to [support](https://buildkite.com/support).
-
 Signed pipelines are a security feature where pipelines are cryptographically signed when uploaded to Buildkite. Agents then verify the signature before running the job. If an agent detects a signature mismatch, it'll refuse to run the job.
 
 Maintaining a strong security boundary is important to Buildkite and informs how we design features. It's also a key reason people choose Buildkite over other CI/CD tools. Signing pipelines improves your security posture by ensuring agents don't run jobs where a malicious actor has modified the instructions. This moves you towards zero-trust CI/CD by further isolating you from Buildkite itself being compromised.
