@@ -91,7 +91,17 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "step_key": "package",
         "step": {
           "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-          "signature": null
+          "signature": {
+            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+            "algorithm": "HS512",
+            "signed_fields": [
+              "command",
+              "env",
+              "matrix",
+              "plugins",
+              "repository_url"
+            ]
+          }
         },
         "agent_query_rules": ["*"],
         "state": "passed",
@@ -216,7 +226,17 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "step_key": "package",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": null
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
       },
       "agent_query_rules": ["*"],
       "state": "scheduled",
@@ -367,7 +387,17 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "step_key": "package",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": null
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
       },
       "agent_query_rules": ["*"],
       "state": "scheduled",
@@ -522,7 +552,17 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "step_key": "package",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": null
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
       },
       "agent_query_rules": ["*"],
       "state": "scheduled",
@@ -651,7 +691,17 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "step_key": "package",
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": null
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
       },
       "agent_query_rules": ["*"],
       "state": "scheduled",
