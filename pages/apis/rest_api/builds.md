@@ -89,6 +89,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "type": "script",
         "name": ":package:",
         "step_key": "package",
+        "step": {
+          "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+          "signature": {
+            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+            "algorithm": "HS512",
+            "signed_fields": [
+              "command",
+              "env",
+              "matrix",
+              "plugins",
+              "repository_url"
+            ]
+          }
+        },
         "agent_query_rules": ["*"],
         "state": "passed",
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -210,6 +224,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -357,6 +385,20 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -508,6 +550,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -633,6 +689,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
+          "algorithm": "HS512",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
