@@ -65,6 +65,7 @@ buildkite-agent tool keygen --alg EdDSA --key-id my-key-id
 The agent generates a JWKS key pair in your current directory: one private and one public. You can then use these keys to sign and verify your pipelines.
 
 Note that the value of `--alg` must be a valid [JSON Web Signing Algorithm](https://datatracker.ietf.org/doc/html/rfc7518#section-3), and that the agent does not support all JWA signing algorithms. At the time of writing, the agent supports:
+
 - `EdDSA` (the default)
 - `PS512`
 - `ES512`
