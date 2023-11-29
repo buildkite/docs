@@ -16,7 +16,7 @@ These signatures mean that if a threat actor could modify a job in flight, the a
   <p>This work is inspired by the <a href="https://github.com/buildkite/buildkite-signed-pipeline"><code>buildkite-signed-pipeline</code></a> tool, which you could add to your agent instances. It had a similar idea—signing steps before they're uploaded to Buildkite, then verifying them when they're run. However, it had some limitations, including:</p>
   <ul>
     <li>It had to be installed on every agent instance, leading to more configuration.</li>
-    <li>It only supported symmetric HS256 signatures, meaning that every verifier could also sign uploads.</li>
+    <li>It only supported symmetric signatures (using HMAC-SHA256), meaning that every verifier could also sign uploads.</li>
     <li>It couldn't sign <a href="/docs/pipelines/build-matrix">matrix steps</a>.</li>
   </ul>
   <p>This newer version of pipeline signing is built right into the agent and addresses all of these limitations. Being built into the agent, it's also easier to configure and use.</p>
@@ -54,6 +54,8 @@ Replacing the following:
 - `<algorithm>` with the signing algorithm you want to use.
 - `<key-id>` with the key ID you want to use.
 
+Note that both the algorithm and key ID are optional - if `alg` isn't provided, the agent will default to `EdDSA`. If `key-id` isn't provided, the agent will generate a random one for you.
+
 For example, to generate an [EdDSA](https://en.wikipedia.org/wiki/EdDSA) key pair with a key ID of `my-key-id`, you'd run:
 
 ```bash
@@ -62,9 +64,16 @@ buildkite-agent tool keygen --alg EdDSA --key-id my-key-id
 
 The agent generates a JWKS key pair in your current directory: one private and one public. You can then use these keys to sign and verify your pipelines.
 
-If no key ID is provided, the agent will generate a random one for you.
+Note that the value of `--alg` must be a valid [JSON Web Signing Algorithm](https://datatracker.ietf.org/doc/html/rfc7518#section-3), and that the agent does not support all JWA signing algorithms. At the time of writing, the agent supports:
+- `EdDSA` (the default)
+- `PS512`
+- `ES512`
 
-Note that the value of `--alg` must be a valid [JSON Web Signing Algorithm](https://datatracker.ietf.org/doc/html/rfc7518#section-3). The agent does not support the `none` algorithm, or any signature algorithms in the `RS` series (any signing algorithms that use RSASSA-PKCS1 v1.5 signatures, `RS256` for example).
+For an up-to-date list of supported algorithms, run:
+
+```sh
+buildkite-agent tool keygen --help
+```
 
 <details>
   <summary>Why doesn't the agent support RSASSA-PKCS1 v1.5 signatures?</summary>
@@ -73,22 +82,9 @@ Note that the value of `--alg` must be a valid [JSON Web Signing Algorithm](http
 
 #### Algorithm options
 
-Signed pipelines support many different signing algorithms, which you can simplify into two categories:
+When using signed pipelines, we recommend having multiple disjoint pools of agents, each using a different [queue](/docs/agent/v3/queues). One pool should be the _uploaders_ and have access to the private keys. Another pool should be the _runners_ and have access to the public keys. This creates a security boundary between the agents that upload and sign pipelines and the agents that run jobs and verify signatures.
 
-- **Symmetric**—where signing and verification use the same keys.
-- **Asymmetric**—where signing and verification use different keys.
-
-We recommend using an asymmetric signing algorithm, as it creates a permissions boundary between the agents that upload and sign pipelines, and agents that run other jobs and can verify signatures. This means that if an attacker compromises an agent with verification keys, they can't modify the steps without detection.
-
-When using asymmetric signing algorithms, we recommend having multiple disjoint pools of agents, each using a different [queue](/docs/agent/v3/queues). One pool should be the _uploaders_ and have access to the private keys. Another pool should be the _runners_ and have access to the public keys. This creates a security boundary between the agents that upload and sign pipelines and the agents that run jobs and verify signatures.
-
-Regarding your specific algorithm choice, any of the supported asymmetric signing algorithms are fine and will be secure. If you're not sure which one to use, `EdDSA` is proven to be secure, has a modern design, wasn't designed by a Nation State Actor, and produces nice short signatures.
-
-For more information on what algorithms the agent supports, run:
-
-```sh
-buildkite-agent tool keygen --help
-```
+Regarding your specific algorithm choice, any of the supported signing algorithms are fine and will be secure. If you're not sure which one to use, `EdDSA` is proven to be secure, has a modern design, wasn't designed by a Nation State Actor, and produces nice short signatures. It's also the default when running `buildkite-agent tool keygen`.
 
 ### 2. Configure the agents
 
