@@ -9,7 +9,7 @@ Making a suite public gives read-only access to all users. This means that users
 - Run results
 - Test analytics
 - Test executions
-- Test execution data. For those using Buildkite's ruby test collector this includes SQL query data, HTTP request paths and the execution timeline. 
+- Test execution data. For those using Buildkite's ruby test collector this includes SQL query data, HTTP request paths and the execution timeline.
 - Environment variables that occur on each run:
   + `commit_sha` `branch` `message` `url` `number` `job_id`
 
