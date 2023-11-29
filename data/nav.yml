@@ -84,6 +84,8 @@
           path: "agent/v3/prioritization"
         - name: "Securing"
           path: "agent/v3/securing"
+        - name: "Signed pipelines"
+          path: "agent/v3/signed-pipelines"
         - name: "Tokens"
           path: "agent/v3/tokens"
         - name: "Tracing"

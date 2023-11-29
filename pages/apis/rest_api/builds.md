@@ -92,8 +92,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "step": {
           "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
           "signature": {
-            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
-            "algorithm": "HS512",
+            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+            "algorithm": "EdDSA",
             "signed_fields": [
               "command",
               "env",
@@ -227,8 +227,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
-          "algorithm": "HS512",
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
           "signed_fields": [
             "command",
             "env",
@@ -388,8 +388,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
-          "algorithm": "HS512",
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
           "signed_fields": [
             "command",
             "env",
@@ -553,8 +553,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
-          "algorithm": "HS512",
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
           "signed_fields": [
             "command",
             "env",
@@ -692,8 +692,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "step": {
         "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
         "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..gcmV8TgY6MfAXRbD_7kyuB3JAQMH-0th5E1MmQn5ND34bEs-zNBZ3tLi6w2e_gvfqL6C1kxRhOQzAwEZMQlo5w",
-          "algorithm": "HS512",
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
           "signed_fields": [
             "command",
             "env",

@@ -120,7 +120,7 @@ But also remember that some [environment variables may be essential](/docs/pipel
 
 ## Signing pipelines
 
-If using plugins is crucial to your workflow and you would still like to preserve strong security guarantees, take a look at the [buildkite-signed-pipeline](https://github.com/buildkite/buildkite-signed-pipeline) tool. This tool allows uploaded steps to be signed with a secret shared by all agents, so that plugins can run without concerns of tampering by third parties.
+You can sign the steps your pipeline runs for extra security. This allows the agent to verify that the steps it runs haven't been tampered with or smuggled from one pipeline to another. For more information, see [Signed pipelines](/docs/agent/v3/signed-pipelines).
 
 ## Allowing a list of plugins
 
