@@ -2,7 +2,6 @@
 
 If you're working on an open-source project, and want the whole world to be able to see your test analytics, you can make your test suite public.
 
-
 Making a suite public gives read-only access to all users. This means that users who are unauthenticated, or belong to another organization, are able to view:
 
 - All test suite data
