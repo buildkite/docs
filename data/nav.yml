@@ -453,16 +453,12 @@
         - name: "Analytics REST API"
           children:
             - name: "Flaky tests"
-              pill: "beta"
               path: "apis/rest-api/analytics/flaky-tests"
             - name: "Runs"
-              pill: "beta"
               path: "apis/rest-api/analytics/runs"
             - name: "Suites"
-              pill: "beta"
               path: "apis/rest-api/analytics/suites"
             - name: "Tests"
-              pill: "beta"
               path: "apis/rest-api/analytics/tests"
     - name: "GraphQL"
       children: []
