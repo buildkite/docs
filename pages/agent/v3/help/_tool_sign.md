@@ -18,9 +18,9 @@ script.
 
 ### Description
 
-This (experimental!) command takes a pipeline in YAML format as input, and annotates the
-appropriate parts of the pipeline with signatures. This can then be input into the YAML steps
-editor in the Buildkite UI so that the agents running these steps can verify the signatures.
+This command takes a pipeline in YAML format as input, and annotates the appropriate parts of
+the pipeline with signatures. This can then be input into the YAML steps editor in the Buildkite
+UI so that the agents running these steps can verify the signatures.
 
 If a token is provided using the `graphql-token` flag, the tool will attempt to retrieve the
 pipeline definition and repo using the Buildkite GraphQL API. If `update` is also set, it will

@@ -18,8 +18,8 @@ script.
 
 ### Description
 
-This (experimental!) command generates a new JWS key pair, used for signing and
-verifying jobs in Buildkite.
+This command generates a new JWS key pair, used for signing and verifying jobs
+in Buildkite.
 
 The pair is written as a JSON Web Key Set (JWKS) to two files, a private JWKS
 file and a public JWKS file. The private JWKS should be used as for signing,
@@ -33,7 +33,7 @@ for information about JWKS, see https://tools.ietf.org/html/rfc7517
 <!-- vale off -->
 
 <table class="Docs__attribute__table">
-<tr id="alg"><th><code>--alg value</code> <a class="Docs__attribute__link" href="#alg">#</a></th><td><p>The JWS signing algorithm to use for the key pair. Valid algorithms are: [HS256 HS384 HS512 PS256 PS384 PS512 ES256 ES384 ES512 EdDSA]<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_KEYGEN_ALG</code></p></td></tr>
+<tr id="alg"><th><code>--alg value</code> <a class="Docs__attribute__link" href="#alg">#</a></th><td><p>The JWS signing algorithm to use for the key pair. Defaults to 'EdDSA'. Valid algorithms are: [PS512 ES512 EdDSA]<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_KEYGEN_ALG</code></p></td></tr>
 <tr id="key-id"><th><code>--key-id value</code> <a class="Docs__attribute__link" href="#key-id">#</a></th><td><p>The ID to use for the keys generated. If none is provided, a random one will be generated<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_KEYGEN_KEY_ID</code></p></td></tr>
 <tr id="private-jwks-file"><th><code>--private-jwks-file value</code> <a class="Docs__attribute__link" href="#private-jwks-file">#</a></th><td><p>The filename to write the private key to. Defaults to a name based on the key id in the current directory<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_KEYGEN_PRIVATE_JWKS_FILE</code></p></td></tr>
 <tr id="public-jwks-file"><th><code>--public-jwks-file value</code> <a class="Docs__attribute__link" href="#public-jwks-file">#</a></th><td><p>The filename to write the public keyset to. Defaults to a name based on the key id in the current directory<br /><strong>Environment variable</strong>: <code>$BUILDKITE_AGENT_KEYGEN_PUBLIC_JWKS_FILE</code></p></td></tr>
