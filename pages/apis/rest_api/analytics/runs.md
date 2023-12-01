@@ -23,6 +23,10 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 ]
 ```
 
+Optional [query string parameters](/docs/api#query-string-parameters):
+
+<%= render_markdown partial: 'apis/rest_api/analytics/runs_list_query_strings' %>
+
 Required scope: `read_suites`
 
 Success response: `200 OK`
