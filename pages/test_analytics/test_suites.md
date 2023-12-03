@@ -72,9 +72,9 @@ In Test Analytics, a run is marked as `failed` as soon as a test execution fails
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
 
-For individual tests, views include trend information on reliability, test execution count, failed test execution count, and test execution duration at p50 and p95, along with detailed information about span duration and total duration of that test execution over time.
+For individual tests, views include trend information on reliability, test execution count, test execution duration at p50 and p95, along with detailed information about flaky and failed test executions.
 
-<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including failed test execution count and test execution durations" %>
+<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
 
 Select any individual test execution to see more trend and deep-dive information, including any issues found within the execution.
 
