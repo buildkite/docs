@@ -11,9 +11,6 @@ The following [command step](/docs/pipelines/command-step) attributes can contai
 * [plugins](/docs/pipelines/command-step#plugins)
 * [agents](/docs/pipelines/command-step#agents)
 
-You can't use matrix values in other attributes, including step keys, but you can use them in [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
-
-
 For example, instead of writing three separate jobs for builds on **macOS**, **Linux** and **Windows**, like the following build configuration (which does not use a build matrix):
 
 ```yaml
@@ -166,3 +163,17 @@ steps:
               - "A"
               - "B"
 ```
+
+steps:
+- label: "💥 Matrix Build"
+  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+  concurrency: 1
+  concurrency_group: "jsdevtest-{{matrix.arch}}"
+  matrix:
+    setup:
+      arch:
+        - "amd64"
+      os:
+        - "windows"
+      test:
+        - "A"
