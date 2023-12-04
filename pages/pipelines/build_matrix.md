@@ -163,17 +163,3 @@ steps:
               - "A"
               - "B"
 ```
-
-steps:
-- label: "💥 Matrix Build"
-  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-  concurrency: 1
-  concurrency_group: "jsdevtest-{{matrix.arch}}"
-  matrix:
-    setup:
-      arch:
-        - "amd64"
-      os:
-        - "windows"
-      test:
-        - "A"
