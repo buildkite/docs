@@ -44,7 +44,7 @@ Click through any token to see more detailed information about its scopes and th
 
 <%= image "all-tokens-view.png", width: 1480/2, height: 1064/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
-The list of tokens can be filtered by username, token value, scopes, IP address, or whether the user has admin privileges.
+The list of tokens can be filtered by username, scopes, IP address, or whether the user has admin privileges.
 
  <%= image "filter-graphql-view.png", width: 1476/2, height: 898/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
