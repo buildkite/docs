@@ -429,6 +429,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "queue=default"
       ],
       "exit_status": 0,
+      "signal_reason": "",
       "passed": true,
       "soft_failed": false,
       "state": "finished",
