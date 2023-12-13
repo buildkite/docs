@@ -6,7 +6,7 @@ Organisation level timeouts can be set in pipeline settings for your organizatio
 
 <%= image "pipeline_timeout_settings.png", width: 1724/2, height: 736/2, alt: "Set timeout period for your jobs" %>
 
-### Command timeouts
+## Command timeouts
 
 Timeouts for jobs can be specified as [command steps attributes](/docs/pipelines/command-step#timeout_in_minutes), but it's possible to avoid having to set them manually every time.
 
@@ -26,7 +26,7 @@ Timeouts apply to the whole job lifecycle, including hooks and artifact uploads.
 
 Command step timeouts won't apply to trigger steps and block steps.
 
-### Scheduled job expiry
+## Scheduled job expiry
 
 In the past, it's been very easy to have lingering jobs in your Buildkite account which are never assigned an agent, and will never run. Not only does this create unnecessary noise and risk within your account, but it means that Buildkite’s job processing logic needs to handle years-old jobs. Job expiration prevents this by cancelling any job that is older than 30 days by default. This also makes those builds fail.
 
