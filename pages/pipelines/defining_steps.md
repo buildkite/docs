@@ -143,10 +143,12 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 * This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
 * Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
-Differentiating between `timing_out`, `timed_out` and `expired` states:
+Differentiating between `timing_out`, `timed_out`, and `expired` states:
 
-*Jobs become `timing_out`, `timed_out` after a job starts running on an agent. You can set time out durations through <a href="/docs/pipelines/build-timeouts">command timeout settings on an organisation level</a> or through command step attributes. This timeout currently only applies to command steps, not block or trigger steps.
-*Jobs become `expired` if they have never run on an agent. This expiry duration gets measured from the moment the job is created.
+* Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
+* Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
+
+See [Build timeouts](/docs/pipelines/build-timeouts) for information about setting timeout values.
 
 >📘
 > The <a href="/docs/apis/rest-api/builds">REST API</a> does not return <code>finished</code>, but returns <code>passed</code> or <code>failed</code> according to the exit status of the job. It also lists <code>limiting</code> and <code>limited</code> as <code>scheduled</code> for legacy compatibility.
