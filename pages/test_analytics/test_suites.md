@@ -72,15 +72,11 @@ In Test Analytics, a run is marked as `failed` as soon as a test execution fails
 
 Once your test suite is set up, you'll have many types of information automatically calculated and displayed to help you surface and investigate problems in your test suite.
 
-For individual tests, views include trend information on reliability, test execution count, failed test execution count, and test execution duration at p50 and p95, along with detailed information about span duration and total duration of that test execution over time.
+For individual tests, views include trend information on reliability, test execution count, test execution duration at p50 and p95, along with detailed information about flaky and failed test executions.
 
-<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 7 days, including failed test execution count and test execution durations" %>
+<%= image "test-stats.png", width: 1166, height: 327, alt: "Screenshot of test trend page showing test trend information over the last 28 days, including test reliability and test execution durations" %>
 
-<%= image "test-trend.png", width: 1167, height: 394, alt: "Screenshot of test trend page showing change in duration across test runs and a recent failed test executions" %>
-
-Select any individual test execution to see more trend and deep-dive information, including comparisons against previous executions of this test.
-
-For example, in the following screenshot, you can see that the test execution duration of 5.26 seconds is 2 seconds and 233 milliseconds more than the median of the previous 25 executions. In addition, the current value for this test execution of 5.26 seconds is in the 66th percentile within the distribution over the last 25 executions.
+Select any individual test execution to see more trend and deep-dive information, including any issues found within the execution.
 
 <%= image "test-execution-stats.png", width: 1170, height: 578, alt: "Screenshot of individual test execution page showing test information related to that individual execution of the test" %>
 
