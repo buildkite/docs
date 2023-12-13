@@ -3,7 +3,6 @@
 Each [Buildkite plan](https://buildkite.com/pricing) has test execution inclusions, which vary depending on the plan type and the number of users in your organization.
 
 You can find the test execution details for a run at the bottom of the run page, and your organization's [total usage](#usage-page) in Settings.
-
 <%= image "test_executions.png", alt: "Test executions run page" %>
 
 ## Usage page
