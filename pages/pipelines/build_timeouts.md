@@ -28,4 +28,8 @@ Command step timeouts won't apply to trigger steps and block steps.
 
 ### Scheduled Job Expiry
 
-Scheduled job expiry is 30 days by default for all organizations in Buildkite. You can override this default value by setting a shorter value in the pipeline settings for your organization. This expiry is calculated from when a job is created not scheduled so please take that into account when setting this limit. 
+In the past, it's been very easy to have lingering jobs in your Buildkite account which are never assigned an agent, and will never run. Not only does this create unnecessary noise and risk within your account, but it means that Buildkite’s job processing logic needs to handle years-old jobs. Job expiration prevents this by cancelling any job that is older than 30 days by default. This also makes those builds fail.
+
+You can override this default value by setting a shorter value in the pipeline settings for your organization.
+
+This expiry is calculated from when a job is created not scheduled so please take that into account when setting this limit. 
