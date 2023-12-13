@@ -145,7 +145,7 @@ Differentiating between `broken`, `skipped` and `canceled` states:
 
 Differentiating between `timing_out`, `timed_out` and `expired` states:
 
-*Jobs become `timing_out`, `timed_out` after a job starts running on an agent. You can set time out durations through <a href="/docs/pipelines/command-step#command-step-attributes-build-timeouts">command timeout settings on an organisation level</a> or through command step attributes. This timeout currently only applies to command steps, not block or trigger steps.
+*Jobs become `timing_out`, `timed_out` after a job starts running on an agent. You can set time out durations through <a href="/docs/pipelines/build-timeouts">command timeout settings on an organisation level</a> or through command step attributes. This timeout currently only applies to command steps, not block or trigger steps.
 *Jobs become `expired` if they have never run on an agent. This expiry duration gets measured from the moment the job is created.
 
 >📘

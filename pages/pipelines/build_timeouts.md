@@ -1,4 +1,4 @@
-# Build Timeouts
+# Build timeouts
 
 You can set timeouts on your build in two ways: command step timeouts for running jobs and scheduled job expiry for jobs yet to be picked up.
 
@@ -26,7 +26,7 @@ Timeouts apply to the whole job lifecycle, including hooks and artifact uploads.
 
 Command step timeouts won't apply to trigger steps and block steps.
 
-### Scheduled Job Expiry
+### Scheduled job expiry
 
 In the past, it's been very easy to have lingering jobs in your Buildkite account which are never assigned an agent, and will never run. Not only does this create unnecessary noise and risk within your account, but it means that Buildkite’s job processing logic needs to handle years-old jobs. Job expiration prevents this by cancelling any job that is older than 30 days by default. This also makes those builds fail.
 
