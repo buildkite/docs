@@ -32,4 +32,4 @@ In the past, it's been very easy to have lingering jobs in your Buildkite accoun
 
 You can override this default value by setting a shorter value in the pipeline settings for your organization.
 
-This expiry is calculated from when a job is created not scheduled so please take that into account when setting this limit. 
+This expiry is calculated from when a job is created not scheduled so please take that into account when setting this limit.
