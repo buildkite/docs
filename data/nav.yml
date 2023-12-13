@@ -259,7 +259,7 @@
           path: "pipelines/skipping"
         - name: "Build artifacts"
           path: "pipelines/artifacts"
-        - name: "Build Timeouts"
+        - name: "Build timeouts"
           path: "pipelines/build-timeouts"
         - name: "Pipeline tags"
           path: "pipelines/tags"
