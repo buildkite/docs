@@ -2,7 +2,7 @@
 
 Build timeouts are limits on the maximum time a job can wait before being picked up by an agent. If a job exceeds the time limit, the job is automatically canceled and the build fails.
 
-You can set timeouts on your builds in two ways: 
+You can set timeouts on your builds in two ways:
 
 - Command step timeouts for running jobs.
 - Scheduled job expiry for jobs yet to be picked up.
