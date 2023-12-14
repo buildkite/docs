@@ -18,7 +18,6 @@ steps:
             - BUILDKITE_BRANCH
             - BUILDKITE_BUILD_ID
             - BUILDKITE_BUILD_NUMBER
-            - BUILDKITE_BUILD_URL
             - BUILDKITE_COMMIT
             - BUILDKITE_MESSAGE
 
