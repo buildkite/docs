@@ -94,7 +94,7 @@ If you migrate all your existing agents over to clusters, make sure to add all y
 ## Pause a queue
 
 > 📘 Enterprise feature
-> Cluster queue pausing is only available to [Pro and Enterprise](https://buildkite.com/pricing) plans.
+> Cluster queue pausing is only available on [Pro and Enterprise](https://buildkite.com/pricing) plans.
 
 You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
 
