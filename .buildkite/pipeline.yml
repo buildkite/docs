@@ -15,6 +15,12 @@ steps:
             - CI
             - RAILS_ENV
             - BUILDKITE_ANALYTICS_TOKEN
+            - BUILDKITE_BRANCH
+            - BUILDKITE_BUILD_ID
+            - BUILDKITE_BUILD_NUMBER
+            - BUILDKITE_BUILD_URL
+            - BUILDKITE_COMMIT
+            - BUILDKITE_MESSAGE
 
   - label: ":docker: Build image"
     depends_on: "linting"
