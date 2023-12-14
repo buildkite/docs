@@ -31,7 +31,7 @@ Note that command step timeouts don't apply to trigger steps and block steps.
 
 ## Scheduled job expiry
 
-Scheduled job expiry helps you avoid having lingering jobs that are never assigned to an agent or run. This expiry time is calculated from when a job is created, not scheduled.
+Scheduled job expiry helps you avoid having lingering jobs that are never assigned to an agent or run. This expiry time is calculated from when a job is created, not scheduled. See the full list of [build states](/docs/pipelines/defining-steps#build-states) for further context.
 
 By default, jobs are canceled when not picked up for 30 days. This will cause the corresponding build to fail.
 
