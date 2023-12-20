@@ -93,6 +93,7 @@ enum APIAccessTokenScopes {
   WRITE_PIPELINES
   WRITE_PIPELINE_TEMPLATES
   WRITE_SUITES
+  WRITE_TEAMS
 }
 
 """
@@ -646,6 +647,11 @@ type ArtifactEdge {
 Context for an audit event created during an REST/GraphQL API request
 """
 type AuditAPIContext {
+  """
+  The API access token UUID used to authenticate the request
+  """
+  requestApiAccessTokenUuid: String
+
   """
   The remote IP which made the request
   """
