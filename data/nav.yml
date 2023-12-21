@@ -412,6 +412,11 @@
           path: "apis/rest-api"
         - name: "Limits"
           path: "apis/rest-api/limits"
+        - name: "Organization REST API"
+          pill: "beta"
+          children:
+            - name: "Memberships"
+              path: "apis/rest-api/organization/members"
         - name: "Pipelines REST API"
           children:
             - name: "Access token"
