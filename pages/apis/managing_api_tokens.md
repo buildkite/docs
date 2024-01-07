@@ -42,11 +42,11 @@ All tokens that currently have access to your organization's data will be listed
 
 Click through any token to see more detailed information about its scopes and the most recent request.
 
-<%= image "all-tokens-view.png", width: 1480/2, height: 1064/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
+<%= image "all-tokens-view.png", width: 1820/2, height: 1344/2, alt: "Screenshot of the API Access Audit page displaying a list of all tokens" %>
 
-The list of tokens can be filtered by username, token value, scopes, IP address, or whether the user has admin privileges.
+The list of tokens can be filtered by username, scopes, IP address, or whether the user has admin privileges.
 
- <%= image "filter-graphql-view.png", width: 1476/2, height: 898/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
+ <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
 ## Removing an organization from a token
 
@@ -54,7 +54,7 @@ If you have old tokens that should no longer be used, or need to prevent a token
 
 From the API access audit page, find the token whose access you want to remove. You can search for tokens using usernames, token scopes, full IP addresses, admin privileges, or the value of the token itself.
 
-<%= image "token-view.png", width: 1492/2, height: 1470/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
+<%= image "token-view.png", width: 1788/2, height: 2288/2, alt: "Screenshot of the API access token page with the Revoke Access button at the bottom of the screen" %>
 
 Click through the token you'd like to remove, then click the 'Remove Organization from Token' button.
 
