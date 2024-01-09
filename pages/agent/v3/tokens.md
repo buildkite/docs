@@ -96,6 +96,14 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 
 Agent tokens are specific to each Buildkite organization, and can be used to register an agent with any [queue](/docs/agent/v3/queues). Agent tokens can not be shared between organizations.
 
-## Session tokens
+## Session and job tokens
 
-During registration, the agent exchanges the agent token for a session token. The session token is exposed to the job as the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by the [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands. Session tokens are scoped to a specific agent, and are valid for the duration the agent is connected.
+During registration, the agent exchanges the agent token for a session token. The session token lasts for the lifetime of the agent and is used to request and start new jobs. When each job is started, the agent gets a job token specific to that job. The job token is exposed to the job as the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_ACCESS_TOKEN`, and is used by the various CLI commands (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands). Job tokens are valid until the job finishes. To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/build-timeouts#command-timeouts).
+
+| Token type    | Used for                                                                                                                                                                                              | Lifetime                        |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
+| Agent token   | Registering new agents                                                                                                                                                                                | Forever unless manually revoked |
+| Session token | Agent lifecycle APIs and starting jobs                                                                                                                                                                | Until the agent disconnects     |
+| Job token     | Job APIs (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands) | Until the job finishes          |
+
+Note: Agents prior to v3.41.0 do not support job tokens and will use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
