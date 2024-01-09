@@ -106,4 +106,4 @@ During registration, the agent exchanges the agent token for a session token. Th
 | Session token | Agent lifecycle APIs and starting jobs                                                                                                                                                                | Until the agent disconnects     |
 | Job token     | Job APIs (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands) | Until the job finishes          |
 
-Note: Agents prior to v3.41.0 do not support job tokens and will use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
+Note: Agents prior to v3.39.0 do not support job tokens and will use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
