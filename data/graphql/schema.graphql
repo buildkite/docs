@@ -617,6 +617,11 @@ type Artifact implements Node {
   sha1sum: String!
 
   """
+  A SHA256SUM of the file
+  """
+  sha256sum: String
+
+  """
   The size of the file in bytes that was uploaded
   """
   size: Int!
