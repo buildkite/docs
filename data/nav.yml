@@ -451,6 +451,8 @@
               path: "apis/rest-api/organizations/organizations"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
+            - name: "Team Members"
+              path: "apis/rest-api/organizations/team-members"
             - name: "Team Pipelines"
               path: "apis/rest-api/organizations/team-pipelines"
         - name: "Pipelines REST API"
