@@ -310,7 +310,7 @@
           path: "clusters/queue-metrics"
     - name: "Hosted agents"
       pill: "private trials"
-      children: 
+      children:
         - name: "Overview"
           path: "pipelines/hosted-agents/overview"
         - name: "Mac hosted agents"
@@ -449,6 +449,8 @@
           children:
             - name: "Organizations"
               path: "apis/rest-api/organizations/organizations"
+            - name: "Teams"
+              path: "apis/rest-api/organizations/teams"
             - name: "Members"
               path: "apis/rest-api/organizations/members"
             - name: "Team Members"
@@ -483,6 +485,7 @@
               path: "apis/rest-api/pipeline-templates"
             - name: "Teams"
               path: "apis/rest-api/teams"
+              pill: "beta"
             - name: "User"
               path: "apis/rest-api/user"
     - name: "GraphQL"
