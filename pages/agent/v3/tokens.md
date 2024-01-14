@@ -125,4 +125,5 @@ Job tokens are valid until the job finishes. To ensure job tokens have a limited
   </tr>
 </table>
 
-Note: Agents prior to v3.39.0 do not support job tokens and will use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
+>📘 Job tokens not supported in agents prior to v3.39.0
+> Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
