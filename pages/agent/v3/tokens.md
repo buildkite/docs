@@ -102,10 +102,27 @@ During registration, the agent exchanges its agent token for a session token. Th
 
 Job tokens are valid until the job finishes. To ensure job tokens have a limited lifetime, you can set a default or maximum [command timeout](/docs/pipelines/build-timeouts#command-timeouts).
 
-| Token type    | Used for                                                                                                                                                                                              | Lifetime                        |
-|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------|
-| Agent token   | Registering new agents                                                                                                                                                                                | Forever unless manually revoked |
-| Session token | Agent lifecycle APIs and starting jobs                                                                                                                                                                | Until the agent disconnects     |
-| Job token     | Job APIs (including [annotate](/docs/agent/v3/cli-annotate), [artifact](/docs/agent/v3/cli-artifact), [meta-data](/docs/agent/v3/cli-meta-data) and [pipeline](/docs/agent/v3/cli-pipeline) commands) | Until the job finishes          |
+<table>
+  <tr>
+    <th>Token type</th>
+    <th>Use</th>
+    <th>Lifetime</th>
+  </tr>
+  <tr>
+    <td>Agent token</td>
+    <td>Registering new agents.</td>
+    <td>Forever unless manually revoked.</td>
+  </tr>
+  <tr>
+    <td>Session token</td>
+    <td>Agent lifecycle APIs and starting jobs.</td>
+    <td>Until the agent disconnects.</td>
+  </tr>
+  <tr>
+    <td>Job token</td>
+    <td>Job APIs (including <a href="/docs/agent/v3/cli-annotate">annotate</a>,  <a href="/docs/agent/v3/cli-artifact">artifact</a>,  <a href="/docs/agent/v3/cli-meta-data">meta-data</a> and  <a href="/docs/agent/v3/cli-pipeline">pipeline</a> commands).</td>
+    <td>Until the job finishes.</td>
+  </tr>
+</table>
 
 Note: Agents prior to v3.39.0 do not support job tokens and will use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.
