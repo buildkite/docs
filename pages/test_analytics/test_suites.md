@@ -37,9 +37,6 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 ## Run issues
 
->🛠 Beta feature
-> The run issues feature is currently in public beta and subject to change.
-
 <%= image "run-issues.png", alt: "Screenshot of a run with issues displaying in a list, including flaky, slow and failures." %>
 
 Test Analytics will automatically detect issues per run. For each test, we currently detect three issues: flaky, slow and failure. And display total number of issues, along with the following, ordered by the most problematic to least problematic:
