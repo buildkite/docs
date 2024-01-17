@@ -129,6 +129,34 @@ query GetJobsUUID {
 }
 ```
 
+## Get job info by ID
+
+Get a job's info while only having its UUID.
+
+```graphql
+query GetJob  {
+  job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
+    ... on JobTypeCommand {
+      id
+      uuid
+      createdAt
+      scheduledAt
+      finishedAt
+      pipeline{
+        name
+      }
+      build{
+        id
+        number
+        pipeline{
+          name
+        }
+      }
+    }
+  }
+}
+```
+
 ## Cancel a job
 
 If you need to cancel a job, you can use the following call with the job's ID:
