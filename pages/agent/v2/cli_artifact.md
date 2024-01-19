@@ -143,7 +143,7 @@ Example:
 
 Options:
 
-   --step value                Scope the search to a particular step by using either its name or job ID
+   --step value                Scope the search to a particular step by using either its key or label, or job ID
    --build value               The build that the artifacts were uploaded to [$BUILDKITE_BUILD_ID]
    --agent-access-token value  The access token used to identify the agent [$BUILDKITE_AGENT_ACCESS_TOKEN]
    --endpoint value            The Agent API endpoint (default: "https://agent.buildkite.com/v3") [$BUILDKITE_AGENT_ENDPOINT]
