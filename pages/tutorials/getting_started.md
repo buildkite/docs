@@ -105,7 +105,7 @@ In the output, you'll see:
 
 - A pre-command hook ran and printed some text in the logs.
 - The agent checked out the repository.
-- The agent can access different environment variables shown in the job environment.
+- The agent had accessed different environment variables shown in the job environment.
 - The script ran and printed text to the logs and uploaded an image as an artifact of the build.
 
 Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
