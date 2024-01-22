@@ -32,7 +32,7 @@ After creating your SSO Provider in Buildkite, you will need the  _Base URL_ and
 
 Go to your Buildkite application in Okta to set up deprovisioning:
 
-1. On the _Sign On_ tab in the Okta Buildkite application, edit the _Credential Details_ settings, select _Email_ for the _Application username format_ and press _Save_.
+1. On the _Sign On_ tab in the Okta Buildkite application, edit the _Credentials Details_ settings, select _Email_ for the _Application username format_ and press _Save_.
 1. On the _Provisioning_ tab, select _Integration_ from the left side menu.
 1. Click _Configure API Integration_.
 1. Tick _Enable API integration_ and enter the URL and API token copied from your Buildkite SSO Provider settings.
