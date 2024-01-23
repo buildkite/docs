@@ -79,7 +79,7 @@ UI elements should be italic. For example:
 
 To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 
-> **Note:** Markdown supports two characters for itaclising text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" before and after the text you want to italicise.
+> **Note:** Markdown supports two characters as its markup for itaclising text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
 
 ### Time and date
 
