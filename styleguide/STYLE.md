@@ -51,7 +51,7 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 Use Sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
 
-*"The quick brown fox jumps over the lazy dog."*
+_"The quick brown fox jumps over the lazy dog."_
 
 The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
@@ -77,8 +77,9 @@ No restrictions on using numbers in the body of the text.
 ### Referring to UI elements
 UI elements should be italic. For example:
 
-To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
+To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 
+> **Note:** Markdown supports two characters for itaclising text - an underscore (\_) and a single asterisk (\*). For consistency, use single underscores (\_) before and after the text you want to italicise.
 
 ### Time and date
 
@@ -313,7 +314,7 @@ We have a few custom scripts for adding useful elements that are missing in Mark
 To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
 
 #### Beta flags
-To mark a content page in the site as being in beta, add its relative path *after* `docs` to the `app/models/beta_pages.rb` file.
+To mark a content page in the site as being in beta, add its relative path _after_ `docs` to the `app/models/beta_pages.rb` file.
 
 For example:
 ```
