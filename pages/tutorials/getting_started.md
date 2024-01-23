@@ -16,7 +16,7 @@ To complete this tutorial, you'll need:
 
 - To enable the YAML steps editor in Buildkite:
 
-  * Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
+  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
   * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
@@ -82,10 +82,10 @@ To create a pipeline:
 
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-1. Accept all the pre-filled defaults on the _New Pipeline_ page by selecting _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
+1. On the _New Pipeline_ page, leave all fields with their pre-filled default values and select _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, click _New Build_ and in the modal that opens, create a build using the pre-filled details.
 
-   1. Enter a _Message_ for the build. For example, _My first build_.
+   1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
    1. Select _Create Build_.
 
 The page for the build then opens and begins running:
@@ -113,5 +113,5 @@ Beyond the log, select one of the other tabs to see the artifacts, a timeline br
 
 That's it! You've installed an agent, run a build, and checked the output. 🎉
 
-We recommend you continue by [creating your own pipeline](/docs/pipelines/create-your-own).
+Now try [creating your own pipeline](/docs/pipelines/create-your-own).
 

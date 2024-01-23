@@ -14,7 +14,7 @@ You'll also need the following:
 - A task you want to perform with the code. For example, run some tests or a script.
 - To enable the YAML steps editor in Buildkite. If you haven't already:
 
-  * Open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration) by selecting _Settings_ > _YAML Migration_.
+  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
   * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 ## Continue running an agent
@@ -64,10 +64,10 @@ To create a new pipeline:
 1. Select _Pipelines_ to navigate to the [Buildkite dashboard](https://buildkite.com/).
 1. Select _New pipeline_.
 
-    On the _New Pipeline_ page, if you're prompted to connect your repositories, we recommend completing that first, but you can always connect them later from the settings.
+    **Note:** On the _New Pipeline_ page, if you're prompted to connect your repositories, it is recommended you do that first. You can always connect them later from your pipeline's settings.
     After connecting your repositories, you can select them from the dropdown during pipeline creation and enable automatic webhook creation.
 
-1. Enter your pipeline's _Name_ and _Description_ details. You can always change these later in the pipeline settings.
+1. Enter your pipeline's details in the respective _Name_ and _Description_ fields. You can always change these details later from your pipeline's settings.
 1. In the _Steps_ editor, ensure there's a step to upload the definition from your repository:
 
     ```yaml
@@ -79,7 +79,7 @@ To create a new pipeline:
 1. Select _Create Pipeline_.
 1. On the next page showing your pipeline name, click _New Build_ and in the modal that opens, create a build using the pre-filled details.
 
-   1. Enter a _Message_ for the build. For example, _My first build_.
+   1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
    1. Select _Create Build_.
 
     The page for the build then opens and begins running.

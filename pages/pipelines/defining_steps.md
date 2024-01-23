@@ -7,7 +7,7 @@ Defining your pipeline steps in a `pipeline.yml` file gives you access to more c
 
 ## Getting started
 
-Create a pipeline from the Pipelines page of Buildkite using the ➕ button.
+On the _Pipelines_ page, select _New pipeline_ to begin creating a new pipeline.
 
 Required fields are _Name_ and _Repository_.
 
