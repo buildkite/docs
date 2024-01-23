@@ -61,16 +61,14 @@ You'll create a new pipeline that uploads the pipeline definition from your repo
 
 To create a new pipeline:
 
-1. Navigate to the [Buildkite dashboard](https://buildkite.com/) by selecting _Pipelines_.
-1. Select <%= image "new-pipeline-button.svg", alt: "The build page" %>
- _New Pipeline_.
+1. Select _Pipelines_ to navigate to the [Buildkite dashboard](https://buildkite.com/).
+1. Select _New pipeline_.
 
-    If you're prompted to connect your repositories, we recommend completing that first, but you can always connect them later from the settings.
+    On the _New Pipeline_ page, if you're prompted to connect your repositories, we recommend completing that first, but you can always connect them later from the settings.
     After connecting your repositories, you can select them from the dropdown during pipeline creation and enable automatic webhook creation.
 
-1. Enter the details you want for the pipeline. You can always change these later in the pipeline settings.
-1. Select _Create Pipeline_.
-1. In the steps editor, ensure there's a step to upload the definition from your repository:
+1. Enter your pipeline's _Name_ and _Description_ details. You can always change these later in the pipeline settings.
+1. In the _Steps_ editor, ensure there's a step to upload the definition from your repository:
 
     ```yaml
     steps:
@@ -78,10 +76,10 @@ To create a new pipeline:
         command: buildkite-agent pipeline upload
     ```
 
-1. Select _Save and Build_.
-1. In the modal that opens, create a build using the pre-filled details.
+1. Select _Create Pipeline_.
+1. On the next page showing your pipeline name, click _New Build_ and in the modal that opens, create a build using the pre-filled details.
 
-   1. Enter a message for the build. For example, _My first build_.
+   1. Enter a _Message_ for the build. For example, _My first build_.
    1. Select _Create Build_.
 
     The page for the build then opens and begins running.
