@@ -83,7 +83,7 @@ To create a pipeline:
     <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
 1. On the _New Pipeline_ page, leave all fields with their pre-filled default values and select _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
-1. On the next page showing your pipeline name, click _New Build_ and in the modal that opens, create a build using the pre-filled details.
+1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
 
    1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
    1. Select _Create Build_.
