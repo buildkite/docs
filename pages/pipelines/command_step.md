@@ -291,11 +291,13 @@ _Optional Attributes_
   <tr>
     <td><code>exit_status</code></td>
     <td>
-      The exit status number that causes this job to retry ('*' does not include 0) <br>
+      The exit status number that causes this job to retry ('*' does not include 0). Exit status codes can include -1 and any number between 1-255. <br>
       <p><em>Examples:</em></p>
       <ul>
         <li><code>"*"</code></li>
         <li><code>2</code></li>
+        <li><code>42</code></li>
+        <li><code>143</code></li>
       </ul>
     </td>
   </tr>
