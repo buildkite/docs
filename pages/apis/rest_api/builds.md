@@ -9,16 +9,11 @@ For example build number `27` of the `Test` pipeline might have a build ID of `f
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 
-- [Builds API](#builds-api)
-  - [Build number vs build ID](#build-number-vs-build-id)
-  - [List all builds](#list-all-builds)
-  - [List builds for an organization](#list-builds-for-an-organization)
-  - [List builds for a pipeline](#list-builds-for-a-pipeline)
-  - [Get a build](#get-a-build)
-  - [Create a build](#create-a-build)
-  - [Cancel a build](#cancel-a-build)
-  - [Rebuild a build](#rebuild-a-build)
-  - [Timestamp attributes](#timestamp-attributes)
+* [Get a build](#get-a-build)
+* [Cancel a build](#cancel-a-build)
+* [Rebuild a build](#rebuild-a-build)
+* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 
 
 ## List all builds
