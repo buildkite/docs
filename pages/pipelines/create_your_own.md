@@ -64,9 +64,10 @@ To create a new pipeline:
 1. Select _Pipelines_ to navigate to the [Buildkite dashboard](https://buildkite.com/).
 1. Select _New pipeline_.
 
-    **Note:** On the _New Pipeline_ page, if you're prompted to connect your repositories, it is recommended you do that first. You can always connect them later from your pipeline's settings.
-    After connecting your repositories, you can select them from the dropdown during pipeline creation and enable automatic webhook creation.
+    **Note:** On the _New Pipeline_ page, if you're prompted to connect your Git repositories from an existing account (e.g. GitHub, BitBucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
+    After connecting your account, you can select its repositories from the dropdown during pipeline creation and enable automatic webhook creation.
 
+1. If you connected your account first, select the appropriate repository from the list of existing ones in your account. Otherwise, select _Any account_ from the dropdown and type the URL of the repository to be built.
 1. Enter your pipeline's details in the respective _Name_ and _Description_ fields. You can always change these details later from your pipeline's settings.
 1. In the _Steps_ editor, ensure there's a step to upload the definition from your repository:
 
