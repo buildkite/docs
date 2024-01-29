@@ -8,7 +8,6 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 
 Get all jobs in a named queue, created on or after a given date. Note that if you want all jobs in the default queue, you do not need to set a queue name, so you can omit the `agentQueryRules` option.
 
-
 ```graphql
 query PipelineRecentBuildLastJobQueue {
   organization(slug: "organization-slug") {
@@ -129,9 +128,9 @@ query GetJobsUUID {
 }
 ```
 
-## Get job info by ID
+## Get job's info by the job's ID
 
-Get a job's info while only having its UUID.
+Get a job's info while only having the job's UUID.
 
 ```graphql
 query GetJob  {
