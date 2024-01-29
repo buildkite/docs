@@ -128,9 +128,9 @@ query GetJobsUUID {
 }
 ```
 
-## Get job's info by the job's ID
+## Get info about a job by its UUID
 
-Get a job's info while only having the job's UUID.
+Get info about a job using the job's UUID only.
 
 ```graphql
 query GetJob  {
