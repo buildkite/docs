@@ -10,7 +10,8 @@ The following attributes are mandatory for the `<testcase>` element:
 * `classname`: full class name for the class the test method is in.
 * `name`: name of the test method.
 
-To learn more about the JUnit XML file format, see [JUnit XML reporting file format](https://github.com/testmoapp/junitxml#basic-junit-xml-structure).
+To learn more about the JUnit XML file format, see [Common JUnit XML format & examples
+](https://github.com/testmoapp/junitxml).
 
 ## How to import JUnit XML in Buildkite
 
