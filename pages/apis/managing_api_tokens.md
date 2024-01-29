@@ -62,7 +62,7 @@ Removing access from a token sends a notification email to the token's owner, wh
 
 ## Limiting API Access by IP address
 
-If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's permission settings](https://buildkite.com/organizations/~/member-permissions).
+If you'd like to limit access to your organization by IP address, you can create an allowlist of IP addresses in the [organization's API security settings](https://buildkite.com/organizations/~/security/api).
 
 You can also manage the allowlist with the [`organizationApiIpAllowlistUpdate`](/docs/apis/graphql/schemas/mutation/organizationapiipallowlistupdate) mutation in the GraphQL API.
 
