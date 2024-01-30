@@ -1,7 +1,9 @@
-# Style guide
+# Writing style guide
 
-Welcome to the Buildkite styleguide. These are the guidelines we use to write the docs.
+Welcome to the Buildkite writing style guide. These are the guidelines about the language and words we use to write the docs, as well as details about the .
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
+
+For details about the Markdown syntax used to render your writing, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
 Table of contents:
 * [Language](#Language)
@@ -9,19 +11,22 @@ Table of contents:
 * [Code and filenames](#Code-and-filenames)
 * [Working with the docs site](#Working-with-the-docs-site)
 * [Screenshots](#Screenshots)
+<!---
 * [GraphQL API schema](#graphql-api-schema)
+-->
 
 ## Language
 
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
 
+### English flavor
+
+We use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
+
 ### Dictionary
 
-We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
-
-### English flavor
-Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
+Since we use American English, our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). This is not a single source of truth, just a good starting/reference point.
+We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [Markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### Commas
 
@@ -29,13 +34,44 @@ Keep it clean and uncluttered. If the sentence can live without that comma - lea
 
 ### Serial commas
 
-Absolutely yes, yes, and yes.
+Absolutely yes, yes, and yes. Use serial commas _when required_ - typically when listing items in a sentence.
 
 Serial commas are also known as 'Oxford commas'.
 
+**Why?** Note the difference between these two sentences:
+
+1. _I went to the shop with my parents, Fred and Wilma._
+1. _I went to the shop with my parents, Fred, and Wilma._
+
+How many people are being referred to in each of these sentences?
+
+* In sentence 1, in addition to me, there are two more people involved: Fred and Wilma, both of whom happen to be my parents.
+* In sentence 2, in addition to me, there are four more people involved: my parents (whose names are not mentioned), as well as Fred, and Wilma.
+
+Therefore, use serial commas to distinguish individual items in a list from those which are not.
+
 ### Active/passive voice
 
-Generally, use active voice. It's usually clearer and simpler.
+Whenever possible, use active voice, which is generally clearer and simpler.
+
+Conventional English sentence word order is subject > verb > object, where the subject or object could be clauses in their own right.
+
+_Active voice_ typically follows this natural word order and because of this, it is generally easier for English-speaking readers to follow. More specifically, active \
+For example:
+* _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)\
+That is:\
+_The XYZ window displays the result._
+<!-- * _Select "Settings" > "YAML Migration" to open the YAML migration settings._ -->
+
+Passive voice is when the object of a sentence comes before the verb.\
+Following on from the examples above (written in passive voice):
+* _The result_ (subject) _is displayed_ (verb) _by the XYZ window._ (object clause)\
+That is:\
+_The result is displayed by the XYZ window._
+<!-- * _Open the YAML migration settings by selecting "Settings" > "YAML Migration"._ -->
+
+Aim to use active voice in instructional step-by-step content as it is easier for readers to follow.\
+Passive voice is useful when you want to emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
 
 ### Gender
 
@@ -58,7 +94,7 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 ### Heading capitalization
 
-Use Sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
+Use sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
 
 _"The quick brown fox jumps over the lazy dog."_
 
@@ -86,14 +122,13 @@ Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt,
 Do not use numbers in page headings. Only use numbers less than 10 in section headings.
 No restrictions on using numbers in the body of the text.
 
-
 ### Referring to UI elements
 
 UI elements should be italic. For example:
 
 To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 
-> **Note:** Markdown supports two characters as its markup for itaclising text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
+> **Note:** Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
 
 ### Time and date
 
@@ -384,7 +419,9 @@ Regular info callout ("purple"):
 > Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
 > Every line break after the first becames a new paragraph inside the callout.
 ```
+
 This will be rendered as the following HTML in the site:
+
 ```
 <section class="callout callout--info">
   <p class="callout__title" id="a-callout-title"📘 A callout title</p>

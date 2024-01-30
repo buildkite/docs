@@ -58,12 +58,10 @@ After modifying a page, refresh to see your changes.
 
 With the development dependencies installed you can update the CLI docs with the following:
 
-
 ```bash
 # Set a custom PATH to select a locally built buildkite-agent
 PATH="$HOME/Projects/buildkite/agent:$PATH" ./scripts/update-agent-help.sh
 ```
-
 
 ## Updating GraphQL API docs
 
@@ -84,7 +82,6 @@ API_ACCESS_TOKEN=xxx rake graphql:fetch_schema >| data/graphql/schema.graphql
 rake graphql:generate
 ```
 
-
 ## Linting
 
 We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
@@ -97,7 +94,7 @@ If you've added a new valid word that showing up as a spelling error, add it to 
 
 Our documentation is based on the principles of common sense, clarity, and brevity.
 
-The [style guide](/styleguide/STYLE.md) should provide you a general idea and an insight into using custom formatting elements.
+The [writing](/styleguide/writing-style.md) and [Markdown syntax](/styleguide/markdown-syntax-style.md) style guides should provide you a general idea and an insight into our language and writing style, as well as the Markdown syntax we use (including custom formatting elements).
 
 ## Search index
 
@@ -115,7 +112,6 @@ To test changes to the indexing configuration:
     ```
 
 2. Run `bundle exec rake update_test_index`.
-
 
 ## Updating the navigation
 
@@ -146,7 +142,6 @@ keywords: docs, tutorial, pipelines, 2fa
 ```
 
 If no keywords are provided it falls back to comma-separated URL path segments.
-
 
 ## License
 
