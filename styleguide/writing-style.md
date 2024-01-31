@@ -54,24 +54,30 @@ Therefore, use serial commas to distinguish individual items in a list from thos
 
 Whenever possible, use active voice, which is generally clearer and simpler.
 
-Conventional English sentence word order is subject > verb > object, where the subject or object could be clauses in their own right.
+Conventional/natural English sentence word order is subject > verb > object, where the subject or object could be clauses in their own right.
 
-_Active voice_ typically follows this natural word order and because of this, it is generally easier for English-speaking readers to follow. More specifically, active \
+_Active voice_ typically follows this natural word order and is generally easier for readers to follow. More specifically, with active voice, the subject comes before the main verb/action in a sentence.\
 For example:
 * _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)\
 That is:\
 _The XYZ window displays the result._
-<!-- * _Select "Settings" > "YAML Migration" to open the YAML migration settings._ -->
+* _Select "Settings" > "YAML Migration"_ (subject clause) _to open_ (action) _the YAML migration settings._ (object)\
+That is:\
+_Select "Settings" > "YAML Migration" to open the YAML migration settings._
 
-Passive voice is when the object of a sentence comes before the verb.\
+Passive voice is when the object of a sentence comes before its (main) verb/action.\
 Following on from the examples above (written in passive voice):
-* _The result_ (subject) _is displayed_ (verb) _by the XYZ window._ (object clause)\
+* _The result_ (object) _is displayed_ (verb) _by the XYZ window._ (subject clause)\
 That is:\
 _The result is displayed by the XYZ window._
-<!-- * _Open the YAML migration settings by selecting "Settings" > "YAML Migration"._ -->
+* _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)\
+That is:\
+_The YAML migration settings is opened by selecting "Settings" > "YAML Migration"._
 
-Aim to use active voice in instructional step-by-step content as it is easier for readers to follow.\
+Aim to use active voice in instructional step-by-step content and avoid passive voice.\
 Passive voice is useful when you want to emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
+
+**Tip:** While identifying active/passive voice usage can sometimes be tricky, as a general principle, if you find yourself writing "by _verb/action word_" within a lot of your sentences, try flipping the subject and object parts of these sentences around when re-writing them.
 
 ### Gender
 
