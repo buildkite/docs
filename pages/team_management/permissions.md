@@ -87,7 +87,7 @@ When a user joins the organization using SSO, they'll be automatically added to 
 Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
 
 #### Can I set separate permissions specifically on rebuilds?
-No, rebuilds are in the same category with builds, so all the team members with permissions to run builds on a certain pipeline are also able to perform rebuilds.
+No, rebuilds are in the same category with builds. Therefore, all team members with permissions to run builds on a certain pipeline are also able to perform rebuilds.
 
 #### Once enabled, can I disable Teams?
 Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.
