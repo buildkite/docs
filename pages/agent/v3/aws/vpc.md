@@ -51,7 +51,7 @@ address of any outbound connections to its own public IP address. NAT devices
 statefully limit response traffic to known outbound network connections,
 similar to a security group.
 
-To diagnose agent instance performance and behaviours, it is common
+To diagnose agent instance performance and behaviors, it is common
 to remotely access an interactive prompt. There are a number of options
 available for remote access to instances in a private subnet, described in the following sections.
 

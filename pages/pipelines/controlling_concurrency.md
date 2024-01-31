@@ -92,7 +92,7 @@ For example, if you have two steps:
 * Step `A` in concurrency group `X` with a concurrency of `1` at time 0
 * Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
 
-Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
+Step A will always run before step B. This is the default behavior (`ordered`), and most helpful for deployments.
 
 However, in some cases concurrency groups are used to restrict access to a limited resource, such as a SaaS service like Sauce Labs.
 In that case, the default ordering of the jobs can work against you, as one step waits for the next before taking up another concurrency slot.
