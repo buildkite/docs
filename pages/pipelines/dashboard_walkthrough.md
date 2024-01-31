@@ -12,7 +12,7 @@ A visual indication of your pipeline's current status. This icon is based on the
 
 ## Build history
 
-The build history visualizes the last 30 builds that have been run on your default branch. The height of each bar reflects the build's running time, and its status is represented by its colour and in the tooltip on hover.
+The build history visualizes the last 30 builds that have been run on your default branch. The height of each bar reflects the build's running time, and its status is represented by its color and in the tooltip on hover.
 
 <%= image "graphs.png", width: 2028/2, height: 880/2, alt: "Screenshot of the build history visualization" %>
 
