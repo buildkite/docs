@@ -1,6 +1,6 @@
 # Markdown syntax style guide
 
-Welcome to the Buildkite Markdown syntax style guide. These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure (useful to understand when adding new pages), and screenshots.
+Welcome to the Buildkite Markdown syntax style guide. These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure and how to work with the site (useful to understand when adding new pages), and screenshots.
 
 For details about the Markdown syntax used to render your writing, refer to the [Writing style guide](writing-style.md).
 
@@ -50,20 +50,20 @@ Even more text.
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
 
-Refer to [Heading capitalization in the Writing style guide](writing-style.md#heading-capitalization) for details on how to write and present headings in our docs.
+Refer to [Heading capitalization in the Writing style guide](writing-style.md#heading-capitalization) for details on how to write and present headings in the Buildkite docs.
 
 ### UI elements
 
-UI element references are formatted using italics in our docs. Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize - e.g. `_Italicize this text_`
+UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize - e.g. `_Italicize this text_`
 
-Refer to [Referring to UI elements in the Writing style guide](writing-style.md#referring-to-ui-elements) for details on how to write and present UI elements in our docs.
+Refer to [Referring to UI elements in the Writing style guide](writing-style.md#referring-to-ui-elements) for details on how to write and present UI elements in the docs.
 
 ### Spacing after full stops
 
-**Question:** Should you use one or two spaces after end punctuation?
+**Question:** Should you use one or two spaces after end punctuation?\
 **Answer:** One space.
 
-A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
+A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.\
 P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.
 
 ### Platform differences
@@ -80,7 +80,7 @@ This section deals with adding and properly formatting code in the documentation
 
 ### Code formatting
 
-We use the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
+The Buildkite docs uses the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
 For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 In markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
@@ -147,7 +147,7 @@ Use escaping to prevent this.
 
 ## Working with the docs site
 
-Our docs website is a custom built one. This section gives some guidance on working with the setup.
+The Buildkite docs website is a custom built one. This section gives some guidance on working with the setup.
 
 ### Markdown
 
@@ -271,7 +271,7 @@ So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `ap
 
 ### Custom elements
 
-We have a few custom scripts for adding useful elements that are missing in Markdown.
+The Buildkite docs has a few custom scripts for adding useful elements that are missing in Markdown.
 To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
 
 #### Beta flags
@@ -376,7 +376,7 @@ Line 3, column 1  | Line 3, column 2
 
 #### Responsive tables
 
-Append `{: class="responsive-table"}` to any table to render it with responsive behaviour. Use the following syntax:
+Append `{: class="responsive-table"}` to any table to render it with responsive behavior. Use the following syntax:
 
 ```
 Column header 1   | Column header 2

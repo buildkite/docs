@@ -3,7 +3,7 @@
 Welcome to the Buildkite writing style guide. These guidelines provide details about the language and words used to write the Buildkite docs, as well as details about its writing style and format.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
-For details about the Markdown syntax used to render your writing as well as its file structure and screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
+For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
 Table of contents (main headings):
 * [Language](#language)
@@ -15,12 +15,14 @@ This section covers everything related to the language and formatting used in Bu
 
 ### English flavor
 
-We use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
+Use US English. As a highly multi-national team, here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
 
 ### Dictionary
 
-Since we use American English, our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). This is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [Markdown linter](https://github.com/DavidAnson/markdownlint).
+Buildkite's first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/) for US English. This is not a single source of truth, just a good starting/reference point.
+
+> [!NOTE]
+> The Buildkite docs build process uses [Vale](https://github.com/apps/vale-linter), a [linter](https://github.com/buildkite/docs#linting) with a file that contains a [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [Markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### Commas
 
@@ -90,7 +92,7 @@ This section covers the matters that go beyond language and provides guidelines 
 
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
-### Heading capitalization
+### Headings
 
 Use sentence case in all headings:
 
@@ -102,7 +104,7 @@ Do not create multi-sentence headings, or add full stops/periods or other punctu
 
 Refer to [Headings in the Markdown syntax guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
 
-### Capital letters for product names
+### Product Names (and product features)
 
 Only use Title Case (initial capital letters) for the name of the product, and match capital letter usage in product names as an organization would use them in these products - for example:
 
@@ -112,9 +114,16 @@ Only use Title Case (initial capital letters) for the name of the product, and m
 > [!NOTE]
 > Avoid using title case for product features.
 
-### Capital letters in UX elements
+### UI elements
 
-Match the capitalization used in the Buildkite interface, even if title (or any other) case has been used for product features.
+UI elements should be formatted in italics. For example:
+
+To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
+
+> [!NOTE]
+> Match the capitalization used in the Buildkite interface, even if title (or any other) case has been used for product features.
+
+Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in the Buildkite docs.
 
 ### Lists (bullet lists and numbered steps)
 
@@ -129,14 +138,6 @@ Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt,
 
 Do not use numbers in page headings. Only use numbers less than 10 in section headings.
 No restrictions on using numbers in the body of the text.
-
-### Referring to UI elements
-
-UI elements should be italic. For example:
-
-To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
-
-Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in our docs.
 
 ### Time and date
 
