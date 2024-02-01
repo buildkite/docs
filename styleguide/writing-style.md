@@ -5,12 +5,12 @@ If something isn't included in this guide, see the [Microsoft Style Guide](https
 
 For details about the Markdown syntax used to render your writing, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
-Table of contents:
-* [Language](#Language)
-* [Style and formatting](#Style-and-formatting)
-* [Code and filenames](#Code-and-filenames)
-* [Working with the docs site](#Working-with-the-docs-site)
-* [Screenshots](#Screenshots)
+Table of contents (main headings):
+* [Language](#language)
+* [Style and formatting](#style-and-formatting)
+* [Code and filenames](#code-and-filenames)
+* [Working with the docs site](#working-with-the-docs-site)
+* [Screenshots](#screenshots)
 <!---
 * [GraphQL API schema](#graphql-api-schema)
 -->
@@ -77,7 +77,8 @@ _The YAML migration settings is opened by selecting "Settings" > "YAML Migration
 Aim to use active voice in instructional step-by-step content and avoid passive voice.\
 Passive voice is useful when you want to emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
 
-**Tip:** While identifying active/passive voice usage can sometimes be tricky, as a general principle, if you find yourself writing "by _verb/action word_" within a lot of your sentences, try flipping the subject and object parts of these sentences around when re-writing them.
+> [!TIP]
+> While identifying active/passive voice usage can sometimes be tricky, as a general principle, if you find yourself writing "by _verb/action word_" within a lot of your sentences, try flipping the subject and object parts of these sentences around when re-writing them.
 
 ### Gender
 
@@ -100,19 +101,27 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 ### Heading capitalization
 
-Use sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
+Use sentence case in all headings:
 
 _"The quick brown fox jumps over the lazy dog."_
 
 The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
-### Capital letters in proper names
+Refer to [Headings in the Markdown syntax guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
 
-Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
+### Capital letters for product names
+
+Only use Title Case (initial capital letters) for the name of the product, and match capital letter usage in product names as an organization would use them in these products - for example:
+
+* 'Docker Compose overview' and not 'Docker Compose Overview' 
+* 'GitHub organization' and not 'GitHub Organization'
+
+> [!NOTE]
+> Avoid using title case for product features.
 
 ### Capital letters in UX elements
 
-Match the capitalization used in the Buildkite interface.
+Match the capitalization used in the Buildkite interface, even if title (or any other) case has been used for product features.
 
 ### Lists (bullet lists and numbered steps)
 
@@ -134,7 +143,7 @@ UI elements should be italic. For example:
 
 To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 
-> **Note:** Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
+Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in our docs.
 
 ### Time and date
 

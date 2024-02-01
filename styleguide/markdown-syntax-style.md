@@ -4,97 +4,57 @@ Welcome to the Buildkite Markdown syntax style guide. These are the guidelines a
 
 For details about the Markdown syntax used to render your writing, refer to the [Writing style guide](writing-style.md).
 
-Table of contents:
-* [Language](#Language)
-* [Style and formatting](#Style-and-formatting)
-* [Code and filenames](#Code-and-filenames)
-* [Working with the docs site](#Working-with-the-docs-site)
-* [Screenshots](#Screenshots)
+Table of contents (main headings):
+* [Style and formatting](#style-and-formatting)
+* [Code and filenames](#code-and-filenames)
+* [Working with the docs site](#working-with-the-docs-site)
+* [Screenshots](#screenshots)
 * [GraphQL API schema](#graphql-api-schema)
-
-## Language
-
-This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
-
-### Dictionary
-
-We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
-We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
-
-### English flavor
-Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
-
-### Commas
-
-Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
-
-### Serial commas
-
-Absolutely yes, yes, and yes.
-
-Serial commas are also known as 'Oxford commas'.
-
-### Active/passive voice
-
-Generally, use active voice. It's usually clearer and simpler.
-
-### Gender
-
-Always use ‘they’, never use ‘he’ or ‘she’.
-More info on writing about pronouns and in the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns).
-
-### Talking about YAML
-
-YAML looks more simple than it is.
-It takes some care and discipline to write about.
-See [Talking about YAML](./yaml.md) for complete guidance.
 
 ## Style and formatting
 
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
 
-### Consistency
+### Headings
 
-Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
+Ensure headings are always nested within any Markdown page (`# Page title`, `## Heading`,`### Heading`, `#### Heading`, etc.) throughout the docs, where the first is the page title. Be aware that the nesting rule can be broken on the way up. For example:
 
-### Heading capitalization
+```
+# Page title
 
-Use Sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
+Some text.
 
-_"The quick brown fox jumps over the lazy dog."_
+## Heading level 1
 
-The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
+More text.
 
-### Capital letters in proper names
+### Heading level 2
 
-Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
+Even more text.
 
-### Capital letters in UX elements
+#### Heading level 3
 
-Match the capitalization used in the Buildkite interface.
+...
 
-### Lists (bullet lists and numbered steps)
+#### Another heading level 3
 
-Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
+...
 
-See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
+## Another heading 1
 
-### Writing numbers
+...
+```
 
-Write out numbers up to 10, then use digits - '58 bugs in this script and just two hours to fix them all!'
-Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt, look [here](https://docs.microsoft.com/en-us/style-guide/numbers).
+> [!NOTE]
+> To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
 
-Do not use numbers in page headings. Only use numbers less than 10 in section headings.
-No restrictions on using numbers in the body of the text.
+Refer to [Heading capitalization in the Writing style guide](writing-style.md#heading-capitalization) for details on how to write and present headings in our docs.
 
+### UI elements
 
-### Referring to UI elements
+UI element reference are formatted in our docs as italics. Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize - e.g. `_Italicize this text_`
 
-UI elements should be italic. For example:
-
-To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
-
-> **Note:** Markdown supports two characters as its markup for itaclising text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
+Refer to [Referring to UI elements in the Writing style guide](writing-style.md#referring-to-ui-elements) for details on how to write and present UI elements in our docs.
 
 ### Time and date
 
@@ -117,7 +77,6 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
 | Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
 | Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
-
 
 ### Glossary of notable terms and their spelling
 
@@ -530,3 +489,9 @@ Steps for adding add an image to a documentation page:
 3. Compose relevant alt text for the image file using sentence case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
+
+## Talking about YAML
+
+YAML looks more simple than it is.
+It takes some care and discipline to write about.
+See [Talking about YAML](./yaml.md) for complete guidance.
