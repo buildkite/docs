@@ -15,7 +15,7 @@ Table of contents (main headings):
 
 ## Style and formatting
 
-This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
+This section covers the Markdown syntax associated with the [Style and formatting in the Writing style guide](writing-style.md#style-and-formatting).
 
 ### Headings
 
