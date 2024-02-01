@@ -17,14 +17,14 @@ This section covers everything related to the language and formatting used in Bu
 
 ### English flavor
 
-Use US English. As a highly multi-national team, here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
+Use US English. As a highly multi-national team, here is the list of the most notable differences between [Australian, American (US), and British English](https://blog.e2language.com/australian-english-vs-american-english-vs-british-english/) English to watch out for.
 
 ### Dictionary
 
 Buildkite's first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/) for US English. This is not a single source of truth, just a good starting/reference point.
 
 > [!NOTE]
-> The Buildkite docs build process uses [Vale](https://github.com/apps/vale-linter), a [linter](https://github.com/buildkite/docs#linting) with a file that contains a [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [Markdown linter](https://github.com/DavidAnson/markdownlint).
+> The Buildkite docs build process uses [Vale](https://github.com/apps/vale-linter), a [linter](/README.md#linting) with a file that contains a [custom list of words](/vale/styles/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [Markdown linter](https://github.com/DavidAnson/markdownlint).
 
 ### Commas
 
