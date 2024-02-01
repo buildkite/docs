@@ -1,6 +1,8 @@
 # Writing style guide
 
-Welcome to the Buildkite writing style guide. These guidelines provide details about the language and words used to write the Buildkite docs, as well as details about its writing style and format.
+Welcome to the Buildkite writing style guide.
+
+These guidelines provide details about the language and words used to write the Buildkite docs, as well as details about its writing style and format.
 If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
 For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).

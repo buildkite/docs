@@ -1,6 +1,8 @@
 # Markdown syntax style guide
 
-Welcome to the Buildkite Markdown syntax style guide. These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure and how to work with the site (useful to understand when adding new pages), and screenshots.
+Welcome to the Buildkite Markdown syntax style guide.
+
+These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure and how to work with the site (useful to understand when adding new pages), and screenshots.
 
 For details about the Markdown syntax used to render your writing, refer to the [Writing style guide](writing-style.md).
 
