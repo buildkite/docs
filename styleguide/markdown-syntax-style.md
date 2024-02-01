@@ -1,6 +1,6 @@
 # Markdown syntax style guide
 
-Welcome to the Buildkite Markdown syntax style guide. These are the guidelines about the specific Markdown syntax we use to write the docs.
+Welcome to the Buildkite Markdown syntax style guide. These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure (useful to understand when adding new pages), and screenshots.
 
 For details about the Markdown syntax used to render your writing, refer to the [Writing style guide](writing-style.md).
 
@@ -9,7 +9,9 @@ Table of contents (main headings):
 * [Code and filenames](#code-and-filenames)
 * [Working with the docs site](#working-with-the-docs-site)
 * [Screenshots](#screenshots)
+<!---
 * [GraphQL API schema](#graphql-api-schema)
+-->
 
 ## Style and formatting
 
@@ -17,7 +19,7 @@ This section covers the matters that go beyond language and provides guidelines 
 
 ### Headings
 
-Ensure headings are always nested within any Markdown page (`# Page title`, `## Heading`,`### Heading`, `#### Heading`, etc.) throughout the docs, where the first is the page title. Be aware that the nesting rule can be broken on the way up. For example:
+Ensure headings are always nested incrementally within any Markdown page (that is, `# Page title`, `## Heading`,`### Heading`, `#### Heading`, etc.) throughout the docs, where the first heading level is the page title. Be aware that this incremental nesting rule can be broken on the way up. For example:
 
 ```
 # Page title
@@ -56,12 +58,6 @@ UI element references are formatted using italics in our docs. Markdown supports
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#referring-to-ui-elements) for details on how to write and present UI elements in our docs.
 
-### Time and date
-
-Use 24hr time with hours and minutes, but not seconds. Include timezone. For example, 17:00 AEST
-
-More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
-
 ### Spacing after full stops
 
 **Question:** Should you use one or two spaces after end punctuation?
@@ -72,38 +68,11 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 
 ### Platform differences
 
+This table summarizes Markdown syntax differences across different platforms, distinguishing them from the Buildkite 'Docs'.
+
 |                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
-| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you’re not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
-| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
-
-### Glossary of notable terms and their spelling
-
-| Word                      | Usage                                                                                            |
-|---------------------------|--------------------------------------------------------------------------------------------------|
-| The Buildkite Agent/agent | When referring to the running process/piece of software as a whole                               |
-| `buildkite-agent`         | When referring to the CLI tool, visually should be presented in a code block                     |
-| Sign up/log in            | The action of signing up                                                                         |
-| Signup/login              | When referring to a page that enables signing up or to the signup process                        |
-| Time out/timeout          | Time out is a verb, timeout is a noun                                                            |
-| API, SSO, SAML            | Always capitalized                                                                               |
-| GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
-| Two-factor authentication | In short form 2FA |
-| Single sign-on            | In short form SSO                       |
-
-### Common trip-ups
-
-Linters cannot do all of the work for you, so please pay attention to the following cases:
-
-* **Their/they’re/there, your/you’re** - [check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
-* **Affect/effect** - affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change.
-* Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.
-
-### Headings
-
-No multi-sentence headings or full stops at the end of a sentence in page or sentence headings.
-Be consistent about heading levels - H1, H2, H3 - no jumping from H1 to H3 or H2 to H4.
+| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you're not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
 
 ## Code and filenames
 
@@ -178,7 +147,7 @@ Use escaping to prevent this.
 
 ## Working with the docs site
 
-Our docs website is a custom build. This section gives some guidance on working with the setup.
+Our docs website is a custom built one. This section gives some guidance on working with the setup.
 
 ### Markdown
 
