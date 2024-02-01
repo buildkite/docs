@@ -71,7 +71,7 @@ _The result is displayed by the XYZ window._
 * _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)\
 That is:\
 _The YAML migration settings is opened by selecting "Settings" > "YAML Migration"._\
-You could even make this sentence sound a little more like it's in the active voice by rearranging it to:\
+You could make this sentence sound a little more like it's in the active voice through a little rearrangement:\
 _Open the YAML migration settings by selecting "Settings" > "YAML Migration"._\
 However, the fully active voice version (above) is preferable for instructional step-by-step content like this.
 
