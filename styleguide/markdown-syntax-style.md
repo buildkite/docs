@@ -52,7 +52,7 @@ Even more text.
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
 
-Refer to [Heading capitalization in the Writing style guide](writing-style.md#heading-capitalization) for details on how to write and present headings in the Buildkite docs.
+Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
 ### UI elements
 
