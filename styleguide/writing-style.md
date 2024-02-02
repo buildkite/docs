@@ -138,7 +138,7 @@ See also what [Google](https://developers.google.com/style/lists#capitalization-
 Write out numbers up to 10, then use digits - '58 bugs in this script and just two hours to fix them all!'
 Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt, see what [Google](https://developers.google.com/style/numbers) and [Microsoft](https://docs.microsoft.com/en-us/style-guide/numbers) say about numbers.
 
-Do not use numbers in page headings. Only use numbers less than 10 in section headings.
+Avoid using numbers in page headings. Only use numbers less than 10 in section headings.
 No restrictions on using numbers in the body of the text.
 
 ### Time and date
