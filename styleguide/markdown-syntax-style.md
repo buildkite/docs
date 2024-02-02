@@ -21,7 +21,7 @@ This section covers the Markdown syntax associated with the [Style and formattin
 
 ### Headings
 
-Ensure headings are always nested incrementally within any Markdown page (that is, `# Page title`, `## Heading`,`### Heading`, `#### Heading`, etc.) throughout the docs, where the first heading level is the page title. Be aware that this incremental nesting rule can be broken on the way up. For example:
+Ensure headings are always nested incrementally within any Markdown page (that is, `# Page title`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs, where the first heading level is the page title. Be aware that this incremental nesting rule can be broken on the way up. For example:
 
 ```
 # Page title
