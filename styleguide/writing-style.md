@@ -5,7 +5,7 @@ Welcome to the Buildkite writing style guide.
 These guidelines provide details about the language and words used to write the Buildkite docs, as well as details about its writing style and format.
 If something isn't included in this guide, see the [Google developer documentation style guide](https://developers.google.com/style), followed by the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
-For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
+For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, as well as details on working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
 Table of contents (main headings):
 * [Language](#language)
@@ -13,7 +13,7 @@ Table of contents (main headings):
 
 ## Language
 
-This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
+This section covers everything related to the language, words, and formatting used in Buildkite documentation (including the website, to some extent).
 
 ### English flavor
 
@@ -88,7 +88,7 @@ More info on writing about pronouns and in both the [Google developer documentat
 
 ## Style and formatting
 
-This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
+This section covers the matters that go beyond language and provides guidelines for consistency in writing with a unified look.
 
 ### Consistency
 
@@ -136,7 +136,7 @@ See also what [Google](https://developers.google.com/style/lists#capitalization-
 ### Writing numbers
 
 Write out numbers up to 10, then use digits - '58 bugs in this script and just two hours to fix them all!'
-Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt, look [here](https://docs.microsoft.com/en-us/style-guide/numbers).
+Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt, see what [Google](https://developers.google.com/style/numbers) and [Microsoft](https://docs.microsoft.com/en-us/style-guide/numbers) say about numbers.
 
 Do not use numbers in page headings. Only use numbers less than 10 in section headings.
 No restrictions on using numbers in the body of the text.

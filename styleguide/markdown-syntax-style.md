@@ -4,7 +4,7 @@ Welcome to the Buildkite Markdown syntax style guide.
 
 These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure and how to work with the site (useful to understand when adding new pages), and screenshots.
 
-For details about the Markdown syntax used to render your writing, refer to the [Writing style guide](writing-style.md).
+For details about the language, words, and writing style and format used to write the Buildkite docs, refer to the [Writing style guide](writing-style.md).
 
 Table of contents (main headings):
 * [Style and formatting](#style-and-formatting)
