@@ -88,6 +88,8 @@
           path: "agent/v3/signed-pipelines"
         - name: "Tokens"
           path: "agent/v3/tokens"
+        - name: "Unclustered tokens"
+          path: "agent/v3/unclustered-tokens"
         - name: "Tracing"
           path: "agent/v3/tracing"
         - name: "Running on AWS"
