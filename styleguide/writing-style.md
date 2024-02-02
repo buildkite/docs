@@ -131,7 +131,7 @@ Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-
 
 Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
 
-See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
+See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about lists.
 
 ### Writing numbers
 
