@@ -102,7 +102,7 @@ _"The quick brown fox jumps over the lazy dog."_
 
 The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
-Do not create multi-sentence headings, or add full stops/periods or other punctuation at the end of a headings.
+Do not create multi-sentence headings, or add full stops/periods or other punctuation at the end of a heading.
 
 Refer to [Headings in the Markdown syntax guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
 
