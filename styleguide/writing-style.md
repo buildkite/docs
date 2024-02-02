@@ -3,7 +3,7 @@
 Welcome to the Buildkite writing style guide.
 
 These guidelines provide details about the language and words used to write the Buildkite docs, as well as details about its writing style and format.
-If something isn't included in this guide, see the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
+If something isn't included in this guide, see the [Google developer documentation style guide](https://developers.google.com/style), followed by the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
 For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
@@ -84,7 +84,7 @@ Passive voice is useful when you want to emphasize the object, for example when 
 ### Gender
 
 Always use ‘they’, never use ‘he’ or ‘she’.
-More info on writing about pronouns and in the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns).
+More info on writing about pronouns and in both the [Google developer documentation style guide](https://developers.google.com/style/pronouns#gender-neutral-pronouns) and [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/grammar/nouns-pronouns#pronouns-and-gender) on pronouns.
 
 ## Style and formatting
 
@@ -145,7 +145,7 @@ No restrictions on using numbers in the body of the text.
 
 Use 24hr time with hours and minutes, but not seconds. Include timezone. For example, 17:00 AEST
 
-More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
+More about this in the [Google developer documentation style guide](https://developers.google.com/style/dates-times).
 
 ### Spacing after full stops
 
