@@ -70,7 +70,7 @@ A little [historical background](https://www.onlinegrammar.com.au/the-grammar-fa
 
 ### Platform differences
 
-This table summarizes Markdown syntax differences across different platforms, distinguishing them from the Buildkite 'Docs'.
+This table summarizes Markdown syntax differences across different platforms, distinguishing them from the Buildkite Docs.
 
 |                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|

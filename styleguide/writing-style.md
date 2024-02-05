@@ -153,7 +153,7 @@ Refer to [Spacing after full stops in the Markdown syntax guide](markdown-syntax
 
 ### Platform differences
 
-This table summarizes writing style differences across different platforms, distinguishing them from the Buildkite 'Docs'.
+This table summarizes writing style differences across different platforms, distinguishing them from the Buildkite Docs.
 
 |                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
