@@ -54,17 +54,19 @@ Refer to [Headings in the Writing style guide](writing-style.md#headings) for de
 
 ### UI elements
 
-UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
+UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
 
 ### Spacing after full stops
 
-**Question:** Should you use one or two spaces after end punctuation?\
+**Question:** Should you use one or two spaces after end punctuation?<br/>
 **Answer:** One space.
 
-A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.\
-P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.
+A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
+
+> [!TIP]
+> As an aside, a line break followed by an additional empty line (effectively creating a new paragraph of text) requires at least two blank line breaks, creating one empty line.
 
 ### Platform differences
 
