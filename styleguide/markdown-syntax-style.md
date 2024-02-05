@@ -53,7 +53,7 @@ Refer to [Headings in the Writing style guide](writing-style.md#headings) for de
 
 ### UI elements
 
-UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize - e.g. `_Italicize this text_`
+UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
 
