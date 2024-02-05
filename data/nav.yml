@@ -296,7 +296,6 @@
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
     - name: "Clusters"
-      pill: "beta"
       children:
         - name: "Overview"
           path: "clusters/overview"
@@ -345,7 +344,6 @@
         - name: "Waterfall view"
           path: "pipelines/waterfall"
         - name: "Cluster queue metrics"
-          pill: "beta"
           path: "pipelines/cluster-queue-metrics"
 - name: "Test Analytics"
   path: "test-analytics"
@@ -426,7 +424,6 @@
               path: "apis/rest-api/builds"
             - name: "Clusters"
               path: "apis/rest-api/clusters"
-              pill: "beta"
             - name: "Emojis"
               path: "apis/rest-api/emojis"
             - name: "Jobs"
