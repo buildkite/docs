@@ -11,9 +11,6 @@ Table of contents (main headings):
 * [Code and filenames](#code-and-filenames)
 * [Working with the docs site](#working-with-the-docs-site)
 * [Screenshots](#screenshots)
-<!---
-* [GraphQL API schema](#graphql-api-schema)
--->
 
 ## Style and formatting
 
@@ -21,30 +18,30 @@ This section covers the Markdown syntax associated with the [Style and formattin
 
 ### Headings
 
-Ensure headings are always nested incrementally within any Markdown page (that is, `# Page title`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs, where the first heading level is the page title. Be aware that this incremental nesting rule can be broken on the way up. For example:
+Ensure headings are always nested incrementally within any Markdown page (that is, `# Heading (used as the page title)`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs. Be aware that this incremental nesting rule can be broken on the way up. For example:
 
 ```
-# Page title
+# Heading level 1 used as the page title
 
 Some text.
 
-## Heading level 1
+## Heading level 2
 
 More text.
 
-### Heading level 2
+### Heading level 3
 
 Even more text.
 
-#### Heading level 3
+#### Heading level 4
 
 ...
 
-#### Another heading level 3
+#### Another heading level 4
 
 ...
 
-## Another heading 1
+## Another heading 2
 
 ...
 ```
