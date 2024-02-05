@@ -78,7 +78,7 @@ This table summarizes Markdown syntax differences across different platforms, di
 
 ## Code and filenames
 
-This section deals with adding and properly formatting code in the documentation + naming files, pages, and their derivative URLs.
+This section deals with adding and properly formatting code in the documentation, as well as naming files, pages, and their derivative URLs.
 
 ### Code formatting
 
