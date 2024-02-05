@@ -3,6 +3,7 @@
 Welcome to the Buildkite Markdown syntax style guide.
 
 These guidelines provide details about the specific Markdown syntax used to write the Buildkite docs, as well as its file structure and how to work with the site (useful to understand when adding new pages), and screenshots.
+If something isn't included in this guide, see the [Google developer documentation style guide](https://developers.google.com/style), followed by the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
 
 For details about the language, words, and writing style and format used to write the Buildkite docs, refer to the [Writing style guide](writing-style.md).
 
