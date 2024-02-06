@@ -84,19 +84,19 @@ This section deals with adding and properly formatting code in the documentation
 
 The Buildkite docs uses the GitHub flavor of Markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
-For code or filenames as a part of a sentence, use "\`\" before and after the words that need to be marked as code. For example:
+For code or filenames as a part of a sentence, use a backtick "\`\" before and after the words that need to be marked as code. For example:
 
 ```md
 Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
 ```
-In Markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
 
-Do not use code fragments in page headings or section headings.
+> [!NOTE]
+> Do not use code fragments in page headings or section headings.
 
 ### Code blocks
 
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
-To add a code block, indent it using four (4) spaces or use 3 backticks (\`\`\`) before and after the code block.
+To add a code block, indent it using four (4) spaces or use three (3) backticks (\`\`\`) before and after the code block.
 
 ```
 Hello, world!
