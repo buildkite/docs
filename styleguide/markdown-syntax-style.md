@@ -74,7 +74,7 @@ This table summarizes Markdown syntax differences across different platforms, di
 
 |                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you're not using .localhost | Always full paths, check for HTTPS and that you’re not using .localhost |
+| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you're not using `localhost` | Always full paths, check for HTTPS and that you’re not using `localhost` |
 
 ## Code and filenames
 
