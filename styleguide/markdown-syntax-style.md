@@ -153,7 +153,7 @@ Use escaping to prevent this.
 
 ## Working with the docs site
 
-The Buildkite docs website is a custom built one. This section gives some guidance on working with the setup.
+The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
 
 ### Markdown
 
