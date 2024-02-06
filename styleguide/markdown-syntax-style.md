@@ -84,7 +84,11 @@ This section deals with adding and properly formatting code in the documentation
 
 The Buildkite docs uses the GitHub flavor of Markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
-For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
+For code or filenames as a part of a sentence, use "\`\" before and after the words that need to be marked as code. For example:
+
+```md
+Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
+```
 In Markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
 
 Do not use code fragments in page headings or section headings.
