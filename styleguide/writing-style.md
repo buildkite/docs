@@ -31,7 +31,7 @@ Buildkite's first-call dictionary is [Merriam Webster](https://www.merriam-webst
 
 Keep it clean and uncluttered. Use commas for clarity, not decoration.
 
-Absolutely yes, yes, and yes. Use serial commas _when required_ - typically when listing items in a sentence.
+Absolutely yes, yes, and yes. Use serial commas _when required_—typically when listing items in a sentence.
 
 Serial commas are also known as 'Oxford commas'.
 
