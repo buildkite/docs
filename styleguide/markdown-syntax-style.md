@@ -82,16 +82,16 @@ This section deals with adding and properly formatting code in the documentation
 
 ### Code formatting
 
-The Buildkite docs uses the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
+The Buildkite docs uses the GitHub flavor of Markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
 For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
-In markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
+In Markdown this sentence looks like this: " Each command step can run either a shell command like \`npm install\`, or an executable file or script like \`build.sh\`. "
 
 Do not use code fragments in page headings or section headings.
 
 ### Code blocks
 
-A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
+A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 To add a code block, indent it using four (4) spaces or use 3 backticks (\`\`\`) before and after the code block.
 
 ```
@@ -221,14 +221,14 @@ Use the `vale off` syntax before a phrase that needs to be bypassed by the linte
 
 ### Markdown linting
 
-A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
+A [Markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
 
-The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
+The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
 
 ### Links
 
-Use standard markdown links syntax for both internal and external links.
+Use standard Markdown links syntax for both internal and external links.
 
 Internal links need to start with `/docs`, for example:
 
@@ -274,7 +274,7 @@ So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `ap
 ### Custom elements
 
 The Buildkite docs has a few custom scripts for adding useful elements that are missing in Markdown.
-To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
+To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not Markdown (more on this in [Note blocks](#note-blocks)).
 
 #### Beta flags
 
@@ -296,7 +296,7 @@ Adding the class `has-pill-beta` to any element will append the beta pill. This 
 
 Table of contents are automatically generated based on \##\-level headings.
 
-You can omit a table of contents by adding some additional metadata to a markdown template using the following YAML front matter:
+You can omit a table of contents by adding some additional metadata to a Markdown template using the following YAML front matter:
 
 ```yaml
 ---
