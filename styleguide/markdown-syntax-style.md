@@ -7,7 +7,7 @@ If something isn't included in this guide, see the [Google developer documentati
 
 For details about the language, words, and writing style and format used to write the Buildkite docs, refer to the [Writing style guide](writing-style.md).
 
-Table of contents (main headings):
+Table of contents:
 * [Style and formatting](#style-and-formatting)
 * [Code and filenames](#code-and-filenames)
 * [Working with the docs site](#working-with-the-docs-site)
@@ -60,7 +60,8 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 ### Spacing after full stops
 
-**Question:** Should you use one or two spaces after end punctuation?<br/>
+**Question:** Should you use one or two spaces after end punctuation?
+
 **Answer:** One space.
 
 A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
@@ -147,7 +148,7 @@ steps:
         command: ".buildkite/steps/brakeman"
 ```
 
-Here it is also necessary to use emoji escaping as the documentation website considers custom emojis and expressions surrounded by colons in code snippets to be images and will try to render them into png image links within the code snippets. For eample,`:aws:` will be rendered as: `"<img class="emoji" title="aws" src="https://buildkiteassets.com/emojis/img-buildkite-64/aws.png" draggable="false"/>`.
+Here it is also necessary to use emoji escaping as the documentation website considers custom emojis and expressions surrounded by colons in code snippets to be images and will try to render them into png image links within the code snippets. For example,`:aws:` will be rendered as: `"<img class="emoji" title="aws" src="https://buildkiteassets.com/emojis/img-buildkite-64/aws.png" draggable="false"/>`.
 
 Use escaping to prevent this.
 

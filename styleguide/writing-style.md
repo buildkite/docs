@@ -7,7 +7,8 @@ If something isn't included in this guide, see the [Google developer documentati
 
 For details about the Markdown syntax used to render your writing as well as the Buildkite docs' file structure, as well as details on working with the site, and using screenshots, refer to the [Markdown syntax style guide](markdown-syntax-style.md).
 
-Table of contents (main headings):
+Table of contents:
+
 * [Language](#language)
 * [Style and formatting](#style-and-formatting)
 
@@ -28,9 +29,7 @@ Buildkite's first-call dictionary is [Merriam Webster](https://www.merriam-webst
 
 ### Commas
 
-Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
-
-### Serial commas
+Keep it clean and uncluttered. Use commas for clarity, not decoration.
 
 Absolutely yes, yes, and yes. Use serial commas _when required_ - typically when listing items in a sentence.
 
@@ -54,28 +53,54 @@ Whenever possible, use active voice, which is generally clearer and simpler.
 
 Conventional/natural English sentence word order is subject > verb > object, where the subject or object could be clauses in their own right.
 
-_Active voice_ typically follows this natural word order and is generally easier for readers to follow. More specifically, with active voice, the subject comes before the main verb/action in a sentence.\
-For example:
-* _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)\
-That is:\
-_The XYZ window displays the result._
-* _Select "Settings" > "YAML Migration"_ (subject clause) _to open_ (action) _the YAML migration settings._ (object)\
-That is:\
-_Select "Settings" > "YAML Migration" to open the YAML migration settings._
+#### Active voice
 
-Passive voice is when the object of a sentence comes before its (main) verb/action.\
+_Active voice_ typically follows this natural word order and is generally easier for readers to follow. More specifically, with active voice, the subject comes before the main verb/action in a sentence.
+
+Examples:
+
+* _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)
+
+  That is:
+
+  _The XYZ window displays the result._
+
+* _Select "Settings" > "YAML Migration"_ (subject clause) _to open_ (action) _the YAML migration settings._ (object)
+
+  That is:
+
+  _Select "Settings" > "YAML Migration" to open the YAML migration settings._
+
+#### Passive voice
+
+Passive voice is when the object of a sentence comes before its (main) verb/action.
+
 Following on from the examples above (written in passive voice):
-* _The result_ (object) _is displayed_ (verb) _by the XYZ window._ (subject clause)\
-That is:\
-_The result is displayed by the XYZ window._
-* _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)\
-That is:\
-_The YAML migration settings is opened by selecting "Settings" > "YAML Migration"._\
-You could make this sentence sound a little more like it's in the active voice through a little rearrangement:\
-_Open the YAML migration settings by selecting "Settings" > "YAML Migration"._\
-However, the fully active voice version (above) is preferable for instructional step-by-step content like this.
 
-Aim to use active voice in instructional step-by-step content and avoid passive voice.\
+Examples:
+
+* _The result_ (object) _is displayed_ (verb) _by the XYZ window._ (subject clause)
+
+  That is:
+
+  _The result is displayed by the XYZ window._
+
+* _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)
+
+  That is:
+
+  _The YAML migration settings is opened by selecting "Settings" > "YAML Migration"._
+
+  You could make this sentence sound a little more like it's in the active voice through a little rearrangement:
+
+  _Open the YAML migration settings by selecting "Settings" > "YAML Migration"._
+
+  However, the fully active voice version (above) is preferable for instructional step-by-step content like this.
+
+#### Conclusion on active/passive voice usage
+
+Aim to use active voice in instructional step-by-step content and avoid passive voice.
+
 Passive voice is useful when you want to emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
 
 > [!TIP]
@@ -98,7 +123,7 @@ Keep your writing consistent with itself and other docs. This means abbreviation
 
 Use sentence case in all headings:
 
-_"The quick brown fox jumps over the lazy dog."_
+_The quick brown fox jumps over the lazy dog_
 
 The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
