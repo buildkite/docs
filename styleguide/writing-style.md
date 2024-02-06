@@ -31,7 +31,7 @@ Buildkite's first-call dictionary is [Merriam Webster](https://www.merriam-webst
 
 Keep it clean and uncluttered. Use commas for clarity, not decoration.
 
-Absolutely yes, yes, and yes. Use serial commas _when required_—typically when listing items in a sentence.
+Absolutely yes, yes, and yes—use serial commas _when required_—typically when listing items in a sentence.
 
 Serial commas are also known as 'Oxford commas'.
 
@@ -154,7 +154,7 @@ Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-
 
 ### Lists (bullet lists and numbered steps)
 
-Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
+Capitalize the first word—no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop/period.
 
 See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about lists.
 

@@ -8,6 +8,7 @@ If something isn't included in this guide, see the [Google developer documentati
 For details about the language, words, and writing style and format used to write the Buildkite docs, refer to the [Writing style guide](writing-style.md).
 
 Table of contents:
+
 * [Style and formatting](#style-and-formatting)
 * [Code and filenames](#code-and-filenames)
 * [Working with the docs site](#working-with-the-docs-site)
