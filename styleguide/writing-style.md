@@ -32,7 +32,7 @@ Keep it clean and uncluttered. If the sentence can live without that comma - lea
 
 ### Serial commas
 
-Absolutely yes, yes, and yes. Use serial commas _when required_ - typically when listing items in a sentence.
+Absolutely yes, yes, and yes. Use serial commas _when required_—typically when listing items in a sentence.
 
 Serial commas are also known as 'Oxford commas'.
 
