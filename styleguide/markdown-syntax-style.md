@@ -229,7 +229,6 @@ A [Markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Bu
 
 The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
-
 ### Links
 
 Use standard Markdown links syntax for both internal and external links.
@@ -310,15 +309,14 @@ toc: false
 
 #### Callouts
 
-Currently, the standard Markdown blockquote syntax is combined with particular
-emoji to create callouts for particular sections of text:
+Currently, the standard Markdown blockquote syntax is combined with particular emoji to create callouts for particular sections of text:
 
 Regular info callout ("purple"):
 
 ```
 >📘 A callout title
 > Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becames a new paragraph inside the callout.
+> Every line break after the first becomes a new paragraph inside the callout.
 ```
 
 This will be rendered as the following HTML in the site:
@@ -327,7 +325,7 @@ This will be rendered as the following HTML in the site:
 <section class="callout callout--info">
   <p class="callout__title" id="a-callout-title"📘 A callout title</p>
   <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
-  <p>Every line break after the first becames a new paragraph inside the callout.</p>
+  <p>Every line break after the first becomes a new paragraph inside the callout.</p>
 </section>
 ```
 
