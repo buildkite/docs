@@ -2,33 +2,54 @@
 
 The source files for the [Buildkite Documentation](https://buildkite.com/docs).
 
-To contribute, send a pull request! :heart:
+To contribute, please send a pull request! :heart:
 
 ## Development
 
 ### Before you start
 
-For containerized development, you need Docker and Docker Compose.
-Most desktop installations of Docker include Docker Compose by default.
-On some platforms, you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
+There are two ways to develop and contribute to the Buildkite Documentation—containerized and non-containerized.
 
-For non-containerized development, you need Ruby.
-See [`.ruby-version`](.ruby-version) for the current required version
-or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the correct version of Ruby
+#### Containerized development
+
+You will need [Docker](https://www.docker.com/) and Docker Compose.
+Most desktop installations of Docker include Docker Compose by default.
+On some platforms (for example, Linux-based ones), you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
+
+#### Non-containerized development
+
+You will need both Ruby and Yarn
+
+See [`.ruby-version`](.ruby-version) for the current required version. Use/install [rbenv](https://github.com/rbenv/rbenv) to install the correct version of Ruby.
+
+Ensure you have installed [Yarn](https://classic.yarnpkg.com/en/) too. If you use macOS, [you can do this conveniently with Homebrew](https://formulae.brew.sh/formula/yarn).
+
+#### Get the Buildkite Docs source
+
+Clone the Buildkite Docs source locally. To do so, run these commands:
+
+```bash
+git clone git@github.com:buildkite/docs.git
+
+cd docs
+
+git submodule update --init
+```
 
 ### Run the development server
 
-1. Get the source. Run:
+After completing the relevant 'Before you start' steps above:
+
+1. Build and run your local Buildkite Docs development server environment.
+
+   For containerized development, run the following:
 
    ```bash
-   git clone git@github.com:buildkite/docs.git
-   cd docs
-   git submodule update --init
+   # Start the app on http://localhost:3000/
+   docker-compose up --build
    ```
 
-2. Build and run the server.
-
-   For non-containerized development, run:
+   For non-containerized development, run the following:
 
    ```bash
    # Check that you have Xcode Command Line Tools installed - required to build dependencies
@@ -44,15 +65,14 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
    foreman start
    ```
 
-   Or with Docker, run:
+   **Note:** After stopping the non-containerized server, simply run `foreman start` to re-start the server again.
 
-   ```bash
-   # Start the app on http://localhost:3000/
-   docker-compose up --build
-   ```
+1. Open `http://localhost:3000` to preview the docs site.
 
-Open `http://localhost:3000` to preview the docs site.
-After modifying a page, refresh to see your changes.
+1. After saving your modifications to a page, refresh the relevant page on this site to see your changes.
+
+> [!NOTE]
+> If you ever make more significant changes than just page updates (for example, adding a new page), you may need to stop and restart the Buildkite Docs development server to see these changes.
 
 ## Updating `buildkite-agent` CLI docs
 
