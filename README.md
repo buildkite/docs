@@ -142,7 +142,7 @@ The navigation is split into the following files:
 
 A combined navigation is generated when the application starts.
 
-To update the GraphQL docs, follow the [style guide](/styleguide/STYLE.md#graphql-api-schemas).
+<!-- To update the GraphQL docs, follow the [style guide](/styleguide/STYLE.md#graphql-api-schemas). -->
 
 Otherwise, to update the general navigation:
 
