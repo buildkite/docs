@@ -74,13 +74,65 @@ UI element references are formatted using italics in the Buildkite docs. Markdow
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
 
-### Platform differences
+### Links
 
-This table summarizes Markdown syntax differences across different platforms, distinguishing them from the Buildkite Docs.
+#### Internal links to other pages
 
-|                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
-|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| Links                | Relative paths to other docs, full paths to anything else | Always full paths, check for HTTPS and that you're not using `localhost` | Always full paths, check for HTTPS and that you’re not using `localhost` |
+From within the Buildkite Docs, when linking to other pages within the Buildkite Docs, use relative (not absolute) URL/links. These relative links start from the `/docs` part of the URL.
+
+For example:
+
+```
+Learn more about [environment variables](/docs/pipelines/environment-variables).
+```
+
+Do not make these links absolute ones. For example, avoid absolute links like:
+
+```
+Learn more about [environment variables](https://buildkite.com/docs/pipelines/environment-variables).
+```
+
+or
+
+```
+Learn more about [environment variables](http://localhost:3000//docs/pipelines/environment-variables).
+```
+
+the latter of which would only work in your local Buildkite Docs development server environment, and be broken anywhere else.
+
+#### Internal anchor links
+
+From within the Buildkite Docs, when linking to headings on other pages within the Buildkite docs, when linking to an H2-level heading, append the section's name (in [kebab case](https://en.wikipedia.org/wiki/Letter_case#Kebab_case) following a `#`) to the main page link. For example:
+`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`. These parts of URLs downstream of (and including) the `#` are known as URL fragments.
+
+When linking to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the `#` that appears when you hover your mouse pointer over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it (again in kebab case). The result will be a longer link. For example:
+
+`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
+
+Here the H2-level link for `## Environment variable precedence` is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for `### Job environment` is appended as `-job-environment`.
+
+> [!TIP]
+> A quick way to obtain the URL fragment of a page heading within the Buildkite Docs is to hover your mouse pointer over the heading, when the link icon appears to the left of the heading, select it and then copy of the URL fragment from your browser's URL field.
+> Alternatively, select the relevant heading from the _On this page_ section of the page and copy the URL fragment from your browser's URL field.
+
+#### External links
+
+From within the Buildkite Docs, when linking to other pages/URLs on external sites, always use the full/absolute URL. This includes other Buildkite sites (that is, the main web site), Buildkite blog, Buildkite changelogs, Twitter/X. For example, use external links like:
+
+The Buildkite home page:
+```
+https://buildkite.com/home
+```
+
+Buildkite blog:
+```
+https://buildkite.com/blog
+```
+
+Wikipedia entries:
+```
+https://en.wikipedia.org/wiki/Twitter
+```
 
 ## Code and filenames
 
@@ -234,27 +286,6 @@ Use the `vale off` syntax before a phrase that needs to be bypassed by the linte
 A [Markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
 
 The enabled Markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
-
-### Links
-
-Use standard Markdown links syntax for both internal and external links.
-
-Internal links need to start with `/docs`, for example:
-
-```
-Read more about [environment variables](/docs/pipelines/environment-variables)
-```
-
-### Anchor links
-
-To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:
-`/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
-
-If you need to create a link to an H3-level heading, start with an H2-level anchor link. Such links are generated automatically from the section title, and are viewable in the # that appears when you mouse over the heading. Add a `-` to the H2-level anchor link, and append the full name of the H3-level title to it. The result will be a long link. For example:
-
-`/docs/pipelines/environment-variables#environment-variable-precedence-job-environment`
-
-Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.
 
 ### Content reuse (snippets)
 
