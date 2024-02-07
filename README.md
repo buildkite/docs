@@ -18,7 +18,7 @@ On some platforms (for example, Linux-based ones), you may need to prefix `docke
 
 #### Non-containerized development
 
-You will need both Ruby and Yarn
+You will need both Ruby and Yarn.
 
 See [`.ruby-version`](.ruby-version) for the current required version. Use/install [rbenv](https://github.com/rbenv/rbenv) to install the correct version of Ruby.
 
