@@ -104,13 +104,13 @@ rake graphql:generate
 
 ## Linting
 
-We spell-check the docs (American English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
+We spell-check the docs (US English) and run a few automated checks for repeated words, common errors, and markdown and filename inconsistencies.
 
 You can run most of these checks with `./scripts/vale.sh`.
 
-If you've added a new valid word that showing up as a spelling error, add it to `vale/vocab.txt`.
+If you've added a new valid word that showing up as a spelling error, add it to `./vale/styles/vocab.txt`.
 
-## Style guide
+## Style guides
 
 Our documentation is based on the principles of common sense, clarity, and brevity.
 
