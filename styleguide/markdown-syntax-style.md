@@ -53,22 +53,26 @@ Even more text.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
+### New paragraphs
+
+To create a new paragraph of text, add two line breaks at the end of the last character of the previous paragraph, effectively creating an additional empty line, and continue with the new paragraph.
+
+> [!NOTE]
+> Do not attempt to create single line breaks within a paragraph of text. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
+
+### Spacing after the end of a sentence
+
+**Question:** Should you use one, two or more spaces after punctuation at the end of a sentence?
+
+**Answer:** One space.
+
+Here is some [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
+
 ### UI elements
 
 UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
-
-### Spacing after full stops
-
-**Question:** Should you use one or two spaces after end punctuation?
-
-**Answer:** One space.
-
-A little [historical background](https://www.onlinegrammar.com.au/the-grammar-factor-spacing-after-end-punctuation-capitals/) on why this is even a valid question.
-
-> [!TIP]
-> As an aside, a line break followed by an additional empty line (effectively creating a new paragraph of text) requires at least two blank line breaks, creating one empty line.
 
 ### Platform differences
 
