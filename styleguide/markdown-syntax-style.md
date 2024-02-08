@@ -100,7 +100,7 @@ Learn more about [environment variables](http://localhost:3000/docs/pipelines/en
 
 the latter of which would only work in your local Buildkite Docs development server environment, and be broken anywhere else.
 
-**Why relative links?** Relative links behave the same way when used within the Buildkite Docs development server environment (locally) as they do in the official Buildkite docs. Absolute links (locally) would lead to hte official Buildkite docs site, impairing the local development experience. Also, if any parts of the URL change (the base, while unlikely or a fundamental part of the URL path), it will be easier to maintain these links (for example, via a global search-and-replacement throughout the docs source).
+**Why relative links?** Relative links behave the same way when used within the Buildkite Docs development server environment ('local environment') as they do in the official Buildkite docs. Absolute links accessed from the local environment would lead to pages in the official Buildkite docs site, impairing the local development experience. Also, if any parts of the URL change (the base/parts of the domain, while unlikely or a fundamental part of the URL path), it would be easier to maintain these links (for example, via a global search-and-replacement throughout the docs source), than having to search and replace Buildkite Docs URLs containing `buildkite.com`, some of which may not be internal links (see [below](#external-links)).
 
 #### Internal anchor links
 
