@@ -101,7 +101,16 @@ Examples:
 
 Aim to use active voice in instructional step-by-step content and avoid passive voice.
 
-Passive voice is useful when you want to emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
+Passive voice is useful when you want to:
+
+- Emphasize the object, for example when describing the consequence of an activity in the previous sentence. However, stick to active voice for such sentences unless the object requires emphasis.
+- Be less accusatory on the reader (usually referred to in the 2nd person 'you'). For example, compare the less accusatory version of this passive voice sentence:
+
+  _The system crashed when the red button was pressed (by you)._
+
+  Versus its more active form:
+
+  _The system crashed when you pressed the red button._
 
 > [!TIP]
 > While identifying active/passive voice usage can sometimes be tricky, as a general principle, if you find yourself writing "by _verb/action word_" within a lot of your sentences, try flipping the subject and object parts of these sentences around when re-writing them.
