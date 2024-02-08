@@ -9,10 +9,10 @@ For details about the language, words, and writing style and format used to writ
 
 Table of contents:
 
-* [Style and formatting](#style-and-formatting)
-* [Code and filenames](#code-and-filenames)
-* [Working with the docs site](#working-with-the-docs-site)
-* [Screenshots](#screenshots)
+- [Style and formatting](#style-and-formatting)
+- [Code and filenames](#code-and-filenames)
+- [Working with the docs site](#working-with-the-docs-site)
+- [Screenshots](#screenshots)
 
 ## Style and formatting
 
@@ -282,7 +282,7 @@ Each command step can run either a shell command like `npm install`, or an execu
 #### Code blocks
 
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
-To add a code block, indent it using four (4) spaces or use three (3) backticks (\`\`\`) before and after the code block.
+To add a code block, use three (3) backticks (\`\`\`) before and after the code block.
 
 ```
 Hello, world!

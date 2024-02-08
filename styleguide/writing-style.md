@@ -9,8 +9,8 @@ For details about the Markdown syntax used to render your writing as well as the
 
 Table of contents:
 
-* [Language](#language)
-* [Style and formatting](#style-and-formatting)
+- [Language](#language)
+- [Style and formatting](#style-and-formatting)
 
 ## Language
 
@@ -42,8 +42,8 @@ Serial commas are also known as 'Oxford commas'.
 
 How many people are being referred to in each of these sentences?
 
-* In sentence 1, in addition to me, there are two more people involved: Fred and Wilma, both of whom happen to be my parents.
-* In sentence 2, in addition to me, there are four more people involved: my parents (whose names are not mentioned), as well as Fred, and Wilma.
+- In sentence 1, in addition to me, there are two more people involved: Fred and Wilma, both of whom happen to be my parents.
+- In sentence 2, in addition to me, there are four more people involved: my parents (whose names are not mentioned), as well as Fred, and Wilma.
 
 Therefore, use serial commas to distinguish individual items in a list from those which are not.
 
@@ -59,13 +59,13 @@ _Active voice_ typically follows this natural word order and is generally easier
 
 Examples:
 
-* _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)
+- _The XYZ window_ (subject) _displays_ (verb) _the result._ (object)
 
   That is:
 
   _The XYZ window displays the result._
 
-* _Select "Settings" > "YAML Migration"_ (subject clause) _to open_ (action) _the YAML migration settings._ (object)
+- _Select "Settings" > "YAML Migration"_ (subject clause) _to open_ (action) _the YAML migration settings._ (object)
 
   That is:
 
@@ -79,13 +79,13 @@ Following on from the examples above (written in passive voice):
 
 Examples:
 
-* _The result_ (object) _is displayed_ (verb) _by the XYZ window._ (subject clause)
+- _The result_ (object) _is displayed_ (verb) _by the XYZ window._ (subject clause)
 
   That is:
 
   _The result is displayed by the XYZ window._
 
-* _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)
+- _The YAML migration settings_ (object) _is opened_ (action) _by selecting "Settings" > "YAML Migration"._ (subject clause)
 
   That is:
 
@@ -129,9 +129,9 @@ More info on writing about pronouns and in both the [Google developer documentat
 
 Linters cannot do all of the work for you, so please pay attention to the following cases:
 
-* **Their/they’re/there, your/you’re:** [Check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
-* **Affect/effect:** Affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change.
-* Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.
+- **Their/they’re/there, your/you’re:** [Check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
+- **Affect/effect:** Affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change.
+- Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.
 
 ## Style and formatting
 
@@ -157,8 +157,8 @@ Refer to [Headings in the Markdown syntax style guide](markdown-syntax-style.md#
 
 Only use Title Case (initial capital letters) for the name of the product (product names), and match capital letter usage in product names as an organization would use them in these products. For example:
 
-* 'Docker Compose overview' and not 'Docker Compose Overview' 
-* 'GitHub organization' and not 'GitHub Organization'
+- 'Docker Compose overview' and not 'Docker Compose Overview' 
+- 'GitHub organization' and not 'GitHub Organization'
 
 > [!NOTE]
 > Avoid using Title Case for product features, that is, when mentioning or describing them in documentation.
@@ -180,8 +180,8 @@ Capitalize the first word—no full stops at the end if it's not a full sentence
 
 In general:
 
-* Use bullet lists when presenting an unordered list of individual items.
-* Use numbered steps when presenting a sequence of instructions/steps that need to be followed.
+- Use bullet lists when presenting an unordered list of individual items.
+- Use numbered steps when presenting a sequence of instructions/steps that need to be followed.
 
 See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about lists.
 
