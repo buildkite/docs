@@ -111,6 +111,28 @@ Passive voice is useful when you want to emphasize the object, for example when 
 Always use ‘they’, never use ‘he’ or ‘she’.
 More info on writing about pronouns and in both the [Google developer documentation style guide](https://developers.google.com/style/pronouns#gender-neutral-pronouns) and [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/grammar/nouns-pronouns#pronouns-and-gender) on pronouns.
 
+### Glossary of notable terms and their spelling
+
+| Word                      | Usage                                                                                            |
+|---------------------------|--------------------------------------------------------------------------------------------------|
+| The Buildkite Agent/agent | When referring to the running process/piece of software as a whole                               |
+| `buildkite-agent`         | When referring to the CLI tool, visually should be presented in a code block                     |
+| Sign up/log in            | The action of signing up (that is, the verb form of these terms)                                                                         |
+| Signup/login              | When referring to a page that enables signing up or to the signup process (that is, the adjective or noun form of these terms)                       |
+| Time out/timeout          | Time out is a verb, timeout is a noun or adjective                                                            |
+| API, SSO, SAML            | Always capitalized                                                                               |
+| GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
+| Two-factor authentication | In short form 2FA |
+| Single sign-on            | In short form SSO                       |
+
+### Common trip-ups
+
+Linters cannot do all of the work for you, so please pay attention to the following cases:
+
+* **Their/they’re/there, your/you’re:** [Check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
+* **Affect/effect:** Affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change.
+* Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.
+
 ## Style and formatting
 
 This section covers the matters that go beyond language and provides guidelines for consistency in writing with a unified look.
@@ -207,25 +229,3 @@ And a troubleshooting callout looks like this:
 ![Troubleshooting/warning callout](../images/styleguides/callout-troubleshooting.png)
 
 Refer to [Callouts in the Markdown syntax style guide](markdown-syntax-style.md#callouts) for details on how to write and present lists in the Buildkite docs.
-
-### Glossary of notable terms and their spelling
-
-| Word                      | Usage                                                                                            |
-|---------------------------|--------------------------------------------------------------------------------------------------|
-| The Buildkite Agent/agent | When referring to the running process/piece of software as a whole                               |
-| `buildkite-agent`         | When referring to the CLI tool, visually should be presented in a code block                     |
-| Sign up/log in            | The action of signing up (that is, the verb form of these terms)                                                                         |
-| Signup/login              | When referring to a page that enables signing up or to the signup process (that is, the adjective or noun form of these terms)                       |
-| Time out/timeout          | Time out is a verb, timeout is a noun or adjective                                                            |
-| API, SSO, SAML            | Always capitalized                                                                               |
-| GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
-| Two-factor authentication | In short form 2FA |
-| Single sign-on            | In short form SSO                       |
-
-### Common trip-ups
-
-Linters cannot do all of the work for you, so please pay attention to the following cases:
-
-* **Their/they’re/there, your/you’re:** [Check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
-* **Affect/effect:** Affect is a verb, effect is a noun. When you affect something, you’re impacting or changing the thing. When you have an effect, it’s the outcome or result of a change.
-* Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.

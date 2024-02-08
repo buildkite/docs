@@ -194,7 +194,7 @@ Any other emoji will render blockquotes as normal.
 
 ### Tables
 
-### Two-column tables
+#### Two-column tables
 
 To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
 
