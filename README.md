@@ -114,7 +114,7 @@ If you've added a new valid word that showing up as a spelling error, add it to 
 
 Our documentation is based on the principles of common sense, clarity, and brevity.
 
-The [writing](/styleguide/writing-style.md) and [Markdown syntax](/styleguide/markdown-syntax-style.md) style guides should provide you a general idea and an insight into our language and writing style, as well as the Markdown syntax we use (including custom formatting elements).
+The [writing](/styleguides/writing-style.md) and [Markdown syntax](/styleguides/markdown-syntax-style.md) style guides should provide you a general idea and an insight into our language and writing style, as well as the Markdown syntax we use (including custom formatting elements).
 
 ## Search index
 
