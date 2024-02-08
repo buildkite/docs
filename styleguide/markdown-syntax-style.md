@@ -95,10 +95,12 @@ Learn more about [environment variables](https://buildkite.com/docs/pipelines/en
 or
 
 ```
-Learn more about [environment variables](http://localhost:3000//docs/pipelines/environment-variables).
+Learn more about [environment variables](http://localhost:3000/docs/pipelines/environment-variables).
 ```
 
 the latter of which would only work in your local Buildkite Docs development server environment, and be broken anywhere else.
+
+**Why relative links?** Relative links behave the same way when used within the Buildkite Docs development server environment (locally) as they do in the official Buildkite docs. Absolute links (locally) would lead to hte official Buildkite docs site, impairing the local development experience. Also, if any parts of the URL change (the base, while unlikely or a fundamental part of the URL path), it will be easier to maintain these links (for example, via a global search-and-replacement throughout the docs source).
 
 #### Internal anchor links
 
