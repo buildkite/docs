@@ -201,9 +201,9 @@ Use 24hr time with hours and minutes, but not seconds. Include timezone. For exa
 
 More about this in the [Google developer documentation style guide](https://developers.google.com/style/dates-times).
 
-### Spacing after full stops
+### Spacing after the end of a sentence
 
-Refer to [Spacing after full stops in the Markdown syntax style guide](markdown-syntax-style.md#spacing-after-full-stops) for more details about this.
+Refer to [Spacing after the end of a sentence in the Markdown syntax style guide](markdown-syntax-style.md#spacing-after-the-end-of-a-sentence) for more details about this.
 
 ### Platform differences
 
