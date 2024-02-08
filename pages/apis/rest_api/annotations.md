@@ -65,7 +65,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   -d '{
     "body": "Hello world!",
     "style": "info",
-    "context": "greetings"
+    "context": "greeting"
   }'
 ```
 
@@ -101,21 +101,21 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr>
     <th><code>style</code></th>
     <td>
-      The style of the annotation. Can be `success`, `info`, `warning` or `error`
+      The style of the annotation. Can be <code>success</code>, <code>info</code>, <code>warning</code> or <code>error</code>.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"info"</code></p>
     </td>
   </tr>
   <tr>
     <th><code>context</code></th>
     <td>
-      A string value by which to identify the annotation on the build. Only one annotation per build may have any given context value. Useful when appending existing annotations.
+      A string value by which to identify the annotation on the build. This is useful when appending to an existing annotation. Only one annotation per build may have any given context value.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>"coverage"</code></p>
     </td>
   </tr>
   <tr>
     <th><code>append</code></th>
     <td>
-      Whether to append the given body onto the annotation with the same context.
+      Whether to append the given <code>body</code> onto the annotation with the same context.
       <p class="Docs__api-param-eg"><em>Example:</em> <code>true</code></p>
     </td>
   </tr>
