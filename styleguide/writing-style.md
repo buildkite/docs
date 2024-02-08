@@ -129,7 +129,7 @@ The standard case used in English prose. That is, only the first word is capital
 
 Do not create multi-sentence headings, or add full stops/periods or other punctuation at the end of a heading.
 
-Refer to [Headings in the Markdown syntax guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
+Refer to [Headings in the Markdown syntax style guide](markdown-syntax-style.md#headings) for details on how to implement headings in Markdown.
 
 ### Product Names (and product features)
 
@@ -150,13 +150,20 @@ To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 > [!NOTE]
 > Match the capitalization used in the Buildkite interface, even if title (or any other) case has been used for product features.
 
-Refer to [UI elements in the Markdown syntax guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in the Buildkite docs.
+Refer to [UI elements in the Markdown syntax style guide](markdown-syntax-style.md#ui-elements) for details on how to write and present UI elements in the Buildkite docs.
 
 ### Lists (bullet lists and numbered steps)
 
 Capitalize the first word—no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop/period.
 
+In general:
+
+* Use bullet lists when presenting an unordered list of individual items.
+* Use numbered steps when presenting a sequence of instructions/steps that need to be followed.
+
 See also what [Google](https://developers.google.com/style/lists#capitalization-and-end-punctuation) and [Microsoft](https://learn.microsoft.com/en-us/style-guide/scannable-content/lists#punctuation) say about lists.
+
+Refer to [Lists in the Markdown syntax style guide](markdown-syntax-style.md#lists) for details on how to write and present lists in the Buildkite docs.
 
 ### Writing numbers
 
@@ -174,7 +181,7 @@ More about this in the [Google developer documentation style guide](https://deve
 
 ### Spacing after full stops
 
-Refer to [Spacing after full stops in the Markdown syntax guide](markdown-syntax-style.md#spacing-after-full-stops) for more details about this.
+Refer to [Spacing after full stops in the Markdown syntax style guide](markdown-syntax-style.md#spacing-after-full-stops) for more details about this.
 
 ### Platform differences
 
@@ -184,6 +191,22 @@ This table summarizes writing style differences across different platforms, dist
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
 | Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
+
+### Callouts
+
+Callouts are also known as admonitions.
+
+The Buildkite Docs uses two types of callouts—regular info callouts, which can also be used for notes, as well as troubleshooting callouts, which can also be used for warnings.
+
+A regular info callout looks like this:
+
+![Info/note callout](../images/styleguides/callout-info.png)
+
+And a troubleshooting callout looks like this:
+
+![Troubleshooting/warning callout](../images/styleguides/callout-troubleshooting.png)
+
+Refer to [Callouts in the Markdown syntax style guide](markdown-syntax-style.md#callouts) for details on how to write and present lists in the Buildkite docs.
 
 ### Glossary of notable terms and their spelling
 

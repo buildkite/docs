@@ -10,23 +10,23 @@ keywords: docs, pipelines, tutorials, getting started
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
+* A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
 
     When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
 
-- To enable the YAML steps editor in Buildkite:
+* To enable the YAML steps editor in Buildkite:
 
   * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
   * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+* [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
 ## Understand the architecture
 
 Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides. Buildkite uses a hybrid architecture to separate:
 
-- The control panel
-- The build environment
+* The control panel
+* The build environment
 
 Buildkite runs the control panel as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the orchestration, and you bring the compute. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
 
@@ -65,8 +65,8 @@ _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipel
 
 Next, you'll create a new pipeline based on one of the following example pipelines:
 
-- [Bash example](https://github.com/buildkite/bash-example/)
-- [PowerShell example](https://github.com/buildkite/powershell-example/)
+* [Bash example](https://github.com/buildkite/bash-example/)
+* [PowerShell example](https://github.com/buildkite/powershell-example/)
 
 Both result in the same behavior: the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
 
@@ -102,10 +102,10 @@ Expand the row in the job list to view the output for a step. For example, selec
 
 In the output, you'll see:
 
-- A pre-command hook ran and printed some text in the logs.
-- The agent checked out the repository.
-- The agent accessed different environment variables shown in the job environment.
-- The script ran and printed text to the logs and uploaded an image as an artifact of the build.
+* A pre-command hook ran and printed some text in the logs.
+* The agent checked out the repository.
+* The agent accessed different environment variables shown in the job environment.
+* The script ran and printed text to the logs and uploaded an image as an artifact of the build.
 
 Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
 

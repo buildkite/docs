@@ -50,6 +50,7 @@ Even more text.
 
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
+> Also, to avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right _On this page_ sections of pages in the Buildkite Docs.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
@@ -73,6 +74,15 @@ Here is some [historical background](https://www.onlinegrammar.com.au/the-gramma
 UI element references are formatted using italics in the Buildkite docs. Markdown supports two characters as its markup for italicizing text—either an underscore `_` or a single asterisk `*`. For consistency, use single underscores `_` immediately surrounding the text you want to italicize. For example, `_Italicize this text_`
 
 Refer to [Referring to UI elements in the Writing style guide](writing-style.md#ui-elements) for details on how to write and present UI elements in the docs.
+
+### Lists
+
+For a bulleted list item, use a single asterisk `*` at the start of a new line (or block), followed by a single space, followed by the text for that bullet point.
+
+For a numbered list item, use the syntax `1.` at the start of a new line (or block), followed by a single space, followed by the text for that numbered list item.
+For subsequent items in a numbered list, start the new line/block with `1.` again, as the HTML will always render subsequent items sequentially. Avoid attempting to number each item sequentially (for example, `2.`, `3.`, etc.), regardless of the incremental interval (for example, `1.`, `10.`, `20.`, etc.). This makes it easier to insert items without having to renumber adjacent list numbered items.
+
+Refer to [Lists in the Writing style guide](writing-style.md#lists-bullet-lists-and-numbered-steps) for details on how to write and present lists in the Buildkite docs.
 
 ### Links
 
@@ -115,7 +125,7 @@ Here the H2-level link for `## Environment variable precedence` is `/docs/pipeli
 
 > [!TIP]
 > A quick way to obtain the URL fragment of a page heading within the Buildkite Docs is to hover your mouse pointer over the heading, when the link icon appears to the left of the heading, select it and then copy of the URL fragment from your browser's URL field.
-> Alternatively, select the relevant heading from the _On this page_ section of the page and copy the URL fragment from your browser's URL field.
+> Alternatively, select the relevant heading from the right _On this page_ section of the page and copy the URL fragment from your browser's URL field.
 
 #### External links
 
@@ -136,11 +146,127 @@ Wikipedia entries:
 https://en.wikipedia.org/wiki/Twitter
 ```
 
-## Code and filenames
+### Callouts
+
+Callouts are also known as admonitions.
+
+Currently, callouts in the Buildkite Docs are generated through a combination of Markdown blockquote syntax with a particular emoji.
+
+A regular info callout ("purple"):
+
+```
+>📘 An info callout title
+> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becomes a new paragraph inside the callout.
+```
+
+This will be rendered as the following HTML in the site:
+
+```
+<section class="callout callout--info">
+  <p class="callout__title" id="a-callout-title"📘 An info callout title</p>
+  <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
+  <p>Every line break after the first becomes a new paragraph inside the callout.</p>
+</section>
+```
+
+> [!NOTE]
+> Block-level Markdown elements like lists won't be converted into HTML.
+Callout headings avoid clashing with other content heading by being styled as paragraphs. However, callout headings do have IDs for easy fragment references.
+
+For troubleshooting callouts ("orange"), use the 🚧 emoji:
+
+```
+>🚧 A troubleshooting callout title
+> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becomes a new paragraph inside the callout.
+```
+
+While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experimental callouts ("orange"), use the 🛠 emoji:
+
+```
+>🛠 This marks it as WIP
+> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
+> Every line break after the first becomes a new paragraph inside the callout.
+```
+
+Any other emoji will render blockquotes as normal.
+
+### Tables
+
+### Two-column tables
+
+To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="two-column"}
+```
+
+The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
+
+#### Fixed-width tables
+
+To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks#http-headers) section, use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="fixed-width"}
+```
+
+#### Responsive tables
+
+Append `{: class="responsive-table"}` to any table to render it with responsive behavior. Use the following syntax:
+
+```
+Column header 1   | Column header 2
+----------------- | ----------------
+Line 1, column 1  | Line 1, column 2
+Line 2, column 1  | Line 2, column 2
+Line 3, column 1  | Line 3, column 2
+{: class="responsive-table"}
+```
+
+This also works if you apply the CSS class to pure html tables, for example:
+
+```html
+<table class="responsive-table">
+  <thead>
+    <tr>
+      <th>Column header 1</th>
+      <th>Column header 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Line 1, column 1</td>
+      <td>Line 1, column 2</td>
+    </tr>
+    <tr>
+      <td>Line 2, column 1</td>
+      <td>Line 2, column 2</td>
+    </tr>
+  </tbody>
+</table>
+```
+
+This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
+
+On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
+
+### Code and filenames
 
 This section deals with adding and properly formatting code in the documentation, as well as naming files, pages, and their derivative URLs.
 
-### Code formatting
+#### Code formatting
 
 The Buildkite docs uses the GitHub flavor of Markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
@@ -153,7 +279,7 @@ Each command step can run either a shell command like `npm install`, or an execu
 > [!NOTE]
 > Do not use code fragments in page headings or section headings.
 
-### Code blocks
+#### Code blocks
 
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 To add a code block, indent it using four (4) spaces or use three (3) backticks (\`\`\`) before and after the code block.
@@ -179,7 +305,7 @@ You can see the full list of supported languages and lexers [here](https://githu
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
 
-### Escaping emoji in code snippets
+#### Escaping emoji in code snippets
 
 An emoji code will be rendered as emoji in the docs. For example, `":hammer: Tests"` will be rendered as `"🔨 Tests"`.
 
@@ -345,117 +471,6 @@ You can omit a table of contents by adding some additional metadata to a Markdow
 toc: false
 ---
 ```
-
-#### Callouts
-
-Currently, the standard Markdown blockquote syntax is combined with particular emoji to create callouts for particular sections of text:
-
-Regular info callout ("purple"):
-
-```
->📘 A callout title
-> Callout content can have <code>code</code> or _emphasis_ and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becomes a new paragraph inside the callout.
-```
-
-This will be rendered as the following HTML in the site:
-
-```
-<section class="callout callout--info">
-  <p class="callout__title" id="a-callout-title"📘 A callout title</p>
-  <p>Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a></p>
-  <p>Every line break after the first becomes a new paragraph inside the callout.</p>
-</section>
-```
-
-Note that block-level Markdown elements like lists won't be converted into HTML.
-Callout headings avoid clashing with other content heading by simply being styled paragraphs. However, they do have IDs for easy fragment references.
-
-For troubleshooting callouts ("orange"), use the 🚧 emoji:
-
-```
->🚧 A Troubleshooting Callout
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becomes a new paragraph inside the callout.
-```
-
-For WIP or Experimental callouts ("orange"), use the 🛠 emoji:
-
-```
->🛠 This marks it as WIP
-> Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becomes a new paragraph inside the callout.
-```
-
-Any other emoji will render blockquotes as normal.
-
-#### Two-column tables
-
-To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
-
-```
-Column header 1   | Column header 2
------------------ | ----------------
-Line 1, column 1  | Line 1, column 2
-Line 2, column 1  | Line 2, column 2
-Line 3, column 1  | Line 3, column 2
-{: class="two-column"}
-```
-
-The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
-
-#### Fixed-width tables
-
-To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks#http-headers) section, use the following syntax:
-
-```
-Column header 1   | Column header 2
------------------ | ----------------
-Line 1, column 1  | Line 1, column 2
-Line 2, column 1  | Line 2, column 2
-Line 3, column 1  | Line 3, column 2
-{: class="fixed-width"}
-```
-
-#### Responsive tables
-
-Append `{: class="responsive-table"}` to any table to render it with responsive behavior. Use the following syntax:
-
-```
-Column header 1   | Column header 2
------------------ | ----------------
-Line 1, column 1  | Line 1, column 2
-Line 2, column 1  | Line 2, column 2
-Line 3, column 1  | Line 3, column 2
-{: class="responsive-table"}
-```
-
-This also works if you apply the CSS class to pure html tables, for example:
-
-```html
-<table class="responsive-table">
-  <thead>
-    <tr>
-      <th>Column header 1</th>
-      <th>Column header 2</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Line 1, column 1</td>
-      <td>Line 1, column 2</td>
-    </tr>
-    <tr>
-      <td>Line 2, column 1</td>
-      <td>Line 2, column 2</td>
-    </tr>
-  </tbody>
-</table>
-```
-
-This is useful for improving readability on small screens. Otherwise, complex tables or tables with very long variable names can be difficult to read or break the page layout.
-
-On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
 
 #### Prepending icons
 
