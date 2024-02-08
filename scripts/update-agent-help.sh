@@ -28,6 +28,8 @@ commands=(
   "start"
   "step get"
   "step update"
+  "tool keygen"
+  "tool sign"
 )
 
 scripts_dir=$(dirname "${BASH_SOURCE[0]}")

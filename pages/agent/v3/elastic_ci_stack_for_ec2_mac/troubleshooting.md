@@ -21,9 +21,11 @@ configuration has a *License type* of `Cores`.
 ## My instances don't start the `buildkite-agent`
 
 Ensure your AMI has been [configured to auto-login as the `ec2-user`](/docs/agent/v3/elastic-ci-stack-for-ec2-mac/autoscaling-mac-metal#step-2-build-an-ami)
-in the GUI. To allow your pipelines to use Xcode and the iOS Simulator the
+in the GUI.
 
-Buildkite Agent launchd job configuration requires an `Aqua` session type.
+## How do I enable use of Xcode and the iOS Simulator?
+
+To allow your pipelines to use Xcode and the iOS Simulator the Buildkite Agent launchd job configuration requires an `Aqua` session type.
 
 ## What user does the agent run as?
 

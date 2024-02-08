@@ -4,16 +4,16 @@ A collection of common tasks with clusters using the GraphQL API.
 
 You can test out the Buildkite GraphQL API using the [Buildkite explorer](https://graphql.buildkite.com/explorer). This includes built-in documentation under the _Docs_ panel.
 
-## List cluster IDs
+## List clusters
 
 Get the first 10 clusters and their information for an organization:
 
 ```graphql
 query getClusters {
   organization(slug: "organization-slug") {
-    clusters(first: 10){
-      edges{
-        node{
+    clusters(first: 10) {
+      edges {
+        node {
           id
           uuid
           color
@@ -25,9 +25,9 @@ query getClusters {
 }
 ```
 
-## List cluster queue IDs
+## List cluster queues
 
-Get the first 10 cluster queues for a particular cluster by specifying its UUID in `cluster-uuid`:
+Get the first 10 cluster queues for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
 query getClusterQueues {
@@ -48,9 +48,35 @@ query getClusterQueues {
 }
 ```
 
+## List cluster tokens
+
+Get the first 10 cluster tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
+
+```graphql
+query getClusterTokens {
+  organization(slug: "organization-slug") {
+    cluster(id: "cluster-uuid") {
+      agentTokens(first: 10){
+        edges{
+          node{
+            id
+            uuid
+            description
+            allowedIpAddresses
+          }
+        }
+      }
+    }
+  }
+}
+```
+
+>🚧 Cluster `token` field deprecation
+> The `token` field of the [ClusterToken](https://buildkite.com/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](https://buildkite.com/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
+
 ## List jobs in a particular cluster queue
 
-To get jobs within a cluster queue, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from:
+To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs` query, passing in the ID of the cluster queue to filter jobs from:
 
 ```graphql
 query getClusterQueueJobs {
@@ -77,7 +103,7 @@ query getClusterQueueJobs {
 }
 ```
 
-To obtain jobs within a cluster queue of a particular state, use the `clusterQueue` filter, passing in the ID of the cluster queue to filter jobs from, and the `state` list filter by one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates):
+To obtain jobs in a particular state within a cluster queue, specify the cluster queues' ID with the `clusterQueue` argument and one or more [JobStates](https://buildkite.com/docs/apis/graphql/schemas/enum/jobstates) with the `state` argument in the `jobs` query:
 
 ```graphql
 query getClusterQueueJobsByJobState {

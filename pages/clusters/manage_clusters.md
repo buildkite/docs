@@ -53,7 +53,7 @@ To add a pipeline to a cluster:
 
 ### Add maintainers to a cluster
 
-Only Buildkite administrators or users with the [_change organization_ permission](/docs/pipelines/permissions) can create clusters.
+Only Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
 
 You can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
 
@@ -93,14 +93,16 @@ If you migrate all your existing agents over to clusters, make sure to add all y
 
 ## Pause a queue
 
+> 📘 Enterprise feature
+> Cluster queue pausing is only available on [Pro and Enterprise](https://buildkite.com/pricing) plans.
+
 You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
 
 To pause a queue:
 
 1. Navigate to your cluster’s _Queues_.
 1. Select the queue you wish to pause.
-1. Select _Edit_.
-1. Under _Queue Management_, select _Pause Queue_.
+1. Select _Pause_.
 1. Enter an optional note in the dialog, and confirm that you wish to pause the queue.
 
       You can use the note to explain why you're pausing the queue. The note will display on the queue page and any affected builds.

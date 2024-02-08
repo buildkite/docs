@@ -5,6 +5,7 @@ To use Test Analytics with your JavaScript (npm) projects, use the :github: [`te
 - [Jest](https://jestjs.io/)
 - [Jasmine](https://jasmine.github.io/)
 - [Mocha](https://mochajs.org/)
+- [Playwright](https://playwright.dev)
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
@@ -44,7 +45,7 @@ With the test collector installed, you need to configure it in the test framewor
 
 ### Jest
 
-If you're already using Jest, you can add `buildkite-collector/jest/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
+If you're already using Jest, you can add `buildkite-test-collector/jest/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
 
 To configure Jest:
 
@@ -57,7 +58,7 @@ To configure Jest:
     }
     ```
 
-### Jasmine collector
+### Jasmine
 
 To configure Jasmine:
 
@@ -80,7 +81,7 @@ To configure Jasmine:
     });
     ```
 
-### Mocha collector
+### Mocha
 
 To configure Mocha:
 
@@ -117,6 +118,25 @@ To configure Mocha:
       "buildkiteTestCollectorMochaReporterReporterOptions": {
         "token_name": "CUSTOM_ENV_VAR_NAME"
       }
+    }
+    ```
+
+### Playwright
+
+If you're already using Playwright, you can add `buildkite-test-collector/playright/reporter` to the list of reporters to collect test results into your Test Analytics dashboard.
+
+To configure Playwright:
+
+1. Make sure Playwright runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+1. Add `"buildkite-test-collector/playwright/reporter"` to [Playwright's `reporters` configuration array](https://playwright.dev/docs/test-reporters#multiple-reporters) (typically found in `playwright.config.js`):
+
+    ```js
+    // playwright.config.js
+    {
+      "reporters": [
+        ["line"], 
+        ["buildkite-test-collector/playwright/reporter"]
+      ]
     }
     ```
 

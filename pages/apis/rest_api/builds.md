@@ -69,6 +69,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
     "number": 1,
     "state": "passed",
+    "cancel_reason": "reason for a canceled build",
     "blocked": false,
     "message": "Bumping to version 0.2-beta.6",
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -89,6 +90,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "type": "script",
         "name": ":package:",
         "step_key": "package",
+        "step": {
+          "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+          "signature": {
+            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+            "algorithm": "EdDSA",
+            "signed_fields": [
+              "command",
+              "env",
+              "matrix",
+              "plugins",
+              "repository_url"
+            ]
+          }
+        },
         "agent_query_rules": ["*"],
         "state": "passed",
         "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -109,9 +124,16 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "started_at": "2015-05-09T21:07:59.874Z",
         "finished_at": "2015-05-09T21:08:59.874Z",
         "retried": false,
-	"retried_in_job_id": null,
-	"retries_count": null,
-	"retry_type": null
+        "retried_in_job_id": null,
+        "retries_count": null,
+        "retry_type": null,
+        "parallel_group_index": null,
+        "parallel_group_total": null,
+        "matrix": null,
+        "cluster_id": null,
+        "cluster_url": null,
+        "cluster_queue_id": null,
+        "cluster_queue_url": null
       }
     ],
     "created_at": "2015-05-09T21:05:59.874Z",
@@ -190,6 +212,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
   "number": 2,
   "state": "passed",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -210,6 +233,20 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -223,7 +260,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -246,7 +283,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -338,6 +382,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "scheduled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Testing all the things \:rocket\:",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -357,6 +402,20 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -370,7 +429,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -394,7 +453,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -487,6 +553,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 1,
   "state": "canceled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -508,6 +575,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -521,7 +602,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -545,7 +626,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -612,6 +700,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
   "number": 2,
   "state": "scheduled",
+  "cancel_reason": "reason for a canceled build",
   "blocked": false,
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
@@ -633,6 +722,20 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "type": "script",
       "name": ":package:",
       "step_key": "package",
+      "step": {
+        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+        "signature": {
+          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+          "algorithm": "EdDSA",
+          "signed_fields": [
+            "command",
+            "env",
+            "matrix",
+            "plugins",
+            "repository_url"
+          ]
+        }
+      },
       "agent_query_rules": ["*"],
       "state": "scheduled",
       "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
@@ -646,7 +749,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
         "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
         "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
         "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
         "name": "my-agent",
         "connection_state": "connected",
         "hostname": "localhost",
@@ -670,7 +773,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",

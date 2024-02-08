@@ -54,15 +54,36 @@ or use [`rbenv`](https://github.com/rbenv/rbenv) to automatically select the cor
 Open `http://localhost:3000` to preview the docs site.
 After modifying a page, refresh to see your changes.
 
-## Updating buildkite-agent CLI Docs
+## Updating `buildkite-agent` CLI docs
 
-With the development dependencies installed you can update the CLI docs using
-`scripts/update-agent-help.sh`:
+With the development dependencies installed you can update the CLI docs with the following:
+
 
 ```bash
 # Set a custom PATH to select a locally built buildkite-agent
 PATH="$HOME/Projects/buildkite/agent:$PATH" ./scripts/update-agent-help.sh
 ```
+
+
+## Updating GraphQL API docs
+
+GraphQL API documentation is generated from a local version of the [Buildkite GraphQL API schema](./data/graphql/schema.graphql).
+
+This repository is kept up-to-date with production based on a [daily scheduled build](https://buildkite.com/buildkite/docs-graphql). The build fetches the latest GraphQL schema, generates the documentation, and publishes a pull request for review.
+
+If you need to fetch the latest schema you can either:
+
+- Manually trigger a build on [`buildkite/docs-graphql`](https://buildkite.com/buildkite/docs-graphql); or
+- Run the following in your local environment:
+
+```sh
+# Fetch latest schema
+API_ACCESS_TOKEN=xxx rake graphql:fetch_schema >| data/graphql/schema.graphql
+
+# Generate docs based on latest schema
+rake graphql:generate
+```
+
 
 ## Linting
 
@@ -95,9 +116,6 @@ To test changes to the indexing configuration:
 
 2. Run `bundle exec rake update_test_index`.
 
-## License
-
-See [LICENSE.md](LICENSE.md) (MIT)
 
 ## Updating the navigation
 
@@ -128,3 +146,8 @@ keywords: docs, tutorial, pipelines, 2fa
 ```
 
 If no keywords are provided it falls back to comma-separated URL path segments.
+
+
+## License
+
+See [LICENSE.md](LICENSE.md) (MIT)

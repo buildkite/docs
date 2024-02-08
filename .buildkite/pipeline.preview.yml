@@ -4,10 +4,12 @@ steps:
 
   - label: "Deploy preview"
     command: bin/deploy-preview
+    env:
+      RAILS_ENV: "production"
     plugins:
       - docker-compose#v3.9.0:
           run: app
-          config: docker-compose.production.yml
+          dependencies: false
           mount-buildkite-agent: true
           env:
             - GH_TOKEN

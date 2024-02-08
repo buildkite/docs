@@ -15,7 +15,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
     "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
     "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
     "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-    "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
     "name": "my-agent",
     "connection_state": "connected",
     "hostname": "some.server",
@@ -87,7 +87,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
   "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
   "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-  "web_url": "https://buildkite.com/organizations/buildkite/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+  "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
   "name": "my-agent",
   "connection_state": "connected",
   "hostname": "some.server",
@@ -141,7 +141,7 @@ Success response: `200 OK`
 >📘 Required permissions
 > To stop an agent you need either
 - An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using <a href="/docs/pipelines/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
+- Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

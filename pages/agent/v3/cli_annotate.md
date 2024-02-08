@@ -112,7 +112,7 @@ p4 pt4 pr4 pb4 pl4 py4 px4
 
 ### Colored console output
 
-Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax.
+Console output in annotations can be displayed with ANSI colors when wrapped in a Markdown block marked as `term` or `terminal` syntax. There is a limit of 10 blocks per annotation.
 
 <!-- Following code block needs to be indented to show the code block as well as the code -->
 
@@ -151,7 +151,7 @@ Or for more complex annotations, pipe an entire file to the `buildkite-agent ann
 printf '%b\n' "$(cat markdown-for-annotation.md)" | buildkite-agent annotate
 ```
 
-If you're using our [terminal to HTML](http://buildkite.github.io/terminal-to-html/) tool, wrap the output in `<pre class="term"><code></code></pre>` tags, so it displays the terminal colour styles but won't process it again:
+If you're using our [terminal to HTML](http://buildkite.github.io/terminal-to-html/) tool, wrap the output in `<pre class="term"><code></code></pre>` tags, so it displays the terminal color styles but won't process it again:
 
 ```html
 <pre class="term">

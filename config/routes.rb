@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get "/docs/pipelines/pipelines",                to: redirect("/docs/pipelines")
   get "/docs/pipelines/ignoring-a-commit",        to: redirect("/docs/pipelines/skipping#ignore-a-commit")
   get "/docs/pipelines/parallel-builds",          to: redirect("/docs/tutorials/parallel-builds")
+  get "/docs/pipelines/permissions",              to: redirect("/docs/team-management/permissions")
   get "/docs/pipelines/plugins",                  to: redirect("/docs/plugins")
   get "/docs/pipelines/uploading-pipelines",      to: redirect("/docs/pipelines/defining-steps")
   get "/docs/webhooks/setup",                     to: redirect("/docs/apis/webhooks")
@@ -123,6 +124,7 @@ Rails.application.routes.draw do
   get "/docs/agent/uploading-pipelines", to: redirect("/docs/agent/v3/cli-pipeline",               status: 301)
   get "/docs/agent/upgrading",           to: redirect("/docs/agent/v3/upgrading",                  status: 301)
   get "/docs/agent/upgrading-to-v3",     to: redirect("/docs/agent/v3/upgrading",                  status: 301)
+  get "/docs/clusters/queue-metrics", to: redirect("/docs/pipelines/cluster-queue-metrics",        status: 301)
 
   # Old docs routes that we changed around during the development of the v3 agent docs
   get "/docs/agent/upgrading-to-v2",    to: redirect("/docs/agent/v2/upgrading-to-v2",            status: 301)

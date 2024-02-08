@@ -1,6 +1,6 @@
 ---
 AWSTemplateFormatVersion: "2010-09-09"
-Description: "Buildkite stack v6.3.0"
+Description: "Buildkite stack v6.14.0"
 
 # The Buildkite Elastic CI Stack for AWS gives you a private,
 # autoscaling Buildkite Agent cluster. Use it to parallelize
@@ -43,6 +43,7 @@ Metadata:
         - BuildkiteAgentExperiments
         - BuildkiteAgentEnableGitMirrors
         - BuildkiteAgentTracingBackend
+        - BuildkiteAgentCancelGracePeriod
         - BuildkiteTerminateInstanceAfterJob
         - BuildkiteAdditionalSudoPermissions
         - BuildkiteWindowsAdministrator
@@ -66,6 +67,7 @@ Metadata:
         - InstanceOperatingSystem
         - InstanceTypes
         - EnableInstanceStorage
+        - MountTmpfsAtTmp
         - AgentsPerInstance
         - KeyName
         - SecretsBucket
@@ -97,6 +99,7 @@ Metadata:
         - ScaleInIdlePeriod
         - ScaleOutForWaitingJobs
         - InstanceCreationTimeout
+        - ScalerEventSchedulePeriod
         - ScalerMinPollInterval
 
       - Label:
@@ -170,7 +173,7 @@ Parameters:
     Default: "false"
 
   BuildkiteAgentExperiments:
-    Description: Agent experiments to enable, comma delimited. See https://github.com/buildkite/agent/blob/master/EXPERIMENTS.md.
+    Description: Agent experiments to enable, comma delimited. See https://github.com/buildkite/agent/blob/-/EXPERIMENTS.md.
     Type: String
     Default: ""
 
@@ -182,7 +185,7 @@ Parameters:
   BuildkiteAgentScalerVersion:
     Description: Version of the buildkite-agent-scaler to use
     Type: String
-    Default: "1.5.0"
+    Default: "1.7.0"
 
   BuildkiteAgentTracingBackend:
     Description: The tracing backend to use for CI tracing. See https://buildkite.com/docs/agent/v3/tracing
@@ -192,6 +195,12 @@ Parameters:
       - "datadog"
       - "opentelemetry"
     Default: ""
+
+  BuildkiteAgentCancelGracePeriod:
+    Description: The number of seconds a canceled or timed out job is given to gracefully terminate and upload its artifacts.
+    Type: Number
+    Default: 60
+    MinValue: 1
 
   BuildkiteTerminateInstanceAfterJob:
     Description: Set to "true" to terminate the instance after a job has completed.
@@ -284,7 +293,7 @@ Parameters:
     Type: String
     Default: t3.large
     MinLength: 1
-    AllowedPattern: "^[\\w\\.]+(,[\\w\\.]*){0,3}$"
+    AllowedPattern: "^[\\w-\\.]+(,[\\w-\\.]*){0,3}$"
     ConstraintDescription: "must contain 1-4 instance types separated by commas. No space before/after the comma."
 
   MaxSize:
@@ -298,6 +307,11 @@ Parameters:
     Type: Number
     Default: 0
     MinValue: 0
+
+  ScalerEventSchedulePeriod:
+    Description: How often the Event Schedule for buildkite-agent-scaler is triggered. Should be an expression with units, e.g. "30 seconds", "1 minute", "5 minutes".
+    Type: String
+    Default: "1 minute"
 
   ScalerMinPollInterval:
     Description: Minimum interval at which the auto scaler should poll the AWS API
@@ -359,6 +373,16 @@ Parameters:
     Description: Type of root volume to use
     Type: String
     Default: "gp3"
+
+  RootVolumeThroughput:
+    Description: If the `RootVolumeType` is gp3, the throughput to provision for the root volume
+    Type: Number
+    Default: 125
+
+  RootVolumeIops:
+    Description: If the `RootVolumeType` is io1 or io2, the number of IOPS to provision for the root volume
+    Type: Number
+    Default: 1000
 
   RootVolumeEncrypted:
     Description: Indicates whether the EBS volume is encrypted
@@ -474,11 +498,22 @@ Parameters:
 
   EnableInstanceStorage:
     Type: String
-    Description: Mount available NVMe Instance Storage at /mnt/ephemeral
+    Description: >
+      Mount available NVMe Instance Storage at /mnt/ephemeral, and use it to store docker images and
+      containers, and the build working directory. You must ensure that the instance types have
+      instance storage available for this to have any effect. See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-store-volumes.html
     AllowedValues:
       - "true"
       - "false"
     Default: "false"
+
+  MountTmpfsAtTmp:
+    Type: String
+    Description: Controls the filesystem mounted at /tmp. By default, /tmp is a tmpfs (memory-backed filesystem). Disabling this causes /tmp to be stored in the root filesystem.
+    AllowedValues:
+      - "true"
+      - "false"
+    Default: "true"
 
   EnableCostAllocationTags:
     Type: String
@@ -670,6 +705,7 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c6gn" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "c7gn" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "g5g" ]
         - !Or
@@ -680,15 +716,26 @@ Conditions:
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "m7gd" ]
         - !Or
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6g" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r6gd" ]
           - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7g" ]
+          - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "r7gd" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "t4g" ]
         - !Equals [ !Select [ 0, !Split [ ".", !Ref InstanceTypes ] ], "x2gd" ]
 
     UseStackNameForInstanceName:
       !Equals [ !Ref InstanceName, "" ]
+
+    IsRootVolumeIsGp3:
+      !Equals [ !Ref RootVolumeType, "gp3" ]
+
+    IsRootVolumeIsIo1OrIo2OrGp3:
+      !Or
+        - !Equals [ !Ref RootVolumeType, "io1" ]
+        - !Equals [ !Ref RootVolumeType, "io2" ]
+        - !Equals [ !Ref RootVolumeType, "gp3" ]
 
 Mappings:
   ECRManagedPolicy:
@@ -699,26 +746,26 @@ Mappings:
 
   # Generated from Makefile via build/mappings.yml
   AWSRegion2AMI:
-    us-east-1 : { linuxamd64: ami-0386bf4d5700435ef, linuxarm64: ami-060594eed5acfe347, windows: ami-036a837fb3b754d70 }
-    us-east-2 : { linuxamd64: ami-0339fe324b3fd79ab, linuxarm64: ami-080ffcf21f418ceae, windows: ami-052e9706ba8a96c49 }
-    us-west-1 : { linuxamd64: ami-0a32bc5331c481f14, linuxarm64: ami-0717874b162f66185, windows: ami-0c900dcc5d3477c8c }
-    us-west-2 : { linuxamd64: ami-0051223442eab4ac0, linuxarm64: ami-0e516dc6dc52e238d, windows: ami-0826c2c7462bfb678 }
-    af-south-1 : { linuxamd64: ami-057a30c40d9bc5095, linuxarm64: ami-0c13f0b6e6fe9a6c4, windows: ami-09470a9affa218708 }
-    ap-east-1 : { linuxamd64: ami-0191355291a7b3a26, linuxarm64: ami-0b199bca0f7589f55, windows: ami-006242189e6bd5992 }
-    ap-south-1 : { linuxamd64: ami-0726fb20146e93713, linuxarm64: ami-079ea8b2687b9230d, windows: ami-009204ef8282db8b0 }
-    ap-northeast-2 : { linuxamd64: ami-0e2408f1f6d16e0df, linuxarm64: ami-0e975389b2bfa273d, windows: ami-0b96c0334cb71e0af }
-    ap-northeast-1 : { linuxamd64: ami-0cb73256114e3b6fc, linuxarm64: ami-0852693675165c9df, windows: ami-0249e6a0c06e3f809 }
-    ap-southeast-2 : { linuxamd64: ami-0a8363a513a7924ec, linuxarm64: ami-0878b9e657607d5c6, windows: ami-097dfee8695d3c194 }
-    ap-southeast-1 : { linuxamd64: ami-0de2694bdaeec7d67, linuxarm64: ami-01dd918ccc5fe4d7f, windows: ami-0f53a32dd6f7daab0 }
-    ca-central-1 : { linuxamd64: ami-08399689356e0befa, linuxarm64: ami-05202bbce66b79415, windows: ami-01b6afaa126054975 }
-    eu-central-1 : { linuxamd64: ami-09e08b163564c617d, linuxarm64: ami-033995724b18a26ad, windows: ami-0ef043f300ad63395 }
-    eu-west-1 : { linuxamd64: ami-0daa114e371ee09e5, linuxarm64: ami-003fb09a87837a032, windows: ami-0ccf7220a37e6b32a }
-    eu-west-2 : { linuxamd64: ami-0c79b4bd87c5e2f51, linuxarm64: ami-0050822e6aaa25089, windows: ami-0c8e38beb2ebd2ef8 }
-    eu-south-1 : { linuxamd64: ami-01b24c9d8e926db6c, linuxarm64: ami-0fb901c9d1a2a4d84, windows: ami-0033d2287191d2b61 }
-    eu-west-3 : { linuxamd64: ami-06c2500150099570e, linuxarm64: ami-07859f9f4e57673ae, windows: ami-0e43465a1e0ae1b60 }
-    eu-north-1 : { linuxamd64: ami-0dfbb3bd47660608e, linuxarm64: ami-0ea784b1a611cec19, windows: ami-09e12ca50edd31ce2 }
-    me-south-1 : { linuxamd64: ami-0c35e8e35c2e87fcb, linuxarm64: ami-08d3b43403ffa4b93, windows: ami-03863a61e38c6fffb }
-    sa-east-1 : { linuxamd64: ami-03fd567ccb9ed7379, linuxarm64: ami-017ff3aee400d0070, windows: ami-00b5a08198aa5c205 }
+    us-east-1 : { linuxamd64: ami-0183caef313aa57a8, linuxarm64: ami-005b1246b7c312d75, windows: ami-0887d14cbefc8ae3d }
+    us-east-2 : { linuxamd64: ami-00de9036a36f73520, linuxarm64: ami-0db9ecf56f4a9313e, windows: ami-0e310d0db6452f793 }
+    us-west-1 : { linuxamd64: ami-0defbc65ceaa32dd1, linuxarm64: ami-0820aec2c904d15e1, windows: ami-0cdc69b863dbc63ed }
+    us-west-2 : { linuxamd64: ami-0b30ab2eea949e93e, linuxarm64: ami-0a0810ea0d35dfa04, windows: ami-07069601abe24b0c6 }
+    af-south-1 : { linuxamd64: ami-09a95859b666c385c, linuxarm64: ami-023856db3ff9ffebf, windows: ami-0aaf725c9d56214a5 }
+    ap-east-1 : { linuxamd64: ami-033d34c189faaa3ea, linuxarm64: ami-0e7a59eb736084415, windows: ami-0b853d3ff4837fb8d }
+    ap-south-1 : { linuxamd64: ami-0c1e25e1e786bf5ab, linuxarm64: ami-0f37afba54066bd60, windows: ami-019ca0ce695b202d5 }
+    ap-northeast-2 : { linuxamd64: ami-06d8f125ea12c73a4, linuxarm64: ami-01d26356d8601112a, windows: ami-08149bf6171985f3f }
+    ap-northeast-1 : { linuxamd64: ami-0337fff9cddb16928, linuxarm64: ami-06bd64a2473145d48, windows: ami-06f7d221ae9077f91 }
+    ap-southeast-2 : { linuxamd64: ami-0b27fff20c46df4a0, linuxarm64: ami-0495bb42e2c5ad16b, windows: ami-0c46183f41186a75f }
+    ap-southeast-1 : { linuxamd64: ami-052adc4e5f2b331d3, linuxarm64: ami-0eeb8dfc3642c4ff9, windows: ami-031add0bdca9cea1a }
+    ca-central-1 : { linuxamd64: ami-0ec8ad5aa316be9c6, linuxarm64: ami-0fd3c285174fd4aa6, windows: ami-03624e0a25b90a666 }
+    eu-central-1 : { linuxamd64: ami-0ea202151b77cd132, linuxarm64: ami-0d87234a4153da86d, windows: ami-08b686742f62d0c52 }
+    eu-west-1 : { linuxamd64: ami-07ee5053aa22fcc0e, linuxarm64: ami-01a6b461c70f92a37, windows: ami-0125a5a3c5a5e09bb }
+    eu-west-2 : { linuxamd64: ami-0cea94b9f4862f155, linuxarm64: ami-00963a2bbcdc29e6c, windows: ami-00cf533b2d4fff822 }
+    eu-south-1 : { linuxamd64: ami-0fa3808b03f7467c2, linuxarm64: ami-0fae08dd40e29217d, windows: ami-0e2abc82c9ba72992 }
+    eu-west-3 : { linuxamd64: ami-02b949b8b4659ff01, linuxarm64: ami-009c57fae557b81c3, windows: ami-0a82cb3a3e802818e }
+    eu-north-1 : { linuxamd64: ami-05a2dbe3cca823d1b, linuxarm64: ami-03c222dd8c1c9d76c, windows: ami-060242282b5e2b9b7 }
+    me-south-1 : { linuxamd64: ami-0e909c7019ac9d74a, linuxarm64: ami-061aa8c89e3e2dcee, windows: ami-0408bcd45277ac97d }
+    sa-east-1 : { linuxamd64: ami-071f30371b0aeaed3, linuxarm64: ami-0332cfe794d7db30b, windows: ami-0704755918feea0c8 }
 
 Resources:
   Vpc:
@@ -1134,14 +1181,19 @@ Resources:
                     - 'linuxamd64'
           BlockDeviceMappings:
             - DeviceName: !If [ UseDefaultRootVolumeName, !If [ UseWindowsAgents, /dev/sda1, /dev/xvda ], !Ref RootVolumeName ]
-              Ebs: { VolumeSize: !Ref RootVolumeSize, VolumeType: !Ref RootVolumeType, Encrypted: !Ref RootVolumeEncrypted }
+              Ebs:
+                VolumeSize: !Ref RootVolumeSize
+                VolumeType: !Ref RootVolumeType
+                Encrypted: !Ref RootVolumeEncrypted
+                Throughput: !If [ IsRootVolumeIsGp3, !Ref RootVolumeThroughput, !Ref "AWS::NoValue" ]
+                Iops: !If [ IsRootVolumeIsIo1OrIo2OrGp3, !Ref RootVolumeIops, !Ref "AWS::NoValue" ]
           TagSpecifications:
             - ResourceType: instance
               Tags:
                 - Key: Role
                   Value: buildkite-agent
                 - Key: Name
-                  Value: !If [ UseStackNameForInstanceName, !Ref AWS::StackName, !Ref InstanceName ]
+                  Value: !If [ UseStackNameForInstanceName, !Ref "AWS::StackName", !Ref InstanceName ]
                 - Key: BuildkiteAgentRelease
                   Value: !Ref BuildkiteAgentRelease
                 - Key: BuildkiteQueue
@@ -1170,7 +1222,7 @@ Resources:
                   powershell -file C:\buildkite-agent\bin\bk-configure-docker.ps1 >> C:\buildkite-agent\elastic-stack.log
 
                   $Env:BUILDKITE_STACK_NAME="${AWS::StackName}"
-                  $Env:BUILDKITE_STACK_VERSION="v6.3.0"
+                  $Env:BUILDKITE_STACK_VERSION="v6.14.0"
                   $Env:BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}"
                   $Env:BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}"
                   $Env:BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}"
@@ -1215,6 +1267,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_ENABLE_INSTANCE_STORAGE="${EnableInstanceStorage}" \
+                  BUILDKITE_MOUNT_TMPFS_AT_TMP="${MountTmpfsAtTmp}" \
                     /usr/local/bin/bk-mount-instance-storage.sh
                   --==BOUNDARY==
                   Content-Type: text/x-shellscript; charset="us-ascii"
@@ -1227,7 +1280,7 @@ Resources:
                   Content-Type: text/x-shellscript; charset="us-ascii"
                   #!/bin/bash -v
                   BUILDKITE_STACK_NAME="${AWS::StackName}" \
-                  BUILDKITE_STACK_VERSION="v6.3.0" \
+                  BUILDKITE_STACK_VERSION="v6.14.0" \
                   BUILDKITE_SCALE_IN_IDLE_PERIOD="${ScaleInIdlePeriod}" \
                   BUILDKITE_SECRETS_BUCKET="${LocalSecretsBucket}" \
                   BUILDKITE_SECRETS_BUCKET_REGION="${LocalSecretsBucketRegion}" \
@@ -1238,6 +1291,7 @@ Resources:
                   BUILDKITE_AGENT_EXPERIMENTS="${BuildkiteAgentExperiments}" \
                   BUILDKITE_AGENT_TRACING_BACKEND="${BuildkiteAgentTracingBackend}" \
                   BUILDKITE_AGENT_RELEASE="${BuildkiteAgentRelease}" \
+                  BUILDKITE_AGENT_CANCEL_GRACE_PERIOD="${BuildkiteAgentCancelGracePeriod}" \
                   BUILDKITE_QUEUE="${BuildkiteQueue}" \
                   BUILDKITE_AGENT_ENABLE_GIT_MIRRORS="${BuildkiteAgentEnableGitMirrors}" \
                   BUILDKITE_ELASTIC_BOOTSTRAP_SCRIPT="${BootstrapScriptUrl}" \
@@ -1408,4 +1462,5 @@ Resources:
         AgentAutoScaleGroup: !Ref AgentAutoScaleGroup
         ScaleOutFactor: !Ref ScaleOutFactor
         ScaleOutForWaitingJobs: !Ref ScaleOutForWaitingJobs
+        EventSchedulePeriod: !Ref ScalerEventSchedulePeriod
         MinPollInterval: !Ref ScalerMinPollInterval

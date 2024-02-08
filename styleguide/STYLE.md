@@ -12,9 +12,11 @@ Table of contents:
 * [GraphQL API schema](#graphql-api-schema)
 
 ## Language
+
 This section covers everything related to the language and formatting used in Buildkite documentation (and website, to some extent).
 
 ### Dictionary
+
 We use American English, so our first-call dictionary is [Merriam Webster](https://www.merriam-webster.com/). It is not a single source of truth, just a good starting/reference point.
 We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https://github.com/buildkite/docs#linting) with a file that contains our own [custom list of words](https://github.com/buildkite/docs/blob/main/vale/vocab.txt) that may confuse the spellchecker, [filename linter](https://ls-lint.org/1.x/getting-started/introduction.html), and a [markdown linter](https://github.com/DavidAnson/markdownlint).
 
@@ -22,16 +24,21 @@ We also use [Vale](https://github.com/apps/vale-linter), our own [linter](https:
 Again, we use American English. We're also a highly multi-national team, so here is the list of the most notable [differences between American, British, and Australian English](http://web.archive.org/web/20180925084522/http://www.linktranslation.com.au/the-differences-between-american-british-and-australian-english/) English to watch out for.
 
 ### Commas
+
 Keep it clean and uncluttered. If the sentence can live without that comma - leave it out.
 
 ### Serial commas
+
 Absolutely yes, yes, and yes.
+
+Serial commas are also known as 'Oxford commas'.
 
 ### Active/passive voice
 
 Generally, use active voice. It's usually clearer and simpler.
 
 ### Gender
+
 Always use ‘they’, never use ‘he’ or ‘she’.
 More info on writing about pronouns and in the [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/grammar/nouns-pronouns).
 
@@ -42,31 +49,37 @@ It takes some care and discipline to write about.
 See [Talking about YAML](./yaml.md) for complete guidance.
 
 ## Style and formatting
+
 This section covers the matters that go beyond language and provides guidelines for consistency and a unified look.
 
 ### Consistency
+
 Keep your writing consistent with itself and other docs. This means abbreviations, capitalization, hyphens, names of UI elements, etc.
 
 ### Heading capitalization
 
 Use Sentence case in all headings (`# Heading`, `## Heading`,`### Heading`, `#### Heading`, etc.):
 
-*"The quick brown fox jumps over the lazy dog."*
+_"The quick brown fox jumps over the lazy dog."_
 
 The standard case used in English prose. That is, only the first word is capitalized, except for proper nouns and other words which are generally capitalized by a more specific rule.
 
 ### Capital letters in proper names
+
 Only capitalize the name of the product - for example, 'GitHub organization' and not 'GitHub Organization'.
 
 ### Capital letters in UX elements
+
 Match the capitalization used in the Buildkite interface.
 
 ### Lists (bullet lists and numbered steps)
+
 Capitalize the first word; no full stops at the end if it's not a full sentence. If it's a full sentence, give it a full stop.
 
 See also what Microsoft has to say on [lists](https://docs.microsoft.com/en-us/style-guide/scannable-content/lists).
 
 ### Writing numbers
+
 Write out numbers up to 10, then use digits - '58 bugs in this script and just two hours to fix them all!'
 Long numbers use commas to separate thousands - '100,000,000.00'. When in doubt, look [here](https://docs.microsoft.com/en-us/style-guide/numbers).
 
@@ -75,10 +88,12 @@ No restrictions on using numbers in the body of the text.
 
 
 ### Referring to UI elements
+
 UI elements should be italic. For example:
 
-To get your agent token, navigate to *Agents*, then select *Reveal Agent Token*.
+To get your agent token, navigate to _Agents_, then select _Reveal Agent Token_.
 
+> **Note:** Markdown supports two characters as its markup for itaclising text - either an underscore "\_" or a single asterisk "\*". For consistency, use single underscores "\_" immediately surrounding the text you want to italicise - e.g. `_Italicise this text_`
 
 ### Time and date
 
@@ -87,6 +102,7 @@ Use 24hr time with hours and minutes, but not seconds. Include timezone. For exa
 More in [Microsoft Style Guide](https://docs.microsoft.com/en-us/style-guide/a-z-word-list-term-collections/term-collections/date-time-terms).
 
 ### Spacing after full stops
+
 **Question:** Should you use one or two spaces after end punctuation?
 **Answer:** One space.
 
@@ -94,6 +110,7 @@ A little [historical background](https://www.onlinegrammar.com.au/the-grammar-fa
 P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly two blank spaces at the end of the line.
 
 ### Platform differences
+
 |                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
 |----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
 | We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
@@ -102,6 +119,7 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 
 
 ### Glossary of notable terms and their spelling
+
 | Word                      | Usage                                                                                            |
 |---------------------------|--------------------------------------------------------------------------------------------------|
 | The Buildkite Agent/agent | When referring to the running process/piece of software as a whole                               |
@@ -115,6 +133,7 @@ P.S. Remember that, ironically enough, in Markdown, line breaks demand exactly t
 | Single sign-on            | In short form SSO                       |
 
 ### Common trip-ups
+
 Linters cannot do all of the work for you, so please pay attention to the following cases:
 
 * **Their/they’re/there, your/you’re** - [check](https://www.dictionary.com/e/their-there-theyre/ ) if you’ve got the right one for your situation!
@@ -122,13 +141,16 @@ Linters cannot do all of the work for you, so please pay attention to the follow
 * Be mindful of **hyphens**! Hyphens for compound adjectives, no hyphens in verbs: 'end-user documentation' vs. 'for the end user'.
 
 ### Headings
+
 No multi-sentence headings or full stops at the end of a sentence in page or sentence headings.
 Be consistent about heading levels - H1, H2, H3 - no jumping from H1 to H3 or H2 to H4.
 
 ## Code and filenames
+
 This section deals with adding and properly formatting code in the documentation + naming files, pages, and their derivative URLs.
 
 ### Code formatting
+
 We use the GitHub flavor of markdown for [formatting code](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 
 For code or file names as a part of a sentence, use "\`\" before and after the word(s) that need(s) to be marked as code: Each command step can run either a shell command like `npm install`, or an executable file or script like `build.sh`.
@@ -137,6 +159,7 @@ In markdown this sentence looks like this: " Each command step can run either a 
 Do not use code fragments in page headings or section headings.
 
 ### Code blocks
+
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 To add a code block, indent it using four (4) spaces or use 3 backticks (\`\`\`) before and after the code block.
 
@@ -194,6 +217,7 @@ Here it is also necessary to use emoji escaping as the documentation website con
 Use escaping to prevent this.
 
 ## Working with the docs site
+
 Our docs website is a custom build. This section gives some guidance on working with the setup.
 
 ### Markdown
@@ -227,6 +251,7 @@ Watch out for differences such as:
   ```
 
 ### Adding and naming new documentation pages
+
 To add a new documentation page, create it as a *.md file. Give it a lowercase name, separate words using underscores.
 To add the new page to the documentation sidebar on https://buildkite.com/docs, add the corresponding entry to
 `data/nav.yml` with the following data in the sitetree:
@@ -245,10 +270,12 @@ To add the new page to the documentation sidebar on https://buildkite.com/docs, 
 > **Note:** Ruby, which keeps the website running, interprets underscores in filenames as hyphens. So if a page is called `octopussy_cat.erb.md`, you need to add it as `octopussy-cat` to the `nav.yml` file.
 
 ### Filenames and filename linting
+
 Use `snake_case` for `*.md` files in `pages`. The [`.ls-lint` linter](https://github.com/buildkite/docs/blob/main/.ls-lint.yml) checks if this rule is observed.
 See more about the [ls-lint filename linter](https://ls-lint.org/1.x/getting-started/introduction.html).
 
 ### Escaping vale linting
+
 If you absolutely need to add some word that triggers the linter, you can use escaping using the following syntax:
 
 ```
@@ -261,12 +288,14 @@ This is some text that you do NOT want the linter to check
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
 ### Markdown linting
+
 A [markdown linter](https://github.com/DavidAnson/markdownlint) is at work in Buildkite documentation.
 
 The enabled markdown linting rules are in [`.markdownlint.yaml`](https://github.com/buildkite/docs/blob/main/.markdownlint.yaml) file.
 
 
 ### Links
+
 Use standard markdown links syntax for both internal and external links.
 
 Internal links need to start with `/docs`, for example:
@@ -276,6 +305,7 @@ Read more about [environment variables](/docs/pipelines/environment-variables)
 ```
 
 ### Anchor links
+
 To use an anchor link where you need to link to an H2-level heading, append the section's name to the main page link, for example:
 `/docs/pipelines/secrets` will contain `/docs/pipelines/secrets#using-a-secrets-storage-service`.
 
@@ -286,6 +316,7 @@ If you need to create a link to an H3-level heading, start with an H2-level anch
 Here the H2-level link for "\#\# Environment variable precedence" is `/docs/pipelines/environment-variables#environment-variable-precedence` and the H3-level link for "\#\#\# Job environment"is appended as `-job-environment`.
 
 ### Content reuse (snippets)
+
 You can use snippets to reuse the same fragment in several documentation pages (single sourcing). This way, you can update the snippet once, and the changes will be visible on all pages that use this snippet.
 
 Add snippet files to the directory where they'll be used, prefaced with an underscore in the file name. For example `_my_snippet.md`. **However**, when pulling the snippet into a file, remove the leading underscore.
@@ -309,11 +340,13 @@ So a link to `_agent_events_table.md` stored within `webhooks` sub-folder in `ap
 `<%= render_markdown partial: 'integrations/step_2_3_github_custom_status' %>`
 
 ### Custom elements
+
 We have a few custom scripts for adding useful elements that are missing in Markdown.
 To save yourself a few unnecessary rounds of edits in the future, remember that if you see a fragment written in HTML, links within such fragment should also follow the HTML syntax and not markdown (more on this in [Note blocks](#note-blocks)).
 
 #### Beta flags
-To mark a content page in the site as being in beta, add its relative path *after* `docs` to the `app/models/beta_pages.rb` file.
+
+To mark a content page in the site as being in beta, add its relative path _after_ `docs` to the `app/models/beta_pages.rb` file.
 
 For example:
 ```
@@ -328,6 +361,7 @@ Any file listed there will automatically pick up the beta styling.
 Adding the class `has-pill-beta` to any element will append the beta pill. This is intended for use in the sidebar and homepage navigation and will not work in Markdown.
 
 #### Table of contents
+
 Table of contents are automatically generated based on \##\-level headings.
 
 You can omit a table of contents by adding some additional metadata to a markdown template using the following YAML front matter:
@@ -339,6 +373,7 @@ toc: false
 ```
 
 #### Callouts
+
 Currently, the standard Markdown blockquote syntax is combined with particular
 emoji to create callouts for particular sections of text:
 
@@ -366,7 +401,7 @@ For troubleshooting callouts ("orange"), use the 🚧 emoji:
 ```
 >🚧 A Troubleshooting Callout
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becames a new paragraph inside the callout.
+> Every line break after the first becomes a new paragraph inside the callout.
 ```
 
 For WIP or Experimental callouts ("orange"), use the 🛠 emoji:
@@ -374,12 +409,13 @@ For WIP or Experimental callouts ("orange"), use the 🛠 emoji:
 ```
 >🛠 This marks it as WIP
 > Callout content can have <code>code</code> or <em>emphasis</em> and other inline elements in it, <a href="#">including links</a>.
-> Every line break after the first becames a new paragraph inside the callout.
+> Every line break after the first becomes a new paragraph inside the callout.
 ```
 
 Any other emoji will render blockquotes as normal.
 
 #### Two-column tables
+
 To use a custom style for two-column tables that are rendered like the table in the [Job states](/docs/pipelines/defining-steps#job-states) section, use the following syntax:
 
 ```
@@ -394,6 +430,7 @@ Line 3, column 1  | Line 3, column 2
 The `{: class="two-column"}` class added at the end of a two-column table is what allows the custom table style to work.
 
 #### Fixed-width tables
+
 To use a custom style for two column tables that include long text without whitespace that are rendered like the table in the [Webhooks HTTP headers](/docs/apis/webhooks#http-headers) section, use the following syntax:
 
 ```
@@ -406,6 +443,7 @@ Line 3, column 1  | Line 3, column 2
 ```
 
 #### Responsive tables
+
 Append `{: class="responsive-table"}` to any table to render it with responsive behaviour. Use the following syntax:
 
 ```
@@ -445,6 +483,7 @@ This is useful for improving readability on small screens. Otherwise, complex ta
 On small screens, responsive tables are styled as stacked lists, and table headings are duplicated against the respective table cells of data. On medium-sized and large screens, these duplicated _faux_ table headings are hidden and the tables look as per usual.
 
 #### Prepending icons
+
 You can prepend an icon to boost the visual emphasis for an inline text. To do this, wrap the text with `<span class="add-icon-#{ICON_NAME}">`.
 
 At the time of writing, there are only three icons available — agent, repository, and plugin. To add more icons see `$icons` in `_add-icon.scss`, add a new name as the key and the inline SVG. Icon dimension must be 22px * 22px.
@@ -452,6 +491,7 @@ At the time of writing, there are only three icons available — agent, reposito
 Please note: unlike emojis, these icons are generic and contextual, and they are used as to help readers to better visually differentiate specific terms from the rest of the text.
 
 ### Updating vendor\emojis
+
 From time to time, you will start seeing an update to `vendor\emojis` submodule as a default initial file change in every new branch you create. This happens because these new branches will have an older version of the emoji submodule than the main branch.
 
 **Do not commit the `vendor\emojis` commit!** Instead, run `git submodule update`. This will take care of the emoji commit - until your local emoji submodule version falls behind again. Then you will need to run `git submodule update` for your local Docs repository again.
@@ -459,9 +499,11 @@ From time to time, you will start seeing an update to `vendor\emojis` submodule 
 If you do accidentally commit the `vendor\emojis` update, use `git reset --soft HEAD~1` to undo your last commit, un-stage the erroneous submodule change, and commit again.
 
 ## Screenshots
+
 This information was aggregated by going over the existing screenshots in the documentation repo. Feel free to change or expand it.
 
 ### Taking and processing screenshots
+
 * **Format:** PNG
 * **Ratio:** arbitrary, but **strictly even number of pixels** for both height and width. Recommended size `width: 1024px, height: 880px` when you're taking a full-width screen
 * **Size:** the largest possible resolution that makes sense. It's preferable that you take the screenshots on a Mac laptop with a Retina screen using Safari. Images should be exported at double (`@2x`) the original screen. Recommended dimension is `width: 2048/2, height: 880/2` to get the best possible view across different screen sizes.
@@ -476,6 +518,7 @@ This information was aggregated by going over the existing screenshots in the do
 * **Naming screenshots:** lowercase, words separated by hyphens; number after the title, for example, "installation-1"
 
 ### Adding screenshots or other images
+
 > Before you proceed, make sure that both the width and the height of the image are an even number of pixels!
 
 Steps for adding add an image to a documentation page:
@@ -484,14 +527,3 @@ Steps for adding add an image to a documentation page:
 3. Compose relevant alt text for the image file using sentence case
 4. Add your image file to the documentation page using the following code example `<%= image "your-image.png", width: 1110, height: 1110, alt: "Screenshot of Important Feature" %>`.
 For large images/screenshots taken on a retina screen, use `<%= image "your-image.png", width: 1110/2, height: 1110/2, alt: "Screenshot of Important Feature" %>`.
-
-## GraphQL API schemas
-
-There are over 300 GraphQL API schema pages and they are manually generated with a shell script.
-When there are changes to the API, we can update them with these steps:
-
-1. Starting from the [`buildkite/buildkite`](https://github.com/buildkite/buildkite) repo, pull the latest changes into the `main` branch
-2. Build the schema by running `rails api:graph:export`. The latest schema can be found in `frontend/app/graph/schema.json`
-3. Go back to [`buildkite/docs`](https://github.com/buildkite/docs) and replace `data/graphql_data_schema.json`'s content with the latest schema
-4. Run the script `./scripts/generate-graphql-api-content.sh`. This will generate and update all the schema pages under `pages/apis/graphql/schemas/`
-5. Stage and commit these changes

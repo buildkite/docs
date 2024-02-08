@@ -1,10 +1,10 @@
 @dannymidnight
 
-pages/ @mbelton-buildkite @MelissaKaulfuss @meiqimichelle
-data/ @mbelton-buildkite @MelissaKaulfuss @meiqimichelle
-images/ @mbelton-buildkite @MelissaKaulfuss @meiqimichelle
-vale/ @mbelton-buildkite @MelissaKaulfuss @meiqimichelle
-styleguide/ @mbelton-buildkite @MelissaKaulfuss @meiqimichelle
+pages/ @mbelton-buildkite @gilesgas
+data/ @mbelton-buildkite @gilesgas
+images/ @mbelton-buildkite @gilesgas
+vale/ @mbelton-buildkite @gilesgas
+styleguide/ @mbelton-buildkite @gilesgas
 
 app/assets/ @buildkite/growth-activate
 app/views/ @buildkite/growth-activate

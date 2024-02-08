@@ -73,6 +73,10 @@ fi
 
 ### Frequently asked questions
 
+#### Is there a limit to the number of teams an organization can have?
+Yes, we have a limit of **250 teams per organization**. If you are an enterprise
+customer and require additional teams please contact support@buildkite.com.
+
 #### Will users (and API tokens) still have access to their pipelines?
 When you enable Teams we'll create a default team called “Everyone”, containing all your users and pipelines. This ensures that users, and their API tokens, will still have access to their pipelines.
 
@@ -81,6 +85,9 @@ When a user joins the organization using SSO, they'll be automatically added to 
 
 #### Can I delete the “Everyone” team?
 Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
+
+#### Can I set separate permissions specifically on rebuilds?
+No, rebuilds are in the same category with builds. Therefore, all team members with permissions to run builds on a certain pipeline are also able to perform rebuilds.
 
 #### Once enabled, can I disable Teams?
 Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.
