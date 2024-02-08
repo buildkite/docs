@@ -77,7 +77,7 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 ### Lists
 
-For a bulleted list item, use a single asterisk `*` at the start of a new line (or block), followed by a single space, followed by the text for that bullet point.
+For a bulleted list item, use a single hyphen `-` at the start of a new line (that is, for a top-level list item), followed by a single space, followed by the text for that bullet point. For a nested bulleted list item, begin with a single asterisk `*` at the start of a new/indented text block.
 
 For a numbered list item, use the syntax `1.` at the start of a new line (or block), followed by a single space, followed by the text for that numbered list item.
 For subsequent items in a numbered list, start the new line/block with `1.` again, as the HTML will always render subsequent items sequentially. Avoid attempting to number each item sequentially (for example, `2.`, `3.`, etc.), regardless of the incremental interval (for example, `1.`, `10.`, `20.`, etc.). This makes it easier to insert items without having to renumber adjacent list numbered items.
