@@ -8,7 +8,7 @@ To contribute, please send a pull request! :heart:
 
 ### Before you start
 
-There are two ways to develop and contribute to the Buildkite Documentation—containerized and non-containerized.
+There are two ways to develop and contribute to the Buildkite Documentation—non-containerized and containerized.
 
 #### Non-containerized development
 
