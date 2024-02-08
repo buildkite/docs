@@ -9,10 +9,10 @@ For details about the language, words, and writing style and format used to writ
 
 Table of contents:
 
-- [Style and formatting](#style-and-formatting)
-- [Code and filenames](#code-and-filenames)
+- [Style and formatting](#style-and-formatting) <!-- * [Code and filenames](#code-and-filenames) -->
 - [Working with the docs site](#working-with-the-docs-site)
 - [Screenshots](#screenshots)
+- [Talking about YAML](#talking-about-yaml)
 
 ## Style and formatting
 
@@ -50,7 +50,10 @@ Even more text.
 
 > [!NOTE]
 > To improve the readability of the Markdown source content, ensure there is an empty line inserted both above and below the heading.
-> Also, to avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right _On this page_ sections of pages in the Buildkite Docs.
+> 
+> To avoid over-complicating the structure of a page, do not descend any further than a heading level 4. Be aware that only heading level 3s are rendered in the right _On this page_ sections of pages in the Buildkite Docs.
+> 
+> Do not use any bold text or other fancy formatting for headings.
 
 Refer to [Headings in the Writing style guide](writing-style.md#headings) for details on how to write and present headings in the Buildkite docs.
 
@@ -192,6 +195,26 @@ While no longer used in the Buildkite Docs, Work-in-progress (WIP) or Experiment
 
 Any other emoji will render blockquotes as normal.
 
+#### Callouts within lists
+
+If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
+
+<pre>
+1. Do this...
+
+    **Note:** This only works under certain circumstances.
+
+1. Do this next...
+</pre>
+
+which generates
+
+1. Do this...
+
+    **Note:** This only works under certain circumstances.
+
+1. Do this next...
+
 ### Tables
 
 #### Two-column tables
@@ -282,7 +305,15 @@ Each command step can run either a shell command like `npm install`, or an execu
 #### Code blocks
 
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
-To add a code block, use three (3) backticks (\`\`\`) before and after the code block.
+To add a code block, use three (3) backticks (\`\`\`) before and after the code block, for example:
+
+<pre>
+```
+Hello, world!
+```
+</pre>
+
+generates
 
 ```
 Hello, world!
@@ -291,16 +322,21 @@ Hello, world!
 To add a filename to a codeblock, immediately after the block use `{: codeblock-file="filename.extension"}` (for example, `{: codeblock-file="pipeline.yml"}`).
 
 To add syntax highlighting, you can use [Rouge](http://rouge.jneen.net/), for example:
-```
-```bash
-#!/bin/sh
-echo "Hello world"```
-```
-turns into
+
+<pre>
 ```bash
 #!/bin/sh
 echo "Hello world"
 ```
+</pre>
+
+generates
+
+```bash
+#!/bin/sh
+echo "Hello world"
+```
+
 You can see the full list of supported languages and lexers [here](https://github.com/rouge-ruby/rouge/wiki/List-of-supported-languages-and-lexers)
 
 This probably goes without saying, but do not use code fragments in page headings or section headings.
@@ -407,6 +443,7 @@ This is some text that you do NOT want the linter to check
 
 <!-- vale on -->
 ```
+
 Use the `vale off` syntax before a phrase that needs to be bypassed by the linter and don't forget to turn it on again with `vale on`.
 
 ### Markdown linting

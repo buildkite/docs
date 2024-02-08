@@ -10,12 +10,6 @@ To contribute, please send a pull request! :heart:
 
 There are two ways to develop and contribute to the Buildkite Documentation—containerized and non-containerized.
 
-#### Containerized development
-
-You will need [Docker](https://www.docker.com/) and Docker Compose.
-Most desktop installations of Docker include Docker Compose by default.
-On some platforms (for example, Linux-based ones), you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
-
 #### Non-containerized development
 
 You will need both Ruby and Yarn.
@@ -23,6 +17,12 @@ You will need both Ruby and Yarn.
 See [`.ruby-version`](.ruby-version) for the current required version. Use/install [rbenv](https://github.com/rbenv/rbenv) to install the correct version of Ruby.
 
 Ensure you have installed [Yarn](https://classic.yarnpkg.com/en/) too. If you use macOS, [you can do this conveniently with Homebrew](https://formulae.brew.sh/formula/yarn).
+
+#### Containerized development
+
+You will need [Docker](https://www.docker.com/) and Docker Compose.
+Most desktop installations of Docker include Docker Compose by default.
+On some platforms (for example, Linux-based ones), you may need to prefix `docker` commands with `sudo` or add your user to the `docker` group.
 
 #### Get the Buildkite Docs source
 
@@ -42,13 +42,6 @@ After completing the relevant 'Before you start' steps above:
 
 1. Build and run your local Buildkite Docs development server environment.
 
-   For containerized development, run the following:
-
-   ```bash
-   # Start the app on http://localhost:3000/
-   docker-compose up --build
-   ```
-
    For non-containerized development, run the following:
 
    ```bash
@@ -66,6 +59,13 @@ After completing the relevant 'Before you start' steps above:
    ```
 
    **Note:** After stopping the non-containerized server, simply run `foreman start` to re-start the server again.
+
+   For containerized development, run the following:
+
+   ```bash
+   # Start the app on http://localhost:3000/
+   docker-compose up --build
+   ```
 
 1. Open `http://localhost:3000` to preview the docs site.
 
