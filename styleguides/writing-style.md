@@ -141,7 +141,7 @@ This list summarizes word usage (or words and punctuation to avoid) in line with
 | API, SSO, SAML            | Always capitalized                                                                               |
 | Two-factor authentication | In short form 2FA |
 | Single sign-on            | In short form SSO                       |
-| Premises                  | When referring to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other English nouns, where the singular form is the same as its plural form, such as "series". |
+| Premises                  | When using this word to refer to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other unusual English nouns, where the singular form is the same as its plural form, such as "series". |
 
 ### Common trip-ups
 
