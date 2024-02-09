@@ -1035,7 +1035,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{s
 
 Required scope: `write_pipelines`
 
-Success response: `201 CREATED`
+Success response: `201 Created`
 
 Error responses:
 

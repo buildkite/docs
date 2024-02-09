@@ -264,6 +264,7 @@ steps:
           channels:
             - "buildkite-community#sre"
           message: "SRE related information here..."
+      - slack:
           channels:
             - "buildkite-community#announcements"
           message: "General announcement for the team here..."
