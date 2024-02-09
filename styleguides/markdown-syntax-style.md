@@ -199,13 +199,13 @@ Any other emoji will render blockquotes as normal.
 
 If you need to make a callout as part of a bulleted or numbered list item, the callout options above will not work. Therefore, add the callout as an indented block level text preceded with the type of callout in bold text, such as `**Note:**`. For example:
 
-<pre>
+````
 1. Do this...
 
     **Note:** This only works under certain circumstances.
 
 1. Do this next...
-</pre>
+````
 
 which generates
 
@@ -307,11 +307,11 @@ Each command step can run either a shell command like `npm install`, or an execu
 A code example longer than a couple of words that isn’t part of a sentence/a multi-line code sample needs to be formatted as a code block according to the [GitHub Markdown flavor](https://help.github.com/articles/basic-writing-and-formatting-syntax/#quoting-code).
 To add a code block, use three (3) backticks (\`\`\`) before and after the code block, for example:
 
-<pre>
+````
 ```
 Hello, world!
 ```
-</pre>
+````
 
 generates
 
@@ -323,12 +323,12 @@ To add a filename to a codeblock, immediately after the block use `{: codeblock-
 
 To add syntax highlighting, you can use [Rouge](http://rouge.jneen.net/), for example:
 
-<pre>
+````
 ```bash
 #!/bin/sh
 echo "Hello world"
 ```
-</pre>
+````
 
 generates
 
