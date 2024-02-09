@@ -120,6 +120,15 @@ Passive voice is useful when you want to:
 Always use ‘they’, never use ‘he’ or ‘she’.
 More info on writing about pronouns and in both the [Google developer documentation style guide](https://developers.google.com/style/pronouns#gender-neutral-pronouns) and [Microsoft Style Guide](https://learn.microsoft.com/en-us/style-guide/grammar/nouns-pronouns#pronouns-and-gender) on pronouns.
 
+### Formality
+
+The Buildkite Docs aims to be _semi-formal_, in that a balance is being struck between developing content that is too formal and distant, or too casual and flippant for the reader. Buildkite feels that a language tone which falls between these two opposites (semi-formal) would engage the reader more than a language tone at these two opposite ends. Hence, in the Buildkite Docs, you may often see acceptable usage of less formal word contractions such as "didn't" or "haven't" instead of "did not" or "have not", respectively.
+
+This list summarizes word usage (or words and punctuation to avoid) in line with the _semi-formal_ tone of the Buildkite Docs:
+
+- **We (as in Buildkite)**: Avoid using this pronoun in the Buildkite Docs as it is inherently ambiguous, especially in standardized/formalized documentation. 'We' does not necessarily mean Buildkite in all contexts. This pronoun's usage would be more suitable in content with a less formal tone—for example, friendlier, introductory content such as that of a tutorial, where you might begin a sentence or paragraph with "We recommend..." and where the context unambiguously indicates "we" as "Buildkite".
+- **Exclamation marks**: Following on from "we" usage above, avoid using exclamation marks `!` for punctuation in standardized/formalized documentation unless the content suits it—that is, content with a less formal, friendlier, tone, such as introductory content or a tutorial. For example, "That's it! You've completed this tutorial."
+
 ### Glossary of notable terms and their spelling
 
 | Word                      | Usage                                                                                            |
@@ -130,9 +139,9 @@ More info on writing about pronouns and in both the [Google developer documentat
 | Signup/login              | When referring to a page that enables signing up or to the signup process (that is, the adjective or noun form of these terms)                       |
 | Time out/timeout          | Time out is a verb, timeout is a noun or adjective                                                            |
 | API, SSO, SAML            | Always capitalized                                                                               |
-| GitHub                    | Always capitalized, with an uppercase H in the middle                                            |
 | Two-factor authentication | In short form 2FA |
 | Single sign-on            | In short form SSO                       |
+| Premises                  | When referring to a specific location in the singular, use "premises" (for example, "on-premises") and not "premise"/"on-premise". A "premise" is a different English word synonymous with the word "condition". There are other English nouns, where the singular form is the same as its plural form, such as "series". |
 
 ### Common trip-ups
 
@@ -171,6 +180,8 @@ Only use Title Case (initial capital letters) for the name of the product (produ
 
 > [!NOTE]
 > Avoid using Title Case for product features, that is, when mentioning or describing them in documentation.
+> 
+> Ensure brand capitalization is adhered to, for example, refer to GitHub as "GitHub", and not "Github" or "GITHUB".
 
 ### UI elements
 
@@ -213,15 +224,6 @@ More about this in the [Google developer documentation style guide](https://deve
 ### Spacing after the end of a sentence
 
 Refer to [Spacing after the end of a sentence in the Markdown syntax style guide](markdown-syntax-style.md#spacing-after-the-end-of-a-sentence) for more details about this.
-
-### Platform differences
-
-This table summarizes writing style differences across different platforms, distinguishing them from the Buildkite Docs.
-
-|                      | Docs                                                      | Twitter and Blog                                                        | Changelog                                                               |
-|----------------------|-----------------------------------------------------------|-------------------------------------------------------------------------|-------------------------------------------------------------------------|
-| We (as in Buildkite) | No                                                        | Yes                                                                     | Avoid if possible; use 'I' if you need to                               |
-| Exclamation marks    | No                                                        | Yes, although use with restraint, and not more than one in a row        | Yes, although use with restraint, and not more than one in a row        |
 
 ### Callouts
 
