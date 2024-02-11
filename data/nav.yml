@@ -295,6 +295,13 @@
               path: "pipelines/scheduled-builds"
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
+    - name: "Buildkite Compute"
+      pill: "private trials"
+      children: 
+        - name: "Overview"
+          path: "buildkite-compute/overview"
+        - name: "Secrets"
+          path: "buildkite-compute/secrets"
     - name: "Clusters"
       pill: "beta"
       children:
