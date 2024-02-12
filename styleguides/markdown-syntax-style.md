@@ -18,6 +18,22 @@ Table of contents:
 
 This section covers the Markdown syntax associated with the [Style and formatting in the Writing style guide](writing-style.md#style-and-formatting).
 
+### Markdown
+
+The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
+Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
+Watch out for differences such as:
+
+- Inline HTML comments are escaped and will appear in the output, but block comments won't.
+
+  ```markdown
+  Hello world! <!-- this comment is visible to readers -->
+
+  <!-- This comment is hidden -->
+  ```
+
+- See below about [new paragraphs within a list item](#new-paragraphs-within-a-list-item).
+
 ### Headings
 
 Ensure headings are always nested incrementally within any Markdown page (that is, `# Heading (used as the page title)`, `## Heading`, `### Heading`, `#### Heading`, etc.) throughout the docs. Be aware that this incremental nesting rule can be broken on the way up. For example:
@@ -63,6 +79,24 @@ To create a new paragraph of text, add two line breaks at the end of the last ch
 
 > [!NOTE]
 > Do not attempt to create single line breaks within a paragraph of text. While this is possible using the `<br/>` HTML element in the Markdown syntax flavor used for the Buildkite Docs, doing this adds little value to the text and [may impact how text is displayed on different devices](https://developers.google.com/style/paragraph-structure).
+
+#### New paragraphs within a list item
+
+Four spaces are required to create a new paragraph within/as part of a list item. If you don't do this, the new paragraph will break out of and interrupt the list.
+
+**✅ Do this**
+```markdown
+1. First paragraph of this list item.
+
+    A happy second paragraph, indented four spaces.
+```
+
+**❌ Don't do this**
+```markdown
+1. First paragraph of this list item.
+
+   A sad, broken second paragraph, indented three spaces.
+```
 
 ### Spacing after the end of a sentence
 
@@ -349,7 +383,8 @@ If you need to provide an example code snippet that contains emoji code and you 
 
 Another example:
 
-```
+````
+```yml
 steps:
   - group: "\:lock_with_ink_pen\: Security Audits"
     key: "audits"
@@ -357,6 +392,7 @@ steps:
       - label: "\:brakeman\: Brakeman"
         command: ".buildkite/steps/brakeman"
 ```
+````
 
 Will be rendered as:
 
@@ -376,36 +412,6 @@ Use escaping to prevent this.
 ## Working with the docs site
 
 The Buildkite docs is a custom-built website. This section gives some guidance on working with the setup.
-
-### Markdown
-
-The docs website uses the [Redcarpet](https://github.com/vmg/redcarpet) Ruby library for Markdown.
-Redcarpet does not conform with the CommonMark or GitHub Flavored Markdown specifications.
-Watch out for differences such as:
-
-- Inline HTML comments are escaped and will appear in the output, but block comments won't.
-
-  ```markdown
-  ## Hello world! <!-- this comment is visible to readers -->
-
-  <!-- This comment is hidden -->
-  ```
-
-- Four spaces are required for list continuation paragraphs.
-
-  **✅ Do this**
-  ```markdown
-  1. First paragraph of this list item.
-
-      A happy second paragraph, indented four spaces.
-  ```
-
-  **❌ Don't do this**
-  ```markdown
-  2. First paragraph of this list item.
-
-     A sad, broken second paragraph, indented three spaces.
-  ```
 
 ### Adding and naming new documentation pages
 
