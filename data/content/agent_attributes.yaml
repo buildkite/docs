@@ -13,7 +13,7 @@ attributes:
       Path to where the builds will run from.
 - name: allowed-repositories
   env_var: BUILDKITE_ALLOWED_REPOSITORIES
-  default_value: "none"
+  default_value: ""
   required: false
   desc: |
       A comma-separated list of regular expressions representing repositories the agent is allowed to clone (for example, "^git@github.com:buildkite/.\*" or "^https://github.com/buildkite/.*")
