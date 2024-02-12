@@ -5,7 +5,11 @@ The Buildkite Agent requires an agent token to connect to Buildkite and register
 
 ## The default token
 
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
+When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development and is only revealed once, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
+
+>📘 An agent token's value is only displayed once
+> As soon as the agent token's value is displayed (including the default agent token), copy its value and save it in a secure location.
+> If you forget to do this, you will need to create a new token to obtain its value.
 
 ## Using and storing tokens
 
@@ -15,24 +19,15 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Creating tokens
 
-New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
+New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create cluster token](/docs/apis/rest-api/clusters#cluster-tokens-create-a-token) feature.
 
 For example:
 
-```graphql
-mutation {
-  agentTokenCreate(input: {
-    organizationID: "organization-id",
-    description: "A description"
-  }) {
-    tokenValue
-    agentTokenEdge {
-      node {
-        id
-      }
-    }
-  }
-}
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens" \
+  -H "Content-Type: application/json" \
+  -d '{ "description": "A description" }'
 ```
 
 You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
