@@ -1,15 +1,39 @@
 # What is compute
 
-This new feature provides an infrastructure-as-a-service layer, allowing you to run Buildkite agents on a fully managed platform. With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
+Buildkite compute provides an infrastructure-as-a-service layer, allowing you to run agents on a fully managed platform. With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
-Buildkite compute services is currently in private trials, you need to contact support to express interest and have the service switched on for your organisation **are there limitations here for example if I contacted support are they likely to turn it on for me, or is it currently restricted to enterprise clients**
+Buildkite compute is currently in private trials, you need to contact support to express interest and have the service switched on for your organisation **are there limitations here for example if I contacted support are they likely to turn it on for me, or is it currently restricted to enterprise clients**
 
 ## Creating a compute queue
 
-You can create different compute queues to handle different jobs that require a different configuration of types and sizes. 
+You can set up distinct compute queues, each configured with specific types and sizes, to efficiently manage jobs with varying requirements.
+
+1. Navigate to the cluster where you want your compute queue to reside. For detailed guidance, refer to our [clusters documentation](/docs/clusters/overview)
+1. Proceed to the 'Queues' section.
+1. Click on 'New Queue'.
+1. Give your queue a key.
+1. Choose 'Hosted' as the compute.
+1. Select your machnie type.
+1. Select your machine architecture.
+1. Select you machine capacity.
+1. Select you image settings (comming soon) **Need to add something here about what they get out of the box and tell them to contact support if they need a different setup**
+
+### Configuring a compute queue
+
+Once your queue is created you can navigate to settings in the queue and change the machine machine capacity used for the queue, and also mark the queue as the default queue for the cluster
+
+### API integration
+
+The API integration details for the queue can be found in the API Integration section of the queue configuration
 
 
 ## Compute Types
+
+During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024, as part of our ongoing commitment to providing a comprehensive range of options.
+Usage of all instance types is billed on a per-minute basis. To accommodate different workloads, instances are capable of running up to 8 hours. If you reqire longer running agents please contact support.
+We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a detailed breakdown of the available options.
+
+In terms of security, every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ### Linux
 Linux machines are offered with two architectures 
@@ -50,32 +74,45 @@ Mac machines are only offered with mac silicon architecture. Please contact supp
 
 ## Caching
 
-Cache volumes are currently only offered for Linux.
+**looks from the planning that this will not be ready till 1/2 way through march, so we should put this in comming soon**
 
-Our cache volumes are great for storing your dependencies to be used across your jobs or docker images.
+At present, cache volumes are exclusively available for Linux environments.
 
-You should not use cache volumes for artifacts of jobs that are to be used by other jobs. These are better suited for an artifact storage. Our agents and cache volumes are defined to be ephemeral.
+Our cache volumes serve as an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
 
-A cache volume can be accessed from all the pipelines within a cluster. So if you have multiple pipelines using node modules as a dependency within a cluster they will all be referring to the same cache volume.
+> 📘 
+> cache volumes are not intended for storing job artifacts intended for subsequent use by other jobs. Such artifacts should be directed to a dedicated artifact storage system. The nature of our agents and cache volumes is ephemeral, underscoring the temporary lifespan of the data they contain.
 
-We have seen very high cache hit ratios for you to hit your latest cache volume.
+Cache volumes provide cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
 
-Cache volumes can be created for as little as XX GB and can grow up to 249 GB. Once you create a cache volume we scale it up automatically. 
+Our metrics indicate a high cache hit ratio, boosting the likelihood of your jobs accessing the latest available cache volume, which can significantly expedite your build process.
 
-Our cache volumes currently do not clean up unused items stored in them. Cleaning it up is soon to be on our roadmap.
+**get a value for the XX in the line below**
+Cache volumes are flexible in size, starting from as little as XX GB and can be scaled up to 249 GB. When you create a cache volume, we manage the scaling seamlessly and automatically to meet your demands.
 
-Cache volumes are prices according to two values. You pay an hour storage rate per each GB you store in our cache volumes and you also pay a set fee every time you use that cache volume in your job.
+Currently, our cache volumes do not perform automatic cleanup of unused items. However, introducing a cleanup mechanism is on our roadmap for future implementation.
 
-For docker cache we use special machines for you to have your build images multiple times faster than your usual machine. You will be charged an extra amount for every time you build docker images.
+**do we want to list this pricing model**
+The pricing model for cache volumes is twofold: there is an hourly storage rate based on the number of gigabytes stored, in addition to a fixed fee applied each time a cache volume is utilized within a job.
 
-We also cache your git mirror by d
+For docker caching, we employ specialized machines that are tailored to build your images significantly faster than standard machines. The use of these specialized machines incurs an additional charge each time you build docker images.
+
+Additionally, we optimize the efficiency of your builds by caching your git mirror. **does this really live in the caching section or should it live in the git section?**
+
+## Pipelines and Git
+
+**Need to add something about pipelines and GIT private repo access (hopefully this week, so we should include it)**
+**github code access**
+**moving a pipeline into a queue**
+**ssh into a machine**
+**usage metrics**
 
 ## Secrets
 
 ### Buildkite secrets
 
 We offer two solutions for secrets, Buildkite secrets, and using your own service provider, more details about using these solutions can be found [here](/docs/buildkite-compute/secrets)
-
+**doesn't look like this will be ready for this 2 weeks, so we probs just need a coming soon, and don't need to pushlish the how to docs yet**
 
 ## Compliance
 
