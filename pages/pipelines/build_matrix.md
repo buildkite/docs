@@ -137,7 +137,7 @@ To remove a combination from the matrix, add it to the `adjustments` key and set
 
 ## Matrix limits
 
-Each build matrix has a limit of 6 dimensions, 20 elements in each dimension and a total of 12 adjustments.
+Each build matrix has a limit of 6 dimensions, 20 elements in each dimension, and a total of 12 adjustments. The `matrix` configuration on a `command` has a limit of 50 jobs created.
 
 ## Grouping matrix elements
 

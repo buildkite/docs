@@ -124,9 +124,16 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
         "started_at": "2015-05-09T21:07:59.874Z",
         "finished_at": "2015-05-09T21:08:59.874Z",
         "retried": false,
-	"retried_in_job_id": null,
-	"retries_count": null,
-	"retry_type": null
+        "retried_in_job_id": null,
+        "retries_count": null,
+        "retry_type": null,
+        "parallel_group_index": null,
+        "parallel_group_total": null,
+        "matrix": null,
+        "cluster_id": null,
+        "cluster_url": null,
+        "cluster_queue_id": null,
+        "cluster_queue_url": null
       }
     ],
     "created_at": "2015-05-09T21:05:59.874Z",
@@ -276,7 +283,14 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -439,7 +453,14 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -605,7 +626,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
@@ -745,7 +773,14 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
       "retried": false,
       "retried_in_job_id": null,
       "retries_count": null,
-      "retry_type": null
+      "retry_type": null,
+      "parallel_group_index": null,
+      "parallel_group_total": null,
+      "matrix": null,
+      "cluster_id": null,
+      "cluster_url": null,
+      "cluster_queue_id": null,
+      "cluster_queue_url": null
     }
   ],
   "created_at": "2015-05-09T21:05:59.874Z",
