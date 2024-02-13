@@ -172,3 +172,7 @@ Error responses:
   <tr><th><code>400 Bad Request</code></th><td><code>{ "message": "Can only stop connected agents" }</code></td></tr>
 </tbody>
 </table>
+
+## Agent tokens
+
+Agent tokens are created through the [clusters REST API endpoint](/docs/apis/rest-api/clusters#agent-tokens).

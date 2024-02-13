@@ -30,7 +30,16 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "description": "A description" }'
 ```
 
-You can find your `organization-id` in your Buildkite organization settings page, or by running the following GrapqQL query:
+The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+
+The `{org.slug}` value can be obtained from the end of your Buildkite URL after visiting the _Pipelines_ page of your organization in Buildkite. Alternatively, you can run the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+```
+
+
+in your Buildkite organization settings page, or by running the following GraphQL query:
 
 ```graphql
 query GetOrgID {

@@ -590,9 +590,9 @@ Error responses:
 </tbody>
 </table>
 
-## Cluster tokens
+## Agent tokens
 
-A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster) is used to connect agents to a cluster.
+An agent token is used to [connect agents to a cluster](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster).
 
 ### Token data model
 
@@ -611,7 +611,7 @@ A [cluster token](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-
 
 ### List tokens
 
-Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's tokens.
+Returns a [paginated list](<%= paginated_resource_docs_url %>) of a cluster's agent tokens.
 
 ```bash
 curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
