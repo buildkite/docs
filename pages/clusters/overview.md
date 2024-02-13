@@ -1,6 +1,9 @@
 # Clusters overview
 
-Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, and help to make agents and queues more discoverable across your organization.
+>📘 Clusters
+> Clusters will be enabled for all organizations on February 26 2024. 
+
+Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, help to make agents and queues more discoverable across your organization, and provide easily accessible queue metrics.
 
 The following diagram shows the architecture with cluster enabled.
 
@@ -12,7 +15,21 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 * Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens and add and remove pipelines.
 * Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
-## Enable clusters
+## Queue metrics
+
+Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. 
+See [Cluster queue metrics](../../docs/pipelines/cluster-queue-metrics) for more information.
+
+## Accessing clusters and agents
+
+The release of clusters will change navigating to your agents on the UI. 
+
+If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue. 
+
+If you have multiple clusters, or _Unclustered_ pipelines and agents, selecting _Agents_ in the global navigation will take you to the Clusters page. 
+Once in the clusters page you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster. 
+
+## Enabling clusters before the release date
 
 Any Buildkite administrator can enable clusters for an organization. Once you enable clusters, you can only disable them by contacting support.
 
@@ -30,8 +47,7 @@ _Clusters_ will now appear in the global navigation.
 
 Enabling clusters will not impact any of your existing agents or pipelines, nor will you require any workflow-breaking changes for you to try clusters.
 
-Once you’ve enabled clusters, all members of your organization will see _Clusters_ in the global navigation. This will show all your clusters as well as _Unclustered_ agents and pipelines.
+Once clusters is enabled, when selecting _Agents_ in the global navigation your will be shown all your clusters as well as _Unclustered_ agents and pipelines.
 
 Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
 
-To view all running agents in your organization (in a cluster or not), click on _All agents_ in the sidebar.
