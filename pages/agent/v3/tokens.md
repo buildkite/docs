@@ -51,7 +51,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 - The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
 
-It is possible to create multiple agent tokens (for any cluster) using either its _Agent Tokens_ page or the [REST API](/docs/apis/rest-api/clusters#agent-tokens-create-a-token).
+It is possible to create multiple agent tokens (for any cluster) using either the cluster's _Agent Tokens_ page or the [REST API](/docs/apis/rest-api/clusters#agent-tokens-create-a-token).
 
 ## Revoking tokens
 
