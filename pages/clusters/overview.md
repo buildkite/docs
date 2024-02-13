@@ -62,7 +62,7 @@ The most common patterns we see for clusters are per stage, type of work or prod
 
 * Stage setup: dev, test, prod clusters
 * Type of work: Open source vs everything else
-* Type of build: Docker, android, mac, ML etc
+* Type of build: Docker, Android, Mac, ML etc
 * Per product line: For companies with multiple products we see them have a cluster per each individual product.
 
 You can create as many clusters as your require for your setup.
@@ -73,7 +73,7 @@ Queues should mimic your infrastructure. The most common queue attributes we see
 
 * Architecture (x86, arm64 etc)
 * Size of agents (small, medium, large)
-* Type of machine (mac, gpu, linux, windows)
+* Type of machine (Mac, GPU, Linux, Windows)
 
 So an example queue would be small_mac_silicon.
 
