@@ -1,7 +1,7 @@
 # Clusters overview
 
 >📘 Clusters
-> Clusters will be enabled for all organizations on February 26 2024. 
+> Clusters will be enabled for all organizations on February 26 2024.
 
 Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, help to make agents and queues more discoverable across your organization, and provide easily accessible queue metrics.
 
@@ -17,17 +17,17 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 ## Queue metrics
 
-Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster. 
+Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster.
 See [Cluster queue metrics](../../docs/pipelines/cluster-queue-metrics) for more information.
 
 ## Accessing clusters and agents
 
-The release of clusters will change navigating to your agents on the UI. 
+The release of clusters will change navigating to your agents on the UI.
 
-If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue. 
+If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue.
 
-If you have multiple clusters, or _Unclustered_ pipelines and agents, selecting _Agents_ in the global navigation will take you to the Clusters page. 
-Once in the clusters page you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster. 
+If you have multiple clusters, or _Unclustered_ pipelines and agents, selecting _Agents_ in the global navigation will take you to the Clusters page.
+Once in the clusters page you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
 
 ## Enabling clusters before the release date
 
