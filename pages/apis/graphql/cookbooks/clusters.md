@@ -48,9 +48,9 @@ query getClusterQueues {
 }
 ```
 
-## List cluster tokens
+## List agent tokens
 
-Get the first 10 cluster tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
+Get the first 10 agent tokens for a particular cluster, specifying the clusters' UUID as the `id` argument of the `cluster` query:
 
 ```graphql
 query getClusterTokens {

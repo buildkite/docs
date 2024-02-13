@@ -1,6 +1,6 @@
 # Agent tokens
 
-The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
+A Buildkite agent requires an agent token to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/clusters/overview), and can be accessed from the cluster's _Agent Tokens_ page.
 
 
 ## The default token
@@ -19,7 +19,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Creating tokens
 
-New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create cluster token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
+New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
 
 For example:
 
