@@ -60,7 +60,7 @@ Any agents or pipelines not associated with a cluster are called _unclustered_. 
 
 The most common patterns we see for clusters are per stage, type of work or product.
 
-* Stage setup: dev, test, prod clusters
+* Stage setup: DEV, TEST, PROD clusters
 * Type of work: Open source vs everything else
 * Type of build: Docker, Android, Mac, ML etc
 * Per product line: For companies with multiple products we see them have a cluster per each individual product.
@@ -75,7 +75,7 @@ Queues should mimic your infrastructure. The most common queue attributes we see
 * Size of agents (small, medium, large)
 * Type of machine (Mac, GPU, Linux, Windows)
 
-So an example queue would be small_mac_silicon.
+So an example queue would be `small_mac_silicon`.
 
 Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these
 
