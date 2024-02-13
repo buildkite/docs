@@ -2,7 +2,6 @@
 
 A Buildkite agent requires an agent token to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/clusters/overview), and can be accessed from the cluster's _Agent Tokens_ page.
 
-
 ## The default token
 
 When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development and is only revealed once, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
@@ -40,7 +39,7 @@ curl -H "Authorization: Bearer $TOKEN" \
     curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
     ```
 
-- The `{cluster.id}` value can be obtained from the _Cluster Settings_ page of your specific cluster that the agent will connect to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Settings_. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value. 
+- The `{cluster.id}` value can be obtained from the _Cluster Settings_ page of your specific cluster that the agent will connect to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Settings_. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
 
     Alternatively, you can run the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
 
