@@ -25,10 +25,6 @@ Once your queue is created you can navigate to settings in the queue and change 
 
 The API integration details for the queue can be found in the API Integration section of the queue configuration
 
-### Comming Soon
-
-* The ability to select your Mac image requirements
-
 ## Compute Types
 
 During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024, as part of our ongoing commitment to providing a comprehensive range of options.
@@ -76,6 +72,25 @@ The software available in the standard MacOS instances is listed [here](/docs/bu
 
 ## Using private GitHub repositories in your compute pipelines. 
 
+If you want to use a private GitHub repository with buildkite compute services you will need to authorize Buildkite to access your repository. 
+
+1. Navigate to your Buildkite org settings page [here](https://buildkite.com/organizations/~/settings).
+1. On the left hand menu select _Repository Providers_.
+1. Select the _GitHub (with code access)_ option.
+1. Follow the prompts to authorize the services on your GitHub account, you can restrict access to specific repositories during setup. 
+
+## Moving your pipeline to a compute services
+
+* Ensure your pipeline is in the same cluster as the compute queue you setup previously see [Cluster Pipelines](/docs/clusters/overview).
+* Set your pipeline to use the GitHub (with code access) service your authorized in the step above.
+* 1. Navigate to your pipeline settings.
+* 1. Select GitHub from the left menu.  
+* 1. Remove the existing repository, or select the _Choose another repository or URL_ link
+* 1. Select the GitHub account including ...(with code access) 
+* 1. Select the repository. 
+* 1. Select _Save Repository_.
+
+You are now ready to run a build on your buildkite compute queue.
 
 
 ## Compliance
