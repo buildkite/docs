@@ -6,9 +6,9 @@ Buildkite compute is currently in private trials, you need to contact support to
 
 ## Creating a compute queue
 
-You can set up distinct compute queues, each configured with specific types and sizes, to efficiently manage jobs with varying requirements.
+You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
-1. Navigate to the cluster where you want your compute queue to reside. For detailed guidance, refer to our [clusters documentation](/docs/clusters/overview)
+1. Navigate to the cluster where you want your compute queue to reside. For detailed guidance, see [clusters documentation](/docs/clusters/overview)
 1. Proceed to the 'Queues' section.
 1. Click on 'New Queue'.
 1. Give your queue a key.
@@ -19,7 +19,7 @@ You can set up distinct compute queues, each configured with specific types and 
 
 ### Configuring a compute queue
 
-Once your queue is created you can navigate to settings in the queue and change the machine machine capacity used for the queue, and also mark the queue as the default queue for the cluster
+Once your queue is created you can navigate to settings in the queue and change the machine capacity used for the queue, and set the queue as the default queue for the cluster
 
 ### API integration
 
@@ -27,8 +27,8 @@ The API integration details for the queue can be found in the API Integration se
 
 ## Compute Types
 
-During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024, as part of our ongoing commitment to providing a comprehensive range of options.
-Usage of all instance types is billed on a per-minute basis. To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
+During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
+Usage of all instance types is billed on a per-minute basis. To accommodate different workloads instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a detailed breakdown of the available options.
 
 In terms of security, every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
@@ -56,7 +56,7 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 ### Mac
 Mac machines are only offered with mac silicon architecture. Please contact support if you have specific needs for intel machines.
 
-The software available in the standard MacOS instances is listed [here](/docs/buildkite-compute/macos-instances), Please contact support if you're in the trial group and have specific requirements that are not automatically provided. 
+The software available in the standard MacOS instances is listed [here](/docs/buildkite-compute/macos-instances), Please contact support if you require specific software that is not listed
 
 #### Size
 <table>
@@ -72,7 +72,7 @@ The software available in the standard MacOS instances is listed [here](/docs/bu
 
 ## Using private GitHub repositories in your compute pipelines. 
 
-If you want to use a private GitHub repository with buildkite compute services you will need to authorize Buildkite to access your repository. 
+To use a private GitHub repository with buildkite compute services you will need to authorize Buildkite to access your repository. 
 
 1. Navigate to your Buildkite org settings page [here](https://buildkite.com/organizations/~/settings).
 1. On the left hand menu select _Repository Providers_.
@@ -89,6 +89,7 @@ If you want to use a private GitHub repository with buildkite compute services y
 * 1. Select the GitHub account including ...(with code access) 
 * 1. Select the repository. 
 * 1. Select _Save Repository_.
+* Ensure each step in the pipeline targets the required compute queue. 
 
 You are now ready to run a build on your buildkite compute queue.
 
