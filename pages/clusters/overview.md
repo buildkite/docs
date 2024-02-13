@@ -51,3 +51,34 @@ Once clusters is enabled, when selecting _Agents_ in the global navigation your 
 
 Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
 
+## Clusters and Queues best practice
+
+>📘 Clusters Pipelines
+> Pipelines defined in a cluster cannot trigger pipelines in another cluster
+
+### How should I structure my clusters
+
+The most common patterns we see for clusters are per stage, type of work or product.
+
+* Stage setup: dev, test, prod clusters
+* Type of work: Open source vs everything else
+* Type of build: Docker, android, mac, ML etc
+* Per product line: For companies with multiple products we see them have a cluster per each individual product.
+
+You can create as many clusters as your require for your setup.
+
+### How should I structure my queues
+
+Queues should mimic your infrastructure. The most common queue attributes we see customers use are:
+
+* Architecture (x86, arm64 etc)
+* Size of agents (small, medium, large)
+* Type of machine (mac, gpu, linux, windows)
+
+So an example queue would be small_mac_silicon.
+
+Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these
+
+
+
+
