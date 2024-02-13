@@ -19,7 +19,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Creating tokens
 
-New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create cluster token](/docs/apis/rest-api/clusters#cluster-tokens-create-a-token) feature.
+New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create cluster token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
 
 For example:
 
@@ -30,30 +30,29 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "description": "A description" }'
 ```
 
-The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-The `{org.slug}` value can be obtained from the end of your Buildkite URL after visiting the _Pipelines_ page of your organization in Buildkite. Alternatively, you can run the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+- The `{org.slug}` value can be obtained from the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
-```curl
-curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-```
+    Alternatively, you can run the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
 
+    ```curl
+    curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+    ```
 
-in your Buildkite organization settings page, or by running the following GraphQL query:
+- The `{cluster.id}` value can be obtained from the _Cluster Settings_ page of your specific cluster that the agent will connect to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Settings_. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value. 
 
-```graphql
-query GetOrgID {
-  organization(slug: "organization-slug") {
-    id
-  }
-}
-```
+    Alternatively, you can run the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+    ```curl
+    curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+    ```
 
 <!--alex ignore clearly-->
 
-The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
+- The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
 
-It is possible to create multiple agent tokens using the GraphQL API. These tokens will show up on the [Agents page](https://buildkite.com/organizations/-/agents) in the UI, but can only be managed (created or revoked) using the API.
+It is possible to create multiple agent tokens (for any cluster) using either its _Agent Tokens_ page or the [REST API](/docs/apis/rest-api/clusters#agent-tokens-create-a-token).
 
 ## Revoking tokens
 
