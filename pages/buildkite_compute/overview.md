@@ -2,7 +2,7 @@
 
 Buildkite compute provides an infrastructure-as-a-service layer, allowing you to run agents on a fully managed platform. With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
-Buildkite compute is currently in private trials, you need to contact support to express interest and have the service switched on for your organisation **are there limitations here for example if I contacted support are they likely to turn it on for me, or is it currently restricted to enterprise clients**
+Buildkite compute is currently in private trials, you need to contact support to express interest and have the service switched on for your organization.
 
 ## Creating a compute queue
 
@@ -13,10 +13,9 @@ You can set up distinct compute queues, each configured with specific types and 
 1. Click on 'New Queue'.
 1. Give your queue a key.
 1. Choose 'Hosted' as the compute.
-1. Select your machnie type.
+1. Select your machine type.
 1. Select your machine architecture.
 1. Select you machine capacity.
-1. Select you image settings (comming soon) **Need to add something here about what they get out of the box and tell them to contact support if they need a different setup**
 
 ### Configuring a compute queue
 
@@ -26,20 +25,25 @@ Once your queue is created you can navigate to settings in the queue and change 
 
 The API integration details for the queue can be found in the API Integration section of the queue configuration
 
+### Comming Soon
+
+* The ability to select your Mac image requirements
 
 ## Compute Types
 
 During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024, as part of our ongoing commitment to providing a comprehensive range of options.
-Usage of all instance types is billed on a per-minute basis. To accommodate different workloads, instances are capable of running up to 8 hours. If you reqire longer running agents please contact support.
+Usage of all instance types is billed on a per-minute basis. To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a detailed breakdown of the available options.
 
 In terms of security, every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ### Linux
-Linux machines are offered with two architectures 
+Linux instances are offered with two architectures 
 
 * ARM
 * AMD64 (x64_86)
+
+To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin. 
 
 #### Size
 <table>
@@ -53,10 +57,10 @@ Linux machines are offered with two architectures
     </tbody>
 </table>
 
-#### Image options
-
 ### Mac
 Mac machines are only offered with mac silicon architecture. Please contact support if you have specific needs for intel machines.
+
+The software available in the standard MacOS instances is listed [here](/docs/buildkite-compute/macos-instances), Please contact support if you're in the trial group and have specific requirements that are not automatically provided. 
 
 #### Size
 <table>
@@ -70,58 +74,73 @@ Mac machines are only offered with mac silicon architecture. Please contact supp
     </tbody>
 </table>
 
-#### Image options
+## Using private GitHub repositories in your compute pipelines. 
 
-## Caching
 
-**looks from the planning that this will not be ready till 1/2 way through march, so we should put this in comming soon**
-
-At present, cache volumes are exclusively available for Linux environments.
-
-Our cache volumes serve as an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
-
-> 📘 
-> cache volumes are not intended for storing job artifacts intended for subsequent use by other jobs. Such artifacts should be directed to a dedicated artifact storage system. The nature of our agents and cache volumes is ephemeral, underscoring the temporary lifespan of the data they contain.
-
-Cache volumes provide cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
-
-Our metrics indicate a high cache hit ratio, boosting the likelihood of your jobs accessing the latest available cache volume, which can significantly expedite your build process.
-
-**get a value for the XX in the line below**
-Cache volumes are flexible in size, starting from as little as XX GB and can be scaled up to 249 GB. When you create a cache volume, we manage the scaling seamlessly and automatically to meet your demands.
-
-Currently, our cache volumes do not perform automatic cleanup of unused items. However, introducing a cleanup mechanism is on our roadmap for future implementation.
-
-**do we want to list this pricing model**
-The pricing model for cache volumes is twofold: there is an hourly storage rate based on the number of gigabytes stored, in addition to a fixed fee applied each time a cache volume is utilized within a job.
-
-For docker caching, we employ specialized machines that are tailored to build your images significantly faster than standard machines. The use of these specialized machines incurs an additional charge each time you build docker images.
-
-Additionally, we optimize the efficiency of your builds by caching your git mirror. **does this really live in the caching section or should it live in the git section?**
-
-## Pipelines and Git
-
-**Need to add something about pipelines and GIT private repo access (hopefully this week, so we should include it)**
-**github code access**
-**moving a pipeline into a queue**
-**ssh into a machine**
-**usage metrics**
-
-## Secrets
-
-### Buildkite secrets
-
-We offer two solutions for secrets, Buildkite secrets, and using your own service provider, more details about using these solutions can be found [here](/docs/buildkite-compute/secrets)
-**doesn't look like this will be ready for this 2 weeks, so we probs just need a coming soon, and don't need to pushlish the how to docs yet**
 
 ## Compliance
 
 Our compute is SOC2 compliant.
-
 
 ## Disaster recovery
 
 Our agents are located in North America and Europe.
 
 We can support your legal requirements in terms of specific regions. Please contact support if you have any requirements around the regions your agents need to be hosted in.
+
+## Comming Soon
+
+### MacOS Image configuration in the UI
+We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues. 
+
+### Docker config editing in the UI for Linux compute
+We are building functionality to allow you to edit the docker config for your linux images within the Buildkite UI
+
+### Cache volumes for Linux instances
+
+Cache volumes will provide: 
+* an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
+* cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
+* flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
+* Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines. 
+* Git Mirror caching
+
+### Buildkite secrets
+
+Only in the rarest cases does CI not need to access outside services, and in these cases, the usability of the CI is severely limited. To use CI effectively - and to move toward CD, continuous deployment - your CI system needs to be able to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
+
+To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use them safely and effectively in your builds. Buildkite Secrets provides such a way to do this - we'll securely store your secrets, and provide a way for you to access them in your builds.
+
+Buildkite Secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite Agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted serverside when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
+
+Secrets are scoped per-cluster, and all belong to a single cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret.
+
+Until buildkite secrets are available and if you would like to continue using your thrid party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please reach out to support. 
+
+<table>
+    <thead>
+        <tr><th>Service</th><th>Plugin</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>AWS SSM</td><td>[plugin](https://github.com/buildkite-plugins/aws-assume-role-with-web-identity-buildkite-plugin)</td></tr>
+        <tr><td>GC Secrets</td><td>[plugin](https://github.com/buildkite-plugins/gcp-workload-identity-federation-buildkite-plugin)</td></tr>
+        <tr><td>Hashicorp Vault</td><td>[plugin](https://github.com/buildkite-plugins/vault-secrets-buildkite-plugin)</td></tr>
+    </tbody>
+</table>
+
+### Ability to SSH into a machine
+
+We are working on allowing direct SSH access into the provided instances.
+
+### Usage metrics
+
+Enhanced usage metrics across your compute queues. 
+
+## Pipelines and Git
+
+**Need to add something about pipelines and GIT private repo access (hopefully this week, so we should include it)**
+**github code access**
+**moving a pipeline into a queue**
+
+
 

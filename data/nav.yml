@@ -300,8 +300,8 @@
       children: 
         - name: "Overview"
           path: "buildkite-compute/overview"
-        - name: "Secrets"
-          path: "buildkite-compute/secrets"
+        - name: "MacOS Instances"
+          path: "buildkite-compute/macos-instances"
     - name: "Clusters"
       pill: "beta"
       children:
