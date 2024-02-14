@@ -8,7 +8,7 @@ If you are still managing agents in an unclustered environment, refer to [unclus
 
 <!-- Is this section still valid? Should this instead be called the 'initial agent token', and in which cluster is this located? -->
 
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development and is only revealed once, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
+When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development and is only revealed once, but it's recommended you [create new, specific tokens](#create-a-token) for each new environment.
 
 >📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed (including the default agent token), copy its value and save it in a secure location.
@@ -20,11 +20,24 @@ An agent token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Creating tokens
+## Create a token
 
-New tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
+New agent tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
 
-For example:
+### Using the Buildkite user interface
+
+To create an agent token using the _Agent Tokens_ page:
+
+1. Select _Agents_ to access the _Agent Clusters_ page.
+1. Select the cluster containing the agent token to revoke.
+1. Select _Agent Tokens_ and on this page, select _New Token_.
+1. In the _Description_ field, enter an appropriate description for the agent token.
+
+    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
+
+### Using the REST API
+
+To create an agent token using the REST API, run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -33,68 +46,77 @@ curl -H "Authorization: Bearer $TOKEN" \
   -d '{ "description": "A description" }'
 ```
 
+where:
+
 - The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The `{org.slug}` value can be obtained from the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+- The `{org.slug}` value can be obtained:
 
-    Alternatively, you can run the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
-    ```curl
-    curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
-    ```
+    * Running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
 
-- The `{cluster.id}` value can be obtained from the _Cluster Settings_ page of your specific cluster that the agent will connect to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Settings_. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+        ```
 
-    Alternatively, you can run the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+- The `{cluster.id}` value can be obtained:
 
-    ```curl
-    curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
-    ```
+    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
+
+        * Select _Agents_ > the specific cluster > _Settings_.
+        * Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+
+    * Running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+        ```
 
 <!--alex ignore clearly-->
 
-- The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
+- The `description` value clearly identifies the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
 
 It is possible to create multiple agent tokens (for any cluster) using either the cluster's _Agent Tokens_ page or the [REST API](/docs/apis/rest-api/clusters#agent-tokens-create-a-token).
 
-## Revoking tokens
+## Revoke a token
 
-Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation.
+Agent tokens can be revoked using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [delete agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) feature.
 
-You need to pass your agent token as the ID in the mutation. You can get the token from your Buildkite dashboard, in _Agents_ > _Reveal Agent Token_, or you can retrieve a list of agent token IDs using this query:
+### Using the Buildkite user interface
 
-```graphql
-query GetAgentTokenID {
-  organization(slug: "organization-slug") {
-    agentTokens(first:50) {
-      edges {
-        node {
-          id
-          uuid
-          description
-        }
-      }
-    }
-  }
-}
+To revoke an agent token using the _Agent Tokens_ page:
+
+1. Select _Agents_ to access the _Agent Clusters_ page.
+1. Select the cluster containing the agent token to revoke.
+1. Select _Agent Tokens_ and on this page, expand the agent token to revoke.
+1. Select _Revoke_ > _Revoke Token_ in the confirmation message.
+
+### Using the REST API
+
+To revoke an agent token using the REST API, run the following example `curl` command:
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}"
 ```
 
-Then, using the token ID, revoke the agent token:
+where:
 
-```graphql
-mutation {
-  agentTokenRevoke(input: {
-    id: "token-id",
-    reason: "A reason"
-  }) {
-    agentToken {
-      description
-      revokedAt
-      revokedReason
-    }
-  }
-}
-```
+- The `$TOKEN`, `{org.slug}` and `{cluster.id}` values are obtained the same way as those when [creating an agent token using the REST API](#create-a-token-using-the-rest-api).
+
+- The `{id}` value can be obtained:
+
+    * From the Buildkite URL path when editing the agent token. To do this:
+
+        * Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
+        * Copy the ID value between `/tokens/` and `/edit` in the URL.
+
+    * Running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
+        ```
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
