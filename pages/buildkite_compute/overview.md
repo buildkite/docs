@@ -21,7 +21,7 @@ You can set up distinct compute queues, each configured with specific types and 
 
 Once your queue is created you can navigate to settings in the queue and change the machine capacity, and set the queue as the default queue for the cluster
 
-## Compute Types
+## Compute types
 
 During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
 
@@ -52,7 +52,7 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 </table>
 
 ### Mac
-Mac machines are only offered with mac silicon architecture. Please contact support if you have specific needs for intel machines.
+Mac machines are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
 
 The software available in the standard MacOS instances is listed [here](/docs/buildkite-compute/macos-instances), Please contact support if you require specific software that is not listed
 
@@ -89,7 +89,7 @@ To use a private GitHub repository with Buildkite compute services you will need
 1. Select _Save Repository_.
 * Ensure each step in the pipeline targets the required compute queue. 
 
-You are now ready to run a build on your buildkite compute queue.
+You are now ready to run a build on your Buildkite compute queue.
 
 ## Compliance
 
@@ -101,12 +101,12 @@ Our agents are located in North America and Europe.
 
 We can support your legal requirements in terms of specific regions. Please contact support if you have any requirements around the regions your agents need to be hosted in.
 
-## Comming Soon
+## Coming soon
 
 ### API support for hosted queues
 We are working on adding functionality in the API to allow configuration of hosted queues. 
 
-### MacOS Image configuration in the UI
+### MacOS image configuration in the UI
 We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues. 
 
 ### Docker config editing in the UI for Linux compute
@@ -131,7 +131,7 @@ Buildkite Secrets are an encrypted key-value store, where secrets are available 
 
 Secrets are scoped per-cluster, and all belong to a single cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret.
 
-Until buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please reach out to support. 
+Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please reach out to support. 
 
 <table>
     <thead>
