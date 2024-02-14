@@ -2,24 +2,27 @@
 
 >📘 This page documents a legacy/deprecated feature of Buildkite
 > Previously, agents only connected to Buildkite directly via a token which was created and managed by the processes described on this page. These tokens are now a legacy/deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines across to using clusters.
-> Agent tokens are now associated with clusters, such that these tokens now connect to Buildkite via a specific cluster within an organization. Refer to the main [agent token](/docs/agent/v3/tokens) for details on how to create agent tokens for clusters.
+> Agent tokens are now associated with clusters, such that these tokens connect to Buildkite through a specific cluster within an organization. Refer to the main [agent token](/docs/agent/v3/tokens) for details on how to create agent tokens for clusters.
 
-The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
+A Buildkite agent requires an agent token to connect to Buildkite and register for work. If you need to connect an unclustered agent to Buildkite, then you need to create an _unclustered agent token_ to do so.
 
+<!-- If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents). -->
 
 ## The default token
 
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
+<!-- Is this section still valid? Should this instead be called the 'initial unclustered agent token'? -->
+
+When you create a new organization in Buildkite, a default unclustered agent token is created. This token can be used for testing and development, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
 
 ## Using and storing tokens
 
-The token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided using the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`.
+An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/v3/cli-start#starting-an-agent) command, and can be provided on the command line, set in the [configuration file](/docs/agent/v3/configuration), or provided using the [environment variable](/docs/pipelines/environment-variables) `BUILDKITE_AGENT_TOKEN`.
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
 ## Creating tokens
 
-New tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
+New unclustered agent tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
 
 For example:
 
@@ -51,15 +54,17 @@ query GetOrgID {
 
 <!--alex ignore clearly-->
 
-The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
+The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of the _Agents_ > _Unclustered_ area. (This page can be accessed by selecting _Agents_ > _Unclustered_ > _Agent Tokens_.)
 
-It is possible to create multiple agent tokens using the GraphQL API. These tokens will show up on the [Agents page](https://buildkite.com/organizations/-/agents) in the UI, but can only be managed (created or revoked) using the API.
+It is possible to create multiple unclustered agent tokens using the GraphQL API.
 
 ## Revoking tokens
 
-Tokens can be revoked using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenRevoke ` mutation.
+Unclustered agent tokens can be revoked using the [GraphQL API](/docs/apis/graphql/cookbooks/agents#revoke-an-agent-token) query with the `agentTokenRevoke ` mutation.
 
-You need to pass your agent token as the ID in the mutation. You can get the token from your Buildkite dashboard, in _Agents_ > _Reveal Agent Token_, or you can retrieve a list of agent token IDs using this query:
+You need to pass your unclustered agent token as the ID in the mutation.
+
+First, you can retrieve a list of agent token IDs using this query:
 
 ```graphql
 query GetAgentTokenID {
