@@ -5,6 +5,7 @@ To use Test Analytics with your JavaScript (npm) projects, use the :github: [`te
 - [Jest](https://jestjs.io/)
 - [Jasmine](https://jasmine.github.io/)
 - [Mocha](https://mochajs.org/)
+- [Cypress](https://www.cypress.io)
 - [Playwright](https://playwright.dev)
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
@@ -118,6 +119,30 @@ To configure Mocha:
       "buildkiteTestCollectorMochaReporterReporterOptions": {
         "token_name": "CUSTOM_ENV_VAR_NAME"
       }
+    }
+    ```
+
+### Cypress
+To configure Cypress:
+
+1. Make sure Cypress runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
+1. Update your [Cypress Configuration](https://docs.cypress.io/guides/references/configuration)
+    
+    ```js
+    // cypress.config.js
+
+    // Send results to Test Analytics
+    reporter: "buildkite-test-collector/cypress/reporter",
+    ```
+
+1. If you would like to pass in the API token using a custom environment variable, you can do so using the `reporterOptions`.
+    
+    ```js
+    // cypress.config.js
+
+    // Send results to Test Analytics
+    reporterOptions: {
+      token_name: "CUSTOM_ENV_VAR_NAME"
     }
     ```
 
