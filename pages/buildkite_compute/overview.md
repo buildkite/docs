@@ -34,8 +34,8 @@ Every Buildkite hosted agent within a cluster benefits from hypervisor-level iso
 ### Linux
 Linux instances are offered with two architectures 
 
-* ARM
-* AMD64 (x64_86)
+- ARM
+- AMD64 (x64_86)
 
 To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin. 
 
@@ -79,15 +79,15 @@ To use a private GitHub repository with Buildkite compute services you will need
 
 ## Moving your pipeline to a compute services
 
-* Ensure your pipeline is in the same cluster as the compute queue you setup previously see [Manage clusters](/docs/clusters/manage-clusters).
-* Set your pipeline to use the GitHub (with code access) service your authorized in the step above.
-1. Navigate to your pipeline settings.
-1. Select GitHub from the left menu.  
-1. Remove the existing repository, or select the _Choose another repository or URL_ link
-1. Select the GitHub account including ...(with code access) 
-1. Select the repository. 
-1. Select _Save Repository_.
-* Ensure each step in the pipeline targets the required compute queue. 
+- Ensure your pipeline is in the same cluster as the compute queue you setup previously see [Manage clusters](/docs/clusters/manage-clusters).
+- Set your pipeline to use the GitHub (with code access) service your authorized in the step above.
+- Navigate to your pipeline settings.
+- Select GitHub from the left menu.  
+- Remove the existing repository, or select the _Choose another repository or URL_ link
+- Select the GitHub account including ...(with code access) 
+- Select the repository. 
+- Select _Save Repository_.
+- Ensure each step in the pipeline targets the required compute queue. 
 
 You are now ready to run a build on your Buildkite compute queue.
 
@@ -115,11 +115,11 @@ We are building functionality to allow you to edit the docker config for your li
 ### Cache volumes for Linux instances
 
 Cache volumes will provide: 
-* an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
-* cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
-* flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
-* Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines. 
-* Git Mirror caching
+- an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
+- cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
+- flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
+- Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines. 
+- Git Mirror caching
 
 ### Buildkite secrets
 
