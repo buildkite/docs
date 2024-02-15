@@ -64,8 +64,8 @@ where:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
 
-        * Select _Agents_ > the specific cluster > _Settings_.
-        * Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+        - Select _Agents_ > the specific cluster > _Settings_.
+        - Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
 
     * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
 
@@ -109,8 +109,8 @@ where:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
-        * Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
-        * Copy the ID value between `/tokens/` and `/edit` in the URL.
+        - Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
+        - Copy the ID value between `/tokens/` and `/edit` in the URL.
 
     * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
 
