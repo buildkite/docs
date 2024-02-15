@@ -10,18 +10,18 @@ curl "https://api.buildkite.com/v2/organizations"
 
 ```json
 [
-  {
-    "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
-    "graphql_id": "T3JnYW5pemF0aW9uLS0tOGEzMjAwOTMtMjE4OC00MmNiLWI5ZGQtNzE4NjZjZTYyYjA4",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org",
-    "web_url": "https://buildkite.com/my-great-org",
-    "name": "My Great Org",
-    "slug": "my-great-org",
-    "pipelines_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines",
-    "agents_url": "https://api.buildkite.com/v2/organizations/my-great-org/agents",
-    "emojis_url": "https://api.buildkite.com/v2/organizations/my-great-org/emojis",
-    "created_at": "2015-05-09T21:05:59.874Z"
-  }
+    {
+        "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+        "graphql_id": "T3JnYW5pemF0aW9uLS0tOGEzMjAwOTMtMjE4OC00MmNiLWI5ZGQtNzE4NjZjZTYyYjA4",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org",
+        "web_url": "https://buildkite.com/my-great-org",
+        "name": "My Great Org",
+        "slug": "my-great-org",
+        "pipelines_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines",
+        "agents_url": "https://api.buildkite.com/v2/organizations/my-great-org/agents",
+        "emojis_url": "https://api.buildkite.com/v2/organizations/my-great-org/emojis",
+        "created_at": "2015-05-09T21:05:59.874Z"
+    }
 ]
 ```
 
@@ -37,16 +37,16 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}"
 
 ```json
 {
-  "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
-  "graphql_id": "T3JnYW5pemF0aW9uLS0tOGEzMjAwOTMtMjE4OC00MmNiLWI5ZGQtNzE4NjZjZTYyYjA4",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org",
-  "web_url": "https://buildkite.com/my-great-org",
-  "name": "My Great Org",
-  "slug": "my-great-org",
-  "pipelines_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines",
-  "agents_url": "https://api.buildkite.com/v2/organizations/my-great-org/agents",
-  "emojis_url": "https://api.buildkite.com/v2/organizations/my-great-org/emojis",
-  "created_at": "2015-05-09T21:05:59.874Z"
+    "id": "bb3125de-4dc9-44cf-ad18-65d2b71a5a34",
+    "graphql_id": "T3JnYW5pemF0aW9uLS0tOGEzMjAwOTMtMjE4OC00MmNiLWI5ZGQtNzE4NjZjZTYyYjA4",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org",
+    "web_url": "https://buildkite.com/my-great-org",
+    "name": "My Great Org",
+    "slug": "my-great-org",
+    "pipelines_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines",
+    "agents_url": "https://api.buildkite.com/v2/organizations/my-great-org/agents",
+    "emojis_url": "https://api.buildkite.com/v2/organizations/my-great-org/emojis",
+    "created_at": "2015-05-09T21:05:59.874Z"
 }
 ```
 

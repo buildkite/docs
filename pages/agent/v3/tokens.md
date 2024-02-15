@@ -20,16 +20,19 @@ For example:
 
 ```graphql
 mutation {
-  agentTokenCreate(
-    input: { organizationID: "organization-id", description: "A description" }
-  ) {
-    tokenValue
-    agentTokenEdge {
-      node {
-        id
-      }
+    agentTokenCreate(
+        input: {
+            organizationID: "organization-id"
+            description: "A description"
+        }
+    ) {
+        tokenValue
+        agentTokenEdge {
+            node {
+                id
+            }
+        }
     }
-  }
 }
 ```
 
@@ -37,9 +40,9 @@ You can find your `organization-id` in your Buildkite organization settings page
 
 ```graphql
 query GetOrgID {
-  organization(slug: "organization-slug") {
-    id
-  }
+    organization(slug: "organization-slug") {
+        id
+    }
 }
 ```
 
@@ -57,17 +60,17 @@ You need to pass your agent token as the ID in the mutation. You can get the tok
 
 ```graphql
 query GetAgentTokenID {
-  organization(slug: "organization-slug") {
-    agentTokens(first: 50) {
-      edges {
-        node {
-          id
-          uuid
-          description
+    organization(slug: "organization-slug") {
+        agentTokens(first: 50) {
+            edges {
+                node {
+                    id
+                    uuid
+                    description
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -75,13 +78,13 @@ Then, using the token ID, revoke the agent token:
 
 ```graphql
 mutation {
-  agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
-    agentToken {
-      description
-      revokedAt
-      revokedReason
+    agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
+        agentToken {
+            description
+            revokedAt
+            revokedReason
+        }
     }
-  }
 }
 ```
 

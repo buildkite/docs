@@ -6,9 +6,9 @@ This page describes common tasks for managing the Elastic CI Stack for AWS.
 
 If you want to push or pull from registries such as [Docker Hub](https://hub.docker.com/) or [Quay](https://quay.io/) you can use the `environment` hook in your secrets bucket to export the following environment variables:
 
-- `DOCKER_LOGIN_USER="the-user-name"`
-- `DOCKER_LOGIN_PASSWORD="the-password"`
-- `DOCKER_LOGIN_SERVER=""` - optional. By default it logs in to Docker Hub
+-   `DOCKER_LOGIN_USER="the-user-name"`
+-   `DOCKER_LOGIN_PASSWORD="the-password"`
+-   `DOCKER_LOGIN_SERVER=""` - optional. By default it logs in to Docker Hub
 
 Setting these performs a `docker login` before each pipeline step runs, allowing you to `docker push` to them from within your build scripts.
 
@@ -58,9 +58,9 @@ If you need different instances sizes and scaling characteristics for different 
 
 Examples:
 
-- A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](#optimizing-for-slow-docker-builds))
-- A `pipeline-uploaders` stack with tiny, always-on instances for lightning fast `buildkite-agent pipeline upload` jobs.
-- A `deploy` stack with added credentials and permissions specifically for deployment.
+-   A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](#optimizing-for-slow-docker-builds))
+-   A `pipeline-uploaders` stack with tiny, always-on instances for lightning fast `buildkite-agent pipeline upload` jobs.
+-   A `deploy` stack with added credentials and permissions specifically for deployment.
 
 ## Autoscaling
 
@@ -162,22 +162,22 @@ To debug an agent:
 
 You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, set the `BootstrapScriptUrl` parameter to one of the following:
 
-- An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
-- A URL such as `https://www.example.com/config/bootstrap.sh`
-- A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
+-   An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
+-   A URL such as `https://www.example.com/config/bootstrap.sh`
+-   A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": ["s3:GetObject"],
-      "Resource": ["arn:aws:s3:::my_bucket_name/my_bootstrap.sh"]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": ["s3:GetObject"],
+            "Resource": ["arn:aws:s3:::my_bucket_name/my_bootstrap.sh"]
+        }
+    ]
 }
 ```
 
@@ -187,8 +187,8 @@ After creating the policy, you must specify the policy's ARN in the `ManagedPoli
 
 You can assess and monitor health and proper function of the Elastic CI Stack for AWS using a combination of the following tools:
 
-- **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
+-   **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
 
-- **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
+-   **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
-- **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
+-   **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.

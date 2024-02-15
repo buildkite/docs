@@ -28,8 +28,8 @@ However you add steps to your pipeline, keep in mind that steps may run on diffe
 
 If you're using [YAML steps](/docs/tutorials/pipeline-upgrade), you can set defaults which will be applied to every command step in a pipeline unless they are overridden by the step itself. You can set default agent properties and default environment variables:
 
-- `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-- `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+-   `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+-   `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
 
 > 📘 Environment variable precedence
 > Because you can set environment variables in many different places, check [environment variable precedence](/docs/pipelines/environment_variables#environment-variable-precedence) to ensure your environment variables work as expected.
@@ -38,15 +38,15 @@ For example, to set steps `blah.sh` and `blahblah.sh` to use the `something` que
 
 ```yml
 agents:
-  queue: "something"
+    queue: "something"
 
 steps:
-  - command: "blah.sh"
-  - command: "blahblah.sh"
-  - label: "Yada"
-    command: "yada.sh"
-    agents:
-      queue: "other"
+    - command: "blah.sh"
+    - command: "blahblah.sh"
+    - label: "Yada"
+      command: "yada.sh"
+      agents:
+          queue: "other"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -74,8 +74,8 @@ When you eventually run a build from this pipeline, this step will look for a di
 > 📘
 > When using WSL2 or PowerShell Core, you cannot add a <code>buildkite-agent pipeline upload</code> command step directly in the YAML steps editor. To work around this, there are two options:
 
-- Use the YAML steps editor alone
-- Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
+-   Use the YAML steps editor alone
+-   Place the <code>buildkite-agent pipeline upload</code> command in a script file. In the YAML steps editor, add a command to run that script file. It will upload your pipeline.
 
 Create your `pipeline.yml` file in a `.buildkite` directory in your repo.
 
@@ -85,8 +85,8 @@ The following example YAML defines a pipeline with one command step that will ec
 
 ```yml
 steps:
-  - label: "Example Test"
-    command: echo "Hello!"
+    - label: "Example Test"
+      command: echo "Hello!"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -97,11 +97,11 @@ With the above example code in a `pipeline.yml` file, commit and push the file u
 
 For more example steps and detailed configuration options, see the example `pipeline.yml` below, or the step type specific documentation:
 
-- [command steps](/docs/pipelines/command-step)
-- [wait steps](/docs/pipelines/wait-step)
-- [block steps](/docs/pipelines/block-step)
-- [input steps](/docs/pipelines/input-step)
-- [trigger steps](/docs/pipelines/trigger-step)
+-   [command steps](/docs/pipelines/command-step)
+-   [wait steps](/docs/pipelines/wait-step)
+-   [block steps](/docs/pipelines/block-step)
+-   [input steps](/docs/pipelines/input-step)
+-   [trigger steps](/docs/pipelines/trigger-step)
 
 If your pipeline has more than one step and you have multiple agents available to run them, they will automatically run at the same time. If your steps rely on running in sequence, you can separate them with [wait steps](/docs/pipelines/wait-step). This will ensure that any steps before the 'wait' are completed before steps after the 'wait' are run.
 
@@ -140,14 +140,14 @@ As well as the states shown in the diagram, the following progressions can occur
 
 Differentiating between `broken`, `skipped` and `canceled` states:
 
-- Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
-- This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
-- Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
+-   Jobs become `broken` when their configuration prevents them from running. This might be because their branch configuration doesn't match the build's branch, or because a conditional returned false.
+-   This is distinct from `skipped` jobs, which might happen if a newer build is started and [build skipping](/docs/apis/rest-api/pipelines#create-a-yaml-pipeline) is enabled. Broadly, jobs break because of something inside the build, and are skipped by something outside the build.
+-   Jobs can be `canceled` intentionally, either using the Buildkite UI or one of the APIs.
 
 Differentiating between `timing_out`, `timed_out`, and `expired` states:
 
-- Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
-- Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
+-   Jobs become `timing_out`, `timed_out` when a job starts running on an agent but doesn't complete within the timeout period.
+-   Jobs become `expired` when they reach the scheduled job expiry timeout before being picked up by an agent.
 
 See [Build timeouts](/docs/pipelines/build-timeouts) for information about setting timeout values.
 
@@ -212,12 +212,12 @@ steps:
 
 Buildkite pipelines are made up of the following step types:
 
-- [Command step](/docs/pipelines/command-step)
-- [Wait step](/docs/pipelines/wait-step)
-- [Block step](/docs/pipelines/block-step)
-- [Input step](/docs/pipelines/input-step)
-- [Trigger step](/docs/pipelines/trigger-step)
-- [Group step](/docs/pipelines/group-step)
+-   [Command step](/docs/pipelines/command-step)
+-   [Wait step](/docs/pipelines/wait-step)
+-   [Block step](/docs/pipelines/block-step)
+-   [Input step](/docs/pipelines/input-step)
+-   [Trigger step](/docs/pipelines/trigger-step)
+-   [Group step](/docs/pipelines/group-step)
 
 ## Customizing the pipeline upload path
 
@@ -319,9 +319,9 @@ For example to run commands only on agents running on macOS:
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      os: "macOS"
+    - command: "script.sh"
+      agents:
+          os: "macOS"
 ```
 
 {: codeblock-file="pipeline.yml"}

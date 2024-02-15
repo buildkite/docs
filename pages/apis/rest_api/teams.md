@@ -25,22 +25,22 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/teams"
 
 ```json
 [
-  {
-    "id": "3bf68c45-aba4-416c-9f31-01838da5dc38",
-    "name": "Everyone",
-    "slug": "everyone",
-    "description": "Everyone's welcome",
-    "created_at": "2019-01-24T01:07:35.855Z",
-    "privacy": "visible",
-    "default": false,
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "name": "Keith Pitt",
-      "email": "keith@buildkite.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-      "created_at": "2015-05-09T21:05:59.874Z"
+    {
+        "id": "3bf68c45-aba4-416c-9f31-01838da5dc38",
+        "name": "Everyone",
+        "slug": "everyone",
+        "description": "Everyone's welcome",
+        "created_at": "2019-01-24T01:07:35.855Z",
+        "privacy": "visible",
+        "default": false,
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "name": "Keith Pitt",
+            "email": "keith@buildkite.com",
+            "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+            "created_at": "2015-05-09T21:05:59.874Z"
+        }
     }
-  }
 ]
 ```
 

@@ -16,83 +16,83 @@ Before you start, make sure your tests run with access to [CI environment variab
 
 1. [Securely](/docs/pipelines/secrets) set the `BUILDKITE_ANALYTICS_TOKEN` secret on your CI to the API token from the previous step.
 
-   This will need to be on your CI server, if running the BuildKite collector via CI, or otherwise on your local machine.
+    This will need to be on your CI server, if running the BuildKite collector via CI, or otherwise on your local machine.
 
 1. **Unit Test Collector.** In your top-level build.gradle.kts file, add the following to your classpath:
 
-   ```
-   buildScript {
-       ...
-       dependencies {
-           ...
-           classpath("com.buildkite.test-collector-android:unit-test-collector-plugin:0.1.0")
-       }
-   }
-   ```
+    ```
+    buildScript {
+        ...
+        dependencies {
+            ...
+            classpath("com.buildkite.test-collector-android:unit-test-collector-plugin:0.1.0")
+        }
+    }
+    ```
 
-   Then, in your app-level build.gradle.kts, add the following plugin:
+    Then, in your app-level build.gradle.kts, add the following plugin:
 
-   ```
-   plugins {
-       id("com.buildkite.test-collector-android.unit-test-collector-plugin")
-   }
-   ```
+    ```
+    plugins {
+        id("com.buildkite.test-collector-android.unit-test-collector-plugin")
+    }
+    ```
 
-   That's it!
+    That's it!
 
 1. **Instrumented Test Collector.** In your app-level build.gradle.kts file,
 
-   Add the following dependency:
+    Add the following dependency:
 
-   ```
-   androidTestImplementation("com.buildkite.test-collector-android:instrumented-test-collector:0.1.0")
-   ```
+    ```
+    androidTestImplementation("com.buildkite.test-collector-android:instrumented-test-collector:0.1.0")
+    ```
 
-   ```
-   android {
-       ...
+    ```
+    android {
+        ...
 
-       defaultConfig {
-           ...
+        defaultConfig {
+            ...
 
-           buildConfigField(
-               "String",
-               "BUILDKITE_ANALYTICS_TOKEN",
-               "\"${System.getenv("BUILDKITE_ANALYTICS_TOKEN")}\""
-           )
-       }
-   }
-   ```
+            buildConfigField(
+                "String",
+                "BUILDKITE_ANALYTICS_TOKEN",
+                "\"${System.getenv("BUILDKITE_ANALYTICS_TOKEN")}\""
+            )
+        }
+    }
+    ```
 
-   Sync Gradle, and rebuild the project to ensure the `BuildConfig` is generated.
+    Sync Gradle, and rebuild the project to ensure the `BuildConfig` is generated.
 
-   Create the following class in your `androidTest` directory,
-   i.e. `src/androidTest/java/com/myapp/MyTestCollector.kt`
+    Create the following class in your `androidTest` directory,
+    i.e. `src/androidTest/java/com/myapp/MyTestCollector.kt`
 
-   ```
-   class MyTestCollector : InstrumentedTestCollector(
-       apiToken = BuildConfig.BUILDKITE_ANALYTICS_TOKEN
-   )
-   ```
+    ```
+    class MyTestCollector : InstrumentedTestCollector(
+        apiToken = BuildConfig.BUILDKITE_ANALYTICS_TOKEN
+    )
+    ```
 
-   Again, in your app-level build.gradle.kts file, instruct Gradle to use your test collector:
+    Again, in your app-level build.gradle.kts file, instruct Gradle to use your test collector:
 
-   ```
-   testInstrumentationRunnerArguments += mapOf(
-       "listener" to "com.mycompany.myapp.MyTestCollector" // Make sure to use the correct package name here
-   )
-   ```
+    ```
+    testInstrumentationRunnerArguments += mapOf(
+        "listener" to "com.mycompany.myapp.MyTestCollector" // Make sure to use the correct package name here
+    )
+    ```
 
-   Note: This test collector uploads test data via the device under test. Make sure your Android
-   device/emulator has network access.
+    Note: This test collector uploads test data via the device under test. Make sure your Android
+    device/emulator has network access.
 
 1. Commit and push your changes:
 
-   ```bash
-   git checkout -b add-buildkite-test-analytics
-   git commit -am "Add Buildkite Test Analytics"
-   git push origin add-buildkite-test-analytics
-   ```
+    ```bash
+    git checkout -b add-buildkite-test-analytics
+    git commit -am "Add Buildkite Test Analytics"
+    git push origin add-buildkite-test-analytics
+    ```
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 

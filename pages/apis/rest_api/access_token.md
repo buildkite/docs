@@ -15,8 +15,8 @@ curl "https://api.buildkite.com/v2/access-token"
 
 ```json
 {
-  "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-  "scopes": ["read_build"]
+    "uuid": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+    "scopes": ["read_build"]
 }
 ```
 

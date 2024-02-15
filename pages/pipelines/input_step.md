@@ -10,10 +10,10 @@ An input step can be defined in your pipeline settings, or in your [pipeline.yml
 
 ```yml
 steps:
-  - input: "Information please"
-    fields:
-      - text: "What is the date today?"
-        key: "todays-date"
+    - input: "Information please"
+      fields:
+          - text: "What is the date today?"
+            key: "todays-date"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -27,8 +27,8 @@ In this example, the `pipeline.yml` defines an input step with the key `name`. T
 ```yml
 - input: "Who is running this script?"
   fields:
-    - text: "Your name"
-      key: "name"
+      - text: "Your name"
+        key: "name"
 - label: "Run script"
   command: script.sh
 ```
@@ -127,10 +127,10 @@ _Required attributes:_
 
 ```yml
 steps:
-  - input: "Release information"
-    fields:
-      - text: "Code Name"
-        key: "release-name"
+    - input: "Release information"
+      fields:
+          - text: "Code Name"
+            key: "release-name"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -218,15 +218,15 @@ Each select option has the following _required attributes:_
 
 ```yml
 steps:
-  - input: "Request Release"
-    fields:
-      - select: "Stream"
-        key: "release-stream"
-        options:
-          - label: "Beta"
-            value: "beta"
-          - label: "Stable"
-            value: "stable"
+    - input: "Request Release"
+      fields:
+          - select: "Stream"
+            key: "release-stream"
+            options:
+                - label: "Beta"
+                  value: "beta"
+                - label: "Stable"
+                  value: "stable"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -295,11 +295,11 @@ To do it, use the following sample syntax:
 
 ```yml
 steps:
-  - input: "Click me!"
-    fields:
-      - text: Must be hexadecimal
-        key: hex
-        format: "[0-9a-f]+"
+    - input: "Click me!"
+      fields:
+          - text: Must be hexadecimal
+            key: hex
+            format: "[0-9a-f]+"
 ```
 
 The `format` must be a regular expression implicitly anchored to the beginning and end of the input and is functionally equivalent to the [HTML5 pattern attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/pattern).

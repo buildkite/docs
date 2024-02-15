@@ -64,26 +64,26 @@ Let's call this file `k8s/deployment.yml`.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: tutorial
-  labels:
-    app: tutorial
-spec:
-  # TODO: replace with a value that fits your application
-  replicas: 3
-  selector:
-    matchLabels:
-      app: tutorial
-  template:
-    metadata:
-      labels:
+    name: tutorial
+    labels:
         app: tutorial
-    spec:
-      containers:
-        - name: app
-          image: "${DOCKER_IMAGE}"
-          ports:
-            # TODO: replace with the correct port for your application
-            - containerPort: 3000
+spec:
+    # TODO: replace with a value that fits your application
+    replicas: 3
+    selector:
+        matchLabels:
+            app: tutorial
+    template:
+        metadata:
+            labels:
+                app: tutorial
+        spec:
+            containers:
+                - name: app
+                  image: "${DOCKER_IMAGE}"
+                  ports:
+                      # TODO: replace with the correct port for your application
+                      - containerPort: 3000
 ```
 
 {: codeblock-file="k8s/deployment.yml"}
@@ -162,12 +162,12 @@ Next add a `trigger` step:
   trigger: kubernetes-tutorial-deploy
   # Only trigger on main build
   build:
-    message: "${BUILDKITE_MESSAGE}"
-    commit: "${BUILDKITE_COMMIT}"
-    branch: "${BUILDKITE_BRANCH}"
-    env:
-      # TODO: replace with your Docker image name
-      DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
+      message: "${BUILDKITE_MESSAGE}"
+      commit: "${BUILDKITE_COMMIT}"
+      branch: "${BUILDKITE_BRANCH}"
+      env:
+          # TODO: replace with your Docker image name
+          DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
   branches: main
 ```
 
@@ -193,13 +193,13 @@ cluster, then check the kubectl access section for setup advice.
 Congratulations! :tada: You've setup a continuous deployment pipeline to
 Kubernetes. Practically speaking there are some things to do next.
 
-- Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
-  trigger to enforce manual deploys.
-- Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments)
-  to trigger deployments from external tooling (for example, ChatOps)
-- Expose the application to the internet with [Kubernetes
-  Service](https://kubernetes.io/docs/concepts/services-networking/service/).
-- Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
+-   Try a [block step](https://buildkite.com/docs/pipelines/block-step) before the
+    trigger to enforce manual deploys.
+-   Use [GitHub's Deployment API](https://buildkite.com/blog/github-deployments)
+    to trigger deployments from external tooling (for example, ChatOps)
+-   Expose the application to the internet with [Kubernetes
+    Service](https://kubernetes.io/docs/concepts/services-networking/service/).
+-   Replace the `envsubst` implementation with something like [kustomize](https://kustomize.io/)
 
 ## Configuring kubectl access
 

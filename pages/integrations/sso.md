@@ -12,14 +12,14 @@ SSO is available to customers on the Buildkite [Team, Business, and Enterprise](
 
 Buildkite supports the following SSO providers:
 
-- [Okta](/docs/integrations/sso/okta)
-- [ADFS](/docs/integrations/sso/adfs)
-- [GitHub](/docs/integrations/sso/github-sso)
-- [Google Workspace](/docs/integrations/sso/google-workspace)
-- [Google Workspace (SAML)](/docs/integrations/sso/google-workspace-saml)
-- [Azure Active Directory](/docs/integrations/sso/azure-ad)
-- [OneLogin](/docs/integrations/sso/onelogin)
-- [Custom SAML](/docs/integrations/sso/custom-saml)
+-   [Okta](/docs/integrations/sso/okta)
+-   [ADFS](/docs/integrations/sso/adfs)
+-   [GitHub](/docs/integrations/sso/github-sso)
+-   [Google Workspace](/docs/integrations/sso/google-workspace)
+-   [Google Workspace (SAML)](/docs/integrations/sso/google-workspace-saml)
+-   [Azure Active Directory](/docs/integrations/sso/azure-ad)
+-   [OneLogin](/docs/integrations/sso/onelogin)
+-   [Custom SAML](/docs/integrations/sso/custom-saml)
 
 ## Adding SSO
 

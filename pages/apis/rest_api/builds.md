@@ -8,11 +8,11 @@ For example build number `27` of the `Test` pipeline might have a build ID of `f
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 
-- [Get a build](#get-a-build)
-- [Cancel a build](#cancel-a-build)
-- [Rebuild a build](#rebuild-a-build)
-- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+-   [Get a build](#get-a-build)
+-   [Cancel a build](#cancel-a-build)
+-   [Rebuild a build](#rebuild-a-build)
+-   [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+-   [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 
 ## List all builds
 
@@ -60,128 +60,128 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 [
-  {
-    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-    "number": 1,
-    "state": "passed",
-    "cancel_reason": "reason for a canceled build",
-    "blocked": false,
-    "message": "Bumping to version 0.2-beta.6",
-    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-    "branch": "main",
-    "env": {},
-    "source": "webhook",
-    "creator": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "name": "Keith Pitt",
-      "email": "keith@buildkite.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-      "created_at": "2015-05-22T12:36:45.309Z"
-    },
-    "jobs": [
-      {
-        "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-        "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
-        "type": "script",
-        "name": ":package:",
-        "step_key": "package",
-        "step": {
-          "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-          "signature": {
-            "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
-            "algorithm": "EdDSA",
-            "signed_fields": [
-              "command",
-              "env",
-              "matrix",
-              "plugins",
-              "repository_url"
-            ]
-          }
-        },
-        "agent_query_rules": ["*"],
+    {
+        "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+        "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+        "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+        "number": 1,
         "state": "passed",
-        "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-        "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-        "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-        "command": "scripts/build.sh",
-        "soft_failed": false,
-        "exit_status": 0,
-        "artifact_paths": "",
-        "agent": {
-          "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-          "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-          "name": "my-agent-123"
+        "cancel_reason": "reason for a canceled build",
+        "blocked": false,
+        "message": "Bumping to version 0.2-beta.6",
+        "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+        "branch": "main",
+        "env": {},
+        "source": "webhook",
+        "creator": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "name": "Keith Pitt",
+            "email": "keith@buildkite.com",
+            "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+            "created_at": "2015-05-22T12:36:45.309Z"
         },
+        "jobs": [
+            {
+                "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+                "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+                "type": "script",
+                "name": ":package:",
+                "step_key": "package",
+                "step": {
+                    "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+                    "signature": {
+                        "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+                        "algorithm": "EdDSA",
+                        "signed_fields": [
+                            "command",
+                            "env",
+                            "matrix",
+                            "plugins",
+                            "repository_url"
+                        ]
+                    }
+                },
+                "agent_query_rules": ["*"],
+                "state": "passed",
+                "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+                "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+                "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+                "command": "scripts/build.sh",
+                "soft_failed": false,
+                "exit_status": 0,
+                "artifact_paths": "",
+                "agent": {
+                    "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+                    "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+                    "name": "my-agent-123"
+                },
+                "created_at": "2015-05-09T21:05:59.874Z",
+                "scheduled_at": "2015-05-09T21:05:59.874Z",
+                "runnable_at": "2015-05-09T21:06:59.874Z",
+                "started_at": "2015-05-09T21:07:59.874Z",
+                "finished_at": "2015-05-09T21:08:59.874Z",
+                "retried": false,
+                "retried_in_job_id": null,
+                "retries_count": null,
+                "retry_type": null,
+                "parallel_group_index": null,
+                "parallel_group_total": null,
+                "matrix": null,
+                "cluster_id": null,
+                "cluster_url": null,
+                "cluster_queue_id": null,
+                "cluster_queue_url": null
+            }
+        ],
         "created_at": "2015-05-09T21:05:59.874Z",
         "scheduled_at": "2015-05-09T21:05:59.874Z",
-        "runnable_at": "2015-05-09T21:06:59.874Z",
-        "started_at": "2015-05-09T21:07:59.874Z",
-        "finished_at": "2015-05-09T21:08:59.874Z",
-        "retried": false,
-        "retried_in_job_id": null,
-        "retries_count": null,
-        "retry_type": null,
-        "parallel_group_index": null,
-        "parallel_group_total": null,
-        "matrix": null,
-        "cluster_id": null,
-        "cluster_url": null,
-        "cluster_queue_id": null,
-        "cluster_queue_url": null
-      }
-    ],
-    "created_at": "2015-05-09T21:05:59.874Z",
-    "scheduled_at": "2015-05-09T21:05:59.874Z",
-    "started_at": "2015-05-09T21:05:59.874Z",
-    "finished_at": "2015-05-09T21:05:59.874Z",
-    "meta_data": {},
-    "pull_request": {},
-    "rebuilt_from": null,
-    "pipeline": {
-      "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-      "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-      "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline",
-      "name": "great-pipeline",
-      "slug": "great-pipeline",
-      "repository": "git@github.com:my-great-org/my-pipeline",
-      "branch_configuration": null,
-      "default_branch": "main",
-      "provider": {
-        "id": "github",
-        "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
-        "settings": {
-          "trigger_mode": "code",
-          "build_pull_requests": true,
-          "pull_request_branch_filter_enabled": false,
-          "skip_pull_request_builds_for_existing_commits": true,
-          "build_pull_request_forks": false,
-          "prefix_pull_request_fork_branch_names": true,
-          "build_tags": false,
-          "publish_commit_status": true,
-          "publish_commit_status_per_step": false,
-          "publish_blocked_as_pending": false,
-          "repository": "my-great-org/my-pipeline"
+        "started_at": "2015-05-09T21:05:59.874Z",
+        "finished_at": "2015-05-09T21:05:59.874Z",
+        "meta_data": {},
+        "pull_request": {},
+        "rebuilt_from": null,
+        "pipeline": {
+            "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+            "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+            "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+            "web_url": "https://buildkite.com/my-great-org/my-pipeline",
+            "name": "great-pipeline",
+            "slug": "great-pipeline",
+            "repository": "git@github.com:my-great-org/my-pipeline",
+            "branch_configuration": null,
+            "default_branch": "main",
+            "provider": {
+                "id": "github",
+                "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+                "settings": {
+                    "trigger_mode": "code",
+                    "build_pull_requests": true,
+                    "pull_request_branch_filter_enabled": false,
+                    "skip_pull_request_builds_for_existing_commits": true,
+                    "build_pull_request_forks": false,
+                    "prefix_pull_request_fork_branch_names": true,
+                    "build_tags": false,
+                    "publish_commit_status": true,
+                    "publish_commit_status_per_step": false,
+                    "publish_blocked_as_pending": false,
+                    "repository": "my-great-org/my-pipeline"
+                }
+            },
+            "skip_queued_branch_builds": false,
+            "skip_queued_branch_builds_filter": null,
+            "cancel_running_branch_builds": false,
+            "cancel_running_branch_builds_filter": null,
+            "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+            "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+            "created_at": "2015-05-09T21:05:59.874Z",
+            "scheduled_builds_count": 0,
+            "running_builds_count": 0,
+            "scheduled_jobs_count": 0,
+            "running_jobs_count": 0,
+            "waiting_jobs_count": 0
         }
-      },
-      "skip_queued_branch_builds": false,
-      "skip_queued_branch_builds_filter": null,
-      "cancel_running_branch_builds": false,
-      "cancel_running_branch_builds_filter": null,
-      "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
-      "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_builds_count": 0,
-      "running_builds_count": 0,
-      "scheduled_jobs_count": 0,
-      "running_jobs_count": 0,
-      "waiting_jobs_count": 0
     }
-  }
 ]
 ```
 
@@ -204,128 +204,128 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 {
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
-  "number": 2,
-  "state": "passed",
-  "cancel_reason": "reason for a canceled build",
-  "blocked": false,
-  "message": "Bumping to version 0.2-beta.6",
-  "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "main",
-  "env": {},
-  "source": "webhook",
-  "creator": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "name": "Keith Pitt",
-    "email": "keith@buildkite.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-22T12:36:45.309Z"
-  },
-  "jobs": [
-    {
-      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-      "type": "script",
-      "name": ":package:",
-      "step_key": "package",
-      "step": {
-        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
-          "algorithm": "EdDSA",
-          "signed_fields": [
-            "command",
-            "env",
-            "matrix",
-            "plugins",
-            "repository_url"
-          ]
-        }
-      },
-      "agent_query_rules": ["*"],
-      "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "",
-      "agent": {
-        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "name": "my-agent",
-        "connection_state": "connected",
-        "hostname": "localhost",
-        "ip_address": "144.132.19.12",
-        "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
-        "creator": {
-          "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-          "name": "Keith Pitt",
-          "email": "keith@buildkite.com",
-          "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-          "created_at": "2015-05-09T21:05:59.874Z"
-        },
-        "created_at": "2015-05-09T21:05:59.874Z"
-      },
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "runnable_at": "2015-05-09T21:06:59.874Z",
-      "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z",
-      "retried": false,
-      "retried_in_job_id": null,
-      "retries_count": null,
-      "retry_type": null,
-      "parallel_group_index": null,
-      "parallel_group_total": null,
-      "matrix": null,
-      "cluster_id": null,
-      "cluster_url": null,
-      "cluster_queue_id": null,
-      "cluster_queue_url": null
-    }
-  ],
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "scheduled_at": "2015-05-09T21:05:59.874Z",
-  "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": {},
-  "pull_request": {},
-  "rebuilt_from": {
-    "id": "812135b3-eee7-408c-9f63-760538b96bd5",
-    "number": 1,
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1"
-  },
-  "pipeline": {
-    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
-    "name": "Great Pipeline",
-    "slug": "great-pipeline",
-    "repository": "git@github.com:my-great-org/my-pipeline",
-    "provider": {
-      "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2",
+    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2",
+    "number": 2,
+    "state": "passed",
+    "cancel_reason": "reason for a canceled build",
+    "blocked": false,
+    "message": "Bumping to version 0.2-beta.6",
+    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+    "branch": "main",
+    "env": {},
+    "source": "webhook",
+    "creator": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "name": "Keith Pitt",
+        "email": "keith@buildkite.com",
+        "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+        "created_at": "2015-05-22T12:36:45.309Z"
     },
-    "skip_queued_branch_builds": false,
-    "skip_queued_branch_builds_filter": null,
-    "cancel_running_branch_builds": false,
-    "cancel_running_branch_builds_filter": null,
-    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
-    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_at": "2013-09-03 13:24:38 UTC",
-    "scheduled_builds_count": 0,
-    "running_builds_count": 0,
-    "scheduled_jobs_count": 0,
-    "running_jobs_count": 0,
-    "waiting_jobs_count": 0
-  }
+    "jobs": [
+        {
+            "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+            "type": "script",
+            "name": ":package:",
+            "step_key": "package",
+            "step": {
+                "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+                "signature": {
+                    "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+                    "algorithm": "EdDSA",
+                    "signed_fields": [
+                        "command",
+                        "env",
+                        "matrix",
+                        "plugins",
+                        "repository_url"
+                    ]
+                }
+            },
+            "agent_query_rules": ["*"],
+            "state": "scheduled",
+            "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/2#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+            "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/2/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+            "command": "scripts/build.sh",
+            "soft_failed": false,
+            "exit_status": 0,
+            "artifact_paths": "",
+            "agent": {
+                "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+                "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+                "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "name": "my-agent",
+                "connection_state": "connected",
+                "hostname": "localhost",
+                "ip_address": "144.132.19.12",
+                "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
+                "creator": {
+                    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+                    "name": "Keith Pitt",
+                    "email": "keith@buildkite.com",
+                    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+                    "created_at": "2015-05-09T21:05:59.874Z"
+                },
+                "created_at": "2015-05-09T21:05:59.874Z"
+            },
+            "created_at": "2015-05-09T21:05:59.874Z",
+            "scheduled_at": "2015-05-09T21:05:59.874Z",
+            "runnable_at": "2015-05-09T21:06:59.874Z",
+            "started_at": "2015-05-09T21:07:59.874Z",
+            "finished_at": "2015-05-09T21:08:59.874Z",
+            "retried": false,
+            "retried_in_job_id": null,
+            "retries_count": null,
+            "retry_type": null,
+            "parallel_group_index": null,
+            "parallel_group_total": null,
+            "matrix": null,
+            "cluster_id": null,
+            "cluster_url": null,
+            "cluster_queue_id": null,
+            "cluster_queue_url": null
+        }
+    ],
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "scheduled_at": "2015-05-09T21:05:59.874Z",
+    "started_at": "2015-05-09T21:05:59.874Z",
+    "finished_at": "2015-05-09T21:05:59.874Z",
+    "meta_data": {},
+    "pull_request": {},
+    "rebuilt_from": {
+        "id": "812135b3-eee7-408c-9f63-760538b96bd5",
+        "number": 1,
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1"
+    },
+    "pipeline": {
+        "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+        "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+        "name": "Great Pipeline",
+        "slug": "great-pipeline",
+        "repository": "git@github.com:my-great-org/my-pipeline",
+        "provider": {
+            "id": "github",
+            "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        },
+        "skip_queued_branch_builds": false,
+        "skip_queued_branch_builds_filter": null,
+        "cancel_running_branch_builds": false,
+        "cancel_running_branch_builds_filter": null,
+        "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+        "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+        "created_at": "2013-09-03 13:24:38 UTC",
+        "scheduled_builds_count": 0,
+        "running_builds_count": 0,
+        "scheduled_jobs_count": 0,
+        "running_jobs_count": 0,
+        "waiting_jobs_count": 0
+    }
 }
 ```
 
@@ -374,123 +374,123 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
 
 ```json
 {
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-  "number": 1,
-  "state": "scheduled",
-  "cancel_reason": "reason for a canceled build",
-  "blocked": false,
-  "message": "Testing all the things :rocket:",
-  "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "main",
-  "env": {},
-  "source": "webhook",
-  "creator": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "name": "Keith Pitt",
-    "email": "keith@buildkite.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-22T12:36:45.309Z"
-  },
-  "jobs": [
-    {
-      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "type": "script",
-      "name": ":package:",
-      "step_key": "package",
-      "step": {
-        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
-          "algorithm": "EdDSA",
-          "signed_fields": [
-            "command",
-            "env",
-            "matrix",
-            "plugins",
-            "repository_url"
-          ]
-        }
-      },
-      "agent_query_rules": ["*"],
-      "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "",
-      "agent": {
-        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "name": "my-agent",
-        "connection_state": "connected",
-        "hostname": "localhost",
-        "ip_address": "144.132.19.12",
-        "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
-        "creator": {
-          "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-          "name": "Keith Pitt",
-          "email": "keith@buildkite.com",
-          "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-          "created_at": "2015-05-09T21:05:59.874Z"
-        },
-        "created_at": "2015-05-09T21:05:59.874Z"
-      },
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "runnable_at": "2015-05-09T21:06:59.874Z",
-      "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z",
-      "retried": false,
-      "retried_in_job_id": null,
-      "retries_count": null,
-      "retry_type": null,
-      "parallel_group_index": null,
-      "parallel_group_total": null,
-      "matrix": null,
-      "cluster_id": null,
-      "cluster_url": null,
-      "cluster_queue_id": null,
-      "cluster_queue_url": null
-    }
-  ],
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "scheduled_at": "2015-05-09T21:05:59.874Z",
-  "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": {},
-  "pull_request": {},
-  "pipeline": {
-    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
-    "name": "Great Pipeline",
-    "slug": "great-pipeline",
-    "repository": "git@github.com:my-great-org/my-pipeline",
-    "provider": {
-      "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+    "number": 1,
+    "state": "scheduled",
+    "cancel_reason": "reason for a canceled build",
+    "blocked": false,
+    "message": "Testing all the things :rocket:",
+    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+    "branch": "main",
+    "env": {},
+    "source": "webhook",
+    "creator": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "name": "Keith Pitt",
+        "email": "keith@buildkite.com",
+        "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+        "created_at": "2015-05-22T12:36:45.309Z"
     },
-    "skip_queued_branch_builds": false,
-    "skip_queued_branch_builds_filter": null,
-    "cancel_running_branch_builds": false,
-    "cancel_running_branch_builds_filter": null,
-    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
-    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_at": "2013-09-03 13:24:38 UTC",
-    "scheduled_builds_count": 0,
-    "running_builds_count": 0,
-    "scheduled_jobs_count": 0,
-    "running_jobs_count": 0,
-    "waiting_jobs_count": 0
-  }
+    "jobs": [
+        {
+            "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "type": "script",
+            "name": ":package:",
+            "step_key": "package",
+            "step": {
+                "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+                "signature": {
+                    "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+                    "algorithm": "EdDSA",
+                    "signed_fields": [
+                        "command",
+                        "env",
+                        "matrix",
+                        "plugins",
+                        "repository_url"
+                    ]
+                }
+            },
+            "agent_query_rules": ["*"],
+            "state": "scheduled",
+            "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+            "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+            "command": "scripts/build.sh",
+            "soft_failed": false,
+            "exit_status": 0,
+            "artifact_paths": "",
+            "agent": {
+                "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+                "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+                "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "name": "my-agent",
+                "connection_state": "connected",
+                "hostname": "localhost",
+                "ip_address": "144.132.19.12",
+                "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
+                "creator": {
+                    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+                    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+                    "name": "Keith Pitt",
+                    "email": "keith@buildkite.com",
+                    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+                    "created_at": "2015-05-09T21:05:59.874Z"
+                },
+                "created_at": "2015-05-09T21:05:59.874Z"
+            },
+            "created_at": "2015-05-09T21:05:59.874Z",
+            "scheduled_at": "2015-05-09T21:05:59.874Z",
+            "runnable_at": "2015-05-09T21:06:59.874Z",
+            "started_at": "2015-05-09T21:07:59.874Z",
+            "finished_at": "2015-05-09T21:08:59.874Z",
+            "retried": false,
+            "retried_in_job_id": null,
+            "retries_count": null,
+            "retry_type": null,
+            "parallel_group_index": null,
+            "parallel_group_total": null,
+            "matrix": null,
+            "cluster_id": null,
+            "cluster_url": null,
+            "cluster_queue_id": null,
+            "cluster_queue_url": null
+        }
+    ],
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "scheduled_at": "2015-05-09T21:05:59.874Z",
+    "started_at": "2015-05-09T21:05:59.874Z",
+    "finished_at": "2015-05-09T21:05:59.874Z",
+    "meta_data": {},
+    "pull_request": {},
+    "pipeline": {
+        "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+        "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+        "name": "Great Pipeline",
+        "slug": "great-pipeline",
+        "repository": "git@github.com:my-great-org/my-pipeline",
+        "provider": {
+            "id": "github",
+            "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        },
+        "skip_queued_branch_builds": false,
+        "skip_queued_branch_builds_filter": null,
+        "cancel_running_branch_builds": false,
+        "cancel_running_branch_builds_filter": null,
+        "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+        "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+        "created_at": "2013-09-03 13:24:38 UTC",
+        "scheduled_builds_count": 0,
+        "running_builds_count": 0,
+        "scheduled_jobs_count": 0,
+        "running_jobs_count": 0,
+        "waiting_jobs_count": 0
+    }
 }
 ```
 
@@ -546,125 +546,125 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 
 ```json
 {
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-  "number": 1,
-  "state": "canceled",
-  "cancel_reason": "reason for a canceled build",
-  "blocked": false,
-  "message": "Bumping to version 0.2-beta.6",
-  "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "main",
-  "env": {},
-  "source": "webhook",
-  "creator": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
     "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-    "name": "Keith Pitt",
-    "email": "keith@buildkite.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-22T12:36:45.309Z"
-  },
-  "jobs": [
-    {
-      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
-      "type": "script",
-      "name": ":package:",
-      "step_key": "package",
-      "step": {
-        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
-          "algorithm": "EdDSA",
-          "signed_fields": [
-            "command",
-            "env",
-            "matrix",
-            "plugins",
-            "repository_url"
-          ]
-        }
-      },
-      "agent_query_rules": ["*"],
-      "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "",
-      "agent": {
-        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "name": "my-agent",
-        "connection_state": "connected",
-        "hostname": "localhost",
-        "ip_address": "144.132.19.12",
-        "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
-        "creator": {
-          "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-          "name": "Keith Pitt",
-          "email": "keith@buildkite.com",
-          "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-          "created_at": "2015-05-09T21:05:59.874Z"
-        },
-        "created_at": "2015-05-09T21:05:59.874Z"
-      },
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "runnable_at": "2015-05-09T21:06:59.874Z",
-      "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z",
-      "retried": false,
-      "retried_in_job_id": null,
-      "retries_count": null,
-      "retry_type": null,
-      "parallel_group_index": null,
-      "parallel_group_total": null,
-      "matrix": null,
-      "cluster_id": null,
-      "cluster_url": null,
-      "cluster_queue_id": null,
-      "cluster_queue_url": null
-    }
-  ],
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "scheduled_at": "2015-05-09T21:05:59.874Z",
-  "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": {},
-  "pull_request": {},
-  "pipeline": {
-    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
-    "name": "Great Pipeline",
-    "slug": "great-pipeline",
-    "repository": "git@github.com:my-great-org/my-pipeline",
-    "provider": {
-      "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+    "number": 1,
+    "state": "canceled",
+    "cancel_reason": "reason for a canceled build",
+    "blocked": false,
+    "message": "Bumping to version 0.2-beta.6",
+    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+    "branch": "main",
+    "env": {},
+    "source": "webhook",
+    "creator": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+        "name": "Keith Pitt",
+        "email": "keith@buildkite.com",
+        "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+        "created_at": "2015-05-22T12:36:45.309Z"
     },
-    "skip_queued_branch_builds": false,
-    "skip_queued_branch_builds_filter": null,
-    "cancel_running_branch_builds": false,
-    "cancel_running_branch_builds_filter": null,
-    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
-    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_at": "2013-09-03 13:24:38 UTC",
-    "scheduled_builds_count": 0,
-    "running_builds_count": 0,
-    "scheduled_jobs_count": 0,
-    "running_jobs_count": 0,
-    "waiting_jobs_count": 0
-  }
+    "jobs": [
+        {
+            "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+            "type": "script",
+            "name": ":package:",
+            "step_key": "package",
+            "step": {
+                "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+                "signature": {
+                    "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+                    "algorithm": "EdDSA",
+                    "signed_fields": [
+                        "command",
+                        "env",
+                        "matrix",
+                        "plugins",
+                        "repository_url"
+                    ]
+                }
+            },
+            "agent_query_rules": ["*"],
+            "state": "scheduled",
+            "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+            "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+            "command": "scripts/build.sh",
+            "soft_failed": false,
+            "exit_status": 0,
+            "artifact_paths": "",
+            "agent": {
+                "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+                "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+                "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "name": "my-agent",
+                "connection_state": "connected",
+                "hostname": "localhost",
+                "ip_address": "144.132.19.12",
+                "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
+                "creator": {
+                    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+                    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+                    "name": "Keith Pitt",
+                    "email": "keith@buildkite.com",
+                    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+                    "created_at": "2015-05-09T21:05:59.874Z"
+                },
+                "created_at": "2015-05-09T21:05:59.874Z"
+            },
+            "created_at": "2015-05-09T21:05:59.874Z",
+            "scheduled_at": "2015-05-09T21:05:59.874Z",
+            "runnable_at": "2015-05-09T21:06:59.874Z",
+            "started_at": "2015-05-09T21:07:59.874Z",
+            "finished_at": "2015-05-09T21:08:59.874Z",
+            "retried": false,
+            "retried_in_job_id": null,
+            "retries_count": null,
+            "retry_type": null,
+            "parallel_group_index": null,
+            "parallel_group_total": null,
+            "matrix": null,
+            "cluster_id": null,
+            "cluster_url": null,
+            "cluster_queue_id": null,
+            "cluster_queue_url": null
+        }
+    ],
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "scheduled_at": "2015-05-09T21:05:59.874Z",
+    "started_at": "2015-05-09T21:05:59.874Z",
+    "finished_at": "2015-05-09T21:05:59.874Z",
+    "meta_data": {},
+    "pull_request": {},
+    "pipeline": {
+        "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+        "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+        "name": "Great Pipeline",
+        "slug": "great-pipeline",
+        "repository": "git@github.com:my-great-org/my-pipeline",
+        "provider": {
+            "id": "github",
+            "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        },
+        "skip_queued_branch_builds": false,
+        "skip_queued_branch_builds_filter": null,
+        "cancel_running_branch_builds": false,
+        "cancel_running_branch_builds_filter": null,
+        "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+        "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+        "created_at": "2013-09-03 13:24:38 UTC",
+        "scheduled_builds_count": 0,
+        "running_builds_count": 0,
+        "scheduled_jobs_count": 0,
+        "running_jobs_count": 0,
+        "waiting_jobs_count": 0
+    }
 }
 ```
 
@@ -693,125 +693,125 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 
 ```json
 {
-  "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
-  "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
-  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-  "number": 2,
-  "state": "scheduled",
-  "cancel_reason": "reason for a canceled build",
-  "blocked": false,
-  "message": "Bumping to version 0.2-beta.6",
-  "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
-  "branch": "main",
-  "env": {},
-  "source": "api",
-  "creator": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-    "name": "Keith Pitt",
-    "email": "keith@buildkite.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-22T12:36:45.309Z"
-  },
-  "jobs": [
-    {
-      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
-      "type": "script",
-      "name": ":package:",
-      "step_key": "package",
-      "step": {
-        "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
-        "signature": {
-          "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
-          "algorithm": "EdDSA",
-          "signed_fields": [
-            "command",
-            "env",
-            "matrix",
-            "plugins",
-            "repository_url"
-          ]
-        }
-      },
-      "agent_query_rules": ["*"],
-      "state": "scheduled",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "command": "scripts/build.sh",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "",
-      "agent": {
-        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-        "name": "my-agent",
-        "connection_state": "connected",
-        "hostname": "localhost",
-        "ip_address": "144.132.19.12",
-        "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
-        "creator": {
-          "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-          "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-          "name": "Keith Pitt",
-          "email": "keith@buildkite.com",
-          "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-          "created_at": "2015-05-09T21:05:59.874Z"
-        },
-        "created_at": "2015-05-09T21:05:59.874Z"
-      },
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "runnable_at": "2015-05-09T21:06:59.874Z",
-      "started_at": "2015-05-09T21:07:59.874Z",
-      "finished_at": "2015-05-09T21:08:59.874Z",
-      "retried": false,
-      "retried_in_job_id": null,
-      "retries_count": null,
-      "retry_type": null,
-      "parallel_group_index": null,
-      "parallel_group_total": null,
-      "matrix": null,
-      "cluster_id": null,
-      "cluster_url": null,
-      "cluster_queue_id": null,
-      "cluster_queue_url": null
-    }
-  ],
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "scheduled_at": "2015-05-09T21:05:59.874Z",
-  "started_at": "2015-05-09T21:05:59.874Z",
-  "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": {},
-  "pull_request": {},
-  "pipeline": {
-    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
-    "name": "Great Pipeline",
-    "slug": "great-pipeline",
-    "repository": "git@github.com:my-great-org/my-pipeline",
-    "provider": {
-      "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+    "id": "f62a1b4d-10f9-4790-bc1c-e2c3a0c80983",
+    "graphql_id": "QnVpbGQtLS1mYmQ2Zjk3OS0yOTRhLTQ3ZjItOTU0Ni1lNTk0M2VlMTAwNzE=",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1",
+    "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+    "number": 2,
+    "state": "scheduled",
+    "cancel_reason": "reason for a canceled build",
+    "blocked": false,
+    "message": "Bumping to version 0.2-beta.6",
+    "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
+    "branch": "main",
+    "env": {},
+    "source": "api",
+    "creator": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+        "name": "Keith Pitt",
+        "email": "keith@buildkite.com",
+        "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+        "created_at": "2015-05-22T12:36:45.309Z"
     },
-    "skip_queued_branch_builds": false,
-    "skip_queued_branch_builds_filter": null,
-    "cancel_running_branch_builds": false,
-    "cancel_running_branch_builds_filter": null,
-    "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
-    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_at": "2013-09-03 13:24:38 UTC",
-    "scheduled_builds_count": 0,
-    "running_builds_count": 0,
-    "scheduled_jobs_count": 0,
-    "running_jobs_count": 0,
-    "waiting_jobs_count": 0
-  }
+    "jobs": [
+        {
+            "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+            "type": "script",
+            "name": ":package:",
+            "step_key": "package",
+            "step": {
+                "id": "018c0f56-c87c-47e9-95ee-aa47397b4496",
+                "signature": {
+                    "value": "eyJhbGciOiJFUzI1NiIsImtpZCI6InlvdSBzbHkgZG9nISB5b3UgY2F1Z2h0IG1lIG1vbm9sb2d1aW5nISJ9..m9LBvNgbzmO5JuZ4Bwoheyn7uqLf3TN1EdFwv_l_nMT2qh0_2EVs30SAEc-Ajjkq18MQk3cgU36AodLPl3_hBg",
+                    "algorithm": "EdDSA",
+                    "signed_fields": [
+                        "command",
+                        "env",
+                        "matrix",
+                        "plugins",
+                        "repository_url"
+                    ]
+                }
+            },
+            "agent_query_rules": ["*"],
+            "state": "scheduled",
+            "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+            "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+            "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+            "command": "scripts/build.sh",
+            "soft_failed": false,
+            "exit_status": 0,
+            "artifact_paths": "",
+            "agent": {
+                "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+                "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+                "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+                "name": "my-agent",
+                "connection_state": "connected",
+                "hostname": "localhost",
+                "ip_address": "144.132.19.12",
+                "user_agent": "buildkite-agent/1.0.0 (linux; amd64)",
+                "creator": {
+                    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+                    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+                    "name": "Keith Pitt",
+                    "email": "keith@buildkite.com",
+                    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+                    "created_at": "2015-05-09T21:05:59.874Z"
+                },
+                "created_at": "2015-05-09T21:05:59.874Z"
+            },
+            "created_at": "2015-05-09T21:05:59.874Z",
+            "scheduled_at": "2015-05-09T21:05:59.874Z",
+            "runnable_at": "2015-05-09T21:06:59.874Z",
+            "started_at": "2015-05-09T21:07:59.874Z",
+            "finished_at": "2015-05-09T21:08:59.874Z",
+            "retried": false,
+            "retried_in_job_id": null,
+            "retries_count": null,
+            "retry_type": null,
+            "parallel_group_index": null,
+            "parallel_group_total": null,
+            "matrix": null,
+            "cluster_id": null,
+            "cluster_url": null,
+            "cluster_queue_id": null,
+            "cluster_queue_url": null
+        }
+    ],
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "scheduled_at": "2015-05-09T21:05:59.874Z",
+    "started_at": "2015-05-09T21:05:59.874Z",
+    "finished_at": "2015-05-09T21:05:59.874Z",
+    "meta_data": {},
+    "pull_request": {},
+    "pipeline": {
+        "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+        "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline",
+        "name": "Great Pipeline",
+        "slug": "great-pipeline",
+        "repository": "git@github.com:my-great-org/my-pipeline",
+        "provider": {
+            "id": "github",
+            "webhook_url": "https://webhook.buildkite.com/deliver/xxx"
+        },
+        "skip_queued_branch_builds": false,
+        "skip_queued_branch_builds_filter": null,
+        "cancel_running_branch_builds": false,
+        "cancel_running_branch_builds_filter": null,
+        "builds_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds",
+        "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+        "created_at": "2013-09-03 13:24:38 UTC",
+        "scheduled_builds_count": 0,
+        "running_builds_count": 0,
+        "scheduled_jobs_count": 0,
+        "running_jobs_count": 0,
+        "waiting_jobs_count": 0
+    }
 }
 ```
 

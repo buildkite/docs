@@ -16,10 +16,10 @@ storage location, depending on how you have configured your Buildkite Agent.
 
 For documentation on configuring a custom storage location, see:
 
-- [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
-- [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
-- [Using your private Azure Blob container](#using-your-private-azure-blob-container)
-- [Using your Artifactory instance](#using-your-artifactory-instance)
+-   [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
+-   [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
+-   [Using your private Azure Blob container](#using-your-private-azure-blob-container)
+-   [Using your Artifactory instance](#using-your-artifactory-instance)
 
 You can also configure the agent to automatically upload artifacts after your
 step's command has completed based on a file pattern (see the
@@ -80,14 +80,14 @@ Keep in mind while you're writing your path pattern:
 
 <!--alex ignore just-->
 
-- patterns must match whole path strings, not just substrings
-- there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  - `*` to match a sequence of characters
-  - `?` to match a single character
-- character ranges surrounded by `[]` support the `^` as a negator
-- special characters can be escaped with `\\`
-- multiple paths are separated with `;`
-- surround the pattern with quotes
+-   patterns must match whole path strings, not just substrings
+-   there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
+    -   `*` to match a sequence of characters
+    -   `?` to match a single character
+-   character ranges surrounded by `[]` support the `^` as a negator
+-   special characters can be escaped with `\\`
+-   multiple paths are separated with `;`
+-   surround the pattern with quotes
 
 ## Downloading artifacts
 
@@ -202,23 +202,26 @@ read and write objects in the bucket, for example:
 
 ```json
 {
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Action": [
-        "s3:GetObject",
-        "s3:GetObjectAcl",
-        "s3:GetObjectVersion",
-        "s3:GetObjectVersionAcl",
-        "s3:ListBucket",
-        "s3:PutObject",
-        "s3:PutObjectAcl",
-        "s3:PutObjectVersionAcl"
-      ],
-      "Resource": ["arn:aws:s3:::my-s3-bucket", "arn:aws:s3:::my-s3-bucket/*"]
-    }
-  ]
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:GetObjectAcl",
+                "s3:GetObjectVersion",
+                "s3:GetObjectVersionAcl",
+                "s3:ListBucket",
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:PutObjectVersionAcl"
+            ],
+            "Resource": [
+                "arn:aws:s3:::my-s3-bucket",
+                "arn:aws:s3:::my-s3-bucket/*"
+            ]
+        }
+    ]
 }
 ```
 
@@ -231,10 +234,10 @@ included in the instance's IAM role.
 `buildkite-agent artifact upload` will use the first available AWS credentials
 from the following locations:
 
-- Buildkite environment variables, `BUILDKITE_S3_ACCESS_KEY_ID`, `BUILDKITE_S3_SECRET_ACCESS_KEY`, `BUILDKITE_S3_SESSION_TOKEN`
-- AWS environment variables, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`
-- Web Identity environment variables, `AWS_ROLE_ARN`, `AWS_ROLE_SESSION_NAME`, `AWS_WEB_IDENTITY_TOKEN_FILE`
-- EC2 or ECS role, your EC2 instance or ECS task's IAM Role
+-   Buildkite environment variables, `BUILDKITE_S3_ACCESS_KEY_ID`, `BUILDKITE_S3_SECRET_ACCESS_KEY`, `BUILDKITE_S3_SESSION_TOKEN`
+-   AWS environment variables, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`
+-   Web Identity environment variables, `AWS_ROLE_ARN`, `AWS_ROLE_SESSION_NAME`, `AWS_WEB_IDENTITY_TOKEN_FILE`
+-   EC2 or ECS role, your EC2 instance or ECS task's IAM Role
 
 If your agents are running on an AWS EC2 Instance, adding the
 policy above to the instance's [IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) and using the instance profile credentials is the
@@ -295,10 +298,10 @@ Firstly, make sure that each agent has access to Azure credentials.
 [By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential),
 these can be provided using:
 
-- Azure environment variables such as `AZURE_CLIENT_ID`.
-- Loaded by a Kubernetes workload identity hook.
-- Loaded on a host with Azure Managed Identity enabled.
-- Loaded from a user logged in with the Azure CLI.
+-   Azure environment variables such as `AZURE_CLIENT_ID`.
+-   Loaded by a Kubernetes workload identity hook.
+-   Loaded on a host with Azure Managed Identity enabled.
+-   Loaded from a user logged in with the Azure CLI.
 
 You can also use an account key or connection string by setting one of these
 environment variables:

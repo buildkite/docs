@@ -37,10 +37,10 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-- Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
-- Agent Hooks: `C:\buildkite-agent\hooks`
-- Builds: `C:\buildkite-agent\builds`
-- SSH keys: `%USERPROFILE%\.ssh`
+-   Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
+-   Agent Hooks: `C:\buildkite-agent\hooks`
+-   Builds: `C:\buildkite-agent\builds`
+-   SSH keys: `%USERPROFILE%\.ssh`
 
 ## Configuration
 
@@ -48,13 +48,13 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 There are two options to be aware of for this initial setup:
 
-- Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-- You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
+-   Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
+-   You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
-  ```cfg
-  #Provide the path to PowerShell executables
-  shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
-  ```
+    ```cfg
+    #Provide the path to PowerShell executables
+    shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+    ```
 
 > 📘
 > Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
@@ -95,9 +95,9 @@ nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 
 Replace the following:
 
-- `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
-- `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
-- `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
+-   `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
+-   `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
+-   `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
 
 ## Which user the agent runs as
 

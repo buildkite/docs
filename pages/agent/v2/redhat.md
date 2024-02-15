@@ -53,14 +53,14 @@ See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details
 
 ## File locations
 
-- Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
-- Agent Hooks: `/etc/buildkite-agent/hooks/`
-- Builds: `/var/buildkite-agent/builds/`
-- Logs, depending on your system:
-  - `journalctl -f -u buildkite-agent` (systemd)
-  - `/var/log/buildkite-agent.log` (older systems)
-- Agent user home: `/var/lib/buildkite-agent/`
-- SSH keys: `/var/lib/buildkite-agent/.ssh/`
+-   Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
+-   Agent Hooks: `/etc/buildkite-agent/hooks/`
+-   Builds: `/var/buildkite-agent/builds/`
+-   Logs, depending on your system:
+    -   `journalctl -f -u buildkite-agent` (systemd)
+    -   `/var/log/buildkite-agent.log` (older systems)
+-   Agent user home: `/var/lib/buildkite-agent/`
+-   SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
 ## Configuration
 

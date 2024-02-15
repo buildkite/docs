@@ -101,9 +101,9 @@ For example:
 
 You can use the following URLs for testing your theme:
 
-- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passing
-- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
-- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
+-   <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passing
+-   <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
+-   <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
 
 ## JSON output
 
@@ -116,9 +116,9 @@ $ curl https://badge.buildkite.com/3826789cf8890b426057e6fe1c4e683bdf04fa24d4988
 
 Possible values for the `"status"` key are:
 
-- `"passing"`
-- `"failing"`
-- `"unknown"`
+-   `"passing"`
+-   `"failing"`
+-   `"unknown"`
 
 ## Contributing
 

@@ -46,11 +46,11 @@ documentation for help.
 
 1. Commit and push your changes:
 
-   ```shell
-   $ git add .
-   $ git commit -m "Install and set up Buildkite Test Analytics"
-   $ git push
-   ```
+    ```shell
+    $ git add .
+    $ git commit -m "Install and set up Buildkite Test Analytics"
+    $ git push
+    ```
 
 Once you're done, in your Test Analytics dashboard, you'll see analytics of test executions on all branches that include this code.
 

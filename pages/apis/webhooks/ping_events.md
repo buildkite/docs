@@ -25,20 +25,20 @@ Example request body:
 
 ```json
 {
-  "event": "ping",
-  "service": {
-    "id": "49801950-1df0-474f-bb56-ad6a930c5cb9",
-    "provider": "webhook",
-    "settings": {
-      "url": "https://server.com/webhook"
+    "event": "ping",
+    "service": {
+        "id": "49801950-1df0-474f-bb56-ad6a930c5cb9",
+        "provider": "webhook",
+        "settings": {
+            "url": "https://server.com/webhook"
+        }
+    },
+    "organization": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
     }
-  },
-  "organization": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
 }
 ```

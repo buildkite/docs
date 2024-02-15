@@ -4,18 +4,18 @@ If you're working on an open-source project, and want the whole world to be able
 
 Making a suite public gives read-only access to all users. This means users who are unauthenticated or belong to another organization can view the following:
 
-- All test suite data
-- Run results
-- Test analytics
-- Test executions
-- Test execution data. For those using Buildkite's Ruby test collector, this includes SQL query data, HTTP request paths, and the execution timeline.
-- Environment variables that occur on each run:
-  - `commit_sha`
-  - `branch`
-  - `message`
-  - `url`
-  - `number`
-  - `job_id`
+-   All test suite data
+-   Run results
+-   Test analytics
+-   Test executions
+-   Test execution data. For those using Buildkite's Ruby test collector, this includes SQL query data, HTTP request paths, and the execution timeline.
+-   Environment variables that occur on each run:
+    -   `commit_sha`
+    -   `branch`
+    -   `message`
+    -   `url`
+    -   `number`
+    -   `job_id`
 
 Before making a suite public, you should verify that runs do not expose sensitive information in their logs or environment variables. This applies to both new and historical runs.
 

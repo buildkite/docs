@@ -35,34 +35,34 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates"
 
 ```json
 [
-  {
-    "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
-    "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
-    "name": "Build template",
-    "description": "Shared build steps configuration",
-    "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-    "available": false,
-    "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-    "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-    "created_at": "2023-05-03T04:17:55.867Z",
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Sam Kim",
-      "email": "sam@example.com",
-      "avatar_url": "https://www.gravatar.com/avatar/example",
-      "created_at": "2013-05-03T04:17:55.867Z"
-    },
-    "updated_at": "2023-06-12T04:17:55.867Z",
-    "updated_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Sam Kim",
-      "email": "sam@example.com",
-      "avatar_url": "https://www.gravatar.com/avatar/example",
-      "created_at": "2013-05-03T04:17:55.867Z"
+    {
+        "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
+        "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
+        "name": "Build template",
+        "description": "Shared build steps configuration",
+        "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
+        "available": false,
+        "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+        "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+        "created_at": "2023-05-03T04:17:55.867Z",
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+            "name": "Sam Kim",
+            "email": "sam@example.com",
+            "avatar_url": "https://www.gravatar.com/avatar/example",
+            "created_at": "2013-05-03T04:17:55.867Z"
+        },
+        "updated_at": "2023-06-12T04:17:55.867Z",
+        "updated_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+            "name": "Sam Kim",
+            "email": "sam@example.com",
+            "avatar_url": "https://www.gravatar.com/avatar/example",
+            "created_at": "2013-05-03T04:17:55.867Z"
+        }
     }
-  }
 ]
 ```
 
@@ -78,32 +78,32 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{
 
 ```json
 {
-  "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
-  "name": "Build template",
-  "description": "Shared build steps configuration",
-  "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-  "available": false,
-  "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-08-29T10:10:03.000Z"
-  },
-  "updated_at": "2023-06-12T04:17:55.867Z",
-  "updated_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-05-03T04:17:55.867Z"
-  }
+    "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
+    "name": "Build template",
+    "description": "Shared build steps configuration",
+    "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
+    "available": false,
+    "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-08-29T10:10:03.000Z"
+    },
+    "updated_at": "2023-06-12T04:17:55.867Z",
+    "updated_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-05-03T04:17:55.867Z"
+    }
 }
 ```
 
@@ -126,32 +126,32 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-tem
 
 ```json
 {
-  "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
-  "name": "Build template",
-  "description": "Shared build steps configuration",
-  "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-  "available": true,
-  "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-08-29T10:10:03.000Z"
-  },
-  "updated_at": "2023-06-12T04:17:55.867Z",
-  "updated_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-05-03T04:17:55.867Z"
-  }
+    "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
+    "name": "Build template",
+    "description": "Shared build steps configuration",
+    "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
+    "available": true,
+    "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-08-29T10:10:03.000Z"
+    },
+    "updated_at": "2023-06-12T04:17:55.867Z",
+    "updated_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-05-03T04:17:55.867Z"
+    }
 }
 ```
 
@@ -207,32 +207,32 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-te
 
 ```json
 {
-  "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
-  "name": "Build template",
-  "description": "Shared build steps configuration",
-  "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
-  "available": true,
-  "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-08-29T10:10:03.000Z"
-  },
-  "updated_at": "2023-06-12T04:17:55.867Z",
-  "updated_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-05-03T04:17:55.867Z"
-  }
+    "uuid": "018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "graphql_id": "UGlwZWxpbmVUZW1wbGF0ZS0tLTAxOGE4NmNjLWRiNzMtN2QxNS04YzY4LTUwMjNjZjhkNjRjMw==",
+    "name": "Build template",
+    "description": "Shared build steps configuration",
+    "configuration": "steps:\n  - label: \":hammer: Build\"\n    command: \"scripts/build.sh\"",
+    "available": true,
+    "url": "http:///api.buildkite.com/v2/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "web_url": "http://www.buildkite.com/organizations/acme-inc/pipeline-templates/018a86cc-db73-7d15-8c68-5023cf8d64c3",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-08-29T10:10:03.000Z"
+    },
+    "updated_at": "2023-06-12T04:17:55.867Z",
+    "updated_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-05-03T04:17:55.867Z"
+    }
 }
 ```
 

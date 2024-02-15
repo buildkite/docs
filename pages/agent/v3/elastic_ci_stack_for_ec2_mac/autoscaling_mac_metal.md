@@ -15,9 +15,9 @@ hardware failures occur.
 
 You should have familiarity with:
 
-- AWS VPCs
-- AWS EC2 AMIs
-- macOS GUI
+-   AWS VPCs
+-   AWS EC2 AMIs
+-   macOS GUI
 
 You must also choose an AWS Region with EC2 Mac instances available. See
 [Amazon EC2 Mac instances](https://aws.amazon.com/ec2/instance-types/mac/) and
@@ -63,14 +63,14 @@ horizontally scaled across multiple instances.
 1. Configure the instance VPC subnet, security groups, and key name so that you
    can access the instance.
 1. Using an SSH or AWS SSM session:
-   - Set a password for the `ec2-user` using `sudo passwd ec2-user`
-   - Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-   - Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+    - Set a password for the `ec2-user` using `sudo passwd ec2-user`
+    - Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+    - Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-   1. Sign in as the `ec2-user`
-   1. Enable _Automatic login_ for the `ec2-user` in _System Preferences_ > _Users & Accounts_ > _Login Options_
-   1. Disable _Require password_ in _System Preferences_ > _Security & Privacy_ > _General_
-   1. Disable the screen saver in _System Preferences_ > _Desktop & Screen Saver_ > _Show screen saver after_
+    1. Sign in as the `ec2-user`
+    1. Enable _Automatic login_ for the `ec2-user` in _System Preferences_ > _Users & Accounts_ > _Login Options_
+    1. Disable _Require password_ in _System Preferences_ > _Security & Privacy_ > _General_
+    1. Disable the screen saver in _System Preferences_ > _Desktop & Screen Saver_ > _Show screen saver after_
 1. Install your required version of Xcode, and ensure you launch Xcode at least
    once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.
@@ -98,24 +98,24 @@ _Associate_.
 Using the VPC and AMI prepared earlier, prepare values for the following
 required parameters:
 
-- `ImageId` from your AMI set up
-- `RootVolumeSize` no smaller than the template AMI's root disk
-- `Subnets` from your VPC set up
-- `SecurityGroupIds` from your VPC set up
-- `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-- `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
-- `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
+-   `ImageId` from your AMI set up
+-   `RootVolumeSize` no smaller than the template AMI's root disk
+-   `Subnets` from your VPC set up
+-   `SecurityGroupIds` from your VPC set up
+-   `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
+-   `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
+-   `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:
 
-- `HostFamily` defaults to `mac1`
-- `InstanceType` defaults to `mac1.metal`
+-   `HostFamily` defaults to `mac1`
+-   `InstanceType` defaults to `mac1.metal`
 
 There are also optional parameters to configure the size of the Auto Scaling
 group:
 
-- `MinSize` defaults to 0
-- `MaxSize` defaults to 3
+-   `MinSize` defaults to 0
+-   `MaxSize` defaults to 3
 
 The default AWS Limit for `mac1.metal` is three Dedicated Hosts per account
 region. If you require more than three instances, request an increased limit in
@@ -123,15 +123,15 @@ the _AWS Service Quotas Dashboard_.
 
 ### Deploy using the AWS Console
 
-- Use the launch button below to create a CloudFormation stack from the latest
-  version of the Buildkite template:
+-   Use the launch button below to create a CloudFormation stack from the latest
+    version of the Buildkite template:
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite-mac&templateURL=https://s3.amazonaws.com/buildkite-serverless-apps-us-east-1/elastic-mac/template/latest.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
 
-- Ensure the selected region in the top menu bar matches the region of your VPC
-  and AMI resources.
+-   Ensure the selected region in the top menu bar matches the region of your VPC
+    and AMI resources.
 
-- Give your stack a unique name, and fill in the required parameters.
+-   Give your stack a unique name, and fill in the required parameters.
 
 ### Deploy using the AWS CLI
 

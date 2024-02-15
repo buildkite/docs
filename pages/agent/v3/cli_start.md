@@ -36,9 +36,9 @@ Here's an example of targeting agents that are running with the tag `postgres` a
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: "1.9.4"
+    - command: "script.sh"
+      agents:
+          postgres: "1.9.4"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -47,9 +47,9 @@ You can also match for any agent with a `postgres` tag by omitting the value aft
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: "*"
+    - command: "script.sh"
+      agents:
+          postgres: "*"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -71,10 +71,10 @@ For example, if a job has the following agent targeting rules, an agent with bot
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: "1.9.4"
-      queue: test
+    - command: "script.sh"
+      agents:
+          postgres: "1.9.4"
+          queue: test
 ```
 
 ## Sourcing tags from Amazon Web Services
@@ -109,7 +109,7 @@ Then, make sure you are using `pipeline upload` to upload a `pipeline.yml`. In B
 
 ```yaml
 steps:
-  - command: "buildkite-agent pipeline upload"
+    - command: "buildkite-agent pipeline upload"
 ```
 
 Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:
@@ -126,7 +126,7 @@ When Buildkite uploads the pipeline, `$BUILDKITE_AGENT_META_DATA_HOSTNAME` is re
 ```yaml
 - command: "I will stick!"
   agents:
-    hostname: "agents-computer-hostname"
+      hostname: "agents-computer-hostname"
 - command: "I might not"
 ```
 
@@ -140,11 +140,11 @@ This means the first step in the example can only run on an agent with the hostn
 
 `value` is the job ID. There are several ways to find it:
 
-- Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
-- Through the [GraphQL API](/docs/apis/graphql_api).
-- The `BUILDKITE_JOB_ID` build environment variable.
-- In outbound [job event webhooks](/docs/apis/webhooks/job_events).
-- Using the GUI: select a job, and the job ID is the final value in the URL.
+-   Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+-   Through the [GraphQL API](/docs/apis/graphql_api).
+-   The `BUILDKITE_JOB_ID` build environment variable.
+-   In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+-   Using the GUI: select a job, and the job ID is the final value in the URL.
 
 ### When to use
 

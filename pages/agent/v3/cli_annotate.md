@@ -56,21 +56,21 @@ A number of CSS classes are accepted in annotations. These include a subset of l
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
 We accept the following parts of version 8.0 of Basscss within annotations:
 
-- [Align](http://basscss.com/#basscss-align)
-- [Border](http://basscss.com/#basscss-border)
-- [Colors](https://basscss.com/v7/docs/colors/)
-- [Flexbox](http://basscss.com/#basscss-flexbox)
-  - All except `sm-flex`, `md-flex` and `lg-flex`
-- [Margin](http://basscss.com/#basscss-margin)
-- [Layout](http://basscss.com/#basscss-layout)
-  - All except Floats (Please use Flexbox instead)
-- [Padding](http://basscss.com/#basscss-padding)
-- [Typography](http://basscss.com/#basscss-typography)
-  - `bold`, `regular`, `italic`, `caps`
-  - `left-align`, `center`, `right-align`, `justify`
-  - `underline`, `truncate`
-  - `list-reset`
-- [Type Scale](http://basscss.com/#basscss-type-scale)
+-   [Align](http://basscss.com/#basscss-align)
+-   [Border](http://basscss.com/#basscss-border)
+-   [Colors](https://basscss.com/v7/docs/colors/)
+-   [Flexbox](http://basscss.com/#basscss-flexbox)
+    -   All except `sm-flex`, `md-flex` and `lg-flex`
+-   [Margin](http://basscss.com/#basscss-margin)
+-   [Layout](http://basscss.com/#basscss-layout)
+    -   All except Floats (Please use Flexbox instead)
+-   [Padding](http://basscss.com/#basscss-padding)
+-   [Typography](http://basscss.com/#basscss-typography)
+    -   `bold`, `regular`, `italic`, `caps`
+    -   `left-align`, `center`, `right-align`, `justify`
+    -   `underline`, `truncate`
+    -   `list-reset`
+-   [Type Scale](http://basscss.com/#basscss-type-scale)
 
 An exhaustive list of classes that annotations support can be found below:
 
@@ -133,9 +133,9 @@ The following pipeline prints an escaped Markdown block, adds line breaks using 
 
 ```yaml
 steps:
-  - label: "Annotation Test"
-    command:
-      - echo -e "\`\`\`term\nThis is a \033[0;31mtest\033[0m\n\`\`\`" | buildkite-agent annotate
+    - label: "Annotation Test"
+      command:
+          - echo -e "\`\`\`term\nThis is a \033[0;31mtest\033[0m\n\`\`\`" | buildkite-agent annotate
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -182,12 +182,12 @@ You can also link to uploaded artifacts as a shortcut to important files:
 
 ```yaml
 steps:
-  - label: "Upload Coverage Report"
-    command: |
-      buildkite-agent artifact upload "coverage/*"
-      cat << EOF | buildkite-agent annotate --style "info"
-        Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
-      EOF
+    - label: "Upload Coverage Report"
+      command: |
+          buildkite-agent artifact upload "coverage/*"
+          cat << EOF | buildkite-agent annotate --style "info"
+            Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
+          EOF
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -200,14 +200,14 @@ We've created a plugin to convert all the junit.xml artifacts in a build into a 
 
 ```yaml
 steps:
-  - command: test.sh
-    parallelism: 50
-    artifact_paths: tmp/junit-*.xml
-  - wait: ~
-    continue_on_failure: true
-  - plugins:
-      - junit-annotate#v1.2.0:
-          artifacts: tmp/junit-*.xml
+    - command: test.sh
+      parallelism: 50
+      artifact_paths: tmp/junit-*.xml
+    - wait: ~
+      continue_on_failure: true
+    - plugins:
+          - junit-annotate#v1.2.0:
+                artifacts: tmp/junit-*.xml
 ```
 
 {: codeblock-file="pipeline.yml"}

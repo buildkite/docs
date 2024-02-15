@@ -18,11 +18,11 @@ For agent utilization, agents are considered busy if they have a job ID assigned
 
 _Jobs Running_ shows the number of jobs assigned to agents. These are any jobs in the queue in the following states:
 
-- `ASSIGNED`
-- `ACCEPTED`
-- `RUNNING`
-- `CANCELING`
-- `TIMING_OUT`
+-   `ASSIGNED`
+-   `ACCEPTED`
+-   `RUNNING`
+-   `CANCELING`
+-   `TIMING_OUT`
 
 _Jobs Waiting_ shows the number of jobs not yet assigned to an agent. These are any jobs for the queue in the `SCHEDULED` state.
 
@@ -36,9 +36,9 @@ _Current Wait_ shows the various job wait time percentiles for this queue's wait
 
 Advanced Queue Metrics show a queue’s activity from the past hour, identifying patterns in how your agents adapt to job numbers and evaluating the efficiency of your [scaling rules](/docs/tutorials/parallel-builds#auto-scaling-your-build-agents).
 
-- `Connected Agents` shows the number of agents that were connected to this queue
-- `Waiting Jobs` shows the number of jobs that were waiting to be assigned an agent
-- `Running Jobs` shows the number of jobs that have started running on an agent
+-   `Connected Agents` shows the number of agents that were connected to this queue
+-   `Waiting Jobs` shows the number of jobs that were waiting to be assigned an agent
+-   `Running Jobs` shows the number of jobs that have started running on an agent
 
 The chart shows the past hour of activity with each data point representing a minute. A minute is represented by a snapshot of the metric at the end of that minute.
 

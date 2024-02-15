@@ -19,9 +19,9 @@ The Buildkite REST API aims to give you complete programmatic access and control
 1. Generate an [API access token](https://buildkite.com/user/api-access-tokens) with as much [scope](/docs/apis/managing-api-tokens#token-scopes) as you need.
 2. Make requests to https://api.buildkite.com using the token you generated in the `Authorization` header:
 
-   ```bash
-   curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
-   ```
+    ```bash
+    curl -H "Authorization: Bearer $TOKEN" https://api.buildkite.com/v2/user
+    ```
 
 More information about the [REST API](/docs/apis/rest-api).
 

@@ -10,18 +10,18 @@ Get the first 10 clusters and their information for an organization:
 
 ```graphql
 query getClusters {
-  organization(slug: "organization-slug") {
-    clusters(first: 10) {
-      edges {
-        node {
-          id
-          uuid
-          color
-          description
+    organization(slug: "organization-slug") {
+        clusters(first: 10) {
+            edges {
+                node {
+                    id
+                    uuid
+                    color
+                    description
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -31,20 +31,20 @@ Get the first 10 cluster queues for a particular cluster, specifying the cluster
 
 ```graphql
 query getClusterQueues {
-  organization(slug: "organization-slug") {
-    cluster(id: "cluster-uuid") {
-      queues(first: 10) {
-        edges {
-          node {
-            id
-            uuid
-            key
-            description
-          }
+    organization(slug: "organization-slug") {
+        cluster(id: "cluster-uuid") {
+            queues(first: 10) {
+                edges {
+                    node {
+                        id
+                        uuid
+                        key
+                        description
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -54,20 +54,20 @@ Get the first 10 cluster tokens for a particular cluster, specifying the cluster
 
 ```graphql
 query getClusterTokens {
-  organization(slug: "organization-slug") {
-    cluster(id: "cluster-uuid") {
-      agentTokens(first: 10) {
-        edges {
-          node {
-            id
-            uuid
-            description
-            allowedIpAddresses
-          }
+    organization(slug: "organization-slug") {
+        cluster(id: "cluster-uuid") {
+            agentTokens(first: 10) {
+                edges {
+                    node {
+                        id
+                        uuid
+                        description
+                        allowedIpAddresses
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -80,26 +80,26 @@ To get jobs within a cluster queue, use the `clusterQueue` argument of the `jobs
 
 ```graphql
 query getClusterQueueJobs {
-  organization(slug: "organization-slug") {
-    jobs(first: 10, clusterQueue: "cluster-queue-id") {
-      edges {
-        node {
-          ... on JobTypeCommand {
-            id
-            state
-            label
-            url
-            build {
-              number
+    organization(slug: "organization-slug") {
+        jobs(first: 10, clusterQueue: "cluster-queue-id") {
+            edges {
+                node {
+                    ... on JobTypeCommand {
+                        id
+                        state
+                        label
+                        url
+                        build {
+                            number
+                        }
+                        pipeline {
+                            name
+                        }
+                    }
+                }
             }
-            pipeline {
-              name
-            }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -107,29 +107,29 @@ To obtain jobs in a particular state within a cluster queue, specify the cluster
 
 ```graphql
 query getClusterQueueJobsByJobState {
-  organization(slug: "organization-slug") {
-    jobs(
-      first: 10
-      clusterQueue: "cluster-queue-id"
-      state: [WAITING, BLOCKED]
-    ) {
-      edges {
-        node {
-          ... on JobTypeCommand {
-            id
-            state
-            label
-            url
-            build {
-              number
+    organization(slug: "organization-slug") {
+        jobs(
+            first: 10
+            clusterQueue: "cluster-queue-id"
+            state: [WAITING, BLOCKED]
+        ) {
+            edges {
+                node {
+                    ... on JobTypeCommand {
+                        id
+                        state
+                        label
+                        url
+                        build {
+                            number
+                        }
+                        pipeline {
+                            name
+                        }
+                    }
+                }
             }
-            pipeline {
-              name
-            }
-          }
         }
-      }
     }
-  }
 }
 ```

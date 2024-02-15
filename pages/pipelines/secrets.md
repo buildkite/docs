@@ -38,8 +38,8 @@ For example, suppose you have a step that runs a script expecting a `SECRET_DEPL
 
 ```yml
 steps:
-  - command: scripts/trigger-deploy
-    key: trigger-deploy
+    - command: scripts/trigger-deploy
+      key: trigger-deploy
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -105,12 +105,12 @@ You should never store secrets in the `env` block at the top of your pipeline st
 
 ```yml
 env:
-  # Security risk! The secret will be sent to and stored by Buildkite, and
-  # be available in the "Uploaded Pipelines" list in the job's Timeline tab.
-  GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN: "bd0fa963610b..."
+    # Security risk! The secret will be sent to and stored by Buildkite, and
+    # be available in the "Uploaded Pipelines" list in the job's Timeline tab.
+    GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN: "bd0fa963610b..."
 
 steps:
-  - command: scripts/trigger-github-deploy
+    - command: scripts/trigger-github-deploy
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -123,15 +123,15 @@ You should never refer to secrets directly in your `pipeline.yml` file, as they 
 
 ```yaml
 steps:
-  # Security risk! The environment variable containing the secret will be
-  # interpolated into the YAML file and then sent to Buildkite.
-  - command: |
-      curl \
-        --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
-        https://api.github.com/repos/my-org/my-app/deployments
+    # Security risk! The environment variable containing the secret will be
+    # interpolated into the YAML file and then sent to Buildkite.
+    - command: |
+          curl \
+            --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+            --header "Content-Type: application/json" \
+            --request POST \
+            --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
+            https://api.github.com/repos/my-org/my-app/deployments
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -144,7 +144,7 @@ To prevent the risk of interpolation, it is recommended that you replace the com
 
 ```yml
 steps:
-  - command: scripts/trigger-github-deploy
+    - command: scripts/trigger-github-deploy
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -156,16 +156,16 @@ If you must define your script in your steps, you can prevent interpolation by u
 
 ```yml
 steps:
-  # By using $$ the value of the secret is never sent to Buildkite. This is
-  # still not best practice, as it's easy to forget the additional $ character
-  # and expose the secret.
-  - command: |
-      curl \
-        --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
-        https://api.github.com/repos/my-org/my-app/deployments
+    # By using $$ the value of the secret is never sent to Buildkite. This is
+    # still not best practice, as it's easy to forget the additional $ character
+    # and expose the secret.
+    - command: |
+          curl \
+            --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+            --header "Content-Type: application/json" \
+            --request POST \
+            --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
+            https://api.github.com/repos/my-org/my-app/deployments
 ```
 
 {: codeblock-file="pipeline.yml"}

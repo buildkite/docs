@@ -69,8 +69,8 @@ To store this file alongside your build, add the `artifact_paths` attribute to t
 
 ```yaml
 steps:
-  - command: build.sh
-    artifact_paths: "build.log"
+    - command: build.sh
+      artifact_paths: "build.log"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -137,12 +137,12 @@ Agents can redact the values of environment variables whose names match common p
 
 The default environment variable name patterns are:
 
-- `*_PASSWORD`
-- `*_SECRET`
-- `*_TOKEN`
-- `*_ACCESS_KEY`
-- `*_SECRET_KEY`
-- `*_CONNECTION_STRING` (added in Agent v3.53.0)
+-   `*_PASSWORD`
+-   `*_SECRET`
+-   `*_TOKEN`
+-   `*_ACCESS_KEY`
+-   `*_SECRET_KEY`
+-   `*_CONNECTION_STRING` (added in Agent v3.53.0)
 
 With these defaults, if you have an environment variable `MY_SECRET="topsecret"` and run a command that outputs `This is topsecret info`, the log output will be `This is [REDACTED] info`.
 
@@ -173,60 +173,60 @@ To set up a private build log archive storage:
 1. Create an Amazon S3 bucket in _us-east-1_ location (the only region that is currently supported).
 2. Provide _read_ and _write_ access permission policy for the Buildkite's AWS account `032379705303`.
 
-   Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
+    Here's an example policy that contains an Amazon S3 bucket configuration with Buildkite's account number in it. Replace `my-bucket` and `my-prefix` placeholders with your Amazon S3 bucket information:
 
-   ```json
-   {
-     "Version": "2012-10-17",
-     "Statement": [
-       {
-         "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": "arn:aws:iam::032379705303:root"
-         },
-         "Action": "s3:PutObject",
-         "Resource": "arn:aws:s3:::my-bucket/my-prefix/*",
-         "Condition": {
-           "StringEquals": {
-             "s3:x-amz-acl": "bucket-owner-full-control"
-           }
-         }
-       },
-       {
-         "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": "arn:aws:iam::032379705303:root"
-         },
-         "Action": "s3:GetObject",
-         "Resource": "arn:aws:s3:::my-bucket/my-prefix/*"
-       },
-       {
-         "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": "arn:aws:iam::032379705303:root"
-         },
-         "Action": "s3:DeleteObject",
-         "Resource": "arn:aws:s3:::my-bucket/my-prefix/*"
-       },
-       {
-         "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
-         "Effect": "Allow",
-         "Principal": {
-           "AWS": "arn:aws:iam::032379705303:root"
-         },
-         "Action": "s3:ListBucket",
-         "Resource": "arn:aws:s3:::my-bucket",
-         "Condition": {
-           "StringLike": {
-             "s3:prefix": "my-prefix/*"
-           }
-         }
-       }
-     ]
-   }
-   ```
+    ```json
+    {
+        "Version": "2012-10-17",
+        "Statement": [
+            {
+                "Sid": "AllowBuildkiteToWriteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::032379705303:root"
+                },
+                "Action": "s3:PutObject",
+                "Resource": "arn:aws:s3:::my-bucket/my-prefix/*",
+                "Condition": {
+                    "StringEquals": {
+                        "s3:x-amz-acl": "bucket-owner-full-control"
+                    }
+                }
+            },
+            {
+                "Sid": "AllowBuildkiteToReadObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::032379705303:root"
+                },
+                "Action": "s3:GetObject",
+                "Resource": "arn:aws:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToDeleteObjectsInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::032379705303:root"
+                },
+                "Action": "s3:DeleteObject",
+                "Resource": "arn:aws:s3:::my-bucket/my-prefix/*"
+            },
+            {
+                "Sid": "AllowBuildkiteToListBucketInLogsPrefix",
+                "Effect": "Allow",
+                "Principal": {
+                    "AWS": "arn:aws:iam::032379705303:root"
+                },
+                "Action": "s3:ListBucket",
+                "Resource": "arn:aws:s3:::my-bucket",
+                "Condition": {
+                    "StringLike": {
+                        "s3:prefix": "my-prefix/*"
+                    }
+                }
+            }
+        ]
+    }
+    ```
 
 3. Reach out to [support@buildkite.com](mailto:support@buildkite.com) and provide the address of your Amazon S3 bucket. The Buildkite engineering team will continue the configuration to complete the setup.

@@ -120,16 +120,16 @@ If you put two or more group steps in a YAML config file consecutively, they wil
 # 2.sh will start when 1.sh finishes, and 4.sh will start
 # when 3.sh finishes.
 steps:
-  - group: "first"
-    steps:
-      - command: "1.sh"
-      - wait
-      - command: "2.sh"
-  - group: "second"
-    steps:
-      - command: "3.sh"
-      - wait
-      - command: "4.sh"
+    - group: "first"
+      steps:
+          - command: "1.sh"
+          - wait
+          - command: "2.sh"
+    - group: "second"
+      steps:
+          - command: "3.sh"
+          - wait
+          - command: "4.sh"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -138,13 +138,13 @@ Running jobs in parallel has some limitations:
 
 <!-- vale off -->
 
-- Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
-- If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.
+-   Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
+-   If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.
 
 <!-- vale on -->
 
-- If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
-- It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
+-   If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
+-   It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
 
 ## Using wait steps in job groups
 
@@ -152,23 +152,23 @@ You can have [wait steps](/docs/pipelines/wait-step) in a group. Such steps oper
 
 ```yml
 steps:
-  - group: "Group01"
-    depends_on: "tests"
-    steps:
-      - command: "a.sh"
-      - wait
-      - command: "b.sh"
+    - group: "Group01"
+      depends_on: "tests"
+      steps:
+          - command: "a.sh"
+          - wait
+          - command: "b.sh"
 
-  - group: "Group02"
-    depends_on: "tests"
-    id: "toast"
-    steps:
-      - command: "c.sh"
-      - wait
-      - command: "d.sh"
+    - group: "Group02"
+      depends_on: "tests"
+      id: "toast"
+      steps:
+          - command: "c.sh"
+          - wait
+          - command: "d.sh"
 
-  - command: "yay.sh"
-    depends_on: "toast"
+    - command: "yay.sh"
+      depends_on: "toast"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -188,11 +188,11 @@ For example, you have a YAML file:
 
 ```yml
 steps:
-  - group: "Setup"
-    steps:
-      - commands:
-          - "buildkite-agent pipeline upload"
-          - echo "start"
+    - group: "Setup"
+      steps:
+          - commands:
+                - "buildkite-agent pipeline upload"
+                - echo "start"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -201,9 +201,9 @@ And this YAML file uploads a pipeline that has a group with the same name:
 
 ```yml
 steps:
-  - group: "Setup"
-    steps:
-      - command: "docker build"
+    - group: "Setup"
+      steps:
+          - command: "docker build"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -214,12 +214,12 @@ Similarly, if you have a YAML file:
 
 ```yml
 steps:
-  - group: ~
-    label: "Setup"
-    steps:
-      - commands:
-          - "buildkite-agent pipeline upload"
-          - echo "start"
+    - group: ~
+      label: "Setup"
+      steps:
+          - commands:
+                - "buildkite-agent pipeline upload"
+                - echo "start"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -228,10 +228,10 @@ And this YAML file uploads a pipeline that has a group with the same label:
 
 ```yml
 steps:
-  - group: ~
-    label: "Setup"
-    steps:
-      - command: echo "proceed"
+    - group: ~
+      label: "Setup"
+      steps:
+          - command: echo "proceed"
 ```
 
 {: codeblock-file="pipeline.yml"}

@@ -10,52 +10,52 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
 
 ```json
 [
-  {
-    "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-    "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-    "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-    "name": "my-agent",
-    "connection_state": "connected",
-    "hostname": "some.server",
-    "ip_address": "144.132.19.12",
-    "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
-    "version": "2.1.0",
-    "creator": {
-      "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
-      "name": "Keith Pitt",
-      "email": "me@keithpitt.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-      "created_at": "2015-05-09T21:05:59.874Z"
-    },
-    "created_at": "2014-02-24T22:33:45.263Z",
-    "job": {
-      "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
-      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
-      "type": "script",
-      "name": "rspec",
-      "agent_query_rules": ["*"],
-      "state": "passed",
-      "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
-      "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
-      "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
-      "script_path": "sleep 1",
-      "command": "sleep 1",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "*",
-      "agent": null,
-      "created_at": "2015-07-30T12:58:22.942Z",
-      "scheduled_at": "2015-07-30T12:58:22.935Z",
-      "started_at": "2015-07-30T12:58:34.000Z",
-      "finished_at": "2015-07-30T12:58:37.000Z"
-    },
-    "last_job_finished_at": null,
-    "priority": null,
-    "meta_data": ["key1=val1", "key2=val2"]
-  }
+    {
+        "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+        "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+        "name": "my-agent",
+        "connection_state": "connected",
+        "hostname": "some.server",
+        "ip_address": "144.132.19.12",
+        "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
+        "version": "2.1.0",
+        "creator": {
+            "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
+            "name": "Keith Pitt",
+            "email": "me@keithpitt.com",
+            "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+            "created_at": "2015-05-09T21:05:59.874Z"
+        },
+        "created_at": "2014-02-24T22:33:45.263Z",
+        "job": {
+            "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
+            "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+            "type": "script",
+            "name": "rspec",
+            "agent_query_rules": ["*"],
+            "state": "passed",
+            "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
+            "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
+            "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
+            "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
+            "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
+            "script_path": "sleep 1",
+            "command": "sleep 1",
+            "soft_failed": false,
+            "exit_status": 0,
+            "artifact_paths": "*",
+            "agent": null,
+            "created_at": "2015-07-30T12:58:22.942Z",
+            "scheduled_at": "2015-07-30T12:58:22.935Z",
+            "started_at": "2015-07-30T12:58:34.000Z",
+            "finished_at": "2015-07-30T12:58:37.000Z"
+        },
+        "last_job_finished_at": null,
+        "priority": null,
+        "meta_data": ["key1=val1", "key2=val2"]
+    }
 ]
 ```
 
@@ -83,51 +83,51 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
 
 ```json
 {
-  "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
-  "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
-  "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
-  "name": "my-agent",
-  "connection_state": "connected",
-  "hostname": "some.server",
-  "ip_address": "144.132.19.12",
-  "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
-  "version": "2.1.0",
-  "creator": {
-    "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
-    "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
-    "name": "Keith Pitt",
-    "email": "me@keithpitt.com",
-    "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-    "created_at": "2015-05-09T21:05:59.874Z"
-  },
-  "created_at": "2015-05-09T21:05:59.874Z",
-  "job": {
-    "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
-    "graphql_id": "Sm9iLS0tZGM5YTg5MmQtM2I5Ny00MzgyLWEzYzItNWJhZmU5M2RlZWI1",
-    "type": "script",
-    "name": "rspec",
-    "agent_query_rules": ["*"],
-    "state": "passed",
-    "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
-    "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
-    "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
-    "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
-    "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
-    "script_path": "sleep 1",
-    "command": "sleep 1",
-    "soft_failed": false,
-    "exit_status": 0,
-    "artifact_paths": "*",
-    "agent": null,
-    "created_at": "2015-07-30T12:58:22.942Z",
-    "scheduled_at": "2015-07-30T12:58:22.935Z",
-    "started_at": "2015-07-30T12:58:34.000Z",
-    "finished_at": "2015-07-30T12:58:37.000Z"
-  },
-  "last_job_finished_at": null,
-  "priority": null,
-  "meta_data": ["key1=val1", "key2=val2"]
+    "id": "0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "graphql_id": "QWdlbnQtLS1mOTBhNzliNC01YjJlLTQzNzEtYjYxZS03OTA4ZDAyNmUyN2E=",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/agents/my-agent",
+    "web_url": "https://buildkite.com/organizations/my-great-org/agents/0b461f65-e7be-4c80-888a-ef11d81fd971",
+    "name": "my-agent",
+    "connection_state": "connected",
+    "hostname": "some.server",
+    "ip_address": "144.132.19.12",
+    "user_agent": "buildkite-agent/2.1.0 (linux; amd64)",
+    "version": "2.1.0",
+    "creator": {
+        "id": "2eba97bc-7cc7-427f-8feb-1008c72aa1d8",
+        "graphql_id": "VXNlci0tLThmNzFlOWI1LTczMDEtNDI4ZS1hMjQ1LWUwOWI0YzI0OWRiZg==",
+        "name": "Keith Pitt",
+        "email": "me@keithpitt.com",
+        "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+        "created_at": "2015-05-09T21:05:59.874Z"
+    },
+    "created_at": "2015-05-09T21:05:59.874Z",
+    "job": {
+        "id": "cd164055-9649-452b-8d8e-28fe67370a1e",
+        "graphql_id": "Sm9iLS0tZGM5YTg5MmQtM2I5Ny00MzgyLWEzYzItNWJhZmU5M2RlZWI1",
+        "type": "script",
+        "name": "rspec",
+        "agent_query_rules": ["*"],
+        "state": "passed",
+        "build_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50",
+        "web_url": "https://buildkite.com/my-great-org/sleeper/builds/50#cd164055-9649-452b-8d8e-28fe67370a1e",
+        "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log",
+        "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/log.txt",
+        "artifacts_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/sleeper/builds/50/jobs/cd164055-9649-452b-8d8e-28fe67370a1e/artifacts",
+        "script_path": "sleep 1",
+        "command": "sleep 1",
+        "soft_failed": false,
+        "exit_status": 0,
+        "artifact_paths": "*",
+        "agent": null,
+        "created_at": "2015-07-30T12:58:22.942Z",
+        "scheduled_at": "2015-07-30T12:58:22.935Z",
+        "started_at": "2015-07-30T12:58:34.000Z",
+        "finished_at": "2015-07-30T12:58:37.000Z"
+    },
+    "last_job_finished_at": null,
+    "priority": null,
+    "meta_data": ["key1=val1", "key2=val2"]
 }
 ```
 
@@ -140,8 +140,8 @@ Success response: `200 OK`
 > 📘 Required permissions
 > To stop an agent you need either
 
-- An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
-- Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
+-   An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
+-   Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

@@ -4,11 +4,11 @@ Build matrices help you simplify complex build configurations by expanding a ste
 
 The following [command step](/docs/pipelines/command-step) attributes can contain matrix values for interpolation:
 
-- [environment variables](/docs/pipelines/environment-variables)
-- [labels](/docs/pipelines/command-step#label)
-- [commands](/docs/pipelines/command-step#command-step-attributes)
-- [plugins](/docs/pipelines/command-step#plugins)
-- [agents](/docs/pipelines/command-step#agents)
+-   [environment variables](/docs/pipelines/environment-variables)
+-   [labels](/docs/pipelines/command-step#label)
+-   [commands](/docs/pipelines/command-step#command-step-attributes)
+-   [plugins](/docs/pipelines/command-step#plugins)
+-   [agents](/docs/pipelines/command-step#agents)
 
 You can't use matrix values in other attributes, including step keys and [concurrency groups](/docs/pipelines/controlling-concurrency#concurrency-groups).
 
@@ -16,12 +16,12 @@ For example, instead of writing three separate jobs for builds on **macOS**, **L
 
 ```yaml
 steps:
-  - label: "macOS build"
-    command: "GOOS=darwin go build"
-  - label: "Linux build"
-    command: "GOOS=linux go build"
-  - label: "Windows build"
-    command: "GOOS=windows go build"
+    - label: "macOS build"
+      command: "GOOS=darwin go build"
+    - label: "Linux build"
+      command: "GOOS=linux go build"
+    - label: "Windows build"
+      command: "GOOS=windows go build"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -30,14 +30,14 @@ Use a build matrix to expand a single step template into three steps by interpol
 
 ```yaml
 steps:
-  - label: "{{matrix}} build"
-    command: "GOOS={{matrix}} go build"
-    env:
-      os: "{{matrix}}"
-    matrix:
-      - "darwin"
-      - "Linux"
-      - "Windows"
+    - label: "{{matrix}} build"
+      command: "GOOS={{matrix}} go build"
+      env:
+          os: "{{matrix}}"
+      matrix:
+          - "darwin"
+          - "Linux"
+          - "Windows"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -51,21 +51,21 @@ For more complex builds, add multiple dimensions to `matrix.setup` instead of th
 
 ```yaml
 steps:
-  - label: "💥 Matrix Build"
-    command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-    agents:
-      queue: "builder-{{matrix.arch}}"
-    matrix:
-      setup:
-        arch:
-          - "amd64"
-          - "arm64"
-        os:
-          - "windows"
-          - "linux"
-        test:
-          - "A"
-          - "B"
+    - label: "💥 Matrix Build"
+      command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+      agents:
+          queue: "builder-{{matrix.arch}}"
+      matrix:
+          setup:
+              arch:
+                  - "amd64"
+                  - "arm64"
+              os:
+                  - "windows"
+                  - "linux"
+              test:
+                  - "A"
+                  - "B"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -78,30 +78,30 @@ If you're using `matrix.setup`, you can also use the `adjustments` key to change
 
 ```yaml
 steps:
-  - label: "💥 Matrix build with adjustments"
-    command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-    matrix:
-      setup:
-        arch:
-          - "amd64"
-          - "arm64"
-        os:
-          - "windows"
-          - "linux"
-        test:
-          - "A"
-          - "B"
-      adjustments:
-        - with:
-            os: "windows"
-            arch: "arm64"
-            test: "B"
-          soft_fail: true
-        - with:
-            os: "linux"
-            arch: "arm64"
-            test: "B"
-          skip: true
+    - label: "💥 Matrix build with adjustments"
+      command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+      matrix:
+          setup:
+              arch:
+                  - "amd64"
+                  - "arm64"
+              os:
+                  - "windows"
+                  - "linux"
+              test:
+                  - "A"
+                  - "B"
+          adjustments:
+              - with:
+                    os: "windows"
+                    arch: "arm64"
+                    test: "B"
+                soft_fail: true
+              - with:
+                    os: "linux"
+                    arch: "arm64"
+                    test: "B"
+                skip: true
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -112,10 +112,10 @@ To add an extra combination that isn't present in the `matrix.setup`, use the `a
 
 ```yaml
 adjustments:
-  - with:
-      os: "Plan 9"
-      arch: "arm64"
-      test: "B"
+    - with:
+          os: "Plan 9"
+          arch: "arm64"
+          test: "B"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -128,11 +128,11 @@ To remove a combination from the matrix, add it to the `adjustments` key and set
 
 ```yaml
 adjustments:
-  - with:
-      os: "linux"
-      arch: "arm64"
-      test: "B"
-    skip: true
+    - with:
+          os: "linux"
+          arch: "arm64"
+          test: "B"
+      skip: true
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -151,19 +151,19 @@ To do that, indent the matrix steps inside a [group step](/docs/pipelines/group-
 
 ```yaml
 steps:
-  - group: "📦 Build"
-    steps:
-      - label: "💥 Matrix build with adjustments"
-        command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-        matrix:
-          setup:
-            arch:
-              - "amd64"
-              - "arm64"
-            os:
-              - "windows"
-              - "linux"
-            test:
-              - "A"
-              - "B"
+    - group: "📦 Build"
+      steps:
+          - label: "💥 Matrix build with adjustments"
+            command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+            matrix:
+                setup:
+                    arch:
+                        - "amd64"
+                        - "arm64"
+                    os:
+                        - "windows"
+                        - "linux"
+                    test:
+                        - "A"
+                        - "B"
 ```

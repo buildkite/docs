@@ -30,7 +30,7 @@ The following is an example [command step](/docs/pipelines/command-step) that en
   label: '\:rocket\: Deploy production'
   branches: "main"
   agents:
-    deploy: true
+      deploy: true
   concurrency: 1
   concurrency_group: "our-payment-gateway/deploy"
 ```
@@ -52,35 +52,35 @@ In the following setup, only one build at a time can _enter the concurrency gate
 
 ```yaml
 steps:
-  - command: echo "Running unit tests"
-    key: unit-tests
+    - command: echo "Running unit tests"
+      key: unit-tests
 
-  - command: echo "--> Start of concurrency gate"
-    concurrency_group: gate
-    concurrency: 1
-    key: start-gate
-    depends_on: unit-tests
+    - command: echo "--> Start of concurrency gate"
+      concurrency_group: gate
+      concurrency: 1
+      key: start-gate
+      depends_on: unit-tests
 
-  - wait
+    - wait
 
-  - command: echo "Running deployment to staging environment"
-    key: stage-deploy
-    depends_on: start-gate
+    - command: echo "Running deployment to staging environment"
+      key: stage-deploy
+      depends_on: start-gate
 
-  - command: echo "Running e2e tests after the deployment"
-    parallelism: 3
-    depends_on: [stage-deploy]
-    key: e2e
+    - command: echo "Running e2e tests after the deployment"
+      parallelism: 3
+      depends_on: [stage-deploy]
+      key: e2e
 
-  - wait
+    - wait
 
-  - command: echo "End of concurrency gate <--"
-    concurrency_group: gate
-    concurrency: 1
-    key: end-gate
+    - command: echo "End of concurrency gate <--"
+      concurrency_group: gate
+      concurrency: 1
+      key: end-gate
 
-  - command: echo "This and subsequent steps run independently"
-    depends_on: end-gate
+    - command: echo "This and subsequent steps run independently"
+      depends_on: end-gate
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -91,8 +91,8 @@ By default, steps that belong to the same concurrency group are run in the order
 
 For example, if you have two steps:
 
-- Step `A` in concurrency group `X` with a concurrency of `1` at time 0
-- Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
+-   Step `A` in concurrency group `X` with a concurrency of `1` at time 0
+-   Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
 
 Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
 
@@ -105,10 +105,10 @@ In that case, setting the concurrency method to `eager`, removes the ordering co
 
 ```yaml
 steps:
-  - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
-    concurrency_group: saucelabs
-    concurrency: 10
-    concurrency_method: eager
+    - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
+      concurrency_group: saucelabs
+      concurrency: 10
+      concurrency_method: eager
 ```
 
 {: codeblock-file="pipeline.yml"}

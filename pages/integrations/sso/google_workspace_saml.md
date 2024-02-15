@@ -28,8 +28,8 @@ Log into your [Google Admin Console](https://admin.google.com), and follow these
 3. Search for _Buildkite_, and select _Buildkite Web (SAML)_.
 4. Copy the SSO URL and Entity ID, and download the Certificate. You'll need these in Step 3.
 5. Enter the following service provider details:
-   - ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
-   - Entity ID: https://buildkite.com
+    - ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
+    - Entity ID: https://buildkite.com
 6. You can add attribute mapping after the initial setup and testing. Click _Finish_ to complete the setup.
 
 ## Step 3. Update your Buildkite SSO provider

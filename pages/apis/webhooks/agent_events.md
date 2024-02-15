@@ -36,14 +36,14 @@ Example request body:
 
 ```json
 {
-  "event": "agent.connected",
-  "agent": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
+    "event": "agent.connected",
+    "agent": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
+    }
 }
 ```
 
@@ -82,17 +82,17 @@ Example request body:
 
 ```json
 {
-  "event": "agent.blocked",
-  "blocked_ip": "202.188.43.20",
-  "agent": {
-    "...": "..."
-  },
-  "cluster_token": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
+    "event": "agent.blocked",
+    "blocked_ip": "202.188.43.20",
+    "agent": {
+        "...": "..."
+    },
+    "cluster_token": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
+    }
 }
 ```

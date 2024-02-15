@@ -10,13 +10,13 @@ This method can be adapted for other Git events or for running Buildkite builds 
 
 To follow along with the steps in this guide, you need the following:
 
-- An [API access token](/docs/apis/managing-api-tokens)
+-   An [API access token](/docs/apis/managing-api-tokens)
 
-- The ability to run server-side Git hooks
+-   The ability to run server-side Git hooks
 
-  If your Git server is hosted on a platform that restricts or prohibits running arbitrary scripts, such as GitHub, then this approach won't work.
+    If your Git server is hosted on a platform that restricts or prohibits running arbitrary scripts, such as GitHub, then this approach won't work.
 
-- Familiarity with the concepts of executable shell scripts, Buildkite pipelines and builds, and REST APIs
+-   Familiarity with the concepts of executable shell scripts, Buildkite pipelines and builds, and REST APIs
 
 ## Git hooks at a glance
 
@@ -24,9 +24,9 @@ Git runs hooks — specially named executables — at certain Git lifecycle even
 
 Git runs executables found in:
 
-- The `hooks` directory of a [bare repository](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository) (more common on servers)
-- The `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
-- A directory set by the [`core.hooksPath`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath) configuration variable
+-   The `hooks` directory of a [bare repository](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefbarerepositoryabarerepository) (more common on servers)
+-   The `.git/hooks` directory of a repository with a [worktree](https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefworktreeaworktree) (less common on servers)
+-   A directory set by the [`core.hooksPath`](https://git-scm.com/docs/git-config#Documentation/git-config.txt-corehooksPath) configuration variable
 
 For example, after a push to the bare repository at the path `/repos/demo-repo/`, Git checks for the existence of an executable file `/repos/demo-repo/hooks/post-receive`.
 If it exists, it runs the file with arguments containing details about the push.
@@ -76,13 +76,13 @@ done
 
 To use this script:
 
-- Set the `BUILDKITE_API_TOKEN` environment variable to an [API access token](/docs/apis/managing-api-tokens).
+-   Set the `BUILDKITE_API_TOKEN` environment variable to an [API access token](/docs/apis/managing-api-tokens).
 
-  The token is a privileged secret.
-  A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
+    The token is a privileged secret.
+    A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
 
-- Set a valid `BUILDKITE_ORG_SLUG` and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
-- Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
+-   Set a valid `BUILDKITE_ORG_SLUG` and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
+-   Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).
 
 You can also adapt this script for your application.
 For example, you can modify it to selectively trigger builds for certain branches, trigger multiple builds, save log output, or to respond to other Git events.
@@ -95,6 +95,6 @@ If you've configured your hook successfully, a new build is scheduled for the sp
 
 ## Learn more
 
-- For more on how to control builds with the REST API, read [Builds API](/docs/apis/rest-api/builds).
-- For a complete list of Git hooks, read [githooks](https://git-scm.com/docs/githooks) in the [Git reference](https://git-scm.com/docs) (or run `man githooks`).
-- For an overview of Git hooks, read the [Customizing Git - Git Hooks](https://git-scm.com/book/en/Customizing-Git-Git-Hooks) chapter of [_Pro Git_](https://git-scm.com/book/en/).
+-   For more on how to control builds with the REST API, read [Builds API](/docs/apis/rest-api/builds).
+-   For a complete list of Git hooks, read [githooks](https://git-scm.com/docs/githooks) in the [Git reference](https://git-scm.com/docs) (or run `man githooks`).
+-   For an overview of Git hooks, read the [Customizing Git - Git Hooks](https://git-scm.com/book/en/Customizing-Git-Git-Hooks) chapter of [_Pro Git_](https://git-scm.com/book/en/).

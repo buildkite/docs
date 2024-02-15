@@ -10,20 +10,20 @@ Get the first 10 pipeline templates and their information for an organization:
 
 ```graphql
 query GetPipelineTemplates {
-  organization(slug: "organization-slug") {
-    pipelineTemplates(first: 10) {
-      edges {
-        node {
-          id
-          uuid
-          name
-          description
-          configuration
-          available
+    organization(slug: "organization-slug") {
+        pipelineTemplates(first: 10) {
+            edges {
+                node {
+                    id
+                    uuid
+                    name
+                    description
+                    configuration
+                    available
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -33,14 +33,14 @@ Get information on a pipeline template, specifying the pipeline templates' UUID 
 
 ```graphql
 query GetPipelineTemplate {
-  pipelineTemplate(uuid: "pipeline-template-uuid") {
-    id
-    uuid
-    name
-    description
-    configuration
-    available
-  }
+    pipelineTemplate(uuid: "pipeline-template-uuid") {
+        id
+        uuid
+        name
+        description
+        configuration
+        available
+    }
 }
 ```
 
@@ -50,24 +50,24 @@ Create a pipeline template for an organization using the `pipelineTemplateCreate
 
 ```graphql
 mutation CreatePipelineTemplate {
-  pipelineTemplateCreate(
-    input: {
-      organizationId: "organization-id"
-      name: "template name"
-      description: "it does a thing"
-      configuration: "steps:\n  - command: deploy.sh"
-      available: false
+    pipelineTemplateCreate(
+        input: {
+            organizationId: "organization-id"
+            name: "template name"
+            description: "it does a thing"
+            configuration: "steps:\n  - command: deploy.sh"
+            available: false
+        }
+    ) {
+        pipelineTemplate {
+            id
+            uuid
+            name
+            description
+            configuration
+            available
+        }
     }
-  ) {
-    pipelineTemplate {
-      id
-      uuid
-      name
-      description
-      configuration
-      available
-    }
-  }
 }
 ```
 
@@ -77,23 +77,23 @@ Update a pipeline template on an organization using the `pipelineTemplateUpdate`
 
 ```graphql
 mutation UpdatePipelineTemplate {
-  pipelineTemplateUpdate(
-    input: {
-      organizationId: "organization-id"
-      id: "pipeline-template-id"
-      configuration: "steps:\n - comand: updated_steps.sh"
-      available: true
+    pipelineTemplateUpdate(
+        input: {
+            organizationId: "organization-id"
+            id: "pipeline-template-id"
+            configuration: "steps:\n - comand: updated_steps.sh"
+            available: true
+        }
+    ) {
+        pipelineTemplate {
+            id
+            uuid
+            name
+            description
+            configuration
+            available
+        }
     }
-  ) {
-    pipelineTemplate {
-      id
-      uuid
-      name
-      description
-      configuration
-      available
-    }
-  }
 }
 ```
 
@@ -103,11 +103,11 @@ Delete a pipeline template using the `pipelineTemplateDelete` mutation, specifyi
 
 ```graphql
 mutation DeletePipelineTemplate {
-  pipelineTemplateDelete(
-    input: { organizationId: "organization-id", id: "pipeline-template-id" }
-  ) {
-    deletedPipelineTemplateId
-  }
+    pipelineTemplateDelete(
+        input: { organizationId: "organization-id", id: "pipeline-template-id" }
+    ) {
+        deletedPipelineTemplateId
+    }
 }
 ```
 
@@ -117,15 +117,15 @@ Admins and users with permission to manage pipelines can assign a pipeline templ
 
 ```graphql
 mutation AssignPipelineTemplate {
-  pipelineUpdate(
-    input: { id: "pipeline-id", pipelineTemplateId: "pipeline-template-id" }
-  ) {
-    pipeline {
-      id
-      name
-      pipelineTemplateId
+    pipelineUpdate(
+        input: { id: "pipeline-id", pipelineTemplateId: "pipeline-template-id" }
+    ) {
+        pipeline {
+            id
+            name
+            pipelineTemplateId
+        }
     }
-  }
 }
 ```
 
@@ -135,12 +135,12 @@ Admins and users with permission to manage pipelines can remove from a pipeline 
 
 ```graphql
 mutation UnassignPipelineTemplate {
-  pipelineUpdate(input: { id: "pipeline-id", pipelineTemplateId: null }) {
-    pipeline {
-      id
-      name
-      pipelineTemplateId
+    pipelineUpdate(input: { id: "pipeline-id", pipelineTemplateId: null }) {
+        pipeline {
+            id
+            name
+            pipelineTemplateId
+        }
     }
-  }
 }
 ```

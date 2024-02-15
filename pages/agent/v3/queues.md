@@ -33,14 +33,14 @@ For example, the following pipeline would run on the `priority` queue as determi
 
 ```yaml
 agents:
-  queue: "priority"
+    queue: "priority"
 
 steps:
-  - command: echo "hello"
+    - command: echo "hello"
 
-  - command: tests.sh
-    agents:
-      queue: "deploy"
+    - command: tests.sh
+      agents:
+          queue: "deploy"
 ```
 
 ## Alternative methods

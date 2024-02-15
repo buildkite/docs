@@ -91,6 +91,6 @@ If you want to embed an image encoded in base64, you can use [iTerm's image form
 
 ### Library support
 
-- The [capybara-inline-screenshot](https://github.com/buildkite/capybara-inline-screenshot) Ruby gem will automatically inline screenshots of your integration test failures and also supports the iTerm image format for viewing failures directly in your terminal. When run under CI it automatically uses the `artifact://` URL format.
-  <br>
-  <%= image("ruby_gem.png", size: '806x387') %>
+-   The [capybara-inline-screenshot](https://github.com/buildkite/capybara-inline-screenshot) Ruby gem will automatically inline screenshots of your integration test failures and also supports the iTerm image format for viewing failures directly in your terminal. When run under CI it automatically uses the `artifact://` URL format.
+    <br>
+    <%= image("ruby_gem.png", size: '806x387') %>

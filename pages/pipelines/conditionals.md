@@ -66,19 +66,19 @@ To run a step based on the result of another step, upload a new pipeline based o
 
 ```yml
 steps:
-  - label: "Validation check"
-    command: ./scripts/validation_tests.sh
-    key: "validation-check"
-  - label: "Run regression only if validation check is passed"
-    depends_on: "validation-check"
-    command: |
-      if [ $$(buildkite-agent step get "outcome" --step "validation-check") == "passed" ]; then
-         cat <<- YAML | buildkite-agent pipeline upload
-         steps:
-           - label: "Run Regression"
-             command: ./scripts/regression_tests.sh
-      YAML
-      fi
+    - label: "Validation check"
+      command: ./scripts/validation_tests.sh
+      key: "validation-check"
+    - label: "Run regression only if validation check is passed"
+      depends_on: "validation-check"
+      command: |
+          if [ $$(buildkite-agent step get "outcome" --step "validation-check") == "passed" ]; then
+             cat <<- YAML | buildkite-agent pipeline upload
+             steps:
+               - label: "Run Regression"
+                 command: ./scripts/regression_tests.sh
+          YAML
+          fi
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -91,8 +91,8 @@ For example, the following email notification will only be triggered if the buil
 
 ```yaml
 notify:
-  - email: "dev@acmeinc.com"
-    if: build.state == "passed"
+    - email: "dev@acmeinc.com"
+      if: build.state == "passed"
 ```
 
 {: codeblock-file="pipeline.yml"}

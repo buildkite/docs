@@ -18,9 +18,9 @@ If you choose to disable this functionality, you'll need to manually perform you
 
 Automatic ssh-keyscan can be disabled by setting [`no-ssh-keyscan`](/docs/agent/v3/configuration#no-ssh-keyscan):
 
-- Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
-- Command line flag: `--no-ssh-keyscan`
-- Configuration setting: `no-ssh-keyscan=true`
+-   Environment variable: `BUILDKITE_NO_SSH_KEYSCAN=true`
+-   Command line flag: `--no-ssh-keyscan`
+-   Configuration setting: `no-ssh-keyscan=true`
 
 ## Disabling command eval
 
@@ -32,9 +32,9 @@ This option is intended to protect your infrastructure from a scenario where Bui
 
 Command line evaluation can be disabled by setting [`no-command-eval`](/docs/agent/v3/configuration#no-command-eval):
 
-- Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
-- Command line flag: `--no-command-eval`
-- Configuration setting: `no-command-eval=true`
+-   Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
+-   Command line flag: `--no-command-eval`
+-   Configuration setting: `no-command-eval=true`
 
 > 🚧 Custom hooks
 > If you have a custom <code>command</code> hook, using <code>no-command-eval</code> will have no effect on your command execution. See <a href="#allowing-a-list-of-plugins">Allowing a list of plugins</a> and <a href="#customizing-the-bootstrap">Custom bootstrap scripts</a> for examples of how to completely lock down your agent from arbitrary code execution.
@@ -164,10 +164,10 @@ By default, Buildkite will reuse (after cleaning) a previous checkout. This may 
 
 ```yaml
 steps:
-  - label: "Clean Checkout"
-    command: echo "clean checkout"
-    env:
-      BUILDKITE_CLEAN_CHECKOUT: true
+    - label: "Clean Checkout"
+      command: echo "clean checkout"
+      env:
+          BUILDKITE_CLEAN_CHECKOUT: true
 ```
 
 In the logs for this step, you will find a log group called "Cleaning pipeline checkout."
@@ -176,8 +176,8 @@ In the logs for this step, you will find a log group called "Cleaning pipeline c
 
 To run the agent behind a proxy, you'll need to export the following proxy environment variables for your process manager:
 
-- `http_proxy`
-- `https_proxy`
+-   `http_proxy`
+-   `https_proxy`
 
 Both of these variables should be set to the URL for your proxy server.
 
@@ -200,10 +200,10 @@ After creating this file, systemd will require a reload and the `buildkite-agent
 
 To safeguard your organization's infrastructure in case of Buildkite infrastructure being compromised, you want to restrict what the agent can and cannot do. All of the information above about securing the Buildkite agent applies, specifically:
 
-- Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
-- [Disable command-eval](#disabling-command-eval)
-- [Disable local hooks](#disabling-local-hooks)
-- [Enable strict validation](#strict-checks-using-a-pre-bootstrap-hook)
+-   Disallow execution of arbitrary commands by [customizing the list of allowed plugins](#allowing-a-list-of-plugins) or [disabling plugins](#disabling-plugins) entirely
+-   [Disable command-eval](#disabling-command-eval)
+-   [Disable local hooks](#disabling-local-hooks)
+-   [Enable strict validation](#strict-checks-using-a-pre-bootstrap-hook)
 
 As a result, your Buildkite agent will refuse to run anything that's not a single argumentless invocation of a script that exists locally (after the `git clone` step of the setup) unless it's explicitly allowed by you.
 Since the [agent](https://github.com/buildkite/agent) is open-source, if necessary you can verify that assertion to whatever degree of certainty is required.

@@ -39,28 +39,28 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
 
 ```json
 [
-  {
-    "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-    "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
-    "name": "Open Source",
-    "description": "A place for safely running our open source builds",
-    "emoji": ":technologist:",
-    "color": "#FFE0F1",
-    "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
-    "created_at": "2023-05-03T04:17:55.867Z",
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Sam Kim",
-      "email": "sam@example.com",
-      "avatar_url": "https://www.gravatar.com/avatar/example",
-      "created_at": "2013-08-29T10:10:03.000Z"
+    {
+        "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+        "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
+        "name": "Open Source",
+        "description": "A place for safely running our open source builds",
+        "emoji": ":technologist:",
+        "color": "#FFE0F1",
+        "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
+        "created_at": "2023-05-03T04:17:55.867Z",
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+            "name": "Sam Kim",
+            "email": "sam@example.com",
+            "avatar_url": "https://www.gravatar.com/avatar/example",
+            "created_at": "2013-08-29T10:10:03.000Z"
+        }
     }
-  }
 ]
 ```
 
@@ -76,26 +76,26 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}"
 
 ```json
 {
-  "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "name": "Open Source",
-  "description": "A place for safely running our open source builds",
-  "emoji": ":technologist:",
-  "color": "#FFE0F1",
-  "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  }
+    "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "name": "Open Source",
+    "description": "A place for safely running our open source builds",
+    "emoji": ":technologist:",
+    "color": "#FFE0F1",
+    "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    }
 }
 ```
 
@@ -118,26 +118,26 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
 
 ```json
 {
-  "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "default_queue_id": null,
-  "name": "Open Source",
-  "description": "A place for safely running our open source builds",
-  "emoji": ":technologist:",
-  "color": "#FFE0F1",
-  "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "default_queue_url": null,
-  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  }
+    "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "default_queue_id": null,
+    "name": "Open Source",
+    "description": "A place for safely running our open source builds",
+    "emoji": ":technologist:",
+    "color": "#FFE0F1",
+    "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "default_queue_url": null,
+    "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    }
 }
 ```
 
@@ -181,26 +181,26 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{id}
 
 ```json
 {
-  "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "name": "Open Source",
-  "description": "A place for safely running our open source builds",
-  "emoji": ":technologist:",
-  "color": "#FFE0F1",
-  "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  }
+    "id": "42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "default_queue_id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "name": "Open Source",
+    "description": "A place for safely running our open source builds",
+    "emoji": ":technologist:",
+    "color": "#FFE0F1",
+    "url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "web_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "default_queue_url": "http://api.buildkite.com/v2/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "queues_url": "http://buildkite.com/organizations/acme-inc/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    }
 }
 ```
 
@@ -282,28 +282,28 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 
 ```json
 [
-  {
-    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-    "key": "default",
-    "description": "The default queue for this cluster",
-    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-    "dispatch_paused": false,
-    "dispatch_paused_by": null,
-    "dispatch_paused_at": null,
-    "dispatch_paused_note": null,
-    "created_at": "2023-05-03T04:17:55.867Z",
-    "created_by": {
-      "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-      "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-      "name": "Sam Kim",
-      "email": "sam@example.com",
-      "avatar_url": "https://www.gravatar.com/avatar/example",
-      "created_at": "2023-05-03T04:17:43.118Z"
+    {
+        "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+        "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+        "key": "default",
+        "description": "The default queue for this cluster",
+        "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+        "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+        "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+        "dispatch_paused": false,
+        "dispatch_paused_by": null,
+        "dispatch_paused_at": null,
+        "dispatch_paused_note": null,
+        "created_at": "2023-05-03T04:17:55.867Z",
+        "created_by": {
+            "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+            "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+            "name": "Sam Kim",
+            "email": "sam@example.com",
+            "avatar_url": "https://www.gravatar.com/avatar/example",
+            "created_at": "2023-05-03T04:17:43.118Z"
+        }
     }
-  }
 ]
 ```
 
@@ -319,26 +319,26 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 
 ```json
 {
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "default",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "dispatch_paused": false,
-  "dispatch_paused_by": null,
-  "dispatch_paused_at": null,
-  "dispatch_paused_note": null,
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  }
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "default",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "dispatch_paused": false,
+    "dispatch_paused_by": null,
+    "dispatch_paused_at": null,
+    "dispatch_paused_note": null,
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    }
 }
 ```
 
@@ -356,26 +356,26 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 
 ```json
 {
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "default",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "dispatch_paused": false,
-  "dispatch_paused_by": null,
-  "dispatch_paused_at": null,
-  "dispatch_paused_note": null,
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  }
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "default",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "dispatch_paused": false,
+    "dispatch_paused_by": null,
+    "dispatch_paused_at": null,
+    "dispatch_paused_note": null,
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    }
 }
 ```
 
@@ -417,26 +417,26 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{clu
 
 ```json
 {
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "default",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
-  "dispatch_paused": false,
-  "dispatch_paused_by": null,
-  "dispatch_paused_at": null,
-  "dispatch_paused_note": null,
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  }
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "default",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf",
+    "dispatch_paused": false,
+    "dispatch_paused_by": null,
+    "dispatch_paused_at": null,
+    "dispatch_paused_note": null,
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    }
 }
 ```
 
@@ -490,33 +490,33 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 
 ```json
 {
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "default",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
-  "dispatch_paused": true,
-  "dispatch_paused_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  },
-  "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
-  "dispatch_paused_note": "Paused while we investigate a security issue",
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  }
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "default",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
+    "dispatch_paused": true,
+    "dispatch_paused_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    },
+    "dispatch_paused_at": "2023-05-03T04:19:43.118Z",
+    "dispatch_paused_note": "Paused while we investigate a security issue",
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    }
 }
 ```
 
@@ -555,26 +555,26 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 
 ```json
 {
-  "id": "01885682-55a7-44f5-84f3-0402fb452e66",
-  "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
-  "key": "default",
-  "description": "The default queue for this cluster",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
-  "dispatch_paused": false,
-  "dispatch_paused_by": null,
-  "dispatch_paused_at": null,
-  "dispatch_paused_note": null,
-  "created_at": "2023-05-03T04:17:55.867Z",
-  "created_by": {
-    "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
-    "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2023-05-03T04:17:43.118Z"
-  }
+    "id": "01885682-55a7-44f5-84f3-0402fb452e66",
+    "graphql_id": "Q2x1c3Rlci0tLTQyZjFhN2RhLTgxMmQtNDQzMC05M2Q4LTFjYzdjMzNhNmJjZg==",
+    "key": "default",
+    "description": "The default queue for this cluster",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "web_url": "http://buildkite.com/organizations/test/clusters/42f1a7da-812d-4430-93d8-1cc7c33a6bcf/queues/01885682-55a7-44f5-84f3-0402fb452e66",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/01885682-55a7-44f5-84f3-0402fb452e66",
+    "dispatch_paused": false,
+    "dispatch_paused_by": null,
+    "dispatch_paused_at": null,
+    "dispatch_paused_note": null,
+    "created_at": "2023-05-03T04:17:55.867Z",
+    "created_by": {
+        "id": "0187dfd4-92cf-4b01-907b-1146c8525dde",
+        "graphql_id": "VXNlci0tLTAxODdkZmQ0LTkyY2YtNGIwMS05MDdiLTExNDZjODUyNWRkZQ==",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2023-05-03T04:17:43.118Z"
+    }
 }
 ```
 
@@ -619,23 +619,23 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 
 ```json
 [
-  {
-    "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
-    "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
-    "description": "Windows agents",
-    "allowed_ip_addresses": "202.144.0.0/24",
-    "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
-    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
-    "created_at": "2023-05-26T04:21:41.350Z",
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Sam Kim",
-      "email": "sam@example.com",
-      "avatar_url": "https://www.gravatar.com/avatar/example",
-      "created_at": "2013-08-29T10:10:03.000Z"
+    {
+        "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
+        "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
+        "description": "Windows agents",
+        "allowed_ip_addresses": "202.144.0.0/24",
+        "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
+        "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
+        "created_at": "2023-05-26T04:21:41.350Z",
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+            "name": "Sam Kim",
+            "email": "sam@example.com",
+            "avatar_url": "https://www.gravatar.com/avatar/example",
+            "created_at": "2013-08-29T10:10:03.000Z"
+        }
     }
-  }
 ]
 ```
 
@@ -651,21 +651,21 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id
 
 ```json
 {
-  "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
-  "description": "Windows agents",
-  "allowed_ip_addresses": "202.144.0.0/24",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
-  "created_at": "2023-05-26T04:21:41.350Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  }
+    "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
+    "description": "Windows agents",
+    "allowed_ip_addresses": "202.144.0.0/24",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
+    "created_at": "2023-05-26T04:21:41.350Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    }
 }
 ```
 
@@ -686,22 +686,22 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cl
 
 ```json
 {
-  "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
-  "description": "Windows agents",
-  "allowed_ip_addresses": "202.144.0.0/24",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
-  "created_at": "2023-05-26T04:21:41.350Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  },
-  "token": "igo6HEj5fxQbgBTDoDzNaZzT"
+    "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
+    "description": "Windows agents",
+    "allowed_ip_addresses": "202.144.0.0/24",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
+    "created_at": "2023-05-26T04:21:41.350Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    },
+    "token": "igo6HEj5fxQbgBTDoDzNaZzT"
 }
 ```
 
@@ -735,21 +735,21 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{clu
 
 ```json
 {
-  "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
-  "description": "Windows agents",
-  "allowed_ip_addresses": "202.144.0.0/24",
-  "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
-  "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
-  "created_at": "2023-05-26T04:21:41.350Z",
-  "created_by": {
-    "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-    "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-    "name": "Sam Kim",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/example",
-    "created_at": "2013-08-29T10:10:03.000Z"
-  }
+    "id": "b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "graphql_id": "Q2x1c3RlclRva2VuLS0tYjYwMDE0MTYtMGUxZS00MWM2LTlkYmUtM2Q5Njc2NmY0NTFh",
+    "description": "Windows agents",
+    "allowed_ip_addresses": "202.144.0.0/24",
+    "url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a/tokens/b6001416-0e1e-41c6-9dbe-3d96766f451a",
+    "cluster_url": "http://api.buildkite.com/v2/organizations/test/clusters/e4f44564-d3ea-45eb-87c2-6506643b852a",
+    "created_at": "2023-05-26T04:21:41.350Z",
+    "created_by": {
+        "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+        "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+        "name": "Sam Kim",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/example",
+        "created_at": "2013-08-29T10:10:03.000Z"
+    }
 }
 ```
 

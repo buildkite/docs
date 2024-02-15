@@ -51,8 +51,8 @@ You can use a conditional to only wait when certain conditions are met:
 
 ```yml
 steps:
-  - wait: ~
-    if: build.branch == "develop" || build.branch == "main"
+    - wait: ~
+      if: build.branch == "develop" || build.branch == "main"
 ```
 
 ## Continuing on failure
@@ -65,24 +65,24 @@ In the example below, if `command.sh` succeeds, both of the following command st
 
 ```yml
 steps:
-  - command: "command.sh"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo This runs regardless of the success or failure"
-  - wait
-  - command: "echo The command passed"
+    - command: "command.sh"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo This runs regardless of the success or failure"
+    - wait
+    - command: "echo The command passed"
 ```
 
 If there's a failure followed by a regular wait step, nothing after the wait step will run, including any subsequent wait steps with `continue_on_failure: true`. In the example below, when the first command fails, the second and third commands will not run:
 
 ```yml
 steps:
-  - command: "exit -1"
-  - wait
-  - command: "echo SECOND command"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo THIRD command"
+    - command: "exit -1"
+    - wait
+    - command: "echo SECOND command"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo THIRD command"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -93,14 +93,14 @@ Any wait steps with `continue_on_failure: true` that aren't separated by regular
 
 ```yml
 steps:
-  - command: "exit -1"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo SECOND command"
-  - command: "echo THIRD command"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo FOURTH command"
+    - command: "exit -1"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo SECOND command"
+    - command: "echo THIRD command"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo FOURTH command"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -117,10 +117,10 @@ For example, if you cancel the first command, the second command doesn't run in 
 
 ```yml
 steps:
-  - command: "run-first-command.sh"
-  - wait: ~
-    continue_on_failure: true
-  - command: "run-second-command.sh"
+    - command: "run-first-command.sh"
+    - wait: ~
+      continue_on_failure: true
+    - command: "run-second-command.sh"
 ```
 
 ## Block steps interacting with wait steps

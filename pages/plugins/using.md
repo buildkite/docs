@@ -10,13 +10,13 @@ When multiple plugins are listed in the same step, they will run in the [order o
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      - shellcheck#v1.1.2:
-          files: scripts/*.sh
-      - docker#v3.3.0:
-          image: node
-          workdir: /app
+    - command: yarn install && yarn run test
+      plugins:
+          - shellcheck#v1.1.2:
+                files: scripts/*.sh
+          - docker#v3.3.0:
+                image: node
+                workdir: /app
 ```
 
 > 📘
@@ -26,12 +26,12 @@ Not all plugins require a `command` attribute, for example:
 
 ```yml
 steps:
-  - plugins:
-      - docker-login#v2.0.1:
-          username: xyz
-      - docker-compose#v3.0.3:
-          build: app
-          image-repository: index.docker.io/myorg/myrepo
+    - plugins:
+          - docker-login#v2.0.1:
+                username: xyz
+          - docker-compose#v3.0.3:
+                build: app
+                image-repository: index.docker.io/myorg/myrepo
 ```
 
 Although there's no `command` attribute in the above example, this is still
@@ -59,11 +59,11 @@ More commonly, plugins accept various configuration options. For example, the [D
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      - docker#v3.3.0:
-          image: node
-          workdir: /app
+    - command: yarn install && yarn run test
+      plugins:
+          - docker#v3.3.0:
+                image: node
+                workdir: /app
 ```
 
 More advanced plugins, such as [Docker Compose plugin](\https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), are designed to be used multiple times in a pipeline, using the build's [meta-data store](/docs/pipelines/build-meta-data) to share information from one step to the next. This means that you can build a Docker image in the first step of a pipeline and refer to that image in subsequent steps.
@@ -98,62 +98,62 @@ The following example uses a YAML anchor (`docker`) to remove the need to repeat
 
 ```yml
 common:
-  - docker_plugin: &docker
-      docker#v3.3.0:
-        image: something-quiet
+    - docker_plugin: &docker
+          docker#v3.3.0:
+              image: something-quiet
 
 steps:
-  - label: "Read in isolation"
-    command: echo "I'm reading..."
-    plugins:
-      - *docker
-  - label: "Read something else"
-    command: echo "On to a new book"
-    plugins:
-      - *docker
+    - label: "Read in isolation"
+      command: echo "I'm reading..."
+      plugins:
+          - *docker
+    - label: "Read something else"
+      command: echo "On to a new book"
+      plugins:
+          - *docker
 ```
 
 ## Plugin sources
 
 There are three main sources of plugins:
 
-- Buildkite-maintained plugins
-- Non-Buildkite plugins hosted on GitHub
-- Local, private, and non-GitHub plugins
+-   Buildkite-maintained plugins
+-   Non-Buildkite plugins hosted on GitHub
+-   Local, private, and non-GitHub plugins
 
 Buildkite-maintained plugins can be found in the [Buildkite Plugins GitHub organization](https://github.com/buildkite-plugins). When using these plugins, you can refer to them using only the name of the plugin, for example:
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      # Resolves to https://github.com/buildkite-plugins/docker-buildkite-plugin
-      - docker#v3.3.0:
-          image: node
-          workdir: /app
+    - command: yarn install && yarn run test
+      plugins:
+          # Resolves to https://github.com/buildkite-plugins/docker-buildkite-plugin
+          - docker#v3.3.0:
+                image: node
+                workdir: /app
 ```
 
 Non-Buildkite plugins hosted on GitHub require you to include the GitHub user or organization name as well as the plugin name, for example:
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      # Resolves to https://github.com/my-org/docker-buildkite-plugin
-      - my-org/docker#v3.3.0:
-          image: node
-          workdir: /app
+    - command: yarn install && yarn run test
+      plugins:
+          # Resolves to https://github.com/my-org/docker-buildkite-plugin
+          - my-org/docker#v3.3.0:
+                image: node
+                workdir: /app
 ```
 
 Local, private, and non-GitHub plugins can be used by specifying the fully qualified Git URL, for example:
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      - https://bitbucket.com/my-org/my-plugin.git#v1.0.0: ~
-      - ssh://git@github.com/my-org/my-plugin.git#v1.0.0: ~
-      - file:///a-local-path/my-plugin.git#v1.0.0: ~
+    - command: yarn install && yarn run test
+      plugins:
+          - https://bitbucket.com/my-org/my-plugin.git#v1.0.0: ~
+          - ssh://git@github.com/my-org/my-plugin.git#v1.0.0: ~
+          - file:///a-local-path/my-plugin.git#v1.0.0: ~
 ```
 
 ## Pinning plugin versions
@@ -162,10 +162,10 @@ To avoid a plugin's git tag contents being changed, you can use the commit SHA o
 
 ```yml
 steps:
-  - command: echo 'Hello World'
-    plugins:
-      - docker-compose#287293c4:
-          run: app
+    - command: echo 'Hello World'
+      plugins:
+          - docker-compose#287293c4:
+                run: app
 ```
 
 ## Referencing plugins from a specific branch
@@ -174,10 +174,10 @@ To test plugins you can reference the branch, for example:
 
 ```yml
 steps:
-  - command: echo 'Hello World'
-    plugins:
-      - docker-compose#feature/add-new-feature:
-          run: app
+    - command: echo 'Hello World'
+      plugins:
+          - docker-compose#feature/add-new-feature:
+                run: app
 ```
 
 ## Disabling plugins

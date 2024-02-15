@@ -16,11 +16,11 @@ Secrets are pipeline-specific. A secret can't prove that it hasn't been acquired
 
 IP filtering is available for:
 
-- GitHub
-- GitHub Enterprise Server
-- Bitbucket Server (not Bitbucket Cloud)
-- GitLab Community
-- GitLab Enterprise
+-   GitHub
+-   GitHub Enterprise Server
+-   Bitbucket Server (not Bitbucket Cloud)
+-   GitLab Community
+-   GitLab Enterprise
 
 For GitHub's cloud-hosted products, Buildkite manages a [set of IP addresses](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/about-githubs-ip-addresses) and filters them automatically. For self-hosted solutions like GitHub Enterprise Server, you can provide the IP addresses to filter.
 
@@ -33,19 +33,19 @@ To enable IP filtering for these repository providers:
 
 There are two ways to do it:
 
-- To view the webhook that triggered the build, go to the build page and add "/webhook" at the end of its URL - for example `https://buildkite.com/rails/rails/builds/*****/webhook`
-- To find the actual payload of a webhook that triggered a build, use the following GraphQL snippet:
+-   To view the webhook that triggered the build, go to the build page and add "/webhook" at the end of its URL - for example `https://buildkite.com/rails/rails/builds/*****/webhook`
+-   To find the actual payload of a webhook that triggered a build, use the following GraphQL snippet:
 
 ```graphql
 query FindWebhookPayload {
-  build(uuid: "...") {
-    source {
-      ... on BuildSourceWebhook {
-        headers
-        payload
-      }
+    build(uuid: "...") {
+        source {
+            ... on BuildSourceWebhook {
+                headers
+                payload
+            }
+        }
     }
-  }
 }
 ```
 

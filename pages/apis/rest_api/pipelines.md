@@ -10,65 +10,65 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
 
 ```json
 [
-  {
-    "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
-    "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
-    "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
-    "web_url": "https://buildkite.com/acme-inc/my-pipeline",
-    "name": "My Pipeline",
-    "slug": "my-pipeline",
-    "repository": "git@github.com:acme-inc/my-pipeline.git",
-    "branch_configuration": null,
-    "default_branch": "main",
-    "provider": {
-      "id": "github",
-      "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
-      "settings": {
-        "publish_commit_status": true,
-        "build_pull_requests": true,
-        "build_pull_request_forks": false,
-        "build_tags": false,
-        "publish_commit_status_per_step": false,
-        "repository": "acme-inc/my-pipeline",
-        "trigger_mode": "code"
-      }
-    },
-    "skip_queued_branch_builds": false,
-    "skip_queued_branch_builds_filter": null,
-    "cancel_running_branch_builds": false,
-    "cancel_running_branch_builds_filter": null,
-    "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
-    "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
-      "name": "Keith Pitt",
-      "email": "keith@buildkite.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-      "created_at": "2013-08-29T10:10:03.000Z"
-    },
-    "created_at": "2013-09-03 13:24:38 UTC",
-    "archived_at": null,
-    "scheduled_builds_count": 0,
-    "running_builds_count": 0,
-    "scheduled_jobs_count": 0,
-    "running_jobs_count": 0,
-    "waiting_jobs_count": 0,
-    "visibility": "private",
-    "steps": [
-      {
-        "type": "script",
-        "name": "Test :white_check_mark:",
-        "command": "script/test.sh",
-        "artifact_paths": "results/*",
-        "branch_configuration": "main feature/*",
-        "env": {},
-        "timeout_in_minutes": null,
-        "agent_query_rules": []
-      }
-    ],
-    "env": {}
-  }
+    {
+        "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
+        "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
+        "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline",
+        "web_url": "https://buildkite.com/acme-inc/my-pipeline",
+        "name": "My Pipeline",
+        "slug": "my-pipeline",
+        "repository": "git@github.com:acme-inc/my-pipeline.git",
+        "branch_configuration": null,
+        "default_branch": "main",
+        "provider": {
+            "id": "github",
+            "webhook_url": "https://webhook.buildkite.com/deliver/xxx",
+            "settings": {
+                "publish_commit_status": true,
+                "build_pull_requests": true,
+                "build_pull_request_forks": false,
+                "build_tags": false,
+                "publish_commit_status_per_step": false,
+                "repository": "acme-inc/my-pipeline",
+                "trigger_mode": "code"
+            }
+        },
+        "skip_queued_branch_builds": false,
+        "skip_queued_branch_builds_filter": null,
+        "cancel_running_branch_builds": false,
+        "cancel_running_branch_builds_filter": null,
+        "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline/builds",
+        "badge_url": "https://badge.buildkite.com/58b3da999635d0ad2daae5f784e56d264343eb02526f129bfb.svg",
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
+            "name": "Keith Pitt",
+            "email": "keith@buildkite.com",
+            "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+            "created_at": "2013-08-29T10:10:03.000Z"
+        },
+        "created_at": "2013-09-03 13:24:38 UTC",
+        "archived_at": null,
+        "scheduled_builds_count": 0,
+        "running_builds_count": 0,
+        "scheduled_jobs_count": 0,
+        "running_jobs_count": 0,
+        "waiting_jobs_count": 0,
+        "visibility": "private",
+        "steps": [
+            {
+                "type": "script",
+                "name": "Test :white_check_mark:",
+                "command": "script/test.sh",
+                "artifact_paths": "results/*",
+                "branch_configuration": "main feature/*",
+                "env": {},
+                "timeout_in_minutes": null,
+                "agent_query_rules": []
+            }
+        ],
+        "env": {}
+    }
 ]
 ```
 
@@ -192,84 +192,84 @@ The response contains information about your new pipeline:
 
 ```json
 {
-  "id": "ad93b461-96ab-4a1e-9281-260ead506a0e",
-  "graphql_id": "UGlwZWxpbmUtLS1hZDkzYjQ2MS05NmFiLTRhMWUtOTI4MS0yNjBlYWQ1MDZhMGU=",
-  "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x",
-  "web_url": "https://buildkite.com/acme-inc/my-pipeline-x",
-  "name": "My Pipeline X",
-  "description": null,
-  "slug": "my-pipeline-x",
-  "repository": "git@github.com:acme-inc/my-pipeline.git",
-  "cluster_id": null,
-  "branch_configuration": null,
-  "default_branch": "main",
-  "skip_queued_branch_builds": false,
-  "skip_queued_branch_builds_filter": null,
-  "cancel_running_branch_builds": false,
-  "cancel_running_branch_builds_filter": null,
-  "allow_rebuilds": true,
-  "provider": {
-    "id": "github",
-    "settings": {
-      "trigger_mode": "code",
-      "build_pull_requests": true,
-      "pull_request_branch_filter_enabled": false,
-      "skip_builds_for_existing_commits": false,
-      "skip_pull_request_builds_for_existing_commits": true,
-      "build_pull_request_ready_for_review": false,
-      "build_pull_request_labels_changed": false,
-      "build_pull_request_forks": false,
-      "prefix_pull_request_fork_branch_names": true,
-      "build_branches": true,
-      "build_tags": false,
-      "cancel_deleted_branch_builds": false,
-      "publish_commit_status": true,
-      "publish_commit_status_per_step": false,
-      "separate_pull_request_statuses": false,
-      "publish_blocked_as_pending": false,
-      "use_step_key_as_commit_status": false,
-      "filter_enabled": false,
-      "repository": "acme-inc/my-pipeline"
+    "id": "ad93b461-96ab-4a1e-9281-260ead506a0e",
+    "graphql_id": "UGlwZWxpbmUtLS1hZDkzYjQ2MS05NmFiLTRhMWUtOTI4MS0yNjBlYWQ1MDZhMGU=",
+    "url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x",
+    "web_url": "https://buildkite.com/acme-inc/my-pipeline-x",
+    "name": "My Pipeline X",
+    "description": null,
+    "slug": "my-pipeline-x",
+    "repository": "git@github.com:acme-inc/my-pipeline.git",
+    "cluster_id": null,
+    "branch_configuration": null,
+    "default_branch": "main",
+    "skip_queued_branch_builds": false,
+    "skip_queued_branch_builds_filter": null,
+    "cancel_running_branch_builds": false,
+    "cancel_running_branch_builds_filter": null,
+    "allow_rebuilds": true,
+    "provider": {
+        "id": "github",
+        "settings": {
+            "trigger_mode": "code",
+            "build_pull_requests": true,
+            "pull_request_branch_filter_enabled": false,
+            "skip_builds_for_existing_commits": false,
+            "skip_pull_request_builds_for_existing_commits": true,
+            "build_pull_request_ready_for_review": false,
+            "build_pull_request_labels_changed": false,
+            "build_pull_request_forks": false,
+            "prefix_pull_request_fork_branch_names": true,
+            "build_branches": true,
+            "build_tags": false,
+            "cancel_deleted_branch_builds": false,
+            "publish_commit_status": true,
+            "publish_commit_status_per_step": false,
+            "separate_pull_request_statuses": false,
+            "publish_blocked_as_pending": false,
+            "use_step_key_as_commit_status": false,
+            "filter_enabled": false,
+            "repository": "acme-inc/my-pipeline"
+        },
+        "webhook_url": "https://webhook.buildkite.com/deliver/fe08e0f823297a158fc4ca2bfddd6ea3ced92b5167a658a0bb"
     },
-    "webhook_url": "https://webhook.buildkite.com/deliver/fe08e0f823297a158fc4ca2bfddd6ea3ced92b5167a658a0bb"
-  },
-  "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x/builds",
-  "badge_url": "https://badge.buildkite.com/05bf6d997d16c993ae6180ed7d85d29c9be8f8d8f37ac96477.svg",
-  "created_by": {
-    "id": "3cc415b8-3d63-4b9a-acb0-c120dbcb231c",
-    "graphql_id": "VXNlci0tLTNjYzQxNWI4LTNkNjMtNGI5YS1hY2IwLWMxMjBkYmNiMjMxYw==",
-    "name": "Sam Wright",
-    "email": "sam@example.com",
-    "avatar_url": "https://www.gravatar.com/avatar/3536621b97b6d9d39488202709317051",
-    "created_at": "2020-02-14T16:57:23.153Z"
-  },
-  "created_at": "2021-05-06T14:54:21.088Z",
-  "archived_at": null,
-  "env": {
-    "FOO": "bar"
-  },
-  "scheduled_builds_count": 0,
-  "running_builds_count": 0,
-  "scheduled_jobs_count": 0,
-  "running_jobs_count": 0,
-  "waiting_jobs_count": 0,
-  "visibility": "private",
-  "tags": null,
-  "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\"",
-  "steps": [
-    {
-      "type": "script",
-      "name": "Build :package:",
-      "command": "script/release.sh",
-      "artifact_paths": null,
-      "branch_configuration": null,
-      "env": {},
-      "timeout_in_minutes": null,
-      "agent_query_rules": [],
-      "concurrency": null,
-      "parallelism": null
-    }
-  ]
+    "builds_url": "https://api.buildkite.com/v2/organizations/acme-inc/pipelines/my-pipeline-x/builds",
+    "badge_url": "https://badge.buildkite.com/05bf6d997d16c993ae6180ed7d85d29c9be8f8d8f37ac96477.svg",
+    "created_by": {
+        "id": "3cc415b8-3d63-4b9a-acb0-c120dbcb231c",
+        "graphql_id": "VXNlci0tLTNjYzQxNWI4LTNkNjMtNGI5YS1hY2IwLWMxMjBkYmNiMjMxYw==",
+        "name": "Sam Wright",
+        "email": "sam@example.com",
+        "avatar_url": "https://www.gravatar.com/avatar/3536621b97b6d9d39488202709317051",
+        "created_at": "2020-02-14T16:57:23.153Z"
+    },
+    "created_at": "2021-05-06T14:54:21.088Z",
+    "archived_at": null,
+    "env": {
+        "FOO": "bar"
+    },
+    "scheduled_builds_count": 0,
+    "running_builds_count": 0,
+    "scheduled_jobs_count": 0,
+    "running_jobs_count": 0,
+    "waiting_jobs_count": 0,
+    "visibility": "private",
+    "tags": null,
+    "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\"",
+    "steps": [
+        {
+            "type": "script",
+            "name": "Build :package:",
+            "command": "script/release.sh",
+            "artifact_paths": null,
+            "branch_configuration": null,
+            "env": {},
+            "timeout_in_minutes": null,
+            "agent_query_rules": [],
+            "concurrency": null,
+            "parallelism": null
+        }
+    ]
 }
 ```
 

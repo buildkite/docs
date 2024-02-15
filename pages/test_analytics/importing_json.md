@@ -13,12 +13,12 @@ To import [JSON-formatted test results](#json-test-results-data-reference) to Te
 
 ```yml
 steps:
-  - label: "🔨 Test"
-    command: "make test"
-    plugins:
-      - test-collector#v1.0.0:
-          files: "test-data-*.json"
-          format: "json"
+    - label: "🔨 Test"
+      command: "make test"
+      plugins:
+          - test-collector#v1.0.0:
+                files: "test-data-*.json"
+                format: "json"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -41,22 +41,22 @@ For example, to import the contents of a [JSON-formatted test results](#json-tes
 
 2. Run the following `curl` command:
 
-   ```sh
-   curl \
-     -X POST \
-     -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-     -F "data=@test-results.json" \
-     -F "format=json" \
-     -F "run_env[CI]=buildkite" \
-     -F "run_env[key]=$BUILDKITE_BUILD_ID" \
-     -F "run_env[url]=$BUILDKITE_BUILD_URL" \
-     -F "run_env[branch]=$BUILDKITE_BRANCH" \
-     -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
-     -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
-     -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
-     -F "run_env[message]=$BUILDKITE_MESSAGE" \
-     https://analytics-api.buildkite.com/v1/uploads
-   ```
+    ```sh
+    curl \
+      -X POST \
+      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+      -F "data=@test-results.json" \
+      -F "format=json" \
+      -F "run_env[CI]=buildkite" \
+      -F "run_env[key]=$BUILDKITE_BUILD_ID" \
+      -F "run_env[url]=$BUILDKITE_BUILD_URL" \
+      -F "run_env[branch]=$BUILDKITE_BRANCH" \
+      -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
+      -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
+      -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
+      -F "run_env[message]=$BUILDKITE_MESSAGE" \
+      https://analytics-api.buildkite.com/v1/uploads
+    ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#buildkite).
 
@@ -72,20 +72,20 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
 
 2. Run the following `curl` command:
 
-   ```sh
-   curl \
-   -X POST \
-   -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-   -F "data=@test-results.json" \
-   -F "format=json" \
-   -F "run_env[CI]=circleci" \
-   -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
-   -F "run_env[number]=$CIRCLE_BUILD_NUM" \
-   -F "run_env[branch]=$CIRCLE_BRANCH" \
-   -F "run_env[commit_sha]=$CIRCLE_SHA1" \
-   -F "run_env[url]=$CIRCLE_BUILD_URL" \
-   https://analytics-api.buildkite.com/v1/uploads
-   ```
+    ```sh
+    curl \
+    -X POST \
+    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+    -F "data=@test-results.json" \
+    -F "format=json" \
+    -F "run_env[CI]=circleci" \
+    -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
+    -F "run_env[number]=$CIRCLE_BUILD_NUM" \
+    -F "run_env[branch]=$CIRCLE_BRANCH" \
+    -F "run_env[commit_sha]=$CIRCLE_SHA1" \
+    -F "run_env[url]=$CIRCLE_BUILD_URL" \
+    https://analytics-api.buildkite.com/v1/uploads
+    ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#circleci).
 
@@ -101,20 +101,20 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
 
 2. Run the following `curl` command:
 
-   ```sh
-   curl \
-   -X POST \
-   -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-   -F "data=@test-results.json" \
-   -F "format=json" \
-   -F "run_env[CI]=github_actions" \
-   -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
-   -F "run_env[number]=$GITHUB_RUN_NUMBER" \
-   -F "run_env[branch]=$GITHUB_REF" \
-   -F "run_env[commit_sha]=$GITHUB_SHA" \
-   -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-   https://analytics-api.buildkite.com/v1/uploads
-   ```
+    ```sh
+    curl \
+    -X POST \
+    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+    -F "data=@test-results.json" \
+    -F "format=json" \
+    -F "run_env[CI]=github_actions" \
+    -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
+    -F "run_env[number]=$GITHUB_RUN_NUMBER" \
+    -F "run_env[branch]=$GITHUB_REF" \
+    -F "run_env[commit_sha]=$GITHUB_SHA" \
+    -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+    https://analytics-api.buildkite.com/v1/uploads
+    ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#github-actions).
 
@@ -132,10 +132,10 @@ Schematically, the JSON test results data is like this:
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD007 -->
 
-- [Test results](#json-test-results-data-reference-test-result-objects)
-  - [History](#json-test-results-data-reference-history-objects)
-    - [Spans](#json-test-results-data-reference-span-objects)
-      - [Detail](#json-test-results-data-reference-detail-objects)
+-   [Test results](#json-test-results-data-reference-test-result-objects)
+    -   [History](#json-test-results-data-reference-history-objects)
+        -   [Spans](#json-test-results-data-reference-span-objects)
+            -   [Detail](#json-test-results-data-reference-detail-objects)
 
 <!-- markdownlint-restore -->
 
@@ -143,18 +143,18 @@ Or in a simplified code view:
 
 ```js
 [
-  {
-    /* Test result object */
-    history: {
-      /* history object */
-      children: [
-        /* span objects */
-      ],
+    {
+        /* Test result object */
+        history: {
+            /* history object */
+            children: [
+                /* span objects */
+            ],
+        },
     },
-  },
-  {
-    /* Test result object */
-  },
+    {
+        /* Test result object */
+    },
 ];
 ```
 

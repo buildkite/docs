@@ -23,9 +23,9 @@ To enable a merge queue for a pipeline:
 1. Select _Pipeline Settings_ > _GitHub_.
 1. In the _Branch Limiting_ section, add a filter for the following pattern:
 
-   ```text
-   gh-readonly-queue/{base_branch}/*
-   ```
+    ```text
+    gh-readonly-queue/{base_branch}/*
+    ```
 
 1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
 

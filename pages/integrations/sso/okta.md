@@ -12,8 +12,8 @@ Customers on the Buildkite [Enterprise](https://buildkite.com/pricing) plan can 
 
 ### Supported SCIM features
 
-- Create users
-- Deactivate users (deprovisioning)
+-   Create users
+-   Deactivate users (deprovisioning)
 
 > 📘
 > Buildkite does not bill you for users that you add to your Okta Buildkite app until they sign in to your Buildkite organization.

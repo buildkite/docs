@@ -27,9 +27,9 @@ with the `agent-api` experiment enabled.
 
 `lock do` will do one of two things:
 
-- Print &#39;do&#39;. The calling process should proceed to do the work and then
-  call `lock done`.
-- Wait until the work is marked as done (with `lock done`) and print &#39;done&#39;.
+-   Print &#39;do&#39;. The calling process should proceed to do the work and then
+    call `lock done`.
+-   Wait until the work is marked as done (with `lock done`) and print &#39;done&#39;.
 
 If `lock do` prints &#39;done&#39; immediately, the work was already done.
 

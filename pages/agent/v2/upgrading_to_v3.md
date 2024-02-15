@@ -6,13 +6,13 @@ Upgrade your Agents using your operating system package manager, or by re-runnin
 
 To upgrade a _Ubuntu / Debian_ 3.0 beta agent:
 
-- Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
-- Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
+-   Edit `/etc/apt/sources.list.d/buildkite-agent.list` and replace the word `unstable` (or `experimental`) with `stable`
+-   Run `sudo apt-get update && sudo apt-get upgrade -y buildkite-agent`
 
 To upgrade a _Red Hat / CentOS_ 3.0 beta agent:
 
-- Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
-- Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
+-   Edit `/etc/yum.repos.d/buildkite-agent.repo` and replace the word `unstable` (or `experimental`) with `stable`
+-   Run `sudo yum clean expire-cache && sudo yum update buildkite-agent`
 
 If you didn't install the agent using the above packages, update the agent like you did originally and you will get the latest stable version.
 
@@ -26,21 +26,21 @@ You can test your updated agents in parallel to your existing agents by using ag
 
 Added:
 
-- [Plugins](/docs/plugins) for sharing functionality between pipelines and customizing how agents behave
-- [Variable interpolation](/docs/agent/v3/cli-pipeline) in `pipeline.yml`
-- [Build annotations](/docs/agent/v3/cli-annotate)
-- [pre-exit hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
+-   [Plugins](/docs/plugins) for sharing functionality between pipelines and customizing how agents behave
+-   [Variable interpolation](/docs/agent/v3/cli-pipeline) in `pipeline.yml`
+-   [Build annotations](/docs/agent/v3/cli-annotate)
+-   [pre-exit hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
 
 Changed:
 
-- Agent meta-data has been renamed to "tags"
-- Much better Windows support, including .BAT hooks support
-- Checkout clean no longer ignores files in `.gitignore`
-- The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli-bootstrap). This means it's written in Go and cross-platform.
+-   Agent meta-data has been renamed to "tags"
+-   Much better Windows support, including .BAT hooks support
+-   Checkout clean no longer ignores files in `.gitignore`
+-   The bootstrap (run as a sub-process for every job) has moved from a [shell script](https://github.com/buildkite/agent/blob/2-6-stable/templates/bootstrap.sh) to [`buildkite-agent bootstrap`](/docs/agent/v3/cli-bootstrap). This means it's written in Go and cross-platform.
 
 Deprecated:
 
-- Built-in [Docker and Docker Compose support](/docs/tutorials/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
+-   Built-in [Docker and Docker Compose support](/docs/tutorials/docker-containerized-builds) has been deprecated. The same functionality is available from the dedicated plugins: [docker-compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) and [docker](https://github.com/buildkite-plugins/docker-buildkite-plugin).
 
 ### Bootstrap customizations
 
@@ -58,21 +58,21 @@ This is a step that uses the v2 `BUILDKITE_DOCKER_COMPOSE_CONTAINER` environment
 
 ```yaml
 steps:
-  - label: ":hammer: Tests"
-    command: "scripts/tests.sh"
-    env:
-      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
+    - label: ":hammer: Tests"
+      command: "scripts/tests.sh"
+      env:
+          BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
 ```
 
 The same action with the [docker-compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) looks like this:
 
 ```yaml
 steps:
-  - label: ":hammer: Tests"
-    command: "scripts/tests.sh"
-    plugins:
-      - docker-compose#v1.8.4:
-          run: app
+    - label: ":hammer: Tests"
+      command: "scripts/tests.sh"
+      plugins:
+          - docker-compose#v1.8.4:
+                run: app
 ```
 
 #### Steps using `BUILDKITE_DOCKER`
@@ -81,22 +81,22 @@ This is a step that uses the v2 `BUILDKITE_DOCKER` environment variable to run t
 
 ```yaml
 steps:
-  - label: ":hammer: Tests"
-    command: "scripts/tests.sh"
-    env:
-      BUILDKITE_DOCKER: true
+    - label: ":hammer: Tests"
+      command: "scripts/tests.sh"
+      env:
+          BUILDKITE_DOCKER: true
 ```
 
 There isn't a direct conversion for this at present. You can either add a docker-compose file and use the [docker-compose plugin](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin), or if you want to run your build in a docker container without providing a `Dockerfile` or a `docker-compose` file, you can use the [docker plugin](https://github.com/buildkite-plugins/docker-buildkite-plugin):
 
 ```yaml
 steps:
-  - label: ":hammer: Tests"
-    command: "scripts/tests.sh"
-    plugins:
-      - docker#v1.1.1:
-          image: "node:7"
-          workdir: /app
+    - label: ":hammer: Tests"
+      command: "scripts/tests.sh"
+      plugins:
+          - docker#v1.1.1:
+                image: "node:7"
+                workdir: /app
 ```
 
 ### Environment variables in your pipeline.yml

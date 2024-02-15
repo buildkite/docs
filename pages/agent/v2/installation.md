@@ -9,14 +9,14 @@ toc: false
 
 The Buildkite Agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
 
-- [Ubuntu](ubuntu)
-- [Debian](debian)
-- [CentOS/Red Hat](redhat)
-- [FreeBSD](freebsd)
-- [macOS](osx)
-- [Windows](windows)
-- [Linux](linux)
-- [Docker](docker)
+-   [Ubuntu](ubuntu)
+-   [Debian](debian)
+-   [CentOS/Red Hat](redhat)
+-   [FreeBSD](freebsd)
+-   [macOS](osx)
+-   [Windows](windows)
+-   [Linux](linux)
+-   [Docker](docker)
 
 Alternatively you can install it manually using the instructions below.
 

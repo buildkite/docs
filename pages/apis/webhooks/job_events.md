@@ -60,19 +60,19 @@ Example request body:
 
 ```json
 {
-  "event": "job.started",
-  "job": {
-    "...": "..."
-  },
-  "build": {
-    "...": "..."
-  },
-  "pipeline": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
+    "event": "job.started",
+    "job": {
+        "...": "..."
+    },
+    "build": {
+        "...": "..."
+    },
+    "pipeline": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
+    }
 }
 ```

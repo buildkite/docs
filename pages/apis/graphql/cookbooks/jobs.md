@@ -10,41 +10,41 @@ Get all jobs in a named queue, created on or after a given date. Note that if yo
 
 ```graphql
 query PipelineRecentBuildLastJobQueue {
-  organization(slug: "organization-slug") {
-    pipelines(first: 500) {
-      edges {
-        node {
-          slug
-          builds(first: 1) {
+    organization(slug: "organization-slug") {
+        pipelines(first: 500) {
             edges {
-              node {
-                number
-                jobs(
-                  state: FINISHED
-                  first: 1
-                  agentQueryRules: "queue=queue-name"
-                ) {
-                  edges {
-                    node {
-                      ... on JobTypeCommand {
-                        uuid
-                        agentQueryRules
-                        createdAt
-                      }
+                node {
+                    slug
+                    builds(first: 1) {
+                        edges {
+                            node {
+                                number
+                                jobs(
+                                    state: FINISHED
+                                    first: 1
+                                    agentQueryRules: "queue=queue-name"
+                                ) {
+                                    edges {
+                                        node {
+                                            ... on JobTypeCommand {
+                                                uuid
+                                                agentQueryRules
+                                                createdAt
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
-                  }
                 }
-              }
             }
-          }
+            pageInfo {
+                hasNextPage
+                endCursor
+            }
         }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
     }
-  }
 }
 ```
 
@@ -119,17 +119,17 @@ To get UUIDs of the jobs in a build, you can use the following query.
 
 ```graphql
 query GetJobsUUID {
-  build(slug: "org-slug/build-slug/build-number") {
-    jobs(first: 1) {
-      edges {
-        node {
-          ... on JobTypeCommand {
-            uuid
-          }
+    build(slug: "org-slug/build-slug/build-number") {
+        jobs(first: 1) {
+            edges {
+                node {
+                    ... on JobTypeCommand {
+                        uuid
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -139,25 +139,25 @@ Get info about a job using the job's UUID only.
 
 ```graphql
 query GetJob {
-  job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
-    ... on JobTypeCommand {
-      id
-      uuid
-      createdAt
-      scheduledAt
-      finishedAt
-      pipeline {
-        name
-      }
-      build {
-        id
-        number
-        pipeline {
-          name
+    job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
+        ... on JobTypeCommand {
+            id
+            uuid
+            createdAt
+            scheduledAt
+            finishedAt
+            pipeline {
+                name
+            }
+            build {
+                id
+                number
+                pipeline {
+                    name
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -167,10 +167,10 @@ If you need to cancel a job, you can use the following call with the job's ID:
 
 ```graphql
 mutation CancelJob {
-  jobTypeCommandCancel(input: { id: "job-id" }) {
-    jobTypeCommand {
-      id
+    jobTypeCommandCancel(input: { id: "job-id" }) {
+        jobTypeCommand {
+            id
+        }
     }
-  }
 }
 ```

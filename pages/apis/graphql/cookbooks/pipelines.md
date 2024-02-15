@@ -12,17 +12,17 @@ First, get the organization ID and team ID:
 
 ```graphql
 query getOrganizationAndTeamId {
-  organization(slug: "organization-slug") {
-    id
-    teams(first: 500) {
-      edges {
-        node {
-          id
-          slug
+    organization(slug: "organization-slug") {
+        id
+        teams(first: 500) {
+            edges {
+                node {
+                    id
+                    slug
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -30,27 +30,29 @@ Then, create the pipeline:
 
 ```graphql
 mutation createPipeline {
-  pipelineCreate(
-    input: {
-      organizationId: "organization-id"
-      name: "pipeline-name"
-      repository: { url: "repo-url" }
-      steps: { yaml: "steps:\n - command: \"buildkite-agent pipeline upload\"" }
-      teams: { id: "team-id" }
-    }
-  ) {
-    pipeline {
-      id
-      name
-      teams(first: 10) {
-        edges {
-          node {
-            id
-          }
+    pipelineCreate(
+        input: {
+            organizationId: "organization-id"
+            name: "pipeline-name"
+            repository: { url: "repo-url" }
+            steps: {
+                yaml: "steps:\n - command: \"buildkite-agent pipeline upload\""
+            }
+            teams: { id: "team-id" }
         }
-      }
+    ) {
+        pipeline {
+            id
+            name
+            teams(first: 10) {
+                edges {
+                    node {
+                        id
+                    }
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -67,15 +69,15 @@ Get a list of the 500 most recently created pipelines.
 
 ```graphql
 query RecentPipelineSlugs {
-  organization(slug: "organization-slug") {
-    pipelines(first: 500) {
-      edges {
-        node {
-          slug
+    organization(slug: "organization-slug") {
+        pipelines(first: 500) {
+            edges {
+                node {
+                    slug
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -87,16 +89,16 @@ _Note: Pipeline slugs are modifiable and can change_
 
 ```graphql
 query GetPipelineUUID {
-  organization(slug: "organization-slug") {
-    pipelines(first: 50, search: "part of slug") {
-      edges {
-        node {
-          slug
-          uuid
+    organization(slug: "organization-slug") {
+        pipelines(first: 50, search: "part of slug") {
+            edges {
+                node {
+                    slug
+                    uuid
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -106,18 +108,18 @@ You can get specific pipeline information for each of your pipeline. You can ret
 
 ```graphql
 query GetPipelineInfo {
-  pipeline(uuid: "pipeline-uuid") {
-    slug
-    uuid
-    builds(first: 50) {
-      edges {
-        node {
-          state
-          message
+    pipeline(uuid: "pipeline-uuid") {
+        slug
+        uuid
+        builds(first: 50) {
+            edges {
+                node {
+                    state
+                    message
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -127,24 +129,24 @@ The _Pipelines_ page in Buildkite shows speed, reliability, and builds per week,
 
 ```graphql
 query AllPipelineMetrics {
-  organization(slug: "organization-slug") {
-    name
-    pipelines(first: 50) {
-      edges {
-        node {
-          name
-          metrics {
+    organization(slug: "organization-slug") {
+        name
+        pipelines(first: 50) {
             edges {
-              node {
-                label
-                value
-              }
+                node {
+                    name
+                    metrics {
+                        edges {
+                            node {
+                                label
+                                value
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -154,9 +156,9 @@ First, get the ID of the pipeline you want to delete:
 
 ```graphql
 query {
-  pipeline(slug: "organization-slug/pipeline-slug") {
-    id
-  }
+    pipeline(slug: "organization-slug/pipeline-slug") {
+        id
+    }
 }
 ```
 
@@ -164,9 +166,9 @@ Then, use the ID to delete the pipeline:
 
 ```graphql
 mutation PipelineDelete {
-  pipelineDelete(input: { id: "pipeline-id" }) {
-    deletedPipelineID
-  }
+    pipelineDelete(input: { id: "pipeline-id" }) {
+        deletedPipelineID
+    }
 }
 ```
 
@@ -176,13 +178,13 @@ You can set multiple environment variables on a pipeline schedule by using the n
 
 ```graphql
 mutation UpdateSchedule {
-  pipelineScheduleUpdate(
-    input: { id: "schedule-id", env: "FOO=bar\nBAR=foo" }
-  ) {
-    pipelineSchedule {
-      id
-      env
+    pipelineScheduleUpdate(
+        input: { id: "schedule-id", env: "FOO=bar\nBAR=foo" }
+    ) {
+        pipelineSchedule {
+            id
+            env
+        }
     }
-  }
 }
 ```

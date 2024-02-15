@@ -40,12 +40,12 @@ Make sure that you're using a secure secrets management solution to handle the P
 
 ```yaml
 steps:
-  - command: "tests.sh"
-  - wait
-  - command: "deploy.sh"
+    - command: "tests.sh"
+    - wait
+    - command: "deploy.sh"
 
 notify:
-  - pagerduty_change_event: "${PAGER_DUTY_API_KEY}"
+    - pagerduty_change_event: "${PAGER_DUTY_API_KEY}"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -56,8 +56,8 @@ To send change events only when the build passes, add a [condition](/docs/pipeli
 
 ```yaml
 notify:
-  - pagerduty_change_event: "${PAGER_DUTY_API_KEY}"
-    if: "build.state == 'passed'"
+    - pagerduty_change_event: "${PAGER_DUTY_API_KEY}"
+      if: "build.state == 'passed'"
 ```
 
 ## Support

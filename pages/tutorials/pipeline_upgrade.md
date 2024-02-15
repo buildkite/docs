@@ -36,12 +36,12 @@ For example, in the `pipeline.yml` below, the command will echo `step` after you
 
 ```yaml
 env:
-  LEVEL: "pipeline"
+    LEVEL: "pipeline"
 
 steps:
-  command: "echo $LEVEL"
-  env:
-    LEVEL: "step"
+    command: "echo $LEVEL"
+    env:
+        LEVEL: "step"
 ```
 
 {: codeblock-file="pipeline.yml"}

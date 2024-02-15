@@ -8,10 +8,10 @@ Job `priority` is 0 by default, you can prioritize or deprioritize jobs by assig
 
 ```yml
 steps:
-  - command: "will-run-last.sh"
-    priority: -1
-  - command: "will-run-first.sh"
-    priority: 1
+    - command: "will-run-last.sh"
+      priority: -1
+    - command: "will-run-first.sh"
+      priority: 1
 ```
 
 {: codeblock-file="pipeline.yml"}

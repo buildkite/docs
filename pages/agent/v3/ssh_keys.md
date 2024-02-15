@@ -101,15 +101,15 @@ Alternatively, you can use a shorter approach to creating multiple SSH keys by a
 
 1. Add a pipeline-specific environment (for example, by using [Elastic CI Stack for AWS's secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):
 
-   ```bash
-   GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
-   ```
+    ```bash
+    GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
+    ```
 
 2. Create an identity file at that location:
 
-   ```bash
-   ~/.ssh/id_rsa_mypipeline
-   ```
+    ```bash
+    ~/.ssh/id_rsa_mypipeline
+    ```
 
 3. Add the public key for that identity file to `mypipeline` on the git repository provider.
 

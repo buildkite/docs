@@ -24,23 +24,23 @@ The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/p
 
 ```yaml
 steps:
-  - label: "Step 1"
-    command: "false"
-    key: "one"
-  - label: "Step 2"
-    command: "true"
-    key: "two"
+    - label: "Step 1"
+      command: "false"
+      key: "one"
+    - label: "Step 2"
+      command: "true"
+      key: "two"
 
-  - wait:
-    continue_on_failure: true
+    - wait:
+      continue_on_failure: true
 
-  - label: "Step 3"
-    command: 'echo `buildkite-agent step get "outcome" --step "one"`'
-  - label: "Step 4"
-    command: 'echo `buildkite-agent step get "outcome" --step "two"`'
-  - label: "Step 5"
-    command: |
-      if [ $(buildkite-agent step get "outcome" --step "one") == "hard_failed" ]; then
-        buildkite-agent annotate 'this build failed' --style 'error'
-      fi
+    - label: "Step 3"
+      command: 'echo `buildkite-agent step get "outcome" --step "one"`'
+    - label: "Step 4"
+      command: 'echo `buildkite-agent step get "outcome" --step "two"`'
+    - label: "Step 5"
+      command: |
+          if [ $(buildkite-agent step get "outcome" --step "one") == "hard_failed" ]; then
+            buildkite-agent annotate 'this build failed' --style 'error'
+          fi
 ```

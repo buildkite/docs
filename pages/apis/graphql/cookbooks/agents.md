@@ -10,18 +10,18 @@ Get the first five agent token IDs for an organization.
 
 ```graphql
 query token {
-  organization(slug: "organization-slug") {
-    id
-    name
-    agentTokens(first: 5) {
-      edges {
-        node {
-          id
-          description
+    organization(slug: "organization-slug") {
+        id
+        name
+        agentTokens(first: 5) {
+            edges {
+                node {
+                    id
+                    description
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -29,17 +29,17 @@ query token {
 
 ```graphql
 query SearchAgent {
-  organization(slug: "organization-slug") {
-    agents(first: 500, search: "search-string") {
-      edges {
-        node {
-          name
-          hostname
-          version
+    organization(slug: "organization-slug") {
+        agents(first: 500, search: "search-string") {
+            edges {
+                node {
+                    name
+                    hostname
+                    version
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -51,17 +51,17 @@ First, get the token ID. You can find it in the Buildkite dashboard, in _Agents_
 
 ```graphql
 query GetAgentTokenID {
-  organization(slug: "organization-slug") {
-    agentTokens(first: 50) {
-      edges {
-        node {
-          id
-          uuid
-          description
+    organization(slug: "organization-slug") {
+        agentTokens(first: 50) {
+            edges {
+                node {
+                    id
+                    uuid
+                    description
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -69,12 +69,12 @@ Then, using the token ID, revoke the agent token:
 
 ```graphql
 mutation {
-  agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
-    agentToken {
-      description
-      revokedAt
-      revokedReason
+    agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
+        agentToken {
+            description
+            revokedAt
+            revokedReason
+        }
     }
-  }
 }
 ```

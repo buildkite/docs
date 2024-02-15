@@ -55,19 +55,19 @@ A simple query like the following would incur more than 500 requested complexity
 
 ```graphql
 query RecentPipelineSlugs {
-  organization(slug: "organization-slug") {
-    # 1 point
-    pipelines(first: 500) {
-      # 1 point
-      edges {
+    organization(slug: "organization-slug") {
         # 1 point
-        node {
-          # 500 points
-          slug # 0 points
+        pipelines(first: 500) {
+            # 1 point
+            edges {
+                # 1 point
+                node {
+                    # 500 points
+                    slug # 0 points
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -79,19 +79,19 @@ Taking the same query used earlier, if the organization has only 10 pipelines, t
 
 ```graphql
 query RecentPipelineSlugs {
-  organization(slug: "organization-slug") {
-    # 1 point
-    pipelines(first: 500) {
-      # 1 point
-      edges {
+    organization(slug: "organization-slug") {
         # 1 point
-        node {
-          # 10 points
-          slug # 0 points
+        pipelines(first: 500) {
+            # 1 point
+            edges {
+                # 1 point
+                node {
+                    # 10 points
+                    slug # 0 points
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -111,11 +111,11 @@ If the query exceeds the limit, the response will return HTTP 200 status code wi
 
 ```json
 {
-  "errors": [
-    {
-      "message": "Query has complexity of 251503, which exceeds max complexity of 50000"
-    }
-  ]
+    "errors": [
+        {
+            "message": "Query has complexity of 251503, which exceeds max complexity of 50000"
+        }
+    ]
 }
 ```
 
@@ -125,19 +125,19 @@ To ensure optimal performance, an organization can use up to 20,000 actual compl
 
 As a best practice, we recommend utilizing client-side strategies like the following to manage time-based rate limits:
 
-- Caching to lower the number of API calls.
-- Queues to schedule API calls.
-- Pagination to only request the necessary data.
+-   Caching to lower the number of API calls.
+-   Queues to schedule API calls.
+-   Pagination to only request the necessary data.
 
 If an organization exceeds the 20,000 point limit, the response will return HTTP 429 status code with the following error.
 
 ```json
 {
-  "errors": [
-    {
-      "message": "Your organization has exceeded the limit of 20000 complexity points. Please try again in 187 seconds."
-    }
-  ]
+    "errors": [
+        {
+            "message": "Your organization has exceeded the limit of 20000 complexity points. Please try again in 187 seconds."
+        }
+    ]
 }
 ```
 
@@ -149,9 +149,9 @@ You can access both time-based limits and query complexity information through t
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
-- `RateLimit-Remaining` — The remaining complexity left within the current time window.
-- `RateLimit-Limit` — The complexity limit for the time window.
-- `RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
+-   `RateLimit-Remaining` — The remaining complexity left within the current time window.
+-   `RateLimit-Limit` — The complexity limit for the time window.
+-   `RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
 
 For example:
 
@@ -167,15 +167,15 @@ To include the complexity data in responses, set the `Buildkite-Include-Query-St
 
 ```json
 {
-  "data": {
-    "organization": {
-      "name": "Buildkite"
+    "data": {
+        "organization": {
+            "name": "Buildkite"
+        }
+    },
+    "stats": {
+        "requestedComplexity": 1910,
+        "actualComplexity": 550
     }
-  },
-  "stats": {
-    "requestedComplexity": 1910,
-    "actualComplexity": 550
-  }
 }
 ```
 
@@ -185,9 +185,9 @@ Designing your client application with best practices in mind is the simplest wa
 
 Consider the following best practices when designing your API usage:
 
-- Optimize the request by only requesting the data you require. We recommend using specific queries rather than a single all-purpose query.
-- Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
-- Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
-- Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
-- Use metadata about your API usage, including rate limit status to manage the behavior dynamically.
-- Think of rate limiting while designing your client application. Be mindful of retries, errors, loops, and the frequency of API calls.
+-   Optimize the request by only requesting the data you require. We recommend using specific queries rather than a single all-purpose query.
+-   Always use appropriate `first` or `last` values when requesting connections. Not providing those may default to 500, which can increase the requested complexity exponentially.
+-   Use strategies like caching for data you use often that is unlikely to be updated instead of constantly calling APIs.
+-   Regulate the rate of your requests for smoother distribution. You can do this using queues or scheduling API calls in appropriate intervals.
+-   Use metadata about your API usage, including rate limit status to manage the behavior dynamically.
+-   Think of rate limiting while designing your client application. Be mindful of retries, errors, loops, and the frequency of API calls.

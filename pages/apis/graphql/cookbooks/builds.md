@@ -24,19 +24,19 @@ Retrieve all of a job's environment variables for a given build. This is the equ
 
 ```graphql
 query GetEnvVarsBuild {
-  build(slug: "organization-slug/pipeline-slug/build-number") {
-    message
-    jobs(first: 10, state: FINISHED) {
-      edges {
-        node {
-          ... on JobTypeCommand {
-            label
-            env
-          }
+    build(slug: "organization-slug/pipeline-slug/build-number") {
+        message
+        jobs(first: 10, state: FINISHED) {
+            edges {
+                node {
+                    ... on JobTypeCommand {
+                        label
+                        env
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -46,17 +46,17 @@ Retrieve all of the builds for a given pipeline, including each build's ID, numb
 
 ```graphql
 query GetBuilds {
-  pipeline(slug: "organization-slug/pipeline-slug") {
-    builds(first: 10) {
-      edges {
-        node {
-          id
-          number
-          url
+    pipeline(slug: "organization-slug/pipeline-slug") {
+        builds(first: 10) {
+            edges {
+                node {
+                    id
+                    number
+                    url
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -68,28 +68,28 @@ Get the first 500:
 
 ```graphql
 query {
-  organization(slug: "organization-slug") {
-    pipelines(first: 500) {
-      count
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-      edges {
-        node {
-          name
-          slug
-          builds(first: 1) {
-            edges {
-              node {
-                createdAt
-              }
+    organization(slug: "organization-slug") {
+        pipelines(first: 500) {
+            count
+            pageInfo {
+                endCursor
+                hasNextPage
             }
-          }
+            edges {
+                node {
+                    name
+                    slug
+                    builds(first: 1) {
+                        edges {
+                            node {
+                                createdAt
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -97,31 +97,31 @@ Then, if there are more than 500 results, use the value of `organization.pipelin
 
 ```graphql
 query {
-  organization(slug: "organization-slug") {
-    pipelines(
-      first: 500
-      after: "value-from-organization.pipelines.pageInfo.endCursor"
-    ) {
-      count
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
-      edges {
-        node {
-          name
-          slug
-          builds(first: 1) {
-            edges {
-              node {
-                createdAt
-              }
+    organization(slug: "organization-slug") {
+        pipelines(
+            first: 500
+            after: "value-from-organization.pipelines.pageInfo.endCursor"
+        ) {
+            count
+            pageInfo {
+                endCursor
+                hasNextPage
             }
-          }
+            edges {
+                node {
+                    name
+                    slug
+                    builds(first: 1) {
+                        edges {
+                            node {
+                                createdAt
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -131,18 +131,18 @@ This query helps you understand how many job minutes you've used by looking at t
 
 ```graphql
 query PipelineBuildCountForPeriod {
-  pipeline(slug: "organization-slug") {
-    builds(createdAtFrom: "YYYY-MM-DD", createdAtTo: "YYYY-MM-DD") {
-      count
-      edges {
-        node {
-          createdAt
-          finishedAt
-          id
+    pipeline(slug: "organization-slug") {
+        builds(createdAtFrom: "YYYY-MM-DD", createdAtTo: "YYYY-MM-DD") {
+            count
+            edges {
+                node {
+                    createdAt
+                    finishedAt
+                    id
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -152,32 +152,32 @@ This query allows you to find all builds with the same state (for example, `runn
 
 ```graphql
 query {
-  organization(slug: "organization-slug") {
-    pipelines(first: 10) {
-      edges {
-        node {
-          name
-          slug
-          builds(
-            first: 10
-            createdAtFrom: "YYYY-MM-DD"
-            createdAtTo: "YYYY-MM-DD"
-            state: RUNNING
-          ) {
+    organization(slug: "organization-slug") {
+        pipelines(first: 10) {
             edges {
-              node {
-                id
-                number
-                message
-                state
-                url
-              }
+                node {
+                    name
+                    slug
+                    builds(
+                        first: 10
+                        createdAtFrom: "YYYY-MM-DD"
+                        createdAtTo: "YYYY-MM-DD"
+                        state: RUNNING
+                    ) {
+                        edges {
+                            node {
+                                id
+                                number
+                                message
+                                state
+                                url
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -187,11 +187,11 @@ Count how many builds a pipeline has done for a given repository branch.
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
-  pipeline(slug: "organization-slug/pipeline-slug") {
-    builds(branch: "branch-name") {
-      count
+    pipeline(slug: "organization-slug/pipeline-slug") {
+        builds(branch: "branch-name") {
+            count
+        }
     }
-  }
 }
 ```
 
@@ -199,11 +199,11 @@ You can limit the results to a certain timeframe using `createdAtFrom` or `creat
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
-  pipeline(slug: "organization-slug/pipeline-slug") {
-    builds(branch: "branch-name", createdAtTo: "DateTime") {
-      count
+    pipeline(slug: "organization-slug/pipeline-slug") {
+        builds(branch: "branch-name", createdAtTo: "DateTime") {
+            count
+        }
     }
-  }
 }
 ```
 
@@ -215,9 +215,9 @@ First, get the pipeline ID:
 
 ```graphql
 query PipelineId {
-  pipeline(slug: "organization-slug/pipeline-slug") {
-    id
-  }
+    pipeline(slug: "organization-slug/pipeline-slug") {
+        id
+    }
 }
 ```
 
@@ -225,12 +225,12 @@ Then mutate the next build number. In this example, we set `nextBuildNumber` to 
 
 ```graphql
 mutation PipelineUpdate {
-  pipelineUpdate(input: { id: "pipeline-id", nextBuildNumber: 300 }) {
-    pipeline {
-      name
-      nextBuildNumber
+    pipelineUpdate(input: { id: "pipeline-id", nextBuildNumber: 300 }) {
+        pipeline {
+            name
+            nextBuildNumber
+        }
     }
-  }
 }
 ```
 

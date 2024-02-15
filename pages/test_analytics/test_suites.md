@@ -40,11 +40,11 @@ Test Analytics reviews the test results to detect flaky tests after every test r
 
 Test Analytics will automatically detect issues per run. For each test, we currently detect three issues:
 
-- **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
+-   **Flaky:** [See section on detecting flaky tests](#detecting-flaky-tests).
 
-- **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This threshold can be manually amended within the suite settings.
+-   **Slow:** Slowness is measured by the comparative performance of tests within the current run. The system automatically flags slow tests when the slowest 1% of tests take more than 15% of the overall run time. This threshold can be manually amended within the suite settings.
 
-- **Failure:** A failed test will impact the overall test performance and efficiency.
+-   **Failure:** A failed test will impact the overall test performance and efficiency.
 
 Tests with these issues will display in order of most problematic to least problematic. Issues are also shown on the test execution page:
 
@@ -56,8 +56,8 @@ Test Analytics calculates reliability of both your entire test suite and individ
 
 _Reliability_ is defined as percentage calculated by:
 
-- Test suite reliability = `passed_runs / (passed_runs + failed_runs) * 100`
-- Individual test reliability = `passed_test_executions / (passed_test_executions + failed_test_executions) * 100`
+-   Test suite reliability = `passed_runs / (passed_runs + failed_runs) * 100`
+-   Individual test reliability = `passed_test_executions / (passed_test_executions + failed_test_executions) * 100`
 
 Other test execution results such as `unknown` and `skipped` are ignored in the test reliability calculation.
 

@@ -14,21 +14,21 @@ Before you start, make sure .NET runs with access to [CI environment variables](
 
 2. Add `Buildkite.TestAnalytics.Xunit` to your list of dependencies in your xUnit test project:
 
-   ```sh
-   $ dotnet add package Buildkite.TestAnalytics.Xunit
-   ```
+    ```sh
+    $ dotnet add package Buildkite.TestAnalytics.Xunit
+    ```
 
 3. Set up your API token
 
-   Add the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your build system's environment.
+    Add the `BUILDKITE_ANALYTICS_TOKEN` environment variable to your build system's environment.
 
 4. Run your tests
 
-   Run your tests like normal. Note that we attempt to detect the presence of several common CI environments, however if this fails you can set the `CI` environment variable to any value and it will work.
+    Run your tests like normal. Note that we attempt to detect the presence of several common CI environments, however if this fails you can set the `CI` environment variable to any value and it will work.
 
-   ```sh
-   $ dotnet test Buildkite.TestAnalytics.Tests
-   ```
+    ```sh
+    $ dotnet test Buildkite.TestAnalytics.Tests
+    ```
 
 5. Verify that it works
 

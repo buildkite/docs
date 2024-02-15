@@ -12,9 +12,9 @@ See the [Defining your pipeline steps](/docs/pipelines/defining-steps) guide for
 
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
 
-- `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-- `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
-- `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
+-   `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+-   `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+-   `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
 
 ## Insertion order
 
@@ -42,7 +42,7 @@ If you want an environment variable to be evaluated at run-time (for example, us
 ```yml
 - command: "deploy.sh $$SERVER"
   env:
-    SERVER: "server-a"
+      SERVER: "server-a"
 ```
 
 ### Escaping the `$` character

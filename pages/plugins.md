@@ -2,11 +2,11 @@
 
 Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook modifies a different part of the job lifecycle, for example:
 
-- Setting up the environment.
-- Checking out the code.
-- Running commands.
-- Handling artifacts.
-- Cleaning up the environment.
+-   Setting up the environment.
+-   Checking out the code.
+-   Running commands.
+-   Handling artifacts.
+-   Cleaning up the environment.
 
 The following diagram shows how a plugin might hook into the job lifecycle:
 

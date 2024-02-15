@@ -43,14 +43,14 @@ Example request body:
 
 ```json
 {
-  "event": "cluster_token.registration_blocked",
-  "blocked_ip": "202.188.43.20",
-  "cluster_token": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
+    "event": "cluster_token.registration_blocked",
+    "blocked_ip": "202.188.43.20",
+    "cluster_token": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
+    }
 }
 ```

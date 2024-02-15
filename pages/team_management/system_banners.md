@@ -13,10 +13,10 @@ which you may have.
 
 ## Steps to creating a banner
 
-- You must be logged in as an Administrator
-- Visit the Organization's [settings page]
-- Add a message to the **System banners** panel
-- Click **Save Banner**
+-   You must be logged in as an Administrator
+-   Visit the Organization's [settings page]
+-   Add a message to the **System banners** panel
+-   Click **Save Banner**
 
 [settings page]: https://buildkite.com/organizations/~/settings
 

@@ -110,9 +110,9 @@ The following environment variables have been deprecated.
 
 You can define environment variables in your jobs in a few ways, depending on the nature of the value being set:
 
-- Pipeline settings — for values that are _not secret_.
-- [Build pipeline configuration](/docs/pipelines/command-step) — for values that are _not secret_.
-- An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
+-   Pipeline settings — for values that are _not secret_.
+-   [Build pipeline configuration](/docs/pipelines/command-step) — for values that are _not secret_.
+-   An `environment` or `pre-command` [agent hook](/docs/agent/v3/hooks) — for values that are secret or agent-specific.
 
 > 🚧 Secrets in environment variables
 > Do not print or export secrets in your pipelines. See the <a href="/docs/pipelines/secrets">Secrets</a> documentation for further information and best practices.
@@ -123,19 +123,19 @@ Any environment variables set by Buildkite will be interpolated by the Agent.
 
 If you're using the YAML Steps editor to define your pipeline, only the following subset of the environment variables are available:
 
-- `BUILDKITE_BRANCH`
-- `BUILDKITE_TAG`
-- `BUILDKITE_MESSAGE`
-- `BUILDKITE_COMMIT`
-- `BUILDKITE_PIPELINE_SLUG`
-- `BUILDKITE_PIPELINE_NAME`
-- `BUILDKITE_PIPELINE_ID`
-- `BUILDKITE_ORGANIZATION_SLUG`
-- `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
-- `BUILDKITE_REPO`
-- `BUILDKITE_PULL_REQUEST`
-- `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
-- `BUILDKITE_PULL_REQUEST_REPO`
+-   `BUILDKITE_BRANCH`
+-   `BUILDKITE_TAG`
+-   `BUILDKITE_MESSAGE`
+-   `BUILDKITE_COMMIT`
+-   `BUILDKITE_PIPELINE_SLUG`
+-   `BUILDKITE_PIPELINE_NAME`
+-   `BUILDKITE_PIPELINE_ID`
+-   `BUILDKITE_ORGANIZATION_SLUG`
+-   `BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG`
+-   `BUILDKITE_REPO`
+-   `BUILDKITE_PULL_REQUEST`
+-   `BUILDKITE_PULL_REQUEST_BASE_BRANCH`
+-   `BUILDKITE_PULL_REQUEST_REPO`
 
 Some variables, for example `BUILDKITE_BUILD_NUMBER`, cannot be supported in the YAML Step editor as the interpolation happens before the build is created. In those cases, interpolate them at the [runtime](/docs/pipelines/environment-variables#runtime-variable-interpolation).
 
@@ -148,7 +148,7 @@ When using environment variables that will be evaluated at run-time, make sure y
 ```yml
 - command: "deploy.sh $$SERVER"
   env:
-    SERVER: "server-a"
+      SERVER: "server-a"
 ```
 
 Further details about environment variable interpolation can be found in the [pipeline upload](/docs/agent/v3/cli-pipeline#environment-variable-substitution) CLI guide.
@@ -230,9 +230,9 @@ Environment variables are not automatically passed through to builds created wit
 
 Separate to the job's base environment, your `buildkite-agent` process has an environment of its own. This is made up of:
 
-- operating system environment variables
-- any variables you set on your agent when you started it
-- any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
+-   operating system environment variables
+-   any variables you set on your agent when you started it
+-   any environment variables that were inherited from how you started the process (for example, systemd sets some env vars for you)
 
 For a list of variables and configuration flags, you can set on your agent, see the Buildkite agent's [start command documentation](/docs/agent/v3/cli-start).
 

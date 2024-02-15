@@ -22,15 +22,15 @@ Allows you to change the pipeline of a running build by uploading either a
 YAML (recommended) or JSON configuration file. If no configuration file is
 provided, the command looks for the file in the following locations:
 
-- buildkite.yml
-- buildkite.yaml
-- buildkite.json
-- .buildkite/pipeline.yml
-- .buildkite/pipeline.yaml
-- .buildkite/pipeline.json
-- buildkite/pipeline.yml
-- buildkite/pipeline.yaml
-- buildkite/pipeline.json
+-   buildkite.yml
+-   buildkite.yaml
+-   buildkite.json
+-   .buildkite/pipeline.yml
+-   .buildkite/pipeline.yaml
+-   .buildkite/pipeline.json
+-   buildkite/pipeline.yml
+-   buildkite/pipeline.yaml
+-   buildkite/pipeline.json
 
 You can also pipe build pipelines to the command allowing you to create
 scripts that generate dynamic pipelines. The configuration file has a

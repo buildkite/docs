@@ -54,13 +54,13 @@ Each event's data is sent JSON encoded in the request body. See each event's doc
 
 ```json
 {
-  "event": "build.started",
-  "build": {
-    "keys": "vals"
-  },
-  "sender": {
-    "keys": "vals"
-  }
+    "event": "build.started",
+    "build": {
+        "keys": "vals"
+    },
+    "sender": {
+        "keys": "vals"
+    }
 }
 ```
 

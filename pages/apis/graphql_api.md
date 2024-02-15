@@ -49,13 +49,13 @@ curl https://graphql.buildkite.com/v1 \
 
 ```json
 {
-  "data": {
-    "viewer": {
-      "user": {
-        "name": "Jane Doe"
-      }
+    "data": {
+        "viewer": {
+            "user": {
+                "name": "Jane Doe"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -67,19 +67,19 @@ All node types have an `id` property, which is a global identifier for the node.
 
 ```graphql
 query {
-  organization(slug: "my-org") {
-    id
-  }
+    organization(slug: "my-org") {
+        id
+    }
 }
 ```
 
 ```json
 {
-  "data": {
-    "organization": {
-      "id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+    "data": {
+        "organization": {
+            "id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+        }
     }
-  }
 }
 ```
 
@@ -89,27 +89,27 @@ For example, the following query uses an organization's `id` to find the total n
 
 ```graphql
 query {
-  node(
-    id: "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
-  ) {
-    ... on Organization {
-      pipelines {
-        count
-      }
+    node(
+        id: "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+    ) {
+        ... on Organization {
+            pipelines {
+                count
+            }
+        }
     }
-  }
 }
 ```
 
 ```json
 {
-  "data": {
-    "node": {
-      "pipelines": {
-        "count": 42
-      }
+    "data": {
+        "node": {
+            "pipelines": {
+                "count": 42
+            }
+        }
     }
-  }
 }
 ```
 
@@ -123,117 +123,117 @@ If you need the GraphQL schema, you can get it from the API using [GraphQL intro
 
 ```graphql
 query IntrospectionQuery {
-  __schema {
-    queryType {
-      name
-      description
-      kind
+    __schema {
+        queryType {
+            name
+            description
+            kind
+        }
+        mutationType {
+            name
+            description
+            kind
+        }
+        subscriptionType {
+            name
+            description
+            kind
+        }
+        types {
+            name
+            kind
+            description
+            ...FullType
+        }
+        directives {
+            name
+            description
+            locations
+            args {
+                ...InputValue
+            }
+        }
     }
-    mutationType {
-      name
-      description
-      kind
-    }
-    subscriptionType {
-      name
-      description
-      kind
-    }
-    types {
-      name
-      kind
-      description
-      ...FullType
-    }
-    directives {
-      name
-      description
-      locations
-      args {
-        ...InputValue
-      }
-    }
-  }
 }
 
 fragment FullType on __Type {
-  fields(includeDeprecated: true) {
-    name
-    description
-    args {
-      ...InputValue
+    fields(includeDeprecated: true) {
+        name
+        description
+        args {
+            ...InputValue
+        }
+        type {
+            ...TypeRef
+        }
+        isDeprecated
+        deprecationReason
     }
-    type {
-      ...TypeRef
+    inputFields {
+        ...InputValue
     }
-    isDeprecated
-    deprecationReason
-  }
-  inputFields {
-    ...InputValue
-  }
-  interfaces {
-    ...TypeRef
-  }
-  enumValues(includeDeprecated: true) {
-    name
-    description
-    isDeprecated
-    deprecationReason
-  }
-  possibleTypes {
-    ...TypeRef
-  }
+    interfaces {
+        ...TypeRef
+    }
+    enumValues(includeDeprecated: true) {
+        name
+        description
+        isDeprecated
+        deprecationReason
+    }
+    possibleTypes {
+        ...TypeRef
+    }
 }
 
 fragment InputValue on __InputValue {
-  name
-  description
-  type {
-    ...TypeRef
-  }
-  defaultValue
+    name
+    description
+    type {
+        ...TypeRef
+    }
+    defaultValue
 }
 
 fragment TypeRef on __Type {
-  kind
-  name
-  description
-  ofType {
     kind
     name
     description
     ofType {
-      kind
-      name
-      description
-      ofType {
         kind
         name
         description
         ofType {
-          kind
-          name
-          description
-          ofType {
             kind
             name
             description
             ofType {
-              kind
-              name
-              description
-              ofType {
                 kind
                 name
                 description
-              }
+                ofType {
+                    kind
+                    name
+                    description
+                    ofType {
+                        kind
+                        name
+                        description
+                        ofType {
+                            kind
+                            name
+                            description
+                            ofType {
+                                kind
+                                name
+                                description
+                            }
+                        }
+                    }
+                }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -241,6 +241,6 @@ fragment TypeRef on __Type {
 
 Further resources for learning more about GraphQL:
 
-- Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
-- Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
-- The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)
+-   Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
+-   Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
+-   The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)

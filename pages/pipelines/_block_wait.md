@@ -2,9 +2,9 @@ If a block step follows or precedes a wait step in your build, the wait step wil
 
 ```yml
 steps:
-  - command: ".buildkite/steps/yarn"
-  - wait: ~
-  - block: "unblock me"
+    - command: ".buildkite/steps/yarn"
+    - wait: ~
+    - block: "unblock me"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -13,10 +13,10 @@ But let's consider a different example. Now the wait step (with `continue_on_fai
 
 ```yml
 steps:
-  - command: "exit -1"
-  - wait: ~
-    continue_on_failure: true
-  - block: "unblock me"
+    - command: "exit -1"
+    - wait: ~
+      continue_on_failure: true
+    - block: "unblock me"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -25,10 +25,10 @@ If you need to run a block step after a failed step, set [`soft_fail`](/docs/pip
 
 ```yml
 steps:
-  - command: "exit -1"
-    soft_fail:
-      - exit_status: "*"
-  - block: "unblock me"
+    - command: "exit -1"
+      soft_fail:
+          - exit_status: "*"
+    - block: "unblock me"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -37,13 +37,13 @@ Alternatively, it is possible to use a wait step with a block step if conditiona
 
 ```yml
 steps:
-  - command: ".buildkite/steps/yarn"
-  - wait:
-    if: build.source == "schedule"
-  - block: "Deploy changes?"
-    if: build.branch == pipeline.default_branch && build.source != "schedule"
-  - command: ".buildkite/scripts/deploy"
-    if: build.branch == pipeline.default_branch
+    - command: ".buildkite/steps/yarn"
+    - wait:
+      if: build.source == "schedule"
+    - block: "Deploy changes?"
+      if: build.branch == pipeline.default_branch && build.source != "schedule"
+    - command: ".buildkite/scripts/deploy"
+      if: build.branch == pipeline.default_branch
 ```
 
 {: codeblock-file="pipeline.yml"}

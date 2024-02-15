@@ -14,25 +14,25 @@ You can easily map most Bamboo workflows to Buildkite. _Projects and Plans_ in B
 
 Buildkite pipelines consist of different types of [_steps_](/docs/pipelines/step-reference) for different tasks:
 
-- **Command step:** Runs one or more shell commands on one or more agents.
-- **Wait step:** Pauses a build until all previous jobs have completed.
-- **Block step:** Pauses a build until unblocked.
-- **Input step:** Collects information from a user.
-- **Trigger step:** Creates a build on another pipeline.
-- **Group step:** Displays a group of sub-steps as one parent step, like stages.
+-   **Command step:** Runs one or more shell commands on one or more agents.
+-   **Wait step:** Pauses a build until all previous jobs have completed.
+-   **Block step:** Pauses a build until unblocked.
+-   **Input step:** Collects information from a user.
+-   **Trigger step:** Creates a build on another pipeline.
+-   **Group step:** Displays a group of sub-steps as one parent step, like stages.
 
 For example, a test and deploy pipeline might consist of the following steps:
 
 ```yaml
 steps:
-  # First stage
-  - command: test_1.sh
-  - command: test_2.sh
+    # First stage
+    - command: test_1.sh
+    - command: test_2.sh
 
-  - wait
+    - wait
 
-  # Second stage
-  - command: deploy.sh
+    # Second stage
+    - command: deploy.sh
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -41,10 +41,10 @@ Instead of the `wait` step above, you could use a `block` step to stop the build
 
 ```yaml
 steps:
-  - command: test_1.sh
-  - command: test_2.sh
-  - block: "Deploy to Production"
-  - command: deploy.sh
+    - command: test_1.sh
+    - command: test_2.sh
+    - block: "Deploy to Production"
+    - command: deploy.sh
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -61,33 +61,33 @@ You could also define this Bamboo Plan using the following `pipeline.yml` file:
 
 ```yaml
 steps:
-  # The first stage is to run the "make" command - which will compile
-  # the application and store the binaries in a `build` folder. Upload the
-  # contents of that folder as an Artifact to Buildkite.
-  - command: "make"
-    artifact_paths: "build/*"
+    # The first stage is to run the "make" command - which will compile
+    # the application and store the binaries in a `build` folder. Upload the
+    # contents of that folder as an Artifact to Buildkite.
+    - command: "make"
+      artifact_paths: "build/*"
 
-  # To prevent the "make test" stage from running before "make" has finished,
-  # separate the command with a "wait" step.
-  - wait
+    # To prevent the "make test" stage from running before "make" has finished,
+    # separate the command with a "wait" step.
+    - wait
 
-  # Before running `make test`, download the artifacts created in
-  # the previous step. To do this, use `buildkite-agent artifact
-  # download` command.
-  - command: |
-      mkdir build
-      buildkite-agent artifact download "build/*" "build/"
-      make test
+    # Before running `make test`, download the artifacts created in
+    # the previous step. To do this, use `buildkite-agent artifact
+    # download` command.
+    - command: |
+          mkdir build
+          buildkite-agent artifact download "build/*" "build/"
+          make test
 
-  # By putting commands next to each other, you can make them run in parallel.
-  - command: |
-      mkdir build
-      buildkite-agent artifact download "build/*" "build/"
-      make lint
+    # By putting commands next to each other, you can make them run in parallel.
+    - command: |
+          mkdir build
+          buildkite-agent artifact download "build/*" "build/"
+          make lint
 
-  - block: "Deploy to production"
+    - block: "Deploy to production"
 
-  - command: "scripts/deploy.sh"
+    - command: "scripts/deploy.sh"
 ```
 
 {: codeblock-file="pipeline.yml"}

@@ -18,7 +18,7 @@ curl "https://api.buildkite.com/v2/meta"
 
 ```json
 {
-  "webhook_ips": ["192.0.2.0/24", "198.51.100.12"]
+    "webhook_ips": ["192.0.2.0/24", "198.51.100.12"]
 }
 ```
 

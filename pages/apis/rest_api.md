@@ -16,7 +16,7 @@ curl https://api.buildkite.com
 
 ```json
 {
-  "response": "Hello World"
+    "response": "Hello World"
 }
 ```
 
@@ -84,8 +84,8 @@ You can set the page using the following query string parameters:
 
 API responses include the following [CORS headers](https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS) allowing you to use the API directly from the browser:
 
-- `Access-Controller-Allow-Origin: *`
-- `Access-Control-Expose-Headers: Link`
+-   `Access-Controller-Allow-Origin: *`
+-   `Access-Control-Expose-Headers: Link`
 
 For an example of this in use, see the [Emojis API example on CodePen](https://codepen.io/dannymidnight/pen/jOpJpmY) for adding emoji support to your own browser-based dashboards and build screens.
 
@@ -93,12 +93,12 @@ For an example of this in use, see the [Emojis API example on CodePen](https://c
 
 The following changes were made in v2 of our API:
 
-- <code>POST /v1/organizations/{org.slug}/agents</code> has been removed
-- <code>DELETE /v1/organizations/{org.slug}/agents/{id}</code> has been removed
-- All project-related properties in JSON responses and requests have been renamed to pipeline
-- The <code>featured_build</code> pipeline property has been removed
-- The deprecated <code>/accounts</code> URL has been removed
-- URLs containing <code>/projects</code> have been renamed to <code>/pipelines</code>
+-   <code>POST /v1/organizations/{org.slug}/agents</code> has been removed
+-   <code>DELETE /v1/organizations/{org.slug}/agents/{id}</code> has been removed
+-   All project-related properties in JSON responses and requests have been renamed to pipeline
+-   The <code>featured_build</code> pipeline property has been removed
+-   The deprecated <code>/accounts</code> URL has been removed
+-   URLs containing <code>/projects</code> have been renamed to <code>/pipelines</code>
 
 ## Clients
 
@@ -106,12 +106,12 @@ To make getting started easier, check out these clients available from our contr
 
 <!-- vale off -->
 
-- [Buildkit](https://github.com/Shopify/buildkit) for [Ruby](https://www.ruby-lang.org)
-- [go-buildkite](https://github.com/buildkite/go-buildkite) for [Go](https://golang.org)
-- [PSBuildkite](https://github.com/felixfbecker/PSBuildkite) for [PowerShell](https://microsoft.com/powershell)
-- [pybuildkite](https://github.com/pyasi/pybuildkite) for [Python](https://www.python.org/)
-- [buildkite-php](https://github.com/bbaga/buildkite-php) for [PHP](https://www.php.net/)
-- [buildkite-swift](https://github.com/aaronsky/buildkite-swift) for [Swift](https://swift.org)
-- [buildkite-api-client](https://github.com/SourceLabOrg/Buildkite-Api-Client) for [Java](https://www.java.com/en/)
+-   [Buildkit](https://github.com/Shopify/buildkit) for [Ruby](https://www.ruby-lang.org)
+-   [go-buildkite](https://github.com/buildkite/go-buildkite) for [Go](https://golang.org)
+-   [PSBuildkite](https://github.com/felixfbecker/PSBuildkite) for [PowerShell](https://microsoft.com/powershell)
+-   [pybuildkite](https://github.com/pyasi/pybuildkite) for [Python](https://www.python.org/)
+-   [buildkite-php](https://github.com/bbaga/buildkite-php) for [PHP](https://www.php.net/)
+-   [buildkite-swift](https://github.com/aaronsky/buildkite-swift) for [Swift](https://swift.org)
+-   [buildkite-api-client](https://github.com/SourceLabOrg/Buildkite-Api-Client) for [Java](https://www.java.com/en/)
 
 <!-- vale on -->

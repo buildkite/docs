@@ -24,8 +24,8 @@ In your [Azure Admin Console](https://portal.azure.com/), follow these instructi
 4. Choose _Integrate any other application you don't find in the gallery (Non-gallery)_ and click _Create_.
 5. Choose _Set up single sign on_, then _SAML_, then in the _Basic SAML Configuration_ box, choose _Edit_.
 6. Enter the following configuration and save:
-   - _Identifier (Entity ID)_: `https://buildkite.com`
-   - _Reply URL (Assertion Consumer Service URL)_: the ACS URL you copied in [Step 1](#step-1-create-a-buildkite-sso-provider)
+    - _Identifier (Entity ID)_: `https://buildkite.com`
+    - _Reply URL (Assertion Consumer Service URL)_: the ACS URL you copied in [Step 1](#step-1-create-a-buildkite-sso-provider)
 7. Copy the _App Federation Metadata Url_ value from the _SAML Signing Certificate_ box for use in [Step 3](#step-3-update-your-buildkite-sso-provider).
 
 ## Step 3. Update your Buildkite SSO provider
@@ -61,8 +61,8 @@ Enterprise customers can automatically add and remove user accounts from their B
 
 ### Supported SCIM features
 
-- Create users
-- Deactivate users (deprovisioning)
+-   Create users
+-   Deactivate users (deprovisioning)
 
 > 📘
 > Buildkite does not bill you for users that you add to Azure AD until they sign in to your Buildkite organization.
@@ -82,23 +82,23 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 
 1. Choose _Provisioning_ from the navigation sidebar, then click _Get started_.
 2. Select _Automatic_ provisioning mode and enter the following details:
-   - _Tenant URL_: the Base URL from your Buildkite SSO Provider settings
-   - _Secret Token_: the API Token from your Buildkite SSO Provider settings
+    - _Tenant URL_: the Base URL from your Buildkite SSO Provider settings
+    - _Secret Token_: the API Token from your Buildkite SSO Provider settings
 3. Click _Test Connection_, and when you receive confirmation the settings are valid, save.
 4. Disable group synchronization:
-   1. Expand _Mappings_, then click _Provision Azure Active Directory Groups_.
-   2. Toggle _Enabled_ to _No_ and click _Save_.
+    1. Expand _Mappings_, then click _Provision Azure Active Directory Groups_.
+    2. Toggle _Enabled_ to _No_ and click _Save_.
 5. Customize the User mappings:
-   1. Expand _Mappings_, then click _Provision Azure Active Directory Users_.
-   2. Keep the following four mappings, and delete any others:
-      - `userPrincipalName` to `userName`
-      - `Switch([IsSoftDeleted], , "False", "True", "True", "False")` to `active`
-      - `givenName` to `name.givenName`
-      - `surname` to `name.familyName`
+    1. Expand _Mappings_, then click _Provision Azure Active Directory Users_.
+    2. Keep the following four mappings, and delete any others:
+        - `userPrincipalName` to `userName`
+        - `Switch([IsSoftDeleted], , "False", "True", "True", "False")` to `active`
+        - `givenName` to `name.givenName`
+        - `surname` to `name.familyName`
 6. Toggle _Provisioning Status_ to _On_ and save.
 7. Return to the _Provisioning_ menu of your Azure AD enterprise app and view the _Current cycle status_ section:
-   - If provisioning is working, this will say _Initial cycle completed_.
-   - If errors are displayed, click _View provisioning logs_ for more details on what went wrong.
+    - If provisioning is working, this will say _Initial cycle completed_.
+    - If errors are displayed, click _View provisioning logs_ for more details on what went wrong.
 
 ## SAML user attributes
 

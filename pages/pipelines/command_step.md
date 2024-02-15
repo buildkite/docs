@@ -8,7 +8,7 @@ A command step can be defined in your pipeline settings, or in your [pipeline.ym
 
 ```yml
 steps:
-  - command: "tests.sh"
+    - command: "tests.sh"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -32,10 +32,10 @@ _Required attributes:_
 
 ```yml
 steps:
-  - commands:
-      - "npm install && npm test"
-      - "moretests.sh"
-      - "build.sh"
+    - commands:
+          - "npm install && npm test"
+          - "moretests.sh"
+          - "build.sh"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -236,17 +236,17 @@ _At least one of the following attributes is required:_
 
 ```yml
 steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic: true
+    - label: "Tests"
+      command: "tests.sh"
+      retry:
+          automatic: true
 
-  - wait
+    - wait
 
-  - label: "Deploy"
-    command: "deploy.sh"
-    retry:
-      manual: false
+    - label: "Deploy"
+      command: "deploy.sh"
+      retry:
+          manual: false
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -269,19 +269,19 @@ Conditions on retries can be specified. For example, it's possible to set steps 
 - label: "Tests"
   command: "tests.sh"
   retry:
-    automatic:
-      - exit_status: 5
-        limit: 2
-      - exit_status: "*"
-        limit: 4
+      automatic:
+          - exit_status: 5
+            limit: 2
+          - exit_status: "*"
+            limit: 4
 - wait
 - label: "Deploy"
   command: "deploy.sh"
   branches: "main"
   retry:
-    manual:
-      allowed: false
-      reason: "Deploys shouldn't be retried"
+      manual:
+          allowed: false
+          reason: "Deploys shouldn't be retried"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -341,14 +341,14 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic:
-        - exit_status: -1 # Agent was lost
-          limit: 2
-        - exit_status: 255 # Forced agent shutdown
-          limit: 2
+    - label: "Tests"
+      command: "tests.sh"
+      retry:
+          automatic:
+              - exit_status: -1 # Agent was lost
+                limit: 2
+              - exit_status: 255 # Forced agent shutdown
+                limit: 2
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -384,20 +384,20 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      manual:
-        permit_on_passed: true
+    - label: "Tests"
+      command: "tests.sh"
+      retry:
+          manual:
+              permit_on_passed: true
 
-  - wait
+    - wait
 
-  - label: "Deploy"
-    command: "deploy.sh"
-    retry:
-      manual:
-        allowed: false
-        reason: "Sorry, you can't retry a deployment"
+    - label: "Deploy"
+      command: "deploy.sh"
+      retry:
+          manual:
+              allowed: false
+              reason: "Sorry, you can't retry a deployment"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -420,10 +420,10 @@ _Optional Attributes_
 
 ```yml
 steps:
-  - label: "Everyone struggles sometimes"
-    command: "tests.sh"
-    soft_fail:
-      - exit_status: 1
+    - label: "Everyone struggles sometimes"
+      command: "tests.sh"
+      soft_fail:
+          - exit_status: 1
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -448,30 +448,30 @@ steps:
 
 ```yaml
 steps:
-  - label: "💥 Matrix build with adjustments"
-    command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-    matrix:
-      setup:
-        arch:
-          - "amd64"
-          - "arm64"
-        os:
-          - "windows"
-          - "linux"
-        test:
-          - "A"
-          - "B"
-      adjustments:
-        - with:
-            os: "windows"
-            arch: "arm64"
-            test: "B"
-          soft_fail: true
-        - with:
-            os: "linux"
-            arch: "arm64"
-            test: "B"
-          skip: true
+    - label: "💥 Matrix build with adjustments"
+      command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+      matrix:
+          setup:
+              arch:
+                  - "amd64"
+                  - "arm64"
+              os:
+                  - "windows"
+                  - "linux"
+              test:
+                  - "A"
+                  - "B"
+          adjustments:
+              - with:
+                    os: "windows"
+                    arch: "arm64"
+                    test: "B"
+                soft_fail: true
+              - with:
+                    os: "linux"
+                    arch: "arm64"
+                    test: "B"
+                skip: true
 ```
 
 {: codeblock-file="pipeline.yml"}

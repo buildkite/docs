@@ -8,7 +8,7 @@ A trigger step can be defined in your pipeline settings, or in your [pipeline.ym
 
 ```yml
 steps:
-  - trigger: deploy-pipeline
+    - trigger: deploy-pipeline
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -17,13 +17,13 @@ steps:
 
 All builds created by a trigger step will have the same author as the parent build. This user must:
 
-- be a member of your organization
-- have a verified email address
+-   be a member of your organization
+-   have a verified email address
 
 If you have [Teams](/docs/team-management/permissions) enabled in your organization, _one_ of the following conditions must be met:
 
-- The authoring user must have 'Build' permission on _every_ pipeline that will be triggered
-- The triggering build has no creator and no unblocker, _and_ the source pipeline and the target pipeline share a team that can 'Build'
+-   The authoring user must have 'Build' permission on _every_ pipeline that will be triggered
+-   The triggering build has no creator and no unblocker, _and_ the source pipeline and the target pipeline share a team that can 'Build'
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
@@ -191,13 +191,13 @@ To pass through pull request information to the triggered build, pass through th
 - trigger: "app-sub-pipeline"
   label: "Sub-pipeline"
   build:
-    message: "${BUILDKITE_MESSAGE}"
-    commit: "${BUILDKITE_COMMIT}"
-    branch: "${BUILDKITE_BRANCH}"
-    env:
-      BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
-      BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
-      BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
+      message: "${BUILDKITE_MESSAGE}"
+      commit: "${BUILDKITE_COMMIT}"
+      branch: "${BUILDKITE_BRANCH}"
+      env:
+          BUILDKITE_PULL_REQUEST: "${BUILDKITE_PULL_REQUEST}"
+          BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
+          BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -220,16 +220,16 @@ While you cannot trigger only a specific step in a pipeline, you can use [condit
 
 An example using conditionals might look like this:
 
-- Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
-- Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
-- Custom [environment variables](#environment-variables) passed to the triggered build
+-   Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
+-   Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
+-   Custom [environment variables](#environment-variables) passed to the triggered build
 
 In the target pipeline, to run the command step only if the build was triggered by a specific pipeline, you might use something like this:
 
 ```yml
 steps:
-  - command: ./scripts/tests.sh
-    if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
+    - command: ./scripts/tests.sh
+      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -238,8 +238,8 @@ If you also want the command step to run when the build was not triggered by the
 
 ```yml
 steps:
-  - command: ./scripts/tests.sh
-    if: build.source != 'trigger_job'
+    - command: ./scripts/tests.sh
+      if: build.source != 'trigger_job'
 ```
 
 {: codeblock-file="pipeline.yml"}

@@ -16,9 +16,9 @@ In your GitHub Enterprise organization settings, select _OAuth Apps_ under _Deve
 
 Select _Register an application_. Fill out the form with the following values:
 
-- Name: `Buildkite`
-- URL: `https://buildkite.com`
-- Callback URL: `https://buildkite.com/user/authorize/github_enterprise/callback`
+-   Name: `Buildkite`
+-   URL: `https://buildkite.com`
+-   Callback URL: `https://buildkite.com/user/authorize/github_enterprise/callback`
 
 <%= image "register-oauth-application-form.png", width:1548/2, height:1107/2, alt:"Screenshot of the form to Register an OAuth Application" %>
 
@@ -37,9 +37,9 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 1. Open your Buildkite organization's Settings and choose _[Repository Providers](https://buildkite.com/organizations/~/repository-providers)_.
 2. Select _GitHub Enterprise Server_
 3. Enter your settings:
-   - The URL and public proxy URL of your GitHub Enterprise Server
-   - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1
-   - If you're using self-signed certificates, make sure the _Verify TLS Certificate_ checkbox is not checked.
+    - The URL and public proxy URL of your GitHub Enterprise Server
+    - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1
+    - If you're using self-signed certificates, make sure the _Verify TLS Certificate_ checkbox is not checked.
 4. Select _Save GitHub Enterprise Settings_ to save your settings. After saving, the _Secret_ field appears blank. Buildkite has saved it, and will not display it.
 
 <%= image "buildkite-github-enterprise-settings.png", width:1942/2, height:1260/2, alt:"Screenshot of the GitHub Enterprise settings section in Buildkite" %>
@@ -82,9 +82,9 @@ All Buildkite network traffic to your GitHub Enterprise Server will come from a 
 
 For additional security you can create a proxy that allows only the API endpoints we require:
 
-- `/api/v3/repos/.*/.*/statuses`
-- `/api/v3/user`
-- `/login/oauth`
+-   `/api/v3/repos/.*/.*/statuses`
+-   `/api/v3/user`
+-   `/login/oauth`
 
 The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the _Public API URL_ GitHub Enterprise setting in Buildkite:
 

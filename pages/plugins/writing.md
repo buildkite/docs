@@ -8,10 +8,10 @@ In this tutorial, we'll create a Buildkite plugin called "File Counter", which c
 
 ```yml
 steps:
-  - command: ls
-    plugins:
-      - a-github-user/file-counter#v1.0.0:
-          pattern: "*.md"
+    - command: ls
+      plugins:
+          - a-github-user/file-counter#v1.0.0:
+                pattern: "*.md"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -45,10 +45,10 @@ description: Annotates the build with a file count
 author: https://github.com/a-github-user
 requirements: []
 configuration:
-  properties:
-    pattern:
-      type: string
-  additionalProperties: false
+    properties:
+        pattern:
+            type: string
+    additionalProperties: false
 ```
 
 {: codeblock-file="plugin.yml"}
@@ -112,8 +112,8 @@ If your plugin has a Buildkite pipeline, you can add a step to lint it using the
 ```yml
 - label: ":shell: Lint"
   plugins:
-    plugin-linter#v3.0.0:
-      id: a-gihub-user/file-counter
+      plugin-linter#v3.0.0:
+          id: a-gihub-user/file-counter
 ```
 
 {: codeblock-file=".buildkite/pipeline.yml"}
@@ -124,11 +124,11 @@ If you want to run the linter using Docker Compose, you can add the following to
 
 ```yml
 services:
-  lint:
-    image: buildkite/plugin-linter
-    command: ["--id", "a-github-user/file-counter"]
-    volumes:
-      - ".:/plugin:ro"
+    lint:
+        image: buildkite/plugin-linter
+        command: ["--id", "a-github-user/file-counter"]
+        volumes:
+            - ".:/plugin:ro"
 ```
 
 {: codeblock-file="docker-compose.yml"}
@@ -220,10 +220,10 @@ To make it easier to run this command, create a Docker Compose file:
 ```yml
 version: "2"
 services:
-  tests:
-    image: buildkite/plugin-tester
-    volumes:
-      - ".:/plugin:ro"
+    tests:
+        image: buildkite/plugin-tester
+        volumes:
+            - ".:/plugin:ro"
 ```
 
 {: codeblock-file="docker-compose.yml"}
@@ -248,12 +248,12 @@ One way to try this is to add the following step to the Buildkite pipeline where
 
 ```yml
 steps:
-  - command: ls
-    env:
-      BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
-    plugins:
-      - a-github-user/file-counter#dev-branch:
-          pattern: "*.md"
+    - command: ls
+      env:
+          BUILDKITE_PLUGINS_ALWAYS_CLONE_FRESH: "true"
+      plugins:
+          - a-github-user/file-counter#dev-branch:
+                pattern: "*.md"
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -266,8 +266,8 @@ To add your plugin to the [Buildkite plugins directory](https://buildkite.com/pl
 
 When writing plugins, there are two patterns you can choose from:
 
-- A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
-- A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
+-   A single-command plugin: a small, declarative plugin, which exposes a single command for use in your pipeline steps. Most plugins follow this pattern.
+-   A library plugin, or super-plugin: this plugin type assembles multiple commands into one plugin. Refer to the [library example Buildkite plugin](https://github.com/buildkite-plugins/library-example-buildkite-plugin) for an example of how to set up this type of plugin.
 
 ## Vendored plugins
 
@@ -275,10 +275,10 @@ If you don't plan to share the plugin outside of one repository, you can use a _
 
 ```yml
 steps:
-  - command: ls
-    plugins:
-      - ./relative/path/to/plugin:
-          pattern: "*.md"
+    - command: ls
+      plugins:
+          - ./relative/path/to/plugin:
+                pattern: "*.md"
 ```
 
 {: codeblock-file="pipeline.yml"}

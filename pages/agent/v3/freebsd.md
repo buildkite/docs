@@ -48,10 +48,10 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-- Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-- Agent Hooks: `~/.buildkite-agent/hooks`
-- Builds: `~/.buildkite-agent/builds`
-- SSH keys: `~/.ssh`
+-   Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+-   Agent Hooks: `~/.buildkite-agent/hooks`
+-   Builds: `~/.buildkite-agent/builds`
+-   SSH keys: `~/.ssh`
 
 ## Configuration
 

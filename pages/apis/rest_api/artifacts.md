@@ -33,36 +33,36 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 [
-  {
-    "id": "76365070-34d5-4104-8b91-952780f8029f",
-    "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
-    "state": "finished",
-    "path": "dist/app.tar.gz",
-    "dirname": "dist",
-    "filename": "app.tar.gz",
-    "mime_type": "application/x-gzip",
-    "file_size": 529371,
-    "glob_path": null,
-    "original_path": null,
-    "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
-  },
-  {
-    "id": "89f4ce5c-6e1d-482c-9ca6-88c050291c77",
-    "job_id": "ea3cfae9-a565-4353-8a5e-16436c164e43",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7",
-    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7/download",
-    "state": "new",
-    "path": "tmp/screenshots/155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
-    "dirname": "tmp/screenshots",
-    "filename": "155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
-    "mime_type": "image/png",
-    "file_size": 1521347,
-    "glob_path": null,
-    "original_path": null,
-    "sha1sum": "7a788f56fa49ae0ba5ebde780efe4d6a89b5db47"
-  }
+    {
+        "id": "76365070-34d5-4104-8b91-952780f8029f",
+        "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+        "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+        "state": "finished",
+        "path": "dist/app.tar.gz",
+        "dirname": "dist",
+        "filename": "app.tar.gz",
+        "mime_type": "application/x-gzip",
+        "file_size": 529371,
+        "glob_path": null,
+        "original_path": null,
+        "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
+    },
+    {
+        "id": "89f4ce5c-6e1d-482c-9ca6-88c050291c77",
+        "job_id": "ea3cfae9-a565-4353-8a5e-16436c164e43",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7",
+        "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/ea3cfae9-a565-4353-8a5e-16436c164e43/artifacts/5c12c7f7-8fb1-419d-b979-48a9e45c7bd7/download",
+        "state": "new",
+        "path": "tmp/screenshots/155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
+        "dirname": "tmp/screenshots",
+        "filename": "155b0d82-4d8e-4b07-9fea-49b58c1c6f1b.png",
+        "mime_type": "image/png",
+        "file_size": 1521347,
+        "glob_path": null,
+        "original_path": null,
+        "sha1sum": "7a788f56fa49ae0ba5ebde780efe4d6a89b5db47"
+    }
 ]
 ```
 
@@ -80,21 +80,21 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 [
-  {
-    "id": "76365070-34d5-4104-8b91-952780f8029f",
-    "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
-    "state": "finished",
-    "path": "dist/app.tar.gz",
-    "dirname": "dist",
-    "filename": "app.tar.gz",
-    "mime_type": "application/x-gzip",
-    "file_size": 529371,
-    "glob_path": null,
-    "original_path": null,
-    "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
-  }
+    {
+        "id": "76365070-34d5-4104-8b91-952780f8029f",
+        "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
+        "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+        "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+        "state": "finished",
+        "path": "dist/app.tar.gz",
+        "dirname": "dist",
+        "filename": "app.tar.gz",
+        "mime_type": "application/x-gzip",
+        "file_size": 529371,
+        "glob_path": null,
+        "original_path": null,
+        "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
+    }
 ]
 ```
 
@@ -110,19 +110,19 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 {
-  "id": "76365070-34d5-4104-8b91-952780f8029f",
-  "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
-  "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
-  "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
-  "state": "finished",
-  "path": "dist/app.tar.gz",
-  "dirname": "dist",
-  "filename": "app.tar.gz",
-  "mime_type": "application/x-gzip",
-  "file_size": 529371,
-  "glob_path": null,
-  "original_path": null,
-  "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
+    "id": "76365070-34d5-4104-8b91-952780f8029f",
+    "job_id": "aae578fe-994c-44e6-84da-4102616928ba",
+    "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f",
+    "download_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/aae578fe-994c-44e6-84da-4102616928ba/artifacts/76365070-34d5-4104-8b91-952780f8029f/download",
+    "state": "finished",
+    "path": "dist/app.tar.gz",
+    "dirname": "dist",
+    "filename": "app.tar.gz",
+    "mime_type": "application/x-gzip",
+    "file_size": 529371,
+    "glob_path": null,
+    "original_path": null,
+    "sha1sum": "884c4ad3f2545c85c69d0d0ef50c5d4f5266f0b7"
 }
 ```
 
@@ -142,7 +142,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 {
-  "url": "https://buildkiteartifacts.com/artifacts/2196c80a1ff393a88482aebe929f9648/dist/app.tar.gz?AWSAccessKeyId=AKIAIPPJ2IPWN5U3O1OA&Expires=1288526454&Signature=5i4%2B99rUwhpP2SbNsJKhT/nSzsQ"
+    "url": "https://buildkiteartifacts.com/artifacts/2196c80a1ff393a88482aebe929f9648/dist/app.tar.gz?AWSAccessKeyId=AKIAIPPJ2IPWN5U3O1OA&Expires=1288526454&Signature=5i4%2B99rUwhpP2SbNsJKhT/nSzsQ"
 }
 ```
 

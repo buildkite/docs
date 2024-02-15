@@ -10,9 +10,9 @@ You can find the total job run time for a build on the bottom of the [build page
 
 Parallelism does not affect how job minutes are calculated, the following situations all use 10 jobs minutes:
 
-- a build that has ten one-minute parallel jobs
-- a build that has a single ten-minute job
-- a build that has ten one-minute jobs that run consecutively
+-   a build that has ten one-minute parallel jobs
+-   a build that has a single ten-minute job
+-   a build that has ten one-minute jobs that run consecutively
 
 ## Usage page
 

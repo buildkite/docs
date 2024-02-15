@@ -15,9 +15,9 @@ By default the agent will auto-verify the SSH host using `ssh-keyscan` when doin
 
 Automatic SSH fingerprint verification can be disabled by setting `no-automatic-ssh-fingerprint-verification` in one of the following ways:
 
-- Environment variable: `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION=1`
-- Command line flag: `--no-automatic-ssh-fingerprint-verification`
-- Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
+-   Environment variable: `BUILDKITE_NO_AUTOMATIC_SSH_FINGERPRINT_VERIFICATION=1`
+-   Command line flag: `--no-automatic-ssh-fingerprint-verification`
+-   Configuration setting: `no-automatic-ssh-fingerprint-verification=true`
 
 ## Disabling command eval
 
@@ -25,9 +25,9 @@ By default the agent allows you to run any command on the build server (for exam
 
 To disable command line evaluation use one of the following settings:
 
-- Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
-- Command line flag: `--no-command-eval`
-- Configuration setting: `no-command-eval=true`
+-   Environment variable: `BUILDKITE_NO_COMMAND_EVAL=1`
+-   Command line flag: `--no-command-eval`
+-   Configuration setting: `no-command-eval=true`
 
 Note: hooks and plugins (Buildkite Agent 3.x) can override this setting. See [Allowing](#allowing) and [Custom bootstrap scripts](#customizing-the-bootstrap) for examples of how to completely lock down your agent from arbitrary code execution.
 

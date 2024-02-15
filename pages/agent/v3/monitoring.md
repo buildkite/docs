@@ -3,11 +3,11 @@
 By default, the agent is only observable either through Buildkite or
 through log output on the host:
 
-- **Job logs:** Relate to the jobs the agent runs. These are uploaded to
-  Buildkite and shown for each step in a build.
-- **Agent logs:** Relate to how the agent itself is running. These are not
-  uploaded or saved (except where the output from the agent is read or
-  redirected by another process, such as [systemd] or [launchd]).
+-   **Job logs:** Relate to the jobs the agent runs. These are uploaded to
+    Buildkite and shown for each step in a build.
+-   **Agent logs:** Relate to how the agent itself is running. These are not
+    uploaded or saved (except where the output from the agent is read or
+    redirected by another process, such as [systemd] or [launchd]).
 
 ## Health checking and status page
 
@@ -35,17 +35,17 @@ the future.
 
 The URL paths available from the health checking service are as follows:
 
-- **`/`**: Returns HTTP status 200 with the text `OK: Buildkite agent is
+-   **`/`**: Returns HTTP status 200 with the text `OK: Buildkite agent is
 running`.
-- **`/agent/(worker number)`**: Reports the time since the agent worker
-  succeeded at sending a heartbeat. Workers are numbered starting from 1,
-  and the number of workers is set with the `--spawn` flag. If the previous
-  heartbeat for this worker failed, it returns HTTP status 500 and a description
-  of the failure. Otherwise, it returns HTTP status 200.
-- **`/status`**: A human-friendly page detailing various systems inside the
-  agent. To aid debugging, this page does _not_ automatically refresh—it shows
-  the status of each internal component of the agent at a particular moment in
-  time.
+-   **`/agent/(worker number)`**: Reports the time since the agent worker
+    succeeded at sending a heartbeat. Workers are numbered starting from 1,
+    and the number of workers is set with the `--spawn` flag. If the previous
+    heartbeat for this worker failed, it returns HTTP status 500 and a description
+    of the failure. Otherwise, it returns HTTP status 200.
+-   **`/status`**: A human-friendly page detailing various systems inside the
+    agent. To aid debugging, this page does _not_ automatically refresh—it shows
+    the status of each internal component of the agent at a particular moment in
+    time.
 
 The following shows the `/status` page for an agent:
 

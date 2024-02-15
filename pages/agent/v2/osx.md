@@ -36,16 +36,16 @@ See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details
 
 Homebrew install file locations:
 
-- Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
-- Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
-- Builds: `/usr/local/var/buildkite-agent/builds`
-- Log: `/usr/local/var/log/buildkite-agent.log`
+-   Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
+-   Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
+-   Builds: `/usr/local/var/buildkite-agent/builds`
+-   Log: `/usr/local/var/log/buildkite-agent.log`
 
 Linux installer script file locations:
 
-- Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-- Agent Hooks: `~/.buildkite-agent/hooks`
-- Builds: `~/.buildkite-agent/builds`
+-   Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+-   Agent Hooks: `~/.buildkite-agent/hooks`
+-   Builds: `~/.buildkite-agent/builds`
 
 ## Configuration
 

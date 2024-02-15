@@ -4,10 +4,10 @@ The [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for
 
 The S3 buckets that Buildkite Agent creates for secrets don't allow public access. The stack's default VPC configuration does provide EC2 instances with a public IPv4 address. If you wish to customize this, the best practice is to create your own VPC and provide values for the [Network Configuration](/docs/agent/v3/elastic-ci-aws/parameters#network-configuration) template section:
 
-- `VpcId`
-- `Subnets`
-- `AvailabilityZones`
-- `SecurityGroupIds`
+-   `VpcId`
+-   `Subnets`
+-   `AvailabilityZones`
+-   `SecurityGroupIds`
 
 Anyone with commit access to your codebase (including third-party pull-requests if you've enabled them in Buildkite) also has access to your secrets bucket files.
 
@@ -39,17 +39,17 @@ with the Elastic CI Stack for AWS template.
 
 You're not required to create any special IAM roles or policies, though the deployment template creates several of these on your behalf. Some optional functionality does depend on IAM permission should you choose to enable them. For more information, see:
 
-- [`buildkite-agent artifact` IAM Permissions](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket-iam-permissions), a policy to allow the Buildkite agent to read/write artifacts to a custom S3 artifact storage location
-- [`BootstrapScriptUrl` IAM Policy](/docs/agent/v3/elastic-ci-aws/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script), a policy to allow the EC2 instances to read an S3-stored `BootstrapScriptUrl` object
-- [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager) to store your Buildkite Agent token depends on a resource policy to grant read access to the Elastic CI Stack for AWS roles (the scaling Lambda and EC2 Instance Profile)
+-   [`buildkite-agent artifact` IAM Permissions](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket-iam-permissions), a policy to allow the Buildkite agent to read/write artifacts to a custom S3 artifact storage location
+-   [`BootstrapScriptUrl` IAM Policy](/docs/agent/v3/elastic-ci-aws/managing-elastic-ci-stack#customizing-instances-with-a-bootstrap-script), a policy to allow the EC2 instances to read an S3-stored `BootstrapScriptUrl` object
+-   [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager) to store your Buildkite Agent token depends on a resource policy to grant read access to the Elastic CI Stack for AWS roles (the scaling Lambda and EC2 Instance Profile)
 
 ### Key creation
 
 You don't need to create keys for the default deployment of Elastic CI Stack for AWS, but you can additionally create:
 
-- KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
-- KMS key for S3 SSE protection of secrets and artifacts
-- SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
+-   KMS key to encrypt the AWS SSM Parameter that stores your Buildkite agent token
+-   KMS key for S3 SSE protection of secrets and artifacts
+-   SSH key or other git credentials to be able to clone private repositories and store them in the S3 secrets bucket and optionally encrypt them using S3 SSE)
 
 Remember that such keys are not intended to be public, and you must not grant public access to them.
 
@@ -61,13 +61,13 @@ The stack creates an S3 bucket for you (or uses the one you provide as the `Secr
 
 The following S3 objects are downloaded and processed:
 
-- `/env` - An [agent environment hook](/docs/agent/hooks)
-- `/private_ssh_key` - A private key that is added to ssh-agent for your builds
-- `/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https
-- `/{pipeline-slug}/env` - An [agent environment hook](/docs/agent/hooks), specific to a pipeline
-- `/{pipeline-slug}/private_ssh_key` - A private key that is added to ssh-agent for your builds, specific to the pipeline
-- `/{pipeline-slug}/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https, specific to a pipeline
-- When provided, the environment variable `BUILDKITE_PLUGIN_S3_SECRETS_BUCKET_PREFIX` will overwrite `{pipeline-slug}`
+-   `/env` - An [agent environment hook](/docs/agent/hooks)
+-   `/private_ssh_key` - A private key that is added to ssh-agent for your builds
+-   `/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https
+-   `/{pipeline-slug}/env` - An [agent environment hook](/docs/agent/hooks), specific to a pipeline
+-   `/{pipeline-slug}/private_ssh_key` - A private key that is added to ssh-agent for your builds, specific to the pipeline
+-   `/{pipeline-slug}/git-credentials` - A [git-credentials](https://git-scm.com/docs/git-credential-store#_storage_format) file for git over https, specific to a pipeline
+-   When provided, the environment variable `BUILDKITE_PLUGIN_S3_SECRETS_BUCKET_PREFIX` will overwrite `{pipeline-slug}`
 
 These files are encrypted using [Amazon's KMS Service](https://aws.amazon.com/kms/).
 
@@ -100,10 +100,10 @@ If you want to store your secrets unencrypted, you can disable encryption entire
 
 The following types of sensitive data are present in Elastic CI Stack for AWS:
 
-- **Buildkite agent token credential** (`BuildkiteAgentToken`) retrieved from your Buildkite account. When provided to the deployment template, it is stored in plaintext in AWS SSM Parameter Store (there is no support for creating an encrypted SSM Parameter from CloudFormation). If you need to store it in encrypted form, you can create your own SSM Parameter and provide the `BuildkiteAgentTokenParameterStorePath` value along with `BuildkiteAgentTokenParameterStoreKMSKey` for decrypting it.
+-   **Buildkite agent token credential** (`BuildkiteAgentToken`) retrieved from your Buildkite account. When provided to the deployment template, it is stored in plaintext in AWS SSM Parameter Store (there is no support for creating an encrypted SSM Parameter from CloudFormation). If you need to store it in encrypted form, you can create your own SSM Parameter and provide the `BuildkiteAgentTokenParameterStorePath` value along with `BuildkiteAgentTokenParameterStoreKMSKey` for decrypting it.
 
-- **Secrets and artifacts** stored in S3. You can use server-side encryption (SSE) to control access to these objects.
+-   **Secrets and artifacts** stored in S3. You can use server-side encryption (SSE) to control access to these objects.
 
-- **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic CI Stack for AWS deployment template does not support configuring EBS encryption.
+-   **Instance Storage working data** stored by EC2 instances (git checkouts or any other private resources you decide to retrieve) either on their EBS root disk or on the Instance Storage NVMe drives. The Elastic CI Stack for AWS deployment template does not support configuring EBS encryption.
 
 CloudWatch Logs and EC2 instance log data are forwarded to CloudWatch Logs, but these logs don't contain sensitive information.

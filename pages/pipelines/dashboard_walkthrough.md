@@ -54,12 +54,12 @@ If your organization has Teams enabled, you can also filter this page by the tea
 
 You're able to edit a pipeline's:
 
-- name
-- description
-- emoji
-- color
-- repository
-- default branch
+-   name
+-   description
+-   emoji
+-   color
+-   repository
+-   default branch
 
 After you've clicked on a pipeline, the settings button is in the top right corner.
 
@@ -105,10 +105,10 @@ Buildkite Pipelines is designed with the latest web browsers in mind. For the sa
 
 We support the latest two stable versions of the following desktop browsers:
 
-- [Google Chrome](https://www.google.com/chrome/)
-- [Mozilla Firefox](https://mozilla.org/firefox)
-- [Apple Safari](https://www.apple.com/safari/)
-- [Microsoft Edge](https://www.microsoft.com/en-us/edge)
+-   [Google Chrome](https://www.google.com/chrome/)
+-   [Mozilla Firefox](https://mozilla.org/firefox)
+-   [Apple Safari](https://www.apple.com/safari/)
+-   [Microsoft Edge](https://www.microsoft.com/en-us/edge)
 
 Browsers not listed as supported or in beta or developer builds may not work as you expect, or at all. For the best experience, we recommend using the latest version of a supported browser.
 

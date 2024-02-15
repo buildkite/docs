@@ -7,10 +7,10 @@ template: "landing_page"
 Where Buildkite Pipelines help you automate your build pipelines,
 Test Analytics helps you track and analyze the steps in that pipeline that involve tests:
 
-- Ship code to production faster by optimizing test suites
-- Works with any continuous integration
-- Identify, fix, and monitor test suite performance
-- Track, improve, and monitor test suite reliability
+-   Ship code to production faster by optimizing test suites
+-   Works with any continuous integration
+-   Identify, fix, and monitor test suite performance
+-   Track, improve, and monitor test suite reliability
 
 <%= image "overview.png", width: 975, height: 205, alt: "Screenshot of test suite trend showing five metrics over 28 days" %>
 

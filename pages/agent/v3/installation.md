@@ -4,7 +4,7 @@ The Buildkite agent runs on your own machine, whether it's a VPS, server, deskto
 
 <% AGENT_INSTALLERS.each do |installer| %>
 
-- [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
+-   [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
 
 Alternatively you can install it manually using the instructions below.
 
@@ -32,7 +32,7 @@ If your architecture isn't on the releases page send an email to support and we'
 
 To update your agents, you can either:
 
-- Use the package manager for your operating system.
-- Re-run the installation script.
+-   Use the package manager for your operating system.
+-   Re-run the installation script.
 
 As long as you're using Agent v3 or later, no configuration changes are necessary.

@@ -16,16 +16,16 @@ You can see the teams that you're a member of on the Teams page in your Buildkit
 
 Users who are organization admins can:
 
-- Enable and disable teams for their organization
-- Create new teams
+-   Enable and disable teams for their organization
+-   Create new teams
 
 ### Team-level permissions
 
 Users who are team maintainers can:
 
-- Add users to existing teams, of which they are the maintainer
-- Remove users from their teams
-- Set read, write, and edit permissions for users on pipelines in their team
+-   Add users to existing teams, of which they are the maintainer
+-   Remove users from their teams
+-   Set read, write, and edit permissions for users on pipelines in their team
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions.
 
@@ -33,16 +33,16 @@ All users in a team have the same level of access to the pipelines in their team
 
 You can grant teams the following permissions on a pipeline:
 
-- Full Access (`MANAGE_BUILD_AND_READ`):
-  - Can view and create builds or rebuilds.
-  - Can edit pipeline settings.
-- Build & Read (`BUILD_AND_READ`):
-  - Can view and create builds or rebuilds.
-  - Can _not_ edit pipeline settings.
-- Read Only (`READ_ONLY`):
-  - Can view builds.
-  - Can _not_ create builds or issue rebuilds.
-  - Can _not_ edit pipeline settings.
+-   Full Access (`MANAGE_BUILD_AND_READ`):
+    -   Can view and create builds or rebuilds.
+    -   Can edit pipeline settings.
+-   Build & Read (`BUILD_AND_READ`):
+    -   Can view and create builds or rebuilds.
+    -   Can _not_ edit pipeline settings.
+-   Read Only (`READ_ONLY`):
+    -   Can view builds.
+    -   Can _not_ create builds or issue rebuilds.
+    -   Can _not_ edit pipeline settings.
 
 ### User-level permissions
 
@@ -139,12 +139,12 @@ User-level permissions are managed by organization administrators, and can be fo
 
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
-- Create new pipelines
-- Delete pipelines
-- Make an existing private pipeline public
-- Create, edit, and delete notification services
-- Create, edit, and delete agent registration tokens
-- Stop (disconnect) agents
+-   Create new pipelines
+-   Delete pipelines
+-   Make an existing private pipeline public
+-   Create, edit, and delete notification services
+-   Create, edit, and delete agent registration tokens
+-   Stop (disconnect) agents
 
 If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page.
 
@@ -152,39 +152,39 @@ Organization admin can delete organization members. To delete organization membe
 
 1. Find the `id` for the user to be deleted (in this example `Jane Doe`):
 
-   ```graphql
-   query {
-     organization(slug: "your-organization-slug") {
-       members(search: "Jane Doe", first: 10) {
-         edges {
-           node {
-             role
-             user {
-               name
-             }
-             id
-           }
-         }
-       }
-     }
-   }
-   ```
+    ```graphql
+    query {
+        organization(slug: "your-organization-slug") {
+            members(search: "Jane Doe", first: 10) {
+                edges {
+                    node {
+                        role
+                        user {
+                            name
+                        }
+                        id
+                    }
+                }
+            }
+        }
+    }
+    ```
 
 2. Use the `id` from the previous query in a mutation:
 
-   ```graphql
-   mutation deleteOrgMember {
-     organizationMemberDelete(input: { id: "abc123" }) {
-       organization {
-         name
-       }
-       deletedOrganizationMemberID
-       user {
-         name
-       }
-     }
-   }
-   ```
+    ```graphql
+    mutation deleteOrgMember {
+        organizationMemberDelete(input: { id: "abc123" }) {
+            organization {
+                name
+            }
+            deletedOrganizationMemberID
+            user {
+                name
+            }
+        }
+    }
+    ```
 
 ## Removing users during a security incident
 

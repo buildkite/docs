@@ -27,26 +27,26 @@ Here's a example of a `docker-compose.yml` file for a Ruby on Rails application 
 ```yml
 version: "2"
 services:
-  db:
-    image: postgres
-  redis:
-    image: redis
-  memcache:
-    image: memcached
-  app:
-    build: .
-    working_dir: /app
-    volumes:
-      - .:/app
-    depends_on:
-      - db
-      - redis
-      - memcache
-    environment:
-      PGHOST: db
-      PGUSER: postgres
-      REDIS_URL: redis://redis
-      MEMCACHE_SERVERS: memcache
+    db:
+        image: postgres
+    redis:
+        image: redis
+    memcache:
+        image: memcached
+    app:
+        build: .
+        working_dir: /app
+        volumes:
+            - .:/app
+        depends_on:
+            - db
+            - redis
+            - memcache
+        environment:
+            PGHOST: db
+            PGUSER: postgres
+            REDIS_URL: redis://redis
+            MEMCACHE_SERVERS: memcache
 ```
 
 {: codeblock-file="docker-compose.yml"}
@@ -61,8 +61,8 @@ This example runs a test suite in the `app` service using the [Docker Compose pl
 - name: "Docker Test %n"
   command: test.sh
   plugins:
-    - docker-compose#v3.0.3:
-        run: app
+      - docker-compose#v3.0.3:
+            run: app
 ```
 
 {: codeblock-file="pipeline.yml"}
@@ -81,11 +81,11 @@ In this example, the `yarn` commands will be run inside a Docker container using
 
 ```yml
 steps:
-  - command: yarn install && yarn run test
-    plugins:
-      - docker#v3.2.0:
-          image: "node:8"
-          workdir: /app
+    - command: yarn install && yarn run test
+      plugins:
+          - docker#v3.2.0:
+                image: "node:8"
+                workdir: /app
 ```
 
 {: codeblock-file="pipeline.yml"}

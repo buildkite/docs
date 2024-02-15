@@ -43,17 +43,17 @@ Example request body:
 
 ```json
 {
-  "event": "build.scheduled",
-  "build": {
-    "...": "..."
-  },
-  "pipeline": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "8a7693f8-dbae-4783-9137-84090fce9045",
-    "name": "Some Person"
-  }
+    "event": "build.scheduled",
+    "build": {
+        "...": "..."
+    },
+    "pipeline": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "8a7693f8-dbae-4783-9137-84090fce9045",
+        "name": "Some Person"
+    }
 }
 ```
 
@@ -65,19 +65,19 @@ Example request body for blocked build:
 
 ```json
 {
-  "event": "build.finished",
-  "build": {
-    "...": "...",
-    "blocked": true,
-    "...": "..."
-  },
-  "pipeline": {
-    "...": "..."
-  },
-  "sender": {
-    "id": "0adfbc27-5f72-4a91-bf61-5693da0dd9c5",
-    "name": "Some person"
-  }
+    "event": "build.finished",
+    "build": {
+        "...": "...",
+        "blocked": true,
+        "...": "..."
+    },
+    "pipeline": {
+        "...": "..."
+    },
+    "sender": {
+        "id": "0adfbc27-5f72-4a91-bf61-5693da0dd9c5",
+        "name": "Some person"
+    }
 }
 ```
 

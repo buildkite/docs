@@ -16,35 +16,35 @@ curl -H "Authorization: Token $BUILDKITE_AGENT_TOKEN" "https://agent.buildkite.c
 
 ```json
 {
-  "agents": {
-    "idle": 1,
-    "busy": 0,
-    "total": 1,
-    "queues": {
-      "default": {
+    "agents": {
         "idle": 1,
         "busy": 0,
-        "total": 1
-      }
-    }
-  },
-  "jobs": {
-    "scheduled": 5,
-    "running": 0,
-    "waiting": 0,
-    "total": 5,
-    "queues": {
-      "default": {
+        "total": 1,
+        "queues": {
+            "default": {
+                "idle": 1,
+                "busy": 0,
+                "total": 1
+            }
+        }
+    },
+    "jobs": {
         "scheduled": 5,
         "running": 0,
         "waiting": 0,
-        "total": 5
-      }
+        "total": 5,
+        "queues": {
+            "default": {
+                "scheduled": 5,
+                "running": 0,
+                "waiting": 0,
+                "total": 5
+            }
+        }
+    },
+    "organization": {
+        "slug": "buildkite"
     }
-  },
-  "organization": {
-    "slug": "buildkite"
-  }
 }
 ```
 
