@@ -3,7 +3,12 @@
 >📘 Clusters
 > Clusters will be enabled for all organizations on February 26 2024.
 
-Clusters are a new way of managing your Buildkite agents. They allow teams to self-manage their agent pools, let admins create isolated sets of agents and pipelines within the one Buildkite organization, help to make agents and queues more discoverable across your organization, and provide easily accessible queue metrics.
+Clusters is a Buildkite feature used to manage and organize agents and queues, which:
+
+- allows teams to self-manage their Buildkite agent pools,
+- allows admins to create isolated sets of agents and pipelines within the one Buildkite organization,
+- helps make agents and queues more discoverable across your organization, and
+- provides easily accessible queue metrics.
 
 The following diagram shows the architecture with cluster enabled.
 
