@@ -127,7 +127,7 @@ To configure Cypress:
 
 1. Make sure Cypress runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
 1. Update your [Cypress Configuration](https://docs.cypress.io/guides/references/configuration)
-    
+
     ```js
     // cypress.config.js
 
@@ -136,7 +136,7 @@ To configure Cypress:
     ```
 
 1. If you would like to pass in the API token using a custom environment variable, you can do so using the `reporterOptions`.
-    
+
     ```js
     // cypress.config.js
 
