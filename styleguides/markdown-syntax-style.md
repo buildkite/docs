@@ -80,7 +80,7 @@ Refer to [Referring to UI elements in the Writing style guide](writing-style.md#
 
 ### Lists
 
-For a bulleted/unordered list item, use a single hyphen `-` at the start of a new line (that is, for a top-level list item), followed by a single space, followed by the text for that bullet point. For a nested bulleted list item, begin with a single asterisk `*` at the start of a new/indented text block.
+For a bulleted/unordered list item, use a single hyphen `-` at the start of a new line (that is, for a top-level list item), followed by a single space, followed by the text for that bullet point. For a nested bulleted list item, begin with an indented single asterisk `*` at the start of a new/indented text block. If a 3rd-level nested bullet list item needs to be created, begin it with a single `-` again.
 
 Nest bullet list items using exactly 4-space indent increments. For example:
 
@@ -90,8 +90,8 @@ Nest bullet list items using exactly 4-space indent increments. For example:
     * 2nd-level bullet list item
     * Another 2nd-level item
 
-        * 3rd-level bullet list item
-        * Another 3rd-level item
+        - 3rd-level bullet list item
+        - Another 3rd-level item
 
 - Another top-level bullet list item
 - And yet another.
