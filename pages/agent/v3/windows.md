@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on Windows 8, Windows Server 2012, and newer. There are two installation methods: automated using PowerShell, and manual installation.
 
-
 ## Security considerations
 
 The agent runs scripts from the agent hooks directory, and checks-out and runs scripts from code repositories. Please consider the filesystem permissions for these directories carefully, especially when operating in a multi-user environment.
@@ -38,10 +37,10 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-* Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
-* Agent Hooks: `C:\buildkite-agent\hooks`
-* Builds: `C:\buildkite-agent\builds`
-* SSH keys: `%USERPROFILE%\.ssh`
+- Configuration: `C:\buildkite-agent\buildkite-agent.cfg`
+- Agent Hooks: `C:\buildkite-agent\hooks`
+- Builds: `C:\buildkite-agent\builds`
+- SSH keys: `%USERPROFILE%\.ssh`
 
 ## Configuration
 
@@ -49,15 +48,15 @@ The configuration file is located at `C:\buildkite-agent\buildkite-agent.cfg`. S
 
 There are two options to be aware of for this initial setup:
 
-* Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
-* You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
+- Set your [agent token](/docs/agent/v3/tokens), if you did not set it as an environment variable during installation.
+- You may need to use the `shell` configuration option. On Windows, Buildkite defaults to using Batch. If you want to use PowerShell or PowerShell Core, you must point Buildkite to the correct shell. For example, to use PowerShell:
 
-    ```cfg
-    #Provide the path to PowerShell executables
-    shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
-    ```
+  ```cfg
+  #Provide the path to PowerShell executables
+  shell="C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe"
+  ```
 
->📘
+> 📘
 > Using PowerShell Core (PowerShell 6 or 7) causes unusual behavior around pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
 
 ## Upgrading
@@ -68,7 +67,7 @@ Rerun the install script.
 
 While the agent will work without Git installed, you will require [Git for Windows](https://gitforwindows.org/) to interact with Git. You will need Git Bash to use SSH on Windows 7 or below.
 
->📘
+> 📘
 > Buildkite does not currently support using Git Bash to run Bash scripts as part of your pipeline. We recommend using CMD (default) or PowerShell 5.x. You can also use PowerShell Core, but be aware of the odd behavior around pipeline upload steps. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a>for more information.
 
 ## Running as a service
@@ -76,7 +75,7 @@ While the agent will work without Git installed, you will require [Git for Windo
 The simplest way to run buildkite-agent as a service is to use a third-party tool like [nssm](https://nssm.cc/). Once installed, you can either run the GUI and configure manually, or create the service using the command-line:
 
 ```
-# These commands assume you installed the agent using PowerShell 
+# These commands assume you installed the agent using PowerShell
 # Your paths may be different if you did a manual installation
 nssm install buildkite-agent "C:\buildkite-agent\bin\buildkite-agent.exe" "start"
 nssm set buildkite-agent AppStdout "C:\buildkite-agent\buildkite-agent.log"
@@ -96,9 +95,9 @@ nssm set buildkite-agent ObjectName "COMPUTER_NAME\ACCOUNT_NAME" "PASSWORD"
 
 Replace the following:
 
-* `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
-* `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
-* `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
+- `COMPUTER_NAME`: The system name under _Settings_. For example, `PC`.
+- `ACCOUNT_NAME`: The name of the account you'd like to use. For example, `Administrator`.
+- `PASSWORD`: The password for the account you'd like to use. You can reference a variable rather than directly specifying the value.
 
 ## Which user the agent runs as
 
@@ -112,7 +111,7 @@ You can use Buildkite on Windows through WSL2, but it has limitations. At presen
 
 To install the agent on WSL2, follow the [generic Linux installation guide](/docs/agent/v3/linux). Do not use the guides for Ubuntu, Debian, and so on, even if that is the Linux distro you are using with WSL2.
 
->📘
+> 📘
 > Using WSL2 causes unusual behavior during pipeline upload. Refer to <a href="https://buildkite.com/docs/pipelines/defining-steps#step-defaults-pipeline-dot-yml-file">Defining steps: pipeline.yml file</a> for details.
 
 ## Security considerations

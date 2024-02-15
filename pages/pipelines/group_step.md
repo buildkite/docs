@@ -1,11 +1,10 @@
 # Group step
 
-A *group* step can contain various sub-steps, and display them in a single logical group on the Build page.
+A _group_ step can contain various sub-steps, and display them in a single logical group on the Build page.
 
 For example, you can group all of your linting steps or all of your UI test steps to keep the Build page less messy. Sub-groups and nested groups are not supported.
 
 The group step also helps manage dependencies between a collection of steps, for example, "step X" [`depends_on`](/docs/pipelines/group-step#group-step-attributes) everything in "group Y".
-
 
 A group step can be defined in your pipeline settings or your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
@@ -25,6 +24,7 @@ steps:
       - label: "\:yarn\: Outdated Check"
         command: ".buildkite/steps/outdated"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 This is how it's displayed in the UI:
@@ -32,7 +32,6 @@ This is how it's displayed in the UI:
 <%= image "job-groups-in-UI.png", width: 1760, height: 436, alt: "Job groups displayed in the Buildkite UI" %>
 
 Only the first 50 jobs within a build header can ever be displayed in the UI, so you might not see all of your groups at all times. However, the jobs are fine and will still show up on the build page.
-
 
 ## Group step attributes
 
@@ -132,18 +131,20 @@ steps:
       - wait
       - command: "4.sh"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Running jobs in parallel has some limitations:
 
 <!-- vale off -->
-* Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
-* If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.
+
+- Parallel groups will be displayed ungrouped if the build's jobs are truncated because Buildkite doesn't currently store or calculate any information about the number of jobs in a non-parallel group.
+- If a parallel step exists within a group, parallel jobs are treated as regular jobs within a step group - so you can't have parallel groups within step groups. So, for example, a `group` that contains two `steps` each with `parallel: 4` will display eight jobs in it, with no visual indication that those eight jobs are two parallel steps.
 
 <!-- vale on -->
 
-* If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
-* It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
+- If a parallel job group is within a named group, the groups are handled as though the parallel group isn't there.
+- It's impossible to have a parallel job with only some of the jobs within a group, as they're all created on the same YAML step entry.
 
 ## Using wait steps in job groups
 
@@ -169,8 +170,8 @@ steps:
   - command: "yay.sh"
     depends_on: "toast"
 ```
-{: codeblock-file="pipeline.yml"}
 
+{: codeblock-file="pipeline.yml"}
 
 ## Group merging
 
@@ -180,7 +181,7 @@ Group merging is only possible when a group in the uploaded pipeline matches the
 
 Note that inside a single pipeline, groups with the same `group` or `label` will not be merged in the Buildkite UI.
 
->📘 You can't define the same key twice
+> 📘 You can't define the same key twice
 > Trying to create different groups with the same `key` attribute will result in an error.
 
 For example, you have a YAML file:
@@ -190,9 +191,10 @@ steps:
   - group: "Setup"
     steps:
       - commands:
-        - "buildkite-agent pipeline upload"
-        - echo "start"
+          - "buildkite-agent pipeline upload"
+          - echo "start"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 And this YAML file uploads a pipeline that has a group with the same name:
@@ -203,6 +205,7 @@ steps:
     steps:
       - command: "docker build"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 These groups will be merged into one in the UI, and the `docker build` step will be added to the existing group.
@@ -215,9 +218,10 @@ steps:
     label: "Setup"
     steps:
       - commands:
-        - "buildkite-agent pipeline upload"
-        - echo "start"
+          - "buildkite-agent pipeline upload"
+          - echo "start"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 And this YAML file uploads a pipeline that has a group with the same label:
@@ -229,6 +233,7 @@ steps:
     steps:
       - command: echo "proceed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 These groups will be merged into one in the UI, and the `echo "proceed"` step will be added to the existing group.

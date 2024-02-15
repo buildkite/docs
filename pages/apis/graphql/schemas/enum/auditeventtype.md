@@ -14,6 +14,7 @@
 title: AuditEventType – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   AuditEventType
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 All the possible types of an Audit Event
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

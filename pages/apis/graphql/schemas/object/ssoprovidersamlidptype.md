@@ -14,13 +14,13 @@
 title: SSOProviderSAMLIdPType – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   SSOProviderSAMLIdPType
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Information about the IdP for a SAML SSO Provider
 

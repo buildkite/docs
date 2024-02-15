@@ -2,7 +2,6 @@
 
 There are many ways to use [Artifactory](https://jfrog.com/artifactory/) with Buildkite. This document covers how to configure the Buildkite Agent's built-in Artifactory support, as well as how to use Artifactory's package management features in your Buildkite pipelines.
 
-
 ## Buildkite Agent's Artifactory support
 
 The Buildkite Agent can upload and download artifacts directly from Artifactory. Export the following environment variables in your [Agent environment hook](/docs/agent/v3/hooks) to configure the Agent's Artifactory support.
@@ -53,6 +52,7 @@ steps:
       - docker#v3.3.0:
           image: "golang:1.11"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "buildkite-artifact-step.png", width: 2320/2, height: 822/2, alt: "Screenshot of a Buildkite command step's output logging an artifact upload to Artifactory" %>
@@ -85,4 +85,5 @@ steps:
         environment:
           - NPM_CONFIG_REGISTRY
 ```
+
 {: codeblock-file="pipeline.yml"}

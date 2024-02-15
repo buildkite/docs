@@ -14,6 +14,7 @@
 title: TeamPrivacy – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   TeamPrivacy
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Whether a team is visible or secret within an organization
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

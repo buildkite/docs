@@ -14,6 +14,7 @@
 title: BuildBlockedStates – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   BuildBlockedStates
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 All the possible blocked states a build can be in
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

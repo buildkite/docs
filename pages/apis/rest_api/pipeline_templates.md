@@ -95,7 +95,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipeline-templates/{
     "avatar_url": "https://www.gravatar.com/avatar/example",
     "created_at": "2023-08-29T10:10:03.000Z"
   },
-   "updated_at": "2023-06-12T04:17:55.867Z",
+  "updated_at": "2023-06-12T04:17:55.867Z",
   "updated_by": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
     "graphql_id": "VXNlci0tLTNkM2MzYmYwLTdkNTgtNGFmZS04ZmU3LWIzMDE3ZDU1MDRkZQo=",
@@ -273,7 +273,7 @@ Error responses:
 
 ## Delete a pipeline template
 
->📘
+> 📘
 > A pipeline template can only be deleted when it is not assigned to any pipelines. Ensure you remove the pipeline template from all pipelines before trying to delete it.
 
 ```bash

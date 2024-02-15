@@ -1,6 +1,5 @@
 # Job webhook events
 
-
 ## Events
 
 <table>

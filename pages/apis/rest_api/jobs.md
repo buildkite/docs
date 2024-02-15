@@ -1,6 +1,5 @@
 # Jobs API
 
-
 ## Retry a job
 
 Retries a `failed` or `timed_out` job. You can only retry each `job.id` once. To retry a "second time" use the new `job.id` returned in the first retry query.
@@ -10,36 +9,36 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
 ```
 
 ```json
-    {
-      "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
-      "type": "script",
-      "name": ":package:",
-      "step_key": "package",
-      "agent_query_rules": ["*"],
-      "state": "scheduled",
-      "build_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
-      "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
-      "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
-      "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
-      "artifacts_url": "",
-      "command": "scripts/build.sh",
-      "soft_failed": false,
-      "exit_status": 0,
-      "artifact_paths": "",
-      "agent": null,
-      "created_at": "2015-05-09T21:05:59.874Z",
-      "scheduled_at": "2015-05-09T21:05:59.874Z",
-      "runnable_at": null,
-      "started_at": null,
-      "finished_at": null,
-      "retried": false,
-      "retried_in_job_id": null,
-      "retries_count": 1,
-      "retry_type": null,
-      "parallel_group_index": null,
-      "parallel_group_total": null
-    }
+{
+  "id": "b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "graphql_id": "Sm9iLS0tMTQ4YWQ0MzgtM2E2My00YWIxLWIzMjItNzIxM2Y3YzJhMWFi",
+  "type": "script",
+  "name": ":package:",
+  "step_key": "package",
+  "agent_query_rules": ["*"],
+  "state": "scheduled",
+  "build_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1",
+  "web_url": "https://buildkite.com/my-great-org/my-pipeline/builds/1#b63254c0-3271-4a98-8270-7cfbd6c2f14e",
+  "log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
+  "raw_log_url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log.txt",
+  "artifacts_url": "",
+  "command": "scripts/build.sh",
+  "soft_failed": false,
+  "exit_status": 0,
+  "artifact_paths": "",
+  "agent": null,
+  "created_at": "2015-05-09T21:05:59.874Z",
+  "scheduled_at": "2015-05-09T21:05:59.874Z",
+  "runnable_at": null,
+  "started_at": null,
+  "finished_at": null,
+  "retried": false,
+  "retried_in_job_id": null,
+  "retries_count": 1,
+  "retry_type": null,
+  "parallel_group_index": null,
+  "parallel_group_total": null
+}
 ```
 
 Required scope: `write_builds`
@@ -127,7 +126,10 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "url": "https://api.buildkite.com/v2/organizations/my-great-org/pipelines/my-pipeline/builds/1/jobs/b63254c0-3271-4a98-8270-7cfbd6c2f14e/log",
   "content": "This is the job's log output",
   "size": 28,
-  "header_times": [1563337899810051000,1563337899811015000,1563337905336878000,1563337906589603000,156333791038291900]
+  "header_times": [
+    1563337899810051000, 1563337899811015000, 1563337905336878000,
+    1563337906589603000, 156333791038291900
+  ]
 }
 ```
 
@@ -171,7 +173,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "BUILDKITE_COMMIT": "a65572555600c07c7ee79a2bd909220e1ca5485b",
     "BUILDKITE_JOB_ID": "bde076a8-bc2c-4fda-9652-10220a56d638",
     "BUILDKITE_COMMAND": "buildkite-agent pipeline upload",
-    "BUILDKITE_MESSAGE": "\:llama\:",
+    "BUILDKITE_MESSAGE": ":llama:",
     "BUILDKITE_BUILD_ID": "c4e312cb-e734-4f0a-a5bd-1cac2535c57e",
     "BUILDKITE_BUILD_URL": "https://buildkite.com/my-great-org/my-pipeline/builds/15",
     "BUILDKITE_AGENT_NAME": "ci-1",

@@ -5,7 +5,6 @@
 This guide shows you how to query the GraphQL API using the [GraphQL console](https://buildkite.com/user/graphql/console) and from the command line.
 You'll first need a [Buildkite](https://buildkite.com/) account, and a [Buildkite API Access Token](https://buildkite.com/user/api-access-tokens/new) with GraphQL scope.
 
-
 ## Running your first GraphQL request in the console
 
 The following is a GraphQL query that requests the name of the current user (the account attached to the API Access Token, in other words, you!)

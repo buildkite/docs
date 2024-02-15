@@ -4,29 +4,28 @@ You can run your builds on AWS EC2 Mac using Buildkite's [CloudFormation templat
 Buildkite agent. Using Buildkite agents, you can run pipelines and build
 Xcode-based software projects for macOS, iOS, iPadOS, tvOS, and watchOS.
 
->🚧
+> 🚧
 > As you must prepare and supply your own AMI (Amazon Machine Image) for this template, macOS support has <b>not</b> been incorporated into the Elastic CI Stack for AWS.
 
 Using an Auto Scaling group for your instances ensures booting your macOS
 Buildkite Agents is repeatable, and enables automatic instance replacement when
 hardware failures occur.
 
-
 ## Before you start
 
 You should have familiarity with:
 
-* AWS VPCs
-* AWS EC2 AMIs
-* macOS GUI
+- AWS VPCs
+- AWS EC2 AMIs
+- macOS GUI
 
 You must also choose an AWS Region with EC2 Mac instances available. See
 [Amazon EC2 Mac instances](https://aws.amazon.com/ec2/instance-types/mac/) and
 [Amazon EC2 Dedicated Hosts pricing](https://aws.amazon.com/ec2/dedicated-hosts/pricing/)
 for details on which regions have EC2 Mac Dedicated Hosts.
 
->🚧 Minimum allocation
->Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
+> 🚧 Minimum allocation
+> Dedicated macOS <strong>hosts</strong> on AWS have a <a href="https://aws.amazon.com/ec2/dedicated-hosts/pricing/#on-demand">minimum billing period</a> of 24 hours. However you can scale instances running on the host at will.
 
 See also the [Amazon EC2 Mac instances user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html)
 for more details on AWS EC2 Mac instances.
@@ -57,23 +56,23 @@ Before deploying this template, you must create a template AMI that will be
 horizontally scaled across multiple instances.
 
 1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
-Dedicated Host.
+   Dedicated Host.
 1. Boot a macOS instance using your desired AMI on the Dedicated Host. Ensure
-the root disk is large enough for the version of Xcode you plan to download and
-install.
+   the root disk is large enough for the version of Xcode you plan to download and
+   install.
 1. Configure the instance VPC subnet, security groups, and key name so that you
-can access the instance.
+   can access the instance.
 1. Using an SSH or AWS SSM session:
-	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
-	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+   - Set a password for the `ec2-user` using `sudo passwd ec2-user`
+   - Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+   - Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`
-	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
-	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
-	1. Disable the screen saver in *System Preferences* > *Desktop & Screen Saver* > *Show screen saver after*
+   1. Sign in as the `ec2-user`
+   1. Enable _Automatic login_ for the `ec2-user` in _System Preferences_ > _Users & Accounts_ > _Login Options_
+   1. Disable _Require password_ in _System Preferences_ > _Security & Privacy_ > _General_
+   1. Disable the screen saver in _System Preferences_ > _Desktop & Screen Saver_ > _Show screen saver after_
 1. Install your required version of Xcode, and ensure you launch Xcode at least
-once so you are presented with the EULA prompt.
+   once so you are presented with the EULA prompt.
 1. Using the AWS EC2 Console, create an AMI from your instance.
 
 You do not need to install the `buildkite-agent` in your template AMI, the
@@ -83,56 +82,56 @@ You do not need to install the `buildkite-agent` in your template AMI, the
 ## Step 3: Associate your AMI with a customer managed license in AWS License Manager
 
 To launch an instance using a host resource group, the instance AMI must be
-associated with a *Customer managed license* in *AWS License Manager*.
+associated with a _Customer managed license_ in _AWS License Manager_.
 
-Using the AWS Console, open the *AWS License Manager* and navigate to
-*Customer managed licenses*. Create a new *Customer managed license*, enter a
-descriptive name and select a *License type* of `Cores`.
+Using the AWS Console, open the _AWS License Manager_ and navigate to
+_Customer managed licenses_. Create a new _Customer managed license_, enter a
+descriptive name and select a _License type_ of `Cores`.
 
 Once your Customer managed license has been saved, open the detail view for your
-license. Open the *Associated AMIs* tab and choose *Associate AMI*. From the
-list of *Available AMIs*, select your macOS template AMI and then click
-*Associate*.
+license. Open the _Associated AMIs_ tab and choose _Associate AMI_. From the
+list of _Available AMIs_, select your macOS template AMI and then click
+_Associate_.
 
 ## Step 4: Deploy the CloudFormation template
 
 Using the VPC and AMI prepared earlier, prepare values for the following
 required parameters:
 
-* `ImageId` from your AMI set up
-* `RootVolumeSize` no smaller than the template AMI's root disk
-* `Subnets` from your VPC set up
-* `SecurityGroupIds` from your VPC set up
-* `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
-* `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
-* `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
+- `ImageId` from your AMI set up
+- `RootVolumeSize` no smaller than the template AMI's root disk
+- `Subnets` from your VPC set up
+- `SecurityGroupIds` from your VPC set up
+- `IamInstanceProfile` if accessing AWS services from your builds, provide an Instance Profile ARN with an appropriate IAM role attached
+- `BuildkiteAgentToken` an Agent Token for your [Buildkite organization](http://buildkite.com/organizations/-/agents)
+- `BuildkiteAgentQueue` the Buildkite Queue your pipeline steps use
 
 There are optional parameters to configure which EC2 Mac instance types to use:
 
-* `HostFamily` defaults to `mac1`
-* `InstanceType` defaults to `mac1.metal`
+- `HostFamily` defaults to `mac1`
+- `InstanceType` defaults to `mac1.metal`
 
 There are also optional parameters to configure the size of the Auto Scaling
 group:
 
-* `MinSize` defaults to 0
-* `MaxSize` defaults to 3
+- `MinSize` defaults to 0
+- `MaxSize` defaults to 3
 
 The default AWS Limit for `mac1.metal` is three Dedicated Hosts per account
 region. If you require more than three instances, request an increased limit in
-the *AWS Service Quotas Dashboard*.
+the _AWS Service Quotas Dashboard_.
 
 ### Deploy using the AWS Console
 
-* Use the launch button below to create a CloudFormation stack from the latest
-version of the Buildkite template:
+- Use the launch button below to create a CloudFormation stack from the latest
+  version of the Buildkite template:
 
 <a href="https://console.aws.amazon.com/cloudformation/home#/stacks/new?stackName=buildkite-mac&templateURL=https://s3.amazonaws.com/buildkite-serverless-apps-us-east-1/elastic-mac/template/latest.yml"><%= image "launch-stack.svg", alt: "Launch stack button" %></a>
 
-* Ensure the selected region in the top menu bar matches the region of your VPC
-and AMI resources.
+- Ensure the selected region in the top menu bar matches the region of your VPC
+  and AMI resources.
 
-* Give your stack a unique name, and fill in the required parameters.
+- Give your stack a unique name, and fill in the required parameters.
 
 ### Deploy using the AWS CLI
 
@@ -180,8 +179,8 @@ for help using the AWS CLI.
 ## Step 5: Starting your Buildkite agents
 
 Once you have successfully deployed the template, use the deployed stack's
-*Resources* tab to find the `AutoScaleGroup` and open the *Physical ID* link.
-*Edit* the selected Auto Scaling group, and set the *Desired capacity* to the
+_Resources_ tab to find the `AutoScaleGroup` and open the _Physical ID_ link.
+_Edit_ the selected Auto Scaling group, and set the _Desired capacity_ to the
 number of instances you require.
 
 The Auto Scaling group will automatically provision Dedicated Hosts using the
@@ -190,5 +189,5 @@ script will resize the root disk, then install, configure, and start the
 Buildkite Agent.
 
 EC2 Mac instances are slower to boot and terminate than Linux instances. If want
-to match your *Desired capacity* to your workload, consider configuring
+to match your _Desired capacity_ to your workload, consider configuring
 [scheduled scaling for your Auto Scaling group](https://docs.aws.amazon.com/autoscaling/ec2/userguide/schedule_time.html)

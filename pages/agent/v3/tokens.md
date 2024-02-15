@@ -2,7 +2,6 @@
 
 The Buildkite Agent requires an agent token to connect to Buildkite and register for work. If you are an admin of your Buildkite organization, you can view the tokens on your [Agents page](https://buildkite.com/organizations/-/agents).
 
-
 ## The default token
 
 When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development, but it's recommended you [create new, specific tokens](#creating-tokens) for each new environment.
@@ -21,10 +20,9 @@ For example:
 
 ```graphql
 mutation {
-  agentTokenCreate(input: {
-    organizationID: "organization-id",
-    description: "A description"
-  }) {
+  agentTokenCreate(
+    input: { organizationID: "organization-id", description: "A description" }
+  ) {
     tokenValue
     agentTokenEdge {
       node {
@@ -47,7 +45,7 @@ query GetOrgID {
 
 <!--alex ignore clearly-->
 
-The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).  
+The token description should clearly identify the environment the token is intended to be used for, and is shown on your [Agents page](https://buildkite.com/organizations/-/agents) (for example, `Read-only token for static site generator`).
 
 It is possible to create multiple agent tokens using the GraphQL API. These tokens will show up on the [Agents page](https://buildkite.com/organizations/-/agents) in the UI, but can only be managed (created or revoked) using the API.
 
@@ -60,7 +58,7 @@ You need to pass your agent token as the ID in the mutation. You can get the tok
 ```graphql
 query GetAgentTokenID {
   organization(slug: "organization-slug") {
-    agentTokens(first:50) {
+    agentTokens(first: 50) {
       edges {
         node {
           id
@@ -77,10 +75,7 @@ Then, using the token ID, revoke the agent token:
 
 ```graphql
 mutation {
-  agentTokenRevoke(input: {
-    id: "token-id",
-    reason: "A reason"
-  }) {
+  agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
     agentToken {
       description
       revokedAt
@@ -125,5 +120,5 @@ Job tokens are valid until the job finishes. To ensure job tokens have a limited
   </tr>
 </table>
 
->📘 Job tokens not supported in agents prior to v3.39.0
+> 📘 Job tokens not supported in agents prior to v3.39.0
 > Agents prior to v3.39.0 use the session token for the `BUILDKITE_AGENT_ACCESS_TOKEN` environment variable and the job APIs.

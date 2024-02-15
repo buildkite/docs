@@ -1,6 +1,5 @@
 # Organizations API
 
-
 ## List organizations
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of the user's organizations.

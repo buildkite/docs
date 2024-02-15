@@ -4,8 +4,7 @@ Buildkite can connect to your GitHub Enterprise Server and use the [GitHub Statu
 
 GitHub Enterprise Server is available to Buildkite customers on Business and Enterprise plans.
 
-
->📘 This guide was written using GitHub Enterprise version 2.16.3.
+> 📘 This guide was written using GitHub Enterprise version 2.16.3.
 > Earlier or later versions may have different menus and headings for the OAuth app registration. All of the Buildkite settings will remain the same.
 > This guide describes the setup for self-hosted GitHub Enterprise Server. GitHub Enterprise Cloud users should refer to <a href="https://buildkite.com/docs/integrations/github" rel="nofollow">GitHub</a>.
 
@@ -17,9 +16,9 @@ In your GitHub Enterprise organization settings, select _OAuth Apps_ under _Deve
 
 Select _Register an application_. Fill out the form with the following values:
 
-* Name: `Buildkite`
-* URL: `https://buildkite.com`
-* Callback URL: `https://buildkite.com/user/authorize/github_enterprise/callback`
+- Name: `Buildkite`
+- URL: `https://buildkite.com`
+- Callback URL: `https://buildkite.com/user/authorize/github_enterprise/callback`
 
 <%= image "register-oauth-application-form.png", width:1548/2, height:1107/2, alt:"Screenshot of the form to Register an OAuth Application" %>
 
@@ -39,7 +38,7 @@ Make a note of your Client ID and Client Secret, you will need those to connect 
 2. Select _GitHub Enterprise Server_
 3. Enter your settings:
    - The URL and public proxy URL of your GitHub Enterprise Server
-   - The  Client ID and Client Secret from the GitHub OAuth App you created in Step 1
+   - The Client ID and Client Secret from the GitHub OAuth App you created in Step 1
    - If you're using self-signed certificates, make sure the _Verify TLS Certificate_ checkbox is not checked.
 4. Select _Save GitHub Enterprise Settings_ to save your settings. After saving, the _Secret_ field appears blank. Buildkite has saved it, and will not display it.
 
@@ -56,7 +55,7 @@ For Buildkite to mark commits and pull requests as pass or fail, you need to aut
 1. In your Buildkite _Personal Settings_, select <a href="<%= url_helpers.user_authorizations_url %>" rel="nofollow">Connected Apps</a>. Here you'll see your GitHub Enterprise Server along with any other connected apps.
 2. Select _Connect_ next to _GitHub Enterprise_:
 
-  <%= image "buildkite-connected-apps-settings.png", width:2324/2, height:636/2, alt:"Screenshot of the Connected Apps page in Buildkite Personal Settings with the GitHub Enterprise App" %>
+<%= image "buildkite-connected-apps-settings.png", width:2324/2, height:636/2, alt:"Screenshot of the Connected Apps page in Buildkite Personal Settings with the GitHub Enterprise App" %>
 
 3. Buildkite redirects you back to your GitHub Enterprise Server, where it asks you to authorize your new Buildkite OAuth app to use your GitHub Enterprise account. Select _Authorize_ to complete your setup:
 
@@ -83,9 +82,9 @@ All Buildkite network traffic to your GitHub Enterprise Server will come from a 
 
 For additional security you can create a proxy that allows only the API endpoints we require:
 
-* `/api/v3/repos/.*/.*/statuses`
-* `/api/v3/user`
-* `/login/oauth`
+- `/api/v3/repos/.*/.*/statuses`
+- `/api/v3/user`
+- `/login/oauth`
 
 The following is an example [NGINX](https://www.nginx.com) server configuration that proxies the required URLs and can be used with the _Public API URL_ GitHub Enterprise setting in Buildkite:
 

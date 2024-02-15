@@ -2,10 +2,9 @@
 
 Plugins can be used in pipeline [command steps](/docs/pipelines/command-step) to access a library of commands or perform actions.
 
-
 ## Adding a plugin to your pipeline
 
-To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute.  The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
+To add a plugin to a [command step](/docs/pipelines/command-step), use the `plugins` attribute. The `plugins` attribute accepts an array, so you can add multiple plugins to the same step.
 
 When multiple plugins are listed in the same step, they will run in the [order of the hooks](/docs/agent/v3/hooks#job-lifecycle-hooks), and within each hook, in the order they were listed in the step.
 
@@ -20,7 +19,7 @@ steps:
           workdir: /app
 ```
 
->📘
+> 📘
 > Always specify a tag or commit (for example, <code>v1.2.3</code>) to prevent the plugin changing unexpectedly, and to prevent stale checkouts of plugins on your agent machines.
 
 Not all plugins require a `command` attribute, for example:
@@ -111,8 +110,7 @@ steps:
   - label: "Read something else"
     command: echo "On to a new book"
     plugins:
-      - *docker 
-
+      - *docker
 ```
 
 ## Plugin sources

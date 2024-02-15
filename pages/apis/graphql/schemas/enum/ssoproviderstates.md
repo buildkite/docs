@@ -14,6 +14,7 @@
 title: SSOProviderStates – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   SSOProviderStates
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 All the possible states an SSO Provider can be in
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

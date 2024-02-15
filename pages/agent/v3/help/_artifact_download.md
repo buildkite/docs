@@ -27,7 +27,7 @@ card and break the query.
 
 If the last path component of &lt;destination&gt; matches the first path component
 of your &lt;query&gt;, the last component of &lt;destination&gt; is dropped from the
-final path. For example, a query of &#39;app/logs/*&#39; with a destination of
+final path. For example, a query of &#39;app/logs/\*&#39; with a destination of
 &#39;foo/app&#39; will write any matched artifact files to &#39;foo/app/logs/&#39;, relative
 to the current working directory.
 

@@ -1,6 +1,5 @@
 # Annotations API
 
-
 ## Annotation data model
 
 An annotation is a snippet of Markdown uploaded by your agent during the execution of a build's job. Annotations are created using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-annotate) from within a job.
@@ -20,7 +19,7 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build's annotations.
 
->📘
+> 📘
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to retrieve annotations, not the build ID.
 
 ```bash
@@ -56,7 +55,7 @@ Success response: `200 OK`
 
 Creates an annotation on a build.
 
->📘
+> 📘
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to create annotations, not the build ID.
 
 ```bash

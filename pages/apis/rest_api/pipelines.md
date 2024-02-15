@@ -1,6 +1,5 @@
 # Pipelines API
 
-
 ## List pipelines
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's pipelines.
@@ -63,13 +62,12 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         "command": "script/test.sh",
         "artifact_paths": "results/*",
         "branch_configuration": "main feature/*",
-        "env": { },
+        "env": {},
         "timeout_in_minutes": null,
-        "agent_query_rules": [ ]
+        "agent_query_rules": []
       }
     ],
-    "env": {
-    }
+    "env": {}
   }
 ]
 ```
@@ -170,7 +168,7 @@ steps:
    name: "Build \:package\:"
 ```
 
-make the following POST request, substituting your organization slug instead of `{org.slug}`. Make sure to escape the quotes (`"`) in your YAML, and  to replace line breaks with `\n`:
+make the following POST request, substituting your organization slug instead of `{org.slug}`. Make sure to escape the quotes (`"`) in your YAML, and to replace line breaks with `\n`:
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
@@ -182,14 +180,13 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines" \
     }'
 ```
 
->📘
+> 📘
 > When setting pipeline configuration using the API, you must pass in a string that Buildkite parses as valid YAML, escaping quotes and line breaks.
 > To avoid writing an entire YAML file in a single string, you can place a <code>pipeline.yml</code> file in a <code>.buildkite</code> directory at the root of your repo, and use the <code>pipeline upload</code> command in your configuration to tell Buildkite where to find it. This means you only need the following:
 >
-<code>
-"configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""
-</code>
-
+> <code>
+> "configuration": "steps:\n - command: \"buildkite-agent pipeline upload\""
+> </code>
 
 The response contains information about your new pipeline:
 
@@ -259,18 +256,20 @@ The response contains information about your new pipeline:
   "visibility": "private",
   "tags": null,
   "configuration": "env:\n \"FOO\": \"bar\"\n\"steps\":\n - command: \"script/release.sh\"\n   \"name\": \"Build :package:\"",
-  "steps": [{
-    "type": "script",
-    "name": "Build :package:",
-    "command": "script/release.sh",
-    "artifact_paths": null,
-    "branch_configuration": null,
-    "env": {},
-    "timeout_in_minutes": null,
-    "agent_query_rules": [],
-    "concurrency": null,
-    "parallelism": null
-  }]
+  "steps": [
+    {
+      "type": "script",
+      "name": "Build :package:",
+      "command": "script/release.sh",
+      "artifact_paths": null,
+      "branch_configuration": null,
+      "env": {},
+      "timeout_in_minutes": null,
+      "agent_query_rules": [],
+      "concurrency": null,
+      "parallelism": null
+    }
+  ]
 }
 ```
 
@@ -696,7 +695,6 @@ Updates one or more properties of an existing pipeline.
 
 To update a pipeline's YAML steps, make a PATCH request to the `pipelines` endpoint, passing the `configuration` attribute in the request body:
 
-
 ```bash
 curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
   -H "Content-Type: application/json" \
@@ -706,9 +704,8 @@ curl -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{
   }'
 ```
 
->🚧
+> 🚧
 > Patch requests can only update attributes already present in the pipeline YAML.
-
 
 ```json
 {
@@ -848,7 +845,7 @@ Error responses:
 </tbody>
 </table>
 
->🚧
+> 🚧
 > To update a pipeline's teams, please use the <a href="/docs/apis/graphql-api">GraphQL API</a>.
 
 ## Archive a pipeline

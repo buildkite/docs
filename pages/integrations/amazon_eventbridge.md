@@ -2,7 +2,6 @@
 
 The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification service in Buildkite lets you stream events in real-time from your Buildkite account to your AWS account.
 
-
 ## Events
 
 Once you've configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:
@@ -65,10 +64,10 @@ You can use any event property in your custom event pattern. For example, the fo
 
 ```json
 {
-  "detail-type": [ "Build Started", "Build Finished" ],
+  "detail-type": ["Build Started", "Build Finished"],
   "detail": {
     "pipeline": {
-      "slug": [ "some-pipeline" ]
+      "slug": ["some-pipeline"]
     }
   }
 }
@@ -114,11 +113,11 @@ exports.handler = (event, context, callback) => {
           Dimensions: [
             {
               Name: "Pipeline",
-              Value: event.detail.pipeline.slug
-            }
-          ]
-        }
-      ]
+              Value: event.detail.pipeline.slug,
+            },
+          ],
+        },
+      ],
     },
     (err, data) => {
       if (err) console.log(err, err.stack);
@@ -271,41 +270,41 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-    "version": "0",
-    "id": "...",
-    "detail-type": "Build Finished",
-    "source": "...",
-    "account": "...",
-    "time": "2022-01-30T04:32:06Z",
-    "region": "us-east-1",
-    "resources": [],
-    "detail": {
-        "version": 1,
-        "build": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "number": 23,
-            "commit": "...",
-            "message": "Update index.html",
-            "branch": "main",
-            "state": "blocked",
-            "blocked_state": null,
-            "source": "ui",
-            "started_at": "2022-01-30 04:31:59 UTC",
-            "finished_at": "2022-01-30 04:32:06 UTC"
-        },
-        "pipeline": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "slug": "webhook-test",
-            "repo": "git@github.com:nithyaasworld/add-contact-chip.git"
-        },
-        "organization": {
-            "uuid": "...",
-            "graphql_id": "...",
-            "slug": "nithya-bk"
-        }
+  "version": "0",
+  "id": "...",
+  "detail-type": "Build Finished",
+  "source": "...",
+  "account": "...",
+  "time": "2022-01-30T04:32:06Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "build": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "number": 23,
+      "commit": "...",
+      "message": "Update index.html",
+      "branch": "main",
+      "state": "blocked",
+      "blocked_state": null,
+      "source": "ui",
+      "started_at": "2022-01-30 04:31:59 UTC",
+      "finished_at": "2022-01-30 04:32:06 UTC"
+    },
+    "pipeline": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "webhook-test",
+      "repo": "git@github.com:nithyaasworld/add-contact-chip.git"
+    },
+    "organization": {
+      "uuid": "...",
+      "graphql_id": "...",
+      "slug": "nithya-bk"
     }
+  }
 }
 ```
 
@@ -320,12 +319,10 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
       "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
       "type": "script",
-      "label": "\:nodejs\: Test",
+      "label": ":nodejs: Test",
       "step_key": "node_test",
       "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
+      "agent_query_rules": ["queue=default"],
       "exit_status": null,
       "passed": false,
       "soft_failed": false,
@@ -371,12 +368,10 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
       "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
       "type": "script",
-      "label": "\:nodejs\: Test",
+      "label": ":nodejs: Test",
       "step_key": "node_test",
       "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
+      "agent_query_rules": ["queue=default"],
       "exit_status": null,
       "passed": false,
       "soft_failed": false,
@@ -422,12 +417,10 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
       "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
       "type": "script",
-      "label": "\:nodejs\: Test",
+      "label": ":nodejs: Test",
       "step_key": "node_test",
       "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
+      "agent_query_rules": ["queue=default"],
       "exit_status": 0,
       "passed": true,
       "soft_failed": false,
@@ -473,7 +466,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
       "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
       "type": "manual",
-      "label": "\:rocket\: Deploy",
+      "label": ":rocket: Deploy",
       "step_key": "manual_deploy",
       "command": null,
       "agent_query_rules": [],
@@ -532,9 +525,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "hostname": "ip-10-0-2-73.ec2.internal",
       "pid": "18534",
       "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
+      "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
       "connected_at": "2019-08-10 09:44:40 UTC",
       "disconnected_at": null,
       "lost_at": null
@@ -570,9 +561,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "hostname": "ip-10-0-2-73.ec2.internal",
       "pid": "18534",
       "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
+      "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
       "connected_at": "2019-08-10 09:44:40 UTC",
       "disconnected_at": "2019-08-10 09:54:40 UTC",
       "lost_at": null
@@ -608,9 +597,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "hostname": "ip-10-0-2-73.ec2.internal",
       "pid": "18534",
       "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
+      "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
       "connected_at": "2019-08-10 09:44:40 UTC",
       "disconnected_at": "2019-08-10 09:54:40 UTC",
       "lost_at": "2019-08-10 09:54:40 UTC"
@@ -646,9 +633,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "hostname": "ip-10-0-2-73.ec2.internal",
       "pid": "18534",
       "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
+      "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
       "connected_at": "2019-08-10 09:44:40 UTC",
       "disconnected_at": null,
       "lost_at": null
@@ -684,9 +669,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
       "hostname": "ip-10-0-2-73.ec2.internal",
       "pid": "18534",
       "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
+      "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
       "connected_at": "2019-08-10 09:44:40 UTC",
       "disconnected_at": "2019-08-10 09:54:40 UTC",
       "lost_at": null
@@ -709,39 +692,40 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-    "detail-type": "Agent Blocked",
-    "detail": {
-        "version": 1,
-        "blocked_ip": "204.124.80.36",
-        "cluster_token": {
-            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
-            "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
-        },
-        "agent": {
-            "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
-            "graphql_id": "QWdlbnQtLSOMTg4ZjUxYy03YmM4LTRiMTQtYTcwMi@ MDJjNDg1YWUyZGM=",
-            "connection_state": "disconnected",
-            "name": "rogue-agent-1",
-            "version": "3.40.0",
-            "token": null,
-            "ip_address": "127.0.0.1",
-            "hostname": "rogue-agent",
-            "pid": "26089",
-            "priority": 0,
-            "meta_data": ["queues=default"],
-            "connected_at": "2023-06-26 00:31:04 UTC",
-            "disconnected_at": "2023-06-26 00:31:18 UTC",
-            "Lost_at": null,
-        },
-        "organization": {
-            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-            "slug": "my-org"
-        }
+  "detail-type": "Agent Blocked",
+  "detail": {
+    "version": 1,
+    "blocked_ip": "204.124.80.36",
+    "cluster_token": {
+      "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+      "description": "Default agent token",
+      "allowed_ip_addresses": "202.144.160.0/24"
+    },
+    "agent": {
+      "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
+      "graphql_id": "QWdlbnQtLSOMTg4ZjUxYy03YmM4LTRiMTQtYTcwMi@ MDJjNDg1YWUyZGM=",
+      "connection_state": "disconnected",
+      "name": "rogue-agent-1",
+      "version": "3.40.0",
+      "token": null,
+      "ip_address": "127.0.0.1",
+      "hostname": "rogue-agent",
+      "pid": "26089",
+      "priority": 0,
+      "meta_data": ["queues=default"],
+      "connected_at": "2023-06-26 00:31:04 UTC",
+      "disconnected_at": "2023-06-26 00:31:18 UTC",
+      "Lost_at": null
+    },
+    "organization": {
+      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
     }
+  }
 }
 ```
+
 <!-- vale off -->
 
 <h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
@@ -750,21 +734,21 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-    "detail-type": "Cluster Token Registration Blocked",
-    "detail": {
-        "version": 1,
-        "blocked_ip": "204.124.80.36",
-        "cluster_token": {
-            "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
-            "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
-        },
-        "organization": {
-            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-            "slug": "my-org"
-        }
+  "detail-type": "Cluster Token Registration Blocked",
+  "detail": {
+    "version": 1,
+    "blocked_ip": "204.124.80.36",
+    "cluster_token": {
+      "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
+      "description": "Default agent token",
+      "allowed_ip_addresses": "202.144.160.0/24"
+    },
+    "organization": {
+      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+      "slug": "my-org"
     }
+  }
 }
 ```
 
@@ -774,38 +758,38 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-    "version": "0",
-    "id": "8212ed90-edcc-0936-187c-d466e46575b6",
-    "detail-type": "Audit Event Logged",
-    "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
-    "account": "354123020283",
-    "time": "2023-03-07T23:14:43Z",
-    "region": "us-east-1",
-    "resources": [],
-    "detail": {
-        "version": 1,
-        "organization": {
-            "uuid": "ae85860c-94f9-4275-91cb-3986590f45b5",
-            "graphql_id": "T3JnYWMDE4NjDAtNzk1YS00YWMwLWE112jUtM12jEGMzYTNkZDQx",
-            "slug": "buildkite"
-        },
-        "event": {
-            "uuid": "da55860c-94f9-4275-91cb-3986590f45b5",
-            "occurred_at": "2023-03-25 23:14:43 UTC",
-            "type": "ORGANIZATION_UPDATED",
-            "data": {
-                "name": "Buildkite"
-            },
-            "subject_type": "Organization",
-            "subject_uuid": "af7e863c-94f9-4275-91sb-3986590f45b5",
-            "subject_name": "Buildkite",
-            "context": "{\"request_id\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"request_ip\":\"127.0.0.0\",\"session_key\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"session_user_uuid\":\"da55860c-94f9-4275-91cb-3986590f45b5\",\"request_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\",\"session_created_at\":\"2023-03-25T23:30:54.559Z\"}"
-        },
-        "actor": {
-            "name": "Buildkite member",
-            "type": null,
-            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5"
-        }
+  "version": "0",
+  "id": "8212ed90-edcc-0936-187c-d466e46575b6",
+  "detail-type": "Audit Event Logged",
+  "source": "aws.partner/buildkite.com/buildkite/0106-187c-12cd4fe",
+  "account": "354123020283",
+  "time": "2023-03-07T23:14:43Z",
+  "region": "us-east-1",
+  "resources": [],
+  "detail": {
+    "version": 1,
+    "organization": {
+      "uuid": "ae85860c-94f9-4275-91cb-3986590f45b5",
+      "graphql_id": "T3JnYWMDE4NjDAtNzk1YS00YWMwLWE112jUtM12jEGMzYTNkZDQx",
+      "slug": "buildkite"
+    },
+    "event": {
+      "uuid": "da55860c-94f9-4275-91cb-3986590f45b5",
+      "occurred_at": "2023-03-25 23:14:43 UTC",
+      "type": "ORGANIZATION_UPDATED",
+      "data": {
+        "name": "Buildkite"
+      },
+      "subject_type": "Organization",
+      "subject_uuid": "af7e863c-94f9-4275-91sb-3986590f45b5",
+      "subject_name": "Buildkite",
+      "context": "{\"request_id\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"request_ip\":\"127.0.0.0\",\"session_key\":\"pemF0aW9uLStMDE4NjDAtNzk1YS00YW\",\"session_user_uuid\":\"da55860c-94f9-4275-91cb-3986590f45b5\",\"request_user_agent\":\"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36\",\"session_created_at\":\"2023-03-25T23:30:54.559Z\"}"
+    },
+    "actor": {
+      "name": "Buildkite member",
+      "type": null,
+      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5"
     }
+  }
 }
 ```

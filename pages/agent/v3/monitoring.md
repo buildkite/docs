@@ -1,7 +1,7 @@
 # Monitoring and observing the Buildkite Agent
 
 By default, the agent is only observable either through Buildkite or
- through log output on the host:
+through log output on the host:
 
 - **Job logs:** Relate to the jobs the agent runs. These are uploaded to
   Buildkite and shown for each step in a build.
@@ -36,7 +36,7 @@ the future.
 The URL paths available from the health checking service are as follows:
 
 - **`/`**: Returns HTTP status 200 with the text `OK: Buildkite agent is
-  running`.
+running`.
 - **`/agent/(worker number)`**: Reports the time since the agent worker
   succeeded at sending a heartbeat. Workers are numbered starting from 1,
   and the number of workers is set with the `--spawn` flag. If the previous

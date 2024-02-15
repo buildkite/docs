@@ -8,17 +8,17 @@ Infrastructure as code isn't always easy to troubleshoot, but here are some ways
 
 Elastic CI Stack for AWS sends logs to various CloudWatch log streams:
 
-* Buildkite Agent logs get sent to the `buildkite/buildkite-agent/{instance_id}` log stream. If there are problems within the agent itself, the agent logs should help diagnose.
-* Output from an Elastic CI Stack for AWS instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack for AWS.
+- Buildkite Agent logs get sent to the `buildkite/buildkite-agent/{instance_id}` log stream. If there are problems within the agent itself, the agent logs should help diagnose.
+- Output from an Elastic CI Stack for AWS instance's startup script ([Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/bin/bk-install-elastic-stack.sh) or [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/bin/bk-install-elastic-stack.ps1)) get sent to the `/buildkite/elastic-stack/{instance_id}` log stream. If an instance is failing to launch cleanly, it's often a problem with the startup script, making this log stream especially useful for debugging problems with the Elastic CI Stack for AWS.
 
 Additionally, on Linux instances only:
 
-* Docker Daemon logs get sent to the `/buildkite/docker-daemon/{instance_id}` log stream. If docker is having a bad day on your machine, look here.
-* Output from the cloud init process, up until the startup script is initialised, is sent to `/buildkite/cloud-init/output/{instance_id}`. Logs from this stream can be useful for inspecting what environment variables were sent to the startup script.
+- Docker Daemon logs get sent to the `/buildkite/docker-daemon/{instance_id}` log stream. If docker is having a bad day on your machine, look here.
+- Output from the cloud init process, up until the startup script is initialised, is sent to `/buildkite/cloud-init/output/{instance_id}`. Logs from this stream can be useful for inspecting what environment variables were sent to the startup script.
 
 On Windows instances only:
 
-* Logs from the UserData execution process (similar to the `/buildkite/cloud-init/output` group above) are sent to the `/buildkite/EC2Launch/UserdataExecution/{instance_id}` log stream.
+- Logs from the UserData execution process (similar to the `/buildkite/cloud-init/output` group above) are sent to the `/buildkite/EC2Launch/UserdataExecution/{instance_id}` log stream.
 
 There are a couple of other log groups that the Elastic CI Stack for AWS sends logs to, but their use cases are pretty specific. For a full accounting of what logs are sent to CloudWatch, see the config for [Linux](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/linux/conf/cloudwatch-agent/config.json) and [Windows](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/packer/windows/conf/cloudwatch-agent/amazon-cloudwatch-agent.json).
 
@@ -32,8 +32,8 @@ The script collects CloudWatch Logs for the Instance, Lambda function, and AutoS
 
 Sometimes, looking at the logs isn't enough to figure out what's going on in your instances. In these cases, it can be useful to access the shell on the instance directly:
 
-* If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
-* If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`
+- If your Elastic CI Stack for AWS has been configured to allow SSH access (using the `AuthorizedUsersUrl` parameter), run `ssh <some instance id>` in your terminal
+- If SSH access isn't available, you can still use AWS SSM to remotely access the instance by finding the instance ID, and then running `aws ssm start-session --target <instance id>`
 
 ## Auto Scaling group fails to boot instances
 

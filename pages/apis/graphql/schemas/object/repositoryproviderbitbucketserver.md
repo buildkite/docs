@@ -14,13 +14,13 @@
 title: RepositoryProviderBitbucketServer – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   RepositoryProviderBitbucketServer
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A pipeline's repository is being provided by Bitbucket Server
 
@@ -34,9 +34,6 @@ A pipeline's repository is being provided by Bitbucket Server
     <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>This URL to the provider’s web interface</p></td></tr><tr><td><h3 class="is-small has-pills"><code>webhookUrl</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The URL to use when setting up webhooks from the provider to trigger Buildkite builds</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

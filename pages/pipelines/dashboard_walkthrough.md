@@ -53,6 +53,7 @@ If your organization has Teams enabled, you can also filter this page by the tea
 ## Customizing the page
 
 You're able to edit a pipeline's:
+
 - name
 - description
 - emoji

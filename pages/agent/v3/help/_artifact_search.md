@@ -75,16 +75,16 @@ The above will return a list of filenames separated by newline.
 
 Format specifiers:
 
-%i    UUID of the artifact
+%i UUID of the artifact
 
-%p    Artifact path
+%p Artifact path
 
-%c    Artifact creation time (an ISO 8601 / RFC-3339 formatted UTC timestamp)
+%c Artifact creation time (an ISO 8601 / RFC-3339 formatted UTC timestamp)
 
-%j    UUID of the job that uploaded the artifact, helpful for subsequent artifact downloads
+%j UUID of the job that uploaded the artifact, helpful for subsequent artifact downloads
 
-%s    File size of the artifact in bytes
+%s File size of the artifact in bytes
 
-%S    SHA1 checksum of the artifact
+%S SHA1 checksum of the artifact
 
-%u    Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead
+%u Download URL for the artifact, though consider using &#39;buildkite-agent artifact download&#39; instead

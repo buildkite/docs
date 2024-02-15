@@ -14,6 +14,7 @@
 title: organizationInvitationRevoke – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationInvitationRevoke
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Revoke an invitation to an organization so that it can no longer be accepted.
 

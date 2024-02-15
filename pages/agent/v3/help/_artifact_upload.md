@@ -27,7 +27,7 @@ supported.
 You can specify an alternate destination on Amazon S3, Google Cloud Storage
 or Artifactory as per the examples below. This may be specified in the
 &#39;destination&#39; argument, or in the &#39;BUILDKITE_ARTIFACT_UPLOAD_DESTINATION&#39;
-environment variable.  Otherwise, artifacts are uploaded to a
+environment variable. Otherwise, artifacts are uploaded to a
 Buildkite-managed Amazon S3 bucket, where they’re retained for six months.
 
 ### Example

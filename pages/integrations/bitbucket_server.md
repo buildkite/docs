@@ -4,16 +4,15 @@ Buildkite integrates with Bitbucket Server to provide automated builds based on 
 
 Bitbucket Enterprise Server is available to customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans.
 
->📘
+> 📘
 > This guide shows you how to set up your Bitbucket Server builds with Buildkite. It was written using Bitbucket Server version 7.11.1
-
 
 ## Step 1: connect Bitbucket Server and set up a pipeline
 
 1. Select _Settings_ to open the _Organization Settings_ page.
 1. Navigate to _Repository Providers_.
 1. Select _Bitbucket Server_.
-1. In _URLs_, enter the address of your Bitbucket Server, including a port if needed. For example, `localhost:8000`. You can also restrict which network addresses are allowed to trigger builds using webhooks in  _Allowed IP Addresses_ in _Network Settings_.
+1. In _URLs_, enter the address of your Bitbucket Server, including a port if needed. For example, `localhost:8000`. You can also restrict which network addresses are allowed to trigger builds using webhooks in _Allowed IP Addresses_ in _Network Settings_.
 1. Select _Save Settings_.
 1. Set up a pipeline as normal. Refer to [Pipelines](/docs/pipelines) for more information.
 
@@ -40,6 +39,3 @@ Buildkite includes built-in instructions on how to set up a Bitbucket Server web
 ## Build skipping
 
 <%= render_markdown partial: 'integrations/build_skipping' %>
-
-
-

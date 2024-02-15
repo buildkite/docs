@@ -3,7 +3,8 @@
 The Buildkite agent runs on your own machine, whether it's a VPS, server, desktop computer, embedded device. There are installers for:
 
 <% AGENT_INSTALLERS.each do |installer| %>
-* [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
+
+- [<%= installer[:title] %>](<%= docs_page_path installer[:url] %>)<% end %>
 
 Alternatively you can install it manually using the instructions below.
 
@@ -11,9 +12,7 @@ Alternatively you can install it manually using the instructions below.
 
 If you need to install the agent on a system not listed above you'll need to perform a manual installation using one of the binaries from [buildkite-agent's releases page](https://github.com/buildkite/agent/releases).
 
-
 Once you have a binary, create `bin` and `builds` directories in `~/.buildkite-agent` and copy the binary and `bootstrap.sh` file into place:
-
 
 ```bash
 mkdir ~/.buildkite-agent ~/.buildkite-agent/bin ~/.buildkite-agent/builds
@@ -33,7 +32,7 @@ If your architecture isn't on the releases page send an email to support and we'
 
 To update your agents, you can either:
 
-* Use the package manager for your operating system.
-* Re-run the installation script.
+- Use the package manager for your operating system.
+- Re-run the installation script.
 
 As long as you're using Agent v3 or later, no configuration changes are necessary.

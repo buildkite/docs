@@ -14,6 +14,7 @@
 title: JobTypes – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobTypes
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 All the possible types of jobs that can exist
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

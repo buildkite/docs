@@ -4,33 +4,32 @@ Buildkite API access tokens are issued to individuals not organizations. You can
 
 On the [API Access Audit](https://buildkite.com/organizations/~/api-access-audit) page, organization admins can view all tokens that have been created with access to their organization data. As well as auditing user tokens and what access they have, you can also remove a token's access to your organization data if required.
 
-
 ## Token scopes
 
 When you create a token, select the organizations it grants access to, and for REST APIS the scope of the access. GraphQL tokens cannot be limited by scope.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 REST API scopes are very granular, you can select some or all of the following:
 
-* Read Agents `read_agents` - Permission to list and retrieve details of agents
-* Modify Agents `write_agents` - Permission to create, update and delete agents
-* Read Teams `read_teams` - Permission to list teams
-* Read Artifacts `read_artifacts` - Permission to retrieve build artifacts
-* Write Artifacts `write_artifacts` - Permission to delete build artifacts
-* Read Builds `read_builds` - Permission to list and retrieve details of builds
-* Modify Builds `write_builds` - Permission to create new builds
-* Read Job Environment Variables `read_job_env` - Permission to retrieve job environment variables
-* Read Build Logs `read_build_logs` - Permission to retrieve `build` logs
-* Write Build Logs `write_build_logs` - Permission to delete build logs
-* Read Organizations `read_organizations` - Permission to list and retrieve details of organizations
-* Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
-* Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
-* Read User `read_user` - Permission to retrieve basic details of the user
-* Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
+- Read Agents `read_agents` - Permission to list and retrieve details of agents
+- Modify Agents `write_agents` - Permission to create, update and delete agents
+- Read Teams `read_teams` - Permission to list teams
+- Read Artifacts `read_artifacts` - Permission to retrieve build artifacts
+- Write Artifacts `write_artifacts` - Permission to delete build artifacts
+- Read Builds `read_builds` - Permission to list and retrieve details of builds
+- Modify Builds `write_builds` - Permission to create new builds
+- Read Job Environment Variables `read_job_env` - Permission to retrieve job environment variables
+- Read Build Logs `read_build_logs` - Permission to retrieve `build` logs
+- Write Build Logs `write_build_logs` - Permission to delete build logs
+- Read Organizations `read_organizations` - Permission to list and retrieve details of organizations
+- Read Pipelines `read_pipelines` - Permission to list and retrieve details of pipelines
+- Write Pipelines `write_pipelines` - Permission to create, update and delete pipelines
+- Read User `read_user` - Permission to retrieve basic details of the user
+- Read Suites `read_suites` - Permission to list and retrieve details of test suites; including runs,
   tests, executions, etc.
-* Write Suites `write_suites` - Permission to create, update and delete test suites
+- Write Suites `write_suites` - Permission to create, update and delete test suites
 
 When creating API access tokens, you can also restrict which network address are allowed to use them, using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
 
@@ -46,7 +45,7 @@ Click through any token to see more detailed information about its scopes and th
 
 The list of tokens can be filtered by username, scopes, IP address, or whether the user has admin privileges.
 
- <%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
+<%= image "filter-graphql-view.png", width: 1792/2, height: 1202/2, alt: "Screenshot of the API Access Audit page displaying a filtered list of tokens that have the GraphQL scope" %>
 
 ## Removing an organization from a token
 

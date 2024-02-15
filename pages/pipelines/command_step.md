@@ -2,7 +2,6 @@
 
 A command step runs one or more shell commands on one or more agents.
 
-
 Each command step can run either a shell command like `npm test`, or an executable file or script like `build.sh`.
 
 A command step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
@@ -11,6 +10,7 @@ A command step can be defined in your pipeline settings, or in your [pipeline.ym
 steps:
   - command: "tests.sh"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 When running multiple commands, either defined in a single line (`npm install && tests.sh`) or defined in a list, any failure will prevent subsequent commands from running, and will mark the command step as failed.
@@ -33,13 +33,14 @@ _Required attributes:_
 ```yml
 steps:
   - commands:
-    - "npm install && npm test"
-    - "moretests.sh"
-    - "build.sh"
+      - "npm install && npm test"
+      - "moretests.sh"
+      - "build.sh"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
->📘 Pipelines without command steps
+> 📘 Pipelines without command steps
 > Although the <code>command</code> attribute is required for a command step, some <a href="/docs/plugins/using#adding-a-plugin-to-your-pipeline">plugins</a> work without a command step, so it isn't strictly necessary for your pipeline to have an explicit command step.
 
 _Optional attributes:_
@@ -247,6 +248,7 @@ steps:
     retry:
       manual: false
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 If you retry a job, the information about the failed job(s) remains, and a new job is created. The history of retried jobs is preserved and immutable. The number of possible retries is available as an [environment variable `limit`](/docs/pipelines/command-step#retry-attributes-automatic-retry-attributes) on the job. When a limit is not specified on automatic retry, the default limit is three.
@@ -264,23 +266,24 @@ In the Buildkite UI, there is a [Job Retries Report section](https://buildkite.c
 Conditions on retries can be specified. For example, it's possible to set steps to be retried automatically if they exit with particular exit codes, or prevent retries on important steps like deployments. The following example shows different retry configurations:
 
 ```yml
-  - label: "Tests"
-    command: "tests.sh"
-    retry:
-      automatic:
-        - exit_status: 5
-          limit: 2
-        - exit_status: "*"
-          limit: 4
-  - wait
-  - label: "Deploy"
-    command: "deploy.sh"
-    branches: "main"
-    retry:
-      manual: 
-        allowed: false
-        reason: "Deploys shouldn't be retried"
+- label: "Tests"
+  command: "tests.sh"
+  retry:
+    automatic:
+      - exit_status: 5
+        limit: 2
+      - exit_status: "*"
+        limit: 4
+- wait
+- label: "Deploy"
+  command: "deploy.sh"
+  branches: "main"
+  retry:
+    manual:
+      allowed: false
+      reason: "Deploys shouldn't be retried"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Automatic retry attributes
@@ -333,7 +336,7 @@ _Optional Attributes_
   </tr>
 </table>
 
->📘 -1 exit status
+> 📘 -1 exit status
 > A job will fail with an exit status of -1 if communication with the agent has been lost (for example, the agent has been forcefully terminated, or the agent machine was shut down without allowing the agent to disconnect). See the section on <a href="/docs/agent/v3#exit-codes">Exit Codes</a> for information on other exit codes.
 
 ```yml
@@ -342,11 +345,12 @@ steps:
     command: "tests.sh"
     retry:
       automatic:
-        - exit_status: -1  # Agent was lost
+        - exit_status: -1 # Agent was lost
           limit: 2
         - exit_status: 255 # Forced agent shutdown
           limit: 2
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Manual retry attributes
@@ -395,6 +399,7 @@ steps:
         allowed: false
         reason: "Sorry, you can't retry a deployment"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Soft fail attributes
@@ -420,8 +425,8 @@ steps:
     soft_fail:
       - exit_status: 1
 ```
-{: codeblock-file="pipeline.yml"}
 
+{: codeblock-file="pipeline.yml"}
 
 ## Matrix attributes
 
@@ -443,31 +448,32 @@ steps:
 
 ```yaml
 steps:
-- label: "💥 Matrix build with adjustments"
-  command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
-  matrix:
-    setup:
-      arch:
-        - "amd64"
-        - "arm64"
-      os:
-        - "windows"
-        - "linux"
-      test:
-        - "A"
-        - "B"
-    adjustments:
-      - with:
-          os: "windows"
-          arch: "arm64"
-          test: "B"
-        soft_fail: true
-      - with:
-          os: "linux"
-          arch: "arm64"
-          test: "B"
-        skip: true
+  - label: "💥 Matrix build with adjustments"
+    command: "echo {{matrix.os}} {{matrix.arch}} {{matrix.test}}"
+    matrix:
+      setup:
+        arch:
+          - "amd64"
+          - "arm64"
+        os:
+          - "windows"
+          - "linux"
+        test:
+          - "A"
+          - "B"
+      adjustments:
+        - with:
+            os: "windows"
+            arch: "arm64"
+            test: "B"
+          soft_fail: true
+        - with:
+            os: "linux"
+            arch: "arm64"
+            test: "B"
+          skip: true
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Fail fast
@@ -485,7 +491,6 @@ To set `cancel_on_build_failing: true` for all jobs in a Build:
  -->
 
 ## Example
-
 
 ```yml
 steps:
@@ -544,4 +549,5 @@ steps:
     soft_fail:
       - exit_status: 1
 ```
+
 {: codeblock-file="pipeline.yml"}

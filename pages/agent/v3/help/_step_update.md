@@ -26,9 +26,9 @@ under the old label, as well as new ones using the updated label.
 
 To avoid orphaned status updates, in your Pipeline Settings &gt; GitHub:
 
-* Make sure Update commit statuses is not selected. Note that this prevents
-Buildkite from automatically creating and sending statuses for this pipeline,
-meaning you will have to handle all commit statuses through the pipeline.yml
+- Make sure Update commit statuses is not selected. Note that this prevents
+  Buildkite from automatically creating and sending statuses for this pipeline,
+  meaning you will have to handle all commit statuses through the pipeline.yml
 
 ### Example
 

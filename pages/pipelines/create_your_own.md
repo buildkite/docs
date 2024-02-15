@@ -14,8 +14,8 @@ You'll also need the following:
 - A task you want to perform with the code. For example, run some tests or a script.
 - To enable the YAML steps editor in Buildkite. If you haven't already:
 
-  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+  - Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+  - Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 ## Continue running an agent
 
@@ -34,24 +34,24 @@ To define the steps:
 1. In the root of your repository, create a file named `pipeline.yml` in a `.buildkite` directory.
 1. In `pipeline.yml`, define your pipeline steps. Here's an example:
 
-    ```yaml
-    steps:
-      - label: "\:hammer\: Build"
-        command: "scripts/build.sh"
-        key: build
+   ```yaml
+   steps:
+     - label: "\:hammer\: Build"
+       command: "scripts/build.sh"
+       key: build
 
-      - label: "\:test_tube\: Test"
-        command: "scripts/test.sh"
-        key: test
-        depends_on: build
+     - label: "\:test_tube\: Test"
+       command: "scripts/test.sh"
+       key: test
+       depends_on: build
 
-      - label: "\:rocket\: Deploy"
-        command: "scripts/deploy.sh"
-        key: deploy
-        depends_on: test
-      ```
+     - label: "\:rocket\: Deploy"
+       command: "scripts/deploy.sh"
+       key: deploy
+       depends_on: test
+   ```
 
-    Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs.
+   Follow [Defining steps](/docs/pipelines/defining-steps) and surrounding documentation to learn how to customize the pipeline definition to meet your needs.
 
 1. Commit and push this file to your repository.
 
@@ -64,18 +64,18 @@ To create a new pipeline:
 1. Select _Pipelines_ to navigate to the [Buildkite dashboard](https://buildkite.com/).
 1. Select _New pipeline_.
 
-    **Note:** On the _New Pipeline_ page, if you're prompted to connect your Git repositories from an existing account (for example, GitHub, Bitbucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
-    After connecting your account, you can select its repositories from the dropdown during pipeline creation and enable automatic webhook creation.
+   **Note:** On the _New Pipeline_ page, if you're prompted to connect your Git repositories from an existing account (for example, GitHub, Bitbucket or GitLab), it is recommended you do that first. You can always connect your account later from your pipeline's settings.
+   After connecting your account, you can select its repositories from the dropdown during pipeline creation and enable automatic webhook creation.
 
 1. If you connected your account, select the appropriate repository from the list of existing ones in your account. Otherwise, select _Any account_ from the dropdown and type the URL of the repository to be built.
 1. Enter your pipeline's details in the respective _Name_ and _Description_ fields. You can always change these details later from your pipeline's settings.
 1. In the _Steps_ editor, ensure there's a step to upload the definition from your repository:
 
-    ```yaml
-    steps:
-      - label: "\:pipeline\:"
-        command: buildkite-agent pipeline upload
-    ```
+   ```yaml
+   steps:
+     - label: "\:pipeline\:"
+       command: buildkite-agent pipeline upload
+   ```
 
 1. Select _Create Pipeline_.
 1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
@@ -83,7 +83,7 @@ To create a new pipeline:
    1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
    1. Select _Create Build_.
 
-    The page for the build then opens and begins running.
+   The page for the build then opens and begins running.
 
 Run the pipeline whenever you make changes you want to verify. If you want to add more functionality, go back to editing your steps and repeat.
 

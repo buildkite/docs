@@ -56,9 +56,9 @@ Get the first 10 cluster tokens for a particular cluster, specifying the cluster
 query getClusterTokens {
   organization(slug: "organization-slug") {
     cluster(id: "cluster-uuid") {
-      agentTokens(first: 10){
-        edges{
-          node{
+      agentTokens(first: 10) {
+        edges {
+          node {
             id
             uuid
             description
@@ -71,7 +71,7 @@ query getClusterTokens {
 }
 ```
 
->🚧 Cluster `token` field deprecation
+> 🚧 Cluster `token` field deprecation
 > The `token` field of the [ClusterToken](https://buildkite.com/docs/apis/graphql/schemas/object/clustertoken) object has been deprecated to improve security. Please use the `tokenValue` field from the [ClusterAgentTokenCreatePayload](https://buildkite.com/docs/apis/graphql/schemas/object/clusteragenttokencreatepayload) object instead after creating a token.
 
 ## List jobs in a particular cluster queue
@@ -109,10 +109,10 @@ To obtain jobs in a particular state within a cluster queue, specify the cluster
 query getClusterQueueJobsByJobState {
   organization(slug: "organization-slug") {
     jobs(
-      first: 10,
-      clusterQueue: "cluster-queue-id",
+      first: 10
+      clusterQueue: "cluster-queue-id"
       state: [WAITING, BLOCKED]
-    ){
+    ) {
       edges {
         node {
           ... on JobTypeCommand {

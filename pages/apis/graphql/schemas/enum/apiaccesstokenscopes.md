@@ -14,6 +14,7 @@
 title: APIAccessTokenScopes – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   APIAccessTokenScopes
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 All possible scopes on a user's API Access Token
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

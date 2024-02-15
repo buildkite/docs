@@ -4,7 +4,6 @@ Customers on the Buildkite [Business and Enterprise](https://buildkite.com/prici
 
 For more information on enabling Teams for your organization, please see the [Users and Teams section of Pipelines documentation](/docs/team-management/permissions).
 
-
 ## Permissions with teams
 
 You can see the teams that you're a member of on the Teams page in your Buildkite settings. From this page, you can add new teams or edit existing ones. By clicking on a team, you can view the members, pipelines, suites, and team specific settings.
@@ -13,23 +12,23 @@ You can see the teams that you're a member of on the Teams page in your Buildkit
 
 Users who are organization admins can:
 
-* Enable and disable teams for their organization
-* Create new teams
+- Enable and disable teams for their organization
+- Create new teams
 
 ### Team-level permissions
 
 Users who are team maintainers can perform the following actions for those teams:
 
-* Add users to teams
-* Remove users from teams
-* Set read, write, and edit permissions on suites
+- Add users to teams
+- Remove users from teams
+- Set read, write, and edit permissions on suites
 
 All users in a team have the same level of access to the suites in their team. If you need to have more fine grained control over the suites in a team, you can create more teams with different permissions.
 
 There are two levels of permissions for teams. They are:
 
-* **Full Access** members can view test runs and edit suite settings
-* **Read Only** members can view test runs, but cannot edit suite settings
+- **Full Access** members can view test runs and edit suite settings
+- **Read Only** members can view test runs, but cannot edit suite settings
 
 ## Member permissions
 
@@ -39,7 +38,7 @@ User-level permissions are managed by organization administrators, and can be fo
 
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
-* Create suites
-* Delete suites
+- Create suites
+- Delete suites
 
 If your organization has teams enabled, the suite creation permissions are managed at a team level. Suite creation permission controls can be found on the Teams Settings page. Without teams enabled, the suite creation permission control can be found on the Member Permissions page.

@@ -2,7 +2,6 @@
 
 Customers on the Buildkite [Business and Enterprise](https://buildkite.com/pricing) plans can manage permissions using [Teams](#permissions-with-teams). Enterprise customers can set fine-grained user permissions for their organization with the [member Permissions](#member-permissions) page.
 
-
 ## Permissions with teams
 
 Enabling Teams for your organizations gives you control over each pipeline's permissions in one place. Teams can be enabled from your Organization Settings in the Teams section.
@@ -17,16 +16,16 @@ You can see the teams that you're a member of on the Teams page in your Buildkit
 
 Users who are organization admins can:
 
-* Enable and disable teams for their organization
-* Create new teams
+- Enable and disable teams for their organization
+- Create new teams
 
 ### Team-level permissions
 
 Users who are team maintainers can:
 
-* Add users to existing teams, of which they are the maintainer
-* Remove users from their teams
-* Set read, write, and edit permissions for users on pipelines in their team
+- Add users to existing teams, of which they are the maintainer
+- Remove users from their teams
+- Set read, write, and edit permissions for users on pipelines in their team
 
 All users in a team have the same level of access to the pipelines in their team. If you need to have more fine grained control over the pipelines in a team, you can create more teams with different permissions.
 
@@ -34,13 +33,13 @@ All users in a team have the same level of access to the pipelines in their team
 
 You can grant teams the following permissions on a pipeline:
 
-* Full Access (`MANAGE_BUILD_AND_READ`):
+- Full Access (`MANAGE_BUILD_AND_READ`):
   - Can view and create builds or rebuilds.
   - Can edit pipeline settings.
-* Build & Read (`BUILD_AND_READ`):
+- Build & Read (`BUILD_AND_READ`):
   - Can view and create builds or rebuilds.
   - Can _not_ edit pipeline settings.
-* Read Only (`READ_ONLY`):
+- Read Only (`READ_ONLY`):
   - Can view builds.
   - Can _not_ create builds or issue rebuilds.
   - Can _not_ edit pipeline settings.
@@ -56,7 +55,7 @@ If you're creating pipelines programmatically using the REST API, you can add th
 
 You can also restrict agents to specific teams with the `BUILDKITE_BUILD_CREATOR_TEAMS` environment variable. Using agent hooks, you can allow or disallow builds based on the creator's team memberships.
 
->🚧 Unverified commits
+> 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 For example, the following [`environment` hook](/docs/agent/v3/hooks#job-lifecycle-hooks)
@@ -74,25 +73,32 @@ fi
 ### Frequently asked questions
 
 #### Is there a limit to the number of teams an organization can have?
+
 Yes, we have a limit of **250 teams per organization**. If you are an enterprise
 customer and require additional teams please contact support@buildkite.com.
 
 #### Will users (and API tokens) still have access to their pipelines?
+
 When you enable Teams we'll create a default team called “Everyone”, containing all your users and pipelines. This ensures that users, and their API tokens, will still have access to their pipelines.
 
 #### How does Teams work with SSO?
+
 When a user joins the organization using SSO, they'll be automatically added to any teams that have the “Automatically add new users to this team” setting enabled.
 
 #### Can I delete the “Everyone” team?
+
 Yes, you can delete or edit the “Everyone” team. To ensure uninterrupted access to pipelines we recommend creating new teams before deleting the “Everyone” team.
 
 #### Can I set separate permissions specifically on rebuilds?
+
 No, rebuilds are in the same category with builds. Therefore, all team members with permissions to run builds on a certain pipeline are also able to perform rebuilds.
 
 #### Once enabled, can I disable Teams?
+
 Yes, you can disable teams by deleting all your teams, and then selecting “Disable Teams”.
 
 #### Can I automate the removal of users from Buildkite?
+
 Yes, you can automatically remove users using the GraphQL API. You'll need a [GraphQL API token](https://buildkite.com/user/api-access-tokens) to do it.
 You'll need to look up your organization's slug in the [Organization Settings](https://buildkite.com/organizations/-/settings) and check the name or email of the user you want to remove in the [team](https://buildkite.com/organizations/-/teams) that this user belongs to. Next, use the first query to get the user ID (make sure to replace `your-organization-slug` with your Buildkite organization's slug and `Jane Doe` with the name or email of the user you want to remove), and then run the RemoveOrganizationMember mutation with the user ID to remove the user:
 
@@ -133,12 +139,12 @@ User-level permissions are managed by organization administrators, and can be fo
 
 From the Member Permissions page, organization admins can toggle whether or not users can:
 
-* Create new pipelines
-* Delete pipelines
-* Make an existing private pipeline public
-* Create, edit, and delete notification services
-* Create, edit, and delete agent registration tokens
-* Stop (disconnect) agents
+- Create new pipelines
+- Delete pipelines
+- Make an existing private pipeline public
+- Create, edit, and delete notification services
+- Create, edit, and delete agent registration tokens
+- Stop (disconnect) agents
 
 If your organization has teams enabled, the pipeline creation permissions are managed at a team level. Pipeline creation permission controls can be found on the Teams Settings page. Without teams enabled, the pipeline creation permission control can be found on the Member Permissions page.
 
@@ -146,39 +152,39 @@ Organization admin can delete organization members. To delete organization membe
 
 1. Find the `id` for the user to be deleted (in this example `Jane Doe`):
 
-    ```graphql
-    query {
-      organization(slug: "your-organization-slug") {
-        members(search: "Jane Doe", first: 10) {
-          edges {
-            node {
-              role
-              user {
-                name
-              }
-              id
-            }
-          }
-        }
-      }
-    }
-    ```
+   ```graphql
+   query {
+     organization(slug: "your-organization-slug") {
+       members(search: "Jane Doe", first: 10) {
+         edges {
+           node {
+             role
+             user {
+               name
+             }
+             id
+           }
+         }
+       }
+     }
+   }
+   ```
 
 2. Use the `id` from the previous query in a mutation:
 
-    ```graphql
-    mutation deleteOrgMember {
-      organizationMemberDelete(input: { id: "abc123" }) {
-        organization {
-          name
-        }
-        deletedOrganizationMemberID
-        user {
-          name
-        }
-      }
-    }
-    ```
+   ```graphql
+   mutation deleteOrgMember {
+     organizationMemberDelete(input: { id: "abc123" }) {
+       organization {
+         name
+       }
+       deletedOrganizationMemberID
+       user {
+         name
+       }
+     }
+   }
+   ```
 
 ## Removing users during a security incident
 
@@ -198,7 +204,7 @@ Removing a compromised user from your organization immediately protects all the 
 
 In case of a non-responsive or rogue user, or if multiple accounts are compromised, you can send a list of impacted user IDs to [support@buildkite.com](mailto:support@buildkite.com) and ask the Buildkite support to log out the specific user or all the users out of all sessions.
 
->📘 Enterprise plan
+> 📘 Enterprise plan
 > As a part of the Buildkite SLA, customers on the Enterprise plan have an emergency email available for operational and security incidents. Contact your Customer Success Manager for more information.
 
 If you suspect or have already detected a security breach, and the affected user is cooperative, they can also log out and [reset](https://buildkite.com/forgot-password) their password, which will automatically reset all of their active sessions. Then you can work with the affected user to ensure their account is safe and re-add them to your Buildkite organization.
@@ -215,7 +221,7 @@ If the attacker has control of the SSO, the scope of the security incident is be
 
 The other control you have is the organization membership's SSO mode. If the membership requires SSO, the user will only have access to your organization in the particular sessions authenticated through your SSO provider.
 
->🚧
+> 🚧
 > Before you proceed, make sure that you have at least one user with SSO as an optional log in requirement in your organization to make it possible for someone to log back in!
 
 Admins of your Buildkite organization can disable and then re-enable the SSO, which will force all users in your organization to re-authorize with SSO. When you disable an SSO provider, it rescinds all active SSO authorizations for all users _including the admin who disables the SSO_! The admin will need to log back into the organization by using a non-SSO method.

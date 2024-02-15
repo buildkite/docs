@@ -14,13 +14,13 @@
 title: BuildSourceFrontend – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   BuildSourceFrontend
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A build was triggered manually via the frontend
 
@@ -34,9 +34,6 @@ A build was triggered manually via the frontend
     <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

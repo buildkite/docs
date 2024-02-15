@@ -6,10 +6,10 @@ steps:
   - wait: ~
   - block: "unblock me"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 But let's consider a different example. Now the wait step (with `continue_on_failure: true`) will be ignored, but the block step will **also not run**, because the 'previous' command step failed.
-
 
 ```yml
 steps:
@@ -18,6 +18,7 @@ steps:
     continue_on_failure: true
   - block: "unblock me"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 If you need to run a block step after a failed step, set [`soft_fail`](/docs/pipelines/dependencies#allowed-failure-and-soft-fail) on the failing step:
@@ -29,6 +30,7 @@ steps:
       - exit_status: "*"
   - block: "unblock me"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Alternatively, it is possible to use a wait step with a block step if conditionals are used. In these cases, the wait step must come before the block step:
@@ -43,4 +45,5 @@ steps:
   - command: ".buildkite/scripts/deploy"
     if: build.branch == pipeline.default_branch
 ```
+
 {: codeblock-file="pipeline.yml"}

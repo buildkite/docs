@@ -2,9 +2,8 @@
 
 The Access token API allows you to inspect and revoke an API access token. This can be useful if you find a token, can't identify its owner, and you want to revoke it.
 
->📘
+> 📘
 > All the endpoints expect the token to be provided using the <a href="/docs/apis/rest-api#authentication">Authorization HTTP header</a>.
-
 
 ## Get the current token
 

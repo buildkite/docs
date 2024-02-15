@@ -14,6 +14,7 @@
 title: emailCreate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   emailCreate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Add a new email address for the current user
 

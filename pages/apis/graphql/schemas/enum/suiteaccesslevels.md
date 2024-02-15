@@ -14,6 +14,7 @@
 title: SuiteAccessLevels – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   SuiteAccessLevels
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 The access levels that can be assigned to a suite
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

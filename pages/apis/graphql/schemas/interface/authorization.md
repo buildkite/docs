@@ -14,15 +14,13 @@
 title: Authorization – Interfaces – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   Authorization
   <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
 </h1>
 <!-- vale on -->
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,11 +32,6 @@ toc: false
     <tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>ID of the object.</p></td></tr>
   </tbody>
 </table>
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/authorizationbitbucket" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT AuthorizationBitbucket">

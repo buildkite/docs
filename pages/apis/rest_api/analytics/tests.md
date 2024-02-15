@@ -14,7 +14,7 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
   "scope": "User#email",
   "name": "is correctly formatted",
   "location": "./spec/models/user_spec.rb:42",
-  "file_name": "./spec/models/user_spec.rb",
+  "file_name": "./spec/models/user_spec.rb"
 }
 ```
 

@@ -14,6 +14,7 @@
 title: JSInt – Scalars – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JSInt
@@ -21,5 +22,4 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
-Represents non-fractional signed whole numeric values.  `JSInt` can represent values between -(2^53) + 1 and 2^53 - 1.
+Represents non-fractional signed whole numeric values. `JSInt` can represent values between -(2^53) + 1 and 2^53 - 1.

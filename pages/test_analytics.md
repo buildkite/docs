@@ -39,13 +39,13 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
->📘 Data retention
+> 📘 Data retention
 > The data uploaded to Test Analytics is stored in S3 and deleted after six months.
 
-----
+---
 
 <%= tiles "test_analytics_features" %>
 
-----
+---
 
 <%= tiles "test_analytics_guides" %>

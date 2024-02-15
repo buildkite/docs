@@ -1,6 +1,5 @@
 # Importing JSON
 
-
 If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-analytics/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
@@ -21,6 +20,7 @@ steps:
           files: "test-data-*.json"
           format: "json"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
@@ -41,22 +41,22 @@ For example, to import the contents of a [JSON-formatted test results](#json-tes
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-      -X POST \
-      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-      -F "data=@test-results.json" \
-      -F "format=json" \
-      -F "run_env[CI]=buildkite" \
-      -F "run_env[key]=$BUILDKITE_BUILD_ID" \
-      -F "run_env[url]=$BUILDKITE_BUILD_URL" \
-      -F "run_env[branch]=$BUILDKITE_BRANCH" \
-      -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
-      -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
-      -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
-      -F "run_env[message]=$BUILDKITE_MESSAGE" \
-      https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+     -X POST \
+     -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+     -F "data=@test-results.json" \
+     -F "format=json" \
+     -F "run_env[CI]=buildkite" \
+     -F "run_env[key]=$BUILDKITE_BUILD_ID" \
+     -F "run_env[url]=$BUILDKITE_BUILD_URL" \
+     -F "run_env[branch]=$BUILDKITE_BRANCH" \
+     -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
+     -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
+     -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
+     -F "run_env[message]=$BUILDKITE_MESSAGE" \
+     https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#buildkite).
 
@@ -72,20 +72,20 @@ For example, to import the contents of a `test-results.json` file in a CircleCI 
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-    -X POST \
-    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-    -F "data=@test-results.json" \
-    -F "format=json" \
-    -F "run_env[CI]=circleci" \
-    -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
-    -F "run_env[number]=$CIRCLE_BUILD_NUM" \
-    -F "run_env[branch]=$CIRCLE_BRANCH" \
-    -F "run_env[commit_sha]=$CIRCLE_SHA1" \
-    -F "run_env[url]=$CIRCLE_BUILD_URL" \
-    https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+   -X POST \
+   -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+   -F "data=@test-results.json" \
+   -F "format=json" \
+   -F "run_env[CI]=circleci" \
+   -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
+   -F "run_env[number]=$CIRCLE_BUILD_NUM" \
+   -F "run_env[branch]=$CIRCLE_BRANCH" \
+   -F "run_env[commit_sha]=$CIRCLE_SHA1" \
+   -F "run_env[url]=$CIRCLE_BUILD_URL" \
+   https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#circleci).
 
@@ -101,20 +101,20 @@ For example, to import the contents of a `test-results.json` file in a GitHub Ac
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-    -X POST \
-    -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-    -F "data=@test-results.json" \
-    -F "format=json" \
-    -F "run_env[CI]=github_actions" \
-    -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
-    -F "run_env[number]=$GITHUB_RUN_NUMBER" \
-    -F "run_env[branch]=$GITHUB_REF" \
-    -F "run_env[commit_sha]=$GITHUB_SHA" \
-    -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-    https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+   -X POST \
+   -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+   -F "data=@test-results.json" \
+   -F "format=json" \
+   -F "run_env[CI]=github_actions" \
+   -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
+   -F "run_env[number]=$GITHUB_RUN_NUMBER" \
+   -F "run_env[branch]=$GITHUB_REF" \
+   -F "run_env[commit_sha]=$GITHUB_SHA" \
+   -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+   https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#github-actions).
 
@@ -133,9 +133,9 @@ Schematically, the JSON test results data is like this:
 <!-- markdownlint-disable MD007 -->
 
 - [Test results](#json-test-results-data-reference-test-result-objects)
-   + [History](#json-test-results-data-reference-history-objects)
-       - [Spans](#json-test-results-data-reference-span-objects)
-         + [Detail](#json-test-results-data-reference-detail-objects)
+  - [History](#json-test-results-data-reference-history-objects)
+    - [Spans](#json-test-results-data-reference-span-objects)
+      - [Detail](#json-test-results-data-reference-detail-objects)
 
 <!-- markdownlint-restore -->
 
@@ -145,15 +145,17 @@ Or in a simplified code view:
 [
   {
     /* Test result object */
-    "history": {
+    history: {
       /* history object */
-      "children": [
+      children: [
         /* span objects */
-      ]
-    }
+      ],
+    },
   },
-  { /* Test result object */ },
-]
+  {
+    /* Test result object */
+  },
+];
 ```
 
 ### Test result objects
@@ -162,19 +164,19 @@ A test result represents a single test run.
 
 <%
 def render_enumerated_values(values)
-  if values.nil? or values.length == 1
-    return ''
-  end
+if values.nil? or values.length == 1
+return ''
+end
 
-  if values.length == 1
-    return "(<code>#{values[0]}</code>)"
-  end
+if values.length == 1
+return "(<code>#{values[0]}</code>)"
+end
 
-  if values.length == 2
-    return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
-  end
+if values.length == 2
+return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
+end
 
-  return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
+return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
 end
 %>
 
@@ -396,4 +398,3 @@ Detail objects contains additional information about the span.
   }
 }
 ```
-

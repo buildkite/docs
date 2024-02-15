@@ -1,9 +1,8 @@
 # Trigger step
 
-A *trigger* step creates a build on another pipeline.
+A _trigger_ step creates a build on another pipeline.
 
 You can use trigger steps to separate your test and deploy pipelines, or to create build dependencies between pipelines.
-
 
 A trigger step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file, by setting the `trigger` attribute to the the [slug of the pipeline you want to trigger](#trigger).
 
@@ -11,19 +10,20 @@ A trigger step can be defined in your pipeline settings, or in your [pipeline.ym
 steps:
   - trigger: deploy-pipeline
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Permissions
 
 All builds created by a trigger step will have the same author as the parent build. This user must:
 
-* be a member of your organization
-* have a verified email address
+- be a member of your organization
+- have a verified email address
 
-If you have [Teams](/docs/team-management/permissions) enabled in your organization, *one* of the following conditions must be met:
+If you have [Teams](/docs/team-management/permissions) enabled in your organization, _one_ of the following conditions must be met:
 
-* The authoring user must have 'Build' permission on *every* pipeline that will be triggered
-* The triggering build has no creator and no unblocker, *and* the source pipeline and the target pipeline share a team that can 'Build'
+- The authoring user must have 'Build' permission on _every_ pipeline that will be triggered
+- The triggering build has no creator and no unblocker, _and_ the source pipeline and the target pipeline share a team that can 'Build'
 
 If neither condition is true, the build will fail, and builds on subsequent pipelines will not be triggered.
 
@@ -42,7 +42,6 @@ _Required attributes:_
     </td>
   </tr>
 </table>
-
 
 _Optional attributes:_
 
@@ -166,6 +165,7 @@ _Optional_ `build` _attributes:_
     meta_data:
       release-version: "1.1"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Environment variables
@@ -182,6 +182,7 @@ You can use [environment variable substitution](/docs/agent/v3/cli-pipeline#envi
     commit: "${BUILDKITE_COMMIT}"
     branch: "${BUILDKITE_BRANCH}"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 To pass through pull request information to the triggered build, pass through the branch and pull request environment variables:
@@ -198,6 +199,7 @@ To pass through pull request information to the triggered build, pass through th
       BUILDKITE_PULL_REQUEST_BASE_BRANCH: "${BUILDKITE_PULL_REQUEST_BASE_BRANCH}"
       BUILDKITE_PULL_REQUEST_REPO: "${BUILDKITE_PULL_REQUEST_REPO}"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 To set environment variables on the build created by the trigger step, use the `env` attribute:
@@ -209,35 +211,35 @@ To set environment variables on the build created by the trigger step, use the `
     env:
       RELEASE_STREAM: "${RELEASE_STREAM:-stable}"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Triggering specific steps in a pipeline
 
 While you cannot trigger only a specific step in a pipeline, you can use [conditionals](/docs/pipelines/conditionals) or [dynamic pipelines](/docs/pipelines/defining-steps#dynamic-pipelines) to achieve a similar effect.
 
-
 An example using conditionals might look like this:
 
-* Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
-* Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
-* Custom [environment variables](#environment-variables) passed to the triggered build
+- Testing for [BUILDKITE_SOURCE](/docs/pipelines/environment-variables) `=='trigger_job'` to find out if the build was triggered by a trigger step
+- Testing for [BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG](/docs/pipelines/environment-variables#BUILDKITE_TRIGGERED_FROM_BUILD_PIPELINE_SLUG) to find out which pipeline triggered the build
+- Custom [environment variables](#environment-variables) passed to the triggered build
 
 In the target pipeline, to run the command step only if the build was triggered by a specific pipeline, you might use something like this:
 
 ```yml
 steps:
-    - command: ./scripts/tests.sh
-      if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
-
+  - command: ./scripts/tests.sh
+    if: build.source == 'trigger_job' && build.env('BUILDKITE_TRIGGERED_FROM_BUILD_ID') == 'the_trigering_pipeline'
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 If you also want the command step to run when the build was not triggered by the specific pipeline, you might need to do the opposite, and set conditions on the steps that you don't want to run when the build is triggered:
 
 ```yml
 steps:
-    - command: ./scripts/tests.sh
-      if: build.source != 'trigger_job'
-
+  - command: ./scripts/tests.sh
+    if: build.source != 'trigger_job'
 ```
+
 {: codeblock-file="pipeline.yml"}

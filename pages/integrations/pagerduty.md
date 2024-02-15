@@ -4,7 +4,6 @@ The [PagerDuty](http://pagerduty.com/) integration in Buildkite can send [change
 
 <%= image "overview.png", width: 2202/2, height: 638/2, alt: "Screenshot of the recent events in PagerDuty" %>
 
-
 ## Generating a PagerDuty integration API key
 
 Before using the integration you'll need to generate a PagerDuty Integration API Key.
@@ -27,7 +26,7 @@ For "Integration Type", choose "Buildkite".
 
 Once you've filled out this form, select "Add Integration".
 
-Copy the "Integration Key" from your Integrations list and  use it in [Sending change events from your pipeline](#sending-change-events-from-your-pipeline).
+Copy the "Integration Key" from your Integrations list and use it in [Sending change events from your pipeline](#sending-change-events-from-your-pipeline).
 
 <%= image "integration-with-key.png", width: 2262/2, height: 822/2, alt: "Screenshot of the Buildkite integration in PagerDuty" %>
 
@@ -48,6 +47,7 @@ steps:
 notify:
   - pagerduty_change_event: "${PAGER_DUTY_API_KEY}"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "change-event.png", width: 2304/2, height: 1096/2, alt: "Screenshot of a Change Event inside PagerDuty sent from Buildkite" %>

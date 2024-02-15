@@ -12,12 +12,12 @@ To complete this tutorial, you'll need:
 
 - A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
 
-    When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
+  When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
 
 - To enable the YAML steps editor in Buildkite:
 
-  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+  - Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+  - Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
 - [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
@@ -36,22 +36,23 @@ The hybrid architecture reduces the maintenance burden on your team compared to 
 
 The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
 
->📘 Already running an agent
+> 📘 Already running an agent
 > If you're already running an agent, skip to the [next step](#create-a-pipeline).
 
 To install and run an agent:
 
 1. Decide where you want to run the agent.
 
-    Most engineers start by running an agent on their local machine while playing around with pipeline definitions before setting up a long-term solution.
+   Most engineers start by running an agent on their local machine while playing around with pipeline definitions before setting up a long-term solution.
 
 1. Follow the instructions for where you want to install the agent.
 
-    To install locally, see:
-   * [macOS](/docs/agent/v3/macos#installation)
-   * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-   * [Linux](/docs/agent/v3/linux#installation)
-   * [Docker](/docs/agent/v3/docker#running-using-docker)
+   To install locally, see:
+
+   - [macOS](/docs/agent/v3/macos#installation)
+   - [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
+   - [Linux](/docs/agent/v3/linux#installation)
+   - [Docker](/docs/agent/v3/docker#running-using-docker)
 
      Or see [all installation options](/docs/agent/v3/installation).
 
@@ -74,13 +75,13 @@ To create a pipeline:
 
 1. Select _Add to Buildkite_ for the appropriate example based on where your agent is running.
 
-    For Bash:
+   For Bash:
 
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+   <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/bash-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add Bash Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
-    For PowerShell:
+   For PowerShell:
 
-    <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
+   <a class="inline-block" href="https://buildkite.com/new?template=https://github.com/buildkite/powershell-example" target="_blank" rel="nofollow"><img src="https://buildkite.com/button.svg" alt="Add PowerShell Example to Buildkite" class="no-decoration" width="160" height="30"></a>
 
 1. On the _New Pipeline_ page, leave all fields with their pre-filled default values and select _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
@@ -114,4 +115,3 @@ Beyond the log, select one of the other tabs to see the artifacts, a timeline br
 That's it! You've installed an agent, run a build, and checked the output. 🎉
 
 Now try [creating your own pipeline](/docs/pipelines/create-your-own).
-

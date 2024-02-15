@@ -1,7 +1,6 @@
 # Wait step
 
-A *wait* step waits for all previous steps to have successfully completed before allowing following jobs to continue.
-
+A _wait_ step waits for all previous steps to have successfully completed before allowing following jobs to continue.
 
 A wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
 
@@ -10,6 +9,7 @@ A wait step can be defined in your pipeline settings, or in your [pipeline.yml](
 - wait
 - command: "echo The command passed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -84,6 +84,7 @@ steps:
     continue_on_failure: true
   - command: "echo THIRD command"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example1.png", width: 1086/2, height: 414/2, alt: "Screenshot of a failed pipeline which didn't run the continue_on_failure wait steps" %>
@@ -101,6 +102,7 @@ steps:
     continue_on_failure: true
   - command: "echo FOURTH command"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example2.png", width: 1402/2, height: 417/2, alt: "Screenshot of a failed pipeline which did run the continue_on_failure wait steps" %>

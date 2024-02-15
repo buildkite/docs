@@ -19,7 +19,11 @@ query PipelineRecentBuildLastJobQueue {
             edges {
               node {
                 number
-                jobs(state: FINISHED, first: 1, agentQueryRules: "queue=queue-name") {
+                jobs(
+                  state: FINISHED
+                  first: 1
+                  agentQueryRules: "queue=queue-name"
+                ) {
                   edges {
                     node {
                       ... on JobTypeCommand {
@@ -64,6 +68,7 @@ query getConcurrency {
   }
 }
 ```
+
 ## Get the last job of an agent
 
 To get the last job of an agent or `null`. You will need to know the UUID of the agent.
@@ -133,7 +138,7 @@ query GetJobsUUID {
 Get info about a job using the job's UUID only.
 
 ```graphql
-query GetJob  {
+query GetJob {
   job(uuid: "a00000a-xxxx-xxxx-xxxx-a000000000a") {
     ... on JobTypeCommand {
       id
@@ -141,13 +146,13 @@ query GetJob  {
       createdAt
       scheduledAt
       finishedAt
-      pipeline{
+      pipeline {
         name
       }
-      build{
+      build {
         id
         number
-        pipeline{
+        pipeline {
           name
         }
       }

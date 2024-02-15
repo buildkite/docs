@@ -55,11 +55,15 @@ A simple query like the following would incur more than 500 requested complexity
 
 ```graphql
 query RecentPipelineSlugs {
-  organization(slug: "organization-slug") {  # 1 point
-    pipelines(first: 500) {                  # 1 point
-      edges {                                # 1 point
-        node {                               # 500 points
-          slug                               # 0 points
+  organization(slug: "organization-slug") {
+    # 1 point
+    pipelines(first: 500) {
+      # 1 point
+      edges {
+        # 1 point
+        node {
+          # 500 points
+          slug # 0 points
         }
       }
     }
@@ -75,11 +79,15 @@ Taking the same query used earlier, if the organization has only 10 pipelines, t
 
 ```graphql
 query RecentPipelineSlugs {
-  organization(slug: "organization-slug") {  # 1 point
-    pipelines(first: 500) {                  # 1 point
-      edges {                                # 1 point
-        node {                               # 10 points
-          slug                               # 0 points
+  organization(slug: "organization-slug") {
+    # 1 point
+    pipelines(first: 500) {
+      # 1 point
+      edges {
+        # 1 point
+        node {
+          # 10 points
+          slug # 0 points
         }
       }
     }
@@ -88,6 +96,7 @@ query RecentPipelineSlugs {
 ```
 
 ## Rate limits
+
 Buildkite has implemented two distinct limits to the GraphQL endpoints. These limits play a critical role in ensuring the platform operates smoothly and efficiently, while minimizing the risk of unnecessary downtime or system failures.
 
 By enforcing these limits, we can effectively manage and allocate the necessary resources for our GraphQL endpoints.
@@ -124,11 +133,11 @@ If an organization exceeds the 20,000 point limit, the response will return HTTP
 
 ```json
 {
-    "errors": [
-        {
-            "message": "Your organization has exceeded the limit of 20000 complexity points. Please try again in 187 seconds."
-        }
-    ]
+  "errors": [
+    {
+      "message": "Your organization has exceeded the limit of 20000 complexity points. Please try again in 187 seconds."
+    }
+  ]
 }
 ```
 
@@ -140,8 +149,8 @@ You can access both time-based limits and query complexity information through t
 
 The rate limit status is available in the following response headers of each GraphQL call:
 
-- `RateLimit-Remaining` — The remaining complexity left within the current time window.  
-- `RateLimit-Limit` — The complexity limit for the time window.  
+- `RateLimit-Remaining` — The remaining complexity left within the current time window.
+- `RateLimit-Limit` — The complexity limit for the time window.
 - `RateLimit-Reset` — The number of seconds remaining until a new time window is started and the limits are reset.
 
 For example:
@@ -158,12 +167,12 @@ To include the complexity data in responses, set the `Buildkite-Include-Query-St
 
 ```json
 {
-  "data" : {
+  "data": {
     "organization": {
       "name": "Buildkite"
     }
   },
-  "stats" : {
+  "stats": {
     "requestedComplexity": 1910,
     "actualComplexity": 550
   }

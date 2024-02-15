@@ -18,46 +18,46 @@ Before you start, make sure ExUnit runs with access to [CI environment variables
 
 1. Add `buildkite_test_collector` to your list of dependencies in `mix.exs`:
 
-    ```elixir
-    def deps do
-      [
-        {:buildkite_test_collector, "~> 0.1.0", only: [:test]}
-      ]
-    end
-    ```
+   ```elixir
+   def deps do
+     [
+       {:buildkite_test_collector, "~> 0.1.0", only: [:test]}
+     ]
+   end
+   ```
 
 1. Set up your API token:
 
-    In your `config/test.exs` (or other environment configuration as appropriate) add the analytics API token. We suggest that you retrieve the token from the environment, and configure your CI environment accordingly (for example using secrets).
+   In your `config/test.exs` (or other environment configuration as appropriate) add the analytics API token. We suggest that you retrieve the token from the environment, and configure your CI environment accordingly (for example using secrets).
 
-    ```elixir
-    import Config
+   ```elixir
+   import Config
 
 
-    config :buildkite_test_collector,
-      api_key: System.get_env("BUILDKITE_ANALYTICS_TOKEN")
-    ```
+   config :buildkite_test_collector,
+     api_key: System.get_env("BUILDKITE_ANALYTICS_TOKEN")
+   ```
 
-4. Add `BuildkiteTestCollectorFormatter` to your ExUnit configuration in `test/test_helper.exs`:
+1. Add `BuildkiteTestCollectorFormatter` to your ExUnit configuration in `test/test_helper.exs`:
 
-    ```elixir
-    ExUnit.configure formatters: [BuildkiteTestCollector.Formatter, ExUnit.CLIFormatter]
-    ExUnit.start
-    ```
+   ```elixir
+   ExUnit.configure formatters: [BuildkiteTestCollector.Formatter, ExUnit.CLIFormatter]
+   ExUnit.start
+   ```
 
-5. Run your tests like normal:
+1. Run your tests like normal:
 
-    Note that we attempt to detect the presence of several common CI environments. However if this fails you can set the `CI` environment variable to any value and it will work.
+   Note that we attempt to detect the presence of several common CI environments. However if this fails you can set the `CI` environment variable to any value and it will work.
 
-    ```sh
-    $ mix test
+   ```sh
+   $ mix test
 
-    ...
+   ...
 
-    Finished in 0.01 seconds (0.003s on load, 0.004s on tests)
-    3 tests, 0 failures
+   Finished in 0.01 seconds (0.003s on load, 0.004s on tests)
+   3 tests, 0 failures
 
-    Randomized with seed 12345
-    ```
+   Randomized with seed 12345
+   ```
 
-6. Verify that it works. If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.
+1. Verify that it works. If all is well, you should see the test run in the test analytics section of the Buildkite dashboard.

@@ -10,11 +10,11 @@ Audit Log is an interactive track record of all organization activity. This feat
 
 Audit Log contains two tabs:
 
-* **Events** - where you see all the events that take place within your Buildkite organization.
+- **Events** - where you see all the events that take place within your Buildkite organization.
 
 <%= image "organization-activity.png", width: 1752/2, height: 1356/2, alt: "Organization activity in Audit Log" %>
 
-* **Query & Export** - where you can query and export your Buildkite organization's Audit Log using [GraphQL API](https://buildkite.com/docs/graphql-api).
+- **Query & Export** - where you can query and export your Buildkite organization's Audit Log using [GraphQL API](https://buildkite.com/docs/graphql-api).
 
 <%= image "query-and-export.png", width: 1752/2, height: 1250/2, alt: "Query and export of Audit Log" %>
 

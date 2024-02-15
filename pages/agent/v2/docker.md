@@ -1,13 +1,12 @@
 # Running Buildkite Agent with Docker
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/docker">see the latest version of this document</a>.
 
 You can run the Buildkite Agent inside a Docker container using the official Docker images.
 
->📘 Running each build in its own container
+> 📘 Running each build in its own container
 > These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Docker-Based Builds</a> guide.
-
 
 ## Running using Docker
 

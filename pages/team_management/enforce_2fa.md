@@ -29,6 +29,6 @@ To enforce two-factor authentication:
 Please review the GraphQL [cookbook] for instructions on how to enable
 enforced 2fa via the GraphQL API.
 
-[cookbook]: </docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization>
-[security settings]: <https://buildkite.com/organizations/~/security>
-[tutorial]: </docs/tutorials/2fa>
+[cookbook]: /docs/apis/graphql/cookbooks/organizations#enforce-two-factor-authentication-2fa-for-your-organization
+[security settings]: https://buildkite.com/organizations/~/security
+[tutorial]: /docs/tutorials/2fa

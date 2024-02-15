@@ -14,6 +14,7 @@
 title: PipelineVisibility – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   PipelineVisibility
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 The visibility of the pipeline
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -14,6 +14,7 @@
 title: UsageUnion – Unions – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   UsageUnion
@@ -21,14 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 The possible resource usage types
-
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/jobminutesusage" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobMinutesUsage">

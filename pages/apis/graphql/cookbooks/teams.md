@@ -22,13 +22,15 @@ Then use the ID to create a new team within the organization:
 
 ```graphql
 mutation CreateTeam {
-  teamCreate(input: {
-    organizationID: "organization-id",
-    name: "team-name",
-    privacy: SECRET,
-    isDefaultTeam: false,
-    defaultMemberRole: MEMBER
-  }) {
+  teamCreate(
+    input: {
+      organizationID: "organization-id"
+      name: "team-name"
+      privacy: SECRET
+      isDefaultTeam: false
+      defaultMemberRole: MEMBER
+    }
+  ) {
     organization {
       uuid
       teams(first: 1, order: RECENTLY_CREATED) {
@@ -67,13 +69,12 @@ query getOrgTeams {
 
 Then, add a team member. You can get the `user-id` using the example in [Search for organization members](/docs/apis/graphql/cookbooks/organizations#search-for-organization-members).
 
->📘
+> 📘
 > <code>clientMutationId</code> is null when the mutation is successful.
 
-
 ```graphql
-mutation addTeamMember{
-  teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
+mutation addTeamMember {
+  teamMemberCreate(input: { teamID: "team-id", userID: "user-id" }) {
     clientMutationId
   }
 }
@@ -115,12 +116,12 @@ query TeamMembersQuery {
 
 Then delete a team member. Check that you have the team member ID and not the user ID:
 
->📘
+> 📘
 > <code>clientMutationId</code> is null when the mutation is successful.
 
 ```graphql
 mutation deleteTeamMember {
-  teamMemberDelete(input: {id: "team-member-id"}) {
+  teamMemberDelete(input: { id: "team-member-id" }) {
     clientMutationId
   }
 }
@@ -205,10 +206,9 @@ Finally, update all pipelines in a team to have either READ_ONLY or BUILD_AND_RE
 
 ```graphql
 mutation UpdateTeamPipelineReadonly {
-  teamPipelineUpdate(input: {
-    id: "team-pipeline-id",
-    accessLevel: BUILD_AND_READ
-  }) {
+  teamPipelineUpdate(
+    input: { id: "team-pipeline-id", accessLevel: BUILD_AND_READ }
+  ) {
     teamPipeline {
       permissions {
         teamPipelineDelete {

@@ -14,13 +14,13 @@
 title: Changelog – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   Changelog
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A changelog
 
@@ -34,9 +34,6 @@ A changelog
     <tr><td><h3 class="is-small has-pills"><code>author</code><a href="/docs/apis/graphql/schemas/object/changelogauthor" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT ChangelogAuthor"><code>ChangelogAuthor</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>body</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The body of this changelog</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>publishedAt</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime</code></a></h3><p>The date and time this changelog was published</p></td></tr><tr><td><h3 class="is-small has-pills"><code>tag</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The tag for this changelog</p></td></tr><tr><td><h3 class="is-small has-pills"><code>title</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The title for this changelog</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The public UUID for this changelog</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

@@ -6,7 +6,6 @@ This guide explains how to trigger builds when you push to a Git server.
 For example, if you're using a proprietary Git server, then you can trigger builds on push with a post-recieve hook.
 This method can be adapted for other Git events or for running Buildkite builds from arbitrary scripts and services.
 
-
 ## Before you start
 
 To follow along with the steps in this guide, you need the following:
@@ -15,7 +14,7 @@ To follow along with the steps in this guide, you need the following:
 
 - The ability to run server-side Git hooks
 
-    If your Git server is hosted on a platform that restricts or prohibits running arbitrary scripts, such as GitHub, then this approach won't work.
+  If your Git server is hosted on a platform that restricts or prohibits running arbitrary scripts, such as GitHub, then this approach won't work.
 
 - Familiarity with the concepts of executable shell scripts, Buildkite pipelines and builds, and REST APIs
 
@@ -79,8 +78,8 @@ To use this script:
 
 - Set the `BUILDKITE_API_TOKEN` environment variable to an [API access token](/docs/apis/managing-api-tokens).
 
-    The token is a privileged secret.
-    A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
+  The token is a privileged secret.
+  A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
 
 - Set a valid `BUILDKITE_ORG_SLUG` and `BUILDKITE_PIPELINE_SLUG`, or replace them with environment variables.
 - Make the file executable (for example, in the `hooks` directory, run `chmod +x post-receive`).

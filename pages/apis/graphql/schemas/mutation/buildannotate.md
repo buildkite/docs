@@ -14,6 +14,7 @@
 title: buildAnnotate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   buildAnnotate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Annotate a build with information to appear on the build page.
 

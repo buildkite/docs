@@ -3,15 +3,14 @@
 Agent orchestration deployments on AWS require a virtual private cloud (VPC)
 network.
 
-
 Your VPC needs to provide routable access to the buildkite.com service
 so that `buildkite-agent` processes can connect, and retrieve the jobs assigned
 to them. The options are:
 
-*  a public subnet, with a route table that has a
-default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
-* a private subnet, with a route table that has a default route pointing to an
-[NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html)
+- a public subnet, with a route table that has a
+  default route pointing to an [internet gateway](https://docs.aws.amazon.com/vpc/latest/userguide/VPC_Internet_Gateway.html)
+- a private subnet, with a route table that has a default route pointing to an
+  [NAT device](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-nat.html)
 
 Auxiliary services used by the agent or your jobs such as S3, ECR, or SSM,
 can be routed over the public internet, or though a

@@ -14,13 +14,13 @@
 title: Email – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   Email
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 An email address
 
@@ -34,9 +34,6 @@ An email address
     <tr><td><h3 class="is-small has-pills"><code>address</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The email address</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>primary</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>Whether the email address is the user's primary address</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The public UUID for this email</p></td></tr><tr><td><h3 class="is-small has-pills"><code>verified</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>Whether the email address has been verified by the user</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

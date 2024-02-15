@@ -28,10 +28,10 @@ buildkite/build-exports/org={UUID}/date={YYYY-MM-DD}/pipeline={UUID}/build={UUID
 
 The files are stored in the following formats:
 
-* [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build)
-* [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) (as meta-data)
-* [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
-* Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build))
+- [Annotations](https://buildkite.com/docs/apis/rest-api/annotations#list-annotations-for-a-build)
+- [Artifacts](https://buildkite.com/docs/apis/rest-api/artifacts#list-artifacts-for-a-build) (as meta-data)
+- [Builds](https://buildkite.com/docs/apis/rest-api/builds#get-a-build) (but without `jobs`, as they are stored in separate files)
+- Jobs (as would be embedded in a [Build via the REST API](https://buildkite.com/docs/apis/rest-api/builds#get-a-build))
 
 ## Configure build exports
 
@@ -39,45 +39,45 @@ To configure build exports for your organization, you'll need to prepare an Amaz
 
 ### Prepare your Amazon S3 bucket
 
-* Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
-* Your bucket must be located in Amazon's `us-east-1` region.
-* Your bucket must have a policy allowing cross-account access as described here and demonstrated in the example below¹.
+- Read and understand [Security best practices for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/security-best-practices.html).
+- Your bucket must be located in Amazon's `us-east-1` region.
+- Your bucket must have a policy allowing cross-account access as described here and demonstrated in the example below¹.
   - Allow Buildkite's AWS account `032379705303` to `s3:GetBucketLocation`.
   - Allow Buildkite's AWS account `032379705303` to `s3:PutObject` keys matching `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
-  - Do *not* allow AWS account `032379705303` to `s3:PutObject` keys outside that prefix.
-* Your bucket should use modern S3 security features and configurations, for example (but not limited to):
+  - Do _not_ allow AWS account `032379705303` to `s3:PutObject` keys outside that prefix.
+- Your bucket should use modern S3 security features and configurations, for example (but not limited to):
   - [Block public access](https://docs.aws.amazon.com/AmazonS3/latest/userguide/access-control-block-public-access.html) to prevent accidental misconfiguration leading to data exposure.
   - [ACLs disabled with bucket owner enforced](https://docs.aws.amazon.com/AmazonS3/latest/userguide/about-object-ownership.html) to ensure your AWS account owns the objects written by Buildkite.
   - [Server-side data encryption](https://docs.aws.amazon.com/AmazonS3/latest/userguide/serv-side-encryption.html) (`SSE-S3` is enabled by default, we do not currently support `SSE-KMS` but let us know if you need it).
   - [S3 Versioning](https://docs.aws.amazon.com/AmazonS3/latest/userguide/Versioning.html) to help recover objects from accidental deletion or overwrite.
-* You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
+- You may want to use [Amazon S3 Lifecycle](https://docs.aws.amazon.com/AmazonS3/latest/userguide/object-lifecycle-mgmt.html) to manage storage class and object expiry.
 
 ¹ Your S3 bucket policy should look like this, with `YOUR-BUCKET-NAME-HERE` and
 `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "BuildkiteGetBucketLocation",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:GetBucketLocation",
-            "Resource": "arn\:aws\:s3:::YOUR-BUCKET-NAME-HERE"
-        },
-        {
-            "Sid": "BuildkitePutObject",
-            "Effect": "Allow",
-            "Principal": {
-                "AWS": "arn\:aws\:iam::032379705303:root"
-            },
-            "Action": "s3:PutObject",
-            "Resource": "arn\:aws\:s3:::YOUR-BUCKET-NAME-HERE/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*"
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "BuildkiteGetBucketLocation",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::032379705303:root"
+      },
+      "Action": "s3:GetBucketLocation",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME-HERE"
+    },
+    {
+      "Sid": "BuildkitePutObject",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": "arn:aws:iam::032379705303:root"
+      },
+      "Action": "s3:PutObject",
+      "Resource": "arn:aws:s3:::YOUR-BUCKET-NAME-HERE/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*"
+    }
+  ]
 }
 ```
 
@@ -85,8 +85,9 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
 
 ### Prepare your Google Cloud Storage bucket
 
-* Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices) and [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/).
-* Your bucket must have a policy allowing our Buildkite service-account access as described here.
+- Read and understand [Google Cloud Storage security best practices](https://cloud.google.com/security/best-practices) and [Best practices for Cloud Storage](https://cloud.google.com/storage/docs/).
+- Your bucket must have a policy allowing our Buildkite service-account access as described here.
+
   - Assign Buildkite's service-account `buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com` the `"Storage Object Creator"`.
   - Scope the `"Storage Object Creator"` role using IAM Conditions to limit access to objects matching the prefix `buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/*`.
   - Your IAM Conditions should look like this, with `YOUR-BUCKET-NAME-HERE` and `YOUR-BUILDKITE-ORGANIZATION-UUID` substituted with your details:
@@ -95,18 +96,19 @@ Your Buildkite Organization ID (UUID) can be found on the settings page describe
     {
       "expression": "resource.name.startsWith('projects/_/buckets/YOUR-BUCKET-NAME-HERE/objects/buildkite/build-exports/org=YOUR-BUILDKITE-ORGANIZATION-UUID/')",
       "title": "Scope build exports prefix",
-      "description": "Allow Buildkite's service-account to create objects only within the build exports prefix",
+      "description": "Allow Buildkite's service-account to create objects only within the build exports prefix"
     }
     ```
 
     Your Buildkite Organization ID (UUID) can be found on the [organization's pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
-* Your bucket must grant our Buildkite service-account (`buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com`) `storage.objects.create` permission.
-* Your bucket should use modern Google Cloud Storage security features and configurations, for example (but not limited to):
+
+- Your bucket must grant our Buildkite service-account (`buildkite-production-aws@buildkite-pipelines.iam.gserviceaccount.com`) `storage.objects.create` permission.
+- Your bucket should use modern Google Cloud Storage security features and configurations, for example (but not limited to):
   - [Public access prevention](https://cloud.google.com/storage/docs/public-access-prevention) to prevent accidental misconfiguration leading to data exposure.
   - [Access control lists](https://cloud.google.com/storage/docs/access-control/lists) to ensure your GCP (Google Cloud Provider) account owns the objects written by Buildkite.
   - [Data encryption options](https://cloud.google.com/storage/docs/encryption).
   - [Object versioning](https://cloud.google.com/storage/docs/object-versioning) to help recover objects from accidental deletion or overwrite.
-* You may want to use [GCS Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) to manage storage class and object expiry.
+- You may want to use [GCS Object Lifecycle Management](https://cloud.google.com/storage/docs/lifecycle) to manage storage class and object expiry.
 
 ### Enable build exports
 

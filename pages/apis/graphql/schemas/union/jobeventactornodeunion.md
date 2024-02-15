@@ -14,6 +14,7 @@
 title: JobEventActorNodeUnion – Unions – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobEventActorNodeUnion
@@ -21,14 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Actor types that can create events on a job
-
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/agent" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT Agent">

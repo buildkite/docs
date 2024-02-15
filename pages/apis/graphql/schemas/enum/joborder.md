@@ -14,6 +14,7 @@
 title: JobOrder – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobOrder
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 The different orders you can sort jobs by
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

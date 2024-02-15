@@ -14,6 +14,7 @@
 title: JobStepSearch – Input_objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobStepSearch
@@ -21,10 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Searching for jobs based on step information
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -4,7 +4,6 @@ Build status badges help to visually show the current build state for a pipeline
 
 You can find your pipeline's status badge on the **Pipeline Settings** page.
 
-
 ## Scoping to a branch
 
 By default the build status badge will show the last build's status. You can scope it to a specific branch by adding a `?branch` parameter to the URL. For example, to scope your badge to the `main` branch you would add: `?branch=main` to the URL.
@@ -35,6 +34,7 @@ You can set the style of the badge by passing in a `style` parameter:
         <td><%= image_tag "#{ENV["BADGE_DOMAIN"]}/sample.svg?status=unknown&style=#{style}" %></td>
       </tr>
     <% end %>
+
   </tbody>
 </table>
 <!-- vale on -->
@@ -101,9 +101,9 @@ For example:
 
 You can use the following URLs for testing your theme:
 
-* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passing
-* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
-* <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
+- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=passing
+- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=failing
+- <%= ENV["BADGE_DOMAIN"] %>/sample.svg?status=unknown
 
 ## JSON output
 
@@ -116,9 +116,9 @@ $ curl https://badge.buildkite.com/3826789cf8890b426057e6fe1c4e683bdf04fa24d4988
 
 Possible values for the `"status"` key are:
 
-* `"passing"`
-* `"failing"`
-* `"unknown"`
+- `"passing"`
+- `"failing"`
+- `"unknown"`
 
 ## Contributing
 

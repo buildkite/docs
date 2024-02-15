@@ -2,13 +2,12 @@
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
 
-
 ## Mandatory JUnit XML attributes
 
 The following attributes are mandatory for the `<testcase>` element:
 
-* `classname`: full class name for the class the test method is in.
-* `name`: name of the test method.
+- `classname`: full class name for the class the test method is in.
+- `name`: name of the test method.
 
 To learn more about the JUnit XML file format, see [Common JUnit XML format & examples
 ](https://github.com/testmoapp/junitxml).
@@ -30,6 +29,7 @@ steps:
           files: "test/junit-*.xml"
           format: "junit"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
@@ -49,22 +49,22 @@ For example, to import the contents of a `junit.xml` file in a Buildkite pipelin
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-      -X POST \
-      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-      -F "data=@junit.xml" \
-      -F "format=junit" \
-      -F "run_env[CI]=buildkite" \
-      -F "run_env[key]=$BUILDKITE_BUILD_ID" \
-      -F "run_env[url]=$BUILDKITE_BUILD_URL" \
-      -F "run_env[branch]=$BUILDKITE_BRANCH" \
-      -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
-      -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
-      -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
-      -F "run_env[message]=$BUILDKITE_MESSAGE" \
-      https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+     -X POST \
+     -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+     -F "data=@junit.xml" \
+     -F "format=junit" \
+     -F "run_env[CI]=buildkite" \
+     -F "run_env[key]=$BUILDKITE_BUILD_ID" \
+     -F "run_env[url]=$BUILDKITE_BUILD_URL" \
+     -F "run_env[branch]=$BUILDKITE_BRANCH" \
+     -F "run_env[commit_sha]=$BUILDKITE_COMMIT" \
+     -F "run_env[number]=$BUILDKITE_BUILD_NUMBER" \
+     -F "run_env[job_id]=$BUILDKITE_JOB_ID" \
+     -F "run_env[message]=$BUILDKITE_MESSAGE" \
+     https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#buildkite).
 
@@ -83,20 +83,20 @@ For example, to import the contents of a `junit.xml` file in a CircleCI pipeline
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-      -X POST \
-      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-      -F "data=@junit.xml" \
-      -F "format=junit" \
-      -F "run_env[CI]=circleci" \
-      -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
-      -F "run_env[number]=$CIRCLE_BUILD_NUM" \
-      -F "run_env[branch]=$CIRCLE_BRANCH" \
-      -F "run_env[commit_sha]=$CIRCLE_SHA1" \
-      -F "run_env[url]=$CIRCLE_BUILD_URL" \
-      https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+     -X POST \
+     -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+     -F "data=@junit.xml" \
+     -F "format=junit" \
+     -F "run_env[CI]=circleci" \
+     -F "run_env[key]=$CIRCLE_WORKFLOW_ID-$CIRCLE_BUILD_NUM" \
+     -F "run_env[number]=$CIRCLE_BUILD_NUM" \
+     -F "run_env[branch]=$CIRCLE_BRANCH" \
+     -F "run_env[commit_sha]=$CIRCLE_SHA1" \
+     -F "run_env[url]=$CIRCLE_BUILD_URL" \
+     https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments#circleci).
 
@@ -115,21 +115,21 @@ For example, to import the contents of a `junit.xml` file in a GitHub Actions pi
 
 2. Run the following `curl` command:
 
-    ```sh
-    curl \
-      -X POST \
-      --fail-with-body \
-      -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
-      -F "data=@junit.xml" \
-      -F "format=junit" \
-      -F "run_env[CI]=github_actions" \
-      -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
-      -F "run_env[number]=$GITHUB_RUN_NUMBER" \
-      -F "run_env[branch]=$GITHUB_REF" \
-      -F "run_env[commit_sha]=$GITHUB_SHA" \
-      -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
-      https://analytics-api.buildkite.com/v1/uploads
-    ```
+   ```sh
+   curl \
+     -X POST \
+     --fail-with-body \
+     -H "Authorization: Token token=\"$BUILDKITE_ANALYTICS_TOKEN\"" \
+     -F "data=@junit.xml" \
+     -F "format=junit" \
+     -F "run_env[CI]=github_actions" \
+     -F "run_env[key]=$GITHUB_ACTION-$GITHUB_RUN_NUMBER-$GITHUB_RUN_ATTEMPT" \
+     -F "run_env[number]=$GITHUB_RUN_NUMBER" \
+     -F "run_env[branch]=$GITHUB_REF" \
+     -F "run_env[commit_sha]=$GITHUB_SHA" \
+     -F "run_env[url]=https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" \
+     https://analytics-api.buildkite.com/v1/uploads
+   ```
 
 To learn more about passing through environment variables to `run_env`-prefixed fields, see [CI environments](/docs/test-analytics/ci-environments).
 

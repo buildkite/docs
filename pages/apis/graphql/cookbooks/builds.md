@@ -24,9 +24,9 @@ Retrieve all of a job's environment variables for a given build. This is the equ
 
 ```graphql
 query GetEnvVarsBuild {
-  build(slug:"organization-slug/pipeline-slug/build-number") {
+  build(slug: "organization-slug/pipeline-slug/build-number") {
     message
-    jobs(first: 10, state:FINISHED) {
+    jobs(first: 10, state: FINISHED) {
       edges {
         node {
           ... on JobTypeCommand {
@@ -98,7 +98,10 @@ Then, if there are more than 500 results, use the value of `organization.pipelin
 ```graphql
 query {
   organization(slug: "organization-slug") {
-    pipelines(first: 500, after: "value-from-organization.pipelines.pageInfo.endCursor") {
+    pipelines(
+      first: 500
+      after: "value-from-organization.pipelines.pageInfo.endCursor"
+    ) {
       count
       pageInfo {
         endCursor
@@ -129,10 +132,10 @@ This query helps you understand how many job minutes you've used by looking at t
 ```graphql
 query PipelineBuildCountForPeriod {
   pipeline(slug: "organization-slug") {
-    builds(createdAtFrom:"YYYY-MM-DD", createdAtTo:"YYYY-MM-DD") {
+    builds(createdAtFrom: "YYYY-MM-DD", createdAtTo: "YYYY-MM-DD") {
       count
-      edges{
-        node{
+      edges {
+        node {
           createdAt
           finishedAt
           id
@@ -156,9 +159,9 @@ query {
           name
           slug
           builds(
-            first: 10,
-            createdAtFrom: "YYYY-MM-DD",
-            createdAtTo: "YYYY-MM-DD",
+            first: 10
+            createdAtFrom: "YYYY-MM-DD"
+            createdAtTo: "YYYY-MM-DD"
             state: RUNNING
           ) {
             edges {
@@ -184,8 +187,8 @@ Count how many builds a pipeline has done for a given repository branch.
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    builds(branch:"branch-name") {
+  pipeline(slug: "organization-slug/pipeline-slug") {
+    builds(branch: "branch-name") {
       count
     }
   }
@@ -196,8 +199,8 @@ You can limit the results to a certain timeframe using `createdAtFrom` or `creat
 
 ```graphql
 query PipelineBuildCountForBranchQuery {
-  pipeline(slug:"organization-slug/pipeline-slug") {
-    builds(branch:"branch-name", createdAtTo:"DateTime") {
+  pipeline(slug: "organization-slug/pipeline-slug") {
+    builds(branch: "branch-name", createdAtTo: "DateTime") {
       count
     }
   }
@@ -222,10 +225,7 @@ Then mutate the next build number. In this example, we set `nextBuildNumber` to 
 
 ```graphql
 mutation PipelineUpdate {
-  pipelineUpdate(input: {
-  id: "pipeline-id",
-  nextBuildNumber: 300
-  }) {
+  pipelineUpdate(input: { id: "pipeline-id", nextBuildNumber: 300 }) {
     pipeline {
       name
       nextBuildNumber

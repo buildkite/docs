@@ -2,9 +2,8 @@
 
 The Buildkite Agent clones your source code directly from GitHub or GitHub Enterprise. The easiest way to provide it with access is by creating a “Buildkite Agent” machine user in your organization, and adding it to a team that has access to the relevant repositories.
 
->📘
+> 📘
 > If you're running a build agent on a local development machine which already has access to GitHub then you can skip this setup and start running builds.
-
 
 ## Method 1: Machine user
 
@@ -14,9 +13,9 @@ The easiest way to do this is by creating a “Buildkite agent” machine user i
 
 To set up a GitHub machine user:
 
-* On your agent machine, generate a key as per the [agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-a-single-ssh-key)
-* Sign up to GitHub as a new user (using a valid email address), and add the SSH key to the user's settings
-* Sign back into GitHub as an organization admin, create a new team, then add the new user and any required repositories to the team
+- On your agent machine, generate a key as per the [agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-a-single-ssh-key)
+- Sign up to GitHub as a new user (using a valid email address), and add the SSH key to the user's settings
+- Sign back into GitHub as an organization admin, create a new team, then add the new user and any required repositories to the team
 
 ## Method 2: Deploy keys
 
@@ -24,6 +23,6 @@ An alternative method of providing access to your repositories is to use deploy 
 
 To setup GitHub deploy keys with the Buildkite Agent, you'll need to do the following for each repository:
 
-* On your agent machine, generate a key as per the
-[agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-multiple-ssh-keys)
-* In GitHub, copy the key into the repository's “Deploy keys” settings
+- On your agent machine, generate a key as per the
+  [agent SSH keys documentation](/docs/agent/v3/ssh-keys#creating-multiple-ssh-keys)
+- In GitHub, copy the key into the repository's “Deploy keys” settings

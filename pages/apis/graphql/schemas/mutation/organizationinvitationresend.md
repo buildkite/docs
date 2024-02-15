@@ -14,6 +14,7 @@
 title: organizationInvitationResend – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationInvitationResend
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Resend an organization invitation email.
 

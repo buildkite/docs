@@ -14,6 +14,7 @@
 title: BuildMetaDataInput – Input_objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   BuildMetaDataInput
@@ -21,10 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Meta-data key/value pairs for a build
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

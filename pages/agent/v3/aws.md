@@ -8,7 +8,6 @@ The Buildkite Agent can be run on AWS using our Elastic CI Stack for AWS
 CloudFormation template, or by installing the agent on your self-managed
 instances.
 
-
 ## Using our Elastic CI Stack for AWS CloudFormation template
 
 The [Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/elastic-ci-stack-overview) is a
@@ -28,8 +27,8 @@ the [GitHub repository](https://github.com/buildkite/elastic-ci-stack-for-aws).
 To run the agent on your own AWS instances, use the installer that matches your
 instance operating system:
 
-* For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
-* For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
+- For Amazon Linux 2 or later, use the [Red Hat/CentOS installer](/docs/agent/v3/redhat)
+- For macOS, use [installing the agent on your own AWS EC2 Mac instances](#installing-the-agent-on-your-own-aws-ec2-mac-instances)
 
 ## Using the experimental Elastic CI Stack for AWS for EC2 Mac CloudFormation template
 
@@ -52,25 +51,25 @@ To use Xcode and the iOS Simulator, you must configure auto-login of a GUI
 session, and launch the Buildkite Agent in an `aqua` session as a Launchd Agent:
 
 1. Reserve an [EC2 Mac](https://aws.amazon.com/ec2/instance-types/mac/)
-Dedicated Host.
+   Dedicated Host.
 1. Boot a macOS instance using your desired AMI on the Dedicated Host.
 1. Configure instance VPC subnets, security groups, and key pairs so that you
-can access the instance.
+   can access the instance.
 1. Using an SSH or AWS SSM session:
-	- Set a password for the `ec2-user` using `sudo passwd ec2-user`
-	- Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
-	- Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
+   - Set a password for the `ec2-user` using `sudo passwd ec2-user`
+   - Enable screen sharing using `sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate -configure -access -on -restart -agent -privs -all`
+   - Grow the AFPS container to use all the available space in your EBS root disk if needed, see the [AWS user guide](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-mac-instances.html#mac-instance-increase-volume)
 1. Using a VNC session (run SSH port forwarding `ssh -L 5900:localhost:5900 ec2-user@<ip-address>` if direct access is not available):
-	1. Sign in as the `ec2-user`
-	1. Enable *Automatic login* for the `ec2-user` in *System Preferences* > *Users & Accounts* > *Login Options*
-	1. Disable *Require password* in *System Preferences* > *Security & Privacy* > *General*
-	1. Set system sleep in *System Preferences* > *Energy Saver* > *Turn display off after* to *Never*
-	1. Disable the screen saver in *System Preferences* > *Desktop & Screen Saver* > *Show screen saver after*
+   1. Sign in as the `ec2-user`
+   1. Enable _Automatic login_ for the `ec2-user` in _System Preferences_ > _Users & Accounts_ > _Login Options_
+   1. Disable _Require password_ in _System Preferences_ > _Security & Privacy_ > _General_
+   1. Set system sleep in _System Preferences_ > _Energy Saver_ > _Turn display off after_ to _Never_
+   1. Disable the screen saver in _System Preferences_ > _Desktop & Screen Saver_ > _Show screen saver after_
 1. Follow the [macOS installation guide](/docs/agent/v3/macos#installation)
-instructions to install the Buildkite agent using Homebrew and configure
-starting on login.
+   instructions to install the Buildkite agent using Homebrew and configure
+   starting on login.
 1. Verify that the Buildkite agent has connected to buildkite.com with your
-desired agent tags.
+   desired agent tags.
 1. Create an AMI from your instance.
 
 Your saved AMI can now be used to boot as many macOS instances as you require.
@@ -92,7 +91,7 @@ There is an excellent blog post on [running iOS agents in the cloud](https://www
 
 ### Known issues
 
-* You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
+- You might need to give the agent [full disk access](https://github.com/buildkite/agent/issues/1400)
 
 ## Preventing builds from accessing Amazon EC2 metadata
 
@@ -102,8 +101,8 @@ If you run your builds on an AWS EC2 permission sandbox and then allow Buildkite
 
 To avoid this, you need to prevent the builds from accessing your EC2 metadata or provide sandboxed AWS credentials for each build and restrict their permissions. There are two main ways to do it:
 
-* Compartmentalizing your Buildkite agents
-* Downgrading an instance profile role
+- Compartmentalizing your Buildkite agents
+- Downgrading an instance profile role
 
 If you run all the build steps in Docker containers, take a look at [compartmentalizing your agents](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents). If you are using Kubernetes for your Buildkite CI, use the [same approach](#preventing-builds-from-accessing-amazon-ec2-metadata-restricting-permissions-using-compartmentalization-of-agents) and also check out [this article](https://github.com/blakestoddard/scaledkite) for more information and inspiration.
 

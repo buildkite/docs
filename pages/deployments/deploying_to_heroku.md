@@ -6,7 +6,6 @@ For GitHub-based pipelines you can use Heroku's [Automatic Deploys](https://devc
 
 If you don't use GitHub or need more control of deployments, this guide will run you through the steps required for performing a manual deployment using `git push`. You can also use these methods to create pipelines for `heroku` cli tasks you'd like to automate.
 
-
 ## Setting up the Heroku command-line interface (CLI)
 
 You can deploy to Heroku using the same `git push` command you'd run from your development machine.
@@ -48,13 +47,14 @@ steps:
     command:
       - cp .env.sample-dev .env
       - foreman run rake db:setup spec
-      
+
   - label: "\:heroku\: Deploy"
     branches: "main"
     command:
       - "heroku git:remote --app my-app"
       - "git push heroku \"$$BUILDKITE_COMMIT\":main"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 What's happening here? `heroku git:remote` ensures the Git `remote` is always pointing to the correct Heroku application and doesn't have an old value from previous builds. The `git push` specifies the exact commit, to make sure we're pushing the same commit we've tested.

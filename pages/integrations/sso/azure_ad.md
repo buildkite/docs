@@ -2,9 +2,8 @@
 
 You can use [Azure Active Directory](https://azure.microsoft.com/en-us/services/active-directory/#overview) as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both Azure and Buildkite.
 
->📘 You can also set up SSO providers manually with GraphQL.
+> 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
-
 
 ## Step 1. Create a Buildkite SSO provider
 
@@ -25,8 +24,8 @@ In your [Azure Admin Console](https://portal.azure.com/), follow these instructi
 4. Choose _Integrate any other application you don't find in the gallery (Non-gallery)_ and click _Create_.
 5. Choose _Set up single sign on_, then _SAML_, then in the _Basic SAML Configuration_ box, choose _Edit_.
 6. Enter the following configuration and save:
-    * _Identifier (Entity ID)_: `https://buildkite.com`
-    * _Reply URL (Assertion Consumer Service URL)_: the ACS URL you copied in [Step 1](#step-1-create-a-buildkite-sso-provider)
+   - _Identifier (Entity ID)_: `https://buildkite.com`
+   - _Reply URL (Assertion Consumer Service URL)_: the ACS URL you copied in [Step 1](#step-1-create-a-buildkite-sso-provider)
 7. Copy the _App Federation Metadata Url_ value from the _SAML Signing Certificate_ box for use in [Step 3](#step-3-update-your-buildkite-sso-provider).
 
 ## Step 3. Update your Buildkite SSO provider
@@ -53,8 +52,8 @@ Then, on your [Buildkite Organization Settings](https://buildkite.com/organizati
 
 Once you've [performed a test login](#step-4-perform-a-test-login) you can enable your SSO provider using the _Enable_ button. Enabling the SSO provider will not force a log out of any signed in users, but will cause all new or expired sessions to authorize through Azure AD before accessing any organization data.
 
->🚧
->If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/integrations/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
+> 🚧
+> If you need to edit or update your Azure Active Directory provider settings, you will need to <a href="/docs/integrations/sso#disabling-and-removing-sso">disable the SSO provider</a> first.
 
 ## Using SCIM to provision and manage users
 
@@ -62,17 +61,17 @@ Enterprise customers can automatically add and remove user accounts from their B
 
 ### Supported SCIM features
 
-* Create users
-* Deactivate users (deprovisioning)
+- Create users
+- Deactivate users (deprovisioning)
 
->📘
+> 📘
 > Buildkite does not bill you for users that you add to Azure AD until they sign in to your Buildkite organization.
 
 ### Configuration instructions
 
 Adding and removing users accounts in Azure AD is called provisioning. You need an enabled Azure AD SSO Provider for your Buildkite Organization before you can set up SCIM provisioning.
 
->📘
+> 📘
 > User deprovisioning is an Enterprise only feature and automatically enabled. If you are using a [custom provider](/docs/integrations/sso/custom-saml) as an Enterprise customer, please contact support@buildite.com to have this feature enabled.
 
 After enabling your Azure AD SSO provider in Buildkite, get the _Base URL_ and _API Token_ from your Azure AD SSO provider settings:
@@ -83,23 +82,23 @@ Then go to your [Azure Admin Console](https://portal.azure.com/) and select the 
 
 1. Choose _Provisioning_ from the navigation sidebar, then click _Get started_.
 2. Select _Automatic_ provisioning mode and enter the following details:
-    * _Tenant URL_: the Base URL from your Buildkite SSO Provider settings
-    * _Secret Token_: the API Token from your Buildkite SSO Provider settings
+   - _Tenant URL_: the Base URL from your Buildkite SSO Provider settings
+   - _Secret Token_: the API Token from your Buildkite SSO Provider settings
 3. Click _Test Connection_, and when you receive confirmation the settings are valid, save.
 4. Disable group synchronization:
-    1. Expand _Mappings_, then click _Provision Azure Active Directory Groups_.
-    2. Toggle _Enabled_ to _No_ and click _Save_.
+   1. Expand _Mappings_, then click _Provision Azure Active Directory Groups_.
+   2. Toggle _Enabled_ to _No_ and click _Save_.
 5. Customize the User mappings:
-    1. Expand _Mappings_, then click _Provision Azure Active Directory Users_.
-    2. Keep the following four mappings, and delete any others:
-        - `userPrincipalName` to `userName`
-        - `Switch([IsSoftDeleted], , "False", "True", "True", "False")` to `active`
-        - `givenName` to `name.givenName`
-        - `surname` to `name.familyName`
+   1. Expand _Mappings_, then click _Provision Azure Active Directory Users_.
+   2. Keep the following four mappings, and delete any others:
+      - `userPrincipalName` to `userName`
+      - `Switch([IsSoftDeleted], , "False", "True", "True", "False")` to `active`
+      - `givenName` to `name.givenName`
+      - `surname` to `name.familyName`
 6. Toggle _Provisioning Status_ to _On_ and save.
 7. Return to the _Provisioning_ menu of your Azure AD enterprise app and view the _Current cycle status_ section:
-    * If provisioning is working, this will say _Initial cycle completed_.
-    * If errors are displayed, click _View provisioning logs_ for more details on what went wrong.
+   - If provisioning is working, this will say _Initial cycle completed_.
+   - If errors are displayed, click _View provisioning logs_ for more details on what went wrong.
 
 ## SAML user attributes
 

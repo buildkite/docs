@@ -4,7 +4,6 @@ The Buildkite Agent's `pipeline` command allows you to add and replace build ste
 
 See the [Defining your pipeline steps](/docs/pipelines/defining-steps) guide for a step-by-step example and list of step types.
 
-
 ## Uploading pipelines
 
 <%= render 'agent/v3/help/pipeline_upload' %>
@@ -13,15 +12,13 @@ See the [Defining your pipeline steps](/docs/pipelines/defining-steps) guide for
 
 The pipeline can be written as YAML or JSON, but YAML is more common for its readability. There are three top level properties you can specify:
 
-* `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
-* `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
-* `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
-
+- `agents` - A map of agent characteristics such as `os` or `queue` that restrict what agents the command will run on
+- `env` - A map of <a href="/docs/pipelines/environment-variables">environment variables</a> to apply to all steps
+- `steps` - A list of [build pipeline steps](/docs/pipelines/defining-steps)
 
 ## Insertion order
 
 Steps are inserted immediately following the job performing the pipeline upload. Note that if you perform multiple uploads from a single step, they can appear to be in reverse order, because the later uploads are inserted earlier in the pipeline.
-
 
 ## Environment variable substitution
 
@@ -65,13 +62,13 @@ You can set required environment variables using the syntax `${VAR?}`. If `VAR` 
 For example, the following step will cause the pipeline upload to error if the `SERVER` environment variable has not been set:
 
 ```yaml
-- command: "deploy.sh \"${SERVER?}\""
+- command: 'deploy.sh "${SERVER?}"'
 ```
 
 You can set a custom error message after the `?` character. For example, the following prints the error message `SERVER: is not set. Please specify a server` if the environment variable has not been set:
 
 ```yaml
-- command: "deploy.sh \"${SERVER?is not set. Please specify a server}\""
+- command: 'deploy.sh "${SERVER?is not set. Please specify a server}"'
 ```
 
 ### Default, blank, and missing values
@@ -81,7 +78,7 @@ If an environment variable has not been set it will evaluate to a blank string. 
 For example, the following step will run the command `deploy.sh staging`:
 
 ```yaml
-- command: "deploy.sh \"${SERVER:-staging}\""
+- command: 'deploy.sh "${SERVER:-staging}"'
 ```
 
 <table>
@@ -115,7 +112,7 @@ You can substitute a subset of characters from an environment variable by specif
 For example, the following step will echo the first 7 characters of the `BUILDKITE_COMMIT` environment variable:
 
 ```yaml
-- command: "echo \"Short commit is: ${BUILDKITE_COMMIT:0:7}\""
+- command: 'echo "Short commit is: ${BUILDKITE_COMMIT:0:7}"'
 ```
 
 If the environment variable has not been set, the range will return a blank string.

@@ -6,7 +6,6 @@ toc_include_h3: false
 
 The `notify` attribute allows you to trigger build notifications to different services. You can also choose to conditionally send notifications based on pipeline events like build state.
 
-
 Add notifications to your pipeline with the `notify` attribute. This sits at the same level as `steps` in your pipeline YAML.
 
 For example, to send a notification email every time a build is created:
@@ -18,15 +17,16 @@ steps:
 notify:
   - email: "dev@acmeinc.com"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Available notification types:
 
-* [Email](#email): Send an email to the specified email address.
-* [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
-* [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.
-* [Webhooks](#webhooks): Send a notification to the specified webhook URL.
-* [PagerDuty](#pagerduty-change-events)
+- [Email](#email): Send an email to the specified email address.
+- [Basecamp](#basecamp-campfire-message): Post a message to a Basecamp Campfire. Requires a Basecamp Chatbot to be configured in your Basecamp organization.
+- [Slack](#slack-channel-and-direct-messages): Post a message to the specified Slack Channel. Requires a Slack notification service to be enabled for each channel.
+- [Webhooks](#webhooks): Send a notification to the specified webhook URL.
+- [PagerDuty](#pagerduty-change-events)
 
 ## Conditional notifications
 
@@ -42,15 +42,15 @@ notify:
   - email: "dev@acmeinc.com"
     if: build.state == "passed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
->🚧
+> 🚧
 > To trigger conditional notifications to a Slack channel, you will first need to configure <a href="/docs/integrations/slack#conditional-notifications">Conditional notifications for Slack</a>.
 
 ## Email
-
 
 Add an email notification to your pipeline using the `email` attribute of the `notify` YAML block:
 
@@ -58,6 +58,7 @@ Add an email notification to your pipeline using the `email` attribute of the `n
 notify:
   - email: "dev@acmeinc.com"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 You can only send email notifications on entire pipeline events, specifically upon [`build finished`](/docs/apis/webhooks#events).
@@ -73,13 +74,14 @@ notify:
   - email: "sre@acmeinc.com"
   - email: "qa@acmeinc.com"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Basecamp Campfire message
 
 To send notifications to a Basecamp Campfire, you'll need to set up a chatbot in Basecamp as well as adding the notification to your `pipeline.yml` file. Basecamp admin permission is required to setup your chatbot.
 
->🚧
+> 🚧
 > Campfire messages can only be sent using Basecamp 3.</p>
 
 1. Add a [chatbot](https://m.signalvnoise.com/new-in-basecamp-3-chatbots/) to the Basecamp project or team that you'll be sending notifications to.
@@ -94,30 +96,31 @@ steps:
 notify:
   - basecamp_campfire: "https://3.basecamp.com/1234567/integrations/qwertyuiop/buckets/1234567/chats/1234567/lines"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 The `basecamp_campfire` attribute accepts a single URL as a string.
 
 Basecamp notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/notifications#conditional-notifications):
 
-* `build created`
-* `build started`
-* `build blocked`
-* `build finished`
-* `build skipped`
+- `build created`
+- `build started`
+- `build blocked`
+- `build finished`
+- `build skipped`
 
 ## Slack channel and direct messages
 
 You can set notifications:
 
-* On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
-* On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
+- On build status events in the Buildkite UI, by using your Slack Notification Service's 'Build State Filtering' settings.
+- On step status and other non-build events, by extending the Slack Notification Service using the `notify` attribute in your `pipeline.yml`.
 
 Before adding a `notify` attribute to your `pipeline.yml`, ensure an organization admin has set up a [Slack integration](/docs/integrations/slack) for the channel or user that you want to post to. Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan can also check the ['Manage Notifications Services'](https://buildkite.com/organizations/~/security/pipelines) checkbox to create, edit, or delete notification services. For detailed information about setting up a Notification Service, see the [Slack integration page](/docs/integrations/slack).
 
 Once a Slack channel has been configured in your organization, add a Slack notification to your pipeline using the `slack` attribute of the `notify` YAML block. Remember that if you rename or modify the Slack channel for which the integration was set up, for example if you change it from public to private, you need to set up a new integration.
 
->🚧
+> 🚧
 > When using only a channel name, you must specify it in quotes, as otherwise the <code>#</code> will cause the channel name to be treated as a comment.</p>
 
 ### Notify a channel in all workspaces
@@ -133,6 +136,7 @@ steps:
 notify:
   - slack: "#general"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications to the `#general` channel of all configured workspaces:
@@ -144,6 +148,7 @@ steps:
     notify:
       - slack: "#general"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Notify a user in all workspaces
@@ -156,6 +161,7 @@ Build-level notifications to user `@someuser` in all configured workspaces:
 notify:
   - slack: "@someuser"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications to user `@someuser` in all configured workspaces:
@@ -167,6 +173,7 @@ steps:
     notify:
       - slack: "@someuser"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Notify a channel in one workspace
@@ -185,6 +192,7 @@ notify:
   # Notify user
   - slack: "buildkite-community@someuser"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications:
@@ -199,6 +207,7 @@ steps:
       # Notify user
       - slack: "buildkite-community@someuser"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Notify multiple teams and channels
@@ -216,6 +225,7 @@ notify:
         - "buildkite-team#monitoring"
         - "#general"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications:
@@ -232,6 +242,7 @@ steps:
             - "buildkite-team#monitoring"
             - "#general"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Custom messages
@@ -251,6 +262,7 @@ notify:
         - "buildkite-community#announcements"
       message: "General announcement for the team here..."
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications:
@@ -269,6 +281,7 @@ steps:
             - "buildkite-community#announcements"
           message: "General announcement for the team here..."
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Custom messages with user mentions
@@ -284,6 +297,7 @@ notify:
         - "#general"
       message: "This message will ping the user with ID U024BE7LH <@U024BE7LH>!"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Step-level notifications:
@@ -298,9 +312,10 @@ steps:
             - "#general"
           message: "This message will ping the group with ID SAZ94GDB8 <!subteam^SAZ94GDB8>!"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
->🚧  Build creator environment variable
+> 🚧 Build creator environment variable
 > You cannot substitute `user` with the build creator environment variable value.
 
 ### Conditional Slack notifications
@@ -312,13 +327,14 @@ notify:
   - slack: "#general"
     if: build.state == "passed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See [Supported variables](/docs/pipelines/conditionals#variable-and-syntax-reference-variables) for more conditional variables that can be used in the `if` attribute.
 
 Slack notifications happen at the following [event](/docs/apis/webhooks#events):
 
-* `build finished`
+- `build finished`
 
 An example to deliver slack notification when a step is soft-failed:
 
@@ -326,7 +342,7 @@ An example to deliver slack notification when a step is soft-failed:
 steps:
   - command: exit -1
     soft_fail: true
-    key: 'step1'
+    key: "step1"
   - wait: ~
   - command: |
       if [ $(buildkite-agent step get "outcome" --step "step1") == "soft_failed" ]; then
@@ -342,6 +358,7 @@ steps:
       YAML
       fi
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Webhooks
@@ -355,6 +372,7 @@ steps:
 notify:
   - webhook: "https://webhook.site/32raf257-168b-5aca-9067-3b410g78c23a"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 The `webhook` attribute accepts a single webhook URL as a string. To send notifications to more than one endpoint, add each URL as a separate webhook attribute:
@@ -368,14 +386,15 @@ notify:
   - webhook: "https://webhook.site/32raf257-81b6-9067-5aca-78s09m6102b4"
   - webhook: "https://webhook.site/27f518bw-9067-5aca-b681-102c847j917z"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Webhook notifications happen at the following [events](/docs/apis/webhooks#events), unless you restrict them using [conditionals](/docs/pipelines/notifications#conditional-notifications):
 
-* `build created`
-* `build started`
-* `build blocked`
-* `build finished`
+- `build created`
+- `build started`
+- `build blocked`
+- `build finished`
 
 ## PagerDuty change events
 
@@ -388,11 +407,12 @@ steps:
 notify:
   - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Email notifications happen at the following [event](/docs/apis/webhooks#events):
 
-* `build finished`
+- `build finished`
 
 Restrict notifications to passed builds by adding a [conditional](#conditional-notifications):
 
@@ -404,6 +424,7 @@ notify:
   - pagerduty_change_event: "636d22Yourc0418Key3b49eee3e8"
     if: "build.state == 'passed'"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Build states

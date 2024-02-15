@@ -57,9 +57,9 @@ Only Buildkite administrators or users with the [_change organization_ permissio
 
 You can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
 
-* Update or delete the cluster.
-* Manage cluster agent tokens.
-* Add or remove pipelines to the cluster.
+- Update or delete the cluster.
+- Manage cluster agent tokens.
+- Add or remove pipelines to the cluster.
 
 To add a maintainer to a cluster:
 
@@ -83,9 +83,9 @@ Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents 
 
 Note the following limitations:
 
-* This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given cluster token.
-* There is a maximum of 24 CIDR blocks per agent token.
-* IPv6 is currently not supported.
+- This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given cluster token.
+- There is a maximum of 24 CIDR blocks per agent token.
+- IPv6 is currently not supported.
 
 ### Migrate to clusters
 
@@ -105,7 +105,7 @@ To pause a queue:
 1. Select _Pause_.
 1. Enter an optional note in the dialog, and confirm that you wish to pause the queue.
 
-      You can use the note to explain why you're pausing the queue. The note will display on the queue page and any affected builds.
+   You can use the note to explain why you're pausing the queue. The note will display on the queue page and any affected builds.
 
 Jobs _already_ dispatched to agents in the queue before pausing will continue to run. New jobs that target the paused queue will wait until the queue is resumed.
 

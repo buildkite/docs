@@ -1,6 +1,5 @@
 # Ping events
 
-
 ## Events
 
 <table>

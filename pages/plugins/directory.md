@@ -6,7 +6,6 @@ The [plugins directory](https://buildkite.com/plugins) is where you can both dis
 
 Plugins supported by the Buildkite team display the Buildkite logo in the directory, and can be found in the [Buildkite Plugins GitHub Organization](https://github.com/buildkite-plugins).
 
-
 ## Adding your plugin
 
 To have your plugin appear in the directory:
@@ -24,5 +23,5 @@ Once completed, your plugin will display in the directory as pictured below:
 
 <%= image "ecr-plugin-directory-item.png", width: 1014/2, height: 500/2, alt: "Screenshot of ECR plugin in the Buildkite plugins directory" %>
 
->🚧
+> 🚧
 > If you've completed the above steps and your plugin doesn't appear, send an email to <a href="mailto:support@buildkite.com">support@buildkite.com</a> and we'll investigate it for you.

@@ -14,13 +14,13 @@
 title: JobMinutesUsage – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobMinutesUsage
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A record of job minutes usage, aggregated by day and pipeline.
 
@@ -34,9 +34,6 @@ A record of job minutes usage, aggregated by day and pipeline.
     <tr><td><h3 class="is-small has-pills"><code>aggregatedOn</code><a href="/docs/apis/graphql/schemas/scalar/iso8601date" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ISO8601Date"><code>ISO8601Date!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>pipeline</code><a href="/docs/apis/graphql/schemas/object/pipeline" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Pipeline"><code>Pipeline</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>pipelineId</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>seconds</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int!</code></a></h3><p>The recorded usage in seconds. For billing purposes, seconds are summed for a billing period and rounded down to the nearest minute.</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

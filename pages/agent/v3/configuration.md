@@ -2,7 +2,6 @@
 
 Every agent installer comes with a configuration file. You can also customize many of the configuration values using environment variables.
 
-
 ## Example configuration file
 
 ```sh
@@ -12,11 +11,13 @@ tags="ci=true,docker=true"
 git-clean-flags="-ffdqx"
 debug=true
 ```
+
 {: codeblock-file="/buildkite/buildkite-agent.cfg"}
 
 You can find the location of your configuration file in your platform's installation documentation. You can also set it using the `--config` command line argument or the `BUILDKITE_AGENT_CONFIG` environment variable.
 
 ## Configuration settings
+
 <!-- vale off -->
 <table class="Docs__attribute__table">
   <colgroup>
@@ -74,6 +75,7 @@ You can find the location of your configuration file in your platform's installa
         </tr>
       <% end -%>
     <% end -%>
+
   </tbody>
 </table>
 <!-- vale on -->
@@ -141,6 +143,7 @@ You can find the location of your configuration file in your platform's installa
         <p class="Docs__api-param-eg"><a href="#no-ssh-keyscan"><em>Use instead:</em> <code>no-ssh-keyscan</code></a></p>
       </td>
     </tr>
+
   </tbody>
 </table>
 

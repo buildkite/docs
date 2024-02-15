@@ -1,6 +1,5 @@
 # Teams API
 
-
 ## Team data model
 
 <table>
@@ -52,7 +51,6 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   <tr><th><code>user_id</code></th><td>Filters the results to teams that have the given user as a member. <p class="Docs__api-param-eg"><em>Example:</em> <code>?user_id=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td></tr>
 </tbody>
 </table>
-
 
 Required scope: `read_teams`
 

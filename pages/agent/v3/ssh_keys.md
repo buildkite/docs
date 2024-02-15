@@ -2,7 +2,6 @@
 
 If your agent needs to clone your repositories using git and SSH, you'll need to configure your agent with a valid SSH key.
 
-
 ## Finding your SSH key directory
 
 When the Buildkite agent runs any git operations, it will look for SSH keys in `~/.ssh` under the user the agent is running as. Each platform's [agent installation documentation](/docs/agent/v3/installation) specifies which user the agent runs as and in which directory the SSH keys are. For example, on Debian the agent runs as `buildkite-agent` and the SSH keys are in `/var/lib/buildkite-agent/.ssh/` but on macOS the agent runs as the user who started the `launchd` service, and the SSH keys are in that user's `.ssh` directory.
@@ -97,20 +96,22 @@ id_rsa.pipeline-1  id_rsa.pipeline-1.pub
 
 Alternatively, you can use a shorter approach to creating multiple SSH keys by adding pipeline-specific environments:
 
->📘
+> 📘
 > Note that if you are using Elastic CI Stack for AWS, the following approach is redundant as <a href="https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets">secrets support</a> allows you to specify an SSH key per pipeline as <code>/{pipeline-slug}/private_ssh_key</code>.
 
-1. Add a pipeline-specific environment (for example, by using [Elastic CI Stack for AWS's secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):  
+1. Add a pipeline-specific environment (for example, by using [Elastic CI Stack for AWS's secrets support](https://github.com/buildkite/elastic-ci-stack-for-aws#build-secrets) or by having an Agent environment hook that switches on the repository URL or the pipeline slug):
 
-    ```bash
-    GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
-    ```
+   ```bash
+   GIT_SSH_COMMAND="ssh -i ~/.ssh/id_rsa_mypipeline"
+   ```
+
 2. Create an identity file at that location:
 
-    ```bash
-    ~/.ssh/id_rsa_mypipeline
-    ```
-3. Add the public key for that identity file to `mypipeline` on the git repository provider.  
+   ```bash
+   ~/.ssh/id_rsa_mypipeline
+   ```
+
+3. Add the public key for that identity file to `mypipeline` on the git repository provider.
 
 ## Using multiple keys with ssh-agent
 

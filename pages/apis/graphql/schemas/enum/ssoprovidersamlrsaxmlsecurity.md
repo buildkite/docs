@@ -14,6 +14,7 @@
 title: SSOProviderSAMLRSAXMLSecurity – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   SSOProviderSAMLRSAXMLSecurity
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 XML RSA security algorithms used in the SAML exchange
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

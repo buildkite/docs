@@ -7,7 +7,6 @@ keywords: docs, pipelines, tutorials, bazel
 [Bazel](https://www.bazel.build/) is an open-source build and test tool similar to Make, Maven, and Gradle.
 Bazel supports large codebases across multiple repositories, and large numbers of users.
 
-
 ## Using Bazel on Buildkite
 
 1. [Install Bazel](https://docs.bazel.build/install.html) on one or more Buildkite Agents.
@@ -32,5 +31,5 @@ Make sure you're signed into your [Buildkite account](https://buildkite.com) and
 
 ## Further reading
 
-* The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
-* The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.
+- The [Bazel C++ tutorial](https://docs.bazel.build/tutorial/cpp.html#refine-your-bazel-build) goes into more detail about how to configure more complex Bazel builds, covering multiple build targets and multiple packages.
+- The Bazel [external dependencies docs](https://docs.bazel.build/external.html) show you how to build other local and remote repositories.

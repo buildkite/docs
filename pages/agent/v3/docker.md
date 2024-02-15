@@ -2,9 +2,8 @@
 
 You can run the Buildkite Agent inside a Docker container using the [official image on Docker Hub](https://hub.docker.com/r/buildkite/agent).
 
->📘 Running each build in its own container
+> 📘 Running each build in its own container
 > These instructions cover how to run the agent using Docker. If you want to learn how to isolate each build using Docker and any of our standard Linux-based installers read the <a href="/docs/tutorials/docker-containerized-builds">Containerized builds with Docker</a> guide.
-
 
 ## Running using Docker
 
@@ -20,7 +19,7 @@ A much larger Ubuntu-based image is also available:
 docker run -d -t --name buildkite-agent buildkite/agent:3-ubuntu start --token "<your-agent-token>"
 ```
 
->🚧 Caveats for builds that need Docker access.
+> 🚧 Caveats for builds that need Docker access.
 > If your build jobs require Docker access, and you're passing through the Docker socket, you must ensure the build path is consistent between the Docker host and the agent container. See <a href="#allowing-builds-to-use-docker">Allowing builds to use Docker</a> for more details.
 
 ## Version tagging
@@ -29,10 +28,10 @@ The default tag (`buildkite/agent:latest`) will always point to the latest stabl
 
 ## Default file locations
 
-* Configuration: `/buildkite/buildkite-agent.cfg`
-* Agent Hooks: `/buildkite/hooks`
-* Builds: `/buildkite/builds`
-* Agent user home: `/root`
+- Configuration: `/buildkite/buildkite-agent.cfg`
+- Agent Hooks: `/buildkite/hooks`
+- Builds: `/buildkite/builds`
+- Agent user home: `/root`
 
 ## Configuration
 
@@ -87,11 +86,11 @@ Permissions on the host are set based on the user running the Docker daemon, whi
 
 To ensure correct file permissions, you can:
 
-* Change the way permissions are set on the files created by your Docker container: modify your container's `USER` or modify your build commands.
+- Change the way permissions are set on the files created by your Docker container: modify your container's `USER` or modify your build commands.
 
-* Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
+- Configure [user namespace remapping](https://docs.docker.com/engine/security/userns-remap/) on your Docker host to ensure that container users are remapped to the same user running your `buildkite-agent`.
 
-* Run a script before or after builds that resets permissions. You can do this either using Docker (because it runs as root) or using `sudo`. See the Buildkite Elastic CI Stack for AWS's [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
+- Run a script before or after builds that resets permissions. You can do this either using Docker (because it runs as root) or using `sudo`. See the Buildkite Elastic CI Stack for AWS's [fix-buildkite-agent-builds-permissions](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/scripts/fix-buildkite-agent-builds-permissions) script or the [sudoers.conf](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/v2.3.4/packer/conf/buildkite-agent/sudoers.conf) script for examples of using an agent hook and sudo command to reset permissions.
 
 ## Allowing builds to use Docker
 
@@ -113,7 +112,7 @@ docker run \
   buildkite/agent:3 start --token "<your-agent-token>"
 ```
 
->🚧 Security considerations
+> 🚧 Security considerations
 > Providing builds with a Docker socket gives them access to whatever the docker daemon has access to on the host system. Typically this is <code>root</code>, which means builds have full root system access. This can be mitigated somewhat with <a href="https://docs.docker.com/engine/security/userns-remap/">user namespace remapping</a>, but caution should still be exercised.
 
 ## Exposing build secrets into the container
@@ -133,7 +132,7 @@ docker run \
 
 If you've exposed pipeline secrets as environment variables, you can pass them through to the container using the -e option:
 
-``` bash
+```bash
 docker run \
   -e MY_SECRET_ENV \
   -d \
@@ -180,8 +179,8 @@ ssh-add -k /buildkite-secrets/id_rsa_buildkite_git
 
 Other options for configuring Git and SSH include:
 
-* Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](/docs/agent/ssh-keys) for examples on using ssh-agent.
-* The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys using environment variables.
+- Running `ssh-agent` on the host machine and mounting the ssh-agent socket into the containers. See the [Buildkite Agent SSH keys documentation](/docs/agent/ssh-keys) for examples on using ssh-agent.
+- The least-secure approach: the built-in [docker-ssh-env-config](https://github.com/buildkite/docker-ssh-env-config) support allows you to pass in keys using environment variables.
 
 ## Entrypoint customizations
 

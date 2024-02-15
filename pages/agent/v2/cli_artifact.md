@@ -1,12 +1,11 @@
 # `buildkite-agent artifact`
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_artifact">see the latest version of this document</a>.
 
 The Buildkite Agent's `artifact` command provides support for uploading and downloading of build artifacts, allowing you to share binary data between build steps no matter the machine or network.
 
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step example.
-
 
 ## Uploading artifacts
 
@@ -102,13 +101,12 @@ Keep in mind while you're writing your path pattern:
 
 - patterns must match whole path strings, not only substrings
 - there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  + `*` to match a sequence of characters
-  + `?` to match a single character
+  - `*` to match a sequence of characters
+  - `?` to match a single character
 - character ranges surrounded by `[]` support the `^` as a negator
 - special characters can be escaped with `\\`
 - multiple paths are separated with `;`
 - surround the pattern with quotes
-
 
 ## Downloading artifacts
 
@@ -256,26 +254,23 @@ You will need to make sure your agent instances have the following IAM policy to
 
 ```json
 {
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:GetObjectAcl",
-                "s3:GetObjectVersion",
-                "s3:GetObjectVersionAcl",
-                "s3:ListBucket",
-                "s3:PutObject",
-                "s3:PutObjectAcl",
-                "s3:PutObjectVersionAcl"
-            ],
-            "Resource": [
-               "arn\:aws\:s3:::my-s3-bucket",
-               "arn\:aws\:s3:::my-s3-bucket/*"
-            ]
-        }
-    ]
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectAcl",
+        "s3:GetObjectVersion",
+        "s3:GetObjectVersionAcl",
+        "s3:ListBucket",
+        "s3:PutObject",
+        "s3:PutObjectAcl",
+        "s3:PutObjectVersionAcl"
+      ],
+      "Resource": ["arn:aws:s3:::my-s3-bucket", "arn:aws:s3:::my-s3-bucket/*"]
+    }
+  ]
 }
 ```
 

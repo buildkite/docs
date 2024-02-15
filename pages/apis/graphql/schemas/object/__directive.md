@@ -14,6 +14,7 @@
 title: __Directive – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   __Directive
@@ -21,8 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
-A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document.  In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
+A Directive provides a way to describe alternate runtime execution and type validation behavior in a GraphQL document. In some cases, you need to provide options to alter GraphQL's execution behavior in ways field arguments will not suffice, such as conditionally including or skipping a field. Directives provide this by describing additional information to the executor.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

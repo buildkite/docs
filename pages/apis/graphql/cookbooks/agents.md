@@ -29,8 +29,8 @@ query token {
 
 ```graphql
 query SearchAgent {
-   organization(slug:"organization-slug") {
-    agents(first:500, search:"search-string") {
+  organization(slug: "organization-slug") {
+    agents(first: 500, search: "search-string") {
       edges {
         node {
           name
@@ -52,7 +52,7 @@ First, get the token ID. You can find it in the Buildkite dashboard, in _Agents_
 ```graphql
 query GetAgentTokenID {
   organization(slug: "organization-slug") {
-    agentTokens(first:50) {
+    agentTokens(first: 50) {
       edges {
         node {
           id
@@ -69,10 +69,7 @@ Then, using the token ID, revoke the agent token:
 
 ```graphql
 mutation {
-  agentTokenRevoke(input: {
-    id: "token-id",
-    reason: "A reason"
-  }) {
+  agentTokenRevoke(input: { id: "token-id", reason: "A reason" }) {
     agentToken {
       description
       revokedAt

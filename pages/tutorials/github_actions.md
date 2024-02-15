@@ -4,8 +4,8 @@
 
 The Trigger Buildkite Pipeline GitHub Action allows you to:
 
-* Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
-* Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
+- Create builds in Buildkite pipelines and set `commit`, `branch`, `message`.
+- Save the build JSON response to `${HOME}/${GITHUB_ACTION}.json` for downstream actions.
 
 Find the Trigger Buildkite Pipeline on [GitHub Marketplace](https://github.com/marketplace) or follow [this link](https://github.com/marketplace/actions/trigger-buildkite-pipeline) directly.
 
@@ -33,12 +33,13 @@ steps:
    - name: Trigger a Buildkite Build on Push using v2.0.0
         uses: buildkite/trigger-pipeline-action@v2.0.0
         with:
-          buildkite_api_access_token:  ${{ secrets.TRIGGER_BK_BUILD_TOKEN }} 
-          pipeline: "lzrinc/experimental-pipeline"      
+          buildkite_api_access_token:  ${{ secrets.TRIGGER_BK_BUILD_TOKEN }}
+          pipeline: "lzrinc/experimental-pipeline"
           branch: master
           commit: HEAD
-          message:  ":buildkite::github: 🚀🚀🚀 Triggered from a GitHub Action"     
+          message:  ":buildkite::github: 🚀🚀🚀 Triggered from a GitHub Action"
 ```
+
 {: codeblock-file="trigger-pipeline-action.yml"}
 
 ## Configuring the workflow

@@ -4,11 +4,10 @@ keywords: docs, pipelines, tutorials, github merge queues
 
 # Using GitHub merge queues
 
->🚧 GitHub beta feature
+> 🚧 GitHub beta feature
 > The merge queue feature for pull requests is in public beta and subject to change.
 
 Merge queues are a feature of GitHub to improve development velocity on busy branches. They can increase the rate at which pull requests are merged into a branch while ensuring all the required branch protection checks pass. Merge queues preserve the order of pull requests to merge, remove redundant builds, and reduce flaky merges.
-
 
 ## Before you start
 
@@ -24,9 +23,9 @@ To enable a merge queue for a pipeline:
 1. Select _Pipeline Settings_ > _GitHub_.
 1. In the _Branch Limiting_ section, add a filter for the following pattern:
 
-    ```text
-    gh-readonly-queue/{base_branch}/*
-    ```
+   ```text
+   gh-readonly-queue/{base_branch}/*
+   ```
 
 1. In the _GitHub Settings_ section, select the _Skip builds with existing commits_ checkbox.
 

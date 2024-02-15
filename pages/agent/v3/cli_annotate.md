@@ -4,7 +4,6 @@ The Buildkite Agent's `annotate` command allows you to add additional informatio
 
 <%= image "overview.png", alt: "Screenshot of annotations with test reports" %>
 
-
 ## Creating an annotation
 
 The `buildkite-agent annotate` command creates an annotation associated with the current build.
@@ -57,21 +56,21 @@ A number of CSS classes are accepted in annotations. These include a subset of l
 [Basscss](http://basscss.com) is a toolkit of composable CSS classes which can be combined to accomplish many styling tasks.
 We accept the following parts of version 8.0 of Basscss within annotations:
 
-* [Align](http://basscss.com/#basscss-align)
-* [Border](http://basscss.com/#basscss-border)
-* [Colors](https://basscss.com/v7/docs/colors/)
-* [Flexbox](http://basscss.com/#basscss-flexbox)
+- [Align](http://basscss.com/#basscss-align)
+- [Border](http://basscss.com/#basscss-border)
+- [Colors](https://basscss.com/v7/docs/colors/)
+- [Flexbox](http://basscss.com/#basscss-flexbox)
   - All except `sm-flex`, `md-flex` and `lg-flex`
-* [Margin](http://basscss.com/#basscss-margin)
-* [Layout](http://basscss.com/#basscss-layout)
+- [Margin](http://basscss.com/#basscss-margin)
+- [Layout](http://basscss.com/#basscss-layout)
   - All except Floats (Please use Flexbox instead)
-* [Padding](http://basscss.com/#basscss-padding)
-* [Typography](http://basscss.com/#basscss-typography)
+- [Padding](http://basscss.com/#basscss-padding)
+- [Typography](http://basscss.com/#basscss-typography)
   - `bold`, `regular`, `italic`, `caps`
   - `left-align`, `center`, `right-align`, `justify`
   - `underline`, `truncate`
   - `list-reset`
-* [Type Scale](http://basscss.com/#basscss-type-scale)
+- [Type Scale](http://basscss.com/#basscss-type-scale)
 
 An exhaustive list of classes that annotations support can be found below:
 
@@ -127,8 +126,7 @@ Console output in annotations can be displayed with ANSI colors when wrapped in 
 
 <%= image "annotations-terminal-output.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
-
->📘
+> 📘
 > Make sure you escape the backticks (<code>`</code>) that demarcate the code block if you're echoing to the terminal, so it doesn't get interpreted as a shell interpreted command.
 
 The following pipeline prints an escaped Markdown block, adds line breaks using `\n` and formats `test` using the red ANSI code `\033[0;31m` before resetting the remainder of the output with `\033[0m`. Passing `-e` to the echo commands ensures that the backslash escapes codes are interpreted (the default is not to interpret them).
@@ -139,6 +137,7 @@ steps:
     command:
       - echo -e "\`\`\`term\nThis is a \033[0;31mtest\033[0m\n\`\`\`" | buildkite-agent annotate
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 The results are piped though to the `buildkite-agent annotate` command:
@@ -174,6 +173,7 @@ steps:
         <img src="artifact://indy.png" alt="Belongs in a museum" height=250 >
       EOF
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "artifact-embed.png", alt: "Screenshot of using an artifact in an annotation" %>
@@ -189,6 +189,7 @@ steps:
         Read the <a href="artifact://coverage/index.html">uploaded coverage report</a>
       EOF
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Using annotations to report test results
@@ -208,4 +209,5 @@ steps:
       - junit-annotate#v1.2.0:
           artifacts: tmp/junit-*.xml
 ```
+
 {: codeblock-file="pipeline.yml"}

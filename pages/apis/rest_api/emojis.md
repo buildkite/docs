@@ -4,7 +4,6 @@ Buildkite supports emojis (using the `\:emoji\:` syntax) in build step names and
 
 Emojis can be found in text using the pattern `/:([\w+-]+):/`
 
-
 ## List emojis
 
 Returns a list of all the emojis for a given organization, including custom emojis and aliases. This list is not paginated.
@@ -22,9 +21,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/emojis"
   {
     "name": "shipit",
     "url": "https://buildkiteassets.com/emoji/shipit.png?v1",
-    "aliases": [
-      "squirrel"
-    ]
+    "aliases": ["squirrel"]
   },
   {
     "name": "trollface",

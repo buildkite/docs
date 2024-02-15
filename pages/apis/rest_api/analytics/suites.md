@@ -13,11 +13,11 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites"
   {
     "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
     "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
-    "slug":"my_suite_slug",
-    "name":"My suite name",
-    "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
-    "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-    "default_branch":"main"
+    "slug": "my_suite_slug",
+    "name": "My suite name",
+    "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
+    "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
+    "default_branch": "main"
   }
 ]
 ```
@@ -36,11 +36,11 @@ curl "https://api.buildkite.com/v2/analytics/organizations/{org.slug}/suites/{su
 {
   "id": "3e979a94-a479-4a6e-ab8d-8b6607ffb62c",
   "graphql_id": "U3VpdGUtLS0zZTk3OWE5NC1hNDc5LTRhNmUtYWI4ZC04YjY2MDdmZmI2MmM=",
-  "slug":"my_suite_slug",
-  "name":"My suite name",
-  "url":"https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
-  "web_url":"https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
-  "default_branch":"main"
+  "slug": "my_suite_slug",
+  "name": "My suite name",
+  "url": "https://api.buildkite.com/v2/analytics/organizations/my_great_org/suites/my_suite_slug",
+  "web_url": "https://buildkite.com/organizations/my_great_org/analytics/suites/my_suite_slug",
+  "default_branch": "main"
 }
 ```
 
@@ -134,7 +134,6 @@ Optional [request body properties](/docs/api#request-body-properties):
   <tr><th><code>default_branch</code></th><td>Your test suite will default to showing trends for this default branch, but collect data for all test runs.<br><em>Example:</em> <code>"main"</code> or <code>"master"</code>.</td></tr>
 </tbody>
 </table>
-
 
 Required scope: `write_suites`
 

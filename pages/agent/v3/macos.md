@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on macOS 10.12 or newer using Homebrew or our installer script, and supports pre-release versions of both macOS and Xcode.
 
-
 ## Installation
 
 We recommend installing the agent using [Homebrew](http://brew.sh/) so you can use the [Buildkite formula repository](https://github.com/buildkite/homebrew-buildkite). If you don't use Homebrew you should follow the [Linux](/docs/agent/v3/linux) install instructions.
@@ -11,22 +10,23 @@ To install the agent using Homebrew:
 
 1. On the command line, install the agent by running:
 
-    ```shell
-    brew tap buildkite/buildkite && brew install buildkite/buildkite/buildkite-agent
-    ```
+   ```shell
+   brew tap buildkite/buildkite && brew install buildkite/buildkite/buildkite-agent
+   ```
 
 1. Add your [agent token](/docs/agent/v3/tokens) to authenticate the agent by replacing `INSERT-YOUR-AGENT-TOKEN-HERE` with your agent token and running:
 
-    ```shell
-    sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
-    ```
-    **Note:** To verify that your agent token has been added to the `buildkite-agent.cfg` file, run `cat $(brew --prefix)/etc/buildkite-agent/buildkite-agent.cfg`, and check that the output contains your agent token.
+   ```shell
+   sed -i '' "s/xxx/INSERT-YOUR-AGENT-TOKEN-HERE/g" "$(brew --prefix)"/etc/buildkite-agent/buildkite-agent.cfg
+   ```
+
+   **Note:** To verify that your agent token has been added to the `buildkite-agent.cfg` file, run `cat $(brew --prefix)/etc/buildkite-agent/buildkite-agent.cfg`, and check that the output contains your agent token.
 
 1. Start the agent by running:
 
-    ```shell
-    buildkite-agent start
-    ```
+   ```shell
+   buildkite-agent start
+   ```
 
 ## SSH key configuration
 
@@ -49,23 +49,23 @@ To see the paths to the agent's configuration, hooks, builds, and logs on your s
 
 The typical paths for [Mac computers with Apple silicon](https://support.apple.com/en-gb/HT211814) (such as M1 chips) are:
 
-* Configuration: `/opt/homebrew/etc/buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `/opt/homebrew/etc/buildkite-agent/hooks`
-* Builds: `/opt/homebrew/buildkite-agent/builds`
-* Log: `/opt/homebrew/var/log/buildkite-agent.log`
+- Configuration: `/opt/homebrew/etc/buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `/opt/homebrew/etc/buildkite-agent/hooks`
+- Builds: `/opt/homebrew/buildkite-agent/builds`
+- Log: `/opt/homebrew/var/log/buildkite-agent.log`
 
 The typical paths for Mac computers with Intel processors are:
 
-* Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
-* Builds: `/usr/local/var/buildkite-agent/builds`
-* Log: `/usr/local/var/log/buildkite-agent.log`
+- Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
+- Builds: `/usr/local/var/buildkite-agent/builds`
+- Log: `/usr/local/var/log/buildkite-agent.log`
 
 ### Linux installer script on macOS
 
-* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `~/.buildkite-agent/hooks`
-* Builds: `~/.buildkite-agent/builds`
+- Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `~/.buildkite-agent/hooks`
+- Builds: `~/.buildkite-agent/builds`
 
 ## Configuration
 

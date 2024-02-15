@@ -1,10 +1,9 @@
 # Installing Buildkite Agent on FreeBSD
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/freebsd">see the latest version of this document</a>.
 
 You can install Buildkite Agent on most FreeBSD systems.
-
 
 ## Installation
 
@@ -52,10 +51,10 @@ See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details
 
 ## File locations
 
-* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `~/.buildkite-agent/hooks`
-* Builds: `~/.buildkite-agent/builds`
-* SSH keys: `~/.ssh`
+- Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `~/.buildkite-agent/hooks`
+- Builds: `~/.buildkite-agent/builds`
+- SSH keys: `~/.ssh`
 
 ## Configuration
 

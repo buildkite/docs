@@ -8,7 +8,6 @@ Each suite inside Test Analytics has a unique API token that you can use to rout
 
 To delete a suite, or regenerate its API token, go to suite settings.
 
-
 ## Parallelized builds
 
 Test Analytics works even when your test runs are split across different agents by de-duplicating against the Test Analytics API token and unique build identifier.
@@ -50,7 +49,6 @@ Test Analytics will automatically detect issues per run. For each test, we curre
 Tests with these issues will display in order of most problematic to least problematic. Issues are also shown on the test execution page:
 
 <%= image "execution-issues.png", alt: "Screenshot of an execution with issues with their descriptions, displaying a dropdown, including flaky, slow and failures." %>
-
 
 ## Tracking reliability
 

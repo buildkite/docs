@@ -1,20 +1,18 @@
 # Builds API
 
-
 ## Build number vs build ID
 
-All builds have both an ID which is unique within the whole of Buildkite (*build ID*), and a sequential number which is unique to the pipeline (*build number*).
+All builds have both an ID which is unique within the whole of Buildkite (_build ID_), and a sequential number which is unique to the pipeline (_build number_).
 
 For example build number `27` of the `Test` pipeline might have a build ID of `f62a1b4d-10f9-4790-bc1c-e2c3a0c80983`.
 
 API requests that affect a single build accept the more human readable build number (and the organization and pipeline it belongs to), **not** the build ID:
 
-* [Get a build](#get-a-build)
-* [Cancel a build](#cancel-a-build)
-* [Rebuild a build](#rebuild-a-build)
-* [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
-* [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
-
+- [Get a build](#get-a-build)
+- [Cancel a build](#cancel-a-build)
+- [Rebuild a build](#rebuild-a-build)
+- [List artifacts for a build](/docs/apis/rest-api/artifacts#list-artifacts-for-a-build)
+- [List annotations for a build](/docs/apis/rest-api/annotations#list-annotations-for-a-build)
 
 ## List all builds
 
@@ -74,7 +72,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "message": "Bumping to version 0.2-beta.6",
     "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
     "branch": "main",
-    "env": { },
+    "env": {},
     "source": "webhook",
     "creator": {
       "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -140,8 +138,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
     "scheduled_at": "2015-05-09T21:05:59.874Z",
     "started_at": "2015-05-09T21:05:59.874Z",
     "finished_at": "2015-05-09T21:05:59.874Z",
-    "meta_data": { },
-    "pull_request": { },
+    "meta_data": {},
+    "pull_request": {},
     "rebuilt_from": null,
     "pipeline": {
       "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
@@ -168,7 +166,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
           "publish_commit_status_per_step": false,
           "publish_blocked_as_pending": false,
           "repository": "my-great-org/my-pipeline"
-        },
+        }
       },
       "skip_queued_branch_builds": false,
       "skip_queued_branch_builds_filter": null,
@@ -217,7 +215,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
   "branch": "main",
-  "env": { },
+  "env": {},
   "source": "webhook",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -297,8 +295,8 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": { },
-  "pull_request": { },
+  "meta_data": {},
+  "pull_request": {},
   "rebuilt_from": {
     "id": "812135b3-eee7-408c-9f63-760538b96bd5",
     "number": 1,
@@ -384,10 +382,10 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "state": "scheduled",
   "cancel_reason": "reason for a canceled build",
   "blocked": false,
-  "message": "Testing all the things \:rocket\:",
+  "message": "Testing all the things :rocket:",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
   "branch": "main",
-  "env": { },
+  "env": {},
   "source": "webhook",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -467,8 +465,8 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": { },
-  "pull_request": { },
+  "meta_data": {},
+  "pull_request": {},
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -495,6 +493,7 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
   }
 }
 ```
+
 > 📘 Webhook URL
 > The response only includes a webhook URL in `pipeline.provider.webhook_url` if the user has edit permissions for the pipeline. Otherwise, the field returns with an empty string.
 
@@ -558,7 +557,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
   "branch": "main",
-  "env": { },
+  "env": {},
   "source": "webhook",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -640,8 +639,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": { },
-  "pull_request": { },
+  "meta_data": {},
+  "pull_request": {},
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",
@@ -705,7 +704,7 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "message": "Bumping to version 0.2-beta.6",
   "commit": "abcd0b72a1e580e90712cdd9eb26d3fb41cd09c8",
   "branch": "main",
-  "env": { },
+  "env": {},
   "source": "api",
   "creator": {
     "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
@@ -787,8 +786,8 @@ curl -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pi
   "scheduled_at": "2015-05-09T21:05:59.874Z",
   "started_at": "2015-05-09T21:05:59.874Z",
   "finished_at": "2015-05-09T21:05:59.874Z",
-  "meta_data": { },
-  "pull_request": { },
+  "meta_data": {},
+  "pull_request": {},
   "pipeline": {
     "id": "849411f9-9e6d-4739-a0d8-e247088e9b52",
     "graphql_id": "UGlwZWxpbmUtLS1lOTM4ZGQxYy03MDgwLTQ4ZmQtOGQyMC0yNmQ4M2E0ZjNkNDg=",

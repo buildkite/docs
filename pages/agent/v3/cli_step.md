@@ -2,7 +2,6 @@
 
 The Buildkite agent's `step` command provides the ability to retrieve and update the attributes of steps in your `pipeline.yml` files.
 
-
 ## Updating a step
 
 Use this command in your build scripts to update an attribute of a step.
@@ -25,21 +24,21 @@ The `outcome` is `passed`, `hard_failed` or `soft_failed`. A [soft fail](/docs/p
 
 ```yaml
 steps:
-  - label: 'Step 1'
+  - label: "Step 1"
     command: "false"
-    key: 'one'
-  - label: 'Step 2'
+    key: "one"
+  - label: "Step 2"
     command: "true"
-    key: 'two'
+    key: "two"
 
   - wait:
     continue_on_failure: true
 
-  - label: 'Step 3'
+  - label: "Step 3"
     command: 'echo `buildkite-agent step get "outcome" --step "one"`'
-  - label: 'Step 4'
+  - label: "Step 4"
     command: 'echo `buildkite-agent step get "outcome" --step "two"`'
-  - label: 'Step 5'
+  - label: "Step 5"
     command: |
       if [ $(buildkite-agent step get "outcome" --step "one") == "hard_failed" ]; then
         buildkite-agent annotate 'this build failed' --style 'error'

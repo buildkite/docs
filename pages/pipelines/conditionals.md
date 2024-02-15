@@ -4,7 +4,6 @@ Using conditionals, you can run builds or steps only when specific conditions ar
 
 You can define conditionals at the step level in your `pipeline.yml` or at the pipeline level in your Buildkite version control provider settings.
 
-
 ## Conditionals in pipelines
 
 You can have complete control over when to trigger pipeline builds by using conditional expressions to filter incoming webhooks. You need to define conditionals in the _Pipeline Settings page_ for your repository provider to run builds only when expressions evaluate to `true`. For example, to run only when a pull request is targeting the main branch:
@@ -15,7 +14,7 @@ Pipeline-level build conditionals are evaluated before any other build trigger s
 
 Conditionals are supported in [Bitbucket](/docs/integrations/bitbucket), [Bitbucket Server](/docs/integrations/bitbucket-server), [GitHub](/docs/integrations/github), [GitHub Enterprise](/docs/integrations/github-enterprise), and [GitLab](/docs/integrations/gitlab) (including GitLab Community and GitLab Enterprise). You can add a conditional on your _Pipeline Settings page_ in the Buildkite UI or using the REST API.
 
->📘 Evaluating conditionals
+> 📘 Evaluating conditionals
 > Conditional expressions are evaluated at pipeline upload, not at step runtime.
 
 ## Conditionals in steps
@@ -30,6 +29,7 @@ steps:
 	  label: tests
 	  if: build.message !~ /skip tests/
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 The `if` attribute can be used in any type of step, and with any of the supported expressions and parameters. However, it cannot be used at the same time as the `branches` attribute.
@@ -42,6 +42,7 @@ steps:
 	  label: tests
 	  if: "!build.pull_request.draft"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Multi-line conditionals can be added with the `|` character, and avoid the need for quotes:
@@ -56,6 +57,7 @@ steps:
         build.message !~ /skip tests/ &&
           build.branch =~ /^feature\//
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Since `if` conditions are evaluated at the time of the pipeline upload, it's not possible to use the `if` attribute to conditionally run a step based on the result of another step.
@@ -78,11 +80,12 @@ steps:
       YAML
       fi
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Conditional notifications
 
-To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use  the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
+To trigger [Build notifications](/docs/pipelines/notifications#conditional-notifications) only under certain conditions, use the same `if` syntax as in your [Steps](/docs/pipelines/conditionals#conditionals-in-steps).
 
 For example, the following email notification will only be triggered if the build passes:
 
@@ -91,6 +94,7 @@ notify:
   - email: "dev@acmeinc.com"
     if: build.state == "passed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Note that conditional expressions on the build state are only available at the pipeline level. You can't use them at the step level.
@@ -152,14 +156,14 @@ The following expressions are supported by the `if` attribute.
  	</tbody>
  </table>
 
->🚧 Formatting regular expressions
+> 🚧 Formatting regular expressions
 > When using regular expressions in conditionals, the regular expression must be on the right hand side, and the use of the <code>$</code> anchor symbol must be escaped to avoid <a href="/docs/agent/v3/cli-pipeline#environment-variable-substitution">environment variable substitution</a>. For example, to match branches ending in <code>"/feature"</code> the conditional statement would be <code>build.branch =~ /\/feature$$/</code>.
 
 ### Variables
 
 The following variables are supported by the `if` attribute. Note that you cannot use [Build Meta-data](/docs/pipelines/build-meta-data) in conditional expressions.
 
->🚧 Unverified commits
+> 🚧 Unverified commits
 > Note that GitHub accepts <a href="https://docs.github.com/en/authentication/managing-commit-signature-verification/about-commit-signature-verification">unsigned commits</a>, including information about the commit author and passes them along to webhooks, so you should not rely on these for authentication unless you are confident that all of your commits are trusted.
 
 <table>
@@ -363,40 +367,39 @@ The following variables are supported by the `if` attribute. Note that you canno
 </tbody>
 </table>
 
->🚧 Using <code>build.env()</code> with custom environment variables
+> 🚧 Using <code>build.env()</code> with custom environment variables
 > To access custom environment variables with the <code>build.env()</code> function, ensure that the <a href="https://buildkite.com/changelog/32-defining-pipeline-build-steps-with-yaml">YAML pipeline steps editor</a> has been enabled in the Pipeline Settings menu.
-
 
 ## Example expressions
 
 To run only when the branch is `main` or `production`:
 
 ```js
-build.branch == "main" || build.branch == "production"
+build.branch == "main" || build.branch == "production";
 ```
 
 To run only when the branch is not `production`:
 
 ```js
-build.branch != "production"
+build.branch != "production";
 ```
 
 To run only when the branch starts with `features/`:
 
 ```js
-build.branch =~ /^features\//
+build.branch = ~/^features\//;
 ```
 
 To run only when the branch ends with `/release-123`, such as `feature/release-123`:
 
 ```js
-build.branch =~ /\/release-123\$/
+build.branch = ~/\/release-123\$/;
 ```
 
 To run only when building a tag:
 
 ```js
-build.tag != null
+build.tag != null;
 ```
 
 To run only when building a tag beginning with a `v` and ends with a `.0`, such as `v1.0`:
@@ -418,13 +421,13 @@ build.message !~ /\[skip tests\]/i
 To run only if the build was created from a schedule:
 
 ```js
-build.source == "schedule"
+build.source == "schedule";
 ```
 
 To run when the value of `CUSTOM_ENVIRONMENT_VARIABLE` is `value`:
 
 ```js
-build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value"
+build.env("CUSTOM_ENVIRONMENT_VARIABLE") == "value";
 ```
 
 To run when the **[unverified](#unverified-commits)** build creator is in the `deploy` team:
@@ -436,5 +439,5 @@ build.creator.teams includes "deploy"
 To run only non-draft pull requests:
 
 ```js
-!build.pull_request.draft
+!build.pull_request.draft;
 ```

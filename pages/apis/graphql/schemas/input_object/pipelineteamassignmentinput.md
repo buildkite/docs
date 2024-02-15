@@ -14,6 +14,7 @@
 title: PipelineTeamAssignmentInput – Input_objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   PipelineTeamAssignmentInput
@@ -21,10 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Used to assign teams to pipelines
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -4,9 +4,8 @@ You can use Active Directory Federation Services (ADFS) for your Buildkite organ
 
 ADFS SSO is available to customers on the Buildkite customers on the [Enterprise](https://buildkite.com/pricing) plan.
 
->📘 You can also set up SSO providers manually with GraphQL.
+> 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
-
 
 ## Step 1. Create a Buildkite SSO provider
 
@@ -20,14 +19,14 @@ On the following page, copy the ACS URL for use in Step 2.
 
 The instructions below guide you through using a series of wizards to:
 
-+ Add a Relying Party Trust
-+ Add an Issuance Transform Rule, a type of Claim Rule
-+ Export the Token-signing Certificate
-+ Update the Authentication Policy
+- Add a Relying Party Trust
+- Add an Issuance Transform Rule, a type of Claim Rule
+- Export the Token-signing Certificate
+- Update the Authentication Policy
 
 With these wizards, you'll set up your domain for SSO and retrieve the information the Buildkite team requires to complete the setup process.
 
->📘 This guide was written for, and tested using, Windows Server 2016
+> 📘 This guide was written for, and tested using, Windows Server 2016
 > Some of the wizard pages and dialog tab names have changed across versions of Windows Server.
 > For a guide written for Windows Server 2012, the <a href="https://www.pagerduty.com/docs/guides/adfs-sso-guide/">PagerDuty SSO integration guide</a> is very similar to Buildkite. Follow the PagerDuty instructions, and substitute in the Buildkite values from the instructions below.
 
@@ -41,18 +40,18 @@ From the _Actions_ sidebar, click _Add relying party trust..._ to start the wiza
 4. _Choose profile_: Select _ADFS profile_.
 5. _Configure certificate_: Skip this step, as you don't need a token encryption certificate.
 6. _Configure URL_:
-	Select _Enable support for the SAML 2.0 WebSSO protocol_.
-	Enter the ACS URL from Buildkite as your _Relying party SAML 2.0 SSO service URL_.
+   Select _Enable support for the SAML 2.0 WebSSO protocol_.
+   Enter the ACS URL from Buildkite as your _Relying party SAML 2.0 SSO service URL_.
 7. _Configure identifiers_:
-	Enter `https://<your IDP url>/adfs/services/trust` into the _Relying party trust identifier_ field.
-	Click _Add_ to add it to the _Relying party trust identifiers_ list.
+   Enter `https://<your IDP url>/adfs/services/trust` into the _Relying party trust identifier_ field.
+   Click _Add_ to add it to the _Relying party trust identifiers_ list.
 8. _Choose Access Control Policy_:
-	Choose _Permit everyone_.
-	You can choose to select specific users, but that involves further steps that aren't covered by this guide.
+   Choose _Permit everyone_.
+   You can choose to select specific users, but that involves further steps that aren't covered by this guide.
 9. _Ready to add trust_: Review your settings to make sure all the URLs are correct.
 10. _Finish_:
-	Leave the _Configure claims issuance policy for this application_ box checked.
-	Click _Close_ to close the wizard and save your setup.
+    Leave the _Configure claims issuance policy for this application_ box checked.
+    Click _Close_ to close the wizard and save your setup.
 
 In the _Actions_ sidebar, you should now have a subheading _Buildkite_.
 
@@ -66,32 +65,32 @@ Rule 1
 
 1. _Choose rule type_: _Send LDAP Attributes as claims_
 2. _Configure claim rule_:
-	* _Claim Rule Name_: Get Attributes
-	* _Attribute Store_: Active Directory
-	* _Mapping of LDAP Attributes to outgoing claim types_:
-		- _LDAP Attribute_: Email Addresses, Outgoing claim type: Email address
-		- _LDAP Attribute_: Display-Name, Outgoing claim type: Name
+   - _Claim Rule Name_: Get Attributes
+   - _Attribute Store_: Active Directory
+   - _Mapping of LDAP Attributes to outgoing claim types_:
+     - _LDAP Attribute_: Email Addresses, Outgoing claim type: Email address
+     - _LDAP Attribute_: Display-Name, Outgoing claim type: Name
 3. Click _Finish_ to add the rule
 
 Rule 2
 
 1. _Choose rule type_: _Transform an incoming claim_
 2. _Configure claim rule_:
-	* _Claim Rule Name_: Name ID Transform
-	* _Incoming Claim Type_: Email address
-	* _Outgoing Claim Type_: Name ID
-	* _Outgoing Name ID Format_: Email
-	* Select _Pass through all claim values_
+   - _Claim Rule Name_: Name ID Transform
+   - _Incoming Claim Type_: Email address
+   - _Outgoing Claim Type_: Name ID
+   - _Outgoing Name ID Format_: Email
+   - Select _Pass through all claim values_
 3. Click _Finish_ to add the rule
 
 Rule 3
 
 1. _Choose rule type_: _Send claims using a custom rule_
 2. _Configure claim rule_:
-	* _Claim Rule Name_: Attribute Name Transform
-	* _Custom Rule_:
-		<pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
-		=> issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
+   - _Claim Rule Name_: Attribute Name Transform
+   - _Custom Rule_:
+   <pre><code>c:[Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"]
+   => issue(Type = "Name", Issuer = c.Issuer, OriginalIssuer = c.OriginalIssuer, Value = c.Value, ValueType = c.ValueType);</code></pre>
 3. Click _Finish_ to add the rule.
 4. Click _OK_ to save and exit the _Claim Issuance Policy_ dialog.
 

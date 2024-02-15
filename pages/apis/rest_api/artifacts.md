@@ -1,6 +1,5 @@
 # Artifacts API
 
-
 ## Artifact data model
 
 An artifact is a file uploaded by your agent during the execution of a build's job. The contents of the artifact can be retrieved using the `download_url` and the [artifact download API](#download-an-artifact).
@@ -21,8 +20,8 @@ An artifact is a file uploaded by your agent during the execution of a build's j
 </tbody>
 </table>
 
->🚧 Deprecated fields
->Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.
+> 🚧 Deprecated fields
+> Artifacts previously included <code>glob_path</code> and <code>original_path</code> but these were <a href="https://buildkite.com/changelog/71-artifacts-glob-path-and-original-path-fields-are-deprecated">deprecated</a> and now return <code>null</code>.
 
 ## List artifacts for a build
 

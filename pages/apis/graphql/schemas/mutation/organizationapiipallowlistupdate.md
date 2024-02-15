@@ -14,6 +14,7 @@
 title: organizationApiIpAllowlistUpdate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationApiIpAllowlistUpdate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Sets an allowlist of IP addresses for API access to an organization. Please note that this is a beta feature and is not yet available to all organizations.
 

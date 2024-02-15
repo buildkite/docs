@@ -14,6 +14,7 @@
 title: JobEventSignalReason – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobEventSignalReason
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 The reason why a signal was sent to the job's process, or why the process did not start
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

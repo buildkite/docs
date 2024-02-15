@@ -18,7 +18,7 @@ which you may have.
 - Add a message to the **System banners** panel
 - Click **Save Banner**
 
-[settings page]: <https://buildkite.com/organizations/~/settings>
+[settings page]: https://buildkite.com/organizations/~/settings
 
 ## Programmatically creating a system banner
 
@@ -27,4 +27,4 @@ You can create a system banner programmatically via the GraphQL API.
 Please review the GraphQL [cookbook] on instructions on how to create
 a banner via the API.
 
-[cookbook]: </docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners-enterprise-only>
+[cookbook]: /docs/apis/graphql/cookbooks/organizations#create-and-delete-system-banners-enterprise-only

@@ -3,7 +3,6 @@
 This tutorial demonstrates deploying to Kubernetes using Buildkite best
 practices.
 
-
 The tutorial uses one pipeline for tests and another for deploys.
 The test pipeline runs tests and push a Docker image to a registry. The deploy
 pipelines uses the `DOCKER_IMAGE` environment variable to create a [Kubernetes
@@ -28,7 +27,7 @@ The first step will be a pipeline upload using our new deploy pipeline YAML
 file. Create a new pipeline. Enter `buildkite-agent pipeline upload
 .buildkite/pipeline.deploy.yml` in the commands to run field.
 
-<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline'  %>
+<%= image "new_pipeline.png", width: 1440/2, height: 820/2, alt: 'Creating a New Pipeline' %>
 
 Now create `.buildkite/pipeline.deploy.yml` with a single step. We'll write the
 deploy script in the next step.
@@ -40,6 +39,7 @@ steps:
     concurrency: 1
     concurrency_group: deploy/tutorial
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Set `concurrency` and `concurrency_group` when updating mutable state. These
@@ -54,7 +54,7 @@ Let's start with manifest file. This sample file creates a Deployment with
 three replicas (horizontal scale in Kubernetes lingo) each listening port
 `3000`. Change the `containerPort` to fit your application.
 
->📘
+> 📘
 > The <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">official deployment documentation</a> covers much more than what fits in this tutorial. Refer back to these docs for information on setting CPU and memory, controlling networking, deployment update strategies, and how to expose your application to the internet.
 
 Let's call this file `k8s/deployment.yml`.
@@ -85,6 +85,7 @@ spec:
             # TODO: replace with the correct port for your application
             - containerPort: 3000
 ```
+
 {: codeblock-file="k8s/deployment.yml"}
 
 Note manifest includes `${DOCKER_IMAGE}`. There is no environment variable
@@ -146,29 +147,30 @@ First, add a wait step at the end of your existing `.buildkite/pipeline.yml`
 otherwise deploys will trigger at the wrong time, and even for failed builds!
 
 ```yml
-  # Add a wait step to only deploy after all steps complete
-  - wait
-
-  # More steps to follow
+# Add a wait step to only deploy after all steps complete
+- wait
+# More steps to follow
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Next add a `trigger` step:
 
 ```yml
-  - label: ':rocket: Deploy'
-    # TODO: replace with your deploy pipeline's name
-    trigger: kubernetes-tutorial-deploy
-    # Only trigger on main build
-    build:
-      message: "${BUILDKITE_MESSAGE}"
-      commit: "${BUILDKITE_COMMIT}"
-      branch: "${BUILDKITE_BRANCH}"
-      env:
-        # TODO: replace with your Docker image name
-        DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
-    branches: main
+- label: ":rocket: Deploy"
+  # TODO: replace with your deploy pipeline's name
+  trigger: kubernetes-tutorial-deploy
+  # Only trigger on main build
+  build:
+    message: "${BUILDKITE_MESSAGE}"
+    commit: "${BUILDKITE_COMMIT}"
+    branch: "${BUILDKITE_BRANCH}"
+    env:
+      # TODO: replace with your Docker image name
+      DOCKER_IMAGE: "asia.gcr.io/buildkite-kubernetes-tutorial/app:${BUILDKITE_BUILD_NUMBER}"
+  branches: main
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 This `trigger` step creates a build with the same message, commit, and branch.

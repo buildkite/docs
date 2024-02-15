@@ -14,6 +14,7 @@
 title: __TypeKind – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   __TypeKind
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 An enum describing what kind of type a given `__Type` is.
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

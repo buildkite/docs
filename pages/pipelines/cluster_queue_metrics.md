@@ -42,10 +42,11 @@ Advanced Queue Metrics show a queue’s activity from the past hour, identifying
 
 The chart shows the past hour of activity with each data point representing a minute. A minute is represented by a snapshot of the metric at the end of that minute.
 
->📘
+> 📘
 > Advanced Queue Metrics is complimentary while in beta however it will be a separate paid product once refined and no longer a beta feature.
 
 ### Enable Advanced Queue Metrics
+
 Any Buildkite administrator can enable Advanced Queue Metrics for an organization. Once you enable Advanced Queue Metrics, you can only disable them by contacting support.
 
 To enable Advanced Queue Metrics:

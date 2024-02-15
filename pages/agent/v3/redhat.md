@@ -2,7 +2,6 @@
 
 The Buildkite Agent is supported on Red Hat Enterprise Linux 7 and newer, CentOS 7 and newer, and Amazon Linux 2 and newer using our yum repository.
 
-
 ## Installation
 
 Firstly, add our yum repository for your architecture (run `uname -m` to find your system's arch). The default version of the agent is `stable`, but you can get the beta version by using `unstable` instead of `stable` in the following command, or the agent built from the `main` branch of the repository by using `experimental` instead of `stable`.
@@ -52,14 +51,14 @@ See the [Agent SSH keys](/docs/agent/v3/ssh-keys) documentation for more details
 
 ## File locations
 
-* Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `/etc/buildkite-agent/hooks/`
-* Builds: `/var/buildkite-agent/builds/`
-* Logs, depending on your system:
+- Configuration: `/etc/buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `/etc/buildkite-agent/hooks/`
+- Builds: `/var/buildkite-agent/builds/`
+- Logs, depending on your system:
   - `journalctl -f -u buildkite-agent` (systemd)
   - `/var/log/buildkite-agent.log` (older systems)
-* Agent user home: `/var/lib/buildkite-agent/`
-* SSH keys: `/var/lib/buildkite-agent/.ssh/`
+- Agent user home: `/var/lib/buildkite-agent/`
+- SSH keys: `/var/lib/buildkite-agent/.ssh/`
 
 ## Configuration
 

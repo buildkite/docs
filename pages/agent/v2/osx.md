@@ -1,10 +1,9 @@
 # Installing Buildkite Agent on macOS
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/macos">see the latest version of this document</a>.
 
 The Buildkite Agent can be installed on macOS 10.9 or higher using Homebrew or our installer script, and supports pre-release versions of both OS X and Xcode.
-
 
 ## Installation
 
@@ -37,16 +36,16 @@ See the [Agent SSH keys](/docs/agent/v2/ssh-keys) documentation for more details
 
 Homebrew install file locations:
 
-* Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
-* Builds: `/usr/local/var/buildkite-agent/builds`
-* Log: `/usr/local/var/log/buildkite-agent.log`
+- Configuration: `/usr/local/etc/buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `/usr/local/etc/buildkite-agent/hooks`
+- Builds: `/usr/local/var/buildkite-agent/builds`
+- Log: `/usr/local/var/log/buildkite-agent.log`
 
 Linux installer script file locations:
 
-* Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
-* Agent Hooks: `~/.buildkite-agent/hooks`
-* Builds: `~/.buildkite-agent/builds`
+- Configuration: `~/.buildkite-agent/buildkite-agent.cfg`
+- Agent Hooks: `~/.buildkite-agent/hooks`
+- Builds: `~/.buildkite-agent/builds`
 
 ## Configuration
 

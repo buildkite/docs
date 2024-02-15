@@ -14,13 +14,13 @@
 title: OrganizationAPIAccessToken – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   OrganizationAPIAccessToken
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Information on user API Access Tokens which can access the Organization. Excludes the token attribute
 

@@ -14,6 +14,7 @@
 title: organizationMemberUpdate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationMemberUpdate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Change a user's role within an organization.
 

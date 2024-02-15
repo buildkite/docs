@@ -14,15 +14,13 @@
 title: TeamEdge – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   TeamEdge
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

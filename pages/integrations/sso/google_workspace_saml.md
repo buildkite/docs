@@ -4,11 +4,10 @@ As an alternative to [Google Workspace SSO using OpenID](/docs/integrations/sso/
 
 To complete this tutorial, you need admin privileges for both Google Workspace and Buildkite.
 
->📘 You can also set up SSO providers manually with GraphQL.
+> 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
-After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.  
-
+After following these steps, your Google Workspace users can sign in to Buildkite using their Google account.
 
 ## Step 1. Create a Buildkite SSO provider
 
@@ -29,8 +28,8 @@ Log into your [Google Admin Console](https://admin.google.com), and follow these
 3. Search for _Buildkite_, and select _Buildkite Web (SAML)_.
 4. Copy the SSO URL and Entity ID, and download the Certificate. You'll need these in Step 3.
 5. Enter the following service provider details:
-    * ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
-    * Entity ID: https://buildkite.com
+   - ACS URL: the URL you copied in Step 1. Replace any existing value suggested by Google.
+   - Entity ID: https://buildkite.com
 6. You can add attribute mapping after the initial setup and testing. Click _Finish_ to complete the setup.
 
 ## Step 3. Update your Buildkite SSO provider
@@ -66,12 +65,12 @@ Save your settings. Your provider page opens.
 
 Follow the instructions on the provider page to perform a test login. Performing a test login verifies that SSO is working correctly before you activate it for your organization members.
 
->🚧
+> 🚧
 > According to Google, "Changes may take up to 24 hours to propagate to all user". Some changes may take at least several hours, so if the test login fails, it is worth waiting and trying again.
 
 ## Step 4. Enable the new SSO provider
 
-Once you've performed a test login, you can enable your provider using the _Enable_ button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.  
+Once you've performed a test login, you can enable your provider using the _Enable_ button. Activating SSO will not force a log out of existing users, but will cause all new or expired sessions to authorize through Google Workspace before organization data can be accessed.
 
 The users will need to sign into Buildkite by clicking the Buildkite icon in the Google Apps menu. You can find this menu by clicking the 9-dot "waffle" icon.
 

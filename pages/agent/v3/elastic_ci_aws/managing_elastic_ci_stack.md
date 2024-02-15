@@ -6,9 +6,9 @@ This page describes common tasks for managing the Elastic CI Stack for AWS.
 
 If you want to push or pull from registries such as [Docker Hub](https://hub.docker.com/) or [Quay](https://quay.io/) you can use the `environment` hook in your secrets bucket to export the following environment variables:
 
-* `DOCKER_LOGIN_USER="the-user-name"`
-* `DOCKER_LOGIN_PASSWORD="the-password"`
-* `DOCKER_LOGIN_SERVER=""` - optional. By default it logs in to Docker Hub
+- `DOCKER_LOGIN_USER="the-user-name"`
+- `DOCKER_LOGIN_PASSWORD="the-password"`
+- `DOCKER_LOGIN_SERVER=""` - optional. By default it logs in to Docker Hub
 
 Setting these performs a `docker login` before each pipeline step runs, allowing you to `docker push` to them from within your build scripts.
 
@@ -58,9 +58,9 @@ If you need different instances sizes and scaling characteristics for different 
 
 Examples:
 
-* A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](#optimizing-for-slow-docker-builds))
-* A `pipeline-uploaders` stack with tiny, always-on instances for lightning fast `buildkite-agent pipeline upload` jobs.
-* A `deploy` stack with added credentials and permissions specifically for deployment.
+- A `docker-builders` stack that provides always-on workers with hot Docker caches (see [Optimizing for slow Docker builds](#optimizing-for-slow-docker-builds))
+- A `pipeline-uploaders` stack with tiny, always-on instances for lightning fast `buildkite-agent pipeline upload` jobs.
+- A `deploy` stack with added credentials and permissions specifically for deployment.
 
 ## Autoscaling
 
@@ -75,8 +75,6 @@ Metrics are collected with a Lambda function, polling every 10 seconds based on 
 You can set `BuildkiteTerminateInstanceAfterJob` to `true` to force the instance to terminate after it completes a job. Setting this value to `true` tells the stack to enable `disconnect-after-job` in the `buildkite-agent.cfg` file.
 
 It is best to find an alternative to this setting if at all possible. The turn around time for replacing these instances is currently slow (5-10 minutes depending on other stack configuration settings). If you need single use jobs, we suggest looking at our container plugins like `docker`, `docker-compose`, and `ecs`, all which can be found [here](https://buildkite.com/plugins).
-
-
 
 ## Elastic CI Stack for AWS releases
 
@@ -98,7 +96,7 @@ With a version for each commit also published at:
 https://s3.amazonaws.com/buildkite-aws-stack/main/${COMMIT}.aws-stack.yml
 ```
 
->📘 Versions prior to v6.0.0
+> 📘 Versions prior to v6.0.0
 > Per-commit builds for versions prior to v6.0.0, in particular for commits that are ancestors of [419f271](https://github.com/buildkite/elastic-ci-stack-for-aws/commit/419f271b54802c4c8301730bc35b34ed379074c4), were published to:
 >
 > ```text
@@ -162,11 +160,11 @@ To debug an agent:
 
 ## Customizing instances with a bootstrap script
 
-You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script,  set the `BootstrapScriptUrl` parameter to one of the following:
+You can customize your stack's instances by using the `BootstrapScriptUrl` stack parameter to run a Bash script on instance boot. To set up a bootstrap script, set the `BootstrapScriptUrl` parameter to one of the following:
 
-* An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
-* A URL such as `https://www.example.com/config/bootstrap.sh`
-* A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
+- An S3 bucket containing the script, for example `s3://my_bucket_name/my_bootstrap.sh`
+- A URL such as `https://www.example.com/config/bootstrap.sh`
+- A local file name `file:///usr/local/bin/my_bootstrap.sh` (this is particularly useful if you're customizing the AMI and are able to include a bootstrap script that way).
 
 If the file is private, you also need to create an IAM policy to allow the instances to read the file, for example:
 
@@ -176,11 +174,8 @@ If the file is private, you also need to create an IAM policy to allow the insta
   "Statement": [
     {
       "Effect": "Allow",
-      "Action": [
-        "s3:GetObject"
-      ],
-      "Resource": ["arn\:aws\:s3:::my_bucket_name/my_bootstrap.sh"]
-
+      "Action": ["s3:GetObject"],
+      "Resource": ["arn:aws:s3:::my_bucket_name/my_bootstrap.sh"]
     }
   ]
 }
@@ -192,8 +187,8 @@ After creating the policy, you must specify the policy's ARN in the `ManagedPoli
 
 You can assess and monitor health and proper function of the Elastic CI Stack for AWS using a combination of the following tools:
 
-* **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
+- **Auto Scaling group Activity logs** found on the EC2 Auto Scaling dashboard. They display the actions taken by the Auto Scaling group (failures, scale in/out, etc.).
 
-* **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
+- **CloudWatch Metrics** the Buildkite namespace contains `ScheduledJobsCount`, `RunningJobsCount`, and `WaitingJobsCount` measurements for the Buildkite Queue your Elastic CI Stack for AWS was configured to poll. These numbers are fed to the Auto Scaling group by the scaling Lambda.
 
-* **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.
+- **CloudWatch Logs** log streams for the Buildkite agent and EC2 Instance system console.

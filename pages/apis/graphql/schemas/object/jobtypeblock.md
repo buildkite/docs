@@ -14,13 +14,13 @@
 title: JobTypeBlock – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobTypeBlock
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A type of job that requires a user to unblock it before proceeding in a build pipeline
 
@@ -34,9 +34,6 @@ A type of job that requires a user to unblock it before proceeding in a build pi
     <tr><td><h3 class="is-small has-pills"><code>build</code><a href="/docs/apis/graphql/schemas/object/build" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Build"><code>Build</code></a></h3><p>The build that this job is a part of</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>isUnblockable</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean</code></a></h3><p>Whether or not this job can be unblocked yet (may be waiting on another job to finish)</p></td></tr><tr><td><h3 class="is-small has-pills"><code>label</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The label of this block step</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retried</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>If this job has been retried</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retriedBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3><p>The user that retried this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retriesCount</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3><p>The number of times the job has been retried</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retrySource</code><a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--medium" title="Go to UNION Job"><code>Job</code></a></h3><p>The job that was retried to create this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retryType</code><a href="/docs/apis/graphql/schemas/enum/jobretrytypes" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobRetryTypes"><code>JobRetryTypes</code></a></h3><p>The type of retry that was performed on this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>state</code><a href="/docs/apis/graphql/schemas/enum/jobstates" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobStates"><code>JobStates!</code></a></h3><p>The state of the job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>step</code><a href="/docs/apis/graphql/schemas/object/stepinput" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT StepInput"><code>StepInput</code></a></h3><p>The step that defined this job. Some older jobs in the system may not have an associated step</p></td></tr><tr><td><h3 class="is-small has-pills"><code>unblockedAt</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime</code></a></h3><p>The time when the job was created</p></td></tr><tr><td><h3 class="is-small has-pills"><code>unblockedBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3><p>The user that unblocked this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The UUID for this job</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

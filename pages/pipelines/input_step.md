@@ -1,11 +1,10 @@
 # Input step
 
-An *input* step is used to collect information from a user.
+An _input_ step is used to collect information from a user.
 
 An input step is functionally identical to a [block step](/docs/pipelines/block-step), however an input step doesn't create any [dependencies](/docs/pipelines/dependencies) to the steps before and after it.
 
 Input steps block your build from completing, but do not automatically block other steps from running unless they specifically depend upon it.
-
 
 An input step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/defining-steps) file.
 
@@ -16,6 +15,7 @@ steps:
       - text: "What is the date today?"
         key: "todays-date"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 You can add form `fields` to block steps by adding a fields attribute. Block steps with input fields can only be defined using a `pipeline.yml`. There are two field types available: text or select. The select input type displays differently depending on how you configure the options. If you allow people to select multiple options, they display as checkboxes. If you are required to select only one option from six or fewer, they display as radio buttons. Otherwise, the options display in a dropdown menu.
@@ -25,26 +25,27 @@ The data you collect from these fields is available to subsequent steps through 
 In this example, the `pipeline.yml` defines an input step with the key `name`. The Bash script then accesses the value of the step using the [meta-data](/docs/agent/v3/cli-meta-data) command.
 
 ```yml
-  - input: "Who is running this script?"
-    fields:
-      - text: "Your name"
-        key: "name"
-  - label: "Run script"
-    command: script.sh
+- input: "Who is running this script?"
+  fields:
+    - text: "Your name"
+      key: "name"
+- label: "Run script"
+  command: script.sh
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ```bash
 NAME=$(buildkite-agent meta-data get name)
 ```
-{: codeblock-file="script.sh"}
 
+{: codeblock-file="script.sh"}
 
 For an example pipeline, see the [Input step example pipeline](https://github.com/buildkite/input-step-example) on GitHub:
 
 <a class="Docs__example-repo" href="https://github.com/buildkite/input-step-example"><span class="detail">:pipeline: Input Step Example Pipeline</span> <span class="repo">github.com/buildkite/input-step-example</span></a>
 
->🚧 Don't store sensitive data in input steps
+> 🚧 Don't store sensitive data in input steps
 > You shouldn't use input steps to store sensitive information like secrets because the data will be stored in build metadata.
 
 ## Input step attributes
@@ -103,11 +104,12 @@ _Optional attributes:_
 steps:
   - input: "\:rocket\: Release!"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Text input attributes
 
->📘 Line endings
+> 📘 Line endings
 > A text field normalizes line endings to Unix format (<code>\n</code>).
 
 _Required attributes:_
@@ -130,6 +132,7 @@ steps:
       - text: "Code Name"
         key: "release-name"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -168,6 +171,7 @@ steps:
         required: false
         default: "Release #"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Select input attributes
@@ -224,6 +228,7 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -277,11 +282,12 @@ steps:
           - label: "Stable"
             value: "stable"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Input validation
 
-To prevent users from entering invalid text values in input steps  (for example, to gather some deployment information), you can use input validation.
+To prevent users from entering invalid text values in input steps (for example, to gather some deployment information), you can use input validation.
 
 If you associate a regular expression to a field, the field outline will turn red when an invalid value is entered.
 

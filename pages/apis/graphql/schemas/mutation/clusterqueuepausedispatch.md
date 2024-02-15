@@ -14,6 +14,7 @@
 title: clusterQueuePauseDispatch – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterQueuePauseDispatch
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 This will prevent dispatch of jobs to agents on this queue. You can add an optional note describing the reason for pausing.
 

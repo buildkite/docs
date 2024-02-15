@@ -1,6 +1,5 @@
 # Agents API
 
-
 ## List agents
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of an organization's agents. The list only includes connected agents - agents in a disconnected state are not returned.
@@ -55,7 +54,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents"
     },
     "last_job_finished_at": null,
     "priority": null,
-    "meta_data": ["key1=val1","key2=val2"]
+    "meta_data": ["key1=val1", "key2=val2"]
   }
 ]
 ```
@@ -128,7 +127,7 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/agents/{id}"
   },
   "last_job_finished_at": null,
   "priority": null,
-  "meta_data": ["key1=val1","key2=val2"]
+  "meta_data": ["key1=val1", "key2=val2"]
 }
 ```
 
@@ -138,8 +137,9 @@ Success response: `200 OK`
 
 ## Stop an agent
 
->📘 Required permissions
+> 📘 Required permissions
 > To stop an agent you need either
+
 - An Admin user API token with `write_agents` <a href="/docs/apis/managing-api-tokens#token-scopes">scope</a>
 - Or, if you're using <a href="/docs/team-management/permissions#member-permissions">Member Permissions</a>, a user token with the <em>Stop Agents</em> permission
 
