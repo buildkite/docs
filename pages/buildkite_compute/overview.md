@@ -32,12 +32,12 @@ We offer a selection of instance sizes, allowing you to tailor your compute reso
 Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ### Linux
-Linux instances are offered with two architectures 
+Linux instances are offered with two architectures.
 
 - ARM
 - AMD64 (x64_86)
 
-To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin. 
+To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
 
 #### Size
 <table>
@@ -68,14 +68,14 @@ The software available in the standard MacOS instances is listed [here](/docs/bu
     </tbody>
 </table>
 
-## Using private GitHub repositories in your compute pipelines. 
+## Using private GitHub repositories in your compute pipelines
 
-To use a private GitHub repository with Buildkite compute services you will need to authorize Buildkite to access your repository. 
+To use a private GitHub repository with Buildkite compute services you will need to authorize Buildkite to access your repository.
 
 1. Navigate to your Buildkite org settings page [here](https://buildkite.com/organizations/~/settings).
 1. On the left hand menu select _Repository Providers_.
 1. Select the _GitHub (with code access)_ option.
-1. Follow the prompts to authorize the services on your GitHub account, you can restrict access to specific repositories during setup. 
+1. Follow the prompts to authorize the services on your GitHub account, you can restrict access to specific repositories during setup.
 
 ## Moving your pipeline to a compute services
 
@@ -84,10 +84,10 @@ To use a private GitHub repository with Buildkite compute services you will need
 - Navigate to your pipeline settings.
 - Select GitHub from the left menu.  
 - Remove the existing repository, or select the _Choose another repository or URL_ link
-- Select the GitHub account including ...(with code access) 
-- Select the repository. 
+- Select the GitHub account including ...(with code access).
+- Select the repository.
 - Select _Save Repository_.
-- Ensure each step in the pipeline targets the required compute queue. 
+- Ensure each step in the pipeline targets the required compute queue.
 
 You are now ready to run a build on your Buildkite compute queue.
 
@@ -104,21 +104,21 @@ We can support your legal requirements in terms of specific regions. Please cont
 ## Coming soon
 
 ### API support for hosted queues
-We are working on adding functionality in the API to allow configuration of hosted queues. 
+We are working on adding functionality in the API to allow configuration of hosted queues.
 
 ### MacOS image configuration in the UI
-We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues. 
+We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
 
 ### Docker config editing in the UI for Linux compute
 We are building functionality to allow you to edit the docker config for your linux images within the Buildkite UI
 
 ### Cache volumes for Linux instances
 
-Cache volumes will provide: 
+Cache volumes will provide:
 - an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
 - cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
 - flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
-- Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines. 
+- Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines.
 - Git Mirror caching
 
 ### Buildkite secrets
@@ -131,7 +131,7 @@ Buildkite Secrets are an encrypted key-value store, where secrets are available 
 
 Secrets are scoped per-cluster, and all belong to a single cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret.
 
-Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please reach out to support. 
+Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please reach out to support.
 
 <table>
     <thead>
@@ -150,7 +150,7 @@ We are working on allowing direct SSH access into the compute instances.
 
 ### Usage metrics
 
-Enhanced usage metrics across your compute queues. 
+Enhanced usage metrics across your compute queues.
 
 
 
