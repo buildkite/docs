@@ -23,7 +23,7 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 ## Queue metrics
 
 Clusters provides additional, easy to access queue metrics that are available only for queues within a cluster.
-See [Cluster queue metrics](../../docs/pipelines/cluster-queue-metrics) for more information.
+Learn more in [Cluster queue metrics](/docs/pipelines/cluster-queue-metrics).
 
 ## Accessing clusters and agents
 
