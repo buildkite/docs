@@ -345,6 +345,7 @@
           path: "pipelines/waterfall"
         - name: "Cluster queue metrics"
           path: "pipelines/cluster-queue-metrics"
+          pill: "beta"
 - name: "Test Analytics"
   path: "test-analytics"
   children:
@@ -436,7 +437,6 @@
               path: "apis/rest-api/pipelines"
             - name: "Pipeline templates"
               path: "apis/rest-api/pipeline-templates"
-              pill: "beta"
             - name: "Teams"
               path: "apis/rest-api/teams"
             - name: "User"

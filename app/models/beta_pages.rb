@@ -1,7 +1,7 @@
 class BetaPages
   def self.all
     [
-      'apis/rest-api/pipeline-templates'
+      'pipelines/cluster-queue-metrics'
     ]
   end
 end
