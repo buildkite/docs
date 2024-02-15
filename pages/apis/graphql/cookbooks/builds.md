@@ -254,7 +254,7 @@ query GetTotalBuildRunTime{
 ## Create a build on a pipeline
 
 Create a build programmatically.
-First, get the Pipeline ID for the pipeline to create a build for:
+First, get the ID for the pipeline to create a build for:
 
 ```
 query GetPipelineID {
@@ -277,7 +277,7 @@ Then, create the build:
   mutation createBuild {
     buildCreate(
       input: {
-        commit: "commit"
+        commit: "commit-hash"
         branch: "branch-name"
         pipelineID: "pipeline-id"
       }
