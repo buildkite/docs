@@ -16,9 +16,9 @@ The following diagram shows the architecture with cluster enabled.
 
 Clusters encapsulate groups of agents and pipelines, enabling the following:
 
-* Clusters are viewable to your entire organization, allowing engineers to better understand the agents and queues available for their pipelines.
-* Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens and add and remove pipelines.
-* Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
+- Clusters are viewable to your entire organization, allowing engineers to better understand the agents and queues available for their pipelines.
+- Individual users or teams can maintain their own clusters. Cluster maintainers can manage queues and agent tokens and add and remove pipelines.
+- Pipelines can be assigned to a cluster, ensuring their builds run only on the agents connected to this cluster. These pipelines can also trigger builds only on other pipelines in the same cluster.
 
 ## Queue metrics
 
@@ -65,10 +65,10 @@ Any agents or pipelines not associated with a cluster are called _unclustered_. 
 
 The most common patterns we see for clusters are per stage, type of work or product.
 
-* Stage setup: DEV, TEST, PROD clusters
-* Type of work: Open source vs everything else
-* Type of build: Docker, Android, Mac, ML etc
-* Per product line: For companies with multiple products we see them have a cluster per each individual product.
+- Stage setup: DEV, TEST, PROD clusters
+- Type of work: Open source vs everything else
+- Type of build: Docker, Android, Mac, ML etc
+- Per product line: For companies with multiple products we see them have a cluster per each individual product.
 
 You can create as many clusters as your require for your setup.
 
@@ -76,9 +76,9 @@ You can create as many clusters as your require for your setup.
 
 Queues should mimic your infrastructure. The most common queue attributes we see customers use are:
 
-* Architecture (x86, arm64 etc)
-* Size of agents (small, medium, large)
-* Type of machine (Mac, GPU, Linux, Windows)
+- Architecture (x86, arm64 etc)
+- Size of agents (small, medium, large)
+- Type of machine (Mac, GPU, Linux, Windows)
 
 So an example queue would be `small_mac_silicon`.
 
