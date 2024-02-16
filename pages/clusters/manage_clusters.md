@@ -77,7 +77,7 @@ To add a maintainer to a cluster:
 1. Select a user or team.
 1. Click _Add Maintainer_.
 
-## Restrict access for an agent token by IP address
+## Restrict an agent token's access by IP address
 
 Each agent token can be locked down so that only agents with an allowed IP address can use them to register.
 

@@ -6,7 +6,7 @@ If you are still managing agents in an unclustered environment, refer to [unclus
 
 ## The initial agent token
 
-When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. However, it's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
+When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. However, it's recommended that you [create new, specific tokens](#create-a-new-token) for each new environment.
 
 ## Using and storing tokens
 
@@ -16,7 +16,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a new token
 
-New agent tokens can be created either using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-token-using-the-rest-api) feature.
+New agent tokens can be created either using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
@@ -109,7 +109,7 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN`, `{org.slug}` and `{cluster.id}` values are obtained the same way as those when [creating an agent token using the REST API](#create-a-token-using-the-rest-api).
+- The `$TOKEN`, `{org.slug}` and `{cluster.id}` values are obtained the same way as those when [creating an agent token using the REST API](#create-a-new-token-using-the-rest-api).
 
 - The `{id}` value can be obtained:
 

@@ -250,7 +250,7 @@ Error responses:
 
 ## Cluster queues
 
-[Cluster queues](/docs/clusters/manage-clusters#set-up-clusters-create-a-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
+[Cluster queues](/docs/clusters/manage-queues#create-a-queue) are discrete groups of agents within a cluster. Pipelines in that cluster can target cluster queues to run jobs on agents assigned to those queues.
 
 ### Cluster queue data model
 
@@ -480,7 +480,7 @@ Error responses:
 
 ### Pause a queue
 
-[Pause a queue](/docs/clusters/manage-clusters#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/clusters/manage-queues#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \
@@ -592,7 +592,7 @@ Error responses:
 
 ## Agent tokens
 
-An agent token is used to [connect agents to a cluster](/docs/clusters/manage-clusters#set-up-clusters-connect-agents-to-a-cluster).
+An agent token is used to [connect agents to a cluster](/docs/clusters/manage-clusters#connect-agents-to-a-cluster).
 
 ### Token data model
 
