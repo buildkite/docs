@@ -50,7 +50,7 @@ _Clusters_ will now appear in the global navigation.
 
 Enabling clusters will not impact any of your existing agents or pipelines, nor will you require any workflow-breaking changes for you to try clusters.
 
-Once clusters is enabled, when selecting _Agents_ in the global navigation your will be shown all your clusters as well as _Unclustered_ agents and pipelines.
+Once clusters is enabled, selecting _Agents_ in the global navigation shows all your available clusters, as well as any _Unclustered_ agents and pipelines.
 
 Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
 
