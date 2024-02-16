@@ -1,6 +1,6 @@
 # Public test suites
 
-If you're working on an open-source project, and want the whole world to be able to see your test analytics, you can make your test suite public.
+Test suites can now be made public. Perhaps you're working on an open-source project and want the whole world to be able to see your test analytics, or perhaps you're proud of recent optimizations you've made to improve the health and reliability of your test suite and need to share the results of your work.
 
 Making a suite public gives read-only access to all users. This means users who are unauthenticated or belong to another organization can view the following:
 
