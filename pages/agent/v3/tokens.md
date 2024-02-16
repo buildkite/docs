@@ -4,15 +4,9 @@ A Buildkite agent requires an agent token to connect to Buildkite and register f
 
 If you are still managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
 
-## The default token
+## The initial agent token
 
-<!-- Is this section still valid? Should this instead be called the 'initial agent token', and in which cluster is this located? -->
-
-When you create a new organization in Buildkite, a default agent token is created. This token can be used for testing and development and is only revealed once, but it's recommended you [create new, specific tokens](#create-a-token) for each new environment.
-
->📘 An agent token's value is only displayed once
-> As soon as the agent token's value is displayed (including the default agent token), copy its value and save it in a secure location.
-> If you forget to do this, you will need to create a new token to obtain its value.
+When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. However, it's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
 
 ## Using and storing tokens
 
@@ -22,11 +16,17 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a token
 
-New agent tokens can be created either using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [create agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) feature.
+New agent tokens can be created either using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-token-using-the-rest-api) feature.
 
-### Using the Buildkite user interface
+> 📘 An agent token's value is only displayed once
+> As soon as the agent token's value is displayed, copy its value and save it in a secure location.
+> If you forget to do this, you'll need to create a new token to obtain its value.
 
-To create an agent token using the _Agent Tokens_ page:
+It is possible to create multiple agent tokens (for your Default cluster or any other cluster in your Buildkite organization) using the processes described in this section.
+
+### Using the Buildkite interface
+
+To create an agent token for a cluster using the Buildkite interface:
 
 1. Select _Agents_ to access the _Agent Clusters_ page.
 1. Select the cluster containing the agent token to revoke.
@@ -37,7 +37,7 @@ To create an agent token using the _Agent Tokens_ page:
 
 ### Using the REST API
 
-To create an agent token using the REST API, run the following example `curl` command:
+To [create an agent token](/docs/apis/rest-api/clusters#agent-tokens-create-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -77,15 +77,15 @@ where:
 
 - The `description` value clearly identifies the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
 
-It is possible to create multiple agent tokens (for any cluster) using either the cluster's _Agent Tokens_ page or the [REST API](/docs/apis/rest-api/clusters#agent-tokens-create-a-token).
-
 ## Revoke a token
 
-Agent tokens can be revoked using the _Agent Tokens_ page of the cluster, or via the [REST API](/docs/apis/rest-api)'s [delete agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) feature.
+Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or via the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
 
-### Using the Buildkite user interface
+Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
-To revoke an agent token using the _Agent Tokens_ page:
+### Using the Buildkite interface
+
+To revoke a cluster's agent token using the Buildkite interface:
 
 1. Select _Agents_ to access the _Agent Clusters_ page.
 1. Select the cluster containing the agent token to revoke.
@@ -94,7 +94,7 @@ To revoke an agent token using the _Agent Tokens_ page:
 
 ### Using the REST API
 
-To revoke an agent token using the REST API, run the following example `curl` command:
+To [revoke (that is, delete) an agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \
@@ -118,11 +118,9 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
         ```
 
-Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
-
 ## Scope of access
 
-Agent tokens are specific to each Buildkite organization, and can be used to register an agent with any [queue](/docs/agent/v3/queues). Agent tokens can not be shared between organizations.
+An agent token is specific to the cluster it was associated when created (within a Buildkite organization), and can be used to register an agent with any [queue](/docs/agent/v3/queues) defined in that cluster. Agent tokens can not be shared between different clusters within an organization, or between different organizations.
 
 ## Session and job tokens
 

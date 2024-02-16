@@ -89,6 +89,7 @@
         - name: "Tokens"
           path: "agent/v3/tokens"
         - name: "Unclustered tokens"
+          pill: "deprecated"
           path: "agent/v3/unclustered-tokens"
         - name: "Tracing"
           path: "agent/v3/tracing"
