@@ -26,7 +26,7 @@ Clusters provides additional, easy to access queue metrics that are available on
 
 ## Accessing clusters and agents
 
-The release of clusters will change navigating to your agents on the UI.
+The release of clusters changes how your agents are accessed through the Buildkite interface.
 
 If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue.
 
