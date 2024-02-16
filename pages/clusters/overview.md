@@ -30,8 +30,7 @@ The release of clusters changes how your agents are accessed through the Buildki
 
 If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue.
 
-If you have multiple clusters, or _Unclustered_ pipelines and agents, selecting _Agents_ in the global navigation will take you to the Clusters page.
-Once in the clusters page you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
+If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation will take you to the _Agent Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
 
 ## Enabling clusters before the release date
 
