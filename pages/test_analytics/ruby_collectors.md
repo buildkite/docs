@@ -7,7 +7,7 @@ You can also upload test results by importing [JSON](/docs/test-analytics/import
 
 ## RSpec collector
 
-[RSpec](https://rspec.info/) is a behaviour-driven development library for Ruby.
+[RSpec](https://rspec.info/) is a behavior-driven development library for Ruby.
 If you're already using RSpec for your tests, add the `buildkite-test_collector` gem to your code to collect your test results into your Test Analytics dashboard.
 
 Before you start, make sure RSpec runs with access to [CI environment variables](/docs/test-analytics/ci-environments).
