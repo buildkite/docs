@@ -1,7 +1,7 @@
 # Clusters overview
 
 >📘 Clusters
-> Clusters will be enabled for all organizations on February 26 2024.
+> Clusters will be enabled for all organizations on February 26, 2024.
 
 Clusters is a Buildkite feature used to manage and organize agents and queues, which:
 
@@ -81,9 +81,3 @@ Enabling clusters will not impact any of your existing agents or pipelines, nor 
 Once clusters is enabled, selecting _Agents_ in the global navigation shows all your available clusters, as well as any _Unclustered_ agents and pipelines.
 
 Any agents or pipelines not associated with a cluster are called _unclustered_. To view and manage your unclustered agents, agent tokens, and pipelines, select _Unclustered_.
-
-
-
-
-
-
