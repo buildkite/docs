@@ -24,7 +24,7 @@ Dockerfile
 Enum
 Eventbridge
 Explainshell
-Fastlane
+fastlane
 Firewalled
 Flexbox
 Fugit
@@ -37,13 +37,12 @@ JWT
 JWTs
 Kuzco
 Memcache
-MacOS
+macOS
 minitest
 misconfiguration
 Namespace
 Namespaced
 Namespaces
-Nginx
 Noreply
 Okta
 Pagerduty
@@ -251,6 +250,7 @@ CMake
 IdP's
 iTerm
 iTerm's
+NGINX
 NVMe
 OAuth
 TOTP's

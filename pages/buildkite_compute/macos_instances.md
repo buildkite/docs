@@ -61,7 +61,7 @@ The following software will be made available on the standard MacOS instances
 ### Servers:
 
 - Apache HTTPD
-- Nginx
+- NGINX
 - Postgres 14.10
 
 ### Browser automation:
@@ -77,7 +77,7 @@ The following software will be made available on the standard MacOS instances
 - Azure CLI
 - CodeQL
 - Bicep CLI
-- Fastlane
+- fastlane
 - GitHub CLI
 - 7-zip
 - Aria2
