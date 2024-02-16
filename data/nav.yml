@@ -304,6 +304,8 @@
           path: "clusters/overview"
         - name: "Manage clusters"
           path: "clusters/manage-clusters"
+        - name: "Manage queues"
+          path: "clusters/manage-queues"
         - name: "Queue metrics"
           path: "clusters/queue-metrics"
     - name: "Security"

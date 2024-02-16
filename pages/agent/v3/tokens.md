@@ -14,7 +14,7 @@ An agent token is used by the Buildkite Agent's [start](/docs/agent/v3/cli-start
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Create a token
+## Create a new token
 
 New agent tokens can be created either using the [_Agent Tokens_ page of a cluster](#create-a-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-token-using-the-rest-api) feature.
 
@@ -34,6 +34,12 @@ To create an agent token for a cluster using the Buildkite interface:
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
     **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
+
+1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses into the _Allowed IP Addresses_ field.
+
+    **Note:** Leave this field empty if there is no need to restrict use of this agent token by network address.
+
+1. Select _Create Token_.
 
 ### Using the REST API
 
@@ -94,7 +100,7 @@ To revoke a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [revoke (that is, delete) an agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [revoke (delete) an agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \

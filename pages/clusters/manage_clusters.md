@@ -1,32 +1,42 @@
 # Manage clusters
 
-This page provides instructions for common tasks when managing clusters.
+This page provides details on how to manage clusters within your Buildkite organization. For details on how to set up queues within a cluster, refer to [Manage queues](/docs/clusters/manage-queues).
 
-## Set up clusters
+## Setting up clusters
 
-Follow these instructions when setting up a cluster.
+When you create a new Buildkite organization, a single default cluster (initially named _Default cluster_) is created.
 
-### Create a cluster
+For smaller organizations, working on smaller projects, this default cluster may be sufficient. However, if you your organization develops projects that require different:
+
+- Staged environments, for example, development, test, staging/pre-production and production,
+- Source code visibility, such as open-source versus closed-source code projects,
+- Target platforms, such as Linux, Android, macOS, Windows, etc, and
+- Multiple projects, for example, different product lines,
+
+Then it is more convenient to manage these in separate clusters.
+
+Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within them.
+
+## Create a new cluster
+
+New clusters can be created either using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-cluster-using-the-rest-api) feature.
+
+### Using the Buildkite interface
 
 To create a new cluster:
 
-1. Navigate to _Clusters_.
+1. Select _Agents_ to access the _Agent Clusters_ page.
 1. Select _Create a Cluster_.
-1. Enter a name, description, and emoji.
+1. On the _New Cluster_ page, enter the mandatory _Name_ for the new cluster.
+1. Enter an optional _Description_ for the cluster. This description appears under the name of cluster's tile on the _Agent Clusters_ page.
+1. Enter an optional _Emoji_ and _Color_ using the recommended syntax.
 1. Select _Create Cluster_.
 
-### Create a queue
+### Using the REST API
 
-When you create your first cluster, it will have an initial _default_ queue.
 
-To create additional queues:
 
-1. Navigate to the cluster’s _Queues_.
-1. Select _Create a Queue_.
-1. Enter a key and description.
-1. Select _Create Queue_.
-
-### Connect agents to a cluster
+## Connect agents to a cluster
 
 Agents are associated with a cluster through the cluster’s agent tokens.
 
@@ -42,7 +52,7 @@ To connect an agent:
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
-### Add pipelines to a cluster
+## Add pipelines to a cluster
 
 Add a pipeline to a cluster to ensure the pipeline’s builds run only on agents connected to that cluster.
 
@@ -51,7 +61,7 @@ To add a pipeline to a cluster:
 1. Navigate to the _Pipeline Settings_ for the pipeline.
 1. Under _Cluster Settings_, select the relevant cluster.
 
-### Add maintainers to a cluster
+## Add maintainers to a cluster
 
 Only Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
 
@@ -67,7 +77,7 @@ To add a maintainer to a cluster:
 1. Select a user or team.
 1. Click _Add Maintainer_.
 
-### Restrict access for an agent token by IP address
+## Restrict access for an agent token by IP address
 
 Each agent token can be locked down so that only agents with an allowed IP address can use them to register.
 
@@ -87,28 +97,6 @@ Note the following limitations:
 * There is a maximum of 24 CIDR blocks per agent token.
 * IPv6 is currently not supported.
 
-### Migrate to clusters
+## Migrate to clusters
 
 If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.
-
-## Pause a queue
-
-> 📘 Enterprise feature
-> Cluster queue pausing is only available on [Pro and Enterprise](https://buildkite.com/pricing) plans.
-
-You can pause a queue to prevent jobs from being dispatched to agents associated with that queue.
-
-To pause a queue:
-
-1. Navigate to your cluster’s _Queues_.
-1. Select the queue you wish to pause.
-1. Select _Pause_.
-1. Enter an optional note in the dialog, and confirm that you wish to pause the queue.
-
-      You can use the note to explain why you're pausing the queue. The note will display on the queue page and any affected builds.
-
-Jobs _already_ dispatched to agents in the queue before pausing will continue to run. New jobs that target the paused queue will wait until the queue is resumed.
-
-Trigger steps do not rely on agents, so they will run unless they have dependencies waiting on the paused queue. The behavior of the jobs they trigger depends on their configuration. If a triggered job targets the paused queue, it will wait until the queue is resumed. If a triggered job does not target the paused queue, it will run as usual.
-
-Select _Resume Queue_ to resume a paused queue. Jobs will resume dispatching to the queue as usual, including any jobs waiting to run.
