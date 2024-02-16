@@ -67,9 +67,9 @@ Only Buildkite administrators or users with the [_change organization_ permissio
 
 You can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
 
-* Update or delete the cluster.
-* Manage cluster agent tokens.
-* Add or remove pipelines to the cluster.
+- Update or delete the cluster.
+- Manage cluster agent tokens.
+- Add or remove pipelines to the cluster.
 
 To add a maintainer to a cluster:
 
@@ -93,9 +93,9 @@ Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents 
 
 Note the following limitations:
 
-* This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given agent token.
-* There is a maximum of 24 CIDR blocks per agent token.
-* IPv6 is currently not supported.
+- This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given agent token.
+- There is a maximum of 24 CIDR blocks per agent token.
+- IPv6 is currently not supported.
 
 ## Migrate to clusters
 

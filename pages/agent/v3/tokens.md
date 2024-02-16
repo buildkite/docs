@@ -29,7 +29,7 @@ It is possible to create multiple agent tokens (for your Default cluster or any 
 To create an agent token for a cluster using the Buildkite interface:
 
 1. Select _Agents_ to access the _Agent Clusters_ page.
-1. Select the cluster you would like to create an agent token for.
+1. Select the cluster to create an agent token for.
 1. Select _Agent Tokens_ and on this page, select _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
