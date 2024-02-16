@@ -81,12 +81,12 @@ To use a private GitHub repository with Buildkite compute services you will need
 
 - Ensure your pipeline is in the same cluster as the compute queue you setup previously see [Manage clusters](/docs/clusters/manage-clusters).
 - Set your pipeline to use the GitHub (with code access) service your authorized in the step above.
-- Navigate to your pipeline settings.
-- Select GitHub from the left menu.  
-- Remove the existing repository, or select the _Choose another repository or URL_ link
-- Select the GitHub account including ...(with code access).
-- Select the repository.
-- Select _Save Repository_.
+    * Navigate to your pipeline settings.
+    * Select GitHub from the left menu.  
+    * Remove the existing repository, or select the _Choose another repository or URL_ link
+    * Select the GitHub account including ...(with code access).
+    * Select the repository.
+    * Select _Save Repository_.
 - Ensure each step in the pipeline targets the required compute queue.
 
 You are now ready to run a build on your Buildkite compute queue.
