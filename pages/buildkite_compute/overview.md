@@ -106,7 +106,7 @@ We can support your legal requirements in terms of specific regions. Please cont
 ### API support for hosted queues
 We are working on adding functionality in the API to allow configuration of hosted queues.
 
-### MacOS image configuration in the UI
+### macOS image configuration in the UI
 We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
 
 ### Docker config editing in the UI for Linux compute

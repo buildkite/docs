@@ -1,4 +1,4 @@
-## MacOS instances software support
+## macOS instances software support
 
 The following software will be made available on the standard MacOS instances
 
