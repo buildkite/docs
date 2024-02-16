@@ -2,7 +2,6 @@
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
 
-
 ## Starting an agent
 
 <%= render 'agent/v3/help/start' %>
@@ -37,25 +36,27 @@ Here's an example of targeting agents that are running with the tag `postgres` a
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: "1.9.4"
+    - command: "script.sh"
+      agents:
+          postgres: "1.9.4"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 You can also match for any agent with a `postgres` tag by omitting the value after the `=` sign, or by using `*`, for example:
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: '*'
+    - command: "script.sh"
+      agents:
+          postgres: "*"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.
 
->📘 Setting agent defaults
+> 📘 Setting agent defaults
 > Use a top-level <code>agents</code> block to <a href="/docs/pipelines/defining-steps#step-defaults">set defaults</a> for all steps in a pipeline.
 
 If you specify multiple tags, your build will only run on agents that have **all** the specified tags.
@@ -70,10 +71,10 @@ For example, if a job has the following agent targeting rules, an agent with bot
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: '1.9.4'
-      queue: test
+    - command: "script.sh"
+      agents:
+          postgres: "1.9.4"
+          queue: test
 ```
 
 ## Sourcing tags from Amazon Web Services
@@ -88,7 +89,7 @@ You can load an Agent's tags from the underlying Google Cloud metadata using `--
 
 You can configure your agent and your pipeline steps so that the steps run on the same agent that performed `pipeline upload`. This is sometimes referred to as "node affinity", but note that what we describe here does not involve Kubernetes (where the term is more widely used).
 
->📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
+> 📘 Normally, we recommend against doing this. The usual practice is to allow jobs to run on whichever agent is available, or to target according to specific criteria (for example, you might want certain jobs to run on a particular operating system). Targeting a specific agent can cause reliability issues (the job can't run if the agent is offline), and can result in work being unevenly distributed between agents (which is inefficient).
 
 First, set the agent hostname tag.
 
@@ -108,7 +109,7 @@ Then, make sure you are using `pipeline upload` to upload a `pipeline.yml`. In B
 
 ```yaml
 steps:
-  - command: "buildkite-agent pipeline upload"
+    - command: "buildkite-agent pipeline upload"
 ```
 
 Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOSTNAME"` on any commands that you want to stick to the agent that uploaded the `pipeline.yml`. For example:
@@ -123,14 +124,13 @@ Finally, in your `pipeline.yml`, set `hostname: "$BUILDKITE_AGENT_META_DATA_HOST
 When Buildkite uploads the pipeline, `$BUILDKITE_AGENT_META_DATA_HOSTNAME` is replaced with the agent's hostname tag value. In effect, the previous example becomes:
 
 ```yaml
-  - command: "I will stick!"
-    agents:
+- command: "I will stick!"
+  agents:
       hostname: "agents-computer-hostname"
-  - command: "I might not"
+- command: "I might not"
 ```
 
 This means the first step in the example can only run on an agent with the hostname "agents-computer-hostname". This is the hostname of the agent that uploaded the job. The second step may run on the same agent, or a different one.
-
 
 ## Run a single job
 
@@ -140,11 +140,11 @@ This means the first step in the example can only run on an agent with the hostn
 
 `value` is the job ID. There are several ways to find it:
 
-* Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
-* Through the [GraphQL API](/docs/apis/graphql_api).
-* The `BUILDKITE_JOB_ID` build environment variable.
-* In outbound [job event webhooks](/docs/apis/webhooks/job_events).
-* Using the GUI: select a job, and the job ID is the final value in the URL.
+-   Using the Build API's [Get a build](/docs/apis/rest-api/builds#get-a-build) endpoint. This returns build information, including all jobs in the build.
+-   Through the [GraphQL API](/docs/apis/graphql_api).
+-   The `BUILDKITE_JOB_ID` build environment variable.
+-   In outbound [job event webhooks](/docs/apis/webhooks/job_events).
+-   Using the GUI: select a job, and the job ID is the final value in the URL.
 
 ### When to use
 

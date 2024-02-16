@@ -14,6 +14,7 @@
 title: graphQLSnippet – Queries – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   graphQLSnippet
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Find a GraphQL snippet
 

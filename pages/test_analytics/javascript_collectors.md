@@ -2,13 +2,12 @@
 
 To use Test Analytics with your JavaScript (npm) projects, use the :github: [`test-collector-javascript`](https://github.com/buildkite/test-collector-javascript) package with a supported test framework. Test Analytics supports the following test frameworks:
 
-- [Jest](https://jestjs.io/)
-- [Jasmine](https://jasmine.github.io/)
-- [Mocha](https://mochajs.org/)
-- [Playwright](https://playwright.dev)
+-   [Jest](https://jestjs.io/)
+-   [Jasmine](https://jasmine.github.io/)
+-   [Mocha](https://mochajs.org/)
+-   [Playwright](https://playwright.dev)
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
-
 
 ## Add the test collector package
 
@@ -68,7 +67,7 @@ To configure Jasmine:
     // SpecHelper.js
     var BuildkiteReporter = require("buildkite-test-collector/jasmine/reporter");
     var buildkiteReporter = new BuildkiteReporter();
-    
+
     jasmine.getEnv().addReporter(buildkiteReporter);
     ```
 
@@ -134,7 +133,7 @@ To configure Playwright:
     // playwright.config.js
     {
       "reporters": [
-        ["line"], 
+        ["line"],
         ["buildkite-test-collector/playwright/reporter"]
       ]
     }
@@ -175,4 +174,3 @@ Using the [`--forceExit`](https://jestjs.io/docs/cli#--forceexit) option when ru
 `--forceExit` could potentially terminate any ongoing processes that are attempting to send test executions to Buildkite.
 
 We recommend using [`--detectOpenHandles`](https://jestjs.io/docs/cli#--detectopenhandles) to track down open handles which are preventing Jest from exiting cleanly.
-

@@ -23,7 +23,7 @@ Before you start, make sure XCTest runs with access to [CI environment variables
 
     ```yaml
     BUILDKITE_ANALYTICS_TOKEN: $(BUILDKITE_ANALYTICS_TOKEN)
-     ```
+    ```
 
 1. In the `Package.swift` file, add `https://github.com/buildkite/test-collector-swift` to the dependencies and add `BuildkiteTestCollector` to any test target requiring analytics:
 

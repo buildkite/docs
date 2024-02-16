@@ -14,6 +14,7 @@
 title: teamMemberUpdate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamMemberUpdate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Update a user's role in a team.
 

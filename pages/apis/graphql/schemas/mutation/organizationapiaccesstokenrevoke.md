@@ -14,6 +14,7 @@
 title: organizationApiAccessTokenRevoke – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationApiAccessTokenRevoke
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Revokes access to an organization for a user's API access token. The organization can not be re-added to the same token, however the user can create a new token and add the organization to that token.
 

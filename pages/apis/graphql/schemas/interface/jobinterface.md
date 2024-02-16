@@ -14,15 +14,13 @@
 title: JobInterface – Interfaces – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobInterface
   <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
 </h1>
 <!-- vale on -->
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,11 +32,6 @@ toc: false
     <tr><td><h3 class="is-small has-pills"><code>retried</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>If this job has been retried</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retriedBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3><p>The user that retried this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retriesCount</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h3><p>The number of times the job has been retried</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retrySource</code><a href="/docs/apis/graphql/schemas/union/job" class="pill pill--union pill--normal-case pill--medium" title="Go to UNION Job"><code>Job</code></a></h3><p>The job that was retried to create this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retryType</code><a href="/docs/apis/graphql/schemas/enum/jobretrytypes" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobRetryTypes"><code>JobRetryTypes</code></a></h3><p>The type of retry that was performed on this job</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The UUID for this job</p></td></tr>
   </tbody>
 </table>
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/jobtypeblock" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT JobTypeBlock">

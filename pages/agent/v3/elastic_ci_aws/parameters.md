@@ -13,7 +13,6 @@ You can use these parameters to configure the EC2 instances to suit your needs.
 Note that you must provide a value for one of [`BuildkiteAgentTokenParameterStorePath`](#BuildkiteAgentTokenParameterStorePath)
 or [`BuildkiteAgentToken`](#BuildkiteAgentToken) to be able to use `aws-stack.yml` template, all other parameters are optional.
 
-
 <!--
   _____   ____    _   _  ____ _______   ______ _____ _____ _______
  |  __ \ / __ \  | \ | |/ __ \__   __| |  ____|  __ \_   _|__   __|
@@ -36,15 +35,16 @@ parameter_groups = interface['ParameterGroups']
 parameters = AWS_STACK['Parameters']
 
 def escape_colons(x)
-  if x.is_a? String
-    x.gsub(/:(.+?):/, '\:\1\:')
-  else
-    x
-  end
+if x.is_a? String
+x.gsub(/:(.+?):/, '\:\1\:')
+else
+x
+end
 end
 %>
 
 <% parameter_groups.each do |group| %>
+
 <h2><%= group['Label']['default'] %></h2>
 
 <table>
@@ -63,43 +63,44 @@ end
 				<td>
 					<%= parameter['Description'] %>
 
-					<% if allowed = escape_colons(parameter['AllowedValues']) %>
-						<br/><strong>Allowed Values</strong>:
-							<ul>
-								<% allowed.each do |allow| %>
-									<li><code><%= allow %></code></li>
-								<% end %>
-							</ul>
-					<% end %>
+    				<% if allowed = escape_colons(parameter['AllowedValues']) %>
+    					<br/><strong>Allowed Values</strong>:
+    						<ul>
+    							<% allowed.each do |allow| %>
+    								<li><code><%= allow %></code></li>
+    							<% end %>
+    						</ul>
+    				<% end %>
 
-					<% if parameter['Default'] && parameter['Default'] != "" %>
-						<br/><strong>Default Value:</strong> <code><%= escape_colons(parameter['Default']) %></code>
-					<% end %>
+    				<% if parameter['Default'] && parameter['Default'] != "" %>
+    					<br/><strong>Default Value:</strong> <code><%= escape_colons(parameter['Default']) %></code>
+    				<% end %>
 
-					<% if pattern = parameter['AllowedPattern'] %>
-						<br/><strong>Allowed Pattern:</strong> <code><%= escape_colons(pattern) %></code>
-					<% end %>
+    				<% if pattern = parameter['AllowedPattern'] %>
+    					<br/><strong>Allowed Pattern:</strong> <code><%= escape_colons(pattern) %></code>
+    				<% end %>
 
-					<% if minLength = parameter['MinLength'] %>
-						<br/><strong>Minimum Length:</strong> <%= minLength %>
-					<% end %>
+    				<% if minLength = parameter['MinLength'] %>
+    					<br/><strong>Minimum Length:</strong> <%= minLength %>
+    				<% end %>
 
-					<% if maxLength = parameter['MaxLength'] %>
-						<br/><strong>Maximum Length:</strong> <%= maxLength %>
-					<% end %>
+    				<% if maxLength = parameter['MaxLength'] %>
+    					<br/><strong>Maximum Length:</strong> <%= maxLength %>
+    				<% end %>
 
-					<% if minValue = parameter['MinValue'] %>
-						<br/><strong>Minimum Value:</strong> <%= minValue %>
-					<% end %>
+    				<% if minValue = parameter['MinValue'] %>
+    					<br/><strong>Minimum Value:</strong> <%= minValue %>
+    				<% end %>
 
-					<% if maxValue = parameter['MaxValue'] %>
-						<br/><strong>Maximum Value:</strong> <%= maxValue %>
-					<% end %>
+    				<% if maxValue = parameter['MaxValue'] %>
+    					<br/><strong>Maximum Value:</strong> <%= maxValue %>
+    				<% end %>
 
-				</td>
-			</tr>
-		<% end %>
-	</tbody>
+    			</td>
+    		</tr>
+    	<% end %>
+    </tbody>
+
 </table>
 <% end %>
 

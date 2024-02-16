@@ -14,6 +14,7 @@
 title: __DirectiveLocation – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   __DirectiveLocation
@@ -22,15 +23,7 @@ toc: false
 <!-- vale on -->
 <!-- vale off -->
 
-A Directive can be adjacent to many parts of the GraphQL language, a __DirectiveLocation describes one such possible adjacencies.
-
-
-
-
-
-
-
-
+A Directive can be adjacent to many parts of the GraphQL language, a \_\_DirectiveLocation describes one such possible adjacencies.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

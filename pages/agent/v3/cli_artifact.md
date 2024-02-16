@@ -7,7 +7,6 @@ steps no matter the machine or network.
 See the [Using build artifacts](/docs/builds/artifacts) guide for a step-by-step
 example.
 
-
 ## Uploading artifacts
 
 You can use this command in your build scripts to store artifacts. Artifacts are
@@ -17,18 +16,16 @@ storage location, depending on how you have configured your Buildkite Agent.
 
 For documentation on configuring a custom storage location, see:
 
-- [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
-- [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
-- [Using your private Azure Blob container](#using-your-private-azure-blob-container)
-- [Using your Artifactory instance](#using-your-artifactory-instance)
+-   [Using your private AWS S3 bucket](#using-your-private-aws-s3-bucket)
+-   [Using your private Google Cloud bucket](#using-your-private-google-cloud-bucket)
+-   [Using your private Azure Blob container](#using-your-private-azure-blob-container)
+-   [Using your Artifactory instance](#using-your-artifactory-instance)
 
 You can also configure the agent to automatically upload artifacts after your
 step's command has completed based on a file pattern (see the
 [Using build artifacts guide](/docs/builds/artifacts) for details).
 
-
 <%= render 'agent/v3/help/artifact_upload' %>
-
 
 ### Artifact upload examples
 
@@ -83,15 +80,14 @@ Keep in mind while you're writing your path pattern:
 
 <!--alex ignore just-->
 
-- patterns must match whole path strings, not just substrings
-- there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
-  + `*` to match a sequence of characters
-  + `?` to match a single character
-- character ranges surrounded by `[]` support the `^` as a negator
-- special characters can be escaped with `\\`
-- multiple paths are separated with `;`
-- surround the pattern with quotes
-
+-   patterns must match whole path strings, not just substrings
+-   there are two wildcards available that match non-separator characters (on Linux `/` is a separator character, and on Windows `\` is a separator character):
+    -   `*` to match a sequence of characters
+    -   `?` to match a single character
+-   character ranges surrounded by `[]` support the `^` as a negator
+-   special characters can be escaped with `\\`
+-   multiple paths are separated with `;`
+-   surround the pattern with quotes
 
 ## Downloading artifacts
 
@@ -157,7 +153,6 @@ Return a list of artifacts that match a query.
 
 <%= render 'agent/v3/help/artifact_search' %>
 
-
 ## Parallelized steps
 
 Currently, Buildkite does not support collating artifacts from parallelized steps under a single key. Thus using the `--step` option with a parallelized step key will return only artifacts from the last completed step.
@@ -172,9 +167,7 @@ buildkite-agent artifact <download or search> "artifacts/path/*" . --build $BUIL
 
 Use this command in your build scripts to verify downloaded artifacts against the original SHA-1 of the file.
 
-
 <%= render 'agent/v3/help/artifact_shasum' %>
-
 
 ## Using your private AWS S3 bucket
 
@@ -182,13 +175,14 @@ You can configure the `buildkite-agent artifact` command to store artifacts in
 your private Amazon S3 bucket. To do so, you'll need to export some artifact
 environment variables.
 
-Environment Variable | Required | Default Value | Description
---- | --- | --- | ---
-`BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes | N/A | An S3 scheme URL for the bucket and path prefix, for example, s3://your-bucket/path/prefix/
-`BUILDKITE_S3_DEFAULT_REGION` | No | N/A | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service.
-`BUILDKITE_S3_ACL` | No | `public-read` | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.
-`BUILDKITE_S3_SSE_ENABLED` | No | `false` | If `true`, bucket uploads request AES256 server side encryption.
-`BUILDKITE_S3_ACCESS_URL` | No | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact's location stored with the Buildkite API.
+| Environment Variable                    | Required | Default Value                      | Description                                                                                                                                                                                 |
+| --------------------------------------- | -------- | ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `BUILDKITE_ARTIFACT_UPLOAD_DESTINATION` | Yes      | N/A                                | An S3 scheme URL for the bucket and path prefix, for example, s3://your-bucket/path/prefix/                                                                                                 |
+| `BUILDKITE_S3_DEFAULT_REGION`           | No       | N/A                                | Which AWS Region to use to locate your S3 bucket, if absent or blank `buildkite-agent` will also consult `AWS_REGION`, `AWS_DEFAULT_REGION`, and finally the EC2 instance metadata service. |
+| `BUILDKITE_S3_ACL`                      | No       | `public-read`                      | The S3 Object ACL to apply to uploads, one of `private`, `public-read`, `public-read-write`, `authenticated-read`, `bucket-owner-read`, `bucket-owner-full-control`.                        |
+| `BUILDKITE_S3_SSE_ENABLED`              | No       | `false`                            | If `true`, bucket uploads request AES256 server side encryption.                                                                                                                            |
+| `BUILDKITE_S3_ACCESS_URL`               | No       | `https://$bucket.s3.amazonaws.com` | If set, overrides the base URL used for the artifact's location stored with the Buildkite API.                                                                                              |
+
 {: class="responsive-table"}
 
 You can set these environment variables from a variety of places. Exporting them
@@ -223,8 +217,8 @@ read and write objects in the bucket, for example:
                 "s3:PutObjectVersionAcl"
             ],
             "Resource": [
-               "arn\:aws\:s3:::my-s3-bucket",
-               "arn\:aws\:s3:::my-s3-bucket/*"
+                "arn:aws:s3:::my-s3-bucket",
+                "arn:aws:s3:::my-s3-bucket/*"
             ]
         }
     ]
@@ -240,10 +234,10 @@ included in the instance's IAM role.
 `buildkite-agent artifact upload` will use the first available AWS credentials
 from the following locations:
 
-- Buildkite environment variables, `BUILDKITE_S3_ACCESS_KEY_ID`, `BUILDKITE_S3_SECRET_ACCESS_KEY`, `BUILDKITE_S3_SESSION_TOKEN`
-- AWS environment variables, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`
-- Web Identity environment variables, `AWS_ROLE_ARN`, `AWS_ROLE_SESSION_NAME`, `AWS_WEB_IDENTITY_TOKEN_FILE`
-- EC2 or ECS role, your EC2 instance or ECS task's IAM Role
+-   Buildkite environment variables, `BUILDKITE_S3_ACCESS_KEY_ID`, `BUILDKITE_S3_SECRET_ACCESS_KEY`, `BUILDKITE_S3_SESSION_TOKEN`
+-   AWS environment variables, `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `AWS_SESSION_TOKEN`
+-   Web Identity environment variables, `AWS_ROLE_ARN`, `AWS_ROLE_SESSION_NAME`, `AWS_WEB_IDENTITY_TOKEN_FILE`
+-   EC2 or ECS role, your EC2 instance or ECS task's IAM Role
 
 If your agents are running on an AWS EC2 Instance, adding the
 policy above to the instance's [IAM Role](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/iam-roles-for-amazon-ec2.html) and using the instance profile credentials is the
@@ -304,10 +298,10 @@ Firstly, make sure that each agent has access to Azure credentials.
 [By default](https://pkg.go.dev/github.com/Azure/azure-sdk-for-go/sdk/azidentity#readme-defaultazurecredential),
 these can be provided using:
 
-- Azure environment variables such as `AZURE_CLIENT_ID`.
-- Loaded by a Kubernetes workload identity hook.
-- Loaded on a host with Azure Managed Identity enabled.
-- Loaded from a user logged in with the Azure CLI.
+-   Azure environment variables such as `AZURE_CLIENT_ID`.
+-   Loaded by a Kubernetes workload identity hook.
+-   Loaded on a host with Azure Managed Identity enabled.
+-   Loaded from a user logged in with the Azure CLI.
 
 You can also use an account key or connection string by setting one of these
 environment variables:
@@ -363,5 +357,5 @@ as well as use a shared key for the credential:
 export BUILDKITE_AZURE_BLOB_SAS_TOKEN_DURATION=1h
 
 # Generating SAS tokens requires an account key.
-export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'  
+export BUILDKITE_AZURE_BLOB_ACCOUNT_KEY='...'
 ```

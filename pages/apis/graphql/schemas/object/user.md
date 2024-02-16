@@ -14,13 +14,13 @@
 title: User – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   User
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A user
 
@@ -34,9 +34,6 @@ A user
     <tr><td><h3 class="is-small has-pills"><code>avatar</code><a href="/docs/apis/graphql/schemas/object/avatar" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Avatar"><code>Avatar!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>bot</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>If this user account is an official bot managed by Buildkite</p></td></tr><tr><td><h3 class="is-small has-pills"><code>builds</code><a href="/docs/apis/graphql/schemas/object/buildconnection" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT BuildConnection"><code>BuildConnection</code></a></h3><p>Returns builds that this user has created.</p><div><details><summary>Arguments</summary><table class="responsive-table responsive-table--single-column-rows"><tbody><tr><td><h4 class="is-small has-pills no-margin"><code>branch</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>[String!]</code></a></h4></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>first</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h4></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>last</code><a href="/docs/apis/graphql/schemas/scalar/int" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Int"><code>Int</code></a></h4></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>metaData</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>[String!]</code></a></h4></td></tr><tr><td><h4 class="is-small has-pills no-margin"><code>state</code><a href="/docs/apis/graphql/schemas/enum/buildstates" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM BuildStates"><code>[BuildStates!]</code></a></h4></td></tr></tbody></table></details></div></td></tr><tr><td><h3 class="is-small has-pills"><code>email</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The primary email for the user</p></td></tr><tr><td><h3 class="is-small has-pills"><code>hasPassword</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>Does the user have a password set</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the user</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The public UUID of the user</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

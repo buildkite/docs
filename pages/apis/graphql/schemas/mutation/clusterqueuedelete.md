@@ -14,6 +14,7 @@
 title: clusterQueueDelete – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterQueueDelete
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Delete a cluster queue.
 

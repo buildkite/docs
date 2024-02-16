@@ -6,8 +6,8 @@ Maintaining a strong security boundary is important to Buildkite and informs how
 
 The signature guarantees the origin of jobs by asserting:
 
-- The jobs were uploaded from a trusted source.
-- The jobs haven't been modified after upload.
+-   The jobs were uploaded from a trusted source.
+-   The jobs haven't been modified after upload.
 
 These signatures mean that if a threat actor could modify a job in flight, the agent would refuse to run it due to mismatched signatures.
 
@@ -29,11 +29,11 @@ Pipeline signatures establish that important aspects of steps haven't been chang
 
 The following fields are included in the signature for each step:
 
-- **Commands.**
-- **Environment variables defined in the pipeline YAML.** Environment variables set by the agent, hooks, or the user's shell are _not_ signed, and can override the environment a step's command is started with.
-- **Plugins and plugin configuration.**
-- **Matrix configuration.** The matrix configuration is signed as a whole rather than each individual matrix job. This means the signature is the same for each job in the matrix. When signatures are verified for matrix jobs, the agent double-checks that the job it received is a valid construction of the matrix and that the signature matches the matrix configuration.
-- **The repository the commands are running in.** This prevents you from copying a signed step from one repository to another.
+-   **Commands.**
+-   **Environment variables defined in the pipeline YAML.** Environment variables set by the agent, hooks, or the user's shell are _not_ signed, and can override the environment a step's command is started with.
+-   **Plugins and plugin configuration.**
+-   **Matrix configuration.** The matrix configuration is signed as a whole rather than each individual matrix job. This means the signature is the same for each job in the matrix. When signatures are verified for matrix jobs, the agent double-checks that the job it received is a valid construction of the matrix and that the signature matches the matrix configuration.
+-   **The repository the commands are running in.** This prevents you from copying a signed step from one repository to another.
 
 ## Enabling signed pipelines on your agents
 
@@ -51,8 +51,8 @@ buildkite-agent tool keygen --alg <algorithm> --key-id <key-id>
 
 Replacing the following:
 
-- `<algorithm>` with the signing algorithm you want to use.
-- `<key-id>` with the key ID you want to use.
+-   `<algorithm>` with the signing algorithm you want to use.
+-   `<key-id>` with the key ID you want to use.
 
 Note that both the algorithm and key ID are optional - if `alg` isn't provided, the agent will default to `EdDSA`. If `key-id` isn't provided, the agent will generate a random one for you.
 
@@ -66,9 +66,9 @@ The agent generates a JWKS key pair in your current directory: one private and o
 
 Note that the value of `--alg` must be a valid [JSON Web Signing Algorithm](https://datatracker.ietf.org/doc/html/rfc7518#section-3), and that the agent does not support all JWA signing algorithms. At the time of writing, the agent supports:
 
-- `EdDSA` (the default)
-- `PS512`
-- `ES512`
+-   `EdDSA` (the default)
+-   `PS512`
+-   `ES512`
 
 For an up-to-date list of supported algorithms, run:
 
@@ -126,11 +126,11 @@ buildkite-agent tool sign \
 
 Replacing the following:
 
-- `<token>` with a Buildkite GraphQL token that has the `write_pipelines` scope.
-- `<path to signing jwks>` with the path to the private key set you generated earlier.
-- `<signing key id>` with the key ID from earlier.
-- `<org slug>` with the slug of the organization the pipeline is in.
-- `<pipeline slug>` with the slug of the pipeline you want to sign.
+-   `<token>` with a Buildkite GraphQL token that has the `write_pipelines` scope.
+-   `<path to signing jwks>` with the path to the private key set you generated earlier.
+-   `<signing key id>` with the key ID from earlier.
+-   `<org slug>` with the slug of the organization the pipeline is in.
+-   `<pipeline slug>` with the slug of the pipeline you want to sign.
 
 This will download the pipeline definition using the Buildkite GraphQL API, sign all steps, and upload the signed pipeline definition back to Buildkite.
 

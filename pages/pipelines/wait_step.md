@@ -1,7 +1,6 @@
 # Wait step
 
-A *wait* step waits for all previous steps to have successfully completed before allowing following jobs to continue.
-
+A _wait_ step waits for all previous steps to have successfully completed before allowing following jobs to continue.
 
 A wait step can be defined in your pipeline settings, or in your [pipeline.yml](/docs/pipelines/uploading-pipelines) file. It can be placed between steps to ensure that previous steps are successful before continuing to run the rest.
 
@@ -10,6 +9,7 @@ A wait step can be defined in your pipeline settings, or in your [pipeline.yml](
 - wait
 - command: "echo The command passed"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 _Optional attributes:_
@@ -51,8 +51,8 @@ You can use a conditional to only wait when certain conditions are met:
 
 ```yml
 steps:
-  - wait: ~
-    if: build.branch == "develop" || build.branch == "main"
+    - wait: ~
+      if: build.branch == "develop" || build.branch == "main"
 ```
 
 ## Continuing on failure
@@ -65,25 +65,26 @@ In the example below, if `command.sh` succeeds, both of the following command st
 
 ```yml
 steps:
-  - command: "command.sh"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo This runs regardless of the success or failure"
-  - wait
-  - command: "echo The command passed"
+    - command: "command.sh"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo This runs regardless of the success or failure"
+    - wait
+    - command: "echo The command passed"
 ```
 
 If there's a failure followed by a regular wait step, nothing after the wait step will run, including any subsequent wait steps with `continue_on_failure: true`. In the example below, when the first command fails, the second and third commands will not run:
 
 ```yml
 steps:
-  - command: "exit -1"
-  - wait
-  - command: "echo SECOND command"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo THIRD command"
+    - command: "exit -1"
+    - wait
+    - command: "echo SECOND command"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo THIRD command"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example1.png", width: 1086/2, height: 414/2, alt: "Screenshot of a failed pipeline which didn't run the continue_on_failure wait steps" %>
@@ -92,15 +93,16 @@ Any wait steps with `continue_on_failure: true` that aren't separated by regular
 
 ```yml
 steps:
-  - command: "exit -1"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo SECOND command"
-  - command: "echo THIRD command"
-  - wait: ~
-    continue_on_failure: true
-  - command: "echo FOURTH command"
+    - command: "exit -1"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo SECOND command"
+    - command: "echo THIRD command"
+    - wait: ~
+      continue_on_failure: true
+    - command: "echo FOURTH command"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "continue-on-fail-example2.png", width: 1402/2, height: 417/2, alt: "Screenshot of a failed pipeline which did run the continue_on_failure wait steps" %>
@@ -115,10 +117,10 @@ For example, if you cancel the first command, the second command doesn't run in 
 
 ```yml
 steps:
-  - command: "run-first-command.sh"
-  - wait: ~
-    continue_on_failure: true
-  - command: "run-second-command.sh"
+    - command: "run-first-command.sh"
+    - wait: ~
+      continue_on_failure: true
+    - command: "run-second-command.sh"
 ```
 
 ## Block steps interacting with wait steps

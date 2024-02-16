@@ -14,12 +14,12 @@
 title: ID – Scalars – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   ID
   <span class="pill pill--scalar pill--normal-case pill--large"><code>SCALAR</code></span>
 </h1>
 <!-- vale on -->
-
 
 Represents a unique identifier that is Base64 obfuscated. It is often used to refetch an object or as key for a cache. The ID type appears in a JSON response as a String; however, it is not intended to be human-readable. When expected as an input type, any string (such as `"VXNlci0xMA=="`) or integer (such as `4`) input value will be accepted as an ID.

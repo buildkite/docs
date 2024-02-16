@@ -4,7 +4,6 @@ Webhooks allow you to monitor and respond to events within your Buildkite organi
 
 Webhooks can be added and configured on your [organization's Notification Services settings](https://buildkite.com/organizations/-/services) page.
 
-
 ## Events
 
 You can subscribe to one or more of the following events:
@@ -55,17 +54,17 @@ Each event's data is sent JSON encoded in the request body. See each event's doc
 
 ```json
 {
-  "event": "build.started",
-  "build": {
-    "keys": "vals"
-  },
-  "sender": {
-    "keys": "vals"
-  }
+    "event": "build.started",
+    "build": {
+        "keys": "vals"
+    },
+    "sender": {
+        "keys": "vals"
+    }
 }
 ```
 
->🚧 Fast transitions and webhooks
+> 🚧 Fast transitions and webhooks
 > Note that if a build transitions between states very quickly, for example from blocked (<code>finished</code>) to unblocked (<code>running</code>), the webhook may be in a different state from the actual build. This is a known limitation of webhooks, in that they may represent a later version of the object than the one that triggered the event.
 
 ## Webhook token

@@ -4,7 +4,6 @@ Buildkite supports emojis (using the `\:emoji\:` syntax) in build step names and
 
 Emojis can be found in text using the pattern `/:([\w+-]+):/`
 
-
 ## List emojis
 
 Returns a list of all the emojis for a given organization, including custom emojis and aliases. This list is not paginated.
@@ -15,33 +14,31 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/emojis"
 
 ```json
 [
-  {
-    "name": "rocket",
-    "url": "https://buildkiteassets.com/emoji/unicode/1f680.png?v1"
-  },
-  {
-    "name": "shipit",
-    "url": "https://buildkiteassets.com/emoji/shipit.png?v1",
-    "aliases": [
-      "squirrel"
-    ]
-  },
-  {
-    "name": "trollface",
-    "url": "https://buildkiteassets.com/emoji/trollface.png?v1"
-  },
-  {
-    "name": "debian",
-    "url": "https://buildkiteassets.com/emoji/debian.png?v1"
-  },
-  {
-    "name": "bundler",
-    "url": "https://buildkiteassets.com/emoji/bundler.png?v1"
-  },
-  {
-    "name": "bugsnag",
-    "url": "https://buildkiteassets.com/emoji/bugsnag.png?v1"
-  }
+    {
+        "name": "rocket",
+        "url": "https://buildkiteassets.com/emoji/unicode/1f680.png?v1"
+    },
+    {
+        "name": "shipit",
+        "url": "https://buildkiteassets.com/emoji/shipit.png?v1",
+        "aliases": ["squirrel"]
+    },
+    {
+        "name": "trollface",
+        "url": "https://buildkiteassets.com/emoji/trollface.png?v1"
+    },
+    {
+        "name": "debian",
+        "url": "https://buildkiteassets.com/emoji/debian.png?v1"
+    },
+    {
+        "name": "bundler",
+        "url": "https://buildkiteassets.com/emoji/bundler.png?v1"
+    },
+    {
+        "name": "bugsnag",
+        "url": "https://buildkiteassets.com/emoji/bugsnag.png?v1"
+    }
 ]
 ```
 

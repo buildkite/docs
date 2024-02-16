@@ -14,13 +14,13 @@
 title: JobEventRetried – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   JobEventRetried
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 An event created when the job is retried
 
@@ -34,9 +34,6 @@ An event created when the job is retried
     <tr><td><h3 class="is-small has-pills"><code>actor</code><a href="/docs/apis/graphql/schemas/object/jobeventactor" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobEventActor"><code>JobEventActor!</code></a></h3><p>The actor that caused this event to occur</p></td></tr><tr><td><h3 class="is-small has-pills"><code>automaticRule</code><a href="/docs/apis/graphql/schemas/object/jobretryruleautomatic" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobRetryRuleAutomatic"><code>JobRetryRuleAutomatic</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>job</code><a href="/docs/apis/graphql/schemas/object/jobtypecommand" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobTypeCommand"><code>JobTypeCommand!</code></a></h3><p>The job that this event belongs to</p></td></tr><tr><td><h3 class="is-small has-pills"><code>retriedInJob</code><a href="/docs/apis/graphql/schemas/object/jobtypecommand" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT JobTypeCommand"><code>JobTypeCommand</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>timestamp</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime!</code></a></h3><p>The time when the event occurred</p></td></tr><tr><td><h3 class="is-small has-pills"><code>type</code><a href="/docs/apis/graphql/schemas/enum/jobeventtype" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM JobEventType"><code>JobEventType!</code></a></h3><p>The type of event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The public UUID for this job event</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

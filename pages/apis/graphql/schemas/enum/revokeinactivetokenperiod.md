@@ -14,6 +14,7 @@
 title: RevokeInactiveTokenPeriod – Enums – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   RevokeInactiveTokenPeriod
@@ -21,16 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 API tokens with access to this organization will be automatically revoked after this many days of inactivity.
-
-
-
-
-
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

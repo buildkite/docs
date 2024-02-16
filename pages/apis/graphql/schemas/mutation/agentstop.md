@@ -14,6 +14,7 @@
 title: agentStop – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   agentStop
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Instruct an agent to stop accepting new build jobs and shut itself down.
 

@@ -14,6 +14,7 @@
 title: BuildAuthorInput – Input_objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   BuildAuthorInput
@@ -21,10 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Author for a build
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

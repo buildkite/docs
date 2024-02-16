@@ -57,11 +57,11 @@ After an administrator marks a pipeline template available for use, anyone with 
 
 You can use the following methods to assign a template to a pipeline:
 
-- On the step settings for the pipeline (_Pipeline_ > _Settings_ > _Steps_), select the template to assign.
-- Using the REST API, [update the pipeline](https://buildkite.com/docs/apis/rest-api/pipelines#update-a-pipeline) with the appropriate `pipeline_template_uuid`.
-- Using the GraphQL API, run the [`pipelineUpdate` mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
+-   On the step settings for the pipeline (_Pipeline_ > _Settings_ > _Steps_), select the template to assign.
+-   Using the REST API, [update the pipeline](https://buildkite.com/docs/apis/rest-api/pipelines#update-a-pipeline) with the appropriate `pipeline_template_uuid`.
+-   Using the GraphQL API, run the [`pipelineUpdate` mutation](https://buildkite.com/docs/apis/graphql/schemas/mutation/pipelineupdate) with the appropriate `pipelineTemplateId`.
 
 You can find the IDs for a pipeline template on its page in the Buildkite dashboard.
 
->📘 Web steps editor compatibility
+> 📘 Web steps editor compatibility
 > Pipelines defined using the web steps editor cannot be assigned templates through the Buildkite dashboard. These pipelines must be either [migrated to YAML steps first](https://buildkite.com/docs/tutorials/pipeline-upgrade), updated using the APIs, or bulk-assigned a template when selecting the _Require a pipeline template for everything_ setting.

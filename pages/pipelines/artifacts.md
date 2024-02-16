@@ -3,16 +3,15 @@
 Buildkite can store and retrieve build outputs as _artifacts_.
 In this guide, you'll learn what artifacts are, what they're used for, and how to upload and download them.
 
-
 An artifact is a file's contents and metadata, such as its original file path, an integrity verification hash, and details of the build that uploaded it.
 Buildkite agents upload artifacts to a storage service during a build.
 
 You can use artifacts to:
 
-- Pass files from one pipeline step to another.
-  For example, you can build a binary in one step, then download and run that binary in a later step.
-- Store final assets produced by a pipeline, such as logs, reports, archives, and images.
-  For example, you can build a static site, store the result as an archive, and fetch it later for deployment.
+-   Pass files from one pipeline step to another.
+    For example, you can build a binary in one step, then download and run that binary in a later step.
+-   Store final assets produced by a pipeline, such as logs, reports, archives, and images.
+    For example, you can build a static site, store the result as an archive, and fetch it later for deployment.
 
 You can choose to keep artifacts in a Buildkite-managed storage service or a third-party cloud storage service.
 
@@ -59,14 +58,15 @@ The following example shows a command step configured to upload all of the files
 
 ```yaml
 steps:
-  - label: ":hammer: Tests"
-    command:
-      - "npm install"
-      - "tests.sh"
-    artifact_paths:
-      - "logs/**/*"
-      - "coverage/**/*"
+    - label: ":hammer: Tests"
+      command:
+          - "npm install"
+          - "tests.sh"
+      artifact_paths:
+          - "logs/**/*"
+          - "coverage/**/*"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Upload artifacts with the Buildkite agent
@@ -145,10 +145,10 @@ Buildkite retains artifacts for six months before deletion.
 
 Alternatively, you can use a self-managed storage provider. Read these guides for details:
 
-- [Amazon S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
-- [Google Cloud Storage](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
-- [Azure Blob Storage](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
-- [Artifactory](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
+-   [Amazon S3](/docs/agent/v3/cli-artifact#using-your-private-aws-s3-bucket)
+-   [Google Cloud Storage](/docs/agent/v3/cli-artifact#using-your-private-google-cloud-bucket)
+-   [Azure Blob Storage](/docs/agent/v3/cli-artifact#using-your-private-azure-blob-container)
+-   [Artifactory](/docs/agent/v3/cli-artifact#using-your-artifactory-instance)
 
 If you manage your own artifact storage, then you are responsible for encryption and retention planning.
 

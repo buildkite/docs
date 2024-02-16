@@ -14,6 +14,7 @@
 title: jobTypeBlockUnblock – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   jobTypeBlockUnblock
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Unblocks a build's "Block pipeline" job.
 

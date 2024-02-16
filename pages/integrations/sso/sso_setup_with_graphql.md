@@ -6,9 +6,8 @@ toc_include_h3: false
 
 Buildkite's single sign-on (SSO) can be set up by emailing support, or you can set it up manually using our [GraphQL APIs](/docs/apis/graphql-api). This tutorial covers how to set up SSO manually using GraphQL.
 
->📘
+> 📘
 > For details on every available option available in the GraphQL APIs, please use the documentation sidebar built into the <a href="/docs/graphql-api#getting-started">GraphQL explorer</a>.
-
 
 ## Finding your organization's GraphQL ID
 
@@ -16,9 +15,9 @@ For every type of SSO provider, you need your Buildkite organization's [GraphQL 
 
 ```graphql
 query OrganizationId {
-  organization(slug: "myorg") {
-    id
-  }
+    organization(slug: "myorg") {
+        id
+    }
 }
 ```
 
@@ -30,20 +29,22 @@ The first step in setting up a G Suite SSO provider is to use the `ssoProviderCr
 
 ```graphql
 mutation CreateProvider {
-  ssoProviderCreate(input: {
-    organizationId: "<organization id>",
-    type: GOOGLE_GSUITE,
-    googleHostedDomain: "myorg.com",
-    discloseGoogleHostedDomain: true,
-    emailDomain: "myorg.com",
-    emailDomainVerificationAddress: "admin@myorg.com"
-  }) {
-    ssoProvider {
-      id
-      state
-      url
+    ssoProviderCreate(
+        input: {
+            organizationId: "<organization id>"
+            type: GOOGLE_GSUITE
+            googleHostedDomain: "myorg.com"
+            discloseGoogleHostedDomain: true
+            emailDomain: "myorg.com"
+            emailDomainVerificationAddress: "admin@myorg.com"
+        }
+    ) {
+        ssoProvider {
+            id
+            state
+            url
+        }
     }
-  }
 }
 ```
 
@@ -59,22 +60,18 @@ Once you complete the test login, you can do the final step: enabling the provid
 
 ```graphql
 mutation EnableProvider {
-  ssoProviderEnable(
-    input: {
-      id: "<provider id>"
+    ssoProviderEnable(input: { id: "<provider id>" }) {
+        ssoProvider {
+            state
+            url
+        }
     }
-  ) {
-    ssoProvider {
-      state
-      url
-    }
-  }
 }
 ```
 
 You should now see that the provider's state is enabled.
 
->🚧
+> 🚧
 > See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.
 
 ## Setting up SAML (Google Cloud Identity, Okta, OneLogin, ADFS and others)
@@ -87,26 +84,28 @@ The `emailDomainVerificationAddress` requires the same domain as `emailDomain`, 
 
 ```graphql
 mutation CreateProvider {
-  ssoProviderCreate(input: {
-    organizationId: "<organization id>",
-    type: SAML,
-    emailDomain: "myorg.com",
-    emailDomainVerificationAddress: "admin@myorg.com"
-  }) {
-    ssoProvider {
-      id
-      state
-      ... on SSOProviderSAML {
-        serviceProvider {
-          metadata {
-            url
-          }
-          ssoURL
-          issuer
+    ssoProviderCreate(
+        input: {
+            organizationId: "<organization id>"
+            type: SAML
+            emailDomain: "myorg.com"
+            emailDomainVerificationAddress: "admin@myorg.com"
         }
-      }
+    ) {
+        ssoProvider {
+            id
+            state
+            ... on SSOProviderSAML {
+                serviceProvider {
+                    metadata {
+                        url
+                    }
+                    ssoURL
+                    issuer
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -124,25 +123,25 @@ If your provider shows a metadata URL to complete the setup, you can use that wi
 
 ```graphql
 mutation UpdateProviderMetaData {
-  ssoProviderUpdate(input: {
-    id: "<provider id>",
-    identityProvider: {
-      metadata: {
-        url: "https://myssoprovider.com/metadata/..."
-      }
-    }
-  }) {
-    ssoProvider {
-      state
-      url
-      ... on SSOProviderSAML {
-        serviceProvider {
-          ssoURL
-          issuer
+    ssoProviderUpdate(
+        input: {
+            id: "<provider id>"
+            identityProvider: {
+                metadata: { url: "https://myssoprovider.com/metadata/..." }
+            }
         }
-      }
+    ) {
+        ssoProvider {
+            state
+            url
+            ... on SSOProviderSAML {
+                serviceProvider {
+                    ssoURL
+                    issuer
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -150,25 +149,27 @@ If your SSO provider didn't provide a metadata URL, then copy SSO URL, Issuer (a
 
 ```graphql
 mutation UpdateProviderMetaData {
-  ssoProviderUpdate(input: {
-    id: "<provider id>",
-    identityProvider: {
-      ssoURL: "https://myssoprovider.com/...",
-      issuer: "https://myssoprovider.com/...",
-      certificate: "---BEGIN CERT---..."
-    }
-  }) {
-    ssoProvider {
-      state
-      url
-      ... on SSOProviderSAML {
-        serviceProvider {
-          ssoURL
-          issuer
+    ssoProviderUpdate(
+        input: {
+            id: "<provider id>"
+            identityProvider: {
+                ssoURL: "https://myssoprovider.com/..."
+                issuer: "https://myssoprovider.com/..."
+                certificate: "---BEGIN CERT---..."
+            }
         }
-      }
+    ) {
+        ssoProvider {
+            state
+            url
+            ... on SSOProviderSAML {
+                serviceProvider {
+                    ssoURL
+                    issuer
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -182,21 +183,17 @@ Once you complete the test login, you can do the final step: enabling the provid
 
 ```graphql
 mutation EnableProvider {
-  ssoProviderEnable(
-    input: {
-      id: "<provider id>"
+    ssoProviderEnable(input: { id: "<provider id>" }) {
+        ssoProvider {
+            state
+        }
     }
-  ) {
-    ssoProvider {
-      state
-    }
-  }
 }
 ```
 
 You should now see that the provider's state is enabled.
 
->🚧
+> 🚧
 > See the <code>SSOProviderUpdatePayload</code> documentation for other properties that can be configured on your SSO provider, such as <code>sessionDurationInHours</code> and <code>note</code>.
 
 ## Finding an SSO provider's details
@@ -205,23 +202,23 @@ If you need to find the ID of a particular SSO provider, you can query the `ssoP
 
 ```graphql
 query FindProviders {
-  organization(slug: "<organization id>") {
-    ssoProviders(first: 100) {
-      edges {
-        node {
-          id
-          type
-          state
-          createdAt
-          enabledAt
-          url
-          emailDomain
-          emailDomainVerificationAddress
-          emailDomainVerifiedAt
+    organization(slug: "<organization id>") {
+        ssoProviders(first: 100) {
+            edges {
+                node {
+                    id
+                    type
+                    state
+                    createdAt
+                    enabledAt
+                    url
+                    emailDomain
+                    emailDomainVerificationAddress
+                    emailDomainVerifiedAt
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -229,31 +226,31 @@ Some provider types have additional fields which you can query using GraphQL's [
 
 ```graphql
 query FindProviders {
-  organization(slug: "<organization id>") {
-    ssoProviders(first: 100) {
-      edges {
-        node {
-          id
-          url
-          ... on SSOProviderSAML {
-            identityProvider {
-              ssoURL
-              issuer
-              certificate
-              metadata {
-                xml
-                url
-              }
+    organization(slug: "<organization id>") {
+        ssoProviders(first: 100) {
+            edges {
+                node {
+                    id
+                    url
+                    ... on SSOProviderSAML {
+                        identityProvider {
+                            ssoURL
+                            issuer
+                            certificate
+                            metadata {
+                                xml
+                                url
+                            }
+                        }
+                    }
+                    ... on SSOProviderGoogleGSuite {
+                        googleHostedDomain
+                        discloseGoogleHostedDomain
+                    }
+                }
             }
-          }
-          ... on SSOProviderGoogleGSuite {
-            googleHostedDomain
-            discloseGoogleHostedDomain
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -263,16 +260,13 @@ If you need to disable an SSO provider, you can do so using the `ssoProviderDisa
 
 ```graphql
 mutation DisableProvider {
-  ssoProviderDisable(input:{
-    id: "<provider id>",
-    disabledReason: "Disabled because..."
-  }) {
-    ssoProvider {
-      state
-      url
+    ssoProviderDisable(
+        input: { id: "<provider id>", disabledReason: "Disabled because..." }
+    ) {
+        ssoProvider {
+            state
+            url
+        }
     }
-  }
 }
 ```
-
-

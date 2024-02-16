@@ -14,6 +14,7 @@
 title: pipelineRotateWebhookURL – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   pipelineRotateWebhookURL
@@ -24,8 +25,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
-Rotate a pipeline's webhook URL.  Note that the old webhook URL will stop working immediately and so must be updated quickly to avoid interruption.
+Rotate a pipeline's webhook URL. Note that the old webhook URL will stop working immediately and so must be updated quickly to avoid interruption.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

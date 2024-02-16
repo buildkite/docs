@@ -1,12 +1,11 @@
 # Buildkite Agent configuration
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/configuration">see the latest version of this document</a>.
 
 Every agent installer comes with a configuration file. You can also customize many of the configuration values using environment variables.
 
 You can find the location of your configuration file in your platform's installation documentation, or you can set it using the `BUILDKITE_AGENT_CONFIG` environment variable or the `--config` command line argument.
-
 
 ## Configuration settings
 

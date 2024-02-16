@@ -14,13 +14,13 @@
 title: OrganizationMemberSSO – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   OrganizationMemberSSO
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Information about the SSO setup for this organization member
 

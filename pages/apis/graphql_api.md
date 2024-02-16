@@ -4,7 +4,6 @@ The Buildkite GraphQL API provides an alternative to the [REST API](/docs/apis/r
 
 For the list of existing disparities between the GraphQL API and the REST API, see [API differences](/docs/apis/api-differences).
 
-
 ## Getting started
 
 The quickest way to get started with the GraphQL API is to generate an <a href="<%= url_helpers.user_access_tokens_url %>" rel="nofollow">API Access Token</a> with GraphQL scope, and then use the [GraphQL explorer](https://graphql.buildkite.com/explorer) with its built-in documentation:
@@ -15,7 +14,7 @@ See our [Getting started tutorial](https://building.buildkite.com/tutorial-getti
 
 You can also use Buildkite's [GraphQL console](https://buildkite.com/user/graphql/console), or the command line. See our [Tutorial](/docs/apis/graphql/graphql-tutorial) to get started.
 
->📘 Note for contributors to public and open-source projects
+> 📘 Note for contributors to public and open-source projects
 > You need to be a member of the Buildkite organization to be able to generate and use an API token for it.
 
 ## Endpoint
@@ -50,13 +49,13 @@ curl https://graphql.buildkite.com/v1 \
 
 ```json
 {
-  "data": {
-    "viewer": {
-      "user": {
-        "name": "Jane Doe"
-      }
+    "data": {
+        "viewer": {
+            "user": {
+                "name": "Jane Doe"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -68,19 +67,19 @@ All node types have an `id` property, which is a global identifier for the node.
 
 ```graphql
 query {
-  organization(slug: "my-org") {
-    id
-  }
+    organization(slug: "my-org") {
+        id
+    }
 }
 ```
 
 ```json
 {
-  "data": {
-    "organization": {
-      "id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+    "data": {
+        "organization": {
+            "id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+        }
     }
-  }
 }
 ```
 
@@ -90,32 +89,33 @@ For example, the following query uses an organization's `id` to find the total n
 
 ```graphql
 query {
-  node(id: "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw") {
-    ... on Organization {
-      pipelines {
-        count
-      }
+    node(
+        id: "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw"
+    ) {
+        ... on Organization {
+            pipelines {
+                count
+            }
+        }
     }
-  }
 }
 ```
 
 ```json
 {
-  "data": {
-    "node": {
-      "pipelines": {
-        "count": 42
-      }
+    "data": {
+        "node": {
+            "pipelines": {
+                "count": 42
+            }
+        }
     }
-  }
 }
 ```
 
 ## Relay compatibility
 
 The Buildkite GraphQL API adheres to the [Relay specification](https://relay.dev/docs/guides/graphql-server-specification/), which defines standards for querying [paginated collections](https://relay.dev/docs/guides/graphql-server-specification/#connections) ("Connections" and "Edges") and for [identifying objects](https://relay.dev/docs/guides/graphql-server-specification/#object-identification) directly from the root of a query (avoiding long nested queries).
-
 
 ## GraphQL schema
 
@@ -124,109 +124,123 @@ If you need the GraphQL schema, you can get it from the API using [GraphQL intro
 ```graphql
 query IntrospectionQuery {
     __schema {
-      queryType { name description kind}
-      mutationType { name description kind }
-      subscriptionType { name description kind }
-      types {
-        name
-        kind
-        description
-        ...FullType
-      }
-      directives {
-        name
-        description
-        locations
-        args {
-          ...InputValue
+        queryType {
+            name
+            description
+            kind
         }
-      }
+        mutationType {
+            name
+            description
+            kind
+        }
+        subscriptionType {
+            name
+            description
+            kind
+        }
+        types {
+            name
+            kind
+            description
+            ...FullType
+        }
+        directives {
+            name
+            description
+            locations
+            args {
+                ...InputValue
+            }
+        }
     }
-  }
+}
 
-  fragment FullType on __Type {
+fragment FullType on __Type {
     fields(includeDeprecated: true) {
-      name
-      description
-      args {
-        ...InputValue
-      }
-      type {
-        ...TypeRef
-      }
-      isDeprecated
-      deprecationReason
+        name
+        description
+        args {
+            ...InputValue
+        }
+        type {
+            ...TypeRef
+        }
+        isDeprecated
+        deprecationReason
     }
     inputFields {
-      ...InputValue
+        ...InputValue
     }
     interfaces {
-      ...TypeRef
+        ...TypeRef
     }
     enumValues(includeDeprecated: true) {
-      name
-      description
-      isDeprecated
-      deprecationReason
+        name
+        description
+        isDeprecated
+        deprecationReason
     }
     possibleTypes {
-      ...TypeRef
+        ...TypeRef
     }
-  }
+}
 
-  fragment InputValue on __InputValue {
+fragment InputValue on __InputValue {
     name
     description
-    type { ...TypeRef }
+    type {
+        ...TypeRef
+    }
     defaultValue
-  }
+}
 
-  fragment TypeRef on __Type {
+fragment TypeRef on __Type {
     kind
     name
     description
     ofType {
-      kind
-      name
-      description
-      ofType {
         kind
         name
         description
         ofType {
-          kind
-          name
-          description
-          ofType {
             kind
             name
             description
             ofType {
-              kind
-              name
-              description
-              ofType {
                 kind
                 name
                 description
                 ofType {
-                  kind
-                  name
-                  description
+                    kind
+                    name
+                    description
+                    ofType {
+                        kind
+                        name
+                        description
+                        ofType {
+                            kind
+                            name
+                            description
+                            ofType {
+                                kind
+                                name
+                                description
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
+}
 ```
 
 ## Learning more about GraphQL
 
 Further resources for learning more about GraphQL:
 
-* Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
-* Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
-* The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)
+-   Our [Getting Started with GraphQL Queries and Mutations](https://buildkite.com/blog/getting-started-with-graphql-queries-and-mutations) tutorial
+-   Our [GraphQL API cookbook](/docs/apis/graphql/graphql-cookbook) page full of common queries and mutations
+-   The [Learn section](https://graphql.org/learn/) of [the official GraphQL website](https://graphql.org)

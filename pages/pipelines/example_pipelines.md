@@ -2,7 +2,6 @@
 
 A list of repositories containing example [pipelines](/docs/pipelines).
 
-
 <!-- vale off -->
 <!-- this turns it off for the whole file because I can't ignore the emoji in the html :( -->
 
@@ -234,7 +233,6 @@ A list of repositories containing example [pipelines](/docs/pipelines).
     <span class="repo">gist.github.com/toolmantim/1337952c8b5b1e5b0b5ea10c40e9efe4</span>
   </span>
 </a>
-
 
 ## Third-party tools
 

@@ -4,7 +4,6 @@ To use Test Analytics with your [Ruby](https://www.ruby-lang.org/) projects use 
 
 You can also upload test results by importing [JSON](/docs/test-analytics/importing-json) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
-
 ## RSpec collector
 
 [RSpec](https://rspec.info/) is a behaviour-driven development library for Ruby.
@@ -32,7 +31,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
+4. Add the Test Analytics code to your application in `spec/spec_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -40,7 +39,7 @@ Before you start, make sure RSpec runs with access to [CI environment variables]
     Buildkite::TestCollector.configure(hook: :rspec)
     ```
 
-4. Commit and push your changes:
+5. Commit and push your changes:
 
     ```sh
     $ git add .
@@ -89,7 +88,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     bundle
     ```
 
-3. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
+4. Add the Test Analytics code to your application in `test/test_helper.rb`, and set the BUILDKITE_ANALYTICS_TOKEN [securely](/docs/pipelines/secrets) on your agent or agents. Please ensure gems that patch `Net::HTTP`, like [httplog](https://github.com/trusche/httplog) and [sniffer](https://github.com/aderyabin/sniffer), are required before `buildkite/test_collector` to avoid conflicts.
 
     ```rb
     require "buildkite/test_collector"
@@ -97,7 +96,7 @@ If you're already using minitest for your tests, add the `buildkite-test_collect
     Buildkite::TestCollector.configure(hook: :minitest)
     ```
 
-4. Commit and push your changes:
+5. Commit and push your changes:
 
     ```sh
     git add .

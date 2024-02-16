@@ -14,6 +14,7 @@
 title: organizationBannerUpsert – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationBannerUpsert
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Retrieves the active system banner for provided organization, then updates it with input data. If active banner is not found, a new banner is created with the provided input.
 

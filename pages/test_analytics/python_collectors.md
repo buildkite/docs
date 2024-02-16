@@ -21,28 +21,28 @@ To get started with `buildkite-test-collector`:
 
 1. Add `buildkite-test-collector` to your list of dependencies. Some examples:
 
-    <ul>
-      <li>
-          <p>If you're using a <code>requirements.txt</code> file, add
-          <code>buildkite-test-collector</code> on a new line.</p>
-      </li>
-      <li>
-          <p>
-          If you're using a <code>setup.py</code> file, add
-          <code>buildkite-test-collector</code> to the
-          <code>extras_require</code> argument, like this:
-          </p>
-          <pre><code>extras_require={&quot;dev&quot;: [&quot;pytest&quot;, &quot;  buildkite-test-collector&quot;]}</code></pre>
-      </li>
-      <li>
-          <p>If you're using Pipenv, run
-          <code>pipenv install --dev buildkite-test-collector</code>.</p>
-      </li>
-    </ul>
-    <p>
-    If you're using another tool, see your dependency management system's
-    documentation for help.
-    </p>
+<ul>
+  <li>
+      <p>If you're using a <code>requirements.txt</code> file, add
+      <code>buildkite-test-collector</code> on a new line.</p>
+  </li>
+  <li>
+      <p>
+      If you're using a <code>setup.py</code> file, add
+      <code>buildkite-test-collector</code> to the
+      <code>extras_require</code> argument, like this:
+      </p>
+      <pre><code>extras_require={&quot;dev&quot;: [&quot;pytest&quot;, &quot;  buildkite-test-collector&quot;]}</code></pre>
+  </li>
+  <li>
+      <p>If you're using Pipenv, run
+      <code>pipenv install --dev buildkite-test-collector</code>.</p>
+  </li>
+</ul>
+<p>
+If you're using another tool, see your dependency management system's
+documentation for help.
+</p>
 
 1. Commit and push your changes:
 

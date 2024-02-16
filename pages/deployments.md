@@ -6,7 +6,6 @@ keywords: docs, pipelines, deployments
 
 There are many ways to set up both manual and continuous deployment workflows using Buildkite. This covers various ways of architecting deployment pipelines, common workflows, and how to integrate with external deployment systems.
 
-
 ## Single deployment steps
 
 Adding a deployment step that runs after your tests pass is the simplest way to deploy from a Buildkite pipeline.
@@ -15,17 +14,18 @@ The example `pipeline.yml` below shows how to set up continuous deployment using
 
 ```yml
 steps:
-  - label: "🔨"
-    command: "scripts/tests"
+    - label: "🔨"
+      command: "scripts/tests"
 
-  - wait
+    - wait
 
-  - label: "🚀"
-    command: "scripts/deploy"
-    if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    - label: "🚀"
+      command: "scripts/deploy"
+      if: build.branch == 'main'
+      concurrency: 1
+      concurrency_group: "my-app-deploy"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on commits to the main branch, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
@@ -36,13 +36,13 @@ This pipeline uses a [conditional](/docs/pipelines/conditionals) to only run on 
 
 A dedicated deployment pipeline separates your deploy steps from any other testing and building steps. Creating deployment pipelines makes it easier to:
 
-* Separate deployment failures from test failures
-* Separate test and deployment pipeline.yml files
-* Re-run failed deployments
-* Simplify adding rollback steps
-* Group other deploy-related tasks with the deployment steps
-* Use teams for role based access control
-* Allowlist deploy pipelines in agent hooks
+-   Separate deployment failures from test failures
+-   Separate test and deployment pipeline.yml files
+-   Re-run failed deployments
+-   Simplify adding rollback steps
+-   Group other deploy-related tasks with the deployment steps
+-   Use teams for role based access control
+-   Allowlist deploy pipelines in agent hooks
 
 A common pattern is to have two separate pipelines, each with its own `pipeline.yml` file in your project's repository:
 
@@ -55,26 +55,27 @@ For example, your app's test pipeline (with slug `my-app`) runs on every git com
 
 ```yml
 steps:
-  - label: "🔨"
-    command: "scripts/tests"
+    - label: "🔨"
+      command: "scripts/tests"
 
-  - wait
+    - wait
 
-  # This makes sure that deploys are triggered in the same order as the
-  # test builds, no matter which test builds finish first.
-  - label: "Concurrency gate"
-    command: "exit 0"
-    concurrency: 1
-    concurrency_group: "my-app-deploy-concurrency-gate"
+    # This makes sure that deploys are triggered in the same order as the
+    # test builds, no matter which test builds finish first.
+    - label: "Concurrency gate"
+      command: "exit 0"
+      concurrency: 1
+      concurrency_group: "my-app-deploy-concurrency-gate"
 
-  - wait
+    - wait
 
-  - label: "🚀"
-    trigger: "my-app-deploy"
-    if: build.branch == 'main'
-    build:
-      commit: "$BUILDKITE_COMMIT"
+    - label: "🚀"
+      trigger: "my-app-deploy"
+      if: build.branch == 'main'
+      build:
+          commit: "$BUILDKITE_COMMIT"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Once the tests run successfully, if the commit is on the main branch then continuous deployment is done by triggering a build on the deployment pipeline.
@@ -83,12 +84,13 @@ The deployment pipeline (with slug `my-app-deployment`) could be configured to u
 
 ```yml
 steps:
-  - label: "🚀"
-    command: "scripts/deploy"
-    if: build.branch == 'main'
-    concurrency: 1
-    concurrency_group: "my-app-deploy"
+    - label: "🚀"
+      command: "scripts/deploy"
+      if: build.branch == 'main'
+      concurrency: 1
+      concurrency_group: "my-app-deploy"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 This pipeline runs the deployment script, and sets a [concurrency limit](/docs/pipelines/controlling-concurrency) of 1 to ensure that only one deployment happens at a time.
@@ -105,18 +107,19 @@ The below example uses the same pipeline as the [Single deployment step](/docs/d
 
 ```yml
 steps:
-  - label: "🔨"
-    command: "scripts/tests"
+    - label: "🔨"
+      command: "scripts/tests"
 
-  - block: "Deploy"
-    prompt: "Deploy to production?"
+    - block: "Deploy"
+      prompt: "Deploy to production?"
 
-  - label: "🚀"
-    command: "scripts/deploy"
-    if: build.branch == 'main'
-    concurrency_group: "my-app-deploy"
-    concurrency: 1
+    - label: "🚀"
+      command: "scripts/deploy"
+      if: build.branch == 'main'
+      concurrency_group: "my-app-deploy"
+      concurrency: 1
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "deploy-block-step.png", width: 464/2, height: 108/2, alt: "Screenshot of a pipeline with a deploy block step" %>
@@ -146,6 +149,7 @@ steps:
         task-role-arn: "deployer"
         deployment-configuration: "100/200"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 You can find the latest deployment plugins in the [plugins directory](https://buildkite.com/plugins). If there's no plugin for your deployment service of choice, see the [Writing plugins](/docs/plugins/writing) documentation for information on how to write your own.

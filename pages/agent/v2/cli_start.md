@@ -1,10 +1,9 @@
 # `buildkite-agent start`
 
->🚧 This page references the out-of-date Buildkite Agent v2.
+> 🚧 This page references the out-of-date Buildkite Agent v2.
 > For docs referencing the Buildkite Agent v3, <a href="/docs/agent/v3/cli_start">see the latest version of this document</a>.
 
 The Buildkite Agent's `start` command is used to manually start an agent and register it with Buildkite.
-
 
 ## Starting an agent
 
@@ -83,9 +82,9 @@ To do this from [uploaded pipeline.yml](/docs/agent/v2/cli-pipeline) you would d
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: "1.9.4"
+    - command: "script.sh"
+      agents:
+          postgres: "1.9.4"
 ```
 
 You can also match for any agent with a `postgres` meta-data by omitting the value after the `=` sign, or by using `*`, for example:
@@ -96,9 +95,9 @@ To do this from an [uploaded pipeline.yml](/docs/agent/v2/cli-pipeline) you woul
 
 ```yaml
 steps:
-  - command: "script.sh"
-    agents:
-      postgres: '*'
+    - command: "script.sh"
+      agents:
+          postgres: "*"
 ```
 
 Partial wildcard matching (for example, `postgres=1.9*` or `postgres=*1.9`) is not yet supported.

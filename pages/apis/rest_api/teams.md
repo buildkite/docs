@@ -1,6 +1,5 @@
 # Teams API
 
-
 ## Team data model
 
 <table>
@@ -26,22 +25,22 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/teams"
 
 ```json
 [
-  {
-    "id": "3bf68c45-aba4-416c-9f31-01838da5dc38",
-    "name": "Everyone",
-    "slug": "everyone",
-    "description": "Everyone's welcome",
-    "created_at": "2019-01-24T01:07:35.855Z",
-    "privacy": "visible",
-    "default": false,
-    "created_by": {
-      "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
-      "name": "Keith Pitt",
-      "email": "keith@buildkite.com",
-      "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
-      "created_at": "2015-05-09T21:05:59.874Z"
+    {
+        "id": "3bf68c45-aba4-416c-9f31-01838da5dc38",
+        "name": "Everyone",
+        "slug": "everyone",
+        "description": "Everyone's welcome",
+        "created_at": "2019-01-24T01:07:35.855Z",
+        "privacy": "visible",
+        "default": false,
+        "created_by": {
+            "id": "3d3c3bf0-7d58-4afe-8fe7-b3017d5504de",
+            "name": "Keith Pitt",
+            "email": "keith@buildkite.com",
+            "avatar_url": "https://www.gravatar.com/avatar/e14f55d3f939977cecbf51b64ff6f861",
+            "created_at": "2015-05-09T21:05:59.874Z"
+        }
     }
-  }
 ]
 ```
 
@@ -52,7 +51,6 @@ Optional [query string parameters](/docs/api#query-string-parameters):
   <tr><th><code>user_id</code></th><td>Filters the results to teams that have the given user as a member. <p class="Docs__api-param-eg"><em>Example:</em> <code>?user_id=5acb99cf-d349-4189-b361-d1b9f36d70d7</code></p></td></tr>
 </tbody>
 </table>
-
 
 Required scope: `read_teams`
 

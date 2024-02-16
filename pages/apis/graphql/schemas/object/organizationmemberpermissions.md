@@ -14,13 +14,13 @@
 title: OrganizationMemberPermissions – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   OrganizationMemberPermissions
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Permissions information about what actions the current user can do against the organization membership record
 

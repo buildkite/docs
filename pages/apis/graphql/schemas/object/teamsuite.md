@@ -14,13 +14,13 @@
 title: TeamSuite – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   TeamSuite
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 A suite that's been assigned to a team
 
@@ -34,9 +34,6 @@ A suite that's been assigned to a team
     <tr><td><h3 class="is-small has-pills"><code>accessLevel</code><a href="/docs/apis/graphql/schemas/enum/suiteaccesslevels" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM SuiteAccessLevels"><code>SuiteAccessLevels!</code></a></h3><p>The access level users have to this suite</p></td></tr><tr><td><h3 class="is-small has-pills"><code>createdAt</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime!</code></a></h3><p>The time when the suite was added</p></td></tr><tr><td><h3 class="is-small has-pills"><code>createdBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3><p>The user that added this suite to the team</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>permissions</code><a href="/docs/apis/graphql/schemas/object/teamsuitepermissions" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT TeamSuitePermissions"><code>TeamSuitePermissions!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>suite</code><a href="/docs/apis/graphql/schemas/object/suite" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Suite"><code>Suite</code></a></h3><p>The suite associated with this team member</p></td></tr><tr><td><h3 class="is-small has-pills"><code>team</code><a href="/docs/apis/graphql/schemas/object/team" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Team"><code>Team</code></a></h3><p>The team associated with this team member</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The public UUID for this team suite</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

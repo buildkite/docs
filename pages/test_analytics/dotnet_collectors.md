@@ -24,7 +24,7 @@ Before you start, make sure .NET runs with access to [CI environment variables](
 
 4. Run your tests
 
-    Run your tests like normal.  Note that we attempt to detect the presence of several common CI environments, however if this fails you can set the `CI` environment variable to any value and it will work.
+    Run your tests like normal. Note that we attempt to detect the presence of several common CI environments, however if this fails you can set the `CI` environment variable to any value and it will work.
 
     ```sh
     $ dotnet test Buildkite.TestAnalytics.Tests

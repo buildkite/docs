@@ -14,15 +14,13 @@
 title: ClusterQueue – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   ClusterQueue
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,9 +32,6 @@ toc: false
     <tr><td><h3 class="is-small has-pills"><code>cluster</code><a href="/docs/apis/graphql/schemas/object/cluster" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT Cluster"><code>Cluster</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>createdBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>description</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>dispatchPaused</code><a href="/docs/apis/graphql/schemas/scalar/boolean" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR Boolean"><code>Boolean!</code></a></h3><p>States whether job dispatch is paused for this cluster queue</p></td></tr><tr><td><h3 class="is-small has-pills"><code>dispatchPausedAt</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime</code></a></h3><p>The time this queue was paused</p></td></tr><tr><td><h3 class="is-small has-pills"><code>dispatchPausedBy</code><a href="/docs/apis/graphql/schemas/object/user" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT User"><code>User</code></a></h3><p>The user who paused this cluster queue</p></td></tr><tr><td><h3 class="is-small has-pills"><code>dispatchPausedNote</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>Note describing why job dispatch was paused for this cluster queue</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>key</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The public UUID for this cluster queue</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

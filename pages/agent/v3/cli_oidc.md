@@ -14,8 +14,8 @@ If using a plugin, such as the [AWS assume-role-with-web-identity](https://githu
 
 For specific endpoints for OpenID or JWKS, use:
 
-- **OpenID Connect Discovery URL:** https://agent.buildkite.com/.well-known/openid-configuration
-- **JWKS URI:** https://agent.buildkite.com/.well-known/jwks
+-   **OpenID Connect Discovery URL:** https://agent.buildkite.com/.well-known/openid-configuration
+-   **JWKS URI:** https://agent.buildkite.com/.well-known/jwks
 
 ## Claims
 
@@ -189,19 +189,19 @@ OIDC tokens are JSON Web Tokens — [JWTs](https://datatracker.ietf.org/doc/html
 
 ```json
 {
-  "iss": "https://agent.buildkite.com",
-  "sub": "organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build",
-  "aud": "https://buildkite.com/acme-inc",
-  "iat": 1669014898,
-  "nbf": 1669014898,
-  "exp": 1669015198,
-  "organization_slug": "acme-inc",
-  "pipeline_slug": "super-duper-app",
-  "build_number": 1,
-  "build_branch": "main",
-  "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
-  "step_key": "build",
-  "job_id": "0184990a-477b-4fa8-9968-496074483cee",
-  "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff"
+    "iss": "https://agent.buildkite.com",
+    "sub": "organization:acme-inc:pipeline:super-duper-app:ref:refs/heads/main:commit:9f3182061f1e2cca4702c368cbc039b7dc9d4485:step:build",
+    "aud": "https://buildkite.com/acme-inc",
+    "iat": 1669014898,
+    "nbf": 1669014898,
+    "exp": 1669015198,
+    "organization_slug": "acme-inc",
+    "pipeline_slug": "super-duper-app",
+    "build_number": 1,
+    "build_branch": "main",
+    "build_commit": "9f3182061f1e2cca4702c368cbc039b7dc9d4485",
+    "step_key": "build",
+    "job_id": "0184990a-477b-4fa8-9968-496074483cee",
+    "agent_id": "0184990a-4782-42b5-afc1-16715b10b8ff"
 }
 ```

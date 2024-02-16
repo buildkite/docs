@@ -21,9 +21,9 @@ This guide leads you through getting started with the stack for Linux and Window
 Most Elastic CI Stack for AWS features are supported on both Linux and Windows.
 The following AMIs are available in all the supported regions:
 
-- Amazon Linux 2023 (64-bit x86)
-- Amazon Linux 2023 (64-bit ARM, Graviton)
-- Windows Server 2019 (64-bit x86)
+-   Amazon Linux 2023 (64-bit x86)
+-   Amazon Linux 2023 (64-bit ARM, Graviton)
+-   Windows Server 2019 (64-bit x86)
 
 If you want to use the [AWS CLI](https://aws.amazon.com/cli/) instead, download [`config.json.example`](https://github.com/buildkite/elastic-ci-stack-for-aws/blob/-/config.json.example), rename it to `config.json`, add your Buildkite Agent token (and any other config values), and then run the below command:
 
@@ -40,9 +40,9 @@ aws cloudformation create-stack \
 
 The Elastic CI Stack for AWS does not require familiarity with the underlying AWS services to deploy it. However, to run builds, some familiarity with the following AWS services is required:
 
-- [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
-- [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
-- [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
+-   [AWS CloudFormation](https://aws.amazon.com/cloudformation/)
+-   [Amazon EC2](https://aws.amazon.com/ec2/) (to select an EC2 `InstanceTypes` stack parameter appropriate for your workload)
+-   [Amazon S3](https://aws.amazon.com/s3/) (to copy your git clone secret for cloning and building private repositories)
 
 Elastic CI Stack for AWS provides defaults and pre-configurations suited for most use cases without the need for additional customization. Still, you'll benefit from familiarity with VPCs, availability zones, subnets, and security groups for custom instance networking.
 
@@ -70,13 +70,13 @@ Buildkite services are billed according to your [plan](https://buildkite.com/pri
 
 <!-- vale off -->
 
-- [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
-- [Buildkite Agent v3.50.2](https://buildkite.com/docs/agent)
-- [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
-- [Docker](https://www.docker.com)
-- [Docker Compose](https://docs.docker.com/compose/)
-- [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
-- [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
+-   [Amazon Linux 2023](https://aws.amazon.com/amazon-linux-2/)
+-   [Buildkite Agent v3.50.2](https://buildkite.com/docs/agent)
+-   [Git](https://git-scm.com/) and [Git LFS](https://git-lfs.com/)
+-   [Docker](https://www.docker.com)
+-   [Docker Compose](https://docs.docker.com/compose/)
+-   [AWS CLI](https://aws.amazon.com/cli/) - useful for performing any ops-related tasks
+-   [jq](https://stedolan.github.io/jq/) - useful for manipulating JSON responses from CLI tools such as AWS CLI or the Buildkite API
 
 For more details on what versions are installed on a given Elastic CI Stack, see the corresponding [release announcement](https://github.com/buildkite/elastic-ci-stack-for-aws/releases).
 
@@ -88,9 +88,9 @@ On both Linux and Windows, the Buildkite agent runs as user `buildkite-agent`.
 
 This stack is designed to run your builds in a share-nothing pattern similar to the [12 factor application principals](http://12factor.net):
 
-- Each project should encapsulate its dependencies through Docker and Docker Compose.
-- Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
-- Secrets are configured using environment variables exposed using the S3 secrets bucket.
+-   Each project should encapsulate its dependencies through Docker and Docker Compose.
+-   Build pipeline steps should assume no state on the machine (and instead rely on [build meta-data](/docs/guides/build-meta-data), [build artifacts](/docs/guides/artifacts) or S3).
+-   Secrets are configured using environment variables exposed using the S3 secrets bucket.
 
 By following these conventions you get a scalable, repeatable, and source-controlled CI environment that any team within your organization can use.
 
@@ -120,9 +120,9 @@ A common example of setting a queue for a dedicated Windows agent can be achieve
 
 ```yaml
 steps:
-  - command: echo "hello from windows"
-    agents:
-      queue: "windows"
+    - command: echo "hello from windows"
+      agents:
+          queue: "windows"
 ```
 
 For more information, see [Buildkite Agent job queues](/docs/agent/v3/queues), specifically [Targeting a queue](/docs/agent/v3/queues#targeting-a-queue).
@@ -131,9 +131,9 @@ Review the parameters, see [Elastic CI Stack for AWS parameters](/docs/agent/v3/
 
 Once you're ready, check these three checkboxes:
 
-- I acknowledge that AWS CloudFormation might create IAM resources.
-- I acknowledge that AWS CloudFormation might create IAM resources with custom names.
-- I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
+-   I acknowledge that AWS CloudFormation might create IAM resources.
+-   I acknowledge that AWS CloudFormation might create IAM resources with custom names.
+-   I acknowledge that AWS CloudFormation might require the following capability: `CAPABILITY_AUTO_EXPAND`
 
 Then click _Create stack_:
 
@@ -153,9 +153,9 @@ We've created a sample [bash-parallel-example sample pipeline](https://github.co
 
 Click _Create Pipeline_. Depending on your organization's settings, the next step will vary slightly:
 
-- If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
-- If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
-  <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
+-   If your organization uses the web-based steps editor (default), your pipeline is now ready for its first build. You can skip to the next step.
+-   If your organization has been upgraded to the [YAML steps editor](https://buildkite.com/docs/tutorials/pipeline-upgrade), you should see a _Choose a Starting Point_ wizard. Select _Pipeline Upload_ from the list:
+    <%= image "buildkite-pipeline-upload.png", size: "#{782/2}x#{400/2}", alt: 'Upload Pipeline from Version Control' %>
 
 Click _New Build_ in the top right and choose a build message (perhaps a little party `\:partyparrot\:`?):
 
@@ -187,9 +187,9 @@ Congratulations on running your first Elastic CI Stack for AWS build on Buildkit
 
 To gain a better understanding of how Elastic CI Stack for AWS works and how to use it most effectively and securely, check out the following resources:
 
-- [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
-- [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
-- [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/parameters)
-- [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager)
-- [VPC design](/docs/agent/v3/aws/vpc)
-- [CloudFormation service role](/docs/agent/v3/elastic-ci-aws/cloudformation-service-role)
+-   [Running Buildkite Agent on AWS](/docs/agent/v3/aws)
+-   [GitHub repo for Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack-for-aws)
+-   [Template parameters for Elastic CI Stack for AWS](/docs/agent/v3/elastic-ci-aws/parameters)
+-   [Using AWS Secrets Manager](/docs/agent/v3/aws/secrets-manager)
+-   [VPC design](/docs/agent/v3/aws/vpc)
+-   [CloudFormation service role](/docs/agent/v3/elastic-ci-aws/cloudformation-service-role)

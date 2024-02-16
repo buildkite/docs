@@ -14,6 +14,7 @@
 title: PipelineStepsInput – Input_objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   PipelineStepsInput
@@ -21,10 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Step definition for a pipeline
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

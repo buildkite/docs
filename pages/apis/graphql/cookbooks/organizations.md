@@ -9,21 +9,21 @@ You can test out the Buildkite GraphQL API using the [Buildkite explorer](https:
 List the first 100 members in the organization.
 
 ```graphql
-query getOrgMembers{
-  organization(slug: "organization-slug") {
-    members(first: 100) {
-      edges {
-        node {
-          role
-          user {
-            name
-            email
-            id
-          }
+query getOrgMembers {
+    organization(slug: "organization-slug") {
+        members(first: 100) {
+            edges {
+                node {
+                    role
+                    user {
+                        name
+                        email
+                        id
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -32,21 +32,21 @@ query getOrgMembers{
 Look up organization members using their email address.
 
 ```graphql
-query getOrgMember{
-  organization(slug: "organization-slug") {
-    members(first: 1, search: "user-email") {
-      edges {
-        node {
-          role
-          user {
-            name
-            email
-            id
-          }
+query getOrgMember {
+    organization(slug: "organization-slug") {
+        members(first: 1, search: "user-email") {
+            edges {
+                node {
+                    role
+                    user {
+                        name
+                        email
+                        id
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -56,28 +56,28 @@ Use this to get the last sign-in date for users in your organization, if your or
 
 ```graphql
 query getRecentSignOn {
-  organization(slug: "organization-slug") {
-    members(first: 100) {
-      edges {
-        node {
-          user {
-            name
-            email
-          }
-          sso {
-            authorizations(first: 1) {
-              edges {
+    organization(slug: "organization-slug") {
+        members(first: 100) {
+            edges {
                 node {
-                  createdAt
-                  expiredAt
+                    user {
+                        name
+                        email
+                    }
+                    sso {
+                        authorizations(first: 1) {
+                            edges {
+                                node {
+                                    createdAt
+                                    expiredAt
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -87,11 +87,11 @@ You can control how long the session can go before the user must revalidate with
 
 ```graphql
 mutation UpdateSessionDuration {
-  ssoProviderUpdate(input: { id: "ID", sessionDurationInHours: 2 }) {
-    ssoProvider {
-      sessionDurationInHours
+    ssoProviderUpdate(input: { id: "ID", sessionDurationInHours: 2 }) {
+        ssoProvider {
+            sessionDurationInHours
+        }
     }
-  }
 }
 ```
 
@@ -101,14 +101,16 @@ On the Enterprise plan, you can control when inactive API tokens are revoked. By
 
 ```graphql
 mutation UpdateRevokeInactiveTokenPeriod {
-  organizationRevokeInactiveTokensAfterUpdate(input: {
-    organizationId: "organization-id",
-    revokeInactiveTokensAfter: DAYS_30
-  }) {
-    organization {
-      revokeInactiveTokensAfter
+    organizationRevokeInactiveTokensAfterUpdate(
+        input: {
+            organizationId: "organization-id"
+            revokeInactiveTokensAfter: DAYS_30
+        }
+    ) {
+        organization {
+            revokeInactiveTokensAfter
+        }
     }
-  }
 }
 ```
 
@@ -118,11 +120,11 @@ You can require users to re-authenticate with your SSO provider when their IP ad
 
 ```graphql
 mutation UpdateSessionIPAddressPinning {
-  ssoProviderUpdate(input: { id: "ID", pinSessionToIpAddress: true }) {
-    ssoProvider {
-      pinSessionToIpAddress
+    ssoProviderUpdate(input: { id: "ID", pinSessionToIpAddress: true }) {
+        ssoProvider {
+            pinSessionToIpAddress
+        }
     }
-  }
 }
 ```
 
@@ -132,18 +134,18 @@ Require users to have two-factor authentication enabled before they can access y
 
 ```graphql
 mutation EnableEnforced2FA {
-  organizationEnforceTwoFactorAuthenticationForMembersUpdate(
-    input: {
-      organizationId: "organization-id",
-      membersRequireTwoFactorAuthentication: true
+    organizationEnforceTwoFactorAuthenticationForMembersUpdate(
+        input: {
+            organizationId: "organization-id"
+            membersRequireTwoFactorAuthentication: true
+        }
+    ) {
+        organization {
+            id
+            membersRequireTwoFactorAuthentication
+            uuid
+        }
     }
-  ) {
-    organization {
-      id
-      membersRequireTwoFactorAuthentication
-      uuid
-    }
-  }
 }
 ```
 
@@ -153,42 +155,44 @@ Use the usage API to query your organization's usage by pipeline or test suite a
 
 ```graphql
 query Usage {
-  organization(slug: "organization-slug") {
-    id
-    name
-    usage(
-      aggregatedOnFrom: "2023-04-01"
-      aggregatedOnTo: "2023-05-01"
-      resource: [JOB_MINUTES, TEST_EXECUTIONS]
-    ) {
-      edges {
-        node {
-          __typename ... on JobMinutesUsage {
-            aggregatedOn
-            seconds
-            pipeline {
-              name
-              id
+    organization(slug: "organization-slug") {
+        id
+        name
+        usage(
+            aggregatedOnFrom: "2023-04-01"
+            aggregatedOnTo: "2023-05-01"
+            resource: [JOB_MINUTES, TEST_EXECUTIONS]
+        ) {
+            edges {
+                node {
+                    __typename
+                    ... on JobMinutesUsage {
+                        aggregatedOn
+                        seconds
+                        pipeline {
+                            name
+                            id
+                        }
+                    }
+                }
+                node {
+                    __typename
+                    ... on TestExecutionsUsage {
+                        Time: aggregatedOn
+                        executions
+                        suite {
+                            name
+                            id
+                        }
+                    }
+                }
             }
-          }
-        }
-        node {
-          __typename ... on TestExecutionsUsage {
-            Time: aggregatedOn
-            executions
-            suite {
-              name
-              id
+            pageInfo {
+                endCursor
+                hasNextPage
             }
-          }
         }
-      }
-      pageInfo {
-        endCursor
-        hasNextPage
-      }
     }
-  }
 }
 ```
 
@@ -200,17 +204,17 @@ First, get the organization and team ID:
 
 ```graphql
 query getOrganizationAndTeamId {
-  organization(slug: "organization-slug") {
-    id
-    teams(first:500) {
-      edges {
-        node {
-          id
-          slug
+    organization(slug: "organization-slug") {
+        id
+        teams(first: 500) {
+            edges {
+                node {
+                    id
+                    slug
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -218,28 +222,23 @@ Then invite the user and add them to a team, setting their role to 'maintainer':
 
 ```graphql
 mutation CreateUser {
-  organizationInvitationCreate(input: {
-    organizationID: "organization-id",
-    emails: ["user-email"],
-    role: MEMBER,
-    teams: [
-      {
-        id: "team-id",
-        role: MAINTAINER
-      }
-    ]
-  }) {
-    invitationEdges {
-      node {
-        email
-        createdAt
-      }
+    organizationInvitationCreate(
+        input: {
+            organizationID: "organization-id"
+            emails: ["user-email"]
+            role: MEMBER
+            teams: [{ id: "team-id", role: MAINTAINER }]
+        }
+    ) {
+        invitationEdges {
+            node {
+                email
+                createdAt
+            }
+        }
     }
-  }
 }
 ```
-
-
 
 ## Delete an organization member
 
@@ -249,19 +248,19 @@ First, find the member's ID:
 
 ```graphql
 query getOrganizationMemberIds {
-  organization(slug: "organization-slug") {
-    members(search: "organization-member-name", first: 10) {
-      edges {
-        node {
-          role
-          user {
-            name
-          }
-          id
+    organization(slug: "organization-slug") {
+        members(search: "organization-member-name", first: 10) {
+            edges {
+                node {
+                    role
+                    user {
+                        name
+                    }
+                    id
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -269,15 +268,15 @@ Then, use the ID to delete the user:
 
 ```graphql
 mutation deleteOrgMember {
-  organizationMemberDelete(input: { id: "organization-member-id" }){
-    organization{
-      name
+    organizationMemberDelete(input: { id: "organization-member-id" }) {
+        organization {
+            name
+        }
+        deletedOrganizationMemberID
+        user {
+            name
+        }
     }
-    deletedOrganizationMemberID
-    user{
-        name
-    }
-  }
 }
 ```
 
@@ -286,48 +285,52 @@ mutation deleteOrgMember {
 Query your organization's audit events. Audit events are only available to Enterprise customers.
 
 ```graphql
-query getOrganizationAuditEvents{
-  organization(slug:"organization-slug"){
-    auditEvents(first: 500){
-      edges{
-        node{
-          type
-          occurredAt
-          actor{
-            name
-          }
-          subject{
-            name
-            type
-          }
+query getOrganizationAuditEvents {
+    organization(slug: "organization-slug") {
+        auditEvents(first: 500) {
+            edges {
+                node {
+                    type
+                    occurredAt
+                    actor {
+                        name
+                    }
+                    subject {
+                        name
+                        type
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
 To get all audit events in a given period, use the `occurredAtFrom` and `occurredAtTo` filters like in the following query:
 
 ```graphql
-query getTimeScopedOrganizationAuditEvents{
-  organization(slug:"organization-slug"){
-    auditEvents(first: 500, occurredAtFrom: "2023-01-01T12:00:00.000", occurredAtTo: "2023-01-01T13:00:00.000"){
-      edges{
-        node{
-          type
-          occurredAt
-          actor{
-            name
-          }
-          subject{
-            name
-            type
-          }
+query getTimeScopedOrganizationAuditEvents {
+    organization(slug: "organization-slug") {
+        auditEvents(
+            first: 500
+            occurredAtFrom: "2023-01-01T12:00:00.000"
+            occurredAtTo: "2023-01-01T13:00:00.000"
+        ) {
+            edges {
+                node {
+                    type
+                    occurredAt
+                    actor {
+                        name
+                    }
+                    subject {
+                        name
+                        type
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -336,44 +339,44 @@ query getTimeScopedOrganizationAuditEvents{
 Query audit events from within an organization of a specific user. Audit events are only available to Enterprise customers.
 
 ```graphql
-query getActorRefinedOrganizationAuditEvents{
-  organization(slug:"organization-slug"){
-    auditEvents(first: 500, actor: "user-id"){
-      edges{
-        node{
-          type
-          occurredAt
-          actor{
-            name
-          }
-          subject{
-            name
-            type
-          }
+query getActorRefinedOrganizationAuditEvents {
+    organization(slug: "organization-slug") {
+        auditEvents(first: 500, actor: "user-id") {
+            edges {
+                node {
+                    type
+                    occurredAt
+                    actor {
+                        name
+                    }
+                    subject {
+                        name
+                        type
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
 To find the actor's `user-id` for the query above, the following query can be run: replacing the `search` term with the name/email of the user:
 
 ```graphql
-query getActorID{
-  organization(slug:"organization-slug"){
-    members(first:50, search: "search term"){
-      edges{
-        node{
-          user{
-            name
-            email
-            id
-          }
+query getActorID {
+    organization(slug: "organization-slug") {
+        members(first: 50, search: "search term") {
+            edges {
+                node {
+                    user {
+                        name
+                        email
+                        id
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -385,10 +388,16 @@ To create a banner call `organizationBannerUpsert` with the organization's Graph
 
 ```graphql
 mutation OrganizationBannerUpsert {
-  organizationBannerUpsert(input: {
-    organizationId: "organization-id",
-    message: "**Change to 2FA**: On October 1st ECommerce Inc will require 2FA to be set to access all Pipelines. \r\n\r\n---\r\n\r\nIf you have not set already setup 2FA please go to: [https://buildkite.com/user/two-factor](https://buildkite.com/user/two-factor) and setup 2FA now. ",
-  }) {
+  organizationBannerUpsert(
+    input: {
+      organizationId: "organization-id"
+      message: "**Change to 2FA**: On October 1st ECommerce Inc will require 2FA to be set to access all Pipelines.
+\n
+\n---
+\n
+\nIf you have not set already setup 2FA please go to: [https://buildkite.com/user/two-factor](https://buildkite.com/user/two-factor) and setup 2FA now. "
+    }
+  ) {
     clientMutationId
     banner {
       id
@@ -403,10 +412,8 @@ To remove the banner call `organizationBannerDelete` with the organization's Gra
 
 ```graphql
 mutation OrganizationBannerDelete {
-  organizationBannerDelete(input: {
-    organizationId: "organization-id"
-  }) {
-    deletedBannerId
-  }
+    organizationBannerDelete(input: { organizationId: "organization-id" }) {
+        deletedBannerId
+    }
 }
 ```

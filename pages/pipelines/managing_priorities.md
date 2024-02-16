@@ -2,18 +2,18 @@
 
 By default, jobs are dispatched (taken from the queue and assigned to an agent) on a first-in-first-out basis. However, job priority and pipeline upload time can affect that order.
 
-
 ## Prioritizing specific jobs
 
 Job `priority` is 0 by default, you can prioritize or deprioritize jobs by assigning them a higher or lower integer value. For example:
 
 ```yml
 steps:
-  - command: "will-run-last.sh"
-    priority: -1
-  - command: "will-run-first.sh"
-    priority: 1
+    - command: "will-run-last.sh"
+      priority: -1
+    - command: "will-run-first.sh"
+      priority: 1
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Job priority is considered before jobs are dispatched to [agent queues](/docs/agent/v3/queues), so jobs with higher priority are assigned before jobs with lower priority, regardless of which has been longest in the queue. Priority only applies to command jobs, including plugin commands.
@@ -48,4 +48,5 @@ steps:
       priority: $${PRIORITY}
     YAML
 ```
+
 {: codeblock-file="pipeline.yml"}

@@ -14,13 +14,13 @@
 title: __Field – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   __Field
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Object and Interface types are described by a list of Fields, each of which has a name, potentially a list of arguments, and a return type.
 

@@ -14,6 +14,7 @@
 title: clusterAgentTokenUpdate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   clusterAgentTokenUpdate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Updates a cluster agent token
 

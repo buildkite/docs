@@ -12,9 +12,9 @@ First, get the organization ID:
 
 ```graphql
 query getOrganizationId {
-  organization(slug: "organization-slug") {
-    id
-  }
+    organization(slug: "organization-slug") {
+        id
+    }
 }
 ```
 
@@ -22,25 +22,27 @@ Then use the ID to create a new team within the organization:
 
 ```graphql
 mutation CreateTeam {
-  teamCreate(input: {
-    organizationID: "organization-id",
-    name: "team-name",
-    privacy: SECRET,
-    isDefaultTeam: false,
-    defaultMemberRole: MEMBER
-  }) {
-    organization {
-      uuid
-      teams(first: 1, order: RECENTLY_CREATED) {
-        count
-        edges {
-          node {
-            name
-          }
+    teamCreate(
+        input: {
+            organizationID: "organization-id"
+            name: "team-name"
+            privacy: SECRET
+            isDefaultTeam: false
+            defaultMemberRole: MEMBER
         }
-      }
+    ) {
+        organization {
+            uuid
+            teams(first: 1, order: RECENTLY_CREATED) {
+                count
+                edges {
+                    node {
+                        name
+                    }
+                }
+            }
+        }
     }
-  }
 }
 ```
 
@@ -52,30 +54,29 @@ First, get a list of teams in the organization, to get the team ID:
 
 ```graphql
 query getOrgTeams {
-  organization(slug: "organization-slug") {
-    teams(first: 500) {
-      edges {
-        node {
-          name
-          id
+    organization(slug: "organization-slug") {
+        teams(first: 500) {
+            edges {
+                node {
+                    name
+                    id
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
 Then, add a team member. You can get the `user-id` using the example in [Search for organization members](/docs/apis/graphql/cookbooks/organizations#search-for-organization-members).
 
->📘
+> 📘
 > <code>clientMutationId</code> is null when the mutation is successful.
 
-
 ```graphql
-mutation addTeamMember{
-  teamMemberCreate(input: {teamID: "team-id", userID: "user-id"}) {
-    clientMutationId
-  }
+mutation addTeamMember {
+    teamMemberCreate(input: { teamID: "team-id", userID: "user-id" }) {
+        clientMutationId
+    }
 }
 ```
 
@@ -87,42 +88,42 @@ First, get a list of teams and members, to get the team IDs and current membersh
 
 ```graphql
 query TeamMembersQuery {
-  organization(slug: "organization-slug") {
-    teams(first: 500) {
-      edges {
-        node {
-          name
-          id
-          members(first: 100) {
+    organization(slug: "organization-slug") {
+        teams(first: 500) {
             edges {
-              node {
-                role
-                id
-                user {
-                  name
-                  email
-                  id
+                node {
+                    name
+                    id
+                    members(first: 100) {
+                        edges {
+                            node {
+                                role
+                                id
+                                user {
+                                    name
+                                    email
+                                    id
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
 Then delete a team member. Check that you have the team member ID and not the user ID:
 
->📘
+> 📘
 > <code>clientMutationId</code> is null when the mutation is successful.
 
 ```graphql
 mutation deleteTeamMember {
-  teamMemberDelete(input: {id: "team-member-id"}) {
-    clientMutationId
-  }
+    teamMemberDelete(input: { id: "team-member-id" }) {
+        clientMutationId
+    }
 }
 ```
 
@@ -132,34 +133,34 @@ To get the first 100 pipelines managed by the first 100 teams, use the following
 
 ```graphql
 query getPipelinesByTeam {
-  organization(slug: "organization-slug") {
-    id
-    name
-    teams(first: 100) {
-      pageInfo {
-        hasNextPage
-        endCursor
-      }
-      edges {
-        node {
-          name
-          pipelines(first: 100) {
+    organization(slug: "organization-slug") {
+        id
+        name
+        teams(first: 100) {
             pageInfo {
-              hasNextPage
-              endCursor
+                hasNextPage
+                endCursor
             }
             edges {
-              node {
-                pipeline {
-                  name
+                node {
+                    name
+                    pipelines(first: 100) {
+                        pageInfo {
+                            hasNextPage
+                            endCursor
+                        }
+                        edges {
+                            node {
+                                pipeline {
+                                    name
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
 }
 ```
 
@@ -173,15 +174,15 @@ First, walk through all teams:
 
 ```graphql
 query Teams {
-  organization(slug: "organization-slug") {
-    teams(first: 500) {
-      edges {
-        node {
-          slug
+    organization(slug: "organization-slug") {
+        teams(first: 500) {
+            edges {
+                node {
+                    slug
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -189,15 +190,15 @@ Then, get the team pipeline IDs from the team slugs. Use the `id` returned here 
 
 ```graphql
 query TeamPipelineIDs {
-  team(slug: "organization-slug/team-slug") {
-    pipelines(first: 500) {
-      edges {
-        node {
-          id
+    team(slug: "organization-slug/team-slug") {
+        pipelines(first: 500) {
+            edges {
+                node {
+                    id
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -205,25 +206,24 @@ Finally, update all pipelines in a team to have either READ_ONLY or BUILD_AND_RE
 
 ```graphql
 mutation UpdateTeamPipelineReadonly {
-  teamPipelineUpdate(input: {
-    id: "team-pipeline-id",
-    accessLevel: BUILD_AND_READ
-  }) {
-    teamPipeline {
-      permissions {
-        teamPipelineDelete {
-          allowed
-          code
-          message
+    teamPipelineUpdate(
+        input: { id: "team-pipeline-id", accessLevel: BUILD_AND_READ }
+    ) {
+        teamPipeline {
+            permissions {
+                teamPipelineDelete {
+                    allowed
+                    code
+                    message
+                }
+                teamPipelineUpdate {
+                    allowed
+                    code
+                    message
+                }
+            }
         }
-        teamPipelineUpdate {
-          allowed
-          code
-          message
-        }
-      }
+        clientMutationId
     }
-    clientMutationId
-  }
 }
 ```

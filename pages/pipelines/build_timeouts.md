@@ -4,8 +4,8 @@ Build timeouts are limits on the maximum time a job can wait before being picked
 
 You can set timeouts on your builds in two ways:
 
-- Command step timeouts for running jobs.
-- Scheduled job expiry for jobs yet to be picked up.
+-   Command step timeouts for running jobs.
+-   Scheduled job expiry for jobs yet to be picked up.
 
 Organization-level timeouts can be set in your [Pipeline Settings](https://buildkite.com/organizations/~/pipeline-settings):
 
@@ -21,9 +21,9 @@ Timeouts apply to the whole job lifecycle, including hooks and artifact uploads.
 
 Maximum timeouts are applied to command steps in the following situations:
 
-- No timeout attribute is set on the step.
-- No default timeout is set in the pipeline settings.
-- When the timeout set is greater than the maximum timeout.
+-   No timeout attribute is set on the step.
+-   No default timeout is set in the pipeline settings.
+-   When the timeout set is greater than the maximum timeout.
 
 Maximums are always enforced when supplied, and the smallest value will be used.
 

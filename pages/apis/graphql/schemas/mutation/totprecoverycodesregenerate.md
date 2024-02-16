@@ -14,6 +14,7 @@
 title: totpRecoveryCodesRegenerate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   totpRecoveryCodesRegenerate
@@ -24,8 +25,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
-Generate a new set of Recovery Codes for a given TOTP.  The new Recovery Codes will immediately replace any existing recovery codes.  This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
+Generate a new set of Recovery Codes for a given TOTP. The new Recovery Codes will immediately replace any existing recovery codes. This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

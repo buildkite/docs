@@ -14,6 +14,7 @@
 title: pipelineSchedule – Queries – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   pipelineSchedule
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Find a pipeline schedule by its slug
 

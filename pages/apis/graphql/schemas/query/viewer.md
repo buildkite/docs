@@ -14,6 +14,7 @@
 title: viewer – Queries – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   viewer
@@ -23,6 +24,5 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Context of the current user using the GraphQL API

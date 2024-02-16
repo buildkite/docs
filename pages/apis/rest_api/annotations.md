@@ -1,6 +1,5 @@
 # Annotations API
 
-
 ## Annotation data model
 
 An annotation is a snippet of Markdown uploaded by your agent during the execution of a build's job. Annotations are created using the [`buildkite-agent annotate` command](/docs/agent/v3/cli-annotate) from within a job.
@@ -20,7 +19,7 @@ An annotation is a snippet of Markdown uploaded by your agent during the executi
 
 Returns a [paginated list](<%= paginated_resource_docs_url %>) of a build's annotations.
 
->📘
+> 📘
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to retrieve annotations, not the build ID.
 
 ```bash
@@ -29,22 +28,22 @@ curl "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{pipeline.
 
 ```json
 [
-  {
-    "id": "de0d4ab5-6360-467a-a34b-e5ef5db5320d",
-    "context": "default",
-    "style": "info",
-    "body_html": "<h1>My Markdown Heading</h1>\n<img src=\"artifact://indy.png\" alt=\"Belongs in a museum\" height=250 />",
-    "created_at": "2019-04-09T18:07:15.775Z",
-    "updated_at": "2019-08-06T20:58:49.396Z"
-  },
-  {
-    "id": "5b3ceff6-78cb-4fe9-88ae-51be5f145977",
-    "context": "coverage",
-    "style": "info",
-    "body_html": "Read the <a href=\"artifact://coverage/index.html\">uploaded coverage report</a>",
-    "created_at": "2019-04-09T18:07:16.320Z",
-    "updated_at": "2019-04-09T18:07:16.320Z"
-  }
+    {
+        "id": "de0d4ab5-6360-467a-a34b-e5ef5db5320d",
+        "context": "default",
+        "style": "info",
+        "body_html": "<h1>My Markdown Heading</h1>\n<img src=\"artifact://indy.png\" alt=\"Belongs in a museum\" height=250 />",
+        "created_at": "2019-04-09T18:07:15.775Z",
+        "updated_at": "2019-08-06T20:58:49.396Z"
+    },
+    {
+        "id": "5b3ceff6-78cb-4fe9-88ae-51be5f145977",
+        "context": "coverage",
+        "style": "info",
+        "body_html": "Read the <a href=\"artifact://coverage/index.html\">uploaded coverage report</a>",
+        "created_at": "2019-04-09T18:07:16.320Z",
+        "updated_at": "2019-04-09T18:07:16.320Z"
+    }
 ]
 ```
 
@@ -56,7 +55,7 @@ Success response: `200 OK`
 
 Creates an annotation on a build.
 
->📘
+> 📘
 > Note that you need the <a href="/docs/apis/rest-api/builds#build-number-vs-build-id">build number</a> to create annotations, not the build ID.
 
 ```bash
@@ -71,12 +70,12 @@ curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{p
 
 ```json
 {
-  "id": "018b8d10-6b5b-4df2-b0ff-dfa2af566050",
-  "context": "greeting",
-  "style": "info",
-  "body_html": "<p>Hello world!</p>\n",
-  "created_at": "2023-11-01T22:45:45.435Z",
-  "updated_at": "2023-11-01T22:45:45.435Z"
+    "id": "018b8d10-6b5b-4df2-b0ff-dfa2af566050",
+    "context": "greeting",
+    "style": "info",
+    "body_html": "<p>Hello world!</p>\n",
+    "created_at": "2023-11-01T22:45:45.435Z",
+    "updated_at": "2023-11-01T22:45:45.435Z"
 }
 ```
 

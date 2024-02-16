@@ -14,6 +14,7 @@
 title: AuditSubjectNode – Unions – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   AuditSubjectNode
@@ -21,14 +22,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
 Kinds of subjects which can have audit events performed on them
-
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/apiaccesstoken" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT APIAccessToken">

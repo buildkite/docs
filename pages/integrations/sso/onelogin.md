@@ -2,7 +2,6 @@
 
 You can use OneLogin as an SSO provider for your Buildkite organization. To complete this tutorial, you need admin privileges for both OneLogin and Buildkite.
 
-
 ## Step 1. Add the Buildkite app to your OneLogin account
 
 Log into your OneLogin account, and follow these steps:
@@ -43,7 +42,7 @@ On the following screen in the setup form, enter your IdP data. The following th
     </tr>
 </table>
 
->📘 You can also set up SSO providers manually with GraphQL.
+> 📘 You can also set up SSO providers manually with GraphQL.
 > See the <a href="/docs/integrations/sso/sso-setup-with-graphql">SSO setup with GraphQL guide</a> for detailed instructions and code samples.
 
 ## Step 3. Perform a test login

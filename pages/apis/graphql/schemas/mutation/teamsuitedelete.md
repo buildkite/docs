@@ -14,6 +14,7 @@
 title: teamSuiteDelete – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   teamSuiteDelete
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Remove a suite from a team.
 

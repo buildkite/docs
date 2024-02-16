@@ -2,19 +2,19 @@
 
 Plugins are small self-contained pieces of extra functionality that help you customize Buildkite to your specific workflow. Plugins modify your build [command steps](/docs/pipelines/command-step) at one or more of the ten [job lifecycle hooks](/docs/agent/v3/hooks). Each hook modifies a different part of the job lifecycle, for example:
 
-- Setting up the environment.
-- Checking out the code.
-- Running commands.
-- Handling artifacts.
-- Cleaning up the environment.
+-   Setting up the environment.
+-   Checking out the code.
+-   Running commands.
+-   Handling artifacts.
+-   Cleaning up the environment.
 
 The following diagram shows how a plugin might hook into the job lifecycle:
 
 <%= image "plugins-job-lifecycle-example.png", alt: "A plugin interacts with the job lifecycle using environment, post-command, and pre-exit hooks", class: "no-decoration" %>
 
-Plugins can be *open source* and available for anyone to use, or *private* and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
+Plugins can be _open source_ and available for anyone to use, or _private_ and kept in private repositories that only your organization and agents can access. Plugins can be hosted and referenced using [a number of sources](/docs/plugins/using#plugin-sources).
 
-Plugins can be also be *vendored* (if they are already present in the repository, and included using a relative path) or *non-vendored* (when they are included from elsewhere), which affects the [order](/docs/agent/v3/hooks#job-lifecycle-hooks) they are run in.
+Plugins can be also be _vendored_ (if they are already present in the repository, and included using a relative path) or _non-vendored_ (when they are included from elsewhere), which affects the [order](/docs/agent/v3/hooks#job-lifecycle-hooks) they are run in.
 
 ## How to use plugins
 

@@ -4,7 +4,6 @@ Some tasks need to be run with very strict concurrency rules to ensure they don'
 
 To help you control concurrency, Buildkite provides two primitives: concurrency limits and concurrency groups. While these two primitives are closely linked and interdependent, they operate at different levels.
 
-
 ## Concurrency limits
 
 Concurrency limits define the number of jobs that are allowed to run at any one time. These limits are set per-step and only apply to jobs that are based on that step.
@@ -13,7 +12,7 @@ Setting a concurrency limit of `1` on a step in your pipeline will ensure that n
 
 You can add concurrency limits to steps either through Buildkite, or your `pipeline.yml` file. When adding a concurrency limit, you'll also need the `concurrency_group` attribute so that steps in other pipelines can use it as well.
 
->🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
+> 🚧 I'm seeing an error about a missing `concurrency_group_id` when I run my pipeline upload
 > This error is caused by a missing `concurrency_group` attribute. Add this attribute to the same step where you defined the `concurrency` attribute.
 
 ## Concurrency groups
@@ -27,14 +26,15 @@ The full list of "active" [job states](/docs/pipelines/defining-steps#job-states
 The following is an example [command step](/docs/pipelines/command-step) that ensures deployments run one at a time. If multiple builds are created with this step, each deployment job will be queued up and run one after the other in the order they were created.
 
 ```yaml
-- command: 'deploy.sh'
+- command: "deploy.sh"
   label: '\:rocket\: Deploy production'
-  branches: 'main'
+  branches: "main"
   agents:
-    deploy: true
+      deploy: true
   concurrency: 1
-  concurrency_group: 'our-payment-gateway/deploy'
+  concurrency_group: "our-payment-gateway/deploy"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Make sure your `concurrency_group` names are unique, unless they're accessing a shared resource like a deployment target.
@@ -46,42 +46,43 @@ Concurrency groups guarantee that jobs will be run in the order that they were c
 ## Concurrency and parallelism
 
 Sometimes you need strict concurrency while also having jobs that would benefit from parallelism.
-In these situations, you can use *concurrency gates* to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it. You can't use input or block steps inside concurrency gates.
+In these situations, you can use _concurrency gates_ to control which jobs run in parallel and which jobs run one at a time. Concurrency gates come in pairs, so when you open a gate, you have to close it. You can't use input or block steps inside concurrency gates.
 
-In the following setup, only one build at a time can *enter the concurrency gate*, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
+In the following setup, only one build at a time can _enter the concurrency gate_, but within that gate up to three e2e tests can run in parallel, subject to Agent availability. Putting the `stage-deploy` section in the gate as well ensures that every time there is a deployment made to the staging environment, the e2e tests are carried out on that deployment:
 
 ```yaml
 steps:
-  - command: echo "Running unit tests"
-    key: unit-tests
+    - command: echo "Running unit tests"
+      key: unit-tests
 
-  - command: echo "--> Start of concurrency gate"
-    concurrency_group: gate
-    concurrency: 1
-    key: start-gate
-    depends_on: unit-tests
+    - command: echo "--> Start of concurrency gate"
+      concurrency_group: gate
+      concurrency: 1
+      key: start-gate
+      depends_on: unit-tests
 
-  - wait
+    - wait
 
-  - command: echo "Running deployment to staging environment"
-    key: stage-deploy
-    depends_on: start-gate
+    - command: echo "Running deployment to staging environment"
+      key: stage-deploy
+      depends_on: start-gate
 
-  - command: echo "Running e2e tests after the deployment"
-    parallelism: 3
-    depends_on: [stage-deploy]
-    key: e2e
+    - command: echo "Running e2e tests after the deployment"
+      parallelism: 3
+      depends_on: [stage-deploy]
+      key: e2e
 
-  - wait
+    - wait
 
-  - command: echo "End of concurrency gate <--"
-    concurrency_group: gate
-    concurrency: 1
-    key: end-gate
+    - command: echo "End of concurrency gate <--"
+      concurrency_group: gate
+      concurrency: 1
+      key: end-gate
 
-  - command: echo "This and subsequent steps run independently"
-    depends_on: end-gate
+    - command: echo "This and subsequent steps run independently"
+      depends_on: end-gate
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Controlling command order
@@ -90,8 +91,8 @@ By default, steps that belong to the same concurrency group are run in the order
 
 For example, if you have two steps:
 
-* Step `A` in concurrency group `X` with a concurrency of `1` at time 0
-* Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
+-   Step `A` in concurrency group `X` with a concurrency of `1` at time 0
+-   Step `B` with the same concurrency group `X` and also a concurrency of `1` at time 1
 
 Step A will always run before step B. This is the default behaviour (`ordered`), and most helpful for deployments.
 
@@ -104,11 +105,12 @@ In that case, setting the concurrency method to `eager`, removes the ordering co
 
 ```yaml
 steps:
-  - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
-    concurrency_group: saucelabs
-    concurrency: 10
-    concurrency_method: eager
+    - command: echo "Using a limited resource, only 10 at a time, but we don't care about order"
+      concurrency_group: saucelabs
+      concurrency: 10
+      concurrency_method: eager
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ### Concurrency and prioritization

@@ -4,7 +4,6 @@ The Meta API provides information about Buildkite, including a list of Buildkite
 
 It does not require authentication.
 
-
 ## Get meta information
 
 Returns an object with properties describing Buildkite.
@@ -19,7 +18,7 @@ curl "https://api.buildkite.com/v2/meta"
 
 ```json
 {
-  "webhook_ips": ["192.0.2.0/24", "198.51.100.12"]
+    "webhook_ips": ["192.0.2.0/24", "198.51.100.12"]
 }
 ```
 

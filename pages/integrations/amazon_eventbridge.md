@@ -2,7 +2,6 @@
 
 The [Amazon EventBridge](https://aws.amazon.com/eventbridge/) notification service in Buildkite lets you stream events in real-time from your Buildkite account to your AWS account.
 
-
 ## Events
 
 Once you've configured an Amazon EventBridge notification service in Buildkite, the following events are published to the partner event bus:
@@ -65,12 +64,12 @@ You can use any event property in your custom event pattern. For example, the fo
 
 ```json
 {
-  "detail-type": [ "Build Started", "Build Finished" ],
-  "detail": {
-    "pipeline": {
-      "slug": [ "some-pipeline" ]
+    "detail-type": ["Build Started", "Build Finished"],
+    "detail": {
+        "pipeline": {
+            "slug": ["some-pipeline"]
+        }
     }
-  }
 }
 ```
 
@@ -95,36 +94,36 @@ const AWS = require("aws-sdk");
 const cloudWatch = new AWS.CloudWatch();
 
 exports.handler = (event, context, callback) => {
-  const waitTime =
-    new Date(event.detail.job.started_at) -
-    new Date(event.detail.job.runnable_at);
+    const waitTime =
+        new Date(event.detail.job.started_at) -
+        new Date(event.detail.job.runnable_at);
 
-  console.log(`Job started after waiting ${waitTime} seconds`);
+    console.log(`Job started after waiting ${waitTime} seconds`);
 
-  cloudWatch.putMetricData(
-    {
-      Namespace: "Buildkite",
-      MetricData: [
+    cloudWatch.putMetricData(
         {
-          MetricName: "Job Agent Wait Time",
-          Timestamp: new Date(),
-          StorageResolution: 1,
-          Unit: "Seconds",
-          Value: waitTime,
-          Dimensions: [
-            {
-              Name: "Pipeline",
-              Value: event.detail.pipeline.slug
-            }
-          ]
+            Namespace: "Buildkite",
+            MetricData: [
+                {
+                    MetricName: "Job Agent Wait Time",
+                    Timestamp: new Date(),
+                    StorageResolution: 1,
+                    Unit: "Seconds",
+                    Value: waitTime,
+                    Dimensions: [
+                        {
+                            Name: "Pipeline",
+                            Value: event.detail.pipeline.slug,
+                        },
+                    ],
+                },
+            ],
+        },
+        (err, data) => {
+            if (err) console.log(err, err.stack);
+            callback(null, "Finished");
         }
-      ]
-    },
-    (err, data) => {
-      if (err) console.log(err, err.stack);
-      callback(null, "Finished");
-    }
-  );
+    );
 };
 ```
 
@@ -169,33 +168,33 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Build Created",
-  "detail": {
-    "version": 1,
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "scheduled",
-      "started_at": null,
-      "finished_at": null,
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Build Created",
+    "detail": {
+        "version": 1,
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "scheduled",
+            "started_at": null,
+            "finished_at": null,
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -203,33 +202,33 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Build Started",
-  "detail": {
-    "version": 1,
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "started",
-      "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": null,
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Build Started",
+    "detail": {
+        "version": 1,
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "started",
+            "started_at": "2019-08-11 06:01:16 UTC",
+            "finished_at": null,
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -237,33 +236,33 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Build Finished",
-  "detail": {
-    "version": 1,
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "passed",
-      "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": "2019-08-11 06:01:35 UTC",
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Build Finished",
+    "detail": {
+        "version": 1,
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "passed",
+            "started_at": "2019-08-11 06:01:16 UTC",
+            "finished_at": "2019-08-11 06:01:35 UTC",
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -313,50 +312,48 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Job Scheduled",
-  "detail": {
-    "version": 1,
-    "job": {
-      "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
-      "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
-      "type": "script",
-      "label": "\:nodejs\: Test",
-      "step_key": "node_test",
-      "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
-      "exit_status": null,
-      "passed": false,
-      "soft_failed": false,
-      "state": "assigned",
-      "runnable_at": "2019-08-11 06:01:14 UTC",
-      "started_at": null,
-      "finished_at": null,
-      "unblocked_by": null
-    },
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "started",
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Job Scheduled",
+    "detail": {
+        "version": 1,
+        "job": {
+            "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
+            "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
+            "type": "script",
+            "label": ":nodejs: Test",
+            "step_key": "node_test",
+            "command": "yarn test",
+            "agent_query_rules": ["queue=default"],
+            "exit_status": null,
+            "passed": false,
+            "soft_failed": false,
+            "state": "assigned",
+            "runnable_at": "2019-08-11 06:01:14 UTC",
+            "started_at": null,
+            "finished_at": null,
+            "unblocked_by": null
+        },
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "started",
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -364,50 +361,48 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Job Started",
-  "detail": {
-    "version": 1,
-    "job": {
-      "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
-      "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
-      "type": "script",
-      "label": "\:nodejs\: Test",
-      "step_key": "node_test",
-      "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
-      "exit_status": null,
-      "passed": false,
-      "soft_failed": false,
-      "state": "started",
-      "runnable_at": "2019-08-11 06:01:14 UTC",
-      "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": null,
-      "unblocked_by": null
-    },
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "started",
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Job Started",
+    "detail": {
+        "version": 1,
+        "job": {
+            "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
+            "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
+            "type": "script",
+            "label": ":nodejs: Test",
+            "step_key": "node_test",
+            "command": "yarn test",
+            "agent_query_rules": ["queue=default"],
+            "exit_status": null,
+            "passed": false,
+            "soft_failed": false,
+            "state": "started",
+            "runnable_at": "2019-08-11 06:01:14 UTC",
+            "started_at": "2019-08-11 06:01:16 UTC",
+            "finished_at": null,
+            "unblocked_by": null
+        },
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "started",
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -415,50 +410,48 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Job Finished",
-  "detail": {
-    "version": 1,
-    "job": {
-      "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
-      "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
-      "type": "script",
-      "label": "\:nodejs\: Test",
-      "step_key": "node_test",
-      "command": "yarn test",
-      "agent_query_rules": [
-        "queue=default"
-      ],
-      "exit_status": 0,
-      "passed": true,
-      "soft_failed": false,
-      "state": "finished",
-      "runnable_at": "2019-08-11 06:01:14 UTC",
-      "started_at": "2019-08-11 06:01:16 UTC",
-      "finished_at": "2019-08-11 06:01:35 UTC",
-      "unblocked_by": null
-    },
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "started",
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Job Finished",
+    "detail": {
+        "version": 1,
+        "job": {
+            "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
+            "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
+            "type": "script",
+            "label": ":nodejs: Test",
+            "step_key": "node_test",
+            "command": "yarn test",
+            "agent_query_rules": ["queue=default"],
+            "exit_status": 0,
+            "passed": true,
+            "soft_failed": false,
+            "state": "finished",
+            "runnable_at": "2019-08-11 06:01:14 UTC",
+            "started_at": "2019-08-11 06:01:16 UTC",
+            "finished_at": "2019-08-11 06:01:35 UTC",
+            "unblocked_by": null
+        },
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "started",
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -466,52 +459,52 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Job Activated",
-  "detail": {
-    "version": 1,
-    "job": {
-      "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
-      "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
-      "type": "manual",
-      "label": "\:rocket\: Deploy",
-      "step_key": "manual_deploy",
-      "command": null,
-      "agent_query_rules": [],
-      "exit_status": null,
-      "passed": false,
-      "soft_failed": false,
-      "state": "finished",
-      "runnable_at": null,
-      "started_at": null,
-      "finished_at": null,
-      "unblocked_by": {
-        "uuid": "c07c69c6-11d2-4375-9148-9d0338b0a836",
-        "graphql_id": "VXNlci0tLWMwN2M2OWM2LTExZDItNDM3NS05MTQ4LTlkMDMzOGIwYTgzNg==",
-        "name": "bell"
-      }
-    },
-    "build": {
-      "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
-      "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
-      "number": 123456,
-      "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
-      "message": "Merge pull request #456 from my-org/chore/update-deps",
-      "branch": "main",
-      "state": "started",
-      "source": "webhook"
-    },
-    "pipeline": {
-      "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
-      "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
-      "slug": "my-pipeline",
-      "repo": "git@somewhere.com:project.git"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
+    "detail-type": "Job Activated",
+    "detail": {
+        "version": 1,
+        "job": {
+            "uuid": "9e6c3f19-4fdb-4e8e-b925-28cd7504e17f",
+            "graphql_id": "Sm9iLS0tOWU2YzNmMTktNGZkYi00ZThlLWI5MjUtMjhjZDc1MDRlMTdm",
+            "type": "manual",
+            "label": ":rocket: Deploy",
+            "step_key": "manual_deploy",
+            "command": null,
+            "agent_query_rules": [],
+            "exit_status": null,
+            "passed": false,
+            "soft_failed": false,
+            "state": "finished",
+            "runnable_at": null,
+            "started_at": null,
+            "finished_at": null,
+            "unblocked_by": {
+                "uuid": "c07c69c6-11d2-4375-9148-9d0338b0a836",
+                "graphql_id": "VXNlci0tLWMwN2M2OWM2LTExZDItNDM3NS05MTQ4LTlkMDMzOGIwYTgzNg==",
+                "name": "bell"
+            }
+        },
+        "build": {
+            "uuid": "8fcaa7b9-e175-4110-9f48-f79949806a31",
+            "graphql_id": "QnVpbGQtLS04ZmNhYTdiOS1lMTc1LTQxMTAtOWY0OC1mNzk5NDk4MDZhMzE=",
+            "number": 123456,
+            "commit": "5a741616cdf07dc87c5adafe784321eeeb639e33",
+            "message": "Merge pull request #456 from my-org/chore/update-deps",
+            "branch": "main",
+            "state": "started",
+            "source": "webhook"
+        },
+        "pipeline": {
+            "uuid": "88d73553-5533-4f56-9c16-fb38d7817d8f",
+            "graphql_id": "UGlwZWxpbmUtLS04OGQ3MzU1My01NTMzLTRmNTYtOWMxNi1mYjM4ZDc4MTdkOGY=",
+            "slug": "my-pipeline",
+            "repo": "git@somewhere.com:project.git"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        }
     }
-  }
 }
 ```
 
@@ -519,37 +512,35 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Agent Connected",
-  "detail": {
-    "version": 1,
-    "agent": {
-      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
-      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
-      "connection_state": "connected",
-      "name": "my-agent-1",
-      "version": "3.13.2",
-      "ip_address": "3.80.193.183",
-      "hostname": "ip-10-0-2-73.ec2.internal",
-      "pid": "18534",
-      "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
-      "connected_at": "2019-08-10 09:44:40 UTC",
-      "disconnected_at": null,
-      "lost_at": null
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
-    },
-    "token": {
-      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
-      "created_at": "2019-08-10 07:44:40 UTC",
-      "description": "Default agent token"
+    "detail-type": "Agent Connected",
+    "detail": {
+        "version": 1,
+        "agent": {
+            "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+            "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+            "connection_state": "connected",
+            "name": "my-agent-1",
+            "version": "3.13.2",
+            "ip_address": "3.80.193.183",
+            "hostname": "ip-10-0-2-73.ec2.internal",
+            "pid": "18534",
+            "priority": 0,
+            "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
+            "connected_at": "2019-08-10 09:44:40 UTC",
+            "disconnected_at": null,
+            "lost_at": null
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        },
+        "token": {
+            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+            "created_at": "2019-08-10 07:44:40 UTC",
+            "description": "Default agent token"
+        }
     }
-  }
 }
 ```
 
@@ -557,37 +548,35 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Agent Disconnected",
-  "detail": {
-    "version": 1,
-    "agent": {
-      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
-      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
-      "connection_state": "disconnected",
-      "name": "my-agent-1",
-      "version": "3.13.2",
-      "ip_address": "3.80.193.183",
-      "hostname": "ip-10-0-2-73.ec2.internal",
-      "pid": "18534",
-      "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
-      "connected_at": "2019-08-10 09:44:40 UTC",
-      "disconnected_at": "2019-08-10 09:54:40 UTC",
-      "lost_at": null
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
-    },
-    "token": {
-      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
-      "created_at": "2019-08-10 07:44:40 UTC",
-      "description": "Default agent token"
+    "detail-type": "Agent Disconnected",
+    "detail": {
+        "version": 1,
+        "agent": {
+            "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+            "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+            "connection_state": "disconnected",
+            "name": "my-agent-1",
+            "version": "3.13.2",
+            "ip_address": "3.80.193.183",
+            "hostname": "ip-10-0-2-73.ec2.internal",
+            "pid": "18534",
+            "priority": 0,
+            "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
+            "connected_at": "2019-08-10 09:44:40 UTC",
+            "disconnected_at": "2019-08-10 09:54:40 UTC",
+            "lost_at": null
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        },
+        "token": {
+            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+            "created_at": "2019-08-10 07:44:40 UTC",
+            "description": "Default agent token"
+        }
     }
-  }
 }
 ```
 
@@ -595,37 +584,35 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Agent Lost",
-  "detail": {
-    "version": 1,
-    "agent": {
-      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
-      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
-      "connection_state": "lost",
-      "name": "my-agent-1",
-      "version": "3.13.2",
-      "ip_address": "3.80.193.183",
-      "hostname": "ip-10-0-2-73.ec2.internal",
-      "pid": "18534",
-      "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
-      "connected_at": "2019-08-10 09:44:40 UTC",
-      "disconnected_at": "2019-08-10 09:54:40 UTC",
-      "lost_at": "2019-08-10 09:54:40 UTC"
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
-    },
-    "token": {
-      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
-      "created_at": "2019-08-10 07:44:40 UTC",
-      "description": "Default agent token"
+    "detail-type": "Agent Lost",
+    "detail": {
+        "version": 1,
+        "agent": {
+            "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+            "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+            "connection_state": "lost",
+            "name": "my-agent-1",
+            "version": "3.13.2",
+            "ip_address": "3.80.193.183",
+            "hostname": "ip-10-0-2-73.ec2.internal",
+            "pid": "18534",
+            "priority": 0,
+            "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
+            "connected_at": "2019-08-10 09:44:40 UTC",
+            "disconnected_at": "2019-08-10 09:54:40 UTC",
+            "lost_at": "2019-08-10 09:54:40 UTC"
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        },
+        "token": {
+            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+            "created_at": "2019-08-10 07:44:40 UTC",
+            "description": "Default agent token"
+        }
     }
-  }
 }
 ```
 
@@ -633,37 +620,35 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Agent Stopping",
-  "detail": {
-    "version": 1,
-    "agent": {
-      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
-      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
-      "connection_state": "stopping",
-      "name": "my-agent-1",
-      "version": "3.13.2",
-      "ip_address": "3.80.193.183",
-      "hostname": "ip-10-0-2-73.ec2.internal",
-      "pid": "18534",
-      "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
-      "connected_at": "2019-08-10 09:44:40 UTC",
-      "disconnected_at": null,
-      "lost_at": null
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
-    },
-    "token": {
-      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
-      "created_at": "2019-08-10 07:44:40 UTC",
-      "description": "Default agent token"
+    "detail-type": "Agent Stopping",
+    "detail": {
+        "version": 1,
+        "agent": {
+            "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+            "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+            "connection_state": "stopping",
+            "name": "my-agent-1",
+            "version": "3.13.2",
+            "ip_address": "3.80.193.183",
+            "hostname": "ip-10-0-2-73.ec2.internal",
+            "pid": "18534",
+            "priority": 0,
+            "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
+            "connected_at": "2019-08-10 09:44:40 UTC",
+            "disconnected_at": null,
+            "lost_at": null
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        },
+        "token": {
+            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+            "created_at": "2019-08-10 07:44:40 UTC",
+            "description": "Default agent token"
+        }
     }
-  }
 }
 ```
 
@@ -671,37 +656,35 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
 
 ```json
 {
-  "detail-type": "Agent Stopped",
-  "detail": {
-    "version": 1,
-    "agent": {
-      "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
-      "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
-      "connection_state": "stopped",
-      "name": "my-agent-1",
-      "version": "3.13.2",
-      "ip_address": "3.80.193.183",
-      "hostname": "ip-10-0-2-73.ec2.internal",
-      "pid": "18534",
-      "priority": 0,
-      "meta_data": [
-        "aws:instance-id=i-0ce2c738afbfc6c83"
-      ],
-      "connected_at": "2019-08-10 09:44:40 UTC",
-      "disconnected_at": "2019-08-10 09:54:40 UTC",
-      "lost_at": null
-    },
-    "organization": {
-      "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
-      "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
-      "slug": "my-org"
-    },
-    "token": {
-      "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
-      "created_at": "2019-08-10 07:44:40 UTC",
-      "description": "Default agent token"
+    "detail-type": "Agent Stopped",
+    "detail": {
+        "version": 1,
+        "agent": {
+            "uuid": "288139c5-728d-4c22-88e3-5a926b6c4a51",
+            "graphql_id": "QWdlbnQtLS0yODgxMzljNS03MjhkLTRjMjItODhlMy01YTkyNmI2YzRhNTE=",
+            "connection_state": "stopped",
+            "name": "my-agent-1",
+            "version": "3.13.2",
+            "ip_address": "3.80.193.183",
+            "hostname": "ip-10-0-2-73.ec2.internal",
+            "pid": "18534",
+            "priority": 0,
+            "meta_data": ["aws:instance-id=i-0ce2c738afbfc6c83"],
+            "connected_at": "2019-08-10 09:44:40 UTC",
+            "disconnected_at": "2019-08-10 09:54:40 UTC",
+            "lost_at": null
+        },
+        "organization": {
+            "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
+            "graphql_id": "T3JnYW5pemF0aW9uLS0tYTk4OTYxYjctYWRjMS00MWFhLTg3MjYtY2ZiMmM0NmU0MmUw",
+            "slug": "my-org"
+        },
+        "token": {
+            "uuid": "df75860c-94f9-4275-91cb-3986590f45b5",
+            "created_at": "2019-08-10 07:44:40 UTC",
+            "description": "Default agent token"
+        }
     }
-  }
 }
 ```
 
@@ -716,7 +699,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "cluster_token": {
             "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
             "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
+            "allowed_ip_addresses": "202.144.160.0/24"
         },
         "agent": {
             "uuid": "0188f51c-7bc8-4b14-a702-002c485ae2dc",
@@ -732,7 +715,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
             "meta_data": ["queues=default"],
             "connected_at": "2023-06-26 00:31:04 UTC",
             "disconnected_at": "2023-06-26 00:31:18 UTC",
-            "Lost_at": null,
+            "Lost_at": null
         },
         "organization": {
             "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",
@@ -742,6 +725,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
     }
 }
 ```
+
 <!-- vale off -->
 
 <h3 id="events-cluster-token-registration-blocked">Cluster Token Registration Blocked</h3>
@@ -757,7 +741,7 @@ AWS EventBridge has strict limits on the size of the payload as documented in [A
         "cluster_token": {
             "uuid": "c1164b28-bace-436-ac44-4133e1d18ca5",
             "description": "Default agent token",
-            "allowed_ip_addresses": "202.144.160.0/24",
+            "allowed_ip_addresses": "202.144.160.0/24"
         },
         "organization": {
             "uuid": "a98961b7-adc1-41aa-8726-cfb2c46e42e0",

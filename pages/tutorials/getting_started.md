@@ -10,23 +10,23 @@ keywords: docs, pipelines, tutorials, getting started
 
 To complete this tutorial, you'll need:
 
-- A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
+-   A Buildkite account. If you don't have one already, <a href="<%= url_helpers.signup_path %>">create a free account</a>.
 
     When you create a new organization as part of sign-up, you'll be guided through a flow to create and run a starter pipeline. Complete that before continuing, and keep your agent running to continue using it in this tutorial.
 
-- To enable the YAML steps editor in Buildkite:
+-   To enable the YAML steps editor in Buildkite:
 
-  * Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
-  * Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
+    -   Select _Settings_ > _YAML Migration_ to open the [YAML migration settings](https://buildkite.com/organizations/~/pipeline-migration).
+    -   Select _Use YAML Steps for New Pipelines_, then confirm the action in the modal.
 
-- [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
+-   [Git](https://git-scm.com/downloads). This tutorial uses GitHub, but Buildkite can work with any version control system.
 
 ## Understand the architecture
 
 Before creating a pipeline, take a moment to understand Buildkite's architecture and the advantages it provides. Buildkite uses a hybrid architecture to separate:
 
-- The control panel
-- The build environment
+-   The control panel
+-   The build environment
 
 Buildkite runs the control panel as a SaaS product, and you run the build environment on your own infrastructure. In other words, Buildkite handles the orchestration, and you bring the compute. That means you can fine-tune and secure the build environment to suit your particular use case and workflow.
 
@@ -36,7 +36,7 @@ The hybrid architecture reduces the maintenance burden on your team compared to 
 
 The program that executes work is called an _agent_ in Buildkite. An agent is a small, reliable, and cross-platform build runner that connects your infrastructure to Buildkite. It polls Buildkite for work, runs jobs, and reports results. You can install agents on local machines, cloud servers, or other remote machines. You need at least one agent to run builds.
 
->📘 Already running an agent
+> 📘 Already running an agent
 > If you're already running an agent, skip to the [next step](#create-a-pipeline).
 
 To install and run an agent:
@@ -48,14 +48,15 @@ To install and run an agent:
 1. Follow the instructions for where you want to install the agent.
 
     To install locally, see:
-   * [macOS](/docs/agent/v3/macos#installation)
-   * [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
-   * [Linux](/docs/agent/v3/linux#installation)
-   * [Docker](/docs/agent/v3/docker#running-using-docker)
 
-     Or see [all installation options](/docs/agent/v3/installation).
+    - [macOS](/docs/agent/v3/macos#installation)
+    - [Windows](/docs/agent/v3/windows#automated-install-with-powershell)
+    - [Linux](/docs/agent/v3/linux#installation)
+    - [Docker](/docs/agent/v3/docker#running-using-docker)
 
-     Ensure you configure the agent token, which connects the agent to your Buildkite account.
+        Or see [all installation options](/docs/agent/v3/installation).
+
+        Ensure you configure the agent token, which connects the agent to your Buildkite account.
 
 To confirm that your agent is running, and configured correctly with your credentials, go to [Agents](https://buildkite.com/organizations/~/agents). You should see a list of all agents linked to the account and their status.
 
@@ -65,8 +66,8 @@ _Pipelines_ are how Buildkite represents a CI/CD workflow. You define each pipel
 
 Next, you'll create a new pipeline based on one of the following example pipelines:
 
-- [Bash example](https://github.com/buildkite/bash-example/)
-- [PowerShell example](https://github.com/buildkite/powershell-example/)
+-   [Bash example](https://github.com/buildkite/bash-example/)
+-   [PowerShell example](https://github.com/buildkite/powershell-example/)
 
 Both result in the same behavior: the pipeline definition is uploaded from the repository (`.buildkite/pipeline.yml`), then a script runs that prints output to the logs.
 
@@ -85,8 +86,8 @@ To create a pipeline:
 1. On the _New Pipeline_ page, leave all fields with their pre-filled default values and select _Create Pipeline_. This associates the example repository with your new pipeline, and adds a step to upload the full pipeline definition from the repository.
 1. On the next page showing your pipeline name, click _New Build_. In the modal that opens, create a build using the pre-filled details.
 
-   1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
-   1. Select _Create Build_.
+    1. In the _Message_ field, enter a short description for the build. For example, _My first build_.
+    1. Select _Create Build_.
 
 The page for the build then opens and begins running:
 
@@ -102,10 +103,10 @@ Expand the row in the job list to view the output for a step. For example, selec
 
 In the output, you'll see:
 
-- A pre-command hook ran and printed some text in the logs.
-- The agent checked out the repository.
-- The agent accessed different environment variables shown in the job environment.
-- The script ran and printed text to the logs and uploaded an image as an artifact of the build.
+-   A pre-command hook ran and printed some text in the logs.
+-   The agent checked out the repository.
+-   The agent accessed different environment variables shown in the job environment.
+-   The script ran and printed text to the logs and uploaded an image as an artifact of the build.
 
 Beyond the log, select one of the other tabs to see the artifacts, a timeline breakdown, and the environment variables.
 
@@ -114,4 +115,3 @@ Beyond the log, select one of the other tabs to see the artifacts, a timeline br
 That's it! You've installed an agent, run a build, and checked the output. 🎉
 
 Now try [creating your own pipeline](/docs/pipelines/create-your-own).
-

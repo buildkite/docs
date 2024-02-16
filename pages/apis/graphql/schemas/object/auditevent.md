@@ -14,13 +14,13 @@
 title: AuditEvent – Objects – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   AuditEvent
   <span class="pill pill--object pill--normal-case pill--large"><code>OBJECT</code></span>
 </h1>
 <!-- vale on -->
-
 
 Audit record of an event which occurred in the system
 
@@ -34,9 +34,6 @@ Audit record of an event which occurred in the system
     <tr><td><h3 class="is-small has-pills"><code>actor</code><a href="/docs/apis/graphql/schemas/object/auditactor" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT AuditActor"><code>AuditActor</code></a></h3><p>The actor who caused this event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>context</code><a href="/docs/apis/graphql/schemas/union/auditcontext" class="pill pill--union pill--normal-case pill--medium" title="Go to UNION AuditContext"><code>AuditContext</code></a></h3><p>The context in which this event occurred</p></td></tr><tr><td><h3 class="is-small has-pills"><code>data</code><a href="/docs/apis/graphql/schemas/scalar/json" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR JSON"><code>JSON</code></a></h3><p>The changed data in the event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>id</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3></td></tr><tr><td><h3 class="is-small has-pills"><code>occurredAt</code><a href="/docs/apis/graphql/schemas/scalar/datetime" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR DateTime"><code>DateTime!</code></a></h3><p>The time at which this event occurred</p></td></tr><tr><td><h3 class="is-small has-pills"><code>subject</code><a href="/docs/apis/graphql/schemas/object/auditsubject" class="pill pill--object pill--normal-case pill--medium" title="Go to OBJECT AuditSubject"><code>AuditSubject</code></a></h3><p>The subject of this event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>type</code><a href="/docs/apis/graphql/schemas/enum/auditeventtype" class="pill pill--enum pill--normal-case pill--medium" title="Go to ENUM AuditEventType"><code>AuditEventType!</code></a></h3><p>The type of event</p></td></tr><tr><td><h3 class="is-small has-pills"><code>uuid</code><a href="/docs/apis/graphql/schemas/scalar/id" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR ID"><code>ID!</code></a></h3><p>The public UUID for the event</p></td></tr>
   </tbody>
 </table>
-
-
-
 
 <h2 data-algolia-exclude>Interfaces</h2>
 <div>

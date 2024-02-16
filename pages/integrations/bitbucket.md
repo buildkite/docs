@@ -14,9 +14,9 @@ You can also find these instructions by following the _Bitbucket Setup Instructi
 
 The setup instructions give you:
 
-- A direct link to your Bitbucket repository's _Webhooks_ settings
-- Instructions
-- A custom webhook URL for the pipeline
+-   A direct link to your Bitbucket repository's _Webhooks_ settings
+-   Instructions
+-   A custom webhook URL for the pipeline
 
 <%= image "setup.png", width: 1738/2, height: 764/2, alt: "Screenshot of Bitbucket setup instructions on Buildkite" %>
 

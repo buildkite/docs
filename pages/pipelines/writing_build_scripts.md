@@ -4,7 +4,6 @@ One of the most common actions that Buildkite steps perform is running shell scr
 
 The [Buildkite Agent](/docs/agent/v3) will run your scripts, capture and report the log output, and use the exit status to mark each job, as well as the overall build, as passed or failed.
 
-
 ## Configuring Bash
 
 The shell that runs your scripts in Buildkite is a clean Bash prompt with no settings. If you rely on anything from your `~/.bash_profile` or `~/.bashrc` files when you run scripts locally, you'll need to explicitly add the relevant items to your build scripts.
@@ -46,7 +45,7 @@ run_tests
 
 For a full list of options, see the [Bash reference manual](https://www.gnu.org/software/bash/manual/html_node/The-Set-Builtin.html).
 
->🚧 Unbound variable errors
+> 🚧 Unbound variable errors
 > Note that while enabling the <code>u</code> option is generally a good default to use for all build scripts, it can cause some tools like <a href="https://rvm.io">rvm</a> to fail with “unbound variable” errors. If you encounter errors, you can either remove <code>u</code> from the list of options, or run the tool causing the error wrapped in <code>set +u</code> and <code>set -u</code> to remove the option for only that command. For example: <code>set +u; rvm xxx; set -u</code>.
 
 ## Capturing exit status
@@ -113,7 +112,7 @@ some_command
 
 If you require more environment information, you can execute `env` to print out all the environment variable names and their values. If you use `env` you should filter the output using a tool such as `grep` or `egrep`, to ensure you don't leak private keys or other information.
 
->🚧 Security recommendation
+> 🚧 Security recommendation
 > If you use environment variables to define sensitive data such as API keys or Secret Access Keys, you should always filter the output of <code>env</code> to ensure you're not exposing any secrets in your build log.
 
 For example, the following prints all environment variable names and values containing the words "git" or "node", using a case-insensitive search:

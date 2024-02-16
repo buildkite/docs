@@ -2,13 +2,12 @@
 
 While most test frameworks have a built-in JUnit XML export feature, these JUnit reports do not provide detailed span information. Therefore, features in Test Analytics that depend on span information aren't available when using JUnit as a data source. If you need span information, consider using the [JSON import](/docs/test-analytics/importing-json) API instead.
 
-
 ## Mandatory JUnit XML attributes
 
 The following attributes are mandatory for the `<testcase>` element:
 
-* `classname`: full class name for the class the test method is in.
-* `name`: name of the test method.
+-   `classname`: full class name for the class the test method is in.
+-   `name`: name of the test method.
 
 To learn more about the JUnit XML file format, see [Common JUnit XML format & examples
 ](https://github.com/testmoapp/junitxml).
@@ -23,13 +22,14 @@ To import XML-formatted JUnit test results to Test Analytics using [Test Collect
 
 ```yml
 steps:
-  - label: "🔨 Test"
-    command: "make test"
-    plugins:
-      - test-collector#v1.0.0:
-          files: "test/junit-*.xml"
-          format: "junit"
+    - label: "🔨 Test"
+      command: "make test"
+      plugins:
+          - test-collector#v1.0.0:
+                files: "test/junit-*.xml"
+                format: "junit"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).

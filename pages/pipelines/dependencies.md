@@ -2,7 +2,6 @@
 
 All steps in pipelines have implicit dependencies, often managed with wait and block steps. To manually change the dependency structure of your steps, you can define explicit dependencies with the `depends_on` attribute.
 
-
 ## Implicit dependencies with wait and block
 
 [Wait](/docs/pipelines/wait-step) and [block](/docs/pipelines/block-step) steps provide an implicit dependency structure to your pipeline.
@@ -15,12 +14,13 @@ A wait step, as in the example below, is dependent on all previous steps complet
 
 ```yml
 steps:
-  - command: "one.sh"
-  - command: "two.sh"
-  - wait
-  - command: "three.sh"
-  - command: "four.sh"
+    - command: "one.sh"
+    - command: "two.sh"
+    - wait
+    - command: "three.sh"
+    - command: "four.sh"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 [Block steps](/docs/pipelines/block-step) perform the same function, but also require unblocking either manually or using an API call before the rest of the steps can be run.
@@ -31,11 +31,12 @@ If you are collecting information with your block steps using the `prompt` or `f
 
 ```yml
 steps:
-  - input: "Who is running this script?"
-    fields:
-      - text: "Your name"
-        key: "name"
+    - input: "Who is running this script?"
+      fields:
+          - text: "Your name"
+            key: "name"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 <%= image "input.png", width: 600, height: 268, alt: "Screenshot of an input step titled 'Who is running this script?' with a required 'Your name' text input" %>
@@ -48,51 +49,55 @@ To add a dependency on another step, add the `depends_on` attribute with the `ke
 
 ```yml
 steps:
-  - command: "tests.sh"
-    key: "tests"
-  - command: "build.sh"
-    key: "build"
-    depends_on: "tests"
+    - command: "tests.sh"
+      key: "tests"
+    - command: "build.sh"
+      key: "build"
+      depends_on: "tests"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 In the above example, the second command step (build) will not run until the first command step (tests) has completed. Without the `depends_on` attribute, and given enough agents, these steps would run in parallel.
 
->🚧 <code>depends_on</code> and <code>block</code>/<code>wait</code>
+> 🚧 <code>depends_on</code> and <code>block</code>/<code>wait</code>
 > Note that a step with an explicit dependency specified with the <code>depends_on</code> attribute will run immediately after the dependency step has completed, without waiting for <code>block</code> or <code>wait</code> steps unless those are also explicit dependencies.
 
 Dependencies can also be added as a list of strings, or a list of steps. Both formats use the the step `key` to refer to the step.
 
 ```yml
 steps:
-  - command: "tests.sh"
-    depends_on:
-      - "test-suite"
-      - "another-thing"
+    - command: "tests.sh"
+      depends_on:
+          - "test-suite"
+          - "another-thing"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ```yml
 steps:
-  - command: "tests.sh"
-    depends_on:
-      - step: "test-suite"
-      - step: "another-thing"
+    - command: "tests.sh"
+      depends_on:
+          - step: "test-suite"
+          - step: "another-thing"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
->🚧 Explicit dependencies in uploaded steps
+> 🚧 Explicit dependencies in uploaded steps
 > If a step depends on an upload step, then all steps uploaded by that step become dependencies of the original step. For example, if step B depends on step A, and step A uploads step C, then step B will also depend on step C.
 
 To ensure that a step is not dependent on any other step, add an explicit empty dependency with the `~` character (YAML) or `null` (JSON). This also ensures that the step will run immediately at the start of the build:
 
 ```yml
 steps:
-  - command: "tests.sh"
-  - wait
-  - command: "lint.sh"
-    depends_on: ~
+    - command: "tests.sh"
+    - wait
+    - command: "lint.sh"
+      depends_on: ~
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Even though the second command step in the above example is after a wait step, the empty dependency directs it not to wait until after the `wait` step is complete. Both commands steps will be available to run immediately at the start of the build.
@@ -112,15 +117,16 @@ steps:
       - "built"
       - "blocked-deploy"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Order of operations
 
 There are three step attributes that can each affect when a step is able to run:
 
-* `if`/`branches`
-* `depends_on`
-* `concurrency_group`
+-   `if`/`branches`
+-   `depends_on`
+-   `concurrency_group`
 
 If the step you're dependent on doesn't exist, the build will fail without running the step that is waiting for the dependency.
 
@@ -134,26 +140,28 @@ You can add the `allow_dependency_failure` attribute to any step that has depend
 
 ```yml
 steps:
-  - command: "tests.sh"
-    key: "tests"
-  - command: "build.sh"
-    key: "build"
-    depends_on: "tests"
-    allow_dependency_failure: true
+    - command: "tests.sh"
+      key: "tests"
+    - command: "build.sh"
+      key: "build"
+      depends_on: "tests"
+      allow_dependency_failure: true
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 For finer control, you can explicitly allow or deny failures on an individual dependency basis using the `allow_failure` attribute with a step dependency.
 
 ```yml
 steps:
-  - command: "tests.sh"
-    depends_on:
-      - step: "test-suite"
-        allow_failure: true
-      - step: "another-thing"
-        allow_failure: false
+    - command: "tests.sh"
+      depends_on:
+          - step: "test-suite"
+            allow_failure: true
+          - step: "another-thing"
+            allow_failure: false
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 This pattern is often used to run steps like code coverage or annotations to the build log that will give insight into what failed.
@@ -166,17 +174,18 @@ In the following example, `step-b` will run because `step-a` is soft failing. If
 
 ```yml
 steps:
-  - key: "step-a"
-    command: echo "soft fail" && exit 42
-    soft_fail:
-      - exit_status: 42
+    - key: "step-a"
+      command: echo "soft fail" && exit 42
+      soft_fail:
+          - exit_status: 42
 
-  - key: "step-b"
-    command: echo "Running"
-    depends_on:
-      - "step-a"
-    allow_dependency_failure: false
+    - key: "step-b"
+      command: echo "Running"
+      depends_on:
+          - "step-a"
+      allow_dependency_failure: false
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 ## Allowed failure and waiting states
@@ -185,15 +194,15 @@ Note that steps which do not run due to failed dependencies are in the `waiting_
 
 ```yml
 steps:
-  - command: echo "step-a fails" && exit 1
-    key: step-a
-  - command: echo "step-b does not run" && exit 0
-    key: step-b
-    depends_on:
-      - step: step-a
-  - command: echo "step-c runs even when step-b does not"
-    key: step-c
-    depends_on:
-      - step: step-b
-        allow_failure: true
+    - command: echo "step-a fails" && exit 1
+      key: step-a
+    - command: echo "step-b does not run" && exit 0
+      key: step-b
+      depends_on:
+          - step: step-a
+    - command: echo "step-c runs even when step-b does not"
+      key: step-c
+      depends_on:
+          - step: step-b
+            allow_failure: true
 ```

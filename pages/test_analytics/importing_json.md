@@ -1,6 +1,5 @@
 # Importing JSON
 
-
 If a test collector is not available for your test framework, you can upload tests results directly to the Test Analytics API or [write your own test collector](/docs/test-analytics/your-own-collectors).
 You can upload JSON-formatted test results (described in this page) or [JUnit XML](/docs/test-analytics/importing-junit-xml).
 
@@ -14,13 +13,14 @@ To import [JSON-formatted test results](#json-test-results-data-reference) to Te
 
 ```yml
 steps:
-  - label: "🔨 Test"
-    command: "make test"
-    plugins:
-      - test-collector#v1.0.0:
-          files: "test-data-*.json"
-          format: "json"
+    - label: "🔨 Test"
+      command: "make test"
+      plugins:
+          - test-collector#v1.0.0:
+                files: "test-data-*.json"
+                format: "json"
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 See more configuration information in the [Test Collector plugin README](https://github.com/buildkite-plugins/test-collector-buildkite-plugin).
@@ -132,10 +132,10 @@ Schematically, the JSON test results data is like this:
 <!-- markdownlint-capture -->
 <!-- markdownlint-disable MD007 -->
 
-- [Test results](#json-test-results-data-reference-test-result-objects)
-   + [History](#json-test-results-data-reference-history-objects)
-       - [Spans](#json-test-results-data-reference-span-objects)
-         + [Detail](#json-test-results-data-reference-detail-objects)
+-   [Test results](#json-test-results-data-reference-test-result-objects)
+    -   [History](#json-test-results-data-reference-history-objects)
+        -   [Spans](#json-test-results-data-reference-span-objects)
+            -   [Detail](#json-test-results-data-reference-detail-objects)
 
 <!-- markdownlint-restore -->
 
@@ -143,17 +143,19 @@ Or in a simplified code view:
 
 ```js
 [
-  {
-    /* Test result object */
-    "history": {
-      /* history object */
-      "children": [
-        /* span objects */
-      ]
-    }
-  },
-  { /* Test result object */ },
-]
+    {
+        /* Test result object */
+        history: {
+            /* history object */
+            children: [
+                /* span objects */
+            ],
+        },
+    },
+    {
+        /* Test result object */
+    },
+];
 ```
 
 ### Test result objects
@@ -162,19 +164,19 @@ A test result represents a single test run.
 
 <%
 def render_enumerated_values(values)
-  if values.nil? or values.length == 1
-    return ''
-  end
+if values.nil? or values.length == 1
+return ''
+end
 
-  if values.length == 1
-    return "(<code>#{values[0]}</code>)"
-  end
+if values.length == 1
+return "(<code>#{values[0]}</code>)"
+end
 
-  if values.length == 2
-    return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
-  end
+if values.length == 2
+return "(<code>#{values[0]}</code> or <code>#{values[1]}</code>)"
+end
 
-  return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
+return '(' + values[0..-2].map{|value| "<code>#{value}</code>"}.join(', ') + " or <code>#{values[-1]}</code>)"
 end
 %>
 
@@ -396,4 +398,3 @@ Detail objects contains additional information about the span.
   }
 }
 ```
-

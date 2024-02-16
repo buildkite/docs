@@ -14,6 +14,7 @@
 title: totpDelete – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   totpDelete
@@ -24,8 +25,7 @@ toc: false
 </h1>
 <!-- vale on -->
 
-
-Delete a TOTP configuration.  If a TOTP configuration was active, it will no longer be used for logging on to the user's account. Any Recovery Codes associated with the TOTP configuration will also no longer be usable.  This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
+Delete a TOTP configuration. If a TOTP configuration was active, it will no longer be used for logging on to the user's account. Any Recovery Codes associated with the TOTP configuration will also no longer be usable. This mutation is private, requires an escalated session, and cannot be accessed via the public GraphQL API.
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>

@@ -14,6 +14,7 @@
 title: noticeDismiss – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   noticeDismiss
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Dismisses a notice from the Buildkite UI. This mutation is idempotent so if you dismiss the same notice multiple times, it will return the original `dismissedAt` time
 

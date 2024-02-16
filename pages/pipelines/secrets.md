@@ -2,7 +2,6 @@
 
 When you need to use secret values in your pipelines, there are some best practices you should follow to ensure they stay safely within your infrastructure and are never stored in, or sent to, Buildkite.
 
-
 ## Using a secrets storage service
 
 A best practice for secret storage is to use your own secrets storage service, such as [AWS Secrets Manager](https://aws.amazon.com/secrets-manager/) or [Hashicorp Vault](https://www.vaultproject.io).
@@ -31,6 +30,7 @@ if [[ "$BUILDKITE_PIPELINE_SLUG" == "pipeline-one" ]]; then
   export BUILDKITE_ANALYTICS_TOKEN="oS3AG0eBuUJMWRgkRvek"
 fi
 ```
+
 {: codeblock-file="hooks/environment"}
 
 Adding conditional checks, such as the pipeline slug and step identifier, helps to limit accidental disclosure of secrets.
@@ -38,9 +38,10 @@ For example, suppose you have a step that runs a script expecting a `SECRET_DEPL
 
 ```yml
 steps:
-  - command: scripts/trigger-deploy
-    key: trigger-deploy
+    - command: scripts/trigger-deploy
+      key: trigger-deploy
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 In your `environment` hook, you can export the deployment token only when when the job is the deployment step in a specific pipeline:
@@ -53,6 +54,7 @@ if [[ "$BUILDKITE_PIPELINE_SLUG" == "my-app" && "$BUILDKITE_STEP_KEY" == "trigge
   export SECRET_DEPLOYMENT_ACCESS_TOKEN="bd0fa963610b..."
 fi
 ```
+
 {: codeblock-file="hooks/environment"}
 
 The script exports `SECRET_DEPLOYMENT_ACCESS_TOKEN` only for the named pipeline and step.
@@ -76,6 +78,7 @@ if [[ "$BUILDKITE_STEP_KEY" == "trigger-github-deploy" ]]; then
   export GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN="bd0fa963610b..."
 fi
 ```
+
 {: codeblock-file="env"}
 
 You then upload the `env` file, encrypted, into the secrets S3 bucket with the
@@ -94,7 +97,7 @@ See the [Elastic CI Stack for AWS](https://github.com/buildkite/elastic-ci-stack
 
 You should never store secrets on your Buildkite Pipeline Settings page. Not only does this expose the secret value to Buildkite, but pipeline settings are often returned in REST and GraphQL API payloads.
 
->📘Never store secret values in your Buildkite pipeline settings.
+> 📘Never store secret values in your Buildkite pipeline settings.
 
 ## Anti-pattern: Storing secrets in your pipeline.yml
 
@@ -102,16 +105,17 @@ You should never store secrets in the `env` block at the top of your pipeline st
 
 ```yml
 env:
-  # Security risk! The secret will be sent to and stored by Buildkite, and
-  # be available in the "Uploaded Pipelines" list in the job's Timeline tab.
-  GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN: "bd0fa963610b..."
+    # Security risk! The secret will be sent to and stored by Buildkite, and
+    # be available in the "Uploaded Pipelines" list in the job's Timeline tab.
+    GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN: "bd0fa963610b..."
 
 steps:
-  - command: scripts/trigger-github-deploy
+    - command: scripts/trigger-github-deploy
 ```
+
 {: codeblock-file="pipeline.yml"}
 
->📘 Never store secrets in the <code>env</code> section of your pipeline.
+> 📘 Never store secrets in the <code>env</code> section of your pipeline.
 
 ## Anti-pattern: Referencing secrets in your pipeline YAML
 
@@ -119,16 +123,17 @@ You should never refer to secrets directly in your `pipeline.yml` file, as they 
 
 ```yaml
 steps:
-  # Security risk! The environment variable containing the secret will be
-  # interpolated into the YAML file and then sent to Buildkite.
-  - command: |
-      curl \
-        --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
-        https://api.github.com/repos/my-org/my-app/deployments
+    # Security risk! The environment variable containing the secret will be
+    # interpolated into the YAML file and then sent to Buildkite.
+    - command: |
+          curl \
+            --header "Authorization: token $GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+            --header "Content-Type: application/json" \
+            --request POST \
+            --data "{\"ref\": \"$BUILDKITE_COMMIT\"}" \
+            https://api.github.com/repos/my-org/my-app/deployments
 ```
+
 {: codeblock-file="pipeline.yml"}
 
 Referencing secrets in your steps risks them being interpolated, uploaded to Buildkite, and shown in plain text in the "Uploaded Pipelines" list in the job's Timeline tab.
@@ -139,26 +144,28 @@ To prevent the risk of interpolation, it is recommended that you replace the com
 
 ```yml
 steps:
-  - command: scripts/trigger-github-deploy
+    - command: scripts/trigger-github-deploy
 ```
+
 {: codeblock-file="pipeline.yml"}
 
->📘
+> 📘
 > Use <a href="/docs/pipelines/writing-build-scripts">build scripts</a> instead of <code>command</code> blocks for steps that use secrets.
 
 If you must define your script in your steps, you can prevent interpolation by using the `$$` syntax:
 
 ```yml
 steps:
-  # By using $$ the value of the secret is never sent to Buildkite. This is
-  # still not best practice, as it's easy to forget the additional $ character
-  # and expose the secret.
-  - command: |
-      curl \
-        --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
-        --header "Content-Type: application/json" \
-        --request POST \
-        --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
-        https://api.github.com/repos/my-org/my-app/deployments
+    # By using $$ the value of the secret is never sent to Buildkite. This is
+    # still not best practice, as it's easy to forget the additional $ character
+    # and expose the secret.
+    - command: |
+          curl \
+            --header "Authorization: token $$GITHUB_MY_APP_DEPLOYMENT_ACCESS_TOKEN" \
+            --header "Content-Type: application/json" \
+            --request POST \
+            --data "{\"ref\": \"$$BUILDKITE_COMMIT\"}" \
+            https://api.github.com/repos/my-org/my-app/deployments
 ```
+
 {: codeblock-file="pipeline.yml"}

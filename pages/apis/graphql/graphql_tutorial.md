@@ -5,18 +5,17 @@
 This guide shows you how to query the GraphQL API using the [GraphQL console](https://buildkite.com/user/graphql/console) and from the command line.
 You'll first need a [Buildkite](https://buildkite.com/) account, and a [Buildkite API Access Token](https://buildkite.com/user/api-access-tokens/new) with GraphQL scope.
 
-
 ## Running your first GraphQL request in the console
 
 The following is a GraphQL query that requests the name of the current user (the account attached to the API Access Token, in other words, you!)
 
 ```graphql
 query {
-  viewer {
-    user {
-      name
+    viewer {
+        user {
+            name
+        }
     }
-  }
 }
 ```
 
@@ -24,13 +23,13 @@ Running that in the GraphQL console returns:
 
 ```json
 {
-  "data": {
-    "viewer": {
-      "user": {
-        "name": "Sam Wright"
-      }
+    "data": {
+        "viewer": {
+            "user": {
+                "name": "Sam Wright"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -53,13 +52,13 @@ which returns exactly the same as the query we ran in the explorer:
 
 ```json
 {
-  "data": {
-    "viewer": {
-      "user": {
-        "name": "Sam Wright"
-      }
+    "data": {
+        "viewer": {
+            "user": {
+                "name": "Sam Wright"
+            }
+        }
     }
-  }
 }
 ```
 
@@ -73,20 +72,20 @@ In the this query we're asking for for the current user's most recently created 
 
 ```graphql
 query {
-  viewer {
-    user {
-      name
-      builds(first: 1) {
-        edges {
-          node {
-            number
-            branch
-            message
-          }
+    viewer {
+        user {
+            name
+            builds(first: 1) {
+                edges {
+                    node {
+                        number
+                        branch
+                        message
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 ```
 
@@ -94,23 +93,23 @@ which returns:
 
 ```json
 {
-  "data": {
-    "viewer": {
-      "user": {
-        "name": "Sam Wright",
-        "builds": {
-          "edges": [
-            {
-              "node": {
-                "number": 136,
-                "branch": "main",
-                "message": "Merge pull request #796 from buildkite/docs\n\nImprove API docs"
-              }
+    "data": {
+        "viewer": {
+            "user": {
+                "name": "Sam Wright",
+                "builds": {
+                    "edges": [
+                        {
+                            "node": {
+                                "number": 136,
+                                "branch": "main",
+                                "message": "Merge pull request #796 from buildkite/docs\n\nImprove API docs"
+                            }
+                        }
+                    ]
+                }
             }
-          ]
         }
-      }
     }
-  }
 }
 ```

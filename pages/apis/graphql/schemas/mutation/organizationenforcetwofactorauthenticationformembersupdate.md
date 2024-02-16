@@ -14,6 +14,7 @@
 title: organizationEnforceTwoFactorAuthenticationForMembersUpdate – Mutations – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   organizationEnforceTwoFactorAuthenticationForMembersUpdate
@@ -23,7 +24,6 @@ toc: false
 
 </h1>
 <!-- vale on -->
-
 
 Sets whether the organization requires two-factor authentication for all members.
 

@@ -14,15 +14,13 @@
 title: RepositoryProvider – Interfaces – GraphQL API
 toc: false
 ---
+
 <!-- vale off -->
 <h1 class="has-pills" data-algolia-exclude>
   RepositoryProvider
   <span class="pill pill--interface pill--normal-case pill--large"><code>INTERFACE</code></span>
 </h1>
 <!-- vale on -->
-
-
-
 
 <table class="responsive-table responsive-table--single-column-rows">
   <thead>
@@ -34,11 +32,6 @@ toc: false
     <tr><td><h3 class="is-small has-pills"><code>name</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String!</code></a></h3><p>The name of the provider</p></td></tr><tr><td><h3 class="is-small has-pills"><code>url</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>This URL to the provider’s web interface</p></td></tr><tr><td><h3 class="is-small has-pills"><code>webhookUrl</code><a href="/docs/apis/graphql/schemas/scalar/string" class="pill pill--scalar pill--normal-case pill--medium" title="Go to SCALAR String"><code>String</code></a></h3><p>The URL to use when setting up webhooks from the provider to trigger Buildkite builds</p></td></tr>
   </tbody>
 </table>
-
-
-
-
-
 
 <h2 data-algolia-exclude>Possible types</h2>
 <div><a href="/docs/apis/graphql/schemas/object/repositoryproviderbeanstalk" class="pill pill--object pill--normal-case pill--large" title="Go to OBJECT RepositoryProviderBeanstalk">
