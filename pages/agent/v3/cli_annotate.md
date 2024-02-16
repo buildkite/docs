@@ -145,7 +145,10 @@ The results are piped though to the `buildkite-agent annotate` command:
 
 <%= image "annotations-terminal-output-color.png", alt: "Screenshot of colored terminal output in an annotation" %>
 
-Or for more complex annotations, pipe an entire file to the `buildkite-agent annotate` command:
+>🚧 Limis to `terminal` block rendering 
+Shelling out to `terminal` takes a significant amount of time. Therefore, we have set a limit to the number of `term`/`terminal` code blocks rendered per annotation. The current limit is 10.  
+
+For more complex annotations, pipe an entire file to the `buildkite-agent annotate` command:
 
 ```bash
 printf '%b\n' "$(cat markdown-for-annotation.md)" | buildkite-agent annotate
