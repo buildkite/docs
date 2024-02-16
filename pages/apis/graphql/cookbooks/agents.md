@@ -84,7 +84,7 @@ mutation {
 
 ## Stop an agent
 
-First, get the agent ID. Search for the agent in the org where the `search-string` will match agent name and retrieve the agent ID
+First, get the agent's ID. Search for the agent in the organization where the `search-string` matches the agent name and retrieve the agent's ID.
 
 ```graphql
 query SearchAgent {
