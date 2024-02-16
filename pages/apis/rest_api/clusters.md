@@ -3,7 +3,7 @@
 The clusters API lets you create and manage clusters in your organization.
 
 > 📘 Enable clusters
-> You'll need to [enable clusters](/docs/clusters/overview#enable-clusters) for your organization to use this API.
+> You'll need to [enable clusters](/docs/clusters/overview#enabling-clusters-before-the-release-date) for your organization to use this API.
 
 ## Clusters
 
