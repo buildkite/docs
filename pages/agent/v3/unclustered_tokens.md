@@ -13,7 +13,7 @@ A Buildkite agent requires a token to connect to Buildkite and register for work
 
 <!-- Is this section still valid? Should this instead be called the 'initial unclustered agent token'? -->
 
-Your Buildkite organization's unclustered agent tokens area (accessible through _Agents_ > _Unclustered_ > _Agent Tokens_) may have the _Default agent registration token_, which is the original default token when your organization was created. If you had previously saved this token's value in a safe place, this token can be used for testing and development. However, it's recommended that you [create new, specific tokens](#creating-tokens) for each new environment.
+Your Buildkite organization's unclustered agent tokens area (accessible through _Agents_ > _Unclustered_ > _Agent Tokens_) may have the _Default agent registration token_, which is the original default token when your organization was created. If you had previously saved this token's value in a safe place, this token can be used for testing and development. However, it's recommended that you [create new, specific tokens](#create-a-token) for each new environment.
 
 ## Using and storing tokens
 
