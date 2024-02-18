@@ -1,6 +1,6 @@
 # Unclustered agent tokens
 
-> 🚧 This page documents a deprecated feature of Buildkite
+> 🚧 This page documents a deprecated Buildkite feature
 > Previously, agents only connected to Buildkite directly via a token which was created and managed by the processes described on this page. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines across to a [cluster](/docs/clusters/overview).
 > Agent tokens are now associated with clusters, such that these tokens connect to Buildkite through a specific cluster within an organization. Refer to the main [agent token](/docs/agent/v3/tokens) for details on how to create agent tokens for clusters.
 > Any new Buildkite organizations created after the official release of clusters on February 26, 2024 will not have the ability to create unclustered agents. Therefore, unclustered agent tokens will not be relevant to these organizations.
