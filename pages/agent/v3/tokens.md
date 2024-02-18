@@ -2,7 +2,7 @@
 
 A Buildkite agent requires an agent token to connect to Buildkite and register for work. Agent tokens connect to Buildkite via a [cluster](/docs/clusters/overview), and can be accessed from the cluster's _Agent Tokens_ page.
 
-If you are still managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
+If you are managing agents in an unclustered environment, refer to [unclustered tokens](/docs/agent/v3/unclustered-tokens) instead.
 
 ## The initial agent token
 
@@ -69,9 +69,8 @@ where:
 - The `{cluster.id}` value can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-
-        - Select _Agents_ > the specific cluster > _Settings_.
-        - Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+        1. Select _Agents_ > the specific cluster > _Settings_.
+        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
 
     * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
 
@@ -81,7 +80,7 @@ where:
 
 <!--alex ignore clearly-->
 
-- The `description` value clearly identifies the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
+- The optional `description` value should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
 
 ## Revoke a token
 
@@ -100,7 +99,7 @@ To revoke a cluster's agent token using the Buildkite interface:
 
 ### Using the REST API
 
-To [revoke (delete) an agent token](/docs/apis/rest-api/clusters#agent-tokens-delete-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
+To [revoke an agent token](/docs/apis/rest-api/clusters#agent-tokens-revoke-a-token) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
 ```curl
 curl -H "Authorization: Bearer $TOKEN" \

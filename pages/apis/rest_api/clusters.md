@@ -773,7 +773,7 @@ Error responses:
 </tbody>
 </table>
 
-### Delete a token
+### Revoke a token
 
 ```bash
 curl -X DELETE "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}"
@@ -787,6 +787,6 @@ Error responses:
 
 <table class="responsive-table">
 <tbody>
-  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the token couldn't be deleted" }</code></td></tr>
+  <tr><th><code>422 Unprocessable Entity</code></th><td><code>{ "message": "Reason the token couldn't be revoked" }</code></td></tr>
 </tbody>
 </table>
