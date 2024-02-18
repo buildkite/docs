@@ -21,7 +21,7 @@ An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Creating tokens
+## Create a token
 
 New unclustered agent tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
 
