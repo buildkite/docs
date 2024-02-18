@@ -1,11 +1,11 @@
 # Unclustered agent tokens
 
-> 🚧 This page documents a deprecated feature of Buildkite
+> 🚧 This page documents a deprecated Buildkite feature
 > Previously, agents only connected directly to Buildkite via a token which was created and managed by the processes described on this page. These tokens are now a deprecated feature of Buildkite, and are referred to as _unclustered agent tokens_. Unclustered agent tokens, however, are still available to customers who have not yet migrated their pipelines to a [cluster](/docs/clusters/overview).
 > _Agent tokens_ are now associated with clusters, and connect to Buildkite through a specific cluster within an organization. Refer to [Agent tokens](/docs/agent/v3/tokens) for details on how to manage agent tokens for clusters.
 > It will not be possible to create and work with unclustered agents for any new Buildkite organizations created after the official release of clusters on February 26, 2024. Therefore, unclustered agent tokens will not be relevant to these organizations.
 
-Any Buildkite organizations created before February 26, 2024, have an _Unclustered_ area for managing _unclustered agents_ (accessible through _Agents_ > _Unclustered_ of the Buildkite interface), where an _unclustered agent_ refers to any agent that is not associated with a cluster.
+Any Buildkite organization created before February 26, 2024 has an _Unclustered_ area for managing _unclustered agents_ (accessible through _Agents_ > _Unclustered_ of the Buildkite interface), where an _unclustered agent_ refers to any agent that is not associated with a cluster.
 
 A Buildkite agent requires a token to connect to Buildkite and register for work. If you need to connect an _unclustered agent_ to Buildkite, then you need to create an _unclustered agent token_ to do so.
 
@@ -21,7 +21,7 @@ An unclustered agent token is used by the Buildkite agent's [start](/docs/agent/
 
 It's recommended you use your platform's secret storage (such as the [AWS Systems Manager Parameter Store](https://docs.aws.amazon.com/systems-manager/latest/userguide/systems-manager-paramstore.html)) to allow for easier rollover and management of your agent tokens.
 
-## Creating tokens
+## Create a token
 
 New unclustered agent tokens can be created using the [GraphQL API](/docs/apis/graphql-api) with the `agentTokenCreate` mutation.
 
@@ -63,7 +63,7 @@ The token description should clearly identify the environment the token is inten
 
 It is possible to create multiple unclustered agent tokens using the GraphQL API.
 
-## Revoking tokens
+## Revoke a token
 
 Unclustered agent tokens can be revoked using the [GraphQL API](/docs/apis/graphql/cookbooks/agents#revoke-an-unclustered-agent-token) query with the `agentTokenRevoke ` mutation.
 

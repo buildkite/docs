@@ -33,7 +33,7 @@ To create an agent token for a cluster using the Buildkite interface:
 1. Select _Agent Tokens_ and on this page, select _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
-    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), and is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
+    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
 
 1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses into the _Allowed IP Addresses_ field.
 
