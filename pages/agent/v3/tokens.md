@@ -6,7 +6,7 @@ If you are managing agents in an unclustered environment, refer to [unclustered 
 
 ## The initial agent token
 
-When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. However, it's recommended that you [create new, specific tokens](#create-a-new-token) for each new environment.
+When you create a new organization in Buildkite, an initial agent token is created (called _Initial agent token_ within the _Default cluster_). This token can be used for testing and development and is only revealed once during the organization setup process. It's recommended that you [create new, specific tokens](#create-a-new-token) for each new environment.
 
 ## Using and storing tokens
 
