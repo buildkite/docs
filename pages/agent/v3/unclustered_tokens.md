@@ -63,7 +63,7 @@ The token description should clearly identify the environment the token is inten
 
 It is possible to create multiple unclustered agent tokens using the GraphQL API.
 
-## Revoking tokens
+## Revoke a token
 
 Unclustered agent tokens can be revoked using the [GraphQL API](/docs/apis/graphql/cookbooks/agents#revoke-an-unclustered-agent-token) query with the `agentTokenRevoke ` mutation.
 
