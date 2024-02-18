@@ -5,7 +5,7 @@
 > Agent tokens are now associated with clusters, such that these tokens connect to Buildkite through a specific cluster within an organization. Refer to the main [agent token](/docs/agent/v3/tokens) for details on how to create agent tokens for clusters.
 > Any new Buildkite organizations created after the official release of clusters on February 26, 2024 will not have the ability to create unclustered agents. Therefore, unclustered agent tokens will not be relevant to these organizations.
 
-Any Buildkite organizations created before February 26, 2024, have an _Unclustered_ area for managing _unclustered agents_ (accessible through _Agents_ > _Unclustered_ of the Buildkite interface), where an _unclustered agent_ refers to any agent that is not associated with a cluster.
+Any Buildkite organization created before February 26, 2024 has an _Unclustered_ area for managing _unclustered agents_ (accessible through _Agents_ > _Unclustered_ of the Buildkite interface), where an _unclustered agent_ refers to any agent that is not associated with a cluster.
 
 A Buildkite agent requires a token to connect to Buildkite and register for work. If you need to connect an _unclustered agent_ to Buildkite, then you need to create an _unclustered agent token_ to do so.
 
