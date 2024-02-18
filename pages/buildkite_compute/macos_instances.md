@@ -1,6 +1,23 @@
 ## Mac compute instances
 
-Mac machines are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
+Mac instances are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
+
+To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
+
+### Size
+
+We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a breakdown of the available sizes.
+
+<table>
+    <thead>
+        <tr><th>Size</th><th>vCPU</th><th>RAM</th></tr>
+    </thead>
+    <tbody>
+        <tr><td>Small</td><td>4</td><td>7 GB</td></tr>
+        <tr><td>Medium</td><td>6</td><td>14 GB</td></tr>
+        <tr><td>Large</td><td>12</td><td>28 GB</td></tr>
+    </tbody>
+</table>
 
 ## macOS instances software support
 
@@ -103,7 +120,13 @@ The following software will be made available by default on all standard Mac ins
 - ns
 - nsc
 
-## Libraries
+### Libraries
 
 - libpq
 - GMP
+
+
+## Coming soon
+
+### macOS image configuration in the UI
+We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.

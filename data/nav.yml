@@ -304,6 +304,10 @@
           path: "buildkite-compute/macos-instances"
         - name: "Linux Compute Instances"
           path: "buildkite-compute/linux-instances"
+        - name: "Compute Code Access"
+          path: "buildkite-compute/source-control"
+        - name: "Pipeline Migration"
+          path: "buildkite-compute/pipeline-migration"
     - name: "Clusters"
       children:
         - name: "Overview"
