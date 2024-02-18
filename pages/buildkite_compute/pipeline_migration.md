@@ -1,12 +1,12 @@
 ## Compute pipeline migration
 
-To migrate an existing pipeline to use a compute queue, you must first ensure 
+To migrate an existing pipeline to use a compute queue, you must first ensure:
 
 - Your pipeline is in the same cluster as all the compute queues you wish to target.
 - Each step in the pipeline targets the required compute queue.
-- Source control settings have been updated to allow code access. 
+- Source control settings have been updated to allow code access.
 
-There are different pipeline repository settings required for public and private repos, see below for the relevant instructions. 
+There are different pipeline repository settings required for public and private repositories, see below for the relevant instructions.
 
 ### Private repository
 
@@ -22,8 +22,8 @@ Before completing the following steps ensure you have followed the instructions 
 
 ## Public repository
 
-When accessing a public repository from a Buildkite compute agent, you must ensure the services is using `HTTPS` for checkout. 
+When accessing a public repository from a Buildkite compute agent, you must ensure the services is using `HTTPS` for checkout.
 
 - Navigate to your pipeline settings.
 - Select GitHub from the left menu.  
-- Change the _Checkout using_ to `HTTPS`
+- Change the _Checkout using_ to `HTTPS`.

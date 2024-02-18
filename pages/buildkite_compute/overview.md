@@ -1,6 +1,6 @@
 # What is compute
 
-Buildkite compute provides a fully managed platform for you to run your agents. 
+Buildkite compute provides a fully managed platform for you to run your agents.
 
 With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
@@ -12,13 +12,13 @@ During our private trial phase, we are offering both Mac and Linux agents. We pl
 
 For detailed information about available agent sizes and configuration please see [Mac Compute Instances](/docs/buildkite-compute/macos-instances), and [Linux Compute Instances](/docs/buildkite-compute/linux-instances)
 
-Usage of all instance types is billed on a per-minute basis. 
+Usage of all instance types is billed on a per-minute basis.
 
 Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ## Creating a compute queue
 
-You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements. 
+You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
 For example you may have two queues setup
 
@@ -27,11 +27,11 @@ For example you may have two queues setup
 
 Learn more about best practice queue configuration [here](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues)
 
-To create a compute queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services. 
+To create a compute queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services.
 
 ## Using GitHub repositories in your compute pipelines
 
-Buildkite compute services support both public and private repositories, see [Compute Source Control](/docs/buildkite-compute/source-control) to learn more about setting up code access. 
+Buildkite compute services support both public and private repositories, see [Compute Source Control](/docs/buildkite-compute/source-control) to learn more about setting up code access.
 
 ## Migrating your pipelines to compute services
 
@@ -53,7 +53,7 @@ To do this, you need to be able to securely store secrets like API credentials, 
 
 Buildkite Secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite Agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
 
-Secrets will initially be scoped per-cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret. We have additional work on the roadmap to allow secrets to be scoped per-pipeline. 
+Secrets will initially be scoped per-cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret. We have additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
 Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
