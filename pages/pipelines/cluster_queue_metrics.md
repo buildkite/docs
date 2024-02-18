@@ -53,7 +53,7 @@ Any Buildkite administrator can enable Advanced Queue Metrics for an organizatio
 
 To enable Advanced Queue Metrics:
 
-1. _Clusters_ must be [enabled](/docs/clusters/overview#enable-clusters) first.
+1. _Clusters_ must be [enabled](/docs/clusters/overview#enabling-clusters-before-the-release-date) first.
 1. Navigate to your [organization’s pipeline settings](https://buildkite.com/organizations/~/pipeline-settings).
 1. In _Advanced Queue Metrics_, select _Enable Advanced Queue Metrics_.
 1. Advanced Queue Metrics will now appear on your queue pages.
