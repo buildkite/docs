@@ -300,8 +300,10 @@
       children: 
         - name: "Overview"
           path: "buildkite-compute/overview"
-        - name: "MacOS Instances"
+        - name: "Mac Compute Instances"
           path: "buildkite-compute/macos-instances"
+        - name: "Linux Compute Instances"
+          path: "buildkite-compute/linux-instances"
     - name: "Clusters"
       pill: "beta"
       children:

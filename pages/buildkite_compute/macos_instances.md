@@ -1,8 +1,12 @@
+## Mac compute instances
+
+Mac machines are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
+
 ## macOS instances software support
 
-The following software will be made available on the standard MacOS instances
+The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support. 
 
-### System software:
+### System software
 
 - MacOS 14.1 (Build 23B74)
 - Darwin Kernel 23.1.0
@@ -10,12 +14,12 @@ The following software will be made available on the standard MacOS instances
 - Bash 3.2.57
 - Homebrew
 
-### Xcode:
+### Xcode
 
 - Xcode 14.3.1
 - Xcode 15.2
 
-### Apple runtimes:
+### Apple runtimes
 
 - iOS 16.4
 - iOS 17.2
@@ -25,7 +29,7 @@ The following software will be made available on the standard MacOS instances
 - tvOS 17.2
 - visionOS 1.0
 
-### Other languages and compilers:
+### Other languages and compilers
 
 - GCC 13
 - Clang/LLVM 15
@@ -41,7 +45,7 @@ The following software will be made available on the standard MacOS instances
 - R 4.3
 - Rust 1.75
 
-### Development tools:
+### Development tools
 
 - Git
 - Git LFS
@@ -58,20 +62,20 @@ The following software will be made available on the standard MacOS instances
 - xcbeautify
 - swiftformat
 
-### Servers:
+### Servers
 
 - Apache HTTPD
 - NGINX
 - Postgres 14.10
 
-### Browser automation:
+### Browser automation
 
 - Safari 17.1
 - Chrome 121
 - ChromeDriver
 - Selenium Server
 
-### Assorted tools:
+### Assorted tools
 
 - AWS CLI
 - Azure CLI
@@ -99,7 +103,7 @@ The following software will be made available on the standard MacOS instances
 - ns
 - nsc
 
-## Libraries:
+## Libraries
 
 - libpq
 - GMP

@@ -8,14 +8,7 @@ Buildkite compute is currently in private trials, you need to contact support to
 
 You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
-1. Navigate to the cluster where you want your compute queue to reside. For detailed guidance, see [Manager clusters](/docs/clusters/manage-clusters)
-1. Proceed to the 'Queues' section.
-1. Click on 'New Queue'.
-1. Give your queue a key.
-1. Choose 'Hosted' as the compute.
-1. Select your machine type.
-1. Select your machine architecture.
-1. Select you machine capacity.
+To create a compute queue navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services. 
 
 ### Configuring a compute queue
 
@@ -25,36 +18,29 @@ Once your queue is created you can navigate to settings in the queue and change 
 
 During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
 
+For detailed information about the agents please see [Mac Compute Instances](https://buildkite.com/organizations/~/settings)
+
 Usage of all instance types is billed on a per-minute basis. To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 
-We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a detailed breakdown of the available options.
+We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a breakdown of the available instance sizes.
 
 Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ### Linux
-Linux instances are offered with two architectures.
-
-- ARM
-- AMD64 (x64_86)
-
-To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
 
 #### Size
 <table>
     <thead>
-        <tr><th>Size</th><th>vCPU</th><th>RAM</th><th>Price</th></tr>
+        <tr><th>Size</th><th>vCPU</th><th>RAM</th></tr>
     </thead>
     <tbody>
-        <tr><td>Small</td><td>2</td><td>4 GB</td><td></td></tr>
-        <tr><td>Medium</td><td>4</td><td>8 GB</td><td></td></tr>
-        <tr><td>Large</td><td>8</td><td>32 GB</td><td></td></tr>
+        <tr><td>Small</td><td>2</td><td>4 GB</td></tr>
+        <tr><td>Medium</td><td>4</td><td>8 GB</td></tr>
+        <tr><td>Large</td><td>8</td><td>32 GB</td></tr>
     </tbody>
 </table>
 
 ### Mac
-Mac machines are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
-
-The software available in the standard MacOS instances is listed [here](/docs/buildkite-compute/macos-instances), Please contact support if you require specific software that is not listed
 
 #### Size
 <table>
@@ -62,9 +48,9 @@ The software available in the standard MacOS instances is listed [here](/docs/bu
         <tr><th>Size</th><th>vCPU</th><th>RAM</th><th>Price</th></tr>
     </thead>
     <tbody>
-        <tr><td>Small</td><td>4</td><td>7 GB</td><td></td></tr>
-        <tr><td>Medium</td><td>6</td><td>14 GB</td><td></td></tr>
-        <tr><td>Large</td><td>12</td><td>28 GB</td><td></td></tr>
+        <tr><td>Small</td><td>4</td><td>7 GB</td></tr>
+        <tr><td>Medium</td><td>6</td><td>14 GB</td></tr>
+        <tr><td>Large</td><td>12</td><td>28 GB</td></tr>
     </tbody>
 </table>
 
@@ -109,17 +95,7 @@ We are working on adding functionality in the API to allow configuration of host
 ### macOS image configuration in the UI
 We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
 
-### Docker config editing in the UI for Linux compute
-We are building functionality to allow you to edit the docker config for your linux images within the Buildkite UI
 
-### Cache volumes for Linux instances
-
-Cache volumes will provide:
-- an optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
-- cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
-- flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
-- Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines.
-- Git Mirror caching
 
 ### Buildkite secrets
 
