@@ -102,6 +102,26 @@ To move an unclustered agent across to using a cluster:
 
 1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
 
+### Restrict an agent token's access by IP address
+
+Each agent token can be locked down so that only agents with an allowed IP address can use them to register.
+
+You can set the _Allowed IP Addresses_ when creating a token, or you can modify existing tokens:
+
+1. Navigate to the cluster's _Agent Tokens_.
+1. Select the token to which you wish to restrict access.
+1. Select _Edit_.
+1. Update the _Allowed IP Addresses_ setting, using space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
+1. Select _Save Token_.
+
+Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
+
+Note the following limitations:
+
+- This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given agent token.
+- There is a maximum of 24 CIDR blocks per agent token.
+- IPv6 is currently not supported.
+
 ## Manage maintainers on a cluster
 
 Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
@@ -195,25 +215,9 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
         ```
 
-## Restrict an agent token's access by IP address
+## Delete a cluster
 
-Each agent token can be locked down so that only agents with an allowed IP address can use them to register.
 
-You can set the _Allowed IP Addresses_ when creating a token, or you can modify existing tokens:
-
-1. Navigate to the cluster's _Agent Tokens_.
-1. Select the token to which you wish to restrict access.
-1. Select _Edit_.
-1. Update the _Allowed IP Addresses_ setting, using space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
-1. Select _Save Token_.
-
-Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
-
-Note the following limitations:
-
-- This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given agent token.
-- There is a maximum of 24 CIDR blocks per agent token.
-- IPv6 is currently not supported.
 
 ## Migrate to clusters
 
