@@ -16,7 +16,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a new token
 
-New agent tokens can be created either using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
+New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
@@ -28,9 +28,9 @@ It is possible to create multiple agent tokens (for your Default cluster or any 
 
 To create an agent token for a cluster using the Buildkite interface:
 
-1. Select _Agents_ to access the _Agent Clusters_ page.
-1. Select the cluster to create an agent token for.
-1. Select _Agent Tokens_ and on this page, select _New Token_.
+1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select the cluster that will be associated with this agent token.
+1. Select _Agent Tokens_ > _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
     **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
@@ -40,6 +40,8 @@ To create an agent token for a cluster using the Buildkite interface:
     **Note:** Leave this field empty if there is no need to restrict use of this agent token by network address.
 
 1. Select _Create Token_.
+
+    Follow the instructions to copy and save your token to a secure location and click _Okay, I'm done!_. The new agent token appears on the cluster's _Agent Tokens_ page.
 
 ### Using the REST API
 
@@ -82,6 +84,8 @@ where:
 
 - The optional `description` value should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
 
+The new agent token appears on the cluster's _Agent Tokens_ page.
+
 ## Revoke a token
 
 Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or via the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
@@ -92,7 +96,7 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 
 To revoke a cluster's agent token using the Buildkite interface:
 
-1. Select _Agents_ to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
 1. Select the cluster containing the agent token to revoke.
 1. Select _Agent Tokens_ and on this page, expand the agent token to revoke.
 1. Select _Revoke_ > _Revoke Token_ in the confirmation message.

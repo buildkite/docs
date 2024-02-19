@@ -15,67 +15,126 @@ For smaller organizations, working on smaller projects, this default cluster may
 
 Then it is more convenient to manage these in separate clusters.
 
-Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within them.
+Once your clusters are set up, you can set up one or more additional [queues](/docs/clusters/manage-queues) within them.
+
+> 📘 Default queue
+> Each newly created cluster has its own default queue.
 
 ## Create a new cluster
 
-New clusters can be created either using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or via the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
 
 ### Using the Buildkite interface
 
-To create a new cluster:
+To create a new cluster using the Buildkite interface:
 
-1. Select _Agents_ to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
 1. Select _Create a Cluster_.
 1. On the _New Cluster_ page, enter the mandatory _Name_ for the new cluster.
 1. Enter an optional _Description_ for the cluster. This description appears under the name of cluster's tile on the _Agent Clusters_ page.
-1. Enter an optional _Emoji_ and _Color_ using the recommended syntax.
+1. Enter an optional _Emoji_ and _Color_ using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select _Create Cluster_.
+
+    The new cluster's page is displayed on its _Queues_ page, indicating the cluster's name and its default queue, named _queue_. From this page, you can set up one or more additional [queues](/docs/clusters/manage-queues) within this cluster.
 
 ### Using the REST API
 
+To [create a new cluster](/docs/apis/rest-api/clusters#clusters-create-a-cluster) using the [REST API](/docs/apis/rest-api), run the following example `curl` command:
 
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters" \
+  -H "Content-Type: application/json" \
+  -d '{ 
+    "name": "Open Source",
+    "description": "A place for safely running our open source builds",
+    "emoji": "\:technologist\:",
+    "color": "#FFE0F1"
+  }'
+```
+
+where:
+
+- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+
+- The `{org.slug}` value can be obtained:
+
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+
+    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+        ```
+
+- The mandatory `name` value is the name for the new cluster.
+
+- The optional `description` value is the description that appears under the name of cluster's tile on the _Agent Clusters_ page.
+
+- The optional `emoji` value using the example syntax provides the emoji that appears next to the cluster's name in the Buildkite interface.
+
+- The optional `color` value in hex code syntax (for example, `#FFE0F1`) provides the background color for this emoji.
 
 ## Connect agents to a cluster
 
-Agents are associated with a cluster through the cluster’s agent tokens.
+Agents are associated with a cluster through the cluster's agent tokens. Learn more about this in [Agent tokens](/docs/agent/v3/tokens).
 
-To connect an agent:
-
-1. Navigate to the cluster's _Agent tokens_.
-1. Select _New Token_.
-1. Enter a description.
-1. Select _Create Token_.
-1. Select _Copy to Clipboard_ and save the token somewhere secure.
-1. Select _Okay, I'm done!_
-1. [Use the token](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with [the key from the relevant cluster queue](/docs/agent/v3/queues#setting-an-agents-queue).
+Once you have [created your required agent token/s](/docs/agent/v3/tokens#create-a-new-token), [use them](/docs/agent/v3/tokens#using-and-storing-tokens) with the relevant agents, along with an optional [tag representing the relevant queue in your cluster](/docs/agent/v3/queues#setting-an-agents-queue).
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
+### Moving unclustered agents to a clustered environment
+
+Unclustered agents are those associated with the _Unclustered_ area of the _Agent Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
+
+> 📘 Organizations created after February 26, 2024.
+> Organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required.
+
+To move an unclustered agent across to using a cluster:
+
+1. Stop the unclustered agent (from running). To do this, either terminate the agent's running process (for example, via Ctrl-C on the keyboard) or via the Buildkite interface:
+
+    1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+    1. Select _Unclustered_.
+    1. From the _Unclustered Agents_ page, select the agent to stop and on its page, select _Stop Agent_.
+
+1. [Create a new agent token](/docs/agent/v3/tokens#create-a-new-token) for the cluster the agent will be moved to.
+
+1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
+
+## Manage maintainers on a cluster
+
+Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
+
+As one of these types of users, you can add and manage other users or teams in your Buildkite organization as _maintainers_ of a cluster in the organization. A cluster maintainer can:
+
+- Update or delete the cluster.
+- Manage [agent tokens](/docs/agent/v3/tokens) associated with the cluster.
+- Manage [queues](/docs/clusters/manage-queues) within the cluster.
+- Add pipelines to or remove them from the cluster.
+
+To add a maintainer to a cluster:
+
+1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select the cluster to add a user or team to be a maintainer of the cluster.
+1. Select _Maintainers_ > _Add Maintainer_.
+1. Select if the maintainer will either be a specific _User_ or _Team_ of users.
+1. Select the specific user or team from the drop-down list.
+1. Click _Add Maintainer_ and the user or team is listed on the _Maintainers_ page.
+
+To remove a maintainer from a cluster:
+
+1. From the cluster's _Maintainers_ page, select _Remove_ from the user or team to be removed as a maintainer.
+1. Select _OK_ to confirm this action.
+
 ## Add pipelines to a cluster
 
-Add a pipeline to a cluster to ensure the pipeline’s builds run only on agents connected to that cluster.
+Add a pipeline to a cluster to ensure the pipeline's builds run only on agents connected to that cluster.
 
 To add a pipeline to a cluster:
 
 1. Navigate to the _Pipeline Settings_ for the pipeline.
 1. Under _Cluster Settings_, select the relevant cluster.
-
-## Add maintainers to a cluster
-
-Only Buildkite administrators or users with the [_change organization_ permission](/docs/team-management/permissions) can create clusters.
-
-You can assign other users or teams as a cluster’s maintainers to permit them to manage the cluster. Cluster maintainers can:
-
-- Update or delete the cluster.
-- Manage cluster agent tokens.
-- Add or remove pipelines to the cluster.
-
-To add a maintainer to a cluster:
-
-1. Navigate to the cluster’s _Maintainers_.
-1. Select a user or team.
-1. Click _Add Maintainer_.
 
 ## Restrict an agent token's access by IP address
 
