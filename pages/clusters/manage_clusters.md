@@ -22,7 +22,7 @@ Once your clusters are set up, you can set up one or more additional [queues](/d
 
 ## Create a new cluster
 
-New clusters can be created using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or via the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
 
 ### Using the Buildkite interface
 
@@ -127,14 +127,73 @@ To remove a maintainer from a cluster:
 1. From the cluster's _Maintainers_ page, select _Remove_ from the user or team to be removed as a maintainer.
 1. Select _OK_ to confirm this action.
 
-## Add pipelines to a cluster
+## Move a pipeline to a specific cluster
 
-Add a pipeline to a cluster to ensure the pipeline's builds run only on agents connected to that cluster.
+Move a pipeline to a specific cluster to ensure the pipeline's builds run only on agents connected to that cluster.
 
-To add a pipeline to a cluster:
+> 📘 Associating pipelines with cluster.
+> A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters.
 
-1. Navigate to the _Pipeline Settings_ for the pipeline.
-1. Under _Cluster Settings_, select the relevant cluster.
+A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), or the [REST API's update a pipeline](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) feature.
+
+### Using the Buildkite interface
+
+To move a pipeline to a specific cluster using the Buildkite interface:
+
+1. Select _Pipelines_ in the global navigation to access your organization's list of accessible pipelines.
+1. Select the pipeline to be moved to a specific cluster.
+1. Select _Settings_ to open the pipeline's _General_ settings page.
+1. On this page, select _Change Cluster_ in the _Cluster_ section of this page.
+1. Select the specific target cluster in the dialog and select _Change_.
+
+    The pipeline's _General_ settings page indicates the current cluster the pipeline is associated with. The pipeline will also be visible and accessible from the cluster's _Pipelines_ page.
+
+### Using the REST API
+
+To [move a pipeline to a specific cluster](/docs/apis/rest-api/pipelines#update-a-pipeline) using the [REST API](/docs/apis/rest-api), run the following `curl` command:
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PATCH "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines/{slug}" \
+  -H "Content-Type: application/json" \
+  -d '{ "cluster_id": "xxx" }'
+```
+
+where:
+
+- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+
+- The `{org.slug}` value can be obtained:
+
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+
+    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+        ```
+
+- The `{slug}` value can be obtained:
+
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite, followed by the specific pipeline to be moved to the cluster.
+
+    * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
+        ```
+
+- The `cluster_id` value can be obtained:
+
+    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
+        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
+        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+
+    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+        ```
 
 ## Restrict an agent token's access by IP address
 

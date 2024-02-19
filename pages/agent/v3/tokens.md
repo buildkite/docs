@@ -16,7 +16,7 @@ It's recommended you use your platform's secret storage (such as the [AWS System
 
 ## Create a new token
 
-New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or via the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
+New agent tokens can be created using the [_Agent Tokens_ page of a cluster](#create-a-new-token-using-the-buildkite-interface), or the [REST API's create agent token](#create-a-new-token-using-the-rest-api) feature.
 
 > 📘 An agent token's value is only displayed once
 > As soon as the agent token's value is displayed, copy its value and save it in a secure location.
@@ -33,7 +33,7 @@ To create an agent token for a cluster using the Buildkite interface:
 1. Select _Agent Tokens_ > _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
-    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ > the specific cluster tile > _Agent Tokens_.
+    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster tile > _Agent Tokens_.
 
 1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses into the _Allowed IP Addresses_ field.
 
@@ -71,7 +71,7 @@ where:
 - The `{cluster.id}` value can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
-        1. Select _Agents_ > the specific cluster > _Settings_.
+        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
         1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
 
     * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
@@ -82,13 +82,13 @@ where:
 
 <!--alex ignore clearly-->
 
-- The optional `description` value should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ > the specific cluster > _Agent Tokens_.
+- The optional `description` value should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
 ## Revoke a token
 
-Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or via the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
+Agent tokens can be revoked using the [_Agent Tokens_ page of a cluster](#revoke-a-token-using-the-buildkite-interface), or the [REST API's delete agent token](#revoke-a-token-using-the-rest-api) feature.
 
 Once a token is revoked, no new agents will be able to start with that token. Revoking a token does not affect any connected agents.
 
