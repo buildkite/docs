@@ -195,7 +195,7 @@ where:
 
 - The `{slug}` value can be obtained:
 
-    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite, followed by the specific pipeline to be moved to the cluster.
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite, then accessing the specific pipeline to be moved to the cluster.
 
     * By running the [List pipelines](/docs/apis/rest-api/pipelines#list-pipelines) REST API query to obtain this value from `slug` in the response from the specific pipeline. For example:
 
