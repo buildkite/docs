@@ -4,7 +4,17 @@ This page provides details on how to manage queues within a [cluster](/docs/clus
 
 ## Setting up queues
 
-When a new Buildkite organization is created, along with the automatically created single [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named _Default cluster_) and a queue (named _default-queue_) within this cluster are created.
+When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named _Default cluster_), a default queue (named _default-queue_) within this cluster is also created.
+
+A cluster can be configured with multiple queues, each of which represents a specific combination of your build infrastructure.
+
+- Architecture (x86, arm64 etc)
+- Size of agents (small, medium, large)
+- Type of machine (Mac, GPU, Linux, Windows)
+
+So an example queue would be `small_mac_silicon`.
+
+Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these
 
 ## Create a queue
 

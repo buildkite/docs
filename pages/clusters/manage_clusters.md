@@ -1,6 +1,8 @@
 # Manage clusters
 
-This page provides details on how to manage clusters within your Buildkite organization. For details on how to set up queues within a cluster, refer to [Manage queues](/docs/clusters/manage-queues).
+This page provides details on how to manage clusters within your Buildkite organization.
+
+Learn more about on how to set up queues within a cluster in [Manage queues](/docs/clusters/manage-queues).
 
 ## Setting up clusters
 
@@ -83,16 +85,16 @@ Once you have [created your required agent token/s](/docs/agent/v3/tokens#create
 
 You can also create, edit, and revoke other agent tokens from the cluster’s _Agent tokens_.
 
-### Moving unclustered agents to a clustered environment
+## Move unclustered agents to a cluster
 
-Unclustered agents are those associated with the _Unclustered_ area of the _Agent Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
+Unclustered agents are agents associated with the _Unclustered_ area of the _Agent Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
 > 📘 Organizations created after February 26, 2024.
 > Organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required.
 
 To move an unclustered agent across to using a cluster:
 
-1. Stop the unclustered agent (from running). To do this, either terminate the agent's running process (for example, via Ctrl-C on the keyboard) or via the Buildkite interface:
+1. Stop the unclustered agent (from running). To do this, either terminate the agent's running process (for example, via Ctrl-C on the keyboard) or use the Buildkite interface:
 
     1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
     1. Select _Unclustered_.
@@ -102,25 +104,85 @@ To move an unclustered agent across to using a cluster:
 
 1. [Start the Buildkite agent](/docs/agent/v3/cli-start) using the `--token` value is that of the agent token created in the previous step. Alternatively, configure this agent token's value in the [Buildkite agent's configuration file](/docs/agent/v3/configuration) before starting the agent.
 
-### Restrict an agent token's access by IP address
+If you migrate all your existing agents over to clusters, ensure that all of your pipelines have also been [moved to their relevant clusters](#move-a-pipeline-to-a-specific-cluster). Otherwise, any builds for those pipelines will never find agents to run them.
 
-Each agent token can be locked down so that only agents with an allowed IP address can use them to register.
+## Restrict an agent token's access by IP address
 
-You can set the _Allowed IP Addresses_ when creating a token, or you can modify existing tokens:
+As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with a specific IP address (or range of IP addresses) can use the token to connect to your Buildkite organization (through your cluster).
 
-1. Navigate to the cluster's _Agent Tokens_.
-1. Select the token to which you wish to restrict access.
-1. Select _Edit_.
-1. Update the _Allowed IP Addresses_ setting, using space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing).
-1. Select _Save Token_.
+An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-new-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
 
-Modifying the _Allowed IP Addresses_ forcefully disconnects any existing agents with IP addresses outside the updated value. This prevents the completion of any jobs in progress on those agents.
+> 🚧 Changing the _Allowed IP Addresses_ setting
+> Modifying an agent token's _Allowed IP Addresses_ value forcefully disconnects any existing agents (which were using this token) with IP addresses outside the updated value. This will prevent the completion of any jobs in progress on those agents.
 
-Note the following limitations:
+To remove this IP address restriction from an agent's token, set its _Allowed IP Addresses_ value to its default value of `0.0.0.0/0`.
 
-- This setting does not restrict access to the [Metrics API](/docs/apis/agent-api/metrics) for the given agent token.
+Be aware that an agent token's _Allowed IP Addresses_ setting also has the following limitations:
+
+- Access to the [Metrics API](/docs/apis/agent-api/metrics) for this agent token is not restricted.
 - There is a maximum of 24 CIDR blocks per agent token.
 - IPv6 is currently not supported.
+
+### Using the Buildkite interface
+
+To restrict an existing agent token's access by IP address (via the token's _Allowed IP Addresses_ setting) using the Buildkite interface:
+
+1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select the cluster that will be associated with this agent token.
+1. Select _Agent Tokens_ and expand the agent token whose _Allowed IP Addresses_ setting is to be added or modified.
+1. Select _Edit_.
+1. Update the _Allowed IP Addresses_ setting, using space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to the IP addresses which agents must be accessible through.
+1. Select _Save Token_.
+
+### Using the REST API
+
+To restrict an existing agent token's access by IP address using the REST API, run the following example `curl` command to [update this agent token](/docs/apis/rest-api/clusters#agent-tokens-update-a-token):
+
+```curl
+curl -H "Authorization: Bearer $TOKEN" \
+  -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
+  -H "Content-Type: application/json" \
+  -d '{ "allowed_ip_addresses": "202.144.0.0/24" }'
+```
+
+where:
+
+- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+
+- The `{org.slug}` value can be obtained:
+
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+
+    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+        ```
+
+- The `{cluster.id}` value can be obtained:
+
+    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
+        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
+        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+
+    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+        ```
+
+- The agent token's `{id}` value can be obtained:
+
+    * From the Buildkite URL path when editing the agent token. To do this:
+
+        - Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
+        - Copy the ID value between `/tokens/` and `/edit` in the URL.
+
+    * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
+        ```
 
 ## Manage maintainers on a cluster
 
@@ -152,7 +214,7 @@ To remove a maintainer from a cluster:
 Move a pipeline to a specific cluster to ensure the pipeline's builds run only on agents connected to that cluster.
 
 > 📘 Associating pipelines with cluster.
-> A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters.
+> A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
 A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), or the [REST API's update a pipeline](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) feature.
 
@@ -207,7 +269,7 @@ where:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
         1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
-        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `cluster_id` value.
 
     * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
 
@@ -215,10 +277,5 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
         ```
 
-## Delete a cluster
+<!-- ## Delete a cluster -->
 
-
-
-## Migrate to clusters
-
-If you migrate all your existing agents over to clusters, make sure to add all your pipelines to the relevant clusters. Otherwise, any builds for those pipelines will never find agents to run them.

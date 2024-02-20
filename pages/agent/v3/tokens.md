@@ -35,9 +35,9 @@ To create an agent token for a cluster using the Buildkite interface:
 
     **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster tile > _Agent Tokens_.
 
-1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses into the _Allowed IP Addresses_ field.
+1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses (using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)) into the _Allowed IP Addresses_ field.
 
-    **Note:** Leave this field empty if there is no need to restrict use of this agent token by network address.
+    **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address.
 
 1. Select _Create Token_.
 
@@ -114,7 +114,7 @@ where:
 
 - The `$TOKEN`, `{org.slug}` and `{cluster.id}` values are obtained the same way as those when [creating an agent token using the REST API](#create-a-new-token-using-the-rest-api).
 
-- The `{id}` value can be obtained:
+- The agent token's `{id}` value can be obtained:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
