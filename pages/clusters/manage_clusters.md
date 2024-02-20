@@ -57,9 +57,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The `{org.slug}` value can be obtained:
+- `{org.slug}` can be obtained:
 
     * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
@@ -69,13 +69,13 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
         ```
 
-- The mandatory `name` value is the name for the new cluster.
+- `name` (mandatory) is the name for the new cluster.
 
-- The optional `description` value is the description that appears under the name of cluster's tile on the _Agent Clusters_ page.
+- `description` (optional) is the description that appears under the name of cluster's tile on the _Agent Clusters_ page.
 
-- The optional `emoji` value using the example syntax provides the emoji that appears next to the cluster's name in the Buildkite interface.
+- `emoji` (optional) is the emoji that appears next to the cluster's name in the Buildkite interface and uses the example syntax above.
 
-- The optional `color` value in hex code syntax (for example, `#FFE0F1`) provides the background color for this emoji.
+- `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
 
 ## Connect agents to a cluster
 
@@ -147,9 +147,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The `{org.slug}` value can be obtained:
+- `{org.slug}` can be obtained:
 
     * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
@@ -159,7 +159,7 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
         ```
 
-- The `{cluster.id}` value can be obtained:
+- `{cluster.id}` can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
         1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
@@ -171,7 +171,7 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
         ```
 
-- The agent token's `{id}` value can be obtained:
+- `{id}` is that of the agent token, whose value can be obtained:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
@@ -243,9 +243,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The `{org.slug}` value can be obtained:
+- `{org.slug}` can be obtained:
 
     * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
@@ -255,7 +255,7 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
         ```
 
-- The `{slug}` value can be obtained:
+- `{slug}` can be obtained:
 
     * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite, then accessing the specific pipeline to be moved to the cluster.
 
@@ -265,7 +265,7 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/pipelines"
         ```
 
-- The `cluster_id` value can be obtained:
+- `cluster_id` can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
         1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.

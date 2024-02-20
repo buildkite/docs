@@ -56,9 +56,9 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN` value is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The `{org.slug}` value can be obtained:
+- `{org.slug}` can be obtained:
 
     * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
 
@@ -68,7 +68,7 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
         ```
 
-- The `{cluster.id}` value can be obtained:
+- `{cluster.id}` can be obtained:
 
     * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
         1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
@@ -82,7 +82,7 @@ where:
 
 <!--alex ignore clearly-->
 
-- The optional `description` value should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
+- `description` (optional) should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. To access this page, select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
 
 The new agent token appears on the cluster's _Agent Tokens_ page.
 
@@ -112,9 +112,31 @@ curl -H "Authorization: Bearer $TOKEN" \
 
 where:
 
-- The `$TOKEN`, `{org.slug}` and `{cluster.id}` values are obtained the same way as those when [creating an agent token using the REST API](#create-a-new-token-using-the-rest-api).
+- `$TOKEN` is an [API access token](https://buildkite.com/user/api-access-tokens) scoped to the relevant _Organization_ and _REST API Scopes_ that your agent needs access to in Buildkite.
 
-- The agent token's `{id}` value can be obtained:
+- `{org.slug}` can be obtained:
+
+    * From the end of your Buildkite URL after accessing the _Pipelines_ page of your organization in Buildkite.
+
+    * By running the [List organizations](/docs/apis/rest-api/organizations#list-organizations) REST API query to obtain this value from `slug` in the response. For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
+        ```
+
+- `{cluster.id}` can be obtained:
+
+    * From the _Cluster Settings_ page of your specific cluster that the agent will connect to. To do this:
+        1. Select _Agents_ (in the global navigation) > the specific cluster > _Settings_.
+        1. Once on the _Cluster Settings_ page, copy the `id` parameter value from the _GraphQL API Integration_ section, which is the `{cluster.id}` value.
+
+    * By running the [List clusters](/docs/apis/rest-api/clusters#clusters-list-clusters) REST API query and obtain this value from the `id` in the response associated with the name of your cluster (specified by the `name` value in the response). For example:
+
+        ```curl
+        curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters"
+        ```
+
+- `{id}` is that of the agent token, whose value can be obtained:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
