@@ -24,16 +24,16 @@ Once your clusters are set up, you can set up one or more additional [queues](/d
 
 ## Create a new cluster
 
-New clusters can be created using the [_Agent Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
+New clusters can be created using the [_Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
 
 ### Using the Buildkite interface
 
 To create a new cluster using the Buildkite interface:
 
-1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
 1. Select _Create a Cluster_.
 1. On the _New Cluster_ page, enter the mandatory _Name_ for the new cluster.
-1. Enter an optional _Description_ for the cluster. This description appears under the name of cluster's tile on the _Agent Clusters_ page.
+1. Enter an optional _Description_ for the cluster. This description appears under the name of cluster's tile on the _Clusters_ page.
 1. Enter an optional _Emoji_ and _Color_ using the recommended syntax. This emoji appears next to the cluster's name and the color (in hex code syntax, for example, `#FFE0F1`) provides the background color for this emoji.
 1. Select _Create Cluster_.
 
@@ -69,13 +69,16 @@ where:
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations"
         ```
 
-- `name` (mandatory) is the name for the new cluster.
+- `name` (required) is the name for the new cluster.
 
-- `description` (optional) is the description that appears under the name of cluster's tile on the _Agent Clusters_ page.
+- `description` (optional) is the description that appears under the name of cluster's tile on the _Clusters_ page.
 
 - `emoji` (optional) is the emoji that appears next to the cluster's name in the Buildkite interface and uses the example syntax above.
 
 - `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
+
+> 📘 A default queue is not automatically created.
+> Unlike creating a new cluster through the [Buildkite interface](#create-a-new-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for this new cluster, you will need to manually [create a new queue](/docs/clusters/manage-queues#create-a-new-queue) for it.
 
 ## Connect agents to a cluster
 
@@ -87,7 +90,7 @@ You can also create, edit, and revoke other agent tokens from the cluster’s _A
 
 ## Move unclustered agents to a cluster
 
-Unclustered agents are agents associated with the _Unclustered_ area of the _Agent Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
+Unclustered agents are agents associated with the _Unclustered_ area of the _Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
 > 📘 Organizations created after February 26, 2024.
 > Organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required.
@@ -96,7 +99,7 @@ To move an unclustered agent across to using a cluster:
 
 1. Stop the unclustered agent (from running). To do this, either terminate the agent's running process (for example, via Ctrl-C on the keyboard) or use the Buildkite interface:
 
-    1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+    1. Select _Agents_ in the global navigation to access the _Clusters_ page.
     1. Select _Unclustered_.
     1. From the _Unclustered Agents_ page, select the agent to stop and on its page, select _Stop Agent_.
 
@@ -127,8 +130,8 @@ Be aware that an agent token's _Allowed IP Addresses_ setting also has the follo
 
 To restrict an existing agent token's access by IP address (via the token's _Allowed IP Addresses_ setting) using the Buildkite interface:
 
-1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
-1. Select the cluster that will be associated with this agent token.
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select the cluster associated with the agent token.
 1. Select _Agent Tokens_ and expand the agent token whose _Allowed IP Addresses_ setting is to be added or modified.
 1. Select _Edit_.
 1. Update the _Allowed IP Addresses_ setting, using space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to the IP addresses which agents must be accessible through.
@@ -197,7 +200,7 @@ As one of these types of users, you can add and manage other users or teams in y
 
 To add a maintainer to a cluster:
 
-1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
 1. Select the cluster to add a user or team to be a maintainer of the cluster.
 1. Select _Maintainers_ > _Add Maintainer_.
 1. Select if the maintainer will either be a specific _User_ or _Team_ of users.

@@ -27,26 +27,26 @@ Clusters encapsulate groups of agents and pipelines, enabling the following:
 
 ### How should I structure my clusters
 
-The most common patterns we see for clusters are per stage, type of work or product.
+The most common patterns seen for cluster configurations are based on stage setup, type of work, type of platform/build, or product:
 
-- Stage setup: DEV, TEST, PROD clusters
-- Type of work: Open source vs everything else
-- Type of build: Docker, Android, Mac, ML etc
-- Per product line: For companies with multiple products we see them have a cluster per each individual product.
+- Stage setup: development, test, and production clusters
+- Type of work: open source vs everything else
+- Type of platform/build: Linux, Android, macOS, Windows, Docker, ML, etc
+- Product lines: companies with multiple products often have a cluster configured for each individual product.
 
 You can create as many clusters as your require for your setup.
 
 ### How should I structure my queues
 
-Queues should mimic your infrastructure. The most common queue attributes we see customers use are:
+The most common queue attributes are based on infrastructure set-ups, such as:
 
-- Architecture (x86, arm64 etc)
+- Architecture (x86, arm64, Apple silicon, etc.)
 - Size of agents (small, medium, large)
-- Type of machine (Mac, GPU, Linux, Windows)
+- Type of machine (macOS, Linux, Windows, GPU, etc.)
 
-So an example queue would be `small_mac_silicon`.
+Therefore, an example queue would be `small_mac_silicon`.
 
-Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these
+Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these.
 
 ## Queue metrics
 
@@ -58,7 +58,7 @@ The release of clusters changes how your agents are accessed through the Buildki
 
 If you only have one Cluster with one Queue selecting _Agents_ in the global navigation will take you to your single queue.
 
-If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation will take you to the _Agent Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
+If you have multiple clusters, or unclustered pipelines and agents, selecting _Agents_ in the global navigation will take you to the _Clusters_ page. Once on this page, you can navigate to your agents by selecting the cluster the agents are part of, or _Unclustered_ for agents that were not created as part of a cluster.
 
 ## Enabling clusters before the release date
 

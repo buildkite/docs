@@ -28,7 +28,7 @@ It is possible to create multiple agent tokens (for your Default cluster or any 
 
 To create an agent token for a cluster using the Buildkite interface:
 
-1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
 1. Select the cluster that will be associated with this agent token.
 1. Select _Agent Tokens_ > _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
@@ -96,7 +96,7 @@ Once a token is revoked, no new agents will be able to start with that token. Re
 
 To revoke a cluster's agent token using the Buildkite interface:
 
-1. Select _Agents_ in the global navigation to access the _Agent Clusters_ page.
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
 1. Select the cluster containing the agent token to revoke.
 1. Select _Agent Tokens_ and on this page, expand the agent token to revoke.
 1. Select _Revoke_ > _Revoke Token_ in the confirmation message.

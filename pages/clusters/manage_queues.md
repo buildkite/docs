@@ -6,26 +6,38 @@ This page provides details on how to manage queues within a [cluster](/docs/clus
 
 When a new Buildkite organization is created, along with the automatically created [default cluster](/docs/clusters/manage-clusters#setting-up-clusters) (named _Default cluster_), a default queue (named _default-queue_) within this cluster is also created.
 
-A cluster can be configured with multiple queues, each of which represents a specific combination of your build infrastructure.
+A cluster can be configured with multiple queues, each of which can be used to represent a specific combination of your build infrastructure, based on:
 
-- Architecture (x86, arm64 etc)
+- Architecture (x86-64, arm64, Apple silicon, etc.)
 - Size of agents (small, medium, large)
-- Type of machine (Mac, GPU, Linux, Windows)
+- Type of machine (Mac, Linux, Windows, etc.)
 
-So an example queue would be `small_mac_silicon`.
+Therefore, some example queues might be `mac_medium_x86`, `mac_large_silicon`, etc.
 
-Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these
+Having individual queues according to these breakdowns allows you to scale your agents that all look the same and Buildkite will report on these.
 
-## Create a queue
+## Create a new queue
 
-When you create your first cluster, it will have an initial _default_ queue.
+New queues can be created using the [_Queues_ page of a cluster](#create-a-new-queue-using-the-buildkite-interface), or the [REST API's create a queue](#create-a-new-queue-using-the-rest-api) feature.
 
-To create additional queues:
+When you [create a new cluster](/docs/clusters/manage-clusters#create-a-new-cluster) through the [Buildkite interface](/docs/clusters/manage-clusters#create-a-new-cluster-using-the-buildkite-interface), this cluster automatically has an initial _default_ queue.
 
-1. Navigate to the cluster’s _Queues_.
-1. Select _Create a Queue_.
-1. Enter a key and description.
+### Using the Buildkite interface
+
+To create a new queue using the Buildkite interface:
+
+1. Select _Agents_ in the global navigation to access the _Clusters_ page.
+1. Select the cluster in which to create the new queue.
+1. On the _Queues_ page, select _New Queue_.
+1. Enter a _key_ for the queue, which can only contain letters, numbers, hyphens, and underscores, as valid characters.
+1. Select the _Add description_ checkbox to enter an optional description for the queue. This description appears under the queue's key, which is listed on the _Queues_ page, as well as when viewing the queue's details.
 1. Select _Create Queue_.
+
+    The new queue's details are displayed, indicating the queue's key and its description (if configured).
+
+### Using the REST API
+
+
 
 ## Pause a queue
 
