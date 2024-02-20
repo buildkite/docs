@@ -17,7 +17,7 @@ For smaller organizations, working on smaller projects, this default cluster may
 
 Then it is more convenient to manage these in separate clusters.
 
-Once your clusters are set up, you can set up one or more additional [queues](/docs/clusters/manage-queues) within them.
+Once your clusters are set up, you can set up one or more [queues](/docs/clusters/manage-queues) within each cluster.
 
 ## Create a new cluster
 
@@ -74,8 +74,8 @@ where:
 
 - `color` (optional) provides the background color for this emoji and uses hex code syntax (for example, `#FFE0F1`).
 
-> 📘 A default queue is not automatically created.
-> Unlike creating a new cluster through the [Buildkite interface](#create-a-new-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for this new cluster, you will need to manually [create a new queue](/docs/clusters/manage-queues#create-a-new-queue) for it.
+> 📘 A default queue is not automatically created
+> Unlike creating a new cluster through the [Buildkite interface](#create-a-new-cluster-using-the-buildkite-interface), a default queue is not automatically created using this API call. To create a new/default queue for any new cluster created through an API call, you need to manually [create a new queue](/docs/clusters/manage-queues#create-a-new-queue).
 
 ## Connect agents to a cluster
 
@@ -89,8 +89,8 @@ You can also create, edit, and revoke other agent tokens from the cluster’s _A
 
 Unclustered agents are agents associated with the _Unclustered_ area of the _Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
-> 📘 Organizations created after February 26, 2024.
-> Organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required.
+> 📘 Organizations created after February 26, 2024
+> Buildkite organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required for these newer organizations.
 
 To move an unclustered agent across to using a cluster:
 
@@ -108,14 +108,14 @@ If you migrate all your existing agents over to clusters, ensure that all of you
 
 ## Restrict an agent token's access by IP address
 
-As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with a specific IP address (or range of IP addresses) can use the token to connect to your Buildkite organization (through your cluster).
+As a security measure, each agent token has an optional _Allowed IP Addresses_ setting that can be used to lock down access to the token. When this option is set on an agent token, only agents with an IP address that matches one this agent token's setting can use this token to connect to your Buildkite organization (through your cluster).
 
 An agent token's _Allowed IP Addresses_ setting can be set [when the token is created](/docs/agent/v3/tokens#create-a-new-token), or this setting can be added to or modified on existing agent tokens, using the [_Agent Tokens_ page of a cluster](#restrict-an-agent-tokens-access-by-ip-address-using-the-buildkite-interface), or the [REST API's update agent token](#restrict-an-agent-tokens-access-by-ip-address-using-the-rest-api) feature.
 
 > 🚧 Changing the _Allowed IP Addresses_ setting
-> Modifying an agent token's _Allowed IP Addresses_ value forcefully disconnects any existing agents (which were using this token) with IP addresses outside the updated value. This will prevent the completion of any jobs in progress on those agents.
+> Modifying an agent token's _Allowed IP Addresses_ setting forcefully disconnects any existing agents (using this token) with an IP address that no longer matches one of the values of this updated setting. This will prevent the completion of any jobs in progress on those agents.
 
-To remove this IP address restriction from an agent's token, set its _Allowed IP Addresses_ value to its default value of `0.0.0.0/0`.
+To remove this IP address restriction from an agent's token, explicitly set its _Allowed IP Addresses_ value to its default value of `0.0.0.0/0`.
 
 Be aware that an agent token's _Allowed IP Addresses_ setting also has the following limitations:
 
@@ -142,7 +142,7 @@ To restrict an existing agent token's access by IP address using the REST API, r
 curl -H "Authorization: Bearer $TOKEN" \
   -X PUT "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens/{id}" \
   -H "Content-Type: application/json" \
-  -d '{ "allowed_ip_addresses": "202.144.0.0/24" }'
+  -d '{ "allowed_ip_addresses": "192.0.2.0/24 198.51.100.12" }'
 ```
 
 where:
@@ -175,7 +175,7 @@ where:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
-        - Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
+        - Select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
         - Copy the ID value between `/tokens/` and `/edit` in the URL.
 
     * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
@@ -183,6 +183,8 @@ where:
         ```curl
         curl -H "Authorization: Bearer $TOKEN" "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/tokens"
         ```
+
+- `allowed_ip_addresses` is/are the IP addresses which agents must be accessible through to access this agent token and be able to connect to Buildkite via your cluster. Use space-separated [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing) to enter IP addresses for this field value.
 
 ## Manage maintainers on a cluster
 
@@ -213,7 +215,7 @@ To remove a maintainer from a cluster:
 
 Move a pipeline to a specific cluster to ensure the pipeline's builds run only on agents connected to that cluster.
 
-> 📘 Associating pipelines with cluster.
+> 📘 Associating pipelines with cluster
 > A pipeline can only be associated with one cluster at a time. It is not possible to associate a pipeline with two or more clusters simultaneously.
 
 A pipeline can be moved to a cluster via the pipeline's [_General_ settings page](#move-a-pipeline-to-a-specific-cluster-using-the-buildkite-interface), or the [REST API's update a pipeline](#move-a-pipeline-to-a-specific-cluster-using-the-rest-api) feature.

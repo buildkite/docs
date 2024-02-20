@@ -480,7 +480,7 @@ Error responses:
 
 ### Pause a queue
 
-[Pause a queue](/docs/clusters/manage-queues#pause-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
+[Pause a queue](/docs/clusters/manage-queues#pause-and-resume-a-queue) to prevent jobs from being dispatched to agents associated with the queue.
 
 ```bash
 curl -X POST "https://api.buildkite.com/v2/organizations/{org.slug}/clusters/{cluster.id}/queues/{id}/pause_dispatch" \

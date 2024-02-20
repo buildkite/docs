@@ -33,11 +33,11 @@ To create an agent token for a cluster using the Buildkite interface:
 1. Select _Agent Tokens_ > _New Token_.
 1. In the _Description_ field, enter an appropriate description for the agent token.
 
-    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster tile > _Agent Tokens_.
+    **Note:** The token description should clearly identify the environment the token is intended to be used for (for example, `Read-only token for static site generator`), as it is listed on the _Agent tokens_ page of your specific cluster the agent connects to. This page can be accessed by selecting _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_.
 
 1. If you need to restrict which network addresses are allowed to use this agent token, enter these addresses (using [CIDR notation](https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)) into the _Allowed IP Addresses_ field.
 
-    **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address.
+    **Note:** Leave this field empty if there is no need to restrict the use of this agent token by network address. Learn more about this feature in [Restrict an agent token's access by IP address](/docs/clusters/manage-clusters#restrict-an-agent-tokens-access-by-ip-address).
 
 1. Select _Create Token_.
 
@@ -140,7 +140,7 @@ where:
 
     * From the Buildkite URL path when editing the agent token. To do this:
 
-        - Select _Agents_ > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
+        - Select _Agents_ (in the global navigation) > the specific cluster > _Agent Tokens_ > expand the agent token > _Edit_.
         - Copy the ID value between `/tokens/` and `/edit` in the URL.
 
     * By running the [List tokens](/docs/apis/rest-api/clusters#agent-tokens-list-tokens) REST API query and obtain this value from the `id` in the response associated with the description of your token (specified by the `description` value in the response). For example:
