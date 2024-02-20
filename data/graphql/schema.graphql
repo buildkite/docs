@@ -1484,46 +1484,6 @@ type BuildRebuildPayload {
   rebuild: Build!
 }
 
-"""
-All the possible build retention periods, depending on your billing plan
-"""
-enum BuildRetentionPeriods {
-  """
-  30 days
-  """
-  DAYS_30
-
-  """
-  60 days
-  """
-  DAYS_60
-
-  """
-  90 days
-  """
-  DAYS_90
-
-  """
-  12 months
-  """
-  MONTHS_12
-
-  """
-  18 months
-  """
-  MONTHS_18
-
-  """
-  6 months
-  """
-  MONTHS_6
-
-  """
-  2 years
-  """
-  YEARS_2
-}
-
 interface BuildSource {
   name: String!
 }
@@ -6323,22 +6283,6 @@ type Pipeline implements Node {
   A branch filter pattern to limit which pushed branches trigger builds on this pipeline.
   """
   branchConfiguration: String
-
-  """
-  Choose to keep builds or remove them after a set time period. Pipelines are
-  scanned once a day for builds that can be removed according to these settings.
-  """
-  buildRetentionEnabled: Boolean @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  The minimum number of builds to keep in the pipeline regardless of how old the builds are.
-  """
-  buildRetentionNumber: Int @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  How long is a build kept before it is automatically removed.
-  """
-  buildRetentionPeriod: BuildRetentionPeriods @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
 
   """
   Returns the builds for this pipeline
