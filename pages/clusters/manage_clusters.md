@@ -19,9 +19,6 @@ Then it is more convenient to manage these in separate clusters.
 
 Once your clusters are set up, you can set up one or more additional [queues](/docs/clusters/manage-queues) within them.
 
-> 📘 Default queue
-> Each newly created cluster has its own default queue.
-
 ## Create a new cluster
 
 New clusters can be created using the [_Clusters_ page](#create-a-new-cluster-using-the-buildkite-interface), or the [REST API's create a cluster](#create-a-new-cluster-using-the-rest-api) feature.
