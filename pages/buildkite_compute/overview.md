@@ -14,7 +14,7 @@ For detailed information about available agent sizes and configuration please se
 
 Usage of all instance types is billed on a per-minute basis.
 
-Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
+Every Buildkite-hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ## Creating a compute queue
 
