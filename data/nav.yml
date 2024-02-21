@@ -306,7 +306,7 @@
           path: "buildkite-compute/linux-instances"
         - name: "Hosted agents code access"
           path: "buildkite-compute/source-control"
-        - name: "Pipeline Migration"
+        - name: "Pipeline migration"
           path: "buildkite-compute/pipeline-migration"
     - name: "Clusters"
       children:
