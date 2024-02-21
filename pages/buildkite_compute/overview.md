@@ -43,7 +43,7 @@ Learn more about migrating existing pipelines to Buildkite hosted agent services
 Buildkite is working on adding functionality in the API to allow configuration of hosted queues.
 
 ### macOS image configuration in the UI
-We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
+Buildkite is building the ability to choose the software versions you require to be installed on the macOS instances used in your queues.
 
 ### Buildkite secrets
 
