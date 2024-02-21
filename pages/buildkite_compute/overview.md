@@ -16,7 +16,7 @@ Usage of all instance types is billed on a per-minute basis.
 
 Every Buildkite-hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
-## Creating a compute queue
+## Creating a hosted agent queue
 
 You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
