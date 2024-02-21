@@ -1,4 +1,4 @@
-## Compute code access
+## Hosted agents code access
 
 This page details changes that need to be made to the GitHub integration to provide code access to the Buildkite compute agents see [Pipeline Migration](/docs/buildkite-compute/pipeline-migration) for changes that may need to be completed at an individual pipeline level.
 
