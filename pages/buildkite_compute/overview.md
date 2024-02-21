@@ -1,4 +1,4 @@
-# What is compute
+# What are hosted agents
 
 Buildkite compute provides a fully managed platform for you to run your agents.
 
