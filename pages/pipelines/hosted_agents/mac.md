@@ -1,6 +1,6 @@
 ## Mac hosted agents
 
-Mac instances for hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
+Mac instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
 
