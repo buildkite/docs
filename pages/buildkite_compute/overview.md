@@ -72,7 +72,7 @@ Until Buildkite secrets is available and if you would like to continue [using yo
 
 ### Ability to SSH into a machine
 
-We are working on allowing direct SSH access into the compute instances.
+Buildkite is working on allowing direct SSH access into its hosted agents feature.
 
 ### Usage metrics
 
