@@ -1,4 +1,4 @@
-## Linux compute instances
+## Linux hosted agents
 
 Linux instances are offered with two architectures.
 
