@@ -31,7 +31,7 @@ To create a hosted agent queue, navigate to the cluster where you want your comp
 
 ## Using GitHub repositories in your hosted agent pipelines
 
-Buildkite compute services support both public and private repositories, see [Compute Source Control](/docs/buildkite-compute/source-control) to learn more about setting up code access.
+Buildkite compute services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/buildkite-compute/source-control).
 
 ## Migrating your pipelines to compute services
 
