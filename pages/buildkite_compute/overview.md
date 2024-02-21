@@ -6,7 +6,7 @@ With hosted agents, the infrastructure management tasks traditionally handled by
 
 Buildkite hosted agents is currently in private trials. You'll need to contact support to express interest and have this service activated for your organization.
 
-## Compute types
+## Hosted agent types
 
 During the private trial phase, Buildkite is offering both Mac- and Linux-hosted agents. Buildkite plans to extend these services to include Windows-hosted agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
 
