@@ -29,7 +29,7 @@ Learn more about [best practices for configuring queues](/docs/clusters/overview
 
 To create a hosted agent queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
 
-## Using GitHub repositories in your compute pipelines
+## Using GitHub repositories in your hosted agent pipelines
 
 Buildkite compute services support both public and private repositories, see [Compute Source Control](/docs/buildkite-compute/source-control) to learn more about setting up code access.
 
