@@ -4,7 +4,7 @@ Buildkite hosted agents provides a fully-managed platform on which you can run y
 
 With hosted agents, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
-Buildkite hosted agents is currently in private trials. You'll need to contact support to express interest and have this service activated for your organization.
+Buildkite hosted agents is currently in private trials. You'll need to contact support to express interest in this feature. Buildkite will then contact you about this trial before activating this feature for your organization.
 
 ## Hosted agent types
 
