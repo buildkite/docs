@@ -47,7 +47,7 @@ Buildkite is building the ability to choose the software versions you require to
 
 ### Buildkite secrets
 
-Only in the rarest cases does CI not need to access outside services, and in these cases, the usability of the CI is severely limited. To use CI effectively - and to move toward CD, continuous deployment - your CI system needs to be able to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
+In many, if not most cases, continuous integration (CI) pipelines need to access outside services, which can severely limit the usability of CI. To use CI effectively—and to move toward continuous deployment (CD)—your CI/CD system needs to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
 
 To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use them safely and effectively in your builds. Buildkite Secrets provides a way to do this - we'll securely store your secrets, and provide a way for you to access them in your builds.
 
