@@ -40,4 +40,4 @@ Cache volumes will provide:
 - Cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, these pipelines will all reference and benefit from the same cache volume, ensuring consistency and speed.
 - Flexibility with size, starting from as little as 5GB with auto-scaling up to 249 GB.
 - Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines.
-- Git Mirror caching
+- Git mirror caching
