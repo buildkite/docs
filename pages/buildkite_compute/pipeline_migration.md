@@ -6,7 +6,7 @@ To migrate an existing pipeline to use a hosted agents queue, you must first ens
 - Each step in the pipeline targets the required hosted agent queue.
 - Source control settings have been updated to allow code access.
 
-There are different pipeline repository settings required for public and private repositories, see below for the relevant instructions.
+Different pipeline settings are required for public and private repositories, see below for the relevant instructions.
 
 ### Private repository
 
