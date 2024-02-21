@@ -10,7 +10,7 @@ Different pipeline settings are required for public and private repositories, se
 
 ### Private repository
 
-Before completing the following steps ensure you have followed the instructions in [Private Repository Access](/docs/buildkite-compute/source-control#compute-code-access-private-repositories).
+Ensure you have followed the instructions in [Private Repository Access](/docs/buildkite-compute/source-control#compute-code-access-private-repositories) before completing the following steps.
 
 - Set your pipeline to use the GitHub (with code access) service you authorized in the step above.
 - Navigate to your pipeline settings.
