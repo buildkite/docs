@@ -1,6 +1,6 @@
 # What are hosted agents
 
-Buildkite compute provides a fully managed platform for you to run your agents.
+Buildkite hosted agents provides a fully-managed platform on which you can run your agents.
 
 With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
