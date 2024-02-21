@@ -18,7 +18,7 @@ Every Buildkite-hosted agent within a cluster benefits from hypervisor-level iso
 
 ## Creating a hosted agent queue
 
-You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
+You can set up distinct hosted agent queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
 For example you may have two queues setup
 
