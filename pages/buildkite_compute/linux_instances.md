@@ -29,7 +29,8 @@ To configure your Linux instance you can use the [Docker Compose](https://github
 ## Coming soon
 
 ### Docker config editing in the UI
-We are building functionality to allow you to edit the docker config for your linux images within the Buildkite UI
+
+Buildkite is developing functionality to allow you to edit the docker config for your linux images within the Buildkite UI
 
 ### Cache volumes
 
