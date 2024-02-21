@@ -1,6 +1,6 @@
 ## Linux hosted agents
 
-Linux instances are offered with two architectures:
+Linux instances for hosted agents are offered with two architectures:
 
 - ARM
 - AMD64 (x64_86)

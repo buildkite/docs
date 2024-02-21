@@ -1,6 +1,6 @@
 ## Mac hosted agents
 
-Mac instances are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
+Mac instances for hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
 
@@ -19,7 +19,7 @@ We offer a selection of instance sizes, allowing you to tailor your hosted agent
     </tbody>
 </table>
 
-## macOS instances software support
+## Mac instances software support
 
 The following software will be made available by default on all standard Mac instances during the trial. If you have specific requirements for software that is not listed here, please contact support.
 
