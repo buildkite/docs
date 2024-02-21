@@ -23,6 +23,7 @@ Buildkite offers a selection of instance sizes, allowing you to tailor your host
 </table>
 
 ### Image configuration
+
 To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
 
 ## Coming soon
