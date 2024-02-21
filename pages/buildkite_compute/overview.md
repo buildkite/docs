@@ -35,7 +35,7 @@ Buildkite compute services support both public and private repositories. Learn m
 
 ## Migrating your pipelines to compute services
 
-You can migrate existing pipelines to compute services, to learn more see [Compute Pipeline Migration](/docs/buildkite-compute/pipeline-migration)
+Learn more about migrating existing pipelines to Buildkite hosted agent services in [Hosted agent pipeline migration](/docs/buildkite-compute/pipeline-migration).
 
 ## Coming soon
 
