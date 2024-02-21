@@ -76,7 +76,4 @@ Buildkite is working on allowing direct SSH access into its hosted agents featur
 
 ### Usage metrics
 
-Enhanced usage metrics across your compute queues.
-
-
-
+Enhanced usage metrics across your hosted agents' queues.
