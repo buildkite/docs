@@ -129,4 +129,5 @@ The following software will be made available by default on all standard Mac ins
 ## Coming soon
 
 ### macOS image configuration in the UI
-We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
+
+Buildkite is developing the ability to choose the software versions you require to be installed on the macOS instances used in your queues.
