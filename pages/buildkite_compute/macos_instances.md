@@ -25,7 +25,7 @@ The following software will be made available by default on all standard Mac ins
 
 ### System software
 
-- MacOS 14.1 (Build 23B74)
+- macOS 14.1 (Build 23B74)
 - Darwin Kernel 23.1.0
 - Rosetta 2
 - Bash 3.2.57
