@@ -1,4 +1,4 @@
-## Mac compute instances
+## Mac hosted agents
 
 Mac instances are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
@@ -6,7 +6,7 @@ To accommodate different workloads, instances are capable of running up to 4 hou
 
 ### Size
 
-We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a breakdown of the available sizes.
+We offer a selection of instance sizes, allowing you to tailor your hosted agent resources to the demands of your jobs. Below is a breakdown of the available sizes.
 
 <table>
     <thead>

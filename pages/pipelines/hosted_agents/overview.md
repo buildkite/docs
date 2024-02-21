@@ -8,9 +8,9 @@ Buildkite hosted agents is currently in private trials. You'll need to contact s
 
 ## Hosted agent types
 
-During the private trial phase, Buildkite is offering both Mac- and Linux-hosted agents. Buildkite plans to extend these services to include Windows-hosted agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
+During the private trial phase, Buildkite is offering both Mac and Linux hosted agents. Buildkite plans to extend these services to include Windows hosted agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
 
-For detailed information about available agent sizes and configuration please see [Mac Compute Instances](/docs/buildkite-compute/macos-instances), and [Linux Compute Instances](/docs/buildkite-compute/linux-instances)
+For detailed information about available agent sizes and configuration please see [Mac hosted agents](/docs/pipelines/hosted-agents/mac), and [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
 Usage of all instance types is billed on a per-minute basis.
 
@@ -27,15 +27,15 @@ For example you may have two queues set up:
 
 Learn more about [best practices for configuring queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
 
-To create a hosted agent queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
+To create a hosted agent queue, navigate to the cluster where you want your hosted agent queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
 
 ## Using GitHub repositories in your hosted agent pipelines
 
-Buildkite compute services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/buildkite-compute/source-control).
+Buildkite hosted agent services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/pipelines/hosted-agents/code-access).
 
-## Migrating your pipelines to compute services
+## Migrating your pipelines to hosted agent services
 
-Learn more about migrating existing pipelines to Buildkite hosted agent services in [Hosted agent pipeline migration](/docs/buildkite-compute/pipeline-migration).
+Learn more about migrating existing pipelines to Buildkite hosted agent services in [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration).
 
 ## Coming soon
 
