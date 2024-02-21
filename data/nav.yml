@@ -295,7 +295,7 @@
               path: "pipelines/scheduled-builds"
             - name: "Archive and delete"
               path: "pipelines/archiving-and-deleting-pipelines"
-    - name: "Buildkite Compute"
+    - name: "Hosted agents"
       pill: "private trials"
       children: 
         - name: "Overview"
