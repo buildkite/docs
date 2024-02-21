@@ -9,7 +9,7 @@ To accommodate different workloads, instances are capable of running up to 8 hou
 
 ### Size
 
-We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a breakdown of the available sizes.
+Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available sizes.
 
 <table>
     <thead>
