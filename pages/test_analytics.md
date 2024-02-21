@@ -23,6 +23,7 @@ Test Analytics helps you track and analyze the steps in that pipeline that invol
   <%= button ":ruby: minitest", "/docs/test-analytics/ruby-collectors#minitest-collector" %>
   <%= button ":jest: Jest", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jest" %>
   <%= button ":mocha: Mocha", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-mocha" %>
+  <%= button ":cypress: Cypress", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-cypress" %>
   <%= button ":jasmine: Jasmine", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-jasmine" %>
   <%= button ":playwright: Playwright", "/docs/test-analytics/javascript-collectors#configure-the-test-framework-playwright" %>
   <%= button ":swift: Swift", "/docs/test-analytics/swift-collectors" %>
