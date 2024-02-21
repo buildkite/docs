@@ -304,7 +304,7 @@
           path: "buildkite-compute/macos-instances"
         - name: "Linux hosted agents"
           path: "buildkite-compute/linux-instances"
-        - name: "Compute Code Access"
+        - name: "Hosted agents code access"
           path: "buildkite-compute/source-control"
         - name: "Pipeline Migration"
           path: "buildkite-compute/pipeline-migration"
