@@ -8,7 +8,7 @@ To learn more about changes that may need to be completed at an individual pipel
 
 During the trial, access to private repositories is only supported through GitHub. If you have requirements to access private repositories from another source control service, please contact support.
 
-To use a private GitHub repository with Buildkite compute services you will need to authorize Buildkite to access your repository.
+To use a private GitHub repository with Buildkite hosted agent services you will need to authorize Buildkite to access your repository.
 
 1. Navigate to your Buildkite org settings page [here](https://buildkite.com/organizations/~/settings).
 1. On the left hand menu select _Repository Providers_.
