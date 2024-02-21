@@ -6,7 +6,7 @@ To learn more about changes that may need to be completed at an individual pipel
 
 ### Private repositories
 
-During the trial we only support accessing private repositories through GitHub, if you have requirements to access private repositories from another source control service please contact support.
+During the trial, access to private repositories is only supported through GitHub. If you have requirements to access private repositories from another source control service, please contact support.
 
 To use a private GitHub repository with Buildkite compute services you will need to authorize Buildkite to access your repository.
 
