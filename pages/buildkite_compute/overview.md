@@ -55,7 +55,7 @@ Buildkite secrets are an encrypted key-value store, where secrets are available 
 
 Secrets will initially be scoped per-cluster—that is, agents not associated with cluster a secret belongs to will not be able to access that secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
-Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
+Until Buildkite secrets is available and if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
 <table>
     <thead>
