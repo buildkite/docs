@@ -20,7 +20,7 @@ Every Buildkite-hosted agent within a cluster benefits from hypervisor-level iso
 
 You can set up distinct hosted agent queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
-For example you may have two queues setup
+For example you may have two queues set up:
 
 * `mac_small_7gb`
 * `mac_large_32gb`
