@@ -1,6 +1,6 @@
 ## Mac compute instances
 
-Mac instances are only offered with Mac silicon architecture. Please contact support if you have specific needs for Intel machines.
+Mac instances are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
 
@@ -25,7 +25,7 @@ The following software will be made available by default on all standard Mac ins
 
 ### System software
 
-- MacOS 14.1 (Build 23B74)
+- macOS 14.1 (Build 23B74)
 - Darwin Kernel 23.1.0
 - Rosetta 2
 - Bash 3.2.57
@@ -129,4 +129,5 @@ The following software will be made available by default on all standard Mac ins
 ## Coming soon
 
 ### macOS image configuration in the UI
-We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
+
+Buildkite is developing the ability to choose the software versions you require to be installed on the macOS instances used in your queues.

@@ -1,61 +1,61 @@
-# What is compute
+# What are hosted agents
 
-Buildkite compute provides a fully managed platform for you to run your agents.
+Buildkite hosted agents provides a fully-managed platform on which you can run your agents.
 
-With Compute Services, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
+With hosted agents, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
 
-Buildkite compute is currently in private trials, you need to contact support to express interest and have the service switched on for your organization.
+Buildkite hosted agents is currently in private trials. You'll need to contact support to express interest and have this service activated for your organization.
 
-## Compute types
+## Hosted agent types
 
-During our private trial phase, we are offering both Mac and Linux agents. We plan to extend our services to include Windows agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
+During the private trial phase, Buildkite is offering both Mac- and Linux-hosted agents. Buildkite plans to extend these services to include Windows-hosted agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
 
 For detailed information about available agent sizes and configuration please see [Mac Compute Instances](/docs/buildkite-compute/macos-instances), and [Linux Compute Instances](/docs/buildkite-compute/linux-instances)
 
 Usage of all instance types is billed on a per-minute basis.
 
-Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
+Every Buildkite-hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
-## Creating a compute queue
+## Creating a hosted agent queue
 
-You can set up distinct compute queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
+You can set up distinct hosted agent queues, each configured with specific types and sizes to efficiently manage jobs with varying requirements.
 
-For example you may have two queues setup
+For example you may have two queues set up:
 
 * `mac_small_7gb`
 * `mac_large_32gb`
 
-Learn more about best practice queue configuration [here](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues)
+Learn more about [best practices for configuring queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
 
-To create a compute queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services.
+To create a hosted agent queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
 
-## Using GitHub repositories in your compute pipelines
+## Using GitHub repositories in your hosted agent pipelines
 
-Buildkite compute services support both public and private repositories, see [Compute Source Control](/docs/buildkite-compute/source-control) to learn more about setting up code access.
+Buildkite compute services support both public and private repositories. Learn more about setting up code access in [Hosted agent code access](/docs/buildkite-compute/source-control).
 
 ## Migrating your pipelines to compute services
 
-You can migrate existing pipelines to compute services, to learn more see [Compute Pipeline Migration](/docs/buildkite-compute/pipeline-migration)
+Learn more about migrating existing pipelines to Buildkite hosted agent services in [Hosted agent pipeline migration](/docs/buildkite-compute/pipeline-migration).
 
 ## Coming soon
 
 ### API support for hosted queues
-We are working on adding functionality in the API to allow configuration of hosted queues.
+Buildkite is working on adding functionality in the API to allow configuration of hosted queues.
 
 ### macOS image configuration in the UI
-We are building the ability to choose the software versions you require to be installed on the MacOS instances used in your queues.
+Buildkite is building the ability to choose the software versions you require to be installed on the macOS instances used in your queues.
 
 ### Buildkite secrets
 
-Only in the rarest cases does CI not need to access outside services, and in these cases, the usability of the CI is severely limited. To use CI effectively - and to move toward CD, continuous deployment - your CI system needs to be able to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
+In many, if not most cases, continuous integration (CI) pipelines need to access outside services, which can severely limit the usability of CI. To use CI effectively—and to move toward continuous deployment (CD)—your CI/CD system needs to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
 
-To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use them safely and effectively in your builds. Buildkite Secrets provides a way to do this - we'll securely store your secrets, and provide a way for you to access them in your builds.
+To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use these secrets safely and effectively in your builds. Buildkite secrets provides a way to do this—Buildkite securely stores your secrets and provides a way for you to access them in your builds.
 
-Buildkite Secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite Agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
+Buildkite secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
 
-Secrets will initially be scoped per-cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret. We have additional work on the roadmap to allow secrets to be scoped per-pipeline.
+Secrets will initially be scoped per-cluster—that is, agents not associated with cluster a secret belongs to will not be able to access that secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
-Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
+Until Buildkite secrets is available and if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
 <table>
     <thead>
@@ -72,11 +72,8 @@ Until Buildkite secrets are available and if you would like to continue using yo
 
 ### Ability to SSH into a machine
 
-We are working on allowing direct SSH access into the compute instances.
+Buildkite is working on allowing direct SSH access into its hosted agents feature.
 
 ### Usage metrics
 
-Enhanced usage metrics across your compute queues.
-
-
-
+Enhanced usage metrics across your hosted agents' queues.

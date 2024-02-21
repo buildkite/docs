@@ -1,16 +1,16 @@
-## Compute pipeline migration
+## Hosted agents pipeline migration
 
-To migrate an existing pipeline to use a compute queue, you must first ensure:
+To migrate an existing pipeline to use a hosted agents queue, you must first ensure:
 
-- Your pipeline is in the same cluster as all the compute queues you wish to target.
-- Each step in the pipeline targets the required compute queue.
+- Your pipeline is in the same cluster as all the hosted agent queues you wish to target.
+- Each step in the pipeline targets the required hosted agent queue.
 - Source control settings have been updated to allow code access.
 
-There are different pipeline repository settings required for public and private repositories, see below for the relevant instructions.
+Different pipeline settings are required for public and private repositories, see below for the relevant instructions.
 
 ### Private repository
 
-Before completing the following steps ensure you have followed the instructions in [Private Repository Access](/docs/buildkite-compute/source-control#compute-code-access-private-repositories).
+Ensure you have followed the instructions in [Private Repository Access](/docs/buildkite-compute/source-control#compute-code-access-private-repositories) before completing the following steps.
 
 - Set your pipeline to use the GitHub (with code access) service you authorized in the step above.
 - Navigate to your pipeline settings.
@@ -22,7 +22,7 @@ Before completing the following steps ensure you have followed the instructions 
 
 ## Public repository
 
-When accessing a public repository from a Buildkite compute agent, you must ensure the services is using `HTTPS` for checkout.
+When accessing a public repository from a Buildkite hosted agent, you must ensure the services is using `HTTPS` for checkout.
 
 - Navigate to your pipeline settings.
 - Select GitHub from the left menu.  

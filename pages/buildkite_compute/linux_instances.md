@@ -1,4 +1,4 @@
-## Linux compute instances
+## Linux hosted agents
 
 Linux instances are offered with two architectures.
 
@@ -9,7 +9,7 @@ To accommodate different workloads, instances are capable of running up to 8 hou
 
 ### Size
 
-We offer a selection of instance sizes, allowing you to tailor your compute resources to the demands of your jobs. Below is a breakdown of the available sizes.
+Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available sizes.
 
 <table>
     <thead>
@@ -23,19 +23,21 @@ We offer a selection of instance sizes, allowing you to tailor your compute reso
 </table>
 
 ### Image configuration
+
 To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
 
 ## Coming soon
 
 ### Docker config editing in the UI
-We are building functionality to allow you to edit the docker config for your linux images within the Buildkite UI
+
+Buildkite is developing functionality to allow you to edit the docker config for your linux images within the Buildkite UI
 
 ### Cache volumes
 
 Cache volumes will provide:
 
-- An optimal solution for storing dependencies that are shared across various jobs, or for housing docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
-- Cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, they will all reference and benefit from the same cache volume, ensuring consistency and speed.
-- Flexibility with size, starting from as little as 5GB with auto scaling up to 249 GB.
+- An optimal solution for storing dependencies that are shared across various jobs, or for housing Docker images. This feature is designed to enhance efficiency by reusing these resources, thereby reducing the time spent on each job.
+- Cluster-wide accessibility. This means that all pipelines within a single cluster can access the same cache volume. For instance, if multiple pipelines within a cluster depend on node modules, these pipelines will all reference and benefit from the same cache volume, ensuring consistency and speed.
+- Flexibility with size, starting from as little as 5GB with auto-scaling up to 249 GB.
 - Docker caching, which will employ specialized machines that are tailored to build your images significantly faster than standard machines.
-- Git Mirror caching
+- Git mirror caching
