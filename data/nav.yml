@@ -300,7 +300,7 @@
       children: 
         - name: "Overview"
           path: "buildkite-compute/overview"
-        - name: "Mac Compute Instances"
+        - name: "Mac hosted agents"
           path: "buildkite-compute/macos-instances"
         - name: "Linux Compute Instances"
           path: "buildkite-compute/linux-instances"
