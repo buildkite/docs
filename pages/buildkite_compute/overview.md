@@ -25,7 +25,7 @@ For example you may have two queues set up:
 * `mac_small_7gb`
 * `mac_large_32gb`
 
-Learn more about best practice queue configuration [here](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues)
+Learn more about [best practices for configuring queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
 
 To create a compute queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services.
 
