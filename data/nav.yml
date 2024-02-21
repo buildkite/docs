@@ -302,7 +302,7 @@
           path: "buildkite-compute/overview"
         - name: "Mac hosted agents"
           path: "buildkite-compute/macos-instances"
-        - name: "Linux Compute Instances"
+        - name: "Linux hosted agents"
           path: "buildkite-compute/linux-instances"
         - name: "Compute Code Access"
           path: "buildkite-compute/source-control"
