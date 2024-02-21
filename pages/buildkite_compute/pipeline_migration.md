@@ -13,12 +13,12 @@ Different pipeline settings are required for public and private repositories, se
 Ensure you have followed the instructions in [Private Repository Access](/docs/buildkite-compute/source-control#compute-code-access-private-repositories) before completing the following steps.
 
 - Set your pipeline to use the GitHub (with code access) service you authorized in the step above.
-- Navigate to your pipeline settings.
-- Select GitHub from the left menu.  
-- Remove the existing repository, or select the _Choose another repository or URL_ link
-- Select the GitHub account including ...(with code access).
-- Select the repository.
-- Select _Save Repository_.
+    * Navigate to your pipeline settings.
+    * Select GitHub from the left menu.  
+    * Remove the existing repository, or select the _Choose another repository or URL_ link
+    * Select the GitHub account including ...(with code access).
+    * Select the repository.
+    * Select _Save Repository_.
 
 ## Public repository
 

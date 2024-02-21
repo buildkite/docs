@@ -125,7 +125,6 @@ The following software will be made available by default on all standard Mac ins
 - libpq
 - GMP
 
-
 ## Coming soon
 
 ### macOS image configuration in the UI
