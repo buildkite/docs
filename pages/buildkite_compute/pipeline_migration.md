@@ -2,7 +2,7 @@
 
 To migrate an existing pipeline to use a hosted agents queue, you must first ensure:
 
-- Your pipeline is in the same cluster as all the compute queues you wish to target.
+- Your pipeline is in the same cluster as all the hosted agent queues you wish to target.
 - Each step in the pipeline targets the required compute queue.
 - Source control settings have been updated to allow code access.
 
