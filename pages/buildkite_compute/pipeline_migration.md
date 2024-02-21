@@ -22,7 +22,7 @@ Ensure you have followed the instructions in [Private Repository Access](/docs/b
 
 ## Public repository
 
-When accessing a public repository from a Buildkite compute agent, you must ensure the services is using `HTTPS` for checkout.
+When accessing a public repository from a Buildkite hosted agent, you must ensure the services is using `HTTPS` for checkout.
 
 - Navigate to your pipeline settings.
 - Select GitHub from the left menu.  
