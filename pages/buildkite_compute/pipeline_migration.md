@@ -1,4 +1,4 @@
-## Compute pipeline migration
+## Hosted agents pipeline migration
 
 To migrate an existing pipeline to use a compute queue, you must first ensure:
 
