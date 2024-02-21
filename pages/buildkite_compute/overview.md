@@ -27,7 +27,7 @@ For example you may have two queues set up:
 
 Learn more about [best practices for configuring queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
 
-To create a compute queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select _Hosted_ as the compute option. follow the prompts to configure your compute services.
+To create a hosted agent queue, navigate to the cluster where you want your compute queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
 
 ## Using GitHub repositories in your compute pipelines
 
