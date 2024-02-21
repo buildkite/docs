@@ -81,3 +81,38 @@ mutation {
   }
 }
 ```
+
+## Stop an agent
+
+First, get the agent's ID. Search for the agent in the organization where the `search-string` matches the agent name and retrieve the agent's ID.
+
+```graphql
+query SearchAgent {
+   organization(slug:"organization-slug") {
+    agents(first:500, search:"search-string") {
+      edges {
+        node {
+          name
+          id
+        }
+      }
+    }
+  }
+}
+```
+
+Then, using the agent ID, stop the agent gracefully:
+
+```graphql
+mutation {
+  agentStop(input: {
+     id: "QWdlbnQtLS0wMThkYWUyZi02NjRjLTQxYjgtOWE4Ny1mMGY5ODhkZWRhM2Q=",
+     graceful: true
+  }) {
+    agent{
+      id,
+      connectionState
+    }
+  }
+}
+```

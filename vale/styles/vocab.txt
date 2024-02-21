@@ -24,6 +24,7 @@ Dockerfile
 Enum
 Eventbridge
 Explainshell
+fastlane
 Firewalled
 Flexbox
 Fugit
@@ -36,6 +37,7 @@ JWT
 JWTs
 Kuzco
 Memcache
+macOS
 minitest
 misconfiguration
 Namespace
@@ -75,6 +77,7 @@ autoscale
 autoscaler
 autoscaling
 aws
+azcopy
 boolean
 boomper
 buildscript
@@ -122,12 +125,14 @@ https
 inlining
 IPs
 jpegs
+jq
 json
 junit
 kubectl
 kustomize
 launchd
 LFS
+libpq
 linux
 Memcache
 Minitest
@@ -140,6 +145,8 @@ namespaced
 namespaces
 negator
 npm
+ns
+nsc
 nssm
 onboarding
 parsable
@@ -156,6 +163,7 @@ pty
 pullrequest
 pybuildkite
 pytest
+rbenv
 readme
 readmes
 refetch
@@ -163,6 +171,7 @@ refspec
 repo
 routable
 ruleset
+runtimes
 rvm
 sandboxed
 sed
@@ -187,10 +196,12 @@ subnet's
 substrings
 sudo
 svg
+swiftformat
 systemd
 templated
 timeframe
 tmp
+tmux
 toolmantim
 tooltip
 udp
@@ -205,6 +216,7 @@ untrusted
 unset
 unsets
 unsetting
+unxip
 uploaders
 url
 urls
@@ -215,14 +227,18 @@ waitlist
 walkthrough
 webhook's
 webtask
+wget
 worktree
 workspace's
+xcbeautify
 xcode
 xcodebuild
 xcpretty
 yaml
 yml
+yq
 yyy
+zstd
 zzz
 ACLs
 AMI's
@@ -230,9 +246,11 @@ AMIs
 API's
 CCMenu
 CCTray
+CMake
 IdP's
 iTerm
 iTerm's
+NGINX
 NVMe
 OAuth
 TOTP's
