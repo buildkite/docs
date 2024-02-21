@@ -53,7 +53,7 @@ To do this, you need to be able to securely store secrets like API credentials, 
 
 Buildkite secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
 
-Secrets will initially be scoped per-cluster - that is, agents outside of the cluster the secret belongs to will not be able to access that secret. We have additional work on the roadmap to allow secrets to be scoped per-pipeline.
+Secrets will initially be scoped per-cluster—that is, agents not associated with cluster a secret belongs to will not be able to access that secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
 Until Buildkite secrets are available and if you would like to continue using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault we provide plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
