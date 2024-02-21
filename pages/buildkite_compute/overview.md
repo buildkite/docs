@@ -49,7 +49,7 @@ Buildkite is building the ability to choose the software versions you require to
 
 In many, if not most cases, continuous integration (CI) pipelines need to access outside services, which can severely limit the usability of CI. To use CI effectively—and to move toward continuous deployment (CD)—your CI/CD system needs to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
 
-To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use them safely and effectively in your builds. Buildkite Secrets provides a way to do this - we'll securely store your secrets, and provide a way for you to access them in your builds.
+To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use these secrets safely and effectively in your builds. Buildkite secrets provides a way to do this—Buildkite securely stores your secrets and provides a way for you to access them in your builds.
 
 Buildkite Secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite Agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
 
