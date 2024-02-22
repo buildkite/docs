@@ -22,7 +22,7 @@ To set your pipeline to use the _GitHub (with code access)_ service:
 
 ## All repositories
 
-When accessing a public repository from a Buildkite hosted agent, you must ensure the services is using `HTTPS` for checkout.
+When accessing any repository (public or private) from a Buildkite hosted agent, you must also ensure the repository is checked out using `HTTPS`.
 
 1. Navigate to your pipeline settings.
 1. Select GitHub from the left menu.  
