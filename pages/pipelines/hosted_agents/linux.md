@@ -1,4 +1,4 @@
-## Linux hosted agents
+# Linux hosted agents
 
 Linux instances for Buildkite hosted agents are offered with two architectures:
 
@@ -7,7 +7,7 @@ Linux instances for Buildkite hosted agents are offered with two architectures:
 
 To accommodate different workloads, instances are capable of running up to 8 hours. If you require longer running agents please contact support.
 
-### Size
+## Size
 
 Buildkite offers a selection of instance sizes, allowing you to tailor your hosted agents' resources to the demands of your jobs. Below is a breakdown of the available sizes.
 
@@ -22,17 +22,14 @@ Buildkite offers a selection of instance sizes, allowing you to tailor your host
     </tbody>
 </table>
 
-### Image configuration
+## Image configuration
 
 To configure your Linux instance you can use the [Docker Compose](https://github.com/buildkite-plugins/docker-compose-buildkite-plugin) plugin.
 
-## Coming soon
+## Cache volumes
 
-### Docker config editing in the UI
-
-Buildkite is developing functionality to allow you to edit the docker config for your linux images within the Buildkite UI.
-
-### Cache volumes
+> 🚧 Under development
+> This feature is currently not available.
 
 Cache volumes will provide:
 

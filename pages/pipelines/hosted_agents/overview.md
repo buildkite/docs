@@ -1,20 +1,21 @@
 # What are hosted agents
 
-Buildkite hosted agents provides a fully-managed platform on which you can run your agents.
+Buildkite hosted agents provides a fully-managed platform on which you can run your pipelines.
 
-With hosted agents, the infrastructure management tasks traditionally handled by your team, such as provisioning, scaling, and maintaining the servers that run your agents, can now be managed by Buildkite.
+With hosted agents, Buildkite handles infrastructure management tasks, such as provisioning, scaling, and maintaining the servers that run your agents.
 
-Buildkite hosted agents is currently in its private trials phase. You'll need to contact support to express interest in this feature. Buildkite will then contact you about the trial before activating this feature for your organization.
+> 📘 Buildkite hosted agents is currently in its private trials phase
+> Please [contact support](https://buildkite.com/support) to express interest in this feature.
 
 ## Hosted agent types
 
-During the private trial phase, Buildkite is offering both Mac and Linux hosted agents. Buildkite plans to extend these services to include Windows hosted agents by late 2024 as part of our ongoing commitment to providing a comprehensive range of options.
+During the private trial phase, Buildkite is offering both Mac and Linux hosted agents. Buildkite plans to add support for Windows hosted agents by late 2024, as part of extending these services.
 
-For detailed information about available agent sizes and configuration please see [Mac hosted agents](/docs/pipelines/hosted-agents/mac), and [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
+For detailed information about available agent sizes and configuration, please see [Mac hosted agents](/docs/pipelines/hosted-agents/mac), and [Linux hosted agents](/docs/pipelines/hosted-agents/linux).
 
 Usage of all instance types is billed on a per-minute basis.
 
-Every Buildkite-hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
+Every Buildkite hosted agent within a cluster benefits from hypervisor-level isolation, ensuring robust separation between each instance.
 
 ## Creating a hosted agent queue
 
@@ -25,9 +26,13 @@ For example you may have two queues set up:
 * `mac_small_7gb`
 * `mac_large_32gb`
 
-Learn more about [best practices for configuring queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
+Learn more about best practices for configuring queues in [How should I structure my queues](/docs/clusters/overview#clusters-and-queues-best-practice-how-should-i-structure-my-queues).
 
-To create a hosted agent queue, navigate to the cluster where you want your hosted agent queue to reside, select _New Queue_ and select the _Hosted_ option. Follow the prompts to configure your hosted agent services.
+To create a hosted agent queue:
+
+1. Navigate to the cluster where you want your hosted agent queue to reside.
+1. Select _New Queue_ and select the _Hosted_ option.
+1. Follow the prompts to configure your hosted agent services.
 
 ## Using GitHub repositories in your hosted agent pipelines
 
@@ -37,27 +42,18 @@ Buildkite hosted agent services support both public and private repositories. Le
 
 Learn more about migrating existing pipelines to Buildkite hosted agent services in [Hosted agent pipeline migration](/docs/pipelines/hosted-agents/pipeline-migration).
 
-## Coming soon
+## Secret management
 
-### API support for hosted queues
+> 🚧 Under development
+> This feature is currently not available.
 
-Buildkite is working on adding functionality in the API to allow configuration of hosted queues.
+Buildkite is developing a secret management feature to securely manage secrets (such as API credentials or SSH keys) for hosted agents. Secrets are required by these hosted agents to access 3rd-party services outside the Buildkite environment.
 
-### macOS image configuration in the UI
+Secret management provides an encrypted key-value store, where secrets are available to your builds via the Buildkite agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
 
-Buildkite is building the ability to choose the software versions you require to be installed on the macOS instances used in your queues.
+Secrets will initially be scoped per-cluster. Therefore, if an agent is not associated with a cluster that has a configured secret, the agent will not be able to access this secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
 
-### Buildkite secrets
-
-In many, if not most cases, continuous integration (CI) pipelines need to access outside services, which can severely limit the usability of CI. To use CI effectively—and to move toward continuous deployment (CD)—your CI/CD system needs to safely and securely interact with outside services like observability platforms, cloud providers, and other services.
-
-To do this, you need to be able to securely store secrets like API credentials, SSH keys, and other sensitive information, and be able to use these secrets safely and effectively in your builds. Buildkite secrets provides a way to do this—Buildkite securely stores your secrets and provides a way for you to access them in your builds.
-
-Buildkite secrets are an encrypted key-value store, where secrets are available to your builds via the Buildkite agent. Secrets are encrypted both at rest and in transit using SSL, and are decrypted server-side when accessed by the agent. The agent makes it easy to use these secrets in your build scripts, and provides a way to inject secrets into your build steps as environment variables.
-
-Secrets will initially be scoped per-cluster—that is, agents not associated with cluster a secret belongs to will not be able to access that secret. Buildkite has additional work on the roadmap to allow secrets to be scoped per-pipeline.
-
-Until Buildkite secrets is available and if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
+Until secret management is available, if you would like to continue [using your third party secrets provider like AWS SSM, GC Secrets or Hashicorp Vault](/docs/pipelines/secrets), Buildkite provides plugins that allow you to access these services. If a plugin for the service you use is not listed below please contact support.
 
 <table>
     <thead>
@@ -70,12 +66,9 @@ Until Buildkite secrets is available and if you would like to continue [using yo
     </tbody>
 </table>
 
+## Ability to SSH into a machine
 
-
-### Ability to SSH into a machine
+> 🚧 Under development
+> This feature is currently not available.
 
 Buildkite is working on allowing direct SSH access into its hosted agents feature.
-
-### Usage metrics
-
-Enhanced usage metrics across your hosted agents' queues.

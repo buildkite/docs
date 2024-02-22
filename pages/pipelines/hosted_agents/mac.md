@@ -1,10 +1,10 @@
-## Mac hosted agents
+# Mac hosted agents
 
 Mac instances for Buildkite hosted agents are only offered with [Apple silicon](https://en.wikipedia.org/wiki/Apple_silicon) architecture. Please contact support if you have specific needs for Intel machines.
 
 To accommodate different workloads, instances are capable of running up to 4 hours. If you require longer running agents please contact support.
 
-### Size
+## Size
 
 We offer a selection of instance sizes, allowing you to tailor your hosted agent resources to the demands of your jobs. Below is a breakdown of the available sizes.
 
@@ -124,9 +124,3 @@ The following software will be made available by default on all standard Mac ins
 
 - libpq
 - GMP
-
-## Coming soon
-
-### macOS image configuration in the UI
-
-Buildkite is developing the ability to choose the software versions you require to be installed on the macOS instances used in your queues.

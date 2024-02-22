@@ -1,4 +1,4 @@
-## Hosted agents pipeline migration
+# Hosted agents pipeline migration
 
 To migrate an existing pipeline to use a hosted agents queue, you must first ensure:
 
@@ -8,7 +8,7 @@ To migrate an existing pipeline to use a hosted agents queue, you must first ens
 
 Different pipeline settings are required for public and private repositories, see below for the relevant instructions.
 
-### Private repository
+## Private repository
 
 To set your pipeline to use the _GitHub (with code access)_ service:
 
