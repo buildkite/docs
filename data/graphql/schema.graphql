@@ -508,6 +508,11 @@ type Annotation implements Node {
   id: ID!
 
   """
+  The priority of the annotation
+  """
+  priority: Int!
+
+  """
   The visual style of the annotation
   """
   style: AnnotationStyle
@@ -548,6 +553,21 @@ type AnnotationConnection implements Connection {
 type AnnotationEdge {
   cursor: String!
   node: Annotation
+}
+
+"""
+The different orders you can sort annotations by
+"""
+enum AnnotationOrder {
+  """
+  Order by priority, then by the most recently created annotations first
+  """
+  PRIORITY_RECENTLY_CREATED
+
+  """
+  Order by the most recently created annotations first
+  """
+  RECENTLY_CREATED
 }
 
 """
@@ -1104,6 +1124,11 @@ type Build implements Node {
     Returns the last _n_ elements from the list.
     """
     last: Int
+
+    """
+    Order the annotations
+    """
+    order: AnnotationOrder = RECENTLY_CREATED
     style: [AnnotationStyle!]
   ): AnnotationConnection
 
@@ -1274,6 +1299,13 @@ input BuildAnnotateInput {
   A string label to differentiate this annotation from other annotations. The default is `default`
   """
   context: String = "default"
+
+  """
+  Priority of the annotation. By default annotations have a priority of 3.
+  Annotations with a priority of 10 will be shown first, and annotations with a
+  priority of 1 will be shown last.
+  """
+  priority: Int = 3
 
   """
   The style of the annotation. The default is `DEFAULT`
@@ -1482,46 +1514,6 @@ type BuildRebuildPayload {
   """
   clientMutationId: String
   rebuild: Build!
-}
-
-"""
-All the possible build retention periods, depending on your billing plan
-"""
-enum BuildRetentionPeriods {
-  """
-  30 days
-  """
-  DAYS_30
-
-  """
-  60 days
-  """
-  DAYS_60
-
-  """
-  90 days
-  """
-  DAYS_90
-
-  """
-  12 months
-  """
-  MONTHS_12
-
-  """
-  18 months
-  """
-  MONTHS_18
-
-  """
-  6 months
-  """
-  MONTHS_6
-
-  """
-  2 years
-  """
-  YEARS_2
 }
 
 interface BuildSource {
@@ -6323,22 +6315,6 @@ type Pipeline implements Node {
   A branch filter pattern to limit which pushed branches trigger builds on this pipeline.
   """
   branchConfiguration: String
-
-  """
-  Choose to keep builds or remove them after a set time period. Pipelines are
-  scanned once a day for builds that can be removed according to these settings.
-  """
-  buildRetentionEnabled: Boolean @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  The minimum number of builds to keep in the pipeline regardless of how old the builds are.
-  """
-  buildRetentionNumber: Int @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
-
-  """
-  How long is a build kept before it is automatically removed.
-  """
-  buildRetentionPeriod: BuildRetentionPeriods @deprecated(reason: "Build retention is now determined by your billing plan. This field is no longer used and always returns null.")
 
   """
   Returns the builds for this pipeline
