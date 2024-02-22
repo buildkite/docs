@@ -89,7 +89,7 @@ You can also create, edit, and revoke other agent tokens from the cluster’s _A
 
 Unclustered agents are agents associated with the _Unclustered_ area of the _Clusters_ page in a Buildkite organization. Learn more about unclustered agents in [Unclustered agent tokens](/docs/agent/v3/unclustered-tokens).
 
-Moving unlcustered agents to a cluster will allow those agents to use [agent tokens](/docs/agent/v3/tokens) that connect to Buildkite via a cluster.
+Moving unclustered agents to a cluster will allow those agents to use [agent tokens](/docs/agent/v3/tokens) that connect to Buildkite via a cluster.
 
 > 📘 Organizations created after February 26, 2024
 > Buildkite organizations created after this date will not have an _Unclustered_ area. Therefore, this process is not required for these newer organizations.
